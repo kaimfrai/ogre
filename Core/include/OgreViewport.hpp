@@ -417,7 +417,7 @@ class RenderTarget;
         /// Automatic rendering on/off
         bool mIsAutoUpdated;
 
-        typedef std::vector<Listener*> ListenerList;
+        using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
 		ColourBufferType mColourBuffer;
     };

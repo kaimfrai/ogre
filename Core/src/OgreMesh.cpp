@@ -641,7 +641,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    typedef std::multimap<Real, Mesh::VertexBoneAssignmentList::iterator> WeightIteratorMap;
+    using WeightIteratorMap = std::multimap<Real, Mesh::VertexBoneAssignmentList::iterator>;
     unsigned short Mesh::_rationaliseBoneAssignments(size_t vertexCount, Mesh::VertexBoneAssignmentList& assignments)
     {
         // Iterate through, finding the largest # bones per vertex
@@ -763,7 +763,7 @@ namespace Ogre {
             return;
         }
 
-        typedef std::set<unsigned short> BoneIndexSet;
+        using BoneIndexSet = std::set<unsigned short>;
         BoneIndexSet usedBoneIndices;
 
         // Collect actually used bones

@@ -65,8 +65,8 @@ class SceneManager;
         ~CompositorChain() override;
         
         /// Data types
-        typedef std::vector<CompositorInstance*> Instances;
-        typedef VectorIterator<Instances> InstanceIterator;
+        using Instances = std::vector<CompositorInstance *>;
+        using InstanceIterator = VectorIterator<Instances>;
         
         enum {
             /// Identifier for best technique.
@@ -185,7 +185,7 @@ class SceneManager;
         /// Render System operations queued by last compile, these are created by this
         /// instance thus managed and deleted by it. The list is cleared with 
         /// clearCompilationState()
-        typedef std::vector<CompositorInstance::RenderSystemOperation*> RenderSystemOperations;
+        using RenderSystemOperations = std::vector<CompositorInstance::RenderSystemOperation *>;
         RenderSystemOperations mRenderSystemOperations;
 
         /** Clear compiled state */

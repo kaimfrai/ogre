@@ -177,7 +177,7 @@ namespace Ogre {
         static String format(const char* fmt, ...) OGRE_FORMAT_PRINTF(1, 2);
     };
 
-    typedef ::std::hash< String > _StringHash;
+    using _StringHash = ::std::hash<String>;
     /** @} */
     /** @} */
 

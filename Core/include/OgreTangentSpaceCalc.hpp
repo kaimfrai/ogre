@@ -56,7 +56,7 @@ class VertexData;
     public:
         TangentSpaceCalc();
 
-        typedef std::pair<size_t, size_t> VertexSplit;
+        using VertexSplit = std::pair<size_t, size_t>;
 
         /// Information about a remapped index
         struct IndexRemap
@@ -73,9 +73,9 @@ class VertexData;
         };
         /** List of indexes that were remapped (split vertices).
         */
-        typedef std::list<IndexRemap> IndexRemapList;
+        using IndexRemapList = std::list<IndexRemap>;
 
-        typedef std::list<VertexSplit> VertexSplits;
+        using VertexSplits = std::list<VertexSplit>;
 
         /// The result of having built a tangent space basis
         struct Result
@@ -188,8 +188,8 @@ class VertexData;
     private:
 
         VertexData* mVData;
-        typedef std::vector<IndexData*> IndexDataList;
-        typedef std::vector<RenderOperation::OperationType> OpTypeList;
+        using IndexDataList = std::vector<IndexData *>;
+        using OpTypeList = std::vector<RenderOperation::OperationType>;
         IndexDataList mIDataList;
         OpTypeList mOpTypes;
         bool mSplitMirrored;
@@ -212,7 +212,7 @@ class VertexData;
             VertexInfo() : tangent(Vector3::ZERO), binormal(Vector3::ZERO), 
                 parity(0), oppositeParityIndex(0) {}
         };
-        typedef std::vector<VertexInfo> VertexInfoArray;
+        using VertexInfoArray = std::vector<VertexInfo>;
         VertexInfoArray mVertexArray;
 
         void extendBuffers(VertexSplits& splits);

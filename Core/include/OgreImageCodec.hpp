@@ -86,7 +86,7 @@ namespace Ogre {
 
             PixelFormat format;
         };
-        typedef SharedPtr<ImageData> CodecDataPtr;
+        using CodecDataPtr = SharedPtr<ImageData>;
 
         /// @deprecated
         [[nodiscard]] virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
@@ -94,7 +94,7 @@ namespace Ogre {
         virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
         { encodeToFile(Any(), ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
-        typedef std::pair<MemoryDataStreamPtr, CodecDataPtr> DecodeResult;
+        using DecodeResult = std::pair<MemoryDataStreamPtr, CodecDataPtr>;
         /// @deprecated
         [[nodiscard]] virtual DecodeResult decode(const DataStreamPtr& input) const
         {

@@ -63,7 +63,7 @@ class Material;
     class Technique : public TechniqueAlloc
     {
     public:
-        typedef std::vector<Pass*> Passes;
+        using Passes = std::vector<Pass *>;
 
     private:
         /// Illumination pass state type
@@ -152,8 +152,8 @@ class Material;
             GPUDeviceNameRule(const String& pattern, IncludeOrExclude ie, bool caseSen)
                 : devicePattern(pattern), includeOrExclude(ie), caseSensitive(caseSen) {}
         };
-        typedef std::vector<GPUVendorRule> GPUVendorRuleList;
-        typedef std::vector<GPUDeviceNameRule> GPUDeviceNameRuleList;
+        using GPUVendorRuleList = std::vector<GPUVendorRule>;
+        using GPUDeviceNameRuleList = std::vector<GPUDeviceNameRule>;
     private:
         GPUVendorRuleList mGPUVendorRules;
         GPUDeviceNameRuleList mGPUDeviceNameRules;
@@ -177,8 +177,8 @@ class Material;
         bool checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors);
         [[nodiscard]] size_t calculateSize() const;
 
-        typedef VectorIterator<Passes> PassIterator;
-        typedef VectorIterator<IlluminationPassList> IlluminationPassIterator;
+        using PassIterator = VectorIterator<Passes>;
+        using IlluminationPassIterator = VectorIterator<IlluminationPassList>;
         /// @name Passes
         /// @{
         /** Creates a new Pass for this Technique.
@@ -621,8 +621,8 @@ class Material;
         /// Gets the name of the technique
         [[nodiscard]] const String& getName() const noexcept { return mName; }
 
-        typedef ConstVectorIterator<GPUVendorRuleList> GPUVendorRuleIterator;
-        typedef ConstVectorIterator<GPUDeviceNameRuleList> GPUDeviceNameRuleIterator;
+        using GPUVendorRuleIterator = ConstVectorIterator<GPUVendorRuleList>;
+        using GPUDeviceNameRuleIterator = ConstVectorIterator<GPUDeviceNameRuleList>;
         /// @name GPU Vendor Rules
         /// @{
 

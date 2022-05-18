@@ -104,10 +104,10 @@ namespace Ogre
             }
         };
 
-        typedef std::vector<InstanceBatch*>        InstanceBatchVec;   //vec[batchN] = Batch
-        typedef std::map<String, InstanceBatchVec> InstanceBatchMap;   //map[materialName] = Vec
+        using InstanceBatchVec = std::vector<InstanceBatch *>;   //vec[batchN] = Batch
+        using InstanceBatchMap = std::map<String, InstanceBatchVec>;   //map[materialName] = Vec
 
-        typedef std::map<String, BatchSettings>    BatchSettingsMap;
+        using BatchSettingsMap = std::map<String, BatchSettings>;
 
         const String            mName;                  //Not the name of the mesh
         MeshPtr                 mMeshReference;
@@ -301,8 +301,8 @@ namespace Ogre
         /** Called by SceneManager when we told it we have at least one dirty batch */
         void _updateDirtyBatches();
 
-        typedef ConstMapIterator<InstanceBatchMap> InstanceBatchMapIterator;
-        typedef ConstVectorIterator<InstanceBatchVec> InstanceBatchIterator;
+        using InstanceBatchMapIterator = ConstMapIterator<InstanceBatchMap>;
+        using InstanceBatchIterator = ConstVectorIterator<InstanceBatchVec>;
 
         /// Get non-updateable iterator over instance batches per material
         [[nodiscard]] InstanceBatchMapIterator getInstanceBatchMapIterator() const

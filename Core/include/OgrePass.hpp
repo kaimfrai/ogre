@@ -144,7 +144,7 @@ namespace Ogre {
             virtual ~HashFunc() {}
         };
 
-        typedef std::vector<TextureUnitState*> TextureUnitStates;
+        using TextureUnitStates = std::vector<TextureUnitState *>;
     private:
         Technique* mParent;
         String mName; /// Optional name for the pass
@@ -233,7 +233,7 @@ namespace Ogre {
         TextureUnitStates mTextureUnitStates;
 
         // TU Content type lookups
-        typedef std::vector<unsigned short> ContentTypeLookup;
+        using ContentTypeLookup = std::vector<unsigned short>;
         mutable ContentTypeLookup mShadowContentTypeLookup;
 
         /// Vertex program details
@@ -263,7 +263,7 @@ namespace Ogre {
         void _getBlendFlags(SceneBlendType type, SceneBlendFactor& source, SceneBlendFactor& dest);
 
     public:
-        typedef std::set<Pass*> PassSet;
+        using PassSet = std::set<Pass *>;
     private:
         /// List of Passes whose hashes need recalculating
         static PassSet msDirtyHashList;
@@ -537,8 +537,8 @@ namespace Ogre {
         Real getPointMaxSize() const;
         /// @}
 
-        typedef VectorIterator<TextureUnitStates> TextureUnitStateIterator;
-        typedef ConstVectorIterator<TextureUnitStates> ConstTextureUnitStateIterator;
+        using TextureUnitStateIterator = VectorIterator<TextureUnitStates>;
+        using ConstTextureUnitStateIterator = ConstVectorIterator<TextureUnitStates>;
         /// @name Texture Units
         /// @{
         /** Inserts a new TextureUnitState object into the Pass.
@@ -1579,7 +1579,7 @@ namespace Ogre {
         IlluminationPass() {}
     };
 
-    typedef std::vector<IlluminationPass*> IlluminationPassList;
+    using IlluminationPassList = std::vector<IlluminationPass *>;
 
     /** @} */
     /** @} */

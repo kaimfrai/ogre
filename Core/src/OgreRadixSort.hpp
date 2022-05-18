@@ -88,7 +88,7 @@ namespace Ogre {
     class RadixSort
     {
     public:
-        typedef typename TContainer::iterator ContainerIter;
+        using ContainerIter = typename TContainer::iterator;
     protected:
         /// Alpha-pass counters of values (histogram)
         /// 4 of them so we can radix sort a maximum of a 32bit value
@@ -110,7 +110,7 @@ namespace Ogre {
 
         };
         /// Temp sort storage
-        typedef typename std::vector<SortEntry> SortVector;
+        using SortVector = typename std::vector<SortEntry>;
         SortVector mSortArea1;
         SortVector mSortArea2;
         SortVector* mSrc;

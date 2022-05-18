@@ -66,8 +66,8 @@ class ResourceManager;
         ~Compositor() override;
         
         /// Data types for internal lists
-        typedef std::vector<CompositionTechnique *> Techniques;
-        typedef VectorIterator<Techniques> TechniqueIterator;
+        using Techniques = std::vector<CompositionTechnique *>;
+        using TechniqueIterator = VectorIterator<Techniques>;
         
         /** Create a new technique, and return a pointer to it.
         */
@@ -178,10 +178,10 @@ class ResourceManager;
 
         //TODO GSOC : These typedefs are duplicated from CompositorInstance. Solve?
         /// Map from name->local texture
-        typedef std::map<String,TexturePtr> GlobalTextureMap;
+        using GlobalTextureMap = std::map<String, TexturePtr>;
         GlobalTextureMap mGlobalTextures;
         /// Store a list of MRTs we've created
-        typedef std::map<String,MultiRenderTarget*> GlobalMRTMap;
+        using GlobalMRTMap = std::map<String, MultiRenderTarget *>;
         GlobalMRTMap mGlobalMRTs;
     };
     /** @} */

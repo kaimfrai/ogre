@@ -59,7 +59,7 @@ class SubRenderStateAccessor;
 *  @{
 */
 
-typedef SharedPtr<SubRenderStateAccessor>   SubRenderStateAccessorPtr; 
+using SubRenderStateAccessorPtr = SharedPtr<SubRenderStateAccessor>; 
 
 
 /** This class is the base interface of sub part from a shader based rendering pipeline.
@@ -176,13 +176,13 @@ private:
     
 };
 
-typedef std::vector<SubRenderState*>               SubRenderStateList;
-typedef SubRenderStateList::iterator                SubRenderStateListIterator;
-typedef SubRenderStateList::const_iterator          SubRenderStateListConstIterator;
+using SubRenderStateList = std::vector<SubRenderState *>;
+using SubRenderStateListIterator = SubRenderStateList::iterator;
+using SubRenderStateListConstIterator = SubRenderStateList::const_iterator;
 
-typedef std::set<SubRenderState*>                  SubRenderStateSet;
-typedef SubRenderStateSet::iterator                 SubRenderStateSetIterator;
-typedef SubRenderStateSet::const_iterator           SubRenderStateSetConstIterator;
+using SubRenderStateSet = std::set<SubRenderState *>;
+using SubRenderStateSetIterator = SubRenderStateSet::iterator;
+using SubRenderStateSetConstIterator = SubRenderStateSet::const_iterator;
 
 
 /** This class uses as accessor from a template SubRenderState to all of its instances that

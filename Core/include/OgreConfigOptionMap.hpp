@@ -54,7 +54,7 @@ namespace Ogre {
         bool immutable;
     };
 
-    typedef std::map< String, ConfigOption > ConfigOptionMap;
+    using ConfigOptionMap = std::map<String, ConfigOption>;
     /** @} */
     /** @} */
 }

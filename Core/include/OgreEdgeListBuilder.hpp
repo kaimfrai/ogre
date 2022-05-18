@@ -98,15 +98,15 @@ namespace Ogre {
         /** Array of 4D vector of triangle face normal, which is unit vector orthogonal
             to the triangles, plus distance from origin.
             Use aligned policy here because we are intended to use in SIMD optimised routines. */
-        typedef aligned_vector<Vector4> TriangleFaceNormalList;
+        using TriangleFaceNormalList = aligned_vector<Vector4>;
 
         /** Working vector used when calculating the silhouette.
             Use std::vector<char> instead of std::vector<bool> which might implemented
             similar bit-fields causing loss performance. */
-        typedef std::vector<char> TriangleLightFacingList;
+        using TriangleLightFacingList = std::vector<char>;
 
-        typedef std::vector<Triangle> TriangleList;
-        typedef std::vector<Edge> EdgeList;
+        using TriangleList = std::vector<Triangle>;
+        using EdgeList = std::vector<Edge>;
 
         /** A group of edges sharing the same vertex data. */
         struct EdgeGroup
@@ -127,7 +127,7 @@ namespace Ogre {
 
         };
 
-        typedef std::vector<EdgeGroup> EdgeGroupList;
+        using EdgeGroupList = std::vector<EdgeGroup>;
 
         /** Main triangles array, stores all triangles of this edge list. Note that
             triangles are grouping against edge group.
@@ -252,21 +252,21 @@ namespace Ogre {
             }
         };
 
-        typedef std::vector<const VertexData*> VertexDataList;
-        typedef std::vector<Geometry> GeometryList;
-        typedef std::vector<CommonVertex> CommonVertexList;
+        using VertexDataList = std::vector<const VertexData *>;
+        using GeometryList = std::vector<Geometry>;
+        using CommonVertexList = std::vector<CommonVertex>;
 
         GeometryList mGeometryList;
         VertexDataList mVertexDataList;
         CommonVertexList mVertices;
         EdgeData* mEdgeData;
         /// Map for identifying common vertices
-        typedef std::map<Vector3, size_t, vectorLess> CommonVertexMap;
+        using CommonVertexMap = std::map<Vector3, size_t, vectorLess>;
         CommonVertexMap mCommonVertexMap;
         /** Edge map, used to connect edges. Note we allow many triangles on an edge,
         after connected an existing edge, we will remove it and never used again.
         */
-        typedef std::multimap< std::pair<size_t, size_t>, std::pair<size_t, size_t> > EdgeMap;
+        using EdgeMap = std::multimap<std::pair<size_t, size_t>, std::pair<size_t, size_t>>;
         EdgeMap mEdgeMap;
 
         void buildTrianglesEdges(const Geometry &geometry);

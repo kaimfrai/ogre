@@ -395,7 +395,7 @@ class RenderSystem;
         }
 
         // Map from new to old elements
-        typedef std::map<const VertexElement*, const VertexElement*> NewToOldElementMap;
+        using NewToOldElementMap = std::map<const VertexElement *, const VertexElement *>;
         NewToOldElementMap newToOldElementMap;
         const VertexDeclaration::VertexElementList& newElemList = newDeclaration->getElements();
         VertexDeclaration::VertexElementList::const_iterator ei, eiend;

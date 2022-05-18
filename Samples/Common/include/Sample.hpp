@@ -342,7 +342,7 @@ namespace OgreBites
         std::set<int> mScreenshotFrames;
     };
 
-    typedef std::set<::std::unique_ptr<Sample>, Sample::Comparer> SampleSet;
+    using SampleSet = std::set< ::std::unique_ptr<Sample>, Sample::Comparer>;
 }
 
 #endif
