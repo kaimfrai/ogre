@@ -188,7 +188,7 @@ namespace Ogre
                         pos = endPos+1;
                     }
 
-                    ret.push_back({&defines[macro_name_start], &defines[macro_val_start]});
+                    ret.emplace_back(&defines[macro_name_start], &defines[macro_val_start]);
                 }
                 else
                 {
@@ -198,13 +198,13 @@ namespace Ogre
                     ++pos;
 
                     if(defines[macro_name_start] != '\0') // e.g ",DEFINE" or "DEFINE,"
-                        ret.push_back({&defines[macro_name_start], "1"});
+                        ret.emplace_back(&defines[macro_name_start], "1");
                 }
             }
             else
             {
                 if(pos < defines.size())
-                    ret.push_back({&defines[pos], "1"});
+                    ret.emplace_back(&defines[pos], "1");
 
                 pos = endPos;
             }

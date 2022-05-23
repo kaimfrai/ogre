@@ -3548,7 +3548,7 @@ class LodStrategy;
                     else if(prop->id == ID_SYNTAX && language == "asm")
                         syntax = value;
                     else
-                        customParameters.push_back(std::make_pair(prop, value));
+                        customParameters.emplace_back(prop, value);
                 }
             }
             else if((*i)->type == ANT_OBJECT)

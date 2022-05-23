@@ -244,7 +244,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteSimpleCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
     // check that the file is closed nicely
@@ -286,7 +286,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllFalseCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
       // check that the file is closed nicely
@@ -389,7 +389,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllTrueCapabilities)
     while(capsfile.good())
     {
         capsfile.getline(buff, 255);
-        lines.push_back(String(buff));
+        lines.emplace_back(buff);
     }
 
     // check that the file is closed nicely

@@ -82,7 +82,7 @@ struct HtmlElement : public HtmlNode
 
     void appendAttribute(Ogre::String name, Ogre::String value)
     {
-        attributes.push_back(std::pair<Ogre::String,Ogre::String>(name,value));
+        attributes.emplace_back(name,value);
     }
     //-------------------------------------------------------------------
 
