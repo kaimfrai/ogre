@@ -515,7 +515,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     // Helper functions to unshare the vertices
     //-----------------------------------------------------------------------
-    using IndicesMap = std::map<uint32, uint32>;
+    typedef std::map<uint32, uint32> IndicesMap;
 
     template< typename TIndexType >
     void collectUsedIndices(IndicesMap& indicesMap, IndexData* idxData)

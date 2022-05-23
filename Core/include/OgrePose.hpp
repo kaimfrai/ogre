@@ -74,17 +74,17 @@ class VertexData;
         /// Return the target geometry index of the pose
         ushort getTarget() const { return mTarget; }
         /// A collection of vertex offsets based on the vertex index
-        using VertexOffsetMap = std::map<size_t, Vector3>;
+        typedef std::map<size_t, Vector3> VertexOffsetMap;
         /// An iterator over the vertex offsets
-        using VertexOffsetIterator = MapIterator<VertexOffsetMap>;
+        typedef MapIterator<VertexOffsetMap> VertexOffsetIterator;
         /// An iterator over the vertex offsets
-        using ConstVertexOffsetIterator = ConstMapIterator<VertexOffsetMap>;
+        typedef ConstMapIterator<VertexOffsetMap> ConstVertexOffsetIterator;
         /// A collection of normals based on the vertex index
-        using NormalsMap = std::map<size_t, Vector3>;
+        typedef std::map<size_t, Vector3> NormalsMap;
         /// An iterator over the vertex offsets
-        using NormalsIterator = MapIterator<NormalsMap>;
+        typedef MapIterator<NormalsMap> NormalsIterator;
         /// An iterator over the vertex offsets
-        using ConstNormalsIterator = ConstMapIterator<NormalsMap>;
+        typedef ConstMapIterator<NormalsMap> ConstNormalsIterator;
         /// Return whether the pose vertices include normals
         bool getIncludesNormals() const { return !mNormalsMap.empty(); }
 
@@ -145,7 +145,7 @@ class VertexData;
         /// Derived hardware buffer, covers all vertices
         mutable HardwareVertexBufferSharedPtr mBuffer;
     };
-    using PoseList = std::vector<Pose *>;
+    typedef std::vector<Pose*> PoseList;
 
     /** @} */
     /** @} */

@@ -276,9 +276,9 @@ private:
     friend class Program;
 };
 
-using ShaderFunctionList = std::vector<Function *>;
-using ShaderFunctionIterator = ShaderFunctionList::iterator;
-using ShaderFunctionConstIterator = ShaderFunctionList::const_iterator;
+typedef std::vector<Function*>                     ShaderFunctionList;
+typedef ShaderFunctionList::iterator                ShaderFunctionIterator;
+typedef ShaderFunctionList::const_iterator          ShaderFunctionConstIterator;
 
 /** @} */
 /** @} */

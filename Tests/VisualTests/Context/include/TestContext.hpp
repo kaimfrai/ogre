@@ -111,7 +111,7 @@ class TestContext : public OgreBites::SampleContext
     }
 
  private:
-    using PluginMap = std::map<String, ::std::unique_ptr<OgreBites::SamplePlugin>>;
+    typedef std::map<String, ::std::unique_ptr<OgreBites::SamplePlugin>> PluginMap;
     bool mSuccess;
 
     /// The timestep

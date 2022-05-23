@@ -405,8 +405,8 @@ protected:
     bool mUsed;
 };
 
-using ShaderParameterIterator = ShaderParameterList::iterator;
-using ShaderParameterConstIterator = ShaderParameterList::const_iterator;
+typedef ShaderParameterList::iterator           ShaderParameterIterator;
+typedef ShaderParameterList::const_iterator     ShaderParameterConstIterator;
 
 /** Uniform parameter class. Allow fast access to GPU parameter updates.
 */
@@ -628,9 +628,9 @@ private:
     uint8 mElementSize;
 };
 
-using UniformParameterList = std::vector<UniformParameterPtr>;
-using UniformParameterIterator = UniformParameterList::iterator;
-using UniformParameterConstIterator = UniformParameterList::const_iterator;
+typedef std::vector<UniformParameterPtr>       UniformParameterList;
+typedef UniformParameterList::iterator          UniformParameterIterator;
+typedef UniformParameterList::const_iterator    UniformParameterConstIterator;
 
 /** Helper template which is the base for our ConstParameters
 */

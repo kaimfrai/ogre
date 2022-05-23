@@ -35,7 +35,7 @@ THE SOFTWARE.
 // FIX ME - should not be hard coded
 #define BAD_TOKEN 999
 
-using uint = unsigned int;
+typedef unsigned int uint;
 
 
 
@@ -98,7 +98,7 @@ protected:
 
     };
 
-    using TokenInstContainer = std::vector<TokenInst>;
+    typedef std::vector<TokenInst> TokenInstContainer;
     //typedef TokenInstContainer::iterator TokenInstIterator;
 
     /// container for Tokens extracted from source

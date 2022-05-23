@@ -82,7 +82,7 @@ class Archive;
         @param len - length of buffer
         @return success
         */  
-        using DecryptEmbeddedZipFileFunc = bool (*)(size_t, void *, size_t);
+        typedef bool (*DecryptEmbeddedZipFileFunc)(size_t pos, void* buf, size_t len);
 
         /// Add an embedded file to the embedded file list
         static void addEmbbeddedFile(const String& name, const uint8 * fileData, 

@@ -190,7 +190,7 @@ TEST(VectorTests, Matrix3QDU)
 //--------------------------------------------------------------------------
 TEST(VectorTests, TransformBaseArrayLoading)
 {
-    using Matrix3x4f = TransformBase<3, float>;
+    typedef TransformBase<3, float> Matrix3x4f;
 
     double arr1[12] = { 0,    1,   2,   3,
                         4,    5,   6,   7,
@@ -224,7 +224,7 @@ TEST(VectorTests, TypeCasts)
     EXPECT_EQ(affine, Affine3::ZERO);
     EXPECT_EQ(matrix, Matrix4::ZERO);
 
-    using Matrix4i = TransformBase<4, int>; // something that is neither float nor double
+    typedef TransformBase<4, int> Matrix4i; // something that is neither float nor double
     Matrix4i imat;
 
     Vector3i vec(1, 2, 3);

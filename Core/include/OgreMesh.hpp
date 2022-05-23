@@ -114,13 +114,13 @@ class VertexData;
         friend class MeshSerializerImpl_v1_1;
 
     public:
-        using LodValueList = std::vector<Real>;
-        using MeshLodUsageList = std::vector<MeshLodUsage>;
+        typedef std::vector<Real> LodValueList;
+        typedef std::vector<MeshLodUsage> MeshLodUsageList;
         /// Multimap of vertex bone assignments (orders by vertex index).
-        using VertexBoneAssignmentList = std::multimap<size_t, VertexBoneAssignment>;
-        using BoneAssignmentIterator = MapIterator<VertexBoneAssignmentList>;
-        using SubMeshList = std::vector<SubMesh *>;
-        using IndexMap = std::vector<unsigned short>;
+        typedef std::multimap<size_t, VertexBoneAssignment> VertexBoneAssignmentList;
+        typedef MapIterator<VertexBoneAssignmentList> BoneAssignmentIterator;
+        typedef std::vector<SubMesh*> SubMeshList;
+        typedef std::vector<unsigned short> IndexMap;
 
     private:
         /** A list of submeshes which make up this mesh.
@@ -140,7 +140,7 @@ class VertexData;
         /** A hashmap used to store optional SubMesh names.
             Translates a name into SubMesh index.
         */
-        using SubMeshNameMap = std::unordered_map<String, ushort> ;
+        typedef std::unordered_map<String, ushort> SubMeshNameMap ;
 
         
     private:
@@ -190,7 +190,7 @@ class VertexData;
         bool mAutoBuildEdgeLists;
 
         /// Storage of morph animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        typedef std::map<String, Animation*> AnimationList;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
         mutable VertexAnimationType mSharedVertexDataAnimationType;
@@ -299,7 +299,7 @@ class VertexData;
         */
         void destroySubMesh(const String& name);
         
-        using SubMeshIterator = VectorIterator<SubMeshList>;
+        typedef VectorIterator<SubMeshList> SubMeshIterator;
       
         /// Gets the available submeshes
         const SubMeshList& getSubMeshes() const {
@@ -958,8 +958,8 @@ class VertexData;
         /** Destroy all poses. */
         void removeAllPoses();
 
-        using PoseIterator = VectorIterator<PoseList>;
-        using ConstPoseIterator = ConstVectorIterator<PoseList>;
+        typedef VectorIterator<PoseList> PoseIterator;
+        typedef ConstVectorIterator<PoseList> ConstPoseIterator;
 
         /** Get pose list. */
         const PoseList& getPoseList() const;

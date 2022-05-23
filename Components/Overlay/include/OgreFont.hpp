@@ -70,8 +70,8 @@ class ResourceManager;
     /// Information about the position and size of a glyph in a texture
     struct GlyphInfo
     {
-        using CodePoint = uint32;
-        using UVRect = FloatRect;
+        typedef uint32 CodePoint;
+        typedef FloatRect UVRect;
 
         CodePoint codePoint;
         UVRect uvRect;
@@ -111,14 +111,14 @@ class ResourceManager;
 
 
     public:
-        using CodePoint = GlyphInfo::CodePoint;
-        using UVRect = GlyphInfo::UVRect;
+        typedef GlyphInfo::CodePoint CodePoint;
+        typedef GlyphInfo::UVRect UVRect;
         /// A range of code points, inclusive on both ends
-        using CodePointRange = std::pair<CodePoint, CodePoint>;
-        using CodePointRangeList = std::vector<CodePointRange>;
+        typedef std::pair<CodePoint, CodePoint> CodePointRange;
+        typedef std::vector<CodePointRange> CodePointRangeList;
     protected:
         /// Map from unicode code point to texture coordinates
-        using CodePointMap = std::map<CodePoint, GlyphInfo>;
+        typedef std::map<CodePoint, GlyphInfo> CodePointMap;
         CodePointMap mCodePointMap;
 
         /// The material which is generated for this font
@@ -350,7 +350,7 @@ class ResourceManager;
         void _setMaterial(const MaterialPtr& mat);
     };
 
-    using FontPtr = SharedPtr<Font>;
+    typedef SharedPtr<Font> FontPtr;
     /** @} */
     /** @} */
 }

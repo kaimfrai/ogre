@@ -589,7 +589,7 @@ namespace Ogre {
         /// Used to control if the particle system should emit particles or not.
         bool mIsEmitting;
 
-        using ParticlePool = std::vector<Particle *>;
+        typedef std::vector<Particle*> ParticlePool;
 
         /** Sort by direction functor */
         struct SortByDirectionFunctor
@@ -639,11 +639,11 @@ namespace Ogre {
         */
         ParticlePool mParticlePool;
 
-        using FreeEmittedEmitterList = std::list<ParticleEmitter *>;
-        using ActiveEmittedEmitterList = std::list<ParticleEmitter *>;
-        using EmittedEmitterList = std::vector<ParticleEmitter *>;
-        using FreeEmittedEmitterMap = std::map<String, FreeEmittedEmitterList>;
-        using EmittedEmitterPool = std::map<String, EmittedEmitterList>;
+        typedef std::list<ParticleEmitter*> FreeEmittedEmitterList;
+        typedef std::list<ParticleEmitter*> ActiveEmittedEmitterList;
+        typedef std::vector<ParticleEmitter*> EmittedEmitterList;
+        typedef std::map<String, FreeEmittedEmitterList> FreeEmittedEmitterMap;
+        typedef std::map<String, EmittedEmitterList> EmittedEmitterPool;
 
         /** Pool of emitted emitters for use and reuse in the active emitted emitter list.
         @remarks
@@ -668,8 +668,8 @@ namespace Ogre {
                 the list with active emitted emitters.        */
         ActiveEmittedEmitterList mActiveEmittedEmitters;
 
-        using ParticleEmitterList = std::vector<ParticleEmitter *>;
-        using ParticleAffectorList = std::vector<ParticleAffector *>;
+        typedef std::vector<ParticleEmitter*> ParticleEmitterList;
+        typedef std::vector<ParticleAffector*> ParticleAffectorList;
         
         /// List of particle emitters, ie sources of particles
         ParticleEmitterList mEmitters;

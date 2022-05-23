@@ -125,8 +125,8 @@ class SceneManager;
             /// Set state to SceneManager and RenderSystem
             virtual void execute(SceneManager *sm, RenderSystem *rs) = 0;
         };
-        using RenderSystemOpPair = std::pair<int, RenderSystemOperation *>;
-        using RenderSystemOpPairs = std::vector<RenderSystemOpPair>;
+        typedef std::pair<int, RenderSystemOperation*> RenderSystemOpPair;
+        typedef std::vector<RenderSystemOpPair> RenderSystemOpPairs;
         /** Operation setup for a RenderTarget (collected).
         */
         class TargetOperation
@@ -162,7 +162,7 @@ class SceneManager;
             
             /** A set of render queues to either include or exclude certain render queues.
             */
-            using RenderQueueBitSet = std::bitset<RENDER_QUEUE_COUNT>;
+            typedef std::bitset<RENDER_QUEUE_COUNT> RenderQueueBitSet;
 
             /// Which renderqueues to render from scene
             RenderQueueBitSet renderQueues;
@@ -185,7 +185,7 @@ class SceneManager;
             String cameraOverride;
             int alignCameraToFace;
         };
-        using CompiledState = std::vector<TargetOperation>;
+        typedef std::vector<TargetOperation> CompiledState;
         
         /** Set enabled flag. The compositor instance will only render if it is
             enabled, otherwise it is pass-through. Resources are only created if
@@ -344,12 +344,12 @@ class SceneManager;
         /// Is this instance allocating resources?
         bool mAlive;
         /// Map from name->local texture.
-        using LocalTextureMap = std::map<String, TexturePtr>;
+        typedef std::map<String,TexturePtr> LocalTextureMap;
         LocalTextureMap mLocalTextures;
         /// Store a list of MRTs we've created.
-        using LocalMRTMap = std::map<String, MultiRenderTarget *>;
+        typedef std::map<String,MultiRenderTarget*> LocalMRTMap;
         LocalMRTMap mLocalMRTs;
-        using ReserveTextureMap = std::map<CompositionTechnique::TextureDefinition *, TexturePtr>;
+        typedef std::map<CompositionTechnique::TextureDefinition*, TexturePtr> ReserveTextureMap;
         /** Textures that are not currently in use, but that we want to keep for now,
             for example if we switch techniques but want to keep all textures available
             in case we switch back. 
@@ -357,7 +357,7 @@ class SceneManager;
         ReserveTextureMap mReserveTextures;
 
         /// Vector of listeners.
-        using Listeners = std::vector<Listener *>;
+        typedef std::vector<Listener*> Listeners;
         Listeners mListeners;
         
         /// Previous instance (set by chain).

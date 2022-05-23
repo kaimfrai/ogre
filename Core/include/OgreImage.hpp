@@ -474,8 +474,8 @@ namespace Ogre {
         bool mAutoDelete;
     };
 
-    using ImagePtrList = std::vector<Image *>;
-    using ConstImagePtrList = std::vector<const Image *>;
+    typedef std::vector<Image*> ImagePtrList;
+    typedef std::vector<const Image*> ConstImagePtrList;
 
     /** @} */
     /** @} */

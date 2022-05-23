@@ -51,7 +51,7 @@ class RenderQueue;
     *  @{
     */
 
-    using DisplayString = String;
+    typedef String DisplayString;
 
     /** Enum describing how the position / size of an element is to be recorded. 
     */

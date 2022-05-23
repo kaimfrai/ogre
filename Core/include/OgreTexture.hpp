@@ -483,11 +483,11 @@ class ResourceManager;
             prepareLoad but have yet to be pushed into texture memory
             by loadImpl.  Images should be deleted by loadImpl and unprepareImpl.
         */
-        using LoadedImages = std::vector<Image>;
+        typedef std::vector<Image> LoadedImages;
         LoadedImages mLoadedImages;
 
         /// Vector of pointers to subsurfaces
-        using SurfaceList = std::vector<HardwarePixelBufferSharedPtr>;
+        typedef std::vector<HardwarePixelBufferSharedPtr> SurfaceList;
         SurfaceList mSurfaceList;
 
         TextureType mTextureType;

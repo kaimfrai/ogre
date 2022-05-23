@@ -109,10 +109,10 @@ class VertexData;
                 The use of shared or non-shared index map is determined when
                 model data is converted to the OGRE .mesh format.
         */
-        using IndexMap = std::vector<unsigned short>;
+        typedef std::vector<unsigned short> IndexMap;
         IndexMap blendIndexToBoneIndexMap;
 
-        using LODFaceList = std::vector<IndexData *>;
+        typedef std::vector<IndexData*> LODFaceList;
         LODFaceList mLodFaceList;
 
         /** A list of extreme points on the submesh (optional).
@@ -182,8 +182,8 @@ class VertexData;
         void clearBoneAssignments();
 
         /// Multimap of verex bone assignments (orders by vertex index)
-        using VertexBoneAssignmentList = std::multimap<size_t, VertexBoneAssignment>;
-        using BoneAssignmentIterator = MapIterator<VertexBoneAssignmentList>;
+        typedef std::multimap<size_t, VertexBoneAssignment> VertexBoneAssignmentList;
+        typedef MapIterator<VertexBoneAssignmentList> BoneAssignmentIterator;
 
         /** Gets a const reference to the list of bone assignments
         */
@@ -193,7 +193,7 @@ class VertexData;
         /** Must be called once to compile bone assignments into geometry buffer. */
         void _compileBoneAssignments();
 
-        using AliasTextureIterator = ConstMapIterator<AliasTextureNamePairList>;
+        typedef ConstMapIterator<AliasTextureNamePairList> AliasTextureIterator;
         /// @deprecated do not use
         AliasTextureIterator getAliasTextureIterator() const;
         /// @deprecated do not use

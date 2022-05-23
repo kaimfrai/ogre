@@ -87,7 +87,7 @@ namespace Ogre {
 
         RenderSystemCapabilitiesSerializer* mSerializer;
 
-        using CapabilitiesMap = std::map<String, RenderSystemCapabilities *>;
+        typedef std::map<String, RenderSystemCapabilities*> CapabilitiesMap;
         CapabilitiesMap mCapabilitiesMap;
 
         const String mScriptPattern;

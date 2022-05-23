@@ -87,7 +87,7 @@ using std::minstd_rand;
 
 using namespace Ogre;
 
-using CameraTests = RootWithoutRenderSystemFixture;
+typedef RootWithoutRenderSystemFixture CameraTests;
 TEST_F(CameraTests,customProjectionMatrix)
 {
     Camera cam("", nullptr);
@@ -321,7 +321,7 @@ struct UsePreviousResourceLoadingListener : public ResourceLoadingListener
     bool resourceCollision(Resource *resource, ResourceManager *resourceManager) override { return false; }
 };
 
-using ResourceLoading = RootWithoutRenderSystemFixture;
+typedef RootWithoutRenderSystemFixture ResourceLoading;
 TEST_F(ResourceLoading, CollsionUseExisting)
 {
     UsePreviousResourceLoadingListener listener;
@@ -370,7 +370,7 @@ TEST_F(ResourceLoading, CollsionDeleteExisting)
     EXPECT_TRUE(mat->clone("Collision"));
 }
 
-using TextureTests = RootWithoutRenderSystemFixture;
+typedef RootWithoutRenderSystemFixture TextureTests;
 TEST_F(TextureTests, Blank)
 {
     auto mat = std::make_shared<Material>(nullptr, "Material Name", 0, "Group");
@@ -408,7 +408,7 @@ TEST(GpuSharedParameters, align)
     EXPECT_EQ(params.getConstantDefinition("d").logicalIndex, 48);
 }
 
-using HighLevelGpuProgramTest = RootWithoutRenderSystemFixture;
+typedef RootWithoutRenderSystemFixture HighLevelGpuProgramTest;
 TEST_F(HighLevelGpuProgramTest, resolveIncludes)
 {
     auto mat = MaterialManager::getSingleton().create("Dummy", RGN_DEFAULT);
@@ -454,7 +454,7 @@ TEST(Math, TriangleRayIntersection)
     EXPECT_FALSE(Math::intersects(ray, tri[0], tri[1], tri[2], false, false).first);
 }
 
-using SkeletonTests = RootWithoutRenderSystemFixture;
+typedef RootWithoutRenderSystemFixture SkeletonTests;
 TEST_F(SkeletonTests, linkedSkeletonAnimationSource)
 {
     auto sceneMgr = mRoot->createSceneManager();

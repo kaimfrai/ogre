@@ -214,7 +214,7 @@ class AnimationTrack;
 
             PoseRef(ushort p, Real i) : poseIndex(p), influence(i) {}
         };
-        using PoseRefList = std::vector<PoseRef>;
+        typedef std::vector<PoseRef> PoseRefList;
 
         /** Add a new pose reference. 
         @see PoseRef
@@ -235,8 +235,8 @@ class AnimationTrack;
         /** Get a const reference to the list of pose references. */
         [[nodiscard]] const PoseRefList& getPoseReferences() const;
 
-        using PoseRefIterator = VectorIterator<PoseRefList>;
-        using ConstPoseRefIterator = ConstVectorIterator<PoseRefList>;
+        typedef VectorIterator<PoseRefList> PoseRefIterator;
+        typedef ConstVectorIterator<PoseRefList> ConstPoseRefIterator;
         /** Clone a keyframe (internal use only) */
         KeyFrame* _clone(AnimationTrack* newParent) const override;
         

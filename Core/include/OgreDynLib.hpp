@@ -39,7 +39,7 @@ namespace Ogre {
     *  @{
     */
 
-    using DYNLIB_HANDLE = void *;
+    typedef void* DYNLIB_HANDLE;
 
     /** Resource holding data about a dynamic library.
         @remarks

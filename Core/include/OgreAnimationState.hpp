@@ -65,7 +65,7 @@ class AnimationStateSet;
     public:
 
         /// Typedef for an array of float values used as a bone blend mask
-        using BoneBlendMask = std::vector<float>;
+        typedef std::vector<float> BoneBlendMask;
 
         /** Normal constructor with all params supplied
             @param
@@ -192,12 +192,12 @@ class AnimationStateSet;
     };
 
     // A map of animation states
-    using AnimationStateMap = std::map<String, AnimationState *>;
-    using AnimationStateIterator = MapIterator<AnimationStateMap>;
-    using ConstAnimationStateIterator = ConstMapIterator<AnimationStateMap>;
+    typedef std::map<String, AnimationState*> AnimationStateMap;
+    typedef MapIterator<AnimationStateMap> AnimationStateIterator;
+    typedef ConstMapIterator<AnimationStateMap> ConstAnimationStateIterator;
     // A list of enabled animation states
-    using EnabledAnimationStateList = std::list<AnimationState *>;
-    using ConstEnabledAnimationStateIterator = ConstVectorIterator<EnabledAnimationStateList>;
+    typedef std::list<AnimationState*> EnabledAnimationStateList;
+    typedef ConstVectorIterator<EnabledAnimationStateList> ConstEnabledAnimationStateIterator;
 
     /** Class encapsulating a set of AnimationState objects.
     */

@@ -53,7 +53,7 @@ namespace OgreBites
       =============================================================================*/
     class SampleBrowser : public SampleContext, public TrayListener
     {
-        using PluginMap = std::map<Ogre::String, ::std::unique_ptr<SamplePlugin>>;
+        typedef std::map<Ogre::String, ::std::unique_ptr<SamplePlugin>> PluginMap;
         PluginMap mPluginNameMap;                      // A structure to map plugin names to class types
     public:
 

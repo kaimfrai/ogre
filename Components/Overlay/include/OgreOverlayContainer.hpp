@@ -61,10 +61,10 @@ class RenderQueue;
     class OverlayContainer : public OverlayElement
     {
     public:
-        using ChildMap = std::map<String, OverlayElement *>;
-        using ChildIterator = MapIterator<ChildMap>;
-        using ChildContainerMap = std::map<String, OverlayContainer *>;
-        using ChildContainerIterator = MapIterator<ChildContainerMap>;
+        typedef std::map<String, OverlayElement*> ChildMap;
+        typedef MapIterator<ChildMap> ChildIterator;
+        typedef std::map<String, OverlayContainer*> ChildContainerMap;
+        typedef MapIterator<ChildContainerMap> ChildContainerIterator;
     private:
         /// Map of all children
         ChildMap mChildren;

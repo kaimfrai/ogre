@@ -57,10 +57,10 @@ namespace Ogre
     {
 
     public:
-        using VertexList = std::vector<Vector3>;
+        typedef std::vector<Vector3>               VertexList;
 
-        using EdgeMap = std::multimap<Vector3, Vector3>;
-        using Edge = std::pair<Vector3, Vector3>;
+        typedef std::multimap<Vector3, Vector3>        EdgeMap;
+        typedef std::pair< Vector3, Vector3>        Edge;
 
     private:
         VertexList      mVertexList;

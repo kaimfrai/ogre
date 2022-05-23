@@ -57,7 +57,7 @@ class Plane;
     class ConvexBody
     {
     public:
-        using PolygonList = std::vector<Polygon *>;
+        typedef std::vector< Polygon* >    PolygonList;
 
     private:
         PolygonList mPolygons;

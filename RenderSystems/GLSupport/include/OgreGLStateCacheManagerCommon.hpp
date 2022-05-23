@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    using StateCacheAlloc = GeneralAllocatedObject;
+    typedef GeneralAllocatedObject StateCacheAlloc;
 
     /** An in memory cache of the OpenGL state.
 
@@ -55,9 +55,9 @@ namespace Ogre
     class GLStateCacheManagerCommon : public StateCacheAlloc
     {
     protected:
-        using BindBufferMap = std::unordered_map<uint32, uint32>;
-        using TexParameteriMap = std::unordered_map<uint32, int>;
-        using TexParameterfMap = std::unordered_map<uint32, float>;
+        typedef std::unordered_map<uint32, uint32> BindBufferMap;
+        typedef std::unordered_map<uint32, int> TexParameteriMap;
+        typedef std::unordered_map<uint32, float> TexParameterfMap;
 
         /* These variables are used for caching OpenGL state.
          They are cached because state changes can be quite expensive,

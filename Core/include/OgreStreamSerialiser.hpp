@@ -343,7 +343,7 @@ class Sphere;
         bool mFlipEndian;
         bool mReadWriteHeader;
         RealStorageFormat mRealFormat;
-        using ChunkStack = std::deque<Chunk *>;
+        typedef std::deque<Chunk*> ChunkStack;
         /// Current list of open chunks
         ChunkStack mChunkStack;
 

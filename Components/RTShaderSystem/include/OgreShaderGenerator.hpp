@@ -202,7 +202,7 @@ public:
     RenderState* getRenderState(const String& schemeName);
 
 
-    using RenderStateCreateOrRetrieveResult = std::pair<RenderState *, bool>;
+    typedef std::pair<RenderState*, bool> RenderStateCreateOrRetrieveResult;
     /** 
     Returns a requested render state. If the render state does not exist this function creates it.
     @param schemeName The scheme name to retrieve.
@@ -475,7 +475,7 @@ private:
     class SGMaterial;
     class SGScheme;
 
-    using MatGroupPair = std::pair<String, String>;
+    typedef std::pair<String,String>                MatGroupPair;
     struct MatGroupPair_less
     {
         // ensure we arrange the list first by material name then by group name
@@ -486,28 +486,28 @@ private:
         }
     };
 
-    using SGPassList = std::vector<SGPass *>;
-    using SGPassIterator = SGPassList::iterator;
-    using SGPassConstIterator = SGPassList::const_iterator;
+    typedef std::vector<SGPass*>                   SGPassList;
+    typedef SGPassList::iterator                        SGPassIterator;
+    typedef SGPassList::const_iterator              SGPassConstIterator;
 
-    using SGTechniqueList = std::vector<SGTechnique *>;
-    using SGTechniqueIterator = SGTechniqueList::iterator;
-    using SGTechniqueConstIterator = SGTechniqueList::const_iterator;
+    typedef std::vector<SGTechnique*>              SGTechniqueList;
+    typedef SGTechniqueList::iterator               SGTechniqueIterator;
+    typedef SGTechniqueList::const_iterator         SGTechniqueConstIterator;
 
-    using SGTechniqueMap = std::map<SGTechnique *, SGTechnique *>;
-    using SGTechniqueMapIterator = SGTechniqueMap::iterator;
+    typedef std::map<SGTechnique*, SGTechnique*>   SGTechniqueMap;
+    typedef SGTechniqueMap::iterator                    SGTechniqueMapIterator;
     
-    using SGMaterialMap = std::map<MatGroupPair, SGMaterial *, MatGroupPair_less>;
-    using SGMaterialIterator = SGMaterialMap::iterator;
-    using SGMaterialConstIterator = SGMaterialMap::const_iterator;
+    typedef std::map<MatGroupPair, SGMaterial*, MatGroupPair_less> SGMaterialMap;
+    typedef SGMaterialMap::iterator                 SGMaterialIterator;
+    typedef SGMaterialMap::const_iterator           SGMaterialConstIterator;
 
-    using SGSchemeMap = std::map<String, SGScheme *>;
-    using SGSchemeIterator = SGSchemeMap::iterator;
-    using SGSchemeConstIterator = SGSchemeMap::const_iterator;
+    typedef std::map<String, SGScheme*>                SGSchemeMap;
+    typedef SGSchemeMap::iterator                   SGSchemeIterator;
+    typedef SGSchemeMap::const_iterator             SGSchemeConstIterator;
 
-    using SGScriptTranslatorMap = std::map<uint32, ScriptTranslator *>;
-    using SGScriptTranslatorIterator = SGScriptTranslatorMap::iterator;
-    using SGScriptTranslatorConstIterator = SGScriptTranslatorMap::const_iterator;
+    typedef std::map<uint32, ScriptTranslator*>        SGScriptTranslatorMap;
+    typedef SGScriptTranslatorMap::iterator         SGScriptTranslatorIterator;
+    typedef SGScriptTranslatorMap::const_iterator   SGScriptTranslatorConstIterator;
 
 
     
@@ -628,7 +628,7 @@ private:
 		// All passes entries, both normal and illumination.
         SGPassList mPassEntries;
         // The custom render states of all passes.
-        using RenderStateList = std::vector<RenderState *>;
+        typedef std::vector<RenderState*> RenderStateList;
         RenderStateList mCustomRenderStates;
         // Flag that tells if destination technique should be build.        
         bool mBuildDstTechnique;
@@ -750,14 +750,14 @@ private:
     };
 
     //-----------------------------------------------------------------------------
-    using SubRenderStateFactoryMap = std::map<String, SubRenderStateFactory *>;
-    using SubRenderStateFactoryIterator = SubRenderStateFactoryMap::iterator;
-    using SubRenderStateFactoryConstIterator = SubRenderStateFactoryMap::const_iterator;
+    typedef std::map<String, SubRenderStateFactory*>       SubRenderStateFactoryMap;
+    typedef SubRenderStateFactoryMap::iterator              SubRenderStateFactoryIterator;
+    typedef SubRenderStateFactoryMap::const_iterator        SubRenderStateFactoryConstIterator;
 
     //-----------------------------------------------------------------------------
-    using SceneManagerMap = std::set<SceneManager *>;
-    using SceneManagerIterator = SceneManagerMap::iterator;
-    using SceneManagerConstIterator = SceneManagerMap::const_iterator;
+    typedef std::set<SceneManager*>                         SceneManagerMap;
+    typedef SceneManagerMap::iterator                       SceneManagerIterator;
+    typedef SceneManagerMap::const_iterator                 SceneManagerConstIterator;
 
     friend class SGRenderObjectListener;
     friend class SGSceneManagerListener;
@@ -833,7 +833,7 @@ private:
     [[nodiscard]] SGMaterialConstIterator findMaterialEntryIt(const String& materialName, const String& groupName) const;
 
 
-    using SchemeCreateOrRetrieveResult = std::pair<SGScheme *, bool>;
+    typedef std::pair<SGScheme*, bool> SchemeCreateOrRetrieveResult;
     /** 
     Returns a requested scheme. If the scheme does not exist this function creates it.
     @param schemeName The scheme name to retrieve.

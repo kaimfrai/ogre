@@ -99,9 +99,9 @@ class Technique;
 
     public:
         /// distance list used to specify LOD
-        using LodValueList = std::vector<Real>;
-        using LodValueIterator = ConstVectorIterator<LodValueList>;
-        using Techniques = std::vector<Technique *>;
+        typedef std::vector<Real> LodValueList;
+        typedef ConstVectorIterator<LodValueList> LodValueIterator;
+        typedef std::vector<Technique*> Techniques;
     private:
 
 
@@ -113,8 +113,8 @@ class Technique;
         Techniques mTechniques;
         /// Supported techniques of any sort
         Techniques mSupportedTechniques;
-        using LodTechniques = std::map<unsigned short, Technique *>;
-        using BestTechniquesBySchemeList = std::map<unsigned short, LodTechniques>;
+        typedef std::map<unsigned short, Technique*> LodTechniques;
+        typedef std::map<unsigned short, LodTechniques> BestTechniquesBySchemeList;
         /** Map of scheme -> list of LOD techniques. 
             Current scheme is set on MaterialManager,
             and can be set per Viewport for auto activation.
@@ -195,7 +195,7 @@ class Technique;
         /** Returns whether or not objects using this material be classified as opaque to the shadow caster system. */
         bool getTransparencyCastsShadows() const { return mTransparencyCastsShadows; }
 
-        using TechniqueIterator = VectorIterator<Techniques>;
+        typedef VectorIterator<Techniques> TechniqueIterator;
         /// @name Techniques
         /// @{
         /** Creates a new Technique for this Material.

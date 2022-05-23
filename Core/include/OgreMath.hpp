@@ -65,7 +65,7 @@ class Sphere;
         indicate the distance along the ray at which it intersects.
         This can be converted to a point in space by calling Ray::getPoint().
      */
-    using RayTestResult = std::pair<bool, Real>;
+    typedef std::pair<bool, Real> RayTestResult;
 
     /** Wrapper class which indicates a given angle value is in Radians.
     @remarks

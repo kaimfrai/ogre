@@ -49,8 +49,8 @@ template <typename T> class ControllerValue;
     *  @{
     */
 
-    using ControllerValueRealPtr = SharedPtr<ControllerValue<Real>>;
-    using ControllerFunctionRealPtr = SharedPtr<ControllerFunction<Real>>;
+    typedef SharedPtr< ControllerValue<Real> > ControllerValueRealPtr;
+    typedef SharedPtr< ControllerFunction<Real> > ControllerFunctionRealPtr;
 
     /** Class for managing Controller instances.
     @remarks
@@ -61,7 +61,7 @@ template <typename T> class ControllerValue;
     class ControllerManager : public Singleton<ControllerManager>, public ControllerAlloc
     {
     private:
-        using ControllerList = std::set<Controller<Real> *>;
+        typedef std::set<Controller<Real>*> ControllerList;
         ControllerList mControllers;
 
         /// Global predefined controller

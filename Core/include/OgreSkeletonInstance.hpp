@@ -129,7 +129,7 @@ class TagPoint;
         /// Pointer back to master Skeleton
         SkeletonPtr mSkeleton;
 
-        using TagPointList = std::list<TagPoint *>;
+        typedef std::list<TagPoint*> TagPointList;
 
         /** Active tag point list.
         @remarks

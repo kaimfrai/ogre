@@ -42,13 +42,17 @@ namespace Ogre  {
     */
 
     namespace OverlayElementCommands {
-    using CmdLeft = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getLeft, &OverlayElement::setLeft>;
+    typedef SimpleParamCommand<OverlayElement, Real, &OverlayElement::getLeft, &OverlayElement::setLeft>
+        CmdLeft;
 
-    using CmdTop = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getTop, &OverlayElement::setTop>;
+    typedef SimpleParamCommand<OverlayElement, Real, &OverlayElement::getTop, &OverlayElement::setTop>
+        CmdTop;
 
-    using CmdWidth = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getWidth, &OverlayElement::setWidth>;
+    typedef SimpleParamCommand<OverlayElement, Real, &OverlayElement::getWidth, &OverlayElement::setWidth>
+        CmdWidth;
 
-    using CmdHeight = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getHeight, &OverlayElement::setHeight>;
+    typedef SimpleParamCommand<OverlayElement, Real, &OverlayElement::getHeight, &OverlayElement::setHeight>
+        CmdHeight;
 
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdMaterial : public ParamCommand

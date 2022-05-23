@@ -54,15 +54,15 @@ namespace Ogre {
     class GLSLProgramManagerCommon
     {
     protected:
-        using StringToEnumMap = std::map<String, GpuConstantType>;
+        typedef std::map<String, GpuConstantType> StringToEnumMap;
         StringToEnumMap mTypeEnumMap;
 
         /** Parse an individual uniform from a GLSL source file and
             store it in a GpuNamedConstant. */
         void parseGLSLUniform(String line, GpuNamedConstants& defs, const String& filename);
 
-        using ProgramMap = std::map<uint32, GLSLProgramCommon *>;
-        using ProgramIterator = ProgramMap::iterator;
+        typedef std::map<uint32, GLSLProgramCommon*> ProgramMap;
+        typedef ProgramMap::iterator ProgramIterator;
 
         /// container holding previously created program objects
         ProgramMap mPrograms;

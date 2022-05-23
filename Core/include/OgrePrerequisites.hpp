@@ -44,14 +44,14 @@ namespace Ogre {
     /** Software floating point type.
     @note Not valid as a pointer to GPU buffers / parameters
     */
-    using Real = float;
+    typedef float Real;
 
     /** In order to avoid finger-aches :)
     */
-    using uchar = unsigned char;
-    using ushort = unsigned short;
-    using uint = unsigned int;
-    using ulong = unsigned long;
+    typedef unsigned char uchar;
+    typedef unsigned short ushort;
+    typedef unsigned int uint;
+    typedef unsigned long ulong;
 
 // Pre-declare classes
 // Allows use of pointers in header files without including individual .h
@@ -101,9 +101,9 @@ namespace Ogre {
     class GpuSharedParameters;
     class GpuProgram;
     class GpuProgramFactory;
-    using HighLevelGpuProgramFactory = GpuProgramFactory; //!< @deprecated
+    typedef GpuProgramFactory HighLevelGpuProgramFactory; //!< @deprecated
     class GpuProgramManager;
-    using HighLevelGpuProgramManager = GpuProgramManager; //!< @deprecated
+    typedef GpuProgramManager HighLevelGpuProgramManager; //!< @deprecated
     class GpuProgramUsage;
     class HardwareBuffer;
     class HardwareIndexBuffer;
@@ -156,7 +156,7 @@ namespace Ogre {
     class ParticleSystemManager;
     class ParticleSystemRenderer;
     template<typename T> class FactoryObj;
-    using ParticleSystemRendererFactory = FactoryObj<ParticleSystemRenderer>;
+    typedef FactoryObj<ParticleSystemRenderer> ParticleSystemRendererFactory;
     class ParticleVisualData;
     class Pass;
     class PatchMesh;
@@ -231,13 +231,13 @@ namespace Ogre {
     class Timer;
     class UserObjectBindings;
     template <int dims, typename T> class Vector;
-    using Vector2 = Vector<2, Real>;
-    using Vector2i = Vector<2, int>;
-    using Vector3 = Vector<3, Real>;
-    using Vector3f = Vector<3, float>;
-    using Vector3i = Vector<3, int>;
-    using Vector4 = Vector<4, Real>;
-    using Vector4f = Vector<4, float>;
+    typedef Vector<2, Real> Vector2;
+    typedef Vector<2, int> Vector2i;
+    typedef Vector<3, Real> Vector3;
+    typedef Vector<3, float> Vector3f;
+    typedef Vector<3, int> Vector3i;
+    typedef Vector<4, Real> Vector4;
+    typedef Vector<4, float> Vector4f;
     class Viewport;
     class VertexAnimationTrack;
     class VertexBufferBinding;
@@ -260,36 +260,36 @@ namespace Ogre {
     using std::unique_ptr;
     template<typename T> class SharedPtr;
 
-    using AnimableValuePtr = SharedPtr<AnimableValue>;
-    using CompositorPtr = SharedPtr<Compositor>;
-    using DataStreamPtr = SharedPtr<DataStream>;
-    using GpuProgramPtr = SharedPtr<GpuProgram>;
-    using GpuNamedConstantsPtr = SharedPtr<GpuNamedConstants>;
-    using GpuLogicalBufferStructPtr = SharedPtr<GpuLogicalBufferStruct>;
-    using GpuSharedParametersPtr = SharedPtr<GpuSharedParameters>;
-    using GpuProgramParametersPtr = SharedPtr<GpuProgramParameters>;
-    using HardwareBufferPtr = SharedPtr<HardwareBuffer>;
-    using HardwareIndexBufferPtr = SharedPtr<HardwareIndexBuffer>;
-    using HardwarePixelBufferPtr = SharedPtr<HardwarePixelBuffer>;
-    using HardwareVertexBufferPtr = SharedPtr<HardwareVertexBuffer>;
-    using MaterialPtr = SharedPtr<Material>;
-    using MemoryDataStreamPtr = SharedPtr<MemoryDataStream>;
-    using MeshPtr = SharedPtr<Mesh>;
-    using PatchMeshPtr = SharedPtr<PatchMesh>;
-    using RenderToVertexBufferPtr = SharedPtr<RenderToVertexBuffer>;
-    using ResourcePtr = SharedPtr<Resource>;
-    using ShadowCameraSetupPtr = SharedPtr<ShadowCameraSetup>;
-    using SkeletonPtr = SharedPtr<Skeleton>;
-    using TexturePtr = SharedPtr<Texture>;
+    typedef SharedPtr<AnimableValue> AnimableValuePtr;
+    typedef SharedPtr<Compositor> CompositorPtr;
+    typedef SharedPtr<DataStream> DataStreamPtr;
+    typedef SharedPtr<GpuProgram> GpuProgramPtr;
+    typedef SharedPtr<GpuNamedConstants> GpuNamedConstantsPtr;
+    typedef SharedPtr<GpuLogicalBufferStruct> GpuLogicalBufferStructPtr;
+    typedef SharedPtr<GpuSharedParameters> GpuSharedParametersPtr;
+    typedef SharedPtr<GpuProgramParameters> GpuProgramParametersPtr;
+    typedef SharedPtr<HardwareBuffer> HardwareBufferPtr;
+    typedef SharedPtr<HardwareIndexBuffer> HardwareIndexBufferPtr;
+    typedef SharedPtr<HardwarePixelBuffer> HardwarePixelBufferPtr;
+    typedef SharedPtr<HardwareVertexBuffer> HardwareVertexBufferPtr;
+    typedef SharedPtr<Material> MaterialPtr;
+    typedef SharedPtr<MemoryDataStream> MemoryDataStreamPtr;
+    typedef SharedPtr<Mesh> MeshPtr;
+    typedef SharedPtr<PatchMesh> PatchMeshPtr;
+    typedef SharedPtr<RenderToVertexBuffer> RenderToVertexBufferPtr;
+    typedef SharedPtr<Resource> ResourcePtr;
+    typedef SharedPtr<ShadowCameraSetup> ShadowCameraSetupPtr;
+    typedef SharedPtr<Skeleton> SkeletonPtr;
+    typedef SharedPtr<Texture> TexturePtr;
 
-    using RenderToVertexBufferSharedPtr = RenderToVertexBufferPtr; //!< @deprecated
-    using HardwareIndexBufferSharedPtr = HardwareIndexBufferPtr; //!< @deprecated
-    using HardwarePixelBufferSharedPtr = HardwarePixelBufferPtr; //!< @deprecated
-    using HardwareVertexBufferSharedPtr = HardwareVertexBufferPtr; //!< @deprecated
-    using HighLevelGpuProgramPtr = GpuProgramPtr; //!< @deprecated
-    using HardwareUniformBufferSharedPtr = HardwareBufferPtr; //!< @deprecated
-    using HardwareCounterBufferSharedPtr = HardwareBufferPtr; //!< @deprecated
-    using GpuProgramParametersSharedPtr = GpuProgramParametersPtr; //!< @deprecated
+    typedef RenderToVertexBufferPtr RenderToVertexBufferSharedPtr; //!< @deprecated
+    typedef HardwareIndexBufferPtr HardwareIndexBufferSharedPtr; //!< @deprecated
+    typedef HardwarePixelBufferPtr HardwarePixelBufferSharedPtr; //!< @deprecated
+    typedef HardwareVertexBufferPtr HardwareVertexBufferSharedPtr; //!< @deprecated
+    typedef GpuProgramPtr HighLevelGpuProgramPtr; //!< @deprecated
+    typedef HardwareBufferPtr HardwareUniformBufferSharedPtr; //!< @deprecated
+    typedef HardwareBufferPtr HardwareCounterBufferSharedPtr; //!< @deprecated
+    typedef GpuProgramParametersPtr GpuProgramParametersSharedPtr; //!< @deprecated
 }
 
 /* Include all the standard header *after* all the configuration
@@ -301,8 +301,8 @@ settings have been made.
 
 namespace Ogre
 {
-    using String = std::string;
-    using StringStream = std::stringstream;
+    typedef std::string String;
+    typedef std::stringstream StringStream;
 
     template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;

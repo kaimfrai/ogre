@@ -76,9 +76,9 @@ class Camera;
             /// Transform is relative to world space
             TS_WORLD
         };
-        using ChildNodeMap = std::vector<Node *>;
-        using ChildNodeIterator = VectorIterator<ChildNodeMap>;
-        using ConstChildNodeIterator = ConstVectorIterator<ChildNodeMap>;
+        typedef std::vector<Node*> ChildNodeMap;
+        typedef VectorIterator<ChildNodeMap> ChildNodeIterator;
+        typedef ConstVectorIterator<ChildNodeMap> ConstChildNodeIterator;
 
         /** Listener which gets called back on Node events.
         */
@@ -109,7 +109,7 @@ class Camera;
         /// Collection of pointers to direct children
         ChildNodeMap mChildren;
 
-        using ChildUpdateSet = std::set<Node *>;
+        typedef std::set<Node*> ChildUpdateSet;
         /// List of children which need updating, used if self is not out of date but children are
         ChildUpdateSet mChildrenToUpdate;
         /// Friendly name of this node
@@ -195,7 +195,7 @@ class Camera;
         /** Node listener - only one allowed (no list) for size & performance reasons. */
         Listener* mListener;
 
-        using QueuedUpdates = std::vector<Node *>;
+        typedef std::vector<Node*> QueuedUpdates;
         static QueuedUpdates msQueuedUpdates;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */

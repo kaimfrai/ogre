@@ -52,10 +52,10 @@ struct GLUniformReference
     /// The constant definition it relates to
     const GpuConstantDefinition* mConstantDef;
 };
-using GLUniformReferenceList = std::vector<GLUniformReference>;
-using GLUniformReferenceIterator = GLUniformReferenceList::iterator;
+typedef std::vector<GLUniformReference> GLUniformReferenceList;
+typedef GLUniformReferenceList::iterator GLUniformReferenceIterator;
 
-using GLShaderList = std::array<GLSLShaderCommon *, GPT_COUNT>;
+typedef  std::array<GLSLShaderCommon*, GPT_COUNT> GLShaderList;
 
 class GLSLProgramCommon
 {

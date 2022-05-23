@@ -470,11 +470,11 @@ struct Box;
 
         virtual void updateStats();
 
-        using ViewportList = std::map<int, Viewport *>;
+        typedef std::map<int, Viewport*> ViewportList;
         /// List of viewports, map on Z-order
         ViewportList mViewportList;
 
-        using RenderTargetListenerList = std::vector<RenderTargetListener *>;
+        typedef std::vector<RenderTargetListener*> RenderTargetListenerList;
         RenderTargetListenerList mListeners;
     
 

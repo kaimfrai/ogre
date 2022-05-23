@@ -256,9 +256,9 @@ class ScriptLoader;
             NameValuePairList parameters;
         };
         /// List of resource declarations
-        using ResourceDeclarationList = std::list<ResourceDeclaration>;
-        using ResourceManagerMap = std::map<String, ResourceManager *>;
-        using ResourceManagerIterator = MapIterator<ResourceManagerMap>;
+        typedef std::list<ResourceDeclaration> ResourceDeclarationList;
+        typedef std::map<String, ResourceManager*> ResourceManagerMap;
+        typedef MapIterator<ResourceManagerMap> ResourceManagerIterator;
         /// Resource location entry
         struct ResourceLocation
         {
@@ -268,26 +268,26 @@ class ScriptLoader;
             bool recursive;
         };
         /// List of possible file locations
-        using LocationList = std::vector<ResourceLocation>;
+        typedef std::vector<ResourceLocation> LocationList;
 
     private:
         /// Map of resource types (strings) to ResourceManagers, used to notify them to load / unload group contents
         ResourceManagerMap mResourceManagerMap;
 
         /// Map of loading order (Real) to ScriptLoader, used to order script parsing
-        using ScriptLoaderOrderMap = std::multimap<Real, ScriptLoader *>;
+        typedef std::multimap<Real, ScriptLoader*> ScriptLoaderOrderMap;
         ScriptLoaderOrderMap mScriptLoaderOrderMap;
 
-        using ResourceGroupListenerList = std::vector<ResourceGroupListener *>;
+        typedef std::vector<ResourceGroupListener*> ResourceGroupListenerList;
         ResourceGroupListenerList mResourceGroupListenerList;
 
         ResourceLoadingListener *mLoadingListener;
 
         /// Resource index entry, resourcename->location 
-        using ResourceLocationIndex = std::map<String, Archive *>;
+        typedef std::map<String, Archive*> ResourceLocationIndex;
 
         /// List of resources which can be loaded / unloaded
-        using LoadUnloadResourceList = std::list<ResourcePtr>;
+        typedef std::list<ResourcePtr> LoadUnloadResourceList;
         /// Resource group entry
         struct ResourceGroup
         {
@@ -313,7 +313,7 @@ class ScriptLoader;
             /// Created resources which are ready to be loaded / unloaded
             // Group by loading order of the type (defined by ResourceManager)
             // (e.g. skeletons and materials before meshes)
-            using LoadResourceOrderMap = std::map<Real, LoadUnloadResourceList>;
+            typedef std::map<Real, LoadUnloadResourceList> LoadResourceOrderMap;
             LoadResourceOrderMap loadResourceOrderMap;
             uint32 customStageCount;
             // in global pool flag - if true the resource will be loaded even a different   group was requested in the load method as a parameter.
@@ -325,7 +325,7 @@ class ScriptLoader;
 
         };
         /// Map from resource group names to groups
-        using ResourceGroupMap = std::map<String, ResourceGroup *>;
+        typedef std::map<String, ResourceGroup*> ResourceGroupMap;
         ResourceGroupMap mResourceGroupMap;
 
         /// Group name for world resources

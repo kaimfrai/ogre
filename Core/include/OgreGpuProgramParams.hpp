@@ -313,8 +313,8 @@ template <int dims, typename T> class Vector;
             , constType(GCT_UNKNOWN)
             , variability(GPV_GLOBAL) {}
     };
-    using GpuConstantDefinitionMap = std::map<String, GpuConstantDefinition>;
-    using GpuConstantDefinitionIterator = ConstMapIterator<GpuConstantDefinitionMap>;
+    typedef std::map<String, GpuConstantDefinition> GpuConstantDefinitionMap;
+    typedef ConstMapIterator<GpuConstantDefinitionMap> GpuConstantDefinitionIterator;
 
     /// Struct collecting together the information for named constants.
     struct GpuNamedConstants : public GpuParamsAlloc
@@ -373,7 +373,7 @@ template <int dims, typename T> class Vector;
     GpuLogicalIndexUse(size_t bufIdx, size_t curSz, uint16 v, BaseConstantType t)
         : physicalIndex(bufIdx), currentSize(curSz), variability(v), baseType(t) {}
     };
-    using GpuLogicalIndexUseMap = std::map<size_t, GpuLogicalIndexUse>;
+    typedef std::map<size_t, GpuLogicalIndexUse> GpuLogicalIndexUseMap;
     /// Container struct to allow params to safely & update shared list of logical buffer assignments
     struct GpuLogicalBufferStruct : public GpuParamsAlloc
     {
@@ -389,7 +389,7 @@ template <int dims, typename T> class Vector;
         @note Not necessarily in direct index order to constant indexes, logical
         to physical index map is derived from GpuProgram
     */
-    using ConstantList = std::vector<uchar>;
+    typedef std::vector<uchar> ConstantList;
 
     /** A group of manually updated parameters that are shared between many parameter sets.
         @remarks
@@ -553,7 +553,7 @@ template <int dims, typename T> class Vector;
             const GpuConstantDefinition* srcDefinition;
             const GpuConstantDefinition* dstDefinition;
         };
-        using CopyDataList = std::vector<CopyDataEntry>;
+        typedef std::vector<CopyDataEntry> CopyDataList;
 
         CopyDataList mCopyDataList;
 
@@ -1234,9 +1234,9 @@ template <int dims, typename T> class Vector;
 
         };
         // Auto parameter storage
-        using AutoConstantList = std::vector<AutoConstantEntry>;
+        typedef std::vector<AutoConstantEntry> AutoConstantList;
 
-        using GpuSharedParamUsageList = std::vector<GpuSharedParametersUsage>;
+        typedef std::vector<GpuSharedParametersUsage> GpuSharedParamUsageList;
     private:
         static AutoConstantDefinition AutoConstantDictionary[];
 

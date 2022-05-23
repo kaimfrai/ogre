@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "Ogre.hpp"
 
 class TestBatch;
-using TestBatchSet = std::set<TestBatch, std::greater<>>;
+typedef std::set<TestBatch,std::greater<> > TestBatchSet;
 
 /** Represents the output from running a batch of tests
  *        (i.e. a single run of the TestContext) */

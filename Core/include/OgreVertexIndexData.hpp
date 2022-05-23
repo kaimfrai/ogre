@@ -49,7 +49,7 @@ class HardwareBufferManagerBase;
     */
 
     /// Define a list of usage flags
-    using BufferUsageList = std::vector<HardwareBuffer::Usage>;
+    typedef std::vector<HardwareBuffer::Usage> BufferUsageList;
 
     /** collects together all the vertex-related information used to render geometry.
      *
@@ -113,7 +113,7 @@ class HardwareBufferManagerBase;
             unsigned short targetBufferIndex;
             Real parametric;
         };
-        using HardwareAnimationDataList = std::vector<HardwareAnimationData>;
+        typedef std::vector<HardwareAnimationData> HardwareAnimationDataList;
         /// VertexElements used for hardware morph / pose animation
         HardwareAnimationDataList hwAnimationDataList;
         /// Number of hardware animation data items used

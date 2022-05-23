@@ -176,7 +176,7 @@ class Technique;
             VertexData *vertexData;
             IndexData *indexData;
         };
-        using OptimisedSubMeshGeometryList = std::list<OptimisedSubMeshGeometry *>;
+        typedef std::list<OptimisedSubMeshGeometry*> OptimisedSubMeshGeometryList;
         /// Saved link between SubMesh at a LOD and vertex/index data
         /// May point to original or optimised geometry
         struct SubMeshLodGeometryLink
@@ -184,8 +184,8 @@ class Technique;
             VertexData* vertexData;
             IndexData* indexData;
         };
-        using SubMeshLodGeometryLinkList = std::vector<SubMeshLodGeometryLink>;
-        using SubMeshGeometryLookup = std::map<SubMesh *, SubMeshLodGeometryLinkList *>;
+        typedef std::vector<SubMeshLodGeometryLink> SubMeshLodGeometryLinkList;
+        typedef std::map<SubMesh*, SubMeshLodGeometryLinkList*> SubMeshGeometryLookup;
         /// Structure recording a queued submesh for the build
         struct QueuedSubMesh : public BatchedGeometryAlloc
         {
@@ -199,7 +199,7 @@ class Technique;
             /// Pre-transformed world AABB 
             AxisAlignedBox worldBounds;
         };
-        using QueuedSubMeshList = std::vector<QueuedSubMesh *>;
+        typedef std::vector<QueuedSubMesh*> QueuedSubMeshList;
         /// Structure recording a queued geometry for low level builds
         struct QueuedGeometry : public BatchedGeometryAlloc
         {
@@ -208,7 +208,7 @@ class Technique;
             Quaternion orientation;
             Vector3 scale;
         };
-        using QueuedGeometryList = std::vector<QueuedGeometry *>;
+        typedef std::vector<QueuedGeometry*> QueuedGeometryList;
         
         // forward declarations
         class LODBucket;
@@ -265,7 +265,7 @@ class Technique;
         {
         public:
             /// list of Geometry Buckets in this region
-            using GeometryBucketList = std::vector<GeometryBucket *>;
+            typedef std::vector<GeometryBucket*> GeometryBucketList;
         private:
             /// Pointer to parent LODBucket
             LODBucket* mParent;
@@ -277,7 +277,7 @@ class Technique;
             /// list of Geometry Buckets in this region
             GeometryBucketList mGeometryBucketList;
             // index to current Geometry Buckets for a given geometry format
-            using CurrentGeometryMap = std::map<uint32, GeometryBucket *>;
+            typedef std::map<uint32, GeometryBucket*> CurrentGeometryMap;
             CurrentGeometryMap mCurrentGeometryMap;
             
         public:
@@ -298,7 +298,7 @@ class Technique;
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
-            using GeometryIterator = VectorIterator<GeometryBucketList>;
+            typedef VectorIterator<GeometryBucketList> GeometryIterator;
             /// Get a list of the contained geometry
             [[nodiscard]] const GeometryBucketList& getGeometryList() const { return mGeometryBucketList; }
 
@@ -317,7 +317,7 @@ class Technique;
         {
         public:
             /// Lookup of Material Buckets in this region
-            using MaterialBucketMap = std::map<String, MaterialBucket *>;
+            typedef std::map<String, MaterialBucket*> MaterialBucketMap;
         private:
             /// Pointer to parent region
             Region* mParent;
@@ -351,7 +351,7 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Iterator over the materials in this LOD
-            using MaterialIterator = MapIterator<MaterialBucketMap>;
+            typedef MapIterator<MaterialBucketMap> MaterialIterator;
             /// Get an iterator over the materials in this LOD
             [[nodiscard]] const MaterialBucketMap& getMaterialBuckets() const { return mMaterialBucketMap; }
 
@@ -378,7 +378,7 @@ class Technique;
             friend class GeometryBucket;
         public:
             /// list of LOD Buckets in this region
-            using LODBucketList = std::vector<LODBucket *>;
+            typedef std::vector<LODBucket*> LODBucketList;
         private:
             /// Parent static geometry
             StaticGeometry* mParent;
@@ -434,7 +434,7 @@ class Technique;
             bool isVisible() const override;
             uint32 getTypeFlags() const override;
 
-            using LODIterator = VectorIterator<LODBucketList>;
+            typedef VectorIterator<LODBucketList> LODIterator;
 
             /// Get an list of the LODs in this region
             const LODBucketList& getLODBuckets() const { return mLodBucketList; }
@@ -458,7 +458,7 @@ class Technique;
             0 in the x axis begins at mOrigin.x + (mRegionDimensions.x * -512), 
             and region 1023 ends at mOrigin + (mRegionDimensions.x * 512).
         */
-        using RegionMap = std::map<uint32, Region *>;
+        typedef std::map<uint32, Region*> RegionMap;
     private:
         // General state & settings
         SceneManager* mOwner;
@@ -529,7 +529,7 @@ class Technique;
         void splitGeometry(VertexData* vd, IndexData* id, 
             SubMeshLodGeometryLink* targetGeomLink);
 
-        using IndexRemap = std::map<size_t, size_t>;
+        typedef std::map<size_t, size_t> IndexRemap;
         /** Method for figuring out which vertices are used by an index buffer
             and calculating a remap lookup for a vertex buffer just containing
             those vertices. 
@@ -738,7 +738,7 @@ class Technique;
             bool debugRenderables = false);
         
         /// Iterator for iterating over contained regions
-        using RegionIterator = MapIterator<RegionMap>;
+        typedef MapIterator<RegionMap> RegionIterator;
         /// Get an list of the regions in this geometry
         [[nodiscard]] const RegionMap& getRegions() const { return mRegionMap; }
 

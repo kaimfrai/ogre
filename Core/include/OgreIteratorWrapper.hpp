@@ -59,9 +59,9 @@ class IteratorWrapper
     public:
     
         /// Type you expect to get by funktions like peekNext(Value)
-        using ValueType = ValType;
+        typedef ValType ValueType;
         /// Type you expect to get by funktions like peekNext(Value)Ptr
-        using PointerType = ValType *;
+        typedef ValType* PointerType;
 
         /**
         @brief Typedef to fulfill container interface
@@ -70,7 +70,7 @@ class IteratorWrapper
         @note there is no distinction between const_iterator and iterator.
         \n keep this in mind if you want to derivate from this class. 
         */
-        using iterator = IteratorType;
+        typedef IteratorType iterator;
         
         /**
         @brief Typedef to fulfill container interface
@@ -79,7 +79,7 @@ class IteratorWrapper
         @note there is no distinction between const_iterator and iterator.
         \n keep this in mind if you want to derivate from this class. 
         */
-        using const_iterator = IteratorType;
+        typedef IteratorType const_iterator;
 
         
         /** Constructor.
@@ -135,8 +135,8 @@ class VectorIteratorWrapper : public IteratorWrapper<T, IteratorType, typename  
 {
 
     public:
-        using ValueType = typename IteratorWrapper<T, IteratorType, typename T::value_type>::ValueType ; 
-        using PointerType = typename IteratorWrapper<T, IteratorType, typename T::value_type>::PointerType ;
+        typedef typename IteratorWrapper<T, IteratorType, typename  T::value_type>::ValueType ValueType ; 
+        typedef typename IteratorWrapper<T, IteratorType, typename  T::value_type>::PointerType PointerType ;
     
 
         /**
@@ -254,14 +254,14 @@ class MapIteratorWrapper  : public IteratorWrapper<T, IteratorType, typename T::
 
     public:
         /// Redefined ValueType for a map/set
-        using ValueType = typename IteratorWrapper<T, IteratorType, typename T::mapped_type>::ValueType ; 
+        typedef typename IteratorWrapper<T, IteratorType, typename  T::mapped_type>::ValueType ValueType ; 
         /// Redefined PointerType for a map/set
-        using PointerType = typename IteratorWrapper<T, IteratorType, typename T::mapped_type>::PointerType ;  
+        typedef typename IteratorWrapper<T, IteratorType, typename  T::mapped_type>::PointerType PointerType ;  
         
         /// Unused, just to make it clear that map/set\::value_type is not a ValueType
-        using PairType = typename T::value_type ; 
+        typedef typename T::value_type PairType ; 
         /// Type you expect to get by funktions like peekNextKey
-        using KeyType = typename T::key_type;
+        typedef typename T::key_type KeyType;
         
         /** Constructor.
         @remarks

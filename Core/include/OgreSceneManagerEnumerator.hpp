@@ -95,12 +95,12 @@ class RenderSystem;
     {
     public:
         /// Scene manager instances, indexed by instance name
-        using Instances = std::map<String, SceneManager *>;
+        typedef std::map<String, SceneManager*> Instances;
         /// List of available scene manager types as meta data
-        using MetaDataList = std::vector<const SceneManagerMetaData *>;
+        typedef std::vector<const SceneManagerMetaData*> MetaDataList;
     private:
         /// Scene manager factories
-        using Factories = std::list<SceneManagerFactory *>;
+        typedef std::list<SceneManagerFactory*> Factories;
         Factories mFactories;
         Instances mInstances;
         /// Stored separately to allow iteration
@@ -144,7 +144,7 @@ class RenderSystem;
         */
         const MetaDataList& getMetaData() const { return mMetaDataList; }
 
-        using MetaDataIterator = ConstVectorIterator<MetaDataList>;
+        typedef ConstVectorIterator<MetaDataList> MetaDataIterator;
 
         /** Create a SceneManager instance of a given type.
         @remarks
@@ -174,7 +174,7 @@ class RenderSystem;
         */
         bool hasSceneManager(const String& instanceName) const;
 
-        using SceneManagerIterator = MapIterator<Instances>;
+        typedef MapIterator<Instances> SceneManagerIterator;
 
         /// Get all the existing SceneManager instances.
         const Instances& getSceneManagers() const;

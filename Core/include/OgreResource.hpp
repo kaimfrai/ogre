@@ -39,7 +39,7 @@ THE SOFTWARE.
 namespace Ogre {
 class ResourceManager;
 
-    using ResourceHandle = size_t;
+    typedef size_t ResourceHandle;
 
 
     // Forward declaration
@@ -158,7 +158,7 @@ class ResourceManager;
         /// State count, the number of times this resource has changed state
         size_t mStateCount;
 
-        using ListenerList = std::set<Listener *>;
+        typedef std::set<Listener*> ListenerList;
         ListenerList mListenerList;
     protected:
         /** Protected unnamed constructor to prevent default construction. 

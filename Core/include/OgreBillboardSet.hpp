@@ -170,7 +170,7 @@ class VertexData;
 
         bool mWorldSpace;
 
-        using BillboardPool = std::vector<Billboard *>;
+        typedef std::vector<Billboard*> BillboardPool;
 
         /** Active billboard count.
 
@@ -215,7 +215,7 @@ class VertexData;
         /// Flag indicating whether each billboard should be culled separately (default: false)
         bool mCullIndividual;
 
-        using TextureCoordSets = std::vector<Ogre::FloatRect>;
+        typedef std::vector< Ogre::FloatRect > TextureCoordSets;
         TextureCoordSets mTextureCoords;
 
         /// The type of billboard to render

@@ -34,7 +34,7 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
 
-using UniformCacheAlloc = Ogre::GeneralAllocatedObject;
+typedef Ogre::GeneralAllocatedObject UniformCacheAlloc;
 
 namespace Ogre
 {
@@ -42,7 +42,7 @@ namespace Ogre
     class GLUniformCache : public UniformCacheAlloc
     {
     protected:
-        using UniformMap = std::unordered_map<int, uint32>;
+        typedef std::unordered_map<int, uint32> UniformMap;
 
         /// A map of uniform names and a hash of their values
         UniformMap mUniformValueMap;

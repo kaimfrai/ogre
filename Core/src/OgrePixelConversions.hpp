@@ -80,8 +80,8 @@ template <class U> struct PixelBoxConverter
 
 template <typename T, typename U, int id> struct PixelConverter {
     static const int ID = id;
-    using SrcType = T;
-    using DstType = U;    
+    typedef T SrcType;
+    typedef U DstType;    
     
     //inline static DstType pixelConvert(const SrcType &inp);
 };

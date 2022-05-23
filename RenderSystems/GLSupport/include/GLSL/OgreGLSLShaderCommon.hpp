@@ -126,8 +126,8 @@ class ResourceManager;
         /// Attached Shader names
         String mAttachedShaderNames;
         /// Container of attached programs
-        using GLSLProgramContainer = std::vector<GLSLShaderCommon *>;
-        using GLSLProgramContainerIterator = GLSLProgramContainer::iterator;
+        typedef std::vector< GLSLShaderCommon* > GLSLProgramContainer;
+        typedef GLSLProgramContainer::iterator GLSLProgramContainerIterator;
         GLSLProgramContainer mAttachedGLSLPrograms;
         /// Matrix in column major pack format?
         bool mColumnMajorMatrices;

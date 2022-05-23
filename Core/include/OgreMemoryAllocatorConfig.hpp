@@ -84,78 +84,78 @@ namespace Ogre
     template<int Category = MEMCATEGORY_GENERAL> class AllocatedObject {};
 
     // Useful shortcuts
-    using GeneralAllocPolicy = AllocPolicy;
-    using GeometryAllocPolicy = AllocPolicy;
-    using AnimationAllocPolicy = AllocPolicy;
-    using SceneCtlAllocPolicy = AllocPolicy;
-    using SceneObjAllocPolicy = AllocPolicy;
-    using ResourceAllocPolicy = AllocPolicy;
-    using ScriptingAllocPolicy = AllocPolicy;
-    using RenderSysAllocPolicy = AllocPolicy;
+    typedef AllocPolicy GeneralAllocPolicy;
+    typedef AllocPolicy GeometryAllocPolicy;
+    typedef AllocPolicy AnimationAllocPolicy;
+    typedef AllocPolicy SceneCtlAllocPolicy;
+    typedef AllocPolicy SceneObjAllocPolicy;
+    typedef AllocPolicy ResourceAllocPolicy;
+    typedef AllocPolicy ScriptingAllocPolicy;
+    typedef AllocPolicy RenderSysAllocPolicy;
 
     // Now define all the base classes for each allocation
-    using GeneralAllocatedObject = AllocatedObject<>;
-    using GeometryAllocatedObject = AllocatedObject<>;
-    using AnimationAllocatedObject = AllocatedObject<>;
-    using SceneCtlAllocatedObject = AllocatedObject<>;
-    using SceneObjAllocatedObject = AllocatedObject<>;
-    using ResourceAllocatedObject = AllocatedObject<>;
-    using ScriptingAllocatedObject = AllocatedObject<>;
-    using RenderSysAllocatedObject = AllocatedObject<>;
+    typedef AllocatedObject<> GeneralAllocatedObject;
+    typedef AllocatedObject<> GeometryAllocatedObject;
+    typedef AllocatedObject<> AnimationAllocatedObject;
+    typedef AllocatedObject<> SceneCtlAllocatedObject;
+    typedef AllocatedObject<> SceneObjAllocatedObject;
+    typedef AllocatedObject<> ResourceAllocatedObject;
+    typedef AllocatedObject<> ScriptingAllocatedObject;
+    typedef AllocatedObject<> RenderSysAllocatedObject;
 
 
     // Per-class allocators defined here
     // NOTE: small, non-virtual classes should not subclass an allocator
     // the virtual function table could double their size and make them less efficient
     // use primitive or STL allocators / deallocators for those
-    using AbstractNodeAlloc = ScriptingAllocatedObject;
-    using AnimableAlloc = AnimationAllocatedObject;
-    using AnimationAlloc = AnimationAllocatedObject;
-    using ArchiveAlloc = GeneralAllocatedObject;
-    using BatchedGeometryAlloc = GeometryAllocatedObject;
-    using BufferAlloc = RenderSysAllocatedObject;
-    using CodecAlloc = GeneralAllocatedObject;
-    using CompositorInstAlloc = ResourceAllocatedObject;
-    using ConfigAlloc = GeneralAllocatedObject;
-    using ControllerAlloc = GeneralAllocatedObject;
-    using DebugGeomAlloc = GeometryAllocatedObject;
-    using DynLibAlloc = GeneralAllocatedObject;
-    using EdgeDataAlloc = GeometryAllocatedObject;
-    using FactoryAlloc = GeneralAllocatedObject;
-    using FXAlloc = SceneObjAllocatedObject;
-    using ImageAlloc = GeneralAllocatedObject;
-    using IndexDataAlloc = GeometryAllocatedObject;
-    using LogAlloc = GeneralAllocatedObject;
-    using MovableAlloc = SceneObjAllocatedObject;
-    using NodeAlloc = SceneCtlAllocatedObject;
-    using OverlayAlloc = SceneObjAllocatedObject;
-    using GpuParamsAlloc = RenderSysAllocatedObject;
-    using PassAlloc = ResourceAllocatedObject;
-    using PatchAlloc = GeometryAllocatedObject;
-    using PluginAlloc = GeneralAllocatedObject;
-    using ProfilerAlloc = GeneralAllocatedObject;
-    using ProgMeshAlloc = GeometryAllocatedObject;
-    using RenderQueueAlloc = SceneCtlAllocatedObject;
-    using RenderSysAlloc = RenderSysAllocatedObject;
-    using RootAlloc = GeneralAllocatedObject;
-    using ResourceAlloc = ResourceAllocatedObject;
-    using SerializerAlloc = GeneralAllocatedObject;
-    using SceneMgtAlloc = SceneCtlAllocatedObject;
-    using ScriptCompilerAlloc = ScriptingAllocatedObject;
-    using ScriptTranslatorAlloc = ScriptingAllocatedObject;
-    using ShadowDataAlloc = SceneCtlAllocatedObject;
-    using StreamAlloc = GeneralAllocatedObject;
-    using SubEntityAlloc = SceneObjAllocatedObject;
-    using SubMeshAlloc = ResourceAllocatedObject;
-    using TechniqueAlloc = ResourceAllocatedObject;
-    using TimerAlloc = GeneralAllocatedObject;
-    using TextureUnitStateAlloc = ResourceAllocatedObject;
-    using UtilityAlloc = GeneralAllocatedObject;
-    using VertexDataAlloc = GeometryAllocatedObject;
-    using ViewportAlloc = RenderSysAllocatedObject;
-    using LodAlloc = SceneCtlAllocatedObject;
-    using FileSystemLayerAlloc = GeneralAllocatedObject;
-    using StereoDriverAlloc = GeneralAllocatedObject;
+    typedef ScriptingAllocatedObject    AbstractNodeAlloc;
+    typedef AnimationAllocatedObject    AnimableAlloc;
+    typedef AnimationAllocatedObject    AnimationAlloc;
+    typedef GeneralAllocatedObject      ArchiveAlloc;
+    typedef GeometryAllocatedObject     BatchedGeometryAlloc;
+    typedef RenderSysAllocatedObject    BufferAlloc;
+    typedef GeneralAllocatedObject      CodecAlloc;
+    typedef ResourceAllocatedObject     CompositorInstAlloc;
+    typedef GeneralAllocatedObject      ConfigAlloc;
+    typedef GeneralAllocatedObject      ControllerAlloc;
+    typedef GeometryAllocatedObject     DebugGeomAlloc;
+    typedef GeneralAllocatedObject      DynLibAlloc;
+    typedef GeometryAllocatedObject     EdgeDataAlloc;
+    typedef GeneralAllocatedObject      FactoryAlloc;
+    typedef SceneObjAllocatedObject     FXAlloc;
+    typedef GeneralAllocatedObject      ImageAlloc;
+    typedef GeometryAllocatedObject     IndexDataAlloc;
+    typedef GeneralAllocatedObject      LogAlloc;
+    typedef SceneObjAllocatedObject     MovableAlloc;
+    typedef SceneCtlAllocatedObject     NodeAlloc;
+    typedef SceneObjAllocatedObject     OverlayAlloc;
+    typedef RenderSysAllocatedObject    GpuParamsAlloc;
+    typedef ResourceAllocatedObject     PassAlloc;
+    typedef GeometryAllocatedObject     PatchAlloc;
+    typedef GeneralAllocatedObject      PluginAlloc;
+    typedef GeneralAllocatedObject      ProfilerAlloc;
+    typedef GeometryAllocatedObject     ProgMeshAlloc;
+    typedef SceneCtlAllocatedObject     RenderQueueAlloc;
+    typedef RenderSysAllocatedObject    RenderSysAlloc;
+    typedef GeneralAllocatedObject      RootAlloc;
+    typedef ResourceAllocatedObject     ResourceAlloc;
+    typedef GeneralAllocatedObject      SerializerAlloc;
+    typedef SceneCtlAllocatedObject     SceneMgtAlloc;
+    typedef ScriptingAllocatedObject    ScriptCompilerAlloc;
+    typedef ScriptingAllocatedObject    ScriptTranslatorAlloc;
+    typedef SceneCtlAllocatedObject     ShadowDataAlloc;
+    typedef GeneralAllocatedObject      StreamAlloc;
+    typedef SceneObjAllocatedObject     SubEntityAlloc;
+    typedef ResourceAllocatedObject     SubMeshAlloc;
+    typedef ResourceAllocatedObject     TechniqueAlloc;
+    typedef GeneralAllocatedObject      TimerAlloc;
+    typedef ResourceAllocatedObject     TextureUnitStateAlloc;
+    typedef GeneralAllocatedObject      UtilityAlloc;
+    typedef GeometryAllocatedObject     VertexDataAlloc;
+    typedef RenderSysAllocatedObject    ViewportAlloc;
+    typedef SceneCtlAllocatedObject     LodAlloc;
+    typedef GeneralAllocatedObject      FileSystemLayerAlloc;
+    typedef GeneralAllocatedObject      StereoDriverAlloc;
 
     // Containers (by-value only)
     // Will  be of the form:

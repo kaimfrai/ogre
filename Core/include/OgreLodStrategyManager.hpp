@@ -49,7 +49,7 @@ class LodStrategy;
     class LodStrategyManager : public Singleton<LodStrategyManager>, public LodAlloc
     {
         /** Map of strategies. */
-        using StrategyMap = std::map<String, LodStrategy *>;
+        typedef std::map<String, LodStrategy *> StrategyMap;
 
         /** Internal map of strategies. */
         StrategyMap mStrategies;

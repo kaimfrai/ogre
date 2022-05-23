@@ -118,8 +118,8 @@ namespace Ogre {
         assert( msSingleton );  return ( *msSingleton );
     }
 
-    using DLL_START_PLUGIN = void (*)();
-    using DLL_STOP_PLUGIN = void (*)();
+    typedef void (*DLL_START_PLUGIN)();
+    typedef void (*DLL_STOP_PLUGIN)();
 
     //-----------------------------------------------------------------------
     Root::Root(const String& pluginFileName, const String& configFileName,

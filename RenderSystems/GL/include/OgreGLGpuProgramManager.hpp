@@ -34,7 +34,10 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, const String &, ResourceHandle, const String &, bool, ManualResourceLoader *, GpuProgramType, const String &);
+typedef GpuProgram* (*CreateGpuProgramCallback)(ResourceManager* creator,
+    const String& name, ResourceHandle handle,
+    const String& group, bool isManual, ManualResourceLoader* loader,
+    GpuProgramType gptype, const String& syntaxCode);
 
 struct CreateCallbackWrapper : public GpuProgramFactory
 {

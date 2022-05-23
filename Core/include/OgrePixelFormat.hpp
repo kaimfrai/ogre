@@ -296,7 +296,7 @@ namespace Ogre {
         /// @copydoc PF_A8B8G8R8
         PF_BYTE_RGBA = PF_A8B8G8R8,
     };
-    using PixelFormatList = std::vector<PixelFormat>;
+    typedef std::vector<PixelFormat> PixelFormatList;
 
     /**
      * Flags defining some on/off properties of pixel formats

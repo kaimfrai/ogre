@@ -110,7 +110,7 @@ namespace Ogre {
     {
 
         public:
-            using Usage = uint8;
+            typedef uint8 Usage;
             /// Rather use HardwareBufferUsage
             enum UsageEnum
             {
@@ -389,8 +389,8 @@ namespace Ogre {
             }
     };
 
-    using HardwareCounterBuffer = HardwareBuffer;
-    using HardwareUniformBuffer = HardwareBuffer;
+    typedef HardwareBuffer HardwareCounterBuffer;
+    typedef HardwareBuffer HardwareUniformBuffer;
 
     /** Locking helper. Guaranteed unlocking even in case of exception. */
     struct HardwareBufferLockGuard

@@ -551,7 +551,7 @@ class Sphere;
         /// Pointer to a custom shadow camera setup.
         mutable ShadowCameraSetupPtr mCustomShadowCameraSetup;
 
-        using CustomParameterMap = std::map<uint16, Vector4>;
+        typedef std::map<uint16, Vector4> CustomParameterMap;
         /// Stores the custom parameters for the light.
         CustomParameterMap mCustomParameters;
         Real mPowerScale;

@@ -272,7 +272,7 @@ namespace Ogre {
         return plane.getSide(box) == Plane::BOTH_SIDE;
     }
 
-    using PlaneList = std::vector<Plane>;
+    typedef std::vector<Plane> PlaneList;
     /** @} */
     /** @} */
 

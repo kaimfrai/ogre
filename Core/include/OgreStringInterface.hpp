@@ -75,7 +75,7 @@ namespace Ogre {
         ParameterDef(const String& newName, const String& = "", ParameterType = PT_INT)
             : name(newName) {}
     };
-    using ParameterList = std::vector<String>;
+    typedef std::vector<String> ParameterList;
 
     /** Abstract class which is command object which gets/sets parameters.*/
     class ParamCommand
@@ -86,7 +86,7 @@ namespace Ogre {
 
         virtual ~ParamCommand() { }
     };
-    using ParamCommandMap = std::map<String, ParamCommand *>;
+    typedef std::map<String, ParamCommand* > ParamCommandMap;
 
     /** Generic ParamCommand implementation
      stores pointers to the class getter and setter functions */
@@ -156,7 +156,7 @@ namespace Ogre {
             return mParamDefs;
         }
     };
-    using ParamDictionaryMap = std::map<String, ParamDictionary>;
+    typedef std::map<String, ParamDictionary> ParamDictionaryMap;
     
     /** Class defining the common interface which classes can use to 
         present a reflection-style, self-defining parameter set to callers.

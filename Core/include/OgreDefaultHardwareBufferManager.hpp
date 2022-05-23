@@ -61,7 +61,7 @@ namespace Ogre {
         void writeData(size_t offset, size_t length, const void* pSource, bool discardWholeBuffer = false) override;
     };
 
-    using DefaultHardwareUniformBuffer = DefaultHardwareBuffer;
+    typedef DefaultHardwareBuffer DefaultHardwareUniformBuffer;
 
     class DefaultHardwareVertexBuffer : public HardwareVertexBuffer
     {

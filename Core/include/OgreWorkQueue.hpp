@@ -79,13 +79,13 @@ namespace Ogre
     class WorkQueue : public UtilityAlloc
     {
     protected:
-        using ChannelMap = std::map<String, uint16>;
+        typedef std::map<String, uint16> ChannelMap;
         ChannelMap mChannelMap;
         uint16 mNextChannel;
         mutable std::recursive_mutex mChannelMapMutex;
     public:
         /// Numeric identifier for a request
-        using RequestID = unsigned long long;
+        typedef unsigned long long int RequestID;
 
         /** General purpose request structure. 
         */
@@ -477,8 +477,8 @@ namespace Ogre
         bool mIsRunning;
         unsigned long mResposeTimeLimitMS;
 
-        using RequestQueue = std::deque<Request *>;
-        using ResponseQueue = std::deque<Response *>;
+        typedef std::deque<Request*> RequestQueue;
+        typedef std::deque<Response*> ResponseQueue;
         RequestQueue mRequestQueue; // Guarded by mRequestMutex
         RequestQueue mProcessQueue; // Guarded by mProcessMutex
         ResponseQueue mResponseQueue; // Guarded by mResponseMutex
@@ -546,12 +546,12 @@ namespace Ogre
 
         };
         // Hold these by shared pointer so they can be copied keeping same instance
-        using RequestHandlerHolderPtr = SharedPtr<RequestHandlerHolder>;
+        typedef SharedPtr<RequestHandlerHolder> RequestHandlerHolderPtr;
 
-        using RequestHandlerList = std::list<RequestHandlerHolderPtr>;
-        using ResponseHandlerList = std::list<ResponseHandler *>;
-        using RequestHandlerListByChannel = std::map<uint16, RequestHandlerList>;
-        using ResponseHandlerListByChannel = std::map<uint16, ResponseHandlerList>;
+        typedef std::list<RequestHandlerHolderPtr> RequestHandlerList;
+        typedef std::list<ResponseHandler*> ResponseHandlerList;
+        typedef std::map<uint16, RequestHandlerList> RequestHandlerListByChannel;
+        typedef std::map<uint16, ResponseHandlerList> ResponseHandlerListByChannel;
 
         RequestHandlerListByChannel mRequestHandlers;
         ResponseHandlerListByChannel mResponseHandlers;

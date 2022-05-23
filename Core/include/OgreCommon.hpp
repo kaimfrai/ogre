@@ -304,7 +304,7 @@ class RenderWindow;
     };
 
     /** An enumeration describing which material properties should track the vertex colours */
-    using TrackVertexColourType = int;
+    typedef int TrackVertexColourType;
     enum TrackVertexColourEnum {
         TVC_NONE        = 0x0,
         TVC_AMBIENT     = 0x1,        
@@ -387,7 +387,7 @@ class RenderWindow;
     class HashedVector
     {
     public:
-        using VectorImpl = typename std::vector<T>;
+        typedef typename std::vector<T> VectorImpl;
     protected:
         VectorImpl mList;
         mutable uint32 mListHash;
@@ -407,16 +407,16 @@ class RenderWindow;
         }
 
     public:
-        using value_type = typename VectorImpl::value_type;
-        using pointer = typename VectorImpl::pointer;
-        using reference = typename VectorImpl::reference;
-        using const_reference = typename VectorImpl::const_reference;
-        using size_type = typename VectorImpl::size_type;
-        using difference_type = typename VectorImpl::difference_type;
-        using iterator = typename VectorImpl::iterator;
-        using const_iterator = typename VectorImpl::const_iterator;
-        using reverse_iterator = typename VectorImpl::reverse_iterator;
-        using const_reverse_iterator = typename VectorImpl::const_reverse_iterator;
+        typedef typename VectorImpl::value_type value_type;
+        typedef typename VectorImpl::pointer pointer;
+        typedef typename VectorImpl::reference reference;
+        typedef typename VectorImpl::const_reference const_reference;
+        typedef typename VectorImpl::size_type size_type;
+        typedef typename VectorImpl::difference_type difference_type;
+        typedef typename VectorImpl::iterator iterator;
+        typedef typename VectorImpl::const_iterator const_iterator;
+        typedef typename VectorImpl::reverse_iterator reverse_iterator;
+        typedef typename VectorImpl::const_reverse_iterator const_reverse_iterator;
 
         void dirtyHash()
         {
@@ -595,20 +595,20 @@ class RenderWindow;
 
     class Light;
 
-    using LightList = HashedVector<Light *>;
+    typedef HashedVector<Light*> LightList;
 
 
     /// Constant blank string, useful for returning by ref where local does not exist
     const String BLANKSTRING;
 
-    using UnaryOptionList = std::map<String, bool>;
-    using BinaryOptionList = std::map<String, String>;
+    typedef std::map<String, bool> UnaryOptionList;
+    typedef std::map<String, String> BinaryOptionList;
 
     /// Name / value parameter pair (first = name, second = value)
-    using NameValuePairList = std::map<String, String>;
+    typedef std::map<String, String> NameValuePairList;
 
     /// Alias / Texture name pair (first = alias, second = texture name)
-    using AliasTextureNamePairList = std::map<String, String>;
+    typedef std::map<String, String> AliasTextureNamePairList;
 
         template< typename T > struct TRect
         {
@@ -716,16 +716,16 @@ class RenderWindow;
 
         /** Structure used to define a rectangle in a 2-D floating point space.
         */
-        using FloatRect = TRect<float>;
+        typedef TRect<float> FloatRect;
 
         /** Structure used to define a rectangle in a 2-D floating point space, 
             subject to double / single floating point settings.
         */
-        using RealRect = TRect<Real>;
+        typedef TRect<Real> RealRect;
 
         /** Structure used to define a rectangle in a 2-D integer space.
         */
-        using Rect = TRect<int32>;
+        typedef TRect< int32 > Rect;
 
         /** Structure used to define a box in a 3-D integer space.
             Note that the left, top, and front edges are included but the right,
@@ -846,10 +846,10 @@ class RenderWindow;
     };
 
     /// Render window creation parameters container.
-    using RenderWindowDescriptionList = std::vector<RenderWindowDescription>;
+    typedef std::vector<RenderWindowDescription> RenderWindowDescriptionList;
 
     /// Render window container.
-    using RenderWindowList = std::vector<RenderWindow *>;
+    typedef std::vector<RenderWindow*> RenderWindowList;
 
     /** @} */
     /** @} */

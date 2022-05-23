@@ -71,9 +71,9 @@ class SceneManager;
     {
         friend class SceneManager;
     public:
-        using ObjectMap = std::vector<MovableObject *>;
-        using ObjectIterator = VectorIterator<ObjectMap>;
-        using ConstObjectIterator = ConstVectorIterator<ObjectMap>;
+        typedef std::vector<MovableObject*> ObjectMap;
+        typedef VectorIterator<ObjectMap> ObjectIterator;
+        typedef ConstVectorIterator<ObjectMap> ConstObjectIterator;
 
     protected:
         ObjectMap mObjectsByName;

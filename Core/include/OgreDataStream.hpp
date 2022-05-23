@@ -196,7 +196,7 @@ namespace Ogre {
     };
 
     /// List of DataStream items
-    using DataStreamList = std::list<DataStreamPtr>;
+    typedef std::list<DataStreamPtr> DataStreamList;
 
     /** Common subclass of DataStream for handling data from chunks of memory.
     */

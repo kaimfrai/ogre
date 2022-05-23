@@ -74,9 +74,9 @@ class Material;
     /** The ConcreteNode is the struct that holds an un-conditioned sub-tree of parsed input */
     struct ConcreteNode;
 
-    using ConcreteNodePtr = SharedPtr<ConcreteNode>;
-    using ConcreteNodeList = std::list<ConcreteNodePtr>;
-    using ConcreteNodeListPtr = SharedPtr<ConcreteNodeList>;
+    typedef SharedPtr<ConcreteNode> ConcreteNodePtr;
+    typedef std::list<ConcreteNodePtr> ConcreteNodeList;
+    typedef SharedPtr<ConcreteNodeList> ConcreteNodeListPtr;
     struct ConcreteNode : public ScriptCompilerAlloc
     {
         String token, file;
@@ -99,9 +99,9 @@ class Material;
     };
     class AbstractNode;
 
-    using AbstractNodePtr = SharedPtr<AbstractNode>;
-    using AbstractNodeList = std::list<AbstractNodePtr>;
-    using AbstractNodeListPtr = SharedPtr<AbstractNodeList>;
+    typedef SharedPtr<AbstractNode> AbstractNodePtr;
+    typedef std::list<AbstractNodePtr> AbstractNodeList;
+    typedef SharedPtr<AbstractNodeList> AbstractNodeListPtr;
 
     class AbstractNode : public AbstractNodeAlloc
     {
@@ -202,7 +202,7 @@ class Material;
     {
     public: // Externally accessible types
         //typedef std::map<String,uint32> IdMap;
-        using IdMap = std::unordered_map<String, uint32>;
+        typedef std::unordered_map<String,uint32> IdMap;
 
         // These are the built-in error codes
         enum{
@@ -296,12 +296,12 @@ class Material;
 		uint32 mLargestRegisteredWordId;
 
         // This is an environment map
-        using Environment = std::map<String, String>;
+        typedef std::map<String,String> Environment;
         Environment mEnv;
 
-        using ImportCacheMap = std::map<String, AbstractNodeListPtr>;
+        typedef std::map<String,AbstractNodeListPtr> ImportCacheMap;
         ImportCacheMap mImports; // The set of imported scripts to avoid circular dependencies
-        using ImportRequestMap = std::multimap<String, String>;
+        typedef std::multimap<String,String> ImportRequestMap;
         ImportRequestMap mImportRequests; // This holds the target objects for each script to be imported
 
         // This stores the imports of the scripts, so they are separated and can be treated specially
@@ -315,7 +315,7 @@ class Material;
             int line;
             uint32 code;
         };
-        using ErrorList = std::list<Error>;
+        typedef std::list<Error> ErrorList;
         ErrorList mErrors;
 
         // The listener

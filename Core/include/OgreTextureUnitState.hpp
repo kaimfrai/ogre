@@ -234,7 +234,7 @@ template <typename T> class Controller;
         bool mCompareEnabled : 1;
         bool mDirty : 1; // flag for derived classes to sync with implementation
     };
-    using SamplerPtr = std::shared_ptr<Sampler>;
+    typedef std::shared_ptr<Sampler> SamplerPtr;
 
     /** Class representing the state of a single texture unit during a Pass of a
         Technique, of a Material.
@@ -337,7 +337,7 @@ template <typename T> class Controller;
 
         /** Texture effects in a multimap paired array.
         */
-        using EffectMap = std::multimap<TextureEffectType, TextureEffect>;
+        typedef std::multimap<TextureEffectType, TextureEffect> EffectMap;
 
         /** Default constructor.
         */

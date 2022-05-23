@@ -89,7 +89,7 @@ class WorkQueue;
 struct FrameEvent;
 struct SceneManagerMetaData;
 
-    using RenderSystemList = std::vector<RenderSystem *>;
+    typedef std::vector<RenderSystem*> RenderSystemList;
     
     /** The root class of the Ogre system.
         @remarks
@@ -110,9 +110,9 @@ struct SceneManagerMetaData;
         // RenderSystem::initialise is used directly
         friend class RenderSystem;
     public:
-        using MovableObjectFactoryMap = std::map<String, MovableObjectFactory *>;
-        using PluginLibList = std::vector<DynLib *>;
-        using PluginInstanceList = std::vector<Plugin *>;
+        typedef std::map<String, MovableObjectFactory*> MovableObjectFactoryMap;
+        typedef std::vector<DynLib*> PluginLibList;
+        typedef std::vector<Plugin*> PluginInstanceList;
     private:
         RenderSystemList mRenderers;
         RenderSystem* mActiveRenderer;
@@ -229,7 +229,7 @@ struct SceneManagerMetaData;
         };
 
         /// Contains the times of recently fired events
-        using EventTimesQueue = std::deque<unsigned long>;
+        typedef std::deque<unsigned long> EventTimesQueue;
         EventTimesQueue mEventTimes[FETT_COUNT];
 
         /** Internal method for calculating the average time between recently fired events.
@@ -892,7 +892,7 @@ struct SceneManagerMetaData;
         */
         uint32 _allocateNextMovableObjectTypeFlag();
 
-        using MovableObjectFactoryIterator = ConstMapIterator<MovableObjectFactoryMap>;
+        typedef ConstMapIterator<MovableObjectFactoryMap> MovableObjectFactoryIterator;
         /** Return an iterator over all the MovableObjectFactory instances currently
             registered.
         */

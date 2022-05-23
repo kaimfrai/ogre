@@ -254,13 +254,13 @@ class VertexMorphKeyFrame;
         [[nodiscard]] Animation *getParent() const { return mParent; }
     private:
         /// Map used to translate global keyframe time lower bound index to local lower bound index
-        using KeyFrameIndexMap = std::vector<ushort>;
+        typedef std::vector<ushort> KeyFrameIndexMap;
         KeyFrameIndexMap mKeyFrameIndexMap;
 
         /// Create a keyframe implementation - must be overridden
         virtual KeyFrame* createKeyFrameImpl(Real time) = 0;
     protected:
-        using KeyFrameList = std::vector<KeyFrame *>;
+        typedef std::vector<KeyFrame*> KeyFrameList;
         KeyFrameList mKeyFrames;
         Animation* mParent;
         Listener* mListener;

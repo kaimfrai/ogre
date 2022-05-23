@@ -75,7 +75,7 @@ namespace Ogre {
         void initConfigOptions() override;
         void refreshConfig();
 
-        using GLContextList = std::list<GLContext *>;
+        typedef std::list<GLContext*> GLContextList;
         /// List of background thread contexts
         GLContextList mBackgroundContextList;
 

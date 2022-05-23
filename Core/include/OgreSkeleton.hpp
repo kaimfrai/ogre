@@ -172,8 +172,8 @@ class ResourceManager;
         /** Returns the number of bones in this skeleton. */
         virtual unsigned short getNumBones() const;
 
-        using BoneList = std::vector<Bone *>;
-        using BoneIterator = VectorIterator<BoneList>;
+        typedef std::vector<Bone*> BoneList;
+        typedef VectorIterator<BoneList> BoneIterator;
 
         /** Get the root bones in the skeleton, ie those with no parents
 
@@ -351,8 +351,10 @@ class ResourceManager;
         /// Remove all links to other skeletons for the purposes of sharing animation
         virtual void removeAllLinkedSkeletonAnimationSources();
         
-        using LinkedSkeletonAnimSourceList = std::vector<LinkedSkeletonAnimationSource>;
-        using LinkedSkeletonAnimSourceIterator = ConstVectorIterator<LinkedSkeletonAnimSourceList>;
+        typedef std::vector<LinkedSkeletonAnimationSource> 
+            LinkedSkeletonAnimSourceList;
+        typedef ConstVectorIterator<LinkedSkeletonAnimSourceList> 
+            LinkedSkeletonAnimSourceIterator;
         /// Get the linked skeletons used as animation sources
         virtual const LinkedSkeletonAnimSourceList& getLinkedSkeletonAnimationSources() const
         {
@@ -370,7 +372,7 @@ class ResourceManager;
         virtual bool hasManualBones() const { return !mManualBones.empty(); }
 
         /// Map to translate bone handle from one skeleton to another skeleton.
-        using BoneHandleMap = std::vector<ushort>;
+        typedef std::vector<ushort> BoneHandleMap;
 
         /** Merge animations from another Skeleton object into this skeleton.
         @remarks
@@ -425,16 +427,16 @@ class ResourceManager;
 
     protected:
         /// Storage of animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        typedef std::map<String, Animation*> AnimationList;
         AnimationList mAnimationsList;
     private:
         /// Lookup by bone name
-        using BoneListByName = std::map<String, Bone *>;
+        typedef std::map<String, Bone*> BoneListByName;
         BoneListByName mBoneListByName;
 
         /// Pointer to root bones (can now have multiple roots)
         mutable BoneList mRootBones;
-        using BoneSet = std::set<Bone *>;
+        typedef std::set<Bone*> BoneSet;
         /// Manual bones
         BoneSet mManualBones;
 

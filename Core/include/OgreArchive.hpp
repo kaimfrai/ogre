@@ -66,8 +66,8 @@ class Archive;
         size_t uncompressedSize;
     };
 
-    using FileInfoList = std::vector<FileInfo>;
-    using FileInfoListPtr = SharedPtr<FileInfoList>;
+    typedef std::vector<FileInfo> FileInfoList;
+    typedef SharedPtr<FileInfoList> FileInfoListPtr;
 
     /** Archive-handling class.
     @remarks

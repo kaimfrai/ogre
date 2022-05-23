@@ -121,7 +121,7 @@ class VertexData;
             /// Only used when mFaceCamera == false
             Quaternion orientation;
         };
-        using ElementList = std::vector<Element>;
+        typedef std::vector<Element> ElementList;
 
         /** Constructor (don't use directly, use factory) 
         @param name The name to give this object
@@ -359,7 +359,7 @@ class VertexData;
             /// The 'tail' of the chain, relative to start
             size_t tail;
         };
-        using ChainSegmentList = std::vector<ChainSegment>;
+        typedef std::vector<ChainSegment> ChainSegmentList;
         ChainSegmentList mChainSegmentList;
 
         /// Setup the STL collections

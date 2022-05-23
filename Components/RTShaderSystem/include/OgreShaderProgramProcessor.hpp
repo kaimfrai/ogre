@@ -138,7 +138,7 @@ protected:
         // The number of used floats.
         int mUsedFloatCount;
     };
-    using MergeParameterList = std::vector<MergeParameter>;
+    typedef std::vector<MergeParameter>    MergeParameterList;
 
     
     //-----------------------------------------------------------------------------
@@ -167,12 +167,12 @@ protected:
 
         }
     };
-    using MergeCombinationList = std::vector<MergeCombination>;
+    typedef std::vector<MergeCombination>  MergeCombinationList;
 
     //-----------------------------------------------------------------------------
-    using OperandPtrVector = std::vector<Operand *>;
-    using ParameterOperandMap = std::map<Parameter *, OperandPtrVector>;
-    using LocalParameterMap = std::map<Parameter *, ParameterPtr>;
+    typedef std::vector<Operand*>                      OperandPtrVector;
+    typedef std::map<Parameter*, OperandPtrVector>     ParameterOperandMap;
+    typedef std::map<Parameter*, ParameterPtr>         LocalParameterMap;
 
 protected:
 

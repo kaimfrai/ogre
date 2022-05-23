@@ -48,7 +48,7 @@ namespace Ogre {
     */
 
     /// Identifier of a background process
-    using BackgroundProcessTicket = WorkQueue::RequestID;
+    typedef WorkQueue::RequestID BackgroundProcessTicket;
 
     /** Encapsulates the result of a background queue request */
     struct BackgroundProcessResult
@@ -114,7 +114,7 @@ namespace Ogre {
 
         uint16 mWorkQueueChannel;
 
-        using OutstandingRequestSet = std::set<BackgroundProcessTicket>;   
+        typedef std::set<BackgroundProcessTicket> OutstandingRequestSet;   
         OutstandingRequestSet mOutstandingRequestSet;
 
         BackgroundProcessTicket addRequest(ResourceRequest& req);

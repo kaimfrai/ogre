@@ -66,8 +66,8 @@ namespace Ogre
 {
     struct GLXVideoMode
     {
-        using ScreenSize = std::pair<uint, uint>;
-        using Rate = short;
+        typedef std::pair<uint, uint>      ScreenSize;
+        typedef short                      Rate;
         ScreenSize first;
         Rate second;
 
@@ -79,7 +79,7 @@ namespace Ogre
             return first != o.first || second != o.second;
         }
     };
-    using GLXVideoModes = std::vector<GLXVideoMode>;
+    typedef std::vector<GLXVideoMode>    GLXVideoModes;
 
     GLNativeSupport* getGLSupport(int profile)
     {

@@ -132,7 +132,7 @@ class VertexData;
         SRF_EXTRUDE_IN_SOFTWARE  = 0x00000008,
     };
 
-    using ShadowRenderableList = std::vector<ShadowRenderable *>;
+    typedef std::vector<ShadowRenderable*> ShadowRenderableList;
 
     /** This class defines the interface that must be implemented by shadow casters.
     */
@@ -155,8 +155,8 @@ class VertexData;
         /** Gets the world space bounding box of the dark cap, as extruded using the light provided. */
         [[nodiscard]] virtual const AxisAlignedBox& getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const = 0;
 
-        using ShadowRenderableList = Ogre::ShadowRenderableList;
-        using ShadowRenderableListIterator = VectorIterator<ShadowRenderableList>;
+        typedef Ogre::ShadowRenderableList ShadowRenderableList;
+        typedef VectorIterator<ShadowRenderableList> ShadowRenderableListIterator;
 
         /** Gets an list of the renderables required to render the shadow volume.
         @remarks

@@ -69,7 +69,7 @@ class RenderTexture;
         /// The current locked box of this surface (entire surface coords)
         Box mLockedBox;
 
-        using SliceTRT = std::vector<RenderTexture *>;
+        typedef std::vector<RenderTexture*> SliceTRT;
         SliceTRT mSliceTRT;
         
         /// Internal implementation of lock(), must be overridden in subclasses

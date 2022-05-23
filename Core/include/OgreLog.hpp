@@ -107,7 +107,7 @@ namespace Ogre {
         String          mLogName;
         bool            mTermHasColours;
 
-        using mtLogListener = std::vector<LogListener *>;
+        typedef std::vector<LogListener*> mtLogListener;
         mtLogListener mListeners;
     public:
 
@@ -198,7 +198,7 @@ namespace Ogre {
             Log* mTarget;
             LogMessageLevel mLevel;
             bool mMaskDebug;
-            using BaseStream = StringStream;
+            typedef StringStream BaseStream;
             BaseStream mCache;
 
         public:

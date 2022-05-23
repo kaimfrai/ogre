@@ -134,9 +134,9 @@ protected:
         ParameterPtr mPSInputTexCoord;
     };
 
-    using TextureUnitParamsList = std::vector<TextureUnitParams>;
-    using TextureUnitParamsIterator = TextureUnitParamsList::iterator;
-    using TextureUnitParamsConstIterator = TextureUnitParamsList::const_iterator;
+    typedef std::vector<TextureUnitParams>         TextureUnitParamsList;
+    typedef TextureUnitParamsList::iterator         TextureUnitParamsIterator;
+    typedef TextureUnitParamsList::const_iterator   TextureUnitParamsConstIterator;
 
 // Protected methods
 protected:

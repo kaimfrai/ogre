@@ -46,7 +46,7 @@ enum EventType {
     CONTROLLERBUTTONUP
 };
 
-using Keycode = int;
+typedef int Keycode;
 
 struct Keysym {
     Keycode sym;

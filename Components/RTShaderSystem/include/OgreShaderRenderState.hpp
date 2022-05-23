@@ -217,7 +217,7 @@ private:
     friend class FFPRenderStateBuilder;
 };
 
-using TargetRenderStatePtr = std::shared_ptr<TargetRenderState>;
+typedef std::shared_ptr<TargetRenderState> TargetRenderStatePtr;
 
 /** @} */
 /** @} */

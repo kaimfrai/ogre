@@ -327,7 +327,7 @@ namespace {
     };
     //-----------------------------------------------------------------------
     /// A type for a map between the file names to file index
-    using EmbbedFileDataList = std::map<String, EmbeddedFileData>;
+    typedef std::map<String, EmbeddedFileData> EmbbedFileDataList;
 
     namespace {
     /// A static list to store the embedded files data

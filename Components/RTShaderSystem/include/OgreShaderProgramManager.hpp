@@ -102,21 +102,21 @@ public:
 private:
 
     //-----------------------------------------------------------------------------
-    using GpuProgramsMap = std::map<String, GpuProgramPtr>;
-    using GpuProgramsMapIterator = GpuProgramsMap::iterator;
-    using GpuProgramsMapConstIterator = GpuProgramsMap::const_iterator;
+    typedef std::map<String, GpuProgramPtr>            GpuProgramsMap;
+    typedef GpuProgramsMap::iterator                    GpuProgramsMapIterator;
+    typedef GpuProgramsMap::const_iterator              GpuProgramsMapConstIterator;
 
     //-----------------------------------------------------------------------------
-    using ProgramList = std::set<Program *>;
-    using ProgramListIterator = ProgramList::iterator;
-    using ProgramWriterMap = std::map<String, ProgramWriter *>;
-    using ProgramWriterIterator = ProgramWriterMap::iterator;
+    typedef std::set<Program*>                         ProgramList;
+    typedef ProgramList::iterator                       ProgramListIterator;
+    typedef std::map<String, ProgramWriter*>           ProgramWriterMap;
+    typedef ProgramWriterMap::iterator                  ProgramWriterIterator;
     
     //-----------------------------------------------------------------------------
-    using ProgramProcessorMap = std::map<String, ProgramProcessor *>;
-    using ProgramProcessorIterator = ProgramProcessorMap::iterator;
-    using ProgramProcessorConstIterator = ProgramProcessorMap::const_iterator;
-    using ProgramProcessorList = std::vector< ::std::unique_ptr<ProgramProcessor>>;
+    typedef std::map<String, ProgramProcessor*>        ProgramProcessorMap;
+    typedef ProgramProcessorMap::iterator               ProgramProcessorIterator;
+    typedef ProgramProcessorMap::const_iterator         ProgramProcessorConstIterator;
+    typedef std::vector<::std::unique_ptr<ProgramProcessor>>             ProgramProcessorList;
 
 
     /** Create default program processors. */

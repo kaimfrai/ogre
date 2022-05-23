@@ -101,7 +101,7 @@ class SkeletonInstance;
         friend class InstanceBatchHW_VTF;
         friend class BaseInstanceBatchVTF;
     private:
-        using Matrix3x4f = TransformBase<3, float>;
+        typedef TransformBase<3, float>        Matrix3x4f;
         uint16 mInstanceId; //Note it may change after defragmenting!
         bool mInUse;
         InstanceBatch *mBatchOwner;
@@ -119,7 +119,7 @@ class SkeletonInstance;
         uint16 mTransformLookupNumber;
 
         /// Stores the master when we're the slave, store our slaves when we're the master
-        using InstancedEntityVec = std::vector<InstancedEntity *>;
+        typedef std::vector<InstancedEntity*> InstancedEntityVec;
         InstancedEntityVec mSharingPartners;
 
         //////////////////////////////////////////////////////////////////////////

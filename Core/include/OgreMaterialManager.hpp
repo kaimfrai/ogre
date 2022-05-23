@@ -140,7 +140,7 @@ class Technique;
             const NameValuePairList* params) override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
-        using SchemeMap = std::map<String, unsigned short>;
+        typedef std::map<String, unsigned short> SchemeMap;
         /// List of material schemes
         SchemeMap mSchemes;
         /// Current material scheme
@@ -149,8 +149,8 @@ class Technique;
         unsigned short mActiveSchemeIndex;
 
         /// The list of per-scheme (and general) material listeners
-        using ListenerList = std::list<Listener *>;
-        using ListenerMap = std::map<String, ListenerList>;
+        typedef std::list<Listener*> ListenerList;
+        typedef std::map<String, ListenerList> ListenerMap;
         ListenerMap mListenerMap;
 
     public:

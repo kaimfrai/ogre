@@ -46,7 +46,7 @@ class ScriptCompiler;
 class PropertyAbstractNode;
 class MaterialSerializer;
 
-using RTShaderSystemAlloc = GeneralAllocatedObject;
+typedef GeneralAllocatedObject  RTShaderSystemAlloc;
 
 namespace RTShader 
 {
@@ -71,9 +71,9 @@ class ShaderGenerator;
 class SGMaterialSerializerListener;
 class ProgramWriterManager;
 
-using ParameterPtr = shared_ptr<Parameter>;
-using UniformParameterPtr = shared_ptr<UniformParameter>;
-using ShaderParameterList = std::vector<ParameterPtr>;
+typedef shared_ptr<Parameter>        ParameterPtr;
+typedef shared_ptr<UniformParameter> UniformParameterPtr;
+typedef std::vector<ParameterPtr>  ShaderParameterList;
 
 // Vertex shader output parameters compact policy.
 enum VSOutputCompactPolicy
