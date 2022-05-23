@@ -76,13 +76,13 @@ class RenderQueue;
         /// Overridden from MovableObject
         void _notifyCurrentCamera(Camera*) override { /* don't care */ }
         /// Overridden from MovableObject
-        const AxisAlignedBox& getBoundingBox() const override { return AxisAlignedBox::BOX_NULL; }
+        const AxisAlignedBox& getBoundingBox() const noexcept override { return AxisAlignedBox::BOX_NULL; }
         /// Overridden from MovableObject
         Real getBoundingRadius() const override { return 0.0f; }
         /// Overridden from MovableObject
         void _updateRenderQueue(RenderQueue*) override { /* do nothing */}
         /// Overridden from MovableObject
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
         /// Get the derived plane as transformed by its parent node. 
         const Plane& _getDerivedPlane() const;
         /// @copydoc MovableObject::visitRenderables

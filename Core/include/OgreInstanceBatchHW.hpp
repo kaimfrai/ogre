@@ -106,11 +106,11 @@ class SubMesh;
         */
         void setStaticAndUpdate( bool bStatic ) override;
 
-        bool isStatic() const override                       { return mKeepStatic; }
+        bool isStatic() const noexcept override { return mKeepStatic; }
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const override;
-        unsigned short getNumWorldTransforms() const override;
+        unsigned short getNumWorldTransforms() const noexcept override;
 
         /** Overloaded to avoid updating skeletons (which we don't support), check visibility on a
             per unit basis and finally updated the vertex buffer */

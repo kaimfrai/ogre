@@ -55,7 +55,7 @@ public:
     void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
 
     /// Get the assigned GL program id
-    GLuint getProgramID() const
+    GLuint getProgramID() const noexcept
     { return mProgramID; }
 
 protected:

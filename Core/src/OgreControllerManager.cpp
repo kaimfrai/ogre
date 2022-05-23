@@ -35,11 +35,11 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------
     template<> ControllerManager* Singleton<ControllerManager>::msSingleton = nullptr;
-    ControllerManager* ControllerManager::getSingletonPtr()
+    ControllerManager* ControllerManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ControllerManager& ControllerManager::getSingleton()
+    ControllerManager& ControllerManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -98,12 +98,12 @@ namespace Ogre {
         mControllers.clear();
     }
     //-----------------------------------------------------------------------
-    const ControllerValueRealPtr& ControllerManager::getFrameTimeSource() const
+    const ControllerValueRealPtr& ControllerManager::getFrameTimeSource() const noexcept
     {
         return mFrameTimeController;
     }
     //-----------------------------------------------------------------------
-    const ControllerFunctionRealPtr& ControllerManager::getPassthroughControllerFunction() const
+    const ControllerFunctionRealPtr& ControllerManager::getPassthroughControllerFunction() const noexcept
     {
         return mPassthroughFunction;
     }

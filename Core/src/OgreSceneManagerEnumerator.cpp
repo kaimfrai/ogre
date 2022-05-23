@@ -39,11 +39,11 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = nullptr;
-    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr()
+    SceneManagerEnumerator* SceneManagerEnumerator::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton()
+    SceneManagerEnumerator& SceneManagerEnumerator::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -228,7 +228,7 @@ class RenderSystem;
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers() const
+    const SceneManagerEnumerator::Instances& SceneManagerEnumerator::getSceneManagers() const noexcept
     {
         return mInstances;
     }
@@ -278,7 +278,7 @@ class RenderSystem;
     {
     }
     //-----------------------------------------------------------------------
-    const String& DefaultSceneManager::getTypeName() const
+    const String& DefaultSceneManager::getTypeName() const noexcept
     {
         return DefaultSceneManagerFactory::FACTORY_TYPE_NAME;
     }

@@ -399,9 +399,9 @@ class VertexDeclaration;
         ~HardwareBufferManager() override;
 
         /// @copydoc Singleton::getSingleton()
-        static HardwareBufferManager& getSingleton();
+        static HardwareBufferManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static HardwareBufferManager* getSingletonPtr();
+        static HardwareBufferManager* getSingletonPtr() noexcept;
 
     };
 

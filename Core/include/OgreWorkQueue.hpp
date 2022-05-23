@@ -113,17 +113,17 @@ namespace Ogre
             /// Set the abort flag
             void abortRequest() const { mAborted = true; }
             /// Get the request channel (top level categorisation)
-            uint16 getChannel() const { return mChannel; }
+            uint16 getChannel() const noexcept { return mChannel; }
             /// Get the type of this request within the given channel
-            uint16 getType() const { return mType; }
+            uint16 getType() const noexcept { return mType; }
             /// Get the user details of this request
-            const Any& getData() const { return mData; }
+            const Any& getData() const noexcept { return mData; }
             /// Get the remaining retry count
-            uint8 getRetryCount() const { return mRetryCount; }
+            uint8 getRetryCount() const noexcept { return mRetryCount; }
             /// Get the identifier of this request
-            RequestID getID() const { return mID; }
+            RequestID getID() const noexcept { return mID; }
             /// Get the abort flag
-            bool getAborted() const { return mAborted; }
+            bool getAborted() const noexcept { return mAborted; }
         };
 
         /** General purpose response structure. 
@@ -143,13 +143,13 @@ namespace Ogre
             Response(const Request* rq, bool success, const Any& data, const String& msg = BLANKSTRING);
             ~Response();
             /// Get the request that this is a response to (NB destruction destroys this)
-            [[nodiscard]] const Request* getRequest() const { return mRequest; }
+            [[nodiscard]] const Request* getRequest() const noexcept { return mRequest; }
             /// Return whether this is a successful response
-            [[nodiscard]] bool succeeded() const { return mSuccess; }
+            [[nodiscard]] bool succeeded() const noexcept { return mSuccess; }
             /// Get any diagnostic messages about the process
-            [[nodiscard]] const String& getMessages() const { return mMessages; }
+            [[nodiscard]] const String& getMessages() const noexcept { return mMessages; }
             /// Return the response data (user defined, only valid on success)
-            [[nodiscard]] const Any& getData() const { return mData; }
+            [[nodiscard]] const Any& getData() const noexcept { return mData; }
             /// Abort the request
             void abortRequest() { mRequest->abortRequest(); mData.reset(); }
         };
@@ -327,7 +327,7 @@ namespace Ogre
         */
         virtual void setPaused(bool pause) = 0;
         /// Return whether the queue is paused ie not sending more work to workers
-        virtual bool isPaused() const = 0;
+        virtual bool isPaused() const noexcept = 0;
 
         /** Set whether to accept new requests or not. 
         If true, requests are added to the queue as usual. If false, requests
@@ -335,7 +335,7 @@ namespace Ogre
         */
         virtual void setRequestsAccepted(bool accept) = 0;
         /// Returns whether requests are being accepted right now
-        virtual bool getRequestsAccepted() const = 0;
+        virtual bool getRequestsAccepted() const noexcept = 0;
 
         /** Process the responses in the queue.
         @remarks
@@ -350,7 +350,7 @@ namespace Ogre
         /** Get the time limit imposed on the processing of responses in a
             single frame, in milliseconds (0 indicates no limit).
         */
-        virtual unsigned long getResponseProcessingTimeLimit() const = 0;
+        virtual unsigned long getResponseProcessingTimeLimit() const noexcept = 0;
 
         /** Set the time limit imposed on the processing of responses in a
             single frame, in milliseconds (0 indicates no limit).
@@ -387,7 +387,7 @@ namespace Ogre
         DefaultWorkQueueBase(const String& name = BLANKSTRING);
         ~DefaultWorkQueueBase() override;
         /// Get the name of the work queue
-        const String& getName() const;
+        const String& getName() const noexcept;
         /** Get the number of worker threads that this queue will start when 
             startup() is called. 
         */
@@ -406,7 +406,7 @@ namespace Ogre
             a context is maintained for that thread. Threads can not use GPU resources, and the render system can
             work in non-threadsafe mode, which is more efficient.
         */
-        virtual bool getWorkersCanAccessRenderSystem() const;
+        virtual bool getWorkersCanAccessRenderSystem() const noexcept;
 
 
         /** Set whether worker threads will be allowed to access render system
@@ -432,7 +432,7 @@ namespace Ogre
         virtual void _threadMain() = 0;
 
         /** Returns whether the queue is trying to shut down. */
-        virtual bool isShuttingDown() const { return mShuttingDown; }
+        virtual bool isShuttingDown() const noexcept { return mShuttingDown; }
 
         /// @copydoc WorkQueue::addRequestHandler
         void addRequestHandler(uint16 channel, RequestHandler* rh) override;
@@ -459,15 +459,15 @@ namespace Ogre
         /// @copydoc WorkQueue::setPaused
         void setPaused(bool pause) override;
         /// @copydoc WorkQueue::isPaused
-        bool isPaused() const override;
+        bool isPaused() const noexcept override;
         /// @copydoc WorkQueue::setRequestsAccepted
         void setRequestsAccepted(bool accept) override;
         /// @copydoc WorkQueue::getRequestsAccepted
-        bool getRequestsAccepted() const override;
+        bool getRequestsAccepted() const noexcept override;
         /// @copydoc WorkQueue::processResponses
         void processResponses() override; 
         /// @copydoc WorkQueue::getResponseProcessingTimeLimit
-        unsigned long getResponseProcessingTimeLimit() const override { return mResposeTimeLimitMS; }
+        unsigned long getResponseProcessingTimeLimit() const noexcept override { return mResposeTimeLimitMS; }
         /// @copydoc WorkQueue::setResponseProcessingTimeLimit
         void setResponseProcessingTimeLimit(unsigned long ms) override { mResposeTimeLimitMS = ms; }
     protected:
@@ -523,7 +523,7 @@ namespace Ogre
             /** Get handler pointer - note, only use this for == comparison or similar,
                 do not attempt to call it as it is not thread safe. 
             */
-            RequestHandler* getHandler() { return mHandler; }
+            RequestHandler* getHandler() noexcept { return mHandler; }
 
             /** Process a request if possible.
             @return Valid response if processed, null otherwise

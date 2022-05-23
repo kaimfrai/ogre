@@ -107,10 +107,10 @@ class Archive;
         virtual ~Archive() {}
 
         /// Get the name of this archive
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const noexcept { return mName; }
 
         /// Returns whether this archive is case sensitive in the way it matches files
-        [[nodiscard]] virtual bool isCaseSensitive() const = 0;
+        [[nodiscard]] virtual bool isCaseSensitive() const noexcept = 0;
 
         /** Loads the archive.
         @remarks
@@ -131,7 +131,7 @@ class Archive;
         /** Reports whether this Archive is read-only, or whether the contents
             can be updated. 
         */
-        [[nodiscard]] virtual bool isReadOnly() const { return mReadOnly; }
+        [[nodiscard]] virtual bool isReadOnly() const noexcept { return mReadOnly; }
 
         /** Open a stream on a given file. 
         @note
@@ -218,7 +218,7 @@ class Archive;
             bool recursive = true, bool dirs = false) const = 0;
 
         /// Return the type code of this Archive
-        [[nodiscard]] const String& getType() const { return mType; }
+        [[nodiscard]] const String& getType() const noexcept { return mType; }
         
     };
     /** @} */

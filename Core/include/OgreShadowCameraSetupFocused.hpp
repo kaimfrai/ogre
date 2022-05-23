@@ -126,7 +126,7 @@ class Viewport;
 
             /** Returns the bounding box representation.
             */
-            [[nodiscard]] const AxisAlignedBox& getAAB() const;   
+            [[nodiscard]] const AxisAlignedBox& getAAB() const noexcept;   
 
             /** Adds a specific point to the body list.
             */
@@ -303,7 +303,7 @@ class Viewport;
         */
         void setUseAggressiveFocusRegion(bool aggressive) { mUseAggressiveRegion = aggressive; }
 
-        bool getUseAggressiveFocusRegion() const { return mUseAggressiveRegion; }
+        bool getUseAggressiveFocusRegion() const noexcept { return mUseAggressiveRegion; }
 
     };
 

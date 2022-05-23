@@ -143,7 +143,7 @@ namespace Ogre {
         mReferenceViewEnabled = value;
     }
     //---------------------------------------------------------------------
-    bool DistanceLodStrategyBase::isReferenceViewEnabled() const
+    bool DistanceLodStrategyBase::isReferenceViewEnabled() const noexcept
     {
         return mReferenceViewEnabled;
     }
@@ -154,11 +154,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> DistanceLodSphereStrategy* Singleton<DistanceLodSphereStrategy>::msSingleton = nullptr;
-    DistanceLodSphereStrategy* DistanceLodSphereStrategy::getSingletonPtr()
+    DistanceLodSphereStrategy* DistanceLodSphereStrategy::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    DistanceLodSphereStrategy& DistanceLodSphereStrategy::getSingleton()
+    DistanceLodSphereStrategy& DistanceLodSphereStrategy::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -185,11 +185,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> DistanceLodBoxStrategy* Singleton<DistanceLodBoxStrategy>::msSingleton = nullptr;
-    DistanceLodBoxStrategy* DistanceLodBoxStrategy::getSingletonPtr()
+    DistanceLodBoxStrategy* DistanceLodBoxStrategy::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    DistanceLodBoxStrategy& DistanceLodBoxStrategy::getSingleton()
+    DistanceLodBoxStrategy& DistanceLodBoxStrategy::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

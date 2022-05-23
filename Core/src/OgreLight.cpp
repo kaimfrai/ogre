@@ -121,12 +121,12 @@ namespace Ogre {
         mSpotFalloff = val;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightInnerAngle() const
+    const Radian& Light::getSpotlightInnerAngle() const noexcept
     {
         return mSpotInner;
     }
     //-----------------------------------------------------------------------
-    const Radian& Light::getSpotlightOuterAngle() const
+    const Radian& Light::getSpotlightOuterAngle() const noexcept
     {
         return mSpotOuter;
     }
@@ -148,7 +148,7 @@ namespace Ogre {
         mDiffuse = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getDiffuseColour() const
+    const ColourValue& Light::getDiffuseColour() const noexcept
     {
         return mDiffuse;
     }
@@ -165,7 +165,7 @@ namespace Ogre {
         mSpecular = colour;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& Light::getSpecularColour() const
+    const ColourValue& Light::getSpecularColour() const noexcept
     {
         return mSpecular;
     }
@@ -181,7 +181,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Light::getBoundingBox() const
+    const AxisAlignedBox& Light::getBoundingBox() const noexcept
     {
         // zero extent to still allow SceneQueries to work
         static AxisAlignedBox box(Vector3(0, 0, 0), Vector3(0, 0, 0));
@@ -194,7 +194,7 @@ namespace Ogre {
         // nothing to render
     }
     //-----------------------------------------------------------------------
-    const String& Light::getMovableType() const
+    const String& Light::getMovableType() const noexcept
     {
         return LightFactory::FACTORY_TYPE_NAME;
     }
@@ -404,7 +404,7 @@ namespace Ogre {
         return mFrustumClipVolumes;
     }
     //-----------------------------------------------------------------------
-    uint32 Light::getTypeFlags() const
+    uint32 Light::getTypeFlags() const noexcept
     {
         return SceneManager::LIGHT_TYPE_MASK;
     }
@@ -606,7 +606,7 @@ namespace Ogre {
         mCustomShadowCameraSetup.reset();
     }
     //-----------------------------------------------------------------------
-    const ShadowCameraSetupPtr& Light::getCustomShadowCameraSetup() const
+    const ShadowCameraSetupPtr& Light::getCustomShadowCameraSetup() const noexcept
     {
         return mCustomShadowCameraSetup;
     }
@@ -775,7 +775,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
-    const String& LightFactory::getType() const
+    const String& LightFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

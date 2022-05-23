@@ -67,7 +67,7 @@ namespace OgreBites
         */
         void setCamera(Ogre::SceneNode* cam);
 
-        Ogre::SceneNode* getCamera()
+        Ogre::SceneNode* getCamera() noexcept
         {
             return mCamera;
         }
@@ -77,7 +77,7 @@ namespace OgreBites
         */
         virtual void setTarget(Ogre::SceneNode* target);
 
-        Ogre::SceneNode* getTarget()
+        Ogre::SceneNode* getTarget() noexcept
         {
             return mTarget;
         }
@@ -120,31 +120,31 @@ namespace OgreBites
         /**
         Processes key presses for free-look style movement.
         */
-        bool keyPressed(const KeyboardEvent& evt) override;
+        bool keyPressed(const KeyboardEvent& evt) noexcept override;
 
         /**
         Processes key releases for free-look style movement.
         */
-        bool keyReleased(const KeyboardEvent& evt) override;
+        bool keyReleased(const KeyboardEvent& evt) noexcept override;
 
         /**
         Processes mouse movement differently for each style.
         */
-        bool mouseMoved(const MouseMotionEvent& evt) override;
+        bool mouseMoved(const MouseMotionEvent& evt) noexcept override;
 
-        bool mouseWheelRolled(const MouseWheelEvent& evt) override;
+        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override;
 
         /**
         Processes mouse presses. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        bool mousePressed(const MouseButtonEvent& evt) override;
+        bool mousePressed(const MouseButtonEvent& evt) noexcept override;
 
         /**
         Processes mouse releases. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        bool mouseReleased(const MouseButtonEvent& evt) override;
+        bool mouseReleased(const MouseButtonEvent& evt) noexcept override;
 
         /**
          * fix the yaw axis to be Vector3::UNIT_Y of the parent node (tabletop mode)

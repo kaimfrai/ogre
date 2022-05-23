@@ -68,7 +68,7 @@ class RenderSystem;
     public:
         DefaultSceneManager(const String& name);
         ~DefaultSceneManager() override;
-        const String& getTypeName() const override;
+        const String& getTypeName() const noexcept override;
     };
 
     /** Enumerates the SceneManager classes available to applications.
@@ -142,7 +142,7 @@ class RenderSystem;
 
             providing some information about each one.
         */
-        const MetaDataList& getMetaData() const { return mMetaDataList; }
+        const MetaDataList& getMetaData() const noexcept { return mMetaDataList; }
 
         typedef ConstVectorIterator<MetaDataList> MetaDataIterator;
 
@@ -177,7 +177,7 @@ class RenderSystem;
         typedef MapIterator<Instances> SceneManagerIterator;
 
         /// Get all the existing SceneManager instances.
-        const Instances& getSceneManagers() const;
+        const Instances& getSceneManagers() const noexcept;
 
         /** Notifies all SceneManagers of the destination rendering system.
         */
@@ -186,9 +186,9 @@ class RenderSystem;
         /// Utility method to control shutdown of the managers
         void shutdownAll();
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator& getSingleton();
+        static SceneManagerEnumerator& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static SceneManagerEnumerator* getSingletonPtr();
+        static SceneManagerEnumerator* getSingletonPtr() noexcept;
 
     };
 

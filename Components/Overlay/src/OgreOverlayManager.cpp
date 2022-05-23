@@ -53,11 +53,11 @@ class RenderQueue;
 
     //---------------------------------------------------------------------
     template<> OverlayManager *Singleton<OverlayManager>::msSingleton = nullptr;
-    OverlayManager* OverlayManager::getSingletonPtr()
+    OverlayManager* OverlayManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    OverlayManager& OverlayManager::getSingleton()
+    OverlayManager& OverlayManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -103,7 +103,7 @@ class RenderQueue;
             i->second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    const StringVector& OverlayManager::getScriptPatterns() const
+    const StringVector& OverlayManager::getScriptPatterns() const noexcept
     {
         return mScriptPatterns;
     }
@@ -241,12 +241,12 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportHeight() const
+    int OverlayManager::getViewportHeight() const noexcept
     {
         return mLastViewportHeight;
     }
     //---------------------------------------------------------------------
-    int OverlayManager::getViewportWidth() const
+    int OverlayManager::getViewportWidth() const noexcept
     {
         return mLastViewportWidth;
     }
@@ -262,7 +262,7 @@ class RenderQueue;
                     "Getting ViewPort orientation mode is not supported");
     }
     //---------------------------------------------------------------------
-    float OverlayManager::getPixelRatio() const
+    float OverlayManager::getPixelRatio() const noexcept
     {
         return mPixelRatio;
     }

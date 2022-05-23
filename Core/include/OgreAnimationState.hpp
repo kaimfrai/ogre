@@ -87,7 +87,7 @@ class AnimationStateSet;
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);
         
         /// Gets the name of the animation to which this state applies
-        [[nodiscard]] const String& getAnimationName() const;
+        [[nodiscard]] const String& getAnimationName() const noexcept;
         /// Gets the time position for this animation
         [[nodiscard]] Real getTimePosition() const;
         /// Sets the time position for this animation
@@ -111,7 +111,7 @@ class AnimationStateSet;
         [[nodiscard]] bool hasEnded() const;
 
         /// Returns true if this animation is currently enabled
-        [[nodiscard]] bool getEnabled() const;
+        [[nodiscard]] bool getEnabled() const noexcept;
         /// Sets whether this animation is enabled
         void setEnabled(bool enabled);
 
@@ -125,7 +125,7 @@ class AnimationStateSet;
         */
         void setLoop(bool loop) { mLoop = loop; }
         /// Gets whether or not this animation loops            
-        [[nodiscard]] bool getLoop() const { return mLoop; }
+        [[nodiscard]] bool getLoop() const noexcept { return mLoop; }
      
         /** Copies the states from another animation state, preserving the animation name
         (unlike operator=) but copying everything else.
@@ -134,7 +134,7 @@ class AnimationStateSet;
         void copyStateFrom(const AnimationState& animState);
 
         /// Get the parent animation state set
-        [[nodiscard]] AnimationStateSet* getParent() const { return mParent; }
+        [[nodiscard]] AnimationStateSet* getParent() const noexcept { return mParent; }
 
       /** @brief Create a new blend mask with the given number of entries
        *
@@ -166,7 +166,7 @@ class AnimationStateSet;
        */
       void _setBlendMask(const BoneBlendMask* blendMask);
       /// Get the current blend mask (const version, may be 0) 
-      [[nodiscard]] const BoneBlendMask* getBlendMask() const {return mBlendMask;}
+      [[nodiscard]] const BoneBlendMask* getBlendMask() const noexcept {return mBlendMask;}
       /// Return whether there is currently a valid blend mask set
       [[nodiscard]] bool hasBlendMask() const {return mBlendMask != nullptr;}
       /// Set the weight for the bone identified by the given handle
@@ -240,7 +240,7 @@ class AnimationStateSet;
             you will need to manually lock the public mutex on this
             class to ensure thread safety if you need it.
         */
-        [[nodiscard]] const AnimationStateMap& getAnimationStates() const {
+        [[nodiscard]] const AnimationStateMap& getAnimationStates() const noexcept {
             return mAnimationStates;
         }
 
@@ -249,7 +249,7 @@ class AnimationStateSet;
         /// Set the dirty flag and dirty frame number on this state set
         void _notifyDirty();
         /// Get the latest animation state been altered frame number
-        [[nodiscard]] unsigned long getDirtyFrameNumber() const { return mDirtyFrameNumber; }
+        [[nodiscard]] unsigned long getDirtyFrameNumber() const noexcept { return mDirtyFrameNumber; }
 
         /// Internal method respond to enable/disable an animation state
         void _notifyAnimationStateEnabled(AnimationState* target, bool enabled);
@@ -262,7 +262,7 @@ class AnimationStateSet;
             you will need to manually lock the public mutex on this
             class to ensure thread safety if you need it.
         */
-        [[nodiscard]] const EnabledAnimationStateList& getEnabledAnimationStates() const {
+        [[nodiscard]] const EnabledAnimationStateList& getEnabledAnimationStates() const noexcept {
             return mEnabledAnimationStates;
         }
 

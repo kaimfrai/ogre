@@ -148,17 +148,17 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    int Viewport::getZOrder() const
+    int Viewport::getZOrder() const noexcept
     {
         return mZOrder;
     }
     //---------------------------------------------------------------------
-    RenderTarget* Viewport::getTarget() const
+    RenderTarget* Viewport::getTarget() const noexcept
     {
         return mTarget;
     }
     //---------------------------------------------------------------------
-    Camera* Viewport::getCamera() const
+    Camera* Viewport::getCamera() const noexcept
     {
         return mCamera;
     }
@@ -183,22 +183,22 @@ namespace Ogre {
         return mRelHeight;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualLeft() const
+    int Viewport::getActualLeft() const noexcept
     {
         return mActLeft;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualTop() const
+    int Viewport::getActualTop() const noexcept
     {
         return mActTop;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualWidth() const
+    int Viewport::getActualWidth() const noexcept
     {
         return mActWidth;
     }
     //---------------------------------------------------------------------
-    int Viewport::getActualHeight() const
+    int Viewport::getActualHeight() const noexcept
     {
         return mActHeight;
     }
@@ -253,7 +253,7 @@ namespace Ogre {
         mBackColour = colour;
     }
     //---------------------------------------------------------------------
-    const ColourValue& Viewport::getBackgroundColour() const
+    const ColourValue& Viewport::getBackgroundColour() const noexcept
     {
         return mBackColour;
     }
@@ -263,7 +263,7 @@ namespace Ogre {
         mDepthClearValue = depth;
     }
     //---------------------------------------------------------------------
-    float Viewport::getDepthClear() const
+    float Viewport::getDepthClear() const noexcept
     {
         return mDepthClearValue;
     }
@@ -274,12 +274,12 @@ namespace Ogre {
         mClearBuffers = inClear ? inBuffers : 0;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getClearEveryFrame() const
+    bool Viewport::getClearEveryFrame() const noexcept
     {
         return mClearEveryFrame;
     }
     //---------------------------------------------------------------------
-    unsigned int Viewport::getClearBuffers() const
+    unsigned int Viewport::getClearBuffers() const noexcept
     {
         return mClearBuffers;
     }
@@ -347,7 +347,7 @@ namespace Ogre {
         mIsAutoUpdated = inAutoUpdated;
     }
     //---------------------------------------------------------------------
-    bool Viewport::isAutoUpdated() const
+    bool Viewport::isAutoUpdated() const noexcept
     {
         return mIsAutoUpdated;
     }
@@ -357,7 +357,7 @@ namespace Ogre {
         mShowOverlays = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getOverlaysEnabled() const
+    bool Viewport::getOverlaysEnabled() const noexcept
     {
         return mShowOverlays;
     }
@@ -367,7 +367,7 @@ namespace Ogre {
         mShowSkies = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getSkiesEnabled() const
+    bool Viewport::getSkiesEnabled() const noexcept
     {
         return mShowSkies;
     }
@@ -377,7 +377,7 @@ namespace Ogre {
         mShowShadows = enabled;
     }
     //---------------------------------------------------------------------
-    bool Viewport::getShadowsEnabled() const
+    bool Viewport::getShadowsEnabled() const noexcept
     {
         return mShowShadows;
     }

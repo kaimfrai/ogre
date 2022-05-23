@@ -53,15 +53,15 @@ class ResourceManager;
         void detachFromProgramObject( const uint programObject ) override;
 
         /// Overridden from GpuProgram
-        const String& getLanguage() const override;
+        const String& getLanguage() const noexcept override;
 
-        bool getPassTransformStates() const override {
+        bool getPassTransformStates() const noexcept override {
             return mPassFFPStates;
         }
-        bool getPassSurfaceAndLightStates() const override {
+        bool getPassSurfaceAndLightStates() const noexcept override {
             return mPassFFPStates;
         }
-        bool getPassFogStates() const override {
+        bool getPassFogStates() const noexcept override {
             return mPassFFPStates;
         }
 
@@ -69,15 +69,15 @@ class ResourceManager;
             receive as input
         */
         RenderOperation::OperationType getInputOperationType() const
-        { return mInputOperationType; }
+        noexcept { return mInputOperationType; }
         /** Returns the operation type that this geometry program will emit
         */
         RenderOperation::OperationType getOutputOperationType() const
-        { return mOutputOperationType; }
+        noexcept { return mOutputOperationType; }
         /** Returns the maximum number of vertices that this geometry program can
             output in a single run
         */
-        int getMaxOutputVertices() const { return mMaxOutputVertices; }
+        int getMaxOutputVertices() const noexcept { return mMaxOutputVertices; }
 
         /** Sets the operation type that this geometry program expects to receive
         */

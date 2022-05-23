@@ -72,7 +72,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    const String& Overlay::getName() const
+    const String& Overlay::getName() const noexcept
     {
         return mName;
     }
@@ -100,12 +100,12 @@ namespace Ogre {
         assignZOrders();
     }
     //---------------------------------------------------------------------
-    ushort Overlay::getZOrder() const
+    ushort Overlay::getZOrder() const noexcept
     {
         return (ushort)mZOrder;
     }
     //---------------------------------------------------------------------
-    bool Overlay::isVisible() const
+    bool Overlay::isVisible() const noexcept
     {
         return mVisible;
     }

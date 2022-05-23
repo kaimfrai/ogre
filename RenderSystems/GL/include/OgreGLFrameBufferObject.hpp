@@ -57,7 +57,7 @@ namespace Ogre {
         void attachDepthBuffer( DepthBuffer *depthBuffer );
         void detachDepthBuffer();
         
-        GLFBOManager *getManager() { return mManager; }
+        GLFBOManager *getManager() noexcept { return mManager; }
     private:
         GLFBOManager *mManager;
         GLSurfaceDesc mMultisampleColourBuffer;

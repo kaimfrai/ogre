@@ -53,11 +53,11 @@ class Renderable;
 
     //-----------------------------------------------------------------------
     template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
-    MaterialManager* MaterialManager::getSingletonPtr()
+    MaterialManager* MaterialManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    MaterialManager& MaterialManager::getSingleton()
+    MaterialManager& MaterialManager::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -153,7 +153,7 @@ class Renderable;
         TextureManager::getSingleton().getDefaultSampler()->setAnisotropy(maxAniso);
     }
     //-----------------------------------------------------------------------
-    unsigned int MaterialManager::getDefaultAnisotropy() const
+    unsigned int MaterialManager::getDefaultAnisotropy() const noexcept
     {
         return TextureManager::getSingleton().getDefaultSampler()->getAnisotropy();
     }

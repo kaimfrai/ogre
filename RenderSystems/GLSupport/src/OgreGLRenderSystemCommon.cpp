@@ -222,7 +222,7 @@ namespace Ogre {
         mRTTManager->getBestDepthStencil( internalColourFormat, depthFormat, stencilFormat );
     }
 
-    unsigned int GLRenderSystemCommon::getDisplayMonitorCount() const
+    unsigned int GLRenderSystemCommon::getDisplayMonitorCount() const noexcept
     {
         return mGLSupport->getDisplayMonitorCount();
     }

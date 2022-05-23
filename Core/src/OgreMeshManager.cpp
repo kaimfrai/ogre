@@ -80,11 +80,11 @@ namespace Ogre
 
     //-----------------------------------------------------------------------
     template<> MeshManager* Singleton<MeshManager>::msSingleton = nullptr;
-    MeshManager* MeshManager::getSingletonPtr()
+    MeshManager* MeshManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    MeshManager& MeshManager::getSingleton()
+    MeshManager& MeshManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -904,7 +904,7 @@ namespace Ogre
         mPrepAllMeshesForShadowVolumes = enable;
     }
     //-----------------------------------------------------------------------
-    bool MeshManager::getPrepareAllMeshesForShadowVolumes()
+    bool MeshManager::getPrepareAllMeshesForShadowVolumes() noexcept
     {
         return mPrepAllMeshesForShadowVolumes;
     }

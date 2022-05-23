@@ -143,7 +143,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* MovableObject::getParentSceneNode() const
+    SceneNode* MovableObject::getParentSceneNode() const noexcept
     {
         if (mParentIsTagPoint)
         {
@@ -173,7 +173,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isInScene() const
+    bool MovableObject::isInScene() const noexcept
     {
         if (mParentNode != nullptr)
         {
@@ -207,7 +207,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isVisible() const
+    bool MovableObject::isVisible() const noexcept
     {
         if (!mVisible || mBeyondFarDistance || mRenderingDisabled)
             return false;
@@ -346,7 +346,7 @@ class Any;
         return mWorldBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    const LightList& MovableObject::queryLights() const
+    const LightList& MovableObject::queryLights() const noexcept
     {
         // Try listener first
         if (mListener)
@@ -395,7 +395,7 @@ class Any;
         return dummyList;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getLightCapBounds() const
+    const AxisAlignedBox& MovableObject::getLightCapBounds() const noexcept
     {
         // Same as original bounds
         return getWorldBoundingBox();
@@ -437,7 +437,7 @@ class Any;
         }
     }
     //-----------------------------------------------------------------------
-    uint32 MovableObject::getTypeFlags() const
+    uint32 MovableObject::getTypeFlags() const noexcept
     {
         if (mCreator)
         {
@@ -474,7 +474,7 @@ class Any;
         }
     };
     //---------------------------------------------------------------------
-    bool MovableObject::getReceivesShadows()
+    bool MovableObject::getReceivesShadows() noexcept
     {
         MORecvShadVisitor visitor;
         visitRenderables(&visitor);

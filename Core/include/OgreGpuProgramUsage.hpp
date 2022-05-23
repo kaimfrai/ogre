@@ -103,7 +103,7 @@ namespace Ogre
         ~GpuProgramUsage() override;
 
         /** Gets the type of program we're trying to link to. */
-        [[nodiscard]] GpuProgramType getType() const { return mType; }
+        [[nodiscard]] GpuProgramType getType() const noexcept { return mType; }
 
         /** Sets the name of the program to use. 
         @param name The name of the program to use
@@ -124,9 +124,9 @@ namespace Ogre
         */
         void setProgram(const GpuProgramPtr& prog, bool resetParams = true);
         /** Gets the program being used. */
-        [[nodiscard]] const GpuProgramPtr& getProgram() const { return mProgram; }
+        [[nodiscard]] const GpuProgramPtr& getProgram() const noexcept { return mProgram; }
         /** Gets the program being used. */
-        [[nodiscard]] const String& getProgramName() const { return mProgram->getName(); }
+        [[nodiscard]] const String& getProgramName() const noexcept { return mProgram->getName(); }
 
         /** Sets the program parameters that should be used; because parameters can be
             shared between multiple usages for efficiency, this method is here for you
@@ -136,7 +136,7 @@ namespace Ogre
         void setParameters(const GpuProgramParametersSharedPtr& params);
         /** Gets the parameters being used here. 
         */
-        [[nodiscard]] const GpuProgramParametersSharedPtr& getParameters() const;
+        [[nodiscard]] const GpuProgramParametersSharedPtr& getParameters() const noexcept;
 
         /// Load this usage (and ensure program is loaded)
         void _load();

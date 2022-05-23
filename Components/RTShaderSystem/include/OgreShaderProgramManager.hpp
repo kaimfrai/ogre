@@ -85,10 +85,10 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static ProgramManager& getSingleton();  
+    static ProgramManager& getSingleton() noexcept;  
 
     /// @copydoc Singleton::getSingleton()
-    static ProgramManager* getSingletonPtr();
+    static ProgramManager* getSingletonPtr() noexcept;
 
     /** Release CPU/GPU programs set associated with the given ProgramSet
     @param programSet The ProgramSet holds the programs.

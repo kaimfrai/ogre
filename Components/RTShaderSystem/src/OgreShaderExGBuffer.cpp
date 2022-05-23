@@ -69,12 +69,12 @@ namespace RTShader
 String GBuffer::Type = "GBuffer";
 
 //-----------------------------------------------------------------------
-const String& GBuffer::getType() const { return Type; }
+const String& GBuffer::getType() const noexcept { return Type; }
 
 //-----------------------------------------------------------------------
-int GBuffer::getExecutionOrder() const { return FFP_LIGHTING; }
+int GBuffer::getExecutionOrder() const noexcept { return FFP_LIGHTING; }
 
-bool GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     srcPass->getParent()->getParent()->setReceiveShadows(false);
     return true;
@@ -224,7 +224,7 @@ void GBuffer::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-const String& GBufferFactory::getType() const { return GBuffer::Type; }
+const String& GBufferFactory::getType() const noexcept { return GBuffer::Type; }
 
 static GBuffer::TargetLayout translate(const String& val)
 {
@@ -241,7 +241,7 @@ static GBuffer::TargetLayout translate(const String& val)
 
 //-----------------------------------------------------------------------
 SubRenderState* GBufferFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator)
+                                               SGScriptTranslator* translator) noexcept
 {
     if (prop->name != "lighting_stage" || prop->values.size() < 2)
         return nullptr;

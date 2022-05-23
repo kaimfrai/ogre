@@ -104,7 +104,7 @@ class MovableObject;
         void setReferenceViewEnabled(bool value);
 
         /** Determine if use of the reference view is enabled */
-        [[nodiscard]] bool isReferenceViewEnabled() const;
+        [[nodiscard]] bool isReferenceViewEnabled() const noexcept;
 
     private:
         bool mReferenceViewEnabled;
@@ -140,9 +140,9 @@ class MovableObject;
         Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy& getSingleton();
+        static DistanceLodSphereStrategy& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy* getSingletonPtr();
+        static DistanceLodSphereStrategy* getSingletonPtr() noexcept;
     };
     /** @} */
     /** @} */
@@ -173,9 +173,9 @@ class MovableObject;
         Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy& getSingleton();
+        static DistanceLodBoxStrategy& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy* getSingletonPtr();
+        static DistanceLodBoxStrategy* getSingletonPtr() noexcept;
     };
 
     /** @} */

@@ -69,7 +69,7 @@ class ExternalTextureSource;
         void setCurrentPlugIn( const String& sTexturePlugInType );
 
         /** Returns currently selected plugin, may be null if none selected */
-        [[nodiscard]] ExternalTextureSource* getCurrentPlugIn( ) const { return mCurrExternalTextureSource; }
+        [[nodiscard]] ExternalTextureSource* getCurrentPlugIn( ) const noexcept { return mCurrExternalTextureSource; }
     
         /** Calls the destroy method of all registered plugins... 
         Only the owner plugin should perform the destroy action. */
@@ -84,9 +84,9 @@ class ExternalTextureSource;
         void setExternalTextureSource( const String& sTexturePlugInType, ExternalTextureSource* pTextureSystem );
 
         /// @copydoc Singleton::getSingleton()
-        static ExternalTextureSourceManager& getSingleton();
+        static ExternalTextureSourceManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ExternalTextureSourceManager* getSingletonPtr();
+        static ExternalTextureSourceManager* getSingletonPtr() noexcept;
     private:
         /// The current texture controller selected
         ExternalTextureSource* mCurrExternalTextureSource;

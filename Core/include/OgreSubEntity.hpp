@@ -140,7 +140,7 @@ class VertexData;
     public:
         /** Gets the name of the Material in use by this instance.
         */
-        const String& getMaterialName() const;
+        const String& getMaterialName() const noexcept;
 
         /** Sets the name of the Material to be used.
             @remarks
@@ -157,7 +157,7 @@ class VertexData;
         void setVisible(bool visible);
 
         /** Returns whether or not this SubEntity is supposed to be visible. */
-        bool isVisible() const { return mVisible; }
+        bool isVisible() const noexcept { return mVisible; }
 
         /** Sets the render queue group this SubEntity will be rendered through.
         @remarks
@@ -188,27 +188,27 @@ class VertexData;
         void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        uint8 getRenderQueueGroup() const { return mRenderQueueID; }
+        uint8 getRenderQueueGroup() const noexcept { return mRenderQueueID; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        ushort getRenderQueuePriority() const { return mRenderQueuePriority; }
+        ushort getRenderQueuePriority() const noexcept { return mRenderQueuePriority; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        bool isRenderQueueGroupSet() const { return mRenderQueueIDSet; }
+        bool isRenderQueueGroupSet() const noexcept { return mRenderQueueIDSet; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        bool isRenderQueuePrioritySet() const { return mRenderQueuePrioritySet; }
+        bool isRenderQueuePrioritySet() const noexcept { return mRenderQueuePrioritySet; }
 
         /** Accessor method to read mesh data.
         */
-        SubMesh* getSubMesh();
+        SubMesh* getSubMesh() noexcept;
 
         /** Accessor to get parent Entity */
-        Entity* getParent() const { return mParentEntity; }
+        Entity* getParent() const noexcept { return mParentEntity; }
 
 
-        const MaterialPtr& getMaterial() const override { return mMaterialPtr; }
-        Technique* getTechnique() const override;
+        const MaterialPtr& getMaterial() const noexcept override { return mMaterialPtr; }
+        Technique* getTechnique() const noexcept override;
         void getRenderOperation(RenderOperation& op) override;
 
         /** Tells this SubEntity to draw a subset of the SubMesh by adjusting the index buffer extents.
@@ -237,10 +237,10 @@ class VertexData;
         void resetIndexDataStartEndIndex();
 
         void getWorldTransforms(Matrix4* xform) const override;
-        unsigned short getNumWorldTransforms() const override;
+        unsigned short getNumWorldTransforms() const noexcept override;
         Real getSquaredViewDepth(const Camera* cam) const override;
-        const LightList& getLights() const override;
-        bool getCastsShadows() const override;
+        const LightList& getLights() const noexcept override;
+        bool getCastsShadows() const noexcept override;
         /** Advanced method to get the temporarily blended vertex information
         for entities which are software skinned. 
         @remarks
@@ -274,7 +274,7 @@ class VertexData;
         */
         TempBlendedBufferInfo* _getVertexAnimTempBufferInfo();
         /// Retrieve the VertexData which should be used for GPU binding
-        VertexData* getVertexDataForBinding();
+        VertexData* getVertexDataForBinding() noexcept;
 
         /** Mark all vertex data as so far unanimated. 
         */
@@ -283,7 +283,7 @@ class VertexData;
         */
         void _markBuffersUsedForAnimation();
         /** Are buffers already marked as vertex animated? */
-        bool _getBuffersMarkedForAnimation() const { return mVertexAnimationAppliedThisFrame; }
+        bool _getBuffersMarkedForAnimation() const noexcept { return mVertexAnimationAppliedThisFrame; }
         /** Internal method to copy original vertex data to the morph structures
         should there be no active animation in use.
         */

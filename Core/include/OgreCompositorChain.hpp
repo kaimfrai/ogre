@@ -108,11 +108,11 @@ class SceneManager;
 
         /** Get the original scene compositor instance for this chain (internal use). 
         */
-        CompositorInstance* _getOriginalSceneCompositor() { return mOriginalScene; }
+        CompositorInstance* _getOriginalSceneCompositor() noexcept { return mOriginalScene; }
 
         /** The compositor instances. The first compositor in this list is applied first, the last one is applied last.
         */
-        [[nodiscard]] const Instances& getCompositorInstances() const { return mInstances; }
+        [[nodiscard]] const Instances& getCompositorInstances() const noexcept { return mInstances; }
     
         /** Enable or disable a compositor, by position. Disabling a compositor stops it from rendering
             but does not free any resources. This can be more efficient than using removeCompositor and 

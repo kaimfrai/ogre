@@ -358,7 +358,7 @@ namespace Ogre {
 
         /** Returns the number of mipmaps contained in the image.
         */
-        [[nodiscard]] uint32 getNumMipmaps() const;
+        [[nodiscard]] uint32 getNumMipmaps() const noexcept;
 
         /** Returns true if the image has the appropriate flag set.
         */
@@ -366,20 +366,20 @@ namespace Ogre {
 
         /** Gets the width of the image in pixels.
         */
-        [[nodiscard]] uint32 getWidth() const;
+        [[nodiscard]] uint32 getWidth() const noexcept;
 
         /** Gets the height of the image in pixels.
         */
-        [[nodiscard]] uint32 getHeight() const;
+        [[nodiscard]] uint32 getHeight() const noexcept;
 
         /** Gets the depth of the image.
         */
-        [[nodiscard]] uint32 getDepth() const;
+        [[nodiscard]] uint32 getDepth() const noexcept;
         
         /** Get the number of faces of the image. This is usually 6 for a cubemap, and
             1 for a normal image.
         */
-        [[nodiscard]] uint32 getNumFaces() const;
+        [[nodiscard]] uint32 getNumFaces() const noexcept;
 
         /** Gets the physical width in bytes of each row of pixels.
         */
@@ -395,7 +395,7 @@ namespace Ogre {
 
         /** Returns true if the image has an alpha component.
         */
-        [[nodiscard]] bool getHasAlpha() const;
+        [[nodiscard]] bool getHasAlpha() const noexcept;
         
         /** Does gamma adjustment.
             @note

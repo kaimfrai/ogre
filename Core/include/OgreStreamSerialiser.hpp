@@ -145,7 +145,7 @@ class Sphere;
             If the result is ENDIAN_AUTO, this mode will change when the first piece of
             data is read / written. 
         */
-        [[nodiscard]] virtual Endian getEndian() const { return mEndian; }
+        [[nodiscard]] virtual Endian getEndian() const noexcept { return mEndian; }
 
         /** Pack a 4-character code into a 32-bit identifier.
         @remarks
@@ -167,7 +167,7 @@ class Sphere;
         @return The id of the current chunk being read / written (at the tightest
             level of nesting), or zero if no chunk is being processed.
         */
-        [[nodiscard]] uint32 getCurrentChunkID() const;
+        [[nodiscard]] uint32 getCurrentChunkID() const noexcept;
 
         /** Get the current byte position relative to the start of the data section
             of the last chunk that was read or written. 
@@ -238,7 +238,7 @@ class Sphere;
         [[nodiscard]] virtual bool eof() const;
 
         /** Get the definition of the current chunk being read (if any). */
-        [[nodiscard]] virtual const Chunk* getCurrentChunk() const;
+        [[nodiscard]] virtual const Chunk* getCurrentChunk() const noexcept;
 
         /** Begin writing a new chunk.
         @remarks

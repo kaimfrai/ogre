@@ -63,11 +63,11 @@ namespace Ogre {
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
     template<> Profiler* Singleton<Profiler>::msSingleton = nullptr;
-    Profiler* Profiler::getSingletonPtr()
+    Profiler* Profiler::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    Profiler& Profiler::getSingleton()
+    Profiler& Profiler::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -142,7 +142,7 @@ namespace Ogre {
         mTimer = t;
     }
     //-----------------------------------------------------------------------
-    Timer* Profiler::getTimer()
+    Timer* Profiler::getTimer() noexcept
     {
         assert(mTimer && "Timer not set!");
         return mTimer;
@@ -170,7 +170,7 @@ namespace Ogre {
         mNewEnableState = enabled;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::getEnabled() const
+    bool Profiler::getEnabled() const noexcept
     {
         return mEnabled;
     }
@@ -622,7 +622,7 @@ namespace Ogre {
         mUpdateDisplayFrequency = freq;
     }
     //-----------------------------------------------------------------------
-    uint Profiler::getUpdateDisplayFrequency() const
+    uint Profiler::getUpdateDisplayFrequency() const noexcept
     {
         return mUpdateDisplayFrequency;
     }

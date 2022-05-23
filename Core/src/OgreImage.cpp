@@ -401,7 +401,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    uint32 Image::getNumMipmaps() const
+    uint32 Image::getNumMipmaps() const noexcept
     {
         return mNumMipmaps;
     }
@@ -413,23 +413,23 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    uint32 Image::getDepth() const
+    uint32 Image::getDepth() const noexcept
     {
         return mDepth;
     }
     //-----------------------------------------------------------------------------
-    uint32 Image::getWidth() const
+    uint32 Image::getWidth() const noexcept
     {
         return mWidth;
     }
 
     //-----------------------------------------------------------------------------
-    uint32 Image::getHeight() const
+    uint32 Image::getHeight() const noexcept
     {
         return mHeight;
     }
     //-----------------------------------------------------------------------------
-    uint32 Image::getNumFaces() const
+    uint32 Image::getNumFaces() const noexcept
     {
         if(hasFlag(IF_CUBEMAP))
             return 6;
@@ -454,7 +454,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    bool Image::getHasAlpha() const
+    bool Image::getHasAlpha() const noexcept
     {
         return PixelUtil::getFlags(mFormat) & PFF_HASALPHA;
     }

@@ -62,19 +62,19 @@ namespace RTShader {
 String FFPTransform::Type = "FFP_Transform";
 
 //-----------------------------------------------------------------------
-const String& FFPTransform::getType() const
+const String& FFPTransform::getType() const noexcept
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int FFPTransform::getExecutionOrder() const
+int FFPTransform::getExecutionOrder() const noexcept
 {
     return FFP_TRANSFORM;
 }
 
-bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     mSetPointSize = srcPass->getPointSize() != 1.0f || srcPass->isPointAttenuationEnabled();
     mDoLightCalculations = srcPass->getLightingEnabled();
@@ -155,14 +155,14 @@ void FFPTransform::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTransformFactory::getType() const
+const String& FFPTransformFactory::getType() const noexcept
 {
     return FFPTransform::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
-                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "transform_stage")
     {

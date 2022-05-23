@@ -80,12 +80,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -95,7 +95,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     /**
     Set the resolve stage flags that this sub render state will produce.
@@ -108,7 +108,7 @@ public:
     /**
     Get the current resolve stage flags.
     */
-    unsigned int getResolveStageFlags() const            { return mResolveStageFlags; }
+    unsigned int getResolveStageFlags() const noexcept { return mResolveStageFlags; }
 
     /**
     Add the given mask to resolve stage flags that this sub render state will produce.
@@ -160,12 +160,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

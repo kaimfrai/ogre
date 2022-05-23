@@ -79,7 +79,7 @@ class RenderQueue;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         void _restoreManualHardwareResources() override;
 
-        [[nodiscard]] const String& getTypeName() const override;
+        [[nodiscard]] const String& getTypeName() const noexcept override;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -173,7 +173,7 @@ class RenderQueue;
         /** Sets the name of the material to use for the borders. */
         void setBorderMaterialName(const String& name, const String& group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        [[nodiscard]] const String& getBorderMaterialName() const;
+        [[nodiscard]] const String& getBorderMaterialName() const noexcept;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue) override;
@@ -247,12 +247,12 @@ class RenderQueue;
             mUseIdentityView = true;
             mPolygonModeOverrideable = parent->getPolygonModeOverrideable();
         }
-        [[nodiscard]] const MaterialPtr& getMaterial() const override { return mParent->mBorderMaterial; }
+        [[nodiscard]] const MaterialPtr& getMaterial() const noexcept override { return mParent->mBorderMaterial; }
         void getRenderOperation(RenderOperation& op) override { op = mParent->mRenderOp2; }
         void getWorldTransforms(Matrix4* xform) const override { mParent->getWorldTransforms(xform); }
-        [[nodiscard]] unsigned short getNumWorldTransforms() const override { return 1; }
+        [[nodiscard]] unsigned short getNumWorldTransforms() const noexcept override { return 1; }
         Real getSquaredViewDepth(const Camera* cam) const override { return mParent->getSquaredViewDepth(cam); }
-        [[nodiscard]] const LightList& getLights() const override
+        [[nodiscard]] const LightList& getLights() const noexcept override
         {
             // N/A, panels are not lit
             static LightList ll;

@@ -78,12 +78,12 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -95,7 +95,7 @@ public:
     */
     bool createCpuSubPrograms(ProgramSet* programSet) override;
 
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     void setOutBuffers(const TargetBuffers& buffers) { mOutBuffers = buffers; }
 
@@ -120,13 +120,13 @@ public:
     /**
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /**
     @see SubRenderStateFactory::createInstance.
     */
     SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                           SGScriptTranslator* translator) override;
+                                           SGScriptTranslator* translator) noexcept override;
 
     /**
     @see SubRenderStateFactory::writeInstance.

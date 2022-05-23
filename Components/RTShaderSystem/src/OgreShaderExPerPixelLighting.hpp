@@ -65,9 +65,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
-    bool setParameter(const String& name, const String& value) override;
+    bool setParameter(const String& name, const String& value) noexcept override;
 
     static String Type;
 
@@ -128,12 +128,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

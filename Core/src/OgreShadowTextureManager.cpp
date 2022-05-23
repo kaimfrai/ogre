@@ -67,11 +67,11 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = nullptr;
-    ShadowTextureManager* ShadowTextureManager::getSingletonPtr()
+    ShadowTextureManager* ShadowTextureManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ShadowTextureManager& ShadowTextureManager::getSingleton()
+    ShadowTextureManager& ShadowTextureManager::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

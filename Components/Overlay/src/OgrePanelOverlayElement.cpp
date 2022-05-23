@@ -217,7 +217,7 @@ class RenderQueue;
         mTransparent = inTransparent;
     }
     //---------------------------------------------------------------------
-    bool PanelOverlayElement::isTransparent() const
+    bool PanelOverlayElement::isTransparent() const noexcept
     {
         return mTransparent;
     }
@@ -238,7 +238,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    const String& PanelOverlayElement::getTypeName() const
+    const String& PanelOverlayElement::getTypeName() const noexcept
     {
         return msTypeName;
     }

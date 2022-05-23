@@ -70,13 +70,13 @@ FFPFog::FFPFog()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPFog::getType() const
+const String& FFPFog::getType() const noexcept
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int FFPFog::getExecutionOrder() const
+int FFPFog::getExecutionOrder() const noexcept
 {
     return FFP_FOG;
 }
@@ -227,7 +227,7 @@ void FFPFog::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     if (srcPass->getFogOverride())
     {
@@ -242,7 +242,7 @@ bool FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, 
 }
 
 //-----------------------------------------------------------------------
-bool FFPFog::setParameter(const String& name, const String& value)
+bool FFPFog::setParameter(const String& name, const String& value) noexcept
 {
 	if(name == "calc_mode")
 	{
@@ -255,14 +255,14 @@ bool FFPFog::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPFogFactory::getType() const
+const String& FFPFogFactory::getType() const noexcept
 {
     return FFPFog::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "fog_stage")
     {

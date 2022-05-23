@@ -107,7 +107,7 @@ class VertexMorphKeyFrame;
             return mTimePos;
         }
 
-        [[nodiscard]] uint getKeyIndex() const
+        [[nodiscard]] uint getKeyIndex() const noexcept
         {
             return mKeyIndex;
         }
@@ -156,7 +156,7 @@ class VertexMorphKeyFrame;
         virtual ~AnimationTrack();
 
         /** Get the handle associated with this track. */
-        [[nodiscard]] unsigned short getHandle() const { return mHandle; }
+        [[nodiscard]] unsigned short getHandle() const noexcept { return mHandle; }
 
         /** Returns the number of keyframes in this animation. */
         [[nodiscard]] size_t getNumKeyFrames() const { return mKeyFrames.size(); }
@@ -232,7 +232,7 @@ class VertexMorphKeyFrame;
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const { return true; }
+        [[nodiscard]] virtual bool hasNonZeroKeyFrames() const noexcept { return true; }
 
         /** Optimise the current track by removing any duplicate keyframes. */
         virtual void optimise() {}
@@ -251,7 +251,7 @@ class VertexMorphKeyFrame;
         virtual void setListener(Listener* l) { mListener = l; }
 
         /** Returns the parent Animation object for this track. */
-        [[nodiscard]] Animation *getParent() const { return mParent; }
+        [[nodiscard]] Animation *getParent() const noexcept { return mParent; }
     private:
         /// Map used to translate global keyframe time lower bound index to local lower bound index
         typedef std::vector<ushort> KeyFrameIndexMap;
@@ -308,7 +308,7 @@ class VertexMorphKeyFrame;
             Real weight = 1.0, Real scale = 1.0f);
 
         /** Returns a pointer to the associated animable object (if any). */
-        [[nodiscard]] virtual const AnimableValuePtr& getAssociatedAnimable() const;
+        [[nodiscard]] virtual const AnimableValuePtr& getAssociatedAnimable() const noexcept;
 
         /** Sets the associated animable object which will be automatically 
             affected by calls to 'apply'. */
@@ -352,7 +352,7 @@ class VertexMorphKeyFrame;
         */
         virtual TransformKeyFrame* createNodeKeyFrame(Real timePos);
         /** Returns a pointer to the associated Node object (if any). */
-        virtual Node* getAssociatedNode() const;
+        virtual Node* getAssociatedNode() const noexcept;
 
         /** Sets the associated Node object which will be automatically affected by calls to 'apply'. */
         virtual void setAssociatedNode(Node* node);
@@ -365,7 +365,7 @@ class VertexMorphKeyFrame;
         virtual void setUseShortestRotationPath(bool useShortestPath);
 
         /** Gets the method of rotation calculation */
-        virtual bool getUseShortestRotationPath() const;
+        virtual bool getUseShortestRotationPath() const noexcept;
 
         /// @copydoc AnimationTrack::getInterpolatedKeyFrame
         void getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const override;
@@ -384,7 +384,7 @@ class VertexMorphKeyFrame;
             doing anything useful - can be used to determine if this track
             can be optimised out.
         */
-        bool hasNonZeroKeyFrames() const override;
+        bool hasNonZeroKeyFrames() const noexcept override;
 
         /** Optimise the current track by removing any duplicate keyframes. */
         void optimise() override;
@@ -506,10 +506,10 @@ class VertexMorphKeyFrame;
             VertexData* targetData, TargetMode target = TM_SOFTWARE);
 
         /** Get the type of vertex animation we're performing. */
-        [[nodiscard]] VertexAnimationType getAnimationType() const { return mAnimationType; }
+        [[nodiscard]] VertexAnimationType getAnimationType() const noexcept { return mAnimationType; }
         
         /** Whether the vertex animation (if present) includes normals */
-        [[nodiscard]] bool getVertexAnimationIncludesNormals() const;
+        [[nodiscard]] bool getVertexAnimationIncludesNormals() const noexcept;
 
         /** Creates a new morph KeyFrame and adds it to this animation at the given time index.
         @remarks
@@ -547,18 +547,18 @@ class VertexMorphKeyFrame;
         /** Sets the associated VertexData which this track will update. */
         void setAssociatedVertexData(VertexData* data) { mTargetVertexData = data; }
         /** Gets the associated VertexData which this track will update. */
-        [[nodiscard]] VertexData* getAssociatedVertexData() const { return mTargetVertexData; }
+        [[nodiscard]] VertexData* getAssociatedVertexData() const noexcept { return mTargetVertexData; }
 
         /// Set the target mode
         void setTargetMode(TargetMode m) { mTargetMode = m; }
         /// Get the target mode
-        [[nodiscard]] TargetMode getTargetMode() const { return mTargetMode; }
+        [[nodiscard]] TargetMode getTargetMode() const noexcept { return mTargetMode; }
 
         /** Method to determine if this track has any KeyFrames which are
         doing anything useful - can be used to determine if this track
         can be optimised out.
         */
-        [[nodiscard]] bool hasNonZeroKeyFrames() const override;
+        [[nodiscard]] bool hasNonZeroKeyFrames() const noexcept override;
 
         /** Optimise the current track by removing any duplicate keyframes. */
         void optimise() override;

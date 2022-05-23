@@ -78,9 +78,9 @@ public:
         return results;
     }
 
-    [[nodiscard]] time_t getModifiedTime(const Ogre::String& filename) const override { return 0; }
+    [[nodiscard]] time_t getModifiedTime(const Ogre::String& filename) const noexcept override { return 0; }
 
-    [[nodiscard]] bool isCaseSensitive() const override { return true; }
+    [[nodiscard]] bool isCaseSensitive() const noexcept override { return true; }
 
     [[nodiscard]] Ogre::StringVectorPtr list(bool recursive = true, bool dirs = false) const override
     {
@@ -136,7 +136,7 @@ public:
 
     void destroyInstance(Ogre::Archive* ptr) override { delete ptr; }
 
-    [[nodiscard]] const Ogre::String& getType() const override
+    [[nodiscard]] const Ogre::String& getType() const noexcept override
     {
         static Ogre::String type = "DummyArchive";
         return type;

@@ -56,7 +56,7 @@ class MovableObject;
         mQueryMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryMask() const
+    uint32 SceneQuery::getQueryMask() const noexcept
     {
         return mQueryMask;
     }
@@ -66,7 +66,7 @@ class MovableObject;
         mQueryTypeMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryTypeMask() const
+    uint32 SceneQuery::getQueryTypeMask() const noexcept
     {
         return mQueryTypeMask;
     }
@@ -98,7 +98,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    SceneQueryResult& RegionSceneQuery::getLastResults() const
+    SceneQueryResult& RegionSceneQuery::getLastResults() const noexcept
     {
         assert(mLastResult);
         return *mLastResult;
@@ -151,7 +151,7 @@ class MovableObject;
         mAABB = box;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& AxisAlignedBoxSceneQuery::getBox() const
+    const AxisAlignedBox& AxisAlignedBoxSceneQuery::getBox() const noexcept
     {
         return mAABB;
     }
@@ -170,7 +170,7 @@ class MovableObject;
         mSphere = sphere;
     }
     //-----------------------------------------------------------------------
-    const Sphere& SphereSceneQuery::getSphere() const
+    const Sphere& SphereSceneQuery::getSphere() const noexcept
     {
         return mSphere;
     }
@@ -190,7 +190,7 @@ class MovableObject;
         mVolumes = volumes;
     }
     //-----------------------------------------------------------------------
-    const PlaneBoundedVolumeList& PlaneBoundedVolumeListSceneQuery::getVolumes() const
+    const PlaneBoundedVolumeList& PlaneBoundedVolumeListSceneQuery::getVolumes() const noexcept
     {
         return mVolumes;
     }
@@ -211,7 +211,7 @@ class MovableObject;
         mRay = ray;
     }
     //-----------------------------------------------------------------------
-    const Ray& RaySceneQuery::getRay() const
+    const Ray& RaySceneQuery::getRay() const noexcept
     {
         return mRay;
     }
@@ -222,12 +222,12 @@ class MovableObject;
         mMaxResults = maxresults;
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::getSortByDistance() const
+    bool RaySceneQuery::getSortByDistance() const noexcept
     {
         return mSortByDistance;
     }
     //-----------------------------------------------------------------------
-    ushort RaySceneQuery::getMaxResults() const
+    ushort RaySceneQuery::getMaxResults() const noexcept
     {
         return mMaxResults;
     }
@@ -258,7 +258,7 @@ class MovableObject;
         return mResult;
     }
     //-----------------------------------------------------------------------
-    RaySceneQueryResult& RaySceneQuery::getLastResults()
+    RaySceneQueryResult& RaySceneQuery::getLastResults() noexcept
     {
         return mResult;
     }
@@ -303,7 +303,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    IntersectionSceneQueryResult& IntersectionSceneQuery::getLastResults() const
+    IntersectionSceneQueryResult& IntersectionSceneQuery::getLastResults() const noexcept
     {
         assert(mLastResult);
         return *mLastResult;

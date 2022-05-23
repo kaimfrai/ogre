@@ -236,7 +236,7 @@ namespace Ogre {
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    unsigned short SimpleSpline::getNumPoints() const
+    unsigned short SimpleSpline::getNumPoints() const noexcept
     {
         return (unsigned short)mPoints.size();
     }

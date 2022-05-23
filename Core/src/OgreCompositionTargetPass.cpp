@@ -82,7 +82,7 @@ void CompositionTargetPass::setOnlyInitial(bool value)
     mOnlyInitial = value;
 }
 //-----------------------------------------------------------------------
-bool CompositionTargetPass::getOnlyInitial()
+bool CompositionTargetPass::getOnlyInitial() noexcept
 {
     return mOnlyInitial;
 }
@@ -92,7 +92,7 @@ void CompositionTargetPass::setVisibilityMask(uint32 mask)
     mVisibilityMask = mask;
 }
 //-----------------------------------------------------------------------
-uint32 CompositionTargetPass::getVisibilityMask()
+uint32 CompositionTargetPass::getVisibilityMask() noexcept
 {
     return mVisibilityMask;
 }
@@ -102,7 +102,7 @@ void CompositionTargetPass::setLodBias(float bias)
     mLodBias = bias;
 }
 //-----------------------------------------------------------------------
-float CompositionTargetPass::getLodBias()
+float CompositionTargetPass::getLodBias() noexcept
 {
     return mLodBias;
 }
@@ -112,7 +112,7 @@ void CompositionTargetPass::setMaterialScheme(const String& schemeName)
     mMaterialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-const String& CompositionTargetPass::getMaterialScheme() const
+const String& CompositionTargetPass::getMaterialScheme() const noexcept
 {
     return mMaterialScheme;
 }
@@ -122,7 +122,7 @@ void CompositionTargetPass::setShadowsEnabled(bool enabled)
     mShadowsEnabled = enabled;
 }
 //-----------------------------------------------------------------------
-bool CompositionTargetPass::getShadowsEnabled() const
+bool CompositionTargetPass::getShadowsEnabled() const noexcept
 {
     return mShadowsEnabled;
 }

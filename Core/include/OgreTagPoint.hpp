@@ -65,7 +65,7 @@ class Skeleton;
         TagPoint(unsigned short handle, Skeleton* creator);
 
         Entity *getParentEntity() const;
-        MovableObject* getChildObject() const;
+        MovableObject* getChildObject() const noexcept;
         
         void setParentEntity(Entity *pEntity);
         void setChildObject(MovableObject *pObject);
@@ -78,7 +78,7 @@ class Skeleton;
 
         /** Returns true if this TagPoint is affected by orientation applied to the parent entity. 
         */
-        bool getInheritParentEntityOrientation() const;
+        bool getInheritParentEntityOrientation() const noexcept;
 
         /** Tells the TagPoint whether it should inherit scaling factors from it's parent entity.
         @param inherit If true, this TagPoint's scaling factors will be affected by
@@ -88,10 +88,10 @@ class Skeleton;
 
         /** Returns true if this TagPoint is affected by scaling factors applied to the parent entity. 
         */
-        bool getInheritParentEntityScale() const;
+        bool getInheritParentEntityScale() const noexcept;
 
         /** Gets the transform of parent entity. */
-        const Affine3& getParentEntityTransform() const;
+        const Affine3& getParentEntityTransform() const noexcept;
 
         /** Gets the transform of this node just for the skeleton (not entity) */
         const Affine3& _getFullLocalTransform() const;

@@ -141,7 +141,7 @@ class ResourceManager;
         /// @copydoc Resource::unloadImpl
         void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const override { return 0; } // permanent resource is in the texture 
+        size_t calculateSize() const noexcept override { return 0; } // permanent resource is in the texture 
     public:
 
         /** Constructor.
@@ -176,7 +176,7 @@ class ResourceManager;
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        const String& getSource() const;
+        const String& getSource() const noexcept;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the
@@ -201,7 +201,7 @@ class ResourceManager;
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
         */
-        uint getTrueTypeResolution() const;
+        uint getTrueTypeResolution() const noexcept;
         /** Gets the maximum baseline distance of all glyphs used in the texture.
         @remarks
             Only applicable for FT_TRUETYPE Font objects.
@@ -211,7 +211,7 @@ class ResourceManager;
         @note
             This value is only available after the font has been loaded.
         */
-        int getTrueTypeMaxBearingY() const;
+        int getTrueTypeMaxBearingY() const noexcept;
 
 
         /** Returns the texture coordinates of the associated glyph. 
@@ -289,7 +289,7 @@ class ResourceManager;
         /** Get a const reference to the list of code point ranges to be used to
             generate glyphs from a truetype font.
         */
-        const CodePointRangeList& getCodePointRangeList() const
+        const CodePointRangeList& getCodePointRangeList() const noexcept
         {
             return mCodePointRangeList;
         }
@@ -297,7 +297,7 @@ class ResourceManager;
         @remarks
             This will only be valid after the Font has been loaded. 
         */
-        inline const MaterialPtr& getMaterial() const
+        inline const MaterialPtr& getMaterial() const noexcept
         {
             return mMaterial;
         }
@@ -332,7 +332,7 @@ class ResourceManager;
         /** Gets whether or not the colour of this font is antialiased as it is generated
         from a true type font.
         */
-        inline bool getAntialiasColour() const
+        inline bool getAntialiasColour() const noexcept
         {
             return mAntialiasColour;
         }

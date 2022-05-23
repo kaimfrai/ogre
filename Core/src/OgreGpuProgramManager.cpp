@@ -60,10 +60,10 @@ namespace {
             : GpuProgram(creator, name, handle, group, isManual, loader){}
         ~NullProgram() override {}
         /// Overridden from GpuProgram - never supported
-        bool isSupported() const override { return false; }
+        bool isSupported() const noexcept override { return false; }
         /// Overridden from GpuProgram
-        const String& getLanguage() const override { return sNullLang; }
-        size_t calculateSize() const override { return 0; }
+        const String& getLanguage() const noexcept override { return sNullLang; }
+        size_t calculateSize() const noexcept override { return 0; }
 
         /// Overridden from StringInterface
         bool setParameter(const String& name, const String& value)
@@ -80,7 +80,7 @@ namespace {
         NullProgramFactory() {}
         ~NullProgramFactory() override {}
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] const String& getLanguage() const override
+        [[nodiscard]] const String& getLanguage() const noexcept override
         {
             return sNullLang;
         }
@@ -129,11 +129,11 @@ namespace {
 
     //-----------------------------------------------------------------------
     template<> GpuProgramManager* Singleton<GpuProgramManager>::msSingleton = nullptr;
-    GpuProgramManager* GpuProgramManager::getSingletonPtr()
+    GpuProgramManager* GpuProgramManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    GpuProgramManager& GpuProgramManager::getSingleton()
+    GpuProgramManager& GpuProgramManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -233,7 +233,7 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    const GpuProgramManager::SyntaxCodes& GpuProgramManager::getSupportedSyntax()
+    const GpuProgramManager::SyntaxCodes& GpuProgramManager::getSupportedSyntax() noexcept
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -283,12 +283,12 @@ namespace {
     }
     //---------------------------------------------------------------------
     const GpuProgramManager::SharedParametersMap& 
-    GpuProgramManager::getAvailableSharedParameters() const
+    GpuProgramManager::getAvailableSharedParameters() const noexcept
     {
         return mSharedParametersMap;
     }
     //---------------------------------------------------------------------
-    bool GpuProgramManager::getSaveMicrocodesToCache() const
+    bool GpuProgramManager::getSaveMicrocodesToCache() const noexcept
     {
         return mSaveMicrocodesToCache;
     }
@@ -311,7 +311,7 @@ namespace {
             mSaveMicrocodesToCache = val;
     }
     //---------------------------------------------------------------------
-    bool GpuProgramManager::isCacheDirty( ) const
+    bool GpuProgramManager::isCacheDirty( ) const noexcept
     {
         return mCacheDirty;     
     }

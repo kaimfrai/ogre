@@ -44,11 +44,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = nullptr;
-    RenderSystemCapabilitiesManager* RenderSystemCapabilitiesManager::getSingletonPtr()
+    RenderSystemCapabilitiesManager* RenderSystemCapabilitiesManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    RenderSystemCapabilitiesManager& RenderSystemCapabilitiesManager::getSingleton()
+    RenderSystemCapabilitiesManager& RenderSystemCapabilitiesManager::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

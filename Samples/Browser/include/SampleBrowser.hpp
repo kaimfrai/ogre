@@ -485,7 +485,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles keypresses.
           -----------------------------------------------------------------------------*/
-        bool keyPressed(const KeyboardEvent& evt) override
+        bool keyPressed(const KeyboardEvent& evt) noexcept override
         {
             if (mTrayMgr->isDialogVisible()) return true;  // ignore keypresses when dialog is showing
 
@@ -552,7 +552,7 @@ namespace OgreBites
           | Extends pointerPressed to inject mouse press into tray manager, and to check
           | for thumbnail clicks, just because we can.
           -----------------------------------------------------------------------------*/
-        bool mousePressed(const MouseButtonEvent& evt) override
+        bool mousePressed(const MouseButtonEvent& evt) noexcept override
         {
             if (mTitleLabel->getTrayLocation() != TL_NONE)
             {
@@ -573,13 +573,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchPressed(const TouchFingerEvent& evt) override {
+        bool touchPressed(const TouchFingerEvent& evt) noexcept override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
         }
 
-        bool buttonPressed(const ButtonEvent& evt) override
+        bool buttonPressed(const ButtonEvent& evt) noexcept override
         {
             KeyboardEvent e;
             e.keysym.sym = 0;
@@ -604,7 +604,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends pointerReleased to inject mouse release into tray manager.
           -----------------------------------------------------------------------------*/
-        bool mouseReleased(const MouseButtonEvent& evt) override
+        bool mouseReleased(const MouseButtonEvent& evt) noexcept override
          {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseReleased(evt);
 
@@ -612,7 +612,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchReleased(const TouchFingerEvent& evt) override {
+        bool touchReleased(const TouchFingerEvent& evt) noexcept override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
@@ -622,7 +622,7 @@ namespace OgreBites
           | Extends pointerMoved to inject mouse position into tray manager, and checks
           | for mouse wheel movements to slide the carousel, because we can.
           -----------------------------------------------------------------------------*/
-        bool mouseMoved(const MouseMotionEvent& evt) override
+        bool mouseMoved(const MouseMotionEvent& evt) noexcept override
         {
             if (isCurrentSamplePaused()) return mTrayMgr->mouseMoved(evt);
 
@@ -630,7 +630,7 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchMoved(const TouchFingerEvent& evt) override {
+        bool touchMoved(const TouchFingerEvent& evt) noexcept override {
             MouseMotionEvent e;
             e.x = evt.x * mWindow->getWidth();
             e.y = evt.y * mWindow->getHeight();
@@ -642,7 +642,7 @@ namespace OgreBites
         //TODO: Handle iOS and Android.
         /** Mouse wheel scrolls the sample list.
          */
-        bool mouseWheelRolled(const MouseWheelEvent& evt) override
+        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override
         {
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;

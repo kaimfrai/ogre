@@ -100,8 +100,8 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Retrieves custom sample info.
         -----------------------------------------------------------------------------*/
-        [[nodiscard]] const Ogre::NameValuePairList& getInfo() const { return mInfo; }
-        Ogre::NameValuePairList& getInfo() { return mInfo; }
+        [[nodiscard]] const Ogre::NameValuePairList& getInfo() const noexcept { return mInfo; }
+        Ogre::NameValuePairList& getInfo() noexcept { return mInfo; }
 
         /*-----------------------------------------------------------------------------
         | Tests to see if target machine meets any special requirements of
@@ -133,8 +133,8 @@ namespace OgreBites
         -----------------------------------------------------------------------------*/
         virtual Ogre::StringVector getRequiredPlugins() { return {}; }
 
-        Ogre::SceneManager* getSceneManager() { return mSceneMgr; }
-        bool isDone() { return mDone; }
+        Ogre::SceneManager* getSceneManager() noexcept { return mSceneMgr; }
+        bool isDone() noexcept { return mDone; }
 
         /** Adds a screenshot frame to the list - this should
          *    be done during setup of the test. */
@@ -245,12 +245,12 @@ namespace OgreBites
 
         // callback interface copied from various listeners to be used by SampleContext
 
-        virtual bool frameStarted(const Ogre::FrameEvent& evt) { return true; }
-        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt) { return true; }
-        virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
+        virtual bool frameStarted(const Ogre::FrameEvent& evt) noexcept { return true; }
+        virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt) noexcept { return true; }
+        virtual bool frameEnded(const Ogre::FrameEvent& evt) noexcept { return true; }
         virtual void windowMoved(Ogre::RenderWindow* rw) {}
         virtual void windowResized(Ogre::RenderWindow* rw) {}
-        virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
+        virtual bool windowClosing(Ogre::RenderWindow* rw) noexcept { return true; }
         virtual void windowClosed(Ogre::RenderWindow* rw) {}
         virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
     protected:

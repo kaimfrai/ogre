@@ -126,7 +126,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const Ogre::String& getType                 () const override;
+    const Ogre::String& getType                 () const noexcept override;
 
 
     /** 
@@ -219,12 +219,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

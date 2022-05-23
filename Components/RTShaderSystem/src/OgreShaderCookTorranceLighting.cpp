@@ -41,7 +41,7 @@ String CookTorranceLighting::Type = "CookTorranceLighting";
 CookTorranceLighting::CookTorranceLighting() : mLightCount(0), mMRMapSamplerIndex(0) {}
 
 //-----------------------------------------------------------------------
-const String& CookTorranceLighting::getType() const { return Type; }
+const String& CookTorranceLighting::getType() const noexcept { return Type; }
 //-----------------------------------------------------------------------
 bool CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet)
 {
@@ -152,7 +152,7 @@ void CookTorranceLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool CookTorranceLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool CookTorranceLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     if (!srcPass->getLightingEnabled())
         return false;
@@ -169,7 +169,7 @@ bool CookTorranceLighting::preAddToRenderState(const RenderState* renderState, P
     return true;
 }
 
-bool CookTorranceLighting::setParameter(const String& name, const String& value)
+bool CookTorranceLighting::setParameter(const String& name, const String& value) noexcept
 {
     if (name == "texture")
     {
@@ -181,11 +181,11 @@ bool CookTorranceLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& CookTorranceLightingFactory::getType() const { return CookTorranceLighting::Type; }
+const String& CookTorranceLightingFactory::getType() const noexcept { return CookTorranceLighting::Type; }
 
 //-----------------------------------------------------------------------
 SubRenderState* CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop,
-                                                            Pass* pass, SGScriptTranslator* translator)
+                                                            Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "lighting_stage" && prop->values.size() >= 1)
     {

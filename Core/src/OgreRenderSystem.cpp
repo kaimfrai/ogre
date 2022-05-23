@@ -613,7 +613,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::isReverseDepthBufferEnabled() const
+    bool RenderSystem::isReverseDepthBufferEnabled() const noexcept
     {
         return mIsReverseDepthBufferEnabled;
     }
@@ -736,7 +736,7 @@ namespace Ogre {
         mInvertVertexWinding = invert;
     }
     //-----------------------------------------------------------------------
-    bool RenderSystem::getInvertVertexWinding() const
+    bool RenderSystem::getInvertVertexWinding() const noexcept
     {
         return mInvertVertexWinding;
     }
@@ -819,7 +819,7 @@ namespace Ogre {
         msSharedEventListener = listener;
     }
     //-----------------------------------------------------------------------
-    RenderSystem::Listener* RenderSystem::getSharedListener()
+    RenderSystem::Listener* RenderSystem::getSharedListener() noexcept
     {
         return msSharedEventListener;
     }
@@ -994,7 +994,7 @@ namespace Ogre {
         mGlobalNumberOfInstances = val;
     }
 
-    VertexDeclaration* RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const
+    VertexDeclaration* RenderSystem::getGlobalInstanceVertexBufferVertexDeclaration() const noexcept
     {
         return mGlobalInstanceVertexBufferVertexDeclaration;
     }

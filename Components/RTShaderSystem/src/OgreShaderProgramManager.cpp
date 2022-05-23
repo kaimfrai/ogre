@@ -73,13 +73,13 @@ namespace RTShader {
 
 
 //-----------------------------------------------------------------------
-ProgramManager* ProgramManager::getSingletonPtr()
+ProgramManager* ProgramManager::getSingletonPtr() noexcept
 {
     return msSingleton;
 }
 
 //-----------------------------------------------------------------------
-ProgramManager& ProgramManager::getSingleton()
+ProgramManager& ProgramManager::getSingleton() noexcept
 {
     assert( msSingleton );  
     return ( *msSingleton );

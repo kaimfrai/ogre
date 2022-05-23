@@ -144,7 +144,7 @@ namespace Ogre {
         mDesiredIntegerBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredIntegerBitDepth() const
+    ushort Texture::getDesiredIntegerBitDepth() const noexcept
     {
         return mDesiredIntegerBitDepth;
     }
@@ -154,7 +154,7 @@ namespace Ogre {
         mDesiredFloatBitDepth = bits;
     }
     //--------------------------------------------------------------------------
-    ushort Texture::getDesiredFloatBitDepth() const
+    ushort Texture::getDesiredFloatBitDepth() const noexcept
     {
         return mDesiredFloatBitDepth;
     }
@@ -175,7 +175,7 @@ namespace Ogre {
         return getNumFaces() * PixelUtil::getMemorySize(mWidth, mHeight, mDepth, mFormat);
     }
     //--------------------------------------------------------------------------
-    uint32 Texture::getNumFaces() const
+    uint32 Texture::getNumFaces() const noexcept
     {
         return getTextureType() == TEX_TYPE_CUBE_MAP ? 6 : 1;
     }

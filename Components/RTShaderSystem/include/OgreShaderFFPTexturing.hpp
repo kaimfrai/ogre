@@ -83,12 +83,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -98,7 +98,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
     
     static String Type;
 
@@ -218,7 +218,7 @@ protected:
     */
     bool needsTextureMatrix(TextureUnitState* textureUnitState);
 
-    bool setParameter(const String& name, const String& value) override;
+    bool setParameter(const String& name, const String& value) noexcept override;
 
 // Attributes.
 protected:
@@ -257,12 +257,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

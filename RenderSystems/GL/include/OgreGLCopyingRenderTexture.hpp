@@ -51,7 +51,7 @@ class RenderTexture;
         
         void getCustomAttribute(const String& name, void* pData) override;
 
-        [[nodiscard]] GLContext* getContext() const override { return nullptr; }
+        [[nodiscard]] GLContext* getContext() const noexcept override { return nullptr; }
     };
     
     /** Simple, copying manager/factory for RenderTextures. This is only used as the last fallback if

@@ -75,13 +75,13 @@ public:
     Returns the number of bones in the model assigned to the material.
     @see setHardwareSkinningParam()
     */
-    ushort getBoneCount();
+    ushort getBoneCount() noexcept;
 
     /**
     Returns the number of weights/bones affecting a vertex.
     @see setHardwareSkinningParam()
     */
-    ushort getWeightCount();
+    ushort getWeightCount() noexcept;
 
     /**
     Only applicable for dual quaternion skinning.

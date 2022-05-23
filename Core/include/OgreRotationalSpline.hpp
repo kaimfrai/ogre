@@ -69,7 +69,7 @@ namespace Ogre {
         [[nodiscard]] const Quaternion& getPoint(unsigned short index) const;
 
         /** Gets the number of control points in the spline. */
-        [[nodiscard]] unsigned short getNumPoints() const;
+        [[nodiscard]] unsigned short getNumPoints() const noexcept;
 
         /** Clears all the points in the spline. */
         void clear();

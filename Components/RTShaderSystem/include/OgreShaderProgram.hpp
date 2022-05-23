@@ -129,12 +129,12 @@ public:
 
     /** Get the list of uniform parameters of this program.
     */
-    [[nodiscard]] const UniformParameterList& getParameters() const { return mParameters; };
+    [[nodiscard]] const UniformParameterList& getParameters() const noexcept { return mParameters; };
 
     /// @deprecated use getMain()
-    Function* getEntryPointFunction()                    { return mEntryPointFunction; }
+    Function* getEntryPointFunction() noexcept { return mEntryPointFunction; }
 
-    Function* getMain() { return mEntryPointFunction; }
+    Function* getMain() noexcept { return mEntryPointFunction; }
 
     /** Add dependency for this program. Basically a filename that will be included in this
     program and provide predefined shader functions code.
@@ -160,7 +160,7 @@ public:
     /** Returns whether a vertex program includes the required instructions
         to perform skeletal animation. 
     */
-    [[nodiscard]] bool getSkeletalAnimationIncluded() const { return mSkeletalAnimation; }
+    [[nodiscard]] bool getSkeletalAnimationIncluded() const noexcept { return mSkeletalAnimation; }
 
     /** Tells Ogre whether auto-bound matrices should be sent in column or row-major order.
     @remarks
@@ -179,11 +179,11 @@ public:
     @return
     true, when the matrices will be passed in column-major order, false, when they will be passed as row-major.
     */
-    [[nodiscard]] bool getUseColumnMajorMatrices() const { return mColumnMajorMatrices; }
+    [[nodiscard]] bool getUseColumnMajorMatrices() const noexcept { return mColumnMajorMatrices; }
 
     void addPreprocessorDefines(const String& defines);
 
-    [[nodiscard]] const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
+    [[nodiscard]] const String& getPreprocessorDefines() const noexcept { return mPreprocessorDefines; }
 
     /** Class destructor */
     ~Program();

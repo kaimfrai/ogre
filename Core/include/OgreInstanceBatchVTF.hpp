@@ -169,7 +169,7 @@ class VertexData;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const override;
-        unsigned short getNumWorldTransforms() const override;
+        unsigned short getNumWorldTransforms() const noexcept override;
 
         /** Overloaded to be able to updated the vertex texture */
         void _updateRenderQueue(RenderQueue* queue) override;
@@ -192,28 +192,28 @@ class VertexData;
         /** Tells whether to use bone matrix lookup
         @see setBoneMatrixLookup()
         */
-        bool useBoneMatrixLookup() const { return mUseBoneMatrixLookup; }
+        bool useBoneMatrixLookup() const noexcept { return mUseBoneMatrixLookup; }
 
         void setBoneDualQuaternions(bool enable) { assert(mInstancedEntities.empty());
             mUseBoneDualQuaternions = enable; mRowLength = (mUseBoneDualQuaternions ? 2 : 3); }
 
-        bool useBoneDualQuaternions() const { return mUseBoneDualQuaternions; }
+        bool useBoneDualQuaternions() const noexcept { return mUseBoneDualQuaternions; }
 
         void setForceOneWeight(bool enable) {  assert(mInstancedEntities.empty());
             mForceOneWeight = enable; }
 
-        bool forceOneWeight() const { return mForceOneWeight; }
+        bool forceOneWeight() const noexcept { return mForceOneWeight; }
 
         void setUseOneWeight(bool enable) {  assert(mInstancedEntities.empty());
             mUseOneWeight = enable; }
 
-        bool useOneWeight() const { return mUseOneWeight; }
+        bool useOneWeight() const noexcept { return mUseOneWeight; }
 
         /** @see InstanceBatch::useBoneWorldMatrices()  */
-        bool useBoneWorldMatrices() const override { return !mUseBoneMatrixLookup; }
+        bool useBoneWorldMatrices() const noexcept override { return !mUseBoneMatrixLookup; }
 
         /** @return the maximum amount of shared transform entities when using lookup table*/
-        virtual size_t getMaxLookupTableInstances() const { return mMaxLookupTableInstances; }
+        virtual size_t getMaxLookupTableInstances() const noexcept { return mMaxLookupTableInstances; }
         
     };
 
@@ -227,7 +227,7 @@ class VertexData;
         void createVertexSemantics( VertexData *thisVertexData, VertexData *baseVertexData,
             const HWBoneIdxVec &hwBoneIdx, const HWBoneWgtVec &hwBoneWgt ) override;
 
-        bool matricesTogetherPerRow() const override { return false; }
+        bool matricesTogetherPerRow() const noexcept override { return false; }
     public:
         InstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,

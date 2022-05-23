@@ -69,13 +69,13 @@ namespace Ogre {
                                  HardwareBuffer* delegate);
             ~HardwareVertexBuffer() override;
             /// Return the manager of this buffer, if any
-            [[nodiscard]] HardwareBufferManagerBase* getManager() const { return mMgr; }
+            [[nodiscard]] HardwareBufferManagerBase* getManager() const noexcept { return mMgr; }
             /// Gets the size in bytes of a single vertex in this buffer
-            [[nodiscard]] size_t getVertexSize() const { return mVertexSize; }
+            [[nodiscard]] size_t getVertexSize() const noexcept { return mVertexSize; }
             /// Get the number of vertices in this buffer
-            [[nodiscard]] size_t getNumVertices() const { return mNumVertices; }
+            [[nodiscard]] size_t getNumVertices() const noexcept { return mNumVertices; }
             /// Get if this vertex buffer is an "instance data" buffer (per instance)
-            [[nodiscard]] bool isInstanceData() const { return mIsInstanceData; }
+            [[nodiscard]] bool isInstanceData() const noexcept { return mIsInstanceData; }
             /// Set if this vertex buffer is an "instance data" buffer (per instance)
             void setIsInstanceData(const bool val);
             /// Get the number of instances to draw using the same per-instance data before advancing in the buffer by one element.
@@ -195,15 +195,15 @@ namespace Ogre {
         VertexElement(unsigned short source, size_t offset, VertexElementType theType,
             VertexElementSemantic semantic, unsigned short index = 0);
         /// Gets the vertex buffer index from where this element draws it's values
-        [[nodiscard]] unsigned short getSource() const { return mSource; }
+        [[nodiscard]] unsigned short getSource() const noexcept { return mSource; }
         /// Gets the offset into the buffer where this element starts
-        [[nodiscard]] size_t getOffset() const { return mOffset; }
+        [[nodiscard]] size_t getOffset() const noexcept { return mOffset; }
         /// Gets the data format of this element
-        [[nodiscard]] VertexElementType getType() const { return mType; }
+        [[nodiscard]] VertexElementType getType() const noexcept { return mType; }
         /// Gets the meaning of this element
-        [[nodiscard]] VertexElementSemantic getSemantic() const { return mSemantic; }
+        [[nodiscard]] VertexElementSemantic getSemantic() const noexcept { return mSemantic; }
         /// Gets the index of this element, only applicable for repeating elements
-        [[nodiscard]] unsigned short getIndex() const { return mIndex; }
+        [[nodiscard]] unsigned short getIndex() const noexcept { return mIndex; }
         /// Gets the size of this element in bytes
         [[nodiscard]] size_t getSize() const;
         /// Utility method for helping to calculate offsets
@@ -303,7 +303,7 @@ namespace Ogre {
         /** Get the number of elements in the declaration. */
         [[nodiscard]] size_t getElementCount() const { return mElementList.size(); }
         /** Gets read-only access to the list of vertex elements. */
-        [[nodiscard]] const VertexElementList& getElements() const;
+        [[nodiscard]] const VertexElementList& getElements() const noexcept;
         /** Get a single element. */
         [[nodiscard]] const VertexElement* getElement(unsigned short index) const;
 
@@ -361,7 +361,7 @@ namespace Ogre {
             bool vertexAnimation, bool vertexAnimationNormals) const;
 
         /** Gets the index of the highest source value referenced by this declaration. */
-        [[nodiscard]] unsigned short getMaxSource() const;
+        [[nodiscard]] unsigned short getMaxSource() const noexcept;
 
 
 
@@ -443,7 +443,7 @@ namespace Ogre {
         /** Return the index of the next free texture coordinate set which may be added
             to this declaration.
         */
-        [[nodiscard]] unsigned short getNextFreeTextureCoordinate() const;
+        [[nodiscard]] unsigned short getNextFreeTextureCoordinate() const noexcept;
 
         /** Clones this declaration. 
         @param mgr Optional HardwareBufferManager to use for creating the clone
@@ -517,7 +517,7 @@ namespace Ogre {
         void unsetAllBindings();
 
         /// Gets a read-only version of the buffer bindings
-        const VertexBufferBindingMap& getBindings() const;
+        const VertexBufferBindingMap& getBindings() const noexcept;
 
         /// Gets the buffer bound to the given source index
         const HardwareVertexBufferSharedPtr& getBuffer(unsigned short index) const;
@@ -531,11 +531,11 @@ namespace Ogre {
             This is to assist in binding the vertex buffers such that there are
             not gaps in the list.
         */
-        unsigned short getNextIndex() const { return mHighIndex++; }
+        unsigned short getNextIndex() const noexcept { return mHighIndex++; }
 
         /** Gets the last bound index.
         */
-        unsigned short getLastBoundIndex() const;
+        unsigned short getLastBoundIndex() const noexcept;
 
         typedef std::map<ushort, ushort> BindingIndexMap;
 

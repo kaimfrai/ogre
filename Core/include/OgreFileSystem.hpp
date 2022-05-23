@@ -55,7 +55,7 @@ class Archive;
     {
     public:
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
 
         using ArchiveFactory::createInstance;
 
@@ -67,7 +67,7 @@ class Archive;
         static void setIgnoreHidden(bool ignore);
 
         /// Get whether hidden files are ignored during filesystem enumeration.
-        static bool getIgnoreHidden();
+        static bool getIgnoreHidden() noexcept;
     };
 
     class APKFileSystemArchiveFactory : public ArchiveFactory
@@ -76,7 +76,7 @@ class Archive;
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
         ~APKFileSystemArchiveFactory() override {}
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
         /// @copydoc ArchiveFactory::createInstance
         Archive *createInstance( const String& name, bool readOnly ) override;
     private:

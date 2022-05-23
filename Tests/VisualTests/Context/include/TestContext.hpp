@@ -69,7 +69,7 @@ class TestContext : public OgreBites::SampleContext
 
     /** Frame listener callback, handles updating of the tests at the end of frames
      *        @param evt The frame event (passed in for the framelistener) */
-    bool frameEnded(const FrameEvent& evt) override;
+    bool frameEnded(const FrameEvent& evt) noexcept override;
 
     /** Runs a given test or sample
      *        @param s The OgreBites::Sample to run

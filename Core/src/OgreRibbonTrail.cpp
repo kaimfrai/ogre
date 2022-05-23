@@ -53,7 +53,7 @@ namespace Ogre
         public:
             TimeControllerValue(RibbonTrail* r) { mTrail = r; }
 
-            [[nodiscard]] Real getValue() const override { return 0; }// not a source 
+            [[nodiscard]] Real getValue() const noexcept override { return 0; }// not a source 
             void setValue(Real value) override { mTrail->_timeUpdate(value); }
         };
     }
@@ -431,7 +431,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    const String& RibbonTrail::getMovableType() const
+    const String& RibbonTrail::getMovableType() const noexcept
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -439,7 +439,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    const String& RibbonTrailFactory::getType() const
+    const String& RibbonTrailFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

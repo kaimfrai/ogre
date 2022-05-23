@@ -207,11 +207,11 @@ class SkeletonInstance;
         */
         void stopSharingTransform();
 
-        InstanceBatch* _getOwner() const { return mBatchOwner; }
+        InstanceBatch* _getOwner() const noexcept { return mBatchOwner; }
 
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
 
-        const AxisAlignedBox& getBoundingBox() const override;
+        const AxisAlignedBox& getBoundingBox() const noexcept override;
         Real getBoundingRadius() const override;
 
         /** This is used by our batch owner to get the closest entity's depth, returns infinity
@@ -229,12 +229,12 @@ class SkeletonInstance;
         /** @see Entity::hasSkeleton */
         bool hasSkeleton() const { return mSkeletonInstance != nullptr; }
         /** @see Entity::getSkeleton */
-        SkeletonInstance* getSkeleton() const { return mSkeletonInstance; }
+        SkeletonInstance* getSkeleton() const noexcept { return mSkeletonInstance; }
 
         /** @see Entity::getAnimationState */
         AnimationState* getAnimationState(const String& name) const;
         /** @see Entity::getAllAnimationStates */
-        AnimationStateSet* getAllAnimationStates() const;
+        AnimationStateSet* getAllAnimationStates() const noexcept;
 
         /** Called by InstanceBatch in <i>his</i> _updateRenderQueue to tell us we need
             to calculate our bone matrices.
@@ -247,17 +247,17 @@ class SkeletonInstance;
         void setTransformLookupNumber(uint16 num) { mTransformLookupNumber = num;}
 
         /** Retrieve the position */
-        const Vector3& getPosition() const { return mPosition; }
+        const Vector3& getPosition() const noexcept { return mPosition; }
         /** Set the position or the offset from the parent node if a parent node exists */ 
         void setPosition(const Vector3& position, bool doUpdate = true);
 
         /** Retrieve the orientation */
-        const Quaternion& getOrientation() const { return mOrientation; }
+        const Quaternion& getOrientation() const noexcept { return mOrientation; }
         /** Set the orientation or the offset from the parent node if a parent node exists */
         void setOrientation(const Quaternion& orientation, bool doUpdate = true);
 
         /** Retrieve the local scale */ 
-        const Vector3& getScale() const { return mScale; }
+        const Vector3& getScale() const noexcept { return mScale; }
         /** Set the  scale or the offset from the parent node if a parent node exists  */ 
         void setScale(const Vector3& scale, bool doUpdate = true);
 
@@ -268,7 +268,7 @@ class SkeletonInstance;
         void updateTransforms();
 
         /** Tells if the entity is in use. */
-        bool isInUse() const { return mInUse; }
+        bool isInUse() const noexcept { return mInUse; }
         /** Sets whether the entity is in use. */
         void setInUse(bool used);
 
@@ -287,7 +287,7 @@ class SkeletonInstance;
         }
 
         /** @copydoc MovableObject::isInScene */
-        bool isInScene() const override
+        bool isInScene() const noexcept override
         {
             //We assume that the instanced entity is in the scene if it is in use
             //It is in the scene whether it has a parent node or not

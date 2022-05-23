@@ -67,12 +67,12 @@ namespace Ogre {
            Use this object to set the elements of the buffer. Object will calculate
            buffers on its own. Only one source allowed!
         */
-        VertexDeclaration* getVertexDeclaration();
+        VertexDeclaration* getVertexDeclaration() noexcept;
 
         /**
            Get the maximum number of vertices that the buffer will hold
         */
-        [[nodiscard]] unsigned int getMaxVertexCount() const { return mMaxVertexCount; }
+        [[nodiscard]] unsigned int getMaxVertexCount() const noexcept { return mMaxVertexCount; }
 
         /**
            Set the maximum number of vertices that the buffer will hold
@@ -82,7 +82,7 @@ namespace Ogre {
         /**
            What type of primitives does this object generate?
         */
-        [[nodiscard]] RenderOperation::OperationType getOperationType() const { return mOperationType; }
+        [[nodiscard]] RenderOperation::OperationType getOperationType() const noexcept { return mOperationType; }
 
         /**
            Set the type of primitives that this object generates
@@ -97,7 +97,7 @@ namespace Ogre {
         /**
            Does this object reset its buffer each time it updates?
         */
-        [[nodiscard]] bool getResetsEveryUpdate() const { return mResetsEveryUpdate; }
+        [[nodiscard]] bool getResetsEveryUpdate() const noexcept { return mResetsEveryUpdate; }
 
         /**
            Get the render operation for this buffer
@@ -125,13 +125,13 @@ namespace Ogre {
         /**
            Get the source renderable of this object
         */
-        [[nodiscard]] const Renderable* getSourceRenderable() const { return mSourceRenderable; }
+        [[nodiscard]] const Renderable* getSourceRenderable() const noexcept { return mSourceRenderable; }
 
         /**
            Get the material which is used to render the geometry into the
            vertex buffer.
         */
-        const MaterialPtr& getRenderToBufferMaterial() { return mMaterial; }
+        const MaterialPtr& getRenderToBufferMaterial() noexcept { return mMaterial; }
 
         /**
            Set the material name which is used to render the geometry into

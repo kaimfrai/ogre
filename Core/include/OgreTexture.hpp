@@ -147,11 +147,11 @@ class ResourceManager;
 
         /** Gets the type of texture 
         */
-        TextureType getTextureType() const { return mTextureType; }
+        TextureType getTextureType() const noexcept { return mTextureType; }
 
         /** Gets the number of mipmaps to be used for this texture.
         */
-        uint32 getNumMipmaps() const {return mNumMipmaps;}
+        uint32 getNumMipmaps() const noexcept {return mNumMipmaps;}
 
         /** Sets the number of mipmaps to be used for this texture.
             @note
@@ -168,11 +168,11 @@ class ResourceManager;
         @remarks
             Will only be accurate after texture load, or createInternalResources
         */
-        bool getMipmapsHardwareGenerated() const { return mMipmapsHardwareGenerated; }
+        bool getMipmapsHardwareGenerated() const noexcept { return mMipmapsHardwareGenerated; }
 
         /** Returns the gamma adjustment factor applied to this texture on loading.
         */
-        float getGamma() const { return mGamma; }
+        float getGamma() const noexcept { return mGamma; }
 
         /** Sets the gamma adjustment factor applied to this texture on loading the
             data.
@@ -207,7 +207,7 @@ class ResourceManager;
         /** Gets whether this texture will be set up so that on sampling it, 
         hardware gamma correction is applied.
         */
-        bool isHardwareGammaEnabled() const { return mHwGamma; }
+        bool isHardwareGammaEnabled() const noexcept { return mHwGamma; }
 
         /** Set the level of multisample AA to be used if this texture is a 
             rendertarget.
@@ -221,35 +221,35 @@ class ResourceManager;
         /** Get the level of multisample AA to be used if this texture is a 
         rendertarget.
         */
-        uint getFSAA() const { return mFSAA; }
+        uint getFSAA() const noexcept { return mFSAA; }
 
         /** Get the multisample AA hint if this texture is a rendertarget.
         */
-        const String& getFSAAHint() const { return mFSAAHint; }
+        const String& getFSAAHint() const noexcept { return mFSAAHint; }
 
         /** Returns the height of the texture.
         */
-        uint32 getHeight() const { return mHeight; }
+        uint32 getHeight() const noexcept { return mHeight; }
 
         /** Returns the width of the texture.
         */
-        uint32 getWidth() const { return mWidth; }
+        uint32 getWidth() const noexcept { return mWidth; }
 
         /** Returns the depth of the texture (only applicable for 3D textures).
         */
-        uint32 getDepth() const { return mDepth; }
+        uint32 getDepth() const noexcept { return mDepth; }
 
         /** Returns the height of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcHeight() const { return mSrcHeight; }
+        uint32 getSrcHeight() const noexcept { return mSrcHeight; }
 
         /** Returns the width of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcWidth() const { return mSrcWidth; }
+        uint32 getSrcWidth() const noexcept { return mSrcWidth; }
 
         /** Returns the original depth of the input texture (only applicable for 3D textures).
         */
-        uint32 getSrcDepth() const { return mSrcDepth; }
+        uint32 getSrcDepth() const noexcept { return mSrcDepth; }
 
         /** Set the height of the texture; can only do this before load();
         */
@@ -266,7 +266,7 @@ class ResourceManager;
 
         /** Returns the TextureUsage identifier for this Texture
         */
-        int getUsage() const
+        int getUsage() const noexcept
         {
             return mUsage;
         }
@@ -363,7 +363,7 @@ class ResourceManager;
 
         /** gets desired bit depth for integer pixel format textures.
         */
-        ushort getDesiredIntegerBitDepth() const;
+        ushort getDesiredIntegerBitDepth() const noexcept;
 
         /** Sets desired bit depth for float pixel format textures.
 
@@ -374,7 +374,7 @@ class ResourceManager;
 
         /** gets desired bit depth for float pixel format textures.
         */
-        ushort getDesiredFloatBitDepth() const;
+        ushort getDesiredFloatBitDepth() const noexcept;
 
         /** Sets desired bit depth for integer and float pixel format.
         */
@@ -386,7 +386,7 @@ class ResourceManager;
         /** Return the number of faces this texture has. This will be 6 for a cubemap
             texture and 1 for a 1D, 2D or 3D one.
         */
-        uint32 getNumFaces() const;
+        uint32 getNumFaces() const noexcept;
 
         /** Return hardware pixel buffer for a surface. This buffer can then
             be used to copy data from and to a particular level of the texture.

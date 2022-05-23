@@ -1135,7 +1135,7 @@ namespace Ogre {
         virtual ~SceneManager();
 
         /** Return the instance name of this SceneManager. */
-        const String& getName() const { return mName; }
+        const String& getName() const noexcept { return mName; }
 
         /** Retrieve the type name of this scene manager.
         @remarks
@@ -1143,7 +1143,7 @@ namespace Ogre {
             return the type name of this SceneManager which agrees with 
             the type name of the SceneManagerFactory which created it.
         */
-        virtual const String& getTypeName() const = 0;
+        virtual const String& getTypeName() const noexcept = 0;
 
         typedef MapIterator<CameraList> CameraIterator;
         /// @name Cameras
@@ -1212,11 +1212,11 @@ namespace Ogre {
         /** Get whether to use camera-relative co-ordinates when rendering, ie
             to always place the camera at the origin and move the world around it.
         */
-        bool getCameraRelativeRendering() const { return mCameraRelativeRendering; }
+        bool getCameraRelativeRendering() const noexcept { return mCameraRelativeRendering; }
 
         /** Returns a const version of the camera list.
         */
-        const CameraList& getCameras() const { return mCameras; }
+        const CameraList& getCameras() const noexcept { return mCameras; }
         /// @}
 
         /// @name Lights
@@ -1301,7 +1301,7 @@ namespace Ogre {
             changes are detected (including changes to the light list itself or to a light's
             position or attenuation range) then it increases the lights dirty counter.
         */
-        ulong _getLightsDirtyCounter() const { return mLightsDirtyCounter; }
+        ulong _getLightsDirtyCounter() const noexcept { return mLightsDirtyCounter; }
 
         /** Get the list of lights which could be affecting the frustum.
         @remarks
@@ -1381,7 +1381,7 @@ namespace Ogre {
                 However, in all cases there is only ever one root node of
                 the hierarchy, and this method returns a pointer to it.
         */
-        SceneNode* getRootSceneNode();
+        SceneNode* getRootSceneNode() noexcept;
 
         /** Retrieves a named SceneNode from the scene graph.
 
@@ -1405,15 +1405,15 @@ namespace Ogre {
         */
         void setDisplaySceneNodes(bool display);
         /** Returns true if all scene nodes axis are to be displayed */
-        bool getDisplaySceneNodes() const {return mDisplayNodes;}
+        bool getDisplaySceneNodes() const noexcept {return mDisplayNodes;}
 
         /** Allows all bounding boxes of scene nodes to be displayed. */
         void showBoundingBoxes(bool bShow);
 
         /** Returns if all bounding boxes of scene nodes are to be displayed */
-        bool getShowBoundingBoxes() const;
+        bool getShowBoundingBoxes() const noexcept;
 
-        DebugDrawer* getDebugDrawer() const { return mDebugDrawer.get(); }
+        DebugDrawer* getDebugDrawer() const noexcept { return mDebugDrawer.get(); }
         /// @}
 
         /** Prefab shapes available without loading a model.
@@ -1683,7 +1683,7 @@ namespace Ogre {
 
         /** Returns the ambient light level to be used for the scene.
         */
-        const ColourValue& getAmbientLight() const;
+        const ColourValue& getAmbientLight() const noexcept;
 
         /// @name World Geometry
         /// @{
@@ -1968,13 +1968,13 @@ namespace Ogre {
         void setSkyPlaneEnabled(bool enable) { mSkyPlane.setEnabled(enable); }
 
         /** Return whether a key plane is enabled */
-        bool isSkyPlaneEnabled() const { return mSkyPlane.mEnabled; }
+        bool isSkyPlaneEnabled() const noexcept { return mSkyPlane.mEnabled; }
 
         /** Get the sky plane node, if enabled. */
-        SceneNode* getSkyPlaneNode() const { return mSkyPlane.mSceneNode; }
+        SceneNode* getSkyPlaneNode() const noexcept { return mSkyPlane.mSceneNode; }
 
         /** Get the parameters used to construct the SkyPlane, if any **/
-        const SkyPlaneGenParameters& getSkyPlaneGenParameters() const { return mSkyPlane.mSkyPlaneGenParameters; }
+        const SkyPlaneGenParameters& getSkyPlaneGenParameters() const noexcept { return mSkyPlane.mSkyPlaneGenParameters; }
 
         /** Enables / disables a 'sky box' i.e. a 6-sided box at constant
             distance from the camera representing the sky.
@@ -2032,13 +2032,13 @@ namespace Ogre {
         void setSkyBoxEnabled(bool enable) { mSkyBox.setEnabled(enable); }
 
         /** Return whether a skybox is enabled */
-        bool isSkyBoxEnabled() const { return mSkyBox.mEnabled; }
+        bool isSkyBoxEnabled() const noexcept { return mSkyBox.mEnabled; }
 
         /** Get the skybox node, if enabled. */
-        SceneNode* getSkyBoxNode() const { return mSkyBox.mSceneNode; }
+        SceneNode* getSkyBoxNode() const noexcept { return mSkyBox.mSceneNode; }
 
         /** Get the parameters used to generate the current SkyBox, if any */
-        const SkyBoxGenParameters& getSkyBoxGenParameters() const { return mSkyBox.mSkyBoxGenParameters; }
+        const SkyBoxGenParameters& getSkyBoxGenParameters() const noexcept { return mSkyBox.mSkyBoxGenParameters; }
 
         /** Enables / disables a 'sky dome' i.e. an illusion of a curved sky.
             @remarks
@@ -2115,13 +2115,13 @@ namespace Ogre {
         void setSkyDomeEnabled(bool enable) { mSkyDome.setEnabled(enable); }
 
         /** Return whether a skydome is enabled */
-        bool isSkyDomeEnabled() const { return mSkyDome.mEnabled; }
+        bool isSkyDomeEnabled() const noexcept { return mSkyDome.mEnabled; }
 
         /** Get the sky dome node, if enabled. */
-        SceneNode* getSkyDomeNode() const { return mSkyDome.mSceneNode; }
+        SceneNode* getSkyDomeNode() const noexcept { return mSkyDome.mSceneNode; }
 
         /** Get the parameters used to generate the current SkyDome, if any */
-        const SkyDomeGenParameters& getSkyDomeGenParameters() const { return mSkyDome.mSkyDomeGenParameters; }
+        const SkyDomeGenParameters& getSkyDomeGenParameters() const noexcept { return mSkyDome.mSkyDomeGenParameters; }
         /// @}
 
         /// @name Fogging
@@ -2160,7 +2160,7 @@ namespace Ogre {
 
         /** Returns the fog colour for the scene.
         */
-        const ColourValue& getFogColour() const;
+        const ColourValue& getFogColour() const noexcept;
 
         /** Returns the fog start distance for the scene.
         */
@@ -2330,10 +2330,10 @@ namespace Ogre {
 
         /** Returns a const version of the animation list.
         */
-        const AnimationList& getAnimations() const { return mAnimationsList; }
+        const AnimationList& getAnimations() const noexcept { return mAnimationsList; }
 
         /** Returns a specialised Map over all animation states in the scene. */
-        const AnimationStateMap& getAnimationStates() {
+        const AnimationStateMap& getAnimationStates() noexcept {
             return mAnimationStates.getAnimationStates();
         }
         /// @}
@@ -2398,7 +2398,7 @@ namespace Ogre {
             more information. Do not access this directly unless you know what 
             you are doing.
         */
-        RenderQueue* getRenderQueue();
+        RenderQueue* getRenderQueue() noexcept;
 
         /** Registers a new RenderQueueListener which will be notified when render queues
             are processed.
@@ -2479,7 +2479,7 @@ namespace Ogre {
             world geometry, it should still pick a queue to represent it's manual
             rendering, and check isRenderQueueToBeProcessed before rendering.
         */
-        uint8 getWorldGeometryRenderQueue();
+        uint8 getWorldGeometryRenderQueue() noexcept;
 
         /** Internal method for notifying the manager that a SceneNode is autotracking. */
         void _notifyAutotrackingSceneNode(SceneNode* node, bool autoTrack);
@@ -2620,7 +2620,7 @@ namespace Ogre {
         This colour provided is used as a modulative value to darken the
         areas.
         */
-        const ColourValue& getShadowColour() const;
+        const ColourValue& getShadowColour() const noexcept;
         /** Sets the distance a shadow volume is extruded for a directional light.
         @remarks
             Although directional lights are essentially infinite, there are many
@@ -2693,7 +2693,7 @@ namespace Ogre {
             their own shadow camera setup.
         @see ShadowCameraSetup
         */
-        const ShadowCameraSetupPtr& getShadowCameraSetup() const;
+        const ShadowCameraSetupPtr& getShadowCameraSetup() const noexcept;
 
         /** Sets whether we should use an inifinite camera far plane
             when rendering stencil shadows.
@@ -2735,22 +2735,22 @@ namespace Ogre {
             mShadowRenderer.mShadowUseInfiniteFarPlane = enable; }
 
         /** Is there a stencil shadow based shadowing technique in use? */
-        bool isShadowTechniqueStencilBased() const
+        bool isShadowTechniqueStencilBased() const noexcept
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_STENCIL) != 0; }
         /** Is there a texture shadow based shadowing technique in use? */
-        bool isShadowTechniqueTextureBased() const
+        bool isShadowTechniqueTextureBased() const noexcept
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_TEXTURE) != 0; }
         /** Is there a modulative shadowing technique in use? */
-        bool isShadowTechniqueModulative() const
+        bool isShadowTechniqueModulative() const noexcept
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_MODULATIVE) != 0; }
         /** Is there an additive shadowing technique in use? */
-        bool isShadowTechniqueAdditive() const
+        bool isShadowTechniqueAdditive() const noexcept
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_ADDITIVE) != 0; }
         /** Is the shadow technique integrated into primary materials? */
-        bool isShadowTechniqueIntegrated() const
+        bool isShadowTechniqueIntegrated() const noexcept
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_INTEGRATED) != 0; }
         /** Is there any shadowing technique in use? */
-        bool isShadowTechniqueInUse() const
+        bool isShadowTechniqueInUse() const noexcept
         { return mShadowRenderer.mShadowTechnique != SHADOWTYPE_NONE; }
         /** Sets whether when using a built-in additive shadow mode, user clip
             planes should be used to restrict light rendering.
@@ -2759,7 +2759,7 @@ namespace Ogre {
         /** Gets whether when using a built-in additive shadow mode, user clip
         planes should be used to restrict light rendering.
         */
-        bool getShadowUseLightClipPlanes() const { return mShadowRenderer.mShadowAdditiveLightClip; }
+        bool getShadowUseLightClipPlanes() const noexcept { return mShadowRenderer.mShadowAdditiveLightClip; }
         /// @}
 
         /// @name Shadow Texture Config
@@ -2805,7 +2805,7 @@ namespace Ogre {
         }
 
         /** Get the current shadow texture settings. */
-        const ShadowTextureConfigList& getShadowTextureConfigList() const { return mShadowRenderer.mShadowTextureConfigList; }
+        const ShadowTextureConfigList& getShadowTextureConfigList() const noexcept { return mShadowRenderer.mShadowTextureConfigList; }
 
         /** Set the pixel format of the textures used for texture-based shadows.
         @remarks
@@ -2931,7 +2931,7 @@ namespace Ogre {
         void setShadowTextureSelfShadow(bool selfShadow);
 
         /// Gets whether or not texture shadows attempt to self-shadow.
-        bool getShadowTextureSelfShadow() const
+        bool getShadowTextureSelfShadow() const noexcept
         { return mShadowRenderer.mShadowTextureSelfShadow; }
         /** Sets the default material to use for rendering shadow casters.
         @remarks
@@ -2995,7 +2995,7 @@ namespace Ogre {
         /** Gets whether or not shadow casters should be rendered into shadow
             textures using their back faces rather than their front faces. 
         */
-        bool getShadowCasterRenderBackFaces() const { return mShadowRenderer.mShadowCasterRenderBackFaces; }
+        bool getShadowCasterRenderBackFaces() const noexcept { return mShadowRenderer.mShadowCasterRenderBackFaces; }
 
         /** Set the shadow camera setup to use for all lights which don't have
             their own shadow camera setup.
@@ -3018,10 +3018,10 @@ namespace Ogre {
         
         /** Gets whether using late material resolving or not.
             @see setLateMaterialResolving */
-        bool isLateMaterialResolving() const { return mLateMaterialResolving; }
+        bool isLateMaterialResolving() const noexcept { return mLateMaterialResolving; }
 
         /** Gets the active compositor chain of the current scene being rendered */
-        CompositorChain* _getActiveCompositorChain() const { return mActiveCompositorChain; }
+        CompositorChain* _getActiveCompositorChain() const noexcept { return mActiveCompositorChain; }
 
         /** Add a listener which will get called back on scene manager events.
         */
@@ -3241,7 +3241,7 @@ namespace Ogre {
         /** Gets a mask which is bitwise 'and'ed with objects own visibility masks
             to determine if the object is visible.
         */
-        uint32 getVisibilityMask() { return mVisibilityMask; }
+        uint32 getVisibilityMask() noexcept { return mVisibilityMask; }
 
         /** Internal method for getting the combination between the global visibility
             mask and the per-viewport visibility mask.
@@ -3259,7 +3259,7 @@ namespace Ogre {
         /** Gets whether the SceneManager should search for visible objects, or
             whether they are being manually handled.
         */
-        bool getFindVisibleObjects() { return mFindVisibleObjects; }
+        bool getFindVisibleObjects() noexcept { return mFindVisibleObjects; }
 
         /** Set whether to automatically normalise normals on objects whenever they
             are scaled.
@@ -3274,7 +3274,7 @@ namespace Ogre {
         /** Get whether to automatically normalise normals on objects whenever they
             are scaled.
         */
-        bool getNormaliseNormalsOnScale() const { return mNormaliseNormalsOnScale; }
+        bool getNormaliseNormalsOnScale() const noexcept { return mNormaliseNormalsOnScale; }
 
         /** Set whether to automatically flip the culling mode on objects whenever they
             are negatively scaled.
@@ -3289,7 +3289,7 @@ namespace Ogre {
         /** Get whether to automatically flip the culling mode on objects whenever they
             are negatively scaled.
         */
-        bool getFlipCullingOnNegativeScale() const { return mFlipCullingOnNegativeScale; }
+        bool getFlipCullingOnNegativeScale() const noexcept { return mFlipCullingOnNegativeScale; }
 
         /** Render something as if it came from the current queue.
         @param rend The renderable to issue to the pipeline
@@ -3350,7 +3350,7 @@ namespace Ogre {
         void setQueuedRenderableVisitor(SceneMgrQueuedRenderableVisitor* visitor);
 
         /** Gets the current visitor object which processes queued renderables. */
-        SceneMgrQueuedRenderableVisitor* getQueuedRenderableVisitor() const
+        SceneMgrQueuedRenderableVisitor* getQueuedRenderableVisitor() const noexcept
         {
             return mActiveQueuedRenderableVisitor;
         }
@@ -3362,7 +3362,7 @@ namespace Ogre {
 
         /** Gets the current viewport being rendered (advanced use only, only 
             valid during viewport update. */
-        Viewport* getCurrentViewport() const { return mCurrentViewport; }
+        Viewport* getCurrentViewport() const noexcept { return mCurrentViewport; }
 
         /** Returns a visibility boundary box for a specific camera. */
         const VisibleObjectsBoundsInfo& getVisibleObjectsBoundsInfo(const Camera* cam) const;
@@ -3478,7 +3478,7 @@ namespace Ogre {
         SceneManagerFactory() : mMetaDataInit(true) {}
         virtual ~SceneManagerFactory() {}
         /** Get information about the SceneManager type created by this factory. */
-        virtual const SceneManagerMetaData& getMetaData() const 
+        virtual const SceneManagerMetaData& getMetaData() const noexcept 
         {
             if (mMetaDataInit)
             {

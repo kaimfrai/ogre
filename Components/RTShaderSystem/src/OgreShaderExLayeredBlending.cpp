@@ -124,7 +124,7 @@ LayeredBlending::LayeredBlending()
 }
 
 //-----------------------------------------------------------------------
-const Ogre::String& LayeredBlending::getType() const
+const Ogre::String& LayeredBlending::getType() const noexcept
 {
     return Type;
 }
@@ -328,14 +328,14 @@ bool LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& mo
 
 //----------------------Factory Implementation---------------------------
 //-----------------------------------------------------------------------
-const String& LayeredBlendingFactory::getType() const
+const String& LayeredBlendingFactory::getType() const noexcept
 {
     return LayeredBlending::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* LayeredBlendingFactory::createInstance(ScriptCompiler* compiler, 
-                                    PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator)
+                                    PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "layered_blend")
     {

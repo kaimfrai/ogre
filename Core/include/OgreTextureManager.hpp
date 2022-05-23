@@ -291,7 +291,7 @@ class Image;
 
         /** Gets preferred bit depth for integer pixel format textures.
         */
-        virtual ushort getPreferredIntegerBitDepth() const;
+        virtual ushort getPreferredIntegerBitDepth() const noexcept;
 
         /** Sets preferred bit depth for float pixel format textures.
         @param
@@ -304,7 +304,7 @@ class Image;
 
         /** Gets preferred bit depth for float pixel format textures.
         */
-        virtual ushort getPreferredFloatBitDepth() const;
+        virtual ushort getPreferredFloatBitDepth() const noexcept;
 
         /** Sets preferred bit depth for integer and float pixel format.
         @param
@@ -401,7 +401,7 @@ class Image;
 
         /** Gets the default number of mipmaps to be used for loaded textures.
         */
-        virtual uint32 getDefaultNumMipmaps()
+        virtual uint32 getDefaultNumMipmaps() noexcept
         {
             return mDefaultNumMipmaps;
         }
@@ -410,12 +410,12 @@ class Image;
         const TexturePtr& _getWarningTexture();
 
         /// get the default sampler
-        const SamplerPtr& getDefaultSampler();
+        const SamplerPtr& getDefaultSampler() noexcept;
 
         /// @copydoc Singleton::getSingleton()
-        static TextureManager& getSingleton();
+        static TextureManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static TextureManager* getSingletonPtr();
+        static TextureManager* getSingletonPtr() noexcept;
 
     protected:
 
@@ -460,8 +460,8 @@ class Image;
         }
 
     public:
-        bool isHardwareFilteringSupported(TextureType, PixelFormat, int, bool) override { return false; }
-        PixelFormat getNativeFormat(TextureType, PixelFormat, int) override { return PF_UNKNOWN; }
+        bool isHardwareFilteringSupported(TextureType, PixelFormat, int, bool) noexcept override { return false; }
+        PixelFormat getNativeFormat(TextureType, PixelFormat, int) noexcept override { return PF_UNKNOWN; }
     };
     /** @} */
     /** @} */

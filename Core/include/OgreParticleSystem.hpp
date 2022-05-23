@@ -102,9 +102,9 @@ namespace Ogre {
         void setRenderer(const String& typeName);
 
         /** Gets the ParticleRenderer to be used to render this particle system. */
-        ParticleSystemRenderer* getRenderer() const;
+        ParticleSystemRenderer* getRenderer() const noexcept;
         /** Gets the name of the ParticleRenderer to be used to render this particle system. */
-        const String& getRendererName() const;
+        const String& getRendererName() const noexcept;
 
         /** Adds an emitter to this particle system.
         @remarks
@@ -129,7 +129,7 @@ namespace Ogre {
         ParticleEmitter* getEmitter(unsigned short index) const;
 
         /** Returns the number of emitters for this particle system. */
-        unsigned short getNumEmitters() const;
+        unsigned short getNumEmitters() const noexcept;
 
         /** Removes an emitter from the system.
         @remarks
@@ -175,7 +175,7 @@ namespace Ogre {
         ParticleAffector* getAffector(unsigned short index) const;
 
         /** Returns the number of affectors for this particle system. */
-        unsigned short getNumAffectors() const;
+        unsigned short getNumAffectors() const noexcept;
 
         /** Removes an affector from the system.
         @remarks
@@ -288,7 +288,7 @@ namespace Ogre {
             this is the easiest way to step through all the particles in a system and apply the
             changes the affector wants to make.
         */
-        const std::vector<Particle*>& _getActiveParticles() { return mActiveParticles; }
+        const std::vector<Particle*>& _getActiveParticles() noexcept { return mActiveParticles; }
 
         /** Sets the name of the material to be used for this billboard set.
         */
@@ -297,12 +297,12 @@ namespace Ogre {
         /** Sets the name of the material to be used for this billboard set.
             @return The name of the material that is used for this set.
         */
-        virtual const String& getMaterialName() const;
+        virtual const String& getMaterialName() const noexcept;
 
         void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
-        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
-        Real getBoundingRadius() const override { return mBoundingRadius; }
+        const AxisAlignedBox& getBoundingBox() const noexcept override { return mAABB; }
+        Real getBoundingRadius() const noexcept override { return mBoundingRadius; }
         void _updateRenderQueue(RenderQueue* queue) override;
 
         /// @copydoc MovableObject::visitRenderables
@@ -335,7 +335,7 @@ namespace Ogre {
 
         /** Gets the 'speed factor' on this particle system.
         */
-        Real getSpeedFactor() const { return mSpeedFactor; }
+        Real getSpeedFactor() const noexcept { return mSpeedFactor; }
 
         /** Sets a 'iteration interval' on this particle system.
         @remarks
@@ -356,7 +356,7 @@ namespace Ogre {
 
         /** Gets a 'iteration interval' on this particle system.
         */
-        Real getIterationInterval() const { return mIterationInterval; }
+        Real getIterationInterval() const noexcept { return mIterationInterval; }
 
         /** Set the default iteration interval for all ParticleSystem instances.
         */
@@ -364,7 +364,7 @@ namespace Ogre {
 
         /** Get the default iteration interval for all ParticleSystem instances.
         */
-        static Real getDefaultIterationInterval() { return msDefaultIterationInterval; }
+        static Real getDefaultIterationInterval() noexcept { return msDefaultIterationInterval; }
 
         /** Sets when the particle system should stop updating after it hasn't been
             visible for a while.
@@ -384,7 +384,7 @@ namespace Ogre {
         /** Gets when the particle system should stop updating after it hasn't been
             visible for a while.
         */
-        Real getNonVisibleUpdateTimeout() const { return mNonvisibleTimeout; }
+        Real getNonVisibleUpdateTimeout() const noexcept { return mNonvisibleTimeout; }
 
         /** Set the default nonvisible timeout for all ParticleSystem instances.
         */
@@ -393,9 +393,9 @@ namespace Ogre {
 
         /** Get the default nonvisible timeout for all ParticleSystem instances.
         */
-        static Real getDefaultNonVisibleUpdateTimeout() { return msDefaultNonvisibleTimeout; }
+        static Real getDefaultNonVisibleUpdateTimeout() noexcept { return msDefaultNonvisibleTimeout; }
 
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
 
         /** Sets the default dimensions of the particles in this set.
             @remarks
@@ -418,7 +418,7 @@ namespace Ogre {
         /** See setDefaultDimensions - this gets 1 component individually. */
         virtual Real getDefaultHeight() const;
         /** Returns whether or not particles in this are tested individually for culling. */
-        virtual bool getCullIndividually() const;
+        virtual bool getCullIndividually() const noexcept;
         /** Sets whether culling tests particles in this individually as well as in a group.
         @remarks
             Particle sets are always culled as a whole group, based on a bounding box which 
@@ -441,14 +441,14 @@ namespace Ogre {
         */
         virtual void setCullIndividually(bool cullIndividual);
         /// Return the resource group to be used to load dependent resources
-        virtual const String& getResourceGroupName() const { return mResourceGroupName; }
+        virtual const String& getResourceGroupName() const noexcept { return mResourceGroupName; }
         /** Get the origin of this particle system, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this particle system chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin() const { return mOrigin; }
+        const String& getOrigin() const noexcept { return mOrigin; }
         /// Notify this particle system of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -465,7 +465,7 @@ namespace Ogre {
         */
         void setSortingEnabled(bool enabled) { mSorted = enabled; }
         /// Gets whether particles are sorted relative to the camera.
-        bool getSortingEnabled() const { return mSorted; }
+        bool getSortingEnabled() const noexcept { return mSorted; }
 
         /** Set the (initial) bounds of the particle system manually. 
         @remarks
@@ -510,7 +510,7 @@ namespace Ogre {
         /** Gets whether particles (and any affector effects) remain relative 
             to the node the particle system is attached to.
         */
-        bool getKeepParticlesInLocalSpace() const { return mLocalSpace; }
+        bool getKeepParticlesInLocalSpace() const noexcept { return mLocalSpace; }
 
         /** Internal method for updating the bounds of the particle system.
         @remarks
@@ -543,10 +543,10 @@ namespace Ogre {
             This function will not actually return whether the particles are being emitted.
             It only returns the value of emitting flag.
         */
-        bool getEmitting() const;
+        bool getEmitting() const noexcept;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const override;
+        uint32 getTypeFlags() const noexcept override;
     private:
         AxisAlignedBox mAABB;
         Real mBoundingRadius;

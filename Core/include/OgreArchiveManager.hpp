@@ -106,9 +106,9 @@ class ArchiveFactory;
         */
         void addArchiveFactory(ArchiveFactory* factory);
         /// @copydoc Singleton::getSingleton()
-        static ArchiveManager& getSingleton();
+        static ArchiveManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ArchiveManager* getSingletonPtr();
+        static ArchiveManager* getSingletonPtr() noexcept;
     };
     /** @} */
     /** @} */

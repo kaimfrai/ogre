@@ -73,7 +73,7 @@ class Affine3;
             Don't cache the pointer returned by this function, it'll change due
             run-time environment detection to pick up the best implementation.
         */
-        static OptimisedUtil* getImplementation() { return msImplementation; }
+        static OptimisedUtil* getImplementation() noexcept { return msImplementation; }
 
         /** Performs software vertex skinning.
         @param srcPosPtr Pointer to source position buffer.

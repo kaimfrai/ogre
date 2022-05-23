@@ -12,7 +12,7 @@ namespace Ogre {
 }  // namespace Ogre
 
 namespace OgreBites {
-    Ogre::ConfigDialog* getNativeConfigDialog() {
+    Ogre::ConfigDialog* getNativeConfigDialog() noexcept {
         return nullptr;
     }
 } /* namespace OgreBites */

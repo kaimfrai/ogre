@@ -303,7 +303,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    const String& OverlayElement::getMaterialName() const
+    const String& OverlayElement::getMaterialName() const noexcept
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -348,7 +348,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    const MaterialPtr& OverlayElement::getMaterial() const
+    const MaterialPtr& OverlayElement::getMaterial() const noexcept
     {
         return mMaterial;
     }
@@ -699,7 +699,7 @@ namespace Ogre {
         mColour = col;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& OverlayElement::getColour() const
+    const ColourValue& OverlayElement::getColour() const noexcept
     {
         return mColour;
     }

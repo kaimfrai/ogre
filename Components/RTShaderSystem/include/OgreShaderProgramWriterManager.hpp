@@ -88,10 +88,10 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static ProgramWriterManager& getSingleton();
+    static ProgramWriterManager& getSingleton() noexcept;
 
     /// @copydoc Singleton::getSingleton()
-    static ProgramWriterManager* getSingletonPtr();
+    static ProgramWriterManager* getSingletonPtr() noexcept;
 };
 /** @} */
 /** @} */

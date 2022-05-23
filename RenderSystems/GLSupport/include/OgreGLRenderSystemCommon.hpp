@@ -102,10 +102,10 @@ namespace Ogre {
                                            RenderWindow::FrameBuffer buffer) = 0;
 
         /** Returns the main context */
-        GLContext* _getMainContext() { return mMainContext; }
+        GLContext* _getMainContext() noexcept { return mMainContext; }
 
         /** Returns the current context */
-        GLContext* _getCurrentContext() { return mCurrentContext; }
+        GLContext* _getCurrentContext() noexcept { return mCurrentContext; }
 
         /**
         * Check if GL Version is supported
@@ -141,7 +141,7 @@ namespace Ogre {
                                                uint32* stencilFormat);
 
         /** Create VAO on current context */
-        virtual uint32 _createVao() { return 0; }
+        virtual uint32 _createVao() noexcept { return 0; }
         /** Bind VAO, context should be equal to current context, as VAOs are not shared  */
         virtual void _bindVao(GLContext* context, uint32 vao) {}
         /** Destroy VAO immediately or defer if it was created on other context */
@@ -151,7 +151,7 @@ namespace Ogre {
         /** Complete destruction of VAOs and FBOs deferred while creator context was not current */
         void _completeDeferredVaoFboDestruction();
 
-        [[nodiscard]] unsigned int getDisplayMonitorCount() const;
+        [[nodiscard]] unsigned int getDisplayMonitorCount() const noexcept;
 
         void registerThread() override;
         void unregisterThread() override;

@@ -43,11 +43,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = nullptr;
-    ArchiveManager* ArchiveManager::getSingletonPtr()
+    ArchiveManager* ArchiveManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ArchiveManager& ArchiveManager::getSingleton()
+    ArchiveManager& ArchiveManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }

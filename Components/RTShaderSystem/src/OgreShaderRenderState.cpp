@@ -95,7 +95,7 @@ void RenderState::setLightCount(const Vector3i& lightCount)
 }
 
 //-----------------------------------------------------------------------
-const Vector3i& RenderState::getLightCount() const
+const Vector3i& RenderState::getLightCount() const noexcept
 {
     return mLightCount;
 }

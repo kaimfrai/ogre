@@ -65,14 +65,14 @@ FFPColour::FFPColour()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPColour::getType() const
+const String& FFPColour::getType() const noexcept
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int FFPColour::getExecutionOrder() const
+int FFPColour::getExecutionOrder() const noexcept
 {
     return FFP_COLOUR;
 }
@@ -201,7 +201,7 @@ void FFPColour::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     TrackVertexColourType trackColour = srcPass->getVertexColourTracking();
 
@@ -212,14 +212,14 @@ bool FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPas
 }
 
 //-----------------------------------------------------------------------
-const String& FFPColourFactory::getType() const
+const String& FFPColourFactory::getType() const noexcept
 {
     return FFPColour::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* FFPColourFactory::createInstance(ScriptCompiler* compiler, 
-                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                    PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "colour_stage")
     {

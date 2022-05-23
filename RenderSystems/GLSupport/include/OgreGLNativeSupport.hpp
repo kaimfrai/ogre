@@ -85,7 +85,7 @@ namespace Ogre
             }
 
             /// @copydoc RenderSystem::getDisplayMonitorCount
-            [[nodiscard]] virtual unsigned int getDisplayMonitorCount() const
+            [[nodiscard]] virtual unsigned int getDisplayMonitorCount() const noexcept
             {
                 return 1;
             }
@@ -104,10 +104,10 @@ namespace Ogre
             */
             virtual ConfigOptionMap getConfigOptions() { return {}; }
 
-            [[nodiscard]] const std::vector<int>& getFSAALevels() const { return mFSAALevels; }
-            [[nodiscard]] const VideoModes& getVideoModes() const { return mVideoModes; }
+            [[nodiscard]] const std::vector<int>& getFSAALevels() const noexcept { return mFSAALevels; }
+            [[nodiscard]] const VideoModes& getVideoModes() const noexcept { return mVideoModes; }
 
-            [[nodiscard]] ContextProfile getContextProfile() const { return mContextProfile; }
+            [[nodiscard]] ContextProfile getContextProfile() const noexcept { return mContextProfile; }
         protected:
             // Allowed video modes
             VideoModes mVideoModes;

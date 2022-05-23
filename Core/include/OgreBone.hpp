@@ -81,7 +81,7 @@ class Skeleton;
             const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY);
 
         /** Gets the numeric handle for this bone (unique within the skeleton). */
-        unsigned short getHandle() const;
+        unsigned short getHandle() const noexcept;
 
         /** Sets the current position / orientation to be the 'binding pose' ie the layout in which 
             bones were originally bound to a mesh.
@@ -111,7 +111,7 @@ class Skeleton;
         void setManuallyControlled(bool manuallyControlled);
 
         /** Getter for mManuallyControlled Flag */
-        bool isManuallyControlled() const;
+        bool isManuallyControlled() const noexcept;
 
         
         /** Gets the transform which takes bone space to current from the binding pose. 
@@ -121,11 +121,11 @@ class Skeleton;
         void _getOffsetTransform(Affine3& m) const;
 
         /** Gets the inverted binding pose scale. */
-        const Vector3& _getBindingPoseInverseScale() const { return mBindDerivedInverseScale; }
+        const Vector3& _getBindingPoseInverseScale() const noexcept { return mBindDerivedInverseScale; }
         /** Gets the inverted binding pose position. */
-        const Vector3& _getBindingPoseInversePosition() const { return mBindDerivedInversePosition; }
+        const Vector3& _getBindingPoseInversePosition() const noexcept { return mBindDerivedInversePosition; }
         /** Gets the inverted binding pose orientation. */
-        const Quaternion& _getBindingPoseInverseOrientation() const { return mBindDerivedInverseOrientation; }
+        const Quaternion& _getBindingPoseInverseOrientation() const noexcept { return mBindDerivedInverseOrientation; }
 
         /// @see Node::needUpdate
         void needUpdate(bool forceParentUpdate = false) override;

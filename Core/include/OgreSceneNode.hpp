@@ -175,7 +175,7 @@ class SceneManager;
         /** Determines whether this node is in the scene graph, i.e.
             whether it's ultimate ancestor is the root scene node.
         */
-        bool isInSceneGraph() const { return mIsInSceneGraph; }
+        bool isInSceneGraph() const noexcept { return mIsInSceneGraph; }
 
         /** Notifies this SceneNode that it is the root scene node. 
         @remarks
@@ -230,14 +230,14 @@ class SceneManager;
             Recommended only if you are extending a SceneManager, because the bounding box returned
             from this method is only up to date after the SceneManager has called _update.
         */
-        const AxisAlignedBox& _getWorldAABB() const { return mWorldAABB; }
+        const AxisAlignedBox& _getWorldAABB() const noexcept { return mWorldAABB; }
 
         /** The MovableObjects attached to this node
          *
          * This is a much faster way to go through <B>all</B> the objects attached to the node than
          * using getAttachedObject.
          */
-        const ObjectMap& getAttachedObjects() const {
+        const ObjectMap& getAttachedObjects() const noexcept {
             return mObjectsByName;
         }
 
@@ -246,7 +246,7 @@ class SceneManager;
             This method returns the SceneManager which created this node.
             This can be useful for destroying this node.
         */
-        SceneManager* getCreator() const { return mCreator; }
+        SceneManager* getCreator() const noexcept { return mCreator; }
 
         /** This method removes and destroys the named child and all of its children.
         @remarks
@@ -304,7 +304,7 @@ class SceneManager;
             check this flag and then use _addBoundingBoxToQueue to add the bounding box
             wireframe.
         */
-        bool getShowBoundingBox() const { return mShowBoundingBox; }
+        bool getShowBoundingBox() const noexcept { return mShowBoundingBox; }
 
         /** Creates an unnamed new SceneNode as a child of this node.
         @param
@@ -412,15 +412,15 @@ class SceneManager;
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z,
             const Vector3& offset = Vector3::ZERO);
         /** Get the auto tracking target for this node, if any. */
-        SceneNode* getAutoTrackTarget() const { return mAutoTrackTarget; }
+        SceneNode* getAutoTrackTarget() const noexcept { return mAutoTrackTarget; }
         /** Get the auto tracking offset for this node, if the node is auto tracking. */
-        const Vector3& getAutoTrackOffset() const { return mAutoTrackOffset; }
+        const Vector3& getAutoTrackOffset() const noexcept { return mAutoTrackOffset; }
         /** Get the auto tracking local direction for this node, if it is auto tracking. */
-        const Vector3& getAutoTrackLocalDirection() const { return mAutoTrackLocalDirection; }
+        const Vector3& getAutoTrackLocalDirection() const noexcept { return mAutoTrackLocalDirection; }
         /** Internal method used by OGRE to update auto-tracking cameras. */
         void _autoTrack();
         /** Gets the parent of this SceneNode. */
-        SceneNode* getParentSceneNode() const;
+        SceneNode* getParentSceneNode() const noexcept;
         /** Makes all objects attached to this node become visible / invisible.
         @remarks    
             This is a shortcut to calling setVisible() on the objects attached

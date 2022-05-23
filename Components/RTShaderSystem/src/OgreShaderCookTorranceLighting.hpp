@@ -39,13 +39,13 @@ class CookTorranceLighting : public SubRenderState
 public:
     CookTorranceLighting();
 
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
-    int getExecutionOrder() const override { return FFP_LIGHTING; }
+    int getExecutionOrder() const noexcept override { return FFP_LIGHTING; }
 
     void copyFrom(const SubRenderState& rhs) override;
 
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     // Type of this render state.
     static String Type;
@@ -53,9 +53,9 @@ public:
     /**
     Return the metallic-roughness map texture name.
     */
-    const String& getMetalRoughnessMapName() const { return mMetalRoughnessMapName; }
+    const String& getMetalRoughnessMapName() const noexcept { return mMetalRoughnessMapName; }
 
-    bool setParameter(const String& name, const String& value) override;
+    bool setParameter(const String& name, const String& value) noexcept override;
 
     bool createCpuSubPrograms(ProgramSet* programSet) override;
 
@@ -68,10 +68,10 @@ private:
 class CookTorranceLightingFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                   SGScriptTranslator* translator) override;
+                                   SGScriptTranslator* translator) noexcept override;
     void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
 protected:

@@ -77,12 +77,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /** 
     @see SubRenderState::updateGpuProgramsParams.
@@ -97,7 +97,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     /** normalise the blinn-phong reflection model to make it energy conserving
      *
@@ -105,14 +105,14 @@ public:
      */
     void setNormaliseEnabled(bool enable) { mNormalisedEnable = enable; }
 
-    bool setParameter(const String& name, const String& value) override;
+    bool setParameter(const String& name, const String& value) noexcept override;
 
     static String Type;
 
     /**
     Get the specular component state.
     */
-    bool getSpecularEnable() const    { return mSpecularEnable; }
+    bool getSpecularEnable() const noexcept { return mSpecularEnable; }
 
 // Protected types:
 protected:
@@ -160,7 +160,7 @@ protected:
     /** 
     Return the current track per vertex type.
     */
-    TrackVertexColourType getTrackVertexColourType() const { return mTrackVertexColourType; }
+    TrackVertexColourType getTrackVertexColourType() const noexcept { return mTrackVertexColourType; }
 
     /** 
     Set the light count per light type that this sub render state will generate.
@@ -260,12 +260,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

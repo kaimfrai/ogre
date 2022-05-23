@@ -49,7 +49,7 @@ class VertexDeclaration;
     }
     RenderToVertexBuffer::~RenderToVertexBuffer() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    VertexDeclaration* RenderToVertexBuffer::getVertexDeclaration()
+    VertexDeclaration* RenderToVertexBuffer::getVertexDeclaration() noexcept
     {
         //TODO : Mark dirty?
         return mVertexData->vertexDeclaration;

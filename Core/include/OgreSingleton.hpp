@@ -94,13 +94,13 @@ public:
         msSingleton = nullptr;
     }
     /// Get the singleton instance
-    static T& getSingleton()
+    static T& getSingleton() noexcept
     {
         assert(msSingleton);
         return (*msSingleton);
     }
     /// @copydoc getSingleton
-    static T* getSingletonPtr() { return msSingleton; }
+    static T* getSingletonPtr() noexcept { return msSingleton; }
     };
     /** @} */
     /** @} */

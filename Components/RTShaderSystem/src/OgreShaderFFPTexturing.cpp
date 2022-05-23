@@ -84,13 +84,13 @@ FFPTexturing::FFPTexturing() : mIsPointSprite(false), mLateAddBlend(false)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTexturing::getType() const
+const String& FFPTexturing::getType() const noexcept
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int FFPTexturing::getExecutionOrder() const
+int FFPTexturing::getExecutionOrder() const noexcept
 {       
     return FFP_TEXTURING;
 }
@@ -592,7 +592,7 @@ bool FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState)
 }
 
 
-bool FFPTexturing::setParameter(const String& name, const String& value)
+bool FFPTexturing::setParameter(const String& name, const String& value) noexcept
 {
     if(name == "late_add_blend")
     {
@@ -617,7 +617,7 @@ void FFPTexturing::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool FFPTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     mIsPointSprite = srcPass->getPointSpritesEnabled();
 
@@ -715,14 +715,14 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTexturingFactory::getType() const
+const String& FFPTexturingFactory::getType() const noexcept
 {
     return FFPTexturing::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* FFPTexturingFactory::createInstance(ScriptCompiler* compiler, 
-                                                 PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                 PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "texturing_stage")
     {

@@ -84,7 +84,7 @@ class ResourceManager;
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
 
-        String getAttachedShaderNames() const { return mAttachedShaderNames; }
+        String getAttachedShaderNames() const noexcept { return mAttachedShaderNames; }
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
@@ -93,25 +93,25 @@ class ResourceManager;
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }
         /** Gets whether matrix packed in column-major order. */
-        bool getColumnMajorMatrices() const { return mColumnMajorMatrices; }
+        bool getColumnMajorMatrices() const noexcept { return mColumnMajorMatrices; }
 
         /// Only used for separable programs.
-        virtual bool linkSeparable() { return false; }
+        virtual bool linkSeparable() noexcept { return false; }
 
         /// reset link status of separable program
         void resetLinked() { mLinked = 0; }
 
         /// Get the OGRE assigned shader ID.
-        uint getShaderID() const { return mShaderID; }
+        uint getShaderID() const noexcept { return mShaderID; }
 
         /// If we are using program pipelines, the OpenGL program handle
-        uint getGLProgramHandle() const { return mGLProgramHandle; }
+        uint getGLProgramHandle() const noexcept { return mGLProgramHandle; }
 
         /// Get the uniform cache for this shader
-        GLUniformCache*    getUniformCache(){return &mUniformCache;}
+        GLUniformCache* getUniformCache() noexcept{return &mUniformCache;}
 
         /// GLSL does not provide access to the low level code of the shader, so use this shader for binding as well
-        GpuProgram* _getBindingDelegate() override { return this; }
+        GpuProgram* _getBindingDelegate() noexcept override { return this; }
     protected:
         /// GLSL does not provide access to the low level implementation of the shader, so this method s a no-op
         void createLowLevelImpl() override {}

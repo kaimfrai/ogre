@@ -500,7 +500,7 @@ namespace Ogre {
         clear();
     }
     //---------------------------------------------------------------------
-    const String& ResourceManager::ResourcePool::getName() const
+    const String& ResourceManager::ResourcePool::getName() const noexcept
     {
         return mName;
     }

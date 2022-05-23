@@ -69,7 +69,7 @@ class VertexData;
         virtual ~AnimationContainer() {}
 
         /** Gets the number of animations in this container. */
-        [[nodiscard]] virtual unsigned short getNumAnimations() const = 0;
+        [[nodiscard]] virtual unsigned short getNumAnimations() const noexcept = 0;
         
         /** Retrieve an animation by index.  */
         [[nodiscard]] virtual Animation* getAnimation(unsigned short index) const = 0;
@@ -130,7 +130,7 @@ class VertexData;
         virtual ~Animation();
 
         /** Gets the name of this animation. */
-        const String& getName() const;
+        const String& getName() const noexcept;
 
         /** Gets the total length of the animation. */
         Real getLength() const;
@@ -190,7 +190,7 @@ class VertexData;
             VertexData* data, VertexAnimationType animType);
 
         /** Gets the number of NodeAnimationTrack objects contained in this animation. */
-        unsigned short getNumNodeTracks() const;
+        unsigned short getNumNodeTracks() const noexcept;
 
         /** Gets a node track by it's handle. */
         NodeAnimationTrack* getNodeTrack(unsigned short handle) const;
@@ -199,7 +199,7 @@ class VertexData;
         bool hasNodeTrack(unsigned short handle) const;
 
         /** Gets the number of NumericAnimationTrack objects contained in this animation. */
-        unsigned short getNumNumericTracks() const;
+        unsigned short getNumNumericTracks() const noexcept;
 
         /** Gets a numeric track by it's handle. */
         NumericAnimationTrack* getNumericTrack(unsigned short handle) const;
@@ -208,7 +208,7 @@ class VertexData;
         bool hasNumericTrack(unsigned short handle) const;
 
         /** Gets the number of VertexAnimationTrack objects contained in this animation. */
-        unsigned short getNumVertexTracks() const;
+        unsigned short getNumVertexTracks() const noexcept;
 
         /** Gets a Vertex track by it's handle. */
         VertexAnimationTrack* getVertexTrack(unsigned short handle) const;
@@ -491,18 +491,18 @@ class VertexData;
         */
         void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, const String& baseAnimName = BLANKSTRING);
         /** Whether a base keyframe is being used for this Animation. */
-        bool getUseBaseKeyFrame() const;
+        bool getUseBaseKeyFrame() const noexcept;
         /** If a base keyframe is being used, the time of that keyframe. */
         Real getBaseKeyFrameTime() const;
         /** If a base keyframe is being used, the Animation that provides that keyframe. */
-        const String& getBaseKeyFrameAnimationName() const;
+        const String& getBaseKeyFrameAnimationName() const noexcept;
         
         /// Internal method to adjust keyframes relative to a base keyframe (@see setUseBaseKeyFrame) */
         void _applyBaseKeyFrame();
         
         void _notifyContainer(AnimationContainer* c);
         /** Retrieve the container of this animation. */
-        AnimationContainer* getContainer();
+        AnimationContainer* getContainer() noexcept;
         
     private:
         /// Node tracks, indexed by handle

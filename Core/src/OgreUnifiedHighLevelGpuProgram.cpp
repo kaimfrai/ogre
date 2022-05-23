@@ -140,7 +140,7 @@ class ResourceManager;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    const String& UnifiedHighLevelGpuProgram::getLanguage() const
+    const String& UnifiedHighLevelGpuProgram::getLanguage() const noexcept
     {
         return sLanguage;
     }
@@ -161,7 +161,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    GpuProgram* UnifiedHighLevelGpuProgram::_getBindingDelegate()
+    GpuProgram* UnifiedHighLevelGpuProgram::_getBindingDelegate() noexcept
     {
         if (_getDelegate())
             return _getDelegate()->_getBindingDelegate();
@@ -169,13 +169,13 @@ class ResourceManager;
             return nullptr;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isSupported() const
+    bool UnifiedHighLevelGpuProgram::isSupported() const noexcept
     {
         // Supported if one of the delegates is
         return _getDelegate() && _getDelegate()->isSupported();
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isSkeletalAnimationIncluded() const
+    bool UnifiedHighLevelGpuProgram::isSkeletalAnimationIncluded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isSkeletalAnimationIncluded();
@@ -183,7 +183,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isMorphAnimationIncluded() const
+    bool UnifiedHighLevelGpuProgram::isMorphAnimationIncluded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isMorphAnimationIncluded();
@@ -191,7 +191,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isPoseAnimationIncluded() const
+    bool UnifiedHighLevelGpuProgram::isPoseAnimationIncluded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isPoseAnimationIncluded();
@@ -199,7 +199,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    ushort UnifiedHighLevelGpuProgram::getNumberOfPosesIncluded() const
+    ushort UnifiedHighLevelGpuProgram::getNumberOfPosesIncluded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->getNumberOfPosesIncluded();
@@ -207,7 +207,7 @@ class ResourceManager;
             return 0;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isVertexTextureFetchRequired() const
+    bool UnifiedHighLevelGpuProgram::isVertexTextureFetchRequired() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isVertexTextureFetchRequired();
@@ -215,7 +215,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    const GpuProgramParametersPtr& UnifiedHighLevelGpuProgram::getDefaultParameters()
+    const GpuProgramParametersPtr& UnifiedHighLevelGpuProgram::getDefaultParameters() noexcept
     {
         if (_getDelegate())
             return _getDelegate()->getDefaultParameters();
@@ -232,7 +232,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::getPassSurfaceAndLightStates() const
+    bool UnifiedHighLevelGpuProgram::getPassSurfaceAndLightStates() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->getPassSurfaceAndLightStates();
@@ -240,7 +240,7 @@ class ResourceManager;
             return GpuProgram::getPassSurfaceAndLightStates();
     }
     //---------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::getPassFogStates() const
+    bool UnifiedHighLevelGpuProgram::getPassFogStates() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->getPassFogStates();
@@ -248,7 +248,7 @@ class ResourceManager;
             return GpuProgram::getPassFogStates();
     }
     //---------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::getPassTransformStates() const
+    bool UnifiedHighLevelGpuProgram::getPassTransformStates() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->getPassTransformStates();
@@ -257,7 +257,7 @@ class ResourceManager;
 
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::hasCompileError() const
+    bool UnifiedHighLevelGpuProgram::hasCompileError() const noexcept
     {
         if (!_getDelegate())
         {
@@ -287,7 +287,7 @@ class ResourceManager;
             _getDelegate()->reload(flags);
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isReloadable() const
+    bool UnifiedHighLevelGpuProgram::isReloadable() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isReloadable();
@@ -301,7 +301,7 @@ class ResourceManager;
             _getDelegate()->unload();
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isLoaded() const
+    bool UnifiedHighLevelGpuProgram::isLoaded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isLoaded();
@@ -309,7 +309,7 @@ class ResourceManager;
             return false;
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isLoading() const
+    bool UnifiedHighLevelGpuProgram::isLoading() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isLoading();
@@ -339,7 +339,7 @@ class ResourceManager;
             _getDelegate()->touch();
     }
     //-----------------------------------------------------------------------
-    bool UnifiedHighLevelGpuProgram::isBackgroundLoaded() const
+    bool UnifiedHighLevelGpuProgram::isBackgroundLoaded() const noexcept
     {
         if (_getDelegate())
             return _getDelegate()->isBackgroundLoaded();
@@ -413,7 +413,7 @@ class ResourceManager;
     {
     }
     //-----------------------------------------------------------------------
-    const String& UnifiedHighLevelGpuProgramFactory::getLanguage() const
+    const String& UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept
     {
         return sLanguage;
     }

@@ -172,25 +172,25 @@ template <int dims, typename T> class Vector;
         // Binding goes in logicalIndex, but where does offset go?
         //size_t offset;
 
-        bool isFloat() const { return isFloat(constType); }
+        bool isFloat() const noexcept { return isFloat(constType); }
         static bool isFloat(GpuConstantType c) { return getBaseType(c) == BCT_FLOAT; }
 
-        bool isDouble() const { return isDouble(constType); }
+        bool isDouble() const noexcept { return isDouble(constType); }
         static bool isDouble(GpuConstantType c) { return getBaseType(c) == BCT_DOUBLE; }
 
-        bool isInt() const { return isInt(constType); }
+        bool isInt() const noexcept { return isInt(constType); }
         static bool isInt(GpuConstantType c) { return getBaseType(c) == BCT_INT; }
 
-        bool isUnsignedInt() const { return isUnsignedInt(constType); }
+        bool isUnsignedInt() const noexcept { return isUnsignedInt(constType); }
         static bool isUnsignedInt(GpuConstantType c) { return getBaseType(c) == BCT_UINT; }
 
-        bool isBool() const { return isBool(constType); }
+        bool isBool() const noexcept { return isBool(constType); }
         static bool isBool(GpuConstantType c) { return getBaseType(c) == BCT_BOOL; }
 
-        bool isSampler() const { return isSampler(constType); }
+        bool isSampler() const noexcept { return isSampler(constType); }
         static bool isSampler(GpuConstantType c) { return getBaseType(c) == BCT_SAMPLER; }
 
-        bool isSpecialization() const { return isSpecialization(constType); }
+        bool isSpecialization() const noexcept { return isSpecialization(constType); }
         static bool isSpecialization(GpuConstantType c) { return getBaseType(c) == BCT_SPECIALIZATION; }
 
         static BaseConstantType getBaseType(GpuConstantType ctype)
@@ -432,7 +432,7 @@ template <int dims, typename T> class Vector;
         GpuSharedParameters(const String& name);
 
         /// Get the name of this shared parameter set.
-        const String& getName() { return mName; }
+        const String& getName() noexcept { return mName; }
 
         /** Add a new constant definition to this shared set of parameters.
             @remarks
@@ -450,7 +450,7 @@ template <int dims, typename T> class Vector;
         /** Get the version number of this shared parameter set, can be used to identify when
             changes have occurred.
         */
-        [[nodiscard]] uint32 getVersion() const { return mVersion; }
+        [[nodiscard]] uint32 getVersion() const noexcept { return mVersion; }
 
         /** Calculate the expected size of the shared parameter buffer based
             on constant definition data types.
@@ -460,7 +460,7 @@ template <int dims, typename T> class Vector;
         /** True if this parameter set is dirty (values have been modified,
             but the render system has not updated them yet).
         */
-        [[nodiscard]] bool isDirty() const { return mDirty; }
+        [[nodiscard]] bool isDirty() const noexcept { return mDirty; }
 
         /** Mark the shared set as being clean (values successfully updated
             by the render system).
@@ -485,7 +485,7 @@ template <int dims, typename T> class Vector;
 
         /** Get the full list of GpuConstantDefinition instances.
          */
-        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const;
+        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const noexcept;
 
         /** @copydoc GpuProgramParameters::setNamedConstant(const String&, Real) */
         template <typename T> void setNamedConstant(const String& name, T val)
@@ -525,11 +525,11 @@ template <int dims, typename T> class Vector;
         /// Get a pointer to the 'nth' item in the uint buffer
         [[nodiscard]] const uint* getUnsignedIntPointer(size_t pos) const { return (const uint*)&mConstants[pos]; }
         /// Get a reference to the list of constants
-        [[nodiscard]] const ConstantList& getConstantList() const { return mConstants; }
+        [[nodiscard]] const ConstantList& getConstantList() const noexcept { return mConstants; }
         /** Internal method that the RenderSystem might use to store optional data. */
         void _setHardwareBuffer(const HardwareBufferPtr& data) { mHardwareBuffer = data; }
         /** Internal method that the RenderSystem might use to store optional data. */
-        [[nodiscard]] const HardwareBufferPtr& _getHardwareBuffer() const { return mHardwareBuffer; }
+        [[nodiscard]] const HardwareBufferPtr& _getHardwareBuffer() const noexcept { return mHardwareBuffer; }
         /// upload parameter data to GPU memory. Must have a HardwareBuffer
         void _upload() const;
         /// download data from GPU memory. Must have a writable HardwareBuffer
@@ -578,10 +578,10 @@ template <int dims, typename T> class Vector;
         void _copySharedParamsToTargetParams() const;
 
         /// Get the name of the shared parameter set
-        [[nodiscard]] const String& getName() const { return mSharedParams->getName(); }
+        [[nodiscard]] const String& getName() const noexcept { return mSharedParams->getName(); }
 
-        [[nodiscard]] GpuSharedParametersPtr getSharedParams() const { return mSharedParams; }
-        [[nodiscard]] GpuProgramParameters* getTargetParams() const { return mParams; }
+        [[nodiscard]] GpuSharedParametersPtr getSharedParams() const noexcept { return mSharedParams; }
+        [[nodiscard]] GpuProgramParameters* getTargetParams() const noexcept { return mParams; }
     };
 
     /** Collects together the program parameters used for a GpuProgram.
@@ -1491,14 +1491,14 @@ template <int dims, typename T> class Vector;
             @note
             Only available if this parameters object has named parameters.
         */
-        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const;
+        [[nodiscard]] const GpuNamedConstants& getConstantDefinitions() const noexcept;
 
         /** Get the current list of mappings from low-level logical param indexes
             to physical buffer locations in the float buffer.
             @note
             Only applicable to low-level programs.
         */
-        [[nodiscard]] const GpuLogicalBufferStructPtr& getLogicalBufferStruct() const { return mLogicalToPhysical; }
+        [[nodiscard]] const GpuLogicalBufferStructPtr& getLogicalBufferStruct() const noexcept { return mLogicalToPhysical; }
 
         /** Retrieves the logical index relating to a physical index in the
             buffer, for programs which support that (low-level programs and
@@ -1507,7 +1507,7 @@ template <int dims, typename T> class Vector;
         */
         size_t getLogicalIndexForPhysicalIndex(size_t physicalIndex);
         /// Get a reference to the list of constants
-        [[nodiscard]] const ConstantList& getConstantList() const { return mConstants; }
+        [[nodiscard]] const ConstantList& getConstantList() const noexcept { return mConstants; }
         /// Get a pointer to the 'nth' item in the float buffer
         float* getFloatPointer(size_t pos) { return (float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the float buffer
@@ -1534,7 +1534,7 @@ template <int dims, typename T> class Vector;
         /// @{
 
         /// Get a reference to the list of auto constant bindings
-        [[nodiscard]] const AutoConstantList& getAutoConstantList() const { return mAutoConstants; }
+        [[nodiscard]] const AutoConstantList& getAutoConstantList() const noexcept { return mAutoConstants; }
 
         /** Sets up a constant which will automatically be updated by the system.
             @remarks
@@ -1577,7 +1577,7 @@ template <int dims, typename T> class Vector;
         void clearAutoConstants();
 
         /** Gets the automatic constant bindings currently in place. */
-        [[nodiscard]] const AutoConstantList& getAutoConstants() const {
+        [[nodiscard]] const AutoConstantList& getAutoConstants() const noexcept {
             return mAutoConstants;
         }
 
@@ -1747,7 +1747,7 @@ template <int dims, typename T> class Vector;
         */
         void setTransposeMatrices(bool val) { mTransposeMatrices = val; }
         /// Gets whether or not matrices are to be transposed when set
-        [[nodiscard]] bool getTransposeMatrices() const { return mTransposeMatrices; }
+        [[nodiscard]] bool getTransposeMatrices() const noexcept { return mTransposeMatrices; }
 
         /** Copies the values of all constants (including auto constants) from another
             GpuProgramParameters object.
@@ -1813,7 +1813,7 @@ template <int dims, typename T> class Vector;
         void removeAllSharedParameters();
 
         /** Get the list of shared parameter sets. */
-        [[nodiscard]] const GpuSharedParamUsageList& getSharedParameters() const;
+        [[nodiscard]] const GpuSharedParamUsageList& getSharedParameters() const noexcept;
 
         /** Update the parameters by copying the data from the shared
             parameters.

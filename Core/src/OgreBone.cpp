@@ -91,7 +91,7 @@ namespace Ogre {
         mCreator->_notifyManualBoneStateChange(this);
     }
     //---------------------------------------------------------------------
-    bool Bone::isManuallyControlled() const {
+    bool Bone::isManuallyControlled() const noexcept {
         return mManuallyControlled;
     }
     //---------------------------------------------------------------------
@@ -114,7 +114,7 @@ namespace Ogre {
         m.makeTransform(locTranslate, locScale, locRotate);
     }
     //---------------------------------------------------------------------
-    unsigned short Bone::getHandle() const
+    unsigned short Bone::getHandle() const noexcept
     {
         return mHandle;
     }

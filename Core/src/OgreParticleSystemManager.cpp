@@ -58,11 +58,11 @@ namespace Ogre {
     BillboardParticleRendererFactory* mBillboardRendererFactory = nullptr;
     //-----------------------------------------------------------------------
     template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = nullptr;
-    ParticleSystemManager* ParticleSystemManager::getSingletonPtr()
+    ParticleSystemManager* ParticleSystemManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ParticleSystemManager& ParticleSystemManager::getSingleton()
+    ParticleSystemManager& ParticleSystemManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -94,7 +94,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const StringVector& ParticleSystemManager::getScriptPatterns() const
+    const StringVector& ParticleSystemManager::getScriptPatterns() const noexcept
     {
         return mScriptPatterns;
     }
@@ -405,7 +405,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystemFactory::getType() const
+    const String& ParticleSystemFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

@@ -67,7 +67,7 @@ namespace Ogre {
         @return
             A list of file patterns, in the order they should be searched in.
         */
-        [[nodiscard]] virtual const StringVector& getScriptPatterns() const = 0;
+        [[nodiscard]] virtual const StringVector& getScriptPatterns() const noexcept = 0;
 
         /** Parse a script file.
         @param stream Weak reference to a data stream which is the source of the script

@@ -74,7 +74,7 @@ namespace Ogre {
         ::Ogre::AlignedMemory::deallocate(mScratchBufferPool);
     }
     //-----------------------------------------------------------------------
-    GLStateCacheManager * GLHardwareBufferManager::getStateCacheManager()
+    GLStateCacheManager * GLHardwareBufferManager::getStateCacheManager() noexcept
     {
         return mRenderSystem->_getStateCacheManager();
     }

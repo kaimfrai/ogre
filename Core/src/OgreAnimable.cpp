@@ -56,7 +56,7 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Animable value list not found for " + getAnimableDictionaryName());
     }
 
-    const StringVector& AnimableObject::getAnimableValueNames() const
+    const StringVector& AnimableObject::getAnimableValueNames() const noexcept
     {
         createAnimableDictionary();
 

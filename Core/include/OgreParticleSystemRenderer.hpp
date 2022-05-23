@@ -55,7 +55,7 @@ namespace Ogre {
         ~ParticleSystemRenderer() override {}
 
         /** Gets the type of this renderer - must be implemented by subclasses */
-        [[nodiscard]] virtual const String& getType() const = 0;
+        [[nodiscard]] virtual const String& getType() const noexcept = 0;
 
         /** Delegated to by ParticleSystem::_updateRenderQueue
         @remarks
@@ -90,7 +90,7 @@ namespace Ogre {
             should be overridden to return a new instance of it. The default
             behaviour is to return null.
         */
-        virtual ParticleVisualData* _createVisualData() { return nullptr; }
+        virtual ParticleVisualData* _createVisualData() noexcept { return nullptr; }
         /** Destroy a ParticleVisualData instance.
         @remarks
             If this renderer needs additional data in each particle, then this should

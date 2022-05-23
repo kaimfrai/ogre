@@ -274,7 +274,7 @@ class Camera;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short InstanceBatchHW::getNumWorldTransforms() const
+    unsigned short InstanceBatchHW::getNumWorldTransforms() const noexcept
     {
         return 1;
     }

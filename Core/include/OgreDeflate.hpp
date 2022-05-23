@@ -240,7 +240,7 @@ namespace Ogre
             deflate algorithm, this method returns false and all read commands
             will actually be executed as passthroughs as a fallback. 
         */
-        [[nodiscard]] bool isCompressedStreamValid() const { return mStreamType != Invalid; }
+        [[nodiscard]] bool isCompressedStreamValid() const noexcept { return mStreamType != Invalid; }
         
         /** @copydoc DataStream::read
          */

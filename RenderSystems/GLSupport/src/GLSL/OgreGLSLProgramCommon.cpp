@@ -140,7 +140,7 @@ String GLSLProgramCommon::getCombinedName()
     return ss.str();
 }
 
-uint32 GLSLProgramCommon::getCombinedHash()
+uint32 GLSLProgramCommon::getCombinedHash() noexcept
 {
     uint32 hash = 0;
 

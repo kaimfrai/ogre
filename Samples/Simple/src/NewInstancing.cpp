@@ -56,7 +56,7 @@ Sample_NewInstancing::Sample_NewInstancing()
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
+bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) noexcept
 {
     animateUnits( evt.timeSinceLastFrame);
 
@@ -66,7 +66,7 @@ bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt)
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt)
+bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) noexcept
 {
     return SdkSample::keyPressed(evt);
 }

@@ -104,7 +104,7 @@ namespace Ogre
 
         /** Returns the polygon normal.
         */
-        const Vector3& getNormal() const;
+        const Vector3& getNormal() const noexcept;
 
         /** Deletes a specific vertex.
         */

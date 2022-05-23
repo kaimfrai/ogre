@@ -104,7 +104,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNodeTracks() const
+    unsigned short Animation::getNumNodeTracks() const noexcept
     {
         return (unsigned short)mNodeTrackList.size();
     }
@@ -179,7 +179,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumNumericTracks() const
+    unsigned short Animation::getNumNumericTracks() const noexcept
     {
         return (unsigned short)mNumericTrackList.size();
     }
@@ -256,7 +256,7 @@ class VertexData;
         return ret;
     }
     //---------------------------------------------------------------------
-    unsigned short Animation::getNumVertexTracks() const
+    unsigned short Animation::getNumVertexTracks() const noexcept
     {
         return (unsigned short)mVertexTrackList.size();
     }
@@ -312,7 +312,7 @@ class VertexData;
         destroyAllVertexTracks();
     }
     //---------------------------------------------------------------------
-    const String& Animation::getName() const
+    const String& Animation::getName() const noexcept
     {
         return mName;
     }
@@ -720,7 +720,7 @@ class VertexData;
         }
     }
     //-----------------------------------------------------------------------
-    bool Animation::getUseBaseKeyFrame() const
+    bool Animation::getUseBaseKeyFrame() const noexcept
     {
         return mUseBaseKeyFrame;
     }
@@ -730,7 +730,7 @@ class VertexData;
         return mBaseKeyFrameTime;
     }
     //-----------------------------------------------------------------------
-    const String& Animation::getBaseKeyFrameAnimationName() const
+    const String& Animation::getBaseKeyFrameAnimationName() const noexcept
     {
         return mBaseKeyFrameAnimationName;
     }
@@ -792,7 +792,7 @@ class VertexData;
         mContainer = c;
     }
     //-----------------------------------------------------------------------
-    AnimationContainer* Animation::getContainer()
+    AnimationContainer* Animation::getContainer() noexcept
     {
         return mContainer;
     }

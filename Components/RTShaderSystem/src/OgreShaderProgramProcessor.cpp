@@ -945,7 +945,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
 }
 
 //-----------------------------------------------------------------------------
-int ProgramProcessor::MergeParameter::getUsedFloatCount()
+int ProgramProcessor::MergeParameter::getUsedFloatCount() noexcept
 {
     return mUsedFloatCount;
 }

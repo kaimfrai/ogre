@@ -106,7 +106,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------------    
-    const PixelBox& HardwarePixelBuffer::getCurrentLock() 
+    const PixelBox& HardwarePixelBuffer::getCurrentLock() noexcept 
     { 
         OgreAssert(isLocked(), "buffer not locked");
         return mCurrentLock; 

@@ -56,7 +56,7 @@ Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned shor
     return nullptr;
 }
 
-bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech)
+bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech) noexcept
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {
@@ -68,7 +68,7 @@ bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique
     return false;
 }
 
-bool SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech)
+bool SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech) noexcept
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {

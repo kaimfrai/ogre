@@ -58,7 +58,7 @@ namespace Ogre {
 
 
 		//-----------------------------------------------------------------------
-		const Ogre::String& FFPAlphaTest::getType() const
+		const Ogre::String& FFPAlphaTest::getType() const noexcept
 		{
 			return Type;
 		}
@@ -106,12 +106,12 @@ namespace Ogre {
             return true;
 		}
 
-		int FFPAlphaTest::getExecutionOrder() const
+		int FFPAlphaTest::getExecutionOrder() const noexcept
 		{
 			return FFP_ALPHA_TEST;
 		}
 
-		bool FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass )
+		bool FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept
 		{
 			return srcPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS;
 		}
@@ -123,7 +123,7 @@ namespace Ogre {
 
 		//----------------------Factory Implementation---------------------------
 		//-----------------------------------------------------------------------
-		const String& FFPAlphaTestFactory ::getType() const
+		const String& FFPAlphaTestFactory ::getType() const noexcept
 		{
 			return FFPAlphaTest::Type;
 		}

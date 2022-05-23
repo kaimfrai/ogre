@@ -80,7 +80,7 @@ class HardwareBufferManagerBase;
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
     }
     //-----------------------------------------------------------------------
-    const String& SubMesh::getMaterialName() const
+    const String& SubMesh::getMaterialName() const noexcept
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }

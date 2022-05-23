@@ -502,12 +502,12 @@ namespace Ogre {
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    const String& TextAreaOverlayElement::getTypeName() const
+    const String& TextAreaOverlayElement::getTypeName() const noexcept
     {
         return msTypeName;
     }
     //---------------------------------------------------------------------
-    const MaterialPtr& TextAreaOverlayElement::getMaterial() const
+    const MaterialPtr& TextAreaOverlayElement::getMaterial() const noexcept
     {
         // On-demand load
         // Moved from setFontName to avoid issues with background parsing of scripts
@@ -573,7 +573,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    const ColourValue& TextAreaOverlayElement::getColour() const
+    const ColourValue& TextAreaOverlayElement::getColour() const noexcept
     {
         // Either one
         return mColourTop;
@@ -585,7 +585,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    const ColourValue& TextAreaOverlayElement::getColourBottom() const
+    const ColourValue& TextAreaOverlayElement::getColourBottom() const noexcept
     {
         return mColourBottom;
     }
@@ -596,7 +596,7 @@ namespace Ogre {
         mColoursChanged = true;
     }
     //---------------------------------------------------------------------
-    const ColourValue& TextAreaOverlayElement::getColourTop() const
+    const ColourValue& TextAreaOverlayElement::getColourTop() const noexcept
     {
         return mColourTop;
     }

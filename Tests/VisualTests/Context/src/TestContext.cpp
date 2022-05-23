@@ -253,7 +253,7 @@ bool TestContext::frameStarted(const Ogre::FrameEvent& evt)
 }
 //-----------------------------------------------------------------------
 
-bool TestContext::frameEnded(const Ogre::FrameEvent& evt)
+bool TestContext::frameEnded(const Ogre::FrameEvent& evt) noexcept
 {
     // pass a fixed timestep along to the tests
     Ogre::FrameEvent fixed_evt = Ogre::FrameEvent();

@@ -103,7 +103,7 @@ namespace Ogre
 
         /** Returns a pointer to the default log.
         */
-        Log* getDefaultLog();
+        Log* getDefaultLog() noexcept;
 
         /** Closes and removes a named log. */
         void destroyLog(const String& name);
@@ -137,9 +137,9 @@ namespace Ogre
         /// sets the minimal #LogMessageLevel for the default log
         void setMinLogLevel(LogMessageLevel lml);
         /// @copydoc Singleton::getSingleton()
-        static LogManager& getSingleton();
+        static LogManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static LogManager* getSingletonPtr();
+        static LogManager* getSingletonPtr() noexcept;
 
     };
 

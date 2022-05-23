@@ -164,7 +164,7 @@ namespace Ogre {
             mSource = src;
         }
         /// Gets the input controller value
-        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getSource() const
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getSource() const noexcept
         {
             return mSource;
         }
@@ -175,13 +175,13 @@ namespace Ogre {
         }
 
         /// Gets the output controller value
-        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getDestination() const
+        [[nodiscard]] const SharedPtr< ControllerValue<T> >& getDestination() const noexcept
         {
             return mDest;
         }
 
         /// Returns true if this controller is currently enabled
-        [[nodiscard]] bool getEnabled() const
+        [[nodiscard]] bool getEnabled() const noexcept
         {
             return mEnabled;
         }
@@ -201,7 +201,7 @@ namespace Ogre {
 
         /** Returns a pointer to the function object used by this controller.
         */
-        [[nodiscard]] const SharedPtr< ControllerFunction<T> >& getFunction() const
+        [[nodiscard]] const SharedPtr< ControllerFunction<T> >& getFunction() const noexcept
         {
             return mFunc;
         }

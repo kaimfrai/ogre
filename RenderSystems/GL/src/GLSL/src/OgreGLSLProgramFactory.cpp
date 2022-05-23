@@ -50,7 +50,7 @@ class ResourceManager;
             delete mLinkProgramManager;
     }
     //-----------------------------------------------------------------------
-    const String& GLSLProgramFactory::getLanguage() const
+    const String& GLSLProgramFactory::getLanguage() const noexcept
     {
         return sLanguageName;
     }

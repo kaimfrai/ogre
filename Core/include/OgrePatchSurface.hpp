@@ -127,13 +127,13 @@ class VertexDeclaration;
         /** Gets the current index count based on the current subdivision level. */
         [[nodiscard]] size_t getCurrentIndexCount() const;
         /// Returns the index offset used by this buffer to write data into the buffer
-        [[nodiscard]] size_t getIndexOffset() const { return mIndexOffset; }
+        [[nodiscard]] size_t getIndexOffset() const noexcept { return mIndexOffset; }
         /// Returns the vertex offset used by this buffer to write data into the buffer
-        [[nodiscard]] size_t getVertexOffset() const { return mVertexOffset; }
+        [[nodiscard]] size_t getVertexOffset() const noexcept { return mVertexOffset; }
 
 
         /** Gets the bounds of this patch, only valid after calling defineSurface. */
-        [[nodiscard]] const AxisAlignedBox& getBounds() const;
+        [[nodiscard]] const AxisAlignedBox& getBounds() const noexcept;
         /** Gets the radius of the bounding sphere for this patch, only valid after defineSurface 
         has been called. */
         [[nodiscard]] Real getBoundingSphereRadius() const;
@@ -168,7 +168,7 @@ class VertexDeclaration;
         /** Gets the current level of subdivision. */
         [[nodiscard]] Real getSubdivisionFactor() const;
 
-        [[nodiscard]] void* getControlPointBuffer() const
+        [[nodiscard]] void* getControlPointBuffer() const noexcept
         {
             return mControlPointBuffer;
         }

@@ -120,7 +120,7 @@ namespace Ogre {
         void removeAllTextureDefinitions();
         
         /** Get the TextureDefinitions in this Technique. */
-        [[nodiscard]] const TextureDefinitions& getTextureDefinitions() const { return mTextureDefinitions; }
+        [[nodiscard]] const TextureDefinitions& getTextureDefinitions() const noexcept { return mTextureDefinitions; }
         
         /** Create a new target pass, and return a pointer to it.
         */
@@ -142,11 +142,11 @@ namespace Ogre {
         void removeAllTargetPasses();
         
         /** Get the TargetPasses in this Technique. */
-        [[nodiscard]] const TargetPasses& getTargetPasses() const { return mTargetPasses; }
+        [[nodiscard]] const TargetPasses& getTargetPasses() const noexcept { return mTargetPasses; }
         
         /** Get output (final) target pass
          */
-        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const { return mOutputTarget; }
+        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const noexcept { return mOutputTarget; }
         
         /** Determine if this technique is supported on the current rendering device. 
         @param allowTextureDegradation True to accept a reduction in texture depth
@@ -158,7 +158,7 @@ namespace Ogre {
         */
         virtual void setSchemeName(const String& schemeName);
         /** Get the scheme name assigned to this technique. */
-        [[nodiscard]] const String& getSchemeName() const { return mSchemeName; }
+        [[nodiscard]] const String& getSchemeName() const noexcept { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
@@ -166,7 +166,7 @@ namespace Ogre {
         void setCompositorLogicName(const String& compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        [[nodiscard]] const String& getCompositorLogicName() const { return mCompositorLogicName; }
+        [[nodiscard]] const String& getCompositorLogicName() const noexcept { return mCompositorLogicName; }
 
         /** Get parent object */
         Compositor *getParent();

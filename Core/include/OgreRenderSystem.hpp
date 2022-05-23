@@ -197,7 +197,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        [[nodiscard]] virtual const String& getName() const = 0;
+        [[nodiscard]] virtual const String& getName() const noexcept = 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -220,7 +220,7 @@ class VertexDeclaration;
         A 'map' of options, i.e. a list of options which is also
         indexed by option name.
         */
-        [[nodiscard]] const ConfigOptionMap& getConfigOptions() const { return mOptions; }
+        [[nodiscard]] const ConfigOptionMap& getConfigOptions() const noexcept { return mOptions; }
 
         /** Sets an option for this API
 
@@ -273,7 +273,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual String validateConfigOptions() { return BLANKSTRING; }
+        virtual String validateConfigOptions() noexcept { return BLANKSTRING; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 
@@ -292,7 +292,7 @@ class VertexDeclaration;
         listener of the RenderSystemCapabilitiesCreated event to customise the capabilities
         on the fly before the RenderSystem is initialised.
         */
-        RenderSystemCapabilities* getMutableCapabilities(){ return mCurrentCapabilities; }
+        RenderSystemCapabilities* getMutableCapabilities() noexcept { return mCurrentCapabilities; }
 
         /** Force the render system to use the special capabilities. Can only be called
         *    before the render system has been fully initializer (before createWindow is called) 
@@ -433,7 +433,7 @@ class VertexDeclaration;
         void setGlobalInstanceVertexBuffer(const HardwareVertexBufferSharedPtr &val);
         /** Gets vertex declaration for the global vertex buffer for the global instancing
         */
-        [[nodiscard]] VertexDeclaration* getGlobalInstanceVertexBufferVertexDeclaration() const;
+        [[nodiscard]] VertexDeclaration* getGlobalInstanceVertexBufferVertexDeclaration() const noexcept;
         /** Sets vertex declaration for the global vertex buffer for the global instancing
         */
         void setGlobalInstanceVertexBufferVertexDeclaration( VertexDeclaration* val);
@@ -464,7 +464,7 @@ class VertexDeclaration;
 
          @see setReverseDepthBuffer
          */
-        [[nodiscard]] bool isReverseDepthBufferEnabled() const;
+        [[nodiscard]] bool isReverseDepthBufferEnabled() const noexcept;
 
         // ------------------------------------------------------------------------
         //                     Internal Rendering Access
@@ -761,12 +761,12 @@ class VertexDeclaration;
         virtual void _dispatchCompute(const Vector3i& workgroupDim) {}
 
         /** Gets the capabilities of the render system. */
-        [[nodiscard]] const RenderSystemCapabilities* getCapabilities() const { return mCurrentCapabilities; }
+        [[nodiscard]] const RenderSystemCapabilities* getCapabilities() const noexcept { return mCurrentCapabilities; }
 
 
         /** Returns the driver version.
         */
-        [[nodiscard]] const DriverVersion& getDriverVersion() const { return mDriverVersion; }
+        [[nodiscard]] const DriverVersion& getDriverVersion() const noexcept { return mDriverVersion; }
 
         /** Returns the default material scheme used by the render system.
             Systems that use the RTSS to emulate a fixed function pipeline 
@@ -807,7 +807,7 @@ class VertexDeclaration;
          * Formatted so that it can be used within a shading program. 
          * For example, OpenGL 3.2 would return 150, while 3.3 would return 330
          */
-        [[nodiscard]] uint16 getNativeShadingLanguageVersion() const { return mNativeShadingLanguageVersion; }
+        [[nodiscard]] uint16 getNativeShadingLanguageVersion() const noexcept { return mNativeShadingLanguageVersion; }
 
         /** Sets the user clipping region.
         @deprecated only needed for fixed function APIs
@@ -835,7 +835,7 @@ class VertexDeclaration;
         /** Indicates whether or not the vertex windings set will be inverted for the current render (e.g. reflections)
         @see RenderSystem::setInvertVertexWinding
         */
-        [[nodiscard]] bool getInvertVertexWinding() const;
+        [[nodiscard]] bool getInvertVertexWinding() const noexcept;
 
         /** Sets the 'scissor region' i.e. the region of the target in which rendering can take place.
         @remarks
@@ -953,7 +953,7 @@ class VertexDeclaration;
         */
         static void setSharedListener(Listener* listener);
         /** Retrieve a pointer to the current shared render system listener. */
-        static Listener* getSharedListener();
+        static Listener* getSharedListener() noexcept;
 
         /** Adds a listener to the custom events that this render system can raise.
         @remarks
@@ -977,7 +977,7 @@ class VertexDeclaration;
         can raise.
         @see RenderSystem::addListener
         */
-        [[nodiscard]] const StringVector& getRenderSystemEvents() const { return mEventNames; }
+        [[nodiscard]] const StringVector& getRenderSystemEvents() const noexcept { return mEventNames; }
 
         /** Tell the rendersystem to perform any prep tasks it needs to directly
         before other threads which might access the rendering API are registered.
@@ -1055,7 +1055,7 @@ class VertexDeclaration;
 		* @param
 		*     colourBuffer Specifies the colour buffer that will be drawn into.
 		*/
-		virtual bool setDrawBuffer(ColourBufferType colourBuffer) { return false; };
+		virtual bool setDrawBuffer(ColourBufferType colourBuffer) noexcept { return false; };
 
     protected:
 

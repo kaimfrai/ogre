@@ -136,17 +136,17 @@ class RenderTarget;
 
         /** Retrieves a pointer to the render target for this viewport.
         */
-        [[nodiscard]] RenderTarget* getTarget() const;
+        [[nodiscard]] RenderTarget* getTarget() const noexcept;
 
         /** Retrieves a pointer to the camera for this viewport.
         */
-        [[nodiscard]] Camera* getCamera() const;
+        [[nodiscard]] Camera* getCamera() const noexcept;
 
         /** Sets the camera to use for rendering to this viewport. */
         void setCamera(Camera* cam);
 
         /** Gets the Z-Order of this viewport. */
-        [[nodiscard]] int getZOrder() const;
+        [[nodiscard]] int getZOrder() const noexcept;
         /** Gets one of the relative dimensions of the viewport,
             a value between 0.0 and 1.0.
         */
@@ -171,21 +171,21 @@ class RenderTarget;
             pixels.
         */
 
-        [[nodiscard]] int getActualLeft() const;
+        [[nodiscard]] int getActualLeft() const noexcept;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        [[nodiscard]] int getActualTop() const;
+        [[nodiscard]] int getActualTop() const noexcept;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
-        [[nodiscard]] int getActualWidth() const;
+        [[nodiscard]] int getActualWidth() const noexcept;
         /** Gets one of the actual dimensions of the viewport, a value in
             pixels.
         */
 
-        [[nodiscard]] int getActualHeight() const;
+        [[nodiscard]] int getActualHeight() const noexcept;
 
         /** Sets the dimensions (after creation).
             @param
@@ -225,7 +225,7 @@ class RenderTarget;
 
         /** Gets the background colour.
         */
-        [[nodiscard]] const ColourValue& getBackgroundColour() const;
+        [[nodiscard]] const ColourValue& getBackgroundColour() const noexcept;
 
         /** Sets the initial depth buffer value of the viewport (before
             rendering). Default is 1
@@ -234,7 +234,7 @@ class RenderTarget;
 
         /** Gets the default depth buffer value to which the viewport is cleared.
         */
-        [[nodiscard]] float getDepthClear() const;
+        [[nodiscard]] float getDepthClear() const noexcept;
 
         /** Determines whether to clear the viewport before rendering.
         @remarks
@@ -249,10 +249,10 @@ class RenderTarget;
 
         /** Determines if the viewport is cleared before every frame.
         */
-        [[nodiscard]] bool getClearEveryFrame() const;
+        [[nodiscard]] bool getClearEveryFrame() const noexcept;
 
         /** Gets which buffers are to be cleared each frame. */
-        [[nodiscard]] unsigned int getClearBuffers() const;
+        [[nodiscard]] unsigned int getClearBuffers() const noexcept;
 
         /** Sets whether this viewport should be automatically updated 
             if Ogre's rendering loop or RenderTarget::update is being used.
@@ -269,7 +269,7 @@ class RenderTarget;
         /** Gets whether this viewport is automatically updated if 
             Ogre's rendering loop or RenderTarget::update is being used.
         */
-        [[nodiscard]] bool isAutoUpdated() const;
+        [[nodiscard]] bool isAutoUpdated() const noexcept;
 
         /** Set the material scheme which the viewport should use.
         @remarks
@@ -283,7 +283,7 @@ class RenderTarget;
         
         /** Get the material scheme which the viewport should use.
         */
-        [[nodiscard]] const String& getMaterialScheme() const
+        [[nodiscard]] const String& getMaterialScheme() const noexcept
         { return mMaterialSchemeName; }
 
         /** Access to actual dimensions (based on target size).
@@ -315,7 +315,7 @@ class RenderTarget;
 
         /** Returns whether or not Overlay objects (created in the SceneManager) are displayed in this
             viewport. */
-        [[nodiscard]] bool getOverlaysEnabled() const;
+        [[nodiscard]] bool getOverlaysEnabled() const noexcept;
 
         /** Tells this viewport whether it should display skies.
         @remarks
@@ -331,7 +331,7 @@ class RenderTarget;
 
         /** Returns whether or not skies (created in the SceneManager) are displayed in this
             viewport. */
-        [[nodiscard]] bool getSkiesEnabled() const;
+        [[nodiscard]] bool getSkiesEnabled() const noexcept;
 
         /** Tells this viewport whether it should display shadows.
         @remarks
@@ -345,7 +345,7 @@ class RenderTarget;
 
         /** Returns whether or not shadows (defined in the SceneManager) are displayed in this
             viewport. */
-        [[nodiscard]] bool getShadowsEnabled() const;
+        [[nodiscard]] bool getShadowsEnabled() const noexcept;
 
 
         /** Sets a per-viewport visibility mask.
@@ -361,7 +361,7 @@ class RenderTarget;
         /** Gets a per-viewport visibility mask.
         @see Viewport::setVisibilityMask
         */
-        [[nodiscard]] uint getVisibilityMask() const { return mVisibilityMask; }
+        [[nodiscard]] uint getVisibilityMask() const noexcept { return mVisibilityMask; }
 
         /** Convert oriented input point coordinates to screen coordinates. */
         void pointOrientedToScreen(const Vector2 &v, int orientationMode, Vector2 &outv);

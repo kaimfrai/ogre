@@ -106,7 +106,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Radian& Frustum::getFOVy() const
+    const Radian& Frustum::getFOVy() const noexcept
     {
         return mFOVy;
     }
@@ -151,7 +151,7 @@ class RenderQueue;
         setFrustumOffset(Vector2(horizontal, vertical));
     }
     //---------------------------------------------------------------------
-    const Vector2& Frustum::getFrustumOffset() const
+    const Vector2& Frustum::getFrustumOffset() const noexcept
     {
         return mFrustumOffset;
     }
@@ -168,7 +168,7 @@ class RenderQueue;
         return mFocalLength;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& Frustum::getProjectionMatrix() const
+    const Matrix4& Frustum::getProjectionMatrix() const noexcept
     {
 
         updateFrustum();
@@ -176,7 +176,7 @@ class RenderQueue;
         return mProjMatrix;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& Frustum::getProjectionMatrixWithRSDepth() const
+    const Matrix4& Frustum::getProjectionMatrixWithRSDepth() const noexcept
     {
 
         updateFrustum();
@@ -185,7 +185,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& Frustum::getViewMatrix() const
+    const Affine3& Frustum::getViewMatrix() const noexcept
     {
         updateView();
 
@@ -194,7 +194,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const Plane* Frustum::getFrustumPlanes() const
+    const Plane* Frustum::getFrustumPlanes() const noexcept
     {
         // Make any pending updates to the calculated frustum planes
         updateFrustumPlanes();
@@ -306,7 +306,7 @@ class RenderQueue;
         return true;
     }
     //---------------------------------------------------------------------
-    uint32 Frustum::getTypeFlags() const
+    uint32 Frustum::getTypeFlags() const noexcept
     {
         return SceneManager::FRUSTUM_TYPE_MASK;
     }
@@ -525,7 +525,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    bool Frustum::isViewOutOfDate() const
+    bool Frustum::isViewOutOfDate() const noexcept
     {
         // Attached to node?
         if (mParentNode)
@@ -554,7 +554,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    bool Frustum::isFrustumOutOfDate() const
+    bool Frustum::isFrustumOutOfDate() const noexcept
     {
         // Deriving custom near plane from linked plane?
         if (mObliqueDepthProjection)
@@ -745,7 +745,7 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Frustum::getBoundingBox() const
+    const AxisAlignedBox& Frustum::getBoundingBox() const noexcept
     {
         return mBoundingBox;
     }
@@ -759,7 +759,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    const String& Frustum::getMovableType() const
+    const String& Frustum::getMovableType() const noexcept
     {
         return msMovableType;
     }
@@ -792,7 +792,7 @@ class RenderQueue;
         mRecalcWorldSpaceCorners = true;
     }
     // -------------------------------------------------------------------
-    const Frustum::Corners& Frustum::getWorldSpaceCorners() const
+    const Frustum::Corners& Frustum::getWorldSpaceCorners() const noexcept
     {
         updateWorldSpaceCorners();
 
@@ -811,12 +811,12 @@ class RenderQueue;
         return mProjType;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Frustum::getPositionForViewUpdate() const
+    const Vector3& Frustum::getPositionForViewUpdate() const noexcept
     {
         return mLastParentPosition;
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Frustum::getOrientationForViewUpdate() const
+    const Quaternion& Frustum::getOrientationForViewUpdate() const noexcept
     {
         return mLastParentOrientation;
     }

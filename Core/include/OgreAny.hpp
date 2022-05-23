@@ -130,7 +130,7 @@ namespace Ogre
 
         public: // queries
 
-            [[nodiscard]] virtual const std::type_info& getType() const = 0;
+            [[nodiscard]] virtual const std::type_info& getType() const noexcept = 0;
 
             [[nodiscard]] virtual placeholder * clone() const = 0;
     
@@ -150,7 +150,7 @@ namespace Ogre
 
         public: // queries
 
-            [[nodiscard]] const std::type_info & getType() const override
+            [[nodiscard]] const std::type_info & getType() const noexcept override
             {
                 return typeid(ValueType);
             }
@@ -229,7 +229,7 @@ namespace Ogre
 
         public: // queries
 
-            [[nodiscard]] const std::type_info & getType() const override
+            [[nodiscard]] const std::type_info & getType() const noexcept override
             {
                 return typeid(ValueType);
             }

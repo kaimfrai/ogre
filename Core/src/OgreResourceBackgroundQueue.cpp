@@ -42,11 +42,11 @@ namespace Ogre {
     //------------------------------------------------------------------------
     //-----------------------------------------------------------------------
     template<> ResourceBackgroundQueue* Singleton<ResourceBackgroundQueue>::msSingleton = nullptr;
-    ResourceBackgroundQueue* ResourceBackgroundQueue::getSingletonPtr()
+    ResourceBackgroundQueue* ResourceBackgroundQueue::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ResourceBackgroundQueue& ResourceBackgroundQueue::getSingleton()
+    ResourceBackgroundQueue& ResourceBackgroundQueue::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }

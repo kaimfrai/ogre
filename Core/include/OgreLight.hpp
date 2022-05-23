@@ -158,7 +158,7 @@ class Sphere;
 
         /** Returns the colour of the diffuse light given off by this light source (see setDiffuseColour for more info).
         */
-        const ColourValue& getDiffuseColour() const;
+        const ColourValue& getDiffuseColour() const noexcept;
 
         /** Sets the colour of the specular light given off by this source.
         @remarks
@@ -176,7 +176,7 @@ class Sphere;
 
         /** Returns the colour of specular light given off by this light source.
         */
-        const ColourValue& getSpecularColour() const;
+        const ColourValue& getSpecularColour() const noexcept;
 
         /** Sets the attenuation parameters of the light source i.e. how it diminishes with distance.
         @remarks
@@ -204,22 +204,22 @@ class Sphere;
 
         /** Returns the absolute upper range of the light.
         */
-        float getAttenuationRange() const { return mAttenuation[0]; }
+        float getAttenuationRange() const noexcept { return mAttenuation[0]; }
 
         /** Returns the constant factor in the attenuation formula.
         */
-        float getAttenuationConstant() const { return mAttenuation[1]; }
+        float getAttenuationConstant() const noexcept { return mAttenuation[1]; }
 
         /** Returns the linear factor in the attenuation formula.
         */
-        float getAttenuationLinear() const { return mAttenuation[2]; }
+        float getAttenuationLinear() const noexcept { return mAttenuation[2]; }
 
         /** Returns the quadric factor in the attenuation formula.
         */
-        float getAttenuationQuadric() const { return mAttenuation[3]; }
+        float getAttenuationQuadric() const noexcept { return mAttenuation[3]; }
 
         /// Returns all the attenuation params as (range, constant, linear, quadratic)
-        const Vector4f& getAttenuation() const { return mAttenuation; }
+        const Vector4f& getAttenuation() const noexcept { return mAttenuation; }
 
         /** Sets the range of a spotlight, i.e. the angle of the inner and outer cones
             and the rate of falloff between them.
@@ -237,11 +237,11 @@ class Sphere;
 
         /** Returns the angle covered by the spotlights inner cone.
         */
-        const Radian& getSpotlightInnerAngle() const;
+        const Radian& getSpotlightInnerAngle() const noexcept;
 
         /** Returns the angle covered by the spotlights outer cone.
         */
-        const Radian& getSpotlightOuterAngle() const;
+        const Radian& getSpotlightOuterAngle() const noexcept;
 
         /** Returns the falloff between the inner and outer cones of the spotlight.
         */
@@ -270,7 +270,7 @@ class Sphere;
         /** Returns the near clip plane distance to be used by spotlights that use light
             clipping.
         */
-        Real getSpotlightNearClipDistance() const { return mSpotNearClip; }
+        Real getSpotlightNearClipDistance() const noexcept { return mSpotNearClip; }
         
         /** Set a scaling factor to indicate the relative power of a light.
         @remarks
@@ -287,13 +287,13 @@ class Sphere;
         */
         Real getPowerScale() const;
 
-        Real getBoundingRadius() const override { return 0; }
-        const AxisAlignedBox& getBoundingBox() const override;
+        Real getBoundingRadius() const noexcept override { return 0; }
+        const AxisAlignedBox& getBoundingBox() const noexcept override;
 
         void _updateRenderQueue(RenderQueue* queue) override {} // No rendering
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
 
         /** Retrieves the position of the light including any transform from nodes it is attached to. 
         @param cameraRelativeIfSet If set to true, returns data in camera-relative units if that's been set up (render use)
@@ -355,7 +355,7 @@ class Sphere;
         virtual const PlaneBoundedVolumeList& _getFrustumClipVolumes(const Camera* const cam) const;
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const override;
+        uint32 getTypeFlags() const noexcept override;
 
         /// @copydoc AnimableObject::createAnimableValue
         AnimableValuePtr createAnimableValue(const String& valueName) override;
@@ -374,7 +374,7 @@ class Sphere;
         void resetCustomShadowCameraSetup();
 
         /** Return a pointer to the custom shadow camera setup (null means use SceneManager global version). */
-        const ShadowCameraSetupPtr& getCustomShadowCameraSetup() const;
+        const ShadowCameraSetupPtr& getCustomShadowCameraSetup() const noexcept;
 
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false) override;
@@ -387,7 +387,7 @@ class Sphere;
             from frame to frame (and object to object) so you should not use this
             value unless you're sure the context is correct.
         */
-        size_t _getIndexInFrame() const { return mIndexInFrame; }
+        size_t _getIndexInFrame() const noexcept { return mIndexInFrame; }
         void _notifyIndexInFrame(size_t i) { mIndexInFrame = i; }
         
         /** Sets the maximum distance away from the camera that shadows
@@ -422,7 +422,7 @@ class Sphere;
             May be zero if the light doesn't have it's own near distance set;
             use _deriveShadowNearDistance for a version guaranteed to give a result.
         */
-        Real getShadowNearClipDistance() const { return mShadowNearClipDist; }
+        Real getShadowNearClipDistance() const noexcept { return mShadowNearClipDist; }
 
         /** Derive a shadow camera near distance from either the light, or
             from the main camera if the light doesn't have its own setting.
@@ -446,7 +446,7 @@ class Sphere;
             May be zero if the light doesn't have it's own far distance set;
             use _deriveShadowfarDistance for a version guaranteed to give a result.
         */
-        Real getShadowFarClipDistance() const { return mShadowFarClipDist; }
+        Real getShadowFarClipDistance() const noexcept { return mShadowFarClipDist; }
 
         /** Derive a shadow camera far distance
         */
@@ -570,7 +570,7 @@ class Sphere;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
     };
     /** @} */
     /** @} */

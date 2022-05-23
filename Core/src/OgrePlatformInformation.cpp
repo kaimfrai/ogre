@@ -323,13 +323,13 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    const String& PlatformInformation::getCpuIdentifier()
+    const String& PlatformInformation::getCpuIdentifier() noexcept
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;
     }
     //---------------------------------------------------------------------
-    uint PlatformInformation::getCpuFeatures()
+    uint PlatformInformation::getCpuFeatures() noexcept
     {
         static const uint sFeatures = _detectCpuFeatures();
         return sFeatures;

@@ -89,9 +89,9 @@ class MovableObject;
         Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
 
         /// @copydoc Singleton::getSingleton()
-        static AbsolutePixelCountLodStrategy& getSingleton();
+        static AbsolutePixelCountLodStrategy& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static AbsolutePixelCountLodStrategy* getSingletonPtr();
+        static AbsolutePixelCountLodStrategy* getSingletonPtr() noexcept;
     };
 
     class ScreenRatioPixelCountLodStrategy : public PixelCountLodStrategyBase, public Singleton<ScreenRatioPixelCountLodStrategy>
@@ -102,9 +102,9 @@ class MovableObject;
         ~ScreenRatioPixelCountLodStrategy() override;
 
         /// @copydoc Singleton::getSingleton()
-        static ScreenRatioPixelCountLodStrategy& getSingleton();
+        static ScreenRatioPixelCountLodStrategy& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ScreenRatioPixelCountLodStrategy* getSingletonPtr();
+        static ScreenRatioPixelCountLodStrategy* getSingletonPtr() noexcept;
     };
     /** @} */
     /** @} */

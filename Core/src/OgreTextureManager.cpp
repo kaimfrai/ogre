@@ -54,11 +54,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> TextureManager* Singleton<TextureManager>::msSingleton = nullptr;
-    TextureManager* TextureManager::getSingletonPtr()
+    TextureManager* TextureManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    TextureManager& TextureManager::getSingleton()
+    TextureManager& TextureManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -250,7 +250,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredIntegerBitDepth() const
+    ushort TextureManager::getPreferredIntegerBitDepth() const noexcept
     {
         return mPreferredIntegerBitDepth;
     }
@@ -280,7 +280,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ushort TextureManager::getPreferredFloatBitDepth() const
+    ushort TextureManager::getPreferredFloatBitDepth() const noexcept
     {
         return mPreferredFloatBitDepth;
     }
@@ -366,7 +366,7 @@ namespace Ogre {
         return mWarningTexture;
     }
 
-    const SamplerPtr& TextureManager::getDefaultSampler()
+    const SamplerPtr& TextureManager::getDefaultSampler() noexcept
     {
         if(!mDefaultSampler)
             mDefaultSampler = createSampler();

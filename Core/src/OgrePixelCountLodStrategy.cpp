@@ -86,11 +86,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> AbsolutePixelCountLodStrategy* Singleton<AbsolutePixelCountLodStrategy>::msSingleton = nullptr;
-    AbsolutePixelCountLodStrategy* AbsolutePixelCountLodStrategy::getSingletonPtr()
+    AbsolutePixelCountLodStrategy* AbsolutePixelCountLodStrategy::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    AbsolutePixelCountLodStrategy& AbsolutePixelCountLodStrategy::getSingleton()
+    AbsolutePixelCountLodStrategy& AbsolutePixelCountLodStrategy::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -166,11 +166,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ScreenRatioPixelCountLodStrategy* Singleton<ScreenRatioPixelCountLodStrategy>::msSingleton = nullptr;
-    ScreenRatioPixelCountLodStrategy* ScreenRatioPixelCountLodStrategy::getSingletonPtr()
+    ScreenRatioPixelCountLodStrategy* ScreenRatioPixelCountLodStrategy::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ScreenRatioPixelCountLodStrategy& ScreenRatioPixelCountLodStrategy::getSingleton()
+    ScreenRatioPixelCountLodStrategy& ScreenRatioPixelCountLodStrategy::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

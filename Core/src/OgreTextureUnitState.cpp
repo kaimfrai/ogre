@@ -248,7 +248,7 @@ class Frustum;
         return *this;
     }
     //-----------------------------------------------------------------------
-    const String& TextureUnitState::getTextureName() const
+    const String& TextureUnitState::getTextureName() const noexcept
     {
         // Return name of current frame
         if (mCurrentFrame < mFramePtrs.size() && mFramePtrs[mCurrentFrame])
@@ -484,12 +484,12 @@ class Frustum;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getCurrentFrame() const
+    unsigned int TextureUnitState::getCurrentFrame() const noexcept
     {
         return mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getNumFrames() const
+    unsigned int TextureUnitState::getNumFrames() const noexcept
     {
         return (unsigned int)mFramePtrs.size();
     }
@@ -522,7 +522,7 @@ class Frustum;
                                      : numMipmaps);
     }
     //-----------------------------------------------------------------------
-    int TextureUnitState::getNumMipmaps() const
+    int TextureUnitState::getNumMipmaps() const noexcept
     {
         return !mFramePtrs[0] ? int(MIP_DEFAULT) : mFramePtrs[0]->getNumMipmaps();
     }
@@ -533,7 +533,7 @@ class Frustum;
         for(auto& frame : mFramePtrs)
             frame->setTreatLuminanceAsAlpha(isAlpha);
     }
-    float TextureUnitState::getGamma() const
+    float TextureUnitState::getGamma() const noexcept
     {
         return !mFramePtrs[0] ? 1.0f : mFramePtrs[0]->getGamma();
     }
@@ -551,12 +551,12 @@ class Frustum;
             frame->setHardwareGammaEnabled(g);
     }
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isHardwareGammaEnabled() const
+    bool TextureUnitState::isHardwareGammaEnabled() const noexcept
     {
         return mFramePtrs[0] && mFramePtrs[0]->isHardwareGammaEnabled();
     }
     //-----------------------------------------------------------------------
-    unsigned int TextureUnitState::getTextureCoordSet() const
+    unsigned int TextureUnitState::getTextureCoordSet() const noexcept
     {
         return mTextureCoordSetIndex;
     }
@@ -683,7 +683,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    bool TextureUnitState::isBlank() const
+    bool TextureUnitState::isBlank() const noexcept
     {
         return !mFramePtrs[0] || mTextureLoadFailed;
     }
@@ -699,12 +699,12 @@ class Frustum;
         return mColourBlendFallbackDest;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getColourBlendMode() const
+    const LayerBlendModeEx& TextureUnitState::getColourBlendMode() const noexcept
     {
         return mColourBlendMode;
     }
     //-----------------------------------------------------------------------
-    const LayerBlendModeEx& TextureUnitState::getAlphaBlendMode() const
+    const LayerBlendModeEx& TextureUnitState::getAlphaBlendMode() const noexcept
     {
         return mAlphaBlendMode;
     }
@@ -774,7 +774,7 @@ class Frustum;
         mRecalcTexMatrix = true;
     }
     //-----------------------------------------------------------------------
-    const Matrix4& TextureUnitState::getTextureTransform() const
+    const Matrix4& TextureUnitState::getTextureTransform() const noexcept
     {
         if (mRecalcTexMatrix)
             recalcTextureMatrix();
@@ -1124,7 +1124,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    const Radian& TextureUnitState::getTextureRotate() const
+    const Radian& TextureUnitState::getTextureRotate() const noexcept
     {
         return mRotate;
     }
@@ -1136,7 +1136,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    const TextureUnitState::EffectMap& TextureUnitState::getEffects() const
+    const TextureUnitState::EffectMap& TextureUnitState::getEffects() const noexcept
     {
         return mEffects;
     }
@@ -1171,7 +1171,7 @@ class Frustum;
             mFramePtrs[0].reset();
     }
     //-----------------------------------------------------------------------------
-    bool TextureUnitState::isLoaded() const
+    bool TextureUnitState::isLoaded() const noexcept
     {
         return mParent->isLoaded();
     }
@@ -1244,7 +1244,7 @@ class Frustum;
         return memSize;
     }
 
-    bool TextureUnitState::isDefaultFiltering() const {
+    bool TextureUnitState::isDefaultFiltering() const noexcept {
         return mSampler == TextureManager::getSingleton().getDefaultSampler();
     }
 

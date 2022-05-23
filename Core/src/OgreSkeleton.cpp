@@ -202,7 +202,7 @@ class Affine3;
         return ret;
     }
 
-    const Skeleton::BoneList& Skeleton::getRootBones() const {
+    const Skeleton::BoneList& Skeleton::getRootBones() const noexcept {
         if (mRootBones.empty())
         {
             deriveRootBone();
@@ -463,7 +463,7 @@ class Affine3;
             mManualBones.erase(bone);
     }
     //-----------------------------------------------------------------------
-    unsigned short Skeleton::getNumBones() const
+    unsigned short Skeleton::getNumBones() const noexcept
     {
         return (unsigned short)mBoneList.size();
     }
@@ -495,7 +495,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    unsigned short Skeleton::getNumAnimations() const
+    unsigned short Skeleton::getNumAnimations() const noexcept
     {
         return (unsigned short)mAnimationsList.size();
     }

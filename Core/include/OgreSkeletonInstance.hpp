@@ -69,7 +69,7 @@ class TagPoint;
         ~SkeletonInstance() override;
 
         /** Gets the number of animations on this skeleton. */
-        unsigned short getNumAnimations() const override;
+        unsigned short getNumAnimations() const noexcept override;
 
         /** Gets a single animation by index. */
         Animation* getAnimation(unsigned short index) const override;
@@ -110,7 +110,7 @@ class TagPoint;
         /// @copydoc Skeleton::removeAllLinkedSkeletonAnimationSources
         void removeAllLinkedSkeletonAnimationSources() override;
         const LinkedSkeletonAnimSourceList&
-                    getLinkedSkeletonAnimationSources() const override;
+                    getLinkedSkeletonAnimationSources() const noexcept override;
 
         /// @copydoc Skeleton::_initAnimationState
         void _initAnimationState(AnimationStateSet* animSet) override;
@@ -119,11 +119,11 @@ class TagPoint;
         void _refreshAnimationState(AnimationStateSet* animSet) override;
 
         /// @copydoc Resource::getName
-        const String& getName() const;
+        const String& getName() const noexcept;
         /// @copydoc Resource::getHandle
         ResourceHandle getHandle() const;
         /// @copydoc Resource::getGroup
-        const String& getGroup() const;
+        const String& getGroup() const noexcept;
 
     private:
         /// Pointer back to master Skeleton

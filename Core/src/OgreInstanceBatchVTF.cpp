@@ -458,7 +458,7 @@ class RenderQueue;
         *xform = Matrix4::IDENTITY;
     }
     //-----------------------------------------------------------------------
-    unsigned short BaseInstanceBatchVTF::getNumWorldTransforms() const
+    unsigned short BaseInstanceBatchVTF::getNumWorldTransforms() const noexcept
     {
         return 1;
     }

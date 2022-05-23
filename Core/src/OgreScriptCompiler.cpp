@@ -1462,12 +1462,12 @@ namespace Ogre
     // ScriptCompilerManager
     template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = nullptr;
     
-    ScriptCompilerManager* ScriptCompilerManager::getSingletonPtr()
+    ScriptCompilerManager* ScriptCompilerManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
     //-----------------------------------------------------------------------
-    ScriptCompilerManager& ScriptCompilerManager::getSingleton()
+    ScriptCompilerManager& ScriptCompilerManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -1547,7 +1547,7 @@ namespace Ogre
         mScriptPatterns.push_back(pattern);
     }
     //-----------------------------------------------------------------------
-    const StringVector& ScriptCompilerManager::getScriptPatterns() const
+    const StringVector& ScriptCompilerManager::getScriptPatterns() const noexcept
     {
         return mScriptPatterns;
     }

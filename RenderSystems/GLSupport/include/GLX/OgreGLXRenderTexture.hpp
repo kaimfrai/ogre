@@ -45,7 +45,7 @@ class GLXGLSupport;
         GLXPBuffer(GLXGLSupport* glsupport, PixelComponentType format, size_t width, size_t height);
         ~GLXPBuffer() override;
         
-        [[nodiscard]] GLContext *getContext() const override;
+        [[nodiscard]] GLContext *getContext() const noexcept override;
 
     protected:
         GLXContext*   mContext;

@@ -322,9 +322,9 @@ class HardwareBufferManagerBase;
             void reset() { hit = 0; miss = 0; tail = 0; buffersize = 0; }
             void flush() { tail = 0; buffersize = 0; }
 
-            unsigned int getHits() { return hit; }
-            unsigned int getMisses() { return miss; }
-            unsigned int getSize() { return size; }
+            unsigned int getHits() noexcept { return hit; }
+            unsigned int getMisses() noexcept { return miss; }
+            unsigned int getSize() noexcept { return size; }
         private:
             unsigned int size;
             uint32 *cache;

@@ -89,13 +89,13 @@ namespace Ogre {
         DataStream(const String& name, uint16 accessMode = READ) 
             : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
-        const String& getName() { return mName; }
+        const String& getName() noexcept { return mName; }
         /// Gets the access mode of the stream
-        [[nodiscard]] uint16 getAccessMode() const { return mAccess; }
+        [[nodiscard]] uint16 getAccessMode() const noexcept { return mAccess; }
         /** Reports whether this stream is readable. */
-        [[nodiscard]] virtual bool isReadable() const { return (mAccess & READ) != 0; }
+        [[nodiscard]] virtual bool isReadable() const noexcept { return (mAccess & READ) != 0; }
         /** Reports whether this stream is writeable. */
-        [[nodiscard]] virtual bool isWriteable() const { return (mAccess & WRITE) != 0; }
+        [[nodiscard]] virtual bool isWriteable() const noexcept { return (mAccess & WRITE) != 0; }
         virtual ~DataStream() {}
         // Streaming operators
         template<typename T> DataStream& operator>>(T& val);
@@ -187,7 +187,7 @@ namespace Ogre {
         /** Returns the total size of the data to be read from the stream, 
             or 0 if this is indeterminate for this stream. 
         */
-        [[nodiscard]] size_t size() const { return mSize; }
+        [[nodiscard]] size_t size() const noexcept { return mSize; }
 
         /** Close the stream; this makes further operations invalid. */
         virtual void close() = 0;
@@ -313,10 +313,10 @@ namespace Ogre {
         ~MemoryDataStream() override;
 
         /** Get a pointer to the start of the memory block this stream holds. */
-        uchar* getPtr() { return mData; }
+        uchar* getPtr() noexcept { return mData; }
         
         /** Get a pointer to the current position in the memory block this stream holds. */
-        uchar* getCurrentPtr() { return mPos; }
+        uchar* getCurrentPtr() noexcept { return mPos; }
         
         /** @copydoc DataStream::read
         */

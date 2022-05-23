@@ -77,7 +77,7 @@ namespace Ogre {
         }
 
         /// Get the internal counter
-        [[nodiscard]] unsigned long long int getNext() const
+        [[nodiscard]] unsigned long long int getNext() const noexcept
         {
             return mNext;
         }

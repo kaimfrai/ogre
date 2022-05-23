@@ -98,7 +98,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-	const Camera* AutoParamDataSource::getCurrentCamera() const
+	const Camera* AutoParamDataSource::getCurrentCamera() const noexcept
 	{
 		return mCurrentCamera;
 	}
@@ -277,7 +277,7 @@ namespace Ogre {
         mWorldMatrixDirty = false;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getWorldMatrix() const
+    const Affine3& AutoParamDataSource::getWorldMatrix() const noexcept
     {
         if (mWorldMatrixDirty)
         {
@@ -303,14 +303,14 @@ namespace Ogre {
         return mWorldMatrixCount;
     }
     //-----------------------------------------------------------------------------
-    const Affine3* AutoParamDataSource::getWorldMatrixArray() const
+    const Affine3* AutoParamDataSource::getWorldMatrixArray() const noexcept
     {
         // trigger derivation
         getWorldMatrix();
         return mWorldMatrixArray;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getViewMatrix() const
+    const Affine3& AutoParamDataSource::getViewMatrix() const noexcept
     {
         if (mViewMatrixDirty)
         {
@@ -330,7 +330,7 @@ namespace Ogre {
         return mViewMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Matrix4& AutoParamDataSource::getViewProjectionMatrix() const
+    const Matrix4& AutoParamDataSource::getViewProjectionMatrix() const noexcept
     {
         if (mViewProjMatrixDirty)
         {
@@ -340,7 +340,7 @@ namespace Ogre {
         return mViewProjMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Matrix4& AutoParamDataSource::getProjectionMatrix() const
+    const Matrix4& AutoParamDataSource::getProjectionMatrix() const noexcept
     {
         if (mProjMatrixDirty)
         {
@@ -370,7 +370,7 @@ namespace Ogre {
         return mProjectionMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getWorldViewMatrix() const
+    const Affine3& AutoParamDataSource::getWorldViewMatrix() const noexcept
     {
         if (mWorldViewMatrixDirty)
         {
@@ -380,7 +380,7 @@ namespace Ogre {
         return mWorldViewMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Matrix4& AutoParamDataSource::getWorldViewProjMatrix() const
+    const Matrix4& AutoParamDataSource::getWorldViewProjMatrix() const noexcept
     {
         if (mWorldViewProjMatrixDirty)
         {
@@ -390,7 +390,7 @@ namespace Ogre {
         return mWorldViewProjMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getInverseWorldMatrix() const
+    const Affine3& AutoParamDataSource::getInverseWorldMatrix() const noexcept
     {
         if (mInverseWorldMatrixDirty)
         {
@@ -400,7 +400,7 @@ namespace Ogre {
         return mInverseWorldMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getInverseWorldViewMatrix() const
+    const Affine3& AutoParamDataSource::getInverseWorldViewMatrix() const noexcept
     {
         if (mInverseWorldViewMatrixDirty)
         {
@@ -410,7 +410,7 @@ namespace Ogre {
         return mInverseWorldViewMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Affine3& AutoParamDataSource::getInverseViewMatrix() const
+    const Affine3& AutoParamDataSource::getInverseViewMatrix() const noexcept
     {
         if (mInverseViewMatrixDirty)
         {
@@ -420,7 +420,7 @@ namespace Ogre {
         return mInverseViewMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Matrix4& AutoParamDataSource::getInverseTransposeWorldMatrix() const
+    const Matrix4& AutoParamDataSource::getInverseTransposeWorldMatrix() const noexcept
     {
         if (mInverseTransposeWorldMatrixDirty)
         {
@@ -430,7 +430,7 @@ namespace Ogre {
         return mInverseTransposeWorldMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Matrix4& AutoParamDataSource::getInverseTransposeWorldViewMatrix() const
+    const Matrix4& AutoParamDataSource::getInverseTransposeWorldViewMatrix() const noexcept
     {
         if (mInverseTransposeWorldViewMatrixDirty)
         {
@@ -440,7 +440,7 @@ namespace Ogre {
         return mInverseTransposeWorldViewMatrix;
     }
     //-----------------------------------------------------------------------------
-    const Vector4& AutoParamDataSource::getCameraPosition() const
+    const Vector4& AutoParamDataSource::getCameraPosition() const noexcept
     {
         if(mCameraPositionDirty)
         {
@@ -458,7 +458,7 @@ namespace Ogre {
         return mCameraPosition;
     }    
     //-----------------------------------------------------------------------------
-    const Vector4& AutoParamDataSource::getCameraPositionObjectSpace() const
+    const Vector4& AutoParamDataSource::getCameraPositionObjectSpace() const noexcept
     {
         if (mCameraPositionObjectSpaceDirty)
         {
@@ -481,7 +481,7 @@ namespace Ogre {
         return Ogre::Vector4 (mCameraRelativePosition.x, mCameraRelativePosition.y, mCameraRelativePosition.z, 1);
     }
     //-----------------------------------------------------------------------------
-    const Vector4& AutoParamDataSource::getLodCameraPosition() const
+    const Vector4& AutoParamDataSource::getLodCameraPosition() const noexcept
     {
         if(mLodCameraPositionDirty)
         {
@@ -499,7 +499,7 @@ namespace Ogre {
         return mLodCameraPosition;
     }
     //-----------------------------------------------------------------------------
-    const Vector4& AutoParamDataSource::getLodCameraPositionObjectSpace() const
+    const Vector4& AutoParamDataSource::getLodCameraPositionObjectSpace() const noexcept
     {
         if (mLodCameraPositionObjectSpaceDirty)
         {
@@ -526,7 +526,7 @@ namespace Ogre {
         mAmbientLight = ambient;
     }
     //---------------------------------------------------------------------
-    float AutoParamDataSource::getLightCount() const
+    float AutoParamDataSource::getLightCount() const noexcept
     {
         return static_cast<float>(mCurrentLightList->size());
     }
@@ -536,7 +536,7 @@ namespace Ogre {
         return getLight(index).getCastShadows() ? 1.0f : 0.0f;
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getAmbientLightColour() const
+    const ColourValue& AutoParamDataSource::getAmbientLightColour() const noexcept
     {
         return mAmbientLight;
         
@@ -547,7 +547,7 @@ namespace Ogre {
         mCurrentPass = pass;
     }
     //-----------------------------------------------------------------------------
-    const Pass* AutoParamDataSource::getCurrentPass() const
+    const Pass* AutoParamDataSource::getCurrentPass() const noexcept
     {
         return mCurrentPass;
     }
@@ -583,22 +583,22 @@ namespace Ogre {
         return {size[0], size[1], 1 / size[0], 1 / size[1]};
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getSurfaceAmbientColour() const
+    const ColourValue& AutoParamDataSource::getSurfaceAmbientColour() const noexcept
     {
         return mCurrentPass->getAmbient();
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getSurfaceDiffuseColour() const
+    const ColourValue& AutoParamDataSource::getSurfaceDiffuseColour() const noexcept
     {
         return mCurrentPass->getDiffuse();
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getSurfaceSpecularColour() const
+    const ColourValue& AutoParamDataSource::getSurfaceSpecularColour() const noexcept
     {
         return mCurrentPass->getSpecular();
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getSurfaceEmissiveColour() const
+    const ColourValue& AutoParamDataSource::getSurfaceEmissiveColour() const noexcept
     {
         return mCurrentPass->getSelfIllumination();
     }
@@ -636,12 +636,12 @@ namespace Ogre {
         mFogParams[3] = linearEnd != linearStart ? 1 / (linearEnd - linearStart) : 0;
     }
     //-----------------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getFogColour() const
+    const ColourValue& AutoParamDataSource::getFogColour() const noexcept
     {
         return mFogColour;
     }
     //-----------------------------------------------------------------------------
-    const Vector4f& AutoParamDataSource::getFogParams() const
+    const Vector4f& AutoParamDataSource::getFogParams() const noexcept
     {
         return mFogParams;
     }
@@ -653,7 +653,7 @@ namespace Ogre {
             mPointParams[0] *= getViewportHeight();
     }
 
-    const Vector4f& AutoParamDataSource::getPointParams() const
+    const Vector4f& AutoParamDataSource::getPointParams() const noexcept
     {
         return mPointParams;
     }
@@ -818,7 +818,7 @@ namespace Ogre {
         mCurrentRenderTarget = target;
     }
     //-----------------------------------------------------------------------------
-    const RenderTarget* AutoParamDataSource::getCurrentRenderTarget() const
+    const RenderTarget* AutoParamDataSource::getCurrentRenderTarget() const noexcept
     {
         return mCurrentRenderTarget;
     }
@@ -845,7 +845,7 @@ namespace Ogre {
             mDirLightExtrusionDistance : mPointLightExtrusionDistance;
     }
     //-----------------------------------------------------------------------------
-    const Renderable* AutoParamDataSource::getCurrentRenderable() const
+    const Renderable* AutoParamDataSource::getCurrentRenderable() const noexcept
     {
         return mCurrentRenderable;
     }
@@ -1058,7 +1058,7 @@ namespace Ogre {
         return mCurrentCamera->getFarClipDistance(); 
     }
     //-----------------------------------------------------------------------------
-    int AutoParamDataSource::getPassNumber() const
+    int AutoParamDataSource::getPassNumber() const noexcept
     {
         return mPassNumber;
     }
@@ -1073,7 +1073,7 @@ namespace Ogre {
         ++mPassNumber;
     }
     //-----------------------------------------------------------------------------
-    const Vector4& AutoParamDataSource::getSceneDepthRange() const
+    const Vector4& AutoParamDataSource::getSceneDepthRange() const noexcept
     {
         static Vector4 dummy(0, 100000, 100000, 1.f/100000);
 
@@ -1137,7 +1137,7 @@ namespace Ogre {
             return dummy;
     }
     //---------------------------------------------------------------------
-    const ColourValue& AutoParamDataSource::getShadowColour() const
+    const ColourValue& AutoParamDataSource::getShadowColour() const noexcept
     {
         return mCurrentSceneManager->getShadowColour();
     }

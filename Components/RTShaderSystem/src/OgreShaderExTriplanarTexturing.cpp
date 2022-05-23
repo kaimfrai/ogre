@@ -144,19 +144,19 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    const String& TriplanarTexturing::getType() const
+    const String& TriplanarTexturing::getType() const noexcept
     {
         return type;
     }
 
     //-----------------------------------------------------------------------
-    int TriplanarTexturing::getExecutionOrder() const
+    int TriplanarTexturing::getExecutionOrder() const noexcept
     {
         return FFP_TEXTURING;
     }
 
     //-----------------------------------------------------------------------
-    bool TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass )
+    bool TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept
     {
         TextureUnitState* textureUnit;
     
@@ -227,14 +227,14 @@ namespace RTShader {
     }
 
     //-----------------------------------------------------------------------
-    const String& TriplanarTexturingFactory::getType() const
+    const String& TriplanarTexturingFactory::getType() const noexcept
     {
         return TriplanarTexturing::type;
     }
 
     //-----------------------------------------------------------------------
     SubRenderState* TriplanarTexturingFactory::createInstance(ScriptCompiler* compiler, 
-                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
     {
         if (prop->name == "triplanarTexturing")
         {

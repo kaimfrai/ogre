@@ -71,7 +71,7 @@ namespace {
         ~FileSystemArchive() override;
 
         /// @copydoc Archive::isCaseSensitive
-        [[nodiscard]] bool isCaseSensitive() const override;
+        [[nodiscard]] bool isCaseSensitive() const noexcept override;
 
         /// @copydoc Archive::load
         void load() override;
@@ -121,7 +121,7 @@ namespace {
         mReadOnly = readOnly;
     }
     //-----------------------------------------------------------------------
-    bool FileSystemArchive::isCaseSensitive() const
+    bool FileSystemArchive::isCaseSensitive() const noexcept
     {
         return true;
     }
@@ -450,7 +450,7 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    const String& FileSystemArchiveFactory::getType() const
+    const String& FileSystemArchiveFactory::getType() const noexcept
     {
         static String name = "FileSystem";
         return name;
@@ -466,7 +466,7 @@ namespace {
         gIgnoreHidden = ignore;
     }
 
-    bool FileSystemArchiveFactory::getIgnoreHidden()
+    bool FileSystemArchiveFactory::getIgnoreHidden() noexcept
     {
         return gIgnoreHidden;
     }

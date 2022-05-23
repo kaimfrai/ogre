@@ -69,12 +69,12 @@ class Technique;
     }
     SubEntity::~SubEntity() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    SubMesh* SubEntity::getSubMesh()
+    SubMesh* SubEntity::getSubMesh() noexcept
     {
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    const String& SubEntity::getMaterialName() const
+    const String& SubEntity::getMaterialName() const noexcept
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }
@@ -115,7 +115,7 @@ class Technique;
         mParentEntity->reevaluateVertexProcessing();
     }
     //-----------------------------------------------------------------------
-    Technique* SubEntity::getTechnique() const
+    Technique* SubEntity::getTechnique() const noexcept
     {
         return mMaterialPtr->getBestTechnique(mMaterialLodIndex, this);
     }
@@ -163,7 +163,7 @@ class Technique;
         mIndexEnd = 0;
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::getVertexDataForBinding()
+    VertexData* SubEntity::getVertexDataForBinding() noexcept
     {
         if (mSubMesh->useSharedVertices)
         {
@@ -226,7 +226,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short SubEntity::getNumWorldTransforms() const
+    unsigned short SubEntity::getNumWorldTransforms() const noexcept
     {
         if (!mParentEntity->mNumBoneMatrices ||
             !mParentEntity->isHardwareAnimationEnabled())
@@ -280,7 +280,7 @@ class Technique;
         return dist;
     }
     //-----------------------------------------------------------------------
-    const LightList& SubEntity::getLights() const
+    const LightList& SubEntity::getLights() const noexcept
     {
         return mParentEntity->queryLights();
     }
@@ -329,7 +329,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    bool SubEntity::getCastsShadows() const
+    bool SubEntity::getCastsShadows() const noexcept
     {
         return mParentEntity->getCastShadows();
     }

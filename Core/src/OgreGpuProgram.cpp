@@ -243,7 +243,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------------
-    bool GpuProgram::isRequiredCapabilitiesSupported() const
+    bool GpuProgram::isRequiredCapabilitiesSupported() const noexcept
     {
         const RenderSystemCapabilities* caps = 
             Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -267,7 +267,7 @@ class ResourceManager;
         return true;
     }
     //-----------------------------------------------------------------------------
-    bool GpuProgram::isSupported() const
+    bool GpuProgram::isSupported() const noexcept
     {
         if (mCompileError || !isRequiredCapabilitiesSupported())
             return false;
@@ -370,7 +370,7 @@ class ResourceManager;
         return ret;
     }
     //-----------------------------------------------------------------------------
-    const GpuProgramParametersPtr& GpuProgram::getDefaultParameters()
+    const GpuProgramParametersPtr& GpuProgram::getDefaultParameters() noexcept
     {
         if (!mDefaultParams)
         {
@@ -438,7 +438,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GpuProgram::getLanguage() const
+    const String& GpuProgram::getLanguage() const noexcept
     {
         static const String language = "asm";
 

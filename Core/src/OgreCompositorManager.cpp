@@ -50,11 +50,11 @@ class CustomCompositionPass;
 class Renderable;
 
 template<> CompositorManager* Singleton<CompositorManager>::msSingleton = nullptr;
-CompositorManager* CompositorManager::getSingletonPtr()
+CompositorManager* CompositorManager::getSingletonPtr() noexcept
 {
     return msSingleton;
 }
-CompositorManager& CompositorManager::getSingleton()
+CompositorManager& CompositorManager::getSingleton() noexcept
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------

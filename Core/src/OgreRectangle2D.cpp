@@ -223,7 +223,7 @@ class MovableObject;
         *xform = Matrix4::IDENTITY;
     }
 
-    const String& Rectangle2D::getMovableType() const
+    const String& Rectangle2D::getMovableType() const noexcept
     {
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }

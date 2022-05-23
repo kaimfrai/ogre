@@ -111,7 +111,7 @@ namespace Ogre
         return mVertexList.size();
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getNormal( ) const
+    const Vector3& Polygon::getNormal( ) const noexcept
     {
         updateNormal();
 

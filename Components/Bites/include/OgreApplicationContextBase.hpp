@@ -95,16 +95,16 @@ namespace OgreBites
          * get the main RenderWindow
          * owns the context on OpenGL
          */
-        [[nodiscard]] Ogre::RenderWindow* getRenderWindow() const
+        [[nodiscard]] Ogre::RenderWindow* getRenderWindow() const noexcept
         {
             return mWindows.empty() ? nullptr : mWindows[0].render;
         }
 
-        [[nodiscard]] Ogre::Root* getRoot() const {
+        [[nodiscard]] Ogre::Root* getRoot() const noexcept {
             return mRoot;
         }
 
-        [[nodiscard]] Ogre::OverlaySystem* getOverlaySystem() const {
+        [[nodiscard]] Ogre::OverlaySystem* getOverlaySystem() const noexcept {
             return mOverlaySystem;
         }
 
@@ -125,10 +125,10 @@ namespace OgreBites
             return true;
         }
         bool frameRenderingQueued(const Ogre::FrameEvent& evt) override;
-        bool frameEnded(const Ogre::FrameEvent& evt) override { return true; }
+        bool frameEnded(const Ogre::FrameEvent& evt) noexcept override { return true; }
         virtual void windowMoved(Ogre::RenderWindow* rw) {}
         virtual void windowResized(Ogre::RenderWindow* rw) {}
-        virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
+        virtual bool windowClosing(Ogre::RenderWindow* rw) noexcept { return true; }
         virtual void windowClosed(Ogre::RenderWindow* rw) {}
         virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
 
@@ -181,7 +181,7 @@ namespace OgreBites
         virtual void setWindowGrab(NativeWindowType* win, bool grab = true) {}
 
         /// get the vertical DPI of the display
-        [[nodiscard]] virtual float getDisplayDPI() const { return 96.0f; }
+        [[nodiscard]] virtual float getDisplayDPI() const noexcept { return 96.0f; }
 
         /// @overload
         void setWindowGrab(bool grab = true) {
@@ -271,7 +271,7 @@ namespace OgreBites
         /**
          * get the FileSystemLayer instace pointing to an application specific directory
          */
-        Ogre::FileSystemLayer& getFSLayer() { return *mFSLayer; }
+        Ogre::FileSystemLayer& getFSLayer() noexcept { return *mFSLayer; }
 
         /**
          * the directory where the media files were installed

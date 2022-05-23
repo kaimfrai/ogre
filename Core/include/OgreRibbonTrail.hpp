@@ -113,7 +113,7 @@ template <typename T> class Controller;
         */
         virtual void setTrailLength(Real len);
         /** Get the length of the trail. */
-        virtual Real getTrailLength() const { return mTrailLength; }
+        virtual Real getTrailLength() const noexcept { return mTrailLength; }
 
         /** @copydoc BillboardChain::setMaxChainElements */
         void setMaxChainElements(size_t maxElements) override;
@@ -178,7 +178,7 @@ template <typename T> class Controller;
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
 
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
 
     private:
         /// List of nodes being trailed
@@ -239,7 +239,7 @@ template <typename T> class Controller;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
     };
     /** @} */
     /** @} */

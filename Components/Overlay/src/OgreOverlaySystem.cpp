@@ -57,7 +57,7 @@ class OverlayElement;
         {
             return new PanelOverlayElement(instanceName);
         }
-        [[nodiscard]] const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const noexcept override
         {
             static String name = "Panel";
             return name;
@@ -72,7 +72,7 @@ class OverlayElement;
         {
             return new BorderPanelOverlayElement(instanceName);
         }
-        [[nodiscard]] const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const noexcept override
         {
             static String name = "BorderPanel";
             return name;
@@ -87,7 +87,7 @@ class OverlayElement;
         {
             return new TextAreaOverlayElement(instanceName);
         }
-        [[nodiscard]] const String& getTypeName() const override
+        [[nodiscard]] const String& getTypeName() const noexcept override
         {
             static String name = "TextArea";
             return name;
@@ -95,11 +95,11 @@ class OverlayElement;
     };
 
     template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = nullptr;
-    OverlaySystem* OverlaySystem::getSingletonPtr()
+    OverlaySystem* OverlaySystem::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    OverlaySystem& OverlaySystem::getSingleton()
+    OverlaySystem& OverlaySystem::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

@@ -362,15 +362,15 @@ namespace Ogre {
             }
 
             /// Returns the size of this buffer in bytes
-            [[nodiscard]] size_t getSizeInBytes() const { return mSizeInBytes; }
+            [[nodiscard]] size_t getSizeInBytes() const noexcept { return mSizeInBytes; }
             /// Returns the Usage flags with which this buffer was created
-            [[nodiscard]] Usage getUsage() const { return mUsage; }
+            [[nodiscard]] Usage getUsage() const noexcept { return mUsage; }
             /// Returns whether this buffer is held in system memory
-            [[nodiscard]] bool isSystemMemory() const { return mSystemMemory; }
+            [[nodiscard]] bool isSystemMemory() const noexcept { return mSystemMemory; }
             /// Returns whether this buffer has a system memory shadow for quicker reading
             [[nodiscard]] bool hasShadowBuffer() const { return mShadowBuffer || (mDelegate && mDelegate->hasShadowBuffer()); }
             /// Returns whether or not this buffer is currently locked.
-            [[nodiscard]] bool isLocked() const { 
+            [[nodiscard]] bool isLocked() const noexcept { 
                 return mIsLocked || (mShadowBuffer && mShadowBuffer->isLocked());
             }
             /// Pass true to suppress hardware upload of shadow buffer changes

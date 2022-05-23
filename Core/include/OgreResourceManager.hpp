@@ -380,18 +380,18 @@ namespace Ogre {
             ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false);
 
-        const StringVector& getScriptPatterns() const override { return mScriptPatterns; }
+        const StringVector& getScriptPatterns() const noexcept override { return mScriptPatterns; }
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
-        Real getLoadingOrder() const override { return mLoadOrder; }
+        Real getLoadingOrder() const noexcept override { return mLoadOrder; }
 
         /** Gets a string identifying the type of resource this manager handles. */
-        const String& getResourceType() const { return mResourceType; }
+        const String& getResourceType() const noexcept { return mResourceType; }
 
         /** Sets whether this manager and its resources habitually produce log output */
         void setVerbose(bool v) { mVerbose = v; }
 
         /** Gets whether this manager and its resources habitually produce log output */
-        bool getVerbose() { return mVerbose; }
+        bool getVerbose() noexcept { return mVerbose; }
 
         /** Definition of a pool of resources, which users can use to reuse similar
             resources many times without destroying and recreating them.
@@ -406,7 +406,7 @@ namespace Ogre {
             ResourcePool(const String& name);
             ~ResourcePool() override;
             /// Get the name of the pool
-            [[nodiscard]] const String& getName() const;
+            [[nodiscard]] const String& getName() const noexcept;
             void clear() override;
         };
         

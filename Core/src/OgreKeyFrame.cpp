@@ -47,7 +47,7 @@ namespace Ogre
     {
     }
     //---------------------------------------------------------------------
-    const AnyNumeric& NumericKeyFrame::getValue() const
+    const AnyNumeric& NumericKeyFrame::getValue() const noexcept
     {
         return mValue;
     }
@@ -77,7 +77,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Vector3& TransformKeyFrame::getTranslate() const
+    const Vector3& TransformKeyFrame::getTranslate() const noexcept
     {
         return mTranslate;
     }
@@ -89,7 +89,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Vector3& TransformKeyFrame::getScale() const
+    const Vector3& TransformKeyFrame::getScale() const noexcept
     {
         return mScale;
     }
@@ -101,7 +101,7 @@ namespace Ogre
             mParentTrack->_keyFrameDataChanged();
     }
     //---------------------------------------------------------------------
-    const Quaternion& TransformKeyFrame::getRotation() const
+    const Quaternion& TransformKeyFrame::getRotation() const noexcept
     {
         return mRotate;
     }
@@ -126,7 +126,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     const HardwareVertexBufferSharedPtr& 
-    VertexMorphKeyFrame::getVertexBuffer() const
+    VertexMorphKeyFrame::getVertexBuffer() const noexcept
     {
         return mBuffer;
     }
@@ -181,7 +181,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     const VertexPoseKeyFrame::PoseRefList& 
-    VertexPoseKeyFrame::getPoseReferences() const
+    VertexPoseKeyFrame::getPoseReferences() const noexcept
     {
         return mPoseRefs;
     }

@@ -373,7 +373,7 @@ namespace Ogre {
     {
     }
     //-----------------------------------------------------------------------------
-    const VertexDeclaration::VertexElementList& VertexDeclaration::getElements() const
+    const VertexDeclaration::VertexElementList& VertexDeclaration::getElements() const noexcept
     {
         return mElementList;
     }
@@ -683,7 +683,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexDeclaration::getMaxSource() const
+    unsigned short VertexDeclaration::getMaxSource() const noexcept
     {
         VertexElementList::const_iterator i, iend;
         iend = mElementList.end();
@@ -699,7 +699,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexDeclaration::getNextFreeTextureCoordinate() const
+    unsigned short VertexDeclaration::getNextFreeTextureCoordinate() const noexcept
     {
         unsigned short texCoord = 0;
         for (VertexElementList::const_iterator i = mElementList.begin(); 
@@ -750,7 +750,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------------
     const VertexBufferBinding::VertexBufferBindingMap& 
-    VertexBufferBinding::getBindings() const
+    VertexBufferBinding::getBindings() const noexcept
     {
         return mBindingMap;
     }
@@ -771,7 +771,7 @@ namespace Ogre {
         return mBindingMap.find(index) != mBindingMap.end();
     }
     //-----------------------------------------------------------------------------
-    unsigned short VertexBufferBinding::getLastBoundIndex() const
+    unsigned short VertexBufferBinding::getLastBoundIndex() const noexcept
     {
         return mBindingMap.empty() ? 0 : mBindingMap.rbegin()->first + 1;
     }

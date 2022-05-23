@@ -128,25 +128,25 @@ struct GpuNamedConstants;
         */
         GpuProgramParametersSharedPtr createParameters() override;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate() override { return mAssemblerProgram.get(); }
+        GpuProgram* _getBindingDelegate() noexcept override { return mAssemblerProgram.get(); }
 
         /** Get the full list of GpuConstantDefinition instances.
         @note
         Only available if this parameters object has named parameters.
         */
-        const GpuNamedConstants& getConstantDefinitions() override;
+        const GpuNamedConstants& getConstantDefinitions() noexcept override;
 
         size_t calculateSize() const override;
 
         /** Sets the preprocessor defines used to compile the program. */
         void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }
         /** Gets the preprocessor defines used to compile the program. */
-        const String& getPreprocessorDefines() const { return mPreprocessorDefines; }
+        const String& getPreprocessorDefines() const noexcept { return mPreprocessorDefines; }
 
         /** Sets the entry point for this program i.e, the first method called. */
         void setEntryPoint(const String& entryPoint) { mEntryPoint = entryPoint; }
         /** Gets the entry point defined for this program. */
-        const String& getEntryPoint() const { return mEntryPoint; }
+        const String& getEntryPoint() const noexcept { return mEntryPoint; }
 
         /// Scan the source for \#include and replace with contents from OGRE resources
         static String _resolveIncludes(const String& source, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename = false);

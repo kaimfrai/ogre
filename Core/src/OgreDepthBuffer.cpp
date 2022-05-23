@@ -57,22 +57,22 @@ namespace Ogre
         detachFromAllRenderTargets();
     }
     //-----------------------------------------------------------------------
-    uint16 DepthBuffer::getPoolId() const
+    uint16 DepthBuffer::getPoolId() const noexcept
     {
         return mPoolId;
     }
     //-----------------------------------------------------------------------
-    uint32 DepthBuffer::getWidth() const
+    uint32 DepthBuffer::getWidth() const noexcept
     {
         return mWidth;
     }
     //----------------------------------------------------------------------
-    uint32 DepthBuffer::getHeight() const
+    uint32 DepthBuffer::getHeight() const noexcept
     {
         return mHeight;
     }
     //-----------------------------------------------------------------------
-    bool DepthBuffer::isManual() const
+    bool DepthBuffer::isManual() const noexcept
     {
         return mManual;
     }

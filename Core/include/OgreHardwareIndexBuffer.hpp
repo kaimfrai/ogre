@@ -64,13 +64,13 @@ namespace Ogre {
                                 HardwareBuffer* delegate);
             ~HardwareIndexBuffer() override;
             /// Return the manager of this buffer, if any
-            [[nodiscard]] HardwareBufferManagerBase* getManager() const { return mMgr; }
+            [[nodiscard]] HardwareBufferManagerBase* getManager() const noexcept { return mMgr; }
             /// Get the type of indexes used in this buffer
-            [[nodiscard]] IndexType getType() const { return mIndexType; }
+            [[nodiscard]] IndexType getType() const noexcept { return mIndexType; }
             /// Get the number of indexes in this buffer
-            [[nodiscard]] size_t getNumIndexes() const { return mNumIndexes; }
+            [[nodiscard]] size_t getNumIndexes() const noexcept { return mNumIndexes; }
             /// Get the size in bytes of each index
-            [[nodiscard]] uint8 getIndexSize() const { return mIndexSize; }
+            [[nodiscard]] uint8 getIndexSize() const noexcept { return mIndexSize; }
 
             static size_t indexSize(IndexType type) { return type == IT_16BIT ? sizeof(uint16) : sizeof(uint32); }
 

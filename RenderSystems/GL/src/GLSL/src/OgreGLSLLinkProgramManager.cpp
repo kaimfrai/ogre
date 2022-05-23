@@ -48,13 +48,13 @@ namespace Ogre {
     namespace GLSL {
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager* GLSLLinkProgramManager::getSingletonPtr()
+    GLSLLinkProgramManager* GLSLLinkProgramManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager& GLSLLinkProgramManager::getSingleton()
+    GLSLLinkProgramManager& GLSLLinkProgramManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -66,7 +66,7 @@ namespace Ogre {
     GLSLLinkProgramManager::~GLSLLinkProgramManager() {}
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgram* GLSLLinkProgramManager::getActiveLinkProgram()
+    GLSLLinkProgram* GLSLLinkProgramManager::getActiveLinkProgram() noexcept
     {
         // if there is an active link program then return it
         if (mActiveLinkProgram)

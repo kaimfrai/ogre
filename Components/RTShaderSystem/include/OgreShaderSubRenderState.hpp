@@ -84,7 +84,7 @@ public:
     @remarks
     The type string should be unique among all registered sub render states.    
     */
-    virtual const String& getType() const = 0;
+    virtual const String& getType() const noexcept = 0;
 
 
     /** Get the execution order of this sub render state.
@@ -92,7 +92,7 @@ public:
     The return value should be synchronized with the predefined values
     of the FFPShaderStage enum.
     */
-    virtual int getExecutionOrder() const = 0;
+    virtual int getExecutionOrder() const noexcept = 0;
 
 
     /** Copy details from a given sub render state to this one.
@@ -131,7 +131,7 @@ public:
     @param srcPass The source pass.
     @param dstPass The destination pass.
     */
-    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) { return true; }
+    virtual bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept { return true; }
 
     /** Return the accessor object to this sub render state.
     @see SubRenderStateAccessor.
@@ -144,7 +144,7 @@ public:
     SubRenderStateAccessorPtr getAccessor() const;
 
     /// generic set method for parameters that connot be derived in @ref preAddToRenderState
-    virtual bool setParameter(const String& name, const String& value) { return false; }
+    virtual bool setParameter(const String& name, const String& value) noexcept { return false; }
 
 // Protected methods
 protected:
@@ -214,10 +214,10 @@ public:
     }
 
     /** Return a set of all instances of the template SubRenderState. */
-    SubRenderStateSet& getSubRenderStateInstanceSet() { return mSubRenderStateInstancesSet; }
+    SubRenderStateSet& getSubRenderStateInstanceSet() noexcept { return mSubRenderStateInstancesSet; }
 
     /** Return a set of all instances of the template SubRenderState. (const version). */
-    const SubRenderStateSet& getSubRenderStateInstanceSet() const { return mSubRenderStateInstancesSet; }
+    const SubRenderStateSet& getSubRenderStateInstanceSet() const noexcept { return mSubRenderStateInstancesSet; }
 
 protected:
     /** Construct SubRenderState accessor based on the given template SubRenderState.
@@ -258,7 +258,7 @@ public:
     The type string should be the same as the type of the SubRenderState sub class it is going to create.   
     @see SubRenderState::getType.
     */
-    [[nodiscard]] virtual const String& getType() const = 0;
+    [[nodiscard]] virtual const String& getType() const noexcept = 0;
     
     /** Create an instance of the SubRenderState sub class it suppose to create.    
     */
@@ -275,7 +275,7 @@ public:
     */
     [[nodiscard]]
     virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
-    { return nullptr; }
+    noexcept { return nullptr; }
 
     /** Create an instance of the SubRenderState based on script properties.    
     This method is called in the context of script parsing and let this factory
@@ -287,7 +287,7 @@ public:
     */
     [[nodiscard]]
     virtual SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator)
-    { return nullptr; }
+    noexcept { return nullptr; }
 
     /** Retrieve the previous instance the SRS in the script translator or
     * create a new instance if not found 

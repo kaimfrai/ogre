@@ -100,7 +100,7 @@ namespace Ogre
         mPosition = pos; 
     }
     //-----------------------------------------------------------------------
-    const Vector3& ParticleEmitter::getPosition() const 
+    const Vector3& ParticleEmitter::getPosition() const noexcept 
     { 
         return mPosition; 
     }
@@ -114,7 +114,7 @@ namespace Ogre
         mUp.normalise();
     }
     //-----------------------------------------------------------------------
-    const Vector3& ParticleEmitter::getDirection() const
+    const Vector3& ParticleEmitter::getDirection() const noexcept
     { 
         return mDirection; 
     }
@@ -125,7 +125,7 @@ namespace Ogre
         mUp.normalise();
     }
     //-----------------------------------------------------------------------
-    const Vector3& ParticleEmitter::getUp() const
+    const Vector3& ParticleEmitter::getUp() const noexcept
     { 
         return mUp; 
     }
@@ -136,12 +136,12 @@ namespace Ogre
         mDirPositionRef     = nposition;
     }
     //-----------------------------------------------------------------------
-    const Vector3& ParticleEmitter::getDirPositionReference() const
+    const Vector3& ParticleEmitter::getDirPositionReference() const noexcept
     {
         return mDirPositionRef;
     }
     //-----------------------------------------------------------------------
-    bool ParticleEmitter::getDirPositionReferenceEnabled() const
+    bool ParticleEmitter::getDirPositionReferenceEnabled() const noexcept
     {
         return mUseDirPositionRef;
     }
@@ -152,7 +152,7 @@ namespace Ogre
         mAngle = angle;
     }
     //-----------------------------------------------------------------------
-    const Radian& ParticleEmitter::getAngle() const
+    const Radian& ParticleEmitter::getAngle() const noexcept
     {
         return mAngle;
     }
@@ -205,7 +205,7 @@ namespace Ogre
         mColourRangeEnd = colourEnd;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleEmitter::getName() const
+    const String& ParticleEmitter::getName() const noexcept
     {
         return mName;
     }
@@ -215,7 +215,7 @@ namespace Ogre
         mName = newName;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleEmitter::getEmittedEmitter() const
+    const String& ParticleEmitter::getEmittedEmitter() const noexcept
     {
         return mEmittedEmitter;
     }
@@ -225,7 +225,7 @@ namespace Ogre
         mEmittedEmitter = emittedEmitter;
     }
     //-----------------------------------------------------------------------
-    bool ParticleEmitter::isEmitted() const
+    bool ParticleEmitter::isEmitted() const noexcept
     {
         return mEmitted;
     }
@@ -529,17 +529,17 @@ namespace Ogre
         mMaxTTL = max;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& ParticleEmitter::getColour() const
+    const ColourValue& ParticleEmitter::getColour() const noexcept
     {
         return mColourRangeStart;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& ParticleEmitter::getColourRangeStart() const
+    const ColourValue& ParticleEmitter::getColourRangeStart() const noexcept
     {
         return mColourRangeStart;
     }
     //-----------------------------------------------------------------------
-    const ColourValue& ParticleEmitter::getColourRangeEnd() const
+    const ColourValue& ParticleEmitter::getColourRangeEnd() const noexcept
     {
         return mColourRangeEnd;
     }
@@ -561,7 +561,7 @@ namespace Ogre
         initDurationRepeat();
     }
     //-----------------------------------------------------------------------
-    bool ParticleEmitter::getEnabled() const
+    bool ParticleEmitter::getEnabled() const noexcept
     {
         return mEnabled;
     }

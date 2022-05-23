@@ -533,7 +533,7 @@ ManualObject::ManualObject(const String& name)
         mUseIdentityView = useIdentityView;
     }
     //-----------------------------------------------------------------------------
-    const String& ManualObject::getMovableType() const
+    const String& ManualObject::getMovableType() const noexcept
     {
         return ManualObjectFactory::FACTORY_TYPE_NAME;
     }
@@ -573,7 +573,7 @@ ManualObject::ManualObject(const String& name)
 
     }
     //-----------------------------------------------------------------------------
-    EdgeData* ManualObject::getEdgeList()
+    EdgeData* ManualObject::getEdgeList() noexcept
     {
         // Build on demand
         if (!mEdgeList && mAnyIndexed)
@@ -715,12 +715,12 @@ ManualObject::ManualObject(const String& name)
         delete mRenderOperation.indexData; // ok to delete 0
     }
     //-----------------------------------------------------------------------------
-    RenderOperation* ManualObject::ManualObjectSection::getRenderOperation()
+    RenderOperation* ManualObject::ManualObjectSection::getRenderOperation() noexcept
     {
         return &mRenderOperation;
     }
     //-----------------------------------------------------------------------------
-    const MaterialPtr& ManualObject::ManualObjectSection::getMaterial() const
+    const MaterialPtr& ManualObject::ManualObjectSection::getMaterial() const noexcept
     {
         if (!mMaterial)
         {
@@ -765,7 +765,7 @@ ManualObject::ManualObject(const String& name)
         return n ? n->getSquaredViewDepth(cam) : 0;
     }
     //-----------------------------------------------------------------------------
-    const LightList& ManualObject::ManualObjectSection::getLights() const
+    const LightList& ManualObject::ManualObjectSection::getLights() const noexcept
     {
         return mParent->queryLights();
     }
@@ -791,7 +791,7 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
-    const String& ManualObjectFactory::getType() const
+    const String& ManualObjectFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

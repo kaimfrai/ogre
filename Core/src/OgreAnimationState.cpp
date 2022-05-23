@@ -69,7 +69,7 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    const String& AnimationState::getAnimationName() const
+    const String& AnimationState::getAnimationName() const noexcept
     {
         return mAnimationName;
     }
@@ -135,7 +135,7 @@ namespace Ogre
         return (mTimePos >= mLength && !mLoop);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::getEnabled() const
+    bool AnimationState::getEnabled() const noexcept
     {
         return mEnabled;
     }

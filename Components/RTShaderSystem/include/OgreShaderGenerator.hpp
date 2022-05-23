@@ -116,11 +116,11 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static ShaderGenerator& getSingleton(); 
+    static ShaderGenerator& getSingleton() noexcept; 
 
 
     /// @copydoc Singleton::getSingleton()
-    static ShaderGenerator* getSingletonPtr();
+    static ShaderGenerator* getSingletonPtr() noexcept;
 
     /** 
     Add a scene manager to the shader generator scene managers list.
@@ -138,7 +138,7 @@ public:
     Get the active scene manager that is doint the actual scene rendering.
     This attribute will be update on the call to preFindVisibleObjects. 
     */
-    SceneManager* getActiveSceneManager();
+    SceneManager* getActiveSceneManager() noexcept;
 
     /** 
     Set the active scene manager against which new render states are compiled.
@@ -158,7 +158,7 @@ public:
     /** 
     Return the target shader language currently in use.     
     */
-    [[nodiscard]] const String& getTargetLanguage() const { return mShaderLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const noexcept { return mShaderLanguage; }
 
     /** 
     Set the output shader target profiles.
@@ -183,7 +183,7 @@ public:
     /** 
     Get the output shader cache path.
     */
-    [[nodiscard]] const String& getShaderCachePath() const { return mShaderCachePath; }
+    [[nodiscard]] const String& getShaderCachePath() const noexcept { return mShaderCachePath; }
 
     /** 
     Flush the shader cache. This operation will cause all active schemes to be invalidated and will
@@ -428,7 +428,7 @@ public:
     3. Add the return instance of serializer listener to the MaterialSerializer.
     4. Call one of the export methods of MaterialSerializer.
     */
-    MaterialSerializer::Listener* getMaterialSerializerListener();
+    MaterialSerializer::Listener* getMaterialSerializerListener() noexcept;
 
     /** Return the current number of generated shaders. */
     [[nodiscard]] size_t getShaderCount(GpuProgramType type) const;
@@ -442,7 +442,7 @@ public:
     /** Get the vertex shader outputs compaction policy. 
     @see VSOutputCompactPolicy. 
     */
-    [[nodiscard]] VSOutputCompactPolicy getVertexShaderOutputsCompactPolicy() const { return mVSOutputCompactPolicy; }
+    [[nodiscard]] VSOutputCompactPolicy getVertexShaderOutputsCompactPolicy() const noexcept { return mVSOutputCompactPolicy; }
 
 
     /** Sets whether shaders are created for passes with shaders.
@@ -455,7 +455,7 @@ public:
     /** Returns whether shaders are created for passes with shaders.
     @see setCreateShaderOverProgrammablePass(). 
     */
-    [[nodiscard]] bool getCreateShaderOverProgrammablePass() const { return mCreateShaderOverProgrammablePass; }
+    [[nodiscard]] bool getCreateShaderOverProgrammablePass() const noexcept { return mCreateShaderOverProgrammablePass; }
 
 
     /** Returns the amount of schemes used in the for RT shader generation
@@ -522,24 +522,24 @@ private:
         void buildTargetRenderState();
 
         /** Get source pass. */
-        Pass* getSrcPass() { return mSrcPass; }
+        Pass* getSrcPass() noexcept { return mSrcPass; }
 
         /** Get destination pass. */
-        Pass* getDstPass() { return mDstPass; }
+        Pass* getDstPass() noexcept { return mDstPass; }
 
 		/** Get illumination stage. */
-		IlluminationStage getIlluminationStage() { return mStage; }
+		IlluminationStage getIlluminationStage() noexcept { return mStage; }
 
 		/** Get illumination state. */
-		bool isIlluminationPass() { return mStage != IS_UNKNOWN; }
+		bool isIlluminationPass() noexcept { return mStage != IS_UNKNOWN; }
 
         /** Get custom render state of this pass. */
-        RenderState* getCustomRenderState() { return mCustomRenderState; }
+        RenderState* getCustomRenderState() noexcept { return mCustomRenderState; }
 
         /** Set the custom render state of this pass. */
         void setCustomRenderState(RenderState* customRenderState) { mCustomRenderState = customRenderState; }
 
-        [[nodiscard]] const SGTechnique* getParent() const { return mParent; }
+        [[nodiscard]] const SGTechnique* getParent() const noexcept { return mParent; }
     protected:
         // Parent technique.
         SGTechnique* mParent;
@@ -563,16 +563,16 @@ private:
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
-        [[nodiscard]] const SGMaterial* getParent() const { return mParent; }
+        [[nodiscard]] const SGMaterial* getParent() const noexcept { return mParent; }
         
         /** Get the source technique. */
-        const Technique* getSourceTechnique() { return mSrcTechnique; }
+        const Technique* getSourceTechnique() noexcept { return mSrcTechnique; }
 
         /** Get the destination technique. */
-        Technique* getDestinationTechnique() { return mDstTechnique; }
+        Technique* getDestinationTechnique() noexcept { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
-        [[nodiscard]] const String& getDestinationTechniqueSchemeName() const { return mDstTechniqueSchemeName; }
+        [[nodiscard]] const String& getDestinationTechniqueSchemeName() const noexcept { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
         void buildTargetRenderState();
@@ -590,7 +590,7 @@ private:
         void setBuildDestinationTechnique(bool buildTechnique)  { mBuildDstTechnique = buildTechnique; }        
 
         /** Tells if the destination technique should be build. */
-        [[nodiscard]] bool getBuildDestinationTechnique() const               { return mBuildDstTechnique; }
+        [[nodiscard]] bool getBuildDestinationTechnique() const noexcept { return mBuildDstTechnique; }
 
         /** Get render state of specific pass.
         @param passIndex The pass index.
@@ -600,9 +600,9 @@ private:
         bool hasRenderState(unsigned short passIndex);
 
         /// whether shaders are created for passes with shaders
-        bool overProgrammablePass() { return mOverProgrammable; }
+        bool overProgrammablePass() noexcept { return mOverProgrammable; }
 
-        [[nodiscard]] const SGPassList& getPassList() const  { return mPassEntries; }
+        [[nodiscard]] const SGPassList& getPassList() const noexcept { return mPassEntries; }
 
         // Key name for associating with a Technique instance.
         static String UserKey;
@@ -648,16 +648,16 @@ private:
         {}
 
         /** Get the material name. */
-        [[nodiscard]] const String& getMaterialName() const   { return mName; }
+        [[nodiscard]] const String& getMaterialName() const noexcept { return mName; }
         
         /** Get the group name. */
-        [[nodiscard]] const String& getGroupName() const  { return mGroup; }
+        [[nodiscard]] const String& getGroupName() const noexcept { return mGroup; }
 
         /** Get the const techniques list of this material. */
-        [[nodiscard]] const SGTechniqueList& getTechniqueList() const  { return mTechniqueEntries; }
+        [[nodiscard]] const SGTechniqueList& getTechniqueList() const noexcept { return mTechniqueEntries; }
 
         /** Get the techniques list of this material. */
-        SGTechniqueList& getTechniqueList()              { return mTechniqueEntries; }
+        SGTechniqueList& getTechniqueList() noexcept { return mTechniqueEntries; }
     
     protected:
         // The material name.
@@ -721,7 +721,7 @@ private:
         /** Get global render state of this scheme. 
         @see ShaderGenerator::getRenderState.
         */
-        RenderState* getRenderState();
+        RenderState* getRenderState() noexcept;
 
         /** Get specific pass render state. 
         @see ShaderGenerator::getRenderState.
@@ -841,7 +841,7 @@ private:
     SchemeCreateOrRetrieveResult createOrRetrieveScheme(const String& schemeName);
 
     /** Used to check if finalizing */
-    [[nodiscard]] bool getIsFinalizing() const;
+    [[nodiscard]] bool getIsFinalizing() const noexcept;
 
     /** Internal method that creates list of SGPass instances composing the given material. */
     SGPassList createSGPassList(Material* mat) const;

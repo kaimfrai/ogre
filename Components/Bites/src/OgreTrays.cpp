@@ -1732,7 +1732,7 @@ void TrayManager::closeDialog()
     }
 }
 
-bool TrayManager::isDialogVisible()
+bool TrayManager::isDialogVisible() noexcept
 {
     return mDialog != nullptr;
 }
@@ -1758,7 +1758,7 @@ Widget *TrayManager::getWidget(const Ogre::String &name)
     return nullptr;
 }
 
-unsigned int TrayManager::getNumWidgets()
+unsigned int TrayManager::getNumWidgets() noexcept
 {
     unsigned int total = 0;
 
@@ -1949,7 +1949,7 @@ void TrayManager::buttonHit(Button *button)
     closeDialog();
 }
 
-bool TrayManager::mousePressed(const MouseButtonEvent &evt)
+bool TrayManager::mousePressed(const MouseButtonEvent &evt) noexcept
 {
     if (evt.button != BUTTON_LEFT) return false;
 
@@ -2022,7 +2022,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt)
     return true;   // a tray click is not to be handled by another party
 }
 
-bool TrayManager::mouseReleased(const MouseButtonEvent &evt)
+bool TrayManager::mouseReleased(const MouseButtonEvent &evt) noexcept
 {
     if (evt.button != BUTTON_LEFT) return false;
 
@@ -2067,7 +2067,7 @@ bool TrayManager::mouseReleased(const MouseButtonEvent &evt)
     return true;         // this click did originate in this tray, so don't pass it on
 }
 
-bool TrayManager::mouseMoved(const MouseMotionEvent &evt)
+bool TrayManager::mouseMoved(const MouseMotionEvent &evt) noexcept
 {
     // thats a separate event. Ignore for now.
     static float wheelDelta = 0;
@@ -2114,7 +2114,7 @@ bool TrayManager::mouseMoved(const MouseMotionEvent &evt)
     return false;
 }
 
-bool TrayManager::mouseWheelRolled(const MouseWheelEvent& evt)
+bool TrayManager::mouseWheelRolled(const MouseWheelEvent& evt) noexcept
 {
     if (mExpandedMenu)
     {

@@ -78,7 +78,7 @@ class CompositionTechnique;
 
         /// sets the slice of output texture
         void setOutputSlice(int slice) { mOutputSlice = slice; }
-        [[nodiscard]] int getOutputSlice() const { return mOutputSlice; }
+        [[nodiscard]] int getOutputSlice() const noexcept { return mOutputSlice; }
 
         /** Set "only initial" flag. This makes that this target pass is only executed initially 
             after the effect has been enabled.
@@ -86,14 +86,14 @@ class CompositionTechnique;
         void setOnlyInitial(bool value);
         /** Get "only initial" flag.
         */
-        bool getOnlyInitial();
+        bool getOnlyInitial() noexcept;
         
         /** Set the scene visibility mask used by this pass 
         */
         void setVisibilityMask(uint32 mask);
         /** Get the scene visibility mask used by this pass 
         */
-        uint32 getVisibilityMask();
+        uint32 getVisibilityMask() noexcept;
 
         /** Set the material scheme used by this target pass.
         @remarks
@@ -108,7 +108,7 @@ class CompositionTechnique;
             one of their passes.
             @see Technique::setScheme.
         */
-        [[nodiscard]] const String& getMaterialScheme() const;
+        [[nodiscard]] const String& getMaterialScheme() const noexcept;
         
         /** Set whether shadows are enabled in this target pass.
         @remarks
@@ -121,14 +121,14 @@ class CompositionTechnique;
             Only applicable to targets that render the scene as
             one of their passes.
         */
-        [[nodiscard]] bool getShadowsEnabled() const;
+        [[nodiscard]] bool getShadowsEnabled() const noexcept;
         /** Set the scene LOD bias used by this pass. The default is 1.0,
             everything below that means lower quality, higher means higher quality.
         */
         void setLodBias(float bias);
         /** Get the scene LOD bias used by this pass 
         */
-        float getLodBias();
+        float getLodBias() noexcept;
 
         /** Create a new pass, and return a pointer to it.
         */
@@ -143,7 +143,7 @@ class CompositionTechnique;
         [[nodiscard]] size_t getNumPasses() const { return mPasses.size(); }
         
         /// Get the Passes in this TargetPass
-        [[nodiscard]] const Passes& getPasses() const {
+        [[nodiscard]] const Passes& getPasses() const noexcept {
             return mPasses;
         }
 

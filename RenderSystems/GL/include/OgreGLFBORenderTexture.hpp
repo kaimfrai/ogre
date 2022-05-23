@@ -65,8 +65,8 @@ namespace Ogre {
         void detachDepthBuffer() override;
         void _detachDepthBuffer() override;
 
-        [[nodiscard]] GLContext* getContext() const override { return mFB.getContext(); }
-        GLFrameBufferObjectCommon* getFBO() override { return &mFB; }
+        [[nodiscard]] GLContext* getContext() const noexcept override { return mFB.getContext(); }
+        GLFrameBufferObjectCommon* getFBO() noexcept override { return &mFB; }
     protected:
         GLFrameBufferObject mFB;
     };
@@ -102,7 +102,7 @@ namespace Ogre {
         GLSurfaceDesc requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa);
         /** Get a FBO without depth/stencil for temporary use, like blitting between textures.
         */
-        GLuint getTemporaryFBO() { return mTempFBO; }
+        GLuint getTemporaryFBO() noexcept { return mTempFBO; }
     private:
         /** Temporary FBO identifier
          */

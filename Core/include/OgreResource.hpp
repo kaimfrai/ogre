@@ -277,14 +277,14 @@ class ResourceManager;
 
         /** Returns true if the Resource is reloadable, false otherwise.
         */
-        bool isReloadable() const
+        bool isReloadable() const noexcept
         {
             return !mIsManual || mLoader;
         }
 
         /** Is this resource manually loaded?
         */
-        bool isManuallyLoaded() const
+        bool isManuallyLoaded() const noexcept
         {
             return mIsManual;
         }
@@ -307,13 +307,13 @@ class ResourceManager;
 
         /** Gets resource name.
         */
-        const String& getName() const { return mName; }
+        const String& getName() const noexcept { return mName; }
 
-        ResourceHandle getHandle() const { return mHandle; }
+        ResourceHandle getHandle() const noexcept { return mHandle; }
 
         /** Returns true if the Resource has been prepared, false otherwise.
         */
-        bool isPrepared() const
+        bool isPrepared() const noexcept
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_PREPARED);
@@ -321,7 +321,7 @@ class ResourceManager;
 
         /** Returns true if the Resource has been loaded, false otherwise.
         */
-        bool isLoaded() const
+        bool isLoaded() const noexcept
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_LOADED);
@@ -330,7 +330,7 @@ class ResourceManager;
         /** Returns whether the resource is currently in the process of
             background loading.
         */
-        bool isLoading() const
+        bool isLoading() const noexcept
         {
             return (mLoadingState.load() == LOADSTATE_LOADING);
         }
@@ -353,7 +353,7 @@ class ResourceManager;
             other users of this resource should check isLoaded(), and if that
             returns false, don't use the resource and come back later.
         */
-        bool isBackgroundLoaded() const { return mIsBackgroundLoaded; }
+        bool isBackgroundLoaded() const noexcept { return mIsBackgroundLoaded; }
 
         /** Tells the resource whether it is background loaded or not.
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        const String& getGroup() const { return mGroup; }
+        const String& getGroup() const noexcept { return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -399,14 +399,14 @@ class ResourceManager;
         virtual void changeGroupOwnership(const String& newGroup);
 
         /// Gets the manager which created this resource
-        ResourceManager* getCreator() { return mCreator; }
+        ResourceManager* getCreator() noexcept { return mCreator; }
         /** Get the origin of this resource, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin() const { return mOrigin; }
+        const String& getOrigin() const noexcept { return mOrigin; }
         /// Notify this resource of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -417,7 +417,7 @@ class ResourceManager;
             know whether it needs rebuilding. This is a nice way of monitoring
             changes without having a tightly-bound callback.
         */
-        virtual size_t getStateCount() const { return mStateCount; }
+        virtual size_t getStateCount() const noexcept { return mStateCount; }
 
         /** Manually mark the state of this resource as having been changed.
         @remarks

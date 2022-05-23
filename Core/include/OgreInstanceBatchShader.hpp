@@ -101,7 +101,7 @@ class VertexData;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const override;
-        unsigned short getNumWorldTransforms() const override;
+        unsigned short getNumWorldTransforms() const noexcept override;
     };
 }
 

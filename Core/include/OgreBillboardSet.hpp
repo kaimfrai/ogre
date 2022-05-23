@@ -139,7 +139,7 @@ class VertexData;
         */
         BillboardSet();
 
-        bool getCastsShadows() const override { return getCastShadows(); }
+        bool getCastsShadows() const noexcept override { return getCastShadows(); }
 
         /// Bounds of all billboards in this set
         AxisAlignedBox mAABB;
@@ -371,7 +371,7 @@ class VertexData;
 
         /** Returns the number of active billboards which currently make up this set.
         */
-        int getNumBillboards() const { return static_cast<int>(mActiveBillboards); }
+        int getNumBillboards() const noexcept { return static_cast<int>(mActiveBillboards); }
 
         /** Tells the set whether to allow automatic extension of the pool of billboards.
         @remarks
@@ -394,7 +394,7 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        bool getAutoextend() const { return mAutoExtendPool; }
+        bool getAutoextend() const noexcept { return mAutoExtendPool; }
 
         /** Enables sorting for this BillboardSet. (default: off)
         @param sortenable true to sort the billboards according to their distance to the camera
@@ -405,7 +405,7 @@ class VertexData;
         @see
             BillboardSet::setSortingEnabled
         */
-        bool getSortingEnabled() const { return mSortingEnabled; }
+        bool getSortingEnabled() const noexcept { return mSortingEnabled; }
 
         /** Adjusts the size of the pool of billboards available in this set.
         @remarks
@@ -425,7 +425,7 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        unsigned int getPoolSize() const { return static_cast<unsigned int>(mBillboardPool.size()); }
+        unsigned int getPoolSize() const noexcept { return static_cast<unsigned int>(mBillboardPool.size()); }
 
         /** Empties this set of all billboards.
         */
@@ -470,7 +470,7 @@ class VertexData;
         @return
             A member of the BillboardOrigin enum specifying the origin for all the billboards in this set.
         */
-        BillboardOrigin getBillboardOrigin() const { return mOriginType; }
+        BillboardOrigin getBillboardOrigin() const noexcept { return mOriginType; }
 
         /** Sets billboard rotation type.
 
@@ -487,7 +487,7 @@ class VertexData;
         @return
             A member of the BillboardRotationType enum specifying the rotation type for all the billboards in this set.
         */
-        BillboardRotationType getBillboardRotationType() const { return mRotationType; }
+        BillboardRotationType getBillboardRotationType() const noexcept { return mRotationType; }
 
         /** Sets the default dimensions of the billboards in this set.
         @remarks
@@ -508,11 +508,11 @@ class VertexData;
         /** See setDefaultDimensions - this sets 1 component individually. */
         void setDefaultWidth(Real width) { mDefaultWidth = width; }
         /** See setDefaultDimensions - this gets 1 component individually. */
-        Real getDefaultWidth() const { return mDefaultWidth; }
+        Real getDefaultWidth() const noexcept { return mDefaultWidth; }
         /** See setDefaultDimensions - this sets 1 component individually. */
         void setDefaultHeight(Real height) { mDefaultHeight = height; }
         /** See setDefaultDimensions - this gets 1 component individually. */
-        Real getDefaultHeight() const { return mDefaultHeight; }
+        Real getDefaultHeight() const noexcept { return mDefaultHeight; }
         /// @}
 
         /** Sets the name of the material to be used for this billboard set.
@@ -522,7 +522,7 @@ class VertexData;
         /** Sets the name of the material to be used for this billboard set.
         @return The name of the material that is used for this set.
         */
-        const String& getMaterialName() const { return mMaterial->getName(); }
+        const String& getMaterialName() const noexcept { return mMaterial->getName(); }
 
         void _notifyCurrentCamera(Camera* cam) override;
 
@@ -543,10 +543,10 @@ class VertexData;
         */
         void setBounds(const AxisAlignedBox& box, Real radius);
 
-        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
-        Real getBoundingRadius() const override { return mBoundingRadius; }
+        const AxisAlignedBox& getBoundingBox() const noexcept override { return mAABB; }
+        Real getBoundingRadius() const noexcept override { return mBoundingRadius; }
         void _updateRenderQueue(RenderQueue* queue) override;
-        const MaterialPtr& getMaterial() const override { return mMaterial; }
+        const MaterialPtr& getMaterial() const noexcept override { return mMaterial; }
 
         /** Sets the name of the material to be used for this billboard set.
         @param material
@@ -559,7 +559,7 @@ class VertexData;
         void getWorldTransforms(Matrix4* xform) const override;
 
         /** Returns whether or not billboards in this are tested individually for culling. */
-        bool getCullIndividually() const { return mCullIndividual; }
+        bool getCullIndividually() const noexcept { return mCullIndividual; }
         /** Sets whether culling tests billboards in this individually as well as in a group.
         @remarks
             Billboard sets are always culled as a whole group, based on a bounding box which 
@@ -607,7 +607,7 @@ class VertexData;
         void setBillboardType(BillboardType bbt) { mBillboardType = bbt; }
 
         /** Returns the billboard type in use. */
-        BillboardType getBillboardType() const { return mBillboardType; }
+        BillboardType getBillboardType() const noexcept { return mBillboardType; }
 
         /** Use this to specify the common direction given to billboards
 
@@ -626,7 +626,7 @@ class VertexData;
         void setCommonDirection(const Vector3& vec) { mCommonDirection = vec; }
 
         /** Gets the common direction for all billboards (BBT_ORIENTED_COMMON) */
-        const Vector3& getCommonDirection() const { return mCommonDirection; }
+        const Vector3& getCommonDirection() const noexcept { return mCommonDirection; }
 
         /** Use this to specify the common up-vector given to billboards
 
@@ -645,7 +645,7 @@ class VertexData;
         void setCommonUpVector(const Vector3& vec) { mCommonUpVector = vec; }
 
         /** Gets the common up-vector for all billboards (BBT_PERPENDICULAR_SELF and BBT_PERPENDICULAR_COMMON) */
-        const Vector3& getCommonUpVector() const { return mCommonUpVector; }
+        const Vector3& getCommonUpVector() const noexcept { return mCommonUpVector; }
 
         /** Sets whether or not billboards should use an 'accurate' facing model
 
@@ -664,16 +664,16 @@ class VertexData;
             based on the vector from each billboard to the camera, rather than 
             an optimised version using just the camera direction.
         */
-        bool getUseAccurateFacing() const { return mAccurateFacing; }
+        bool getUseAccurateFacing() const noexcept { return mAccurateFacing; }
         /// @}
 
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
         Real getSquaredViewDepth(const Camera* cam) const override;
 
         /** Update the bounds of the billboardset */
         virtual void _updateBounds();
         /** @copydoc Renderable::getLights */
-        const LightList& getLights() const override;
+        const LightList& getLights() const noexcept override;
 
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
@@ -694,7 +694,7 @@ class VertexData;
 
         /** Gets whether billboards are treated as being in world space.
          */
-        bool getBillboardsInWorldSpace() { return mWorldSpace; }
+        bool getBillboardsInWorldSpace() noexcept { return mWorldSpace; }
 
         /// @name Billboard UV computation
         /// @{
@@ -745,13 +745,13 @@ class VertexData;
         */
         void setTextureStacksAndSlices( uchar stacks, uchar slices );
 
-        /** getTextureCoords() returns the current texture coordinate rects in 
+        /** getTextureCoords() noexcept returns the current texture coordinate rects in 
             effect. By default, there is only one texture coordinate rect in the 
             set, spanning the entire texture from 0 through 1 in each direction.
         @see
             BillboardSet::setTextureCoords()
         */
-        const std::vector<FloatRect>& getTextureCoords() const { return mTextureCoords; }
+        const std::vector<FloatRect>& getTextureCoords() const noexcept { return mTextureCoords; }
 
         /** Set whether or not the BillboardSet will use point rendering
             rather than manually generated quads.
@@ -783,10 +783,10 @@ class VertexData;
         virtual void setPointRenderingEnabled(bool enabled);
 
         /** Returns whether point rendering is enabled. */
-        bool isPointRenderingEnabled() const { return mPointRendering; }
+        bool isPointRenderingEnabled() const noexcept { return mPointRendering; }
 
         /// Override to return specific type flag
-        uint32 getTypeFlags() const override;
+        uint32 getTypeFlags() const noexcept override;
 
         /** Set the auto update state of this billboard set.
         @remarks
@@ -800,7 +800,7 @@ class VertexData;
         void setAutoUpdate(bool autoUpdate);
 
         /** Return the auto update state of this billboard set.*/
-        bool getAutoUpdate() const { return mAutoUpdate; }
+        bool getAutoUpdate() const noexcept { return mAutoUpdate; }
 
         /** When billboard set is not auto updating its GPU buffer, the user is responsible to inform it
             about any billboard changes in order to reflect them at the rendering stage.
@@ -824,7 +824,7 @@ class VertexData;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
     };
     /** @} */
     /** @} */

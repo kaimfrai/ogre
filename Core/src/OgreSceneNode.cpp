@@ -561,7 +561,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* SceneNode::getParentSceneNode() const
+    SceneNode* SceneNode::getParentSceneNode() const noexcept
     {
         return static_cast<SceneNode*>(getParent());
     }

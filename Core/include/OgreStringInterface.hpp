@@ -151,7 +151,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] const ParameterList& getParameters() const
+        [[nodiscard]] const ParameterList& getParameters() const noexcept
         {
             return mParamDefs;
         }
@@ -200,12 +200,12 @@ namespace Ogre {
             Pointer to ParamDictionary shared by all instances of this class
             which you can add parameters to, retrieve parameters etc.
         */
-        ParamDictionary* getParamDictionary()
+        ParamDictionary* getParamDictionary() noexcept
         {
             return mParamDict;
         }
 
-        [[nodiscard]] const ParamDictionary* getParamDictionary() const
+        [[nodiscard]] const ParamDictionary* getParamDictionary() const noexcept
         {
             return mParamDict;
         }
@@ -215,7 +215,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] const ParameterList& getParameters() const;
+        [[nodiscard]] const ParameterList& getParameters() const noexcept;
 
         /** Generic parameter setting method.
         @remarks

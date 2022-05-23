@@ -253,7 +253,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    const AnimableValuePtr& NumericAnimationTrack::getAssociatedAnimable() const
+    const AnimableValuePtr& NumericAnimationTrack::getAssociatedAnimable() const noexcept
     {
         return mTargetAnim;
     }
@@ -452,7 +452,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    Node* NodeAnimationTrack::getAssociatedNode() const
+    Node* NodeAnimationTrack::getAssociatedNode() const noexcept
     {
         return mTargetNode;
     }
@@ -549,7 +549,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    bool NodeAnimationTrack::getUseShortestRotationPath() const
+    bool NodeAnimationTrack::getUseShortestRotationPath() const noexcept
     {
         return mUseShortestRotationPath ;
     }
@@ -559,7 +559,7 @@ namespace Ogre {
         mSplineBuildNeeded = true;
     }
     //---------------------------------------------------------------------
-    bool NodeAnimationTrack::hasNonZeroKeyFrames() const
+    bool NodeAnimationTrack::hasNonZeroKeyFrames() const noexcept
     {
         KeyFrameList::const_iterator i = mKeyFrames.begin();
         for (; i != mKeyFrames.end(); ++i)
@@ -777,7 +777,7 @@ namespace Ogre {
         
     }
     //--------------------------------------------------------------------------
-    bool VertexAnimationTrack::getVertexAnimationIncludesNormals() const
+    bool VertexAnimationTrack::getVertexAnimationIncludesNormals() const noexcept
     {
         if (mAnimationType == VAT_NONE)
             return false;
@@ -984,7 +984,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool VertexAnimationTrack::hasNonZeroKeyFrames() const
+    bool VertexAnimationTrack::hasNonZeroKeyFrames() const noexcept
     {
         if (mAnimationType == VAT_MORPH)
         {

@@ -41,11 +41,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> LogManager* Singleton<LogManager>::msSingleton = nullptr;
-    LogManager* LogManager::getSingletonPtr()
+    LogManager* LogManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    LogManager& LogManager::getSingleton()
+    LogManager& LogManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -80,7 +80,7 @@ namespace Ogre {
         return newLog;
     }
     //-----------------------------------------------------------------------
-    Log* LogManager::getDefaultLog()
+    Log* LogManager::getDefaultLog() noexcept
     {
         return mDefaultLog;
     }

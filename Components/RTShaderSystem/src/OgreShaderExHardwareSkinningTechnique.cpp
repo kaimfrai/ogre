@@ -71,13 +71,13 @@ void HardwareSkinningTechnique::setDoBoneCalculations(bool doBoneCalculations)
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getBoneCount()
+ushort HardwareSkinningTechnique::getBoneCount() noexcept
 {
     return mBoneCount;
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinningTechnique::getWeightCount()
+ushort HardwareSkinningTechnique::getWeightCount() noexcept
 {
     return mWeightCount;
 }

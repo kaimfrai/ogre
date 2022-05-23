@@ -363,7 +363,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    const String& GLSLProgram::getLanguage() const
+    const String& GLSLProgram::getLanguage() const noexcept
     {
         static const String language = "glsl";
 

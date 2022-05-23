@@ -100,7 +100,7 @@ class MovableObject;
         void assertSorted(const Mesh::LodValueList& values) const;
 
         /** Get the name of this strategy. */
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const noexcept { return mName; }
 
     protected:
         /** Implementation of isSorted suitable for ascending values. */

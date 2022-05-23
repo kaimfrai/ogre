@@ -43,12 +43,12 @@ namespace RTShader
 String WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
-const String& WBOIT::getType() const { return Type; }
+const String& WBOIT::getType() const noexcept { return Type; }
 
 //-----------------------------------------------------------------------
-int WBOIT::getExecutionOrder() const { return FFP_POST_PROCESS; }
+int WBOIT::getExecutionOrder() const noexcept { return FFP_POST_PROCESS; }
 
-bool WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     dstPass->setTransparentSortingEnabled(false);
     dstPass->setSeparateSceneBlending(SBF_ONE, SBF_ONE, SBF_ZERO, SBF_ONE_MINUS_SOURCE_ALPHA);
@@ -94,11 +94,11 @@ bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-const String& WBOITFactory::getType() const { return WBOIT::Type; }
+const String& WBOITFactory::getType() const noexcept { return WBOIT::Type; }
 
 //-----------------------------------------------------------------------
 SubRenderState* WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator)
+                                               SGScriptTranslator* translator) noexcept
 {
     if (prop->name != "weighted_blended_oit" || prop->values.empty())
         return nullptr;

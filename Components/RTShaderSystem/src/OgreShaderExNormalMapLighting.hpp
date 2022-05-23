@@ -68,9 +68,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
-    int getExecutionOrder() const override { return FFP_LIGHTING - 1; }
+    int getExecutionOrder() const noexcept override { return FFP_LIGHTING - 1; }
 
     /** 
     @see SubRenderState::copyFrom.
@@ -81,7 +81,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     /** 
     Set the index of the input vertex shader texture coordinate set 
@@ -91,7 +91,7 @@ public:
     /** 
     Return the index of the input vertex shader texture coordinate set.
     */
-    unsigned int getTexCoordIndex() const { return mVSTexCoordSetIndex; }
+    unsigned int getTexCoordIndex() const noexcept { return mVSTexCoordSetIndex; }
 
     // Type of this render state.
     static String Type;
@@ -110,14 +110,14 @@ public:
     void setNormalMapSpace(NormalMapSpace normalMapSpace) { mNormalMapSpace = normalMapSpace; }
 
     /** Return the normal map space. */
-    NormalMapSpace getNormalMapSpace() const { return mNormalMapSpace; }
+    NormalMapSpace getNormalMapSpace() const noexcept { return mNormalMapSpace; }
 
     /** 
     Return the normal map texture name.
     */
-    const String& getNormalMapTextureName() const { return mNormalMapTextureName; }
+    const String& getNormalMapTextureName() const noexcept { return mNormalMapTextureName; }
 
-    bool setParameter(const String& name, const String& value) override;
+    bool setParameter(const String& name, const String& value) noexcept override;
 
 // Protected methods
 protected:
@@ -149,12 +149,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.

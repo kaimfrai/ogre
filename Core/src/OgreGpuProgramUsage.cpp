@@ -91,7 +91,7 @@ namespace Ogre
         mParameters = params;
     }
     //-----------------------------------------------------------------------------
-    const GpuProgramParametersSharedPtr& GpuProgramUsage::getParameters() const
+    const GpuProgramParametersSharedPtr& GpuProgramUsage::getParameters() const noexcept
     {
         if (!mParameters)
         {

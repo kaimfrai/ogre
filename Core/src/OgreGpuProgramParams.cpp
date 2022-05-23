@@ -456,7 +456,7 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    const GpuNamedConstants& GpuSharedParameters::getConstantDefinitions() const
+    const GpuNamedConstants& GpuSharedParameters::getConstantDefinitions() const noexcept
     {
         return mNamedConstants;
     }
@@ -1322,7 +1322,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------------
-    const GpuNamedConstants& GpuProgramParameters::getConstantDefinitions() const
+    const GpuNamedConstants& GpuProgramParameters::getConstantDefinitions() const noexcept
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -2609,7 +2609,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     const GpuProgramParameters::GpuSharedParamUsageList&
-    GpuProgramParameters::getSharedParameters() const
+    GpuProgramParameters::getSharedParameters() const noexcept
     {
         return mSharedParamSets;
     }

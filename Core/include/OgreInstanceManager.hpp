@@ -168,9 +168,9 @@ namespace Ogre
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
         ~InstanceManager();
 
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const noexcept { return mName; }
 
-        [[nodiscard]] SceneManager* getSceneManager() const { return mSceneManager; }
+        [[nodiscard]] SceneManager* getSceneManager() const noexcept { return mSceneManager; }
 
         /** Raises an exception if trying to change it after creating the first InstancedEntity
         The actual value may be less if the technique doesn't support having so much.
@@ -210,11 +210,11 @@ namespace Ogre
         void setNumCustomParams( unsigned char numCustomParams );
 
         [[nodiscard]] unsigned char getNumCustomParams() const
-        { return mNumCustomParams; }
+        noexcept { return mNumCustomParams; }
 
         /** @return Instancing technique this manager was created for. Can't be changed after creation */
         [[nodiscard]] InstancingTechnique getInstancingTechnique() const
-        { return mInstancingTechnique; }
+        noexcept { return mInstancingTechnique; }
 
         /** Calculates the maximum (or the best amount, depending on flags) of instances
             per batch given the suggested size for the technique this manager was created for.

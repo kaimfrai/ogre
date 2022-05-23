@@ -65,13 +65,13 @@ namespace Ogre {
             : mRadius(radius), mCenter(center) {}
 
         /** Returns the radius of the sphere. */
-        [[nodiscard]] Real getRadius() const { return mRadius; }
+        [[nodiscard]] Real getRadius() const noexcept { return mRadius; }
 
         /** Sets the radius of the sphere. */
         void setRadius(Real radius) { mRadius = radius; }
 
         /** Returns the center point of the sphere. */
-        [[nodiscard]] const Vector3& getCenter() const { return mCenter; }
+        [[nodiscard]] const Vector3& getCenter() const noexcept { return mCenter; }
 
         /** Sets the center point of the sphere. */
         void setCenter(const Vector3& center) { mCenter = center; }

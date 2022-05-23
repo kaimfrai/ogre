@@ -71,7 +71,7 @@ namespace Ogre {
         clearIlluminationPasses();
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isSupported() const
+    bool Technique::isSupported() const noexcept
     {
         return mIsSupported;
     }
@@ -426,7 +426,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparent() const
+    bool Technique::isTransparent() const noexcept
     {
         if (mPasses.empty())
         {
@@ -439,7 +439,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingEnabled() const
+    bool Technique::isTransparentSortingEnabled() const noexcept
     {
         if (mPasses.empty())
         {
@@ -452,7 +452,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isTransparentSortingForced() const
+    bool Technique::isTransparentSortingForced() const noexcept
     {
         if (mPasses.empty())
         {
@@ -465,7 +465,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthWriteEnabled() const
+    bool Technique::isDepthWriteEnabled() const noexcept
     {
         if (mPasses.empty())
         {
@@ -478,7 +478,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isDepthCheckEnabled() const
+    bool Technique::isDepthCheckEnabled() const noexcept
     {
         if (mPasses.empty())
         {
@@ -589,7 +589,7 @@ namespace Ogre {
         }   
     }
     //-----------------------------------------------------------------------------
-    bool Technique::isLoaded() const
+    bool Technique::isLoaded() const noexcept
     {
         // Only supported technique will be loaded
         return mParent->isLoaded() && mIsSupported;
@@ -714,7 +714,7 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getSchemeName() const
+    const String& Technique::getSchemeName() const noexcept
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
@@ -998,7 +998,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     const IlluminationPassList&
-    Technique::getIlluminationPasses()
+    Technique::getIlluminationPasses() noexcept
     {
         IlluminationPassesState targetState = IPS_COMPILED;
         if(mIlluminationPassesCompilationPhase != targetState
@@ -1018,7 +1018,7 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    const String& Technique::getResourceGroup() const
+    const String& Technique::getResourceGroup() const noexcept
     {
         return mParent->getGroup();
     }

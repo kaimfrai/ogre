@@ -89,7 +89,7 @@ class Camera;
 
     }
 
-    const String& RenderTarget::getName() const
+    const String& RenderTarget::getName() const noexcept
     {
         return mName;
     }
@@ -101,11 +101,11 @@ class Camera;
         height = mHeight;
     }
 
-    unsigned int RenderTarget::getWidth() const
+    unsigned int RenderTarget::getWidth() const noexcept
     {
         return mWidth;
     }
-    unsigned int RenderTarget::getHeight() const
+    unsigned int RenderTarget::getHeight() const noexcept
     {
         return mHeight;
     }
@@ -119,12 +119,12 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    uint16 RenderTarget::getDepthBufferPool() const
+    uint16 RenderTarget::getDepthBufferPool() const noexcept
     {
         return mDepthBufferPoolId;
     }
     //-----------------------------------------------------------------------
-    DepthBuffer* RenderTarget::getDepthBuffer() const
+    DepthBuffer* RenderTarget::getDepthBuffer() const noexcept
     {
         return mDepthBuffer;
     }
@@ -392,7 +392,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short RenderTarget::getNumViewports() const
+    unsigned short RenderTarget::getNumViewports() const noexcept
     {
         return (unsigned short)mViewportList.size();
 
@@ -425,7 +425,7 @@ class Camera;
         return i != mViewportList.end();
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isActive() const
+    bool RenderTarget::isActive() const noexcept
     {
         return mActive;
     }
@@ -542,18 +542,18 @@ class Camera;
         mAutoUpdate = autoup;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isAutoUpdated() const
+    bool RenderTarget::isAutoUpdated() const noexcept
     {
         return mAutoUpdate;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isPrimary() const
+    bool RenderTarget::isPrimary() const noexcept
     {
         // RenderWindow will override and return true for the primary window
         return false;
     }  
 	//-----------------------------------------------------------------------
-    bool RenderTarget::isStereoEnabled() const
+    bool RenderTarget::isStereoEnabled() const noexcept
     {
         return mStereoEnabled;
     }

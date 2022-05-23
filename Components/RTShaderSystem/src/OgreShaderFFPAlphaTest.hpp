@@ -84,17 +84,17 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState (const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -117,7 +117,7 @@ static String Type;
 	/**
 	@see SubRenderStateFactory::getType.
 	*/
-	[[nodiscard]] const String& getType() const override;
+	[[nodiscard]] const String& getType() const noexcept override;
 
 protected:
 

@@ -47,11 +47,11 @@ namespace Ogre
 {
     //****************************************************************************************
     template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = nullptr;
-    ExternalTextureSourceManager* ExternalTextureSourceManager::getSingletonPtr()
+    ExternalTextureSourceManager* ExternalTextureSourceManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ExternalTextureSourceManager& ExternalTextureSourceManager::getSingleton()
+    ExternalTextureSourceManager& ExternalTextureSourceManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }

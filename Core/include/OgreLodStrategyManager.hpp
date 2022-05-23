@@ -97,9 +97,9 @@ class LodStrategy;
         MapIterator<StrategyMap> getIterator();
 
         /// @copydoc Singleton::getSingleton()
-        static LodStrategyManager& getSingleton();
+        static LodStrategyManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static LodStrategyManager* getSingletonPtr();
+        static LodStrategyManager* getSingletonPtr() noexcept;
     };
     /** @} */
     /** @} */

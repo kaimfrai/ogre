@@ -220,7 +220,7 @@ class Viewport;
         /** Get the parameter n used to produce optimal shadows. 
         @see setOptimalAdjustFactor
         */
-        virtual Real getOptimalAdjustFactor() const { return mOptAdjustFactor; }
+        virtual Real getOptimalAdjustFactor() const noexcept { return mOptAdjustFactor; }
         /** Sets whether or not to use a slightly simpler version of the 
             camera near point derivation (default is true)
         */
@@ -228,7 +228,7 @@ class Viewport;
         /** Gets whether or not to use a slightly simpler version of the 
         camera near point derivation (default is true)
         */
-        virtual bool getUseSimpleOptimalAdjust() const { return mUseSimpleNOpt; }
+        virtual bool getUseSimpleOptimalAdjust() const noexcept { return mUseSimpleNOpt; }
 
         /** Sets the threshold between the camera and the light direction below
             which the LiSPSM projection is 'flattened', since coincident light

@@ -157,7 +157,7 @@ class RenderQueue;
     public:
         ParticleSystemUpdateValue(ParticleSystem* target) : mTarget(target) {}
 
-        [[nodiscard]] Real getValue() const override { return 0; } // N/A
+        [[nodiscard]] Real getValue() const noexcept override { return 0; } // N/A
 
         void setValue(Real value) override { mTarget->_update(value); }
 
@@ -275,7 +275,7 @@ class RenderQueue;
         return mEmitters[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumEmitters() const
+    unsigned short ParticleSystem::getNumEmitters() const noexcept
     {
         return static_cast< unsigned short >( mEmitters.size() );
     }
@@ -320,7 +320,7 @@ class RenderQueue;
         return mAffectors[index];
     }
     //-----------------------------------------------------------------------
-    unsigned short ParticleSystem::getNumAffectors() const
+    unsigned short ParticleSystem::getNumAffectors() const noexcept
     {
         return static_cast< unsigned short >( mAffectors.size() );
     }
@@ -932,12 +932,12 @@ class RenderQueue;
         mIsEmitting = v;
     }
     //-----------------------------------------------------------------------
-    bool ParticleSystem::getEmitting() const
+    bool ParticleSystem::getEmitting() const noexcept
     {
         return mIsEmitting;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMovableType() const
+    const String& ParticleSystem::getMovableType() const noexcept
     {
         return ParticleSystemFactory::FACTORY_TYPE_NAME;
     }
@@ -1053,7 +1053,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getMaterialName() const
+    const String& ParticleSystem::getMaterialName() const noexcept
     {
         return mMaterial->getName();
     }
@@ -1131,12 +1131,12 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    ParticleSystemRenderer* ParticleSystem::getRenderer() const
+    ParticleSystemRenderer* ParticleSystem::getRenderer() const noexcept
     {
         return mRenderer;
     }
     //-----------------------------------------------------------------------
-    const String& ParticleSystem::getRendererName() const
+    const String& ParticleSystem::getRendererName() const noexcept
     {
         if (mRenderer)
         {
@@ -1148,7 +1148,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    bool ParticleSystem::getCullIndividually() const
+    bool ParticleSystem::getCullIndividually() const noexcept
     {
         return mCullIndividual;
     }
@@ -1246,7 +1246,7 @@ class RenderQueue;
         return - (sortPos - p->mPosition).squaredLength();
     }
     //-----------------------------------------------------------------------
-    uint32 ParticleSystem::getTypeFlags() const
+    uint32 ParticleSystem::getTypeFlags() const noexcept
     {
         return SceneManager::FX_TYPE_MASK;
     }

@@ -203,13 +203,13 @@ public:
     }
 
     /** Return a list of input parameters. */
-    [[nodiscard]] const ShaderParameterList& getInputParameters() const { return mInputParameters; }  
+    [[nodiscard]] const ShaderParameterList& getInputParameters() const noexcept { return mInputParameters; }  
 
     /** Return a list of output parameters. */
-    [[nodiscard]] const ShaderParameterList& getOutputParameters() const { return mOutputParameters; }
+    [[nodiscard]] const ShaderParameterList& getOutputParameters() const noexcept { return mOutputParameters; }
 
     /** Return a list of local parameters. */
-    [[nodiscard]] const ShaderParameterList& getLocalParameters() const { return mLocalParameters; }  
+    [[nodiscard]] const ShaderParameterList& getLocalParameters() const noexcept { return mLocalParameters; }  
     
     /** Add a function atom instance to this function. 
     @param atomInstance The atom instance to add.
@@ -228,7 +228,7 @@ public:
     bool deleteAtomInstance(FunctionAtom* atomInstance);
 
     /** Return list of atom instances composing this function. (Const version) */
-    const FunctionAtomInstanceList& getAtomInstances();
+    const FunctionAtomInstanceList& getAtomInstances() noexcept;
 
     /** Add input parameter to this function. */
     void addInputParameter(ParameterPtr parameter);

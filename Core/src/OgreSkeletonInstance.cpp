@@ -57,7 +57,7 @@ class AnimationStateSet;
         unload();
     }
     //-------------------------------------------------------------------------
-    unsigned short SkeletonInstance::getNumAnimations() const
+    unsigned short SkeletonInstance::getNumAnimations() const noexcept
     {
         return mSkeleton->getNumAnimations();
     }
@@ -101,7 +101,7 @@ class AnimationStateSet;
     }
     //-------------------------------------------------------------------------
     const Skeleton::LinkedSkeletonAnimSourceList&
-    SkeletonInstance::getLinkedSkeletonAnimationSources() const
+    SkeletonInstance::getLinkedSkeletonAnimationSources() const noexcept
     {
         return mSkeleton->getLinkedSkeletonAnimationSources();
     }
@@ -232,7 +232,7 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getName() const
+    const String& SkeletonInstance::getName() const noexcept
     {
         // delegate
         return mSkeleton->getName();
@@ -244,7 +244,7 @@ class AnimationStateSet;
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    const String& SkeletonInstance::getGroup() const
+    const String& SkeletonInstance::getGroup() const noexcept
     {
         // delegate
         return mSkeleton->getGroup();

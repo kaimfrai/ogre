@@ -101,7 +101,7 @@ protected:
         void addSourceParameter(ParameterPtr srcParam, Operand::OpMask mask);
 
         /** Return the source parameter count. */
-        [[nodiscard]] size_t getSourceParameterCount() const { return mSrcParameterCount; }
+        [[nodiscard]] size_t getSourceParameterCount() const noexcept { return mSrcParameterCount; }
 
         /** Return source parameter by index. */
         ParameterPtr getSourceParameter(unsigned int index) { return mSrcParameter[index]; }
@@ -113,7 +113,7 @@ protected:
         [[nodiscard]] Operand::OpMask getDestinationParameterMask(unsigned int index) const { return mDstParameterMask[index]; }
 
         /** Return the number of used floats. */ 
-        int getUsedFloatCount();
+        int getUsedFloatCount() noexcept;
         
         /** Return the destination parameter. */
         ParameterPtr getDestinationParameter(int usage, int index);

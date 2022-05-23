@@ -45,7 +45,7 @@ namespace OgreBites
         {
         }
 
-        [[nodiscard]] const Ogre::String& getName() const override
+        [[nodiscard]] const Ogre::String& getName() const noexcept override
         {
             return mName;
         }
@@ -66,7 +66,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Retrieves the queue of samples.
         -----------------------------------------------------------------------------*/
-        const SampleSet& getSamples()
+        const SampleSet& getSamples() noexcept
         {
             return mSamples;
         }

@@ -93,9 +93,9 @@ namespace Ogre
         virtual void clear();
 
         /// @copydoc Singleton::getSingleton()
-        static ShadowTextureManager& getSingleton();
+        static ShadowTextureManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ShadowTextureManager* getSingletonPtr();
+        static ShadowTextureManager* getSingletonPtr() noexcept;
 
     };
 

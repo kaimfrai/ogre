@@ -93,7 +93,7 @@ namespace Ogre {
         typedef MapIterator<SettingsBySection> SectionIterator;
 
         /** Get all the available settings grouped by sections */
-        [[nodiscard]] const SettingsBySection_& getSettingsBySection() const {
+        [[nodiscard]] const SettingsBySection_& getSettingsBySection() const noexcept {
             return mSettings;
         }
 

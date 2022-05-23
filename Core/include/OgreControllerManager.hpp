@@ -105,10 +105,10 @@ template <typename T> class ControllerValue;
         @see
             RenderSystem::beginFrame
         */
-        [[nodiscard]] const ControllerValueRealPtr& getFrameTimeSource() const;
+        [[nodiscard]] const ControllerValueRealPtr& getFrameTimeSource() const noexcept;
 
         /** Retrieve a simple passthrough controller function. */
-        [[nodiscard]] const ControllerFunctionRealPtr& getPassthroughControllerFunction() const;
+        [[nodiscard]] const ControllerFunctionRealPtr& getPassthroughControllerFunction() const noexcept;
 
         /** Creates a texture layer animator controller.
         @remarks
@@ -264,9 +264,9 @@ template <typename T> class ControllerValue;
         void setElapsedTime(Real elapsedTime);
 
         /// @copydoc Singleton::getSingleton()
-        static ControllerManager& getSingleton();
+        static ControllerManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ControllerManager* getSingletonPtr();
+        static ControllerManager* getSingletonPtr() noexcept;
     };
 
     /** @} */

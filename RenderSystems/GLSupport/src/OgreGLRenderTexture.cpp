@@ -77,12 +77,12 @@ namespace Ogre {
             initialise();
     }
 
-    uint32 GLFrameBufferObjectCommon::getWidth() const
+    uint32 GLFrameBufferObjectCommon::getWidth() const noexcept
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getWidth();
     }
-    uint32 GLFrameBufferObjectCommon::getHeight() const
+    uint32 GLFrameBufferObjectCommon::getHeight() const noexcept
     {
         assert(mColour[0].buffer);
         return mColour[0].buffer->getHeight();
@@ -93,11 +93,11 @@ namespace Ogre {
         return mColour[0].buffer->getFormat();
     }
 
-    GLRTTManager* GLRTTManager::getSingletonPtr()
+    GLRTTManager* GLRTTManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    GLRTTManager& GLRTTManager::getSingleton()
+    GLRTTManager& GLRTTManager::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }

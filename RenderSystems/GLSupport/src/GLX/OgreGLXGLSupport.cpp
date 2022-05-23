@@ -441,7 +441,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getGLDisplay()
+    Display* GLXGLSupport::getGLDisplay() noexcept
     {
         if (! mGLDisplay)
         {
@@ -466,7 +466,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getXDisplay()
+    Display* GLXGLSupport::getXDisplay() noexcept
     {
         if (! mXDisplay)
         {

@@ -66,7 +66,7 @@ namespace Ogre {
 
         /** Retrieves the custom key less user object associated with this class.
         */
-        [[nodiscard]] const Any& getUserAny() const;
+        [[nodiscard]] const Any& getUserAny() const noexcept;
 
         /** Sets any kind of user object on this class instance.
         @remarks
@@ -127,8 +127,8 @@ namespace Ogre {
         };
 
         /** \brief Protected getter for the attributes map, to allow derived classes to inspect its elements. */
-        [[nodiscard]] const Attributes* getAttributes() const { return mAttributes.get(); }
-        Attributes* getAttributes() { return mAttributes.get(); }
+        [[nodiscard]] const Attributes* getAttributes() const noexcept { return mAttributes.get(); }
+        Attributes* getAttributes() noexcept { return mAttributes.get(); }
 
     // Attributes.
     private:

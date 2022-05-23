@@ -76,7 +76,7 @@ namespace Ogre {
     class STBIPlugin : public Plugin
     {
     public:
-        [[nodiscard]] const String& getName() const override;
+        [[nodiscard]] const String& getName() const noexcept override;
         void install() override { STBIImageCodec::startup(); }
         void uninstall() override { STBIImageCodec::shutdown(); }
         void initialise() override {}

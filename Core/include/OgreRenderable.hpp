@@ -81,13 +81,13 @@ namespace Ogre {
             Note that the Renderable also has the option to override the getTechnique method
             to specify a particular Technique to use instead of the best one available.
         */
-        [[nodiscard]] virtual const MaterialPtr& getMaterial() const = 0;
+        [[nodiscard]] virtual const MaterialPtr& getMaterial() const noexcept = 0;
         /** Retrieves a pointer to the Material Technique this renderable object uses.
         @remarks
             This is to allow Renderables to use a chosen Technique if they wish, otherwise
             they will use the best Technique available for the Material they are using.
         */
-        [[nodiscard]] virtual Technique* getTechnique() const { return getMaterial()->getBestTechnique(0, this); }
+        [[nodiscard]] virtual Technique* getTechnique() const noexcept { return getMaterial()->getBestTechnique(0, this); }
         /** Gets the render operation required to send this object to the frame buffer.
         */
         virtual void getRenderOperation(RenderOperation& op) = 0;
@@ -146,7 +146,7 @@ namespace Ogre {
             If a renderable does not use vertex blending this method returns 1, which is the default for 
             simplicity.
         */
-        [[nodiscard]] virtual unsigned short getNumWorldTransforms() const { return 1; }
+        [[nodiscard]] virtual unsigned short getNumWorldTransforms() const noexcept { return 1; }
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -171,7 +171,7 @@ namespace Ogre {
             need not change this.
         @see Renderable::setUseIdentityProjection
         */
-        [[nodiscard]] bool getUseIdentityProjection() const { return mUseIdentityProjection; }
+        [[nodiscard]] bool getUseIdentityProjection() const noexcept { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -196,7 +196,7 @@ namespace Ogre {
             Normal renderables need not change this.
         @see Renderable::setUseIdentityView
         */
-        [[nodiscard]] bool getUseIdentityView() const { return mUseIdentityView; }
+        [[nodiscard]] bool getUseIdentityView() const noexcept { return mUseIdentityView; }
 
         /** Returns the squared distance between the camera and this renderable.
 
@@ -209,7 +209,7 @@ namespace Ogre {
         @remarks
             Directional lights, which have no position, will always be first on this list.
         */
-        [[nodiscard]] virtual const LightList& getLights() const = 0;
+        [[nodiscard]] virtual const LightList& getLights() const noexcept = 0;
 
         /** Method which reports whether this renderable would normally cast a
             shadow. 
@@ -217,7 +217,7 @@ namespace Ogre {
             Subclasses should override this if they could have been used to 
             generate a shadow.
         */
-        [[nodiscard]] virtual bool getCastsShadows() const { return false; }
+        [[nodiscard]] virtual bool getCastsShadows() const noexcept { return false; }
 
         /** Sets a custom parameter for this Renderable, which may be used to 
             drive calculations for this specific Renderable, like GPU program parameters.
@@ -294,7 +294,7 @@ namespace Ogre {
         /** Gets whether this renderable's chosen detail level can be
             overridden (downgraded) by the camera setting. 
         */
-        [[nodiscard]] bool getPolygonModeOverrideable() const
+        [[nodiscard]] bool getPolygonModeOverrideable() const noexcept
         {
             return mPolygonModeOverrideable;
         }
@@ -303,13 +303,13 @@ namespace Ogre {
             You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
-        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
+        UserObjectBindings& getUserObjectBindings() noexcept { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
-        [[nodiscard]] const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
+        [[nodiscard]] const UserObjectBindings& getUserObjectBindings() const noexcept { return mUserObjectBindings; }
 
 
         /** Visitor object that can be used to iterate over a collection of Renderable

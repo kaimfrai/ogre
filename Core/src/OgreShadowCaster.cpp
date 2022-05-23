@@ -117,7 +117,7 @@ namespace Ogre {
     {
         *xform = mParent->_getParentNodeFullTransform();
     }
-    const LightList& ShadowRenderable::getLights() const 
+    const LightList& ShadowRenderable::getLights() const noexcept 
     {
         // return empty
         static LightList ll;

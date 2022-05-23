@@ -628,7 +628,7 @@ bool Function::deleteAtomInstance(FunctionAtom* atomInstance)
 }
 
 //-----------------------------------------------------------------------------
-const FunctionAtomInstanceList& Function::getAtomInstances()
+const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
 {
     if(!mSortedAtomInstances.empty())
         return mSortedAtomInstances;

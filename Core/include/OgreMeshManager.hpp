@@ -371,12 +371,12 @@ class SubMesh;
         */
         void setPrepareAllMeshesForShadowVolumes(bool enable);
         /** Retrieves whether all Meshes should prepare themselves for shadow volumes. */
-        bool getPrepareAllMeshesForShadowVolumes();
+        bool getPrepareAllMeshesForShadowVolumes() noexcept;
 
         /// @copydoc Singleton::getSingleton()
-        static MeshManager& getSingleton();
+        static MeshManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static MeshManager* getSingletonPtr();
+        static MeshManager* getSingletonPtr() noexcept;
 
         /** Gets the base element type used for blend weights in vertex buffers.
         @remarks

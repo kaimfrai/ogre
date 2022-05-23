@@ -29,9 +29,9 @@ public:
 
     Sample_NewInstancing();
 
-    bool frameRenderingQueued(const FrameEvent& evt) override;
+    bool frameRenderingQueued(const FrameEvent& evt) noexcept override;
 
-    bool keyPressed(const KeyboardEvent& evt) override;
+    bool keyPressed(const KeyboardEvent& evt) noexcept override;
 
 protected:
     void setupContent() override;

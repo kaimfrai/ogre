@@ -67,7 +67,7 @@ class AnimationTrack;
         virtual ~KeyFrame() {}
 
         /** Gets the time of this keyframe in the animation sequence. */
-        [[nodiscard]] Real getTime() const { return mTime; }
+        [[nodiscard]] Real getTime() const noexcept { return mTime; }
 
         /** Clone a keyframe (internal use only) */
         [[nodiscard]]
@@ -90,7 +90,7 @@ class AnimationTrack;
         ~NumericKeyFrame() override {}
 
         /** Get the value at this keyframe. */
-        [[nodiscard]] virtual const AnyNumeric& getValue() const;
+        [[nodiscard]] virtual const AnyNumeric& getValue() const noexcept;
         /** Set the value at this keyframe.
         @remarks
             All keyframe values must have a consistent type. 
@@ -120,7 +120,7 @@ class AnimationTrack;
         virtual void setTranslate(const Vector3& trans);
 
         /** Gets the translation applied by this keyframe. */
-        [[nodiscard]] const Vector3& getTranslate() const;
+        [[nodiscard]] const Vector3& getTranslate() const noexcept;
 
         /** Sets the scaling factor applied by this keyframe to the animable
         object at it's time index.
@@ -130,7 +130,7 @@ class AnimationTrack;
         virtual void setScale(const Vector3& scale);
 
         /** Gets the scaling factor applied by this keyframe. */
-        [[nodiscard]] virtual const Vector3& getScale() const;
+        [[nodiscard]] virtual const Vector3& getScale() const noexcept;
 
         /** Sets the rotation applied by this keyframe.
         @param rot The rotation applied; use Quaternion methods to convert from angle/axis or Matrix3 if
@@ -139,7 +139,7 @@ class AnimationTrack;
         virtual void setRotation(const Quaternion& rot);
 
         /** Gets the rotation applied by this keyframe. */
-        [[nodiscard]] virtual const Quaternion& getRotation() const;
+        [[nodiscard]] virtual const Quaternion& getRotation() const noexcept;
 
         /** Clone a keyframe (internal use only) */
         KeyFrame* _clone(AnimationTrack* newParent) const override;
@@ -172,7 +172,7 @@ class AnimationTrack;
         void setVertexBuffer(const HardwareVertexBufferSharedPtr& buf);
 
         /** Gets the vertex buffer containing positions for this keyframe. */
-        [[nodiscard]] const HardwareVertexBufferSharedPtr& getVertexBuffer() const;
+        [[nodiscard]] const HardwareVertexBufferSharedPtr& getVertexBuffer() const noexcept;
 
         /** Clone a keyframe (internal use only) */
         KeyFrame* _clone(AnimationTrack* newParent) const override;      
@@ -233,7 +233,7 @@ class AnimationTrack;
 
 
         /** Get a const reference to the list of pose references. */
-        [[nodiscard]] const PoseRefList& getPoseReferences() const;
+        [[nodiscard]] const PoseRefList& getPoseReferences() const noexcept;
 
         typedef VectorIterator<PoseRefList> PoseRefIterator;
         typedef ConstVectorIterator<PoseRefList> ConstPoseRefIterator;

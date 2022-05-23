@@ -97,7 +97,7 @@ class VertexData;
         */
         size_t updateVertexTexture( Camera *currentCamera );
 
-        bool matricesTogetherPerRow() const override { return true; }
+        bool matricesTogetherPerRow() const noexcept override { return true; }
     public:
         InstanceBatchHW_VTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
@@ -112,7 +112,7 @@ class VertexData;
         /** @copydoc InstanceBatchHW::setStaticAndUpdate */
         void setStaticAndUpdate( bool bStatic ) override;
 
-        bool isStatic() const override { return mKeepStatic; }
+        bool isStatic() const noexcept override { return mKeepStatic; }
 
         /** Overloaded to visibility on a per unit basis and finally updated the vertex texture */
         void _updateRenderQueue( RenderQueue* queue ) override;

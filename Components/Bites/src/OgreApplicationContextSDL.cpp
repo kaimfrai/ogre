@@ -110,7 +110,7 @@ void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
     SDL_SetRelativeMouseMode(grab);
 }
 
-float ApplicationContextSDL::getDisplayDPI() const
+float ApplicationContextSDL::getDisplayDPI() const noexcept
 {
     OgreAssert(!mWindows.empty(), "create a window first");
     float vdpi = -1;

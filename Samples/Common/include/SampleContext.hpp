@@ -56,7 +56,7 @@ namespace OgreBites
             mLastSample = nullptr;
         }
 
-        virtual Sample* getCurrentSample()
+        virtual Sample* getCurrentSample() noexcept
         {
             return mCurrentSample;
         }
@@ -138,7 +138,7 @@ namespace OgreBites
 
         virtual void loadStartUpSample() {}
 
-        bool isCurrentSamplePaused()
+        bool isCurrentSamplePaused() noexcept
         {
             return !mCurrentSample || mSamplePaused;
         }
@@ -184,7 +184,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame ended events.
         -----------------------------------------------------------------------------*/
-        bool frameEnded(const Ogre::FrameEvent& evt) override
+        bool frameEnded(const Ogre::FrameEvent& evt) noexcept override
         {
             // manually call sample callback to ensure correct order
             if (mCurrentSample && !mSamplePaused && !mCurrentSample->frameEnded(evt)) return false;
@@ -213,7 +213,7 @@ namespace OgreBites
             if (!isCurrentSamplePaused()) mCurrentSample->windowMoved(rw);
         }
 
-        bool windowClosing(Ogre::RenderWindow* rw) override
+        bool windowClosing(Ogre::RenderWindow* rw) noexcept override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->windowClosing(rw);
             return true;
@@ -231,7 +231,7 @@ namespace OgreBites
 
         // keyboard and mouse callbacks which manually call their respective sample callbacks to ensure correct order
 
-        bool keyPressed(const KeyboardEvent& evt) override
+        bool keyPressed(const KeyboardEvent& evt) noexcept override
         {
             // Ignore repeated signals from key being held down.
             if (evt.repeat) return true;
@@ -240,71 +240,71 @@ namespace OgreBites
             return true;
         }
 
-        bool keyReleased(const KeyboardEvent& evt) override
+        bool keyReleased(const KeyboardEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->keyReleased(evt);
             return true;
         }
 
-        bool touchMoved(const TouchFingerEvent& evt) override
+        bool touchMoved(const TouchFingerEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchMoved(evt);
             return true;
         }
 
-        bool mouseMoved(const MouseMotionEvent& evt) override
+        bool mouseMoved(const MouseMotionEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseMoved(evt);
             return true;
         }
 
-        bool touchPressed(const TouchFingerEvent& evt) override
+        bool touchPressed(const TouchFingerEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchPressed(evt);
             return true;
         }
 
-        bool mousePressed(const MouseButtonEvent& evt) override
+        bool mousePressed(const MouseButtonEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mousePressed(evt);
             return true;
         }
 
-        bool touchReleased(const TouchFingerEvent& evt) override
+        bool touchReleased(const TouchFingerEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchReleased(evt);
             return true;
         }
 
-        bool mouseReleased(const MouseButtonEvent& evt) override
+        bool mouseReleased(const MouseButtonEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseReleased(evt);
             return true;
         }
 
-        bool mouseWheelRolled(const MouseWheelEvent& evt) override
+        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseWheelRolled(evt);
             return true;
         }
 
-        bool textInput (const TextInputEvent& evt) override
+        bool textInput (const TextInputEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused ())
                 return mCurrentSample->textInput (evt);
             return true;
         }
 
-        bool isFirstRun() { return mFirstRun; }
+        bool isFirstRun() noexcept { return mFirstRun; }
         void setFirstRun(bool flag) { mFirstRun = flag; }
-        bool isLastRun() { return mLastRun; }
+        bool isLastRun() noexcept { return mLastRun; }
         void setLastRun(bool flag) { mLastRun = flag; }
     protected:
         /*-----------------------------------------------------------------------------

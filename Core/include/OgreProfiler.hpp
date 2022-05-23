@@ -232,7 +232,7 @@ namespace Ogre {
             void setTimer(Timer* t);
 
             /** Retrieves the timer for the profiler */
-            Timer* getTimer();
+            Timer* getTimer() noexcept;
 
             /** Begins a profile
             @remarks 
@@ -288,7 +288,7 @@ namespace Ogre {
             void setEnabled(bool enabled);
 
             /** Gets whether this profiler is enabled */
-            [[nodiscard]] bool getEnabled() const;
+            [[nodiscard]] bool getEnabled() const noexcept;
 
             /** Enables a previously disabled profile 
             @remarks Can be safely called in the middle of the profile.
@@ -305,7 +305,7 @@ namespace Ogre {
             void setProfileGroupMask(uint32 mask) { mProfileMask = mask; }
             /** Get the mask which all profiles must pass to be enabled. 
             */
-            [[nodiscard]] uint32 getProfileGroupMask() const { return mProfileMask; }
+            [[nodiscard]] uint32 getProfileGroupMask() const noexcept { return mProfileMask; }
 
             /** Returns true if the specified profile reaches a new frame time maximum
             @remarks If this is called during a frame, it will be reading the results
@@ -343,7 +343,7 @@ namespace Ogre {
             void setUpdateDisplayFrequency(uint freq);
 
             /** Gets the frequency that the Profiler display is updated */
-            [[nodiscard]] uint getUpdateDisplayFrequency() const;
+            [[nodiscard]] uint getUpdateDisplayFrequency() const noexcept;
 
             /**
             @remarks
@@ -362,11 +362,11 @@ namespace Ogre {
             void removeListener(ProfileSessionListener* listener);
 
             /// @copydoc Singleton::getSingleton()
-            static Profiler& getSingleton();
+            static Profiler& getSingleton() noexcept;
             /// @copydoc Singleton::getSingleton()
-            static Profiler* getSingletonPtr();
+            static Profiler* getSingletonPtr() noexcept;
 
-            [[nodiscard]] uint getCurrentCalls() const
+            [[nodiscard]] uint getCurrentCalls() const noexcept
             {
                 return mCurrent->history.totalCalls;
             }

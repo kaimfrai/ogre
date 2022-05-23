@@ -85,7 +85,7 @@ class Sphere;
         Radian& operator = ( const Degree& d );
 
         [[nodiscard]] float valueDegrees() const; // see bottom of this file
-        [[nodiscard]] float valueRadians() const { return mRad; }
+        [[nodiscard]] float valueRadians() const noexcept { return mRad; }
         [[nodiscard]] float valueAngleUnits() const;
 
         const Radian& operator + () const { return *this; }
@@ -136,7 +136,7 @@ class Sphere;
         Degree& operator = ( const Degree& d ) { mDeg = d.mDeg; return *this; }
         Degree& operator = ( const Radian& r ) { mDeg = r.valueDegrees(); return *this; }
 
-        [[nodiscard]] float valueDegrees() const { return mDeg; }
+        [[nodiscard]] float valueDegrees() const noexcept { return mDeg; }
         [[nodiscard]] float valueRadians() const; // see bottom of this file
         [[nodiscard]] float valueAngleUnits() const;
 
@@ -669,7 +669,7 @@ class Sphere;
         /** Compare 2 reals, using tolerance for inaccuracies.
         */
         static bool RealEqual(Real a, Real b,
-            Real tolerance = std::numeric_limits<Real>::epsilon()) {
+            Real tolerance = std::numeric_limits<Real>::epsilon()) noexcept {
             return std::abs(b-a) <= tolerance;
         }
 

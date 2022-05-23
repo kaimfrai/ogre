@@ -76,11 +76,11 @@ template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinni
 
 namespace RTShader {
 
-HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr()
+HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr() noexcept
 {
     return msSingleton;
 }
-HardwareSkinningFactory& HardwareSkinningFactory::getSingleton()
+HardwareSkinningFactory& HardwareSkinningFactory::getSingleton() noexcept
 {  
     assert( msSingleton );  return ( *msSingleton );
 }
@@ -97,13 +97,13 @@ HardwareSkinning::HardwareSkinning() :
 }
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinning::getType() const
+const String& HardwareSkinning::getType() const noexcept
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int HardwareSkinning::getExecutionOrder() const
+int HardwareSkinning::getExecutionOrder() const noexcept
 {
     return FFP_TRANSFORM;
 }
@@ -136,14 +136,14 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getBoneCount()
+ushort HardwareSkinning::getBoneCount() noexcept
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getBoneCount();
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getWeightCount()
+ushort HardwareSkinning::getWeightCount() noexcept
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getWeightCount();
@@ -184,7 +184,7 @@ void HardwareSkinning::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     bool isValid = true;
     Technique* pFirstTech = srcPass->getParent()->getParent()->getTechnique(0);
@@ -276,13 +276,13 @@ HardwareSkinningFactory::HardwareSkinningFactory() :
 HardwareSkinningFactory::~HardwareSkinningFactory() {}
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinningFactory::getType() const
+const String& HardwareSkinningFactory::getType() const noexcept
 {
     return HardwareSkinning::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "hardware_skinning")
     {

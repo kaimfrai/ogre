@@ -193,13 +193,13 @@ class Technique;
                        const String &batchName );
         ~InstanceBatch() override;
 
-        MeshPtr& _getMeshRef() { return mMeshReference; }
+        MeshPtr& _getMeshRef() noexcept { return mMeshReference; }
 
         /** Raises an exception if trying to change it after being built
         */
         void _setInstancesPerBatch( size_t instancesPerBatch );
 
-        const Mesh::IndexMap* _getIndexToBoneMap() const { return mIndexToBoneMap; }
+        const Mesh::IndexMap* _getIndexToBoneMap() const noexcept { return mIndexToBoneMap; }
 
         /** Returns true if this technique supports skeletal animation
         @remarks
@@ -207,7 +207,7 @@ class Technique;
             by the derived class is faster than virtual call overhead. And both are clean
             ways of implementing it.
         */
-        bool _supportsSkeletalAnimation() const { return mTechnSupportsSkeletal; }
+        bool _supportsSkeletalAnimation() const noexcept { return mTechnSupportsSkeletal; }
 
         /** @see InstanceManager::updateDirtyBatches */
         void _updateBounds();
@@ -254,16 +254,16 @@ class Technique;
         */
         virtual void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation );
 
-        const Ogre::MeshPtr& _getMeshReference() const { return mMeshReference; }
+        const Ogre::MeshPtr& _getMeshReference() const noexcept { return mMeshReference; }
 
         /** @return true if it can not create more InstancedEntities
             (Num InstancedEntities == mInstancesPerBatch)
         */
-        bool isBatchFull() const { return mUnusedEntities.empty(); }
+        bool isBatchFull() const noexcept { return mUnusedEntities.empty(); }
 
         /** Returns true if it no instanced entity has been requested or all of them have been removed
         */
-        bool isBatchUnused() const { return mUnusedEntities.size() == mInstancedEntities.size(); }
+        bool isBatchUnused() const noexcept { return mUnusedEntities.size() == mInstancedEntities.size(); }
 
         auto inline getUsedEntityCount() const noexcept -> size_t { return mInstancedEntities.size() - mUnusedEntities.size();  }
 
@@ -311,7 +311,7 @@ class Technique;
 
         /** Returns true if this batch was set as static. @see setStaticAndUpdate
         */
-        virtual bool isStatic() const                       { return false; }
+        virtual bool isStatic() const noexcept { return false; }
 
         /** Returns a pointer to a new InstancedEntity ready to use
             Note it's actually preallocated, so no memory allocation happens at
@@ -332,7 +332,7 @@ class Technique;
         /** Tells whether world bone matrices need to be calculated.
             This does not include bone matrices which are calculated regardless
         */
-        virtual bool useBoneWorldMatrices() const { return true; }
+        virtual bool useBoneWorldMatrices() const noexcept { return true; }
 
         /** Tells that the list of entity instances with shared transforms has changed */
         void _markTransformSharingDirty() { mTransformSharingDirty = true; }
@@ -345,23 +345,23 @@ class Technique;
 
         //Renderable overloads
         /** @copydoc Renderable::getMaterial */
-        const MaterialPtr& getMaterial() const override      { return mMaterial; }
+        const MaterialPtr& getMaterial() const noexcept override { return mMaterial; }
         /** @copydoc Renderable::getRenderOperation */
         void getRenderOperation( RenderOperation& op ) override  { op = mRenderOperation; }
 
         /** @copydoc Renderable::getSquaredViewDepth */
         Real getSquaredViewDepth( const Camera* cam ) const override;
         /** @copydoc Renderable::getLights */
-        const LightList& getLights( ) const override;
+        const LightList& getLights( ) const noexcept override;
         /** @copydoc Renderable::getTechnique */
-        Technique* getTechnique() const override;
+        Technique* getTechnique() const noexcept override;
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
         /** @copydoc MovableObject::_notifyCurrentCamera */
         void _notifyCurrentCamera( Camera* cam ) override;
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox() const override;
+        const AxisAlignedBox& getBoundingBox() const noexcept override;
         /** @copydoc MovableObject::getBoundingRadius */
         Real getBoundingRadius() const override;
 

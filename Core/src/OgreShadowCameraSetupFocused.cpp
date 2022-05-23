@@ -603,7 +603,7 @@ class Viewport;
         } // for: polygon iteration
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB() const
+    const AxisAlignedBox& FocusedShadowCameraSetup::PointListBody::getAAB() const noexcept
     {
         return mAAB;
     }

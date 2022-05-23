@@ -598,7 +598,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getBorderMaterialName() const
+    const String& BorderPanelOverlayElement::getBorderMaterialName() const noexcept
     {
         return mBorderMaterial ? mBorderMaterial->getName() : BLANKSTRING;
     }
@@ -916,7 +916,7 @@ namespace Ogre {
             );
     }
     //---------------------------------------------------------------------
-    const String& BorderPanelOverlayElement::getTypeName() const
+    const String& BorderPanelOverlayElement::getTypeName() const noexcept
     {
         return msTypeName;
     }

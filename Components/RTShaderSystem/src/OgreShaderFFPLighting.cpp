@@ -78,14 +78,14 @@ FFPLighting::FFPLighting()
 }
 
 //-----------------------------------------------------------------------
-const String& FFPLighting::getType() const
+const String& FFPLighting::getType() const noexcept
 {
 	return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int	FFPLighting::getExecutionOrder() const
+int FFPLighting::getExecutionOrder() const noexcept
 {
 	return FFP_LIGHTING;
 }
@@ -435,7 +435,7 @@ void FFPLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     //! [disable]
 	if (!srcPass->getLightingEnabled())
@@ -498,7 +498,7 @@ bool FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcP
 	return true;
 }
 
-bool FFPLighting::setParameter(const String& name, const String& value)
+bool FFPLighting::setParameter(const String& name, const String& value) noexcept
 {
 	if(name == "normalise" || name == "normalised") // allow both spelling variations
 	{
@@ -550,14 +550,14 @@ Vector3i FFPLighting::getLightCount() const
 }
 
 //-----------------------------------------------------------------------
-const String& FFPLightingFactory::getType() const
+const String& FFPLightingFactory::getType() const noexcept
 {
 	return FFPLighting::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState*	FFPLightingFactory::createInstance(ScriptCompiler* compiler, 
-												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+												PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
         return nullptr;

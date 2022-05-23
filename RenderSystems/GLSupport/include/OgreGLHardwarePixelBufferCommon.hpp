@@ -74,7 +74,7 @@ public:
      */
     virtual void bindToFramebuffer(uint32 attachment, uint32 zoffset);
 
-    uint32 getGLFormat() { return mGLInternalFormat; }
+    uint32 getGLFormat() noexcept { return mGLInternalFormat; }
 };
 
 } /* namespace Ogre */

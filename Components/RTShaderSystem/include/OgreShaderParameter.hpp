@@ -342,7 +342,7 @@ public:
     virtual ~Parameter() {};
 
     /** Get the name of this parameter. */
-    [[nodiscard]] const String& getName() const { return mName; }
+    [[nodiscard]] const String& getName() const noexcept { return mName; }
 
     /// internal function for aliasing to GLSL builtins e.g. gl_Position
     void _rename(const String& newName, bool onlyLocal = false)
@@ -353,35 +353,35 @@ public:
     }
 
     /** Get the type of this parameter. */
-    [[nodiscard]] GpuConstantType getType() const { return mType; }
+    [[nodiscard]] GpuConstantType getType() const noexcept { return mType; }
 
     /** Get the semantic of this parameter. */
-    [[nodiscard]] const Semantic& getSemantic() const { return mSemantic; }
+    [[nodiscard]] const Semantic& getSemantic() const noexcept { return mSemantic; }
 
     /** Get the index of this parameter. */
-    [[nodiscard]] int getIndex() const { return mIndex; } 
+    [[nodiscard]] int getIndex() const noexcept { return mIndex; } 
 
     /** Return the content of this parameter. */
-    [[nodiscard]] Content getContent() const { return mContent; }
+    [[nodiscard]] Content getContent() const noexcept { return mContent; }
 
     /** Returns true if this instance is a ConstParameter otherwise false. */
-    [[nodiscard]] virtual bool isConstParameter() const { return false; }
+    [[nodiscard]] virtual bool isConstParameter() const noexcept { return false; }
 
     /** Returns the string representation of this parameter. */
-    [[nodiscard]] virtual String toString() const { return mName; }
+    [[nodiscard]] virtual String toString() const noexcept { return mName; }
     
     /** Returns Whether this parameter is an array. */
-    [[nodiscard]] bool isArray() const { return mSize > 0; }
+    [[nodiscard]] bool isArray() const noexcept { return mSize > 0; }
 
     /** Returns the number of elements in the parameter (for arrays). */
-    [[nodiscard]] size_t getSize() const { return mSize; }
+    [[nodiscard]] size_t getSize() const noexcept { return mSize; }
     
     /** Sets the number of elements in the parameter (for arrays). */
     void setSize(size_t size) { mSize = size; }
 
     /// track whether this was used
     void setUsed(bool used) { mUsed = used; }
-    bool isUsed() { return mUsed; }
+    bool isUsed() noexcept { return mUsed; }
 
 // Attributes.
 protected:
@@ -460,31 +460,31 @@ public:
 
     
     /** Get auto constant int data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] uint32 getAutoConstantIntData() const { return mAutoConstantIntData; }
+    [[nodiscard]] uint32 getAutoConstantIntData() const noexcept { return mAutoConstantIntData; }
 
     /** Get auto constant real data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] float getAutoConstantRealData() const { return mAutoConstantRealData; }
+    [[nodiscard]] float getAutoConstantRealData() const noexcept { return mAutoConstantRealData; }
 
     /** Return true if this parameter is a floating point type, false otherwise. */
-    [[nodiscard]] bool isFloat() const { return GpuConstantDefinition::isFloat(mType); }
+    [[nodiscard]] bool isFloat() const noexcept { return GpuConstantDefinition::isFloat(mType); }
 
     /** Return true if this parameter is a texture sampler type, false otherwise. */
-    [[nodiscard]] bool isSampler() const { return GpuConstantDefinition::isSampler(mType); }
+    [[nodiscard]] bool isSampler() const noexcept { return GpuConstantDefinition::isSampler(mType); }
 
     /** Return true if this parameter is an auto constant parameter, false otherwise. */
-    [[nodiscard]] bool isAutoConstantParameter() const { return mIsAutoConstantReal || mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantParameter() const noexcept { return mIsAutoConstantReal || mIsAutoConstantInt; }
 
     /** Return true if this parameter an auto constant with int data type, false otherwise. */
-    [[nodiscard]] bool isAutoConstantIntParameter() const { return mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantIntParameter() const noexcept { return mIsAutoConstantInt; }
 
     /** Return true if this parameter an auto constant with real data type, false otherwise. */
-    [[nodiscard]] bool isAutoConstantRealParameter() const { return mIsAutoConstantReal; }
+    [[nodiscard]] bool isAutoConstantRealParameter() const noexcept { return mIsAutoConstantReal; }
 
     /** Return the auto constant type of this parameter. */
-    [[nodiscard]] GpuProgramParameters::AutoConstantType getAutoConstantType  () const { return mAutoConstantType; }
+    [[nodiscard]] GpuProgramParameters::AutoConstantType getAutoConstantType  () const noexcept { return mAutoConstantType; }
 
     /** Return the variability of this parameter. */
-    [[nodiscard]] uint16 getVariability() const { return mVariability; }
+    [[nodiscard]] uint16 getVariability() const noexcept { return mVariability; }
 
     /** Bind this parameter to the corresponding GPU parameter. */
     void bind(GpuProgramParametersSharedPtr paramsPtr);
@@ -651,17 +651,17 @@ public:
                 ~ConstParameter     () override {}
 
     /** Returns the native value of this parameter. (for example a Vector3) */
-    [[nodiscard]] const valueType& getValue() const { return mValue; }
+    [[nodiscard]] const valueType& getValue() const noexcept { return mValue; }
 
     /** 
     @see Parameter::isConstParameter.
     */
-    [[nodiscard]] bool isConstParameter() const override { return true; }
+    [[nodiscard]] bool isConstParameter() const noexcept override { return true; }
 
     /** 
     @see Parameter::toString.
     */
-    [[nodiscard]] String toString() const override = 0;
+    [[nodiscard]] String toString() const noexcept override = 0;
 
 protected:
     valueType mValue;

@@ -639,7 +639,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    uint8 StaticGeometry::getRenderQueueGroup() const
+    uint8 StaticGeometry::getRenderQueueGroup() const noexcept
     {
         return mRenderQueueID;
     }
@@ -654,7 +654,7 @@ namespace Ogre {
         }
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::getVisibilityFlags() const
+    uint32 StaticGeometry::getVisibilityFlags() const noexcept
     {
         if(mRegionMap.empty())
             return MovableObject::getDefaultVisibilityFlags();
@@ -737,7 +737,7 @@ namespace Ogre {
         // shadow renderables are lazy initialized
     }
     //--------------------------------------------------------------------------
-    uint32 StaticGeometry::Region::getTypeFlags() const
+    uint32 StaticGeometry::Region::getTypeFlags() const noexcept
     {
         return SceneManager::STATICGEOMETRY_TYPE_MASK;
     }
@@ -816,7 +816,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    const String& StaticGeometry::Region::getMovableType() const
+    const String& StaticGeometry::Region::getMovableType() const noexcept
     {
         static String sType = "StaticGeometry";
         return sType;
@@ -847,7 +847,7 @@ namespace Ogre {
         mCurrentLod = mLodStrategy->getIndex(lodValue, mLodValues);
     }
     //--------------------------------------------------------------------------
-    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox() const
+    const AxisAlignedBox& StaticGeometry::Region::getBoundingBox() const noexcept
     {
         return mAABB;
     }
@@ -873,7 +873,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::Region::isVisible() const
+    bool StaticGeometry::Region::isVisible() const noexcept
     {
         if(!mVisible || mBeyondFarDistance)
             return false;
@@ -914,7 +914,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    EdgeData* StaticGeometry::Region::getEdgeList()
+    EdgeData* StaticGeometry::Region::getEdgeList() noexcept
     {
         return mLodBucketList[mCurrentLod]->getEdgeList();
     }
@@ -1329,12 +1329,12 @@ namespace Ogre {
         delete mIndexData;
     }
     //--------------------------------------------------------------------------
-    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial() const
+    const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial() const noexcept
     {
         return mParent->getMaterial();
     }
     //--------------------------------------------------------------------------
-    Technique* StaticGeometry::GeometryBucket::getTechnique() const
+    Technique* StaticGeometry::GeometryBucket::getTechnique() const noexcept
     {
         return mParent->getCurrentTechnique();
     }
@@ -1364,12 +1364,12 @@ namespace Ogre {
             return region->getParentNode()->getSquaredViewDepth(cam->getLodCamera());
     }
     //--------------------------------------------------------------------------
-    const LightList& StaticGeometry::GeometryBucket::getLights() const
+    const LightList& StaticGeometry::GeometryBucket::getLights() const noexcept
     {
         return mParent->getParent()->getParent()->queryLights();
     }
     //--------------------------------------------------------------------------
-    bool StaticGeometry::GeometryBucket::getCastsShadows() const
+    bool StaticGeometry::GeometryBucket::getCastsShadows() const noexcept
     {
         return mParent->getParent()->getParent()->getCastShadows();
     }

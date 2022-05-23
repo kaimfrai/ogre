@@ -204,7 +204,7 @@ class ScriptLoader;
         virtual ~ResourceLoadingListener() {}
 
         /** This event is called when a resource beings loading. */
-        virtual DataStreamPtr resourceLoading(const String &name, const String &group, Resource *resource) { return nullptr; }
+        virtual DataStreamPtr resourceLoading(const String &name, const String &group, Resource *resource) noexcept { return nullptr; }
 
         /** This event is called when a resource stream has been opened, but not processed yet. 
 
@@ -219,7 +219,7 @@ class ScriptLoader;
             @param resourceManager the according resource manager 
             @return false to skip registration of the conflicting resource and continue using the previous instance.
           */
-        virtual bool resourceCollision(Resource *resource, ResourceManager *resourceManager) { return true; }
+        virtual bool resourceCollision(Resource *resource, ResourceManager *resourceManager) noexcept { return true; }
     };
 
     /** This singleton class manages the list of resource groups, and notifying
@@ -790,7 +790,7 @@ class ScriptLoader;
         void setWorldResourceGroupName(const String& groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
-        [[nodiscard]] const String& getWorldResourceGroupName() const { return mWorldGroupName; }
+        [[nodiscard]] const String& getWorldResourceGroupName() const noexcept { return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
 
@@ -839,7 +839,7 @@ class ScriptLoader;
 
         /** Get the registered resource managers.
         */
-        [[nodiscard]] const ResourceManagerMap& getResourceManagers() const { return mResourceManagerMap; }
+        [[nodiscard]] const ResourceManagerMap& getResourceManagers() const noexcept { return mResourceManagerMap; }
 
         /** Internal method for registering a ScriptLoader.
         @remarks ScriptLoaders parse scripts when resource groups are initialised.
@@ -921,9 +921,9 @@ class ScriptLoader;
         [[nodiscard]] ResourceLoadingListener *getLoadingListener() const;
 
         /// @copydoc Singleton::getSingleton()
-        static ResourceGroupManager& getSingleton();
+        static ResourceGroupManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ResourceGroupManager* getSingletonPtr();
+        static ResourceGroupManager* getSingletonPtr() noexcept;
 
     };
     /** @} */

@@ -186,7 +186,7 @@ SceneManager::~SceneManager()
     mMovableObjectCollectionMap.clear();
 }
 //-----------------------------------------------------------------------
-RenderQueue* SceneManager::getRenderQueue()
+RenderQueue* SceneManager::getRenderQueue() noexcept
 {
     if (!mRenderQueue)
     {
@@ -242,7 +242,7 @@ void SceneManager::setWorldGeometryRenderQueue(uint8 qid)
     mWorldGeometryRenderQueue = qid;
 }
 //-----------------------------------------------------------------------
-uint8 SceneManager::getWorldGeometryRenderQueue()
+uint8 SceneManager::getWorldGeometryRenderQueue() noexcept
 {
     return mWorldGeometryRenderQueue;
 }
@@ -849,7 +849,7 @@ void SceneManager::destroySceneNode(SceneNode* sn)
     _destroySceneNode(pos);
 }
 //-----------------------------------------------------------------------
-SceneNode* SceneManager::getRootSceneNode()
+SceneNode* SceneManager::getRootSceneNode() noexcept
 {
     if (!mSceneRoot)
     {
@@ -2061,7 +2061,7 @@ void SceneManager::setAmbientLight(const ColourValue& colour)
     mAutoParamDataSource->setAmbientLightColour(colour);
 }
 //-----------------------------------------------------------------------
-const ColourValue& SceneManager::getAmbientLight() const
+const ColourValue& SceneManager::getAmbientLight() const noexcept
 {
     return mAutoParamDataSource->getAmbientLightColour();
 }
@@ -2089,7 +2089,7 @@ FogMode SceneManager::getFogMode() const
     return mFogMode;
 }
 //-----------------------------------------------------------------------
-const ColourValue& SceneManager::getFogColour() const
+const ColourValue& SceneManager::getFogColour() const noexcept
 {
     return mFogColour;
 }
@@ -2563,7 +2563,7 @@ void SceneManager::showBoundingBoxes(bool bShow)
     mShowBoundingBoxes = bShow;
 }
 //---------------------------------------------------------------------
-bool SceneManager::getShowBoundingBoxes() const
+bool SceneManager::getShowBoundingBoxes() const noexcept
 {
     return mShowBoundingBoxes;
 }
@@ -2991,7 +2991,7 @@ void SceneManager::resetLightClip()
     mDestRenderSystem->setClipPlanes(PlaneList());
 }
 //---------------------------------------------------------------------
-const ColourValue& SceneManager::getShadowColour() const
+const ColourValue& SceneManager::getShadowColour() const noexcept
 {
     return mShadowRenderer.mShadowColour;
 }
@@ -3030,7 +3030,7 @@ void SceneManager::setShadowCameraSetup(const ShadowCameraSetupPtr& shadowSetup)
 
 }
 //---------------------------------------------------------------------
-const ShadowCameraSetupPtr& SceneManager::getShadowCameraSetup() const
+const ShadowCameraSetupPtr& SceneManager::getShadowCameraSetup() const noexcept
 {
     return mShadowRenderer.mDefaultShadowCameraSetup;
 }

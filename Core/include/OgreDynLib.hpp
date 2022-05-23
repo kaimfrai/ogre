@@ -74,7 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const noexcept { return mName; }
 
         /**
             Returns the address of the given symbol from the loaded library.

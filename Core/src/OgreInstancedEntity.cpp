@@ -163,7 +163,7 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const String& InstancedEntity::getMovableType() const
+    const String& InstancedEntity::getMovableType() const noexcept
     {
         static String sType = "InstancedEntity";
         return sType;
@@ -351,7 +351,7 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstancedEntity::getBoundingBox() const
+    const AxisAlignedBox& InstancedEntity::getBoundingBox() const noexcept
     {
         //TODO: Add attached objects (TagPoints) to the bbox
         return mBatchOwner->_getMeshReference()->getBounds();
@@ -394,7 +394,7 @@ class AxisAlignedBox;
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* InstancedEntity::getAllAnimationStates() const
+    AnimationStateSet* InstancedEntity::getAllAnimationStates() const noexcept
     {
         return mAnimationState;
     }

@@ -69,9 +69,9 @@ public:
                                           Ogre::Material* originalMaterial, unsigned short lodIndex,
                                           const Ogre::Renderable* rend) override;
 
-    bool afterIlluminationPassesCreated(Ogre::Technique* tech) override;
+    bool afterIlluminationPassesCreated(Ogre::Technique* tech) noexcept override;
 
-    bool beforeIlluminationPassesCleared(Ogre::Technique* tech) override;
+    bool beforeIlluminationPassesCleared(Ogre::Technique* tech) noexcept override;
 
 protected:
     Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.

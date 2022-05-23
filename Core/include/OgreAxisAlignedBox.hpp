@@ -121,7 +121,7 @@ class Sphere;
 
         /** Gets the minimum corner of the box.
         */
-        [[nodiscard]] inline const Vector3& getMinimum() const
+        [[nodiscard]] inline const Vector3& getMinimum() const noexcept
         { 
             return mMinimum; 
         }
@@ -129,14 +129,14 @@ class Sphere;
         /** Gets a modifiable version of the minimum
         corner of the box.
         */
-        inline Vector3& getMinimum()
+        inline Vector3& getMinimum() noexcept
         { 
             return mMinimum; 
         }
 
         /** Gets the maximum corner of the box.
         */
-        [[nodiscard]] inline const Vector3& getMaximum() const
+        [[nodiscard]] inline const Vector3& getMaximum() const noexcept
         { 
             return mMaximum;
         }
@@ -144,7 +144,7 @@ class Sphere;
         /** Gets a modifiable version of the maximum
         corner of the box.
         */
-        inline Vector3& getMaximum()
+        inline Vector3& getMaximum() noexcept
         { 
             return mMaximum;
         }
@@ -502,14 +502,14 @@ class Sphere;
 
         /** Returns true if the box is null i.e. empty.
         */
-        [[nodiscard]] inline bool isNull() const
+        [[nodiscard]] inline bool isNull() const noexcept
         {
             return (mExtent == EXTENT_NULL);
         }
 
         /** Returns true if the box is finite.
         */
-        [[nodiscard]] bool isFinite() const
+        [[nodiscard]] bool isFinite() const noexcept
         {
             return (mExtent == EXTENT_FINITE);
         }
@@ -523,7 +523,7 @@ class Sphere;
 
         /** Returns true if the box is infinite.
         */
-        [[nodiscard]] bool isInfinite() const
+        [[nodiscard]] bool isInfinite() const noexcept
         {
             return (mExtent == EXTENT_INFINITE);
         }

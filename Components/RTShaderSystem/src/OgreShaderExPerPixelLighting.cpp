@@ -65,12 +65,12 @@ namespace RTShader {
 String PerPixelLighting::Type = "SGX_PerPixelLighting";
 
 //-----------------------------------------------------------------------
-const String& PerPixelLighting::getType() const
+const String& PerPixelLighting::getType() const noexcept
 {
     return Type;
 }
 
-bool PerPixelLighting::setParameter(const String& name, const String& value)
+bool PerPixelLighting::setParameter(const String& name, const String& value) noexcept
 {
 	if(name == "two_sided")
 	{
@@ -342,14 +342,14 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
 }
 
 //-----------------------------------------------------------------------
-const String& PerPixelLightingFactory::getType() const
+const String& PerPixelLightingFactory::getType() const noexcept
 {
     return PerPixelLighting::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* PerPixelLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name != "lighting_stage" || prop->values.empty())
         return nullptr;

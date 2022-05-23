@@ -53,7 +53,7 @@ class SceneManager;
     */
     class SimpleRenderable : public MovableObject, public Renderable
     {
-        bool getCastsShadows() const override { return getCastShadows(); }
+        bool getCastsShadows() const noexcept override { return getCastShadows(); }
     protected:
         RenderOperation mRenderOp;
 
@@ -79,7 +79,7 @@ class SceneManager;
         SimpleRenderable(const String& name);
 
         virtual void setMaterial(const MaterialPtr& mat);
-        const MaterialPtr& getMaterial() const override;
+        const MaterialPtr& getMaterial() const noexcept override;
 
         virtual void setRenderOperation( const RenderOperation& rend );
         void getRenderOperation(RenderOperation& op) override;
@@ -91,14 +91,14 @@ class SceneManager;
         void _notifyCurrentCamera(Camera* cam) override;
 
         void setBoundingBox( const AxisAlignedBox& box );
-        const AxisAlignedBox& getBoundingBox() const override;
+        const AxisAlignedBox& getBoundingBox() const noexcept override;
 
         void _updateRenderQueue(RenderQueue* queue) override;
 
         void visitRenderables(Renderable::Visitor* visitor,
             bool debugRenderables = false) override;
-        const String& getMovableType() const override;
-        const LightList& getLights() const override;
+        const String& getMovableType() const noexcept override;
+        const LightList& getLights() const noexcept override;
 
     };
     /** @} */

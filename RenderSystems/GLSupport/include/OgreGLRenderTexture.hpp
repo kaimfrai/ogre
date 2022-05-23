@@ -78,16 +78,16 @@ class RenderTarget;
         void unbindSurface(size_t attachment);
 
         /// Accessors
-        [[nodiscard]] int32 getFSAA() const { return mNumSamples; }
-        [[nodiscard]] uint32 getWidth() const;
-        [[nodiscard]] uint32 getHeight() const;
+        [[nodiscard]] int32 getFSAA() const noexcept { return mNumSamples; }
+        [[nodiscard]] uint32 getWidth() const noexcept;
+        [[nodiscard]] uint32 getHeight() const noexcept;
         [[nodiscard]] PixelFormat getFormat() const;
 
-        [[nodiscard]] GLContext* getContext() const { return mContext; }
+        [[nodiscard]] GLContext* getContext() const noexcept { return mContext; }
         /// Get the GL id for the FBO
-        [[nodiscard]] uint32 getGLFBOID() const { return mFB; }
+        [[nodiscard]] uint32 getGLFBOID() const noexcept { return mFB; }
         /// Get the GL id for the multisample FBO
-        [[nodiscard]] uint32 getGLMultisampleFBOID() const { return mMultisampleFB; }
+        [[nodiscard]] uint32 getGLMultisampleFBOID() const noexcept { return mMultisampleFB; }
 
         [[nodiscard]] const GLSurfaceDesc &getSurface(size_t attachment) const { return mColour[attachment]; }
 
@@ -119,7 +119,7 @@ class RenderTarget;
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
-        [[nodiscard]] bool requiresTextureFlipping() const override { return true; }
+        [[nodiscard]] bool requiresTextureFlipping() const noexcept override { return true; }
 
         static const String CustomAttributeString_FBO;
         static const String CustomAttributeString_TARGET;
@@ -169,9 +169,9 @@ class RenderTarget;
         PixelFormat getSupportedAlternative(PixelFormat format);
 
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager& getSingleton();
+        static GLRTTManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager* getSingletonPtr();
+        static GLRTTManager* getSingletonPtr() noexcept;
     protected:
         /** Frame Buffer Object properties for a certain texture format.
          */

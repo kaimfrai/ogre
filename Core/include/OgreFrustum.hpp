@@ -161,8 +161,8 @@ class Sphere;
         void updateWorldSpaceCorners() const;
         /// Implementation of updateWorldSpaceCorners (called if out of date)
         virtual void updateWorldSpaceCornersImpl() const;
-        virtual bool isViewOutOfDate() const;
-        bool isFrustumOutOfDate() const;
+        virtual bool isViewOutOfDate() const noexcept;
+        bool isFrustumOutOfDate() const noexcept;
         /// Signal to update frustum information.
         virtual void invalidateFrustum() const;
         /// Signal to update view information.
@@ -218,7 +218,7 @@ class Sphere;
 
         /** Retrieves the frustums Y-dimension Field Of View (FOV).
         */
-        const Radian& getFOVy() const;
+        const Radian& getFOVy() const noexcept;
 
         /** Sets the position of the near clipping plane.
         @remarks
@@ -307,7 +307,7 @@ class Sphere;
 
         /** Retrieves the frustum offsets.
         */
-        const Vector2& getFrustumOffset() const;
+        const Vector2& getFrustumOffset() const noexcept;
 
         /** Sets frustum focal length (used in stereo rendering).
         @param focalLength
@@ -335,17 +335,17 @@ class Sphere;
             in that it the resulting depth range may vary between render systems since D3D uses [0,1] and
             GL uses [-1,1]. This is required for vertex and fragment programs.
         */
-        const Matrix4& getProjectionMatrixWithRSDepth() const;
+        const Matrix4& getProjectionMatrixWithRSDepth() const noexcept;
         /** Gets the normal projection matrix for this frustum
 
             i.e. the projection matrix which conforms to standard right-handed rules and
             uses depth range [-1,+1]. This is required for some uniform algebra.
         */
-        const Matrix4& getProjectionMatrix() const;
+        const Matrix4& getProjectionMatrix() const noexcept;
 
         /** Gets the view matrix for this frustum. Mainly for use by OGRE internally.
         */
-        const Affine3& getViewMatrix() const;
+        const Affine3& getViewMatrix() const noexcept;
 
         /** Calculate a view matrix for this frustum, relative to a potentially dynamic point. 
             Mainly for use by OGRE internally when using camera-relative rendering
@@ -372,7 +372,7 @@ class Sphere;
         void setCustomViewMatrix(bool enable, const Affine3& viewMatrix = Affine3::IDENTITY);
 
         /// Returns whether a custom view matrix is in use
-        bool isCustomViewMatrixEnabled() const { return mCustomViewMatrix; }
+        bool isCustomViewMatrixEnabled() const noexcept { return mCustomViewMatrix; }
 
         /** Set whether to use a custom projection matrix on this frustum.
         @remarks
@@ -398,13 +398,13 @@ class Sphere;
         void setCustomProjectionMatrix(bool enable,
                                        const Matrix4& projectionMatrix = Matrix4::IDENTITY);
         /// Returns whether a custom projection matrix is in use
-        bool isCustomProjectionMatrixEnabled() const { return mCustomProjMatrix; }
+        bool isCustomProjectionMatrixEnabled() const noexcept { return mCustomProjMatrix; }
 
         /** Retrieves the clipping planes of the frustum (world space).
         @remarks
             The clipping planes are ordered as declared in enumerate constants FrustumPlane.
         */
-        virtual const Plane* getFrustumPlanes() const;
+        virtual const Plane* getFrustumPlanes() const noexcept;
 
         /** Retrieves a specified plane of the frustum (world space).
         @remarks
@@ -454,15 +454,15 @@ class Sphere;
         */
         virtual bool isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const;
 
-        uint32 getTypeFlags() const override;
-        const AxisAlignedBox& getBoundingBox() const override;
+        uint32 getTypeFlags() const noexcept override;
+        const AxisAlignedBox& getBoundingBox() const noexcept override;
         Real getBoundingRadius() const override;
         void _updateRenderQueue(RenderQueue* queue) override;
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
         void _notifyCurrentCamera(Camera* cam) override;
 
         void setDebugColour(const ColourValue& col) { mDebugColour = col; }
-        const ColourValue& getDebugColour() const { return mDebugColour; }
+        const ColourValue& getDebugColour() const noexcept { return mDebugColour; }
 
         typedef Vector3 Corners[8];
 
@@ -472,7 +472,7 @@ class Sphere;
             top-left near, bottom-left near, bottom-right near, 
             top-right far, top-left far, bottom-left far, bottom-right far.
         */
-        virtual const Corners& getWorldSpaceCorners() const;
+        virtual const Corners& getWorldSpaceCorners() const noexcept;
 
         /** Sets the type of projection to use (orthographic or perspective). Default is perspective.
         */
@@ -533,11 +533,11 @@ class Sphere;
         void disableReflection();
 
         /// Returns whether this frustum is being reflected
-        bool isReflected() const { return mReflect; }
+        bool isReflected() const noexcept { return mReflect; }
         /// Returns the reflection matrix of the frustum if appropriate
-        const Affine3& getReflectionMatrix() const { return mReflectMatrix; }
+        const Affine3& getReflectionMatrix() const noexcept { return mReflectMatrix; }
         /// Returns the reflection plane of the frustum if appropriate
-        const Plane& getReflectionPlane() const { return mReflectPlane; }
+        const Plane& getReflectionPlane() const noexcept { return mReflectPlane; }
 
         /** Project a sphere onto the near plane and get the bounding rectangle. 
         @param sphere The world-space sphere to project.
@@ -612,7 +612,7 @@ class Sphere;
         /** Disables any custom near clip plane. */
         void disableCustomNearClipPlane();
         /** Is a custom near clip plane in use? */
-        bool isCustomNearClipPlaneEnabled() const
+        bool isCustomNearClipPlaneEnabled() const noexcept
         { return mObliqueDepthProjection; }
 
         /// @copydoc MovableObject::visitRenderables
@@ -623,9 +623,9 @@ class Sphere;
         static const Real INFINITE_FAR_PLANE_ADJUST;
 
         /** Get the derived position of this frustum. */
-        virtual const Vector3& getPositionForViewUpdate() const;
+        virtual const Vector3& getPositionForViewUpdate() const noexcept;
         /** Get the derived orientation of this frustum. */
-        virtual const Quaternion& getOrientationForViewUpdate() const;
+        virtual const Quaternion& getOrientationForViewUpdate() const noexcept;
 
         /** Gets a world-space list of planes enclosing the frustum.
         */

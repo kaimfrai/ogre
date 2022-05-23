@@ -440,7 +440,7 @@ class Technique;
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    const String& InstanceBatch::getMovableType() const
+    const String& InstanceBatch::getMovableType() const noexcept
     {
         static String sType = "InstanceBatch";
         return sType;
@@ -528,7 +528,7 @@ class Technique;
         // MovableObject::_notifyCurrentCamera( cam ); // it does not suit
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstanceBatch::getBoundingBox() const
+    const AxisAlignedBox& InstanceBatch::getBoundingBox() const noexcept
     {
         return mFullBoundingBox;
     }
@@ -554,12 +554,12 @@ class Technique;
         return mCachedCameraDist;
     }
     //-----------------------------------------------------------------------
-    const LightList& InstanceBatch::getLights( ) const
+    const LightList& InstanceBatch::getLights( ) const noexcept
     {
         return queryLights();
     }
     //-----------------------------------------------------------------------
-    Technique* InstanceBatch::getTechnique( ) const
+    Technique* InstanceBatch::getTechnique( ) const noexcept
     {
         return mMaterial->getBestTechnique( mMaterialLodIndex, this );
     }

@@ -102,14 +102,14 @@ namespace Ogre {
          *
          * @returns              Display connection
          */
-        Display* getGLDisplay();
+        Display* getGLDisplay() noexcept;
 
         /**
          * Get the Display connection used for window management & events
          *
          * @returns              Display connection
          */
-        Display* getXDisplay();
+        Display* getXDisplay() noexcept;
 
         /**
          * Switch video modes

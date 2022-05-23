@@ -83,7 +83,7 @@ namespace OgreBites
             }
         }
 
-        bool frameRenderingQueued(const Ogre::FrameEvent& evt) override
+        bool frameRenderingQueued(const Ogre::FrameEvent& evt) noexcept override
         {
             if(!mTrayMgr) return true;
 
@@ -98,7 +98,7 @@ namespace OgreBites
             return true;
         }
 
-        bool keyPressed(const KeyboardEvent& evt) override
+        bool keyPressed(const KeyboardEvent& evt) noexcept override
         {
         	int key = evt.keysym.sym;
         	
@@ -115,7 +115,7 @@ namespace OgreBites
             return true;
         }
 
-        bool keyReleased(const KeyboardEvent& evt) override
+        bool keyReleased(const KeyboardEvent& evt) noexcept override
         {
             mCameraMan->keyReleased(evt);
 
@@ -125,7 +125,7 @@ namespace OgreBites
         /* IMPORTANT: When overriding these following handlers, remember to allow the tray manager
         to filter out any interface-related mouse events before processing them in your scene.
         If the tray manager handler returns true, the event was meant for the trays, not you. */
-        bool mouseMoved(const MouseMotionEvent& evt) override
+        bool mouseMoved(const MouseMotionEvent& evt) noexcept override
         {
             if (mTrayMgr->mouseMoved(evt)) return true;
 
@@ -134,14 +134,14 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchMoved(const TouchFingerEvent& evt) override {
+        bool touchMoved(const TouchFingerEvent& evt) noexcept override {
             MouseMotionEvent e;
             e.xrel = evt.dx * mWindow->getWidth();
             e.yrel = evt.dy * mWindow->getHeight();
             return mouseMoved(e);
         }
 
-        bool mousePressed(const MouseButtonEvent& evt) override
+        bool mousePressed(const MouseButtonEvent& evt) noexcept override
         {
             if (mTrayMgr->mousePressed(evt)) return true;
 
@@ -156,13 +156,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchPressed(const TouchFingerEvent& evt) override {
+        bool touchPressed(const TouchFingerEvent& evt) noexcept override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
         }
 
-        bool mouseReleased(const MouseButtonEvent& evt) override
+        bool mouseReleased(const MouseButtonEvent& evt) noexcept override
         {
             if (mTrayMgr->mouseReleased(evt)) return true;
 
@@ -177,13 +177,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchReleased(const TouchFingerEvent& evt) override {
+        bool touchReleased(const TouchFingerEvent& evt) noexcept override {
             MouseButtonEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
         }
 
-        bool mouseWheelRolled(const MouseWheelEvent& evt) override {
+        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override {
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;
             mCameraMan->mouseWheelRolled(evt);

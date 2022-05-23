@@ -64,7 +64,7 @@ public:
     virtual ~GLSLProgramCommon() {}
 
     /// Get the GL Handle for the program object
-    [[nodiscard]] uint getGLProgramHandle() const { return mGLProgramHandle; }
+    [[nodiscard]] uint getGLProgramHandle() const noexcept { return mGLProgramHandle; }
 
     /** Makes a program object active by making sure it is linked and then putting it in use.
      */
@@ -104,7 +104,7 @@ protected:
     /// Compiles and links the vertex and fragment programs
     virtual void compileAndLink() = 0;
 
-    uint32 getCombinedHash();
+    uint32 getCombinedHash() noexcept;
     String getCombinedName();
 
     /// Name / attribute list

@@ -328,7 +328,7 @@ class Sphere;
         return mMesh->hasVertexAnimation();
     }
     //-----------------------------------------------------------------------
-    const MeshPtr& Entity::getMesh() const
+    const MeshPtr& Entity::getMesh() const noexcept
     {
         return mMesh;
     }
@@ -480,7 +480,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Entity::getBoundingBox() const
+    const AxisAlignedBox& Entity::getBoundingBox() const noexcept
     {
         // Get from Mesh
         if (mMesh->isLoaded())
@@ -751,12 +751,12 @@ class Sphere;
         return mAnimationState && mAnimationState->hasAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    AnimationStateSet* Entity::getAllAnimationStates() const
+    AnimationStateSet* Entity::getAllAnimationStates() const noexcept
     {
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    const String& Entity::getMovableType() const
+    const String& Entity::getMovableType() const noexcept
     {
         return EntityFactory::FACTORY_TYPE_NAME;
     }
@@ -1408,7 +1408,7 @@ class Sphere;
         mDisplaySkeleton = display;
     }
     //-----------------------------------------------------------------------
-    bool Entity::getDisplaySkeleton() const
+    bool Entity::getDisplaySkeleton() const noexcept
     {
         return mDisplaySkeleton;
     }
@@ -1702,13 +1702,13 @@ class Sphere;
         return ret;
     }
     //-----------------------------------------------------------------------
-    EdgeData* Entity::getEdgeList()
+    EdgeData* Entity::getEdgeList() noexcept
     {
         // Get from Mesh
         return mMesh->getEdgeList(mMeshLodIndex);
     }
     //-----------------------------------------------------------------------
-    bool Entity::isHardwareAnimationEnabled()
+    bool Entity::isHardwareAnimationEnabled() noexcept
     {
         //find whether the entity has hardware animation for the current active sceme
         unsigned short schemeIndex = MaterialManager::getSingleton()._getActiveSchemeIndex();
@@ -2157,7 +2157,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    bool Entity::EntityShadowRenderable::isVisible() const
+    bool Entity::EntityShadowRenderable::isVisible() const noexcept
     {
         if (mSubEntity)
         {
@@ -2274,12 +2274,12 @@ class Sphere;
         mMesh->_refreshAnimationState(mAnimationState);
     }
     //-----------------------------------------------------------------------
-    uint32 Entity::getTypeFlags() const
+    uint32 Entity::getTypeFlags() const noexcept
     {
         return SceneManager::ENTITY_TYPE_MASK;
     }
     //-----------------------------------------------------------------------
-    VertexData* Entity::getVertexDataForBinding()
+    VertexData* Entity::getVertexDataForBinding() noexcept
     {
         Entity::VertexDataBindChoice c =
             chooseVertexDataForBinding(mMesh->getSharedVertexDataAnimationType() != VAT_NONE);
@@ -2366,7 +2366,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     String EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
-    const String& EntityFactory::getType() const
+    const String& EntityFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

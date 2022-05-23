@@ -410,7 +410,7 @@ namespace Ogre {
         /** Return whether this buffer is laid out consecutive in memory (ie the pitches
             are equal to the dimensions)
         */        
-        [[nodiscard]] bool isConsecutive() const 
+        [[nodiscard]] bool isConsecutive() const noexcept 
         { 
             return rowPitch == getWidth() && slicePitch == getWidth()*getHeight(); 
         }
@@ -434,7 +434,7 @@ namespace Ogre {
         /** Return a data pointer pointing to top left front pixel of the pixel box.
             @remarks Non consecutive pixel boxes are supported.
          */
-        [[nodiscard]] uchar* getTopLeftFrontPixelPtr() const;
+        [[nodiscard]] uchar* getTopLeftFrontPixelPtr() const noexcept;
         
         /**
          * Get colour value from a certain location in the PixelBox. The z coordinate

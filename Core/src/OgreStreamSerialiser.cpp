@@ -159,7 +159,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    uint32 StreamSerialiser::getCurrentChunkID() const
+    uint32 StreamSerialiser::getCurrentChunkID() const noexcept
     {
         if (mChunkStack.empty())
             return 0;
@@ -311,7 +311,7 @@ namespace Ogre
             mEndian = ENDIAN_LITTLE;
     }
     //---------------------------------------------------------------------
-    const StreamSerialiser::Chunk* StreamSerialiser::getCurrentChunk() const
+    const StreamSerialiser::Chunk* StreamSerialiser::getCurrentChunk() const noexcept
     {
         if (mChunkStack.empty())
             return nullptr;

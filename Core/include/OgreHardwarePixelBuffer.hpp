@@ -116,7 +116,7 @@ class RenderTexture;
             by lock(const Box, LockOptions)
             @return PixelBox containing the locked region
         */        
-        const PixelBox& getCurrentLock();
+        const PixelBox& getCurrentLock() noexcept;
         
         /// @copydoc HardwareBuffer::readData
         void readData(size_t offset, size_t length, void* pDest) override;
@@ -186,15 +186,15 @@ class RenderTexture;
         RenderTexture *getRenderTarget(size_t slice=0);
         
         /// Gets the width of this buffer
-        [[nodiscard]] uint32 getWidth() const { return mWidth; }
+        [[nodiscard]] uint32 getWidth() const noexcept { return mWidth; }
         /// Gets the height of this buffer
-        [[nodiscard]] uint32 getHeight() const { return mHeight; }
+        [[nodiscard]] uint32 getHeight() const noexcept { return mHeight; }
         /// Gets the depth of this buffer
-        [[nodiscard]] uint32 getDepth() const { return mDepth; }
+        [[nodiscard]] uint32 getDepth() const noexcept { return mDepth; }
         /// size (width, height, depth) of the pixel buffer
         [[nodiscard]] Vector<3, uint32> getSize() const { return {getWidth(), getHeight(), getDepth()}; }
         /// Gets the native pixel format of this buffer
-        [[nodiscard]] PixelFormat getFormat() const { return mFormat; }
+        [[nodiscard]] PixelFormat getFormat() const noexcept { return mFormat; }
     };
 
     /** @} */

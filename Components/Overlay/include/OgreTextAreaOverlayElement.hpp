@@ -77,12 +77,12 @@ namespace Ogre
 
         void setFontName( const String& font, const String& group = DEFAULT_RESOURCE_GROUP );
 
-        [[nodiscard]] const FontPtr& getFont() const {
+        [[nodiscard]] const FontPtr& getFont() const noexcept {
             return mFont;
         }
 
-        [[nodiscard]] const String& getTypeName() const override;
-        [[nodiscard]] const MaterialPtr& getMaterial() const override;
+        [[nodiscard]] const String& getTypeName() const noexcept override;
+        [[nodiscard]] const MaterialPtr& getMaterial() const noexcept override;
         void getRenderOperation(RenderOperation& op) override;
 
         /** Sets the colour of the text. 
@@ -94,7 +94,7 @@ namespace Ogre
         void setColour(const ColourValue& col) override;
 
         /** Gets the colour of the text. */
-        [[nodiscard]] const ColourValue& getColour() const override;
+        [[nodiscard]] const ColourValue& getColour() const noexcept override;
         /** Sets the colour of the bottom of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -103,7 +103,7 @@ namespace Ogre
         */
         void setColourBottom(const ColourValue& col);
         /** Gets the colour of the bottom of the letters. */
-        [[nodiscard]] const ColourValue& getColourBottom() const;
+        [[nodiscard]] const ColourValue& getColourBottom() const noexcept;
         /** Sets the colour of the top of the letters.
         @remarks
             By setting a separate top and bottom colour, you
@@ -112,7 +112,7 @@ namespace Ogre
         */
         void setColourTop(const ColourValue& col);
         /** Gets the colour of the top of the letters. */
-        [[nodiscard]] const ColourValue& getColourTop() const;
+        [[nodiscard]] const ColourValue& getColourTop() const noexcept;
 
         inline void setAlignment( Alignment a )
         {

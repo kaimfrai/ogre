@@ -203,7 +203,7 @@ class SubMesh;
         }
 
         /** Gets whether this object is marked as dynamic */
-        bool getDynamic() const { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
+        bool getDynamic() const noexcept { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
 
         /** Start the definition of an update to a part of the object.
         @remarks
@@ -508,7 +508,7 @@ class SubMesh;
             need to change this.
         @see ManualObject::setUseIdentityProjection
         */
-        bool getUseIdentityProjection() const { return mUseIdentityProjection; }
+        bool getUseIdentityProjection() const noexcept { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -530,7 +530,7 @@ class SubMesh;
             Normally you don't need to change this.
         @see ManualObject::setUseIdentityView
         */
-        bool getUseIdentityView() const { return mUseIdentityView; }
+        bool getUseIdentityView() const noexcept { return mUseIdentityView; }
 
         /** Sets the bounding box.
             @remarks Call this after having finished creating sections to modify the
@@ -543,7 +543,7 @@ class SubMesh;
 
         /** Gets the list of ManualObjectSection, i.e. a part of a ManualObject.
         */
-        const std::vector<ManualObjectSection*>& getSections() const { return mSectionList; }
+        const std::vector<ManualObjectSection*>& getSections() const noexcept { return mSectionList; }
 
         ManualObjectSection* getSection(size_t index) const { return mSectionList.at(index); }
 
@@ -565,19 +565,19 @@ class SubMesh;
         @return A flag indication if the declaration order will be kept when 
             queuing the renderables.
         */
-        bool getKeepDeclarationOrder() const { return mKeepDeclarationOrder; }
+        bool getKeepDeclarationOrder() const noexcept { return mKeepDeclarationOrder; }
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const override;
+        const String& getMovableType() const noexcept override;
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox() const override { return mAABB; }
+        const AxisAlignedBox& getBoundingBox() const noexcept override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius() const override { return mRadius; }
+        Real getBoundingRadius() const noexcept override { return mRadius; }
         /** @copydoc MovableObject::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue) override;
         /** Implement this method to enable stencil shadows */
-        EdgeData* getEdgeList() override;
+        EdgeData* getEdgeList() noexcept override;
         /** Implement this method to enable stencil shadows. */
         const ShadowRenderableList& getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
@@ -605,11 +605,11 @@ class SubMesh;
             ~ManualObjectSection() override;
 
             /// Retrieve render operation for manipulation
-            RenderOperation* getRenderOperation();
+            RenderOperation* getRenderOperation() noexcept;
             /// Retrieve the material name in use
-            const String& getMaterialName() const { return mMaterialName; }
+            const String& getMaterialName() const noexcept { return mMaterialName; }
             /// Retrieve the material group in use
-            const String& getMaterialGroup() const { return mGroupName; }
+            const String& getMaterialGroup() const noexcept { return mGroupName; }
             /// update the material name in use
             void setMaterialName(const String& name,
                 const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
@@ -620,11 +620,11 @@ class SubMesh;
             /// Set whether we need 32-bit indices
             void set32BitIndices(bool n32) { m32BitIndices = n32; }
             /// Get whether we need 32-bit indices
-            bool get32BitIndices() const { return m32BitIndices; }
+            bool get32BitIndices() const noexcept { return m32BitIndices; }
             
             // Renderable overrides
             /** @copydoc Renderable::getMaterial */
-            const MaterialPtr& getMaterial() const override;
+            const MaterialPtr& getMaterial() const noexcept override;
             /** @copydoc Renderable::getRenderOperation */
             void getRenderOperation(RenderOperation& op) override;
             /** @copydoc Renderable::getWorldTransforms */
@@ -632,7 +632,7 @@ class SubMesh;
             /** @copydoc Renderable::getSquaredViewDepth */
             Real getSquaredViewDepth(const Ogre::Camera *) const override;
             /** @copydoc Renderable::getLights */
-            const LightList &getLights() const override;
+            const LightList &getLights() const noexcept override;
 
             /// convert this section to a SubMesh
             void convertToSubMesh(SubMesh* sm) const;
@@ -731,7 +731,7 @@ class SubMesh;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
     };
     /** @} */
     /** @} */

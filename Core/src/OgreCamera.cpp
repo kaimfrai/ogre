@@ -101,7 +101,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    SceneManager* Camera::getSceneManager() const
+    SceneManager* Camera::getSceneManager() const noexcept
     {
         return mManager;
     }
@@ -120,7 +120,7 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    bool Camera::isViewOutOfDate() const
+    bool Camera::isViewOutOfDate() const noexcept
     {
         if(Frustum::isViewOutOfDate())
             mRecalcWindow = true;
@@ -255,13 +255,13 @@ class Sphere;
         return mVisBatchesLastRender;
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Camera::getDerivedOrientation() const
+    const Quaternion& Camera::getDerivedOrientation() const noexcept
     {
         updateView();
         return mDerivedOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Camera::getDerivedPosition() const
+    const Vector3& Camera::getDerivedPosition() const noexcept
     {
         updateView();
         return mDerivedPosition;
@@ -286,13 +286,13 @@ class Sphere;
         return mDerivedOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    const Quaternion& Camera::getRealOrientation() const
+    const Quaternion& Camera::getRealOrientation() const noexcept
     {
         updateView();
         return mLastParentOrientation;
     }
     //-----------------------------------------------------------------------
-    const Vector3& Camera::getRealPosition() const
+    const Vector3& Camera::getRealPosition() const noexcept
     {
         updateView();
         return mLastParentPosition;
@@ -317,7 +317,7 @@ class Sphere;
         return mLastParentOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    const String& Camera::getMovableType() const
+    const String& Camera::getMovableType() const noexcept
     {
         return msMovableType;
     }
@@ -347,7 +347,7 @@ class Sphere;
             mLodCamera = lodCam;
     }
     //---------------------------------------------------------------------
-    const Camera* Camera::getLodCamera() const
+    const Camera* Camera::getLodCamera() const noexcept
     {
         return mLodCamera? mLodCamera : this;
     }
@@ -529,7 +529,7 @@ class Sphere;
 
     }
     // -------------------------------------------------------------------
-    const std::vector<Plane>& Camera::getWindowPlanes() const
+    const std::vector<Plane>& Camera::getWindowPlanes() const noexcept
     {
         updateView();
         setWindowImpl();
@@ -544,7 +544,7 @@ class Sphere;
 
     }
     //-----------------------------------------------------------------------
-    bool Camera::getAutoAspectRatio() const
+    bool Camera::getAutoAspectRatio() const noexcept
     {
         return mAutoAspectRatio;
     }
@@ -590,7 +590,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const Frustum::Corners& Camera::getWorldSpaceCorners() const
+    const Frustum::Corners& Camera::getWorldSpaceCorners() const noexcept
     {
         if (mCullFrustum)
         {
@@ -651,7 +651,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    const Affine3& Camera::getViewMatrix() const
+    const Affine3& Camera::getViewMatrix() const noexcept
     {
         if (mCullFrustum)
         {

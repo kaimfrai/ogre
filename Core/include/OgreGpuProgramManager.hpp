@@ -61,7 +61,7 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() {}
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] virtual const String& getLanguage() const = 0;
+        [[nodiscard]] virtual const String& getLanguage() const noexcept = 0;
         virtual GpuProgram* create(ResourceManager* creator, const String& name, ResourceHandle handle,
                                    const String& group, bool isManual, ManualResourceLoader* loader) = 0;
         virtual void destroy(GpuProgram* prog) { delete prog; }
@@ -151,7 +151,7 @@ namespace Ogre {
             const String& syntaxCode);
 
         /** Returns the syntaxes that the RenderSystem supports. */
-        static const SyntaxCodes& getSupportedSyntax();
+        static const SyntaxCodes& getSupportedSyntax() noexcept;
 
         /** Returns whether a given syntax code (e.g. "glsl330", "vs_4_0", "arbvp1") is supported. */
         static bool isSyntaxSupported(const String& syntaxCode);
@@ -240,18 +240,18 @@ namespace Ogre {
 
         /** Get (const) access to the available shared parameter sets. 
         */
-        virtual const SharedParametersMap& getAvailableSharedParameters() const;
+        virtual const SharedParametersMap& getAvailableSharedParameters() const noexcept;
 
         /** Get if the microcode of a shader should be saved to a cache
         */
-        bool getSaveMicrocodesToCache() const;
+        bool getSaveMicrocodesToCache() const noexcept;
         /** Set if the microcode of a shader should be saved to a cache
         */
         void setSaveMicrocodesToCache( bool val );
 
         /** Returns true if the microcodecache changed during the run.
         */
-        bool isCacheDirty() const;
+        bool isCacheDirty() const noexcept;
 
         static bool canGetCompiledShaderBuffer();
         /** Check if a microcode is available for a program in the microcode cache.
@@ -295,9 +295,9 @@ namespace Ogre {
         void removeFactory(GpuProgramFactory* factory);
 
         /// @copydoc Singleton::getSingleton()
-        static GpuProgramManager& getSingleton();
+        static GpuProgramManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static GpuProgramManager* getSingletonPtr();
+        static GpuProgramManager* getSingletonPtr() noexcept;
     
 
 

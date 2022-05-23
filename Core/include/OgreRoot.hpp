@@ -318,7 +318,7 @@ struct SceneManagerMetaData;
                 list of RenderSystem subclasses. Can be used to build a
                 custom settings dialog.
         */
-        const RenderSystemList& getAvailableRenderers();
+        const RenderSystemList& getAvailableRenderers() noexcept;
 
         /** Retrieve a pointer to the render system by the given name
             @param
@@ -349,7 +349,7 @@ struct SceneManagerMetaData;
 
         /** Retrieve a pointer to the currently selected render system.
         */
-        RenderSystem* getRenderSystem();
+        RenderSystem* getRenderSystem() noexcept;
 
         /** Initialises the renderer.
             @remarks
@@ -372,7 +372,7 @@ struct SceneManagerMetaData;
                                     const String& customCapabilitiesConfig = BLANKSTRING);
 
         /** Returns whether the system is initialised or not. */
-        [[nodiscard]] bool isInitialised() const { return mIsInitialised; }
+        [[nodiscard]] bool isInitialised() const noexcept { return mIsInitialised; }
 
         /** Requests active RenderSystem to use custom RenderSystemCapabilities
         @remarks
@@ -384,7 +384,7 @@ struct SceneManagerMetaData;
         /** Get whether the entire render queue structure should be emptied on clearing, 
             or whether just the objects themselves should be cleared.
         */
-        [[nodiscard]] bool getRemoveRenderQueueStructuresOnClear() const { return mRemoveQueueStructuresOnClear; }
+        [[nodiscard]] bool getRemoveRenderQueueStructuresOnClear() const noexcept { return mRemoveQueueStructuresOnClear; }
 
         /** Set whether the entire render queue structure should be emptied on clearing, 
         or whether just the objects themselves should be cleared.
@@ -405,7 +405,7 @@ struct SceneManagerMetaData;
         [[nodiscard]] const SceneManagerMetaData* getSceneManagerMetaData(const String& typeName) const;
 
         /// @copydoc SceneManagerEnumerator::getMetaData()const
-        [[nodiscard]] const SceneManagerEnumerator::MetaDataList& getSceneManagerMetaData() const;
+        [[nodiscard]] const SceneManagerEnumerator::MetaDataList& getSceneManagerMetaData() const noexcept;
 
         /// create a default scene manager
         SceneManager* createSceneManager()
@@ -427,7 +427,7 @@ struct SceneManagerMetaData;
         [[nodiscard]] bool hasSceneManager(const String& instanceName) const;
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
-        [[nodiscard]] const SceneManagerEnumerator::Instances& getSceneManagers() const;
+        [[nodiscard]] const SceneManagerEnumerator::Instances& getSceneManagers() const noexcept;
 
         /** Retrieves a reference to the current TextureManager.
             @remarks
@@ -444,14 +444,14 @@ struct SceneManagerMetaData;
                 selected, and these typically require a window upon which to
                 base texture format decisions.
         */
-        TextureManager* getTextureManager();
+        TextureManager* getTextureManager() noexcept;
 
         /** Retrieves a reference to the current MeshManager.
             @remarks
                 This performs the same function as MeshManager::getSingleton
                 and is provided for convenience to scripting engines.
         */
-        MeshManager* getMeshManager();
+        MeshManager* getMeshManager() noexcept;
 
         /** Registers a FrameListener which will be called back every frame.
             @remarks
@@ -595,7 +595,7 @@ struct SceneManagerMetaData;
                 returns a null pointer when Root has not been initialised with
                 the option of creating a window.
         */
-        RenderWindow* getAutoCreatedWindow();
+        RenderWindow* getAutoCreatedWindow() noexcept;
 
         /** @copydoc RenderSystem::_createRenderWindow
         */
@@ -683,10 +683,10 @@ struct SceneManagerMetaData;
         void uninstallPlugin(Plugin* plugin);
 
         /** Gets a read-only list of the currently installed plugins. */
-        [[nodiscard]] const PluginInstanceList& getInstalledPlugins() const { return mPlugins; }
+        [[nodiscard]] const PluginInstanceList& getInstalledPlugins() const noexcept { return mPlugins; }
 
         /** Gets a pointer to the central timer used for all OGRE timings */
-        Timer* getTimer();
+        Timer* getTimer() noexcept;
 
         /** Method for raising frame started events. 
         @remarks
@@ -789,14 +789,14 @@ struct SceneManagerMetaData;
             the current frame have been queued, thus reflecting that if you 
             start performing changes then, you will actually see them in the 
             next frame. */
-        [[nodiscard]] unsigned long getNextFrameNumber() const { return mNextFrame; }
+        [[nodiscard]] unsigned long getNextFrameNumber() const noexcept { return mNextFrame; }
 
         /** Returns the scene manager currently being used to render a frame.
         @remarks
             This is only intended for internal use; it is only valid during the
             rendering of a frame.
         */
-        [[nodiscard]] SceneManager* _getCurrentSceneManager() const { return mCurrentSceneManager; }
+        [[nodiscard]] SceneManager* _getCurrentSceneManager() const noexcept { return mCurrentSceneManager; }
         /** Sets the scene manager currently being used to render.
         @remarks
             This is only intended for internal use.
@@ -829,9 +829,9 @@ struct SceneManagerMetaData;
         bool _updateAllRenderTargets(FrameEvent& evt);
 
         /// @copydoc Singleton::getSingleton()
-        static Root& getSingleton();
+        static Root& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static Root* getSingletonPtr();
+        static Root* getSingletonPtr() noexcept;
 
         /** Clears the history of all event times. 
         @remarks
@@ -857,7 +857,7 @@ struct SceneManagerMetaData;
         */
         void setFrameSmoothingPeriod(Real period) { mFrameSmoothingTime = period; }
         /** Gets the period over which OGRE smooths out fluctuations in frame times. */
-        [[nodiscard]] Real getFrameSmoothingPeriod() const { return mFrameSmoothingTime; }
+        [[nodiscard]] Real getFrameSmoothingPeriod() const noexcept { return mFrameSmoothingTime; }
 
         /** Register a new MovableObjectFactory which will create new MovableObject
             instances of a particular type, as identified by the getType() method.
@@ -896,7 +896,7 @@ struct SceneManagerMetaData;
         /** Return an iterator over all the MovableObjectFactory instances currently
             registered.
         */
-        [[nodiscard]] const MovableObjectFactoryMap& getMovableObjectFactories() const
+        [[nodiscard]] const MovableObjectFactoryMap& getMovableObjectFactories() const noexcept
         {
             return mMovableObjectFactoryMap;
         }
@@ -907,7 +907,7 @@ struct SceneManagerMetaData;
             However, you must remember to assign yourself a new channel through 
             which to process your tasks.
         */
-        [[nodiscard]] WorkQueue* getWorkQueue() const { return mWorkQueue.get(); }
+        [[nodiscard]] WorkQueue* getWorkQueue() const noexcept { return mWorkQueue.get(); }
 
         /** Replace the current work queue with an alternative. 
             You can use this method to replace the internal implementation of
@@ -929,7 +929,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend indices information needs to be passed to the GPU
         see setBlendIndicesGpuRedundant() for more information
         */
-        [[nodiscard]] bool isBlendIndicesGpuRedundant() const { return mIsBlendIndicesGpuRedundant; }
+        [[nodiscard]] bool isBlendIndicesGpuRedundant() const noexcept { return mIsBlendIndicesGpuRedundant; }
 
         /** Sets whether blend weights information needs to be passed to the GPU.
         When entities use software animation they remove blend information such as
@@ -941,7 +941,7 @@ struct SceneManagerMetaData;
         /** Returns whether blend weights information needs to be passed to the GPU
         see setBlendWeightsGpuRedundant() for more information
         */
-        [[nodiscard]] bool isBlendWeightsGpuRedundant() const { return mIsBlendWeightsGpuRedundant; }
+        [[nodiscard]] bool isBlendWeightsGpuRedundant() const noexcept { return mIsBlendWeightsGpuRedundant; }
     
         /** Set the default minimum pixel size for object to be rendered by
         @note
@@ -951,7 +951,7 @@ struct SceneManagerMetaData;
 
         /** Get the default minimum pixel size for object to be rendered by
         */
-        Real getDefaultMinPixelSize() { return mDefaultMinPixelSize; }
+        Real getDefaultMinPixelSize() noexcept { return mDefaultMinPixelSize; }
     };
     /** @} */
     /** @} */

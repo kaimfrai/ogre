@@ -141,7 +141,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& PatchSurface::getBounds() const
+    const AxisAlignedBox& PatchSurface::getBounds() const noexcept
     {
         return mAABB;
     }

@@ -55,7 +55,7 @@ class RenderTexture;
         
         void getCustomAttribute(const String& name, void* pData) override;
 
-        [[nodiscard]] GLContext* getContext() const override;
+        [[nodiscard]] GLContext* getContext() const noexcept override;
     protected:
         GLPBRTTManager *mManager;
         PixelComponentType mPBFormat;

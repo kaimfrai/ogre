@@ -55,7 +55,7 @@ class Archive;
     public:
         ~ZipArchiveFactory() override {}
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
 
         using ArchiveFactory::createInstance;
 
@@ -69,7 +69,7 @@ class Archive;
         EmbeddedZipArchiveFactory();
         ~EmbeddedZipArchiveFactory() override;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
 
         using ArchiveFactory::createInstance;
 

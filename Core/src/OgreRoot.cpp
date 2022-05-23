@@ -109,11 +109,11 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------
     template<> Root* Singleton<Root>::msSingleton = nullptr;
-    Root* Root::getSingletonPtr()
+    Root* Root::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    Root& Root::getSingleton()
+    Root& Root::getSingleton() noexcept
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -389,7 +389,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const RenderSystemList& Root::getAvailableRenderers()
+    const RenderSystemList& Root::getAvailableRenderers() noexcept
     {
         // Returns a vector of renders
 
@@ -446,7 +446,7 @@ namespace Ogre {
         mRenderers.push_back(newRend);
     }
     //-----------------------------------------------------------------------
-    RenderSystem* Root::getRenderSystem()
+    RenderSystem* Root::getRenderSystem() noexcept
     {
         // Gets the currently active renderer
         return mActiveRenderer;
@@ -540,7 +540,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     const SceneManagerEnumerator::MetaDataList&
-    Root::getSceneManagerMetaData() const
+    Root::getSceneManagerMetaData() const noexcept
     {
         return mSceneManagerEnum->getMetaData();
     }
@@ -567,17 +567,17 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const SceneManagerEnumerator::Instances& Root::getSceneManagers() const
+    const SceneManagerEnumerator::Instances& Root::getSceneManagers() const noexcept
     {
         return mSceneManagerEnum->getSceneManagers();
     }
     //-----------------------------------------------------------------------
-    TextureManager* Root::getTextureManager()
+    TextureManager* Root::getTextureManager() noexcept
     {
         return &TextureManager::getSingleton();
     }
     //-----------------------------------------------------------------------
-    MeshManager* Root::getMeshManager()
+    MeshManager* Root::getMeshManager() noexcept
     {
         return &MeshManager::getSingleton();
     }
@@ -974,7 +974,7 @@ namespace Ogre {
         return _openFileStream(filename, std::ios::in | std::ios::binary);
     }
     //-----------------------------------------------------------------------
-    RenderWindow* Root::getAutoCreatedWindow()
+    RenderWindow* Root::getAutoCreatedWindow() noexcept
     {
         return mAutoWindow;
     }
@@ -1076,7 +1076,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Timer* Root::getTimer()
+    Timer* Root::getTimer() noexcept
     {
         return mTimer.get();
     }

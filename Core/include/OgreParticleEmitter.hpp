@@ -183,7 +183,7 @@ namespace Ogre {
         virtual void setPosition(const Vector3& pos);
 
         /** Returns the position of this emitter relative to the center of the particle system. */
-        [[nodiscard]] virtual const Vector3& getPosition() const;
+        [[nodiscard]] virtual const Vector3& getPosition() const noexcept;
 
         /** Sets the direction of the emitter.
         @remarks
@@ -199,7 +199,7 @@ namespace Ogre {
         virtual void setDirection(const Vector3& direction);
 
         /** Returns the base direction of the emitter. */
-        [[nodiscard]] virtual const Vector3& getDirection() const;
+        [[nodiscard]] virtual const Vector3& getDirection() const noexcept;
 
         /** Sets the notional up vector of the emitter
         @remarks
@@ -212,7 +212,7 @@ namespace Ogre {
         virtual void setUp(const Vector3& up);
 
         /** Returns the up vector of the emitter. */
-        [[nodiscard]] virtual const Vector3& getUp() const;
+        [[nodiscard]] virtual const Vector3& getUp() const noexcept;
 
         /** Sets the direction of the emitter.
             Some particle effects need to emit particles in many random directions, but still
@@ -230,10 +230,10 @@ namespace Ogre {
         virtual void setDirPositionReference( const Vector3& position, bool enable );
 
         /** Returns the position reference to generate direction of emitted particles */
-        [[nodiscard]] virtual const Vector3& getDirPositionReference() const;
+        [[nodiscard]] virtual const Vector3& getDirPositionReference() const noexcept;
 
         /** Returns whether direction or position reference is used */
-        [[nodiscard]] virtual bool getDirPositionReferenceEnabled() const;
+        [[nodiscard]] virtual bool getDirPositionReferenceEnabled() const noexcept;
 
         /** Sets the maximum angle away from the emitter direction which particle will be emitted.
         @remarks
@@ -248,7 +248,7 @@ namespace Ogre {
         virtual void setAngle(const Radian& angle);
 
         /** Returns the maximum angle which the initial particle direction can deviate from the emitters base direction. */
-        [[nodiscard]] virtual const Radian& getAngle() const;
+        [[nodiscard]] virtual const Radian& getAngle() const noexcept;
 
         /** Sets the initial velocity of particles emitted.
         @remarks
@@ -363,11 +363,11 @@ namespace Ogre {
         /** Sets the maximum colour of particles to be emitted. */
         virtual void setColourRangeEnd(const ColourValue& colour);
         /** Gets the colour of particles to be emitted. */
-        [[nodiscard]] virtual const ColourValue& getColour() const;
+        [[nodiscard]] virtual const ColourValue& getColour() const noexcept;
         /** Gets the minimum colour of particles to be emitted. */
-        [[nodiscard]] virtual const ColourValue& getColourRangeStart() const;
+        [[nodiscard]] virtual const ColourValue& getColourRangeStart() const noexcept;
         /** Gets the maximum colour of particles to be emitted. */
-        [[nodiscard]] virtual const ColourValue& getColourRangeEnd() const;
+        [[nodiscard]] virtual const ColourValue& getColourRangeEnd() const noexcept;
 
         /** Gets the number of particles which this emitter would like to emit based on the time elapsed.
         @remarks
@@ -406,7 +406,7 @@ namespace Ogre {
             This property is useful for determining the type of emitter procedurally so another
             can be created.
         */
-        [[nodiscard]] const String &getType() const { return mType; }
+        [[nodiscard]] const String &getType() const noexcept { return mType; }
 
         /** Sets whether or not the emitter is enabled.
         @remarks
@@ -415,7 +415,7 @@ namespace Ogre {
         virtual void setEnabled(bool enabled);
 
         /** Gets the flag indicating if this emitter is enabled or not. */
-        [[nodiscard]] virtual bool getEnabled() const;
+        [[nodiscard]] virtual bool getEnabled() const noexcept;
 
         /** Sets the 'start time' of this emitter.
         @remarks
@@ -501,19 +501,19 @@ namespace Ogre {
         [[nodiscard]] virtual Real getMaxRepeatDelay() const;
 
         /** Returns the name of the emitter */
-        [[nodiscard]] const String &getName() const;
+        [[nodiscard]] const String& getName() const noexcept;
 
         /** Sets the name of the emitter */
         virtual void setName(const String& newName);
 
         /** Returns the name of the emitter to be emitted */
-        [[nodiscard]] const String &getEmittedEmitter() const;
+        [[nodiscard]] const String& getEmittedEmitter() const noexcept;
 
         /** Sets the name of the emitter to be emitted*/
         virtual void setEmittedEmitter(const String& emittedEmitter);
 
         /** Return true if the emitter is emitted by another emitter */
-        [[nodiscard]] virtual bool isEmitted() const;
+        [[nodiscard]] virtual bool isEmitted() const noexcept;
 
         /** Set the indication (true/false) to indicate that the emitter is emitted by another emitter */
         virtual void setEmitted(bool emitted);

@@ -166,7 +166,7 @@ struct GLGpuProgramBase;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
 
-        [[nodiscard]] const String& getName() const override;
+        [[nodiscard]] const String& getName() const noexcept override;
 
         void _initialise() override;
 
@@ -299,7 +299,7 @@ struct GLGpuProgramBase;
          */
         void _unregisterContext(GLContext *context) override;
 
-        GLStateCacheManager * _getStateCacheManager() { return mStateCacheManager; }
+        GLStateCacheManager * _getStateCacheManager() noexcept { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
         void beginProfileEvent( const String &eventName ) override;

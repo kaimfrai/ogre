@@ -164,7 +164,7 @@ class Technique;
         /** Determines if the material has any transparency with the rest of the scene (derived from 
             whether any Techniques say they involve transparency).
         */
-        bool isTransparent() const;
+        bool isTransparent() const noexcept;
 
         /** Sets whether objects using this material will receive shadows.
         @remarks
@@ -181,7 +181,7 @@ class Technique;
         */
         void setReceiveShadows(bool enabled) { mReceiveShadows = enabled; }
         /** Returns whether or not objects using this material will receive shadows. */
-        bool getReceiveShadows() const { return mReceiveShadows; }
+        bool getReceiveShadows() const noexcept { return mReceiveShadows; }
 
         /** Sets whether objects using this material be classified as opaque to the shadow caster system.
         @remarks
@@ -193,7 +193,7 @@ class Technique;
         */
         void setTransparencyCastsShadows(bool enabled) { mTransparencyCastsShadows = enabled; }
         /** Returns whether or not objects using this material be classified as opaque to the shadow caster system. */
-        bool getTransparencyCastsShadows() const { return mTransparencyCastsShadows; }
+        bool getTransparencyCastsShadows() const noexcept { return mTransparencyCastsShadows; }
 
         typedef VectorIterator<Techniques> TechniqueIterator;
         /// @name Techniques
@@ -227,7 +227,7 @@ class Technique;
         void removeAllTechniques();
 
         /** Get the Techniques in this Material. */
-        const Techniques& getTechniques() const {
+        const Techniques& getTechniques() const noexcept {
             return mTechniques;
         }
 
@@ -237,7 +237,7 @@ class Technique;
             which typically happens on loading the material. Therefore, if this method returns
             an empty list, try calling Material::load.
         */
-        const Techniques& getSupportedTechniques() const {
+        const Techniques& getSupportedTechniques() const noexcept {
             return mSupportedTechniques;
         }
         
@@ -246,7 +246,7 @@ class Technique;
         /** Retrieves the number of supported techniques. */
         size_t getNumSupportedTechniques() const { return mSupportedTechniques.size(); }
         /** Gets a string explaining why any techniques are not supported. */
-        const String& getUnsupportedTechniquesExplanation() const { return mUnsupportedReasons; }
+        const String& getUnsupportedTechniquesExplanation() const noexcept { return mUnsupportedReasons; }
 
         /** Gets the best supported technique. 
         @remarks
@@ -610,7 +610,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getLodValues() const {
+        const LodValueList& getLodValues() const noexcept {
             return mLodValues;
         }
 
@@ -621,7 +621,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getUserLodValues() const {
+        const LodValueList& getUserLodValues() const noexcept {
             return mUserLodValues;
         }
 
@@ -651,7 +651,7 @@ class Technique;
         /** Gets the compilation status of the material.
         @return True if the material needs recompilation.
         */
-        bool getCompilationRequired() const
+        bool getCompilationRequired() const noexcept
         {
             return mCompilationRequired;
         }

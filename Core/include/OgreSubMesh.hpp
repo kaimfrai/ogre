@@ -147,10 +147,10 @@ class VertexData;
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(const String& matName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
-        const String& getMaterialName() const;
+        const String& getMaterialName() const noexcept;
 
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
-        const MaterialPtr& getMaterial() const { return mMaterial; }
+        const MaterialPtr& getMaterial() const noexcept { return mMaterial; }
 
         /** Returns a RenderOperation structure required to render this mesh.
             @param 
@@ -187,7 +187,7 @@ class VertexData;
 
         /** Gets a const reference to the list of bone assignments
         */
-        const VertexBoneAssignmentList& getBoneAssignments() const { return mBoneAssignments; }
+        const VertexBoneAssignmentList& getBoneAssignments() const noexcept { return mBoneAssignments; }
 
 
         /** Must be called once to compile bone assignments into geometry buffer. */
@@ -207,7 +207,7 @@ class VertexData;
         VertexAnimationType getVertexAnimationType() const;
         
         /// Returns whether animation on dedicated vertex data includes normals
-        bool getVertexAnimationIncludesNormals() const { return mVertexAnimationIncludesNormals; }
+        bool getVertexAnimationIncludesNormals() const noexcept { return mVertexAnimationIncludesNormals; }
 
 
         /** Generate the submesh extremes (@see extremityPoints).
@@ -218,7 +218,7 @@ class VertexData;
 
         /** Returns true(by default) if the submesh should be included in the mesh EdgeList, otherwise returns false.
         */      
-        bool isBuildEdgesEnabled() const { return mBuildEdgesEnabled; }
+        bool isBuildEdgesEnabled() const noexcept { return mBuildEdgesEnabled; }
         void setBuildEdgesEnabled(bool b);
         /** Makes a copy of this submesh object and gives it a new name.
          @param newName

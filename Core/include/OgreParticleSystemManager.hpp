@@ -308,7 +308,7 @@ class ParticleSystemRenderer;
         void _initialise();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] const StringVector& getScriptPatterns() const override;
+        [[nodiscard]] const StringVector& getScriptPatterns() const noexcept override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
@@ -334,12 +334,12 @@ class ParticleSystemRenderer;
         } 
 
         /** Get an instance of ParticleSystemFactory (internal use). */
-        ParticleSystemFactory* _getFactory() { return mFactory; }
+        ParticleSystemFactory* _getFactory() noexcept { return mFactory; }
         
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager& getSingleton();
+        static ParticleSystemManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ParticleSystemManager* getSingletonPtr();
+        static ParticleSystemManager* getSingletonPtr() noexcept;
 
     };
 
@@ -354,7 +354,7 @@ class ParticleSystemRenderer;
         
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
     };
     /** @} */
     /** @} */

@@ -78,7 +78,7 @@ class VisualTest : public OgreBites::Sample
     }
 
     /** Default frame started callback, advances animations */
-    bool frameStarted(const Ogre::FrameEvent& evt) override
+    bool frameStarted(const Ogre::FrameEvent& evt) noexcept override
     {
         for(unsigned int i = 0; i < mAnimStateList.size(); ++i)
             mAnimStateList[i]->addTime(evt.timeSinceLastFrame);

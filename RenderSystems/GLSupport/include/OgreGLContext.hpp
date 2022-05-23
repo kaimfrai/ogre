@@ -55,7 +55,7 @@ namespace Ogre {
          */
         virtual void endCurrent() = 0;
 
-        bool getInitialized() { return initialized; };
+        bool getInitialized() noexcept { return initialized; };
         void setInitialized() { initialized = true; };
 
         /** Create a new context based on the same window/pbuffer as this
@@ -84,9 +84,9 @@ namespace Ogre {
         }
 
         /// VAOs deferred for destruction in proper GL context
-        std::vector<uint32>& _getVaoDeferredForDestruction() { return mVaoDeferredForDestruction; }
+        std::vector<uint32>& _getVaoDeferredForDestruction() noexcept { return mVaoDeferredForDestruction; }
         /// FBOs deferred for destruction in proper GL context
-        std::vector<uint32>& _getFboDeferredForDestruction() { return mFboDeferredForDestruction; }
+        std::vector<uint32>& _getFboDeferredForDestruction() noexcept { return mFboDeferredForDestruction; }
         
     protected:
         bool initialized;

@@ -95,12 +95,12 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    const String& getType() const override;
+    const String& getType() const noexcept override;
 
     /**
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const override;
+    int getExecutionOrder() const noexcept override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -123,13 +123,13 @@ public:
     Returns the number of bones in the model assigned to the material.
     @see setHardwareSkinningParam()
     */
-    ushort getBoneCount();
+    ushort getBoneCount() noexcept;
 
     /**
     Returns the number of weights/bones affecting a vertex.
     @see setHardwareSkinningParam()
     */
-    ushort getWeightCount();
+    ushort getWeightCount() noexcept;
 
     /**
     Returns the current skinning type in use.
@@ -152,7 +152,7 @@ public:
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) override;
+    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
 
     /**
     Set the factory which created this sub render state
@@ -201,12 +201,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const override;
+    [[nodiscard]] const String& getType() const noexcept override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) override;
+    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -262,7 +262,7 @@ public:
 
         The default value for this property is 70 which correspond to pixel shader model 3 limitations
     */
-    [[nodiscard]] ushort getMaxCalculableBoneCount() const {
+    [[nodiscard]] ushort getMaxCalculableBoneCount() const noexcept {
         return mMaxCalculableBoneCount; }
     /** 
         Sets the maximum number of bones for which hardware skinning is performed.
@@ -288,10 +288,10 @@ public:
         but the implementation stays in this single compilation unit,
         preventing link errors.
     */
-    static HardwareSkinningFactory& getSingleton();
+    static HardwareSkinningFactory& getSingleton() noexcept;
     
     /// @copydoc Singleton::getSingleton()
-    static HardwareSkinningFactory* getSingletonPtr();
+    static HardwareSkinningFactory* getSingletonPtr() noexcept;
 
 protected:
     /** 

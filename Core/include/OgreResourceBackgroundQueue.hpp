@@ -289,9 +289,9 @@ namespace Ogre {
         void handleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) override;
 
         /// @copydoc Singleton::getSingleton()
-        static ResourceBackgroundQueue& getSingleton();
+        static ResourceBackgroundQueue& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static ResourceBackgroundQueue* getSingletonPtr();
+        static ResourceBackgroundQueue* getSingletonPtr() noexcept;
 
     };
 

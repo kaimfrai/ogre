@@ -90,7 +90,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    const String& DefaultWorkQueueBase::getName() const
+    const String& DefaultWorkQueueBase::getName() const noexcept
     {
         return mName;
     }
@@ -105,7 +105,7 @@ namespace Ogre {
         mWorkerThreadCount = c;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const
+    bool DefaultWorkQueueBase::getWorkersCanAccessRenderSystem() const noexcept
     {
         return mWorkerRenderSystemAccess;
     }
@@ -478,7 +478,7 @@ namespace Ogre {
         mPaused = pause;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::isPaused() const
+    bool DefaultWorkQueueBase::isPaused() const noexcept
     {
         return mPaused;
     }
@@ -490,7 +490,7 @@ namespace Ogre {
         mAcceptRequests = accept;
     }
     //---------------------------------------------------------------------
-    bool DefaultWorkQueueBase::getRequestsAccepted() const
+    bool DefaultWorkQueueBase::getRequestsAccepted() const noexcept
     {
         return mAcceptRequests;
     }

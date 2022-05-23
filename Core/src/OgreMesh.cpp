@@ -124,7 +124,7 @@ namespace Ogre {
         unload();
     }
     //-----------------------------------------------------------------------
-    HardwareBufferManagerBase* Mesh::getHardwareBufferManager()
+    HardwareBufferManagerBase* Mesh::getHardwareBufferManager() noexcept
     {
         return mBufferManager ? mBufferManager : HardwareBufferManager::getSingletonPtr();
     }
@@ -425,7 +425,7 @@ namespace Ogre {
         return newMesh;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Mesh::getBounds() const
+    const AxisAlignedBox& Mesh::getBounds() const noexcept
     {
         return mAABB;
     }
@@ -1124,7 +1124,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    const String& Mesh::getSkeletonName() const
+    const String& Mesh::getSkeletonName() const noexcept
     {
         return mSkeleton ? mSkeleton->getName() : BLANKSTRING;
     }
@@ -2258,7 +2258,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    unsigned short Mesh::getNumAnimations() const
+    unsigned short Mesh::getNumAnimations() const noexcept
     {
         return static_cast<unsigned short>(mAnimationsList.size());
     }
@@ -2382,7 +2382,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    const PoseList& Mesh::getPoseList() const
+    const PoseList& Mesh::getPoseList() const noexcept
     {
         return mPoseList;
     }

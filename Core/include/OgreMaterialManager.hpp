@@ -122,13 +122,13 @@ class Technique;
 				so that owner of runtime generated technique can handle this.
 			@return True if notification is handled and should not be propagated further.
 			*/
-			virtual bool afterIlluminationPassesCreated(Technique* technique) { return false; }
+			virtual bool afterIlluminationPassesCreated(Technique* technique) noexcept { return false; }
 
 			/** Called right before illuminated passes would be removed,
 				so that owner of runtime generated technique can handle this.
 			@return True if notification is handled and should not be propagated further.
 			*/
-			virtual bool beforeIlluminationPassesCleared(Technique* technique) { return false; }
+			virtual bool beforeIlluminationPassesCleared(Technique* technique) noexcept { return false; }
         };
 
     private:
@@ -212,7 +212,7 @@ class Technique;
         */
         void setDefaultAnisotropy(unsigned int maxAniso);
         /// Get the default maxAnisotropy
-        unsigned int getDefaultAnisotropy() const;
+        unsigned int getDefaultAnisotropy() const noexcept;
 
         /** Returns a pointer to the default Material settings.
 
@@ -236,7 +236,7 @@ class Technique;
             - Gourad shading mode
             - Bilinear texture filtering
         */
-        virtual MaterialPtr getDefaultSettings() const { return mDefaultSettings; }
+        virtual MaterialPtr getDefaultSettings() const noexcept { return mDefaultSettings; }
 
         /** Internal method - returns index for a given material scheme name.
         @see Technique::setSchemeName
@@ -249,12 +249,12 @@ class Technique;
         /** Internal method - returns the active scheme index.
         @see Technique::setSchemeName
         */
-        unsigned short _getActiveSchemeIndex() const { return mActiveSchemeIndex; }
+        unsigned short _getActiveSchemeIndex() const noexcept { return mActiveSchemeIndex; }
 
         /** Returns the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        const String& getActiveScheme() const { return mActiveSchemeName; }
+        const String& getActiveScheme() const noexcept { return mActiveSchemeName; }
         
         /** Sets the name of the active material scheme. 
         @see Technique::setSchemeName
@@ -285,9 +285,9 @@ class Technique;
 
 
 		/// @copydoc Singleton::getSingleton()
-        static MaterialManager& getSingleton();
+        static MaterialManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static MaterialManager* getSingletonPtr();
+        static MaterialManager* getSingletonPtr() noexcept;
 
     };
     /** @} */

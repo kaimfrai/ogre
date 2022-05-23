@@ -170,7 +170,7 @@ class ResourceManager;
         virtual Bone* createBone(const String& name, unsigned short handle);
 
         /** Returns the number of bones in this skeleton. */
-        virtual unsigned short getNumBones() const;
+        virtual unsigned short getNumBones() const noexcept;
 
         typedef std::vector<Bone*> BoneList;
         typedef VectorIterator<BoneList> BoneIterator;
@@ -186,10 +186,10 @@ class ResourceManager;
             only once, and then use Bone::createChild from then on, then inherently the first
             bone you create will by default be the root.
         */
-        const BoneList& getRootBones() const;
+        const BoneList& getRootBones() const noexcept;
 
         /// Get all the bones in the skeleton
-        const BoneList& getBones() const {
+        const BoneList& getBones() const noexcept {
             return mBoneList;
         }
 
@@ -288,7 +288,7 @@ class ResourceManager;
         virtual void _getBoneMatrices(Affine3* pMatrices);
 
         /** Gets the number of animations on this skeleton. */
-        unsigned short getNumAnimations() const override;
+        unsigned short getNumAnimations() const noexcept override;
 
         /** Gets a single animation by index. 
         @remarks
@@ -356,7 +356,7 @@ class ResourceManager;
         typedef ConstVectorIterator<LinkedSkeletonAnimSourceList> 
             LinkedSkeletonAnimSourceIterator;
         /// Get the linked skeletons used as animation sources
-        virtual const LinkedSkeletonAnimSourceList& getLinkedSkeletonAnimationSources() const
+        virtual const LinkedSkeletonAnimSourceList& getLinkedSkeletonAnimationSources() const noexcept
         {
             return mLinkedSkeletonAnimSourceList;
         }
@@ -367,7 +367,7 @@ class ResourceManager;
         virtual void _notifyManualBoneStateChange(Bone* bone);
 
         /// Have manual bones been modified since the skeleton was last updated?
-        virtual bool getManualBonesDirty() const { return mManualBonesDirty; }
+        virtual bool getManualBonesDirty() const noexcept { return mManualBonesDirty; }
         /// Are there any manually controlled bones?
         virtual bool hasManualBones() const { return !mManualBones.empty(); }
 

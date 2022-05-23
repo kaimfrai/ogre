@@ -151,7 +151,7 @@ FunctionAtom::FunctionAtom()
 }
 
 //-----------------------------------------------------------------------------
-int FunctionAtom::getGroupExecutionOrder() const
+int FunctionAtom::getGroupExecutionOrder() const noexcept
 {
     return mGroupExecutionOrder;
 }

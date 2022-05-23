@@ -71,7 +71,7 @@ class RenderTexture;
         }
     }
 
-    GLContext* GLPBRenderTexture::getContext() const
+    GLContext* GLPBRenderTexture::getContext() const noexcept
     {
         return mManager->getContextFor(mPBFormat, mWidth, mHeight);
     }

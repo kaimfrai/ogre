@@ -126,13 +126,13 @@ namespace Ogre {
         ~Log();
 
         /// Return the name of the log
-        const String& getName() const { return mLogName; }
+        const String& getName() const noexcept { return mLogName; }
         /// Get whether debug output is enabled for this log
-        bool isDebugOutputEnabled() const { return mDebugOut; }
+        bool isDebugOutputEnabled() const noexcept { return mDebugOut; }
         /// Get whether file output is suppressed for this log
-        bool isFileOutputSuppressed() const { return mSuppressFile; }
+        bool isFileOutputSuppressed() const noexcept { return mSuppressFile; }
         /// Get whether time stamps are printed for this log
-        bool isTimeStampEnabled() const { return mTimeStamp; }
+        bool isTimeStampEnabled() const noexcept { return mTimeStamp; }
 
         /** Log a message to the debugger and to log file (the default is
             "<code>OGRE.log</code>"),
@@ -157,7 +157,7 @@ namespace Ogre {
         void setTimeStampEnabled(bool timeStamp);
         /** Gets the level of the log detail.
         */
-        LogMessageLevel getMinLogLevel() const { return mLogLevel; }
+        LogMessageLevel getMinLogLevel() const noexcept { return mLogLevel; }
         /**
         @remarks
             Register a listener to this log

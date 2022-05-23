@@ -238,7 +238,7 @@ namespace Ogre {
         return BLANKSTRING;
     }
 
-    const String& STBIPlugin::getName() const {
+    const String& STBIPlugin::getName() const noexcept {
         static String name = "STB Image Codec";
         return name;
     }

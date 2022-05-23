@@ -215,15 +215,15 @@ class Camera;
         virtual ~Node();  
 
         /** Returns the name of the node. */
-        const String& getName() const { return mName; }
+        const String& getName() const noexcept { return mName; }
 
         /** Gets this node's parent (NULL if this is the root).
         */
-        Node* getParent() const { return mParent; }
+        Node* getParent() const noexcept { return mParent; }
 
         /** Returns a quaternion representing the nodes orientation.
         */
-        const Quaternion & getOrientation() const { return mOrientation; }
+        const Quaternion & getOrientation() const noexcept { return mOrientation; }
 
         /** Sets the orientation of this node via a quaternion.
         @remarks
@@ -267,7 +267,7 @@ class Camera;
 
         /** Gets the position of the node relative to it's parent.
         */
-        const Vector3 & getPosition() const { return mPosition; }
+        const Vector3 & getPosition() const noexcept { return mPosition; }
 
         /** Sets the scaling factor applied to this node.
         @remarks
@@ -288,7 +288,7 @@ class Camera;
 
         /** Gets the scaling factor of this node.
         */
-        const Vector3& getScale() const { return mScale; }
+        const Vector3& getScale() const noexcept { return mScale; }
 
         /** Tells the node whether it should inherit orientation from it's parent node.
         @remarks
@@ -318,7 +318,7 @@ class Camera;
         @remarks
             See setInheritOrientation for more info.
         */
-        bool getInheritOrientation() const { return mInheritOrientation; }
+        bool getInheritOrientation() const noexcept { return mInheritOrientation; }
 
         /** Tells the node whether it should inherit scaling factors from it's parent node.
         @remarks
@@ -338,7 +338,7 @@ class Camera;
         @remarks
             See setInheritScale for more info.
         */
-        bool getInheritScale() const { return mInheritScale; }
+        bool getInheritScale() const noexcept { return mInheritScale; }
 
         /** Scales the node, combining it's current scale with the passed in scaling factor. 
         @remarks
@@ -479,7 +479,7 @@ class Camera;
         Node* getChild(const String& name) const;
 
         /// List of sub-nodes of this Node
-        const ChildNodeMap& getChildren() const { return mChildren; }
+        const ChildNodeMap& getChildren() const noexcept { return mChildren; }
 
         /** Drops the specified child from this node. 
         @remarks
@@ -562,7 +562,7 @@ class Camera;
         
         /** Gets the current listener for this Node.
         */
-        Listener* getListener() const { return mListener; }
+        Listener* getListener() const noexcept { return mListener; }
         
 
         /** Sets the current transform of this node to be the 'initial state' ie that
@@ -584,7 +584,7 @@ class Camera;
         @remarks
             Also resets the cumulative animation weight used for blending.
         */
-        const Vector3& getInitialPosition() const { return mInitialPosition; }
+        const Vector3& getInitialPosition() const noexcept { return mInitialPosition; }
         
         /** Gets the local position, relative to this node, of the given world-space position */
         Vector3 convertWorldToLocalPosition( const Vector3 &worldPos );
@@ -608,10 +608,10 @@ class Camera;
         Quaternion convertLocalToWorldOrientation( const Quaternion &localOrientation );
 
         /** Gets the initial orientation of this node, see setInitialState for more info. */
-        const Quaternion& getInitialOrientation() const { return mInitialOrientation; }
+        const Quaternion& getInitialOrientation() const noexcept { return mInitialOrientation; }
 
         /** Gets the initial position of this node, see setInitialState for more info. */
-        const Vector3& getInitialScale() const { return mInitialScale; }
+        const Vector3& getInitialScale() const noexcept { return mInitialScale; }
 
         /** Helper function, get the squared view depth.  */
         Real getSquaredViewDepth(const Camera* cam) const;

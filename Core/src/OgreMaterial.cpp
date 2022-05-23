@@ -397,7 +397,7 @@ class Renderable;
     }
 
     //-----------------------------------------------------------------------
-    bool Material::isTransparent() const
+    bool Material::isTransparent() const noexcept
     {
         // Check each technique
         Techniques::const_iterator i, iend;

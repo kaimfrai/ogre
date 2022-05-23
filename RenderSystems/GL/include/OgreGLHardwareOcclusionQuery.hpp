@@ -91,7 +91,7 @@ public:
     void beginOcclusionQuery() override;
     void endOcclusionQuery() override;
     bool pullOcclusionQuery( unsigned int* NumOfFragments) override; 
-    bool isStillOutstanding() override;
+    bool isStillOutstanding() noexcept override;
 
 
     //----------------------------------------------------------------------

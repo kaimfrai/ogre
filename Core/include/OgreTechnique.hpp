@@ -168,7 +168,7 @@ class Material;
             This will only be correct after the Technique has been compiled, which is
             usually done from Material::compile.
         */
-        [[nodiscard]] bool isSupported() const;
+        [[nodiscard]] bool isSupported() const noexcept;
         /** Internal compilation method; see Material::compile. 
         @return Any information explaining problems with the compile.
         */
@@ -210,26 +210,26 @@ class Material;
         bool movePass(const unsigned short sourceIndex, const unsigned short destinationIndex);
 
         /** Gets the passes in this Technique. */
-        [[nodiscard]] const Passes& getPasses() const {
+        [[nodiscard]] const Passes& getPasses() const noexcept {
             return mPasses;
         }
 
         /** Gets the illumination-stage categorised passes
          * @note triggers compilation if needed */
-        const IlluminationPassList& getIlluminationPasses();
+        const IlluminationPassList& getIlluminationPasses() noexcept;
 
         /** Internal method for splitting the passes into illumination passes. */
         void _compileIlluminationPasses();
         /// @}
 
         /// Gets the parent Material
-        [[nodiscard]] Material* getParent() const { return mParent; }
+        [[nodiscard]] Material* getParent() const noexcept { return mParent; }
 
         /** Overloaded operator to copy on Technique to another. */
         Technique& operator=(const Technique& rhs);
 
         /// Gets the resource group of the ultimate parent Material
-        [[nodiscard]] const String& getResourceGroup() const;
+        [[nodiscard]] const String& getResourceGroup() const noexcept;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -239,21 +239,21 @@ class Material;
             scene, may be used for blending, therefore we have to treat
             the whole Technique as transparent.
         */
-        [[nodiscard]] bool isTransparent() const;
+        [[nodiscard]] bool isTransparent() const noexcept;
 
         /** Returns true if this Technique has transparent sorting enabled. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting enabled or not
         */
-        [[nodiscard]] bool isTransparentSortingEnabled() const;
+        [[nodiscard]] bool isTransparentSortingEnabled() const noexcept;
 
         /** Returns true if this Technique has transparent sorting forced. 
         @remarks
             This basically boils down to whether the first pass
             has transparent sorting forced or not
         */
-        [[nodiscard]] bool isTransparentSortingForced() const;
+        [[nodiscard]] bool isTransparentSortingForced() const noexcept;
 
         /** Internal prepare method, derived from call to Material::prepare. */
         void _prepare();
@@ -265,7 +265,7 @@ class Material;
         void _unload();
 
         /// Is this loaded?
-        [[nodiscard]] bool isLoaded() const;
+        [[nodiscard]] bool isLoaded() const noexcept;
 
         /** Tells the technique that it needs recompilation. */
         void _notifyNeedsRecompile();
@@ -575,7 +575,7 @@ class Material;
         */
         void setLodIndex(unsigned short index);
         /** Gets the level-of-detail index assigned to this Technique. */
-        [[nodiscard]] unsigned short getLodIndex() const { return mLodIndex; }
+        [[nodiscard]] unsigned short getLodIndex() const noexcept { return mLodIndex; }
 
         /** Set the 'scheme name' for this technique. 
         @remarks
@@ -598,16 +598,16 @@ class Material;
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        [[nodiscard]] const String& getSchemeName() const;
+        [[nodiscard]] const String& getSchemeName() const noexcept;
         
         /// Internal method for getting the scheme index
         [[nodiscard]] unsigned short _getSchemeIndex() const;
             
         /** Is depth writing going to occur on this technique? */
-        [[nodiscard]] bool isDepthWriteEnabled() const;
+        [[nodiscard]] bool isDepthWriteEnabled() const noexcept;
 
         /** Is depth checking going to occur on this technique? */
-        [[nodiscard]] bool isDepthCheckEnabled() const;
+        [[nodiscard]] bool isDepthCheckEnabled() const noexcept;
 
         /** Exists colour writing disabled pass on this technique? */
         [[nodiscard]] bool hasColourWriteDisabled() const;
@@ -619,7 +619,7 @@ class Material;
         */
         void setName(const String& name);
         /// Gets the name of the technique
-        [[nodiscard]] const String& getName() const { return mName; }
+        [[nodiscard]] const String& getName() const noexcept { return mName; }
 
         typedef ConstVectorIterator<GPUVendorRuleList> GPUVendorRuleIterator;
         typedef ConstVectorIterator<GPUDeviceNameRuleList> GPUDeviceNameRuleIterator;
@@ -664,7 +664,7 @@ class Material;
         void removeGPUVendorRule(GPUVendor vendor);
 
         /// Get the currently registered vendor rules.
-        [[nodiscard]] const GPUVendorRuleList& getGPUVendorRules() const {
+        [[nodiscard]] const GPUVendorRuleList& getGPUVendorRules() const noexcept {
             return mGPUVendorRules;
         }
 
@@ -694,20 +694,20 @@ class Material;
         void removeGPUDeviceNameRule(const String& devicePattern);
 
         /// Get the currently registered device name rules.
-        [[nodiscard]] const GPUDeviceNameRuleList& getGPUDeviceNameRules() const { return mGPUDeviceNameRules; }
+        [[nodiscard]] const GPUDeviceNameRuleList& getGPUDeviceNameRules() const noexcept { return mGPUDeviceNameRules; }
         /// @}
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.
         */
-        UserObjectBindings& getUserObjectBindings() { return mUserObjectBindings; }
+        UserObjectBindings& getUserObjectBindings() noexcept { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        [[nodiscard]] const UserObjectBindings& getUserObjectBindings() const { return mUserObjectBindings; }
+        [[nodiscard]] const UserObjectBindings& getUserObjectBindings() const noexcept { return mUserObjectBindings; }
 
     };
 

@@ -92,14 +92,14 @@ IntegratedPSSM3::IntegratedPSSM3()
 }
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3::getType() const
+const String& IntegratedPSSM3::getType() const noexcept
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int IntegratedPSSM3::getExecutionOrder() const
+int IntegratedPSSM3::getExecutionOrder() const noexcept
 {
     return FFP_TEXTURING + 1;
 }
@@ -154,7 +154,7 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
 
 //-----------------------------------------------------------------------
 bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState, 
-                                         Pass* srcPass, Pass* dstPass)
+                                         Pass* srcPass, Pass* dstPass) noexcept
 {
     if (!srcPass->getParent()->getParent()->getReceiveShadows() ||
         renderState->getLightCount().isZeroLength())
@@ -206,7 +206,7 @@ void IntegratedPSSM3::setSplitPoints(const SplitPointList& newSplitPoints)
     }
 }
 
-bool IntegratedPSSM3::setParameter(const String& name, const String& value)
+bool IntegratedPSSM3::setParameter(const String& name, const String& value) noexcept
 {
     if(name == "debug")
     {
@@ -414,14 +414,14 @@ bool IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder)
 
 
 //-----------------------------------------------------------------------
-const String& IntegratedPSSM3Factory::getType() const
+const String& IntegratedPSSM3Factory::getType() const noexcept
 {
     return IntegratedPSSM3::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler, 
-                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                      PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "integrated_pssm4")
     {       

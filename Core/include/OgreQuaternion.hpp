@@ -351,7 +351,7 @@ class Matrix3;
         float w, x, y, z;
 
         /// Check whether this quaternion contains valid values
-        [[nodiscard]] inline bool isNaN() const
+        [[nodiscard]] inline bool isNaN() const noexcept
         {
             return Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) || Math::isNaN(w);
         }

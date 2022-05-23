@@ -99,7 +99,7 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] const StringVector& getScriptPatterns() const override;
+        [[nodiscard]] const StringVector& getScriptPatterns() const noexcept override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
@@ -126,10 +126,10 @@ namespace Ogre {
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
-        [[nodiscard]] int getViewportHeight() const;
+        [[nodiscard]] int getViewportHeight() const noexcept;
         
         /** Gets the width of the destination viewport in pixels. */
-        [[nodiscard]] int getViewportWidth() const;
+        [[nodiscard]] int getViewportWidth() const noexcept;
         [[nodiscard]] Real getViewportAspectRatio() const;
 
         /** Gets the orientation mode of the destination viewport. */
@@ -140,7 +140,7 @@ namespace Ogre {
        By default this is an 1:1 mapping. However on HiDPI screens you want to increase that to scale up your Overlay.
        @see RenderWindow::getViewPointToPixelScale */
        void setPixelRatio(float ratio);
-       [[nodiscard]] float getPixelRatio() const;
+       [[nodiscard]] float getPixelRatio() const noexcept;
 
         /** Creates a new OverlayElement of the type requested.
         @remarks
@@ -186,7 +186,7 @@ namespace Ogre {
         void addOverlayElementFactory(OverlayElementFactory* elemFactory);
         
         /** Get const access to the list of registered OverlayElement factories. */
-        [[nodiscard]] const FactoryMap& getOverlayElementFactoryMap() const {
+        [[nodiscard]] const FactoryMap& getOverlayElementFactoryMap() const noexcept {
             return mFactories;
         }
 
@@ -215,9 +215,9 @@ namespace Ogre {
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static OverlayManager& getSingleton();
+        static OverlayManager& getSingleton() noexcept;
         /// @copydoc Singleton::getSingleton()
-        static OverlayManager* getSingletonPtr();
+        static OverlayManager* getSingletonPtr() noexcept;
     };
 
 

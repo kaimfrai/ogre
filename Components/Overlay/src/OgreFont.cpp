@@ -192,7 +192,7 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    const String& Font::getSource() const
+    const String& Font::getSource() const noexcept
     {
         return mSource;
     }
@@ -202,12 +202,12 @@ namespace Ogre
         return mTtfSize;
     }
     //---------------------------------------------------------------------
-    uint Font::getTrueTypeResolution() const
+    uint Font::getTrueTypeResolution() const noexcept
     {
         return mTtfResolution;
     }
     //---------------------------------------------------------------------
-    int Font::getTrueTypeMaxBearingY() const
+    int Font::getTrueTypeMaxBearingY() const noexcept
     {
         return mTtfMaxBearingY;
     }

@@ -68,8 +68,8 @@ namespace Ogre
             data[0] = _x; data[1] = _y; data[2] = _z; data[3] = _w;
         }
         T data[dims];
-        T* ptr() { return data; }
-        [[nodiscard]] const T* ptr() const { return data; }
+        T* ptr() noexcept { return data; }
+        [[nodiscard]] const T* ptr() const noexcept { return data; }
     };
     template <> struct VectorBase<2, Real>
     {
@@ -379,7 +379,7 @@ namespace Ogre
         @param tolerance The amount that each element of the vector may vary by
             and still be considered equal
         */
-        [[nodiscard]] bool positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const
+        [[nodiscard]] bool positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const noexcept
         {
             for (int i = 0; i < dims; i++)
                 if (!Math::RealEqual(ptr()[i], rhs[i], tolerance))
@@ -474,7 +474,7 @@ namespace Ogre
         [[nodiscard]] T squaredLength() const { return dotProduct(*this); }
 
         /** Returns true if this vector is zero length. */
-        [[nodiscard]] bool isZeroLength() const
+        [[nodiscard]] bool isZeroLength() const noexcept
         {
             return squaredLength() < 1e-06 * 1e-06;
         }
@@ -551,7 +551,7 @@ namespace Ogre
         }
 
         /// Check whether this vector contains valid values
-        [[nodiscard]] bool isNaN() const
+        [[nodiscard]] bool isNaN() const noexcept
         {
             for (int i = 0; i < dims; i++)
                 if (Math::isNaN(ptr()[i]))

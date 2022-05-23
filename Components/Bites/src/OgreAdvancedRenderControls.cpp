@@ -81,7 +81,7 @@ AdvancedRenderControls::~AdvancedRenderControls() {
     mTrayMgr->destroyWidget(mDetailsPanel);
 }
 
-bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) {
+bool AdvancedRenderControls::keyPressed(const KeyboardEvent& evt) noexcept {
     if (mTrayMgr->isDialogVisible())
         return true; // don't process any more keys if dialog is up
 

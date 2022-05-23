@@ -94,7 +94,7 @@ namespace Ogre {
         return mDerivedPlane;
     }
     //-----------------------------------------------------------------------
-    const String& MovablePlane::getMovableType() const
+    const String& MovablePlane::getMovableType() const noexcept
     {
         return msMovableType;
     }

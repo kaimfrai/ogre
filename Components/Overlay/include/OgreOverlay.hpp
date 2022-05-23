@@ -121,7 +121,7 @@ namespace Ogre {
         OverlayContainer* getChild(const String& name);
 
         /** Gets the name of this overlay. */
-        const String& getName() const;
+        const String& getName() const noexcept;
         
         /** Alters the Z-order of this overlay. 
         @remarks
@@ -129,13 +129,13 @@ namespace Ogre {
         */
         void setZOrder(ushort zorder);
         /** Gets the Z-order of this overlay. */
-        ushort getZOrder() const;
+        ushort getZOrder() const noexcept;
 
         /** Gets whether the overlay is displayed or not. */
-        bool isVisible() const;
+        bool isVisible() const noexcept;
 
         /** Gets whether the overlay is initialised or not. */
-        bool isInitialised() const { return mInitialised; }
+        bool isInitialised() const noexcept { return mInitialised; }
 
         /** Shows the overlay if it was hidden. */
         void show();
@@ -234,7 +234,7 @@ namespace Ogre {
         void setRotate(const Radian& angle);
 
         /** Gets the rotation applied to this overlay, in degrees.*/
-        const Radian &getRotate() const { return mRotate; }
+        const Radian &getRotate() const noexcept { return mRotate; }
 
         /** Adds the passed in angle to the rotation applied to this overlay. */
         void rotate(const Radian& angle);
@@ -265,7 +265,7 @@ namespace Ogre {
 
         /** Returns all 2D elements in this manager.
         */
-        const OverlayContainerList& get2DElements() const {
+        const OverlayContainerList& get2DElements() const noexcept {
             return m2DElements;
         }
 
@@ -275,7 +275,7 @@ namespace Ogre {
             this overlay chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin() const { return mOrigin; }
+        const String& getOrigin() const noexcept { return mOrigin; }
         /// Notify this overlay of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 

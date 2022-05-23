@@ -66,7 +66,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Any& UserObjectBindings::getUserAny() const
+    const Any& UserObjectBindings::getUserAny() const noexcept
     {
         // Allocate attributes on demand.
         if (!mAttributes)

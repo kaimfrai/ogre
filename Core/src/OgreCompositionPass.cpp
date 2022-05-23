@@ -59,7 +59,7 @@ void CompositionPass::setIdentifier(uint32 id)
     mMaterial.identifier = id;
 }
 //-----------------------------------------------------------------------
-uint32 CompositionPass::getIdentifier() const
+uint32 CompositionPass::getIdentifier() const noexcept
 {
     return mMaterial.identifier;
 }
@@ -74,7 +74,7 @@ void CompositionPass::setMaterialName(const String &name)
     mMaterial.material = MaterialManager::getSingleton().getByName(name);
 }
 //-----------------------------------------------------------------------
-const MaterialPtr& CompositionPass::getMaterial() const
+const MaterialPtr& CompositionPass::getMaterial() const noexcept
 {
     return mMaterial.material;
 }
@@ -84,7 +84,7 @@ void CompositionPass::setClearBuffers(uint32 val)
     mClear.buffers = val;
 }
 //-----------------------------------------------------------------------
-uint32 CompositionPass::getClearBuffers() const
+uint32 CompositionPass::getClearBuffers() const noexcept
 {
     return mClear.buffers;
 }
@@ -104,7 +104,7 @@ void CompositionPass::setAutomaticColour(bool val)
     mClear.automaticColour = val;
 }
 //-----------------------------------------------------------------------
-bool CompositionPass::getAutomaticColour() const
+bool CompositionPass::getAutomaticColour() const noexcept
 {
     return mClear.automaticColour;
 }
@@ -150,7 +150,7 @@ void CompositionPass::setFirstRenderQueue(uint8 id)
     mRenderScene.firstRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-uint8 CompositionPass::getFirstRenderQueue() const
+uint8 CompositionPass::getFirstRenderQueue() const noexcept
 {
     return mRenderScene.firstRenderQueue;
 }
@@ -160,7 +160,7 @@ void CompositionPass::setLastRenderQueue(uint8 id)
     mRenderScene.lastRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-uint8 CompositionPass::getLastRenderQueue() const
+uint8 CompositionPass::getLastRenderQueue() const noexcept
 {
     return mRenderScene.lastRenderQueue ;
 }
@@ -170,7 +170,7 @@ void CompositionPass::setMaterialScheme(const String& schemeName)
     mRenderScene.materialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-const String& CompositionPass::getMaterialScheme() const
+const String& CompositionPass::getMaterialScheme() const noexcept
 {
     return mRenderScene.materialScheme;
 }
@@ -179,7 +179,7 @@ void CompositionPass::setClearDepth(float depth)
 {
     mClear.depth = depth;
 }
-float CompositionPass::getClearDepth() const
+float CompositionPass::getClearDepth() const noexcept
 {
     return mClear.depth;
 }
@@ -187,7 +187,7 @@ void CompositionPass::setClearStencil(uint16 value)
 {
     mClear.stencil = value;
 }
-uint16 CompositionPass::getClearStencil() const
+uint16 CompositionPass::getClearStencil() const noexcept
 {
     return mClear.stencil;
 }
@@ -196,7 +196,7 @@ void CompositionPass::setStencilCheck(bool value)
 {
     mStencilState.enabled = value;
 }
-bool CompositionPass::getStencilCheck() const
+bool CompositionPass::getStencilCheck() const noexcept
 {
     return mStencilState.enabled;
 }
@@ -212,7 +212,7 @@ void CompositionPass::setStencilRefValue(uint32 value)
 {
     mStencilState.referenceValue = value;
 }
-uint32 CompositionPass::getStencilRefValue() const
+uint32 CompositionPass::getStencilRefValue() const noexcept
 {
     return mStencilState.referenceValue;
 }
@@ -220,7 +220,7 @@ void CompositionPass::setStencilMask(uint32 value)
 {
     mStencilState.compareMask = value;
 }
-uint32 CompositionPass::getStencilMask() const
+uint32 CompositionPass::getStencilMask() const noexcept
 {
     return mStencilState.compareMask ;
 }
@@ -252,7 +252,7 @@ void CompositionPass::setStencilTwoSidedOperation(bool value)
 {
     mStencilState.twoSidedOperation = value;
 }
-bool CompositionPass::getStencilTwoSidedOperation() const
+bool CompositionPass::getStencilTwoSidedOperation() const noexcept
 {
     return mStencilState.twoSidedOperation;
 }
@@ -261,11 +261,11 @@ void CompositionPass::setQuadFarCorners(bool farCorners, bool farCornersViewSpac
     mQuad.farCorners = farCorners;
     mQuad.farCornersViewSpace = farCornersViewSpace;
 }
-bool CompositionPass::getQuadFarCorners() const
+bool CompositionPass::getQuadFarCorners() const noexcept
 {
     return mQuad.farCorners;
 }
-bool CompositionPass::getQuadFarCornersViewSpace() const
+bool CompositionPass::getQuadFarCornersViewSpace() const noexcept
 {
     return mQuad.farCornersViewSpace;
 }
@@ -275,7 +275,7 @@ void CompositionPass::setCustomType(const String& customType)
     mCustomType = customType;
 }
 
-const String& CompositionPass::getCustomType() const
+const String& CompositionPass::getCustomType() const noexcept
 {
     return mCustomType;
 }

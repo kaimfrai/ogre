@@ -856,7 +856,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    uint32 BillboardSet::getTypeFlags() const
+    uint32 BillboardSet::getTypeFlags() const noexcept
     {
         return SceneManager::FX_TYPE_MASK;
     }
@@ -1069,7 +1069,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const String& BillboardSet::getMovableType() const
+    const String& BillboardSet::getMovableType() const noexcept
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
@@ -1080,7 +1080,7 @@ namespace Ogre {
         return mParentNode->getSquaredViewDepth(cam);
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardSet::getLights() const
+    const LightList& BillboardSet::getLights() const noexcept
     {
         // It's actually quite unlikely that this will be called,
         // because most billboards are unlit, but here we go anyway
@@ -1165,7 +1165,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    const String& BillboardSetFactory::getType() const
+    const String& BillboardSetFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }

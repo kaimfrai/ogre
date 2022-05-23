@@ -85,7 +85,7 @@ namespace Ogre {
 
         return rval;
     }
-    uchar* PixelBox::getTopLeftFrontPixelPtr() const
+    uchar* PixelBox::getTopLeftFrontPixelPtr() const noexcept
     {
         return data + (left + top * rowPitch + front * slicePitch) * PixelUtil::getNumElemBytes(format);
     }

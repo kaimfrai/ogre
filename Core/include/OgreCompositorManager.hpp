@@ -203,10 +203,10 @@ class Viewport;
         void _relocateChain(Viewport* sourceVP, Viewport* destVP);
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager& getSingleton();
+        static CompositorManager& getSingleton() noexcept;
 
         /// @copydoc Singleton::getSingleton()
-        static CompositorManager* getSingletonPtr();
+        static CompositorManager* getSingletonPtr() noexcept;
     
     private:
         Resource* createImpl(const String& name, ResourceHandle handle,

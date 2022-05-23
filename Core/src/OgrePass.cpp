@@ -573,7 +573,7 @@ namespace Ogre {
         mBlendState.alphaOperation = alphaOp;
     }
     //-----------------------------------------------------------------------
-    bool Pass::isTransparent() const
+    bool Pass::isTransparent() const noexcept
     {
         // Transparent if any of the destination colour is taken into account
         if (mBlendState.destFactor == SBF_ZERO &&
@@ -605,7 +605,7 @@ namespace Ogre {
         mBlendState.writeA = enabled;
     }
     //-----------------------------------------------------------------------
-    bool Pass::getColourWriteEnabled() const
+    bool Pass::getColourWriteEnabled() const noexcept
     {
         return mBlendState.writeR || mBlendState.writeG || mBlendState.writeB ||
                mBlendState.writeA;
@@ -955,7 +955,7 @@ namespace Ogre {
         return getGpuProgramParameters(GPT_COMPUTE_PROGRAM);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isLoaded() const
+    bool Pass::isLoaded() const noexcept
     {
         return mParent->isLoaded();
     }
@@ -1074,7 +1074,7 @@ namespace Ogre {
         msPassGraveyard.insert(this);
     }
     //-----------------------------------------------------------------------
-    bool Pass::isAmbientOnly() const
+    bool Pass::isAmbientOnly() const noexcept
     {
         // treat as ambient if lighting is off, or colour write is off,
         // or all non-ambient (& emissive) colours are black
@@ -1087,7 +1087,7 @@ namespace Ogre {
              mSpecular == ColourValue::Black));
     }
     //-----------------------------------------------------------------------
-    const String& Pass::getResourceGroup() const
+    const String& Pass::getResourceGroup() const noexcept
     {
         return mParent->getResourceGroup();
     }

@@ -67,7 +67,7 @@ namespace {
         ZipArchive(const String& name, const String& archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
         ~ZipArchive() override;
         /// @copydoc Archive::isCaseSensitive
-        [[nodiscard]] bool isCaseSensitive() const override { return true; }
+        [[nodiscard]] bool isCaseSensitive() const noexcept override { return true; }
 
         /// @copydoc Archive::load
         void load() override;
@@ -306,7 +306,7 @@ namespace {
         return new ZipArchive(name, getType());
     }
     //-----------------------------------------------------------------------
-    const String& ZipArchiveFactory::getType() const
+    const String& ZipArchiveFactory::getType() const noexcept
     {
         static String name = "Zip";
         return name;
@@ -353,7 +353,7 @@ namespace {
         ZipArchiveFactory::destroyInstance(ptr);
     }
     //-----------------------------------------------------------------------
-    const String& EmbeddedZipArchiveFactory::getType() const
+    const String& EmbeddedZipArchiveFactory::getType() const noexcept
     {
         static String name = "EmbeddedZip";
         return name;

@@ -67,7 +67,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] String toString () const override
+        [[nodiscard]] String toString () const noexcept override
         {
             StringStream str;
             str << "vec2(" << std::showpoint << mValue.x << "," << mValue.y << ")";
@@ -92,7 +92,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] String toString () const override
+        [[nodiscard]] String toString () const noexcept override
         {
             StringStream str;
             str << "vec3(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << ")";
@@ -117,7 +117,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] String toString () const override
+        [[nodiscard]] String toString () const noexcept override
         {
             StringStream str;
             str << "vec4(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << "," << mValue.w << ")";
@@ -143,7 +143,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] String toString () const override
+        [[nodiscard]] String toString () const noexcept override
         {
             return StringConverter::toString(mValue, 6, 0, ' ', std::ios::showpoint);
         }
@@ -166,7 +166,7 @@ namespace RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] String toString () const override
+        [[nodiscard]] String toString () const noexcept override
         {
             return Ogre::StringConverter::toString(mValue);
         }

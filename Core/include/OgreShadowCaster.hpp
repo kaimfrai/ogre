@@ -84,13 +84,13 @@ class VertexData;
             before adding to a render queue
         */
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
-        [[nodiscard]] const MaterialPtr& getMaterial() const override { return mMaterial; }
+        [[nodiscard]] const MaterialPtr& getMaterial() const noexcept override { return mMaterial; }
         void getRenderOperation(RenderOperation& op) override { op = mRenderOp; }
         /// Get the internal render operation for set up.
-        RenderOperation* getRenderOperationForUpdate() {return &mRenderOp;}
+        RenderOperation* getRenderOperationForUpdate() noexcept {return &mRenderOp;}
         void getWorldTransforms(Matrix4* xform) const override;
-        Real getSquaredViewDepth(const Camera*) const override { return 0; /* not used */}
-        [[nodiscard]] const LightList& getLights() const override;
+        Real getSquaredViewDepth(const Camera*) const noexcept override { return 0; /* not used */}
+        [[nodiscard]] const LightList& getLights() const noexcept override;
         /** Does this renderable require a separate light cap?
         @remarks
             If possible, the light cap (when required) should be contained in the
@@ -101,12 +101,12 @@ class VertexData;
             inaccuracies caused by calculating the shadow geometry separately from
             the real geometry. 
         */
-        [[nodiscard]] bool isLightCapSeparate() const { return mLightCap != nullptr; }
+        [[nodiscard]] bool isLightCapSeparate() const noexcept { return mLightCap != nullptr; }
 
         /// Get the light cap version of this renderable.
-        ShadowRenderable* getLightCapRenderable() { return mLightCap; }
+        ShadowRenderable* getLightCapRenderable() noexcept { return mLightCap; }
         /// Should this ShadowRenderable be treated as visible?
-        [[nodiscard]] virtual bool isVisible() const { return true; }
+        [[nodiscard]] virtual bool isVisible() const noexcept { return true; }
 
         /** This function informs the shadow renderable that the global index buffer
             from the SceneManager has been updated. As all shadow use this buffer their pointer 
@@ -116,7 +116,7 @@ class VertexData;
         */
         void rebindIndexBuffer(const HardwareIndexBufferSharedPtr& indexBuffer);
 
-        [[nodiscard]] const HardwareVertexBufferSharedPtr& getPositionBuffer() const { return mPositionBuffer; }
+        [[nodiscard]] const HardwareVertexBufferSharedPtr& getPositionBuffer() const noexcept { return mPositionBuffer; }
     };
 
     /** A set of flags that can be used to influence ShadowRenderable creation. */
@@ -141,17 +141,17 @@ class VertexData;
     public:
         virtual ~ShadowCaster() { }
         /** Returns whether or not this object currently casts a shadow. */
-        [[nodiscard]] virtual bool getCastShadows() const = 0;
+        [[nodiscard]] virtual bool getCastShadows() const noexcept = 0;
 
         /** Returns details of the edges which might be used to determine a silhouette. */
-        virtual EdgeData* getEdgeList() = 0;
+        virtual EdgeData* getEdgeList() noexcept = 0;
         /** Returns whether the object has a valid edge list. */
         bool hasEdgeList() { return getEdgeList() != nullptr; }
 
         /** Get the world bounding box of the caster. */
         [[nodiscard]] virtual const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const = 0;
         /** Gets the world space bounding box of the light cap. */
-        [[nodiscard]] virtual const AxisAlignedBox& getLightCapBounds() const = 0;
+        [[nodiscard]] virtual const AxisAlignedBox& getLightCapBounds() const noexcept = 0;
         /** Gets the world space bounding box of the dark cap, as extruded using the light provided. */
         [[nodiscard]] virtual const AxisAlignedBox& getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const = 0;
 

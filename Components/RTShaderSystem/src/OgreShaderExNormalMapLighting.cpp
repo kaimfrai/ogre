@@ -78,7 +78,7 @@ NormalMapLighting::NormalMapLighting()
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLighting::getType() const
+const String& NormalMapLighting::getType() const noexcept
 {
     return Type;
 }
@@ -174,7 +174,7 @@ void NormalMapLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass)
+bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
 {
     TextureUnitState* normalMapTexture = dstPass->createTextureUnitState();
 
@@ -185,7 +185,7 @@ bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass
     return true;
 }
 
-bool NormalMapLighting::setParameter(const String& name, const String& value)
+bool NormalMapLighting::setParameter(const String& name, const String& value) noexcept
 {
 	if(name == "normalmap_space")
 	{
@@ -234,14 +234,14 @@ bool NormalMapLighting::setParameter(const String& name, const String& value)
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLightingFactory::getType() const
+const String& NormalMapLightingFactory::getType() const noexcept
 {
     return NormalMapLighting::Type;
 }
 
 //-----------------------------------------------------------------------
 SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator)
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
 {
     if (prop->name == "lighting_stage")
     {

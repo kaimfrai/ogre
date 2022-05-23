@@ -422,7 +422,7 @@ class RenderWindow;
         {
             mListHashDirty = true;
         }
-        bool isHashDirty() const
+        bool isHashDirty() const noexcept
         {
             return mListHashDirty;
         }
@@ -580,7 +580,7 @@ class RenderWindow;
 
 
         /// Get the hash value
-        uint32 getHash() const 
+        uint32 getHash() const noexcept 
         { 
             if (isHashDirty())
                 recalcHash();
@@ -638,7 +638,7 @@ class RenderWindow;
           {
             return bottom - top;
           }
-          [[nodiscard]] bool isNull() const
+          [[nodiscard]] bool isNull() const noexcept
           {
               return width() == 0 || height() == 0;
           }
@@ -796,11 +796,11 @@ class RenderWindow;
             }
             
             /// Get the width of this box
-            [[nodiscard]] uint32 getWidth() const { return right-left; }
+            [[nodiscard]] uint32 getWidth() const noexcept { return right-left; }
             /// Get the height of this box
-            [[nodiscard]] uint32 getHeight() const { return bottom-top; }
+            [[nodiscard]] uint32 getHeight() const noexcept { return bottom-top; }
             /// Get the depth of this box
-            [[nodiscard]] uint32 getDepth() const { return back-front; }
+            [[nodiscard]] uint32 getDepth() const noexcept { return back-front; }
 
             /// origin (top, left, front) of the box
             [[nodiscard]] Vector<3, uint32> getOrigin() const { return {left, top, front}; }

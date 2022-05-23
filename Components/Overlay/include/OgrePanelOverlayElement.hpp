@@ -102,9 +102,9 @@ class RenderQueue;
         void setTransparent(bool isTransparent);
 
         /** Returns whether this panel is transparent. */
-        [[nodiscard]] bool isTransparent() const;
+        [[nodiscard]] bool isTransparent() const noexcept;
 
-        [[nodiscard]] const String& getTypeName() const override;
+        [[nodiscard]] const String& getTypeName() const noexcept override;
         void getRenderOperation(RenderOperation& op) override;
         /** Overridden from OverlayContainer */
         void _updateRenderQueue(RenderQueue* queue) override;

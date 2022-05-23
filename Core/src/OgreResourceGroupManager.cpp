@@ -57,11 +57,11 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     template<> ResourceGroupManager* Singleton<ResourceGroupManager>::msSingleton = nullptr;
-    ResourceGroupManager* ResourceGroupManager::getSingletonPtr()
+    ResourceGroupManager* ResourceGroupManager::getSingletonPtr() noexcept
     {
         return msSingleton;
     }
-    ResourceGroupManager& ResourceGroupManager::getSingleton()
+    ResourceGroupManager& ResourceGroupManager::getSingleton() noexcept
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }

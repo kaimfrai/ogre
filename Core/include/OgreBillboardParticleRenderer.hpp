@@ -77,7 +77,7 @@ class RenderQueue;
             mBillboardSet->setTextureStacksAndSlices(stacks, slices);
         }
 
-        [[nodiscard]] const Vector2& getTextureStacksAndSlices() const { return mStacksSlices; }
+        [[nodiscard]] const Vector2& getTextureStacksAndSlices() const noexcept { return mStacksSlices; }
 
         /// @copydoc BillboardSet::setBillboardType
         void setBillboardType(BillboardType bbt) { mBillboardSet->setBillboardType(bbt); }
@@ -86,7 +86,7 @@ class RenderQueue;
         /// @copydoc BillboardSet::setUseAccurateFacing
         void setUseAccurateFacing(bool acc) { mBillboardSet->setUseAccurateFacing(acc); }
         /// @copydoc BillboardSet::getUseAccurateFacing
-        [[nodiscard]] bool getUseAccurateFacing() const { return mBillboardSet->getUseAccurateFacing(); }
+        [[nodiscard]] bool getUseAccurateFacing() const noexcept { return mBillboardSet->getUseAccurateFacing(); }
         /// @copydoc BillboardSet::setBillboardOrigin
         void setBillboardOrigin(BillboardOrigin origin) { mBillboardSet->setBillboardOrigin(origin); }
         /// @copydoc BillboardSet::getBillboardOrigin
@@ -104,18 +104,18 @@ class RenderQueue;
         /// @copydoc BillboardSet::setCommonDirection
         void setCommonDirection(const Vector3& vec) { mBillboardSet->setCommonDirection(vec); }
         /// @copydoc BillboardSet::getCommonDirection
-        [[nodiscard]] const Vector3& getCommonDirection() const { return mBillboardSet->getCommonDirection(); }
+        [[nodiscard]] const Vector3& getCommonDirection() const noexcept { return mBillboardSet->getCommonDirection(); }
         /// @copydoc BillboardSet::setCommonUpVector
         void setCommonUpVector(const Vector3& vec) { mBillboardSet->setCommonUpVector(vec); }
         /// @copydoc BillboardSet::getCommonUpVector
-        [[nodiscard]] const Vector3& getCommonUpVector() const { return mBillboardSet->getCommonUpVector(); }
+        [[nodiscard]] const Vector3& getCommonUpVector() const noexcept { return mBillboardSet->getCommonUpVector(); }
         /// @copydoc BillboardSet::setPointRenderingEnabled
         void setPointRenderingEnabled(bool enabled) { mBillboardSet->setPointRenderingEnabled(enabled); }
         /// @copydoc BillboardSet::isPointRenderingEnabled
-        [[nodiscard]] bool isPointRenderingEnabled() const { return mBillboardSet->isPointRenderingEnabled(); }
+        [[nodiscard]] bool isPointRenderingEnabled() const noexcept { return mBillboardSet->isPointRenderingEnabled(); }
 
         /// @copydoc ParticleSystemRenderer::getType
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
         /// @copydoc ParticleSystemRenderer::_updateRenderQueue
         void _updateRenderQueue(RenderQueue* queue, 
             std::vector<Particle*>& currentParticles, bool cullIndividually) override;
@@ -155,7 +155,7 @@ class RenderQueue;
         [[nodiscard]] SortMode _getSortMode() const override { return mBillboardSet->_getSortMode(); }
 
         /// Access BillboardSet in use
-        [[nodiscard]] BillboardSet* getBillboardSet() const { return mBillboardSet; }
+        [[nodiscard]] BillboardSet* getBillboardSet() const noexcept { return mBillboardSet; }
 
         void _notifyBoundingBox(const AxisAlignedBox& aabb) override;
 
@@ -167,7 +167,7 @@ class RenderQueue;
     {
     public:
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const override;
+        [[nodiscard]] const String& getType() const noexcept override;
         /// @copydoc FactoryObj::createInstance
         ParticleSystemRenderer* createInstance( const String& name ) override;
     };

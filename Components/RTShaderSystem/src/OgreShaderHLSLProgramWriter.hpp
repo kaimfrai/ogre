@@ -59,7 +59,7 @@ public:
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
-    [[nodiscard]] const String& getTargetLanguage() const override { return TargetLanguage; }
+    [[nodiscard]] const String& getTargetLanguage() const noexcept override { return TargetLanguage; }
 
     static String TargetLanguage;
 };

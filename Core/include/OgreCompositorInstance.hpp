@@ -195,7 +195,7 @@ class SceneManager;
         
         /** Get enabled flag.
         */
-        [[nodiscard]] bool getEnabled() const { return mEnabled; }
+        [[nodiscard]] bool getEnabled() const noexcept { return mEnabled; }
 
         /** Set alive/active flag. The compositor instance will create resources when alive,
             and destroy them when inactive.
@@ -207,7 +207,7 @@ class SceneManager;
 
         /** Get alive flag.
         */
-        [[nodiscard]] bool getAlive() const { return mAlive; }
+        [[nodiscard]] bool getAlive() const noexcept { return mAlive; }
 
         /** Get the instance name for a local texture.
         @note It is only valid to call this when local textures have been loaded, 
@@ -261,11 +261,11 @@ class SceneManager;
         
         /** Get Compositor of which this is an instance
         */
-        [[nodiscard]] Compositor *getCompositor() const { return mCompositor; }
+        [[nodiscard]] Compositor *getCompositor() const noexcept { return mCompositor; }
         
         /** Get CompositionTechnique used by this instance
         */
-        [[nodiscard]] CompositionTechnique *getTechnique() const { return mTechnique; }
+        [[nodiscard]] CompositionTechnique *getTechnique() const noexcept { return mTechnique; }
 
         /** Change the technique we're using to render this compositor. 
         @param tech
@@ -292,7 +292,7 @@ class SceneManager;
         void setScheme(const String& schemeName, bool reuseTextures = true);
 
         /// Returns the name of the scheme this compositor is using.
-        [[nodiscard]] const String& getScheme() const { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
+        [[nodiscard]] const String& getScheme() const noexcept { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
 
         /** Notify this instance that the primary surface has been resized. 
         @remarks

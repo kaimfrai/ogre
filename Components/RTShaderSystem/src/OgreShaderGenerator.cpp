@@ -177,13 +177,13 @@ String ShaderGenerator::DEFAULT_SCHEME_NAME     = "ShaderGeneratorDefaultScheme"
 String ShaderGenerator::SGTechnique::UserKey    = "SGTechnique";
 
 //-----------------------------------------------------------------------
-ShaderGenerator* ShaderGenerator::getSingletonPtr()
+ShaderGenerator* ShaderGenerator::getSingletonPtr() noexcept
 {
     return msSingleton;
 }
 
 //-----------------------------------------------------------------------
-ShaderGenerator& ShaderGenerator::getSingleton()
+ShaderGenerator& ShaderGenerator::getSingleton() noexcept
 {
     assert( msSingleton );  
     return ( *msSingleton );
@@ -679,7 +679,7 @@ void ShaderGenerator::removeSceneManager(SceneManager* sceneMgr)
 }
 
 //-----------------------------------------------------------------------------
-SceneManager* ShaderGenerator::getActiveSceneManager()
+SceneManager* ShaderGenerator::getActiveSceneManager() noexcept
 {
     return mActiveSceneMgr;
 }
@@ -1143,7 +1143,7 @@ bool ShaderGenerator::validateMaterialIlluminationPasses(const String& schemeNam
 }
 
 //-----------------------------------------------------------------------------
-MaterialSerializer::Listener* ShaderGenerator::getMaterialSerializerListener()
+MaterialSerializer::Listener* ShaderGenerator::getMaterialSerializerListener() noexcept
 {
     if (!mMaterialSerializerListener)
         mMaterialSerializerListener.reset(new SGMaterialSerializerListener);
@@ -1397,7 +1397,7 @@ const String& ShaderGenerator::getRTShaderScheme(size_t index) const
 
 //-----------------------------------------------------------------------------
 
-bool ShaderGenerator::getIsFinalizing() const
+bool ShaderGenerator::getIsFinalizing() const noexcept
 {
     return mIsFinalizing;
 }
@@ -1735,7 +1735,7 @@ ShaderGenerator::SGScheme::~SGScheme()
 }
 
 //-----------------------------------------------------------------------------
-RenderState* ShaderGenerator::SGScheme::getRenderState()
+RenderState* ShaderGenerator::SGScheme::getRenderState() noexcept
 {
     if (!mRenderState)
         mRenderState.reset(new RenderState);

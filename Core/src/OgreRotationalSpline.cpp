@@ -193,7 +193,7 @@ namespace Ogre {
         return mPoints[index];
     }
     //---------------------------------------------------------------------
-    unsigned short RotationalSpline::getNumPoints() const
+    unsigned short RotationalSpline::getNumPoints() const noexcept
     {
         return (unsigned short)mPoints.size();
     }

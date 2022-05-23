@@ -663,13 +663,13 @@ class RenderSystem;
         return mRadius;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& BillboardChain::getBoundingBox() const
+    const AxisAlignedBox& BillboardChain::getBoundingBox() const noexcept
     {
         updateBoundingBox();
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    const MaterialPtr& BillboardChain::getMaterial() const
+    const MaterialPtr& BillboardChain::getMaterial() const noexcept
     {
         return mMaterial;
     }
@@ -690,7 +690,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    const String& BillboardChain::getMovableType() const
+    const String& BillboardChain::getMovableType() const noexcept
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -737,7 +737,7 @@ class RenderSystem;
         *xform = _getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardChain::getLights() const
+    const LightList& BillboardChain::getLights() const noexcept
     {
         return queryLights();
     }
@@ -752,7 +752,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    const String& BillboardChainFactory::getType() const
+    const String& BillboardChainFactory::getType() const noexcept
     {
         return FACTORY_TYPE_NAME;
     }
