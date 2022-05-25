@@ -51,8 +51,7 @@ namespace RTShader {
 //-----------------------------------------------------------------------------
 SGScriptTranslator::SGScriptTranslator() 
     
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
 void SGScriptTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr &node)

@@ -66,11 +66,6 @@ Operand& Operand::operator= (const Operand & other)
     }       
     return *this;
 }
-//-----------------------------------------------------------------------------
-Operand::~Operand()
-{
-    // nothing to do
-}
 
 void Operand::setMaskToParamType()
 {

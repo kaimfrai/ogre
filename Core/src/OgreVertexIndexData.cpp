@@ -685,8 +685,7 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     IndexData::~IndexData()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     IndexData* IndexData::clone(bool copyData, HardwareBufferManagerBase* mgr) const
     {
@@ -722,8 +721,7 @@ class RenderSystem;
         uint32 a, b, c;     
 
         inline Triangle()
-        {
-        }
+        = default;
 
         inline Triangle( uint32 ta, uint32 tb, uint32 tc ) 
             : a( ta ), b( tb ), c( tc )
@@ -736,16 +734,10 @@ class RenderSystem;
         }
 
         inline Triangle( const Triangle& t )
-            : a( t.a ), b( t.b ), c( t.c )
-        {
-        }
+             
+        = default;
 
-        inline Triangle& operator=(const Triangle& rhs) {
-            a = rhs.a;
-            b = rhs.b;
-            c = rhs.c;
-            return *this;
-        }
+        inline Triangle& operator=(const Triangle& rhs) = default;
 
         [[nodiscard]] inline bool sharesEdge(const Triangle& t) const
         {

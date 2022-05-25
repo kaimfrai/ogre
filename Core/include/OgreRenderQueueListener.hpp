@@ -56,7 +56,7 @@ namespace Ogre {
     class RenderQueueListener
     {
     public:
-        virtual ~RenderQueueListener() {}
+        virtual ~RenderQueueListener() = default;
 
         /** Event raised before all render queues are processed. 
         */

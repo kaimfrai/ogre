@@ -139,7 +139,7 @@ class VertexData;
     class ShadowCaster
     {
     public:
-        virtual ~ShadowCaster() { }
+        virtual ~ShadowCaster() = default;
         /** Returns whether or not this object currently casts a shadow. */
         [[nodiscard]] virtual bool getCastShadows() const noexcept = 0;
 

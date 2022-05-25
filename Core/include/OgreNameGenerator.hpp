@@ -52,7 +52,7 @@ namespace Ogre {
         unsigned long long int mNext{1};
     public:
         NameGenerator(const NameGenerator& rhs)
-            : mPrefix(rhs.mPrefix), mNext(rhs.mNext) {}
+             = default;
         
         NameGenerator(const String& prefix) : mPrefix(prefix) {}
 

@@ -39,8 +39,8 @@ namespace Ogre {
     /// Dictionary of parameters
     static ParamDictionaryMap msDictionary;
 
-    ParamDictionary::ParamDictionary() {}
-    ParamDictionary::~ParamDictionary() {}
+    ParamDictionary::ParamDictionary() = default;
+    ParamDictionary::~ParamDictionary() = default;
 
     ParamCommand* ParamDictionary::getParamCommand(const String& name)
     {

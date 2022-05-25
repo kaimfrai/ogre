@@ -76,7 +76,7 @@ public:
     struct SkinningData
     {
         SkinningData()  
-        {}
+        = default;
 
         bool isValid{true};
         ushort maxBoneCount{0};

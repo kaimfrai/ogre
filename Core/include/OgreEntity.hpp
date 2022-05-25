@@ -874,8 +874,8 @@ class VertexData;
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
-        EntityFactory() {}
-        ~EntityFactory() override {}
+        EntityFactory() = default;
+        ~EntityFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

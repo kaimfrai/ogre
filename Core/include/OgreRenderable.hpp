@@ -73,9 +73,9 @@ namespace Ogre {
             DEFAULT_PRIORITY = 100
         };
 
-        Renderable()  {}
+        Renderable()  = default;
         /** Virtual destructor needed as class has virtual methods. */
-        virtual ~Renderable() {}
+        virtual ~Renderable() = default;
         /** Retrieves a weak reference to the material this renderable object uses.
         @remarks
             Note that the Renderable also has the option to override the getTechnique method
@@ -329,7 +329,7 @@ namespace Ogre {
         {
         public:
             /** Virtual destructor needed as class has virtual methods. */
-            virtual ~Visitor() { }
+            virtual ~Visitor() = default;
             /** Generic visitor method. 
             @param rend The Renderable instance being visited
             @param lodIndex The LOD index to which this Renderable belongs. Some

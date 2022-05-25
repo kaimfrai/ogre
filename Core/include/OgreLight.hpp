@@ -565,8 +565,8 @@ class Sphere;
     private:
         MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
     public:
-        LightFactory() {}
-        ~LightFactory() override {}
+        LightFactory() = default;
+        ~LightFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 

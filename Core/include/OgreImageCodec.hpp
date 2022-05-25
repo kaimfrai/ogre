@@ -72,8 +72,7 @@ namespace Ogre {
         {
         public:
             ImageData() 
-            {
-            }
+            = default;
             uint32 height{0};
             uint32 width{0};
             uint32 depth{1};

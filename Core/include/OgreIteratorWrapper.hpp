@@ -46,9 +46,9 @@ template <typename T, typename IteratorType, typename ValType>
 class IteratorWrapper
 {
 
-    private:
+    public:
         /// Private constructor since only the parameterised constructor should be used
-        IteratorWrapper();
+        IteratorWrapper() = delete;
 
     protected:
         IteratorType mBegin;

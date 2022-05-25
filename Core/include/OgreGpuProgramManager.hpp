@@ -59,7 +59,7 @@ namespace Ogre {
     class GpuProgramFactory : public FactoryAlloc
     {
     public:
-        virtual ~GpuProgramFactory() {}
+        virtual ~GpuProgramFactory() = default;
         /// Get the name of the language this factory creates programs for
         [[nodiscard]] virtual const String& getLanguage() const noexcept = 0;
         virtual GpuProgram* create(ResourceManager* creator, const String& name, ResourceHandle handle,

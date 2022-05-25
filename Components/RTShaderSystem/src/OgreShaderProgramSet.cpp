@@ -40,10 +40,10 @@ namespace Ogre {
 namespace RTShader {
 
 //-----------------------------------------------------------------------------
-ProgramSet::ProgramSet() {}
+ProgramSet::ProgramSet() = default;
 
 //-----------------------------------------------------------------------------
-ProgramSet::~ProgramSet() {}
+ProgramSet::~ProgramSet() = default;
 
 //-----------------------------------------------------------------------------
 void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)

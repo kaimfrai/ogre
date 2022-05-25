@@ -334,8 +334,8 @@ namespace {
     EmbbedFileDataList *gEmbeddedFileDataList;
     } // namespace {
     //-----------------------------------------------------------------------
-    EmbeddedZipArchiveFactory::EmbeddedZipArchiveFactory() {}
-    EmbeddedZipArchiveFactory::~EmbeddedZipArchiveFactory() {}
+    EmbeddedZipArchiveFactory::EmbeddedZipArchiveFactory() = default;
+    EmbeddedZipArchiveFactory::~EmbeddedZipArchiveFactory() = default;
     //-----------------------------------------------------------------------
     Archive *EmbeddedZipArchiveFactory::createInstance( const String& name, bool readOnly )
     {

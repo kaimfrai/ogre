@@ -105,7 +105,7 @@ mShadowColour(ColourValue(0.25, 0.25, 0.25))
     mShadowTextureCountPerType[Light::LT_SPOTLIGHT] = 1;
 }
 
-SceneManager::ShadowRenderer::~ShadowRenderer() {}
+SceneManager::ShadowRenderer::~ShadowRenderer() = default;
 
 void SceneManager::ShadowRenderer::setShadowColour(const ColourValue& colour)
 {

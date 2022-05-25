@@ -348,7 +348,7 @@ class CompositionTargetPass;
                 An empty string signifies that no input is used */
             InputTex inputs[OGRE_MAX_TEXTURE_LAYERS];
 
-            MaterialData()  {}
+            MaterialData()  = default;
         } mMaterial;
 
         // in case of PT_RENDERSCENE
@@ -368,8 +368,7 @@ class CompositionTargetPass;
             RenderSceneData()
                 
                   
-            {
-            }
+            = default;
         } mRenderScene;
 
         // in case of PT_CLEAR

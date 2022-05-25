@@ -52,8 +52,7 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     Serializer::~Serializer()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void Serializer::determineEndianness(const DataStreamPtr& stream)
     {

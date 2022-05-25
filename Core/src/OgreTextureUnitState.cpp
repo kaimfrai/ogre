@@ -51,7 +51,7 @@ class Frustum;
     {
         setAddressingMode(TAM_WRAP);
     }
-    Sampler::~Sampler() {}
+    Sampler::~Sampler() = default;
     //-----------------------------------------------------------------------
     void Sampler::setAddressingMode(const UVWAddressingMode& uvw)
     {

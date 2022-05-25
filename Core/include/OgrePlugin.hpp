@@ -79,8 +79,8 @@ namespace Ogre
     class Plugin : public PluginAlloc
     {
     public:
-        Plugin() {}
-        virtual ~Plugin() {}
+        Plugin() = default;
+        virtual ~Plugin() = default;
 
         /** Get the name of the plugin. 
         @remarks An implementation must be supplied for this method to uniquely

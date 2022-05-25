@@ -63,8 +63,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     SimpleSpline::~SimpleSpline()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void SimpleSpline::addPoint(const Vector3& p)
     {

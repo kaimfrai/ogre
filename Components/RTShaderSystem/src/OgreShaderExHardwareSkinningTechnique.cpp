@@ -43,13 +43,11 @@ namespace RTShader {
 /************************************************************************/
 HardwareSkinningTechnique::HardwareSkinningTechnique() 
     
-{
-}
+= default;
 
 //-----------------------------------------------------------------------
 HardwareSkinningTechnique::~HardwareSkinningTechnique()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------
 void HardwareSkinningTechnique::setHardwareSkinningParam(ushort boneCount, ushort weightCount, bool correctAntipodalityHandling, bool scalingShearingSupport)

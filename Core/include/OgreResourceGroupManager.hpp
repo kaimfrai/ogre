@@ -106,7 +106,7 @@ class ScriptLoader;
     class ResourceGroupListener
     {
     public:
-        virtual ~ResourceGroupListener() {}
+        virtual ~ResourceGroupListener() = default;
 
         /** This event is fired when a resource group begins parsing scripts.
         @note
@@ -201,7 +201,7 @@ class ScriptLoader;
     class ResourceLoadingListener
     {
     public:
-        virtual ~ResourceLoadingListener() {}
+        virtual ~ResourceLoadingListener() = default;
 
         /** This event is called when a resource beings loading. */
         virtual DataStreamPtr resourceLoading(const String &name, const String &group, Resource *resource) noexcept { return nullptr; }

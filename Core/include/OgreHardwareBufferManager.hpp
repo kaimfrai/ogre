@@ -64,7 +64,7 @@ class VertexDeclaration;
     class HardwareBufferLicensee
     {
     public:
-        virtual ~HardwareBufferLicensee() { }
+        virtual ~HardwareBufferLicensee() = default;
         /** This method is called when the buffer license is expired and is about
             to be returned to the shared pool.
         */

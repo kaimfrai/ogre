@@ -127,7 +127,7 @@ namespace Ogre {
         virtual bool frameEnded(const FrameEvent& evt)
         { (void)evt; return true; }
 
-        virtual ~FrameListener() {}
+        virtual ~FrameListener() = default;
         
     };
     /** @} */

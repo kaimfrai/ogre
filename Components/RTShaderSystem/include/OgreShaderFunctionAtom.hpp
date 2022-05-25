@@ -102,7 +102,7 @@ public:
     Operand& operator= (const Operand & rhs);
 
     /** Class destructor */
-    ~Operand();
+    ~Operand() = default;
 
     /** Returns the parameter object as weak reference */
     [[nodiscard]] const ParameterPtr& getParameter() const noexcept { return mParameter; }
@@ -197,7 +197,7 @@ public:
     using OperandVector = std::vector<Operand>;
 
     /** Class default destructor. */
-    virtual ~FunctionAtom() {}
+    virtual ~FunctionAtom() = default;
 
     /** Get the group execution order of this function atom. */
     [[nodiscard]] int getGroupExecutionOrder() const noexcept;
@@ -284,7 +284,7 @@ public:
     };
 
 private:
-    FunctionInvocation() {}
+    FunctionInvocation() = default;
 
     String mReturnType;
 };

@@ -72,8 +72,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     DefaultHardwareBufferManagerBase::DefaultHardwareBufferManagerBase()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     DefaultHardwareBufferManagerBase::~DefaultHardwareBufferManagerBase()
     {

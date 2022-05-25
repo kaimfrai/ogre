@@ -48,8 +48,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     Polygon::~Polygon()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     Polygon::Polygon( const Polygon& cpy )
     {
@@ -214,12 +213,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     Polygon& Polygon::operator=(const Ogre::Polygon& rhs)
-    {
-        mIsNormalSet = rhs.mIsNormalSet;
-        mNormal = rhs.mNormal;
-        mVertexList = rhs.mVertexList;
-        return *this;
-    }
+    = default;
     //-----------------------------------------------------------------------
     std::ostream& operator<< ( std::ostream& strm, const Polygon& poly )
     {

@@ -95,7 +95,7 @@ namespace OgreBites
             mInfo["Help"] = "";
         }
 
-        ~Sample() override {}
+        ~Sample() override = default;
 
         /*-----------------------------------------------------------------------------
         | Retrieves custom sample info.

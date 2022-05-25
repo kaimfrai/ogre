@@ -49,11 +49,11 @@ class Affine3;
     */
     class OptimisedUtil
     {
-    private:
+    public:
         /// Privated copy constructor, to prevent misuse
-        OptimisedUtil(const OptimisedUtil& rhs); /* do nothing, should not use */
+        OptimisedUtil(const OptimisedUtil& rhs) = delete; /* do nothing, should not use */
         /// Privated operator=, to prevent misuse
-        OptimisedUtil& operator=(const OptimisedUtil& rhs); /* do not use */
+        OptimisedUtil& operator=(const OptimisedUtil& rhs) = delete; /* do not use */
 
     protected:
         /// Store a pointer to the implementation
@@ -64,9 +64,9 @@ class Affine3;
 
     public:
         // Default constructor
-        OptimisedUtil() {}
+        OptimisedUtil() = default;
         // Destructor
-        virtual ~OptimisedUtil() {}
+        virtual ~OptimisedUtil() = default;
 
         /** Gets the implementation of this class.
         @note

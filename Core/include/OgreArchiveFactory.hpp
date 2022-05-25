@@ -59,7 +59,7 @@ namespace Ogre {
     class ArchiveFactory : public FactoryObj< Archive >, public ArchiveAlloc
     {
     public:
-        ~ArchiveFactory() override {}
+        ~ArchiveFactory() override = default;
         /** Creates a new object.
         @param name Name of the object to create
         @param readOnly whether the Archive is read only

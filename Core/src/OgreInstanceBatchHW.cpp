@@ -64,8 +64,7 @@ class Camera;
     }
 
     InstanceBatchHW::~InstanceBatchHW()
-    {
-    }
+    = default;
 
     //-----------------------------------------------------------------------
     size_t InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const

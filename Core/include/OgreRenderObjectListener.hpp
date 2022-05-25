@@ -43,7 +43,7 @@ namespace Ogre {
     class RenderObjectListener
     {
     public:
-        virtual ~RenderObjectListener() {}
+        virtual ~RenderObjectListener() = default;
         /** Event raised when render single object started.
         @remarks
             This method is called by the SceneManager.

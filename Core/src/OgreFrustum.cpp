@@ -78,12 +78,6 @@ class RenderQueue;
     }
 
     //-----------------------------------------------------------------------
-    Frustum::~Frustum()
-    {
-        // Do nothing
-    }
-
-    //-----------------------------------------------------------------------
     void Frustum::setFOVy(const Radian& fov)
     {
         mFOVy = fov;
@@ -573,7 +567,6 @@ class RenderQueue;
 
         if (!mCustomViewMatrix)
         {
-            Matrix3 rot;
             const Quaternion& orientation = getOrientationForViewUpdate();
             const Vector3& position = getPositionForViewUpdate();
 

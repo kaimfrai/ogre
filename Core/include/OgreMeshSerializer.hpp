@@ -181,7 +181,7 @@ class Mesh;
     class MeshSerializerListener
     {
     public:
-        virtual ~MeshSerializerListener() {}
+        virtual ~MeshSerializerListener() = default;
         /// Called to override the loading of the given named material
         virtual void processMaterialName(Mesh *mesh, String *name) = 0;
         /// Called to override the reference to a skeleton

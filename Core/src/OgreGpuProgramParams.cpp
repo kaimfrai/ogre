@@ -206,11 +206,11 @@ namespace Ogre
         AutoConstantDefinition(ACT_POINT_PARAMS,                    "point_params",                   4, ET_REAL, ACDT_NONE),
     };
 
-    GpuNamedConstants::GpuNamedConstants()  {}
-    GpuNamedConstants::~GpuNamedConstants() {}
+    GpuNamedConstants::GpuNamedConstants()  = default;
+    GpuNamedConstants::~GpuNamedConstants() = default;
 
-    GpuLogicalBufferStruct::GpuLogicalBufferStruct()  {}
-    GpuLogicalBufferStruct::~GpuLogicalBufferStruct() {}
+    GpuLogicalBufferStruct::GpuLogicalBufferStruct()  = default;
+    GpuLogicalBufferStruct::~GpuLogicalBufferStruct() = default;
 
     //---------------------------------------------------------------------
     //  GpuNamedConstants methods
@@ -244,9 +244,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     GpuNamedConstantsSerializer::~GpuNamedConstantsSerializer()
-    {
-
-    }
+    = default;
     //---------------------------------------------------------------------
     void GpuNamedConstantsSerializer::exportNamedConstants(
         const GpuNamedConstants* pConsts, const String& filename, Endian endianMode)
@@ -753,7 +751,7 @@ namespace Ogre
          mActivePassIterationIndex(std::numeric_limits<size_t>::max())
     {
     }
-    GpuProgramParameters::~GpuProgramParameters() {}
+    GpuProgramParameters::~GpuProgramParameters() = default;
 
     //-----------------------------------------------------------------------------
 
@@ -1535,7 +1533,6 @@ namespace Ogre
         const Affine3* pMatrix;
         size_t m;
         Vector3 vec3;
-        Vector4 vec4;
         Matrix3 m3;
         Matrix4 scaleM;
         DualQuaternion dQuat;

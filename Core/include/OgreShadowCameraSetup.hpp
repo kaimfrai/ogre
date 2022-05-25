@@ -78,7 +78,7 @@ class Viewport;
         virtual void getShadowCamera (const SceneManager *sm, const Camera *cam, 
                                       const Viewport *vp, const Light *light, Camera *texCam, size_t iteration) const = 0;
         /// Need virtual destructor in case subclasses use it
-        virtual ~ShadowCameraSetup() {}
+        virtual ~ShadowCameraSetup() = default;
 
     };
 

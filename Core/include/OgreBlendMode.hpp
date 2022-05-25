@@ -292,8 +292,7 @@ namespace Ogre {
 
         ColourBlendState()
              
-        {
-        }
+        = default;
 
         /// can we simply overwrite the existing pixels or do we have to blend
         [[nodiscard]] bool blendingEnabled() const

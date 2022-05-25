@@ -66,7 +66,7 @@ class VertexData;
     class AnimationContainer
     {
     public:
-        virtual ~AnimationContainer() {}
+        virtual ~AnimationContainer() = default;
 
         /** Gets the number of animations in this container. */
         [[nodiscard]] virtual unsigned short getNumAnimations() const noexcept = 0;

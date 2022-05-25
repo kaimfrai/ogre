@@ -1271,12 +1271,10 @@ void CompositorInstance::notifyCameraChanged(Camera* camera)
 }
 //-----------------------------------------------------------------------
 CompositorInstance::RenderSystemOperation::~RenderSystemOperation()
-{
-}
+= default;
 //-----------------------------------------------------------------------
 CompositorInstance::Listener::~Listener()
-{
-}
+= default;
 void CompositorInstance::Listener::notifyMaterialSetup(uint32 pass_id, MaterialPtr &mat)
 {
 }

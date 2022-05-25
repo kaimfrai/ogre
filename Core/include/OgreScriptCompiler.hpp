@@ -113,7 +113,7 @@ class Material;
         Any context; // A holder for translation context data
     public:
         AbstractNode(AbstractNode *ptr);
-        virtual ~AbstractNode(){}
+        virtual ~AbstractNode()= default;
         /// Returns a new AbstractNode which is a replica of this one.
         [[nodiscard]] virtual AbstractNode *clone() const = 0;
         /// Returns a string value depending on the type of the AbstractNode.
@@ -223,7 +223,7 @@ class Material;
         static String formatErrorCode(uint32 code);
     public:
         ScriptCompiler();
-        virtual ~ScriptCompiler() {}
+        virtual ~ScriptCompiler() = default;
 
         /// Takes in a string of script code and compiles it into resources
         /**
@@ -358,10 +358,9 @@ class Material;
         String mType;
 
         ScriptCompilerEvent(const String &type):mType(type){}
-        virtual ~ScriptCompilerEvent(){}
-    private: // Non-copyable
-        ScriptCompilerEvent(const ScriptCompilerEvent&);
-        ScriptCompilerEvent &operator = (const ScriptCompilerEvent&);
+        virtual ~ScriptCompilerEvent()= default;
+        ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
+        ScriptCompilerEvent &operator = (const ScriptCompilerEvent&) = delete;
     };
 
     /** This is a listener for the compiler. The compiler can be customized with
@@ -372,7 +371,7 @@ class Material;
     {
     public:
         ScriptCompilerListener();
-        virtual ~ScriptCompilerListener() {}
+        virtual ~ScriptCompilerListener() = default;
 
         /// Returns the concrete node list from the given file
         virtual ConcreteNodeListPtr importFile(ScriptCompiler *compiler, const String &name);

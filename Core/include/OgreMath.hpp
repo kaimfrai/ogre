@@ -79,9 +79,9 @@ class Sphere;
     public:
         explicit Radian ( float r=0 ) : mRad(r) {}
         Radian ( const Degree& d );
-        Radian (const Ogre::Radian& rhs) : mRad(rhs.mRad) {}
+        Radian (const Ogre::Radian& rhs)  = default;
         Radian& operator = ( const float& f ) { mRad = f; return *this; }
-        Radian& operator = ( const Radian& r ) { mRad = r.mRad; return *this; }
+        Radian& operator = ( const Radian& r ) = default;
         Radian& operator = ( const Degree& d );
 
         [[nodiscard]] float valueDegrees() const; // see bottom of this file
@@ -131,9 +131,9 @@ class Sphere;
     public:
         explicit Degree ( float d=0 ) : mDeg(d) {}
         Degree ( const Radian& r ) : mDeg(r.valueDegrees()) {}
-        Degree (const Ogre::Degree& rhs) : mDeg(rhs.mDeg) {}
+        Degree (const Ogre::Degree& rhs)  = default;
         Degree& operator = ( const float& f ) { mDeg = f; return *this; }
-        Degree& operator = ( const Degree& d ) { mDeg = d.mDeg; return *this; }
+        Degree& operator = ( const Degree& d ) = default;
         Degree& operator = ( const Radian& r ) { mDeg = r.valueDegrees(); return *this; }
 
         [[nodiscard]] float valueDegrees() const noexcept { return mDeg; }
@@ -238,7 +238,7 @@ class Sphere;
        class RandomValueProvider
        {
        public:
-            virtual ~RandomValueProvider() {}
+            virtual ~RandomValueProvider() = default;
             /** When called should return a random values in the range of [0,1] */
             virtual Real getRandomUnit() = 0;
        };

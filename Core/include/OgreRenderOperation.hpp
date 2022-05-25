@@ -131,8 +131,7 @@ namespace Ogre {
         RenderOperation()
             
               
-        {
-        }
+        = default;
     };
     /** @} */
     /** @} */

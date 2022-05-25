@@ -51,8 +51,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     Resource::~Resource() 
-    { 
-    }
+    = default;
     Resource& Resource::operator=(const Resource& rhs)
     {
         mName = rhs.mName;

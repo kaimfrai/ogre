@@ -77,7 +77,7 @@ namespace Ogre
         /** Constructor */
         ExternalTextureSource();
         /** Virtual destructor */
-        ~ExternalTextureSource() override {}
+        ~ExternalTextureSource() override = default;
 
         //--------------------------------------------------------//
         //Base Functions that work with Command String Interface... Or can be called

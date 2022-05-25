@@ -479,8 +479,7 @@ class RenderQueue;
     }
     //-----------------------------------------------------------------------
     InstanceBatchVTF::~InstanceBatchVTF()
-    {
-    }   
+    = default;   
     //-----------------------------------------------------------------------
     void InstanceBatchVTF::setupVertices( const SubMesh* baseSubMesh )
     {

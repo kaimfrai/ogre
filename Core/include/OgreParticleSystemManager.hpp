@@ -349,8 +349,8 @@ class ParticleSystemRenderer;
     private:
         MovableObject* createInstanceImpl(const String& name, const NameValuePairList* params) override;
     public:
-        ParticleSystemFactory() {}
-        ~ParticleSystemFactory() override {}
+        ParticleSystemFactory() = default;
+        ~ParticleSystemFactory() override = default;
         
         static String FACTORY_TYPE_NAME;
 

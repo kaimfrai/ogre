@@ -104,7 +104,7 @@ namespace Ogre {
         Exception(const Exception& rhs);
 
         /// Needed for compatibility with std::exception
-        ~Exception() noexcept override {}
+        ~Exception() noexcept override = default;
 
         /** Returns a string with the full description of this error.
             @remarks
@@ -222,7 +222,7 @@ namespace Ogre {
     {
     private:
         /// Private constructor, no construction
-        ExceptionFactory() {}
+        ExceptionFactory() = default;
         [[noreturn]]
         static void _throwException(
             Exception::ExceptionCodes code, int number,

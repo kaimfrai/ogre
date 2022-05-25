@@ -104,7 +104,7 @@ namespace Ogre {
         {
             TCompValueType key;
             ContainerIter iter;
-            SortEntry() {}
+            SortEntry() = default;
             SortEntry(TCompValueType k, ContainerIter it)
                 : key(k), iter(it) {}
 
@@ -230,8 +230,8 @@ namespace Ogre {
 
     public:
 
-        RadixSort() {}
-        ~RadixSort() {}
+        RadixSort() = default;
+        ~RadixSort() = default;
 
         /** Main sort function
         @param container A container of the type you declared when declaring

@@ -77,8 +77,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl::~MeshSerializerImpl()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void MeshSerializerImpl::exportMesh(const Mesh* pMesh, 
         const DataStreamPtr stream, Endian endianMode)
@@ -2647,8 +2646,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_8::~MeshSerializerImpl_v1_8()
-    {
-    }
+    = default;
     //--------------------------------------------------------------------
     String MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName)
     {
@@ -3022,8 +3020,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_41::~MeshSerializerImpl_v1_41()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_41::writeMorphKeyframe(const VertexMorphKeyFrame* kf, size_t vertexCount)
     {
@@ -3177,8 +3174,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_4::~MeshSerializerImpl_v1_4()
-    {
-    }
+    = default;
     size_t MeshSerializerImpl_v1_4::calcLodLevelSize(const Mesh* pMesh)
     {
         if (isLodMixed(pMesh) || pMesh->getLodStrategy() != DistanceLodBoxStrategy::getSingletonPtr()) {
@@ -3337,8 +3333,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_3::~MeshSerializerImpl_v1_3()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_3::readEdgeListLodInfo(const DataStreamPtr& stream,
         EdgeData* edgeData)
@@ -3733,8 +3728,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_2::~MeshSerializerImpl_v1_2()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_2::readMesh(const DataStreamPtr& stream, Mesh* pMesh, MeshSerializerListener *listener)
     {
@@ -3879,8 +3873,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     MeshSerializerImpl_v1_1::~MeshSerializerImpl_v1_1()
-    {
-    }
+    = default;
     //---------------------------------------------------------------------
     void MeshSerializerImpl_v1_1::readGeometryTexCoords(unsigned short bindIdx,
         const DataStreamPtr& stream, Mesh* pMesh, VertexData* dest, unsigned short texCoordSet)

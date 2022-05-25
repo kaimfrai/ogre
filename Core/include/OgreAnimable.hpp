@@ -147,7 +147,7 @@ namespace Ogre {
 
     public:
         AnimableValue(ValueType t) : mType(t) {}
-        virtual ~AnimableValue() {}
+        virtual ~AnimableValue() = default;
 
         /// Gets the value type of this animable value
         [[nodiscard]] ValueType getType() const noexcept { return mType; }
@@ -270,8 +270,8 @@ namespace Ogre {
 
 
     public:
-        AnimableObject() {}
-        virtual ~AnimableObject() {}
+        AnimableObject() = default;
+        virtual ~AnimableObject() = default;
 
         /** Gets a list of animable value names for this object. */
         [[nodiscard]] const StringVector& getAnimableValueNames() const noexcept;

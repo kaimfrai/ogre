@@ -54,7 +54,7 @@ namespace Ogre {
 
     public:
         STBIImageCodec(const String &type);
-        ~STBIImageCodec() override { }
+        ~STBIImageCodec() override = default;
 
         using ImageCodec::decode;
         using ImageCodec::encode;

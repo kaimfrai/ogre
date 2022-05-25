@@ -55,8 +55,8 @@ class RenderSystem;
     protected:
         void initMetaData() const override;
     public:
-        DefaultSceneManagerFactory() {}
-        ~DefaultSceneManagerFactory() override {}
+        DefaultSceneManagerFactory() = default;
+        ~DefaultSceneManagerFactory() override = default;
         /// Factory type name
         static const String FACTORY_TYPE_NAME;
         SceneManager* createInstance(const String& instanceName) override;

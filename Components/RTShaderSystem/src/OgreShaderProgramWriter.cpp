@@ -78,7 +78,7 @@ ProgramWriter::ProgramWriter()
     mParamSemanticMap[Parameter::SPS_TANGENT] = "TANGENT";
 }
 
-ProgramWriter::~ProgramWriter() {}
+ProgramWriter::~ProgramWriter() = default;
 
 void ProgramWriter::writeParameter(std::ostream& os, const ParameterPtr& parameter)
 {

@@ -64,7 +64,7 @@ class AnimationTrack;
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         KeyFrame(const AnimationTrack* parent, Real time);
 
-        virtual ~KeyFrame() {}
+        virtual ~KeyFrame() = default;
 
         /** Gets the time of this keyframe in the animation sequence. */
         [[nodiscard]] Real getTime() const noexcept { return mTime; }
@@ -87,7 +87,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         NumericKeyFrame(const AnimationTrack* parent, Real time);
-        ~NumericKeyFrame() override {}
+        ~NumericKeyFrame() override = default;
 
         /** Get the value at this keyframe. */
         [[nodiscard]] virtual const AnyNumeric& getValue() const noexcept;
@@ -110,7 +110,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         TransformKeyFrame(const AnimationTrack* parent, Real time);
-        ~TransformKeyFrame() override {}
+        ~TransformKeyFrame() override = default;
         /** Sets the translation associated with this keyframe. 
         @remarks    
         The translation factor affects how much the keyframe translates (moves) it's animable
@@ -161,7 +161,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         VertexMorphKeyFrame(const AnimationTrack* parent, Real time);
-        ~VertexMorphKeyFrame() override {}
+        ~VertexMorphKeyFrame() override = default;
         /** Sets the vertex buffer containing the source positions for this keyframe. 
         @remarks    
             We assume that positions are the first 3 float elements in this buffer,
@@ -191,7 +191,7 @@ class AnimationTrack;
     public:
         /** Default constructor, you should not call this but use AnimationTrack::createKeyFrame instead. */
         VertexPoseKeyFrame(const AnimationTrack* parent, Real time);
-        ~VertexPoseKeyFrame() override {}
+        ~VertexPoseKeyFrame() override = default;
 
         /** Reference to a pose at a given influence level 
         @remarks

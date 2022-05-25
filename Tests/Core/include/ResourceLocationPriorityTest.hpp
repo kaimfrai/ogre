@@ -51,7 +51,7 @@ public:
     DummyArchive(const Ogre::String& name, const Ogre::String& archType)
         : Ogre::Archive(name, archType), mContents(DummyArchive::makeContents()) {}
 
-    ~DummyArchive() override {}
+    ~DummyArchive() override = default;
 
     [[nodiscard]] bool exists(const Ogre::String& name) const override { return name == "dummyArchiveTest"; }
 
@@ -127,7 +127,7 @@ private:
 class DummyArchiveFactory : public Ogre::ArchiveFactory
 {
 public:
-    ~DummyArchiveFactory() override {}
+    ~DummyArchiveFactory() override = default;
 
     Ogre::Archive* createInstance(const Ogre::String& name, bool) override
     {

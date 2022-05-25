@@ -1569,8 +1569,7 @@ class RenderQueue;
     }
    //-----------------------------------------------------------------------
     ParticleAffector::~ParticleAffector() 
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     ParticleAffectorFactory::~ParticleAffectorFactory() 
     {

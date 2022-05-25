@@ -52,8 +52,7 @@ class Viewport;
     }
     //-----------------------------------------------------------------------
     LiSPSMShadowCameraSetup::~LiSPSMShadowCameraSetup()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     Matrix4 LiSPSMShadowCameraSetup::calculateLiSPSM(const Matrix4& lightSpace, 
         const PointListBody& bodyB, const PointListBody& bodyLVS,

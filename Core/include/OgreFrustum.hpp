@@ -203,7 +203,7 @@ class Sphere;
         /// Named constructor
         Frustum(const String& name = BLANKSTRING);
 
-        ~Frustum() override;
+        ~Frustum() override = default;
         /** Sets the Y-dimension Field Of View (FOV) of the frustum.
         @remarks
             Field Of View (FOV) is the angle made between the frustum's position, and the edges

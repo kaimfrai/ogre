@@ -42,7 +42,7 @@ public:
     TestResultWriter(const TestBatch& set1, const TestBatch& set2, const ComparisonResultVector& results)
         :mSet1(set1),mSet2(set2),mResults(results){}
 
-    virtual ~TestResultWriter() {}
+    virtual ~TestResultWriter() = default;
 
     virtual void writeToFile(Ogre::String filename)
     {

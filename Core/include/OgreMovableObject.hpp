@@ -75,8 +75,8 @@ class SceneNode;
         class Listener
         {
         public:
-            Listener() {}
-            virtual ~Listener() {}
+            Listener() = default;
+            virtual ~Listener() = default;
             /** MovableObject is being destroyed */
             virtual void objectDestroyed(MovableObject*) {}
             /** MovableObject has been attached to a node */
@@ -594,8 +594,8 @@ class SceneNode;
         virtual MovableObject* createInstanceImpl(
             const String& name, const NameValuePairList* params = nullptr) = 0;
     public:
-        MovableObjectFactory()  {}
-        virtual ~MovableObjectFactory() {}
+        MovableObjectFactory()  = default;
+        virtual ~MovableObjectFactory() = default;
         /// Get the type of the object to be created
         [[nodiscard]] virtual const String& getType() const noexcept = 0;
 

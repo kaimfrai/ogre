@@ -72,9 +72,7 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     UnifiedHighLevelGpuProgram::~UnifiedHighLevelGpuProgram()
-    {
-
-    }
+    = default;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::chooseDelegate() const
     {
@@ -406,12 +404,10 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     UnifiedHighLevelGpuProgramFactory::UnifiedHighLevelGpuProgramFactory()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     UnifiedHighLevelGpuProgramFactory::~UnifiedHighLevelGpuProgramFactory()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     const String& UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept
     {

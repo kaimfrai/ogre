@@ -107,7 +107,7 @@ class RenderTexture;
         /** Reference to a PBuffer, with refcount */
         struct PBRef
         {
-            PBRef() {}
+            PBRef() = default;
             GLPBuffer* pb{nullptr};
             size_t refcount{0};
         };

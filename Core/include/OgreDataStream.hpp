@@ -96,7 +96,7 @@ namespace Ogre {
         [[nodiscard]] virtual bool isReadable() const noexcept { return (mAccess & READ) != 0; }
         /** Reports whether this stream is writeable. */
         [[nodiscard]] virtual bool isWriteable() const noexcept { return (mAccess & WRITE) != 0; }
-        virtual ~DataStream() {}
+        virtual ~DataStream() = default;
         // Streaming operators
         template<typename T> DataStream& operator>>(T& val);
         /** Read the requisite number of bytes from the stream, 

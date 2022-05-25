@@ -50,9 +50,9 @@ namespace Ogre {
     {
     public:
         /// Constructor
-        ParticleSystemRenderer() {}
+        ParticleSystemRenderer() = default;
         /// Destructor
-        ~ParticleSystemRenderer() override {}
+        ~ParticleSystemRenderer() override = default;
 
         /** Gets the type of this renderer - must be implemented by subclasses */
         [[nodiscard]] virtual const String& getType() const noexcept = 0;

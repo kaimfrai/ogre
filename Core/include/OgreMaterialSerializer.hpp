@@ -74,7 +74,7 @@ class Technique;
         class Listener
         {
         public:
-            virtual ~Listener() {}
+            virtual ~Listener() = default;
             
             /** Called when material section event raised.                  
             @param ser The MaterialSerializer instance that writes the given material.
@@ -243,7 +243,7 @@ class Technique;
         /** default constructor*/
         MaterialSerializer();
         /** default destructor*/
-        virtual ~MaterialSerializer() {}
+        virtual ~MaterialSerializer() = default;
 
         /** Queue an in-memory Material to the internal buffer for export.
         @param pMat Material pointer

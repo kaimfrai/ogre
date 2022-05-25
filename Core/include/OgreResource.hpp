@@ -74,7 +74,7 @@ class ResourceManager;
         class Listener
         {
         public:
-            virtual ~Listener() {}
+            virtual ~Listener() = default;
 
             /** Called whenever the resource finishes loading. 
             @remarks
@@ -481,8 +481,8 @@ class ResourceManager;
     class ManualResourceLoader
     {
     public:
-        ManualResourceLoader() {}
-        virtual ~ManualResourceLoader() {}
+        ManualResourceLoader() = default;
+        virtual ~ManualResourceLoader() = default;
 
         /** Called when a resource wishes to prepare instead of Resource::prepareImpl
          * @note this could get

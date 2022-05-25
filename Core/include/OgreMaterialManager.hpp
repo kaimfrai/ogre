@@ -84,7 +84,7 @@ class Technique;
         {
         public:
             /** Virtual destructor needed as class has virtual methods. */
-            virtual ~Listener() { }
+            virtual ~Listener() = default;
             /** Called if a technique for a given scheme is not found within a material,
                 allows the application to specify a Technique instance manually.
             @remarks

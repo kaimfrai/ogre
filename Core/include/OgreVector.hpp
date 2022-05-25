@@ -51,7 +51,7 @@ namespace Ogre
     /// helper class to implement legacy API. Notably x, y, z access
     template <int dims, typename T> struct VectorBase
     {
-        VectorBase() {}
+        VectorBase() = default;
         VectorBase(T _x, T _y)
         {
             static_assert(dims > 1, "must have at least 2 dimensions");
@@ -73,7 +73,7 @@ namespace Ogre
     };
     template <> struct VectorBase<2, Real>
     {
-        VectorBase() {}
+        VectorBase() = default;
         VectorBase(Real _x, Real _y) : x(_x), y(_y) {}
         Real x, y;
         Real* ptr() { return &x; }
@@ -133,7 +133,7 @@ namespace Ogre
 
     template <> struct VectorBase<3, Real>
     {
-        VectorBase() {}
+        VectorBase() = default;
         VectorBase(Real _x, Real _y, Real _z) : x(_x), y(_y), z(_z) {}
         Real x, y, z;
         Real* ptr() { return &x; }
@@ -271,7 +271,7 @@ namespace Ogre
 
     template <> struct VectorBase<4, Real>
     {
-        VectorBase() {}
+        VectorBase() = default;
         VectorBase(Real _x, Real _y, Real _z, Real _w) : x(_x), y(_y), z(_z), w(_w) {}
         Real x, y, z, w;
         Real* ptr() { return &x; }
@@ -315,7 +315,7 @@ namespace Ogre
         /** Default constructor.
             @note It does <b>NOT</b> initialize the vector for efficiency.
         */
-        Vector() {}
+        Vector() = default;
         Vector(T _x, T _y) : VectorBase<dims, T>(_x, _y) {}
         Vector(T _x, T _y, T _z) : VectorBase<dims, T>(_x, _y, _z) {}
         Vector(T _x, T _y, T _z, T _w) : VectorBase<dims, T>(_x, _y, _z, _w) {}

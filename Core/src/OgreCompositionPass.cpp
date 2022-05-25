@@ -41,8 +41,7 @@ CompositionPass::CompositionPass(CompositionTargetPass *parent):
 }
 //-----------------------------------------------------------------------
 CompositionPass::~CompositionPass()
-{
-}
+= default;
 //-----------------------------------------------------------------------
 void CompositionPass::setType(CompositionPass::PassType type)
 {

@@ -227,9 +227,7 @@ ShaderGenerator::ShaderGenerator() :
 
 //-----------------------------------------------------------------------------
 ShaderGenerator::~ShaderGenerator()
-{
-    
-}
+= default;
 
 //-----------------------------------------------------------------------------
 bool ShaderGenerator::initialize()
@@ -1729,8 +1727,7 @@ ShaderGenerator::SGScheme::SGScheme(const String& schemeName) :
 
 //-----------------------------------------------------------------------------
 ShaderGenerator::SGScheme::~SGScheme()
-{
-}
+= default;
 
 //-----------------------------------------------------------------------------
 RenderState* ShaderGenerator::SGScheme::getRenderState() noexcept

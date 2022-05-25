@@ -94,7 +94,7 @@ namespace Ogre
         /// Stores the currently active texture unit
         size_t mActiveTextureUnit;
     public:
-        virtual ~GLStateCacheManagerCommon() {}
+        virtual ~GLStateCacheManagerCommon() = default;
 
         /** Gets the current colour mask setting.
          @return An array containing the mask in RGBA order.

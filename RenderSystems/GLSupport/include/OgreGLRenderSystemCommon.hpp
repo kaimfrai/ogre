@@ -95,7 +95,7 @@ namespace Ogre {
         */
         void setConfigOption(const String &name, const String &value) override;
 
-        ~GLRenderSystemCommon() override {}
+        ~GLRenderSystemCommon() override = default;
 
         /** @copydoc RenderTarget::copyContentsToMemory */
         virtual void _copyContentsToMemory(Viewport* vp, const Box& src, const PixelBox& dst,

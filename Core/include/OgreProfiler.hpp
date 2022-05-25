@@ -191,7 +191,7 @@ namespace Ogre {
     class ProfileSessionListener
     {
     public:
-        virtual ~ProfileSessionListener() {}
+        virtual ~ProfileSessionListener() = default;
 
         /// Create the internal resources
         virtual void initializeSession() = 0;

@@ -995,7 +995,7 @@ class VertexData;
         /// Edge list for this LOD level (may be derived from manual mesh).
         mutable EdgeData* edgeData{nullptr};
 
-        MeshLodUsage()  {}
+        MeshLodUsage()  = default;
     };
 
     /** @} */

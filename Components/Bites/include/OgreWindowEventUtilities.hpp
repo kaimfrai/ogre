@@ -46,7 +46,7 @@ namespace OgreBites
     class WindowEventListener
     {
     public:
-        virtual ~WindowEventListener() {}
+        virtual ~WindowEventListener() = default;
 
         /**
         @remarks

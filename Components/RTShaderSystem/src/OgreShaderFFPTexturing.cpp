@@ -80,8 +80,7 @@ const String c_ParamTexelEx("texel_");
 
 //-----------------------------------------------------------------------
 FFPTexturing::FFPTexturing()  
-{   
-}
+= default;
 
 //-----------------------------------------------------------------------
 const String& FFPTexturing::getType() const noexcept

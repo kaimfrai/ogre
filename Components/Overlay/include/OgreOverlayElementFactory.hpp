@@ -57,7 +57,7 @@ namespace Ogre {
     {
     public:
         /** Destroy the overlay element factory */
-        virtual ~OverlayElementFactory () {}
+        virtual ~OverlayElementFactory () = default;
         /** Creates a new OverlayElement instance with the name supplied. */
         [[nodiscard]]
         virtual OverlayElement* createOverlayElement(const String& instanceName) = 0;

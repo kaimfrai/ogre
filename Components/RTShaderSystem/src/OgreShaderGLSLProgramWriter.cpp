@@ -70,9 +70,7 @@ GLSLProgramWriter::GLSLProgramWriter()
 
 //-----------------------------------------------------------------------
 GLSLProgramWriter::~GLSLProgramWriter()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------
 void GLSLProgramWriter::initializeStringMaps()

@@ -133,8 +133,7 @@ class SceneManager;
         {
         public:
             TargetOperation()
-            { 
-            }
+            = default;
             TargetOperation(RenderTarget* inTarget)
                 : target(inTarget), currentQueueGroupID(0), visibilityMask(0xFFFFFFFF), lodBias(1.0f),
                   onlyInitial(false), hasBeenRendered(false), findVisibleObjects(false),

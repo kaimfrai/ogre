@@ -337,8 +337,7 @@ namespace {
     //-----------------------------------------------------------------------
     QueuedRenderableCollection::QueuedRenderableCollection()
         
-    {
-    }
+    = default;
 
     //-----------------------------------------------------------------------
     void QueuedRenderableCollection::clear()

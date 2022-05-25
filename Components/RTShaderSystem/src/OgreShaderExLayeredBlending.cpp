@@ -119,9 +119,7 @@ const SourceModifierDescription _sourceModifiers[(int)LayeredBlending::SM_MaxSou
     };
 //-----------------------------------------------------------------------
 LayeredBlending::LayeredBlending()
-{
-
-}
+= default;
 
 //-----------------------------------------------------------------------
 const Ogre::String& LayeredBlending::getType() const noexcept

@@ -75,8 +75,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     HardwareIndexBuffer::~HardwareIndexBuffer()
-    {
-    }
+    = default;
 
 }
 

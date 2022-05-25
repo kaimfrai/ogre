@@ -781,7 +781,6 @@ namespace Ogre
         Real camPos;      // Camera position relative to sphere center
 
         // Derive sphere radius
-        Vector3 vertPos;  // position relative to camera
         Real sphDist;      // Distance from camera to sphere along box vertex vector
         // Vector3 camToSph; // camera position to sphere
         Real sphereRadius;// Sphere radius

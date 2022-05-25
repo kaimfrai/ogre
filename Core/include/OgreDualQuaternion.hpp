@@ -102,18 +102,7 @@ class Affine3;
         }
         
         inline DualQuaternion& operator= (const DualQuaternion& rkQ)
-        {
-            w = rkQ.w;
-            x = rkQ.x;
-            y = rkQ.y;
-            z = rkQ.z;
-            dw = rkQ.dw;
-            dx = rkQ.dx;
-            dy = rkQ.dy;
-            dz = rkQ.dz;
-            
-            return *this;
-        }
+        = default;
 
         inline bool operator== (const DualQuaternion& rhs) const
         {

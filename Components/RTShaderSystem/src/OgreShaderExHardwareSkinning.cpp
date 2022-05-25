@@ -92,8 +92,7 @@ String HardwareSkinning::Type = "SGX_HardwareSkinning";
 /************************************************************************/
 HardwareSkinning::HardwareSkinning() 
     
-{
-}
+= default;
 
 //-----------------------------------------------------------------------
 const String& HardwareSkinning::getType() const noexcept
@@ -268,11 +267,9 @@ bool HardwareSkinning::addFunctionInvocations(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 HardwareSkinningFactory::HardwareSkinningFactory() 
     
-{
+= default;
 
-}
-
-HardwareSkinningFactory::~HardwareSkinningFactory() {}
+HardwareSkinningFactory::~HardwareSkinningFactory() = default;
 
 //-----------------------------------------------------------------------
 const String& HardwareSkinningFactory::getType() const noexcept

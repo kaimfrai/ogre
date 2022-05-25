@@ -55,7 +55,7 @@ class RenderTarget;
         uint32 zoffset{0};
         uint numSamples{0};
 
-        GLSurfaceDesc()  {}
+        GLSurfaceDesc()  = default;
     };
 
     /// Frame Buffer Object abstraction
@@ -63,7 +63,7 @@ class RenderTarget;
     {
     public:
         GLFrameBufferObjectCommon(int32 fsaa);
-        virtual ~GLFrameBufferObjectCommon() {}
+        virtual ~GLFrameBufferObjectCommon() = default;
 
         /** Bind FrameBufferObject. Attempt to bind on incompatible GL context will cause FBO destruction and optional recreation.
         */
@@ -203,7 +203,7 @@ class RenderTarget;
                 : format(inFormat), width(inWidth), height(inHeight), samples(fsaa)
             {
             }
-            RBFormat() {}
+            RBFormat() = default;
             uint format;
             size_t width;
             size_t height;
@@ -237,7 +237,7 @@ class RenderTarget;
         };
         struct RBRef
         {
-            RBRef() {}
+            RBRef() = default;
             RBRef(GLHardwarePixelBufferCommon* inBuffer) : buffer(inBuffer), refcount(1) {}
             GLHardwarePixelBufferCommon* buffer;
             size_t refcount;

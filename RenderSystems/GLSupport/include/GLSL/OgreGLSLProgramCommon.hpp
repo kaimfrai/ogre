@@ -61,7 +61,7 @@ class GLSLProgramCommon
 {
 public:
     explicit GLSLProgramCommon(const GLShaderList& shaders);
-    virtual ~GLSLProgramCommon() {}
+    virtual ~GLSLProgramCommon() = default;
 
     /// Get the GL Handle for the program object
     [[nodiscard]] uint getGLProgramHandle() const noexcept { return mGLProgramHandle; }

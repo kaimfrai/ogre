@@ -100,8 +100,8 @@ class Viewport;
         class Listener 
         {
         public:
-            Listener() {}
-            virtual ~Listener() {}
+            Listener() = default;
+            virtual ~Listener() = default;
 
             /// Called prior to the scene being rendered with this camera
             virtual void cameraPreRenderScene(Camera* cam)

@@ -271,7 +271,7 @@ namespace Ogre {
         SupplimentaryExpand = false;
     }
 
-    CPreprocessor::~CPreprocessor() {}
+    CPreprocessor::~CPreprocessor() = default;
 
     CPreprocessor::Token CPreprocessor::GetToken (bool iExpand)
     {

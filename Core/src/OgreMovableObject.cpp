@@ -461,9 +461,7 @@ class Any;
     public:
         bool anyReceiveShadows{false};
         MORecvShadVisitor()  
-        {
-
-        }
+        = default;
         void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
             Any* pAny = nullptr) override
         {

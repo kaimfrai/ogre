@@ -142,7 +142,7 @@ class VertexMorphKeyFrame;
         class Listener
         {
         public:
-            virtual ~Listener() {}
+            virtual ~Listener() = default;
 
             /** Get an interpolated keyframe for this track at the given time.
             @return true if the KeyFrame was populated, false if not.

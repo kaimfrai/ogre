@@ -275,8 +275,7 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     DefaultSceneManager::~DefaultSceneManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     const String& DefaultSceneManager::getTypeName() const noexcept
     {

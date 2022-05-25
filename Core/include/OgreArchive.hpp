@@ -104,7 +104,7 @@ class Archive;
 
         /** Default destructor.
         */
-        virtual ~Archive() {}
+        virtual ~Archive() = default;
 
         /// Get the name of this archive
         [[nodiscard]] const String& getName() const noexcept { return mName; }

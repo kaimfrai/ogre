@@ -63,8 +63,7 @@ class RenderSystem;
     const size_t BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element(const Vector3 &_position,
         Real _width,

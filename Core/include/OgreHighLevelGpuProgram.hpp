@@ -116,7 +116,7 @@ struct GpuNamedConstants;
         /** Constructor, should be used only by factory classes. */
         HighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
-        ~HighLevelGpuProgram() override;
+        ~HighLevelGpuProgram() override = default;
 
 
         /** Creates a new parameters object compatible with this program definition. 

@@ -46,8 +46,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     DynLibManager::DynLibManager()
-    {
-    }
+    = default;
     //-----------------------------------------------------------------------
     DynLib* DynLibManager::load( const String& filename)
     {

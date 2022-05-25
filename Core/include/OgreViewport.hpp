@@ -68,7 +68,7 @@ class RenderTarget;
         class Listener
         {
         public:
-            virtual ~Listener() {}
+            virtual ~Listener() = default;
 
             /** Notification of when a new camera is set to target listening Viewport. */
             virtual void viewportCameraChanged(Viewport* viewport);
