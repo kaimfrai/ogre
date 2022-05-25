@@ -45,8 +45,8 @@ namespace Ogre {
     const uint16 OTHER_ENDIAN_HEADER_STREAM_ID = 0x0010;
     //---------------------------------------------------------------------
     Serializer::Serializer() :
-        mVersion("[Serializer_v1.00]"), // Version number
-        mFlipEndian(false)
+        mVersion("[Serializer_v1.00]")
+        
     {
     }
 

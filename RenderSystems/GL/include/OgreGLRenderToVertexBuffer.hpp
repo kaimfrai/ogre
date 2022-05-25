@@ -73,7 +73,7 @@ class SceneManager;
         GLint getGLSemanticType(VertexElementSemantic semantic);
         String getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index);
         HardwareVertexBufferSharedPtr mVertexBuffers[2];
-        size_t mFrontBufferIndex;
+        size_t mFrontBufferIndex{ static_cast<size_t>(-1) };
         GLuint mPrimitivesDrawnQuery;
     };
 }

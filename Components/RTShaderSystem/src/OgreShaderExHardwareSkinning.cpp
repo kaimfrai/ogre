@@ -90,9 +90,8 @@ String HardwareSkinning::Type = "SGX_HardwareSkinning";
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-HardwareSkinning::HardwareSkinning() :
-    mCreator(nullptr),
-    mSkinningType(ST_LINEAR)
+HardwareSkinning::HardwareSkinning() 
+    
 {
 }
 
@@ -267,8 +266,8 @@ bool HardwareSkinning::addFunctionInvocations(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-HardwareSkinningFactory::HardwareSkinningFactory() :
-    mMaxCalculableBoneCount(70)
+HardwareSkinningFactory::HardwareSkinningFactory() 
+    
 {
 
 }

@@ -42,7 +42,7 @@ namespace Ogre {
     class GLContext
     {
     public:
-        GLContext() : initialized(false) {}
+        GLContext()  {}
         virtual ~GLContext() {}
 
         /**
@@ -89,7 +89,7 @@ namespace Ogre {
         std::vector<uint32>& _getFboDeferredForDestruction() noexcept { return mFboDeferredForDestruction; }
         
     protected:
-        bool initialized;
+        bool initialized{false};
         SharedPtr<GLStateCacheManagerCommon> mStateCacheManager;
         std::vector<uint32> mVaoDeferredForDestruction;
         std::vector<uint32> mFboDeferredForDestruction;

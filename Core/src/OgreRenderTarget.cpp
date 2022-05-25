@@ -50,14 +50,7 @@ namespace Ogre {
 class Camera;
 
     RenderTarget::RenderTarget()
-        : mPriority(OGRE_DEFAULT_RT_GROUP)
-        , mDepthBufferPoolId(DepthBuffer::POOL_DEFAULT)
-        , mDepthBuffer(nullptr)
-        , mActive(true)
-        , mAutoUpdate(true)
-        , mHwGamma(false)
-        , mFSAA(0)
-		, mStereoEnabled(false)
+         
     {
         mTimer = Root::getSingleton().getTimer();
         resetStatistics();

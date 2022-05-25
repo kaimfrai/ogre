@@ -12,22 +12,10 @@
 namespace OgreBites {
 
 CameraMan::CameraMan(Ogre::SceneNode *cam)
-    : mYawSpace(Ogre::Node::TS_PARENT)
-    , mCamera(nullptr)
-    , mStyle(CS_MANUAL)
-    , mTarget(nullptr)
-    , mOrbiting(false)
-    , mMoving(false)
-    , mTopSpeed(150)
-    , mVelocity(Ogre::Vector3::ZERO)
-    , mGoingForward(false)
-    , mGoingBack(false)
-    , mGoingLeft(false)
-    , mGoingRight(false)
-    , mGoingUp(false)
-    , mGoingDown(false)
-    , mFastMove(false)
-    , mOffset(0, 0, 0)
+    : 
+     mVelocity(Ogre::Vector3::ZERO)
+    , 
+     mOffset(0, 0, 0)
 {
 
     setCamera(cam);

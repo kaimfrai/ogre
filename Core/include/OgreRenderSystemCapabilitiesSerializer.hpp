@@ -114,11 +114,11 @@ namespace Ogre {
         // the set of states that the parser can be in
         enum ParseAction {PARSE_HEADER, FIND_OPEN_BRACE, COLLECT_LINES};
 
-        int mCurrentLineNumber;
-        String* mCurrentLine;
+        int mCurrentLineNumber{0};
+        String* mCurrentLine{nullptr};
         DataStreamPtr mCurrentStream;
 
-        RenderSystemCapabilities* mCurrentCapabilities;
+        RenderSystemCapabilities* mCurrentCapabilities{nullptr};
 
         inline void addKeywordType(String keyword, CapabilityKeywordType type)
         {

@@ -186,8 +186,8 @@ namespace Ogre {
         XVisualInfo* getVisualFromFBConfig(GLXFBConfig fbConfig);
 
     private:
-        Display* mGLDisplay; // used for GL/GLX commands
-        Display* mXDisplay;  // used for other X commands and events
+        Display* mGLDisplay{nullptr}; // used for GL/GLX commands
+        Display* mXDisplay{nullptr};  // used for other X commands and events
         bool mIsExternalDisplay;
 
         VideoMode  mOriginalMode;

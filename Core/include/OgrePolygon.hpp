@@ -65,7 +65,7 @@ namespace Ogre
     private:
         VertexList      mVertexList;
         mutable Vector3 mNormal;
-        mutable bool    mIsNormalSet;
+        mutable bool    mIsNormalSet{false};
         /** Updates the normal.
         */
         void updateNormal() const;

@@ -53,19 +53,8 @@ class Sphere;
     String Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------
     Camera::Camera( const String& name, SceneManager* sm)
-        : Frustum(name),
-        mWindowSet(false),
-        mAutoAspectRatio(false),
-        mUseRenderingDistance(true),
-        mUseMinPixelSize(false),
-        mSceneLodFactor(1.0f),
-        mSceneLodFactorInv(1.0f),
-        mLastViewport(nullptr),
-        mCullFrustum(nullptr),
-        mLodCamera(nullptr),
-        mPixelDisplayRatio(0),
-        mSortMode(SM_DISTANCE),
-        mSceneDetail(PM_SOLID)
+        : Frustum(name)
+        
     {
 
         // Reasonable defaults to camera params

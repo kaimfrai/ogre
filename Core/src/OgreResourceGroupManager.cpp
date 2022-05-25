@@ -80,7 +80,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     ResourceGroupManager::ResourceGroupManager()
-        : mLoadingListener(nullptr), mCurrentGroup(nullptr)
+         
     {
         // Create the 'General' group
         createResourceGroup(DEFAULT_RESOURCE_GROUP_NAME, true); // the "General" group is synonymous to global pool

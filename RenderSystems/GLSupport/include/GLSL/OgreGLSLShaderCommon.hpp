@@ -130,22 +130,22 @@ class ResourceManager;
         using GLSLProgramContainerIterator = GLSLProgramContainer::iterator;
         GLSLProgramContainer mAttachedGLSLPrograms;
         /// Matrix in column major pack format?
-        bool mColumnMajorMatrices;
+        bool mColumnMajorMatrices{true};
 
         /** Flag indicating that the shader has been successfully
             linked.
             Only used for separable programs. */
-        int mLinked;
+        int mLinked{0};
 
         /// OGRE assigned shader ID.
         uint mShaderID;
 
         /// GL handle for shader object.
-        uint mGLShaderHandle;
+        uint mGLShaderHandle{0};
         /// GL handle for program object the shader is bound to.
-        uint mGLProgramHandle;
+        uint mGLProgramHandle{0};
 
-        int mShaderVersion;
+        int mShaderVersion{100};
 
         /// Pointer to the uniform cache for this shader
         GLUniformCache    mUniformCache;

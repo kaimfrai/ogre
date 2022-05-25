@@ -220,13 +220,13 @@ namespace Ogre
         void setDeactivateOnFocusChange(bool deactivate);
 
     protected:
-        bool mIsFullScreen;
-        bool mIsPrimary;
+        bool mIsFullScreen{false};
+        bool mIsPrimary{false};
         bool mAutoDeactivatedOnFocusChange;
-        bool mClosed;
-        int mLeft;
-        int mTop;
-        unsigned int mVSyncInterval;
+        bool mClosed{false};
+        int mLeft{0};
+        int mTop{0};
+        unsigned int mVSyncInterval{1};
         
         /** Indicates that this is the primary window. Only to be called by
             Ogre::Root

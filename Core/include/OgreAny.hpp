@@ -59,7 +59,7 @@ namespace Ogre
     public: // constructors
 
         Any()
-          : mContent(nullptr)
+           
         {
         }
 
@@ -171,7 +171,7 @@ namespace Ogre
         };
 
     protected: // representation
-        placeholder * mContent;
+        placeholder * mContent{nullptr};
 
         template<typename ValueType>
         friend ValueType * any_cast(Any *);

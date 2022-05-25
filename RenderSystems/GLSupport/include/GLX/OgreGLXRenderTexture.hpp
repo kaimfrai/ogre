@@ -48,7 +48,7 @@ class GLXGLSupport;
         [[nodiscard]] GLContext *getContext() const noexcept override;
 
     protected:
-        GLXContext*   mContext;
+        GLXContext*   mContext{nullptr};
         GLXGLSupport* mGLSupport;
     };
 }

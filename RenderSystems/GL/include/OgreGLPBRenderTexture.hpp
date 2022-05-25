@@ -103,13 +103,13 @@ class RenderTexture;
         /** Primary window reference */
         RenderTarget *mMainWindow;
         /** Primary window context */
-        GLContext *mMainContext;
+        GLContext *mMainContext{nullptr};
         /** Reference to a PBuffer, with refcount */
         struct PBRef
         {
-            PBRef(): pb(nullptr),refcount(0) {}
-            GLPBuffer* pb;
-            size_t refcount;
+            PBRef() {}
+            GLPBuffer* pb{nullptr};
+            size_t refcount{0};
         };
         /** Type to map each component type to a PBuffer */
         PBRef mPBuffers[PCT_COUNT];

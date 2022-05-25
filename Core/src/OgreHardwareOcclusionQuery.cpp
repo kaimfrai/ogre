@@ -31,9 +31,8 @@ THE SOFTWARE.
 namespace Ogre {
 
 
-    HardwareOcclusionQuery::HardwareOcclusionQuery() : 
-        mPixelCount(0),
-        mIsQueryResultStillOutstanding(false)
+    HardwareOcclusionQuery::HardwareOcclusionQuery() 
+        
     {
     }
     HardwareOcclusionQuery::~HardwareOcclusionQuery()

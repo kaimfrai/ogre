@@ -50,8 +50,8 @@ namespace Ogre
 {
     //-----------------------------------------------------------------------
     Log::Log( const String& name, bool debuggerOutput, bool suppressFile ) : 
-        mLogLevel(LML_NORMAL), mDebugOut(debuggerOutput),
-        mSuppressFile(suppressFile), mTimeStamp(true), mLogName(name), mTermHasColours(false)
+         mDebugOut(debuggerOutput),
+        mSuppressFile(suppressFile),  mLogName(name) 
     {
         if (!mSuppressFile)
         {

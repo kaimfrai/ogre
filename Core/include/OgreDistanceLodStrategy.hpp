@@ -107,8 +107,8 @@ class MovableObject;
         [[nodiscard]] bool isReferenceViewEnabled() const noexcept;
 
     private:
-        bool mReferenceViewEnabled;
-        Real mReferenceViewValue;
+        bool mReferenceViewEnabled{false};
+        Real mReferenceViewValue{-1};
 
     };
     /** @} */

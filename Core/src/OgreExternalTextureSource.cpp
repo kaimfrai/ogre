@@ -81,7 +81,7 @@ namespace Ogre
     static CmdTecPassState msCmdTecPassState;   /// Command for setting the technique, pass, & state level
     //---------------------------------------------------------------------------------------//
 
-    ExternalTextureSource::ExternalTextureSource() : mTechniqueLevel(0), mPassLevel(0), mStateLevel(0)
+    ExternalTextureSource::ExternalTextureSource()  
     {
         mInputFileName = "None";
         mDictionaryName = "NotAssigned";

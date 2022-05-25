@@ -93,14 +93,14 @@ class Archive;
         /// Archive type code
         String mType;
         /// Read-only flag
-        bool mReadOnly;
+        bool mReadOnly{true};
     public:
 
 
         /** Constructor - don't call direct, used by ArchiveFactory.
         */
         Archive( const String& name, const String& archType )
-            : mName(name), mType(archType), mReadOnly(true) {}
+            : mName(name), mType(archType) {}
 
         /** Default destructor.
         */

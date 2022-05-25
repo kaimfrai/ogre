@@ -459,8 +459,8 @@ class Any;
     class MORecvShadVisitor : public Renderable::Visitor
     {
     public:
-        bool anyReceiveShadows;
-        MORecvShadVisitor() : anyReceiveShadows(false)
+        bool anyReceiveShadows{false};
+        MORecvShadVisitor()  
         {
 
         }

@@ -106,15 +106,15 @@ class Sphere;
         struct Chunk : public StreamAlloc
         {
             /// Identifier of the chunk (for example from makeIdentifier)  (stored)
-            uint32 id;
+            uint32 id{0};
             /// Version of the chunk (stored)
-            uint16 version;
+            uint16 version{1};
             /// Length of the chunk data in bytes, excluding the header of this chunk (stored)
-            uint32 length;
+            uint32 length{0};
             /// Location of the chunk (header) in bytes from the start of a stream (derived)
-            uint32 offset;
+            uint32 offset{0};
 
-            Chunk() : id(0), version(1), length(0), offset(0) {}
+            Chunk()  {}
         };
 
         /** Constructor.
@@ -340,7 +340,7 @@ class Sphere;
         DataStreamPtr mStream;
         DataStreamPtr mOriginalStream;
         Endian mEndian;
-        bool mFlipEndian;
+        bool mFlipEndian{false};
         bool mReadWriteHeader;
         RealStorageFormat mRealFormat;
         using ChunkStack = std::deque<Chunk *>;

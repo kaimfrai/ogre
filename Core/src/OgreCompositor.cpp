@@ -53,8 +53,8 @@ class ResourceManager;
 //-----------------------------------------------------------------------
 Compositor::Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,
             const String& group, bool isManual, ManualResourceLoader* loader):
-    Resource(creator, name, handle, group, isManual, loader),
-    mCompilationRequired(true)
+    Resource(creator, name, handle, group, isManual, loader)
+    
 {
 }
 //-----------------------------------------------------------------------

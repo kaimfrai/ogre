@@ -118,18 +118,18 @@ class Viewport;
         };
     private:
         /// Is viewing window used.
-        bool mWindowSet;
+        bool mWindowSet{false};
         /// Was viewing window changed.
         mutable bool mRecalcWindow;
 
         /** Whether aspect ratio will automatically be recalculated
             when a viewport changes its size
         */
-        bool mAutoAspectRatio;
+        bool mAutoAspectRatio{false};
         /// Whether or not the rendering distance of objects should take effect for this camera
-        bool mUseRenderingDistance;
+        bool mUseRenderingDistance{true};
         /// Whether or not the minimum display size of objects should take effect for this camera
-        bool mUseMinPixelSize;
+        bool mUseMinPixelSize{false};
 
         /// Derived orientation/position of the camera, including reflection
         mutable Quaternion mDerivedOrientation;
@@ -145,9 +145,9 @@ class Viewport;
         static String msMovableType;
 
         /// Scene LOD factor used to adjust overall LOD
-        Real mSceneLodFactor;
+        Real mSceneLodFactor{1.0f};
         /// Inverted scene LOD factor, can be used by Renderables to adjust their LOD
-        Real mSceneLodFactorInv;
+        Real mSceneLodFactorInv{1.0f};
 
 
         /** Viewing window. 
@@ -158,20 +158,20 @@ class Viewport;
         /// Windowed viewport clip planes 
         mutable std::vector<Plane> mWindowClipPlanes;
         /// The last viewport to be added using this camera
-        Viewport* mLastViewport;
+        Viewport* mLastViewport{nullptr};
         /// Custom culling frustum
-        Frustum *mCullFrustum;
+        Frustum *mCullFrustum{nullptr};
         /// Camera to use for LOD calculation
-        const Camera* mLodCamera;
+        const Camera* mLodCamera{nullptr};
 
         using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
         /// @see Camera::getPixelDisplayRatio
-        Real mPixelDisplayRatio;
+        Real mPixelDisplayRatio{0};
 
-        SortMode mSortMode;
+        SortMode mSortMode{SM_DISTANCE};
         /// Rendering type
-        PolygonMode mSceneDetail;
+        PolygonMode mSceneDetail{PM_SOLID};
 
         // Internal functions for calcs
         bool isViewOutOfDate() const noexcept override;

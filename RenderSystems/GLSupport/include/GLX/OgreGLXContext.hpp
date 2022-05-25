@@ -52,12 +52,12 @@ class GLXGLSupport;
         [[nodiscard]] GLContext* clone() const override;
         
         ::GLXDrawable  mDrawable;
-        ::GLXContext   mContext;
+        ::GLXContext   mContext{nullptr};
         
     private:
         ::GLXFBConfig  mFBConfig;
         GLXGLSupport*  mGLSupport;
-        bool mExternalContext;
+        bool mExternalContext{false};
     };
 }
 

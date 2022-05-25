@@ -452,26 +452,26 @@ namespace Ogre {
 
     private:
         /// The width of the image in pixels
-        uint32 mWidth;
+        uint32 mWidth{0};
         /// The height of the image in pixels
-        uint32 mHeight;
+        uint32 mHeight{0};
         /// The depth of the image
-        uint32 mDepth;
+        uint32 mDepth{0};
         /// The number of mipmaps the image contains
-        uint32 mNumMipmaps;
+        uint32 mNumMipmaps{0};
         /// The size of the image buffer
-        size_t mBufSize;
+        size_t mBufSize{0};
         /// Image specific flags.
-        int mFlags;
+        int mFlags{0};
 
         /// The pixel format of the image
         PixelFormat mFormat;
 
-        uchar* mBuffer;
+        uchar* mBuffer{ nullptr };
         /// The number of bytes per pixel
         uchar mPixelSize;
         /// A bool to determine if we delete the buffer or the calling app does
-        bool mAutoDelete;
+        bool mAutoDelete{ true };
     };
 
     using ImagePtrList = std::vector<Image *>;

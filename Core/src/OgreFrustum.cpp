@@ -58,27 +58,12 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     Frustum::Frustum(const String& name) : 
         mFOVy(Radian(Math::PI/4.0f)), 
-        mFarDist(100000.0f), 
-        mNearDist(100.0f), 
-        mAspect(1.33333333333333f), 
-        mOrthoHeight(1000),
+        
         mFrustumOffset(Vector2::ZERO),
-        mFocalLength(1.0f),
+        
         mLastParentOrientation(Quaternion::IDENTITY),
-        mLastParentPosition(Vector3::ZERO),
-        mRecalcFrustum(true), 
-        mRecalcView(true), 
-        mRecalcFrustumPlanes(true),
-        mRecalcWorldSpaceCorners(true),
-        mCustomViewMatrix(false),
-        mCustomProjMatrix(false),
-        mFrustumExtentsManuallySet(false),
-        mProjType(PT_PERSPECTIVE),
-        mLinkedReflectPlane(nullptr),
-        mLinkedObliqueProjPlane(nullptr),
-        mReflect(false),
-        mObliqueDepthProjection(false),
-        mOrientationMode(OR_DEGREE_0)
+        mLastParentPosition(Vector3::ZERO)
+        
     {
         // Alter superclass members
         mVisible = false;

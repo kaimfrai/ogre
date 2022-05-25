@@ -22,8 +22,8 @@ class DefaultDebugDrawer : public DebugDrawer
 {
     ManualObject mLines;
     ManualObject mAxes;
-    int mDrawType;
-    bool mStatic;
+    int mDrawType{0};
+    bool mStatic{false};
     void preFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs, Viewport* v) override;
     void postFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs, Viewport* v) override;
     void beginLines();

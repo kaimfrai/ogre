@@ -111,56 +111,56 @@ class RenderQueue;
         static const String& DEFAULT_RESOURCE_GROUP;
     protected:
         String mName;
-        bool mVisible;
-        bool mCloneable;
-        Real mLeft;
-        Real mTop;
-        Real mWidth;
-        Real mHeight;
+        bool mVisible{true};
+        bool mCloneable{true};
+        Real mLeft{0.0f};
+        Real mTop{0.0f};
+        Real mWidth{1.0f};
+        Real mHeight{1.0f};
         MaterialPtr mMaterial;
         DisplayString mCaption;
         ColourValue mColour;
         RealRect mClippingRegion;
 
-        GuiMetricsMode mMetricsMode;
-        GuiHorizontalAlignment mHorzAlign;
-        GuiVerticalAlignment mVertAlign;
+        GuiMetricsMode mMetricsMode{GMM_RELATIVE};
+        GuiHorizontalAlignment mHorzAlign{GHA_LEFT};
+        GuiVerticalAlignment mVertAlign{GVA_TOP};
 
         // metric-mode positions, used in GMM_PIXELS & GMM_RELATIVE_ASPECT_ADJUSTED mode.
-        Real mPixelTop;
-        Real mPixelLeft;
-        Real mPixelWidth;
-        Real mPixelHeight;
-        Real mPixelScaleX;
-        Real mPixelScaleY;
+        Real mPixelTop{0.0};
+        Real mPixelLeft{0.0};
+        Real mPixelWidth{1.0};
+        Real mPixelHeight{1.0};
+        Real mPixelScaleX{1.0};
+        Real mPixelScaleY{1.0};
 
         /// Parent pointer
-        OverlayContainer* mParent;
+        OverlayContainer* mParent{nullptr};
         /// Overlay attached to
-        Overlay* mOverlay;
+        Overlay* mOverlay{nullptr};
 
         // Derived positions from parent
-        Real mDerivedLeft;
-        Real mDerivedTop;
-        bool mDerivedOutOfDate;
+        Real mDerivedLeft{0};
+        Real mDerivedTop{0};
+        bool mDerivedOutOfDate{true};
 
         /// Flag indicating if the vertex positions need recalculating
-        bool mGeomPositionsOutOfDate;
+        bool mGeomPositionsOutOfDate{true};
         /// Flag indicating if the vertex uvs need recalculating
-        bool mGeomUVsOutOfDate;
+        bool mGeomUVsOutOfDate{true};
 
         /** Zorder for when sending to render queue.
             Derived from parent */
-        ushort mZOrder;
+        ushort mZOrder{0};
 
         /// World transforms
         Matrix4 mXForm;
 
         /// Is element enabled?
-        bool mEnabled;
+        bool mEnabled{true};
 
         /// Is element initialised?
-        bool mInitialised;
+        bool mInitialised{false};
 
         /** Internal method which is triggered when the positions of the element get updated,
         meaning the element should be rebuilding it's mesh positions. Abstract since

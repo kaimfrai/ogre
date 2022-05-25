@@ -38,8 +38,8 @@ GLHardwarePixelBufferCommon::GLHardwarePixelBufferCommon(uint32 inWidth, uint32 
                                                        uint32 inDepth, PixelFormat inFormat,
                                                        HardwareBuffer::Usage usage)
     : HardwarePixelBuffer(inWidth, inHeight, inDepth, inFormat, usage, false, false),
-      mBuffer(inWidth, inHeight, inDepth, inFormat),
-      mGLInternalFormat(0)
+      mBuffer(inWidth, inHeight, inDepth, inFormat)
+      
 {
 }
 

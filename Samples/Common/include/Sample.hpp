@@ -71,7 +71,7 @@ namespace OgreBites
             }
         };
 
-        Sample() : mShaderGenerator(nullptr)
+        Sample()  
         {
             mRoot = Ogre::Root::getSingletonPtr();
             mWindow = nullptr;
@@ -331,7 +331,7 @@ namespace OgreBites
         bool mResourcesLoaded;    // whether or not resources have been loaded
         bool mContentSetup;       // whether or not scene was created
 
-        Ogre::RTShader::ShaderGenerator*            mShaderGenerator;           // The Shader generator instance.
+        Ogre::RTShader::ShaderGenerator*            mShaderGenerator{nullptr};           // The Shader generator instance.
     public:
         void setShaderGenerator(Ogre::RTShader::ShaderGenerator* shaderGenerator) 
         { 

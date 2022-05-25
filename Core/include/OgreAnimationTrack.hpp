@@ -263,7 +263,7 @@ class VertexMorphKeyFrame;
         using KeyFrameList = std::vector<KeyFrame *>;
         KeyFrameList mKeyFrames;
         Animation* mParent;
-        Listener* mListener;
+        Listener* mListener{nullptr};
         unsigned short mHandle;
 
         /// Internal method for clone implementation

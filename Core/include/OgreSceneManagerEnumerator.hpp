@@ -108,9 +108,9 @@ class RenderSystem;
         /// Factory for default scene manager
         DefaultSceneManagerFactory mDefaultFactory;
         /// Count of creations for auto-naming
-        unsigned long mInstanceCreateCount;
+        unsigned long mInstanceCreateCount{0};
         /// Currently assigned render system
-        RenderSystem* mCurrentRenderSystem;
+        RenderSystem* mCurrentRenderSystem{nullptr};
 
 
     public:

@@ -51,35 +51,9 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------------
     AutoParamDataSource::AutoParamDataSource()
-        : mWorldMatrixCount(0),
-         mWorldMatrixArray(nullptr),
-         mWorldMatrixDirty(true),
-         mViewMatrixDirty(true),
-         mProjMatrixDirty(true),
-         mWorldViewMatrixDirty(true),
-         mViewProjMatrixDirty(true),
-         mWorldViewProjMatrixDirty(true),
-         mInverseWorldMatrixDirty(true),
-         mInverseWorldViewMatrixDirty(true),
-         mInverseViewMatrixDirty(true),
-         mInverseTransposeWorldMatrixDirty(true),
-         mInverseTransposeWorldViewMatrixDirty(true),
-         mCameraPositionDirty(true),
-         mCameraPositionObjectSpaceDirty(true),
+        : 
          mAmbientLight(ColourValue::Black),
-         mPassNumber(0),
-         mSceneDepthRangeDirty(true),
-         mLodCameraPositionDirty(true),
-         mLodCameraPositionObjectSpaceDirty(true),
-         mCurrentRenderable(nullptr),
-         mCurrentCamera(nullptr), 
-         mCameraRelativeRendering(false),
-         mCurrentLightList(nullptr),
-         mCurrentRenderTarget(nullptr),
-         mCurrentViewport(nullptr), 
-         mCurrentSceneManager(nullptr),
-         mMainCamBoundsInfo(nullptr),
-         mCurrentPass(nullptr),
+         
          mDummyNode(nullptr)
     {
         mBlankLight.setDiffuseColour(ColourValue::Black);

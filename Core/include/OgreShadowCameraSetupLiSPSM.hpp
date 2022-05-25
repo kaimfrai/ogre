@@ -112,7 +112,7 @@ class Viewport;
         /// Use simple nopt derivation?
         bool mUseSimpleNOpt;
         /// Extra calculated warp factor
-        mutable Real mOptAdjustFactorTweak;
+        mutable Real mOptAdjustFactorTweak{1.0};
         /// Threshold (cos angle) within which to start increasing the opt adjust as camera direction approaches light direction
         Real mCosCamLightDirThreshold;
 

@@ -58,8 +58,8 @@ CompositorManager& CompositorManager::getSingleton() noexcept
 {  
     assert( msSingleton );  return ( *msSingleton );  
 }//-----------------------------------------------------------------------
-CompositorManager::CompositorManager():
-    mRectangle(nullptr)
+CompositorManager::CompositorManager()
+    
 {
     initialise();
 

@@ -421,9 +421,9 @@ class Image;
 
         virtual SamplerPtr _createSamplerImpl() { return std::make_shared<Sampler>(); }
 
-        ushort mPreferredIntegerBitDepth;
-        ushort mPreferredFloatBitDepth;
-        uint32 mDefaultNumMipmaps;
+        ushort mPreferredIntegerBitDepth{0};
+        ushort mPreferredFloatBitDepth{0};
+        uint32 mDefaultNumMipmaps{MIP_UNLIMITED};
         TexturePtr mWarningTexture;
         SamplerPtr mDefaultSampler;
         std::map<String, SamplerPtr> mNamedSamplers;

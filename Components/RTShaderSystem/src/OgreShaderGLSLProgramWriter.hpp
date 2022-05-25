@@ -108,8 +108,8 @@ protected:
     // Holds the current glsl version
     int mGLSLVersion;
     // set by derived class
-    bool mIsGLSLES;
-    bool mIsVulkan;
+    bool mIsGLSLES{false};
+    bool mIsVulkan{false};
 };
 /** @} */
 /** @} */

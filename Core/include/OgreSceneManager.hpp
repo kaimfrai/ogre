@@ -106,13 +106,13 @@ namespace Ogre {
     /** Structure containing the configuration for one shadow texture. */
     struct ShadowTextureConfig
     {
-        unsigned int width;
-        unsigned int height;
-        PixelFormat format;
-        unsigned int fsaa;
-        uint16      depthBufferPoolId;
+        unsigned int width{512};
+        unsigned int height{512};
+        PixelFormat format{PF_BYTE_RGBA};
+        unsigned int fsaa{0};
+        uint16      depthBufferPoolId{1};
 
-        ShadowTextureConfig() : width(512), height(512), format(PF_BYTE_RGBA), fsaa(0), depthBufferPoolId(1) {}
+        ShadowTextureConfig()  {}
     };
 
     using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
@@ -421,7 +421,7 @@ namespace Ogre {
             const Pass* mUsedPass;
         public:
             SceneMgrQueuedRenderableVisitor() 
-                :transparentShadowCastersMode(false) {}
+                 {}
             ~SceneMgrQueuedRenderableVisitor() override {}
             void visit(const Pass* p, RenderableList& rs) override;
             void visit(RenderablePass* rp) override;
@@ -429,7 +429,7 @@ namespace Ogre {
             /// Target SM to send renderables to
             SceneManager* targetSceneMgr;
             /// Are we in transparent shadow caster mode?
-            bool transparentShadowCastersMode;
+            bool transparentShadowCastersMode{false};
             /// Automatic light handling?
             bool autoLights;
             /// Manual light list
@@ -495,9 +495,9 @@ namespace Ogre {
         std::map<String, SceneNode*> mNamedNodes;
 
         /// Camera in progress
-        Camera* mCameraInProgress;
+        Camera* mCameraInProgress{nullptr};
         /// Current Viewport
-        Viewport* mCurrentViewport;
+        Viewport* mCurrentViewport{nullptr};
 
         /// Root scene node
         std::unique_ptr<SceneNode> mSceneRoot;
@@ -526,8 +526,8 @@ namespace Ogre {
 
             SkyRenderer(SceneManager* owner);
 
-            SceneNode* mSceneNode;
-            bool mEnabled;
+            SceneNode* mSceneNode{nullptr};
+            bool mEnabled{false};
 
             void setEnabled(bool enable);
             void postFindVisibleObjects(SceneManager* source, IlluminationRenderStage irs, Viewport* vp) override;
@@ -535,11 +535,11 @@ namespace Ogre {
 
         class SkyPlaneRenderer : public SkyRenderer
         {
-            Entity* mSkyPlaneEntity;
+            Entity* mSkyPlaneEntity{nullptr};
             Plane mSkyPlane;
             void _updateRenderQueue(RenderQueue* queue) override;
         public:
-            SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner), mSkyPlaneEntity(nullptr) {}
+            SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyPlaneGenParameters mSkyPlaneGenParameters;
             void setSkyPlane(bool enable, const Plane& plane, const String& materialName,
                              Real scale, Real tiling, uint8 renderQueue, Real bow, int xsegments,
@@ -582,23 +582,23 @@ namespace Ogre {
         } mSkyDome;
 
         // Fog
-        FogMode mFogMode;
+        FogMode mFogMode{FOG_NONE};
         ColourValue mFogColour;
-        Real mFogStart;
-        Real mFogEnd;
-        Real mFogDensity;
+        Real mFogStart{0};
+        Real mFogEnd{0};
+        Real mFogDensity{0};
 
         using SpecialCaseRenderQueueList = std::set<uint8>;
         SpecialCaseRenderQueueList mSpecialCaseQueueList;
-        SpecialCaseRenderQueueMode mSpecialCaseQueueMode;
-        uint8 mWorldGeometryRenderQueue;
+        SpecialCaseRenderQueueMode mSpecialCaseQueueMode{SCRQM_EXCLUDE};
+        uint8 mWorldGeometryRenderQueue{RENDER_QUEUE_WORLD_GEOMETRY_1};
         
-        unsigned long mLastFrameNumber;
-        bool mResetIdentityView;
-        bool mResetIdentityProj;
+        unsigned long mLastFrameNumber{0};
+        bool mResetIdentityView{false};
+        bool mResetIdentityProj{false};
 
-        bool mNormaliseNormalsOnScale;
-        bool mFlipCullingOnNegativeScale;
+        bool mNormaliseNormalsOnScale{true};
+        bool mFlipCullingOnNegativeScale{true};
         CullingMode mPassCullingMode;
 
     protected:
@@ -639,7 +639,7 @@ namespace Ogre {
         LightList mLightsAffectingFrustum;
         LightInfoList mCachedLightInfos;
         LightInfoList mTestLightInfos; // potentially new list
-        ulong mLightsDirtyCounter;
+        ulong mLightsDirtyCounter{0};
 
         /// Simple structure to hold MovableObject map and a mutex to go with it.
         struct MovableObjectCollection
@@ -677,26 +677,26 @@ namespace Ogre {
             SceneManager* mSceneManager;
             RenderSystem* mDestRenderSystem;
 
-            ShadowTechnique mShadowTechnique;
+            ShadowTechnique mShadowTechnique{SHADOWTYPE_NONE};
             ColourValue mShadowColour;
 
             /// A pass designed to let us render shadow colour on white for texture shadows
-            Pass* mShadowCasterPlainBlackPass;
+            Pass* mShadowCasterPlainBlackPass{nullptr};
             /// A pass designed to let us render shadow receivers for texture shadows
-            Pass* mShadowReceiverPass;
+            Pass* mShadowReceiverPass{nullptr};
 
-            Pass* mShadowModulativePass;
+            Pass* mShadowModulativePass{nullptr};
 
-            Pass* mShadowDebugPass;
-            Pass* mShadowStencilPass;
+            Pass* mShadowDebugPass{nullptr};
+            Pass* mShadowStencilPass{nullptr};
             HardwareIndexBufferSharedPtr mShadowIndexBuffer;
-            size_t mShadowIndexBufferSize;
-            size_t mShadowIndexBufferUsedSize;
+            size_t mShadowIndexBufferSize{51200};
+            size_t mShadowIndexBufferUsedSize{0};
             static GpuProgramParametersSharedPtr msInfiniteExtrusionParams;
             static GpuProgramParametersSharedPtr msFiniteExtrusionParams;
 
-            Pass* mShadowTextureCustomCasterPass;
-            Pass* mShadowTextureCustomReceiverPass;
+            Pass* mShadowTextureCustomCasterPass{nullptr};
+            Pass* mShadowTextureCustomReceiverPass{nullptr};
 
             SamplerPtr mBorderSampler;
 
@@ -709,24 +709,24 @@ namespace Ogre {
             // Array defining shadow texture index in light list.
             std::vector<size_t> mShadowTextureIndexLightList;
 
-            Rectangle2D* mFullScreenQuad;
+            Rectangle2D* mFullScreenQuad{nullptr};
 
             ShadowTextureList mShadowTextures;
 
-            bool mShadowAdditiveLightClip;
-            bool mDebugShadows;
-            bool mShadowMaterialInitDone;
-            bool mShadowUseInfiniteFarPlane;
-            Real mShadowDirLightExtrudeDist;
+            bool mShadowAdditiveLightClip{false};
+            bool mDebugShadows{false};
+            bool mShadowMaterialInitDone{false};
+            bool mShadowUseInfiniteFarPlane{true};
+            Real mShadowDirLightExtrudeDist{10000};
 
-            Real mDefaultShadowFarDist;
-            Real mDefaultShadowFarDistSquared;
-            Real mShadowTextureOffset; /// Proportion of texture offset in view direction e.g. 0.4
-            Real mShadowTextureFadeStart; /// As a proportion e.g. 0.6
-            Real mShadowTextureFadeEnd; /// As a proportion e.g. 0.9
-            bool mShadowTextureSelfShadow;
-            bool mShadowTextureConfigDirty;
-            bool mShadowCasterRenderBackFaces;
+            Real mDefaultShadowFarDist{0};
+            Real mDefaultShadowFarDistSquared{0};
+            Real mShadowTextureOffset{0.6}; /// Proportion of texture offset in view direction e.g. 0.4
+            Real mShadowTextureFadeStart{0.7}; /// As a proportion e.g. 0.6
+            Real mShadowTextureFadeEnd{0.9}; /// As a proportion e.g. 0.9
+            bool mShadowTextureSelfShadow{false};
+            bool mShadowTextureConfigDirty{true};
+            bool mShadowCasterRenderBackFaces{true};
 
             ShadowTextureConfigList mShadowTextureConfigList;
 
@@ -845,16 +845,14 @@ namespace Ogre {
             {
             protected:
                 SceneManager* mSceneMgr;
-                ShadowCasterList* mCasterList;
-                bool mIsLightInFrustum;
-                const PlaneBoundedVolumeList* mLightClipVolumeList;
-                const Camera* mCamera;
+                ShadowCasterList* mCasterList{nullptr};
+                bool mIsLightInFrustum{false};
+                const PlaneBoundedVolumeList* mLightClipVolumeList{nullptr};
+                const Camera* mCamera{nullptr};
                 const Light* mLight;
-                Real mFarDistSquared;
+                Real mFarDistSquared{0};
             public:
-                ShadowCasterSceneQueryListener(SceneManager* sm) : mSceneMgr(sm),
-                    mCasterList(nullptr), mIsLightInFrustum(false), mLightClipVolumeList(nullptr),
-                    mCamera(nullptr), mFarDistSquared(0) {}
+                ShadowCasterSceneQueryListener(SceneManager* sm) : mSceneMgr(sm) {}
                 // Prepare the listener for use with a set of parameters
                 void prepare(bool lightInFrustum, const PlaneBoundedVolumeList* lightClipVolumes,
                              const Light* light, const Camera* cam, ShadowCasterList* casterList,
@@ -903,7 +901,7 @@ namespace Ogre {
         bool validateRenderableForRendering(const Pass* pass, const Renderable* rend);
 
         /// Flag indicating whether SceneNodes will be rendered as a set of 3 axes
-        bool mDisplayNodes;
+        bool mDisplayNodes{false};
         std::unique_ptr<DebugDrawer> mDebugDrawer;
 
         /// Storage of animations, lookup by name
@@ -954,7 +952,7 @@ namespace Ogre {
         void setViewport(Viewport *vp);
 
         /** Flag that indicates if all of the scene node's bounding boxes should be shown as a wireframe. */
-        bool mShowBoundingBoxes;      
+        bool mShowBoundingBoxes{false};      
 
         /** Internal method for rendering all objects using the default queue sequence. */
         void renderVisibleObjectsDefaultSequence();
@@ -984,24 +982,24 @@ namespace Ogre {
 
         GpuProgramParametersPtr mFixedFunctionParams;
 
-        CompositorChain* mActiveCompositorChain;
-        bool mLateMaterialResolving;
+        CompositorChain* mActiveCompositorChain{nullptr};
+        bool mLateMaterialResolving{false};
 
-        IlluminationRenderStage mIlluminationStage;
+        IlluminationRenderStage mIlluminationStage{IRS_NONE};
 
         /// Struct for caching light clipping information for re-use in a frame
         struct LightClippingInfo
         {
             RealRect scissorRect;
             PlaneList clipPlanes;
-            bool scissorValid;
-            unsigned long clipPlanesValid;
-            LightClippingInfo() : scissorValid(false), clipPlanesValid(false) {}
+            bool scissorValid{false};
+            unsigned long clipPlanesValid{false};
+            LightClippingInfo()  {}
 
         };
         using LightClippingInfoMap = std::map<Light *, LightClippingInfo>;
         LightClippingInfoMap mLightClippingInfoMap;
-        unsigned long mLightClippingInfoMapFrameNumber;
+        unsigned long mLightClippingInfoMapFrameNumber{999};
 
         /** Default sorting routine which sorts lights which cast shadows
             to the front of a list, sub-sorting by distance.
@@ -1065,8 +1063,8 @@ namespace Ogre {
 
     protected:
         /// Visibility mask used to show / hide objects
-        uint32 mVisibilityMask;
-        bool mFindVisibleObjects;
+        uint32 mVisibilityMask{0xFFFFFFFF};
+        bool mFindVisibleObjects{true};
 
         /** Render a group in the ordinary way */
         void renderBasicQueueGroupObjects(RenderQueueGroup* pGroup,
@@ -1097,11 +1095,11 @@ namespace Ogre {
         SceneMgrQueuedRenderableVisitor mDefaultQueuedRenderableVisitor;
 
         /// Whether to use camera-relative rendering
-        bool mCameraRelativeRendering;
+        bool mCameraRelativeRendering{false};
         Affine3 mCachedViewMatrix;
 
         /// Last light sets
-        uint32 mLastLightHash;
+        uint32 mLastLightHash{0};
         /// Gpu params that need rebinding (mask of GpuParamVariability)
         uint16 mGpuParamsDirty;
 
@@ -3471,11 +3469,11 @@ namespace Ogre {
     {
     protected:
         mutable SceneManagerMetaData mMetaData;
-        mutable bool mMetaDataInit;
+        mutable bool mMetaDataInit{true};
         /// Internal method to initialise the metadata, must be implemented
         virtual void initMetaData() const = 0;
     public:
-        SceneManagerFactory() : mMetaDataInit(true) {}
+        SceneManagerFactory()  {}
         virtual ~SceneManagerFactory() {}
         /** Get information about the SceneManager type created by this factory. */
         virtual const SceneManagerMetaData& getMetaData() const noexcept 

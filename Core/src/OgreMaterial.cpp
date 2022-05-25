@@ -48,10 +48,8 @@ class Renderable;
     //-----------------------------------------------------------------------
     Material::Material(ResourceManager* creator, const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
-        :Resource(creator, name, handle, group, false, nullptr),
-         mReceiveShadows(true),
-         mTransparencyCastsShadows(false),
-         mCompilationRequired(true)
+        :Resource(creator, name, handle, group, false, nullptr)
+         
     {
         // Override isManual, not applicable for Material (we always want to call loadImpl)
         if(isManual)

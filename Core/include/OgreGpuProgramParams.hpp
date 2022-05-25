@@ -155,16 +155,16 @@ template <int dims, typename T> class Vector;
         /// Physical byte offset in buffer
         size_t physicalIndex;
         /// Logical index - used to communicate this constant to the rendersystem
-        size_t logicalIndex;
+        size_t logicalIndex{0};
         /** Number of typed slots per element
             (some programs pack each array element to float4, some do not) */
-        uint32 elementSize;
+        uint32 elementSize{0};
         /// Length of array
-        uint32 arraySize;
+        uint32 arraySize{1};
         /// Data type
-        GpuConstantType constType;
+        GpuConstantType constType{GCT_UNKNOWN};
         /// How this parameter varies (bitwise combination of GpuProgramVariability)
-        mutable uint16 variability;
+        mutable uint16 variability{GPV_GLOBAL};
 
         //TODO Should offset be added to list?
         // For instance, for GLSL atomic counters:
@@ -307,11 +307,7 @@ template <int dims, typename T> class Vector;
 
     GpuConstantDefinition()
         : physicalIndex((std::numeric_limits<size_t>::max)())
-            , logicalIndex(0)
-            , elementSize(0)
-            , arraySize(1)
-            , constType(GCT_UNKNOWN)
-            , variability(GPV_GLOBAL) {}
+             {}
     };
     using GpuConstantDefinitionMap = std::map<String, GpuConstantDefinition>;
     using GpuConstantDefinitionIterator = ConstMapIterator<GpuConstantDefinitionMap>;
@@ -320,9 +316,9 @@ template <int dims, typename T> class Vector;
     struct GpuNamedConstants : public GpuParamsAlloc
     {
         /// Total size of the buffer required
-        size_t bufferSize;
+        size_t bufferSize{0};
         /// Number of register type params (samplers)
-        size_t registerCount;
+        size_t registerCount{0};
         /// Map of parameter names to GpuConstantDefinition
         GpuConstantDefinitionMap map;
 
@@ -380,7 +376,7 @@ template <int dims, typename T> class Vector;
         /// Map from logical index to physical buffer location
         GpuLogicalIndexUseMap map;
         /// Shortcut to know the buffer size needs
-        size_t bufferSize;
+        size_t bufferSize{0};
         GpuLogicalBufferStruct();
         ~GpuLogicalBufferStruct();
     };
@@ -421,12 +417,12 @@ template <int dims, typename T> class Vector;
         HardwareBufferPtr mHardwareBuffer;
 
         /// Version number of the definitions in this buffer.
-        uint32 mVersion;
+        uint32 mVersion{0};
 
 		/// Accumulated offset used to calculate uniform location.
-		size_t mOffset;
+		size_t mOffset{0};
 
-        bool mDirty;
+        bool mDirty{false};
 
     public:
         GpuSharedParameters(const String& name);
@@ -1260,11 +1256,11 @@ template <int dims, typename T> class Vector;
         /// List of automatically updated parameters
         AutoConstantList mAutoConstants;
         /// The combined variability masks of all parameters
-        uint16 mCombinedVariability;
+        uint16 mCombinedVariability{GPV_GLOBAL};
         /// Do we need to transpose matrices?
-        bool mTransposeMatrices;
+        bool mTransposeMatrices{false};
         /// flag to indicate if names not found will be ignored
-        bool mIgnoreMissingParams;
+        bool mIgnoreMissingParams{false};
         /// physical index for active pass iteration parameter real constant entry;
         size_t mActivePassIterationIndex;
 

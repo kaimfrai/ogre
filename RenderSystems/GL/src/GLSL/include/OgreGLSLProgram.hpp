@@ -120,9 +120,9 @@ class ResourceManager;
         void buildConstantDefinitions() override;
 
         // legacy GL_EXT_geometry_shader4 functionality
-        RenderOperation::OperationType mInputOperationType;
-        RenderOperation::OperationType mOutputOperationType;
-        int mMaxOutputVertices;
+        RenderOperation::OperationType mInputOperationType{RenderOperation::OT_TRIANGLE_LIST};
+        RenderOperation::OperationType mOutputOperationType{RenderOperation::OT_TRIANGLE_LIST};
+        int mMaxOutputVertices{3};
         bool mPassFFPStates;
     };
     }

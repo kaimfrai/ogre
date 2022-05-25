@@ -41,8 +41,8 @@ THE SOFTWARE.
 namespace Ogre
 {
 
-    RenderSystemCapabilitiesSerializer::RenderSystemCapabilitiesSerializer() : mCurrentLineNumber(0), mCurrentLine(nullptr),
-        mCurrentCapabilities(nullptr)
+    RenderSystemCapabilitiesSerializer::RenderSystemCapabilitiesSerializer() 
+        
     {
         initialiaseDispatchTables();
     }

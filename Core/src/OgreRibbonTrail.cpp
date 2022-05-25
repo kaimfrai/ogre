@@ -61,8 +61,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     RibbonTrail::RibbonTrail(const String& name, size_t maxElements, 
         size_t numberOfChains, bool useTextureCoords, bool useColours)
-        :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true),
-        mFadeController(nullptr)
+        :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true)
+        
     {
         setTrailLength(100);
         setNumberOfChains(numberOfChains);

@@ -47,14 +47,7 @@ class Frustum;
 
     Sampler::Sampler()
         : mBorderColour(ColourValue::Black)
-        , mMaxAniso(1)
-        , mMipmapBias(0)
-        , mMinFilter(FO_LINEAR)
-        , mMagFilter(FO_LINEAR)
-        , mMipFilter(FO_POINT)
-        , mCompareFunc(CMPF_GREATER_EQUAL)
-        , mCompareEnabled(false)
-        , mDirty(true)
+         
     {
         setAddressingMode(TAM_WRAP);
     }

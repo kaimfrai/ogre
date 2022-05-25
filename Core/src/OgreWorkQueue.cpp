@@ -51,7 +51,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     WorkQueue::Request::Request(uint16 channel, uint16 rtype, const Any& rData, uint8 retry, RequestID rid)
-        : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid), mAborted(false)
+        : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid) 
     {
 
     }
@@ -76,17 +76,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     DefaultWorkQueueBase::DefaultWorkQueueBase(const String& name)
         : mName(name)
-        , mWorkerThreadCount(1)
-        , mWorkerRenderSystemAccess(false)
-        , mIsRunning(false)
-        , mResposeTimeLimitMS(8)
-        , mWorkerFunc(nullptr)
-        , mRequestCount(0)
-        , mPaused(false)
-        , mAcceptRequests(true)
-        , mShuttingDown(false)
-        , mIdleThreadRunning(false)
-        , mIdleProcessed(nullptr)
+         
     {
     }
     //---------------------------------------------------------------------

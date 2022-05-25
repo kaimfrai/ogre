@@ -87,15 +87,7 @@ class RenderSystem;
         mUseTexCoords(useTextureCoords),
         mUseVertexColour(useColours),
         mDynamic(dynamic),
-        mVertexDeclDirty(true),
-        mBuffersNeedRecreating(true),
-        mBoundsDirty(true),
-        mIndexContentDirty(true),
-        mVertexContentDirty(true),
-        mRadius(0.0f),
-        mTexCoordDir(TCD_U),
-        mVertexCameraUsed(nullptr),
-        mFaceCamera(true),
+        
         mNormalBase(Vector3::UNIT_X)
     {
         mVertexData.reset(new VertexData());

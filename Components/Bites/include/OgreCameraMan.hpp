@@ -159,21 +159,21 @@ namespace OgreBites
         void setPivotOffset(const Ogre::Vector3& offset);
     protected:
         Ogre::Real getDistToTarget();
-        Ogre::Node::TransformSpace mYawSpace;
-        Ogre::SceneNode* mCamera;
-        CameraStyle mStyle;
-        Ogre::SceneNode* mTarget;
-        bool mOrbiting;
-        bool mMoving;
-        Ogre::Real mTopSpeed;
+        Ogre::Node::TransformSpace mYawSpace{Ogre::Node::TS_PARENT};
+        Ogre::SceneNode* mCamera{nullptr};
+        CameraStyle mStyle{CS_MANUAL};
+        Ogre::SceneNode* mTarget{nullptr};
+        bool mOrbiting{false};
+        bool mMoving{false};
+        Ogre::Real mTopSpeed{150};
         Ogre::Vector3 mVelocity;
-        bool mGoingForward;
-        bool mGoingBack;
-        bool mGoingLeft;
-        bool mGoingRight;
-        bool mGoingUp;
-        bool mGoingDown;
-        bool mFastMove;
+        bool mGoingForward{false};
+        bool mGoingBack{false};
+        bool mGoingLeft{false};
+        bool mGoingRight{false};
+        bool mGoingUp{false};
+        bool mGoingDown{false};
+        bool mFastMove{false};
         Ogre::Vector3 mOffset;
     };
     /** @} */

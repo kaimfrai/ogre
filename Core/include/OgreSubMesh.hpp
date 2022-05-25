@@ -85,7 +85,7 @@ class VertexData;
                 The use of shared or non-shared buffers is determined when
                 model data is converted to the OGRE .mesh format.
         */
-        VertexData *vertexData;
+        VertexData *vertexData{nullptr};
 
         /// Face index data
         IndexData *indexData;
@@ -137,13 +137,13 @@ class VertexData;
         std::vector<Vector3> extremityPoints;
 
         /// Reference to parent Mesh (not a smart pointer so child does not keep parent alive).
-        Mesh* parent;
+        Mesh* parent{nullptr};
 
         /// Indicates if this submesh shares vertex data with other meshes or whether it has it's own vertices.
-        bool useSharedVertices;
+        bool useSharedVertices{true};
 
         /// The render operation type used to render this submesh
-        RenderOperation::OperationType operationType;
+        RenderOperation::OperationType operationType{RenderOperation::OT_TRIANGLE_LIST};
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(const String& matName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
@@ -232,16 +232,16 @@ class VertexData;
     private:
 
         /// Flag indicating that bone assignments need to be recompiled
-        bool mBoneAssignmentsOutOfDate;
+        bool mBoneAssignmentsOutOfDate{false};
 
         /// Type of vertex animation for dedicated vertex data (populated by Mesh)
-        mutable VertexAnimationType mVertexAnimationType;
+        mutable VertexAnimationType mVertexAnimationType{VAT_NONE};
 
         /// Whether normals are included in vertex animation keyframes
-        mutable bool mVertexAnimationIncludesNormals;
+        mutable bool mVertexAnimationIncludesNormals{false};
 
         /// Is Build Edges Enabled
-        bool mBuildEdgesEnabled;
+        bool mBuildEdgesEnabled{true};
 
         /// the material this SubMesh uses.
         MaterialPtr mMaterial;

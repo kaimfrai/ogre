@@ -59,7 +59,7 @@ namespace {
     {
     protected:
         /// Handle to root zip file
-        zip_t* mZipFile;
+        zip_t* mZipFile{nullptr};
         MemoryDataStreamPtr mBuffer;
         /// File list (since zziplib seems to only allow scanning of dir tree once)
         FileInfoList mFileList;
@@ -106,7 +106,7 @@ namespace {
 }
     //-----------------------------------------------------------------------
     ZipArchive::ZipArchive(const String& name, const String& archType, const uint8* externBuf, size_t externBufSz)
-        : Archive(name, archType), mZipFile(nullptr)
+        : Archive(name, archType) 
     {
         if(externBuf)
             mBuffer.reset(new MemoryDataStream(const_cast<uint8*>(externBuf), externBufSz));

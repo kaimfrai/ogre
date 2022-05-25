@@ -38,7 +38,7 @@ namespace RTShader
 String CookTorranceLighting::Type = "CookTorranceLighting";
 
 //-----------------------------------------------------------------------
-CookTorranceLighting::CookTorranceLighting() : mLightCount(0), mMRMapSamplerIndex(0) {}
+CookTorranceLighting::CookTorranceLighting()  {}
 
 //-----------------------------------------------------------------------
 const String& CookTorranceLighting::getType() const noexcept { return Type; }

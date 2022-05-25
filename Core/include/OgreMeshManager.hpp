@@ -476,10 +476,10 @@ class SubMesh;
         bool mPrepAllMeshesForShadowVolumes;
     
         //the factor by which the bounding box of an entity is padded   
-        Real mBoundsPaddingFactor;
+        Real mBoundsPaddingFactor{0.01};
 
         // The listener to pass to serializers
-        MeshSerializerListener *mListener;
+        MeshSerializerListener *mListener{nullptr};
 
     private:
         std::unique_ptr<Codec> mMeshCodec;

@@ -166,7 +166,7 @@ class ResourceManager;
         /// Compilation required
         /// This is set if the techniques change and the supportedness of techniques has to be
         /// re-evaluated.
-        bool mCompilationRequired;
+        bool mCompilationRequired{true};
 
         /** Create global rendertextures.
         */

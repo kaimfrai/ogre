@@ -112,10 +112,10 @@ class TestContext : public OgreBites::SampleContext
 
  private:
     using PluginMap = std::map<String, ::std::unique_ptr<OgreBites::SamplePlugin>>;
-    bool mSuccess;
+    bool mSuccess{true};
 
     /// The timestep
-    Real mTimestep;
+    Real mTimestep{0.01f};
 
     /// The tests to be run
     std::deque<OgreBites::Sample*> mTests;
@@ -130,7 +130,7 @@ class TestContext : public OgreBites::SampleContext
     int mCurrentFrame;
 
     /// Info about the running batch of tests
-    TestBatch* mBatch;
+    TestBatch* mBatch{nullptr};
 
     // A structure to map plugin names to class types
     PluginMap mPluginNameMap;

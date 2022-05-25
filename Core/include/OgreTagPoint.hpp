@@ -102,10 +102,10 @@ class Skeleton;
         void updateFromParentImpl() const override;
 
     private:
-        bool mInheritParentEntityOrientation;
-        bool mInheritParentEntityScale;
-        Entity *mParentEntity;
-        MovableObject *mChildObject;
+        bool mInheritParentEntityOrientation{true};
+        bool mInheritParentEntityScale{true};
+        Entity *mParentEntity{nullptr};
+        MovableObject *mChildObject{nullptr};
         mutable Affine3 mFullLocalTransform;
     };
 

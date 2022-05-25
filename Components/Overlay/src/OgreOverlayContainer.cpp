@@ -43,8 +43,8 @@ class RenderQueue;
 
     //---------------------------------------------------------------------
     OverlayContainer::OverlayContainer(const String& name)
-        : OverlayElement(name),
-        mChildrenProcessEvents(true)
+        : OverlayElement(name)
+        
     {
     }
     //---------------------------------------------------------------------

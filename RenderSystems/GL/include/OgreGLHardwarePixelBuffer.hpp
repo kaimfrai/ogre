@@ -77,7 +77,7 @@ namespace Ogre {
 
         // In case this is a texture level
         GLenum mTarget;
-        GLenum mFaceTarget; // same as mTarget in case of GL_TEXTURE_xD, but cubemap face for cubemaps
+        GLenum mFaceTarget{0}; // same as mTarget in case of GL_TEXTURE_xD, but cubemap face for cubemaps
         GLuint mTextureID;
         GLint mLevel;
         bool mHwGamma;
@@ -97,7 +97,7 @@ namespace Ogre {
         void bindToFramebuffer(uint32 attachment, uint32 zoffset) override;
     protected:
         /// In case this is a render buffer
-        GLuint mRenderbufferID;
+        GLuint mRenderbufferID{0};
     };
 }
 

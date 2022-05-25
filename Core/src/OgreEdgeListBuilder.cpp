@@ -44,7 +44,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    EdgeData::EdgeData() : isClosed(false){}
+    EdgeData::EdgeData()  {}
     
     void EdgeData::log(Log* l)
     {
@@ -87,7 +87,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     EdgeListBuilder::EdgeListBuilder()
-        : mEdgeData(nullptr)
+         
     {
     }
     //---------------------------------------------------------------------

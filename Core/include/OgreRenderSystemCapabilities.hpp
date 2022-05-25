@@ -264,15 +264,15 @@ namespace Ogre
         /// will be removed
         DriverVersion mDriverVersion;
         /// GPU Vendor
-        GPUVendor mVendor;
+        GPUVendor mVendor{GPU_UNKNOWN};
 
         static String msGPUVendorStrings[GPU_VENDOR_COUNT];
         static void initVendorStrings();
 
         /// The number of texture units available
-        ushort mNumTextureUnits;
+        ushort mNumTextureUnits{0};
         /// The stencil buffer bit depth
-        ushort mStencilBufferBitDepth;
+        ushort mStencilBufferBitDepth{8};
         /// Stores the capabilities flags.
         int mCapabilities[CAPS_CATEGORY_COUNT];
         /// Which categories are relevant
@@ -289,19 +289,19 @@ namespace Ogre
         /// The number of floating-point 4-vector constants fragment programs support
         ushort mFragmentProgramConstantFloatCount;
         /// The number of simultaneous render targets supported
-        ushort mNumMultiRenderTargets;
+        ushort mNumMultiRenderTargets{1};
         /// The maximum point size
         Real mMaxPointSize;
         /// Are non-POW2 textures feature-limited?
-        bool mNonPOW2TexturesLimited;
+        bool mNonPOW2TexturesLimited{false};
         /// The maximum supported anisotropy
-        Real mMaxSupportedAnisotropy;
+        Real mMaxSupportedAnisotropy{0};
         /// The number of vertex texture units supported
         ushort mNumVertexTextureUnits;
         /// Are vertex texture units shared with fragment processor?
-        bool mVertexTextureUnitsShared;
+        bool mVertexTextureUnitsShared{false};
         /// The number of vertices a geometry program can emit in a single run
-        int mGeometryProgramNumOutputVertices;
+        int mGeometryProgramNumOutputVertices{0};
 
 
         /// The list of supported shader profiles
@@ -315,7 +315,7 @@ namespace Ogre
         ushort mComputeProgramConstantFloatCount;
 
         /// The number of vertex attributes available
-        ushort mNumVertexAttributes;
+        ushort mNumVertexAttributes{1};
     public: 
         RenderSystemCapabilities ();
 

@@ -56,7 +56,7 @@ class VertexDeclaration;
         /// Internal surface definition
         PatchSurface mSurface;
         /// Vertex declaration, cloned from the input
-        VertexDeclaration* mDeclaration;
+        VertexDeclaration* mDeclaration{nullptr};
     public:
         /// Constructor
         PatchMesh(ResourceManager* creator, const String& name, ResourceHandle handle,

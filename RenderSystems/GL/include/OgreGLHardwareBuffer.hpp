@@ -43,11 +43,11 @@ class GLRenderSystem;
         GLenum mTarget;
         GLuint mBufferId;
         // Scratch buffer handling
-        bool mLockedToScratch;
-        size_t mScratchOffset;
-        size_t mScratchSize;
-        void* mScratchPtr;
-        bool mScratchUploadOnUnlock;
+        bool mLockedToScratch{false};
+        size_t mScratchOffset{0};
+        size_t mScratchSize{0};
+        void* mScratchPtr{nullptr};
+        bool mScratchUploadOnUnlock{false};
         GLRenderSystem* mRenderSystem;
 
     protected:

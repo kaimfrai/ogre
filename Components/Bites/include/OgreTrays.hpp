@@ -463,9 +463,9 @@ namespace OgreBites
         bool mDragging;
         Ogre::StringVector mItems;
         int mSelectionIndex;
-        int mHighlightIndex;
-        int mDisplayIndex;
-        Ogre::Real mDragOffset;
+        int mHighlightIndex{0};
+        int mDisplayIndex{0};
+        Ogre::Real mDragOffset{0.0f};
     };
 
     /**
@@ -594,11 +594,11 @@ namespace OgreBites
         Ogre::PanelOverlayElement* mHandle;
         bool mDragging;
         bool mFitToContents;
-        Ogre::Real mDragOffset;
-        Ogre::Real mValue;
-        Ogre::Real mMinValue;
-        Ogre::Real mMaxValue;
-        Ogre::Real mInterval;
+        Ogre::Real mDragOffset{0.0f};
+        Ogre::Real mValue{0.0f};
+        Ogre::Real mMinValue{0.0f};
+        Ogre::Real mMaxValue{0.0f};
+        Ogre::Real mInterval{0.0f};
     };
 
     /**
@@ -748,7 +748,7 @@ namespace OgreBites
         Ogre::TextAreaOverlayElement* mCommentTextArea;
         Ogre::OverlayElement* mMeter;
         Ogre::OverlayElement* mFill;
-        Ogre::Real mProgress;
+        Ogre::Real mProgress{0.0f};
     };
 
     /**
@@ -1168,23 +1168,23 @@ namespace OgreBites
         WidgetList mWidgetDeathRow;           // widget queue for deletion
         Ogre::OverlayContainer* mCursor;      // cursor
         TrayListener* mListener;           // tray listener
-        Ogre::Real mWidgetPadding;            // widget padding
-        Ogre::Real mWidgetSpacing;            // widget spacing
-        Ogre::Real mTrayPadding;              // tray padding
-        bool mTrayDrag;                       // a mouse press was initiated on a tray
-        SelectMenu* mExpandedMenu;            // top priority expanded menu widget
-        TextBox* mDialog;                     // top priority dialog widget
+        Ogre::Real mWidgetPadding{8};            // widget padding
+        Ogre::Real mWidgetSpacing{2};            // widget spacing
+        Ogre::Real mTrayPadding{0};              // tray padding
+        bool mTrayDrag{false};                       // a mouse press was initiated on a tray
+        SelectMenu* mExpandedMenu{nullptr};            // top priority expanded menu widget
+        TextBox* mDialog{nullptr};                     // top priority dialog widget
         Ogre::OverlayContainer* mDialogShade; // top priority dialog shade
-        Button* mOk;                          // top priority OK button
-        Button* mYes;                         // top priority Yes button
-        Button* mNo;                          // top priority No button
-        bool mCursorWasVisible;               // cursor state before showing dialog
-        Label* mFpsLabel;                     // FPS label
-        ParamsPanel* mStatsPanel;             // frame stats panel
-        DecorWidget* mLogo;                   // logo
-        Ogre::Real mGroupInitProportion;      // proportion of load job assigned to initialising one resource group
-        Ogre::Real mGroupLoadProportion;      // proportion of load job assigned to loading one resource group
-        Ogre::Real mLoadInc;                  // loading increment
+        Button* mOk{nullptr};                          // top priority OK button
+        Button* mYes{nullptr};                         // top priority Yes button
+        Button* mNo{nullptr};                          // top priority No button
+        bool mCursorWasVisible{false};               // cursor state before showing dialog
+        Label* mFpsLabel{nullptr};                     // FPS label
+        ParamsPanel* mStatsPanel{nullptr};             // frame stats panel
+        DecorWidget* mLogo{nullptr};                   // logo
+        Ogre::Real mGroupInitProportion{0.0f};      // proportion of load job assigned to initialising one resource group
+        Ogre::Real mGroupLoadProportion{0.0f};      // proportion of load job assigned to loading one resource group
+        Ogre::Real mLoadInc{0.0f};                  // loading increment
         Ogre::GuiHorizontalAlignment mTrayWidgetAlign[10];   // tray widget alignments
         Ogre::Timer* mTimer;                  // Root::getSingleton().getTimer()
         unsigned long mLastStatUpdateTime;    // The last time the stat text were updated

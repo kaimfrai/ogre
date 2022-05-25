@@ -473,14 +473,14 @@ namespace Ogre {
         std::atomic<ResourceHandle> mNextHandle;
         std::atomic<size_t> mMemoryUsage; /// In bytes
 
-        bool mVerbose;
+        bool mVerbose{true};
 
         // IMPORTANT - all subclasses must populate the fields below
 
         /// Patterns to use to look for scripts if supported (e.g. *.overlay)
         StringVector mScriptPatterns; 
         /// Loading order relative to other managers, higher is later
-        Real mLoadOrder; 
+        Real mLoadOrder{0}; 
         /// String identifying the resource type this manager handles
         String mResourceType; 
 

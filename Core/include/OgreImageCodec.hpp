@@ -71,20 +71,18 @@ namespace Ogre {
         class ImageData
         {
         public:
-            ImageData():
-                height(0), width(0), depth(1), size(0),
-                num_mipmaps(0), flags(0), format(PF_UNKNOWN)
+            ImageData() 
             {
             }
-            uint32 height;
-            uint32 width;
-            uint32 depth;
-            size_t size;
+            uint32 height{0};
+            uint32 width{0};
+            uint32 depth{1};
+            size_t size{0};
             
-            uint32 num_mipmaps;
-            uint flags;
+            uint32 num_mipmaps{0};
+            uint flags{0};
 
-            PixelFormat format;
+            PixelFormat format{PF_UNKNOWN};
         };
         using CodecDataPtr = SharedPtr<ImageData>;
 

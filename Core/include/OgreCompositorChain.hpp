@@ -167,15 +167,15 @@ class SceneManager;
         
         /** Plainly renders the scene; implicit first compositor in the chain.
         */
-        CompositorInstance *mOriginalScene;
+        CompositorInstance *mOriginalScene{nullptr};
         
         /// Postfilter instances in this chain
         Instances mInstances;
         
         /// State needs recompile
-        bool mDirty;
+        bool mDirty{true};
         /// Any compositors enabled?
-        bool mAnyCompositorsEnabled;
+        bool mAnyCompositorsEnabled{false};
 
         String mOriginalSceneScheme;
 
@@ -213,7 +213,7 @@ class SceneManager;
         class RQListener: public RenderQueueListener
         {
         public:
-            RQListener() : mOperation(nullptr), mSceneManager(nullptr), mRenderSystem(nullptr), mViewport(nullptr) {}
+            RQListener()  {}
 
             void renderQueueStarted(uint8 queueGroupId, const String& invocation, bool& skipThisInvocation) override;
             void renderQueueEnded(uint8 queueGroupId, const String& invocation, bool& repeatThisInvocation) override;
@@ -227,10 +227,10 @@ class SceneManager;
             /** Flush remaining render system operations. */
             void flushUpTo(uint8 id);
         private:
-            CompositorInstance::TargetOperation *mOperation;
-            SceneManager *mSceneManager;
-            RenderSystem *mRenderSystem;
-            Viewport* mViewport;
+            CompositorInstance::TargetOperation *mOperation{nullptr};
+            SceneManager *mSceneManager{nullptr};
+            RenderSystem *mRenderSystem{nullptr};
+            Viewport* mViewport{nullptr};
             CompositorInstance::RenderSystemOpPairs::iterator currentOp, lastOp;
         };
         RQListener mOurListener;
@@ -241,7 +241,7 @@ class SceneManager;
         /// Store old find visible objects
         bool mOldFindVisibleObjects;
         /// Store old camera LOD bias
-        float mOldLodBias;
+        float mOldLodBias{1.0f};
         /// Store old viewport material scheme
         String mOldMaterialScheme;
         /// Store old shadows enabled flag

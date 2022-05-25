@@ -100,12 +100,12 @@ namespace Ogre {
     {
     private:
         std::ofstream   mLog;
-        LogMessageLevel mLogLevel;
+        LogMessageLevel mLogLevel{LML_NORMAL};
         bool            mDebugOut;
         bool            mSuppressFile;
-        bool            mTimeStamp;
+        bool            mTimeStamp{true};
         String          mLogName;
-        bool            mTermHasColours;
+        bool            mTermHasColours{false};
 
         using mtLogListener = std::vector<LogListener *>;
         mtLogListener mListeners;

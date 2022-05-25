@@ -122,13 +122,13 @@ protected:
 
 // Attributes.
 protected:
-    ushort mBoneCount;
-    ushort mWeightCount;
+    ushort mBoneCount{0};
+    ushort mWeightCount{0};
 
-    bool mCorrectAntipodalityHandling;
-    bool mScalingShearingSupport;
+    bool mCorrectAntipodalityHandling{false};
+    bool mScalingShearingSupport{false};
 
-    bool mDoBoneCalculations;
+    bool mDoBoneCalculations{false};
     bool mDoLightCalculations;
     
     ParameterPtr mParamInPosition;

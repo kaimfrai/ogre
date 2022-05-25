@@ -94,28 +94,28 @@ class VertexData;
         using HWBoneWgtVec = std::vector<float>;
         using Matrix4Vec = std::vector<Matrix4>;
 
-        size_t                  mMatricesPerInstance; //number of bone matrices per instance
+        size_t                  mMatricesPerInstance{0}; //number of bone matrices per instance
         size_t                  mNumWorldMatrices;  //Num bones * num instances
         TexturePtr              mMatrixTexture; //The VTF
 
         //Used when all matrices from each instance must be in the same row (i.e. HW Instancing).
         //A few pixels are wasted, but resizing the texture puts the danger of not sampling the
         //right pixel... (in theory it should work, but in practice doesn't)
-        size_t                  mWidthFloatsPadding;
+        size_t                  mWidthFloatsPadding{ 0 };
         size_t                  mMaxFloatsPerLine;
 
-        size_t                  mRowLength;
-        size_t                  mWeightCount;
+        size_t                  mRowLength{3};
+        size_t                  mWeightCount{1};
         //Temporary array used to store 3x4 matrices before they are converted to dual quaternions
-        Matrix3x4f*             mTempTransformsArray3x4;
+        Matrix3x4f*             mTempTransformsArray3x4{nullptr};
 
         // The state of the usage of bone matrix lookup
-        bool mUseBoneMatrixLookup;
-        size_t mMaxLookupTableInstances;
+        bool mUseBoneMatrixLookup{false};
+        size_t mMaxLookupTableInstances{16};
 
-        bool mUseBoneDualQuaternions;
-        bool mForceOneWeight;
-        bool mUseOneWeight;
+        bool mUseBoneDualQuaternions{false};
+        bool mForceOneWeight{false};
+        bool mUseOneWeight{false};
 
         /** Clones the base material so it can have it's own vertex texture, and also
             clones it's shadow caster materials, if it has any

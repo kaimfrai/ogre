@@ -70,7 +70,7 @@ class VertexData;
     class InstanceBatchHW_VTF : public BaseInstanceBatchVTF
     {
     protected:
-        bool    mKeepStatic;
+        bool    mKeepStatic{ false };
 
         //Pointer to the buffer containing the per instance vertex data
         HardwareVertexBufferSharedPtr mInstanceVertexBuffer;

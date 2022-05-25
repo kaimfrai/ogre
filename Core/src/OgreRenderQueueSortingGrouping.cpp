@@ -336,7 +336,7 @@ namespace {
     }
     //-----------------------------------------------------------------------
     QueuedRenderableCollection::QueuedRenderableCollection()
-        :mOrganisationMode(0)
+        
     {
     }
 

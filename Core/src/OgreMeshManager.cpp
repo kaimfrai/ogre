@@ -89,8 +89,7 @@ namespace Ogre
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
-    MeshManager::MeshManager():
-    mBoundsPaddingFactor(0.01), mListener(nullptr)
+    MeshManager::MeshManager() 
     {
         mBlendWeightsBaseElementType = VET_FLOAT1;
         mPrepAllMeshesForShadowVolumes = false;

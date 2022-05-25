@@ -398,9 +398,7 @@ void TextBox::filterLines()
 }
 
 SelectMenu::SelectMenu(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real boxWidth, size_t maxItemsShown)
-    : mHighlightIndex(0)
-    , mDisplayIndex(0)
-    , mDragOffset(0.0f)
+     
 {
     mSelectionIndex = -1;
     mFitToContents = false;
@@ -805,11 +803,7 @@ Separator::Separator(const Ogre::String &name, Ogre::Real width)
 }
 
 Slider::Slider(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps)
-    : mDragOffset(0.0f)
-    , mValue(0.0f)
-    , mMinValue(0.0f)
-    , mMaxValue(0.0f)
-    , mInterval(0.0f)
+     
 {
     mDragging = false;
     mFitToContents = false;
@@ -1106,7 +1100,7 @@ DecorWidget::DecorWidget(const Ogre::String &name, const Ogre::String &templateN
 }
 
 ProgressBar::ProgressBar(const Ogre::String &name, const Ogre::DisplayString &caption, Ogre::Real width, Ogre::Real commentBoxWidth)
-    : mProgress(0.0f)
+     
 {
     mElement = Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
             ("SdkTrays/ProgressBar", "BorderPanel", name);
@@ -1130,10 +1124,7 @@ void ProgressBar::setProgress(Ogre::Real progress)
 }
 
 TrayManager::TrayManager(const Ogre::String &name, Ogre::RenderWindow *window, TrayListener *listener) :
-    mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener), mWidgetPadding(8),
-    mWidgetSpacing(2), mTrayPadding(0), mTrayDrag(false), mExpandedMenu(nullptr), mDialog(nullptr), mOk(nullptr), mYes(nullptr),
-    mNo(nullptr), mCursorWasVisible(false), mFpsLabel(nullptr), mStatsPanel(nullptr), mLogo(nullptr),
-    mGroupInitProportion(0.0f), mGroupLoadProportion(0.0f), mLoadInc(0.0f)
+    mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener) 
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
     mLastStatUpdateTime = -FRAME_UPDATE_DELAY; // update immediately on first call

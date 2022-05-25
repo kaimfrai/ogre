@@ -99,17 +99,17 @@ class Sphere;
         /// y-direction field-of-view (default 45)
         Radian mFOVy;
         /// Far clip distance - default 10000
-        Real mFarDist;
+        Real mFarDist{100000.0f};
         /// Near clip distance - default 100
-        Real mNearDist;
+        Real mNearDist{100.0f};
         /// x/y viewport ratio - default 1.3333
-        Real mAspect;
+        Real mAspect{1.33333333333333f};
         /// Ortho height size (world units)
-        Real mOrthoHeight;
+        Real mOrthoHeight{1000};
         /// Off-axis frustum center offset - default (0.0, 0.0)
         Vector2 mFrustumOffset;
         /// Focal length of frustum (for stereo rendering, defaults to 1.0)
-        Real mFocalLength;
+        Real mFocalLength{1.0f};
 
         /// The 6 main clipping planes
         mutable Plane mFrustumPlanes[6];
@@ -127,21 +127,21 @@ class Sphere;
         /// Pre-calced view matrix
         mutable Affine3 mViewMatrix;
         /// Something's changed in the frustum shape?
-        mutable bool mRecalcFrustum;
+        mutable bool mRecalcFrustum{true};
         /// Something re the view pos has changed
-        mutable bool mRecalcView;
+        mutable bool mRecalcView{true};
         /// Something re the frustum planes has changed
-        mutable bool mRecalcFrustumPlanes;
+        mutable bool mRecalcFrustumPlanes{true};
         /// Something re the world space corners has changed
-        mutable bool mRecalcWorldSpaceCorners;
+        mutable bool mRecalcWorldSpaceCorners{true};
         /// Are we using a custom view matrix?
-        bool mCustomViewMatrix;
+        bool mCustomViewMatrix{false};
         /// Are we using a custom projection matrix?
-        bool mCustomProjMatrix;
+        bool mCustomProjMatrix{false};
         /// Have the frustum extents been manually set?
-        bool mFrustumExtentsManuallySet;
+        bool mFrustumExtentsManuallySet{false};
         /// Orthographic or perspective?
-        ProjectionType mProjType;
+        ProjectionType mProjType{PT_PERSPECTIVE};
         /// Frustum extents
         mutable RealRect mExtents;
         
@@ -173,9 +173,9 @@ class Sphere;
 
         ColourValue mDebugColour;
         /// Pointer to a reflection plane (automatically updated)
-        const MovablePlane* mLinkedReflectPlane;
+        const MovablePlane* mLinkedReflectPlane{nullptr};
         /// Pointer to oblique projection plane (automatically updated)
-        const MovablePlane* mLinkedObliqueProjPlane;
+        const MovablePlane* mLinkedObliqueProjPlane{nullptr};
 
         mutable AxisAlignedBox mBoundingBox;
         mutable Vector3 mWorldSpaceCorners[8];
@@ -192,11 +192,11 @@ class Sphere;
         mutable Plane mLastLinkedObliqueProjPlane;
 
         /// Is this frustum to act as a reflection of itself?
-        bool mReflect;
+        bool mReflect{false};
         /// Is this frustum using an oblique depth projection?
-        bool mObliqueDepthProjection;
+        bool mObliqueDepthProjection{false};
         /// Frustum orientation mode
-        mutable OrientationMode mOrientationMode;
+        mutable OrientationMode mOrientationMode{OR_DEGREE_0};
 
     public:
 

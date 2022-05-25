@@ -82,7 +82,7 @@ namespace Ogre {
     {
     protected:
         /// Do we prefer to use a general SSE version for position/normal shared buffers?
-        bool mPreferGeneralVersionForSharedBuffers;
+        bool mPreferGeneralVersionForSharedBuffers{false};
 
     public:
         /// Constructor
@@ -905,7 +905,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     OptimisedUtilSSE::OptimisedUtilSSE()
-        : mPreferGeneralVersionForSharedBuffers(false)
+         
     {
         // For AMD Athlon XP (but not that for Althon 64), it's prefer to never use
         // unrolled version for shared buffers at all, I guess because that version

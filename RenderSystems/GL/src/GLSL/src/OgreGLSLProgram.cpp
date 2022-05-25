@@ -285,9 +285,7 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
         : GLSLShaderCommon(creator, name, handle, group, isManual, loader)
-        , mInputOperationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mOutputOperationType(RenderOperation::OT_TRIANGLE_LIST)
-        , mMaxOutputVertices(3)
+         
     {
         // add parameter command "attach" to the material serializer dictionary
         if (createParamDictionary("GLSLProgram"))

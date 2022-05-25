@@ -400,14 +400,14 @@ class RenderTarget;
         int mZOrder;
         /// Background options
         ColourValue mBackColour;
-        float mDepthClearValue;
-        bool mClearEveryFrame;
+        float mDepthClearValue{1};
+        bool mClearEveryFrame{true};
         unsigned int mClearBuffers;
-        bool mUpdated;
-        bool mShowOverlays;
-        bool mShowSkies;
-        bool mShowShadows;
-        uint32 mVisibilityMask;
+        bool mUpdated{false};
+        bool mShowOverlays{true};
+        bool mShowSkies{true};
+        bool mShowShadows{true};
+        uint32 mVisibilityMask{0xFFFFFFFF};
         /// Material scheme
         String mMaterialSchemeName;
         /// Viewport orientation mode
@@ -415,11 +415,11 @@ class RenderTarget;
         static OrientationMode mDefaultOrientationMode;
 
         /// Automatic rendering on/off
-        bool mIsAutoUpdated;
+        bool mIsAutoUpdated{true};
 
         using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
-		ColourBufferType mColourBuffer;
+		ColourBufferType mColourBuffer{CBT_BACK};
     };
     /** @} */
     /** @} */

@@ -55,11 +55,8 @@ THE SOFTWARE.
 
 namespace Ogre {
 CompositorChain::CompositorChain(Viewport *vp):
-    mViewport(vp),
-    mOriginalScene(nullptr),
-    mDirty(true),
-    mAnyCompositorsEnabled(false),
-    mOldLodBias(1.0f)
+    mViewport(vp)
+    
 {
     assert(vp);
     mOldClearEveryFrameBuffers = vp->getClearBuffers();

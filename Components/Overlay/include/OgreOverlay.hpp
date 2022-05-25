@@ -92,18 +92,18 @@ namespace Ogre {
         /// Degrees of rotation around center
         Radian mRotate;
         /// Scroll values, offsets
-        Real mScrollX, mScrollY;
+        Real mScrollX{0.0f}, mScrollY{0.0f};
         /// Scale values
-        Real mScaleX, mScaleY;
+        Real mScaleX{1.0f}, mScaleY{1.0f};
 
-        int mLastViewportWidth, mLastViewportHeight;
+        int mLastViewportWidth{0}, mLastViewportHeight{0};
 
         mutable Matrix4 mTransform;
-        mutable bool mTransformOutOfDate;
-        bool mTransformUpdated;
-        ulong mZOrder;
-        bool mVisible;
-        bool mInitialised;
+        mutable bool mTransformOutOfDate{true};
+        bool mTransformUpdated{true};
+        ulong mZOrder{100};
+        bool mVisible{false};
+        bool mInitialised{false};
         String mOrigin;
         /** Internal lazy update method. */
         void updateTransform() const;

@@ -50,7 +50,7 @@ protected:
     // Internal buffer; either on-card or in system memory, freed/allocated on demand
     // depending on buffer usage
     PixelBox mBuffer;
-    uint32 mGLInternalFormat; // GL internal format
+    uint32 mGLInternalFormat{0}; // GL internal format
 
     // Buffer allocation/freeage
     void allocateBuffer();

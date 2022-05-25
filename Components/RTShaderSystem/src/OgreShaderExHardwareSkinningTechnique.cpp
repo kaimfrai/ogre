@@ -41,12 +41,8 @@ namespace RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-HardwareSkinningTechnique::HardwareSkinningTechnique() :
-    mBoneCount(0),
-    mWeightCount(0),
-    mCorrectAntipodalityHandling(false),
-    mScalingShearingSupport(false),
-    mDoBoneCalculations(false)
+HardwareSkinningTechnique::HardwareSkinningTechnique() 
+    
 {
 }
 

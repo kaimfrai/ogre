@@ -61,7 +61,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     AnimationTrack::AnimationTrack(Animation* parent, unsigned short handle) :
-        mParent(parent), mListener(nullptr), mHandle(handle)
+        mParent(parent),  mHandle(handle)
     {
     }
     //---------------------------------------------------------------------

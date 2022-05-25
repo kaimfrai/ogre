@@ -152,9 +152,9 @@ class VertexData;
         /// Local bounding box volume.
         AxisAlignedBox mAABB;
         /// Local bounding sphere radius (centered on object).
-        Real mBoundRadius;
+        Real mBoundRadius{0.0f};
         /// Largest bounding radius of any bone in the skeleton (centered on each bone, only considering verts weighted to the bone)
-        Real mBoneBoundingRadius;
+        Real mBoneBoundingRadius{0.0f};
 
         /// Optional linked skeleton.
         SkeletonPtr mSkeleton;
@@ -162,7 +162,7 @@ class VertexData;
         VertexBoneAssignmentList mBoneAssignments;
 
         /// Flag indicating that bone assignments need to be recompiled.
-        bool mBoneAssignmentsOutOfDate;
+        bool mBoneAssignmentsOutOfDate{false};
 
         /** Build the index map between bone index and blend index. */
         void buildIndexMap(const VertexBoneAssignmentList& boneAssignments,
@@ -174,34 +174,34 @@ class VertexData;
             VertexData* targetVertexData);
 
         const LodStrategy *mLodStrategy;
-        bool mHasManualLodLevel;
-        ushort mNumLods;
+        bool mHasManualLodLevel{false};
+        ushort mNumLods{1};
         MeshLodUsageList mMeshLodUsageList;
 
-        HardwareBufferManagerBase* mBufferManager;
-        HardwareBuffer::Usage mVertexBufferUsage;
-        HardwareBuffer::Usage mIndexBufferUsage;
-        bool mVertexBufferShadowBuffer;
-        bool mIndexBufferShadowBuffer;
+        HardwareBufferManagerBase* mBufferManager{nullptr};
+        HardwareBuffer::Usage mVertexBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
+        HardwareBuffer::Usage mIndexBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
+        bool mVertexBufferShadowBuffer{false};
+        bool mIndexBufferShadowBuffer{false};
 
 
-        bool mPreparedForShadowVolumes;
-        bool mEdgeListsBuilt;
-        bool mAutoBuildEdgeLists;
+        bool mPreparedForShadowVolumes{false};
+        bool mEdgeListsBuilt{false};
+        bool mAutoBuildEdgeLists{true};
 
         /// Storage of morph animations, lookup by name
         using AnimationList = std::map<String, Animation *>;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
-        mutable VertexAnimationType mSharedVertexDataAnimationType;
+        mutable VertexAnimationType mSharedVertexDataAnimationType{VAT_NONE};
         /// Whether vertex animation includes normals
-        mutable bool mSharedVertexDataAnimationIncludesNormals;
+        mutable bool mSharedVertexDataAnimationIncludesNormals{false};
         /// Do we need to scan animations for animation types?
-        mutable bool mAnimationTypesDirty;
+        mutable bool mAnimationTypesDirty{true};
 
         /// List of available poses for shared and dedicated geometryPoseList
         PoseList mPoseList;
-        mutable bool mPosesIncludeNormals;
+        mutable bool mPosesIncludeNormals{false};
 
 
         /** Loads the mesh from disk.  This call only performs IO, it
@@ -314,7 +314,7 @@ class VertexData;
             The use of shared or non-shared buffers is determined when
             model data is converted to the OGRE .mesh format.
         */
-        VertexData *sharedVertexData;
+        VertexData *sharedVertexData{nullptr};
 
         /** Shared index map for translating blend index to bone index.
         @remarks
@@ -978,14 +978,14 @@ class VertexData;
         @remarks
             This is required in case the LOD strategy changes.
         */
-        Real userValue;
+        Real userValue{0.0};
 
         /** Value used by to determine when this LOD applies.
         @remarks
             May be interpreted differently by different strategies.
             Transformed from user-supplied values with LodStrategy::transformUserValue.
         */
-        Real value;
+        Real value{0.0};
         
 
         /// Only relevant if mIsLodManual is true, the name of the alternative mesh to use.
@@ -993,9 +993,9 @@ class VertexData;
         /// Hard link to mesh to avoid looking up each time.
         mutable MeshPtr manualMesh;
         /// Edge list for this LOD level (may be derived from manual mesh).
-        mutable EdgeData* edgeData;
+        mutable EdgeData* edgeData{nullptr};
 
-        MeshLodUsage() : userValue(0.0), value(0.0), edgeData(nullptr) {}
+        MeshLodUsage()  {}
     };
 
     /** @} */

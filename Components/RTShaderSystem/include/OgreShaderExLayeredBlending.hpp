@@ -107,14 +107,14 @@ public:
 
     struct TextureBlend
     {
-        TextureBlend() : blendMode(LB_Invalid), sourceModifier(SM_Invalid), customNum(0) {}
+        TextureBlend()  {}
 
         //The blend mode to use
-        BlendMode blendMode;
+        BlendMode blendMode{LB_Invalid};
         //The source modification to use
-        SourceModifier sourceModifier;
+        SourceModifier sourceModifier{SM_Invalid};
         // The number of the custom param controlling the source modification
-        int customNum;
+        int customNum{0};
         //The parameter controlling the source modification
         ParameterPtr modControlParam;
     };

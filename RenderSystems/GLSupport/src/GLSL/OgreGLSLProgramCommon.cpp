@@ -14,10 +14,8 @@
 namespace Ogre
 {
 GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
-    : mShaders(shaders),
-      mUniformRefsBuilt(false),
-      mGLProgramHandle(0),
-      mLinked(false)
+    : mShaders(shaders)
+      
 {
     // compute shader presence means no other shaders are allowed
     if(shaders[GPT_COMPUTE_PROGRAM])

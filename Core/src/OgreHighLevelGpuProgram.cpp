@@ -84,7 +84,7 @@ namespace Ogre
         const String& name, ResourceHandle handle, const String& group, 
         bool isManual, ManualResourceLoader* loader)
         : GpuProgram(creator, name, handle, group, isManual, loader), 
-        mHighLevelLoaded(false), mConstantDefsBuilt(false), mEntryPoint("main")
+         mEntryPoint("main")
     {
     }
     //---------------------------------------------------------------------------

@@ -112,7 +112,7 @@ namespace Ogre
         const String            mName;                  //Not the name of the mesh
         MeshPtr                 mMeshReference;
         InstanceBatchMap        mInstanceBatches;
-        size_t                  mIdCount;
+        size_t                  mIdCount{ 0 };
 
         InstanceBatchVec        mDirtyBatches;
 
@@ -126,8 +126,8 @@ namespace Ogre
         BatchSettingsMap        mBatchSettings;
         SceneManager*           mSceneManager;
 
-        size_t                  mMaxLookupTableInstances;
-        unsigned char           mNumCustomParams;       //Number of custom params per instance.
+        size_t                  mMaxLookupTableInstances{16};
+        unsigned char           mNumCustomParams{ 0 };       //Number of custom params per instance.
 
         /** Finds a batch with at least one free instanced entity we can use.
             If none found, creates one.

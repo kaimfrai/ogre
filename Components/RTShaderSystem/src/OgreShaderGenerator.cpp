@@ -191,9 +191,7 @@ ShaderGenerator& ShaderGenerator::getSingleton() noexcept
 
 //-----------------------------------------------------------------------------
 ShaderGenerator::ShaderGenerator() :
-    mActiveSceneMgr(nullptr), mShaderLanguage(""),
-    mFSLayer(nullptr), mActiveViewportValid(false), mVSOutputCompactPolicy(VSOCP_LOW),
-    mCreateShaderOverProgrammablePass(false), mIsFinalizing(false)
+     mShaderLanguage("") 
 {
     mLightCount[0]              = 0;
     mLightCount[1]              = 0;
@@ -1491,7 +1489,7 @@ void ShaderGenerator::SGPass::buildTargetRenderState()
 ShaderGenerator::SGTechnique::SGTechnique(SGMaterial* parent, const Technique* srcTechnique,
                                           const String& dstTechniqueSchemeName,
                                           bool overProgrammable)
-    : mParent(parent), mSrcTechnique(srcTechnique), mDstTechnique(nullptr), mBuildDstTechnique(true),
+    : mParent(parent), mSrcTechnique(srcTechnique), 
       mDstTechniqueSchemeName(dstTechniqueSchemeName), mOverProgrammable(overProgrammable)
 {
 }
@@ -1725,7 +1723,7 @@ bool ShaderGenerator::SGTechnique::hasRenderState(unsigned short passIndex)
 
 //-----------------------------------------------------------------------------
 ShaderGenerator::SGScheme::SGScheme(const String& schemeName) :
-    mName(schemeName), mOutOfDate(true), mFogMode(FOG_NONE)
+    mName(schemeName) 
 {
 }
 

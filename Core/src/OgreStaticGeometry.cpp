@@ -68,15 +68,11 @@ namespace Ogre {
     StaticGeometry::StaticGeometry(SceneManager* owner, const String& name):
         mOwner(owner),
         mName(name),
-        mUpperDistance(0.0f),
-        mSquaredUpperDistance(0.0f),
-        mCastShadows(false),
+        
         mRegionDimensions(Vector3(1000,1000,1000)),
         mHalfRegionDimensions(Vector3(500,500,500)),
         mOrigin(Vector3(0,0,0)),
-        mVisible(true),
-        mRenderQueueID(RENDER_QUEUE_MAIN),
-        mRenderQueueIDSet(false),
+        
         mVisibilityFlags(Ogre::MovableObject::getDefaultVisibilityFlags())
     {
     }
@@ -699,8 +695,7 @@ namespace Ogre {
     StaticGeometry::Region::Region(StaticGeometry* parent, const String& name,
         SceneManager* mgr, uint32 regionID, const Vector3& centre)
         : MovableObject(name), mParent(parent),
-        mRegionID(regionID), mCentre(centre), mBoundingRadius(0.0f),
-        mCurrentLod(0), mLodStrategy(nullptr), mCamera(nullptr), mSquaredViewDepth(0)
+        mRegionID(regionID), mCentre(centre) 
     {
         mManager = mgr;
     }
@@ -939,8 +934,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::LODBucket::LODBucket(Region* parent, unsigned short lod,
         Real lodValue)
-        : mParent(parent), mLod(lod), mLodValue(lodValue), mEdgeList(nullptr)
-        , mVertexProgramInUse(false)
+        : mParent(parent), mLod(lod), mLodValue(lodValue) 
     {
     }
     //--------------------------------------------------------------------------
@@ -1136,7 +1130,7 @@ namespace Ogre {
         const MaterialPtr& material)
         : mParent(parent)
         , mMaterial(material)
-        , mTechnique(nullptr)
+         
     {
     }
     //--------------------------------------------------------------------------

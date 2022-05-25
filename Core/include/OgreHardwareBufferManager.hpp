@@ -186,7 +186,7 @@ class VertexDeclaration;
         /// Map of currently licensed temporary buffers.
         TemporaryVertexBufferLicenseMap mTempVertexBufferLicenses;
         /// Number of frames elapsed since temporary buffers utilization was above half the available.
-        size_t mUnderUsedFrameCount;
+        size_t mUnderUsedFrameCount{0};
         /// Number of frames to wait before free unused temporary buffers.
         static const size_t UNDER_USED_FRAME_THRESHOLD;
         /// Frame delay for BLT_AUTOMATIC_RELEASE temporary buffers.

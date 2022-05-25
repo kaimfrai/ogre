@@ -187,14 +187,14 @@ class VertexData;
 
     private:
 
-        VertexData* mVData;
+        VertexData* mVData{nullptr};
         using IndexDataList = std::vector<IndexData *>;
         using OpTypeList = std::vector<RenderOperation::OperationType>;
         IndexDataList mIDataList;
         OpTypeList mOpTypes;
-        bool mSplitMirrored;
-        bool mSplitRotated;
-        bool mStoreParityInW;
+        bool mSplitMirrored{false};
+        bool mSplitRotated{false};
+        bool mStoreParityInW{false};
 
 
         struct VertexInfo
@@ -205,12 +205,11 @@ class VertexData;
             Vector3 tangent;
             Vector3 binormal;
             // Which way the tangent space is oriented (+1 / -1) (set on first time found)
-            int parity;
+            int parity{0};
             // What index the opposite parity vertex copy is at (0 if not created yet)
-            size_t oppositeParityIndex;
+            size_t oppositeParityIndex{0};
 
-            VertexInfo() : tangent(Vector3::ZERO), binormal(Vector3::ZERO), 
-                parity(0), oppositeParityIndex(0) {}
+            VertexInfo() : tangent(Vector3::ZERO), binormal(Vector3::ZERO) {}
         };
         using VertexInfoArray = std::vector<VertexInfo>;
         VertexInfoArray mVertexArray;

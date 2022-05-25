@@ -143,7 +143,7 @@ void RenderState::removeSubRenderState(SubRenderState* subRenderState)
 }
 
 //-----------------------------------------------------------------------
-TargetRenderState::TargetRenderState() : mSubRenderStateSortValid(false), mParent(nullptr) {}
+TargetRenderState::TargetRenderState()  {}
 
 TargetRenderState::~TargetRenderState()
 {

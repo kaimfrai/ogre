@@ -117,7 +117,7 @@ void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
 GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent, GLint face,
                                  GLint level, uint32 width, uint32 height, uint32 depth)
     : GLHardwarePixelBufferCommon(width, height, depth, parent->getFormat(), (Usage)parent->getUsage()),
-      mTarget(parent->getGLTextureTarget()), mFaceTarget(0), mTextureID(parent->getGLID()),
+      mTarget(parent->getGLTextureTarget()),  mTextureID(parent->getGLID()),
       mLevel(level), mHwGamma(parent->isHardwareGammaEnabled()),
       mRenderSystem(renderSystem)
 {
@@ -659,8 +659,8 @@ RenderTexture *GLTextureBuffer::getRenderTarget(size_t zoffset)
 //********* GLRenderBuffer
 //----------------------------------------------------------------------------- 
 GLRenderBuffer::GLRenderBuffer(GLenum format, uint32 width, uint32 height, GLsizei numSamples):
-    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HBU_GPU_ONLY),
-    mRenderbufferID(0)
+    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HBU_GPU_ONLY)
+    
 {
     mGLInternalFormat = format;
     /// Generate renderbuffer

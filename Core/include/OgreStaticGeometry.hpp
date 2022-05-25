@@ -167,14 +167,14 @@ class Technique;
         class OptimisedSubMeshGeometry : public BatchedGeometryAlloc
         {
         public:
-            OptimisedSubMeshGeometry() :vertexData(nullptr), indexData(nullptr) {}
+            OptimisedSubMeshGeometry()  {}
             ~OptimisedSubMeshGeometry() 
             {
                 delete vertexData;
                 delete indexData;
             }
-            VertexData *vertexData;
-            IndexData *indexData;
+            VertexData *vertexData{nullptr};
+            IndexData *indexData{nullptr};
         };
         using OptimisedSubMeshGeometryList = std::list<OptimisedSubMeshGeometry *>;
         /// Saved link between SubMesh at a LOD and vertex/index data
@@ -272,7 +272,7 @@ class Technique;
             /// Pointer to material being used
             MaterialPtr mMaterial;
             /// Active technique
-            Technique* mTechnique;
+            Technique* mTechnique{nullptr};
 
             /// list of Geometry Buckets in this region
             GeometryBucketList mGeometryBucketList;
@@ -330,9 +330,9 @@ class Technique;
             /// Geometry queued for a single LOD (deallocated here)
             QueuedGeometryList mQueuedGeometryList;
             /// Edge list, used if stencil shadow casting is enabled 
-            EdgeData* mEdgeList;
+            EdgeData* mEdgeList{nullptr};
             /// Is a vertex program in use somewhere in this group?
-            bool mVertexProgramInUse;
+            bool mVertexProgramInUse{false};
             /// List of shadow renderables
             ShadowCaster::ShadowRenderableList mShadowRenderables;
         public:
@@ -393,9 +393,9 @@ class Technique;
             /// Local AABB relative to region centre
             AxisAlignedBox mAABB;
             /// Local bounding radius
-            Real mBoundingRadius;
+            Real mBoundingRadius{0.0f};
             /// The current LOD level, as determined from the last camera
-            ushort mCurrentLod;
+            ushort mCurrentLod{0};
             /// Current LOD value, passed on to do material LOD later
             Real mLodValue;
             /// List of LOD buckets         
@@ -403,11 +403,11 @@ class Technique;
             /// List of lights for this region
             mutable LightList mLightList;
             /// LOD strategy reference
-            const LodStrategy *mLodStrategy;
+            const LodStrategy *mLodStrategy{nullptr};
             /// Current camera
-            Camera *mCamera;
+            Camera *mCamera{nullptr};
             /// Cached squared view depth value to avoid recalculation by GeometryBucket
-            Real mSquaredViewDepth;
+            Real mSquaredViewDepth{0};
 
         public:
             Region(StaticGeometry* parent, const String& name, SceneManager* mgr, 
@@ -463,17 +463,17 @@ class Technique;
         // General state & settings
         SceneManager* mOwner;
         String mName;
-        Real mUpperDistance;
-        Real mSquaredUpperDistance;
-        bool mCastShadows;
+        Real mUpperDistance{0.0f};
+        Real mSquaredUpperDistance{0.0f};
+        bool mCastShadows{false};
         Vector3 mRegionDimensions;
         Vector3 mHalfRegionDimensions;
         Vector3 mOrigin;
-        bool mVisible;
+        bool mVisible{true};
         /// The render queue to use when rendering this object
-        uint8 mRenderQueueID;
+        uint8 mRenderQueueID{RENDER_QUEUE_MAIN};
         /// Flags whether the RenderQueue's default should be used.
-        bool mRenderQueueIDSet;
+        bool mRenderQueueIDSet{false};
         /// Stores the visibility flags for the regions
         uint32 mVisibilityFlags;
 

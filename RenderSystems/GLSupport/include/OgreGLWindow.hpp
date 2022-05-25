@@ -63,7 +63,7 @@ struct Box;
         bool mIsExternalGLControl;
         bool mVSync;
 
-        GLContext*   mContext;
+        GLContext*   mContext{nullptr};
     };
 }
 

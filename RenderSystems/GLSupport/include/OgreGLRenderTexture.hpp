@@ -51,11 +51,11 @@ class RenderTarget;
     struct GLSurfaceDesc
     {
     public:
-        GLHardwarePixelBufferCommon *buffer;
-        uint32 zoffset;
-        uint numSamples;
+        GLHardwarePixelBufferCommon *buffer{nullptr};
+        uint32 zoffset{0};
+        uint numSamples{0};
 
-        GLSurfaceDesc() : buffer(nullptr), zoffset(0), numSamples(0) {}
+        GLSurfaceDesc()  {}
     };
 
     /// Frame Buffer Object abstraction
@@ -99,8 +99,8 @@ class RenderTarget;
         GLSurfaceDesc mColour[OGRE_MAX_MULTIPLE_RENDER_TARGETS];
         /// Context that was used to create FBO. It could already be destroyed, so do not dereference this field blindly
         GLContext* mContext;
-        uint32 mFB;
-        uint32 mMultisampleFB;
+        uint32 mFB{0};
+        uint32 mMultisampleFB{0};
         int32 mNumSamples;
 
         /** Initialise object (find suitable depth and stencil format).

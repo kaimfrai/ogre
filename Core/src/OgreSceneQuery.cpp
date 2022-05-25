@@ -38,8 +38,8 @@ class MovableObject;
 
     //-----------------------------------------------------------------------
     SceneQuery::SceneQuery(SceneManager* mgr)
-        : mParentSceneMgr(mgr), mQueryMask(0xFFFFFFFF), 
-        mWorldFragmentType(SceneQuery::WFT_NONE)
+        : mParentSceneMgr(mgr) 
+        
     {
         // default type mask to everything except lights & fx (previous behaviour)
         mQueryTypeMask = (0xFFFFFFFF & ~SceneManager::FX_TYPE_MASK) 
@@ -89,7 +89,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     RegionSceneQuery::RegionSceneQuery(SceneManager* mgr)
-        :SceneQuery(mgr), mLastResult(nullptr)
+        :SceneQuery(mgr) 
     {
     }
     //-----------------------------------------------------------------------
@@ -294,7 +294,7 @@ class MovableObject;
     }
     //-----------------------------------------------------------------------
     IntersectionSceneQuery::IntersectionSceneQuery(SceneManager* mgr)
-    : SceneQuery(mgr), mLastResult(nullptr)
+    : SceneQuery(mgr) 
     {
     }
     //-----------------------------------------------------------------------

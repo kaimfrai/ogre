@@ -122,7 +122,7 @@ namespace Ogre {
         }
     }
 //-----------------------------------------------------------------------------
-    GLRenderToVertexBuffer::GLRenderToVertexBuffer() : mFrontBufferIndex(-1)
+    GLRenderToVertexBuffer::GLRenderToVertexBuffer()  
     {
         mVertexBuffers[0].reset();
         mVertexBuffers[1].reset();

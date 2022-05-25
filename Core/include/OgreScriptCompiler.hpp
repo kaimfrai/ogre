@@ -107,8 +107,8 @@ class Material;
     {
     public:
         String file;
-        unsigned int line;
-        AbstractNodeType type;
+        unsigned int line{0};
+        AbstractNodeType type{ANT_UNKNOWN};
         AbstractNode *parent;
         Any context; // A holder for translation context data
     public:
@@ -125,7 +125,7 @@ class Material;
     {
     public:
         String value;
-        uint32 id;
+        uint32 id{0};
     public:
         AtomAbstractNode(AbstractNode *ptr);
         [[nodiscard]] AbstractNode *clone() const override;
@@ -140,8 +140,8 @@ class Material;
     public:
         String name, cls;
         std::vector<String> bases;
-        uint32 id;
-        bool abstract;
+        uint32 id{0};
+        bool abstract{false};
         AbstractNodeList children;
         AbstractNodeList values;
         AbstractNodeList overrides; // For use when processing object inheritance and overriding
@@ -161,7 +161,7 @@ class Material;
     {
     public:
         String name;
-        uint32 id;
+        uint32 id{0};
         AbstractNodeList values;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
@@ -319,13 +319,13 @@ class Material;
         ErrorList mErrors;
 
         // The listener
-        ScriptCompilerListener *mListener;
+        ScriptCompilerListener *mListener{nullptr};
     private: // Internal helper classes and processors
         class AbstractTreeBuilder
         {
         private:
             AbstractNodeListPtr mNodes;
-            AbstractNode *mCurrent;
+            AbstractNode *mCurrent{nullptr};
             ScriptCompiler *mCompiler;
         public:
             AbstractTreeBuilder(ScriptCompiler *compiler);

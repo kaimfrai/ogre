@@ -44,7 +44,7 @@ namespace Ogre
             PixelFormat format,
             HardwareBuffer::Usage usage, bool useSystemMemory, bool useShadowBuffer):
         HardwareBuffer(usage, useSystemMemory, useShadowBuffer),
-        mCurrentLockOptions(), mWidth(width), mHeight(height), mDepth(depth),
+         mWidth(width), mHeight(height), mDepth(depth),
         mFormat(format)
     {
         // Default

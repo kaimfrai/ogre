@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include <map>
 #include <vector>
 
+#include "OgreDepthBuffer.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePixelFormat.hpp"
 #include "OgrePlatform.hpp"
@@ -47,7 +48,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 class Camera;
-class DepthBuffer;
 class RenderTargetListener;
 class Timer;
 class Viewport;
@@ -444,12 +444,12 @@ struct Box;
         /// The name of this target.
         String mName;
         /// The priority of the render target.
-        uchar mPriority;
+        uchar mPriority{OGRE_DEFAULT_RT_GROUP};
 
         uint32 mWidth;
         uint32 mHeight;
-        uint16       mDepthBufferPoolId;
-        DepthBuffer *mDepthBuffer;
+        uint16       mDepthBufferPoolId{DepthBuffer::POOL_DEFAULT};
+        DepthBuffer *mDepthBuffer{nullptr};
 
         // Stats
         FrameStats mStats;
@@ -459,14 +459,14 @@ struct Box;
         unsigned long mLastTime;
         size_t mFrameCount;
 
-        bool mActive;
-        bool mAutoUpdate;
+        bool mActive{true};
+        bool mAutoUpdate{true};
         // Hardware sRGB gamma conversion done on write?
-        bool mHwGamma;
+        bool mHwGamma{false};
         // FSAA performed?
-        uint mFSAA;
+        uint mFSAA{0};
         String mFSAAHint;
-		bool mStereoEnabled;
+		bool mStereoEnabled{false};
 
         virtual void updateStats();
 

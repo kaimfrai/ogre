@@ -96,7 +96,7 @@ struct GLGpuProgramBase;
         GLenum mTextureTypes[OGRE_MAX_TEXTURE_LAYERS];
 
         /// Number of fixed-function texture units
-        unsigned short mFixedFunctionTextureUnits;
+        unsigned short mFixedFunctionTextureUnits{0};
 
         void setGLLight(size_t index, bool lt);
         void makeGLMatrix(GLfloat gl_matrix[16], const Matrix4& m);
@@ -106,22 +106,22 @@ struct GLGpuProgramBase;
                 void initialiseContext(RenderWindow* primary);
 
         /// Store last stencil mask state
-        uint32 mStencilWriteMask;
+        uint32 mStencilWriteMask{0xFFFFFFFF};
         /// Store last depth write state
-        bool mDepthWrite;
+        bool mDepthWrite{true};
 
         [[nodiscard]] GLint convertCompareFunction(CompareFunction func) const;
         [[nodiscard]] GLint convertStencilOp(StencilOperation op, bool invert = false) const;
 
-        bool mUseAutoTextureMatrix;
+        bool mUseAutoTextureMatrix{false};
         GLfloat mAutoTextureMatrix[16];
 
         /// Check if the GL system has already been initialised
         bool mGLInitialised;
 
-        HardwareBufferManager* mHardwareBufferManager;
-        GLGpuProgramManager* mGpuProgramManager;
-        GLSL::GLSLProgramFactory* mGLSLProgramFactory;
+        HardwareBufferManager* mHardwareBufferManager{nullptr};
+        GLGpuProgramManager* mGpuProgramManager{nullptr};
+        GLSL::GLSLProgramFactory* mGLSLProgramFactory{nullptr};
 
         unsigned short mCurrentLights;
 
@@ -130,10 +130,10 @@ struct GLGpuProgramBase;
         GLGpuProgramBase* mCurrentGeometryProgram;
 
         // statecaches are per context
-        GLStateCacheManager* mStateCacheManager;
+        GLStateCacheManager* mStateCacheManager{nullptr};
 
-        ushort mActiveTextureUnit;
-        ushort mMaxBuiltInTextureAttribIndex;
+        ushort mActiveTextureUnit{0};
+        ushort mMaxBuiltInTextureAttribIndex{0};
 
         // local data members of _render that were moved here to improve performance
         // (save allocations)

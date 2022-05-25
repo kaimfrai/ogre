@@ -119,7 +119,7 @@ namespace Ogre {
 
     private:
 
-        bool mAutoCalc;
+        bool mAutoCalc{true};
 
 
 

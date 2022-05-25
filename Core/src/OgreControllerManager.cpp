@@ -47,7 +47,7 @@ namespace Ogre {
     ControllerManager::ControllerManager()
         : mFrameTimeController(new FrameTimeControllerValue())
         , mPassthroughFunction(new PassthroughControllerFunction())
-        , mLastFrameNumber(0)
+         
     {
 
     }

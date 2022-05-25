@@ -105,12 +105,9 @@ class ResourceManager;
         const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader)
         : HighLevelGpuProgram(creator, name, handle, group, isManual, loader)
-        , mColumnMajorMatrices(true)
-        , mLinked(0)
-        , mShaderID(++mShaderCount) // Increase shader counter and use as ID
-        , mGLShaderHandle(0)
-        , mGLProgramHandle(0)
-        , mShaderVersion(100)
+        , 
+         mShaderID(++mShaderCount) // Increase shader counter and use as ID
+         
     {
     }
     //-----------------------------------------------------------------------

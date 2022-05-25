@@ -62,7 +62,7 @@ THE SOFTWARE.
 #include "TestContext.hpp"
 #include "VTestPlugin.hpp"
 
-TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext(), mSuccess(true), mTimestep(0.01f), mBatch(nullptr)
+TestContext::TestContext(int argc, char** argv) : OgreBites::SampleContext() 
 {
     Ogre::UnaryOptionList unOpt;
     Ogre::BinaryOptionList binOpt;

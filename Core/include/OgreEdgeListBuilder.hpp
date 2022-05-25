@@ -69,16 +69,16 @@ namespace Ogre {
         struct Triangle {
             /** The set of indexes this triangle came from (NB it is possible that the triangles on 
                one side of an edge are using a different vertex buffer from those on the other side.) */
-            size_t indexSet; 
+            size_t indexSet{0}; 
             /** The vertex set these vertices came from. */
-            size_t vertexSet;
+            size_t vertexSet{0};
             /// Vertex indexes, relative to the original buffer
             size_t vertIndex[3];
             /** Vertex indexes, relative to a shared vertex buffer with
                 duplicates eliminated (this buffer is not exposed) */
             size_t sharedVertIndex[3];
 
-            Triangle() :indexSet(0), vertexSet(0) {}
+            Triangle()  {}
         };
         /** Edge data. */
         struct Edge {
@@ -140,7 +140,7 @@ namespace Ogre {
         /** All edge groups of this edge list. */
         EdgeGroupList edgeGroups;
         /** Flag indicate the mesh is manifold. */
-        bool isClosed;
+        bool isClosed{false};
 
 
         /** Calculate the light facing state of the triangles in this edge list
@@ -259,7 +259,7 @@ namespace Ogre {
         GeometryList mGeometryList;
         VertexDataList mVertexDataList;
         CommonVertexList mVertices;
-        EdgeData* mEdgeData;
+        EdgeData* mEdgeData{nullptr};
         /// Map for identifying common vertices
         using CommonVertexMap = std::map<Vector3, size_t, vectorLess>;
         CommonVertexMap mCommonVertexMap;

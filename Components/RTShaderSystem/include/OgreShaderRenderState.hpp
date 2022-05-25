@@ -207,10 +207,10 @@ private:
     ProgramSet* getProgramSet() noexcept { return mProgramSet.get(); }
     
     // Tells if the list of the sub render states is sorted.
-    bool mSubRenderStateSortValid;
+    bool mSubRenderStateSortValid{false};
     // The program set of this RenderState.
     std::unique_ptr<ProgramSet> mProgramSet;
-    Pass* mParent;
+    Pass* mParent{nullptr};
 
 private:
     friend class ProgramManager;

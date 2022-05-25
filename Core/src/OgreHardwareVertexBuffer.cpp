@@ -714,7 +714,7 @@ namespace Ogre {
         return texCoord;
     }
     //-----------------------------------------------------------------------------
-    VertexBufferBinding::VertexBufferBinding() : mHighIndex(0)
+    VertexBufferBinding::VertexBufferBinding()  
     {
     }
     //-----------------------------------------------------------------------------

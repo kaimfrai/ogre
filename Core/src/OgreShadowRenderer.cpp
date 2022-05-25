@@ -90,31 +90,9 @@ GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msFiniteExtrusionPar
 
 SceneManager::ShadowRenderer::ShadowRenderer(SceneManager* owner) :
 mSceneManager(owner),
-mShadowTechnique(SHADOWTYPE_NONE),
-mShadowColour(ColourValue(0.25, 0.25, 0.25)),
-mShadowCasterPlainBlackPass(nullptr),
-mShadowReceiverPass(nullptr),
-mShadowModulativePass(nullptr),
-mShadowDebugPass(nullptr),
-mShadowStencilPass(nullptr),
-mShadowIndexBufferSize(51200),
-mShadowIndexBufferUsedSize(0),
-mShadowTextureCustomCasterPass(nullptr),
-mShadowTextureCustomReceiverPass(nullptr),
-mFullScreenQuad(nullptr),
-mShadowAdditiveLightClip(false),
-mDebugShadows(false),
-mShadowMaterialInitDone(false),
-mShadowUseInfiniteFarPlane(true),
-mShadowDirLightExtrudeDist(10000),
-mDefaultShadowFarDist(0),
-mDefaultShadowFarDistSquared(0),
-mShadowTextureOffset(0.6),
-mShadowTextureFadeStart(0.7),
-mShadowTextureFadeEnd(0.9),
-mShadowTextureSelfShadow(false),
-mShadowTextureConfigDirty(true),
-mShadowCasterRenderBackFaces(true)
+
+mShadowColour(ColourValue(0.25, 0.25, 0.25))
+
 {
     mShadowCasterQueryListener.reset(new ShadowCasterSceneQueryListener(mSceneManager));
 

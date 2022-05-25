@@ -50,7 +50,7 @@ class GLRenderSystem;
     {
     protected:
         GLRenderSystem* mRenderSystem;
-        char* mScratchBufferPool;
+        char* mScratchBufferPool{nullptr};
         size_t mMapBufferThreshold;
 
     public:

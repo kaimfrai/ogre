@@ -241,8 +241,8 @@ protected:
     // Pixel shader specular colour.
     ParameterPtr mPSSpecular;
 
-    bool mIsPointSprite;
-    bool mLateAddBlend;
+    bool mIsPointSprite{false};
+    bool mLateAddBlend{false};
 };
 
 

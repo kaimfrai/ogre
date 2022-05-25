@@ -49,8 +49,8 @@ namespace Ogre {
 namespace RTShader {
 
 //-----------------------------------------------------------------------------
-SGScriptTranslator::SGScriptTranslator() :
-    mGeneratedRenderState(nullptr)
+SGScriptTranslator::SGScriptTranslator() 
+    
 {
 }
 

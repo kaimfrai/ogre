@@ -38,13 +38,9 @@ class CompositionTechnique;
 
 CompositionTargetPass::CompositionTargetPass(CompositionTechnique *parent):
     mParent(parent),
-    mInputMode(IM_NONE),
-    mOnlyInitial(false),
-    mVisibilityMask(0xFFFFFFFF),
-    mLodBias(1.0f),
-    mMaterialScheme(MaterialManager::DEFAULT_SCHEME_NAME), 
-    mShadowsEnabled(true),
-    mOutputSlice(0)
+    
+    mMaterialScheme(MaterialManager::DEFAULT_SCHEME_NAME)
+    
 {
     if (Root::getSingleton().getRenderSystem())
     {

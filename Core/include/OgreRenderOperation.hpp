@@ -104,34 +104,33 @@ namespace Ogre {
         };
 
         /// Vertex source data
-        VertexData *vertexData;
+        VertexData *vertexData{nullptr};
 
         /// Index data - only valid if useIndexes is true
-        IndexData *indexData;
+        IndexData *indexData{nullptr};
         /// Debug pointer back to renderable which created this
-        const Renderable* srcRenderable;
+        const Renderable* srcRenderable{nullptr};
 
         /// The number of instances for the render operation - this option is supported
         /// in only a part of the render systems.
-        uint32 numberOfInstances;
+        uint32 numberOfInstances{1};
 
         /// The type of operation to perform
-        OperationType operationType;
+        OperationType operationType{OT_TRIANGLE_LIST};
 
         /** Specifies whether to use indexes to determine the vertices to use as input. If false, the vertices are
             simply read in sequence to define the primitives. If true, indexes are used instead to identify vertices
             anywhere in the buffer, and allowing vertices to be used more than once.
             If true, then the indexBuffer, indexStart and numIndexes properties must be valid. */
-        bool useIndexes;
+        bool useIndexes{true};
 
         /** A flag to indicate that it is possible for this operation to use a global
             vertex instance buffer if available.*/
-        bool useGlobalInstancingVertexBufferIsAvailable;
+        bool useGlobalInstancingVertexBufferIsAvailable{true};
 
         RenderOperation()
-            : vertexData(nullptr), indexData(nullptr), srcRenderable(nullptr), numberOfInstances(1),
-              operationType(OT_TRIANGLE_LIST), useIndexes(true),
-              useGlobalInstancingVertexBufferIsAvailable(true)
+            
+              
         {
         }
     };

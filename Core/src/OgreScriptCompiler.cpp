@@ -58,12 +58,12 @@ namespace Ogre
 {
     // AbstractNode
     AbstractNode::AbstractNode(AbstractNode *ptr)
-        :line(0), type(ANT_UNKNOWN), parent(ptr)
+        : parent(ptr)
     {}
 
     // AtomAbstractNode
     AtomAbstractNode::AtomAbstractNode(AbstractNode *ptr)
-        :AbstractNode(ptr), id(0)
+        :AbstractNode(ptr) 
     {
         type = ANT_ATOM;
     }
@@ -81,7 +81,7 @@ namespace Ogre
 
     // ObjectAbstractNode
     ObjectAbstractNode::ObjectAbstractNode(AbstractNode *ptr)
-        :AbstractNode(ptr), id(0), abstract(false)
+        :AbstractNode(ptr) 
     {
         type = ANT_OBJECT;
     }
@@ -146,7 +146,7 @@ namespace Ogre
 
     // PropertyAbstractNode
     PropertyAbstractNode::PropertyAbstractNode(AbstractNode *ptr)
-        :AbstractNode(ptr), id(0)
+        :AbstractNode(ptr) 
     {
         type = ANT_PROPERTY;
     }
@@ -278,7 +278,7 @@ namespace Ogre
     }
 
     ScriptCompiler::ScriptCompiler()
-        :mListener(nullptr)
+        
     {
         initWordMap();
     }
@@ -1185,7 +1185,7 @@ namespace Ogre
 
     // AbstractTreeeBuilder
     ScriptCompiler::AbstractTreeBuilder::AbstractTreeBuilder(ScriptCompiler *compiler)
-        :mNodes(new AbstractNodeList()), mCurrent(nullptr), mCompiler(compiler)
+        :mNodes(new AbstractNodeList()),  mCompiler(compiler)
     {
     }
 

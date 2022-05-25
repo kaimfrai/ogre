@@ -191,16 +191,8 @@ namespace Ogre {
     }
 
     GLRenderSystem::GLRenderSystem()
-    :   mFixedFunctionTextureUnits(0),
-        mStencilWriteMask(0xFFFFFFFF),
-        mDepthWrite(true),
-        mUseAutoTextureMatrix(false),
-        mHardwareBufferManager(nullptr),
-        mGpuProgramManager(nullptr),
-        mGLSLProgramFactory(nullptr),
-        mStateCacheManager(nullptr),
-        mActiveTextureUnit(0),
-        mMaxBuiltInTextureAttribIndex(0)
+    
+        
     {
         size_t i;
 

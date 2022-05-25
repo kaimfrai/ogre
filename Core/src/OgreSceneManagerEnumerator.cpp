@@ -50,7 +50,7 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     SceneManagerEnumerator::SceneManagerEnumerator()
-        : mInstanceCreateCount(0), mCurrentRenderSystem(nullptr)
+         
     {
         addFactory(&mDefaultFactory);
 

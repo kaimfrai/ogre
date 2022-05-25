@@ -71,7 +71,7 @@ class SubMesh;
      */
     class InstanceBatchHW : public InstanceBatch
     {
-        bool    mKeepStatic;
+        bool    mKeepStatic{ false };
 
         void setupVertices( const SubMesh* baseSubMesh ) override;
         void setupIndices( const SubMesh* baseSubMesh ) override;

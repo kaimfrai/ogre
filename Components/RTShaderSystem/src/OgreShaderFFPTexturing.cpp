@@ -79,7 +79,7 @@ String FFPTexturing::Type = "FFP_Texturing";
 const String c_ParamTexelEx("texel_");
 
 //-----------------------------------------------------------------------
-FFPTexturing::FFPTexturing() : mIsPointSprite(false), mLateAddBlend(false)
+FFPTexturing::FFPTexturing()  
 {   
 }
 

@@ -44,7 +44,7 @@ class AnimationStateSet;
     SkeletonInstance::SkeletonInstance(const SkeletonPtr& masterCopy) 
         : Skeleton()
         , mSkeleton(masterCopy)
-        , mNextTagPointAutoHandle(0)
+         
     {
     }
     //-------------------------------------------------------------------------

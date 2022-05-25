@@ -77,28 +77,15 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Profiler::Profiler()
         : mCurrent(&mRoot)
-        , mLast(nullptr)
-        , mRoot()
-        , mInitialized(false)
-        , mUpdateDisplayFrequency(10)
-        , mCurrentFrame(0)
-        , mTimer(nullptr)
-        , mTotalFrameClocks(0)
-        , mEnabled(true)
-        , mNewEnableState(true)
-        , mProfileMask(0xFFFFFFFF)
-        , mMaxTotalFrameClocks(0)
-        , mAverageFrameClocks(0)
-        , mResetExtents(false)
+        , 
+         mRoot()
+         
     {
         mRoot.hierarchicalLvl = 0 - 1;
     }
     //-----------------------------------------------------------------------
     ProfileInstance::ProfileInstance()
-        : parent(nullptr)
-        , frameNumber(0)
-        , accumClocks(0)
-        , hierarchicalLvl(0)
+         
     {
         history.numCallsThisFrame = 0;
         history.totalClocksPercent = 0;

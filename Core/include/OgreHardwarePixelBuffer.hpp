@@ -57,7 +57,7 @@ class RenderTexture;
     class HardwarePixelBuffer : public HardwareBuffer
     {
     protected:
-        LockOptions mCurrentLockOptions;
+        LockOptions mCurrentLockOptions{};
         /// Extents
         uint32 mWidth, mHeight, mDepth;
         /// Internal format

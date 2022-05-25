@@ -588,13 +588,13 @@ class SceneNode;
     {
     private:
         /// Type flag, allocated if requested
-        uint32 mTypeFlag;
+        uint32 mTypeFlag{0xFFFFFFFF};
 
         /// Internal implementation of create method - must be overridden
         virtual MovableObject* createInstanceImpl(
             const String& name, const NameValuePairList* params = nullptr) = 0;
     public:
-        MovableObjectFactory() : mTypeFlag(0xFFFFFFFF) {}
+        MovableObjectFactory()  {}
         virtual ~MovableObjectFactory() {}
         /// Get the type of the object to be created
         [[nodiscard]] virtual const String& getType() const noexcept = 0;

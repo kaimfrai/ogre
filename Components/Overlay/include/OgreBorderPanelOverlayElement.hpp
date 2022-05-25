@@ -187,19 +187,19 @@ class RenderQueue;
         /** @copydoc OverlayElement::_update */
         void _update() override;
     private:
-        Real mLeftBorderSize;
-        Real mRightBorderSize;
-        Real mTopBorderSize;
-        Real mBottomBorderSize;
+        Real mLeftBorderSize{0};
+        Real mRightBorderSize{0};
+        Real mTopBorderSize{0};
+        Real mBottomBorderSize{0};
         struct CellUV {
             Real u1, v1, u2, v2;
         };
         CellUV mBorderUV[8];
 
-        ushort mPixelLeftBorderSize;
-        ushort mPixelRightBorderSize;
-        ushort mPixelTopBorderSize;
-        ushort mPixelBottomBorderSize;
+        ushort mPixelLeftBorderSize{0};
+        ushort mPixelRightBorderSize{0};
+        ushort mPixelTopBorderSize{0};
+        ushort mPixelBottomBorderSize{0};
 
         MaterialPtr mBorderMaterial;
 
@@ -227,7 +227,7 @@ class RenderQueue;
         };
         [[nodiscard]] String getCellUVString(BorderCellIndex idx) const;
 
-        BorderRenderable* mBorderRenderable;
+        BorderRenderable* mBorderRenderable{nullptr};
     };
 
     /** Class for rendering the border of a BorderPanelOverlayElement.

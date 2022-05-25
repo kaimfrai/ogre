@@ -63,18 +63,9 @@ class Technique;
                 mMaterial( material ),
                 mMeshReference( meshReference ),
                 mIndexToBoneMap( indexToBoneMap ),
-                mBoundingRadius( 0 ),
-                mBoundsDirty( false ),
-                mBoundsUpdated( false ),
-                mCurrentCamera( nullptr ),
-                mMaterialLodIndex( 0 ),
-                mDirtyAnimation(true),
-                mTechnSupportsSkeletal( true ),
-                mCameraDistLastUpdateFrameNumber( std::numeric_limits<unsigned long>::max() ),
-                mCachedCamera( nullptr ),
-                mTransformSharingDirty(true),
-                mRemoveOwnVertexData(false),
-                mRemoveOwnIndexData(false)
+                
+                mCameraDistLastUpdateFrameNumber( std::numeric_limits<unsigned long>::max() )
+                
     {
         assert( mInstancesPerBatch );
 

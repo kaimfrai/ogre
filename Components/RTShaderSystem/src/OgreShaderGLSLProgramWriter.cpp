@@ -54,7 +54,7 @@ namespace RTShader {
 String GLSLProgramWriter::TargetLanguage = "glsl";
 
 //-----------------------------------------------------------------------
-GLSLProgramWriter::GLSLProgramWriter() : mIsGLSLES(false), mIsVulkan(false)
+GLSLProgramWriter::GLSLProgramWriter()  
 {
     auto* rs = Root::getSingleton().getRenderSystem();
     mGLSLVersion = rs ? rs->getNativeShadingLanguageVersion() : 120;

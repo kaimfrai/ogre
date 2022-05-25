@@ -60,7 +60,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    GLSLLinkProgramManager::GLSLLinkProgramManager() : mActiveLinkProgram(nullptr) {}
+    GLSLLinkProgramManager::GLSLLinkProgramManager()  {}
 
     //-----------------------------------------------------------------------
     GLSLLinkProgramManager::~GLSLLinkProgramManager() {}

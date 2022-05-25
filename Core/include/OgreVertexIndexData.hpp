@@ -308,7 +308,7 @@ class HardwareBufferManagerBase;
     {
         public:
             VertexCacheProfiler(unsigned int cachesize = 16)
-                : size ( cachesize ), tail (0), buffersize (0), hit (0), miss (0)
+                : size ( cachesize ) 
             {
                 cache = new uint32[size];
             }
@@ -329,8 +329,8 @@ class HardwareBufferManagerBase;
             unsigned int size;
             uint32 *cache;
 
-            unsigned int tail, buffersize;
-            unsigned int hit, miss;
+            unsigned int tail{0}, buffersize{0};
+            unsigned int hit{0}, miss{0};
 
             bool inCache(unsigned int index);
     };
