@@ -76,7 +76,7 @@ namespace Ogre {
         template<class StateCacheManager>
         StateCacheManager* createOrRetrieveStateCacheManager() {
             if(!mStateCacheManager) {
-                StateCacheManager* stateCache = new StateCacheManager;
+                auto* stateCache = new StateCacheManager;
                 stateCache->initializeCache();
                 mStateCacheManager = SharedPtr<GLStateCacheManagerCommon>(stateCache);
             }

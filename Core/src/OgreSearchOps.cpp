@@ -47,7 +47,7 @@ struct _find_search_t
         
 intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
 {
-    _find_search_t *fs = new _find_search_t;
+    auto *fs = new _find_search_t;
     fs->curfn = nullptr;
     fs->pattern = nullptr;
 
@@ -92,7 +92,7 @@ intptr_t _findfirst(const char *pattern, struct _finddata_t *data)
 
 int _findnext(intptr_t id, struct _finddata_t *data)
 {
-    _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
+    auto *fs = reinterpret_cast<_find_search_t *>(id);
 
     /* Loop until we run out of entries or find the next one */
     dirent *entry;
@@ -145,7 +145,7 @@ int _findnext(intptr_t id, struct _finddata_t *data)
 int _findclose(intptr_t id)
 {
     int ret;
-    _find_search_t *fs = reinterpret_cast<_find_search_t *>(id);
+    auto *fs = reinterpret_cast<_find_search_t *>(id);
     
     ret = fs->dirfd ? closedir (fs->dirfd) : 0;
     free (fs->pattern);

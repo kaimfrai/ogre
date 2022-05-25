@@ -50,8 +50,8 @@ static void GLXProc( RenderWindow *win, const XEvent &event );
 void WindowEventUtilities::messagePump()
 {
     //GLX Message Pump
-    Ogre::RenderWindowList::iterator win = _msWindows.begin();
-    Ogre::RenderWindowList::iterator end = _msWindows.end();
+    auto win = _msWindows.begin();
+    auto end = _msWindows.end();
 
     Display* xDisplay = nullptr; // same for all windows
 
@@ -87,7 +87,7 @@ void WindowEventUtilities::addWindowEventListener( RenderWindow* window, WindowE
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::removeWindowEventListener( RenderWindow* window, WindowEventListener* listener )
 {
-    WindowEventListeners::iterator i = _msListeners.begin(), e = _msListeners.end();
+    auto i = _msListeners.begin(), e = _msListeners.end();
 
     for( ; i != e; ++i )
     {
@@ -108,7 +108,7 @@ void WindowEventUtilities::_addRenderWindow(RenderWindow* window)
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::_removeRenderWindow(RenderWindow* window)
 {
-    RenderWindowList::iterator i = std::find(_msWindows.begin(), _msWindows.end(), window);
+    auto i = std::find(_msWindows.begin(), _msWindows.end(), window);
     if( i != _msWindows.end() )
         _msWindows.erase( i );
 }

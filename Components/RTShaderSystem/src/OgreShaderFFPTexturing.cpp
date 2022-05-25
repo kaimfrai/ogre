@@ -604,7 +604,7 @@ bool FFPTexturing::setParameter(const String& name, const String& value) noexcep
 //-----------------------------------------------------------------------
 void FFPTexturing::copyFrom(const SubRenderState& rhs)
 {
-    const FFPTexturing& rhsTexture = static_cast<const FFPTexturing&>(rhs);
+    const auto& rhsTexture = static_cast<const FFPTexturing&>(rhs);
 
     mLateAddBlend = rhsTexture.mLateAddBlend;
     setTextureUnitCount(rhsTexture.getTextureUnitCount());

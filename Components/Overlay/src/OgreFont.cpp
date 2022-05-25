@@ -383,7 +383,7 @@ namespace Ogre
 
 
         // Convert our point size to freetype 26.6 fixed point format
-        FT_F26Dot6 ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
+        auto ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
         if (FT_Set_Char_Size(face, ftSize, 0, mTtfResolution * vpScale, mTtfResolution * vpScale))
             OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Could not set char size!");
 
@@ -411,7 +411,7 @@ namespace Ogre
         // Now work out how big our texture needs to be
         size_t rawSize = (max_width + char_spacer) * (max_height + char_spacer) * glyphCount;
 
-        uint32 tex_side = static_cast<uint32>(Math::Sqrt((Real)rawSize));
+        auto tex_side = static_cast<uint32>(Math::Sqrt((Real)rawSize));
         // Now round up to nearest power of two
         uint32 roundUpSize = Bitwise::firstPO2From(tex_side);
 
@@ -512,7 +512,7 @@ namespace Ogre
 
         FT_Done_FreeType(ftLibrary);
 
-        Texture* tex = static_cast<Texture*>(res);
+        auto* tex = static_cast<Texture*>(res);
         // Call internal _loadImages, not loadImage since that's external and 
         // will determine load status etc again, and this is a manual loader inside load()
         tex->_loadImages({&img});
@@ -599,7 +599,7 @@ namespace Ogre
         Font* f = static_cast<Font*>(target);
 
         StringVector vec = StringUtil::split(val, " \t");
-        for (StringVector::iterator i = vec.begin(); i != vec.end(); ++i)
+        for (auto i = vec.begin(); i != vec.end(); ++i)
         {
             String& item = *i;
             StringVector itemVec = StringUtil::split(item, "-");

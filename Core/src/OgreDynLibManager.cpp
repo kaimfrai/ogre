@@ -50,14 +50,14 @@ namespace Ogre
     //-----------------------------------------------------------------------
     DynLib* DynLibManager::load( const String& filename)
     {
-        DynLibList::iterator i = mLibList.find(filename);
+        auto i = mLibList.find(filename);
         if (i != mLibList.end())
         {
             return i->second;
         }
         else
         {
-            DynLib* pLib = new DynLib(filename);
+            auto* pLib = new DynLib(filename);
             pLib->load();        
             mLibList[filename] = pLib;
             return pLib;
@@ -66,7 +66,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DynLibManager::unload(DynLib* lib)
     {
-        DynLibList::iterator i = mLibList.find(lib->getName());
+        auto i = mLibList.find(lib->getName());
         if (i != mLibList.end())
         {
             mLibList.erase(i);
@@ -78,7 +78,7 @@ namespace Ogre
     DynLibManager::~DynLibManager()
     {
         // Unload & delete resources in turn
-        for( DynLibList::iterator it = mLibList.begin(); it != mLibList.end(); ++it )
+        for( auto it = mLibList.begin(); it != mLibList.end(); ++it )
         {
             it->second->unload();
             delete it->second;

@@ -388,7 +388,7 @@ void GLTextureBuffer::copyFromFramebuffer(uint32 zoffset)
 //-----------------------------------------------------------------------------  
 void GLTextureBuffer::blit(const HardwarePixelBufferSharedPtr &src, const Box &srcBox, const Box &dstBox)
 {
-    GLTextureBuffer *srct = static_cast<GLTextureBuffer *>(src.get());
+    auto *srct = static_cast<GLTextureBuffer *>(src.get());
     /// Check for FBO support first
     /// Destination texture must be 1D, 2D, 3D, or Cube
     /// Source texture must be 1D, 2D or 3D
@@ -420,7 +420,7 @@ void GLTextureBuffer::blitFromTexture(GLTextureBuffer *src, const Box &srcBox, c
     //src->mTextureID << ":" << srcBox.left << "," << srcBox.top << "," << srcBox.right << "," << srcBox.bottom << " " << 
     //mTextureID << ":" << dstBox.left << "," << dstBox.top << "," << dstBox.right << "," << dstBox.bottom << std::endl;
     /// Store reference to FBO manager
-    GLFBOManager *fboMan = static_cast<GLFBOManager *>(GLRTTManager::getSingletonPtr());
+    auto *fboMan = static_cast<GLFBOManager *>(GLRTTManager::getSingletonPtr());
     
     /// Save and clear GL state for rendering
     glPushAttrib(GL_COLOR_BUFFER_BIT | GL_CURRENT_BIT | GL_DEPTH_BUFFER_BIT | GL_ENABLE_BIT | 

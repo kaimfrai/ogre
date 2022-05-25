@@ -61,10 +61,10 @@ class RenderSystem;
         // Destroy all remaining instances
         // Really should have shutdown and unregistered by now, but catch here in case
         Instances instancesCopy = mInstances;
-        for (Instances::iterator i = instancesCopy.begin(); i != instancesCopy.end(); ++i)
+        for (auto i = instancesCopy.begin(); i != instancesCopy.end(); ++i)
         {
             // destroy instances
-            for(Factories::iterator f = mFactories.begin(); f != mFactories.end(); ++f)
+            for(auto f = mFactories.begin(); f != mFactories.end(); ++f)
             {
                 if ((*f)->getMetaData().typeName == i->second->getTypeName())
                 {
@@ -94,13 +94,13 @@ class RenderSystem;
         OgreAssert(fact, "Cannot remove a null SceneManagerFactory");
 
         // destroy all instances for this factory
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); )
+        for (auto i = mInstances.begin(); i != mInstances.end(); )
         {
             SceneManager* instance = i->second;
             if (instance->getTypeName() == fact->getMetaData().typeName)
             {
                 fact->destroyInstance(instance);
-                Instances::iterator deli = i++;
+                auto deli = i++;
                 mInstances.erase(deli);
             }
             else
@@ -109,7 +109,7 @@ class RenderSystem;
             }
         }
         // remove from metadata
-        for (MetaDataList::iterator m = mMetaDataList.begin(); m != mMetaDataList.end(); ++m)
+        for (auto m = mMetaDataList.begin(); m != mMetaDataList.end(); ++m)
         {
             if(*m == &(fact->getMetaData()))
             {
@@ -122,7 +122,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     const SceneManagerMetaData* SceneManagerEnumerator::getMetaData(const String& typeName) const
     {
-        for (MetaDataList::const_iterator i = mMetaDataList.begin(); 
+        for (auto i = mMetaDataList.begin(); 
             i != mMetaDataList.end(); ++i)
         {
             if (typeName == (*i)->typeName)
@@ -149,7 +149,7 @@ class RenderSystem;
         }
 
         SceneManager* inst = nullptr;
-        for(Factories::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
         {
             if ((*i)->getMetaData().typeName == typeName)
             {
@@ -195,7 +195,7 @@ class RenderSystem;
         mInstances.erase(sm->getName());
 
         // Find factory to destroy
-        for(Factories::iterator i = mFactories.begin(); i != mFactories.end(); ++i)
+        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
         {
             if ((*i)->getMetaData().typeName == sm->getTypeName())
             {
@@ -208,7 +208,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     SceneManager* SceneManagerEnumerator::getSceneManager(const String& instanceName) const
     {
-        Instances::const_iterator i = mInstances.find(instanceName);
+        auto i = mInstances.find(instanceName);
         if(i != mInstances.end())
         {
             return i->second;
@@ -237,7 +237,7 @@ class RenderSystem;
     {
         mCurrentRenderSystem = rs;
 
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto i = mInstances.begin(); i != mInstances.end(); ++i)
         {
             i->second->_setDestinationRenderSystem(rs);
         }
@@ -246,7 +246,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     void SceneManagerEnumerator::shutdownAll()
     {
-        for (Instances::iterator i = mInstances.begin(); i != mInstances.end(); ++i)
+        for (auto i = mInstances.begin(); i != mInstances.end(); ++i)
         {
             // shutdown instances (clear scene)
             i->second->clearScene();            

@@ -152,7 +152,7 @@ namespace Ogre {
         mResourceGroupManager.reset(new ResourceGroupManager());
 
         // WorkQueue (note: users can replace this if they want)
-        DefaultWorkQueue* defaultQ = new DefaultWorkQueue("Root");
+        auto* defaultQ = new DefaultWorkQueue("Root");
         // never process responses in main thread for longer than 10ms by default
         defaultQ->setResponseProcessingTimeLimit(10);
         // match threads to hardware
@@ -275,13 +275,13 @@ namespace Ogre {
             of << "Render System=" << std::endl;
         }
 
-        for (RenderSystemList::const_iterator pRend = getAvailableRenderers().begin(); pRend != getAvailableRenderers().end(); ++pRend)
+        for (auto pRend = getAvailableRenderers().begin(); pRend != getAvailableRenderers().end(); ++pRend)
         {
             RenderSystem* rs = *pRend;
             of << std::endl;
             of << "[" << rs->getName() << "]" << std::endl;
             const ConfigOptionMap& opts = rs->getConfigOptions();
-            for (ConfigOptionMap::const_iterator pOpt = opts.begin(); pOpt != opts.end(); ++pOpt)
+            for (auto pOpt = opts.begin(); pOpt != opts.end(); ++pOpt)
             {
                 of << pOpt->first << "=" << pOpt->second.currentValue << std::endl;
             }
@@ -464,7 +464,7 @@ namespace Ogre {
             // Capabilities Database setting must be in the same format as
             // resources.cfg in Ogre examples.
             const ConfigFile::SettingsMultiMap& dbs = cfg.getSettings("Capabilities Database");
-            for(ConfigFile::SettingsMultiMap::const_iterator it = dbs.begin(); it != dbs.end(); ++it)
+            for(auto it = dbs.begin(); it != dbs.end(); ++it)
             {
                 const String& archType = it->first;
 
@@ -588,11 +588,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::_syncAddedRemovedFrameListeners()
     {
-        for (std::set<FrameListener*>::iterator i = mRemovedFrameListeners.begin(); i != mRemovedFrameListeners.end(); ++i)
+        for (auto i = mRemovedFrameListeners.begin(); i != mRemovedFrameListeners.end(); ++i)
             mFrameListeners.erase(*i);
         mRemovedFrameListeners.clear();
 
-        for (std::set<FrameListener*>::iterator i = mAddedFrameListeners.begin(); i != mAddedFrameListeners.end(); ++i)
+        for (auto i = mAddedFrameListeners.begin(); i != mAddedFrameListeners.end(); ++i)
             mFrameListeners.insert(*i);
         mAddedFrameListeners.clear();
     }
@@ -602,7 +602,7 @@ namespace Ogre {
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
         {
             if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
                 continue;
@@ -621,7 +621,7 @@ namespace Ogre {
         _syncAddedRemovedFrameListeners();
 
         // Tell all listeners
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
         {
             if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
                 continue;
@@ -639,7 +639,7 @@ namespace Ogre {
 
         // Tell all listeners
         bool ret = true;
-        for (std::set<FrameListener*>::iterator i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
+        for (auto i = mFrameListeners.begin(); i != mFrameListeners.end(); ++i)
         {
             if(mRemovedFrameListeners.find(*i) != mRemovedFrameListeners.end())
                 continue;
@@ -717,11 +717,11 @@ namespace Ogre {
             return 0;
 
         // Times up to mFrameSmoothingTime seconds old should be kept
-        unsigned long discardThreshold =
+        auto discardThreshold =
             static_cast<unsigned long>(mFrameSmoothingTime * 1000.0f);
 
         // Find the oldest time to keep
-        EventTimesQueue::iterator it = times.begin(),
+        auto it = times.begin(),
             end = times.end()-2; // We need at least two times
         while(it != end)
         {
@@ -875,7 +875,7 @@ namespace Ogre {
             pluginDir += "/";
         }
 
-        for( StringVector::iterator it = pluginList.begin(); it != pluginList.end(); ++it )
+        for( auto it = pluginList.begin(); it != pluginList.end(); ++it )
         {
             loadPlugin(pluginDir + (*it));
         }
@@ -885,7 +885,7 @@ namespace Ogre {
     void Root::shutdownPlugins()
     {
         // NB Shutdown plugins in reverse order to enforce dependencies
-        for (PluginInstanceList::reverse_iterator i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
+        for (auto i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
         {
             (*i)->shutdown();
         }
@@ -893,7 +893,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Root::initialisePlugins()
     {
-        for (PluginInstanceList::iterator i = mPlugins.begin(); i != mPlugins.end(); ++i)
+        for (auto i = mPlugins.begin(); i != mPlugins.end(); ++i)
         {
             (*i)->initialise();
         }
@@ -902,7 +902,7 @@ namespace Ogre {
     void Root::unloadPlugins()
     {
         // unload dynamic libs first
-        for (PluginLibList::reverse_iterator i = mPluginLibs.rbegin(); i != mPluginLibs.rend(); ++i)
+        for (auto i = mPluginLibs.rbegin(); i != mPluginLibs.rend(); ++i)
         {
             // Call plugin shutdown
             #ifdef __GNUC__
@@ -918,7 +918,7 @@ namespace Ogre {
         mPluginLibs.clear();
 
         // now deal with any remaining plugins that were registered through other means
-        for (PluginInstanceList::reverse_iterator i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
+        for (auto i = mPlugins.rbegin(); i != mPlugins.rend(); ++i)
         {
             // Note this does NOT call uninstallPlugin - this shutdown is for the
             // detail objects
@@ -1046,7 +1046,7 @@ namespace Ogre {
     void Root::uninstallPlugin(Plugin* plugin)
     {
         LogManager::getSingleton().logMessage("Uninstalling plugin: " + plugin->getName());
-        PluginInstanceList::iterator i =
+        auto i =
             std::find(mPlugins.begin(), mPlugins.end(), plugin);
         if (i != mPlugins.end())
         {
@@ -1140,7 +1140,7 @@ namespace Ogre {
     void Root::addMovableObjectFactory(MovableObjectFactory* fact,
         bool overrideExisting)
     {
-        MovableObjectFactoryMap::iterator facti = mMovableObjectFactoryMap.find(
+        auto facti = mMovableObjectFactoryMap.find(
             fact->getType());
         if (!overrideExisting && facti != mMovableObjectFactoryMap.end())
         {
@@ -1178,7 +1178,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     MovableObjectFactory* Root::getMovableObjectFactory(const String& typeName)
     {
-        MovableObjectFactoryMap::iterator i =
+        auto i =
             mMovableObjectFactoryMap.find(typeName);
         if (i == mMovableObjectFactoryMap.end())
         {
@@ -1207,7 +1207,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Root::removeMovableObjectFactory(MovableObjectFactory* fact)
     {
-        MovableObjectFactoryMap::iterator i = mMovableObjectFactoryMap.find(
+        auto i = mMovableObjectFactoryMap.find(
             fact->getType());
         if (i != mMovableObjectFactoryMap.end())
         {

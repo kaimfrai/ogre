@@ -307,7 +307,7 @@ class Affine3;
                 "Skeleton::createAnimation");
         }
 
-        Animation* ret = new Animation(name, length);
+        auto* ret = new Animation(name, length);
         ret->_notifyContainer(this);
 
         // Add to list
@@ -344,7 +344,7 @@ class Affine3;
         const LinkedSkeletonAnimationSource** linker) const
     {
         Animation* ret = nullptr;
-        AnimationList::const_iterator i = mAnimationsList.find(name);
+        auto i = mAnimationsList.find(name);
 
         if (i == mAnimationsList.end())
         {
@@ -377,7 +377,7 @@ class Affine3;
     //---------------------------------------------------------------------
     void Skeleton::removeAnimation(const String& name)
     {
-        AnimationList::iterator i = mAnimationsList.find(name);
+        auto i = mAnimationsList.find(name);
 
         if (i == mAnimationsList.end())
         {
@@ -505,7 +505,7 @@ class Affine3;
         // If you hit this assert, then the index is out of bounds.
         assert( index < mAnimationsList.size() );
 
-        AnimationList::const_iterator i = mAnimationsList.begin();
+        auto i = mAnimationsList.begin();
 
         std::advance(i, index);
 
@@ -520,7 +520,7 @@ class Affine3;
     //---------------------------------------------------------------------
     Bone* Skeleton::getBone(const String& name) const
     {
-        BoneListByName::const_iterator i = mBoneListByName.find(name);
+        auto i = mBoneListByName.find(name);
 
         if (i == mBoneListByName.end())
         {
@@ -545,7 +545,7 @@ class Affine3;
         mRootBones.clear();
 
         BoneList::const_iterator i;
-        BoneList::const_iterator iend = mBoneList.end();
+        auto iend = mBoneList.end();
         for (i = mBoneList.begin(); i != iend; ++i)
         {
             Bone* currentBone = *i;
@@ -995,7 +995,7 @@ class Affine3;
         for (ushort handle = 0; handle < numSrcBones; ++handle)
         {
             const Bone* srcBone = src->getBone(handle);
-            BoneListByName::const_iterator i = this->mBoneListByName.find(srcBone->getName());
+            auto i = this->mBoneListByName.find(srcBone->getName());
             if (i == mBoneListByName.end())
                 boneHandleMap[handle] = newBoneHandle++;
             else

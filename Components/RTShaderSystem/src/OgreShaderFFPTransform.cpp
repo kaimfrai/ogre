@@ -148,7 +148,7 @@ bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void FFPTransform::copyFrom(const SubRenderState& rhs)
 {
-    const FFPTransform& rhsTransform = static_cast<const FFPTransform&>(rhs);
+    const auto& rhsTransform = static_cast<const FFPTransform&>(rhs);
     mSetPointSize = rhsTransform.mSetPointSize;
     mInstanced = rhsTransform.mInstanced;
     mTexCoordIndex = rhsTransform.mTexCoordIndex;

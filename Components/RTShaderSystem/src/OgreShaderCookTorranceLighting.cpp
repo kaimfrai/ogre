@@ -146,7 +146,7 @@ bool CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void CookTorranceLighting::copyFrom(const SubRenderState& rhs)
 {
-    const CookTorranceLighting& rhsLighting = static_cast<const CookTorranceLighting&>(rhs);
+    const auto& rhsLighting = static_cast<const CookTorranceLighting&>(rhs);
     mMetalRoughnessMapName = rhsLighting.mMetalRoughnessMapName;
     mLightCount = rhsLighting.mLightCount;
 }
@@ -190,7 +190,7 @@ SubRenderState* CookTorranceLightingFactory::createInstance(ScriptCompiler* comp
     if (prop->name == "lighting_stage" && prop->values.size() >= 1)
     {
         String strValue;
-        AbstractNodeList::const_iterator it = prop->values.begin();
+        auto it = prop->values.begin();
 
         // Read light model type.
         if (!SGScriptTranslator::getString(*it++, &strValue))

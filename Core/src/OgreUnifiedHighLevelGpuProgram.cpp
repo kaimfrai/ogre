@@ -132,7 +132,7 @@ class ResourceManager;
         memSize += GpuProgram::calculateSize();
 
         // Delegate Names
-        for (StringVector::const_iterator i = mDelegateNames.begin(); i != mDelegateNames.end(); ++i)
+        for (auto i = mDelegateNames.begin(); i != mDelegateNames.end(); ++i)
             memSize += (*i).size() * sizeof(char);
 
         return memSize;

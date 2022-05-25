@@ -62,7 +62,7 @@ namespace Ogre
         // TODO: optional: check planarity
         OgreAssertDbg(vertex <= getVertexCount(), "Insert position out of range" );
 
-        VertexList::iterator it = mVertexList.begin();
+        auto it = mVertexList.begin();
 
         std::advance(it, vertex);
         mVertexList.insert(it, vdata);
@@ -152,7 +152,7 @@ namespace Ogre
     {
         OgreAssertDbg( vertex < getVertexCount(), "Search position out of range" );
 
-        VertexList::iterator it = mVertexList.begin();
+        auto it = mVertexList.begin();
         std::advance(it, vertex);
 
         mVertexList.erase( it );

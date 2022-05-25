@@ -340,7 +340,7 @@ namespace {
         // Always open in binary mode
         // Also, always include reading
         std::ios::openmode mode = std::ios::out | std::ios::binary;
-        std::fstream* rwStream = new std::fstream();
+        auto* rwStream = new std::fstream();
 
         rwStream->open(full_path.c_str(), mode);
 
@@ -352,7 +352,7 @@ namespace {
         }
 
         /// Construct return stream, tell it to delete on destroy
-        FileStreamDataStream* stream = new FileStreamDataStream(filename,
+        auto* stream = new FileStreamDataStream(filename,
                 rwStream, 0, true);
 
         return DataStreamPtr(stream);

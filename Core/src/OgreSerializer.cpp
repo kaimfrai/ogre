@@ -120,7 +120,7 @@ namespace Ogre {
     void Serializer::writeChunkHeader(uint16 id, size_t size)
     {
         writeShorts(&id, 1);
-        uint32 uint32size = static_cast<uint32>(size);
+        auto uint32size = static_cast<uint32>(size);
         writeInts(&uint32size, 1);
     }
     //---------------------------------------------------------------------
@@ -128,7 +128,7 @@ namespace Ogre {
     {
         if (mFlipEndian)
         {
-            float * pFloatToWrite = (float *)malloc(sizeof(float) * count);
+            auto * pFloatToWrite = (float *)malloc(sizeof(float) * count);
             memcpy(pFloatToWrite, pFloat, sizeof(float) * count);
             
             flipToLittleEndian(pFloatToWrite, sizeof(float), count);
@@ -145,7 +145,7 @@ namespace Ogre {
     void Serializer::writeFloats(const double* const pDouble, size_t count)
     {
         // Convert to float, then write
-        float* tmp = new float[count];
+        auto* tmp = new float[count];
         for (unsigned int i = 0; i < count; ++i)
         {
             tmp[i] = static_cast<float>(pDouble[i]);
@@ -166,7 +166,7 @@ namespace Ogre {
     {
         if(mFlipEndian)
         {
-            unsigned short * pShortToWrite = (unsigned short *)malloc(sizeof(unsigned short) * count);
+            auto * pShortToWrite = (unsigned short *)malloc(sizeof(unsigned short) * count);
             memcpy(pShortToWrite, pShort, sizeof(unsigned short) * count);
             
             flipToLittleEndian(pShortToWrite, sizeof(unsigned short), count);
@@ -184,7 +184,7 @@ namespace Ogre {
     {
         if(mFlipEndian)
         {
-            uint32 * pIntToWrite = (uint32 *)malloc(sizeof(uint32) * count);
+            auto * pIntToWrite = (uint32 *)malloc(sizeof(uint32) * count);
             memcpy(pIntToWrite, pInt, sizeof(uint32) * count);
             
             flipToLittleEndian(pIntToWrite, sizeof(uint32), count);
@@ -273,7 +273,7 @@ namespace Ogre {
     void Serializer::readFloats(const DataStreamPtr& stream, double* pDest, size_t count)
     {
         // Read from float, convert to double
-        float* tmp = new float[count];
+        auto* tmp = new float[count];
         float* ptmp = tmp;
         stream->read(tmp, sizeof(float) * count);
         flipFromLittleEndian(tmp, sizeof(float), count);

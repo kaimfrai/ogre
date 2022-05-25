@@ -376,7 +376,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_fireLoadingComplete(bool wasBackgroundLoaded)
     {
-        for (ListenerList::iterator i = mListenerList.begin();
+        for (auto i = mListenerList.begin();
             i != mListenerList.end(); ++i)
         {
             (*i)->loadingComplete(this);
@@ -385,7 +385,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_firePreparingComplete(bool wasBackgroundLoaded)
     {
-        for (ListenerList::iterator i = mListenerList.begin();
+        for (auto i = mListenerList.begin();
             i != mListenerList.end(); ++i)
         {
             (*i)->preparingComplete(this);
@@ -394,7 +394,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_fireUnloadingComplete()
     {
-        for (ListenerList::iterator i = mListenerList.begin();
+        for (auto i = mListenerList.begin();
             i != mListenerList.end(); ++i)
         {
             (*i)->unloadingComplete(this);

@@ -57,13 +57,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Archive* ArchiveManager::load( const String& filename, const String& archiveType, bool readOnly)
     {
-        ArchiveMap::iterator i = mArchives.find(filename);
+        auto i = mArchives.find(filename);
         Archive* pArch = nullptr;
 
         if (i == mArchives.end())
         {
             // Search factories
-            ArchiveFactoryMap::iterator it = mArchFactories.find(archiveType);
+            auto it = mArchFactories.find(archiveType);
             if (it == mArchFactories.end())
             {
                 // Factory not found
@@ -92,13 +92,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ArchiveManager::unload(const String& filename)
     {
-        ArchiveMap::iterator i = mArchives.find(filename);
+        auto i = mArchives.find(filename);
 
         if (i != mArchives.end())
         {
             i->second->unload();
             // Find factory to destroy. An archive factory created this file, it should still be there!
-            ArchiveFactoryMap::iterator fit = mArchFactories.find(i->second->getType());
+            auto fit = mArchFactories.find(i->second->getType());
             assert( fit != mArchFactories.end() && "Cannot find an ArchiveFactory "
                     "to deal with archive this type" );
             fit->second->destroyInstance(i->second);
@@ -118,13 +118,13 @@ namespace Ogre {
         // We now raise an assert.
 
         // Unload & delete resources in turn
-        for( ArchiveMap::iterator it = mArchives.begin(); it != mArchives.end(); ++it )
+        for( auto it = mArchives.begin(); it != mArchives.end(); ++it )
         {
             Archive* arch = it->second;
             // Unload
             arch->unload();
             // Find factory to destroy. An archive factory created this file, it should still be there!
-            ArchiveFactoryMap::iterator fit = mArchFactories.find(arch->getType());
+            auto fit = mArchFactories.find(arch->getType());
             assert( fit != mArchFactories.end() && "Cannot find an ArchiveFactory "
                     "to deal with archive this type" );
             fit->second->destroyInstance(arch);

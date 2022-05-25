@@ -78,7 +78,7 @@ namespace Ogre
         mNumThreadsRegisteredWithRS = 0;
         for (size_t i = 0; i < mWorkerThreadCount; ++i)
         {
-            std::thread* t = new std::thread(*mWorkerFunc);
+            auto* t = new std::thread(*mWorkerFunc);
             mWorkers.push_back(t);
         }
 
@@ -122,7 +122,7 @@ namespace Ogre
         mRequestCondition.notify_all();
 
         // all our threads should have been woken now, so join
-        for (WorkerThreadList::iterator i = mWorkers.begin(); i != mWorkers.end(); ++i)
+        for (auto i = mWorkers.begin(); i != mWorkers.end(); ++i)
         {
             (*i)->join();
             delete *i;

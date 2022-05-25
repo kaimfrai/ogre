@@ -84,7 +84,7 @@ class Sphere;
     Camera::~Camera()
     {
         ListenerList listenersCopy = mListeners;
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
         {
             (*i)->cameraDestroyed(this);
         }
@@ -169,7 +169,7 @@ class Sphere;
 
         //notify prerender scene
         ListenerList listenersCopy = mListeners;
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
         {
             (*i)->cameraPreRenderScene(this);
         }
@@ -181,7 +181,7 @@ class Sphere;
         listenersCopy = mListeners;
 
         //notify postrender scene
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
         {
             (*i)->cameraPostRenderScene(this);
         }
@@ -195,7 +195,7 @@ class Sphere;
     //---------------------------------------------------------------------
     void Camera::removeListener(Listener* l)
     {
-        ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+        auto i = std::find(mListeners.begin(), mListeners.end(), l);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

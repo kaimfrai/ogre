@@ -219,7 +219,7 @@ void GBuffer::addDiffuseSpecularInvocations(ProgramSet* programSet, const Parame
 //-----------------------------------------------------------------------
 void GBuffer::copyFrom(const SubRenderState& rhs)
 {
-    const GBuffer& rhsTransform = static_cast<const GBuffer&>(rhs);
+    const auto& rhsTransform = static_cast<const GBuffer&>(rhs);
     mOutBuffers = rhsTransform.mOutBuffers;
 }
 

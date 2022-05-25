@@ -216,7 +216,7 @@ namespace Ogre {
         int ysize = header.ysize[0] + 256 * header.ysize[1] + 65536 * header.ysize[2];
         int zsize = header.zsize[0] + 256 * header.zsize[1] + 65536 * header.zsize[2];
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->width = xsize;
         imgData->height = ysize;
         imgData->depth = zsize;

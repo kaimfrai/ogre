@@ -99,7 +99,7 @@ namespace Ogre {
         if (!mAttributes->mUserObjectsMap)
             return emptyAny;
 
-        UserObjectsMapConstIterator it = mAttributes->mUserObjectsMap->find(key);
+        auto it = mAttributes->mUserObjectsMap->find(key);
 
         // Case user data found.
         if (it != mAttributes->mUserObjectsMap->end())
@@ -116,7 +116,7 @@ namespace Ogre {
         // Case attributes and map allocated.
         if (mAttributes && mAttributes->mUserObjectsMap)
         {
-            UserObjectsMapIterator it = mAttributes->mUserObjectsMap->find(key);
+            auto it = mAttributes->mUserObjectsMap->find(key);
 
             // Case object found -> erase it from the map.
             if (it != mAttributes->mUserObjectsMap->end())

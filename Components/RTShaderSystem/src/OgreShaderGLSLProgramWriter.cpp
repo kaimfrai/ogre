@@ -223,8 +223,8 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
 
     // Write local parameters.
     const ShaderParameterList& localParams = curFunction->getLocalParameters();
-    ShaderParameterConstIterator itParam = localParams.begin();
-    ShaderParameterConstIterator itParamEnd = localParams.end();
+    auto itParam = localParams.begin();
+    auto itParamEnd = localParams.end();
 
     for (; itParam != itParamEnd; ++itParam)
     {
@@ -306,8 +306,8 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
 {
     const ShaderParameterList& inParams = function->getInputParameters();
 
-    ShaderParameterConstIterator itParam = inParams.begin();
-    ShaderParameterConstIterator itParamEnd = inParams.end();
+    auto itParam = inParams.begin();
+    auto itParamEnd = inParams.end();
 
     int psInLocation = 0;
 
@@ -391,8 +391,8 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
 {
     const ShaderParameterList& outParams = function->getOutputParameters();
 
-    ShaderParameterConstIterator itParam = outParams.begin();
-    ShaderParameterConstIterator itParamEnd = outParams.end();
+    auto itParam = outParams.begin();
+    auto itParamEnd = outParams.end();
 
     int vsOutLocation = 0;
 

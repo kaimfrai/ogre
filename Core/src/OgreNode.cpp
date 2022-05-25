@@ -91,7 +91,7 @@ namespace Ogre {
         if (mQueuedForUpdate)
         {
             // Erase from queued updates
-            QueuedUpdates::iterator it =
+            auto it =
                 std::find(msQueuedUpdates.begin(), msQueuedUpdates.end(), this);
             assert(it != msQueuedUpdates.end());
             if (it != msQueuedUpdates.end())
@@ -295,7 +295,7 @@ namespace Ogre {
     {
         OgreAssert(index < mChildren.size(), "");
 
-        ChildNodeMap::iterator i = mChildren.begin();
+        auto i = mChildren.begin();
         i += index;
         Node* ret = *i;
 
@@ -312,7 +312,7 @@ namespace Ogre {
     {
         if (child)
         {
-            ChildNodeMap::iterator i = std::find(mChildren.begin(), mChildren.end(), child);
+            auto i = std::find(mChildren.begin(), mChildren.end(), child);
             if(i != mChildren.end() && *i == child)
             {
                 // cancel any pending update
@@ -590,7 +590,7 @@ namespace Ogre {
     Node* Node::getChild(const String& name) const
     {
         NodeNameExists pred = {name};
-        ChildNodeMap::const_iterator i = std::find_if(mChildren.begin(), mChildren.end(), pred);
+        auto i = std::find_if(mChildren.begin(), mChildren.end(), pred);
 
         if (i == mChildren.end())
         {
@@ -605,7 +605,7 @@ namespace Ogre {
     {
         OgreAssert(!name.empty(), "");
         NodeNameExists pred = {name};
-        ChildNodeMap::iterator i = std::find_if(mChildren.begin(), mChildren.end(), pred);
+        auto i = std::find_if(mChildren.begin(), mChildren.end(), pred);
 
         if (i == mChildren.end())
         {
@@ -696,7 +696,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::processQueuedUpdates()
     {
-        for (QueuedUpdates::iterator i = msQueuedUpdates.begin();
+        for (auto i = msQueuedUpdates.begin();
             i != msQueuedUpdates.end(); ++i)
         {
             // Update, and force parent update since chances are we've ended

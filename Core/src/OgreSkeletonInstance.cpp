@@ -169,7 +169,7 @@ class AnimationStateSet;
         Skeleton::unprepareImpl();
 
         // destroy TagPoints
-        for (TagPointList::const_iterator it = mActiveTagPoints.begin(); it != mActiveTagPoints.end(); ++it)
+        for (auto it = mActiveTagPoints.begin(); it != mActiveTagPoints.end(); ++it)
         {
             TagPoint* tagPoint = *it;
             // Woohoo! The child object all the same attaching this skeleton instance, but is ok we can just
@@ -179,7 +179,7 @@ class AnimationStateSet;
             delete tagPoint;
         }
         mActiveTagPoints.clear();
-        for (TagPointList::const_iterator it2 = mFreeTagPoints.begin(); it2 != mFreeTagPoints.end(); ++it2)
+        for (auto it2 = mFreeTagPoints.begin(); it2 != mFreeTagPoints.end(); ++it2)
         {
             TagPoint* tagPoint = *it2;
             delete tagPoint;
@@ -220,7 +220,7 @@ class AnimationStateSet;
     //-------------------------------------------------------------------------
     void SkeletonInstance::freeTagPoint(TagPoint* tagPoint)
     {
-        TagPointList::iterator it =
+        auto it =
             std::find(mActiveTagPoints.begin(), mActiveTagPoints.end(), tagPoint);
         assert(it != mActiveTagPoints.end());
         if (it != mActiveTagPoints.end())

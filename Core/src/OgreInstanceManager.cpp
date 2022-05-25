@@ -80,13 +80,13 @@ namespace Ogre
     InstanceManager::~InstanceManager()
     {
         //Remove all batches from all materials we created
-        InstanceBatchMap::const_iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::const_iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::const_iterator it = itor->second.begin();
-            InstanceBatchVec::const_iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
                 delete *it++;
@@ -184,8 +184,8 @@ namespace Ogre
     {
         InstanceBatchVec &batchVec = mInstanceBatches[materialName];
 
-        InstanceBatchVec::const_reverse_iterator itor = batchVec.rbegin();
-        InstanceBatchVec::const_reverse_iterator end  = batchVec.rend();
+        auto itor = batchVec.rbegin();
+        auto end  = batchVec.rend();
 
         while( itor != end )
         {
@@ -292,13 +292,13 @@ namespace Ogre
         //Do this now to avoid any dangling pointer inside mDirtyBatches
         _updateDirtyBatches();
 
-        InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::iterator it = itor->second.begin();
-            InstanceBatchVec::iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
             {
@@ -332,8 +332,8 @@ namespace Ogre
                                                 InstanceBatch::CustomParamsVec &usedParams,
                                                 InstanceBatchVec &fragmentedBatches )
     {
-        InstanceBatchVec::iterator itor = fragmentedBatches.begin();
-        InstanceBatchVec::iterator end  = fragmentedBatches.end();
+        auto itor = fragmentedBatches.begin();
+        auto end  = fragmentedBatches.end();
 
         while( itor != end  )
         {
@@ -345,7 +345,7 @@ namespace Ogre
                 break;
         }
 
-        InstanceBatchVec::iterator lastImportantBatch = itor;
+        auto lastImportantBatch = itor;
 
         while( itor != end )
         {
@@ -408,8 +408,8 @@ namespace Ogre
         if( materialName == BLANKSTRING )
         {
             //Setup all existing materials
-            InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-            InstanceBatchMap::iterator end  = mInstanceBatches.end();
+            auto itor = mInstanceBatches.begin();
+            auto end  = mInstanceBatches.end();
 
             while( itor != end )
             {
@@ -424,7 +424,7 @@ namespace Ogre
             //Setup a given material
             mBatchSettings[materialName].setting[id] = value;
 
-            InstanceBatchMap::const_iterator itor = mInstanceBatches.find( materialName );
+            auto itor = mInstanceBatches.find( materialName );
             //Don't crash or throw if the batch with that material hasn't been created yet
             if( itor != mInstanceBatches.end() )
                 applySettingToBatches( id, value, itor->second );
@@ -435,7 +435,7 @@ namespace Ogre
     {
         assert( id < NUM_SETTINGS );
 
-        BatchSettingsMap::const_iterator itor = mBatchSettings.find( materialName );
+        auto itor = mBatchSettings.find( materialName );
         if( itor != mBatchSettings.end() )
             return itor->second.setting[id]; //Return current setting
 
@@ -450,8 +450,8 @@ namespace Ogre
     void InstanceManager::applySettingToBatches( BatchSettingId id, bool value,
                                                  const InstanceBatchVec &container )
     {
-        InstanceBatchVec::const_iterator itor = container.begin();
-        InstanceBatchVec::const_iterator end  = container.end();
+        auto itor = container.begin();
+        auto end  = container.end();
 
         while( itor != end )
         {
@@ -472,13 +472,13 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void InstanceManager::setBatchesAsStaticAndUpdate( bool bStatic )
     {
-        InstanceBatchMap::iterator itor = mInstanceBatches.begin();
-        InstanceBatchMap::iterator end  = mInstanceBatches.end();
+        auto itor = mInstanceBatches.begin();
+        auto end  = mInstanceBatches.end();
 
         while( itor != end )
         {
-            InstanceBatchVec::iterator it = itor->second.begin();
-            InstanceBatchVec::iterator en = itor->second.end();
+            auto it = itor->second.begin();
+            auto en = itor->second.end();
 
             while( it != en )
             {
@@ -500,8 +500,8 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void InstanceManager::_updateDirtyBatches()
     {
-        InstanceBatchVec::const_iterator itor = mDirtyBatches.begin();
-        InstanceBatchVec::const_iterator end  = mDirtyBatches.end();
+        auto itor = mDirtyBatches.begin();
+        auto end  = mDirtyBatches.end();
 
         while( itor != end )
         {
@@ -523,7 +523,7 @@ namespace Ogre
                                           idxData->indexStart * sizeof(TIndexType),
                                           idxData->indexCount * sizeof(TIndexType),
                                           HardwareBuffer::HBL_READ_ONLY);
-        TIndexType *data = (TIndexType*)indexLock.pData;
+        auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < idxData->indexCount; i++)
         {
@@ -531,7 +531,7 @@ namespace Ogre
             if (indicesMap.find(index) == indicesMap.end())
             {
                 //We need to guarantee that the size is read before an entry is added, hence these are on separate lines.
-                uint32 size = (uint32)(indicesMap.size());
+                auto size = (uint32)(indicesMap.size());
                 indicesMap[index] = size;
             }
         }
@@ -551,7 +551,7 @@ namespace Ogre
                                           start * sizeof(TIndexType),
                                           count * sizeof(TIndexType),
                                           HardwareBuffer::HBL_NORMAL);
-        TIndexType *data = (TIndexType*)indexLock.pData;
+        auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < count; i++)
         {
@@ -566,8 +566,8 @@ namespace Ogre
     {
         // Retrieve data to copy bone assignments
         const Mesh::VertexBoneAssignmentList& boneAssignments = mesh->getBoneAssignments();
-        Mesh::VertexBoneAssignmentList::const_iterator it = boneAssignments.begin();
-        Mesh::VertexBoneAssignmentList::const_iterator end = boneAssignments.end();
+        auto it = boneAssignments.begin();
+        auto end = boneAssignments.end();
         size_t curVertexOffset = 0;
 
         // Access shared vertices
@@ -597,7 +597,7 @@ namespace Ogre
             }
 
 
-            VertexData *newVertexData = new VertexData();
+            auto *newVertexData = new VertexData();
             newVertexData->vertexCount = indicesMap.size();
             newVertexData->vertexDeclaration = sharedVertexData->vertexDeclaration->clone();
 
@@ -612,8 +612,8 @@ namespace Ogre
                 HardwareBufferLockGuard oldLock(sharedVertexBuffer, 0, sharedVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_READ_ONLY);
                 HardwareBufferLockGuard newLock(newVertexBuffer, 0, newVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_NORMAL);
 
-                IndicesMap::iterator indIt = indicesMap.begin();
-                IndicesMap::iterator endIndIt = indicesMap.end();
+                auto indIt = indicesMap.begin();
+                auto endIndIt = indicesMap.end();
                 for (; indIt != endIndIt; ++indIt)
                 {
                     memcpy((uint8*)newLock.pData + vertexSize * indIt->second,
@@ -688,7 +688,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     InstanceManager::InstanceBatchIterator InstanceManager::getInstanceBatchIterator( const String &materialName ) const
     {
-        InstanceBatchMap::const_iterator it = mInstanceBatches.find( materialName );
+        auto it = mInstanceBatches.find( materialName );
         if(it != mInstanceBatches.end())
             return { it->second.begin(), it->second.end() };
 

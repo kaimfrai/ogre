@@ -95,7 +95,7 @@ namespace Ogre
         for (ShadowTextureConfig& config : configList)
         {
             bool found = false;
-            for (ShadowTextureList::iterator t = mTextureList.begin(); t != mTextureList.end(); ++t)
+            for (auto t = mTextureList.begin(); t != mTextureList.end(); ++t)
             {
                 const TexturePtr& tex = *t;
                 // Skip if already used this one
@@ -137,7 +137,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     TexturePtr ShadowTextureManager::getNullShadowTexture(PixelFormat format)
     {
-        for (ShadowTextureList::iterator t = mNullTextureList.begin(); t != mNullTextureList.end(); ++t)
+        for (auto t = mNullTextureList.begin(); t != mNullTextureList.end(); ++t)
         {
             const TexturePtr& tex = *t;
 
@@ -174,7 +174,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void ShadowTextureManager::clearUnused()
     {
-        for (ShadowTextureList::iterator i = mTextureList.begin(); i != mTextureList.end(); )
+        for (auto i = mTextureList.begin(); i != mTextureList.end(); )
         {
             // Unreferenced if only this reference and the resource system
             // Any cached shadow textures should be re-bound each frame dropping
@@ -189,7 +189,7 @@ namespace Ogre
                 ++i;
             }
         }
-        for (ShadowTextureList::iterator i = mNullTextureList.begin(); i != mNullTextureList.end(); )
+        for (auto i = mNullTextureList.begin(); i != mNullTextureList.end(); )
         {
             // Unreferenced if only this reference and the resource system
             // Any cached shadow textures should be re-bound each frame dropping
@@ -209,7 +209,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void ShadowTextureManager::clear()
     {
-        for (ShadowTextureList::iterator i = mTextureList.begin(); i != mTextureList.end(); ++i)
+        for (auto i = mTextureList.begin(); i != mTextureList.end(); ++i)
         {
             TextureManager::getSingleton().remove((*i)->getHandle());
         }

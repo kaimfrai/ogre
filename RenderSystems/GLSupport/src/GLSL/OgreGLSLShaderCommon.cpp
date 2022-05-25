@@ -140,7 +140,7 @@ class ResourceManager;
             // don't need a low level implementation for attached shader objects
             // loadHighLevel will only load the source and compile once
             // so don't worry about calling it several times
-            GLSLShaderCommon* childShader = static_cast<GLSLShaderCommon*>(hlProgram.get());
+            auto* childShader = static_cast<GLSLShaderCommon*>(hlProgram.get());
             // load the source and attach the child shader only if supported
             if (isSupported())
             {

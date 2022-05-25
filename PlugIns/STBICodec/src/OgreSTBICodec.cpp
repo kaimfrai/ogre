@@ -54,7 +54,7 @@ THE SOFTWARE.
 static Ogre::uchar* custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/)
 {
     unsigned long destLen = compressBound(data_len);
-    Ogre::uchar* dest = (Ogre::uchar*)malloc(destLen);
+    auto* dest = (Ogre::uchar*)malloc(destLen);
     int ret = compress(dest, &destLen, data, data_len); // use default quality
     if (ret != Z_OK)
     {
@@ -85,7 +85,7 @@ namespace Ogre {
         // Register codecs
         String exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
         StringVector extsVector = StringUtil::split(exts, ",");
-        for (StringVector::iterator v = extsVector.begin(); v != extsVector.end(); ++v)
+        for (auto v = extsVector.begin(); v != extsVector.end(); ++v)
         {
             ImageCodec* codec = new STBIImageCodec(*v);
             msCodecList.push_back(codec);
@@ -97,7 +97,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void STBIImageCodec::shutdown()
     {
-        for (RegisteredCodecList::iterator i = msCodecList.begin();
+        for (auto i = msCodecList.begin();
             i != msCodecList.end(); ++i)
         {
             Codec::unregisterCodec(*i);
@@ -120,7 +120,7 @@ namespace Ogre {
                         "STBIImageCodec::encode" ) ;
         }
 
-        ImageData* pImgData = static_cast<ImageData*>(pData.get());
+        auto* pImgData = static_cast<ImageData*>(pData.get());
         PixelFormat format = pImgData->format;
         uchar* inputData = input->getPtr();
 

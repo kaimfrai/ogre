@@ -335,7 +335,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         const Animation::VertexTrackList& aList = a->getAnimation(i)->_getVertexTrackList();
         const Animation::VertexTrackList& bList = b->getAnimation(i)->_getVertexTrackList();
 
-        Animation::VertexTrackList::const_iterator it = aList.begin();
+        auto it = aList.begin();
         for (; it != aList.end(); ++it)
         {
             EXPECT_EQ(bList.at(it->first)->getAnimationType(), it->second->getAnimationType());
@@ -377,9 +377,9 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexBufferBinding::VertexBufferBindingMap& bBindings = b->vertexBufferBinding->getBindings();
             EXPECT_TRUE(aBindings.size() == bBindings.size());
             using bindingIterator = VertexBufferBinding::VertexBufferBindingMap::const_iterator;
-            bindingIterator aIt = aBindings.begin();
-            bindingIterator aEndIt = aBindings.end();
-            bindingIterator bIt = bBindings.begin();
+            auto aIt = aBindings.begin();
+            auto aEndIt = aBindings.end();
+            auto bIt = bBindings.begin();
             for (; aIt != aEndIt; aIt++, bIt++) {
                 EXPECT_TRUE(aIt->first == bIt->first);
                 EXPECT_TRUE((aIt->second.get() == nullptr) == (bIt->second.get() == nullptr));
@@ -395,8 +395,8 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexDeclaration::VertexElementList& bElements = a->vertexDeclaration->getElements();
             EXPECT_TRUE(aElements.size() == bElements.size());
             using bindingIterator = VertexDeclaration::VertexElementList::const_iterator;
-            bindingIterator aIt = aElements.begin();
-            bindingIterator aEndIt = aElements.end();
+            auto aIt = aElements.begin();
+            auto aEndIt = aElements.end();
             bindingIterator bIt;
             for (; aIt != aEndIt; aIt++) {
                 bIt = std::find(bElements.begin(), bElements.end(), *aIt);
@@ -406,8 +406,8 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
                 const VertexElement& bElem = *bIt;
                 HardwareVertexBufferSharedPtr abuf = a->vertexBufferBinding->getBuffer(aElem.getSource());
                 HardwareVertexBufferSharedPtr bbuf = b->vertexBufferBinding->getBuffer(bElem.getSource());
-                unsigned char* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::HBL_READ_ONLY));
-                unsigned char* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                auto* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                auto* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::HBL_READ_ONLY));
                 size_t avSize = abuf->getVertexSize();
                 size_t bvSize = bbuf->getVertexSize();
                 size_t elemSize = VertexElement::getTypeSize(aElem.getType());
@@ -435,9 +435,9 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexData::HardwareAnimationDataList& bAnimData = b->hwAnimationDataList;
             EXPECT_TRUE(aAnimData.size() == bAnimData.size());
             using bindingIterator = VertexData::HardwareAnimationDataList::const_iterator;
-            bindingIterator aIt = aAnimData.begin();
-            bindingIterator aEndIt = aAnimData.end();
-            bindingIterator bIt = bAnimData.begin();
+            auto aIt = aAnimData.begin();
+            auto aEndIt = aAnimData.end();
+            auto bIt = bAnimData.begin();
             for (; aIt != aEndIt; aIt++, bIt++) {
                 EXPECT_TRUE(aIt->parametric == bIt->parametric);
                 EXPECT_TRUE(aIt->targetBufferIndex == bIt->targetBufferIndex);

@@ -54,7 +54,7 @@ namespace Ogre
         ConcreteNode *parent = nullptr;
         ConcreteNodePtr node;
         const ScriptToken *token = nullptr;
-        ScriptTokenList::const_iterator i = tokens.begin(), end = tokens.end();
+        auto i = tokens.begin(), end = tokens.end();
         while(i != end)
         {
             token = &*i;
@@ -240,7 +240,7 @@ namespace Ogre
                 if(token->type == TID_NEWLINE)
                 {
                     // Look ahead to the next non-newline token and if it isn't an {, this was a property
-                    ScriptTokenList::const_iterator next = skipNewlines(i, end);
+                    auto next = skipNewlines(i, end);
                     if(next == end || next->type != TID_LBRACKET)
                     {
                         // Ended a property here
@@ -260,7 +260,7 @@ namespace Ogre
                     // The following token are the parent objects (base classes).
                     // Require at least one of them.
 
-                    ScriptTokenList::const_iterator j = i + 1;
+                    auto j = i + 1;
                     j = skipNewlines(j, end);
                     if(j == end || (j->type != TID_WORD && j->type != TID_QUOTE)) {
                         OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
@@ -445,7 +445,7 @@ namespace Ogre
 
         ConcreteNodePtr node;
         const ScriptToken *token = nullptr;
-        for(ScriptTokenList::const_iterator i = tokens.begin(); i != tokens.end(); ++i)
+        for(auto i = tokens.begin(); i != tokens.end(); ++i)
         {
             token = &*i;
 
@@ -492,7 +492,7 @@ namespace Ogre
     const ScriptToken *ScriptParser::getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset)
     {
         const ScriptToken *token = nullptr;
-        ScriptTokenList::const_iterator iter = i + offset;
+        auto iter = i + offset;
         if(iter != end)
             token = &*i;
         return token;

@@ -201,12 +201,12 @@ class Camera;
 
         //Now lock the vertex buffer and copy the 4x3 matrices, only those who need it!
         VertexBufferBinding* binding = mRenderOperation.vertexData->vertexBufferBinding; 
-        const ushort bufferIdx = ushort(binding->getBufferCount()-1);
+        const auto bufferIdx = ushort(binding->getBufferCount()-1);
         HardwareBufferLockGuard vertexLock(binding->getBuffer(bufferIdx), HardwareBuffer::HBL_DISCARD);
-        float *pDest = static_cast<float*>(vertexLock.pData);
+        auto *pDest = static_cast<float*>(vertexLock.pData);
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         unsigned char numCustomParams           = mCreator->getNumCustomParams();
         size_t customParamIdx                   = 0;

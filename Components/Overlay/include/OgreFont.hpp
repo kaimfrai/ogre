@@ -246,7 +246,7 @@ class ResourceManager;
         */
         void setGlyphAspectRatio(CodePoint id, Real ratio)
         {
-            CodePointMap::iterator i = mCodePointMap.find(id);
+            auto i = mCodePointMap.find(id);
             if (i != mCodePointMap.end())
             {
                 i->second.aspectRatio = ratio;
@@ -258,7 +258,7 @@ class ResourceManager;
         */
         const GlyphInfo& getGlyphInfo(CodePoint id) const
         {
-            CodePointMap::const_iterator i = mCodePointMap.find(id);
+            auto i = mCodePointMap.find(id);
             if (i == mCodePointMap.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,

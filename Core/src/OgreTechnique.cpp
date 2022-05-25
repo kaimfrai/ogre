@@ -201,7 +201,7 @@ namespace Ogre {
             //Check compilation errors for all program types.
             for (int t = 0; t < 6; t++)
             {
-                GpuProgramType programType = GpuProgramType(t);
+                auto programType = GpuProgramType(t);
                 if (currPass->hasGpuProgram(programType))
                 {
                     GpuProgramPtr program = currPass->getGpuProgram(programType);
@@ -237,7 +237,7 @@ namespace Ogre {
         bool includeRuleMatched = false;
 
         // Check vendors first
-        for (GPUVendorRuleList::const_iterator i = mGPUVendorRules.begin();
+        for (auto i = mGPUVendorRules.begin();
             i != mGPUVendorRules.end(); ++i)
         {
             if (i->includeOrExclude == INCLUDE)
@@ -271,7 +271,7 @@ namespace Ogre {
         includeRulesPresent = false;
         includeRuleMatched = false;
 
-        for (GPUDeviceNameRuleList::const_iterator i = mGPUDeviceNameRules.begin();
+        for (auto i = mGPUDeviceNameRules.begin();
             i != mGPUDeviceNameRules.end(); ++i)
         {
             if (i->includeOrExclude == INCLUDE)
@@ -313,8 +313,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     Pass* Technique::getPass(const String& name) const
     {
-        Passes::const_iterator i    = mPasses.begin();
-        Passes::const_iterator iend = mPasses.end();
+        auto i    = mPasses.begin();
+        auto iend = mPasses.end();
         Pass* foundPass = nullptr;
 
         // iterate through techniques to find a match
@@ -334,7 +334,7 @@ namespace Ogre {
     void Technique::removePass(unsigned short index)
     {
         assert(index < mPasses.size() && "Index out of bounds");
-        Passes::iterator i = mPasses.begin() + index;
+        auto i = mPasses.begin() + index;
         (*i)->queueForDeletion();
         i = mPasses.erase(i);
         // Adjust passes index
@@ -365,7 +365,7 @@ namespace Ogre {
 
         if( (sourceIndex < mPasses.size()) && (destinationIndex < mPasses.size()))
         {
-            Passes::iterator i = mPasses.begin() + sourceIndex;
+            auto i = mPasses.begin() + sourceIndex;
             //Passes::iterator DestinationIterator = mPasses.begin() + destinationIndex;
 
             Pass* pass = (*i);
@@ -740,7 +740,7 @@ namespace Ogre {
         // ok, all manually controlled, so just use that
         for (i = ibegin; i != iend; ++i)
         {
-            IlluminationPass* iPass = new IlluminationPass();
+            auto* iPass = new IlluminationPass();
             iPass->destroyOnShutdown = false;
             iPass->originalPass = iPass->pass = *i;
             iPass->stage = (*i)->getIlluminationStage();
@@ -1088,7 +1088,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Technique::removeGPUVendorRule(GPUVendor vendor)
     {
-        for (GPUVendorRuleList::iterator i = mGPUVendorRules.begin(); i != mGPUVendorRules.end(); )
+        for (auto i = mGPUVendorRules.begin(); i != mGPUVendorRules.end(); )
         {
             if (i->vendor == vendor)
                 i = mGPUVendorRules.erase(i);
@@ -1112,7 +1112,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Technique::removeGPUDeviceNameRule(const String& devicePattern)
     {
-        for (GPUDeviceNameRuleList::iterator i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
+        for (auto i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
         {
             if (i->devicePattern == devicePattern)
                 i = mGPUDeviceNameRules.erase(i);

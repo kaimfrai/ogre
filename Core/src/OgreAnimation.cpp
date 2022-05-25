@@ -87,7 +87,7 @@ class VertexData;
                 "Animation::createNodeTrack");
         }
 
-        NodeAnimationTrack* ret = new NodeAnimationTrack(this, handle);
+        auto* ret = new NodeAnimationTrack(this, handle);
 
         mNodeTrackList[handle] = ret;
         return ret;
@@ -114,7 +114,7 @@ class VertexData;
     //---------------------------------------------------------------------
     NodeAnimationTrack* Animation::getNodeTrack(unsigned short handle) const
     {
-        NodeTrackList::const_iterator i = mNodeTrackList.find(handle);
+        auto i = mNodeTrackList.find(handle);
 
         if (i == mNodeTrackList.end())
         {
@@ -130,7 +130,7 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyNodeTrack(unsigned short handle)
     {
-        NodeTrackList::iterator i = mNodeTrackList.find(handle);
+        auto i = mNodeTrackList.find(handle);
 
         if (i != mNodeTrackList.end())
         {
@@ -161,7 +161,7 @@ class VertexData;
                 "Animation::createNumericTrack");
         }
 
-        NumericAnimationTrack* ret = new NumericAnimationTrack(this, handle);
+        auto* ret = new NumericAnimationTrack(this, handle);
 
         mNumericTrackList[handle] = ret;
         return ret;
@@ -189,7 +189,7 @@ class VertexData;
     //---------------------------------------------------------------------
     NumericAnimationTrack* Animation::getNumericTrack(unsigned short handle) const
     {
-        NumericTrackList::const_iterator i = mNumericTrackList.find(handle);
+        auto i = mNumericTrackList.find(handle);
 
         if (i == mNumericTrackList.end())
         {
@@ -205,7 +205,7 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyNumericTrack(unsigned short handle)
     {
-        NumericTrackList::iterator i = mNumericTrackList.find(handle);
+        auto i = mNumericTrackList.find(handle);
 
         if (i != mNumericTrackList.end())
         {
@@ -237,7 +237,7 @@ class VertexData;
                 "Animation::createVertexTrack");
         }
 
-        VertexAnimationTrack* ret = new VertexAnimationTrack(this, handle, animType);
+        auto* ret = new VertexAnimationTrack(this, handle, animType);
 
         mVertexTrackList[handle] = ret;
         return ret;
@@ -266,7 +266,7 @@ class VertexData;
     //---------------------------------------------------------------------
     VertexAnimationTrack* Animation::getVertexTrack(unsigned short handle) const
     {
-        VertexTrackList::const_iterator i = mVertexTrackList.find(handle);
+        auto i = mVertexTrackList.find(handle);
 
         if (i == mVertexTrackList.end())
         {
@@ -282,7 +282,7 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyVertexTrack(unsigned short handle)
     {
-        VertexTrackList::iterator i = mVertexTrackList.find(handle);
+        auto i = mVertexTrackList.find(handle);
 
         if (i != mVertexTrackList.end())
         {
@@ -577,7 +577,7 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(std::list<unsigned short>::iterator h = tracksToDestroy.begin();
+        for(auto h = tracksToDestroy.begin();
             h != tracksToDestroy.end(); ++h)
         {
             destroyNodeTrack(*h);
@@ -605,7 +605,7 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(std::list<unsigned short>::iterator h = tracksToDestroy.begin();
+        for(auto h = tracksToDestroy.begin();
             h != tracksToDestroy.end(); ++h)
         {
             destroyVertexTrack(*h);
@@ -615,22 +615,22 @@ class VertexData;
     //-----------------------------------------------------------------------
     Animation* Animation::clone(const String& newName) const
     {
-        Animation* newAnim = new Animation(newName, mLength);
+        auto* newAnim = new Animation(newName, mLength);
         newAnim->mInterpolationMode = mInterpolationMode;
         newAnim->mRotationInterpolationMode = mRotationInterpolationMode;
         
         // Clone all tracks
-        for (NodeTrackList::const_iterator i = mNodeTrackList.begin();
+        for (auto i = mNodeTrackList.begin();
             i != mNodeTrackList.end(); ++i)
         {
             i->second->_clone(newAnim);
         }
-        for (NumericTrackList::const_iterator i = mNumericTrackList.begin();
+        for (auto i = mNumericTrackList.begin();
             i != mNumericTrackList.end(); ++i)
         {
             i->second->_clone(newAnim);
         }
-        for (VertexTrackList::const_iterator i = mVertexTrackList.begin();
+        for (auto i = mVertexTrackList.begin();
             i != mVertexTrackList.end(); ++i)
         {
             i->second->_clone(newAnim);
@@ -659,7 +659,7 @@ class VertexData;
             timePos = std::fmod( timePos, totalAnimationLength );
 
         // Search for global index
-        KeyFrameTimeList::iterator it =
+        auto it =
             std::lower_bound(mKeyFrameTimes.begin(), mKeyFrameTimes.end(), timePos);
 
         return {timePos, static_cast<uint>(std::distance(mKeyFrameTimes.begin(), it))};
@@ -743,7 +743,7 @@ class VertexData;
             
             if (baseAnim)
             {
-                for (NodeTrackList::iterator i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+                for (auto i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
                 {
                     NodeAnimationTrack* track = i->second;
                     
@@ -758,7 +758,7 @@ class VertexData;
                     track->_applyBaseKeyFrame(&kf);
                 }
                 
-                for (VertexTrackList::iterator i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+                for (auto i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
                 {
                     VertexAnimationTrack* track = i->second;
                     

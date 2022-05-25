@@ -59,7 +59,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* NumericKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        NumericKeyFrame* newKf = new NumericKeyFrame(newParent, mTime);
+        auto* newKf = new NumericKeyFrame(newParent, mTime);
         newKf->mValue = mValue;
         return newKf;
     }
@@ -108,7 +108,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* TransformKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        TransformKeyFrame* newKf = new TransformKeyFrame(newParent, mTime);
+        auto* newKf = new TransformKeyFrame(newParent, mTime);
         newKf->mTranslate = mTranslate;
         newKf->mScale = mScale;
         newKf->mRotate = mRotate;
@@ -133,7 +133,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* VertexMorphKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        VertexMorphKeyFrame* newKf = new VertexMorphKeyFrame(newParent, mTime);
+        auto* newKf = new VertexMorphKeyFrame(newParent, mTime);
         newKf->mBuffer = mBuffer;
         return newKf;
     }   
@@ -150,7 +150,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::updatePoseReference(ushort poseIndex, Real influence)
     {
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
         {
             if (i->poseIndex == poseIndex)
             {
@@ -165,7 +165,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::removePoseReference(ushort poseIndex)
     {
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
         {
             if (i->poseIndex == poseIndex)
             {
@@ -189,7 +189,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     KeyFrame* VertexPoseKeyFrame::_clone(AnimationTrack* newParent) const
     {
-        VertexPoseKeyFrame* newKf = new VertexPoseKeyFrame(newParent, mTime);
+        auto* newKf = new VertexPoseKeyFrame(newParent, mTime);
         // By-value copy ok
         newKf->mPoseRefs = mPoseRefs;
         return newKf;
@@ -199,11 +199,11 @@ namespace Ogre
     {
         // We subtract the matching pose influences in the base keyframe from the
         // influences in this keyframe
-        for (PoseRefList::iterator i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
         {
             PoseRef& myPoseRef = *i;
             
-            PoseRefList::const_iterator basePoseIt = base->getPoseReferences().begin();
+            auto basePoseIt = base->getPoseReferences().begin();
             Real baseInfluence = 0.0f;
             for (;basePoseIt != base->getPoseReferences().end(); ++basePoseIt)
             {

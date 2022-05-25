@@ -60,7 +60,7 @@ namespace Ogre {
         // TODO make it a configurable size?
         // 32-bit aligned buffer
         mScratchBufferPool = static_cast<char*>(::Ogre::AlignedMemory::allocate(SCRATCH_POOL_SIZE));
-        GLScratchBufferAlloc* ptrAlloc = (GLScratchBufferAlloc*)mScratchBufferPool;
+        auto* ptrAlloc = (GLScratchBufferAlloc*)mScratchBufferPool;
         ptrAlloc->size = SCRATCH_POOL_SIZE - sizeof(GLScratchBufferAlloc);
         ptrAlloc->free = 1;
         mMapBufferThreshold = 0;
@@ -161,7 +161,7 @@ namespace Ogre {
         uint32 bufferPos = 0;
         while (bufferPos < SCRATCH_POOL_SIZE)
         {
-            GLScratchBufferAlloc* pNext = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
+            auto* pNext = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
             // Big enough?
             if (pNext->free && pNext->size >= size)
             {
@@ -170,7 +170,7 @@ namespace Ogre {
                 {
                     uint32 offset = (uint32)sizeof(GLScratchBufferAlloc) + size;
 
-                    GLScratchBufferAlloc* pSplitAlloc = (GLScratchBufferAlloc*)
+                    auto* pSplitAlloc = (GLScratchBufferAlloc*)
                         (mScratchBufferPool + bufferPos + offset);
                     pSplitAlloc->free = 1;
                     // split size is remainder minus new control block
@@ -203,7 +203,7 @@ namespace Ogre {
         GLScratchBufferAlloc* pLast = nullptr;
         while (bufferPos < SCRATCH_POOL_SIZE)
         {
-            GLScratchBufferAlloc* pCurrent = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
+            auto* pCurrent = (GLScratchBufferAlloc*)(mScratchBufferPool + bufferPos);
             
             // Pointers match?
             if ((mScratchBufferPool + bufferPos + sizeof(GLScratchBufferAlloc))
@@ -226,7 +226,7 @@ namespace Ogre {
                 uint32 offset = bufferPos + pCurrent->size + (uint32)sizeof(GLScratchBufferAlloc);
                 if (offset < SCRATCH_POOL_SIZE)
                 {
-                    GLScratchBufferAlloc* pNext = (GLScratchBufferAlloc*)(
+                    auto* pNext = (GLScratchBufferAlloc*)(
                         mScratchBufferPool + offset);
                     if (pNext->free)
                     {

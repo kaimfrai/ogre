@@ -178,7 +178,7 @@ namespace RTShader {
     //-----------------------------------------------------------------------
     void TriplanarTexturing::copyFrom(const SubRenderState& rhs)
     {
-        const TriplanarTexturing& rhsTP = static_cast<const TriplanarTexturing&>(rhs);
+        const auto& rhsTP = static_cast<const TriplanarTexturing&>(rhs);
     
         mPSOutDiffuse = rhsTP.mPSOutDiffuse;
         mPSInDiffuse = rhsTP.mPSInDiffuse;
@@ -241,9 +241,9 @@ namespace RTShader {
             if (prop->values.size() == 6)
             {
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                TriplanarTexturing* tpSubRenderState = static_cast<TriplanarTexturing*>(subRenderState);
+                auto* tpSubRenderState = static_cast<TriplanarTexturing*>(subRenderState);
                 
-                AbstractNodeList::const_iterator it = prop->values.begin();
+                auto it = prop->values.begin();
                 float parameters[3];
                 if (false == SGScriptTranslator::getFloat(*it, parameters))
                 {

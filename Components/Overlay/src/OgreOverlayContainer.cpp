@@ -78,7 +78,7 @@ class RenderQueue;
     void OverlayContainer::addChildImpl(OverlayElement* elem)
     {
         String name = elem->getName();
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i != mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "Child with name " + name + 
@@ -123,7 +123,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OverlayContainer::ChildMap::iterator OverlayContainer::removeChild(const String& name)
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
@@ -134,7 +134,7 @@ class RenderQueue;
         auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
-        ChildContainerMap::iterator j = mChildContainers.find(name);
+        auto j = mChildContainers.find(name);
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
@@ -157,7 +157,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OverlayContainer::ChildMap::iterator OverlayContainer::_removeChild(const String& name)
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 
@@ -168,7 +168,7 @@ class RenderQueue;
         auto eraseIt = mChildren.erase(i);
 
         // Remove from container list (if found)
-        ChildContainerMap::iterator j = mChildContainers.find(name);
+        auto j = mChildContainers.find(name);
         if (j != mChildContainers.end())
             mChildContainers.erase(j);
 
@@ -179,7 +179,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     OverlayElement* OverlayContainer::getChild(const String& name)
     {
-        ChildMap::iterator i = mChildren.find(name);
+        auto i = mChildren.find(name);
         if (i == mChildren.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Child with name " + name + 

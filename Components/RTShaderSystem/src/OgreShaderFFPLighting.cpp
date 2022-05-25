@@ -427,7 +427,7 @@ void FFPLighting::addIlluminationInvocation(const LightParams* curLightParams, c
 //-----------------------------------------------------------------------
 void FFPLighting::copyFrom(const SubRenderState& rhs)
 {
-	const FFPLighting& rhsLighting = static_cast<const FFPLighting&>(rhs);
+	const auto& rhsLighting = static_cast<const FFPLighting&>(rhs);
 
 	setLightCount(rhsLighting.getLightCount());
 	mNormalisedEnable = rhsLighting.mNormalisedEnable;

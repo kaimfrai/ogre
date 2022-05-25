@@ -85,7 +85,7 @@ namespace Ogre {
     {
         ListenerList listenersCopy;
         std::swap(mListeners, listenersCopy);
-        for (ListenerList::iterator i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
+        for (auto i = listenersCopy.begin(); i != listenersCopy.end(); ++i)
         {
             (*i)->viewportDestroyed(this);
         }
@@ -136,7 +136,7 @@ namespace Ogre {
 
          mUpdated = true;
 
-        for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto i = mListeners.begin(); i != mListeners.end(); ++i)
         {
             (*i)->viewportDimensionsChanged(this);
         }
@@ -330,7 +330,7 @@ namespace Ogre {
             cam->_notifyViewport(this);
         }
 
-        for (ListenerList::iterator i = mListeners.begin(); i != mListeners.end(); ++i)
+        for (auto i = mListeners.begin(); i != mListeners.end(); ++i)
         {
             (*i)->viewportCameraChanged(this);
         }
@@ -415,7 +415,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Viewport::removeListener(Listener* l)
     {
-        ListenerList::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+        auto i = std::find(mListeners.begin(), mListeners.end(), l);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

@@ -74,7 +74,7 @@ class Any;
     {
         String lwrcase = extension;
         StringUtil::toLowerCase(lwrcase);
-        CodecList::const_iterator i = msMapCodecs.find(lwrcase);
+        auto i = msMapCodecs.find(lwrcase);
         if (i == msMapCodecs.end())
         {
             String formats_str;
@@ -93,7 +93,7 @@ class Any;
 
     Codec* Codec::getCodec(char *magicNumberPtr, size_t maxbytes)
     {
-        for (CodecList::const_iterator i = msMapCodecs. begin(); 
+        for (auto i = msMapCodecs. begin(); 
             i != msMapCodecs.end(); ++i)
         {
             String ext = i->second->magicNumberToFileExt(magicNumberPtr, maxbytes);

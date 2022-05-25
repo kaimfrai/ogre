@@ -313,8 +313,8 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         //Get the the entity closest to the minimum bbox edge and put into "first"
-        InstancedEntityVec::const_iterator itor   = usedEntities.begin();
-        InstancedEntityVec::const_iterator end   = usedEntities.end();
+        auto itor   = usedEntities.begin();
+        auto end   = usedEntities.end();
 
         Vector3 vMinPos = Vector3::ZERO, firstPos = Vector3::ZERO;
         InstancedEntity *first = nullptr;
@@ -345,9 +345,9 @@ class Technique;
         //Now collect entities closest to 'first'
         while( !usedEntities.empty() && mInstancedEntities.size() < mInstancesPerBatch )
         {
-            InstancedEntityVec::iterator closest   = usedEntities.begin();
-            InstancedEntityVec::iterator it         = usedEntities.begin();
-            InstancedEntityVec::iterator e          = usedEntities.end();
+            auto closest   = usedEntities.begin();
+            auto it         = usedEntities.begin();
+            auto e          = usedEntities.end();
 
             Vector3 closestPos;
             closestPos = (*closest)->_getDerivedPosition();

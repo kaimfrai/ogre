@@ -94,14 +94,14 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Log* LogManager::getLog( const String& name)
     {
-        LogList::iterator i = mLogs.find(name);
+        auto i = mLogs.find(name);
         OgreAssert(i != mLogs.end(), "Log not found");
         return i->second;
     }
     //-----------------------------------------------------------------------
     void LogManager::destroyLog(const String& name)
     {
-        LogList::iterator i = mLogs.find(name);
+        auto i = mLogs.find(name);
         if (i != mLogs.end())
         {
             if (mDefaultLog == i->second)

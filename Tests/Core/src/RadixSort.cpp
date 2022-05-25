@@ -90,7 +90,7 @@ TEST_F(RadixSortTests,FloatVector)
 
     sorter.sort(container, func);
 
-    std::vector<float>::iterator v = container.begin();
+    auto v = container.begin();
     float lastValue = *v++;
     for (;v != container.end(); ++v)
     {
@@ -112,7 +112,7 @@ TEST_F(RadixSortTests,FloatList)
 
     sorter.sort(container, func);
 
-    std::list<float>::iterator v = container.begin();
+    auto v = container.begin();
     float lastValue = *v++;
     for (;v != container.end(); ++v)
     {
@@ -134,7 +134,7 @@ TEST_F(RadixSortTests,UnsignedIntList)
 
     sorter.sort(container, func);
 
-    std::list<unsigned int>::iterator v = container.begin();
+    auto v = container.begin();
     unsigned int lastValue = *v++;
     for (;v != container.end(); ++v)
     {
@@ -156,7 +156,7 @@ TEST_F(RadixSortTests,IntList)
 
     sorter.sort(container, func);
 
-    std::list<int>::iterator v = container.begin();
+    auto v = container.begin();
     int lastValue = *v++;
     for (;v != container.end(); ++v)
     {
@@ -178,7 +178,7 @@ TEST_F(RadixSortTests,UnsignedIntVector)
 
     sorter.sort(container, func);
 
-    std::vector<unsigned int>::iterator v = container.begin();
+    auto v = container.begin();
     unsigned int lastValue = *v++;
     for (;v != container.end(); ++v)
     {
@@ -200,7 +200,7 @@ TEST_F(RadixSortTests,IntVector)
 
     sorter.sort(container, func);
 
-    std::vector<int>::iterator v = container.begin();
+    auto v = container.begin();
     int lastValue = *v++;
     for (;v != container.end(); ++v)
     {

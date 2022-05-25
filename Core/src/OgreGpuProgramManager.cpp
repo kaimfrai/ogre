@@ -272,7 +272,7 @@ namespace {
     //---------------------------------------------------------------------
     GpuSharedParametersPtr GpuProgramManager::getSharedParameters(const String& name) const
     {
-        SharedParametersMap::const_iterator i = mSharedParametersMap.find(name);
+        auto i = mSharedParametersMap.find(name);
         if (i == mSharedParametersMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
@@ -382,7 +382,7 @@ namespace {
         serialiser.writeChunkBegin(CACHE_CHUNK_ID, 2);
 
         // write the size of the array
-        uint32 sizeOfArray = static_cast<uint32>(mMicrocodeCache.size());
+        auto sizeOfArray = static_cast<uint32>(mMicrocodeCache.size());
         serialiser.write(&sizeOfArray);
         
         // loop the array and save it
@@ -393,7 +393,7 @@ namespace {
 
             // saves the microcode
             const Microcode & microcodeOfShader = entry.second;
-            uint32 microcodeLength = static_cast<uint32>(microcodeOfShader->size());
+            auto microcodeLength = static_cast<uint32>(microcodeOfShader->size());
             serialiser.write(&microcodeLength);
             serialiser.writeData(microcodeOfShader->getPtr(), 1, microcodeLength);
         }
@@ -463,7 +463,7 @@ namespace {
     {
         // Remove only if equal to registered one, since it might overridden
         // by other plugins
-        FactoryMap::iterator it = mFactories.find(factory->getLanguage());
+        auto it = mFactories.find(factory->getLanguage());
         if (it != mFactories.end() && it->second == factory)
         {
             mFactories.erase(it);
@@ -472,7 +472,7 @@ namespace {
     //---------------------------------------------------------------------------
     GpuProgramFactory* GpuProgramManager::getFactory(const String& language)
     {
-        FactoryMap::iterator i = mFactories.find(language);
+        auto i = mFactories.find(language);
 
         if (i == mFactories.end())
         {

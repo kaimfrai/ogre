@@ -269,7 +269,7 @@ namespace Ogre {
     WorkQueue::Response* ResourceBackgroundQueue::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
     {
 
-        ResourceRequest resreq = any_cast<ResourceRequest>(req->getData());
+        auto resreq = any_cast<ResourceRequest>(req->getData());
 
         if( req->getAborted() )
         {
@@ -372,7 +372,7 @@ namespace Ogre {
             return ;
         }
 
-        ResourceResponse resresp = any_cast<ResourceResponse>(res->getData());
+        auto resresp = any_cast<ResourceResponse>(res->getData());
 
         // Complete full loading in main thread if semithreading
         const ResourceRequest& req = resresp.request;

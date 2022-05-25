@@ -136,7 +136,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = left;
         *pFloat++ = top;
@@ -168,7 +168,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(NORMAL_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;
         *pFloat++ = topLeft.y;
@@ -196,7 +196,7 @@ class MovableObject;
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pFloat = static_cast<float*>(vbufLock.pData);
+        auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;
         *pFloat++ = topLeft.y;

@@ -202,7 +202,7 @@ class HardwareBufferManagerBase;
             mMin.x = mMin.y = mMin.z = Math::POS_INFINITY;
             mMax.x = mMax.y = mMax.z = Math::NEG_INFINITY;
 
-            for (std::set<uint32>::const_iterator i = mIndices.begin ();
+            for (auto i = mIndices.begin ();
                  i != mIndices.end (); ++i)
             {
                 float *v;
@@ -218,7 +218,7 @@ class HardwareBufferManagerBase;
             Cluster newbox;
 
             // Separate all points that are inside the new bbox
-            for (std::set<uint32>::iterator i = mIndices.begin ();
+            for (auto i = mIndices.begin ();
                  i != mIndices.end (); )
             {
                 float *v;
@@ -226,7 +226,7 @@ class HardwareBufferManagerBase;
                 if (v [split_axis] > r)
                 {
                     newbox.mIndices.insert (*i);
-                    std::set<uint32>::iterator x = i++;
+                    auto x = i++;
                     mIndices.erase(x);
                 }
                 else
@@ -259,7 +259,7 @@ class HardwareBufferManagerBase;
             findElementBySemantic (VES_POSITION);
         HardwareVertexBufferSharedPtr vbuf = vert->vertexBufferBinding->
             getBuffer (poselem->getSource ());
-        uint8 *vdata = (uint8 *)vbuf->lock (HardwareBuffer::HBL_READ_ONLY);
+        auto *vdata = (uint8 *)vbuf->lock (HardwareBuffer::HBL_READ_ONLY);
         size_t vsz = vbuf->getVertexSize ();
 
         std::vector<Cluster> boxes;
@@ -273,7 +273,7 @@ class HardwareBufferManagerBase;
 
             uint elsz = indexData->indexBuffer->getType () == HardwareIndexBuffer::IT_32BIT ?
                 4 : 2;
-            uint8 *idata = (uint8 *)indexData->indexBuffer->lock (
+            auto *idata = (uint8 *)indexData->indexBuffer->lock (
                 indexData->indexStart * elsz, indexData->indexCount * elsz,
                 HardwareIndexBuffer::HBL_READ_ONLY);
 
@@ -306,7 +306,7 @@ class HardwareBufferManagerBase;
             // Find the largest box with more than one vertex :)
             Cluster *split_box = nullptr;
             Real split_volume = -1;
-            for (std::vector<Cluster>::iterator b = boxes.begin ();
+            for (auto b = boxes.begin ();
                  b != boxes.end (); ++b)
             {
                 if (b->empty ())
@@ -342,13 +342,13 @@ class HardwareBufferManagerBase;
 
         // Fine, now from every cluster choose the vertex that is most
         // distant from the geometrical center and from other extremes.
-        for (std::vector<Cluster>::const_iterator b = boxes.begin ();
+        for (auto b = boxes.begin ();
              b != boxes.end (); ++b)
         {
             Real rating = 0;
             Vector3 best_vertex;
 
-            for (std::set<uint32>::const_iterator i = b->mIndices.begin ();
+            for (auto i = b->mIndices.begin ();
                  i != b->mIndices.end (); ++i)
             {
                 float *v;
@@ -357,7 +357,7 @@ class HardwareBufferManagerBase;
                 Vector3 vv (v [0], v [1], v [2]);
                 Real r = (vv - center).squaredLength ();
 
-                for (std::vector<Vector3>::const_iterator e = extremityPoints.begin ();
+                for (auto e = extremityPoints.begin ();
                      e != extremityPoints.end (); ++e)
                     r += (*e - vv).squaredLength ();
                 if (r > rating)

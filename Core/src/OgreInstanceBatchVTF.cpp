@@ -145,7 +145,7 @@ class RenderQueue;
                 const String &casterName        = casterMat->getName();
 
                 //Was this material already cloned?
-                MatMap::const_iterator itor = clonedMaterials.find(casterName);
+                auto itor = clonedMaterials.find(casterName);
 
                 if( itor == clonedMaterials.end() )
                 {
@@ -173,7 +173,7 @@ class RenderQueue;
 
         for( size_t i=0; i<baseVertexData->vertexCount; ++i )
         {
-            float const *pWeights = reinterpret_cast<float const*>(baseBuffer + veWeights->getOffset());
+            auto const *pWeights = reinterpret_cast<float const*>(baseBuffer + veWeights->getOffset());
 
             uint8 biggestWeightIdx = 0;
             for( uint8 j=1; j< uint8(mWeightCount); ++j )
@@ -181,7 +181,7 @@ class RenderQueue;
                 biggestWeightIdx = pWeights[biggestWeightIdx] < pWeights[j] ? j : biggestWeightIdx;
             }
 
-            uint8 const *pIndex = reinterpret_cast<uint8 const*>(baseBuffer + ve->getOffset());
+            auto const *pIndex = reinterpret_cast<uint8 const*>(baseBuffer + ve->getOffset());
             outBoneIdx[i] = pIndex[biggestWeightIdx];
 
             baseBuffer += baseVertexData->vertexDeclaration->getVertexSize(ve->getSource());
@@ -200,8 +200,8 @@ class RenderQueue;
 
         for( size_t i=0; i<baseVertexData->vertexCount * mWeightCount; i += mWeightCount)
         {
-            float const *pWeights = reinterpret_cast<float const*>(baseBuffer + veWeights->getOffset());
-            uint8 const *pIndex = reinterpret_cast<uint8 const*>(baseBuffer + ve->getOffset());
+            auto const *pWeights = reinterpret_cast<float const*>(baseBuffer + veWeights->getOffset());
+            auto const *pIndex = reinterpret_cast<uint8 const*>(baseBuffer + ve->getOffset());
 
             float weightMagnitude = 0.0f;
             for( size_t j=0; j < mWeightCount; ++j )
@@ -344,10 +344,10 @@ class RenderQueue;
         HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::HBL_DISCARD);
         const PixelBox &pixelBox = mMatrixTexture->getBuffer()->getCurrentLock();
 
-        float *pDest = reinterpret_cast<float*>(pixelBox.data);
+        auto *pDest = reinterpret_cast<float*>(pixelBox.data);
 
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
-        InstancedEntityVec::const_iterator end  = mInstancedEntities.end();
+        auto itor = mInstancedEntities.begin();
+        auto end  = mInstancedEntities.end();
 
         Matrix3x4f* transforms;
 
@@ -397,14 +397,14 @@ class RenderQueue;
                 uint16 lookupCounter = 0;
                 using MapTransformId = std::map<Affine3 *, uint16>;
                 MapTransformId transformToId;
-                InstancedEntityVec::const_iterator itEnt = mInstancedEntities.begin(),
+                auto itEnt = mInstancedEntities.begin(),
                     itEntEnd = mInstancedEntities.end();
                 for(;itEnt != itEntEnd ; ++itEnt)
                 {
                     if ((*itEnt)->isInScene())
                     {
                         Affine3* transformUniqueId = (*itEnt)->mBoneMatrices;
-                        MapTransformId::iterator itLu = transformToId.find(transformUniqueId);
+                        auto itLu = transformToId.find(transformUniqueId);
                         if (itLu == transformToId.end())
                         {
                             itLu = transformToId.insert(std::make_pair(transformUniqueId,lookupCounter)).first;
@@ -584,16 +584,16 @@ class RenderQueue;
 
         HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
         HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
-        uint16 *thisBuf16 = static_cast<uint16*>(thisLock.pData);
-        uint32 *thisBuf32 = static_cast<uint32*>(thisLock.pData);
+        auto *thisBuf16 = static_cast<uint16*>(thisLock.pData);
+        auto *thisBuf32 = static_cast<uint32*>(thisLock.pData);
         bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT;
 
         for( size_t i=0; i<mInstancesPerBatch; ++i )
         {
             const size_t vertexOffset = i * mRenderOperation.vertexData->vertexCount / mInstancesPerBatch;
 
-            const uint16 *initBuf16 = static_cast<const uint16 *>(baseLock.pData);
-            const uint32 *initBuf32 = static_cast<const uint32 *>(baseLock.pData);
+            const auto *initBuf16 = static_cast<const uint16 *>(baseLock.pData);
+            const auto *initBuf32 = static_cast<const uint32 *>(baseLock.pData);
 
             for( size_t j=0; j<baseIndexData->indexCount; ++j )
             {
@@ -652,7 +652,7 @@ class RenderQueue;
         thisVertexData->vertexBufferBinding->setBinding( newSource, vertexBuffer );
 
         HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
-        float *thisFloat = static_cast<float*>(vertexLock.pData);
+        auto *thisFloat = static_cast<float*>(vertexLock.pData);
         
         //Copy and repeat
         for( size_t i=0; i<mInstancesPerBatch; ++i )

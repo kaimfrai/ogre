@@ -287,7 +287,7 @@ class RenderQueue;
         HardwareVertexBufferSharedPtr vbuf =
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-        float* pPos = static_cast<float*>(vbufLock.pData);
+        auto* pPos = static_cast<float*>(vbufLock.pData);
 
         // Use the furthest away depth value, since materials should have depth-check off
         // This initialised the depth buffer for any 3D objects in front
@@ -361,7 +361,7 @@ class RenderQueue;
                 HardwareVertexBufferSharedPtr vbuf =
                     mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
                 HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
-                float* pVBStart = static_cast<float*>(vbufLock.pData);
+                auto* pVBStart = static_cast<float*>(vbufLock.pData);
 
                 size_t uvSize = VertexElement::getTypeSize(VET_FLOAT2) / sizeof(float);
                 size_t vertexSize = decl->getVertexSize(TEXCOORD_BINDING) / sizeof(float);
@@ -439,7 +439,7 @@ class RenderQueue;
         // 3 params: <layer> <x_tile> <y_tile>
         // Param count is validated higher up
         std::vector<String> vec = StringUtil::split(val);
-        ushort layer = (ushort)StringConverter::parseUnsignedInt(vec[0]);
+        auto layer = (ushort)StringConverter::parseUnsignedInt(vec[0]);
         Real x_tile = StringConverter::parseReal(vec[1]);
         Real y_tile = StringConverter::parseReal(vec[2]);
 

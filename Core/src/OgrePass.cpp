@@ -292,7 +292,7 @@ namespace Ogre {
         iend = oth.mTextureUnitStates.end();
         for (i = oth.mTextureUnitStates.begin(); i != iend; ++i)
         {
-            TextureUnitState* t = new TextureUnitState(this, *(*i));
+            auto* t = new TextureUnitState(this, *(*i));
             mTextureUnitStates.push_back(t);
         }
 
@@ -379,7 +379,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     TextureUnitState* Pass::createTextureUnitState()
     {
-        TextureUnitState *t = new TextureUnitState(this);
+        auto *t = new TextureUnitState(this);
         addTextureUnitState(t);
         mContentTypeLookupBuilt = false;
         return t;
@@ -388,7 +388,7 @@ namespace Ogre {
     TextureUnitState* Pass::createTextureUnitState(
         const String& textureName, unsigned short texCoordSet)
     {
-        TextureUnitState *t = new TextureUnitState(this);
+        auto *t = new TextureUnitState(this);
         t->setTextureName(textureName);
         t->setTextureCoordSet(texCoordSet);
         addTextureUnitState(t);
@@ -424,8 +424,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     TextureUnitState* Pass::getTextureUnitState(const String& name) const
     {
-        TextureUnitStates::const_iterator i    = mTextureUnitStates.begin();
-        TextureUnitStates::const_iterator iend = mTextureUnitStates.end();
+        auto i    = mTextureUnitStates.begin();
+        auto iend = mTextureUnitStates.end();
         TextureUnitState* foundTUS = nullptr;
 
         // iterate through TUS Container to find a match
@@ -460,7 +460,7 @@ namespace Ogre {
     {
         assert (index < mTextureUnitStates.size() && "Index out of bounds");
 
-        TextureUnitStates::iterator i = mTextureUnitStates.begin() + index;
+        auto i = mTextureUnitStates.begin() + index;
         delete *i;
         mTextureUnitStates.erase(i);
         _notifyNeedsRecompile();

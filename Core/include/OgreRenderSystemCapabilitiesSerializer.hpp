@@ -127,7 +127,7 @@ namespace Ogre {
 
         [[nodiscard]] CapabilityKeywordType getKeywordType(const String& keyword) const
         {
-            KeywordTypeMap::const_iterator it = mKeywordTypeMap.find(keyword);
+            auto it = mKeywordTypeMap.find(keyword);
             if (it != mKeywordTypeMap.end())
                 return (*it).second;
 
@@ -142,7 +142,7 @@ namespace Ogre {
 
         inline void callSetStringMethod(String& keyword, String& val)
         {
-            SetStringMethodDispatchTable::iterator methodIter = mSetStringMethodDispatchTable.find(keyword);
+            auto methodIter = mSetStringMethodDispatchTable.find(keyword);
             if (methodIter != mSetStringMethodDispatchTable.end())
             {
                             SetStringMethod m = (*methodIter).second;
@@ -162,7 +162,7 @@ namespace Ogre {
 
         inline void callSetIntMethod(String& keyword, ushort val)
         {
-            SetIntMethodDispatchTable::iterator methodIter = mSetIntMethodDispatchTable.find(keyword);
+            auto methodIter = mSetIntMethodDispatchTable.find(keyword);
             if (methodIter != mSetIntMethodDispatchTable.end())
             {
                             SetIntMethod m = (*methodIter).second;
@@ -182,7 +182,7 @@ namespace Ogre {
 
         inline void callSetBoolMethod(String& keyword, bool val)
         {
-            SetBoolMethodDispatchTable::iterator methodIter = mSetBoolMethodDispatchTable.find(keyword);
+            auto methodIter = mSetBoolMethodDispatchTable.find(keyword);
             if (methodIter != mSetBoolMethodDispatchTable.end())
             {
                             SetBoolMethod m = (*methodIter).second;
@@ -202,7 +202,7 @@ namespace Ogre {
 
         inline void callSetRealMethod(String& keyword, Real val)
         {
-            SetRealMethodDispatchTable::iterator methodIter = mSetRealMethodDispatchTable.find(keyword);
+            auto methodIter = mSetRealMethodDispatchTable.find(keyword);
             if (methodIter != mSetRealMethodDispatchTable.end())
             {
                             SetRealMethod m = (*methodIter).second;

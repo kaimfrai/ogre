@@ -171,7 +171,7 @@ bool HardwareSkinning::hasScalingShearingSupport()
 //-----------------------------------------------------------------------
 void HardwareSkinning::copyFrom(const SubRenderState& rhs)
 {
-    const HardwareSkinning& hardSkin = static_cast<const HardwareSkinning&>(rhs);
+    const auto& hardSkin = static_cast<const HardwareSkinning&>(rhs);
 
     mDualQuat = hardSkin.mDualQuat;
     mLinear = hardSkin.mLinear;
@@ -190,7 +190,7 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
 
     if (hsAny.has_value())
     {
-        HardwareSkinning::SkinningData pData = any_cast<HardwareSkinning::SkinningData>(hsAny);
+        auto pData = any_cast<HardwareSkinning::SkinningData>(hsAny);
         isValid = pData.isValid;
         
         //If the skinning data is being passed through the material, we need to create an instance of the appropriate
@@ -292,7 +292,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
         
         if(prop->values.size() >= 2)
         {
-            AbstractNodeList::iterator it = prop->values.begin();
+            auto it = prop->values.begin();
             if(false == SGScriptTranslator::getUInt(*it, &boneCount))
                 hasError = true;
 
@@ -334,7 +334,7 @@ SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler
         {
             //create and update the hardware skinning sub render state
             SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-            HardwareSkinning* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
+            auto* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
             hardSkinSrs->setHardwareSkinningParam(boneCount, weightCount, skinType, correctAntipodalityHandling, scalingShearingSupport);
             
             return subRenderState;
@@ -351,7 +351,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 {
     ser->writeAttribute(4, "hardware_skinning");
     
-    HardwareSkinning* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
+    auto* hardSkinSrs = static_cast<HardwareSkinning*>(subRenderState);
     ser->writeValue(StringConverter::toString(hardSkinSrs->getBoneCount()));
     ser->writeValue(StringConverter::toString(hardSkinSrs->getWeightCount()));
 
@@ -367,7 +367,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 //-----------------------------------------------------------------------
 SubRenderState* HardwareSkinningFactory::createInstanceImpl()
 {
-    HardwareSkinning* pSkin = new HardwareSkinning;
+    auto* pSkin = new HardwareSkinning;
     
     pSkin->_setCreator(this);
     return pSkin;

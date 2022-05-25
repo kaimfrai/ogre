@@ -68,7 +68,7 @@ namespace Ogre
 
         file << endl;
 
-        for(CapabilitiesMap::iterator it = mCapabilitiesMap.begin(); it != mCapabilitiesMap.end(); ++it) {
+        for(auto it = mCapabilitiesMap.begin(); it != mCapabilitiesMap.end(); ++it) {
             file << "\t" << it->first << " " << StringConverter::toString(caps->hasCapability(it->second)) << endl;
         }
 
@@ -76,7 +76,7 @@ namespace Ogre
 
         RenderSystemCapabilities::ShaderProfiles profiles = caps->getSupportedShaderProfiles();
         // write every profile
-        for(RenderSystemCapabilities::ShaderProfiles::iterator it = profiles.begin(), end = profiles.end(); it != end; ++it)
+        for(auto it = profiles.begin(), end = profiles.end(); it != end; ++it)
         {
             file << "\t" << "shader_profile " << *it << endl;
         }
@@ -393,7 +393,7 @@ namespace Ogre
     {
         StringVector tokens;
 
-        for (CapabilitiesLinesList::iterator it = lines.begin(), end = lines.end(); it != end; ++it)
+        for (auto it = lines.begin(), end = lines.end(); it != end; ++it)
         {
             // restore the current line information for debugging
             mCurrentLine = &(it->first);
@@ -429,7 +429,7 @@ namespace Ogre
                     break;
                 case SET_INT_METHOD:
                 {
-                    ushort integer = (ushort)StringConverter::parseInt(tokens[1]);
+                    auto integer = (ushort)StringConverter::parseInt(tokens[1]);
                     callSetIntMethod(keyword, integer);
                     break;
                 }

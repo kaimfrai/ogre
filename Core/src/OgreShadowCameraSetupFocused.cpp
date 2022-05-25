@@ -531,7 +531,7 @@ class Viewport;
                 {
                     bool bPresent = false;
 
-                    for(Polygon::VertexList::iterator vit = mBodyPoints.begin();
+                    for(auto vit = mBodyPoints.begin();
                         vit != mBodyPoints.end(); ++vit)
                     {
                         const Vector3& v = *vit;

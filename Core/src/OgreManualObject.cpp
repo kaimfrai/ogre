@@ -91,7 +91,7 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::clear()
     {
         resetTempAreas();
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
             delete *i;
         }
@@ -298,7 +298,7 @@ ManualObject::ManualObject(const String& name)
         char* pBase = mTempVertexBuffer + (mDeclSize * (rop->vertexData->vertexCount-1));
         const VertexDeclaration::VertexElementList& elemList =
             rop->vertexData->vertexDeclaration->getElements();
-        for (VertexDeclaration::VertexElementList::const_iterator i = elemList.begin();
+        for (auto i = elemList.begin();
             i != elemList.end(); ++i)
         {
             float* pFloat = nullptr;
@@ -455,7 +455,7 @@ ManualObject::ManualObject(const String& name)
                 else //(HardwareIndexBuffer::IT_16BIT == indexType)
                 {
                     HardwareBufferLockGuard indexLock(rop->indexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-                    uint16* pIdx = static_cast<uint16*>(indexLock.pData);
+                    auto* pIdx = static_cast<uint16*>(indexLock.pData);
                     uint32* pSrc = mTempIndexBuffer;
                     for (size_t i = 0; i < rop->indexData->indexCount; i++)
                     {
@@ -509,7 +509,7 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityProjection(bool useIdentityProjection)
     {
         // Set existing
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
             (*i)->setUseIdentityProjection(useIdentityProjection);
         }
@@ -521,7 +521,7 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::setUseIdentityView(bool useIdentityView)
     {
         // Set existing
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
             (*i)->setUseIdentityView(useIdentityView);
         }
@@ -540,7 +540,7 @@ ManualObject::ManualObject(const String& name)
         // To be used when order of creation must be kept while rendering
         unsigned short priority = queue->getDefaultRenderablePriority();
 
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
             // Skip empty sections (only happens if non-empty first, then updated)
             RenderOperation* rop = (*i)->getRenderOperation();
@@ -563,7 +563,7 @@ ManualObject::ManualObject(const String& name)
     void ManualObject::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+        for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
         {
             visitor->visit(*i, 0, false);
         }
@@ -578,7 +578,7 @@ ManualObject::ManualObject(const String& name)
             EdgeListBuilder eb;
             size_t vertexSet = 0;
             bool anyBuilt = false;
-            for (SectionList::iterator i = mSectionList.begin(); i != mSectionList.end(); ++i)
+            for (auto i = mSectionList.begin(); i != mSectionList.end(); ++i)
             {
                 RenderOperation* rop = (*i)->getRenderOperation();
                 // Only indexed triangle geometry supported for stencil shadows

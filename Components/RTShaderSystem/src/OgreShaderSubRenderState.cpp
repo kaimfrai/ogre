@@ -85,7 +85,7 @@ SubRenderState* SubRenderStateFactory::createOrRetrieveInstance(SGScriptTranslat
 //-----------------------------------------------------------------------
 void SubRenderStateFactory::destroyInstance(SubRenderState* subRenderState)
 {
-    SubRenderStateSetIterator it = mSubRenderStateList.find(subRenderState);
+    auto it = mSubRenderStateList.find(subRenderState);
 
     if (it != mSubRenderStateList.end())
     {

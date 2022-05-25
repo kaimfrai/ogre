@@ -94,7 +94,7 @@ struct HtmlElement : public HtmlNode
 
     HtmlElement* appendElement(Ogre::String type)
     {
-        HtmlElement* newNode = new HtmlElement(type);
+        auto* newNode = new HtmlElement(type);
         children.push_back(newNode);
         return newNode;
     }
@@ -102,7 +102,7 @@ struct HtmlElement : public HtmlNode
 
     HtmlTextNode* appendText(Ogre::String text)
     {
-        HtmlTextNode* newNode = new HtmlTextNode(text);
+        auto* newNode = new HtmlTextNode(text);
         children.push_back(newNode);
         return newNode;
     }
@@ -120,7 +120,7 @@ struct HtmlElement : public HtmlNode
         out<<"<"<<tagname;
 
         // attributes
-        for (std::list<std::pair<Ogre::String,Ogre::String> >::iterator it = attributes.begin();
+        for (auto it = attributes.begin();
             it != attributes.end(); ++it)
         {
             // name="value"
@@ -137,7 +137,7 @@ struct HtmlElement : public HtmlNode
         out<<">";
 
         // print children
-        for (std::list<HtmlNode*>::iterator it = children.begin();
+        for (auto it = children.begin();
             it != children.end(); ++it)
         {
             out<<(*it)->print(indent + "\t");

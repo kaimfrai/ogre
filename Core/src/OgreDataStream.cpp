@@ -446,7 +446,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void MemoryDataStream::skip(long count)
     {
-        size_t newpos = (size_t)( ( mPos - mData ) + count );
+        auto newpos = (size_t)( ( mPos - mData ) + count );
         assert( mData + newpos <= mEnd );        
 
         mPos = mData + newpos;
@@ -596,7 +596,7 @@ namespace Ogre {
         }
         // maxCount + 1 since count excludes terminator in getline
         mInStream->getline(buf, static_cast<std::streamsize>(maxCount+1), delim.at(0));
-        size_t ret = (size_t)mInStream->gcount();
+        auto ret = (size_t)mInStream->gcount();
         // three options
         // 1) we had an eof before we read a whole line
         // 2) we ran out of buffer space

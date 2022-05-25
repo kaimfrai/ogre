@@ -74,13 +74,13 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Pose::removeVertex(size_t index)
     {
-        VertexOffsetMap::iterator i = mVertexOffsetMap.find(index);
+        auto i = mVertexOffsetMap.find(index);
         if (i != mVertexOffsetMap.end())
         {
             mVertexOffsetMap.erase(i);
             mBuffer.reset();
         }
-        NormalsMap::iterator j = mNormalsMap.find(index);
+        auto j = mNormalsMap.find(index);
         if (j != mNormalsMap.end())
         {
             mNormalsMap.erase(j);
@@ -111,7 +111,7 @@ namespace Ogre {
                 vertexSize, numVertices, HardwareBuffer::HBU_STATIC_WRITE_ONLY);
 
             HardwareBufferLockGuard bufLock(mBuffer, HardwareBuffer::HBL_DISCARD);
-            float* pFloat = static_cast<float*>(bufLock.pData);
+            auto* pFloat = static_cast<float*>(bufLock.pData);
             // initialise - these will be the values used where no pose vertex is included
             memset(pFloat, 0, mBuffer->getSizeInBytes()); 
             if (normals)
@@ -138,8 +138,8 @@ namespace Ogre {
                 }
             }
             // Set each vertex
-            VertexOffsetMap::const_iterator v = mVertexOffsetMap.begin();
-            NormalsMap::const_iterator n = mNormalsMap.begin();
+            auto v = mVertexOffsetMap.begin();
+            auto n = mNormalsMap.begin();
             
             size_t numFloatsPerVertex = normals ? 6: 3;
             

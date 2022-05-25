@@ -221,7 +221,7 @@ class Frustum;
         mCompositorRefName = oth.mCompositorRefName;
         mCompositorRefTexName = oth.mCompositorRefTexName;
         // Can't sharing controllers with other TUS, reset to null to avoid potential bug.
-        for (EffectMap::iterator j = mEffects.begin(); j != mEffects.end(); ++j)
+        for (auto j = mEffects.begin(); j != mEffects.end(); ++j)
         {
             j->second.controller = nullptr;
         }
@@ -635,7 +635,7 @@ class Frustum;
         {
             // Replace - must be unique
             // Search for existing effect of this type
-            EffectMap::iterator i = mEffects.find(effect.type);
+            auto i = mEffects.find(effect.type);
             if (i != mEffects.end())
             {
                 // Destroy old effect controller if exist
@@ -724,7 +724,7 @@ class Frustum;
         std::pair< EffectMap::iterator, EffectMap::iterator > remPair = 
             mEffects.equal_range( type );
         // Remove controllers
-        for (EffectMap::iterator i = remPair.first; i != remPair.second; ++i)
+        for (auto i = remPair.first; i != remPair.second; ++i)
         {
             if (i->second.controller)
             {
@@ -905,7 +905,7 @@ class Frustum;
         // note, only remove for subtype, not entire ET_TRANSFORM
         // otherwise we won't be able to combine subtypes
         // Get range of items matching this effect
-        for (EffectMap::iterator i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
         {
             if (i->second.type == ET_TRANSFORM && i->second.subtype == ttype)
             {
@@ -963,7 +963,7 @@ class Frustum;
             createAnimController();
         }
         // Effect controllers
-        for (EffectMap::iterator it = mEffects.begin(); it != mEffects.end(); ++it)
+        for (auto it = mEffects.begin(); it != mEffects.end(); ++it)
         {
             createEffectController(it->second);
         }
@@ -1149,7 +1149,7 @@ class Frustum;
         }
 
         // Destroy effect controllers
-        for (EffectMap::iterator i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
         {
             if (i->second.controller)
             {

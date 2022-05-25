@@ -307,7 +307,7 @@ namespace Ogre {
 
         for (int i = 0; i < PF_COUNT; ++i)
         {
-            PixelFormat pf = static_cast<PixelFormat>(i);
+            auto pf = static_cast<PixelFormat>(i);
             if (!accessibleOnly || isAccessible(pf))
             {
                 if (tmp == getFormatName(pf))
@@ -524,10 +524,10 @@ namespace Ogre {
                 break;
             case PF_A2B10G10R10:
             {
-                const uint16 ir = static_cast<uint16>( Math::saturate( r ) * 1023.0f + 0.5f );
-                const uint16 ig = static_cast<uint16>( Math::saturate( g ) * 1023.0f + 0.5f );
-                const uint16 ib = static_cast<uint16>( Math::saturate( b ) * 1023.0f + 0.5f );
-                const uint16 ia = static_cast<uint16>( Math::saturate( a ) * 3.0f + 0.5f );
+                const auto ir = static_cast<uint16>( Math::saturate( r ) * 1023.0f + 0.5f );
+                const auto ig = static_cast<uint16>( Math::saturate( g ) * 1023.0f + 0.5f );
+                const auto ib = static_cast<uint16>( Math::saturate( b ) * 1023.0f + 0.5f );
+                const auto ia = static_cast<uint16>( Math::saturate( a ) * 3.0f + 0.5f );
 
                 ((uint32*)dest)[0] = (ia << 30u) | (ir << 20u) | (ig << 10u) | (ib);
                 break;
@@ -830,7 +830,7 @@ namespace Ogre {
         uint8 *basesrcptr = box.data
             + (box.left + box.top * box.rowPitch + box.front * box.slicePitch) * pixelSize;
         uint8 *basedstptr = basesrcptr + (box.bottom - box.top - 1) * rowPitchBytes;
-        uint8* tmpptr = (uint8*)::Ogre::AlignedMemory::allocate(copySize);
+        auto* tmpptr = (uint8*)::Ogre::AlignedMemory::allocate(copySize);
         
         // swap rows
         const size_t halfRowCount = (box.bottom - box.top) >> 1;

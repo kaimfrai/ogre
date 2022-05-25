@@ -316,7 +316,7 @@ namespace Ogre
             }
             // Keep fractions, otherwise a high frame rate will result in zero emissions!
             mRemainder += mEmissionRate * timeElapsed;
-            unsigned short intRequest = (unsigned short)mRemainder;
+            auto intRequest = (unsigned short)mRemainder;
             mRemainder -= intRequest;
 
             // Check duration

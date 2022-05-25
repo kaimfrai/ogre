@@ -104,7 +104,7 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
                     GpuLogicalBufferStructPtr floatLogical = pGpuParams->getLogicalBufferStruct();
                     if (floatLogical.get())
                     {
-                        for (GpuLogicalIndexUseMap::const_iterator i = floatLogical->map.begin(); i != floatLogical->map.end(); ++i)
+                        for (auto i = floatLogical->map.begin(); i != floatLogical->map.end(); ++i)
                         {
                             if (i->second.physicalIndex == gpuConstDef->physicalIndex)
                             {
@@ -205,8 +205,8 @@ void ProgramProcessor::countVsTexcoordOutputs(Function* vsMain,
 
 
     const ShaderParameterList& vsOutputs = vsMain->getOutputParameters();
-    ShaderParameterConstIterator it    = vsOutputs.begin();
-    ShaderParameterConstIterator itEnd = vsOutputs.end();
+    auto it    = vsOutputs.begin();
+    auto itEnd = vsOutputs.end();
 
     // Grab vertex shader output information.
     for (; it != itEnd; ++it)
@@ -224,8 +224,8 @@ void ProgramProcessor::countVsTexcoordOutputs(Function* vsMain,
 //-----------------------------------------------------------------------------
 void ProgramProcessor::buildTexcoordTable(const ShaderParameterList& paramList, ShaderParameterList outParamsTable[4])
 {
-    ShaderParameterConstIterator it    = paramList.begin();
-    ShaderParameterConstIterator itEnd = paramList.end();
+    auto it    = paramList.begin();
+    auto itEnd = paramList.end();
 
     for (; it != itEnd; ++it)
     {
@@ -652,7 +652,7 @@ void ProgramProcessor::generateLocalSplitParameters(Function* func, GpuProgramTy
         for (unsigned int p=0; p < curMergeParameter.getSourceParameterCount(); ++p)
         {
             ParameterPtr srcMergedParameter    = curMergeParameter.getSourceParameter(p);
-            LocalParameterMap::iterator itFind = localParamsMap.find(srcMergedParameter.get());
+            auto itFind = localParamsMap.find(srcMergedParameter.get());
 
             // Case the source parameter is split parameter.
             if (itFind != localParamsMap.end())
@@ -721,7 +721,7 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
         for (unsigned int j=0; j < curMergeParameter.getSourceParameterCount(); ++j)
         {
             ParameterPtr      curSrcParam  = curMergeParameter.getSourceParameter(j);
-            ParameterOperandMap::iterator itParamRefs = paramsRefMap.find(curSrcParam.get());
+            auto itParamRefs = paramsRefMap.find(curSrcParam.get());
 
             // Case the source parameter has some references
             if (itParamRefs != paramsRefMap.end())
@@ -772,13 +772,13 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
 //-----------------------------------------------------------------------------
 void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& localParamsMap, ParameterOperandMap& paramsRefMap)
 {
-    LocalParameterMap::iterator it    = localParamsMap.begin(); 
-    LocalParameterMap::iterator itEnd = localParamsMap.end(); 
+    auto it    = localParamsMap.begin(); 
+    auto itEnd = localParamsMap.end(); 
 
     for (; it != itEnd; ++it)
     {
         Parameter* curSrcParam = it->first;
-        ParameterOperandMap::iterator itParamRefs = paramsRefMap.find(curSrcParam);
+        auto itParamRefs = paramsRefMap.find(curSrcParam);
 
         if (itParamRefs != paramsRefMap.end())
         {

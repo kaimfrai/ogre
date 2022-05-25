@@ -219,7 +219,7 @@ bool FFPFog::addFunctionInvocations(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void FFPFog::copyFrom(const SubRenderState& rhs)
 {
-    const FFPFog& rhsFog = static_cast<const FFPFog&>(rhs);
+    const auto& rhsFog = static_cast<const FFPFog&>(rhs);
 
     mFogMode            = rhsFog.mFogMode;
 
@@ -279,8 +279,8 @@ SubRenderState* FFPFogFactory::createInstance(ScriptCompiler* compiler,
             if (strValue == "ffp")
             {
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                FFPFog* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
-                AbstractNodeList::const_iterator it = prop->values.begin();
+                auto* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
+                auto it = prop->values.begin();
 
                 if(prop->values.size() >= 2)
                 {
@@ -309,7 +309,7 @@ void FFPFogFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRe
     ser->writeAttribute(4, "fog_stage");
     ser->writeValue("ffp");
 
-    FFPFog* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
+    auto* fogSubRenderState = static_cast<FFPFog*>(subRenderState);
 
 
     if (fogSubRenderState->getCalcMode() == FFPFog::CM_PER_VERTEX)

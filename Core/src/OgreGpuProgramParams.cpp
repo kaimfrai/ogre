@@ -277,7 +277,7 @@ namespace Ogre
 
         // simple export of all the named constants, no chunks
         // name, physical index
-        for (GpuConstantDefinitionMap::const_iterator i = pConsts->map.begin();
+        for (auto i = pConsts->map.begin();
              i != pConsts->map.end(); ++i)
         {
             const String& name = i->first;
@@ -286,7 +286,7 @@ namespace Ogre
             writeString(name);
             writeInts(((const uint32*)&def.physicalIndex), 1);
             writeInts(((const uint32*)&def.logicalIndex), 1);
-            uint32 constType = static_cast<uint32>(def.constType);
+            auto constType = static_cast<uint32>(def.constType);
             writeInts(&constType, 1);
             writeInts(((const uint32*)&def.elementSize), 1);
             writeInts(((const uint32*)&def.arraySize), 1);
@@ -444,7 +444,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     const GpuConstantDefinition& GpuSharedParameters::getConstantDefinition(const String& name) const
     {
-        GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
+        auto i = mNamedConstants.map.find(name);
         if (i == mNamedConstants.map.end())
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -476,7 +476,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GpuSharedParameters::setNamedConstant(const String& name, const float *val, uint32 count)
     {
-        GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
+        auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
         {
             const GpuConstantDefinition& def = i->second;
@@ -489,14 +489,14 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GpuSharedParameters::setNamedConstant(const String& name, const double *val, uint32 count)
     {
-        GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
+        auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
         {
             const GpuConstantDefinition& def = i->second;
 
             count = std::min(count, def.elementSize * def.arraySize);
             const double* src = val;
-            double* dst = (double*)&mConstants[def.physicalIndex];
+            auto* dst = (double*)&mConstants[def.physicalIndex];
             for (size_t v = 0; v < count; ++v)
             {
                 *dst++ = static_cast<double>(*src++);
@@ -508,7 +508,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GpuSharedParameters::setNamedConstant(const String& name, const int *val, uint32 count)
     {
-        GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
+        auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
         {
             const GpuConstantDefinition& def = i->second;
@@ -521,7 +521,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GpuSharedParameters::setNamedConstant(const String& name, const uint *val, uint32 count)
     {
-        GpuConstantDefinitionMap::const_iterator i = mNamedConstants.map.find(name);
+        auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
         {
             const GpuConstantDefinition& def = i->second;
@@ -560,7 +560,7 @@ namespace Ogre
         mCopyDataList.clear();
 
         const GpuConstantDefinitionMap& sharedmap = mSharedParams->getConstantDefinitions().map;
-        for (GpuConstantDefinitionMap::const_iterator i = sharedmap.begin(); i != sharedmap.end(); ++i)
+        for (auto i = sharedmap.begin(); i != sharedmap.end(); ++i)
         {
             const String& pName = i->first;
             const GpuConstantDefinition& shareddef = i->second;
@@ -783,7 +783,7 @@ namespace Ogre
     void GpuProgramParameters::copySharedParamSetUsage(const GpuSharedParamUsageList& srcList)
     {
         mSharedParamSets.clear();
-        for (GpuSharedParamUsageList::const_iterator i = srcList.begin(); i != srcList.end(); ++i)
+        for (auto i = srcList.begin(); i != srcList.end(); ++i)
         {
             mSharedParamSets.push_back(GpuSharedParametersUsage(i->getSharedParams(), this));
         }
@@ -797,7 +797,7 @@ namespace Ogre
         memSize += mConstants.size();
         memSize += mRegisters.size()*4;
 
-        for (AutoConstantList::const_iterator i = mAutoConstants.begin();
+        for (auto i = mAutoConstants.begin();
              i != mAutoConstants.end(); ++i)
         {
             memSize += sizeof((*i));
@@ -1230,7 +1230,7 @@ namespace Ogre
 
                 for (size_t logicalNum = 0; logicalNum < count; ++logicalNum)
                 {
-                    GpuLogicalIndexUseMap::iterator it =
+                    auto it =
                             mLogicalToPhysical->map.emplace(
                                 logicalIndex + logicalNum,
                                 GpuLogicalIndexUse(currPhys, requestedSize, variability, type)).first;
@@ -1402,7 +1402,7 @@ namespace Ogre
     {
         // update existing index if it exists
         bool found = false;
-        for (AutoConstantList::iterator i = mAutoConstants.begin();
+        for (auto i = mAutoConstants.begin();
              i != mAutoConstants.end(); ++i)
         {
             if (i->physicalIndex == physicalIndex)
@@ -1428,7 +1428,7 @@ namespace Ogre
     {
         // update existing index if it exists
         bool found = false;
-        for (AutoConstantList::iterator i = mAutoConstants.begin();
+        for (auto i = mAutoConstants.begin();
              i != mAutoConstants.end(); ++i)
         {
             if (i->physicalIndex == physicalIndex)
@@ -1456,7 +1456,7 @@ namespace Ogre
             indexUse->variability = GPV_GLOBAL;
             size_t physicalIndex = indexUse->physicalIndex;
             // update existing index if it exists
-            for (AutoConstantList::iterator i = mAutoConstants.begin();
+            for (auto i = mAutoConstants.begin();
                  i != mAutoConstants.end(); ++i)
             {
                 if (i->physicalIndex == physicalIndex)
@@ -1477,7 +1477,7 @@ namespace Ogre
 
             // Autos are always floating point
             if (def->isFloat()) {
-                for (AutoConstantList::iterator i = mAutoConstants.begin();
+                for (auto i = mAutoConstants.begin();
                      i != mAutoConstants.end(); ++i)
                 {
                     if (i->physicalIndex == def->physicalIndex)
@@ -1540,7 +1540,7 @@ namespace Ogre
         mActivePassIterationIndex = std::numeric_limits<size_t>::max();
 
         // Autoconstant index is not a physical index
-        for (AutoConstantList::const_iterator i = mAutoConstants.begin(); i != mAutoConstants.end(); ++i)
+        for (auto i = mAutoConstants.begin(); i != mAutoConstants.end(); ++i)
         {
             // Only update needed slots
             if (i->variability & mask)
@@ -2404,7 +2404,7 @@ namespace Ogre
     const GpuProgramParameters::AutoConstantEntry*
     GpuProgramParameters::_findRawAutoConstantEntryFloat(size_t physicalIndex) const
     {
-        for(AutoConstantList::const_iterator i = mAutoConstants.begin();
+        for(auto i = mAutoConstants.begin();
             i != mAutoConstants.end(); ++i)
         {
             const AutoConstantEntry& ac = *i;
@@ -2434,7 +2434,7 @@ namespace Ogre
         if (mNamedConstants && source.mNamedConstants)
         {
             std::map<size_t, String> srcToDestNamedMap;
-            for (GpuConstantDefinitionMap::const_iterator i = source.mNamedConstants->map.begin();
+            for (auto i = source.mNamedConstants->map.begin();
                  i != source.mNamedConstants->map.end(); ++i)
             {
                 const String& paramName = i->first;
@@ -2475,12 +2475,12 @@ namespace Ogre
                 }
             }
 
-            for (AutoConstantList::const_iterator i = source.mAutoConstants.begin();
+            for (auto i = source.mAutoConstants.begin();
                  i != source.mAutoConstants.end(); ++i)
             {
                 const GpuProgramParameters::AutoConstantEntry& autoEntry = *i;
                 // find dest physical index
-                std::map<size_t, String>::iterator mi = srcToDestNamedMap.find(autoEntry.physicalIndex);
+                auto mi = srcToDestNamedMap.find(autoEntry.physicalIndex);
                 if (mi != srcToDestNamedMap.end())
                 {
                     if (getAutoConstantDefinition(autoEntry.paramType)->dataType == ACDT_REAL)
@@ -2496,7 +2496,7 @@ namespace Ogre
             }
 
             // Copy shared param sets
-            for (GpuSharedParamUsageList::const_iterator i = source.mSharedParamSets.begin();
+            for (auto i = source.mSharedParamSets.begin();
                  i != source.mSharedParamSets.end(); ++i)
             {
                 const GpuSharedParametersUsage& usage = *i;
@@ -2576,7 +2576,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     bool GpuProgramParameters::isUsingSharedParameters(const String& sharedParamsName) const
     {
-        for (GpuSharedParamUsageList::const_iterator i = mSharedParamSets.begin();
+        for (auto i = mSharedParamSets.begin();
              i != mSharedParamSets.end(); ++i)
         {
             if (i->getName() == sharedParamsName)
@@ -2587,7 +2587,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void GpuProgramParameters::removeSharedParameters(const String& sharedParamsName)
     {
-        for (GpuSharedParamUsageList::iterator i = mSharedParamSets.begin();
+        for (auto i = mSharedParamSets.begin();
              i != mSharedParamSets.end(); ++i)
         {
             if (i->getName() == sharedParamsName)

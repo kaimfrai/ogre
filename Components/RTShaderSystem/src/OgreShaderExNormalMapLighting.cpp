@@ -166,7 +166,7 @@ bool NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------
 void NormalMapLighting::copyFrom(const SubRenderState& rhs)
 {
-    const NormalMapLighting& rhsLighting = static_cast<const NormalMapLighting&>(rhs);
+    const auto& rhsLighting = static_cast<const NormalMapLighting&>(rhs);
 
     mNormalMapSpace = rhsLighting.mNormalMapSpace;
     mNormalMapTextureName = rhsLighting.mNormalMapTextureName;
@@ -248,7 +248,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
         if(prop->values.size() >= 2)
         {
             String strValue;
-            AbstractNodeList::const_iterator it = prop->values.begin();
+            auto it = prop->values.begin();
             
             // Read light model type.
             if(false == SGScriptTranslator::getString(*it, &strValue))
@@ -269,7 +269,7 @@ SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compile
 
                 
                 SubRenderState* subRenderState = createOrRetrieveInstance(translator);
-                NormalMapLighting* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
+                auto* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
                 
                 normalMapSubRenderState->setParameter("texture", strValue);
 
@@ -334,7 +334,7 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
                                              SubRenderState* subRenderState, 
                                              Pass* srcPass, Pass* dstPass)
 {
-    NormalMapLighting* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
+    auto* normalMapSubRenderState = static_cast<NormalMapLighting*>(subRenderState);
 
     ser->writeAttribute(4, "lighting_stage");
     ser->writeValue("normal_map");

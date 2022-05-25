@@ -162,7 +162,7 @@ namespace Ogre {
         if(surface.buffer == nullptr)
             return;
         RBFormat key(surface.buffer->getGLFormat(), surface.buffer->getWidth(), surface.buffer->getHeight(), surface.numSamples);
-        RenderBufferMap::iterator it = mRenderBufferMap.find(key);
+        auto it = mRenderBufferMap.find(key);
         if(it != mRenderBufferMap.end())
         {
             // Decrease refcount

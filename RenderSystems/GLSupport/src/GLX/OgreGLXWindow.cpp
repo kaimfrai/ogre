@@ -105,7 +105,7 @@ namespace Ogre
         if(miscParams)
         {
             NameValuePairList::const_iterator opt;
-            NameValuePairList::const_iterator end = miscParams->end();
+            auto end = miscParams->end();
 
             // NB: Do not try to implement the externalGLContext option.
             //
@@ -467,7 +467,7 @@ namespace Ogre
             mWidth = width;
             mHeight = height;
 
-            for (ViewportList::iterator it = mViewportList.begin(); it != mViewportList.end(); ++it)
+            for (auto it = mViewportList.begin(); it != mViewportList.end(); ++it)
                 (*it).second->_updateDimensions();
         }
     }

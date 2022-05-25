@@ -103,7 +103,7 @@ void ApplicationContextSDL::_destroyWindow(const NativeWindowPair& win)
 
 void ApplicationContextSDL::setWindowGrab(NativeWindowType* win, bool _grab)
 {
-    SDL_bool grab = SDL_bool(_grab);
+    auto grab = SDL_bool(_grab);
 
     SDL_SetWindowGrab(win, grab);
     // osx workaround: mouse motion events are gone otherwise
@@ -150,7 +150,7 @@ void ApplicationContextSDL::pollEvents()
             if(event.window.event != SDL_WINDOWEVENT_RESIZED)
                 continue;
 
-            for(WindowList::iterator it = mWindows.begin(); it != mWindows.end(); ++it)
+            for(auto it = mWindows.begin(); it != mWindows.end(); ++it)
             {
                 if(event.window.windowID != SDL_GetWindowID(it->native))
                     continue;

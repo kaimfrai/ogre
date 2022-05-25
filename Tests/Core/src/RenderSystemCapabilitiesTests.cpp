@@ -488,7 +488,7 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     // write them to file
     serializer.writeScript(&caps, name, filename);
 
-    FileStreamDataStream* fdatastream = new FileStreamDataStream(filename,
+    auto* fdatastream = new FileStreamDataStream(filename,
             new ifstream(filename.c_str()));
 
     DataStreamPtr dataStreamPtr(fdatastream);

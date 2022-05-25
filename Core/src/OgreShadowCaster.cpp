@@ -126,7 +126,7 @@ namespace Ogre {
     // ------------------------------------------------------------------------
     void ShadowCaster::clearShadowRenderableList(ShadowRenderableList& shadowRenderables)
     {
-        for(ShadowRenderableList::iterator si = shadowRenderables.begin(), siend = shadowRenderables.end(); si != siend; ++si)
+        for(auto si = shadowRenderables.begin(), siend = shadowRenderables.end(); si != siend; ++si)
         {
             delete *si;
             *si = 0;
@@ -346,7 +346,7 @@ namespace Ogre {
         HardwareBufferLockGuard indexLock(indexBuffer,
             sizeof(unsigned short) * indexBufferUsedSize, sizeof(unsigned short) * preCountIndexes,
             indexBufferUsedSize == 0 ? HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NO_OVERWRITE);
-        unsigned short* pIdx = static_cast<unsigned short*>(indexLock.pData);
+        auto* pIdx = static_cast<unsigned short*>(indexLock.pData);
         size_t numIndices = indexBufferUsedSize;
         
         // Iterate over the groups and form renderables for each based on their
@@ -547,7 +547,7 @@ namespace Ogre {
         // updating the latter because you can't have 2 locks on the same
         // buffer
         HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_NORMAL);
-        float* pSrc = static_cast<float*>(vertexLock.pData);
+        auto* pSrc = static_cast<float*>(vertexLock.pData);
 
         // TODO: We should add extra (ununsed) vertices ensure source and
         // destination buffer have same alignment for slight performance gain.

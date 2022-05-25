@@ -232,8 +232,8 @@ namespace Ogre {
         uint16 mask, GpuProgramType fromProgType)
     {
         // iterate through uniform reference list and update uniform values
-        GLUniformReferenceIterator currentUniform = mGLUniformReferences.begin();
-        GLUniformReferenceIterator endUniform = mGLUniformReferences.end();
+        auto currentUniform = mGLUniformReferences.begin();
+        auto endUniform = mGLUniformReferences.end();
 
         // determine if we need to transpose matrices when binding
         bool transpose = !mShaders[fromProgType] || mShaders[fromProgType]->getColumnMajorMatrices();
@@ -249,7 +249,7 @@ namespace Ogre {
                 if (def->variability & mask)
                 {
 
-                    GLsizei glArraySize = (GLsizei)def->arraySize;
+                    auto glArraySize = (GLsizei)def->arraySize;
 
                     void* val = def->isSampler() ? (void*)params->getRegPointer(def->physicalIndex)
                                                  : (void*)params->getFloatPointer(def->physicalIndex);

@@ -217,7 +217,7 @@ namespace {
     //-----------------------------------------------------------------------
     FileInfoListPtr ZipArchive::listFileInfo(bool recursive, bool dirs) const
     {
-        FileInfoList* fil = new FileInfoList();
+        auto* fil = new FileInfoList();
         FileInfoList::const_iterator i, iend;
         iend = mFileList.end();
         for (i = mFileList.begin(); i != iend; ++i)

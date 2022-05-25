@@ -205,7 +205,7 @@ public:
     */
     void removeSubRenderStateInstance(SubRenderState* subRenderState) const
     {
-        SubRenderStateSetIterator itFind = mSubRenderStateInstancesSet.find(subRenderState);
+        auto itFind = mSubRenderStateInstancesSet.find(subRenderState);
 
         if (itFind != mSubRenderStateInstancesSet.end())
         {

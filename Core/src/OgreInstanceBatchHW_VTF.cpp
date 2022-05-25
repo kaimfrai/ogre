@@ -92,9 +92,9 @@ namespace Ogre
         thisVertexData->vertexDeclaration = baseVertexData->vertexDeclaration->clone();
 
         //Reuse all vertex buffers
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator itor = baseVertexData->
+        auto itor = baseVertexData->
                                                             vertexBufferBinding->getBindings().begin();
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator end  = baseVertexData->
+        auto end  = baseVertexData->
                                                             vertexBufferBinding->getBindings().end();
         while( itor != end )
         {
@@ -164,7 +164,7 @@ namespace Ogre
                                                          const HWBoneIdxVec &hwBoneIdx,
                                                          const HWBoneWgtVec& hwBoneWgt)
     {
-        const float texWidth  = static_cast<float>(mMatrixTexture->getWidth());
+        const auto texWidth  = static_cast<float>(mMatrixTexture->getWidth());
 
         //Only one weight per vertex is supported. It would not only be complex, but prohibitively slow.
         //Put them in a new buffer, since it's 16 bytes aligned :-)
@@ -197,7 +197,7 @@ namespace Ogre
         thisVertexData->vertexBufferBinding->setBinding( newSource, vertexBuffer );
 
         HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
-        float *thisFloat = static_cast<float*>(vertexLock.pData);
+        auto *thisFloat = static_cast<float*>(vertexLock.pData);
 
         //Create the UVs to sample from the right bone/matrix
         for( size_t j=0; j < baseVertexData->vertexCount * mWeightCount; j += mWeightCount)
@@ -293,8 +293,8 @@ namespace Ogre
             //update the mTransformLookupNumber value in the entities if needed 
             updateSharedLookupIndexes();
 
-            const float texWidth  = static_cast<float>(mMatrixTexture->getWidth());
-            const float texHeight = static_cast<float>(mMatrixTexture->getHeight());
+            const auto texWidth  = static_cast<float>(mMatrixTexture->getWidth());
+            const auto texHeight = static_cast<float>(mMatrixTexture->getHeight());
 
             //Calculate the texel offsets to correct them offline
             //Awkwardly enough, the offset is needed in OpenGL too
@@ -304,7 +304,7 @@ namespace Ogre
             texelOffsets.y = /*renderSystem->getHorizontalTexelOffset()*/ -0.5f / texHeight;
 
             HardwareBufferLockGuard instanceVertexLock(mInstanceVertexBuffer, HardwareBuffer::HBL_DISCARD);
-            float *thisVec = static_cast<float*>(instanceVertexLock.pData);
+            auto *thisVec = static_cast<float*>(instanceVertexLock.pData);
 
             const size_t maxPixelsPerLine = std::min( static_cast<size_t>(mMatrixTexture->getWidth()), mMaxFloatsPerLine >> 2 );
 
@@ -444,14 +444,14 @@ namespace Ogre
         HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::HBL_DISCARD);
         const PixelBox &pixelBox = mMatrixTexture->getBuffer()->getCurrentLock();
 
-        float *pSource = reinterpret_cast<float*>(pixelBox.data);
+        auto *pSource = reinterpret_cast<float*>(pixelBox.data);
         
-        InstancedEntityVec::const_iterator itor = mInstancedEntities.begin();
+        auto itor = mInstancedEntities.begin();
         
         std::vector<bool> writtenPositions(getMaxLookupTableInstances(), false);
 
         size_t floatPerEntity = mMatricesPerInstance * mRowLength * 4;
-        size_t entitiesPerPadding = (size_t)(mMaxFloatsPerLine / floatPerEntity);
+        auto entitiesPerPadding = (size_t)(mMaxFloatsPerLine / floatPerEntity);
         
         size_t instanceCount = mInstancedEntities.size();
         size_t updatedInstances = 0;

@@ -268,7 +268,7 @@ namespace Ogre {
                 memset(mCounters[p], 0, sizeof(int) * 256);
 
             // Perform alpha pass to count
-            ContainerIter i = mTmpContainer.begin();
+            auto i = mTmpContainer.begin();
             TCompValueType prevValue = func.operator()(*i); 
             bool needsSorting = false;
             for (int u = 0; i != mTmpContainer.end(); ++i, ++u)

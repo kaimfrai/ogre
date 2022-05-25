@@ -671,7 +671,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     const Vector4 &Light::getCustomParameter(uint16 index) const
     {
-        CustomParameterMap::const_iterator i = mCustomParameters.find(index);
+        auto i = mCustomParameters.find(index);
         if (i != mCustomParameters.end())
         {
             return i->second;
@@ -686,7 +686,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Light::_updateCustomGpuParameter(uint16 paramIndex, const GpuProgramParameters::AutoConstantEntry& constantEntry, GpuProgramParameters *params) const
     {
-        CustomParameterMap::const_iterator i = mCustomParameters.find(paramIndex);
+        auto i = mCustomParameters.find(paramIndex);
         if (i != mCustomParameters.end())
         {
             params->_writeRawConstant(constantEntry.physicalIndex, i->second, 
@@ -783,7 +783,7 @@ namespace Ogre {
         const NameValuePairList* params)
     {
 
-        Light* light = new Light(name);
+        auto* light = new Light(name);
  
         if(params)
         {

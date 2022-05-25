@@ -212,7 +212,7 @@ public:
         instance->_fireNotifyMaterialRender(pass_id, mat);
 
         Viewport* vp = rs->_getViewport();
-        Rectangle2D *rect = static_cast<Rectangle2D*>(CompositorManager::getSingleton()._getTexturedRectangle2D());
+        auto *rect = static_cast<Rectangle2D*>(CompositorManager::getSingleton()._getTexturedRectangle2D());
 
         if (mQuadCornerModified)
         {
@@ -544,13 +544,13 @@ void CompositorInstance::setTechnique(CompositionTechnique* tech, bool reuseText
             // this will ensure they don't get destroyed as unreferenced
             // so they're ready to use again later
             const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-            CompositionTechnique::TextureDefinitions::const_iterator it = tdefs.begin();
+            auto it = tdefs.begin();
             for (; it != tdefs.end(); ++it)
             {
                 CompositionTechnique::TextureDefinition *def = *it;
                 if (def->pooled)
                 {
-                    LocalTextureMap::iterator i = mLocalTextures.find(def->name);
+                    auto i = mLocalTextures.find(def->name);
                     if (i != mLocalTextures.end())
                     {
                         // overwriting duplicates is fine, we only want one entry per def
@@ -598,7 +598,7 @@ const String& CompositorInstance::getTextureInstanceName(const String& name,
 const TexturePtr& CompositorInstance::getTextureInstance(const String& name, size_t mrtIndex)
 {
     // try simple textures first
-    LocalTextureMap::iterator i = mLocalTextures.find(name);
+    auto i = mLocalTextures.find(name);
     if(i != mLocalTextures.end())
     {
         return i->second;
@@ -660,13 +660,13 @@ void CompositorInstance::createResources(bool forResizeOnly)
             if (def->formatList.size() > 1) 
             {
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                      p != def->formatList.end(); ++p, ++atch)
                 {
                     Ogre::TexturePtr tex = parentComp->getTextureInstance(def->name, atch);
                     mLocalTextures[getMRTTexLocalName(def->name, atch)] = tex;
                 }
-                MultiRenderTarget* mrt = static_cast<MultiRenderTarget*>
+                auto* mrt = static_cast<MultiRenderTarget*>
                 (parentComp->getRenderTarget(def->name));
                 mLocalMRTs[def->name] = mrt;
                 
@@ -724,7 +724,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 
                 // create and bind individual surfaces
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                      p != def->formatList.end(); ++p, ++atch)
                 {
                     
@@ -877,7 +877,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
             else
             {
                 // look for a render_scene pass
-                CompositionTargetPass::Passes::const_iterator pit = tp->getPasses().begin();
+                auto pit = tp->getPasses().begin();
 
                 for (;pit != tp->getPasses().end(); ++pit)
                 {
@@ -928,7 +928,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     // required (saves some time & memory thrashing / fragmentation on resize)
 
     const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-    CompositionTechnique::TextureDefinitions::const_iterator it = tdefs.begin();
+    auto it = tdefs.begin();
     for (; it != tdefs.end(); ++it)
     {
         CompositionTechnique::TextureDefinition *def = *it;
@@ -950,7 +950,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
                 String texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
                     : def->name;
 
-                LocalTextureMap::iterator i = mLocalTextures.find(texName);
+                auto i = mLocalTextures.find(texName);
                 if (i != mLocalTextures.end())
                 {
                     if (!def->pooled && def->scope != CompositionTechnique::TS_GLOBAL)
@@ -969,7 +969,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
 
             if (subSurf > 1)
             {
-                LocalMRTMap::iterator mrti = mLocalMRTs.find(def->name);
+                auto mrti = mLocalMRTs.find(def->name);
                 if (mrti != mLocalMRTs.end())
                 {
                     if (def->scope != CompositionTechnique::TS_GLOBAL) 
@@ -991,7 +991,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
         if (forResizeOnly)
         {
             // just remove the ones which would be affected by a resize
-            for (ReserveTextureMap::iterator i = mReserveTextures.begin();
+            for (auto i = mReserveTextures.begin();
                 i != mReserveTextures.end(); )
             {
                 if (i->first->width == 0 || i->first->height == 0)
@@ -1063,12 +1063,12 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
 RenderTarget *CompositorInstance::getTargetForTex(const String &name, int slice)
 {
     // try simple texture
-    LocalTextureMap::iterator i = mLocalTextures.find(name);
+    auto i = mLocalTextures.find(name);
     if(i != mLocalTextures.end())
         return i->second->getBuffer(slice)->getRenderTarget();
 
     // try MRTs
-    LocalMRTMap::iterator mi = mLocalMRTs.find(name);
+    auto mi = mLocalMRTs.find(name);
     if (mi != mLocalMRTs.end())
         return mi->second;
     
@@ -1173,7 +1173,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
     if (texDef->formatList.size() == 1) 
     {
         //This is a simple texture
-        LocalTextureMap::iterator i = mLocalTextures.find(name);
+        auto i = mLocalTextures.find(name);
         if(i != mLocalTextures.end())
         {
             return i->second;
@@ -1182,7 +1182,7 @@ const TexturePtr &CompositorInstance::getSourceForTex(const String &name, size_t
     else
     {
         // try MRTs - texture (rather than target)
-        LocalTextureMap::iterator i = mLocalTextures.find(getMRTTexLocalName(name, mrtIndex));
+        auto i = mLocalTextures.find(getMRTTexLocalName(name, mrtIndex));
         if (i != mLocalTextures.end())
         {
             return i->second;
@@ -1209,7 +1209,7 @@ void CompositorInstance::addListener(Listener *l)
 //-----------------------------------------------------------------------
 void CompositorInstance::removeListener(Listener *l)
 {
-    Listeners::iterator i = std::find(mListeners.begin(), mListeners.end(), l);
+    auto i = std::find(mListeners.begin(), mListeners.end(), l);
     if (i != mListeners.end())
         mListeners.erase(i);
 }
@@ -1245,8 +1245,8 @@ void CompositorInstance::_fireNotifyResourcesReleased(bool forResizeOnly)
 void CompositorInstance::notifyCameraChanged(Camera* camera)
 {
     // update local texture's viewports.
-    LocalTextureMap::iterator localTexIter = mLocalTextures.begin();
-    LocalTextureMap::iterator localTexIterEnd = mLocalTextures.end();
+    auto localTexIter = mLocalTextures.begin();
+    auto localTexIterEnd = mLocalTextures.end();
     while (localTexIter != localTexIterEnd)
     {
         RenderTexture* target = localTexIter->second->getBuffer()->getRenderTarget();
@@ -1259,8 +1259,8 @@ void CompositorInstance::notifyCameraChanged(Camera* camera)
     }
 
     // update MRT's viewports.
-    LocalMRTMap::iterator localMRTIter = mLocalMRTs.begin();
-    LocalMRTMap::iterator localMRTIterEnd = mLocalMRTs.end();
+    auto localMRTIter = mLocalMRTs.begin();
+    auto localMRTIterEnd = mLocalMRTs.end();
     while (localMRTIter != localMRTIterEnd)
     {
         MultiRenderTarget* target = localMRTIter->second;

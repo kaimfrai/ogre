@@ -192,7 +192,7 @@ namespace Ogre {
         uint16 paddedHeight = (header.iPaddedHeightMSB << 8) | header.iPaddedHeightLSB;
         uint16 type = (header.iTextureTypeMSB << 8) | header.iTextureTypeLSB;
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = width;
         imgData->height = height;
@@ -267,7 +267,7 @@ namespace Ogre {
         if (header.endianness == KTX_ENDIAN_REF_REV)
             flipEndian(&header.glType, sizeof(uint32));
 
-        ImageData *imgData = new ImageData();
+        auto *imgData = new ImageData();
         imgData->depth = 1;
         imgData->width = header.pixelWidth;
         imgData->height = header.pixelHeight;

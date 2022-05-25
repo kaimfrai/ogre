@@ -77,7 +77,7 @@ namespace Ogre
     RibbonTrail::~RibbonTrail()
     {
         // Detach listeners
-        for (NodeList::iterator i = mNodeList.begin(); i != mNodeList.end(); ++i)
+        for (auto i = mNodeList.begin(); i != mNodeList.end(); ++i)
         {
             (*i)->setListener(nullptr);
         }
@@ -121,7 +121,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     size_t RibbonTrail::getChainIndexForNode(const Node* n)
     {
-        NodeToChainSegmentMap::const_iterator i = mNodeToSegMap.find(n);
+        auto i = mNodeToSegMap.find(n);
         if (i == mNodeToSegMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
@@ -132,12 +132,12 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::removeNode(const Node* n)
     {
-        NodeList::iterator i = std::find(mNodeList.begin(), mNodeList.end(), n);
+        auto i = std::find(mNodeList.begin(), mNodeList.end(), n);
         if (i != mNodeList.end())
         {
             // also get matching chain segment
             size_t index = std::distance(mNodeList.begin(), i);
-            IndexVector::iterator mi = mNodeToChainSegment.begin();
+            auto mi = mNodeToChainSegment.begin();
             std::advance(mi, index);
             size_t chainIndex = *mi;
             BillboardChain::clearChain(chainIndex);
@@ -189,7 +189,7 @@ namespace Ogre
         if (oldChains > numChains)
         {
             // remove free chains
-            for (IndexVector::iterator i = mFreeChains.begin(); i != mFreeChains.end();)
+            for (auto i = mFreeChains.begin(); i != mFreeChains.end();)
             {
                 if (*i >= numChains)
                     i = mFreeChains.erase(i);
@@ -211,7 +211,7 @@ namespace Ogre
         BillboardChain::clearChain(chainIndex);
 
         // Reset if we are tracking for this chain
-        IndexVector::iterator i = std::find(mNodeToChainSegment.begin(), mNodeToChainSegment.end(), chainIndex);
+        auto i = std::find(mNodeToChainSegment.begin(), mNodeToChainSegment.end(), chainIndex);
         if (i != mNodeToChainSegment.end())
         {
             size_t nodeIndex = std::distance(mNodeToChainSegment.begin(), i);
@@ -454,7 +454,7 @@ namespace Ogre
         // optional params
         if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("maxElements");
+            auto ni = params->find("maxElements");
             if (ni != params->end())
             {
                 maxElements = StringConverter::parseSizeT(ni->second);

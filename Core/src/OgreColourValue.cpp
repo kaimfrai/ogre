@@ -258,7 +258,7 @@ namespace Ogre {
             // wrap around, and allow mathematical errors
             hueDomain = 0.0f;
         }
-        unsigned short domain = (unsigned short)hueDomain;
+        auto domain = (unsigned short)hueDomain;
         float f1 = brightness * (1 - saturation);
         float f2 = brightness * (1 - saturation * (hueDomain - domain));
         float f3 = brightness * (1 - saturation * (1 - (hueDomain - domain)));

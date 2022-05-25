@@ -402,7 +402,7 @@ class RenderSystem;
         {
             mAABB.setNull();
             Vector3 widthVector;
-            for (ChainSegmentList::const_iterator segi = mChainSegmentList.begin();
+            for (auto segi = mChainSegmentList.begin();
                 segi != mChainSegmentList.end(); ++segi)
             {
                 const ChainSegment& seg = *segi;
@@ -464,7 +464,7 @@ class RenderSystem;
         Vector3 eyePos = mParentNode->convertWorldToLocalPosition(camPos);
 
         Vector3 chainTangent;
-        for (ChainSegmentList::iterator segi = mChainSegmentList.begin();
+        for (auto segi = mChainSegmentList.begin();
             segi != mChainSegmentList.end(); ++segi)
         {
             ChainSegment& seg = *segi;
@@ -481,10 +481,10 @@ class RenderSystem;
 
                     Element& elem = mChainElementList[e + seg.start];
                     assert (((e + seg.start) * 2) < 65536 && "Too many elements!");
-                    uint16 baseIdx = static_cast<uint16>((e + seg.start) * 2);
+                    auto baseIdx = static_cast<uint16>((e + seg.start) * 2);
 
                     // Determine base pointer to vertex #1
-                    float* pFloat = reinterpret_cast<float*>(
+                    auto* pFloat = reinterpret_cast<float*>(
                         static_cast<char*>(vertexLock.pData) +
                             pBuffer->getVertexSize() * baseIdx);
 
@@ -595,10 +595,10 @@ class RenderSystem;
         if (mIndexContentDirty)
         {
             HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-            uint16* pShort = static_cast<uint16*>(indexLock.pData);
+            auto* pShort = static_cast<uint16*>(indexLock.pData);
             mIndexData->indexCount = 0;
             // indexes
-            for (ChainSegmentList::iterator segi = mChainSegmentList.begin();
+            for (auto segi = mChainSegmentList.begin();
                 segi != mChainSegmentList.end(); ++segi)
             {
                 ChainSegment& seg = *segi;
@@ -617,8 +617,8 @@ class RenderSystem;
                         // indexes of this element are (e * 2) and (e * 2) + 1
                         // indexes of the last element are the same, -2
                         assert (((e + seg.start) * 2) < 65536 && "Too many elements!");
-                        uint16 baseIdx = static_cast<uint16>((e + seg.start) * 2);
-                        uint16 lastBaseIdx = static_cast<uint16>((laste + seg.start) * 2);
+                        auto baseIdx = static_cast<uint16>((e + seg.start) * 2);
+                        auto lastBaseIdx = static_cast<uint16>((laste + seg.start) * 2);
                         *pShort++ = lastBaseIdx;
                         *pShort++ = lastBaseIdx + 1;
                         *pShort++ = baseIdx;
@@ -759,7 +759,7 @@ class RenderSystem;
         // optional params
         if (params != nullptr)
         {
-            NameValuePairList::const_iterator ni = params->find("maxElements");
+            auto ni = params->find("maxElements");
             if (ni != params->end())
             {
                 maxElements = StringConverter::parseSizeT(ni->second);

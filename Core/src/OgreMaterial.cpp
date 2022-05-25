@@ -250,7 +250,7 @@ class Renderable;
     //-----------------------------------------------------------------------
     Technique* Material::createTechnique()
     {
-        Technique *t = new Technique(this);
+        auto *t = new Technique(this);
         mTechniques.push_back(t);
         mCompilationRequired = true;
         return t;
@@ -258,8 +258,8 @@ class Renderable;
     //-----------------------------------------------------------------------
     Technique* Material::getTechnique(const String& name) const
     {
-        Techniques::const_iterator i    = mTechniques.begin();
-        Techniques::const_iterator iend = mTechniques.end();
+        auto i    = mTechniques.begin();
+        auto iend = mTechniques.end();
         Technique* foundTechnique = nullptr;
 
         // iterate through techniques to find a match
@@ -282,7 +282,7 @@ class Renderable;
         if (mBestTechniquesBySchemeList.empty())
             return 0;
 
-        BestTechniquesBySchemeList::const_iterator i = 
+        auto i = 
             mBestTechniquesBySchemeList.find(schemeIndex);
         if (i == mBestTechniquesBySchemeList.end())
         {
@@ -376,7 +376,7 @@ class Renderable;
     void Material::removeTechnique(unsigned short index)
     {
         assert (index < mTechniques.size() && "Index out of bounds.");
-        Techniques::iterator i = mTechniques.begin() + index;
+        auto i = mTechniques.begin() + index;
         delete(*i);
         mTechniques.erase(i);
         clearBestTechniqueList();

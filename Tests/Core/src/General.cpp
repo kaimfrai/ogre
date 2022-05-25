@@ -187,7 +187,7 @@ TEST_F(SceneQueryTest,Intersection)
     EXPECT_EQ(results.movables2movables.size(), sizeof(expected)/sizeof(expected[0]));
 
     int i = 0;
-    for (SceneQueryMovableIntersectionList::iterator mov = results.movables2movables.begin();
+    for (auto mov = results.movables2movables.begin();
          mov != results.movables2movables.end(); ++mov)
     {
         SceneQueryMovableObjectPair& thepair = *mov;

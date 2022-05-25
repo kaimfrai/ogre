@@ -177,7 +177,7 @@ class Renderable;
     unsigned short MaterialManager::_getSchemeIndex(const String& schemeName)
     {
         unsigned short ret = 0;
-        SchemeMap::iterator i = mSchemes.find(schemeName);
+        auto i = mSchemes.find(schemeName);
         if (i != mSchemes.end())
         {
             ret = i->second;
@@ -194,7 +194,7 @@ class Renderable;
     //-----------------------------------------------------------------------
     const String& MaterialManager::_getSchemeName(unsigned short index)
     {
-        for (SchemeMap::iterator i = mSchemes.begin(); i != mSchemes.end(); ++i)
+        for (auto i = mSchemes.begin(); i != mSchemes.end(); ++i)
         {
             if (i->second == index)
                 return i->first;
@@ -227,11 +227,11 @@ class Renderable;
         Material* mat, unsigned short lodIndex, const Renderable* rend)
     {
         //First, check the scheme specific listeners
-        ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+        auto it = mListenerMap.find(mActiveSchemeName);
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto i = listenerList.begin(); i != listenerList.end(); ++i)
             {
                 Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
@@ -245,7 +245,7 @@ class Renderable;
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto i = listenerList.begin(); i != listenerList.end(); ++i)
             {
                 Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
@@ -262,11 +262,11 @@ class Renderable;
 	void MaterialManager::_notifyAfterIlluminationPassesCreated(Technique* tech)
 	{
 		// First, check the scheme specific listeners
-		ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+		auto it = mListenerMap.find(mActiveSchemeName);
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
 			{
 				bool handled = (*i)->afterIlluminationPassesCreated(tech);
 				if(handled)
@@ -279,7 +279,7 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
 			{
 				bool handled = (*i)->afterIlluminationPassesCreated(tech);
 				if(handled)
@@ -291,11 +291,11 @@ class Renderable;
 	void MaterialManager::_notifyBeforeIlluminationPassesCleared(Technique* tech)
 	{
 		// First, check the scheme specific listeners
-		ListenerMap::iterator it = mListenerMap.find(mActiveSchemeName);
+		auto it = mListenerMap.find(mActiveSchemeName);
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
 			{
 				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
 				if(handled)
@@ -308,7 +308,7 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(ListenerList::iterator i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
 			{
 				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
 				if(handled)

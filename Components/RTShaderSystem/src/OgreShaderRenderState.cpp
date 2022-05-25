@@ -81,7 +81,7 @@ RenderState::~RenderState()
 //-----------------------------------------------------------------------
 void RenderState::reset()
 {
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
     {
         ShaderGenerator::getSingleton().destroySubRenderState(*it);
     }
@@ -106,7 +106,7 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
     bool addSubRenderState = true;
 
     // Go over the current sub render state.
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
     {
         // Case the same instance already exists -> do not add to list.
         if (*it == subRenderState)
@@ -257,7 +257,7 @@ void TargetRenderState::createCpuPrograms()
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_VERTEX_PROGRAM)));
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_FRAGMENT_PROGRAM)));
 
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
     {
         SubRenderState* srcSubRenderState = *it;
 
@@ -281,7 +281,7 @@ ProgramSet* TargetRenderState::createProgramSet()
 void TargetRenderState::updateGpuProgramsParams(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
                                                 const LightList* pLightList)
 {
-    for (SubRenderStateListIterator it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
     {
         SubRenderState* curSubRenderState = *it;
 

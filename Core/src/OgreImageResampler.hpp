@@ -56,8 +56,8 @@ template<unsigned int elemsize> struct NearestResampler {
         // assert(src.format == dst.format);
 
         // srcdata stays at beginning, pdst is a moving pointer
-        uchar* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
-        uchar* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
+        auto* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
+        auto* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
 
         // sx_48,sy_48,sz_48 represent current position in source
         // using 16/48-bit fixed precision, incremented by steps
@@ -97,8 +97,8 @@ struct LinearResampler {
         size_t dstelemsize = PixelUtil::getNumElemBytes(dst.format);
 
         // srcdata stays at beginning, pdst is a moving pointer
-        uchar* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
-        uchar* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
+        auto* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
+        auto* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
         
         // sx_48,sy_48,sz_48 represent current position in source
         // using 16/48-bit fixed precision, incremented by steps
@@ -114,7 +114,7 @@ struct LinearResampler {
             // coordinate (x, y, or z) backwards by half a pixel so that the
             // integer bits represent the first sample (eg, sx1) and the
             // fractional bits are the blend weight of the second sample
-            unsigned int temp = static_cast<unsigned int>(sz_48 >> 32);
+            auto temp = static_cast<unsigned int>(sz_48 >> 32);
 
             temp = (temp > 0x8000)? temp - 0x8000 : 0;
             uint32 sz1 = temp >> 16;                 // src z, sample #1
@@ -181,8 +181,8 @@ struct LinearResampler_Float32 {
         // assert(dstchannels == 3 || dstchannels == 4);
 
         // srcdata stays at beginning, pdst is a moving pointer
-        float* srcdata = (float*)src.getTopLeftFrontPixelPtr();
-        float* pdst = (float*)dst.getTopLeftFrontPixelPtr();
+        auto* srcdata = (float*)src.getTopLeftFrontPixelPtr();
+        auto* pdst = (float*)dst.getTopLeftFrontPixelPtr();
         
         // sx_48,sy_48,sz_48 represent current position in source
         // using 16/48-bit fixed precision, incremented by steps
@@ -198,7 +198,7 @@ struct LinearResampler_Float32 {
             // coordinate (x, y, or z) backwards by half a pixel so that the
             // integer bits represent the first sample (eg, sx1) and the
             // fractional bits are the blend weight of the second sample
-            unsigned int temp = static_cast<unsigned int>(sz_48 >> 32);
+            auto temp = static_cast<unsigned int>(sz_48 >> 32);
 
             temp = (temp > 0x8000)? temp - 0x8000 : 0;
             uint32 sz1 = temp >> 16;                 // src z, sample #1
@@ -291,8 +291,8 @@ template<unsigned int channels> struct LinearResampler_Byte {
         }
 
         // srcdata stays at beginning of slice, pdst is a moving pointer
-        uchar* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
-        uchar* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
+        auto* srcdata = (uchar*)src.getTopLeftFrontPixelPtr();
+        auto* pdst = (uchar*)dst.getTopLeftFrontPixelPtr();
 
         // sx_48,sy_48 represent current position in source
         // using 16/48-bit fixed precision, incremented by steps
@@ -305,7 +305,7 @@ template<unsigned int channels> struct LinearResampler_Byte {
             // adjust a source coordinate backwards by half a pixel so that the
             // integer bits represent the first sample (eg, sx1) and the
             // fractional bits are the blend weight of the second sample
-            unsigned int temp = static_cast<unsigned int>(sy_48 >> 36);
+            auto temp = static_cast<unsigned int>(sy_48 >> 36);
             temp = (temp > 0x800)? temp - 0x800: 0;
             unsigned int syf = temp & 0xFFF;
             uint32 sy1 = temp >> 12;

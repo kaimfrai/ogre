@@ -69,7 +69,7 @@ Compositor::~Compositor()
 //-----------------------------------------------------------------------
 CompositionTechnique *Compositor::createTechnique()
 {
-    CompositionTechnique *t = new CompositionTechnique(this);
+    auto *t = new CompositionTechnique(this);
     mTechniques.push_back(t);
     mCompilationRequired = true;
     return t;
@@ -79,7 +79,7 @@ CompositionTechnique *Compositor::createTechnique()
 void Compositor::removeTechnique(size_t index)
 {
     assert (index < mTechniques.size() && "Index out of bounds.");
-    Techniques::iterator i = mTechniques.begin() + index;
+    auto i = mTechniques.begin() + index;
     delete (*i);
     mTechniques.erase(i);
     mSupportedTechniques.clear();
@@ -152,7 +152,7 @@ void Compositor::compile()
 //---------------------------------------------------------------------
 CompositionTechnique* Compositor::getSupportedTechnique(const String& schemeName)
 {
-    for(Techniques::iterator i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
     {
         if ((*i)->getSchemeName() == schemeName)
         {
@@ -161,7 +161,7 @@ CompositionTechnique* Compositor::getSupportedTechnique(const String& schemeName
     }
 
     // didn't find a matching one
-    for(Techniques::iterator i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
     {
         if ((*i)->getSchemeName().empty())
         {
@@ -189,7 +189,7 @@ void Compositor::createGlobalTextures()
     CompositionTechnique* firstTechnique = mSupportedTechniques[0];
 
     const CompositionTechnique::TextureDefinitions& tdefs = firstTechnique->getTextureDefinitions();
-    CompositionTechnique::TextureDefinitions::const_iterator texDefIt = tdefs.begin();
+    auto texDefIt = tdefs.begin();
     for (; texDefIt != tdefs.end(); ++texDefIt)
     {
         CompositionTechnique::TextureDefinition* def = *texDefIt;
@@ -218,7 +218,7 @@ void Compositor::createGlobalTextures()
 
                 // create and bind individual surfaces
                 size_t atch = 0;
-                for (PixelFormatList::iterator p = def->formatList.begin(); 
+                for (auto p = def->formatList.begin(); 
                     p != def->formatList.end(); ++p, ++atch)
                 {
 
@@ -300,7 +300,7 @@ void Compositor::createGlobalTextures()
 //-----------------------------------------------------------------------
 void Compositor::freeGlobalTextures()
 {
-    GlobalTextureMap::iterator i = mGlobalTextures.begin();
+    auto i = mGlobalTextures.begin();
     while (i != mGlobalTextures.end())
     {
         TextureManager::getSingleton().remove(i->second);
@@ -308,7 +308,7 @@ void Compositor::freeGlobalTextures()
     }
     mGlobalTextures.clear();
 
-    GlobalMRTMap::iterator mrti = mGlobalMRTs.begin();
+    auto mrti = mGlobalMRTs.begin();
     while (mrti != mGlobalMRTs.end())
     {
         // remove MRT
@@ -327,7 +327,7 @@ const String& Compositor::getTextureInstanceName(const String& name, size_t mrtI
 const TexturePtr& Compositor::getTextureInstance(const String& name, size_t mrtIndex)
 {
     //Try simple texture
-    GlobalTextureMap::iterator i = mGlobalTextures.find(name);
+    auto i = mGlobalTextures.find(name);
     if(i != mGlobalTextures.end())
     {
         return i->second;
@@ -348,12 +348,12 @@ const TexturePtr& Compositor::getTextureInstance(const String& name, size_t mrtI
 RenderTarget* Compositor::getRenderTarget(const String& name, int slice)
 {
     // try simple texture
-    GlobalTextureMap::iterator i = mGlobalTextures.find(name);
+    auto i = mGlobalTextures.find(name);
     if(i != mGlobalTextures.end())
         return i->second->getBuffer(slice)->getRenderTarget();
 
     // try MRTs
-    GlobalMRTMap::iterator mi = mGlobalMRTs.find(name);
+    auto mi = mGlobalMRTs.find(name);
     if (mi != mGlobalMRTs.end())
         return mi->second;
     else

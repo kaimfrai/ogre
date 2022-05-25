@@ -72,7 +72,7 @@ namespace Ogre {
     {
         void* retPtr = nullptr;
 
-        GLHardwareBufferManager* glBufManager = static_cast<GLHardwareBufferManager*>(HardwareBufferManager::getSingletonPtr());
+        auto* glBufManager = static_cast<GLHardwareBufferManager*>(HardwareBufferManager::getSingletonPtr());
 
         // Try to use scratch buffers for smaller buffers
         if( length < glBufManager->getGLMapBufferThreshold() )

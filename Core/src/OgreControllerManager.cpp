@@ -61,7 +61,7 @@ namespace Ogre {
         const ControllerValueRealPtr& src, const ControllerValueRealPtr& dest,
         const ControllerFunctionRealPtr& func)
     {
-        Controller<Real>* c = new Controller<Real>(src, dest, func);
+        auto* c = new Controller<Real>(src, dest, func);
 
         mControllers.insert(c);
         return c;
@@ -210,7 +210,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ControllerManager::destroyController(Controller<Real>* controller)
     {
-        ControllerList::iterator i = mControllers.find(controller);
+        auto i = mControllers.find(controller);
         if (i != mControllers.end())
         {
             mControllers.erase(i);

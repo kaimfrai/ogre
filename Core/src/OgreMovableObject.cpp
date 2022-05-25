@@ -147,7 +147,7 @@ class Any;
     {
         if (mParentIsTagPoint)
         {
-            TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+            auto* tp = static_cast<TagPoint*>(mParentNode);
             return tp->getParentEntity()->getParentSceneNode();
         }
         else
@@ -162,12 +162,12 @@ class Any;
         {
             if (mParentIsTagPoint)
             {
-                TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+                auto* tp = static_cast<TagPoint*>(mParentNode);
                 tp->getParentEntity()->detachObjectFromBone(this);
             }
             else
             {
-                SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+                auto* sn = static_cast<SceneNode*>(mParentNode);
                 sn->detachObject(this);
             }
         }
@@ -179,12 +179,12 @@ class Any;
         {
             if (mParentIsTagPoint)
             {
-                TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+                auto* tp = static_cast<TagPoint*>(mParentNode);
                 return tp->getParentEntity()->isInScene();
             }
             else
             {
-                SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+                auto* sn = static_cast<SceneNode*>(mParentNode);
                 return sn->isInSceneGraph();
             }
         }
@@ -362,13 +362,13 @@ class Any;
         // Query from parent entity if exists
         if (mParentIsTagPoint)
         {
-            TagPoint* tp = static_cast<TagPoint*>(mParentNode);
+            auto* tp = static_cast<TagPoint*>(mParentNode);
             return tp->getParentEntity()->queryLights();
         }
 
         if (mParentNode)
         {
-            SceneNode* sn = static_cast<SceneNode*>(mParentNode);
+            auto* sn = static_cast<SceneNode*>(mParentNode);
 
             // Make sure we only update this only if need.
             ulong frame = sn->getCreator()->_getLightsDirtyCounter();
