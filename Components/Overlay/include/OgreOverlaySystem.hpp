@@ -30,15 +30,17 @@ THE SOFTWARE.
 #define OGRE_COMPONENTS_OVERLAY_SYSTEM_H
 
 #include "OgreCommon.hpp"
+#include "OgreFontManager.hpp"
+#include "OgreOverlayManager.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreRenderQueueListener.hpp"
 #include "OgreRenderSystem.hpp"
 #include "OgreSingleton.hpp"
 
+#include <memory>
+
 namespace Ogre {
-    class OverlayManager;
-    class FontManager;
 
     /** \addtogroup Optional
     *  @{
@@ -74,8 +76,8 @@ namespace Ogre {
         static OverlaySystem& getSingleton() noexcept;
         static OverlaySystem* getSingletonPtr() noexcept;
     private:
-        OverlayManager* mOverlayManager;
-        FontManager* mFontManager;
+        ::std::unique_ptr<FontManager> mFontManager;
+        ::std::unique_ptr<OverlayManager> mOverlayManager;
     };
 
 }

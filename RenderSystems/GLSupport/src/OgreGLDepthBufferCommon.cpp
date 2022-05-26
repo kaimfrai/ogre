@@ -28,16 +28,9 @@ GLDepthBufferCommon::GLDepthBufferCommon(uint16 poolId, GLRenderSystemCommon* re
 
 GLDepthBufferCommon::~GLDepthBufferCommon()
 {
-    if (mStencilBuffer && mStencilBuffer != mDepthBuffer)
+    if (mStencilBuffer.get() == mDepthBuffer.get())
     {
-        delete mStencilBuffer;
-        mStencilBuffer = nullptr;
-    }
-
-    if (mDepthBuffer)
-    {
-        delete mDepthBuffer;
-        mDepthBuffer = nullptr;
+        mStencilBuffer.release();
     }
 }
 

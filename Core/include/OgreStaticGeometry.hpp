@@ -34,6 +34,7 @@ THE SOFTWARE.
 #include <iosfwd>
 #include <list>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -167,14 +168,8 @@ class Technique;
         class OptimisedSubMeshGeometry : public BatchedGeometryAlloc
         {
         public:
-            OptimisedSubMeshGeometry()  = default;
-            ~OptimisedSubMeshGeometry() 
-            {
-                delete vertexData;
-                delete indexData;
-            }
-            VertexData *vertexData{nullptr};
-            IndexData *indexData{nullptr};
+            ::std::unique_ptr<VertexData> vertexData{nullptr};
+            ::std::unique_ptr<IndexData> indexData{nullptr};
         };
         using OptimisedSubMeshGeometryList = std::list<OptimisedSubMeshGeometry *>;
         /// Saved link between SubMesh at a LOD and vertex/index data
@@ -208,7 +203,7 @@ class Technique;
             Quaternion orientation;
             Vector3 scale;
         };
-        using QueuedGeometryList = std::vector<QueuedGeometry *>;
+        using QueuedGeometryList = std::vector<QueuedGeometry*>;
         
         // forward declarations
         class LODBucket;
@@ -227,20 +222,20 @@ class Technique;
             MaterialBucket* mParent;
             /// Vertex information, includes current number of vertices
             /// committed to be a part of this bucket
-            VertexData* mVertexData;
+            ::std::unique_ptr<VertexData> mVertexData;
             /// Index information, includes index type which limits the max
             /// number of vertices which are allowed in one bucket
-            IndexData* mIndexData;
+            ::std::unique_ptr<IndexData> mIndexData;
             /// Maximum vertex indexable
             size_t mMaxVertexIndex;
         public:
             GeometryBucket(MaterialBucket* parent, const VertexData* vData, const IndexData* iData);
-            ~GeometryBucket() override;
+            ~GeometryBucket() override = default;
             MaterialBucket* getParent() noexcept { return mParent; }
             /// Get the vertex data for this geometry 
-            [[nodiscard]] const VertexData* getVertexData() const noexcept { return mVertexData; }
+            [[nodiscard]] const VertexData* getVertexData() const noexcept { return mVertexData.get(); }
             /// Get the index data for this geometry 
-            [[nodiscard]] const IndexData* getIndexData() const noexcept { return mIndexData; }
+            [[nodiscard]] const IndexData* getIndexData() const noexcept { return mIndexData.get(); }
             /// @copydoc Renderable::getMaterial
             [[nodiscard]] const MaterialPtr& getMaterial() const noexcept override;
             [[nodiscard]] Technique* getTechnique() const noexcept override;
@@ -317,7 +312,7 @@ class Technique;
         {
         public:
             /// Lookup of Material Buckets in this region
-            using MaterialBucketMap = std::map<String, MaterialBucket *>;
+            using MaterialBucketMap = std::map<String, ::std::unique_ptr<MaterialBucket>>;
         private:
             /// Pointer to parent region
             Region* mParent;
@@ -328,9 +323,9 @@ class Technique;
             /// Lookup of Material Buckets in this region
             MaterialBucketMap mMaterialBucketMap;
             /// Geometry queued for a single LOD (deallocated here)
-            QueuedGeometryList mQueuedGeometryList;
+            std::vector<::std::unique_ptr<QueuedGeometry>> mQueuedGeometryList;
             /// Edge list, used if stencil shadow casting is enabled 
-            EdgeData* mEdgeList{nullptr};
+            ::std::unique_ptr<EdgeData> mEdgeList{nullptr};
             /// Is a vertex program in use somewhere in this group?
             bool mVertexProgramInUse{false};
             /// List of shadow renderables
@@ -358,7 +353,7 @@ class Technique;
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
-            [[nodiscard]] EdgeData* getEdgeList() const noexcept { return mEdgeList; }
+            [[nodiscard]] EdgeData* getEdgeList() const noexcept { return mEdgeList.get(); }
             ShadowCaster::ShadowRenderableList& getShadowRenderableList() noexcept { return mShadowRenderables; }
             [[nodiscard]] bool isVertexProgramInUse() const noexcept { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,

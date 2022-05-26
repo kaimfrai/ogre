@@ -1146,7 +1146,7 @@ class VertexDeclaration;
         bool mClipPlanesDirty{true};
 
         /// Used to store the capabilities of the graphics card
-        RenderSystemCapabilities* mRealCapabilities{nullptr};
+        ::std::unique_ptr<RenderSystemCapabilities> mRealCapabilities{nullptr};
         RenderSystemCapabilities* mCurrentCapabilities{nullptr};
         bool mUseCustomCapabilities{false};
 

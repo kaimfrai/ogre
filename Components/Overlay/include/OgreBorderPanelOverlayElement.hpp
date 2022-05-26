@@ -227,7 +227,7 @@ class RenderQueue;
         };
         [[nodiscard]] String getCellUVString(BorderCellIndex idx) const;
 
-        BorderRenderable* mBorderRenderable{nullptr};
+        ::std::unique_ptr<BorderRenderable> mBorderRenderable{nullptr};
     };
 
     /** Class for rendering the border of a BorderPanelOverlayElement.

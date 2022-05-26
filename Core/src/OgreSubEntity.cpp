@@ -177,7 +177,7 @@ class Technique;
             switch(c)
             {
             case Entity::BIND_ORIGINAL:
-                return mSubMesh->vertexData;
+                return mSubMesh->vertexData.get();
             case Entity::BIND_HARDWARE_MORPH:
                 return mHardwareVertexAnimVertexData.get();
             case Entity::BIND_SOFTWARE_MORPH:
@@ -186,7 +186,7 @@ class Technique;
                 return mSkelAnimVertexData.get();
             };
             // keep compiler happy
-            return mSubMesh->vertexData;
+            return mSubMesh->vertexData.get();
 
         }
     }
@@ -322,7 +322,7 @@ class Technique;
                 // Clone without copying data, remove blending info
                 // (since blend is performed in software)
                 mSkelAnimVertexData.reset(
-                    mParentEntity->cloneVertexDataRemoveBlendInfo(mSubMesh->vertexData));
+                    mParentEntity->cloneVertexDataRemoveBlendInfo(mSubMesh->vertexData.get()));
                 mParentEntity->extractTempBufferInfo(mSkelAnimVertexData.get(), &mTempSkelAnimInfo);
 
             }
@@ -436,7 +436,7 @@ class Technique;
             && mSubMesh->getVertexAnimationType() == VAT_POSE)
         {
             mParentEntity->bindMissingHardwarePoseBuffers(
-                mSubMesh->vertexData, mHardwareVertexAnimVertexData.get());
+                mSubMesh->vertexData.get(), mHardwareVertexAnimVertexData.get());
         }
 
     }

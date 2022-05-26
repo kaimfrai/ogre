@@ -42,14 +42,13 @@ class Compositor;
 CompositionTechnique::CompositionTechnique(Compositor *parent):
     mParent(parent)
 {
-    mOutputTarget = new CompositionTargetPass(this);
+    mOutputTarget = ::std::make_unique<CompositionTargetPass>(this);
 }
 //-----------------------------------------------------------------------
 CompositionTechnique::~CompositionTechnique()
 {
     removeAllTextureDefinitions();
     removeAllTargetPasses();
-    delete  mOutputTarget;
 }
 //-----------------------------------------------------------------------
 CompositionTechnique::TextureDefinition *CompositionTechnique::createTextureDefinition(const String &name)

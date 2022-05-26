@@ -33,13 +33,13 @@ THE SOFTWARE.
 #include "OgreGpuProgramParams.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreShaderFunction.hpp"
 #include "OgreShaderParameter.hpp"
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
 namespace RTShader {
-class Function;
 
 /** \addtogroup Optional
 *  @{
@@ -132,9 +132,9 @@ public:
     [[nodiscard]] const UniformParameterList& getParameters() const noexcept { return mParameters; };
 
     /// @deprecated use getMain()
-    Function* getEntryPointFunction() noexcept { return mEntryPointFunction; }
+    Function* getEntryPointFunction() noexcept { return mEntryPointFunction.get(); }
 
-    Function* getMain() noexcept { return mEntryPointFunction; }
+    Function* getMain() noexcept { return mEntryPointFunction.get(); }
 
     /** Add dependency for this program. Basically a filename that will be included in this
     program and provide predefined shader functions code.
@@ -209,7 +209,7 @@ private:
     // Program uniform parameters.  
     UniformParameterList mParameters;
     // Entry point function for this program.   
-    Function* mEntryPointFunction;
+    ::std::unique_ptr<Function> mEntryPointFunction;
     // Program dependencies.
     StringVector mDependencies;
     /// preprocessor definitions

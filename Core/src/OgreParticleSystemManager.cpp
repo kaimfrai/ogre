@@ -69,8 +69,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     ParticleSystemManager::ParticleSystemManager()
     {
-        mFactory = new ParticleSystemFactory();
-        Root::getSingleton().addMovableObjectFactory(mFactory);
+        mFactory = ::std::make_unique<ParticleSystemFactory>();
+        Root::getSingleton().addMovableObjectFactory(mFactory.get());
     }
     //-----------------------------------------------------------------------
     ParticleSystemManager::~ParticleSystemManager()
@@ -87,9 +87,7 @@ namespace Ogre {
         if (mFactory)
         {
             // delete particle system factory
-            Root::getSingleton().removeMovableObjectFactory(mFactory);
-            delete mFactory;
-            mFactory = nullptr;
+            Root::getSingleton().removeMovableObjectFactory(mFactory.get());
         }
 
     }

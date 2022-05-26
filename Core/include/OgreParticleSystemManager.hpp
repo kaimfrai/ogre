@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <string>
 
 #include "OgreCommon.hpp"
@@ -107,7 +108,7 @@ class ParticleSystemRenderer;
         StringVector mScriptPatterns;
 
         // Factory instance
-        ParticleSystemFactory* mFactory;
+        ::std::unique_ptr<ParticleSystemFactory> mFactory;
 
         /// Internal implementation of createSystem
         ParticleSystem* createSystemImpl(const String& name, size_t quota, 
@@ -334,7 +335,7 @@ class ParticleSystemRenderer;
         } 
 
         /** Get an instance of ParticleSystemFactory (internal use). */
-        ParticleSystemFactory* _getFactory() noexcept { return mFactory; }
+        ParticleSystemFactory* _getFactory() noexcept { return mFactory.get(); }
         
         /// @copydoc Singleton::getSingleton()
         static ParticleSystemManager& getSingleton() noexcept;

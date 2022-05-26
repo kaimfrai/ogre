@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define OGRE_CORE_BILLBOARDPARTICLERENDERER_H
 
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "OgreAxisAlignedBox.hpp"
@@ -64,7 +65,7 @@ class RenderQueue;
     class BillboardParticleRenderer : public ParticleSystemRenderer
     {
         /// The billboard set that's doing the rendering
-        BillboardSet* mBillboardSet;
+        ::std::unique_ptr<BillboardSet> mBillboardSet;
         Vector2 mStacksSlices;
     public:
         BillboardParticleRenderer();
@@ -155,7 +156,7 @@ class RenderQueue;
         [[nodiscard]] SortMode _getSortMode() const override { return mBillboardSet->_getSortMode(); }
 
         /// Access BillboardSet in use
-        [[nodiscard]] BillboardSet* getBillboardSet() const noexcept { return mBillboardSet; }
+        [[nodiscard]] BillboardSet* getBillboardSet() const noexcept { return mBillboardSet.get(); }
 
         void _notifyBoundingBox(const AxisAlignedBox& aabb) override;
 

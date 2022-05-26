@@ -31,7 +31,6 @@ THE SOFTWARE.
 
 #include "OgreConfigOptionMap.hpp"
 #include "OgreException.hpp"
-#include "OgreGLRenderSystemCommon.hpp"
 #include "OgrePixelFormat.hpp"
 
 namespace Ogre

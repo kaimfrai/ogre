@@ -39,11 +39,16 @@ THE SOFTWARE.
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreRenderSystem.hpp"
-#include "OgreScriptCompiler.hpp"
 
 namespace Ogre{
 class ColourValue;
 class Matrix4;
+    class AbstractNode;
+    class ObjectAbstractNode;
+    using AbstractNodePtr = SharedPtr<AbstractNode>;
+    using AbstractNodeList = std::list<AbstractNodePtr>;
+    using AbstractNodeListPtr = SharedPtr<AbstractNodeList>;
+
     /** \addtogroup Core
     *  @{
     */

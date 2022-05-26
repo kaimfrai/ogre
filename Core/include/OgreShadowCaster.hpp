@@ -68,7 +68,7 @@ class VertexData;
     protected:
         RenderOperation mRenderOp;
         MaterialPtr mMaterial;
-        ShadowRenderable* mLightCap; /// Used only if isLightCapSeparate == true
+        ::std::unique_ptr<ShadowRenderable> mLightCap; /// Used only if isLightCapSeparate == true
         MovableObject* mParent;
         /// Shared link to position buffer.
         HardwareVertexBufferSharedPtr mPositionBuffer;
@@ -104,7 +104,7 @@ class VertexData;
         [[nodiscard]] bool isLightCapSeparate() const noexcept { return mLightCap != nullptr; }
 
         /// Get the light cap version of this renderable.
-        ShadowRenderable* getLightCapRenderable() noexcept { return mLightCap; }
+        ShadowRenderable* getLightCapRenderable() noexcept { return mLightCap.get(); }
         /// Should this ShadowRenderable be treated as visible?
         [[nodiscard]] virtual bool isVisible() const noexcept { return true; }
 

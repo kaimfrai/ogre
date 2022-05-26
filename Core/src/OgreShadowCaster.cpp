@@ -98,13 +98,12 @@ namespace Ogre {
             if (createSeparateLightCap)
             {
                 // Create child light cap
-                mLightCap = new ShadowRenderable(parent, indexBuffer, vertexData, false, true);
+                mLightCap = ::std::make_unique<ShadowRenderable>(parent, indexBuffer, vertexData, false, true);
             }
         }
     }
     ShadowRenderable::~ShadowRenderable()
     {
-        delete mLightCap;
         delete mRenderOp.indexData;
         delete mRenderOp.vertexData;
     }

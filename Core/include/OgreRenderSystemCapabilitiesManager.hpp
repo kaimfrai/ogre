@@ -29,10 +29,12 @@ THE SOFTWARE.
 #define OGRE_CORE_RENDERSYSTEMCAPABILITIESMANAGER_H
 
 #include <map>
+#include <memory>
 #include <string>
 
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreRenderSystemCapabilitiesSerializer.hpp"
 #include "OgreSingleton.hpp"
 
 namespace Ogre {
@@ -58,11 +60,6 @@ namespace Ogre {
         */
         RenderSystemCapabilitiesManager();
 
-        /** Default destructor.
-        */
-        ~RenderSystemCapabilitiesManager();
-
-
         /** @see ScriptLoader::parseScript
         */
         void parseCapabilitiesFromArchive(const String& filename, const String& archiveType, bool recursive = true);
@@ -73,7 +70,7 @@ namespace Ogre {
         RenderSystemCapabilities* loadParsedCapabilities(const String& name);
 
         /** Access to the internal map of loaded capabilities */
-        [[nodiscard]] const std::map<String, RenderSystemCapabilities*> &getCapabilities() const;
+        [[nodiscard]] const std::map<String, ::std::unique_ptr<RenderSystemCapabilities>> &getCapabilities() const;
 
         /** Method used by RenderSystemCapabilitiesSerializer::parseScript */
         void _addRenderSystemCapabilities(const String& name, RenderSystemCapabilities* caps);
@@ -85,9 +82,9 @@ namespace Ogre {
 
     private:
 
-        RenderSystemCapabilitiesSerializer* mSerializer{nullptr};
+        ::std::unique_ptr<RenderSystemCapabilitiesSerializer> mSerializer{nullptr};
 
-        using CapabilitiesMap = std::map<String, RenderSystemCapabilities *>;
+        using CapabilitiesMap = std::map<String, ::std::unique_ptr<RenderSystemCapabilities>>;
         CapabilitiesMap mCapabilitiesMap;
 
         const String mScriptPattern;

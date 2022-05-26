@@ -31,6 +31,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.hpp"
@@ -342,7 +343,7 @@ class VertexMorphKeyFrame;
         NodeAnimationTrack(Animation* parent, unsigned short handle, 
             Node* targetNode);
         /// Destructor
-        ~NodeAnimationTrack() override;
+        ~NodeAnimationTrack() override = default;
         /** Creates a new KeyFrame and adds it to this animation at the given time index.
         @remarks
             It is better to create KeyFrames in time order. Creating them out of order can result 
@@ -413,7 +414,7 @@ class VertexMorphKeyFrame;
         mutable bool mUseShortestRotationPath;
         Node* mTargetNode;
         // Prebuilt splines, must be mutable since lazy-update in const method
-        mutable Splines* mSplines;
+        mutable ::std::unique_ptr<Splines> mSplines;
     };
 
     /** Type of vertex animation.

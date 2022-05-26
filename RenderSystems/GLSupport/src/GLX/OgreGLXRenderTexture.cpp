@@ -154,7 +154,7 @@ namespace Ogre
         LogManager::getSingleton().logMessage(LML_NORMAL, "GLXPBuffer::create used final dimensions " + StringConverter::toString(mWidth) + " x " + StringConverter::toString(mHeight));
         LogManager::getSingleton().logMessage("GLXPBuffer::create used FBConfigID " + StringConverter::toString(fbConfigID));
         
-        mContext = new GLXContext(mGLSupport, fbConfig, glxDrawable);
+        mContext = ::std::make_unique<GLXContext>(mGLSupport, fbConfig, glxDrawable);
     }
     
     //-------------------------------------------------------------------------------------------------//
@@ -162,14 +162,12 @@ namespace Ogre
     {
         glXDestroyPbuffer(mGLSupport->getGLDisplay(), mContext->mDrawable);
         
-        delete mContext;
-        
         LogManager::getSingleton().logMessage(LML_NORMAL, "GLXPBuffer::PBuffer destroyed");
     }
     
     //-------------------------------------------------------------------------------------------------//
     GLContext *GLXPBuffer::getContext() const noexcept
     {
-        return mContext;
+        return mContext.get();
     }
 }

@@ -419,11 +419,11 @@ void TestContext::setupDirectories(Ogre::String batchName)
     if(mOutputDir.empty())
     {
         mOutputDir = mFSLayer->getWritablePath("VisualTests/");
-        static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
+        static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
 
         // make sure there's a directory for the test set
         mOutputDir += mTestSetName + "/";
-        static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
+        static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
 
         // add a directory for the render system
         Ogre::String rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
@@ -432,16 +432,16 @@ void TestContext::setupDirectories(Ogre::String batchName)
             if (rsysName[i] != ' ')
                 mOutputDir += rsysName[i];
         mOutputDir += "/";
-        static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir);
+        static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
     }
 
     if(mSummaryOutputDir != "NONE")
     {
-        static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mSummaryOutputDir);
+        static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mSummaryOutputDir);
     }
 
     // and finally a directory for the test batch itself
-    static_cast<Ogre::FileSystemLayer*>(mFSLayer)->createDirectory(mOutputDir
+    static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir
                                                                    + batchName + "/");
 }
 //-----------------------------------------------------------------------

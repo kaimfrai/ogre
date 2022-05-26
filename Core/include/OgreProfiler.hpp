@@ -138,9 +138,8 @@ namespace Ogre {
         friend class Profiler;
     public:
         ProfileInstance();
-        virtual ~ProfileInstance();
 
-        using ProfileChildren = std::map<String, ProfileInstance *>;
+        using ProfileChildren = std::map<String, ::std::unique_ptr<ProfileInstance>>;
 
         void logResults();
         void reset();

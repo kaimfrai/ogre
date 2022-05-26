@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
 #define OGRE_RENDERSYSTEMS_GL_GLSL_LINKPROGRAM_H
 
+#include <memory>
 #include <set>
 
 #include "OgreGLSLProgramCommon.hpp"
@@ -49,7 +50,7 @@ class GLUniformCache;
     class GLSLLinkProgram : public GLSLProgramCommon
     {
     private:
-        GLUniformCache *mUniformCache;
+        ::std::unique_ptr<GLUniformCache> mUniformCache;
 
         /// Build uniform references from active named uniforms
         void buildGLUniformReferences();

@@ -57,14 +57,12 @@ class HardwareBufferManagerBase;
     SubMesh::SubMesh()
          
     {
-        indexData = new IndexData();
+        indexData = ::std::make_unique<IndexData>();
     }
     //-----------------------------------------------------------------------
     SubMesh::~SubMesh()
     {
         removeLodLevels();
-        delete vertexData;
-        delete indexData;
     }
 
     //-----------------------------------------------------------------------
@@ -87,11 +85,11 @@ class HardwareBufferManagerBase;
         }
         else
         {
-            ro.indexData = indexData;
+            ro.indexData = indexData.get();
         }
         ro.useIndexes = ro.indexData->indexCount != 0;
         ro.operationType = operationType;
-        ro.vertexData = useSharedVertices? parent->sharedVertexData : vertexData;
+        ro.vertexData = useSharedVertices? parent->sharedVertexData : vertexData.get();
 
     }
     //-----------------------------------------------------------------------
@@ -118,7 +116,7 @@ class HardwareBufferManagerBase;
         if (maxBones != 0)
         {
             parent->compileBoneAssignments(mBoneAssignments, maxBones, 
-                blendIndexToBoneIndexMap, vertexData);
+                blendIndexToBoneIndexMap, vertexData.get());
         }
 
         mBoneAssignmentsOutOfDate = false;
@@ -254,7 +252,7 @@ class HardwareBufferManagerBase;
          */
 
         VertexData *vert = useSharedVertices ?
-            parent->sharedVertexData : vertexData;
+            parent->sharedVertexData : vertexData.get();
         const VertexElement *poselem = vert->vertexDeclaration->
             findElementBySemantic (VES_POSITION);
         HardwareVertexBufferSharedPtr vbuf = vert->vertexBufferBinding->
@@ -403,14 +401,13 @@ class HardwareBufferManagerBase;
         if (!this->useSharedVertices)
         {
             // Copy unique vertex data
-            newSub->vertexData = this->vertexData->clone(true, bufferManager);
+            newSub->vertexData.reset(this->vertexData->clone(true, bufferManager));
             // Copy unique index map
             newSub->blendIndexToBoneIndexMap = this->blendIndexToBoneIndexMap;
         }
 
         // Copy index data
-        delete newSub->indexData;
-        newSub->indexData = this->indexData->clone(true, bufferManager);
+        newSub->indexData.reset(this->indexData->clone(true, bufferManager));
         // Copy any bone assignments
         newSub->mBoneAssignments = this->mBoneAssignments;
         newSub->mBoneAssignmentsOutOfDate = this->mBoneAssignmentsOutOfDate;

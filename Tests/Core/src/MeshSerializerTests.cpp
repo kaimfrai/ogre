@@ -376,7 +376,6 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexBufferBinding::VertexBufferBindingMap& aBindings = a->vertexBufferBinding->getBindings();
             const VertexBufferBinding::VertexBufferBindingMap& bBindings = b->vertexBufferBinding->getBindings();
             EXPECT_TRUE(aBindings.size() == bBindings.size());
-            using bindingIterator = VertexBufferBinding::VertexBufferBindingMap::const_iterator;
             auto aIt = aBindings.begin();
             auto aEndIt = aBindings.end();
             auto bIt = bBindings.begin();
@@ -434,7 +433,6 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexData::HardwareAnimationDataList& aAnimData = a->hwAnimationDataList;
             const VertexData::HardwareAnimationDataList& bAnimData = b->hwAnimationDataList;
             EXPECT_TRUE(aAnimData.size() == bAnimData.size());
-            using bindingIterator = VertexData::HardwareAnimationDataList::const_iterator;
             auto aIt = aAnimData.begin();
             auto aEndIt = aAnimData.end();
             auto bIt = bAnimData.begin();

@@ -31,12 +31,12 @@ THE SOFTWARE.
 #include <cstddef>
 
 #include "OgreGLPBuffer.hpp"
+#include "OgreGLXContext.hpp"
 #include "OgrePixelFormat.hpp"
 
 namespace Ogre
 {
 class GLContext;
-class GLXContext;
 class GLXGLSupport;
 
     class GLXPBuffer : public GLPBuffer
@@ -48,7 +48,7 @@ class GLXGLSupport;
         [[nodiscard]] GLContext *getContext() const noexcept override;
 
     protected:
-        GLXContext*   mContext{nullptr};
+        ::std::unique_ptr<GLXContext>   mContext{nullptr};
         GLXGLSupport* mGLSupport;
     };
 }

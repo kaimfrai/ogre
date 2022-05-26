@@ -30,9 +30,12 @@ THE SOFTWARE.
 #ifndef OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
 #define OGRE_RENDERSYSTEMS_GL_GLSL_PROGRAMFACTORY_H
 
+#include "OgreGLSLLinkProgramManager.hpp"
 #include "OgreGpuProgramManager.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreResource.hpp"
+
+#include <memory>
 
 namespace Ogre
 {
@@ -40,7 +43,6 @@ class GpuProgram;
 class ResourceManager;
 
     namespace GLSL {
-class GLSLLinkProgramManager;
 
     /** Factory class for GLSL programs. */
     class GLSLProgramFactory : public HighLevelGpuProgramFactory
@@ -48,8 +50,8 @@ class GLSLLinkProgramManager;
     protected:
         static String sLanguageName;
     public:
-        GLSLProgramFactory();
-        ~GLSLProgramFactory() override;
+        GLSLProgramFactory() = default;
+        ~GLSLProgramFactory() override = default;
         /// Get the name of the language this factory creates programs for
         [[nodiscard]] const String& getLanguage() const noexcept override;
         /// Create an instance of GLSLProgram
@@ -58,7 +60,7 @@ class GLSLLinkProgramManager;
             const String& group, bool isManual, ManualResourceLoader* loader) override;
 
     private:
-        GLSLLinkProgramManager* mLinkProgramManager;
+        ::std::unique_ptr<GLSLLinkProgramManager> mLinkProgramManager = ::std::make_unique<GLSLLinkProgramManager>();
 
     };
     }

@@ -48,12 +48,10 @@ namespace Ogre {
     public:
         MeshVersion version;
         String versionString;
-        MeshSerializerImpl* impl;
+        ::std::unique_ptr<MeshSerializerImpl> impl;
 
         MeshVersionData(MeshVersion _ver, const String& _string, MeshSerializerImpl* _impl)
         : version(_ver), versionString(_string), impl(_impl) {}
-
-        ~MeshVersionData() { delete impl; }
 
     };
 
@@ -146,7 +144,7 @@ namespace Ogre {
         
         MeshSerializerImpl* impl = nullptr;
         if (version == MESH_VERSION_LATEST)
-            impl = mVersionData[0]->impl;
+            impl = mVersionData[0]->impl.get();
         else 
         {
             for (auto i = mVersionData.begin(); 
@@ -154,7 +152,7 @@ namespace Ogre {
             {
                 if (version == (*i)->version)
                 {
-                    impl = (*i)->impl;
+                    impl = (*i)->impl.get();
                     break;
                 }
             }
@@ -195,7 +193,7 @@ namespace Ogre {
         {
             if ((*i)->versionString == ver)
             {
-                impl = (*i)->impl;
+                impl = (*i)->impl.get();
                 break;
             }
         }           

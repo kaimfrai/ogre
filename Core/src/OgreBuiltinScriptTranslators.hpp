@@ -29,6 +29,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
 #define OGRE_CORE_BUILTINSCRIPTTRANSLATORS_H
 
+#include "OgreScriptCompiler.hpp"
 #include "OgreScriptTranslator.hpp"
 #include "OgreTextureUnitState.hpp"
 

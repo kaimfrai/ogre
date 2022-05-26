@@ -70,7 +70,7 @@ class ResourceManager;
     {
         mSurface.defineSurface(controlPointBuffer, mDeclaration, width, height, PatchSurface::PST_BEZIER, uMaxSubdivisionLevel, vMaxSubdivisionLevel, visibleSide);
         Ogre::SubMesh* sm = this->getSubMesh(0);
-        Ogre::VertexData* vertex_data = sm->useSharedVertices ? this->sharedVertexData : sm->vertexData;
+        Ogre::VertexData* vertex_data = sm->useSharedVertices ? this->sharedVertexData : sm->vertexData.get();
         const Ogre::VertexElement* posElem = vertex_data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);
         Ogre::HardwareVertexBufferSharedPtr vbuf = vertex_data->vertexBufferBinding->getBuffer(posElem->getSource());
 
@@ -89,7 +89,7 @@ class ResourceManager;
     void PatchMesh::loadImpl()
     {
         SubMesh* sm = this->createSubMesh();
-        sm->vertexData = new VertexData();
+        sm->vertexData = ::std::make_unique<VertexData>();
         sm->useSharedVertices = false;
 
         // Set up vertex buffer

@@ -37,6 +37,7 @@
 
 #include "OgreCommon.hpp"
 #include "OgreException.hpp"
+#include "OgreFileSystemLayer.hpp"
 #include "OgreFrameListener.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreStaticPluginLoader.hpp"
@@ -46,7 +47,6 @@ extern "C" struct SDL_Window;
 
 namespace Ogre {
     class OverlaySystem;
-    class FileSystemLayer;
     class RenderWindow;
     class Root;
 
@@ -89,7 +89,7 @@ namespace OgreBites
     public:
         explicit ApplicationContextBase(const Ogre::String& appName = "Ogre3D");
 
-        ~ApplicationContextBase() override;
+        ~ApplicationContextBase() override = default;
 
         /**
          * get the main RenderWindow
@@ -285,7 +285,7 @@ namespace OgreBites
 
         Ogre::OverlaySystem* mOverlaySystem;  // Overlay system
 
-        Ogre::FileSystemLayer* mFSLayer; // File system abstraction layer
+        ::std::unique_ptr<Ogre::FileSystemLayer> mFSLayer; // File system abstraction layer
         Ogre::Root* mRoot;              // OGRE root
         StaticPluginLoader mStaticPluginLoader;
         bool mFirstRun;

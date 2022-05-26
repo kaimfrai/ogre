@@ -81,7 +81,7 @@ namespace Ogre
         mRemoveOwnVertexData = true; //Raise flag to remove our own vertex data in the end (not always needed)
 
         VertexData *thisVertexData = mRenderOperation.vertexData;
-        VertexData *baseVertexData = baseSubMesh->vertexData;
+        VertexData *baseVertexData = baseSubMesh->vertexData.get();
 
         thisVertexData->vertexStart = 0;
         thisVertexData->vertexCount = baseVertexData->vertexCount;

@@ -66,11 +66,6 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    WorkQueue::Response::~Response()
-    {
-        delete mRequest;
-    }
-    //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     DefaultWorkQueueBase::DefaultWorkQueueBase(const String& name)
         : mName(name)

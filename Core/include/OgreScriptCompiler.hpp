@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <list>
 #include <map>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -44,6 +45,7 @@ THE SOFTWARE.
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreScriptLoader.hpp"
+#include "OgreScriptTranslator.hpp"
 #include "OgreSharedPtr.hpp"
 #include "OgreSingleton.hpp"
 #include "OgreStringVector.hpp"
@@ -98,7 +100,6 @@ class Material;
         ANT_VARIABLE_ACCESS
     };
     class AbstractNode;
-
     using AbstractNodePtr = SharedPtr<AbstractNode>;
     using AbstractNodeList = std::list<AbstractNodePtr>;
     using AbstractNodeListPtr = SharedPtr<AbstractNodeList>;
@@ -401,7 +402,6 @@ class Material;
     };
 
     class ScriptTranslator;
-    class ScriptTranslatorManager;
 
     /** Manages threaded compilation of scripts. This script loader forwards
         scripts compilations to a specific compiler instance.
@@ -416,13 +416,13 @@ class Material;
         std::vector<ScriptTranslatorManager*> mManagers;
 
         // A pointer to the built-in ScriptTranslatorManager
-        ScriptTranslatorManager *mBuiltinTranslatorManager;
+        ::std::unique_ptr<ScriptTranslatorManager> mBuiltinTranslatorManager;
 
         // the specific compiler instance used
         ScriptCompiler mScriptCompiler;
     public:
         ScriptCompilerManager();
-        ~ScriptCompilerManager() override;
+        ~ScriptCompilerManager() override = default;
 
         /// Sets the listener used for compiler instances
         void setListener(ScriptCompilerListener *listener);

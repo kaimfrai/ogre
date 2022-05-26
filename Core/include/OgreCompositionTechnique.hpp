@@ -29,8 +29,10 @@ THE SOFTWARE.
 #define OGRE_CORE_COMPOSITIONTECHNIQUE_H
 
 #include <cstddef>
+#include <memory>
 #include <vector>
 
+#include "OgreCompositionTargetPass.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePixelFormat.hpp"
 #include "OgrePlatform.hpp"
@@ -39,7 +41,6 @@ THE SOFTWARE.
 
 namespace Ogre {
     template <typename T> class VectorIterator;
-    class CompositionTargetPass;
     class Compositor;
 
     /** \addtogroup Core
@@ -145,7 +146,7 @@ namespace Ogre {
         
         /** Get output (final) target pass
          */
-        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const noexcept { return mOutputTarget; }
+        [[nodiscard]] CompositionTargetPass *getOutputTargetPass() const noexcept { return mOutputTarget.get(); }
         
         /** Determine if this technique is supported on the current rendering device. 
         @param allowTextureDegradation True to accept a reduction in texture depth
@@ -178,7 +179,7 @@ namespace Ogre {
         /// Intermediate target passes
         TargetPasses mTargetPasses;
         /// Output target pass (can be only one)
-        CompositionTargetPass *mOutputTarget;  
+        ::std::unique_ptr<CompositionTargetPass> mOutputTarget;
 
         /// Optional scheme name
         String mSchemeName;

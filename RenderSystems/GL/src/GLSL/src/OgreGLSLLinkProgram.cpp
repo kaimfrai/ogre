@@ -89,16 +89,13 @@ namespace Ogre {
     GLSLLinkProgram::GLSLLinkProgram(const GLShaderList& shaders) : GLSLProgramCommon(shaders)
     {
         // Initialise uniform cache
-        mUniformCache = new GLUniformCache();
+        mUniformCache = ::std::make_unique<GLUniformCache>();
     }
 
     //-----------------------------------------------------------------------
     GLSLLinkProgram::~GLSLLinkProgram()
     {
         glDeleteObjectARB((GLhandleARB)mGLProgramHandle);
-
-        delete mUniformCache;
-        mUniformCache = nullptr;
     }
 
     //-----------------------------------------------------------------------

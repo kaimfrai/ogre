@@ -40,7 +40,7 @@ static const char* SHADER_CACHE_FILENAME = "cache.bin";
 ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
 {
     mAppName = appName;
-    mFSLayer = new Ogre::FileSystemLayer(mAppName);
+    mFSLayer = ::std::make_unique<Ogre::FileSystemLayer>(mAppName);
 
     if (char* val = getenv("OGRE_CONFIG_DIR"))
     {
@@ -54,11 +54,6 @@ ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
 
     mMaterialMgrListener = nullptr;
     mShaderGenerator = nullptr;
-}
-
-ApplicationContextBase::~ApplicationContextBase()
-{
-    delete mFSLayer;
 }
 
 void ApplicationContextBase::initApp(ulong frameCount)

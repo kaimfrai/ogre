@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <cstddef>
 #include <list>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -637,7 +638,7 @@ namespace Ogre {
             @remarks
                 This vector will be preallocated with the estimated size of the set,and will extend as required.
         */
-        ParticlePool mParticlePool;
+        std::vector<::std::unique_ptr<Particle>> mParticlePool;
 
         using FreeEmittedEmitterList = std::list<ParticleEmitter *>;
         using ActiveEmittedEmitterList = std::list<ParticleEmitter *>;

@@ -148,8 +148,6 @@ namespace Ogre {
     RenderSystem::~RenderSystem()
     {
         shutdown();
-        delete mRealCapabilities;
-        mRealCapabilities = nullptr;
         // Current capabilities managed externally
         mCurrentCapabilities = nullptr;
     }

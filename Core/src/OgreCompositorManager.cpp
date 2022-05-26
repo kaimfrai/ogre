@@ -78,7 +78,6 @@ CompositorManager::~CompositorManager()
 {
     freeChains();
     freePooledTextures(false);
-    delete mRectangle;
 
     // Resources cleared by superclass
     // Unregister with resource group manager
@@ -160,14 +159,14 @@ Renderable *CompositorManager::_getTexturedRectangle2D()
     if(!mRectangle)
     {
         /// 2D rectangle, to use for render_quad passes
-        mRectangle = new Rectangle2D(true, HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+        mRectangle = ::std::make_unique<Rectangle2D>(true, HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
     }
     RenderSystem* rs = Root::getSingleton().getRenderSystem();
     Viewport* vp = rs->_getViewport();
     Real hOffset = rs->getHorizontalTexelOffset() / (0.5f * vp->getActualWidth());
     Real vOffset = rs->getVerticalTexelOffset() / (0.5f * vp->getActualHeight());
     mRectangle->setCorners(-1 + hOffset, 1 - vOffset, 1 + hOffset, -1 - vOffset);
-    return mRectangle;
+    return mRectangle.get();
 }
 //-----------------------------------------------------------------------
 CompositorInstance *CompositorManager::addCompositor(Viewport *vp, const String &compositor, int addPosition)

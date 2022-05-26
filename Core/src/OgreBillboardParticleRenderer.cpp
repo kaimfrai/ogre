@@ -178,7 +178,7 @@ class RenderQueue;
         }
 
         // Create billboard set
-        mBillboardSet = new BillboardSet("", 0, true);
+        mBillboardSet = ::std::make_unique<BillboardSet>("", 0, true);
         // World-relative axes
         mBillboardSet->setBillboardsInWorldSpace(true);
     }
@@ -189,7 +189,6 @@ class RenderQueue;
         // based on the particle system's attachment. So manually notify that it's
         // no longer attached.
         mBillboardSet->_notifyAttached(nullptr);
-        delete  mBillboardSet;
     }
     //-----------------------------------------------------------------------
     const String& BillboardParticleRenderer::getType() const noexcept

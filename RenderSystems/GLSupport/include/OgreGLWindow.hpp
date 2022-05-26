@@ -29,13 +29,15 @@ THE SOFTWARE.
 #ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
 #define OGRE_RENDERSYSTEMS_GLSUPPORT_WINDOW_H
 
+#include "OgreGLContext.hpp"
 #include "OgreGLRenderTarget.hpp"
 #include "OgreRenderTarget.hpp"
 #include "OgreRenderWindow.hpp"
 
+#include <memory>
+
 namespace Ogre
 {
-class GLContext;
 class PixelBox;
 struct Box;
 
@@ -53,7 +55,7 @@ struct Box;
 
         void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer) override;
         [[nodiscard]] bool requiresTextureFlipping() const noexcept override { return false; }
-        [[nodiscard]] GLContext* getContext() const noexcept override { return mContext; }
+        [[nodiscard]] GLContext* getContext() const noexcept override { return mContext.get(); }
 
     protected:
         bool mVisible;
@@ -63,7 +65,7 @@ struct Box;
         bool mIsExternalGLControl;
         bool mVSync;
 
-        GLContext*   mContext{nullptr};
+        ::std::unique_ptr<GLContext>   mContext{nullptr};
     };
 }
 

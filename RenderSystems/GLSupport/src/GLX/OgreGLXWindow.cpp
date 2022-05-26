@@ -71,12 +71,6 @@ namespace Ogre
             destroyXWindow(xDisplay, mWindow);
         }
 
-        if (mContext)
-        {
-            delete mContext;
-        }
-
-        mContext = nullptr;
         mWindow = 0;
     }
 
@@ -300,7 +294,7 @@ namespace Ogre
             XFlush(xDisplay);
         }
 
-        mContext = new GLXContext(mGLSupport, fbConfig, glxDrawable, glxContext);
+        mContext = ::std::make_unique<GLXContext>(mGLSupport, fbConfig, glxDrawable, glxContext);
 
         // apply vsync settings. call setVSyncInterval first to avoid
         // setting vsync more than once.
@@ -422,7 +416,7 @@ namespace Ogre
         {
             if( _glXSwapIntervalEXT )
             {
-                _glXSwapIntervalEXT( mGLSupport->getGLDisplay(), static_cast<GLXContext*>(mContext)->mDrawable,
+                _glXSwapIntervalEXT( mGLSupport->getGLDisplay(), static_cast<GLXContext*>(mContext.get())->mDrawable,
                                      vsync ? mVSyncInterval : 0 );
             }
             else if( _glXSwapIntervalMESA )
@@ -490,7 +484,7 @@ namespace Ogre
         if (mClosed || mIsExternalGLControl)
             return;
 
-        glXSwapBuffers(mGLSupport->getGLDisplay(), static_cast<GLXContext*>(mContext)->mDrawable);
+        glXSwapBuffers(mGLSupport->getGLDisplay(), static_cast<GLXContext*>(mContext.get())->mDrawable);
     }
 
     //-------------------------------------------------------------------------------------------------//
@@ -508,7 +502,7 @@ namespace Ogre
         }
         else if( name == "GLCONTEXT" )
         {
-            *static_cast<GLContext**>(pData) = mContext;
+            *static_cast<GLContext**>(pData) = mContext.get();
             return;
         }
         else if( name == "XDISPLAY" )

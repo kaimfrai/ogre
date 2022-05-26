@@ -921,7 +921,7 @@ class Sphere;
                             // Blend, taking source from either mesh data or morph data
                             Mesh::softwareVertexBlend(
                                 (se->getSubMesh()->getVertexAnimationType() != VAT_NONE)?
-                                se->mSoftwareVertexAnimVertexData.get() : se->mSubMesh->vertexData,
+                                se->mSoftwareVertexAnimVertexData.get() : se->mSubMesh->vertexData.get(),
                                 se->mSkelAnimVertexData.get(),
                                 blendMatrices, se->mSubMesh->blendIndexToBoneIndexMap.size(),
                                 blendNormals);
@@ -1085,7 +1085,7 @@ class Sphere;
                         ->vertexBufferBinding->getBuffer(elem->getSource());
                     buf->suppressHardwareUpdate(true);
                     // if we're animating normals, we need to start with zeros
-                    initialisePoseVertexData(sub->getSubMesh()->vertexData, data, 
+                    initialisePoseVertexData(sub->getSubMesh()->vertexData.get(), data,
                         sub->getSubMesh()->getVertexAnimationIncludesNormals());
                 }
             }
@@ -1136,7 +1136,7 @@ class Sphere;
                     VertexData* data = sub->_getSoftwareVertexAnimVertexData();
                     // if we're animating normals, if pose influence < 1 need to use the base mesh
                     if (sub->getSubMesh()->getVertexAnimationIncludesNormals())
-                        finalisePoseNormals(sub->getSubMesh()->vertexData, data);
+                        finalisePoseNormals(sub->getSubMesh()->vertexData.get(), data);
                     
                     const VertexElement* elem = data->vertexDeclaration
                         ->findElementBySemantic(VES_POSITION);
@@ -2043,7 +2043,7 @@ class Sphere;
         for (i = mSubEntityList.begin(); i != iend; ++i)
         {
             SubEntity* se = *i;
-            if (orig == se->getSubMesh()->vertexData)
+            if (orig == se->getSubMesh()->vertexData.get())
             {
                 return skel? se->_getSkelAnimVertexData() : se->_getSoftwareVertexAnimVertexData();
             }
@@ -2066,7 +2066,7 @@ class Sphere;
         for (i = mSubEntityList.begin(); i != iend; ++i)
         {
             SubEntity* se = *i;
-            if (orig == se->getSubMesh()->vertexData)
+            if (orig == se->getSubMesh()->vertexData.get())
             {
                 return se;
             }
@@ -2137,7 +2137,7 @@ class Sphere;
         if (mLightCap == nullptr)
         {
             // Create child light cap
-            mLightCap = new EntityShadowRenderable(mParent,
+            mLightCap = ::std::make_unique<EntityShadowRenderable>(mParent,
                 mRenderOp.indexData->indexBuffer, mCurrentVertexData, false, mSubEntity, true);
         }   
     }
@@ -2152,7 +2152,7 @@ class Sphere;
             mRenderOp.vertexData->vertexBufferBinding->setBinding(0, mPositionBuffer);
             if (mLightCap)
             {
-                static_cast<EntityShadowRenderable*>(mLightCap)->rebindPositionBuffer(vertexData, force);
+                static_cast<EntityShadowRenderable*>(mLightCap.get())->rebindPositionBuffer(vertexData, force);
             }
         }
     }

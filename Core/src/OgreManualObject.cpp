@@ -772,7 +772,7 @@ ManualObject::ManualObject(const String& name)
         sm->useSharedVertices = false;
         sm->operationType = mRenderOperation.operationType;
         // Copy vertex data; replicate buffers too
-        sm->vertexData = mRenderOperation.vertexData->clone(true);
+        sm->vertexData.reset(mRenderOperation.vertexData->clone(true));
 
         // Copy index data; replicate buffers too; delete the default, old one to avoid memory leaks
 
@@ -780,8 +780,7 @@ ManualObject::ManualObject(const String& name)
         if (mRenderOperation.indexData)
         {
             // Copy index data; replicate buffers too; delete the default, old one to avoid memory leaks
-            delete sm->indexData;
-            sm->indexData = mRenderOperation.indexData->clone(true);
+            sm->indexData.reset(mRenderOperation.indexData->clone(true));
         }
     }
     //-----------------------------------------------------------------------------

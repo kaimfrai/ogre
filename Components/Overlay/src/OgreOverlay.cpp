@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <cassert>
 #include <cstddef>
+#include <memory>
 #include <string>
 
 #include "OgreCamera.hpp"
@@ -50,7 +51,7 @@ namespace Ogre {
         mRotate(0.0f) 
 
     {
-        mRootNode = new SceneNode(nullptr);
+        mRootNode = ::std::make_unique<SceneNode>(nullptr);
 
     }
     //---------------------------------------------------------------------
@@ -58,8 +59,6 @@ namespace Ogre {
     {
         // remove children
 
-        delete mRootNode;
-        
         for (auto i = m2DElements.begin(); 
              i != m2DElements.end(); ++i)
         {

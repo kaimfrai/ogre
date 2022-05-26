@@ -348,7 +348,7 @@ namespace Ogre {
             IndexData *lodIndexData;
             if (lod == 0)
             {
-                lodIndexData = sm->indexData;
+                lodIndexData = sm->indexData.get();
             }
             else
             {
@@ -376,13 +376,13 @@ namespace Ogre {
                 {
                     // Ok, we can use the existing geometry; should be in full
                     // use by just this SubMesh
-                    geomLink.vertexData = sm->vertexData;
-                    geomLink.indexData = sm->indexData;
+                    geomLink.vertexData = sm->vertexData.get();
+                    geomLink.indexData = sm->indexData.get();
                 }
                 else
                 {
                     // We have to split it
-                    splitGeometry(sm->vertexData,
+                    splitGeometry(sm->vertexData.get(),
                         lodIndexData, &geomLink);
                 }
             }
@@ -505,8 +505,8 @@ namespace Ogre {
 
         // Store optimised geometry for deallocation later
         auto *optGeom = new OptimisedSubMeshGeometry();
-        optGeom->indexData = targetGeomLink->indexData;
-        optGeom->vertexData = targetGeomLink->vertexData;
+        optGeom->indexData.reset(targetGeomLink->indexData);
+        optGeom->vertexData.reset(targetGeomLink->vertexData);
         mOptimisedSubMeshGeometryList.push_back(optGeom);
     }
     //--------------------------------------------------------------------------
@@ -940,29 +940,15 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     StaticGeometry::LODBucket::~LODBucket()
     {
-        delete mEdgeList;
         ShadowCaster::clearShadowRenderableList(mShadowRenderables);
-        // delete
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
-        {
-            delete i->second;
-        }
-        mMaterialBucketMap.clear();
-        for(auto qi = mQueuedGeometryList.begin();
-            qi != mQueuedGeometryList.end(); ++qi)
-        {
-            delete *qi;
-        }
-        mQueuedGeometryList.clear();
 
         // no need to delete queued meshes, these are managed in StaticGeometry
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::LODBucket::assign(QueuedSubMesh* qmesh, ushort atLod)
     {
-        auto* q = new QueuedGeometry();
-        mQueuedGeometryList.push_back(q);
+        mQueuedGeometryList.push_back(::std::make_unique<QueuedGeometry>());
+        auto* q = mQueuedGeometryList.back().get();
         q->position = qmesh->position;
         q->orientation = qmesh->orientation;
         q->scale = qmesh->scale;
@@ -983,12 +969,12 @@ namespace Ogre {
             mMaterialBucketMap.find(qmesh->material->getName());
         if (m != mMaterialBucketMap.end())
         {
-            mbucket = m->second;
+            mbucket = m->second.get();
         }
         else
         {
             mbucket = new MaterialBucket(this, qmesh->material);
-            mMaterialBucketMap[qmesh->material->getName()] = mbucket;
+            mMaterialBucketMap[qmesh->material->getName()].reset(mbucket);
         }
         mbucket->assign(q);
     }
@@ -1003,7 +989,7 @@ namespace Ogre {
         for (auto i = mMaterialBucketMap.begin();
             i != mMaterialBucketMap.end(); ++i)
         {
-            MaterialBucket* mat = i->second;
+            MaterialBucket* mat = i->second.get();
 
             mat->build(stencilShadows);
 
@@ -1041,7 +1027,7 @@ namespace Ogre {
 
         if (stencilShadows)
         {
-            mEdgeList = eb.build();
+            mEdgeList.reset(eb.build());
         }
     }
     //--------------------------------------------------------------------------
@@ -1274,8 +1260,8 @@ namespace Ogre {
         : Renderable(), mParent(parent)
     {
         // Clone the structure from the example
-        mVertexData = vData->clone(false);
-        mIndexData = iData->clone(false);
+        mVertexData.reset(vData->clone(false));
+        mIndexData.reset(iData->clone(false));
         mVertexData->vertexCount = 0;
         mVertexData->vertexStart = 0;
         mIndexData->indexCount = 0;
@@ -1317,12 +1303,6 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::GeometryBucket::~GeometryBucket()
-    {
-        delete mVertexData;
-        delete mIndexData;
-    }
-    //--------------------------------------------------------------------------
     const MaterialPtr& StaticGeometry::GeometryBucket::getMaterial() const noexcept
     {
         return mParent->getMaterial();
@@ -1335,11 +1315,11 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::GeometryBucket::getRenderOperation(RenderOperation& op)
     {
-        op.indexData = mIndexData;
+        op.indexData = mIndexData.get();
         op.operationType = RenderOperation::OT_TRIANGLE_LIST;
         op.srcRenderable = this;
         op.useIndexes = true;
-        op.vertexData = mVertexData;
+        op.vertexData = mVertexData.get();
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::GeometryBucket::getWorldTransforms(Matrix4* xform) const
@@ -1379,7 +1359,7 @@ namespace Ogre {
             return false;
         }
 
-        mQueuedGeometry.push_back(qgeom);
+        mQueuedGeometry.emplace_back(qgeom);
         mVertexData->vertexCount += qgeom->geometry->vertexData->vertexCount;
         mIndexData->indexCount += qgeom->geometry->indexData->indexCount;
 

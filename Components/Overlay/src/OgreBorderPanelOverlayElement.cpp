@@ -153,7 +153,6 @@ namespace Ogre {
     {
         delete mRenderOp2.vertexData;
         delete mRenderOp2.indexData;
-        delete mBorderRenderable;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::initialise()
@@ -185,7 +184,7 @@ namespace Ogre {
             mRenderOp2.useGlobalInstancingVertexBufferIsAvailable = false;
 
             // Create sub-object for rendering border
-            mBorderRenderable = new BorderRenderable(this);
+            mBorderRenderable = ::std::make_unique<BorderRenderable>(this);
         }
 
         // superclass will handle the interior panel area and call _restoreManualHardwareResources
@@ -694,7 +693,7 @@ namespace Ogre {
         {
 
             // Add outer
-            queue->addRenderable(mBorderRenderable, RENDER_QUEUE_OVERLAY, mZOrder);
+            queue->addRenderable(mBorderRenderable.get(), RENDER_QUEUE_OVERLAY, mZOrder);
 
             // do inner last so the border artifacts don't overwrite the children
             // Add inner
@@ -705,7 +704,7 @@ namespace Ogre {
     void BorderPanelOverlayElement::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        visitor->visit(mBorderRenderable, 0, false);
+        visitor->visit(mBorderRenderable.get(), 0, false);
         PanelOverlayElement::visitRenderables(visitor, debugRenderables);
     }
     //-----------------------------------------------------------------------

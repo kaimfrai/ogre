@@ -454,7 +454,7 @@ namespace Ogre {
         }
         for (size_t i = 0; i < mSubMeshList.size(); i++){
             if (mSubMeshList[i]->vertexData){
-                _calcBoundsFromVertexBuffer(mSubMeshList[i]->vertexData, mAABB, mBoundRadius, extendOnly);
+                _calcBoundsFromVertexBuffer(mSubMeshList[i]->vertexData.get(), mAABB, mBoundRadius, extendOnly);
                 extendOnly = true;
             }
         }
@@ -1085,7 +1085,7 @@ namespace Ogre {
                 SubMesh* submesh = *itor;
                 if (!submesh->useSharedVertices && submesh->vertexData)
                 {
-                    Real r = _computeBoneBoundingRadiusHelper(submesh->vertexData, submesh->mBoneAssignments, bonePositions, boneChildren);
+                    Real r = _computeBoneBoundingRadiusHelper(submesh->vertexData.get(), submesh->mBoneAssignments, bonePositions, boneChildren);
                     radius = std::max( radius, r );
                 }
                 ++itor;
@@ -1283,7 +1283,7 @@ namespace Ogre {
         while( itor != end )
         {
             if( !(*itor)->useSharedVertices )
-                mergeAdjacentTexcoords( finalTexCoordSet, texCoordSetToDestroy, (*itor)->vertexData );
+                mergeAdjacentTexcoords( finalTexCoordSet, texCoordSetToDestroy, (*itor)->vertexData.get() );
             ++itor;
         }
     }
@@ -1434,7 +1434,7 @@ namespace Ogre {
                 SubMesh* sm = *i;
                 if (sm->useSharedVertices)
                 {
-                    tangentsCalc.addIndexData(sm->indexData);
+                    tangentsCalc.addIndexData(sm->indexData.get());
                     found = true;
                 }
             }
@@ -1497,8 +1497,8 @@ namespace Ogre {
             if (!sm->useSharedVertices)
             {
                 tangentsCalc.clear();
-                tangentsCalc.setVertexData(sm->vertexData);
-                tangentsCalc.addIndexData(sm->indexData, sm->operationType);
+                tangentsCalc.setVertexData(sm->vertexData.get());
+                tangentsCalc.addIndexData(sm->indexData.get(), sm->operationType);
                 TangentSpaceCalc::Result res = 
                     tangentsCalc.build(targetSemantic, sourceTexCoordSet, index);
 
@@ -1553,7 +1553,7 @@ namespace Ogre {
             }
             else
             {
-                vertexData = sm->vertexData;
+                vertexData = sm->vertexData.get();
             }
 
             const VertexElement *sourceElem = nullptr;
@@ -1696,7 +1696,7 @@ namespace Ogre {
                         // Use shared vertex data, index as set 0
                         if (lodIndex == 0)
                         {
-                            eb.addIndexData(s->indexData, 0, s->operationType);
+                            eb.addIndexData(s->indexData.get(), 0, s->operationType);
                         }
                         else
                         {
@@ -1707,11 +1707,11 @@ namespace Ogre {
                     else if(s->isBuildEdgesEnabled())
                     {
                         // own vertex data, add it and reference it directly
-                        eb.addVertexData(s->vertexData);
+                        eb.addVertexData(s->vertexData.get());
                         if (lodIndex == 0)
                         {
                             // Base index data
-                            eb.addIndexData(s->indexData, vertexSetCount++,
+                            eb.addIndexData(s->indexData.get(), vertexSetCount++,
                                 s->operationType);
                         }
                         else
@@ -2302,7 +2302,7 @@ namespace Ogre {
         }
         else
         {
-            return getSubMesh(handle-1)->vertexData;
+            return getSubMesh(handle-1)->vertexData.get();
         }
     }
     //---------------------------------------------------------------------

@@ -131,7 +131,7 @@ namespace Ogre
         struct Response : public UtilityAlloc
         {
             /// Pointer to the request that this response is in relation to
-            const Request* mRequest;
+            ::std::unique_ptr<Request const> mRequest;
             /// Whether the work item succeeded or not
             bool mSuccess;
             /// Any diagnostic messages
@@ -141,9 +141,8 @@ namespace Ogre
 
         public:
             Response(const Request* rq, bool success, const Any& data, const String& msg = BLANKSTRING);
-            ~Response();
             /// Get the request that this is a response to (NB destruction destroys this)
-            [[nodiscard]] const Request* getRequest() const noexcept { return mRequest; }
+            [[nodiscard]] const Request* getRequest() const noexcept { return mRequest.get(); }
             /// Return whether this is a successful response
             [[nodiscard]] bool succeeded() const noexcept { return mSuccess; }
             /// Get any diagnostic messages about the process

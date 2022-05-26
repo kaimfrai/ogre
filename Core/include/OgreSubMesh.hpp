@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <vector>
 
 #include "OgreAnimationTrack.hpp"
@@ -85,10 +86,10 @@ class VertexData;
                 The use of shared or non-shared buffers is determined when
                 model data is converted to the OGRE .mesh format.
         */
-        VertexData *vertexData{nullptr};
+        ::std::unique_ptr<VertexData> vertexData{nullptr};
 
         /// Face index data
-        IndexData *indexData;
+        ::std::unique_ptr<IndexData> indexData;
 
         /** Dedicated index map for translate blend index to bone index (only valid if useSharedVertices = false).
             @remarks

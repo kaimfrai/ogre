@@ -108,23 +108,20 @@ class OverlayElement;
     {
         RenderSystem::setSharedListener(this);
 
-        mOverlayManager = new Ogre::OverlayManager();
+        mOverlayManager = ::std::make_unique<Ogre::OverlayManager>();
         mOverlayManager->addOverlayElementFactory(new Ogre::PanelOverlayElementFactory());
 
         mOverlayManager->addOverlayElementFactory(new Ogre::BorderPanelOverlayElementFactory());
 
         mOverlayManager->addOverlayElementFactory(new Ogre::TextAreaOverlayElementFactory());
 
-        mFontManager = new FontManager();
+        mFontManager = ::std::make_unique<FontManager>();
     }
     //---------------------------------------------------------------------
     OverlaySystem::~OverlaySystem()
     {
         if(RenderSystem::getSharedListener() == this)
             RenderSystem::setSharedListener(nullptr);
-
-        delete mOverlayManager;
-        delete mFontManager;
     }
     //---------------------------------------------------------------------
     void OverlaySystem::renderQueueStarted(uint8 queueGroupId, const String& invocation, 

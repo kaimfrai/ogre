@@ -293,7 +293,7 @@ namespace Ogre {
         // M_GEOMETRY stream (Optional: present only if useSharedVertices = false)
         if (!s->useSharedVertices)
         {
-            writeGeometry(s->vertexData);
+            writeGeometry(s->vertexData.get());
         }
 
         // write out texture alias chunks
@@ -612,7 +612,7 @@ namespace Ogre {
         // Geometry
         if (!pSub->useSharedVertices)
         {
-            size += calcGeometrySize(pSub->vertexData);
+            size += calcGeometrySize(pSub->vertexData.get());
         }
 
         size += calcSubMeshTextureAliasesSize(pSub);
@@ -1056,8 +1056,8 @@ namespace Ogre {
                 OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Missing geometry data in mesh file",
                     "MeshSerializerImpl::readSubMesh");
             }
-            sm->vertexData = new VertexData();
-            readGeometry(stream, pMesh, sm->vertexData);
+            sm->vertexData = ::std::make_unique<VertexData>();
+            readGeometry(stream, pMesh, sm->vertexData.get());
         }
 
 
@@ -1862,13 +1862,13 @@ namespace Ogre {
                             else
                             {
                                 edgeGroup.vertexData = pMesh->getSubMesh(
-                                    (unsigned short)edgeGroup.vertexSet-1)->vertexData;
+                                    (unsigned short)edgeGroup.vertexSet-1)->vertexData.get();
                             }
                         }
                         else
                         {
                             edgeGroup.vertexData = pMesh->getSubMesh(
-                                (unsigned short)edgeGroup.vertexSet)->vertexData;
+                                (unsigned short)edgeGroup.vertexSet)->vertexData.get();
                         }
                     }
                 }

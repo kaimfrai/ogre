@@ -51,7 +51,7 @@ Program::Program(GpuProgramType type)
 {
     mType               = type;
     // all programs must have an entry point
-    mEntryPointFunction = new Function();
+    mEntryPointFunction = ::std::make_unique<Function>();
     mSkeletalAnimation  = false;
     mColumnMajorMatrices = true;
 }
@@ -60,8 +60,6 @@ Program::Program(GpuProgramType type)
 Program::~Program()
 {
     destroyParameters();
-
-    delete mEntryPointFunction;
 }
 
 //-----------------------------------------------------------------------------

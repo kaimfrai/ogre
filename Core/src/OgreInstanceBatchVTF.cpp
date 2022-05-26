@@ -487,7 +487,7 @@ class RenderQueue;
         mRemoveOwnVertexData = true; //Raise flag to remove our own vertex data in the end (not always needed)
 
         VertexData *thisVertexData = mRenderOperation.vertexData;
-        VertexData *baseVertexData = baseSubMesh->vertexData;
+        VertexData *baseVertexData = baseSubMesh->vertexData.get();
 
         thisVertexData->vertexStart = 0;
         thisVertexData->vertexCount = baseVertexData->vertexCount * mInstancesPerBatch;
@@ -570,7 +570,7 @@ class RenderQueue;
         mRemoveOwnIndexData = true; //Raise flag to remove our own index data in the end (not always needed)
 
         IndexData *thisIndexData = mRenderOperation.indexData;
-        IndexData *baseIndexData = baseSubMesh->indexData;
+        IndexData *baseIndexData = baseSubMesh->indexData.get();
 
         thisIndexData->indexStart = 0;
         thisIndexData->indexCount = baseIndexData->indexCount * mInstancesPerBatch;

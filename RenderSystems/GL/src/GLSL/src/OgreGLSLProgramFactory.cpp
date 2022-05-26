@@ -39,17 +39,6 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
-    GLSLProgramFactory::GLSLProgramFactory()
-    {
-        mLinkProgramManager = new GLSLLinkProgramManager();
-    }
-    //-----------------------------------------------------------------------
-    GLSLProgramFactory::~GLSLProgramFactory()
-    {
-        if (mLinkProgramManager)
-            delete mLinkProgramManager;
-    }
-    //-----------------------------------------------------------------------
     const String& GLSLProgramFactory::getLanguage() const noexcept
     {
         return sLanguageName;

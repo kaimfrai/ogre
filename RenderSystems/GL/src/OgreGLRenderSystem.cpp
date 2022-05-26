@@ -202,8 +202,8 @@ namespace Ogre {
         mRenderInstanceAttribsBound.reserve(100);
 
         // Get our GLSupport
-        mGLSupport = getGLSupport(GLNativeSupport::CONTEXT_COMPATIBILITY);
-        glsupport = mGLSupport;
+        mGLSupport.reset(getGLSupport(GLNativeSupport::CONTEXT_COMPATIBILITY));
+        glsupport = mGLSupport.get();
 
         mWorldMatrix = Matrix4::IDENTITY;
         mViewMatrix = Matrix4::IDENTITY;
@@ -236,8 +236,6 @@ namespace Ogre {
     GLRenderSystem::~GLRenderSystem()
     {
         shutdown();
-
-        delete mGLSupport;
     }
 
     const GpuProgramParametersPtr& GLRenderSystem::getFixedFunctionParams(TrackVertexColourType tracking,
@@ -935,7 +933,7 @@ namespace Ogre {
                 if(caps->hasCapability(RSC_HWRENDER_TO_TEXTURE))
                 {
                     // Use PBuffers
-                    mRTTManager = new GLPBRTTManager(mGLSupport, primary);
+                    mRTTManager = new GLPBRTTManager(mGLSupport.get(), primary);
                     LogManager::getSingleton().logWarning("GL: Using PBuffers for rendering to textures");
 
                     //TODO: Depth buffer sharing in pbuffer is left unsupported
@@ -1046,12 +1044,12 @@ namespace Ogre {
 
             // Initialise GL after the first window has been created
             // TODO: fire this from emulation options, and don't duplicate Real and Current capabilities
-            mRealCapabilities = createRenderSystemCapabilities();
+            mRealCapabilities.reset(createRenderSystemCapabilities());
             initFixedFunctionParams(); // create params
 
             // use real capabilities if custom capabilities are not available
             if(!mUseCustomCapabilities)
-                mCurrentCapabilities = mRealCapabilities;
+                mCurrentCapabilities = mRealCapabilities.get();
 
             fireEvent("RenderSystemCapabilitiesCreated");
 

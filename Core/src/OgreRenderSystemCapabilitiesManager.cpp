@@ -56,18 +56,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     RenderSystemCapabilitiesManager::RenderSystemCapabilitiesManager() :  mScriptPattern("*.rendercaps")
     {
-        mSerializer = new RenderSystemCapabilitiesSerializer();
-    }
-    //-----------------------------------------------------------------------
-    RenderSystemCapabilitiesManager::~RenderSystemCapabilitiesManager()
-    {
-        for (auto it = mCapabilitiesMap.begin(), end = mCapabilitiesMap.end(); it != end; ++it)
-        {
-        // free memory in RenderSystemCapabilities*
-            delete it->second;
-        }
-
-        delete mSerializer;
+        mSerializer = ::std::make_unique<RenderSystemCapabilitiesSerializer>();
     }
 
     //-----------------------------------------------------------------------
@@ -88,10 +77,10 @@ namespace Ogre {
 
     RenderSystemCapabilities* RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name)
     {
-        return mCapabilitiesMap[name];
+        return mCapabilitiesMap[name].get();
     }
 
-    const std::map<String, RenderSystemCapabilities*> &RenderSystemCapabilitiesManager::getCapabilities() const
+    const std::map<String, ::std::unique_ptr<RenderSystemCapabilities>> &RenderSystemCapabilitiesManager::getCapabilities() const
     {
         return mCapabilitiesMap;
     }

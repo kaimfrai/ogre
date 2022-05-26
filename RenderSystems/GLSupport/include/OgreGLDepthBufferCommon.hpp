@@ -36,13 +36,13 @@ namespace Ogre
         bool isCompatible( RenderTarget *renderTarget ) const override;
 
         [[nodiscard]] GLContext* getGLContext() const noexcept { return mCreatorContext; }
-        [[nodiscard]] GLHardwarePixelBufferCommon* getDepthBuffer() const noexcept { return mDepthBuffer; }
-        [[nodiscard]] GLHardwarePixelBufferCommon* getStencilBuffer() const noexcept { return mStencilBuffer; }
+        [[nodiscard]] GLHardwarePixelBufferCommon* getDepthBuffer() const noexcept { return mDepthBuffer.get(); }
+        [[nodiscard]] GLHardwarePixelBufferCommon* getStencilBuffer() const noexcept { return mStencilBuffer.get(); }
 
     protected:
         GLContext                   *mCreatorContext;
-        GLHardwarePixelBufferCommon *mDepthBuffer;
-        GLHardwarePixelBufferCommon *mStencilBuffer;
+        ::std::unique_ptr<GLHardwarePixelBufferCommon> mDepthBuffer;
+        ::std::unique_ptr<GLHardwarePixelBufferCommon> mStencilBuffer;
         GLRenderSystemCommon        *mRenderSystem;
     };
 } // namespace Ogre

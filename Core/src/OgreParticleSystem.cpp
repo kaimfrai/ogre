@@ -247,12 +247,6 @@ class RenderQueue;
         removeAllEmittedEmitters();
         removeAllAffectors();
 
-        // Free pool items
-        for (auto p : mParticlePool)
-        {
-            delete p;
-        }
-
         if (mRenderer)
         {
             ParticleSystemManager::getSingleton()._destroyRenderer(mRenderer);
@@ -717,7 +711,7 @@ class RenderQueue;
         // Create new particles
         for( size_t i = oldSize; i < size; i++ )
         {
-            mParticlePool[i] = new Particle();
+            mParticlePool[i] = ::std::make_unique<Particle>();
         }
     }
     //-----------------------------------------------------------------------
@@ -1069,7 +1063,13 @@ class RenderQueue;
         // reset active and free lists
         mActiveParticles.clear();
         mFreeParticles.clear();
-        mFreeParticles.insert(mFreeParticles.end(), mParticlePool.begin(), mParticlePool.end());
+
+        ::std::transform
+        (   mParticlePool.begin(),
+            mParticlePool.end(),
+            ::std::insert_iterator{mFreeParticles, mFreeParticles.end()},
+            ::std::mem_fn(&::std::unique_ptr<Particle>::get)
+        );
 
         // Add active emitted emitters to free list
         addActiveEmittedEmittersToFreeList();
@@ -1107,8 +1107,12 @@ class RenderQueue;
             this->increasePool(size);
 
             // Add new items to the queue
-            mFreeParticles.insert(mFreeParticles.end(), mParticlePool.begin() + currSize,
-                                  mParticlePool.end());
+            ::std::transform
+            (   mParticlePool.begin() + currSize,
+                mParticlePool.end(),
+                ::std::insert_iterator{mFreeParticles, mFreeParticles.end()},
+                ::std::mem_fn(&::std::unique_ptr<Particle>::get)
+            );
 
             // Tell the renderer, if already configured
             if (mRenderer && mIsRendererConfigured)

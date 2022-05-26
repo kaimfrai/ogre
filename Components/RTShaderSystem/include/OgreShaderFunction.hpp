@@ -112,6 +112,7 @@ private:
 class Function : public RTShaderSystemAlloc
 {
     friend ProgramManager;
+    friend ::std::default_delete<Function>;
 // Interface.
 public:
     /// @deprecated

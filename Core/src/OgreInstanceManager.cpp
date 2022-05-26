@@ -577,7 +577,7 @@ namespace Ogre
         {
             SubMesh *subMesh = mesh->getSubMesh(subMeshIdx);
 
-            IndexData *indexData = subMesh->indexData;
+            IndexData *indexData = subMesh->indexData.get();
             HardwareIndexBuffer::IndexType idxType = indexData->indexBuffer->getType();
             IndicesMap indicesMap;
             if (idxType == HardwareIndexBuffer::IT_16BIT) {
@@ -657,7 +657,7 @@ namespace Ogre
 
             // Store new attributes
             subMesh->useSharedVertices = false;
-            subMesh->vertexData = newVertexData;
+            subMesh->vertexData.reset(newVertexData);
 
             // Transfer bone assignments to the submesh
             size_t offset = curVertexOffset + newVertexData->vertexCount;

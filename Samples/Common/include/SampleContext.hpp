@@ -102,7 +102,7 @@ namespace OgreBites
                 // test system capabilities against sample requirements
                 s->testCapabilities(mRoot->getRenderSystem()->getCapabilities());
                 s->setShaderGenerator(mShaderGenerator);
-                s->_setup(mWindow, mFSLayer, mOverlaySystem);   // start new sample
+                s->_setup(mWindow, mFSLayer.get(), mOverlaySystem);   // start new sample
             }
 
             mCurrentSample = s;

@@ -30,8 +30,10 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <list>
+#include <memory>
 #include <set>
 
+#include "OgreGLNativeSupport.hpp"
 #include "OgrePixelFormat.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
@@ -42,7 +44,6 @@ THE SOFTWARE.
 
 namespace Ogre {
     class GLContext;
-    class GLNativeSupport;
     class GLRTTManager;
     class Matrix4;
     class VertexElement;
@@ -59,7 +60,7 @@ namespace Ogre {
         GLContext* mCurrentContext;
 
         // GL support class, used for creating windows etc.
-        GLNativeSupport* mGLSupport;
+        ::std::unique_ptr<GLNativeSupport> mGLSupport;
 
         // This contains the complete list of supported extensions
         std::set<String> mExtensionList;

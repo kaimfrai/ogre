@@ -357,11 +357,6 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    NodeAnimationTrack::~NodeAnimationTrack()
-    {
-        delete mSplines;
-    }
-    //---------------------------------------------------------------------
     void NodeAnimationTrack::getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const
     {
         if (mListener)
@@ -509,11 +504,11 @@ namespace Ogre {
         // Allocate splines if not exists
         if (!mSplines)
         {
-            mSplines = new Splines;
+            mSplines = ::std::make_unique<Splines>();
         }
 
         // Cache to register for optimisation
-        Splines* splines = mSplines;
+        Splines* splines = mSplines.get();
 
         // Don't calc automatically, do it on request at the end
         splines->positionSpline.setAutoCalculate(false);

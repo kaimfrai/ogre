@@ -30,18 +30,19 @@ THE SOFTWARE.
 #define OGRE_COMPONENTS_OVERLAY_H
 
 #include <list>
+#include <memory>
 
 #include "OgreMath.hpp"
 #include "OgreMatrix4.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreSceneNode.hpp"
 
 namespace Ogre {
     class OverlayContainer;
     class OverlayElement;
     class Camera;
     class RenderQueue;
-    class SceneNode;
     class Viewport;
 
     /** \addtogroup Optional
@@ -83,7 +84,7 @@ namespace Ogre {
     protected:
         String mName;
         /// Internal root node, used as parent for 3D objects
-        SceneNode* mRootNode;
+        ::std::unique_ptr<SceneNode> mRootNode;
         /** 2D elements
             OverlayContainers, linked list for easy sorting by zorder later
             Not a map because sort can be saved since changes infrequent (unlike render queue) */

@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <tuple>
@@ -42,6 +43,7 @@ THE SOFTWARE.
 #include "OgrePixelFormat.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreRectangle2D.hpp"
 #include "OgreResource.hpp"
 #include "OgreResourceGroupManager.hpp"
 #include "OgreResourceManager.hpp"
@@ -51,7 +53,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    class Rectangle2D;
 class CompositorChain;
 class CompositorInstance;
 class CompositorLogic;
@@ -220,7 +221,7 @@ class Viewport;
          */
         void freeChains();
 
-        Rectangle2D *mRectangle{nullptr};
+        ::std::unique_ptr<Rectangle2D> mRectangle{nullptr};
 
         /// List of instances
         using Instances = std::vector<CompositorInstance *>;

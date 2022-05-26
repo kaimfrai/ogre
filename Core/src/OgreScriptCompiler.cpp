@@ -1480,13 +1480,8 @@ namespace Ogre
         mScriptPatterns.push_back("*.os");
         ResourceGroupManager::getSingleton()._registerScriptLoader(this);
 
-        mBuiltinTranslatorManager = new BuiltinScriptTranslatorManager();
-        mManagers.push_back(mBuiltinTranslatorManager);
-    }
-    //-----------------------------------------------------------------------
-    ScriptCompilerManager::~ScriptCompilerManager()
-    {
-        delete mBuiltinTranslatorManager;
+        mBuiltinTranslatorManager = ::std::make_unique<BuiltinScriptTranslatorManager>();
+        mManagers.push_back(mBuiltinTranslatorManager.get());
     }
     //-----------------------------------------------------------------------
     void ScriptCompilerManager::setListener(ScriptCompilerListener *listener)

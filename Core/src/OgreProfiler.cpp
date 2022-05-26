@@ -102,15 +102,6 @@ namespace Ogre {
         frame.frameClocks = 0;
         frame.calls = 0;
     }
-    ProfileInstance::~ProfileInstance()
-    {                                        
-        for(auto it = children.begin(); it != children.end(); ++it)
-        {
-            ProfileInstance* instance = it->second;
-            delete instance;
-        }
-        children.clear();
-    }
     //-----------------------------------------------------------------------
     Profiler::~Profiler()
     {
@@ -209,7 +200,7 @@ namespace Ogre {
         // need a timer to profile!
         assert (mTimer && "Timer not set!");
 
-        ProfileInstance*& instance = mCurrent->children[profileName];
+        auto& instance = mCurrent->children[profileName];
         if(instance)
         {   // found existing child.
 
@@ -225,7 +216,7 @@ namespace Ogre {
         }
         else
         {   // new child!
-            instance = new ProfileInstance();
+            instance = ::std::make_unique<ProfileInstance>();
             instance->name = profileName;
             instance->parent = mCurrent;
             instance->hierarchicalLvl = mCurrent->hierarchicalLvl + 1;
@@ -233,7 +224,7 @@ namespace Ogre {
 
         instance->frameNumber = mCurrentFrame;
 
-        mCurrent = instance;
+        mCurrent = instance.get();
 
         // we do this at the very end of the function to get the most
         // accurate timing results
@@ -270,10 +261,6 @@ namespace Ogre {
             {   // profiler was enabled this frame, but the first subsequent beginProfile was NOT the beinging of a new frame as we had hoped.
                 // we have bogus ProfileInstance in our hierarchy, we will need to remove it, then update the overlays so as not to confuse ze user
 
-                for(auto& e : mRoot.children)
-                {
-                    delete e.second;
-                }
                 mRoot.children.clear();
 
                 mLast = nullptr;
@@ -404,7 +391,7 @@ namespace Ogre {
         auto it = instance->children.begin(), endit = instance->children.end();
         for(;it != endit; ++it)
         {
-            ProfileInstance* child = it->second;
+            ProfileInstance* child = it->second.get();
 
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
@@ -424,7 +411,7 @@ namespace Ogre {
         auto it = mRoot.children.begin(), endit = mRoot.children.end();
         for(;it != endit; ++it)
         {
-            ProfileInstance* child = it->second;
+            ProfileInstance* child = it->second.get();
 
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
@@ -477,7 +464,7 @@ namespace Ogre {
         auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
-            ProfileInstance* child = it->second;
+            ProfileInstance* child = it->second.get();
             if( (child->name == profileName && child->watchForMax()) || child->watchForMax(profileName))
                 return true;
         }
@@ -495,7 +482,7 @@ namespace Ogre {
         auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
-            ProfileInstance* child = it->second;
+            ProfileInstance* child = it->second.get();
             if( (child->name == profileName && child->watchForMin()) || child->watchForMin(profileName))
                 return true;
         }
@@ -513,7 +500,7 @@ namespace Ogre {
         auto it = children.begin(), endit = children.end();
         for(;it != endit; ++it)
         {
-            ProfileInstance* child = it->second;
+            ProfileInstance* child = it->second.get();
             if( (child->name == profileName && child->watchForLimit(limit, greaterThan)) || child->watchForLimit(profileName, limit, greaterThan))
                 return true;
         }
