@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "OgreOverlayManager.hpp"
 
 #include <cassert>
+#include <memory>
 #include <utility>
 
 #include "OgreDataStream.hpp"
@@ -70,7 +71,7 @@ class RenderQueue;
         // Scripting is supported by this manager
         mScriptPatterns.push_back("*.overlay");
         ResourceGroupManager::getSingleton()._registerScriptLoader(this);
-        mTranslatorManager.reset(new OverlayTranslatorManager());
+        mTranslatorManager = std::make_unique<OverlayTranslatorManager>();
     }
     //---------------------------------------------------------------------
     OverlayManager::~OverlayManager()

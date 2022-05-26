@@ -92,7 +92,7 @@ namespace Ogre {
             return;
 
         GpuLogicalBufferStructPtr logicalBufferStruct(new GpuLogicalBufferStruct());
-        mFixedFunctionParams.reset(new GpuProgramParameters);
+        mFixedFunctionParams = std::make_shared<GpuProgramParameters>();
         mFixedFunctionParams->_setLogicalIndexes(logicalBufferStruct);
         mFixedFunctionParams->setAutoConstant(0, GpuProgramParameters::ACT_WORLD_MATRIX);
         mFixedFunctionParams->setAutoConstant(4, GpuProgramParameters::ACT_VIEW_MATRIX);

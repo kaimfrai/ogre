@@ -94,7 +94,7 @@ mSceneManager(owner),
 mShadowColour(ColourValue(0.25, 0.25, 0.25))
 
 {
-    mShadowCasterQueryListener.reset(new ShadowCasterSceneQueryListener(mSceneManager));
+    mShadowCasterQueryListener = std::make_unique<ShadowCasterSceneQueryListener>(mSceneManager);
 
     // set up default shadow camera setup
     mDefaultShadowCameraSetup = DefaultShadowCameraSetup::create();

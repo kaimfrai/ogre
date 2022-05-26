@@ -250,26 +250,26 @@ bool ShaderGenerator::initialize()
 bool ShaderGenerator::_initialize()
 {
     // Allocate program writer manager.
-    mProgramWriterManager.reset(new ProgramWriterManager);
+    mProgramWriterManager = std::make_unique<ProgramWriterManager>();
 
     // Allocate program manager.
-    mProgramManager.reset(new ProgramManager);
+    mProgramManager = std::make_unique<ProgramManager>();
 
     // Allocate and initialize FFP render state builder.
-    mFFPRenderStateBuilder.reset(new FFPRenderStateBuilder);
+    mFFPRenderStateBuilder = std::make_unique<FFPRenderStateBuilder>();
 
     // Create extensions factories.
     createBuiltinSRSFactories();
 
     // Allocate script translator manager.
-    mScriptTranslatorManager.reset(new SGScriptTranslatorManager(this));
+    mScriptTranslatorManager = std::make_unique<SGScriptTranslatorManager>(this);
     ScriptCompilerManager::getSingleton().addTranslatorManager(mScriptTranslatorManager.get());
     ID_RT_SHADER_SYSTEM = ScriptCompilerManager::getSingleton().registerCustomWordId("rtshader_system");
 
     // Create the default scheme.
     createScheme(DEFAULT_SCHEME_NAME);
 	
-	mResourceGroupListener.reset(new SGResourceGroupListener(this));
+	mResourceGroupListener = std::make_unique<SGResourceGroupListener>(this);
 	ResourceGroupManager::getSingleton().addResourceGroupListener(mResourceGroupListener.get());
 
     return true;
@@ -637,12 +637,12 @@ void ShaderGenerator::addSceneManager(SceneManager* sceneMgr)
         return;
 
     if (!mRenderObjectListener)
-        mRenderObjectListener.reset(new SGRenderObjectListener(this));
+        mRenderObjectListener = std::make_unique<SGRenderObjectListener>(this);
     
     sceneMgr->addRenderObjectListener(mRenderObjectListener.get());
 
     if (!mSceneManagerListener)
-        mSceneManagerListener.reset(new SGSceneManagerListener(this));
+        mSceneManagerListener = std::make_unique<SGSceneManagerListener>(this);
     
     sceneMgr->addListener(mSceneManagerListener.get());
 
@@ -1733,7 +1733,7 @@ ShaderGenerator::SGScheme::~SGScheme()
 RenderState* ShaderGenerator::SGScheme::getRenderState() noexcept
 {
     if (!mRenderState)
-        mRenderState.reset(new RenderState);
+        mRenderState = std::make_unique<RenderState>();
 
     return mRenderState.get();
 }

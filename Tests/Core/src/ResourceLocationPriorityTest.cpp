@@ -28,6 +28,8 @@ THE SOFTWARE.
 
 #include <gtest/gtest.h>
 
+#include <memory>
+
 #include "OgreArchiveManager.hpp"
 #include "OgreResourceGroupManager.hpp"
 #include "OgreRoot.hpp"
@@ -35,7 +37,7 @@ THE SOFTWARE.
 
 TEST(ResourceGroupLocationTest, ResourceLocationPriority)
 {
-    std::unique_ptr<DummyArchiveFactory> fact = std::unique_ptr<DummyArchiveFactory>(new DummyArchiveFactory);
+    std::unique_ptr<DummyArchiveFactory> fact = std::make_unique<DummyArchiveFactory>();
     Ogre::Root root("");
     Ogre::ArchiveManager& archiveMgr = Ogre::ArchiveManager::getSingleton();
     archiveMgr.addArchiveFactory(fact.get());

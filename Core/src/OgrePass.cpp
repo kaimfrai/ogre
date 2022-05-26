@@ -273,7 +273,10 @@ namespace Ogre {
         {
             auto& programUsage = mProgramUsage[i];
             auto& othUsage = oth.mProgramUsage[i];
-            othUsage ? programUsage.reset(new GpuProgramUsage(*othUsage, this)) : programUsage.reset();
+            if  (othUsage)
+                programUsage = std::make_unique<GpuProgramUsage>(*othUsage, this);
+            else
+                programUsage.reset();
         }
 
         TextureUnitStates::const_iterator i, iend;
@@ -812,7 +815,7 @@ namespace Ogre {
         {
             if (!programUsage)
             {
-                programUsage.reset(new GpuProgramUsage(type, this));
+                programUsage = std::make_unique<GpuProgramUsage>(type, this);
             }
             programUsage->setProgram(program, resetParams);
         }

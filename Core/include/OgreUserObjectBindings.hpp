@@ -119,7 +119,7 @@ namespace Ogre {
                 mKeylessAny(other.mKeylessAny)
             {
                 if (other.mUserObjectsMap)
-                    mUserObjectsMap.reset(new UserObjectsMap(*other.mUserObjectsMap));
+                    mUserObjectsMap = std::make_unique<UserObjectsMap>(*other.mUserObjectsMap);
             }
 
             Any                 mKeylessAny;// Will hold key less associated user object for fast access.
