@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 #include <cassert>
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -61,24 +62,16 @@ ProgramWriterManager& ProgramWriterManager::getSingleton() noexcept
 ProgramWriterManager::ProgramWriterManager()
 {
     // Add standard shader writer factories
-    addProgramWriter("glsl", new GLSLProgramWriter());
-    addProgramWriter("hlsl", new HLSLProgramWriter());
+    addProgramWriter("glsl", ::std::make_unique<GLSLProgramWriter>());
+    addProgramWriter("hlsl", ::std::make_unique<HLSLProgramWriter>());
 
-    addProgramWriter("glslang", new GLSLProgramWriter());
-    addProgramWriter("glsles", new GLSLESProgramWriter());
+    addProgramWriter("glslang", ::std::make_unique<GLSLProgramWriter>());
+    addProgramWriter("glsles", ::std::make_unique<GLSLESProgramWriter>());
 }
 //-----------------------------------------------------------------------
-ProgramWriterManager::~ProgramWriterManager()
+void ProgramWriterManager::addProgramWriter(const String& lang, ::std::unique_ptr<ProgramWriter> writer)
 {
-    for(auto& it : mProgramWriters)
-    {
-        delete it.second;
-    }
-}
-//-----------------------------------------------------------------------
-void ProgramWriterManager::addProgramWriter(const String& lang, ProgramWriter* writer)
-{
-    mProgramWriters[lang] = writer;
+    mProgramWriters[lang] = ::std::move(writer);
 }
 //-----------------------------------------------------------------------
 bool ProgramWriterManager::isLanguageSupported(const String& lang)

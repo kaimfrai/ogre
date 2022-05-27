@@ -29,18 +29,18 @@ THE SOFTWARE.
 #define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERMANAGER_H
 
 #include <map>
+#include <memory>
 #include <string>
 #include <utility>
 
 #include "OgreException.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreShaderPrerequisites.hpp"
+#include "OgreShaderProgramWriter.hpp"
 #include "OgreSingleton.hpp"
 
 namespace Ogre {
 namespace RTShader {
-
-    class ProgramWriter;
 
 /** \addtogroup Optional
 *  @{
@@ -52,14 +52,13 @@ namespace RTShader {
 class ProgramWriterManager 
     : public Singleton<ProgramWriterManager>, public RTShaderSystemAlloc
 {
-    std::map<String, ProgramWriter*> mProgramWriters;
+    std::map<String, ::std::unique_ptr<ProgramWriter>> mProgramWriters;
 
 public:
     ProgramWriterManager();
-    ~ProgramWriterManager();
 
     /// register and transfer ownership of writer
-    void addProgramWriter(const String& lang, ProgramWriter* writer);
+    void addProgramWriter(const String& lang, ::std::unique_ptr<ProgramWriter> writer);
 
     /** Returns whether a given high-level language is supported. */
     bool isLanguageSupported(const String& lang);
@@ -68,7 +67,7 @@ public:
     {
         auto it = mProgramWriters.find(language);
         if (it != mProgramWriters.end())
-            return it->second;
+            return it->second.get();
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No program writer for language " + language);
         return nullptr;
     }
