@@ -25,3 +25,6 @@ cmake-build-*/
 
 # Ignore bak files
 *.bak
+
+# Ignore .directory file
+.directory
