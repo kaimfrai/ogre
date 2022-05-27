@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define OGRE_CORE_LOGMANAGER_H
 
 #include <map>
+#include <memory>
 #include <string>
 
 #include "OgreLog.hpp"
@@ -66,7 +67,7 @@ namespace Ogre
     class LogManager : public Singleton<LogManager>, public LogAlloc
     {
     private:
-        using LogList = std::map<String, Log *>;
+        using LogList = std::map<String, ::std::unique_ptr<Log>>;
 
         /// A list of all the logs the manager can access
         LogList mLogs;
@@ -76,7 +77,6 @@ namespace Ogre
 
     public:
         LogManager();
-        ~LogManager();
 
         /** Creates a new log with the given name.
             @param

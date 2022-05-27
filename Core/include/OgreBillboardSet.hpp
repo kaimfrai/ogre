@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreAxisAlignedBox.hpp"
+#include "OgreBillboard.hpp"
 #include "OgreColourValue.hpp"
 #include "OgreCommon.hpp"
 #include "OgreMaterial.hpp"
@@ -48,7 +49,6 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-class Billboard;
 class Camera;
 class IndexData;
 class Matrix4;
@@ -170,7 +170,7 @@ class VertexData;
 
         bool mWorldSpace;
 
-        using BillboardPool = std::vector<Billboard *>;
+        using BillboardPool = std::vector<::std::unique_ptr<Billboard>>;
 
         /** Active billboard count.
 
@@ -279,7 +279,11 @@ class VertexData;
             Vector3 sortDir;
 
             SortByDirectionFunctor(const Vector3& dir);
-            float operator()(Billboard* bill) const;
+            [[nodiscard]] float operator()(Billboard const* bill) const noexcept;
+            [[nodiscard]] float operator()(::std::unique_ptr<Billboard> const& bill) const noexcept
+            {
+                return operator()(bill.get());
+            }
         };
 
         /** Sort by distance functor */
@@ -289,7 +293,11 @@ class VertexData;
             Vector3 sortPos;
 
             SortByDistanceFunctor(const Vector3& pos);
-            float operator()(Billboard* bill) const;
+            [[nodiscard]] float operator()(Billboard const* bill) const noexcept;
+            [[nodiscard]] float operator()(::std::unique_ptr<Billboard> const& bill) const noexcept
+            {
+                return operator()(bill.get());
+            }
         };
 
         /// Use point rendering?

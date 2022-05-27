@@ -81,11 +81,6 @@ class RenderQueue;
         destroyAllOverlayElements(false);
         destroyAllOverlayElements(true);
 
-        for(auto i = mFactories.begin(); i != mFactories.end(); ++i)
-        {
-            delete i->second;
-        }
-
         // Unregister with resource group manager
         ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
     }
@@ -426,7 +421,7 @@ class RenderQueue;
     void OverlayManager::addOverlayElementFactory(OverlayElementFactory* elemFactory)
     {
         // Add / replace
-        mFactories[elemFactory->getTypeName()] = elemFactory;
+        mFactories[elemFactory->getTypeName()].reset(elemFactory);
 
         LogManager::getSingleton().logMessage("OverlayElementFactory for type " + elemFactory->getTypeName()
             + " registered.");

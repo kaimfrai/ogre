@@ -53,7 +53,7 @@ class DynLib;
     class DynLibManager: public Singleton<DynLibManager>, public DynLibAlloc
     {
     private:
-        using DynLibList = std::map<String, DynLib *>;
+        using DynLibList = std::map<String, ::std::unique_ptr<DynLib>>;
         DynLibList mLibList;
     public:
         /** Default constructor.
@@ -69,7 +69,7 @@ class DynLib;
         @see
             Root::~Root
         */
-        ~DynLibManager();
+        ~DynLibManager() = default;
 
         /** Loads the passed library.
         @param filename

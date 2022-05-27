@@ -89,13 +89,12 @@ namespace Ogre {
             // program object not found for key so need to create it
             if (programFound == mPrograms.end())
             {
-                mActiveLinkProgram = new GLSLLinkProgram(mActiveShader);
-                mPrograms[activeKey] = mActiveLinkProgram;
+                mActiveLinkProgram = static_cast<GLSLLinkProgram*>((mPrograms[activeKey] = ::std::make_unique<GLSLLinkProgram>(mActiveShader)).get());
             }
             else
             {
                 // found a link program in map container so make it active
-                mActiveLinkProgram = static_cast<GLSLLinkProgram*>(programFound->second);
+                mActiveLinkProgram = static_cast<GLSLLinkProgram*>(programFound->second.get());
             }
 
         }

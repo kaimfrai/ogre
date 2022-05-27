@@ -53,38 +53,23 @@ namespace Ogre
         auto i = mLibList.find(filename);
         if (i != mLibList.end())
         {
-            return i->second;
+            return i->second.get();
         }
         else
         {
-            auto* pLib = new DynLib(filename);
-            pLib->load();        
-            mLibList[filename] = pLib;
+            auto* pLib = (mLibList[filename] = ::std::make_unique<DynLib>(filename)).get();
+            pLib->load();
             return pLib;
         }
     }
     //-----------------------------------------------------------------------
     void DynLibManager::unload(DynLib* lib)
     {
+        lib->unload();
         auto i = mLibList.find(lib->getName());
         if (i != mLibList.end())
         {
             mLibList.erase(i);
         }
-        lib->unload();
-        delete lib;
-    }
-    //-----------------------------------------------------------------------
-    DynLibManager::~DynLibManager()
-    {
-        // Unload & delete resources in turn
-        for( auto it = mLibList.begin(); it != mLibList.end(); ++it )
-        {
-            it->second->unload();
-            delete it->second;
-        }
-
-        // Empty the list
-        mLibList.clear();
     }
 }

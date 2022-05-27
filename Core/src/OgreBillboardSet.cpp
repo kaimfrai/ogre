@@ -123,13 +123,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     BillboardSet::~BillboardSet()
     {
-        // Free pool items
-        BillboardPool::iterator i;
-        for (i = mBillboardPool.begin(); i != mBillboardPool.end(); ++i)
-        {
-            delete *i;
-        }
-
         // Delete shared buffers
         _destroyBuffers();
     }
@@ -151,7 +144,7 @@ namespace Ogre {
         }
 
         // Get a new billboard
-        Billboard* newBill = mBillboardPool[mActiveBillboards++];
+        Billboard* newBill = mBillboardPool[mActiveBillboards++].get();
         newBill->setPosition(position);
         newBill->setColour(colour);
         newBill->mDirection = Vector3::ZERO;
@@ -183,7 +176,7 @@ namespace Ogre {
     Billboard* BillboardSet::getBillboard( unsigned int index ) const
     {
         assert(index < mActiveBillboards && "Billboard index out of bounds.");
-        return mBillboardPool[index];
+        return mBillboardPool[index].get();
     }
 
     //-----------------------------------------------------------------------
@@ -196,7 +189,11 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void BillboardSet::removeBillboard( Billboard* pBill )
     {
-        auto it = std::find(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards, pBill);
+        auto it = std::find_if
+            (   mBillboardPool.begin(),
+                mBillboardPool.begin() + mActiveBillboards,
+                [pBill] (auto const& p) -> bool { return p.get() == pBill; }
+            );
         removeBillboard(std::distance(mBillboardPool.begin(), it));
     }
     //-----------------------------------------------------------------------
@@ -217,7 +214,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void BillboardSet::_sortBillboards( Camera* cam)
     {
-        static RadixSort<BillboardPool, Billboard*, float> mRadixSorter;
+        static RadixSort<BillboardPool, ::std::unique_ptr<Billboard>, float> mRadixSorter;
 
         switch (_getSortMode())
         {
@@ -235,7 +232,7 @@ namespace Ogre {
         : sortDir(dir)
     {
     }
-    float BillboardSet::SortByDirectionFunctor::operator()(Billboard* bill) const
+    float BillboardSet::SortByDirectionFunctor::operator()(Billboard const* bill) const noexcept
     {
         return sortDir.dotProduct(bill->getPosition());
     }
@@ -243,7 +240,7 @@ namespace Ogre {
         : sortPos(pos)
     {
     }
-    float BillboardSet::SortByDistanceFunctor::operator()(Billboard* bill) const
+    float BillboardSet::SortByDistanceFunctor::operator()(Billboard const* bill) const noexcept
     {
         // Sort descending by squared distance
         return - (sortPos - bill->getPosition()).squaredLength();
@@ -784,7 +781,7 @@ namespace Ogre {
 
         // Create new billboards
         for( size_t i = oldSize; i < size; ++i )
-            mBillboardPool[i] = new Billboard();
+            mBillboardPool[i] = ::std::make_unique<Billboard>();
 
     }
     //-----------------------------------------------------------------------

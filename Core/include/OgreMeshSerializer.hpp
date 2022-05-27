@@ -29,16 +29,17 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_MESHSERIALIZER_H
 #define OGRE_CORE_MESHSERIALIZER_H
 
+#include <memory>
 #include <vector>
 
+#include "OgreMeshSerializerImpl.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreSerializer.hpp"
 
 namespace Ogre {
     
     class MeshSerializerListener;
-    class MeshVersionData;
-class Mesh;
+    class Mesh;
     
     /// Mesh compatibility versions
     enum MeshVersion 
@@ -59,6 +60,18 @@ class Mesh;
         
         /// Legacy versions, DO NOT USE for writing
         MESH_VERSION_LEGACY
+    };
+
+    class MeshVersionData : public SerializerAlloc
+    {
+    public:
+        MeshVersion version;
+        String versionString;
+        ::std::unique_ptr<MeshSerializerImpl> impl;
+
+        MeshVersionData(MeshVersion _ver, const String& _string, ::std::unique_ptr<MeshSerializerImpl> _impl)
+        : version(_ver), versionString(_string), impl(::std::move(_impl)) {}
+
     };
 
     /** \addtogroup Core
@@ -94,7 +107,7 @@ class Mesh;
     {
     public:
         MeshSerializer();
-        virtual ~MeshSerializer();
+        virtual ~MeshSerializer() = default;
 
 
         /** Exports a mesh to the file specified, in the latest format
@@ -164,7 +177,7 @@ class Mesh;
         MeshSerializerListener *getListener();
         
     private:
-        using MeshVersionDataList = std::vector<MeshVersionData *>;
+        using MeshVersionDataList = std::vector<::std::unique_ptr<MeshVersionData>>;
         MeshVersionDataList mVersionData;
 
         MeshSerializerListener *mListener{nullptr};

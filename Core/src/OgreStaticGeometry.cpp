@@ -707,13 +707,6 @@ namespace Ogre {
             mManager->destroySceneNode(static_cast<SceneNode*>(mParentNode));
             mParentNode = nullptr;
         }
-        // delete
-        for (auto i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
-        {
-            delete *i;
-        }
-        mLodBucketList.clear();
 
         // no need to delete queued meshes, these are managed in StaticGeometry
 
@@ -792,9 +785,8 @@ namespace Ogre {
         // we encountered in all the meshes queued
         for (ushort lod = 0; lod < mLodValues.size(); ++lod)
         {
-            auto* lodBucket =
-                new LODBucket(this, lod, mLodValues[lod]);
-            mLodBucketList.push_back(lodBucket);
+            mLodBucketList.push_back(::std::make_unique<LODBucket>(this, lod, mLodValues[lod]));
+            auto* lodBucket = mLodBucketList.back().get();
             // Now iterate over the meshes and assign to LODs
             // LOD bucket will pick the right LOD to use
             QueuedSubMeshList::iterator qi, qiend;
@@ -1009,7 +1001,7 @@ namespace Ogre {
                     }
                 }
 
-                for (GeometryBucket* geom : mat->getGeometryList())
+                for (auto const& geom : mat->getGeometryList())
                 {
                     // Check we're dealing with 16-bit indexes here
                     // Since stencil shadows can only deal with 16-bit
@@ -1120,19 +1112,6 @@ namespace Ogre {
     {
     }
     //--------------------------------------------------------------------------
-    StaticGeometry::MaterialBucket::~MaterialBucket()
-    {
-        // delete
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
-        {
-            delete *i;
-        }
-        mGeometryBucketList.clear();
-
-        // no need to delete queued meshes, these are managed in StaticGeometry
-    }
-    //--------------------------------------------------------------------------
     static uint32 getHash(StaticGeometry::SubMeshLodGeometryLink* geom)
     {
         // Formulate an identifying string for the geometry format
@@ -1171,10 +1150,9 @@ namespace Ogre {
         // Do we need to create a new one?
         if (newBucket)
         {
-            auto* gbucket =
-                new GeometryBucket(this, qgeom->geometry->vertexData, qgeom->geometry->indexData);
             // Add to main list
-            mGeometryBucketList.push_back(gbucket);
+            mGeometryBucketList.push_back(::std::make_unique<GeometryBucket>(this, qgeom->geometry->vertexData, qgeom->geometry->indexData));
+            auto* gbucket = mGeometryBucketList.back().get();
             // Also index in 'current' list
             mCurrentGeometryMap[hash] = gbucket;
             if (!gbucket->assign(qgeom))
@@ -1192,7 +1170,7 @@ namespace Ogre {
         mTechnique = nullptr;
         mMaterial->load();
         // tell the geometry buckets to build
-        for (auto gb : mGeometryBucketList)
+        for (auto const& gb : mGeometryBucketList)
         {
             gb->build(stencilShadows);
         }
@@ -1218,7 +1196,7 @@ namespace Ogre {
         iend =  mGeometryBucketList.end();
         for (i = mGeometryBucketList.begin(); i != iend; ++i)
         {
-            queue->addRenderable(*i, group);
+            queue->addRenderable(i->get(), group);
         }
 
     }
@@ -1249,7 +1227,7 @@ namespace Ogre {
         for (auto i = mGeometryBucketList.begin();
             i != mGeometryBucketList.end(); ++i)
         {
-            visitor->visit(*i, mParent->getLod(), false);
+            visitor->visit(i->get(), mParent->getLod(), false);
         }
 
     }

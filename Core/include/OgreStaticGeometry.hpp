@@ -260,7 +260,7 @@ class Technique;
         {
         public:
             /// list of Geometry Buckets in this region
-            using GeometryBucketList = std::vector<GeometryBucket *>;
+            using GeometryBucketList = std::vector<::std::unique_ptr<GeometryBucket>>;
         private:
             /// Pointer to parent LODBucket
             LODBucket* mParent;
@@ -277,7 +277,7 @@ class Technique;
             
         public:
             MaterialBucket(LODBucket* parent, const MaterialPtr& material);
-            virtual ~MaterialBucket();
+            virtual ~MaterialBucket() = default;
             LODBucket* getParent() noexcept { return mParent; }
             /// Get the material name
             [[nodiscard]] const String& getMaterialName() const noexcept { return mMaterial->getName(); }
@@ -373,7 +373,7 @@ class Technique;
             friend class GeometryBucket;
         public:
             /// list of LOD Buckets in this region
-            using LODBucketList = std::vector<LODBucket *>;
+            using LODBucketList = std::vector<::std::unique_ptr<LODBucket>>;
         private:
             /// Parent static geometry
             StaticGeometry* mParent;

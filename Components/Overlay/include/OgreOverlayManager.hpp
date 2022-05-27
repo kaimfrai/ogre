@@ -68,7 +68,7 @@ namespace Ogre {
     public:
         using OverlayMap = std::map<String, Overlay *>;
         using ElementMap = std::map<String, OverlayElement *>;
-        using FactoryMap = std::map<String, OverlayElementFactory *>;
+        using FactoryMap = std::map<String, ::std::unique_ptr<OverlayElementFactory>>;
     private:
         OverlayMap mOverlayMap;
         StringVector mScriptPatterns;

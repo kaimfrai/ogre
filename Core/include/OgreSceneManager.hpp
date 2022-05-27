@@ -646,7 +646,7 @@ namespace Ogre {
         {
                     MovableObjectMap map;
         };
-        using MovableObjectCollectionMap = std::map<String, MovableObjectCollection *>;
+        using MovableObjectCollectionMap = std::map<String, ::std::unique_ptr<MovableObjectCollection>>;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
         NameGenerator mMovableNameGenerator;
         /** Gets the movable object collection for the given type name.

@@ -183,26 +183,16 @@ namespace Ogre {
         mTypeEnumMap.emplace("atomic_uint", GCT_UINT1); //TODO should be its own type?
     }
 
-    GLSLProgramManagerCommon::~GLSLProgramManagerCommon()
-    {
-        // iterate through map container and delete link programs
-        for (auto currentProgram = mPrograms.begin();
-             currentProgram != mPrograms.end(); ++currentProgram)
-        {
-            delete currentProgram->second;
-        }
-    }
-
     void GLSLProgramManagerCommon::destroyAllByShader(GLSLShaderCommon* shader)
     {
         std::vector<uint32> keysToErase;
         for (auto currentProgram = mPrograms.begin();
             currentProgram != mPrograms.end(); ++currentProgram)
         {
-            GLSLProgramCommon* prgm = currentProgram->second;
+            GLSLProgramCommon* prgm = currentProgram->second.get();
             if(prgm->isUsingShader(shader))
             {
-                delete prgm;
+                currentProgram->second.reset();
                 keysToErase.push_back(currentProgram->first);
             }
         }

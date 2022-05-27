@@ -61,7 +61,7 @@ namespace Ogre {
             store it in a GpuNamedConstant. */
         void parseGLSLUniform(String line, GpuNamedConstants& defs, const String& filename);
 
-        using ProgramMap = std::map<uint32, GLSLProgramCommon *>;
+        using ProgramMap = std::map<uint32, ::std::unique_ptr<GLSLProgramCommon>>;
         using ProgramIterator = ProgramMap::iterator;
 
         /// container holding previously created program objects
@@ -71,7 +71,7 @@ namespace Ogre {
         GLShaderList mActiveShader;
     public:
         GLSLProgramManagerCommon();
-        virtual ~GLSLProgramManagerCommon();
+        virtual ~GLSLProgramManagerCommon() = default;
 
         /** Populate a list of uniforms based on GLSL source and store
             them in GpuNamedConstants.  

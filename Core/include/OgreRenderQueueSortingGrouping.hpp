@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <functional>
 #include <map>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -393,7 +394,7 @@ namespace Ogre {
     class RenderQueueGroup : public RenderQueueAlloc
     {
     public:
-        using PriorityMap = std::map<ushort, RenderPriorityGroup *, std::less<>>;
+        using PriorityMap = std::map<ushort, ::std::unique_ptr<RenderPriorityGroup>, std::less<>>;
         using PriorityMapIterator = MapIterator<PriorityMap>;
         using ConstPriorityMapIterator = ConstMapIterator<PriorityMap>;
     private:
@@ -417,15 +418,6 @@ namespace Ogre {
             , mShadowCastersNotReceivers(shadowCastersNotReceivers)
              
         {
-        }
-
-        ~RenderQueueGroup() {
-            // destroy contents now
-            PriorityMap::iterator i;
-            for (i = mPriorityGroups.begin(); i != mPriorityGroups.end(); ++i)
-            {
-                delete i->second;
-            }
         }
 
         [[nodiscard]] const PriorityMap& getPriorityGroups() const noexcept { return mPriorityGroups; }
@@ -453,7 +445,7 @@ namespace Ogre {
             }
             else
             {
-                pPriorityGrp = i->second;
+                pPriorityGrp = i->second.get();
             }
 
             // Add
@@ -470,19 +462,15 @@ namespace Ogre {
         */
         void clear(bool destroy = false)
         {
-            PriorityMap::iterator i, iend;
-            iend = mPriorityGroups.end();
-            for (i = mPriorityGroups.begin(); i != iend; ++i)
-            {
-                if (destroy)
-                    delete i->second;
-                else
-                    i->second->clear();
-            }
-
             if (destroy)
                 mPriorityGroups.clear();
-
+            else
+            {
+                for (auto const& [key, value] : mPriorityGroups)
+                {
+                    value->clear();
+                }
+            }
         }
 
         /** Indicate whether a given queue group will be doing any
@@ -603,7 +591,7 @@ namespace Ogre {
             for ( const auto& pg : rhs->getPriorityGroups() )
             {
                 ushort priority = pg.first;
-                RenderPriorityGroup* pSrcPriorityGrp = pg.second;
+                RenderPriorityGroup* pSrcPriorityGrp = pg.second.get();
                 RenderPriorityGroup* pDstPriorityGrp;
 
                 // Check if priority group is there
@@ -625,7 +613,7 @@ namespace Ogre {
                 }
                 else
                 {
-                    pDstPriorityGrp = i->second;
+                    pDstPriorityGrp = i->second.get();
                 }
 
                 // merge

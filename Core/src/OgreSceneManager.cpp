@@ -157,13 +157,6 @@ SceneManager::~SceneManager()
     fireSceneManagerDestroyed();
     clearScene();
     destroyAllCameras();
-
-    for (auto i = mMovableObjectCollectionMap.begin();
-        i != mMovableObjectCollectionMap.end(); ++i)
-    {
-        delete i->second;
-    }
-    mMovableObjectCollectionMap.clear();
 }
 //-----------------------------------------------------------------------
 RenderQueue* SceneManager::getRenderQueue() noexcept
@@ -1355,7 +1348,7 @@ void SceneManager::_releaseManualHardwareResources()
     for(auto ci = mMovableObjectCollectionMap.begin(),
         ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
     {
-        MovableObjectCollection* coll = ci->second;
+        MovableObjectCollection* coll = ci->second.get();
         for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
             i->second->_releaseManualHardwareResources();
     }
@@ -1377,7 +1370,7 @@ void SceneManager::_restoreManualHardwareResources()
     for(auto ci = mMovableObjectCollectionMap.begin(),
         ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
     {
-        MovableObjectCollection* coll = ci->second;
+        MovableObjectCollection* coll = ci->second.get();
         for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
             i->second->_restoreManualHardwareResources();
     }
@@ -1711,7 +1704,7 @@ void SceneManager::renderBasicQueueGroupObjects(RenderQueueGroup* pGroup,
 
     for (const auto& pg : pGroup->getPriorityGroups())
     {
-        RenderPriorityGroup* pPriorityGrp = pg.second;
+        RenderPriorityGroup* pPriorityGrp = pg.second.get();
 
         // Sort the queue first
         pPriorityGrp->sort(mCameraInProgress);
@@ -3351,13 +3344,11 @@ SceneManager::getMovableObjectCollection(const String& typeName)
     if (i == mMovableObjectCollectionMap.end())
     {
         // create
-        auto* newCollection = new MovableObjectCollection();
-        mMovableObjectCollectionMap[typeName] = newCollection;
-        return newCollection;
+        return (mMovableObjectCollectionMap[typeName] = ::std::make_unique<MovableObjectCollection>()).get();
     }
     else
     {
-        return i->second;
+        return i->second.get();
     }
 }
 //---------------------------------------------------------------------
@@ -3374,7 +3365,7 @@ SceneManager::getMovableObjectCollection(const String& typeName) const
     }
     else
     {
-        return i->second;
+        return i->second.get();
     }
 }
 //---------------------------------------------------------------------
@@ -3460,7 +3451,7 @@ void SceneManager::destroyAllMovableObjects()
 
     for(;ci != mMovableObjectCollectionMap.end(); ++ci)
     {
-        MovableObjectCollection* coll = ci->second;
+        MovableObjectCollection* coll = ci->second.get();
 
         if (Root::getSingleton().hasMovableObjectFactory(ci->first))
         {

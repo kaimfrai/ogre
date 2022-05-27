@@ -142,10 +142,6 @@ namespace Ogre
                 "Warning: stream " << mStream->getName() << " was not fully read / written; " <<
                 mChunkStack.size() << " chunks remain unterminated.";
         }
-        for (auto i = mChunkStack.begin(); i != mChunkStack.end(); ++i)
-            delete *i;
-        mChunkStack.clear();
-
     }
     //---------------------------------------------------------------------
     uint32 StreamSerialiser::makeIdentifier(const char (&code)[5])
@@ -177,7 +173,7 @@ namespace Ogre
                    "Endian mode has not been determined, did you disable header without setting?");
 
         Chunk* chunk = readChunkImpl();
-        mChunkStack.push_back(chunk);
+        mChunkStack.emplace_back(chunk);
 
         return chunk;
 
@@ -316,7 +312,7 @@ namespace Ogre
         if (mChunkStack.empty())
             return nullptr;
         else
-            return mChunkStack.back();
+            return mChunkStack.back().get();
     }
     //---------------------------------------------------------------------
     bool StreamSerialiser::eof() const
@@ -447,13 +443,13 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::writeChunkImpl(uint32 id, uint16 version)
     {
-        auto* c = new Chunk();
+        mChunkStack.push_back(::std::make_unique<Chunk>());
+
+        auto* c = mChunkStack.back().get();
         c->id = id;
         c->version = version;
         c->offset = static_cast<uint32>(mStream->tell());
         c->length = 0;
-
-        mChunkStack.push_back(c);
 
         write(&c->id);
         write(&c->version);
@@ -814,10 +810,10 @@ namespace Ogre
     {
         OgreAssert(!mChunkStack.empty(), "No active chunk!");
 
-        const Chunk* chunk = mChunkStack.back();
+        const Chunk* chunk = mChunkStack.back().get();
         OgreAssert(chunk->id == id, "Incorrect chunk id!");
 
-        Chunk* c = mChunkStack.back();
+        Chunk* c = mChunkStack.back().release();
         mChunkStack.pop_back();
         return c;
 

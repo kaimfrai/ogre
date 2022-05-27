@@ -43,18 +43,6 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    class MeshVersionData : public SerializerAlloc
-    {
-    public:
-        MeshVersion version;
-        String versionString;
-        ::std::unique_ptr<MeshSerializerImpl> impl;
-
-        MeshVersionData(MeshVersion _ver, const String& _string, MeshSerializerImpl* _impl)
-        : version(_ver), versionString(_string), impl(_impl) {}
-
-    };
-
     const unsigned short HEADER_CHUNK_ID = 0x1000;
     //---------------------------------------------------------------------
     MeshSerializer::MeshSerializer()
@@ -67,45 +55,33 @@ namespace Ogre {
 
         // This one is a little ugly, 1.10 is used for version 1.1 legacy meshes.
         // So bump up to 1.100
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_1_10, "[MeshSerializer_v1.100]", 
-            new MeshSerializerImpl()));
+            ::std::make_unique<MeshSerializerImpl>()));
 
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_1_8, "[MeshSerializer_v1.8]", 
-            new MeshSerializerImpl_v1_8()));
+            ::std::make_unique<MeshSerializerImpl_v1_8>()));
 
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_1_7, "[MeshSerializer_v1.41]", 
-            new MeshSerializerImpl_v1_41()));
+            ::std::make_unique<MeshSerializerImpl_v1_41>()));
 
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_1_4, "[MeshSerializer_v1.40]", 
-            new MeshSerializerImpl_v1_4()));
+            ::std::make_unique<MeshSerializerImpl_v1_4>()));
 
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_1_0, "[MeshSerializer_v1.30]", 
-            new MeshSerializerImpl_v1_3()));
-        mVersionData.push_back(new MeshVersionData(
+            ::std::make_unique<MeshSerializerImpl_v1_3>()));
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_LEGACY, "[MeshSerializer_v1.20]", 
-            new MeshSerializerImpl_v1_2()));
+            ::std::make_unique<MeshSerializerImpl_v1_2>()));
 
-        mVersionData.push_back(new MeshVersionData(
+        mVersionData.push_back(::std::make_unique<MeshVersionData>(
             MESH_VERSION_LEGACY, "[MeshSerializer_v1.10]", 
-            new MeshSerializerImpl_v1_1()));
+            ::std::make_unique<MeshSerializerImpl_v1_1>()));
         
-    }
-    //---------------------------------------------------------------------
-    MeshSerializer::~MeshSerializer()
-    {
-        // delete map
-        for (auto i = mVersionData.begin();
-            i != mVersionData.end(); ++i)
-        {
-            delete *i;
-        }
-        mVersionData.clear();
-
     }
     //---------------------------------------------------------------------
     void MeshSerializer::exportMesh(const Mesh* pMesh, const String& filename,

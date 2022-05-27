@@ -257,7 +257,7 @@ namespace Ogre {
             mSortArea2.resize(mSortSize);
 
             // Copy data now (we need constant iterators for sorting)
-            mTmpContainer.assign(dbegin, dend);
+            mTmpContainer.assign(::std::make_move_iterator(dbegin), ::std::make_move_iterator(dend));
 
             mNumPasses = sizeof(TCompValueType);
 
@@ -318,7 +318,7 @@ namespace Ogre {
             int c = 0;
             for (i = dbegin; i != dend; ++i, ++c)
             {
-                *i = *((*mDest)[c].iter);
+                *i = ::std::move(*((*mDest)[c].iter));
             }
         }
 

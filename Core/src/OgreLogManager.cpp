@@ -55,16 +55,6 @@ namespace Ogre {
         mDefaultLog = nullptr;
     }
     //-----------------------------------------------------------------------
-    LogManager::~LogManager()
-    {
-        // Destroy all logs
-        LogList::iterator i;
-        for (i = mLogs.begin(); i != mLogs.end(); ++i)
-        {
-            delete i->second;
-        }
-    }
-    //-----------------------------------------------------------------------
     Log* LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
         bool suppressFileOutput)
     {
@@ -96,7 +86,7 @@ namespace Ogre {
     {
         auto i = mLogs.find(name);
         OgreAssert(i != mLogs.end(), "Log not found");
-        return i->second;
+        return i->second.get();
     }
     //-----------------------------------------------------------------------
     void LogManager::destroyLog(const String& name)
@@ -104,18 +94,17 @@ namespace Ogre {
         auto i = mLogs.find(name);
         if (i != mLogs.end())
         {
-            if (mDefaultLog == i->second)
+            if (mDefaultLog == i->second.get())
             {
                 mDefaultLog = nullptr;
             }
-            delete i->second;
             mLogs.erase(i);
         }
 
         // Set another default log if this one removed
         if (!mDefaultLog && !mLogs.empty())
         {
-            mDefaultLog = mLogs.begin()->second;
+            mDefaultLog = mLogs.begin()->second.get();
         }
     }
     //-----------------------------------------------------------------------
