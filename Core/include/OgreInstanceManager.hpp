@@ -105,7 +105,7 @@ namespace Ogre
         };
 
         using InstanceBatchVec = std::vector<InstanceBatch *>;   //vec[batchN] = Batch
-        using InstanceBatchMap = std::map<String, InstanceBatchVec>;   //map[materialName] = Vec
+        using InstanceBatchMap = std::map<String, ::std::vector<::std::unique_ptr<InstanceBatch>>>;   //map[materialName] = Vec
 
         using BatchSettingsMap = std::map<String, BatchSettings>;
 
@@ -149,12 +149,12 @@ namespace Ogre
             for a specific material */
         void defragmentBatches( bool optimizeCull, InstanceBatch::InstancedEntityVec &entities,
                                 InstanceBatch::CustomParamsVec &usedParams,
-                                InstanceBatchVec &fragmentedBatches );
+                                ::std::vector<::std::unique_ptr<InstanceBatch>> &fragmentedBatches );
 
         /** @see setSetting. This function helps it by setting the given parameter to all batches
             in container.
         */
-        void applySettingToBatches( BatchSettingId id, bool value, const InstanceBatchVec &container );
+        void applySettingToBatches( BatchSettingId id, bool value, const ::std::vector<::std::unique_ptr<InstanceBatch>> &container );
 
         /** Called when we you use a mesh which has shared vertices, the function creates separate
             vertex/index buffers and also recreates the bone assignments.
@@ -166,7 +166,6 @@ namespace Ogre
                          const String &meshName, const String &groupName,
                          InstancingTechnique instancingTechnique, uint16 instancingFlags,
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
-        ~InstanceManager();
 
         [[nodiscard]] const String& getName() const noexcept { return mName; }
 
@@ -302,7 +301,7 @@ namespace Ogre
         void _updateDirtyBatches();
 
         using InstanceBatchMapIterator = ConstMapIterator<InstanceBatchMap>;
-        using InstanceBatchIterator = ConstVectorIterator<InstanceBatchVec>;
+        using InstanceBatchIterator = ConstVectorIterator<::std::vector<::std::unique_ptr<InstanceBatch>>>;
 
         /// Get non-updateable iterator over instance batches per material
         [[nodiscard]] InstanceBatchMapIterator getInstanceBatchMapIterator() const

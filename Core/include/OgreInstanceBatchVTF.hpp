@@ -107,7 +107,7 @@ class VertexData;
         size_t                  mRowLength{3};
         size_t                  mWeightCount{1};
         //Temporary array used to store 3x4 matrices before they are converted to dual quaternions
-        Matrix3x4f*             mTempTransformsArray3x4{nullptr};
+        ::std::unique_ptr<Matrix3x4f[]>             mTempTransformsArray3x4{nullptr};
 
         // The state of the usage of bone matrix lookup
         bool mUseBoneMatrixLookup{false};

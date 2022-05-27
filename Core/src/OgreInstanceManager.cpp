@@ -76,24 +76,6 @@ namespace Ogre
         if( mMeshReference->hasSkeleton() && mMeshReference->getSkeleton() )
             mMeshReference->getSubMesh(mSubMeshIdx)->_compileBoneAssignments();
     }
-                
-    InstanceManager::~InstanceManager()
-    {
-        //Remove all batches from all materials we created
-        auto itor = mInstanceBatches.begin();
-        auto end  = mInstanceBatches.end();
-
-        while( itor != end )
-        {
-            auto it = itor->second.begin();
-            auto en = itor->second.end();
-
-            while( it != en )
-                delete *it++;
-
-            ++itor;
-        }
-    }
     //----------------------------------------------------------------------
     void InstanceManager::setInstancesPerBatch( size_t instancesPerBatch )
     {
@@ -182,7 +164,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     inline InstanceBatch* InstanceManager::getFreeBatch( const String &materialName )
     {
-        InstanceBatchVec &batchVec = mInstanceBatches[materialName];
+        auto& batchVec = mInstanceBatches[materialName];
 
         auto itor = batchVec.rbegin();
         auto end  = batchVec.rend();
@@ -190,7 +172,7 @@ namespace Ogre
         while( itor != end )
         {
             if( !(*itor)->isBatchFull() )
-                return *itor;
+                return itor->get();
             ++itor;
         }
 
@@ -209,38 +191,38 @@ namespace Ogre
                                                                     mMeshReference->getGroup() );
 
         //Get the array of batches grouped by this material
-        InstanceBatchVec &materialInstanceBatch = mInstanceBatches[materialName];
+        auto& materialInstanceBatch = mInstanceBatches[materialName];
 
-        InstanceBatch *batch = nullptr;
+        ::std::unique_ptr<InstanceBatch> batch = nullptr;
 
         switch( mInstancingTechnique )
         {
         case ShaderBased:
-            batch = new InstanceBatchShader( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = ::std::make_unique<InstanceBatchShader>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             break;
         case TextureVTF:
-            batch = new InstanceBatchVTF( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = ::std::make_unique<InstanceBatchVTF>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
-            static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchVTF*>(batch.get())->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
+            static_cast<InstanceBatchVTF*>(batch.get())->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
+            static_cast<InstanceBatchVTF*>(batch.get())->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         case HWInstancingBasic:
-            batch = new InstanceBatchHW( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = ::std::make_unique<InstanceBatchHW>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
             break;
         case HWInstancingVTF:
-            batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, mInstancesPerBatch,
+            batch = ::std::make_unique<InstanceBatchHW_VTF>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, mName + "/InstanceBatch_" +
                                                     StringConverter::toString(mIdCount++) );
-            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
@@ -279,12 +261,12 @@ namespace Ogre
 
         //Batches need to be part of a scene node so that their renderable can be rendered
         SceneNode *sceneNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-        sceneNode->attachObject( batch );
+        sceneNode->attachObject( batch.get() );
         sceneNode->showBoundingBox( batchSettings.setting[SHOW_BOUNDINGBOX] );
 
-        materialInstanceBatch.push_back( batch );
+        materialInstanceBatch.push_back( ::std::move(batch) );
 
-        return batch;
+        return materialInstanceBatch.back().get();
     }
     //-----------------------------------------------------------------------
     void InstanceManager::cleanupEmptyBatches()
@@ -304,10 +286,9 @@ namespace Ogre
             {
                 if( (*it)->isBatchUnused() )
                 {
-                    delete *it;
                     //Remove it from the list swapping with the last element and popping back
                     size_t idx = it - itor->second.begin();
-                    *it = itor->second.back();
+                    *it = ::std::move(itor->second.back());
                     itor->second.pop_back();
 
                     //Restore invalidated iterators
@@ -330,7 +311,7 @@ namespace Ogre
     void InstanceManager::defragmentBatches( bool optimizeCull,
                                                 InstanceBatch::InstancedEntityVec &usedEntities,
                                                 InstanceBatch::CustomParamsVec &usedParams,
-                                                InstanceBatchVec &fragmentedBatches )
+                                                ::std::vector<::std::unique_ptr<InstanceBatch>> &fragmentedBatches )
     {
         auto itor = fragmentedBatches.begin();
         auto end  = fragmentedBatches.end();
@@ -353,7 +334,7 @@ namespace Ogre
             {
                 //This isn't a meaningless batch, move it forward so it doesn't get wipe
                 //when we resize the container (faster than removing element by element)
-                *lastImportantBatch++ = *itor;
+                *lastImportantBatch++ = ::std::move(*itor);
             }
 
             ++itor;
@@ -448,7 +429,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     void InstanceManager::applySettingToBatches( BatchSettingId id, bool value,
-                                                 const InstanceBatchVec &container )
+                                                 const ::std::vector<::std::unique_ptr<InstanceBatch>> &container )
     {
         auto itor = container.begin();
         auto end  = container.end();

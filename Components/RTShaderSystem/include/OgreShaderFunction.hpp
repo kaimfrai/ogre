@@ -271,7 +271,7 @@ private:
     // Local parameters.
     ShaderParameterList mLocalParameters;
     // Atom instances composing this function.
-    std::map<size_t, FunctionAtomInstanceList> mAtomInstances;
+    std::map<size_t, std::vector<::std::unique_ptr<FunctionAtom>>> mAtomInstances;
     FunctionAtomInstanceList mSortedAtomInstances;
 private:
     friend class Program;

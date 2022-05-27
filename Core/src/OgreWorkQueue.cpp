@@ -98,23 +98,6 @@ namespace Ogre {
         mWorkerRenderSystemAccess = access;
     }
     //---------------------------------------------------------------------
-    DefaultWorkQueueBase::~DefaultWorkQueueBase()
-    {
-        //shutdown(); // can't call here; abstract function
-
-        for (auto i = mRequestQueue.begin(); i != mRequestQueue.end(); ++i)
-        {
-            delete (*i);
-        }
-        mRequestQueue.clear();
-
-        for (auto i = mResponseQueue.begin(); i != mResponseQueue.end(); ++i)
-        {
-            delete (*i);
-        }
-        mResponseQueue.clear();
-    }
-    //---------------------------------------------------------------------
     void DefaultWorkQueueBase::addRequestHandler(uint16 channel, RequestHandler* rh)
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestHandlerMutex);
@@ -186,7 +169,7 @@ namespace Ogre {
     WorkQueue::RequestID DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
         const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
     {
-        Request* req = nullptr;
+        ::std::unique_ptr<Request> req = nullptr;
         RequestID rid = 0;
 
         {
@@ -197,7 +180,7 @@ namespace Ogre {
                 return 0;
 
             rid = ++mRequestCount;
-            req = new Request(channel, requestType, rData, retryCount, rid);
+            req = ::std::make_unique<Request>(channel, requestType, rData, retryCount, rid);
 
             LogManager::getSingleton().stream(LML_TRIVIAL) << 
                 "DefaultWorkQueueBase('" << mName << "') - QUEUED(thread:" <<
@@ -206,20 +189,20 @@ namespace Ogre {
                 << " channel=" << channel << " requestType=" << requestType;
             if (!forceSynchronous&& !idleThread)
             {
-                mRequestQueue.push_back(req);
+                mRequestQueue.push_back(::std::move(req));
                 notifyWorkers();
                 return rid;
             }
         }
         if(idleThread){
             std::unique_lock<std::recursive_mutex> ogrenameLock(mIdleMutex);
-            mIdleRequestQueue.push_back(req);
+            mIdleRequestQueue.push_back(::std::move(req));
             if(!mIdleThreadRunning)
             {
                 notifyWorkers();
             }
         } else { //forceSynchronous
-            processRequestResponse(req, true);
+            processRequestResponse(req.release(), true);
         }
         return rid;
 
@@ -234,14 +217,12 @@ namespace Ogre {
         if (mShuttingDown)
             return;
 
-        auto* req = new Request(channel, requestType, rData, retryCount, rid);
-
         LogManager::getSingleton().stream(LML_TRIVIAL) << 
             "DefaultWorkQueueBase('" << mName << "') - REQUEUED(thread:" <<
             std::this_thread::get_id()
             << "): ID=" << rid
                    << " channel=" << channel << " requestType=" << requestType;
-        mRequestQueue.push_back(req);
+        mRequestQueue.push_back(::std::make_unique<Request>(channel, requestType, rData, retryCount, rid));
         notifyWorkers();
     }
     //---------------------------------------------------------------------
@@ -493,7 +474,7 @@ namespace Ogre {
 
                 if (!mRequestQueue.empty())
                 {
-                    request = mRequestQueue.front();
+                    request = mRequestQueue.front().release();
                     mRequestQueue.pop_front();
                     mProcessQueue.push_back( request );
                 }
@@ -512,8 +493,7 @@ namespace Ogre {
 
         std::unique_lock<std::recursive_mutex> ogrenameLock1(mProcessMutex);
 
-        RequestQueue::iterator it;
-        for( it = mProcessQueue.begin(); it != mProcessQueue.end(); ++it )
+        for(auto it = mProcessQueue.begin(); it != mProcessQueue.end(); ++it )
         {
             if( (*it) == r )
             {
@@ -554,7 +534,7 @@ namespace Ogre {
                 }
                 // Queue response
                 std::unique_lock<std::recursive_mutex> ogrenameLock2(mResponseMutex);
-                mResponseQueue.push_back(response);
+                mResponseQueue.emplace_back(response);
                 // no need to wake thread, this is processed by the main thread
             }
 
@@ -590,7 +570,7 @@ namespace Ogre {
                     break; // exit loop
                 else
                 {
-                    response = mResponseQueue.front();
+                    response = mResponseQueue.front().release();
                     mResponseQueue.pop_front();
                 }
             }
@@ -702,7 +682,7 @@ namespace Ogre {
                     {
                         std::unique_lock<std::recursive_mutex> ogrenameLock3(mIdleMutex);
                         if(!mIdleRequestQueue.empty()){
-                            mIdleProcessed = mIdleRequestQueue.front();
+                            mIdleProcessed = mIdleRequestQueue.front().release();
                             mIdleRequestQueue.pop_front();
                         } else {
                             mIdleProcessed = nullptr;

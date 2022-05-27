@@ -1067,7 +1067,7 @@ class RenderQueue;
         ::std::transform
         (   mParticlePool.begin(),
             mParticlePool.end(),
-            ::std::insert_iterator{mFreeParticles, mFreeParticles.end()},
+            ::std::inserter(mFreeParticles, mFreeParticles.end()),
             ::std::mem_fn(&::std::unique_ptr<Particle>::get)
         );
 
@@ -1110,7 +1110,7 @@ class RenderQueue;
             ::std::transform
             (   mParticlePool.begin() + currSize,
                 mParticlePool.end(),
-                ::std::insert_iterator{mFreeParticles, mFreeParticles.end()},
+                ::std::inserter(mFreeParticles, mFreeParticles.end()),
                 ::std::mem_fn(&::std::unique_ptr<Particle>::get)
             );
 

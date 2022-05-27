@@ -29,6 +29,7 @@
 #define OGRE_COMPONENTS_BITES_TRAYS_H
 
 #include <cstddef>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -1165,7 +1166,7 @@ namespace OgreBites
         Ogre::OverlayContainer* mBackdrop;    // backdrop
         Ogre::OverlayContainer* mTrays[10];   // widget trays
         WidgetList mWidgets[10];              // widgets
-        WidgetList mWidgetDeathRow;           // widget queue for deletion
+        std::vector<::std::unique_ptr<Widget>> mWidgetDeathRow;           // widget queue for deletion
         Ogre::OverlayContainer* mCursor;      // cursor
         TrayListener* mListener;           // tray listener
         Ogre::Real mWidgetPadding{8};            // widget padding

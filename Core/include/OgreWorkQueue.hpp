@@ -384,7 +384,7 @@ namespace Ogre
         @param name Optional name, just helps to identify logging output
         */
         DefaultWorkQueueBase(const String& name = BLANKSTRING);
-        ~DefaultWorkQueueBase() override;
+        ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
         const String& getName() const noexcept;
         /** Get the number of worker threads that this queue will start when 
@@ -476,10 +476,10 @@ namespace Ogre
         bool mIsRunning{false};
         unsigned long mResposeTimeLimitMS{8};
 
-        using RequestQueue = std::deque<Request *>;
-        using ResponseQueue = std::deque<Response *>;
+        using RequestQueue = std::deque<::std::unique_ptr<Request>>;
+        using ResponseQueue = std::deque<::std::unique_ptr<Response>>;
         RequestQueue mRequestQueue; // Guarded by mRequestMutex
-        RequestQueue mProcessQueue; // Guarded by mProcessMutex
+        std::deque<Request *> mProcessQueue; // Guarded by mProcessMutex
         ResponseQueue mResponseQueue; // Guarded by mResponseMutex
 
         /// Thread function

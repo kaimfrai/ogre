@@ -205,13 +205,6 @@ void FunctionStageRef::binaryOp(char op, const std::vector<Operand>& params) con
 //-----------------------------------------------------------------------------
 Function::~Function()
 {
-    std::map<size_t, FunctionAtomInstanceList>::iterator jt;
-    for(jt = mAtomInstances.begin(); jt != mAtomInstances.end(); ++jt)
-    {
-        for (auto it=jt->second.begin(); it != jt->second.end(); ++it)
-            delete (*it);
-    }
-
     mAtomInstances.clear();
 
     for (auto it = mInputParameters.begin(); it != mInputParameters.end(); ++it)
@@ -603,20 +596,18 @@ ParameterPtr Function::_getParameterByContent(const ShaderParameterList& paramet
 //-----------------------------------------------------------------------------
 void Function::addAtomInstance(FunctionAtom* atomInstance)
 {
-    mAtomInstances[atomInstance->getGroupExecutionOrder()].push_back(atomInstance);
+    mAtomInstances[atomInstance->getGroupExecutionOrder()].emplace_back(atomInstance);
     mSortedAtomInstances.clear();
 }
 
 //-----------------------------------------------------------------------------
 bool Function::deleteAtomInstance(FunctionAtom* atomInstance)
 {
-    FunctionAtomInstanceIterator it;
     size_t g = atomInstance->getGroupExecutionOrder();
-    for (it=mAtomInstances[g].begin(); it != mAtomInstances[g].end(); ++it)
+    for (auto it=mAtomInstances[g].begin(); it != mAtomInstances[g].end(); ++it)
     {
-        if (*it == atomInstance)
+        if (it->get() == atomInstance)
         {
-            delete atomInstance;
             mAtomInstances[g].erase(it);
             mSortedAtomInstances.clear();
             return true;
@@ -634,11 +625,14 @@ const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
         return mSortedAtomInstances;
 
     // put atom instances into order
-    std::map<size_t, FunctionAtomInstanceList>::const_iterator it;
-    for(it = mAtomInstances.begin(); it != mAtomInstances.end(); ++it)
+    for(auto it = mAtomInstances.begin(); it != mAtomInstances.end(); ++it)
     {
-        mSortedAtomInstances.insert(mSortedAtomInstances.end(), it->second.begin(),
-                                    it->second.end());
+        ::std::transform
+        (   it->second.begin(),
+            it->second.end(),
+            ::std::inserter(mSortedAtomInstances, mSortedAtomInstances.end()),
+            ::std::mem_fn(&::std::unique_ptr<FunctionAtom>::get)
+        );
     }
 
     return mSortedAtomInstances;

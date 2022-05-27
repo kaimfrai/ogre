@@ -101,8 +101,6 @@ class RenderQueue;
         //Remove the VTF texture
         if( mMatrixTexture )
             TextureManager::getSingleton().remove( mMatrixTexture );
-
-        delete[] mTempTransformsArray3x4;
     }
 
     //-----------------------------------------------------------------------
@@ -270,7 +268,7 @@ class RenderQueue;
 
         if(mUseBoneDualQuaternions && !mTempTransformsArray3x4)
         {
-            mTempTransformsArray3x4 = new Matrix3x4f[mMatricesPerInstance];
+            mTempTransformsArray3x4 = ::std::make_unique<Matrix3x4f[]>(mMatricesPerInstance);
         }
         
         mNumWorldMatrices = uniqueAnimations * mMatricesPerInstance;
@@ -356,7 +354,7 @@ class RenderQueue;
         //Otherwise simply write the transforms to the pixel buffer directly
         if(mUseBoneDualQuaternions)
         {
-            transforms = mTempTransformsArray3x4;
+            transforms = mTempTransformsArray3x4.get();
         }
         else
         {

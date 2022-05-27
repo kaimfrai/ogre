@@ -470,7 +470,7 @@ struct Box;
 
         virtual void updateStats();
 
-        using ViewportList = std::map<int, Viewport *>;
+        using ViewportList = std::map<int, ::std::unique_ptr<Viewport>>;
         /// List of viewports, map on Z-order
         ViewportList mViewportList;
 

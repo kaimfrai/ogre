@@ -460,7 +460,7 @@ namespace Ogre
         //If using dual quaternions, write 3x4 matrices to a temporary buffer, then convert to dual quaternions
         if(mUseBoneDualQuaternions)
         {
-            transforms = (Matrix3x4f*)mTempTransformsArray3x4;
+            transforms = (Matrix3x4f*)mTempTransformsArray3x4.get();
         }
         
         for(size_t i = 0 ; i < instanceCount ; ++i)

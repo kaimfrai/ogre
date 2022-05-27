@@ -1188,10 +1188,6 @@ TrayManager::~TrayManager()
 
     destroyAllWidgets();
 
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)   // delete widgets queued for destruction
-    {
-        delete mWidgetDeathRow[i];
-    }
     mWidgetDeathRow.clear();
 
     om.destroy(mBackdropLayer);
@@ -1790,7 +1786,7 @@ void TrayManager::destroyWidget(Widget *widget)
 
     widget->cleanup();
 
-    mWidgetDeathRow.push_back(widget);
+    mWidgetDeathRow.emplace_back(widget);
 
     adjustTrays();
 }
@@ -1854,10 +1850,6 @@ void TrayManager::clearAllTrays()
 
 void TrayManager::frameRendered(const Ogre::FrameEvent &evt)
 {
-    for (unsigned int i = 0; i < mWidgetDeathRow.size(); i++)
-    {
-        delete mWidgetDeathRow[i];
-    }
     mWidgetDeathRow.clear();
 
 

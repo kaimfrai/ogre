@@ -58,15 +58,11 @@ class Camera;
 
     RenderTarget::~RenderTarget()
     {
-        // make a copy of the list to avoid crashes, the viewport destructor change the list
-        ViewportList vlist = mViewportList;
-        
         // Delete viewports
-        for (auto i = vlist.begin();
-            i != vlist.end(); ++i)
+        for (auto i = mViewportList.begin();
+            i != mViewportList.end(); ++i)
         {
-            fireViewportRemoved(i->second);
-            delete (*i).second;
+            fireViewportRemoved(i->second.get());
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -173,7 +169,7 @@ class Camera;
         auto it = mViewportList.begin();
         while (it != mViewportList.end())
         {
-            Viewport* viewport = (*it).second;
+            Viewport* viewport = (*it).second.get();
             if(viewport->isAutoUpdated())
             {
                 _updateViewport(viewport,updateStatistics);
@@ -212,7 +208,7 @@ class Camera;
         auto it = mViewportList.find(zorder);
         if (it != mViewportList.end())
         {
-            _updateViewport((*it).second,updateStatistics);
+            _updateViewport((*it).second.get(),updateStatistics);
         }
         else
         {
@@ -252,21 +248,16 @@ class Camera;
 
         if (it != mViewportList.end())
         {
-            fireViewportRemoved(it->second);
-            delete (*it).second;
+            fireViewportRemoved(it->second.get());
             mViewportList.erase(ZOrder);
         }
     }
 
     void RenderTarget::removeAllViewports()
     {
-        // make a copy of the list to avoid crashes, the viewport destructor change the list
-        ViewportList vlist = mViewportList;
-
-        for (auto it = vlist.begin(); it != vlist.end(); ++it)
+        for (auto it = mViewportList.begin(); it != mViewportList.end(); ++it)
         {
-            fireViewportRemoved(it->second);
-            delete (*it).second;
+            fireViewportRemoved(it->second.get());
         }
 
         mViewportList.clear();
@@ -398,7 +389,7 @@ class Camera;
         auto i = mViewportList.begin();
         while (index--)
             ++i;
-        return i->second;
+        return i->second.get();
     }
     //-----------------------------------------------------------------------
     Viewport* RenderTarget::getViewportByZOrder(int ZOrder)
@@ -409,7 +400,7 @@ class Camera;
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,"No viewport with given Z-order: "
                 + StringConverter::toString(ZOrder), "RenderTarget::getViewportByZOrder");
         }
-        return i->second;
+        return i->second.get();
     }
     //-----------------------------------------------------------------------
     bool RenderTarget::hasViewportWithZOrder(int ZOrder)
@@ -521,7 +512,7 @@ class Camera;
         iend = mViewportList.end();
         for (i = mViewportList.begin(); i != iend; ++i)
         {
-            Viewport* v = i->second;
+            Viewport* v = i->second.get();
             if (v->getCamera() == cam)
             {
                 // disable camera link
