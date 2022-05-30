@@ -38,8 +38,7 @@ THE SOFTWARE.
 #include "OgreShaderParameter.hpp"
 #include "OgreShaderProgram.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
 
         String GLSLESProgramWriter::TargetLanguage =  "glsles";
 
@@ -101,4 +100,3 @@ namespace Ogre {
         }
 
     }
-}

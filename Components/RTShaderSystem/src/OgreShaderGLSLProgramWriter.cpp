@@ -48,8 +48,7 @@ THE SOFTWARE.
 #include "OgreShaderProgram.hpp"
 #include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String GLSLProgramWriter::TargetLanguage = "glsl";
 
@@ -451,5 +450,4 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
     }
 }
 //-----------------------------------------------------------------------
-}
 }

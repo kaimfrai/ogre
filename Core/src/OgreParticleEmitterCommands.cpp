@@ -31,9 +31,7 @@ THE SOFTWARE.
 #include "OgreStringConverter.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre {
-
-    namespace EmitterCommands {
+namespace Ogre::EmitterCommands {
 
         //-----------------------------------------------------------------------
         String CmdAngle::doGet(const void* target) const
@@ -272,5 +270,4 @@ namespace Ogre {
 
     
     }
-}
 

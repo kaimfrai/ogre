@@ -45,8 +45,7 @@ THE SOFTWARE.
 #include "OgreString.hpp"
 #include "OgreStringVector.hpp"
 
-namespace Ogre {
-    namespace GLSL {
+namespace Ogre::GLSL {
 
     static GLint getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType)
     {
@@ -495,5 +494,4 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-} // namespace GLSL
 } // namespace Ogre

@@ -34,9 +34,7 @@ THE SOFTWARE.
 #include "OgreShaderGenerator.hpp"
 #include "OgreShaderRenderState.hpp"
 
-namespace Ogre {
-
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 //-----------------------------------------------------------------------------
@@ -54,6 +52,5 @@ void FFPRenderStateBuilder::buildRenderState(ShaderGenerator::SGPass* sgPass, Ta
     ffpTemplate.addTemplateSubRenderState(sg.createSubRenderState(FFPAlphaTest::Type));
 
     renderState->link(ffpTemplate, sgPass->getSrcPass(), sgPass->getDstPass());
-}
 }
 }

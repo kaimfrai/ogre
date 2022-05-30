@@ -51,8 +51,7 @@ class SGScriptTranslator;
 
 #define HS_MAX_WEIGHT_COUNT 4
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
     class HardwareSkinningFactory;
     class DualQuaternionSkinning;
@@ -343,7 +342,6 @@ protected:
 /** @} */
 
 
-}
 }
 
 #endif

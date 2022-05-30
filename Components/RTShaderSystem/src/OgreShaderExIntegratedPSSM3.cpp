@@ -72,8 +72,7 @@ namespace Ogre {
 #define SGX_FUNC_COMPUTE_SHADOW_COLOUR3             "SGX_ComputeShadowFactor_PSSM3"
 #define SGX_FUNC_APPLYSHADOWFACTOR_DIFFUSE          "SGX_ApplyShadowFactor_Diffuse"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -472,5 +471,4 @@ SubRenderState* IntegratedPSSM3Factory::createInstanceImpl()
     return new IntegratedPSSM3;
 }
 
-}
 }

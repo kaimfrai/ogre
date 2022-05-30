@@ -29,14 +29,11 @@ THE SOFTWARE.
 
 #include "OgreShaderGenerator.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class TargetRenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 
 /** \addtogroup Optional
@@ -67,7 +64,6 @@ public:
 /** @} */
 /** @} */
 
-}
 }
 
 #endif

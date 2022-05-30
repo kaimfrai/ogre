@@ -56,8 +56,7 @@ namespace Ogre {
     class Pass;
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -394,5 +393,4 @@ SubRenderState* PerPixelLightingFactory::createInstanceImpl()
     return new PerPixelLighting;
 }
 
-}
 }

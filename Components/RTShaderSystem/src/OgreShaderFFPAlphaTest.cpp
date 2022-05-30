@@ -51,8 +51,7 @@ namespace Ogre {
 	}  // namespace RTShader
 }  // namespace Ogre
 
-namespace Ogre {
-	namespace RTShader {
+namespace Ogre::RTShader {
 
 		String FFPAlphaTest::Type = "FFP_Alpha_Test";
 
@@ -134,4 +133,3 @@ namespace Ogre {
 			return new FFPAlphaTest;
 		}
 	}
-}

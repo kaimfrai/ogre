@@ -44,14 +44,11 @@ THE SOFTWARE.
 #include "OgreShaderScriptTranslator.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -258,5 +255,4 @@ SubRenderState* FFPColourFactory::createInstanceImpl()
 }
 
 
-}
 }

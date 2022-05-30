@@ -39,8 +39,7 @@ THE SOFTWARE.
 #include "OgreShaderProgramWriter.hpp"
 #include "OgreSingleton.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -94,7 +93,6 @@ public:
 };
 /** @} */
 /** @} */
-}
 }
 
 

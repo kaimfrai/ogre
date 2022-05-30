@@ -34,9 +34,7 @@ THE SOFTWARE.
 #include "OgreLog.hpp"
 #include "OgreLogManager.hpp"
 
-namespace Ogre
-{
-    namespace GLSL
+namespace Ogre::GLSL
     {
 
     //-----------------------------------------------------------------------------
@@ -112,5 +110,4 @@ namespace Ogre
 
     }
 
-    } // namespace GLSL
-} // namespace Ogre
+    } // namespace Ogre

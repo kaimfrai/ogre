@@ -32,8 +32,7 @@ THE SOFTWARE.
 #include "OgreShaderHLSLProgramWriter.hpp"
 #include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String HLSLProgramWriter::TargetLanguage = "hlsl";
 
@@ -54,5 +53,4 @@ HLSLProgramWriter::HLSLProgramWriter()
 HLSLProgramWriter::~HLSLProgramWriter()
 = default;
 
-}
 }

@@ -30,10 +30,8 @@
 #include "OgreVector.hpp"
 #include "OgreViewport.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class SubRenderState;
-}  // namespace RTShader
 }  // namespace Ogre
 
 using namespace Ogre;

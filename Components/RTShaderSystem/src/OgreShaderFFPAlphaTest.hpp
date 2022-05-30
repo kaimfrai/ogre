@@ -43,8 +43,7 @@ namespace RTShader {
     }  // namespace RTShader
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /**
 A factory that enables creation of LayeredBlending instances.
@@ -127,7 +126,6 @@ protected:
 	SubRenderState* createInstanceImpl() override;
 };
 
-} // namespace RTShader
 } // namespace Ogre
 
 #endif

@@ -61,12 +61,10 @@ THE SOFTWARE.
 #include "OgreUserObjectBindings.hpp"
 #include "OgreVertexIndexData.hpp"
 
-namespace Ogre {
-    namespace RTShader {
+namespace Ogre::RTShader {
         class ProgramSet;
         class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
+    }  // namespace Ogre
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 

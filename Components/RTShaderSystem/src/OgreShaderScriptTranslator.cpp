@@ -45,8 +45,7 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 SGScriptTranslator::SGScriptTranslator() 
@@ -263,5 +262,4 @@ void SGScriptTranslator::addSubRenderState(SubRenderState* newSubRenderState,
     mGeneratedRenderState->addTemplateSubRenderState(newSubRenderState);
 }
 
-}
 }

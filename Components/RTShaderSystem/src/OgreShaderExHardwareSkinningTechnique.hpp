@@ -30,16 +30,13 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreShaderPrerequisites.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class ProgramSet;
-}  // namespace RTShader
 }  // namespace Ogre
 
 #include "OgreShaderFunctionAtom.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -152,7 +149,6 @@ protected:
     ParameterPtr mParamOutPositionProj;
 };
 
-}
 }
 
 #endif

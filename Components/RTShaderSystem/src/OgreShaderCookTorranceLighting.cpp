@@ -27,9 +27,7 @@
 #include "OgreShaderSubRenderState.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre
-{
-namespace RTShader
+namespace Ogre::RTShader
 {
 
 /************************************************************************/
@@ -243,5 +241,4 @@ void CookTorranceLightingFactory::writeInstance(MaterialSerializer* ser, SubRend
 //-----------------------------------------------------------------------
 SubRenderState* CookTorranceLightingFactory::createInstanceImpl() { return new CookTorranceLighting; }
 
-} // namespace RTShader
 } // namespace Ogre

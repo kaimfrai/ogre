@@ -50,8 +50,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** Texturing sub render state implementation of layered blending.
 Derives from FFPTexturing class which derives from SubRenderState class.
@@ -266,7 +265,6 @@ protected:
     LayeredBlending* createOrRetrieveSubRenderState(SGScriptTranslator* translator);
 };
 
-} // namespace RTShader
 } // namespace Ogre
 
 #endif // OGRESHADEREXLAYEREDBLENDING_H

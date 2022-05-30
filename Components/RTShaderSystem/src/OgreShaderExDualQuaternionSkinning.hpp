@@ -29,17 +29,14 @@ THE SOFTWARE.
 
 #include "OgreShaderPrerequisites.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class Function;
 class ProgramSet;
-}  // namespace RTShader
 }  // namespace Ogre
 
 #include "OgreShaderExHardwareSkinningTechnique.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -111,7 +108,6 @@ protected:
 
 };
 
-} // namespace RTShader
 } // namespace Ogre
 
 #endif // _ExDualQuaternionSkinning_

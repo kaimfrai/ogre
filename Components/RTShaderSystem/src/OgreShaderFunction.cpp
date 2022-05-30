@@ -43,8 +43,7 @@ THE SOFTWARE.
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreString.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 static GpuConstantType typeFromContent(Parameter::Content content)
 {
@@ -638,5 +637,4 @@ const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
     return mSortedAtomInstances;
 }
 
-}
 }

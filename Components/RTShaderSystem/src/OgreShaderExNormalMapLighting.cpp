@@ -49,18 +49,15 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.hpp"
 #include "OgreVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class RenderState;
-}  // namespace RTShader
 }  // namespace Ogre
 
 #define SGX_LIB_NORMALMAP                           "SGXLib_NormalMap"
 #define SGX_FUNC_CONSTRUCT_TBNMATRIX                "SGX_ConstructTBNMatrix"
 #define SGX_FUNC_FETCHNORMAL                        "SGX_FetchNormal"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */
@@ -358,5 +355,4 @@ SubRenderState* NormalMapLightingFactory::createInstanceImpl()
     return new NormalMapLighting;
 }
 
-}
 }

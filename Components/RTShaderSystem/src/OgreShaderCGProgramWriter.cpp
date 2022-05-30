@@ -42,8 +42,7 @@ THE SOFTWARE.
 #include "OgreShaderProgram.hpp"
 #include "OgreShaderProgramWriter.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 String CGProgramWriter::TargetLanguage = "cg";
 
@@ -214,5 +213,4 @@ void CGProgramWriter::writeAtomInstance(std::ostream& os, FunctionAtom* atom)
     os << std::endl;
 }
 
-}
 }

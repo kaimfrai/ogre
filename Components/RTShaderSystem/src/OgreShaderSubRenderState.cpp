@@ -34,8 +34,7 @@ THE SOFTWARE.
 #include "OgreShaderSubRenderState.hpp"
 #include "OgreSharedPtr.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 class ProgramSet;
 
 
@@ -192,6 +191,5 @@ SubRenderStateAccessorPtr SubRenderState::getAccessor() const
 
 
 
-}
 }
 

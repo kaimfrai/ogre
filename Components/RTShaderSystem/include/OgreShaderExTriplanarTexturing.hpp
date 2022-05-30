@@ -46,8 +46,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
@@ -227,7 +226,6 @@ protected:
 /** @} */
 
 
-}
 }
 
 #endif

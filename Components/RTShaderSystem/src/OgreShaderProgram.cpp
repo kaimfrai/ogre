@@ -43,8 +43,7 @@ THE SOFTWARE.
 #include "OgreShaderProgram.hpp"
 #include "OgreStringVector.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 Program::Program(GpuProgramType type)
@@ -360,5 +359,4 @@ const String& Program::getDependency(unsigned int index) const
     return mDependencies[index];
 }
 
-}
 }

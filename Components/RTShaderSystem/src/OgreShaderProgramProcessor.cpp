@@ -46,8 +46,7 @@ THE SOFTWARE.
 #include "OgreShaderProgramProcessor.hpp"
 #include "OgreSharedPtr.hpp"
 
-namespace Ogre {
-namespace RTShader {
+namespace Ogre::RTShader {
 
 //-----------------------------------------------------------------------------
 ProgramProcessor::ProgramProcessor()
@@ -1007,5 +1006,4 @@ void ProgramProcessor::MergeParameter::clear()
     mUsedFloatCount = 0;
 }
 
-}
 }
