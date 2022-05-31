@@ -119,8 +119,8 @@ class Ray;
 
 static const String INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
-SceneManager::SceneManager(const String& name) :
-mName(name),
+SceneManager::SceneManager(String  name) :
+mName(std::move(name)),
 
 mSkyPlane(this),
 mSkyBox(this),

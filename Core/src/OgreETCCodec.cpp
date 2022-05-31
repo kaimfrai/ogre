@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 
 #include <cstring>
+#include <utility>
 
 #include "OgreCodec.hpp"
 #include "OgreCommon.hpp"
@@ -134,8 +135,8 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    ETCCodec::ETCCodec(const String &type):
-        mType(type)
+    ETCCodec::ETCCodec(String type):
+        mType(std::move(type))
     {
     }
     //---------------------------------------------------------------------

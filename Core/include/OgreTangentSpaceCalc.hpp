@@ -69,7 +69,7 @@ class VertexData;
             VertexSplit splitVertex;
         
             IndexRemap() = default; // to keep container happy
-            IndexRemap(size_t i, size_t f, const VertexSplit& s) : indexSet(i), faceIndex(f), splitVertex(s) {}
+            IndexRemap(size_t i, size_t f, VertexSplit  s) : indexSet(i), faceIndex(f), splitVertex(std::move(s)) {}
         };
         /** List of indexes that were remapped (split vertices).
         */

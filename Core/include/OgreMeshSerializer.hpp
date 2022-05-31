@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define OGRE_CORE_MESHSERIALIZER_H
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "OgreMeshSerializerImpl.hpp"
@@ -69,8 +70,8 @@ namespace Ogre {
         String versionString;
         ::std::unique_ptr<MeshSerializerImpl> impl;
 
-        MeshVersionData(MeshVersion _ver, const String& _string, ::std::unique_ptr<MeshSerializerImpl> _impl)
-        : version(_ver), versionString(_string), impl(::std::move(_impl)) {}
+        MeshVersionData(MeshVersion _ver, String  _string, ::std::unique_ptr<MeshSerializerImpl> _impl)
+        : version(_ver), versionString(std::move(_string)), impl(::std::move(_impl)) {}
 
     };
 

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <cstdio>
 #include <istream>
 #include <list>
+#include <utility>
 
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
@@ -86,8 +87,8 @@ namespace Ogre {
         /// Constructor for creating unnamed streams
         DataStream(uint16 accessMode = READ) : mSize(0), mAccess(accessMode) {}
         /// Constructor for creating named streams
-        DataStream(const String& name, uint16 accessMode = READ) 
-            : mName(name), mSize(0), mAccess(accessMode) {}
+        DataStream(String  name, uint16 accessMode = READ) 
+            : mName(std::move(name)), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
         const String& getName() noexcept { return mName; }
         /// Gets the access mode of the stream

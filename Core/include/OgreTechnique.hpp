@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cstddef>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreBlendMode.hpp"
@@ -149,8 +150,8 @@ class Material;
             bool caseSensitive;
             GPUDeviceNameRule()
                 : includeOrExclude(EXCLUDE), caseSensitive(false) {}
-            GPUDeviceNameRule(const String& pattern, IncludeOrExclude ie, bool caseSen)
-                : devicePattern(pattern), includeOrExclude(ie), caseSensitive(caseSen) {}
+            GPUDeviceNameRule(String  pattern, IncludeOrExclude ie, bool caseSen)
+                : devicePattern(std::move(pattern)), includeOrExclude(ie), caseSensitive(caseSen) {}
         };
         using GPUVendorRuleList = std::vector<GPUVendorRule>;
         using GPUDeviceNameRuleList = std::vector<GPUDeviceNameRule>;

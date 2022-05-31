@@ -185,7 +185,7 @@ class RenderQueue;
 
     public:
         /// Constructor: do not call direct, use OverlayManager::createElement
-        OverlayElement(const String& name);
+        OverlayElement(String  name);
         ~OverlayElement() override;
 
         /** Initialise gui element */

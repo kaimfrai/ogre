@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <ostream>
 #include <string>
+#include <utility>
 
 #include "OgreException.hpp"
 #include "OgrePrerequisites.hpp"
@@ -42,12 +43,12 @@ namespace Ogre {
     {
     }
 
-    Exception::Exception(int num, const String& desc, const String& src, 
+    Exception::Exception(int num, String  desc, String  src, 
         const char* typ, const char* fil, long lin) :
         line( lin ),
         typeName(typ),
-        description( desc ),
-        source( src ),
+        description(std::move( desc )),
+        source(std::move( src )),
         file( fil )
     {
         StringStream ss;

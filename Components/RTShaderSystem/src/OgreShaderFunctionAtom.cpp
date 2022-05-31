@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreException.hpp"
@@ -152,8 +153,8 @@ int FunctionAtom::getGroupExecutionOrder() const noexcept
 
 //-----------------------------------------------------------------------
 FunctionInvocation::FunctionInvocation(const String& functionName, int groupOrder,
-                                       const String& returnType)
-    : mReturnType(returnType)
+                                       String  returnType)
+    : mReturnType(std::move(returnType))
 {
     mFunctionName = functionName;
     mGroupExecutionOrder = groupOrder;

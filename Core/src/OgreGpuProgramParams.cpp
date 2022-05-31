@@ -336,8 +336,8 @@ namespace Ogre
     //-----------------------------------------------------------------------------
     //      GpuSharedParameters Methods
     //-----------------------------------------------------------------------------
-    GpuSharedParameters::GpuSharedParameters(const String& name)
-        :mName(name)
+    GpuSharedParameters::GpuSharedParameters(String  name)
+        :mName(std::move(name))
          
     {
 

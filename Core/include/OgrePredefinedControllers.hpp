@@ -325,7 +325,7 @@ class TextureUnitState;
         std::vector<Real> mValues;
     public:
         /// @deprecated use create()
-        LinearControllerFunction(const std::vector<Real>& keys, const std::vector<Real>& values, Real frequency = 1, bool deltaInput = true);
+        LinearControllerFunction(std::vector<Real>  keys, std::vector<Real>  values, Real frequency = 1, bool deltaInput = true);
 
         /** Constructor, requires keys and values of the function to interpolate
 

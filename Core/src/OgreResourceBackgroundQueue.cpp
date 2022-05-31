@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
+#include <utility>
 
 #include "OgreResourceBackgroundQueue.hpp"
 #include "OgreAny.hpp"
@@ -80,8 +81,8 @@ namespace Ogre {
     /// Struct that holds details of queued notifications
     struct ResourceResponse
     {
-        ResourceResponse(ResourcePtr r, const ResourceRequest& req)
-            : resource(r), request(req)
+        ResourceResponse(ResourcePtr r, ResourceRequest  req)
+            : resource(r), request(std::move(req))
         {}
 
         ResourcePtr resource;

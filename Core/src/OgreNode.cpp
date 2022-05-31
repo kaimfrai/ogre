@@ -51,9 +51,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node::Node() : Node(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    Node::Node(const String& name)
+    Node::Node(String  name)
         :mParent(nullptr),
-        mName(name),
+        mName(std::move(name)),
         mNeedParentUpdate(false),
         mNeedChildUpdate(false),
         mParentNotified(false),

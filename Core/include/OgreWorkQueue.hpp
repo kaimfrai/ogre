@@ -140,7 +140,7 @@ namespace Ogre
             Any mData;
 
         public:
-            Response(const Request* rq, bool success, const Any& data, const String& msg = BLANKSTRING);
+            Response(const Request* rq, bool success, const Any& data, String  msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] const Request* getRequest() const noexcept { return mRequest.get(); }
             /// Return whether this is a successful response
@@ -383,7 +383,7 @@ namespace Ogre
             Call startup() to initialise.
         @param name Optional name, just helps to identify logging output
         */
-        DefaultWorkQueueBase(const String& name = BLANKSTRING);
+        DefaultWorkQueueBase(String  name = BLANKSTRING);
         ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
         const String& getName() const noexcept;

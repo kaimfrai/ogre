@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define OGRE_CORE_ARCHIVE_H
 
 #include <ctime>
+#include <utility>
 #include <vector>
 
 #include "OgreMemoryAllocatorConfig.hpp"
@@ -99,8 +100,8 @@ class Archive;
 
         /** Constructor - don't call direct, used by ArchiveFactory.
         */
-        Archive( const String& name, const String& archType )
-            : mName(name), mType(archType) {}
+        Archive( String  name, String  archType )
+            : mName(std::move(name)), mType(std::move(archType)) {}
 
         /** Default destructor.
         */

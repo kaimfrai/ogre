@@ -38,6 +38,7 @@ THE SOFTWARE.
 
 #include "OgrePrerequisites.hpp"
 #include <typeinfo>
+#include <utility>
 
 namespace Ogre
 {
@@ -141,8 +142,8 @@ namespace Ogre
         {
         public: // structors
 
-            holder(const ValueType & value)
-              : held(value)
+            holder(ValueType  value)
+              : held(std::move(value))
             {
             }
 

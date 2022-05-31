@@ -56,7 +56,7 @@ namespace Ogre {
         static ETCCodec* msKTXInstance;
 
     public:
-        ETCCodec(const String &type);
+        ETCCodec(String type);
         ~ETCCodec() override = default;
 
         using ImageCodec::decode;

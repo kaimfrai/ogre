@@ -29,6 +29,8 @@ THE SOFTWARE.
 #ifndef OGRE_TESTS_VISUALTESTS_TESTBATCH_H
 #define OGRE_TESTS_VISUALTESTS_TESTBATCH_H
 
+#include <utility>
+
 #include "ImageValidator.hpp"
 #include "Ogre.hpp"
 
@@ -60,7 +62,7 @@ public:
     /** Initialize based on a config file
      *        @param info Reference to loaded config file with details about the set 
      *        @param directory The full path to this set's directory */
-    TestBatch(Ogre::ConfigFile& info, Ogre::String directory):mDirectory(directory)
+    TestBatch(Ogre::ConfigFile& info, Ogre::String directory):mDirectory(std::move(directory))
     {
         // fill out basic info
         Ogre::String res = info.getSetting("Resolution","Info");
@@ -85,13 +87,13 @@ public:
      *        @param directory The directory this batch is saved to */
     TestBatch(Ogre::String batchName, Ogre::String pluginName,
         Ogre::String t, size_t resx, size_t resy, Ogre::String directory)
-        :name(batchName)
-        ,plugin(pluginName)
-        ,timestamp(t)
+        :name(std::move(batchName))
+        ,plugin(std::move(pluginName))
+        ,timestamp(std::move(t))
         ,comment("")
         ,resolutionX(resx)
         ,resolutionY(resy)
-        ,mDirectory(directory)
+        ,mDirectory(std::move(directory))
     {
         Ogre::StringStream ver;
         ver<</*OGRE_VERSION_MAJOR*/13<<"."<</*OGRE_VERSION_MINOR*/3<<" ("<<

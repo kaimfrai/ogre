@@ -358,7 +358,7 @@ class Material;
     public:
         String mType;
 
-        ScriptCompilerEvent(const String &type):mType(type){}
+        ScriptCompilerEvent(String type):mType(std::move(type)){}
         virtual ~ScriptCompilerEvent()= default;
         ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
         ScriptCompilerEvent &operator = (const ScriptCompilerEvent&) = delete;
@@ -492,8 +492,8 @@ class Material;
         String mName;
         static String eventType;
 
-        ProcessResourceNameScriptCompilerEvent(ResourceType resourceType, const String &name)
-            :ScriptCompilerEvent(eventType), mResourceType(resourceType), mName(name){}     
+        ProcessResourceNameScriptCompilerEvent(ResourceType resourceType, String name)
+            :ScriptCompilerEvent(eventType), mResourceType(resourceType), mName(std::move(name)){}     
     };
 
     class ProcessNameExclusionScriptCompilerEvent : public ScriptCompilerEvent
@@ -503,8 +503,8 @@ class Material;
         AbstractNode *mParent;
         static String eventType;
 
-        ProcessNameExclusionScriptCompilerEvent(const String &cls, AbstractNode *parent)
-            :ScriptCompilerEvent(eventType), mClass(cls), mParent(parent){}     
+        ProcessNameExclusionScriptCompilerEvent(String cls, AbstractNode *parent)
+            :ScriptCompilerEvent(eventType), mClass(std::move(cls)), mParent(parent){}     
     };
 
     class CreateMaterialScriptCompilerEvent : public ScriptCompilerEvent
@@ -513,8 +513,8 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateMaterialScriptCompilerEvent(const String &file, const String &name, const String &resourceGroup)
-            :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
+        CreateMaterialScriptCompilerEvent(String file, String name, String resourceGroup)
+            :ScriptCompilerEvent(eventType), mFile(std::move(file)), mName(std::move(name)), mResourceGroup(std::move(resourceGroup)){}  
     };
 
     class CreateGpuProgramScriptCompilerEvent : public ScriptCompilerEvent
@@ -524,10 +524,10 @@ class Material;
         GpuProgramType mProgramType;
         static String eventType;
 
-        CreateGpuProgramScriptCompilerEvent(const String &file, const String &name, const String &resourceGroup, const String &source, 
-            const String &syntax, GpuProgramType programType)
-            :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup), mSource(source), 
-             mSyntax(syntax), mProgramType(programType)
+        CreateGpuProgramScriptCompilerEvent(String file, String name, String resourceGroup, String source, 
+            String syntax, GpuProgramType programType)
+            :ScriptCompilerEvent(eventType), mFile(std::move(file)), mName(std::move(name)), mResourceGroup(std::move(resourceGroup)), mSource(std::move(source)), 
+             mSyntax(std::move(syntax)), mProgramType(programType)
         {}  
     };
 
@@ -537,8 +537,8 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateGpuSharedParametersScriptCompilerEvent(const String &file, const String &name, const String &resourceGroup)
-            :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
+        CreateGpuSharedParametersScriptCompilerEvent(String file, String name, String resourceGroup)
+            :ScriptCompilerEvent(eventType), mFile(std::move(file)), mName(std::move(name)), mResourceGroup(std::move(resourceGroup)){}  
     };
 
     class CreateParticleSystemScriptCompilerEvent : public ScriptCompilerEvent
@@ -547,8 +547,8 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateParticleSystemScriptCompilerEvent(const String &file, const String &name, const String &resourceGroup)
-            :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
+        CreateParticleSystemScriptCompilerEvent(String file, String name, String resourceGroup)
+            :ScriptCompilerEvent(eventType), mFile(std::move(file)), mName(std::move(name)), mResourceGroup(std::move(resourceGroup)){}  
     };
 
     class CreateCompositorScriptCompilerEvent : public ScriptCompilerEvent
@@ -557,8 +557,8 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateCompositorScriptCompilerEvent(const String &file, const String &name, const String &resourceGroup)
-            :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}  
+        CreateCompositorScriptCompilerEvent(String file, String name, String resourceGroup)
+            :ScriptCompilerEvent(eventType), mFile(std::move(file)), mName(std::move(name)), mResourceGroup(std::move(resourceGroup)){}  
     };
 
     /// This enum defines the integer ids for keywords this compiler handles

@@ -1126,7 +1126,7 @@ namespace Ogre {
     public:
         /** Constructor.
         */
-        SceneManager(const String& instanceName);
+        SceneManager(String  instanceName);
 
         /** Default destructor.
         */

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <list>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "OgreAxisAlignedBox.hpp"
@@ -681,8 +682,8 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
     ManualObject::ManualObjectSection::ManualObjectSection(ManualObject* parent,
-        const String& materialName, RenderOperation::OperationType opType, const String & groupName)
-        : mParent(parent), mMaterialName(materialName), mGroupName(groupName), m32BitIndices(false)
+        String  materialName, RenderOperation::OperationType opType, String  groupName)
+        : mParent(parent), mMaterialName(std::move(materialName)), mGroupName(std::move(groupName)), m32BitIndices(false)
     {
         mRenderOperation.operationType = opType;
         // default to no indexes unless we're told

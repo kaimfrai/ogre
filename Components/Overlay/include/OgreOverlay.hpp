@@ -115,7 +115,7 @@ namespace Ogre {
 
     public:
         /// Constructor: do not call direct, use OverlayManager::create
-        Overlay(const String& name);
+        Overlay(String  name);
         virtual ~Overlay();
 
 

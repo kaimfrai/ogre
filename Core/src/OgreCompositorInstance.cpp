@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <utility>
 
 #include "OgreCamera.hpp"
 #include "OgreColourValue.hpp"
@@ -254,7 +255,7 @@ public:
 class RSSetSchemeOperation: public CompositorInstance::RenderSystemOperation
 {
 public:
-    RSSetSchemeOperation(const String& schemeName) :  mSchemeName(schemeName) {}
+    RSSetSchemeOperation(String  schemeName) :  mSchemeName(std::move(schemeName)) {}
     
     String mPreviousScheme;
     bool mPreviousLateResolving{false};

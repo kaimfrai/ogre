@@ -1,3 +1,5 @@
+#include <utility>
+
 /*
 -----------------------------------------------------------------------------
 This source file is part of OGRE
@@ -46,7 +48,7 @@ struct HtmlTextNode : public HtmlNode
 {
     Ogre::String contents;
 
-    HtmlTextNode(Ogre::String text):contents(text){}
+    HtmlTextNode(Ogre::String text):contents(std::move(text)){}
     //-------------------------------------------------------------------
 
     Ogre::String print(Ogre::String indent = "") override

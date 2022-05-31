@@ -334,7 +334,7 @@ public:
     @param content The content of this parameter.
     @param size
     */
-    Parameter(GpuConstantType type, const String& name, 
+    Parameter(GpuConstantType type, String  name, 
         const Semantic& semantic, int index, 
         const Content& content, size_t size = 0);
 

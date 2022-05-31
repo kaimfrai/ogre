@@ -29,6 +29,8 @@ THE SOFTWARE.
 #ifndef OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
 #define OGRE_RENDERSYSTEMS_GL_GPUPROGRAMMANAGER_H
 
+#include <utility>
+
 #include "OgreGLPrerequisites.hpp"
 #include "OgreGpuProgramManager.hpp"
 
@@ -47,7 +49,7 @@ struct CreateCallbackWrapper : public GpuProgramFactory
         // type and syntax code will be corrected by GpuProgramManager
         return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");
     }
-    CreateCallbackWrapper(const String& lang, CreateGpuProgramCallback cb) : language(lang), callback(cb) {}
+    CreateCallbackWrapper(String  lang, CreateGpuProgramCallback cb) : language(std::move(lang)), callback(cb) {}
 };
 
 class GLGpuProgramManager

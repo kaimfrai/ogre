@@ -241,7 +241,7 @@ public:
     @param groupOrder The group order of this invocation.
     @param returnType The return type of the used function.
     */
-    FunctionInvocation(const String& functionName, int groupOrder, const String& returnType = "void");
+    FunctionInvocation(const String& functionName, int groupOrder, String  returnType = "void");
 
     /** Copy constructor */
     FunctionInvocation(const FunctionInvocation& rhs);

@@ -6,6 +6,7 @@
 #ifndef OGRE_COMPONENTS_BITES_INPUT_H
 #define OGRE_COMPONENTS_BITES_INPUT_H
 
+#include <utility>
 #include <vector>
 
 namespace Ogre {
@@ -199,7 +200,7 @@ protected:
 
 public:
     InputListenerChain() = default;
-    InputListenerChain(std::vector<InputListener*> chain) : mListenerChain(chain) {}
+    InputListenerChain(std::vector<InputListener*> chain) : mListenerChain(std::move(chain)) {}
 
     InputListenerChain& operator=(const InputListenerChain& o)
     {

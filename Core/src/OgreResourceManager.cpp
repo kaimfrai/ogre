@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <limits>
+#include <utility>
 
 #include "OgreException.hpp"
 #include "OgreResourceManager.hpp"
@@ -489,8 +490,8 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool::ResourcePool(const String& name)
-        : mName(name)
+    ResourceManager::ResourcePool::ResourcePool(String  name)
+        : mName(std::move(name))
     {
 
     }
