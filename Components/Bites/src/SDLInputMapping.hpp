@@ -6,86 +6,96 @@
 #ifndef OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
 #define OGRE_COMPONENTS_BITES_SDLINPUTMAPPING_H
 
+#include "OgreInput.hpp"
+
+#include <bit>
+
 namespace {
     OgreBites::Event convert(const SDL_Event& in)
     {
-        OgreBites::Event out;
-
-        out.type = 0;
-
+        using namespace OgreBites;
         switch(in.type)
         {
-        case SDL_KEYDOWN:
-            out.type = OgreBites::KEYDOWN;
-            [[fallthrough]];
+        case SDL_KEYDOWN: [[fallthrough]];
         case SDL_KEYUP:
-            if(!out.type)
-                out.type = OgreBites::KEYUP;
-            out.key.repeat = in.key.repeat;
-            out.key.keysym.sym = in.key.keysym.sym;
-            out.key.keysym.mod = in.key.keysym.mod;
-            break;
-        case SDL_MOUSEBUTTONUP:
-            out.type = OgreBites::MOUSEBUTTONUP;
-            [[fallthrough]];
+        {
+            KeyboardEvent const key
+            {   .keysym = {
+                    .sym = in.key.keysym.sym
+                ,   .mod = in.key.keysym.mod
+                }
+            ,   .repeat = in.key.repeat
+            };
+            return in.type == SDL_KEYDOWN
+                ?   Event{::std::bit_cast<KeyDownEvent>(key) }
+                :   Event{::std::bit_cast<KeyUpEvent>(key) }
+                ;
+        }
+        case SDL_MOUSEBUTTONUP: [[fallthrough]];
         case SDL_MOUSEBUTTONDOWN:
-            if(!out.type)
-                out.type = OgreBites::MOUSEBUTTONDOWN;
-            out.button.x = in.button.x;
-            out.button.y = in.button.y;
-            out.button.button = in.button.button;
-            out.button.clicks = in.button.clicks;
-            break;
+        {
+            MouseButtonEvent const button
+            {   .x = in.button.x
+            ,   .y = in.button.y
+            ,   .button = in.button.button
+            ,   .clicks = in.button.clicks
+            };
+            return in.type == SDL_MOUSEBUTTONUP
+                ?   Event{::std::bit_cast<MouseButtonUpEvent>(button) }
+                :   Event{::std::bit_cast<MouseButtonDownEvent>(button) }
+                ;
+        }
         case SDL_MOUSEWHEEL:
-            out.type = OgreBites::MOUSEWHEEL;
-            out.wheel.y = in.wheel.y;
-            break;
+            return MouseWheelEvent{in.wheel.y};
         case SDL_MOUSEMOTION:
-            out.type = OgreBites::MOUSEMOTION;
-            out.motion.x = in.motion.x;
-            out.motion.y = in.motion.y;
-            out.motion.xrel = in.motion.xrel;
-            out.motion.yrel = in.motion.yrel;
-            out.motion.windowID = in.motion.windowID;
-            break;
-        case SDL_FINGERDOWN:
-            out.type = OgreBites::FINGERDOWN;
-            [[fallthrough]];
-        case SDL_FINGERUP:
-            if(!out.type)
-                out.type = OgreBites::FINGERUP;
-            [[fallthrough]];
+            return MouseMotionEvent
+            {   .x = in.motion.x
+            ,   .y = in.motion.y
+            ,   .xrel = in.motion.xrel
+            ,   .yrel = in.motion.yrel
+            ,   .windowID = static_cast<int>(in.motion.windowID)
+            };
+
+        case SDL_FINGERDOWN: [[fallthrough]];
+        case SDL_FINGERUP: [[fallthrough]];
         case SDL_FINGERMOTION:
-            if(!out.type)
-                out.type = OgreBites::FINGERMOTION;
-            out.tfinger.x = in.tfinger.x;
-            out.tfinger.y = in.tfinger.y;
-            out.tfinger.dx = in.tfinger.dx;
-            out.tfinger.dy = in.tfinger.dy;
-            out.tfinger.fingerId = in.tfinger.fingerId;
-            break;
+        {    TouchFingerEvent const tfinger
+            {   .fingerId = static_cast<int>(in.tfinger.fingerId)
+            ,   .x = in.tfinger.x
+            ,   .y = in.tfinger.y
+            ,   .dx = in.tfinger.dx
+            ,   .dy = in.tfinger.dy
+            };
+            return in.type == SDL_FINGERDOWN
+                ?   Event{ ::std::bit_cast<TouchFingerDownEvent>(tfinger) }
+                :   in.type == SDL_FINGERUP
+                ?   Event{ ::std::bit_cast<TouchFingerUpEvent>(tfinger) }
+                :   Event{ ::std::bit_cast<TouchFingerMotionEvent>(tfinger) }
+                ;
+        }
         case SDL_TEXTINPUT:
-            out.type = OgreBites::TEXTINPUT;
-            out.text.chars = in.text.text;
-            break;
+            return TextInputEvent{in.text.text};
+
         case SDL_CONTROLLERAXISMOTION:
-            out.type = OgreBites::CONTROLLERAXISMOTION;
-            out.axis.which = in.caxis.which;
-            out.axis.axis = in.caxis.axis;
-            out.axis.value = in.caxis.value;
-            break;
-        case SDL_CONTROLLERBUTTONDOWN:
-            out.type = OgreBites::CONTROLLERBUTTONDOWN;
-            [[fallthrough]];
+            return AxisEvent
+            {   .which = in.caxis.which
+            ,   .axis = in.caxis.axis
+            ,   .value = in.caxis.value
+            };
+        case SDL_CONTROLLERBUTTONDOWN: [[fallthrough]];
         case SDL_CONTROLLERBUTTONUP:
-            if(!out.type)
-                out.type = OgreBites::CONTROLLERBUTTONUP;
-            out.cbutton.which = in.cbutton.which;
-            out.cbutton.button = in.cbutton.button;
-            break;
+        {    ButtonEvent const cButton =
+            {   .which = in.cbutton.which
+            ,   .button = in.cbutton.button
+            };
+            return in.type == SDL_CONTROLLERBUTTONDOWN
+                ?   Event{ ::std::bit_cast<ButtonDownEvent>(cButton) }
+                :   Event{ ::std::bit_cast<ButtonUpEvent>(cButton) }
+                ;
+        }
         }
 
-        return out;
+        return {};
     }
 }
 

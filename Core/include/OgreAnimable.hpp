@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <cstring>
 #include <map>
 #include <string>
+#include <variant>
 
 #include "OgreColourValue.hpp"
 #include "OgreCommon.hpp"
@@ -77,80 +78,50 @@ namespace Ogre {
     */
     class AnimableValue : public AnimableAlloc
     {
-    public:
-        /// The type of the value being animated
-        enum ValueType
-        {
-            INT,
-            REAL,
-            VECTOR2,
-            VECTOR3,
-            VECTOR4,
-            QUATERNION,
-            COLOUR,
-            RADIAN,
-            DEGREE
-        };
     protected:
-        /// Value type
-        ValueType mType;
-
-        /// Base value data
-        union
-        {
-            int mBaseValueInt;
-            Real mBaseValueReal[4];
-        };
+        ::std::variant<int, Real, Vector2, Vector3, Vector4, Quaternion, ColourValue, Radian, Degree> mBaseValue;
 
         /// Internal method to set a value as base
-        virtual void setAsBaseValue(int val) { mBaseValueInt = val; }
+        virtual void setAsBaseValue(int val) { mBaseValue = val; }
         /// Internal method to set a value as base
-        virtual void setAsBaseValue(Real val) { mBaseValueReal[0] = val; }
+        virtual void setAsBaseValue(Real val) { mBaseValue = val; }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Vector2& val) 
-        { memcpy(mBaseValueReal, val.ptr(), sizeof(Real)*2); }
+        { mBaseValue = val; }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Vector3& val) 
-        { memcpy(mBaseValueReal, val.ptr(), sizeof(Real)*3); }
+        { mBaseValue = val; }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Vector4& val) 
-        { memcpy(mBaseValueReal, val.ptr(), sizeof(Real)*4); }
+        { mBaseValue = val; }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Quaternion& val)
         {
-            mBaseValueReal[0] = val.w;
-            mBaseValueReal[1] = val.x;
-            mBaseValueReal[2] = val.y;
-            mBaseValueReal[3] = val.z;
+            mBaseValue = val;
         }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Any& val);
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const ColourValue& val)
         { 
-            mBaseValueReal[0] = val.r;
-            mBaseValueReal[1] = val.g;
-            mBaseValueReal[2] = val.b;
-            mBaseValueReal[3] = val.a;
+            mBaseValue = val;
         }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Radian& val)
         { 
-            mBaseValueReal[0] = val.valueRadians();
+            mBaseValue = val;
         }
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const Degree& val)
         { 
-            mBaseValueReal[0] = val.valueRadians();
+            mBaseValue = val;
         }
 
 
     public:
-        AnimableValue(ValueType t) : mType(t) {}
+        template<typename T>
+        AnimableValue(::std::in_place_type_t<T> t) : mBaseValue(t) {}
         virtual ~AnimableValue() = default;
-
-        /// Gets the value type of this animable value
-        [[nodiscard]] ValueType getType() const noexcept { return mType; }
 
         /// Sets the current state as the 'base' value; used for delta animation
         virtual void setCurrentStateAsBaseValue() = 0;

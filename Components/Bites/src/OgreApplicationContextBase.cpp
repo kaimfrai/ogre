@@ -286,60 +286,64 @@ void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)
 
 void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t windowID) const
 {
-    Event scaled = event;
+    struct Visitor
+    {
+        InputListener& l;
+
+        void operator()(::std::monostate const&) const noexcept
+        {   /* nothing for everything else*/ }
+
+        void operator()(KeyDownEvent const& event) const noexcept
+        {   l.keyPressed(event);    }
+
+        void operator()(KeyUpEvent const& event) const noexcept
+        {   l.keyReleased(event);    }
+
+        void operator()(MouseButtonDownEvent const& event) const noexcept
+        {   l.mousePressed(event);  }
+
+        void operator()(MouseButtonUpEvent const& event) const noexcept
+        {   l.mouseReleased(event); }
+
+        void operator()(MouseWheelEvent const& event) const noexcept
+        {   l.mouseWheelRolled(event);  }
+
+        void operator()(MouseMotionEvent const& event) const noexcept
+        {   l.mouseMoved(event);    }
+
+        void operator()(TouchFingerDownEvent const& event) const noexcept
+        {   // for finger down we have to move the pointer first
+            l.touchMoved(::std::bit_cast<TouchFingerMotionEvent>(event));
+            l.touchPressed(event);
+        }
+
+        void operator()(TouchFingerUpEvent const& event) const noexcept
+        {   l.touchReleased(event); }
+
+        void operator()(TouchFingerMotionEvent const& event) const noexcept
+        {   l.touchMoved(event);    }
+
+        void operator()(TextInputEvent const& event) const noexcept
+        {   l.textInput(event); }
+
+        void operator()(AxisEvent const& event) const noexcept
+        {   l.axisMoved(event); }
+
+        void operator()(ButtonDownEvent const& event) const noexcept
+        {   l.buttonPressed(event); }
+
+        void operator()(ButtonUpEvent const& event) const noexcept
+        {   l.buttonReleased(event);  }
+    };
 
     for(auto it = mInputListeners.begin();
             it != mInputListeners.end(); ++it)
     {
         // gamepad events are not window specific
-        if(it->first != windowID && event.type <= TEXTINPUT) continue;
+        if(it->first != windowID && event.index() <= Event{TextInputEvent{}}.index()) continue;
 
-        InputListener& l = *it->second;
-
-        switch (event.type)
-        {
-        case KEYDOWN:
-            l.keyPressed(event.key);
-            break;
-        case KEYUP:
-            l.keyReleased(event.key);
-            break;
-        case MOUSEBUTTONDOWN:
-            l.mousePressed(scaled.button);
-            break;
-        case MOUSEBUTTONUP:
-            l.mouseReleased(scaled.button);
-            break;
-        case MOUSEWHEEL:
-            l.mouseWheelRolled(event.wheel);
-            break;
-        case MOUSEMOTION:
-            l.mouseMoved(scaled.motion);
-            break;
-        case FINGERDOWN:
-            // for finger down we have to move the pointer first
-            l.touchMoved(event.tfinger);
-            l.touchPressed(event.tfinger);
-            break;
-        case FINGERUP:
-            l.touchReleased(event.tfinger);
-            break;
-        case FINGERMOTION:
-            l.touchMoved(event.tfinger);
-            break;
-        case TEXTINPUT:
-            l.textInput(event.text);
-            break;
-        case CONTROLLERAXISMOTION:
-            l.axisMoved(event.axis);
-            break;
-        case CONTROLLERBUTTONDOWN:
-            l.buttonPressed(event.cbutton);
-            break;
-        case CONTROLLERBUTTONUP:
-            l.buttonReleased(event.cbutton);
-            break;
-        }
+        Visitor const visitor {*it->second};
+        ::std::visit(visitor, event);
     }
 }
 

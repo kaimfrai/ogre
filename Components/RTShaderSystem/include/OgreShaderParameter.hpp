@@ -28,6 +28,7 @@ THE SOFTWARE.
 #define OGRE_COMPONENTS_RTSHADERSYSTEM_PARAMETER_H
 
 #include <cstddef>
+#include <variant>
 #include <vector>
 
 #include "OgreGpuProgramParams.hpp"
@@ -460,25 +461,32 @@ public:
 
     
     /** Get auto constant int data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] uint32 getAutoConstantIntData() const noexcept { return mAutoConstantIntData; }
+    [[nodiscard]] uint32 getAutoConstantIntData() const noexcept
+    { return get<uint32>(mAutoConstantData); }
 
     /** Get auto constant real data of this parameter, in case it is auto constant parameter. */
-    [[nodiscard]] float getAutoConstantRealData() const noexcept { return mAutoConstantRealData; }
+    [[nodiscard]] float getAutoConstantRealData() const noexcept
+    { return get<float>(mAutoConstantData); }
 
     /** Return true if this parameter is a floating point type, false otherwise. */
-    [[nodiscard]] bool isFloat() const noexcept { return GpuConstantDefinition::isFloat(mType); }
+    [[nodiscard]] bool isFloat() const noexcept
+    { return GpuConstantDefinition::isFloat(mType); }
 
     /** Return true if this parameter is a texture sampler type, false otherwise. */
-    [[nodiscard]] bool isSampler() const noexcept { return GpuConstantDefinition::isSampler(mType); }
+    [[nodiscard]] bool isSampler() const noexcept
+    { return GpuConstantDefinition::isSampler(mType); }
 
     /** Return true if this parameter is an auto constant parameter, false otherwise. */
-    [[nodiscard]] bool isAutoConstantParameter() const noexcept { return mIsAutoConstantReal || mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantParameter() const noexcept
+    { return not holds_alternative<::std::monostate>(mAutoConstantData); }
 
     /** Return true if this parameter an auto constant with int data type, false otherwise. */
-    [[nodiscard]] bool isAutoConstantIntParameter() const noexcept { return mIsAutoConstantInt; }
+    [[nodiscard]] bool isAutoConstantIntParameter() const noexcept
+    { return holds_alternative<uint32>(mAutoConstantData); }
 
     /** Return true if this parameter an auto constant with real data type, false otherwise. */
-    [[nodiscard]] bool isAutoConstantRealParameter() const noexcept { return mIsAutoConstantReal; }
+    [[nodiscard]] bool isAutoConstantRealParameter() const noexcept
+    { return holds_alternative<float>(mAutoConstantData); }
 
     /** Return the auto constant type of this parameter. */
     [[nodiscard]] GpuProgramParameters::AutoConstantType getAutoConstantType  () const noexcept { return mAutoConstantType; }
@@ -606,18 +614,8 @@ public:
     }
 
 private:
-    // Is it auto constant real based parameter.
-    bool mIsAutoConstantReal;
-    // Is it auto constant int based parameter.
-    bool mIsAutoConstantInt;
     GpuProgramParameters::AutoConstantType  mAutoConstantType;      // The auto constant type of this parameter.
-    union
-    {
-        // Auto constant int data.
-        uint32 mAutoConstantIntData;
-        // Auto constant real data.
-        float mAutoConstantRealData;
-    };      
+    ::std::variant<::std::monostate, uint32, float> mAutoConstantData;
     // How this parameter varies (bitwise combination of GpuProgramVariability).
     uint16 mVariability;
     // The actual GPU parameters pointer.

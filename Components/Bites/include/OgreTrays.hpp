@@ -1134,13 +1134,13 @@ namespace OgreBites
         Processes mouse button down events. Returns true if the event was
         consumed and should not be passed on to other handlers.
         */
-        bool mousePressed(const MouseButtonEvent& evt) noexcept override;
+        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override;
 
         /**
         Processes mouse button up events. Returns true if the event was
         consumed and should not be passed on to other handlers.
         */
-        bool mouseReleased(const MouseButtonEvent& evt) noexcept override;
+        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override;
 
         /**
         Updates cursor position. Returns true if the event was

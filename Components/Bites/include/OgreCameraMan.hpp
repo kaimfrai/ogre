@@ -120,12 +120,12 @@ namespace OgreBites
         /**
         Processes key presses for free-look style movement.
         */
-        bool keyPressed(const KeyboardEvent& evt) noexcept override;
+        bool keyPressed(const KeyDownEvent& evt) noexcept override;
 
         /**
         Processes key releases for free-look style movement.
         */
-        bool keyReleased(const KeyboardEvent& evt) noexcept override;
+        bool keyReleased(const KeyUpEvent& evt) noexcept override;
 
         /**
         Processes mouse movement differently for each style.
@@ -138,13 +138,13 @@ namespace OgreBites
         Processes mouse presses. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        bool mousePressed(const MouseButtonEvent& evt) noexcept override;
+        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override;
 
         /**
         Processes mouse releases. Only applies for orbit style.
         Left button is for orbiting, and right button is for zooming.
         */
-        bool mouseReleased(const MouseButtonEvent& evt) noexcept override;
+        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override;
 
         /**
          * fix the yaw axis to be Vector3::UNIT_Y of the parent node (tabletop mode)

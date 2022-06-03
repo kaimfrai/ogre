@@ -100,7 +100,7 @@ namespace OgreBites
             return true;
         }
 
-        bool keyPressed(const KeyboardEvent& evt) noexcept override
+        bool keyPressed(const KeyDownEvent& evt) noexcept override
         {
         	int key = evt.keysym.sym;
         	
@@ -117,7 +117,7 @@ namespace OgreBites
             return true;
         }
 
-        bool keyReleased(const KeyboardEvent& evt) noexcept override
+        bool keyReleased(const KeyUpEvent& evt) noexcept override
         {
             mCameraMan->keyReleased(evt);
 
@@ -136,14 +136,14 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchMoved(const TouchFingerEvent& evt) noexcept override {
+        bool touchMoved(const TouchFingerMotionEvent& evt) noexcept override {
             MouseMotionEvent e;
             e.xrel = evt.dx * mWindow->getWidth();
             e.yrel = evt.dy * mWindow->getHeight();
             return mouseMoved(e);
         }
 
-        bool mousePressed(const MouseButtonEvent& evt) noexcept override
+        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override
         {
             if (mTrayMgr->mousePressed(evt)) return true;
 
@@ -158,13 +158,13 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchPressed(const TouchFingerEvent& evt) noexcept override {
-            MouseButtonEvent e;
+        bool touchPressed(const TouchFingerDownEvent& evt) noexcept override {
+            MouseButtonDownEvent e;
             e.button = BUTTON_LEFT;
             return mousePressed(e);
         }
 
-        bool mouseReleased(const MouseButtonEvent& evt) noexcept override
+        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override
         {
             if (mTrayMgr->mouseReleased(evt)) return true;
 
@@ -179,8 +179,8 @@ namespace OgreBites
         }
 
         // convert and redirect
-        bool touchReleased(const TouchFingerEvent& evt) noexcept override {
-            MouseButtonEvent e;
+        bool touchReleased(const TouchFingerUpEvent& evt) noexcept override {
+            MouseButtonUpEvent e;
             e.button = BUTTON_LEFT;
             return mouseReleased(e);
         }

@@ -64,7 +64,7 @@ bool Sample_NewInstancing::frameRenderingQueued(const FrameEvent& evt) noexcept
 }
 
 //------------------------------------------------------------------------------
-bool Sample_NewInstancing::keyPressed(const KeyboardEvent& evt) noexcept
+bool Sample_NewInstancing::keyPressed(const KeyDownEvent& evt) noexcept
 {
     return SdkSample::keyPressed(evt);
 }

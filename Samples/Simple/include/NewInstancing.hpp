@@ -31,7 +31,7 @@ public:
 
     bool frameRenderingQueued(const FrameEvent& evt) noexcept override;
 
-    bool keyPressed(const KeyboardEvent& evt) noexcept override;
+    bool keyPressed(const KeyDownEvent& evt) noexcept override;
 
 protected:
     void setupContent() override;

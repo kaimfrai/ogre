@@ -231,7 +231,7 @@ namespace OgreBites
 
         // keyboard and mouse callbacks which manually call their respective sample callbacks to ensure correct order
 
-        bool keyPressed(const KeyboardEvent& evt) noexcept override
+        bool keyPressed(const KeyDownEvent& evt) noexcept override
         {
             // Ignore repeated signals from key being held down.
             if (evt.repeat) return true;
@@ -240,13 +240,13 @@ namespace OgreBites
             return true;
         }
 
-        bool keyReleased(const KeyboardEvent& evt) noexcept override
+        bool keyReleased(const KeyUpEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->keyReleased(evt);
             return true;
         }
 
-        bool touchMoved(const TouchFingerEvent& evt) noexcept override
+        bool touchMoved(const TouchFingerMotionEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchMoved(evt);
@@ -260,28 +260,28 @@ namespace OgreBites
             return true;
         }
 
-        bool touchPressed(const TouchFingerEvent& evt) noexcept override
+        bool touchPressed(const TouchFingerDownEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchPressed(evt);
             return true;
         }
 
-        bool mousePressed(const MouseButtonEvent& evt) noexcept override
+        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mousePressed(evt);
             return true;
         }
 
-        bool touchReleased(const TouchFingerEvent& evt) noexcept override
+        bool touchReleased(const TouchFingerUpEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchReleased(evt);
             return true;
         }
 
-        bool mouseReleased(const MouseButtonEvent& evt) noexcept override
+        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseReleased(evt);

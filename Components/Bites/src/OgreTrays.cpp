@@ -1932,7 +1932,7 @@ void TrayManager::buttonHit(Button *button)
     closeDialog();
 }
 
-bool TrayManager::mousePressed(const MouseButtonEvent &evt) noexcept
+bool TrayManager::mousePressed(const MouseButtonDownEvent &evt) noexcept
 {
     if (evt.button != BUTTON_LEFT) return false;
 
@@ -2005,7 +2005,7 @@ bool TrayManager::mousePressed(const MouseButtonEvent &evt) noexcept
     return true;   // a tray click is not to be handled by another party
 }
 
-bool TrayManager::mouseReleased(const MouseButtonEvent &evt) noexcept
+bool TrayManager::mouseReleased(const MouseButtonUpEvent &evt) noexcept
 {
     if (evt.button != BUTTON_LEFT) return false;
 

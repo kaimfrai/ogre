@@ -430,7 +430,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightDiffuseColourValue(Light* l) :AnimableValue(COLOUR) 
+        LightDiffuseColourValue(Light* l) :AnimableValue(::std::in_place_type<ColourValue>)
         { mLight = l; }
         void setValue(const ColourValue& val) override
         {
@@ -452,7 +452,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightSpecularColourValue(Light* l) :AnimableValue(COLOUR) 
+        LightSpecularColourValue(Light* l) :AnimableValue(::std::in_place_type<ColourValue>)
         { mLight = l; }
         void setValue(const ColourValue& val) override
         {
@@ -474,7 +474,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightAttenuationValue(Light* l) :AnimableValue(VECTOR4) 
+        LightAttenuationValue(Light* l) :AnimableValue(::std::in_place_type<Vector4>)
         { mLight = l; }
         void setValue(const Vector4& val) override
         {
@@ -496,7 +496,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightSpotlightInnerValue(Light* l) :AnimableValue(REAL) 
+        LightSpotlightInnerValue(Light* l) :AnimableValue(::std::in_place_type<Real>)
         { mLight = l; }
         void setValue(Real val) override
         {
@@ -518,7 +518,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightSpotlightOuterValue(Light* l) :AnimableValue(REAL) 
+        LightSpotlightOuterValue(Light* l) :AnimableValue(::std::in_place_type<Real>)
         { mLight = l; }
         void setValue(Real val) override
         {
@@ -540,7 +540,7 @@ namespace Ogre {
     protected:
         Light* mLight;
     public:
-        LightSpotlightFalloffValue(Light* l) :AnimableValue(REAL) 
+        LightSpotlightFalloffValue(Light* l) :AnimableValue(::std::in_place_type<Real>)
         { mLight = l; }
         void setValue(Real val) override
         {

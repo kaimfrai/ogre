@@ -39,6 +39,7 @@
 #include "OgreException.hpp"
 #include "OgreFileSystemLayer.hpp"
 #include "OgreFrameListener.hpp"
+#include "OgreInput.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreStaticPluginLoader.hpp"
 
@@ -59,7 +60,6 @@ namespace OgreBites
 {
     class SGTechniqueResolverListener;
     struct InputListener;
-    union Event;
 
     using NativeWindowType = SDL_Window;
 

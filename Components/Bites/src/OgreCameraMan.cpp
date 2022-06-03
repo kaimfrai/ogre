@@ -126,7 +126,7 @@ void CameraMan::frameRendered(const Ogre::FrameEvent &evt)
     }
 }
 
-bool CameraMan::keyPressed(const KeyboardEvent &evt) noexcept
+bool CameraMan::keyPressed(const KeyDownEvent &evt) noexcept
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -143,7 +143,7 @@ bool CameraMan::keyPressed(const KeyboardEvent &evt) noexcept
     return InputListener::keyPressed(evt);
 }
 
-bool CameraMan::keyReleased(const KeyboardEvent &evt) noexcept
+bool CameraMan::keyReleased(const KeyUpEvent &evt) noexcept
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -218,7 +218,7 @@ bool CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept {
     return InputListener::mouseWheelRolled(evt);
 }
 
-bool CameraMan::mousePressed(const MouseButtonEvent &evt) noexcept
+bool CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept
 {
     if (mStyle == CS_ORBIT)
     {
@@ -229,7 +229,7 @@ bool CameraMan::mousePressed(const MouseButtonEvent &evt) noexcept
     return InputListener::mousePressed(evt);
 }
 
-bool CameraMan::mouseReleased(const MouseButtonEvent &evt) noexcept
+bool CameraMan::mouseReleased(const MouseButtonUpEvent &evt) noexcept
 {
     if (mStyle == CS_ORBIT)
     {

@@ -191,9 +191,7 @@ UniformParameter::UniformParameter(GpuConstantType type, const String& name,
                  const Content& content,
                  uint16 variability, size_t size) : Parameter(type, name, semantic, index, content, size)
 {
-    mIsAutoConstantReal     = false;    
-    mIsAutoConstantInt      = false;
-    mAutoConstantIntData    = 0;
+    mAutoConstantData    = ::std::monostate{};
     mVariability            = variability;
     mParamsPtr              = nullptr;
     mPhysicalIndex          = -1;
@@ -243,10 +241,8 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mSemantic           = SPS_UNKNOWN;
     mIndex              = -1;
     mContent            = SPC_UNKNOWN;
-    mIsAutoConstantReal = true; 
-    mIsAutoConstantInt  = false;
     mAutoConstantType   = autoType;
-    mAutoConstantRealData = fAutoConstantData;
+    mAutoConstantData = fAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
@@ -270,10 +266,8 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mSemantic           = SPS_UNKNOWN;
     mIndex              = -1;
     mContent            = SPC_UNKNOWN;
-    mIsAutoConstantReal = true; 
-    mIsAutoConstantInt  = false;
     mAutoConstantType   = autoType;
-    mAutoConstantRealData = fAutoConstantData;
+    mAutoConstantData = fAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
@@ -293,10 +287,8 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mSemantic           = SPS_UNKNOWN;
     mIndex              = -1;
     mContent            = SPC_UNKNOWN;
-    mIsAutoConstantReal = false;    
-    mIsAutoConstantInt  = true;
     mAutoConstantType   = autoType;
-    mAutoConstantIntData = nAutoConstantData;
+    mAutoConstantData = nAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
@@ -316,10 +308,8 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     mSemantic           = SPS_UNKNOWN;
     mIndex              = -1;
     mContent            = SPC_UNKNOWN;
-    mIsAutoConstantReal = false;    
-    mIsAutoConstantInt  = true;
     mAutoConstantType   = autoType;
-    mAutoConstantIntData = nAutoConstantData;
+    mAutoConstantData = nAutoConstantData;
     mVariability        = (uint16)GPV_GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
