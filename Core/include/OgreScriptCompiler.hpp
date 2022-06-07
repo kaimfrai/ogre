@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define OGRE_CORE_SCRIPTCOMPILER_H
 
 #include <algorithm>
+#include <any>
 #include <list>
 #include <map>
 #include <memory>
@@ -38,7 +39,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAny.hpp"
 #include "OgreCommon.hpp"
 #include "OgreGpuProgram.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
@@ -111,7 +111,7 @@ class Material;
         unsigned int line{0};
         AbstractNodeType type{ANT_UNKNOWN};
         AbstractNode *parent;
-        Any context; // A holder for translation context data
+        ::std::any context; // A holder for translation context data
     public:
         AbstractNode(AbstractNode *ptr);
         virtual ~AbstractNode()= default;

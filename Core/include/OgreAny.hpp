@@ -37,333 +37,132 @@ THE SOFTWARE.
 #define OGRE_CORE_ANY_H
 
 #include "OgrePrerequisites.hpp"
-#include <typeinfo>
+
+#include <any>
+#include <cassert>
+#include <type_traits>
 #include <utility>
 
 namespace Ogre
 {
-	// resolve circular dependancy
-    class Any;
-    template<typename ValueType> ValueType
-    any_cast(const Any & operand);
-
-    /** \addtogroup Core
-    *  @{
-    */
-    /** \addtogroup General
-    *  @{
-    */
-    /** Variant type that can hold Any other type.
-    */
-    class Any 
-    {
-    public: // constructors
-
-        Any()
-           
-        = default;
-
-        template<typename ValueType>
-        Any(const ValueType & value)
-          : mContent(new holder<ValueType>(value))
-        {
-        }
-
-        Any(const Any & other)
-          : mContent(other.mContent ? other.mContent->clone() : nullptr)
-        {
-        }
-
-        virtual ~Any()
-        {
-            reset();
-        }
-
-    public: // modifiers
-
-        Any& swap(Any & rhs)
-        {
-            std::swap(mContent, rhs.mContent);
-            return *this;
-        }
-
-        template<typename ValueType>
-        Any& operator=(const ValueType & rhs)
-        {
-            Any(rhs).swap(*this);
-            return *this;
-        }
-
-        Any & operator=(const Any & rhs)
-        {
-            Any(rhs).swap(*this);
-            return *this;
-        }
-
-    public: // queries
-
-        [[nodiscard]] bool has_value() const
-        {
-            return mContent != nullptr;
-        }
-
-        [[nodiscard]] const std::type_info& type() const
-        {
-            return mContent ? mContent->getType() : typeid(void);
-        }
-
-        void reset()
-        {
-            delete mContent;
-            mContent = nullptr;
-        }
-
-    protected: // types
-
-        class placeholder 
-        {
-        public: // structors
-    
-            virtual ~placeholder()
-            = default;
-
-        public: // queries
-
-            [[nodiscard]] virtual const std::type_info& getType() const noexcept = 0;
-
-            [[nodiscard]] virtual placeholder * clone() const = 0;
-    
-            virtual void writeToStream(std::ostream& o) = 0;
-
-        };
-
-        template<typename ValueType>
-        class holder : public placeholder
-        {
-        public: // structors
-
-            holder(ValueType  value)
-              : held(std::move(value))
-            {
-            }
-
-        public: // queries
-
-            [[nodiscard]] const std::type_info & getType() const noexcept override
-            {
-                return typeid(ValueType);
-            }
-
-            [[nodiscard]] placeholder * clone() const override
-            {
-                return new holder(held);
-            }
-
-            void writeToStream(std::ostream& o) override
-            {
-                o << "Any::ValueType";
-            }
-
-
-        public: // representation
-            ValueType held;
-        };
-
-    protected: // representation
-        placeholder * mContent{nullptr};
-
-        template<typename ValueType>
-        friend ValueType * any_cast(Any *);
-    };
-
-
-    /** Specialised Any class which has built in arithmetic operators, but can 
+    /** Specialised Any class which has built in arithmetic operators, but can
         hold only types which support operator +,-,* and / .
     */
-    class AnyNumeric : public Any
+    class AnyNumeric
     {
-    public:
-        AnyNumeric()
-        : Any()
+    private:
+        ::std::any mContent;
+        using Assignment = auto(AnyNumeric&, AnyNumeric const&) noexcept -> void;
+        using Scale = auto(AnyNumeric&, Real) noexcept -> void;
+        struct VTable
         {
+            Assignment* additionAssignment;
+            Assignment* subtractionAssignment;
+            Assignment* multiplicationAssignment;
+            Scale* scale;
+            Assignment* divisionAssignment;
+        };
+
+        VTable const* mVTable;
+
+        template<typename ValueType>
+        [[nodiscard]] static ValueType& get(AnyNumeric& numeric) noexcept
+        {
+            return *::std::any_cast<ValueType>(&numeric.mContent);
         }
 
         template<typename ValueType>
-        AnyNumeric(const ValueType & value)
-            
+        [[nodiscard]] static ValueType const& get(AnyNumeric const& numeric) noexcept
         {
-            mContent = new numholder<ValueType>(value);
+            return *::std::any_cast<ValueType const>(&numeric.mContent);
         }
-
-        AnyNumeric(const AnyNumeric & other)
-            : Any()
-        {
-            mContent = other.mContent ? other.mContent->clone() : nullptr; 
-        }
-
-    protected:
-        class numplaceholder : public Any::placeholder
-        {
-        public: // structors
-
-            ~numplaceholder() override
-            = default;
-            virtual placeholder* add(placeholder* rhs) = 0;
-            virtual placeholder* subtract(placeholder* rhs) = 0;
-            virtual placeholder* multiply(placeholder* rhs) = 0;
-            virtual placeholder* multiply(Real factor) = 0;
-            virtual placeholder* divide(placeholder* rhs) = 0;
-        };
 
         template<typename ValueType>
-        class numholder : public numplaceholder
-        {
-        public: // structors
-
-            numholder(const ValueType & value)
-                : held(value)
+        static VTable const constexpr VTableFor
+        {   .additionAssignment = +[](AnyNumeric& lhs, AnyNumeric const& rhs) noexcept
             {
+                get<ValueType>(lhs) += get<ValueType>(rhs);
             }
-
-        public: // queries
-
-            [[nodiscard]] const std::type_info & getType() const noexcept override
+        ,   .subtractionAssignment = +[](AnyNumeric& lhs, AnyNumeric const& rhs) noexcept
             {
-                return typeid(ValueType);
+                get<ValueType>(lhs) -= get<ValueType>(rhs);
             }
-
-            [[nodiscard]] placeholder * clone() const override
+        ,   .multiplicationAssignment = +[](AnyNumeric& lhs, AnyNumeric const& rhs) noexcept
             {
-                return new numholder(held);
+                get<ValueType>(lhs) *= get<ValueType>(rhs);
             }
-
-            placeholder* add(placeholder* rhs) override
+        ,   .scale = +[](AnyNumeric& lhs, Real rhs) noexcept
             {
-                return new numholder(held + static_cast<numholder*>(rhs)->held);
+                get<ValueType>(lhs) *= rhs;
             }
-            placeholder* subtract(placeholder* rhs) override
+        ,   .divisionAssignment = +[](AnyNumeric& lhs, AnyNumeric const& rhs) noexcept
             {
-                return new numholder(held - static_cast<numholder*>(rhs)->held);
+                get<ValueType>(lhs) /= get<ValueType>(rhs);
             }
-            placeholder* multiply(placeholder* rhs) override
-            {
-                return new numholder(held * static_cast<numholder*>(rhs)->held);
-            }
-            placeholder* multiply(Real factor) override
-            {
-                return new numholder(held * factor);
-            }
-            placeholder* divide(placeholder* rhs) override
-            {
-                return new numholder(held / static_cast<numholder*>(rhs)->held);
-            }
-            void writeToStream(std::ostream& o) override
-            {
-                o << held;
-            }
-
-        public: // representation
-
-            ValueType held;
-
         };
 
-        /// Construct from holder
-        AnyNumeric(placeholder* pholder)
-        {
-            mContent = pholder;
-        }
-
     public:
-        AnyNumeric & operator=(const AnyNumeric & rhs)
-        {
-            AnyNumeric(rhs).swap(*this);
-            return *this;
-        }
-        AnyNumeric operator+(const AnyNumeric& rhs) const
-        {
-            return {
-                static_cast<numplaceholder*>(mContent)->add(rhs.mContent)};
-        }
-        AnyNumeric operator-(const AnyNumeric& rhs) const
-        {
-            return {
-                static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent)};
-        }
-        AnyNumeric operator*(const AnyNumeric& rhs) const
-        {
-            return {
-                static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent)};
-        }
-        AnyNumeric operator*(Real factor) const
-        {
-            return {
-                static_cast<numplaceholder*>(mContent)->multiply(factor)};
-        }
-        AnyNumeric operator/(const AnyNumeric& rhs) const
-        {
-            return {
-                static_cast<numplaceholder*>(mContent)->divide(rhs.mContent)};
-        }
-        AnyNumeric& operator+=(const AnyNumeric& rhs)
-        {
-            *this = AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->add(rhs.mContent));
-            return *this;
-        }
-        AnyNumeric& operator-=(const AnyNumeric& rhs)
-        {
-            *this = AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->subtract(rhs.mContent));
-            return *this;
-        }
-        AnyNumeric& operator*=(const AnyNumeric& rhs)
-        {
-            *this = AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->multiply(rhs.mContent));
-            return *this;
-        }
-        AnyNumeric& operator/=(const AnyNumeric& rhs)
-        {
-            *this = AnyNumeric(
-                static_cast<numplaceholder*>(mContent)->divide(rhs.mContent));
-            return *this;
-        }
+        AnyNumeric() = default;
 
+        template<typename ValueType>
+        AnyNumeric(ValueType&& value)
+        : mContent(::std::forward<ValueType>(value))
+        , mVTable{&VTableFor<::std::decay_t<ValueType>>}
+        {}
 
-
-
+        [[nodiscard]] friend AnyNumeric operator+(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        {
+            return lhs += rhs;
+        }
+        [[nodiscard]] friend AnyNumeric operator-(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        {
+            return lhs -= rhs;
+        }
+        [[nodiscard]] friend AnyNumeric operator*(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        {
+            return lhs *= rhs;
+        }
+        [[nodiscard]] friend AnyNumeric operator*(AnyNumeric lhs, Real factor) noexcept
+        {
+            return lhs *= factor;
+        }
+        [[nodiscard]] friend AnyNumeric operator/(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        {
+            return lhs /= rhs;
+        }
+        AnyNumeric& operator+=(AnyNumeric const& rhs) & noexcept
+        {
+            assert(mVTable == rhs.mVTable);
+            mVTable->additionAssignment(*this, rhs);
+            return *this;
+        }
+        AnyNumeric& operator-=(AnyNumeric const& rhs) & noexcept
+        {
+            assert(mVTable == rhs.mVTable);
+            mVTable->subtractionAssignment(*this, rhs);
+            return *this;
+        }
+        AnyNumeric& operator*=(AnyNumeric const& rhs) & noexcept
+        {
+            assert(mVTable == rhs.mVTable);
+            mVTable->multiplicationAssignment(*this, rhs);
+            return *this;
+        }
+        AnyNumeric& operator*=(Real rhs) & noexcept
+        {
+            mVTable->scale(*this, rhs);
+            return *this;
+        }
+        AnyNumeric& operator/=(AnyNumeric const& rhs) & noexcept
+        {
+            assert(mVTable == rhs.mVTable);
+            mVTable->divisionAssignment(*this, rhs);
+            return *this;
+        }
     };
 
-
-    template<typename ValueType>
-    ValueType * any_cast(Any * operand)
-    {
-        return operand &&
-                (operand->type() == typeid(ValueType))
-                    ? &static_cast<Any::holder<ValueType> *>(operand->mContent)->held
-                    : nullptr;
-    }
-
-    template<typename ValueType>
-    const ValueType * any_cast(const Any * operand)
-    {
-        return any_cast<ValueType>(const_cast<Any *>(operand));
-    }
-
-    template<typename ValueType>
-    ValueType any_cast(const Any & operand)
-    {
-        const auto * result = any_cast<ValueType>(&operand);
-        if(!result)
-        {
-            throw std::bad_cast();
-        }
-        return *result;
-    }
     /** @} */
     /** @} */
-
 
 }
 

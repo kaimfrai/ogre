@@ -28,11 +28,11 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_CODEC_H
 #define OGRE_CORE_CODEC_H
 
+#include <any>
 #include <cstddef>
 #include <map>
 #include <string>
 
-#include "OgreAny.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreStringVector.hpp"
@@ -100,7 +100,7 @@ namespace Ogre {
         /** Codes the input and saves the result in the output
             stream.
         */
-        [[nodiscard]] virtual DataStreamPtr encode(const Any& input) const;
+        [[nodiscard]] virtual DataStreamPtr encode(::std::any const& input) const;
 
         /** Codes the data in the input chunk and saves the result in the output
             filename provided. Provided for efficiency since coding to memory is
@@ -108,13 +108,13 @@ namespace Ogre {
         @param input The input data (codec type specific)
         @param outFileName The filename to write to
         */
-        virtual void encodeToFile(const Any& input, const String& outFileName) const;
+        virtual void encodeToFile(::std::any const& input, const String& outFileName) const;
 
         /** Codes the data from the input chunk into the output chunk.
             @param input Stream containing the encoded data
             @param output codec type specific result
         */
-        virtual void decode(const DataStreamPtr& input, const Any& output) const = 0;
+        virtual void decode(const DataStreamPtr& input, ::std::any const& output) const = 0;
 
         /** Returns the type of the codec as a String
         */

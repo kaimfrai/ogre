@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_RENDERABLE_H
 #define OGRE_CORE_RENDERABLE_H
 
+#include <any>
 #include <cstddef>
 #include <map>
 
@@ -40,7 +41,6 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-    class Any;
     class Camera;
     class Matrix4;
     class RenderOperation;
@@ -340,7 +340,7 @@ namespace Ogre {
                 calling the visitor may populate if it chooses to.
             */
             virtual void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-                Any* pAny = nullptr) = 0;
+                ::std::any* pAny = nullptr) = 0;
         };
 
     protected:

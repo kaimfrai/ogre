@@ -50,7 +50,7 @@ namespace Ogre {
         return i->second;
     }
     //---------------------------------------------------------------------
-    WorkQueue::Request::Request(uint16 channel, uint16 rtype, const Any& rData, uint8 retry, RequestID rid)
+    WorkQueue::Request::Request(uint16 channel, uint16 rtype, ::std::any const& rData, uint8 retry, RequestID rid)
         : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid) 
     {
 
@@ -60,7 +60,7 @@ namespace Ogre {
     = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    WorkQueue::Response::Response(const Request* rq, bool success, const Any& data, String  msg)
+    WorkQueue::Response::Response(const Request* rq, bool success, ::std::any const& data, String  msg)
         : mRequest(rq), mSuccess(success), mMessages(std::move(msg)), mData(data)
     {
         
@@ -167,7 +167,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     WorkQueue::RequestID DefaultWorkQueueBase::addRequest(uint16 channel, uint16 requestType, 
-        const Any& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
+        ::std::any const& rData, uint8 retryCount, bool forceSynchronous, bool idleThread)
     {
         ::std::unique_ptr<Request> req = nullptr;
         RequestID rid = 0;
@@ -209,7 +209,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     void DefaultWorkQueueBase::addRequestWithRID(WorkQueue::RequestID rid, uint16 channel, 
-        uint16 requestType, const Any& rData, uint8 retryCount)
+        uint16 requestType, ::std::any const& rData, uint8 retryCount)
     {
         // lock to push request to the queue
         std::unique_lock<std::recursive_mutex> ogrenameLock(mRequestMutex);

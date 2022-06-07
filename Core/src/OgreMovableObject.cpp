@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
+#include <any>
 #include <cassert>
 #include <cmath>
 #include <cstddef>
@@ -58,8 +59,6 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-class Any;
-
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     uint32 MovableObject::msDefaultQueryFlags = 0xFFFFFFFF;
@@ -464,7 +463,7 @@ class Any;
         MORecvShadVisitor()  
         = default;
         void visit(Renderable* rend, ushort lodIndex, bool isDebug, 
-            Any* pAny = nullptr) override
+            ::std::any* pAny = nullptr) override
         {
             Technique* tech = rend->getTechnique();
             bool techReceivesShadows = tech && tech->getParent()->getReceiveShadows();

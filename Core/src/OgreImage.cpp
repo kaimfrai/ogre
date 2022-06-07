@@ -26,10 +26,10 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
+#include <any>
 #include <cstring>
 #include <memory>
 
-#include "OgreAny.hpp"
 #include "OgreCodec.hpp"
 #include "OgreDataStream.hpp"
 #include "OgreException.hpp"
@@ -44,7 +44,7 @@ THE SOFTWARE.
 namespace Ogre {
     ImageCodec::~ImageCodec() = default;
 
-    void ImageCodec::decode(const DataStreamPtr& input, const Any& output) const
+    void ImageCodec::decode(const DataStreamPtr& input, ::std::any const& output) const
     {
         DecodeResult res = decode(input);
 
@@ -64,7 +64,7 @@ namespace Ogre {
         res.first->setFreeOnClose(false);
     }
 
-    DataStreamPtr ImageCodec::encode(const Any& input) const
+    DataStreamPtr ImageCodec::encode(::std::any const& input) const
     {
         auto* src = any_cast<Image*>(input);
 
@@ -80,7 +80,7 @@ namespace Ogre {
         auto wrapper = std::make_shared<MemoryDataStream>(src->getData(), src->getSize(), false);
         return encode(wrapper, imgData);
     }
-    void ImageCodec::encodeToFile(const Any& input, const String& outFileName) const
+    void ImageCodec::encodeToFile(::std::any const& input, const String& outFileName) const
     {
         auto* src = any_cast<Image*>(input);
 

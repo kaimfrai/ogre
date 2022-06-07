@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <any>
 #include <cassert>
 #include <utility>
 
 #include "OgreResourceBackgroundQueue.hpp"
-#include "OgreAny.hpp"
 #include "OgreException.hpp"
 #include "OgreResourceGroupManager.hpp"
 #include "OgreResourceManager.hpp"
@@ -251,7 +251,7 @@ namespace Ogre {
     {
         WorkQueue* queue = Root::getSingleton().getWorkQueue();
 
-        Any data(req);
+        ::std::any data(req);
 
         WorkQueue::RequestID requestID = 
             queue->addRequest(mWorkQueueChannel, (uint16)req.type, data);

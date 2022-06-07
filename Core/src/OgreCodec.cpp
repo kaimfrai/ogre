@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <any>
 #include <utility>
 
 #include "OgreCodec.hpp"
@@ -34,19 +35,18 @@ THE SOFTWARE.
 #include "OgreStringConverter.hpp"
 
 namespace Ogre {
-class Any;
 
     std::map< String, Codec * > Codec::msMapCodecs;
 
     Codec::~Codec() = default;
 
-    DataStreamPtr Codec::encode(const Any& input) const
+    DataStreamPtr Codec::encode(::std::any const& input) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to memory not supported");
         return {};
     }
 
-    void Codec::encodeToFile(const Any& input, const String& outFileName) const
+    void Codec::encodeToFile(::std::any const& input, const String& outFileName) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, getType() + " - encoding to file not supported");
     }

@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_ANIMABLE_H
 #define OGRE_CORE_ANIMABLE_H
 
+#include <any>
 #include <cstring>
 #include <map>
 #include <string>
@@ -45,8 +46,6 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-
-    class Any;
 
     /** \addtogroup Core
     *  @{
@@ -100,7 +99,7 @@ namespace Ogre {
             mBaseValue = val;
         }
         /// Internal method to set a value as base
-        virtual void setAsBaseValue(const Any& val);
+        virtual void setAsBaseValue(::std::any const& val);
         /// Internal method to set a value as base
         virtual void setAsBaseValue(const ColourValue& val)
         { 
@@ -163,7 +162,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
-        virtual void setValue(const Any& val);
+        virtual void setValue(::std::any const& val);
 
         // reset to base value
         virtual void resetToBaseValue();
@@ -205,7 +204,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
-        virtual void applyDeltaValue(const Any& val);
+        virtual void applyDeltaValue(::std::any const& val);
 
 
     };

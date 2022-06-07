@@ -25,13 +25,13 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <any>
 #include <cassert>
 #include <cstddef>
 #include <list>
 #include <string>
 #include <vector>
 
-#include "OgreAny.hpp"
 #include "OgreMaterial.hpp"
 #include "OgrePass.hpp"
 #include "OgrePrerequisites.hpp"

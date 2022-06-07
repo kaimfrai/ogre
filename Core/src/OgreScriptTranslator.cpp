@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <any>
 #include <cassert>
 #include <cstddef>
 #include <iterator>
@@ -37,7 +38,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAny.hpp"
 #include "OgreBlendMode.hpp"
 #include "OgreBuiltinScriptTranslators.hpp"
 #include "OgreColourValue.hpp"
@@ -1167,7 +1167,7 @@ class LodStrategy;
         auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // Create the technique from the material
-        auto *material = Ogre::any_cast<Ogre::Material*>(obj->parent->context);
+        auto *material = ::std::any_cast<Ogre::Material*>(obj->parent->context);
         mTechnique = material->createTechnique();
         obj->context = mTechnique;
 

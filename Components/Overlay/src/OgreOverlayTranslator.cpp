@@ -26,13 +26,13 @@ THE SOFTWARE.
 */
 #include "OgreOverlayTranslator.hpp"
 
+#include <any>
 #include <cstddef>
 #include <list>
 #include <sstream>
 #include <string>
 #include <vector>
 
-#include "OgreAny.hpp"
 #include "OgreCommon.hpp"
 #include "OgreFontManager.hpp"
 #include "OgreMath.hpp"

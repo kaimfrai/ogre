@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <any>
 #include <map>
 #include <memory>
 #include <utility>
 
-#include "OgreAny.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
-    static Any emptyAny;
+    static ::std::any emptyAny;
 
     //--------------------------------------------------------------------------
     UserObjectBindings::UserObjectBindings(const UserObjectBindings& other)
@@ -56,7 +56,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void UserObjectBindings::setUserAny( const Any& anything )
+    void UserObjectBindings::setUserAny( ::std::any const& anything )
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -66,7 +66,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Any& UserObjectBindings::getUserAny() const noexcept
+    ::std::any const& UserObjectBindings::getUserAny() const noexcept
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -76,7 +76,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void UserObjectBindings::setUserAny(const String& key, const Any& anything)
+    void UserObjectBindings::setUserAny(const String& key, ::std::any const& anything)
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -90,7 +90,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Any& UserObjectBindings::getUserAny(const String& key) const
+    ::std::any const& UserObjectBindings::getUserAny(const String& key) const
     {
         if (!mAttributes)
             return emptyAny;

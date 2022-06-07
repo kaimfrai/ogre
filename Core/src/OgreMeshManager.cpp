@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <any>
 #include <cassert>
 #include <cmath>
 #include <cstddef>
@@ -33,7 +34,6 @@ THE SOFTWARE.
 #include <string>
 #include <utility>
 
-#include "OgreAny.hpp"
 #include "OgreAxisAlignedBox.hpp"
 #include "OgreCodec.hpp"
 #include "OgreCommon.hpp"
@@ -69,7 +69,7 @@ namespace Ogre
     {
         String magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const override { return ""; }
         [[nodiscard]] String getType() const override { return "mesh"; }
-        void decode(const DataStreamPtr& input, const Any& output) const override
+        void decode(const DataStreamPtr& input, ::std::any const& output) const override
         {
             Mesh* dst = any_cast<Mesh*>(output);
             MeshSerializer serializer;

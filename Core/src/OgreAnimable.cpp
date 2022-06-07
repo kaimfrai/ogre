@@ -25,10 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <any>
 #include <utility>
 
 #include "OgreAnimable.hpp"
-#include "OgreAny.hpp"
 
 namespace Ogre {
     //--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace Ogre {
         );
     }
     //--------------------------------------------------------------------------
-    void AnimableValue::setAsBaseValue(const Any& val)
+    void AnimableValue::setAsBaseValue(::std::any const& val)
     {
         ::std::visit
         (   [   this
@@ -99,7 +99,7 @@ namespace Ogre {
         );
     }
     //--------------------------------------------------------------------------
-    void AnimableValue::setValue(const Any& val)
+    void AnimableValue::setValue(::std::any const& val)
     {
         ::std::visit
         (   [   this
@@ -116,7 +116,7 @@ namespace Ogre {
         );
     }
     //--------------------------------------------------------------------------
-    void AnimableValue::applyDeltaValue(const Any& val)
+    void AnimableValue::applyDeltaValue(::std::any const& val)
     {
         ::std::visit
         (   [   this

@@ -26,6 +26,7 @@ THE SOFTWARE.
 */
 
 #include <algorithm>
+#include <any>
 #include <cassert>
 #include <cstdio>
 #include <ios>
@@ -36,7 +37,6 @@ THE SOFTWARE.
 #include <utility>
 #include <vector>
 
-#include "OgreAny.hpp"
 #include "OgreCommon.hpp"
 #include "OgreException.hpp"
 #include "OgreGpuProgram.hpp"
@@ -962,7 +962,7 @@ bool ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
         Pass* pSrcPass = pSrcTech->getNumPasses() > 0 ? pSrcTech->getPass(0) : nullptr;
         if (pSrcPass)
         {
-            const Any& passUserData = pSrcPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
+            ::std::any const& passUserData = pSrcPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
             if (passUserData.has_value())
             {
                 schemesToRemove.insert(pSrcTech->_getSchemeIndex());
@@ -1050,7 +1050,7 @@ void ShaderGenerator::removeAllShaderBasedTechniques()
 {
     if (mActiveViewportValid)
     {
-        const Any& passUserData = pass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
+        ::std::any const& passUserData = pass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
 
         if (!passUserData.has_value() || suppressRenderStateChanges)
             return; 
@@ -1524,7 +1524,7 @@ void ShaderGenerator::SGTechnique::createIlluminationSGPasses()
 
 		auto* passEntry = new SGPass(this, p->pass, p->pass, p->stage);
 
-		const Any& origPassUserData = p->originalPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
+		::std::any const& origPassUserData = p->originalPass->getUserObjectBindings().getUserAny(TargetRenderState::UserKey);
 		if(origPassUserData.has_value())
 		{
             for(auto sgp : mPassEntries)

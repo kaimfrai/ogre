@@ -28,10 +28,11 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_IMAGECODEC_H
 #define OGRE_CORE_IMAGECODEC_H
 
-#include "OgreAny.hpp" // IWYU pragma: keep
 #include "OgreBitwise.hpp"
 #include "OgreCodec.hpp"
 #include "OgrePixelFormat.hpp"
+
+#include <any>
 
 namespace Ogre {
 
@@ -61,9 +62,9 @@ namespace Ogre {
         using Codec::encode;
         using Codec::encodeToFile;
 
-        void decode(const DataStreamPtr& input, const Any& output) const override;
-        [[nodiscard]] DataStreamPtr encode(const Any& input) const override;
-        void encodeToFile(const Any& input, const String& outFileName) const override;
+        void decode(const DataStreamPtr& input, ::std::any const& output) const override;
+        [[nodiscard]] DataStreamPtr encode(::std::any const& input) const override;
+        void encodeToFile(::std::any const& input, const String& outFileName) const override;
 
         ~ImageCodec() override;
         /** Codec return class for images. Has information about the size and the
@@ -86,10 +87,10 @@ namespace Ogre {
         using CodecDataPtr = SharedPtr<ImageData>;
 
         /// @deprecated
-        [[nodiscard]] virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(Any()); }
+        [[nodiscard]] virtual DataStreamPtr encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const { return encode(::std::any{}); }
         /// @deprecated
         virtual void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const
-        { encodeToFile(Any(), ""); }
+        { encodeToFile(::std::any{}, ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         using DecodeResult = std::pair<MemoryDataStreamPtr, CodecDataPtr>;
         /// @deprecated

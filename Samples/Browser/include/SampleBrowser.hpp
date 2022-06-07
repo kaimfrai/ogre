@@ -86,7 +86,7 @@ namespace OgreBites
 
         virtual void runSampleByIndex(int idx)
         {
-            runSample(Ogre::any_cast<Sample*>(mThumbs[idx]->getUserObjectBindings().getUserAny()));
+            runSample(::std::any_cast<Sample*>(mThumbs[idx]->getUserObjectBindings().getUserAny()));
         }
 
         /*-----------------------------------------------------------------------------
@@ -229,7 +229,7 @@ namespace OgreBites
                     } else {
                         // use the sample pointer we stored inside the thumbnail
                         Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
-                        runSample(Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny()));
+                        runSample(::std::any_cast<Sample*>(r->getUserObjectBindings().getUserAny()));
                     }
                 } else
                     runSample(nullptr);
@@ -429,7 +429,7 @@ namespace OgreBites
                     mSampleSlider->setValue(menu->getSelectionIndex() + 1);
 
                 Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
-                auto* s = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
+                auto* s = ::std::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
                 mTitleLabel->setCaption(menu->getSelectedItem());
                 mDescBox->setText("Category: " + s->getInfo()["Category"] + "\nDescription: " + s->getInfo()["Description"]);
 
@@ -523,7 +523,7 @@ namespace OgreBites
                 if (!mLoadedSamples.empty() && (mSamplePaused || mCurrentSample == nullptr))
                 {
                     Ogre::Renderable* r = mThumbs[mSampleMenu->getSelectionIndex()];
-                    auto* newSample = Ogre::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
+                    auto* newSample = ::std::any_cast<Sample*>(r->getUserObjectBindings().getUserAny());
                     runSample(newSample == mCurrentSample ? nullptr : newSample);
                 }
             }

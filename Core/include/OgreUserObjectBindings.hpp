@@ -28,11 +28,11 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_USEROBJECTBINDINGS_H
 #define OGRE_CORE_USEROBJECTBINDINGS_H
 
+#include <any>
 #include <map>
 #include <memory>
 #include <string>
 
-#include "OgreAny.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePrerequisites.hpp"
 
@@ -62,11 +62,11 @@ namespace Ogre {
         previous object that were set. If you need to associate multiple objects
         with this class use the extended version that takes key.
         */
-        void setUserAny(const Any& anything);
+        void setUserAny(::std::any const& anything);
 
         /** Retrieves the custom key less user object associated with this class.
         */
-        [[nodiscard]] const Any& getUserAny() const noexcept;
+        [[nodiscard]] ::std::any const& getUserAny() const noexcept;
 
         /** Sets any kind of user object on this class instance.
         @remarks
@@ -76,14 +76,14 @@ namespace Ogre {
         @param key The key that this data is associate with.
         @param anything The data to associate with the given key.
         */
-        void setUserAny(const String& key, const Any& anything);
+        void setUserAny(const String& key, ::std::any const& anything);
 
         /** Retrieves the custom user object associated with this class and key.
         @param key The key that the requested user object is associated with.
         @remarks
         In case no object associated with this key the returned Any object will be empty.
         */
-        [[nodiscard]] const Any& getUserAny(const String& key) const;
+        [[nodiscard]] ::std::any const& getUserAny(const String& key) const;
 
         /** Erase the custom user object associated with this class and key from this binding.
         @param key The key that the requested user object is associated with.
@@ -104,7 +104,7 @@ namespace Ogre {
 
     // Types.
     private:
-        using UserObjectsMap = std::map<String, Any>;
+        using UserObjectsMap = std::map<String, ::std::any>;
         using UserObjectsMapIterator = UserObjectsMap::iterator;
         using UserObjectsMapConstIterator = UserObjectsMap::const_iterator;
 
@@ -122,7 +122,7 @@ namespace Ogre {
                     mUserObjectsMap = std::make_unique<UserObjectsMap>(*other.mUserObjectsMap);
             }
 
-            Any                 mKeylessAny;// Will hold key less associated user object for fast access.
+            ::std::any                 mKeylessAny;// Will hold key less associated user object for fast access.
             std::unique_ptr<UserObjectsMap> mUserObjectsMap;// Will hold a map between user keys to user objects.
         };
 

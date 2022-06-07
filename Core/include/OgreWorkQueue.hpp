@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define OGRE_CORE_WORKQUEUE_H
 
 #include <algorithm>
+#include <any>
 #include <cstddef>
 #include <deque>
 #include <list>
@@ -36,7 +37,6 @@ THE SOFTWARE.
 #include <mutex>
 #include <string>
 
-#include "OgreAny.hpp"
 #include "OgreCommon.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
@@ -98,7 +98,7 @@ namespace Ogre
             /// The request type, as an integer within the channel (user can define enumerations on this)
             uint16 mType;
             /// The details of the request (user defined)
-            Any mData;
+            ::std::any mData;
             /// Retry count - set this to non-zero to have the request try again on failure
             uint8 mRetryCount;
             /// Identifier (assigned by the system)
@@ -108,7 +108,7 @@ namespace Ogre
 
         public:
             /// Constructor 
-            Request(uint16 channel, uint16 rtype, const Any& rData, uint8 retry, RequestID rid);
+            Request(uint16 channel, uint16 rtype, ::std::any const& rData, uint8 retry, RequestID rid);
             ~Request();
             /// Set the abort flag
             void abortRequest() const { mAborted = true; }
@@ -117,7 +117,7 @@ namespace Ogre
             /// Get the type of this request within the given channel
             uint16 getType() const noexcept { return mType; }
             /// Get the user details of this request
-            const Any& getData() const noexcept { return mData; }
+            ::std::any const& getData() const noexcept { return mData; }
             /// Get the remaining retry count
             uint8 getRetryCount() const noexcept { return mRetryCount; }
             /// Get the identifier of this request
@@ -137,10 +137,10 @@ namespace Ogre
             /// Any diagnostic messages
             String mMessages;
             /// Data associated with the result of the process
-            Any mData;
+            ::std::any mData;
 
         public:
-            Response(const Request* rq, bool success, const Any& data, String  msg = BLANKSTRING);
+            Response(const Request* rq, bool success, ::std::any const& data, String  msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] const Request* getRequest() const noexcept { return mRequest.get(); }
             /// Return whether this is a successful response
@@ -148,7 +148,7 @@ namespace Ogre
             /// Get any diagnostic messages about the process
             [[nodiscard]] const String& getMessages() const noexcept { return mMessages; }
             /// Return the response data (user defined, only valid on success)
-            [[nodiscard]] const Any& getData() const noexcept { return mData; }
+            [[nodiscard]] ::std::any const& getData() const noexcept { return mData; }
             /// Abort the request
             void abortRequest() { mRequest->abortRequest(); mData.reset(); }
         };
@@ -278,7 +278,7 @@ namespace Ogre
             3. If you have lot of more important threads. (example: physics).
         @return The ID of the request that has been added
         */
-        virtual RequestID addRequest(uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount = 0, 
+        virtual RequestID addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
             bool forceSynchronous = false, bool idleThread = false) = 0;
 
         /** Abort a previously issued request.
@@ -443,7 +443,7 @@ namespace Ogre
         void removeResponseHandler(uint16 channel, ResponseHandler* rh) override;
 
         /// @copydoc WorkQueue::addRequest
-        RequestID addRequest(uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount = 0, 
+        RequestID addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
             bool forceSynchronous = false, bool idleThread = false) override;
         /// @copydoc WorkQueue::abortRequest
         void abortRequest(RequestID id) override;
@@ -576,7 +576,7 @@ namespace Ogre
         /// Notify workers about a new request. 
         virtual void notifyWorkers() = 0;
         /// Put a Request on the queue with a specific RequestID.
-        void addRequestWithRID(RequestID rid, uint16 channel, uint16 requestType, const Any& rData, uint8 retryCount);
+        void addRequestWithRID(RequestID rid, uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount);
         
         RequestQueue mIdleRequestQueue; // Guarded by mIdleMutex
         bool mIdleThreadRunning{false}; // Guarded by mIdleMutex

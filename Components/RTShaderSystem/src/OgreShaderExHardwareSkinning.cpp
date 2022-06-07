@@ -26,13 +26,13 @@ THE SOFTWARE.
 */
 
 #include <algorithm>
+#include <any>
 #include <cassert>
 #include <cstddef>
 #include <list>
 #include <memory>
 #include <string>
 
-#include "OgreAny.hpp"
 #include "OgreEntity.hpp"
 #include "OgreGpuProgramManager.hpp"
 #include "OgreHardwareVertexBuffer.hpp"
@@ -184,7 +184,7 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
 {
     bool isValid = true;
     Technique* pFirstTech = srcPass->getParent()->getParent()->getTechnique(0);
-    const Any& hsAny = pFirstTech->getUserObjectBindings().getUserAny(HS_DATA_BIND_NAME);
+    ::std::any const& hsAny = pFirstTech->getUserObjectBindings().getUserAny(HS_DATA_BIND_NAME);
 
     if (hsAny.has_value())
     {
@@ -540,7 +540,7 @@ bool HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, 
 
         //get the previous skinning data if available
         UserObjectBindings& binding = pMaterial->getTechnique(0)->getUserObjectBindings();
-        const Any& hsAny = binding.getUserAny(HS_DATA_BIND_NAME);
+        ::std::any const& hsAny = binding.getUserAny(HS_DATA_BIND_NAME);
         if (hsAny.has_value())
         {
             data = any_cast<HardwareSkinning::SkinningData>(hsAny);
