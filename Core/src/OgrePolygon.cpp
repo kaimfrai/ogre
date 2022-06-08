@@ -178,7 +178,7 @@ namespace Ogre
         mIsNormalSet = false;
     }
     //-----------------------------------------------------------------------
-    bool Polygon::operator == (const Polygon& rhs) const
+    bool Polygon::operator == (const Polygon& rhs) const noexcept
     {
         if ( getVertexCount() != rhs.getVertexCount() )
             return false;

@@ -118,8 +118,7 @@ namespace Ogre {
     using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
     using ConstShadowTextureConfigIterator = ConstVectorIterator<ShadowTextureConfigList>;
 
-    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
-    bool operator!= ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs );
+    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs) noexcept;
 
     /** Structure for holding a position & orientation pair. */
     struct ViewPoint
@@ -622,16 +621,7 @@ namespace Ogre {
             Vector3 position;   /// Sets to zero if directional light
             uint32 lightMask;   /// Light mask
 
-            bool operator== (const LightInfo& rhs) const
-            {
-                return light == rhs.light && type == rhs.type &&
-                    range == rhs.range && position == rhs.position && lightMask == rhs.lightMask;
-            }
-
-            bool operator!= (const LightInfo& rhs) const
-            {
-                return !(*this == rhs);
-            }
+            [[nodiscard]] bool operator== (const LightInfo& rhs) const noexcept = default;
         };
 
         using LightInfoList = std::vector<LightInfo>;

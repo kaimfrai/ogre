@@ -29,6 +29,7 @@ THE SOFTWARE
 // Platform-specific stuff
 #include "OgrePlatform.hpp"
 
+#include <compare>
 #include <memory>
 #include <string>
 
@@ -302,6 +303,16 @@ settings have been made.
 namespace Ogre
 {
     using String = std::string;
+
+    // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
+    [[nodiscard]] ::std::strong_ordering inline operator <=> (String const& left, String const& right) noexcept
+    {
+        auto const cmp = left.compare(right);
+        if (cmp < 0) return ::std::strong_ordering::less;
+        if (cmp > 0) return ::std::strong_ordering::greater;
+        return ::std::strong_ordering::equal;
+    }
+
     using StringStream = std::stringstream;
 
     template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>

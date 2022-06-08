@@ -146,26 +146,15 @@ namespace Ogre
         mParent->_notifyAnimationStateEnabled(this, enabled);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::operator==(const AnimationState& rhs) const
+    bool AnimationState::operator==(const AnimationState& rhs) const noexcept
     {
-        if (mAnimationName == rhs.mAnimationName &&
+        return mAnimationName == rhs.mAnimationName &&
             mEnabled == rhs.mEnabled &&
             mTimePos == rhs.mTimePos &&
             mWeight == rhs.mWeight &&
             mLength == rhs.mLength && 
-            mLoop == rhs.mLoop)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    //---------------------------------------------------------------------
-    bool AnimationState::operator!=(const AnimationState& rhs) const
-    {
-        return !(*this == rhs);
+            mLoop == rhs.mLoop
+        ;
     }
     //---------------------------------------------------------------------
     void AnimationState::copyStateFrom(const AnimationState& animState)

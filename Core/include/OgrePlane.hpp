@@ -237,14 +237,7 @@ namespace Ogre {
         }
 
         /// Comparison operator
-        bool operator==(const Plane& rhs) const
-        {
-            return (rhs.d == d && rhs.normal == normal);
-        }
-        bool operator!=(const Plane& rhs) const
-        {
-            return (rhs.d != d || rhs.normal != normal);
-        }
+        [[nodiscard]] bool operator==(const Plane& rhs) const noexcept = default;
 
         friend std::ostream& operator<<(std::ostream& o, const Plane& p)
         {

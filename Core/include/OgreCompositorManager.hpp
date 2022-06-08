@@ -253,11 +253,7 @@ class Viewport;
             {
             }
 
-            bool operator<(const TextureDef& y) const
-            {
-                return std::tie(width, height, type, format, fsaa, fsaaHint, sRGBwrite) <
-                       std::tie(y.width, y.height, y.type, y.format, y.fsaa, y.fsaaHint, y.sRGBwrite);
-            }
+            [[nodiscard]] auto operator<=> (const TextureDef& y) const noexcept = default;
         };
         using TexturesByDef = std::map<TextureDef, TextureList>;
         TexturesByDef mTexturesByDef;

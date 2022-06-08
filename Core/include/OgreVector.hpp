@@ -70,6 +70,8 @@ namespace Ogre
         T data[dims];
         T* ptr() noexcept { return data; }
         [[nodiscard]] const T* ptr() const noexcept { return data; }
+
+        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
     };
     template <> struct VectorBase<2, Real>
     {
@@ -129,6 +131,7 @@ namespace Ogre
         static const Vector2 NEGATIVE_UNIT_X;
         static const Vector2 NEGATIVE_UNIT_Y;
         static const Vector2 UNIT_SCALE;
+        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
     };
 
     template <> struct VectorBase<3, Real>
@@ -267,6 +270,7 @@ namespace Ogre
         static const Vector3 NEGATIVE_UNIT_Y;
         static const Vector3 NEGATIVE_UNIT_Z;
         static const Vector3 UNIT_SCALE;
+        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
     };
 
     template <> struct VectorBase<4, Real>
@@ -297,6 +301,7 @@ namespace Ogre
 
         // special points
         static const Vector4 ZERO;
+        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
     };
 
     /** Standard N-dimensional vector.
@@ -365,14 +370,6 @@ namespace Ogre
             return ptr()[i];
         }
 
-        bool operator==(const Vector& v) const
-        {
-            for (int i = 0; i < dims; i++)
-                if (ptr()[i] != v[i])
-                    return false;
-            return true;
-        }
-
         /** Returns whether this vector is within a positional tolerance
             of another vector.
         @param rhs The vector to compare with
@@ -387,28 +384,23 @@ namespace Ogre
             return true;
         }
 
-        bool operator!=(const Vector& v) const { return !(*this == v); }
-
-        /** Returns true if the vector's scalar components are all greater
-            that the ones of the vector it is compared against.
-        */
-        bool operator<(const Vector& rhs) const
+        [[nodiscard]] ::std::partial_ordering operator<=>(const Vector& rhs) const noexcept
         {
-            for (int i = 0; i < dims; i++)
-                if (!(ptr()[i] < rhs[i]))
-                    return false;
-            return true;
-        }
-
-        /** Returns true if the vector's scalar components are all smaller
-            that the ones of the vector it is compared against.
-        */
-        bool operator>(const Vector& rhs) const
-        {
-            for (int i = 0; i < dims; i++)
-                if (!(ptr()[i] > rhs[i]))
-                    return false;
-            return true;
+            if constexpr (dims == 0uz)
+                return ::std::partial_ordering::equivalent;
+            else
+            {
+                auto const first = ptr()[0uz] <=> rhs[0uz];
+                for (auto i = 1uz; i < dims; ++i)
+                {
+                    // all must compare less/greater/equivalent
+                    if  (   (ptr()[i] <=> rhs[i])
+                        !=  first
+                        )
+                        return ::std::partial_ordering::unordered;
+                }
+                return first;
+            }
         }
 
         /** Sets this vector's components to the minimum of its own and the

@@ -26,6 +26,7 @@ THE SOFTWARE.
 */
 
 #include <algorithm>
+#include <compare>
 #include <cstddef>
 #include <memory>
 #include <ostream>
@@ -254,24 +255,6 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
     }
 }
 
-//-----------------------------------------------------------------------
-bool FunctionInvocation::operator == ( const FunctionInvocation& rhs ) const
-{
-    return FunctionInvocationCompare()(*this, rhs);
-}
-
-//-----------------------------------------------------------------------
-bool FunctionInvocation::operator != ( const FunctionInvocation& rhs ) const
-{
-    return !(*this == rhs);
-}
-
-//-----------------------------------------------------------------------
-bool FunctionInvocation::operator < ( const FunctionInvocation& rhs ) const
-{
-    return FunctionInvocationLessThan()(*this, rhs);
-}
-
 static uchar getSwizzledSize(const Operand& op)
 {
     auto gct = op.getParameter()->getType();
@@ -281,100 +264,77 @@ static uchar getSwizzledSize(const Operand& op)
     return Operand::getFloatCount(op.getMask());
 }
 
-bool FunctionInvocation::FunctionInvocationLessThan::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
+::std::strong_ordering FunctionInvocation::operator<=>(FunctionInvocation const& rhs) const noexcept
 {
     // Check the function names first
     // Adding an exception to std::string sorting.  I feel that functions beginning with an underscore should be placed before
     // functions beginning with an alphanumeric character.  By default strings are sorted based on the ASCII value of each character.
     // Underscores have an ASCII value in between capital and lowercase characters.  This is why the exception is needed.
-    if (lhs.getFunctionName() < rhs.getFunctionName())
-    {
-        if(rhs.getFunctionName().at(0) == '_')
-            return false;
-        else
-            return true;
-    }
-    if (lhs.getFunctionName() > rhs.getFunctionName())
-    {
-        if(lhs.getFunctionName().at(0) == '_')
-            return true;
-        else
-            return false;
-    }
+    auto const
+        fSpecialCompare
+        =   []  (char left, char right)
+            {
+                bool const leftUnderscore = left == '_';
+                bool const rightUnderscore = right == '_';
+                return not rightUnderscore and (leftUnderscore or left < right);
+            }
+    ;
+
+    if  (   ::std::lexicographical_compare
+            (   getFunctionName().begin()
+            ,   getFunctionName().end()
+            ,   rhs.getFunctionName().begin()
+            ,   rhs.getFunctionName().end()
+            ,   fSpecialCompare
+            )
+        )
+        return ::std::strong_ordering::less;
+
+    if  (   ::std::lexicographical_compare
+            (   rhs.getFunctionName().begin()
+            ,   rhs.getFunctionName().end()
+            ,   getFunctionName().begin()
+            ,   getFunctionName().end()
+            ,   fSpecialCompare
+            )
+        )
+        return ::std::strong_ordering::greater;
 
     // Next check the return type
-    if (lhs.getReturnType() < rhs.getReturnType())
-        return true;
-    if (lhs.getReturnType() > rhs.getReturnType())
-        return false;
+    if  (   auto const returnType = getReturnType() <=> rhs.getReturnType()
+        ;   returnType != ::std::strong_ordering::equal
+        )
+        return returnType;
 
     // Check the number of operands
-    if (lhs.mOperands.size() < rhs.mOperands.size())
-        return true;
-    if (lhs.mOperands.size() > rhs.mOperands.size())
-        return false;
+    if  (   auto const operands = mOperands.size() <=> rhs.mOperands.size()
+        ; operands != ::std::strong_ordering::equal
+        )
+        return operands;
 
     // Now that we've gotten past the two quick tests, iterate over operands
     // Check the semantic and type.  The operands must be in the same order as well.
-    auto itLHSOps = lhs.mOperands.begin();
-    auto itRHSOps = rhs.mOperands.begin();
-
-    for ( ; ((itLHSOps != lhs.mOperands.end()) && (itRHSOps != rhs.mOperands.end())); ++itLHSOps, ++itRHSOps)
+    for (   auto itLHSOps = mOperands.begin(), itRHSOps = rhs.mOperands.begin()
+        ;   itLHSOps != mOperands.end()
+        and itRHSOps != rhs.mOperands.end()
+        ; ++itLHSOps, ++itRHSOps
+        )
     {
-        if (itLHSOps->getSemantic() < itRHSOps->getSemantic())
-            return true;
-        if (itLHSOps->getSemantic() > itRHSOps->getSemantic())
-            return false;
+        if  (   auto const semantic = itLHSOps->getSemantic() <=> itRHSOps->getSemantic()
+            ;   semantic != ::std::strong_ordering::equal
+            )
+            return semantic;
 
-        uchar leftType    = getSwizzledSize(*itLHSOps);
-        uchar rightType   = getSwizzledSize(*itRHSOps);
+        uchar const leftType    = getSwizzledSize(*itLHSOps);
+        uchar const rightType   = getSwizzledSize(*itRHSOps);
 
-        if (leftType < rightType)
-            return true;
-        if (leftType > rightType)
-            return false;
+        if  (   auto const type = leftType <=> rightType
+            ;   type != ::std::strong_ordering::equal
+            )
+            return type;
     }
 
-    return false;
-}
-
-bool FunctionInvocation::FunctionInvocationCompare::operator ()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const
-{
-    // Check the function names first
-    if (lhs.getFunctionName() != rhs.getFunctionName())
-        return false;
-
-    // Next check the return type
-    if (lhs.getReturnType() != rhs.getReturnType())
-        return false;
-
-    // filter indirect operands
-    std::vector<const Operand*> lhsOps;
-    std::vector<const Operand*> rhsOps;
-    for(const Operand& op : lhs.mOperands)
-        if(op.getIndirectionLevel() == 0) lhsOps.push_back(&op);
-    for(const Operand& op : rhs.mOperands)
-        if(op.getIndirectionLevel() == 0) rhsOps.push_back(&op);
-
-    // Check the number of direct operands
-    if (lhsOps.size() != rhsOps.size())
-        return false;
-
-    // Now that we've gotten past the two quick tests, iterate over operands
-    // Check the semantic and type.  The operands must be in the same order as well.
-    auto itLHSOps = lhsOps.begin();
-    auto itRHSOps = rhsOps.begin();
-    for ( ; ((itLHSOps != lhsOps.end()) && (itRHSOps != rhsOps.end())); ++itLHSOps, ++itRHSOps)
-    {
-        if ((*itLHSOps)->getSemantic() != (*itRHSOps)->getSemantic())
-            return false;
-
-        if (getSwizzledSize(**itLHSOps) != getSwizzledSize(**itRHSOps))
-            return false;
-    }
-
-    // Passed all tests, they are the same
-    return true;
+    return ::std::strong_ordering::equal;
 }
 
 AssignmentAtom::AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder) {

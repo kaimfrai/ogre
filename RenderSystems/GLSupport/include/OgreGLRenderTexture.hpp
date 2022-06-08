@@ -209,31 +209,7 @@ class RenderTarget;
             size_t height;
             uint samples;
             // Overloaded comparison operator for usage in map
-            bool operator < (const RBFormat &other) const
-            {
-                if(format < other.format)
-                {
-                    return true;
-                }
-                else if(format == other.format)
-                {
-                    if(width < other.width)
-                    {
-                        return true;
-                    }
-                    else if(width == other.width)
-                    {
-                        if(height < other.height)
-                            return true;
-                        else if (height == other.height)
-                        {
-                            if (samples < other.samples)
-                                return true;
-                        }
-                    }
-                }
-                return false;
-            }
+            [[nodiscard]] auto operator <=> (RBFormat const&) const noexcept = default;
         };
         struct RBRef
         {

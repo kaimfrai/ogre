@@ -572,11 +572,11 @@ class RenderWindow;
                 dirtyHash();
         }
 
-        bool operator==(const HashedVector<T>& b)
+        [[nodiscard]] bool operator==(const HashedVector<T>& b) const noexcept
         { return mListHash == b.mListHash; }
 
-        bool operator<(const HashedVector<T>& b)
-        { return mListHash < b.mListHash; }
+        [[nodiscard]] auto operator<=> (const HashedVector<T>& b) const noexcept
+        { return mListHash <=> b.mListHash; }
 
 
         /// Get the hash value
@@ -701,11 +701,7 @@ class RenderWindow;
               return ret;
 
           }
-          bool operator==(const TRect& rhs) const
-          {
-              return left == rhs.left && right == rhs.right && top == rhs.top && bottom == rhs.bottom;
-          }
-          bool operator!=(const TRect& rhs) const { return !(*this == rhs); }
+          [[nodiscard]] bool operator==(const TRect& rhs) const noexcept = default;
         };
         template<typename T>
         std::ostream& operator<<(std::ostream& o, const TRect<T>& r)

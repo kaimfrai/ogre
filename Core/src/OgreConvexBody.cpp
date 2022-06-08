@@ -643,7 +643,7 @@ namespace Ogre
         return aab;
     }
     //-----------------------------------------------------------------------
-    bool ConvexBody::operator == ( const ConvexBody& rhs ) const
+    bool ConvexBody::operator == ( const ConvexBody& rhs ) const noexcept
     {
         if ( getPolygonCount() != rhs.getPolygonCount() )
             return false;

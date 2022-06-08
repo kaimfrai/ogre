@@ -116,9 +116,7 @@ class AnimationStateSet;
         void setEnabled(bool enabled);
 
         /// Equality operator
-        bool operator==(const AnimationState& rhs) const;
-        /// Inequality operator
-        bool operator!=(const AnimationState& rhs) const;
+        [[nodiscard]] bool operator==(const AnimationState& rhs) const noexcept;
 
         /** Sets whether or not an animation loops at the start and end of
             the animation if the time continues to be altered.

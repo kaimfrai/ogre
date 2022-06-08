@@ -159,7 +159,7 @@ namespace Ogre {
         /// Manual blending factor
         Real factor;
 
-        bool operator==(const LayerBlendModeEx& rhs) const
+        [[nodiscard]] bool operator==(const LayerBlendModeEx& rhs) const noexcept
         {
             if (blendType != rhs.blendType) return false;
 
@@ -190,14 +190,6 @@ namespace Ogre {
             }
             return false;
         }
-
-        bool operator!=(const LayerBlendModeEx& rhs) const
-        {
-            return !(*this == rhs);
-        }
-
-
-
     };
 
     /** Types of blending that you can specify between an object and the existing contents of the scene.

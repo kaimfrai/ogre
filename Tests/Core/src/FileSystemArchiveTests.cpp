@@ -44,8 +44,9 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-static bool operator<(const FileInfo& a, const FileInfo& b) {
-    return a.basename < b.basename;
+[[nodiscard]] static ::std::strong_ordering operator<=> (const FileInfo& a, const FileInfo& b) noexcept
+{
+    return a.basename <=> b.basename;
 }
 }
 // Register the test suite

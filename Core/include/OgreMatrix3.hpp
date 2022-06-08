@@ -129,14 +129,7 @@ namespace Ogre
 
         /** Tests 2 matrices for equality.
          */
-        bool operator== (const Matrix3& rkMatrix) const;
-
-        /** Tests 2 matrices for inequality.
-         */
-        bool operator!= (const Matrix3& rkMatrix) const
-        {
-            return !operator==(rkMatrix);
-        }
+        [[nodiscard]] bool operator== (const Matrix3& rkMatrix) const noexcept = default;
 
         // arithmetic operations
         /** Matrix addition.

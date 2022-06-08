@@ -104,16 +104,7 @@ class Affine3;
         inline DualQuaternion& operator= (const DualQuaternion& rkQ)
         = default;
 
-        inline bool operator== (const DualQuaternion& rhs) const
-        {
-            return (rhs.w == w) && (rhs.x == x) && (rhs.y == y) && (rhs.z == z) && 
-                (rhs.dw == dw) && (rhs.dx == dx) && (rhs.dy == dy) && (rhs.dz == dz);
-        }
-
-        inline bool operator!= (const DualQuaternion& rhs) const
-        {
-            return !operator==(rhs);
-        }
+        [[nodiscard]] inline bool operator== (const DualQuaternion& rhs) const noexcept = default;
 
         /// Pointer accessor for direct copying
         inline Real* ptr()

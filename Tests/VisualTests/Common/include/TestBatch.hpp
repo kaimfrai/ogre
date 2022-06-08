@@ -167,10 +167,11 @@ public:
     }
 
     /** Greater than operator, so they can be sorted chronologically */
-    bool operator>(const TestBatch& other) const
+    [[nodiscard]] ::std::strong_ordering operator<=>(const TestBatch& other) const noexcept
     {
+        using namespace Ogre;
         // due to the way timestamps are formatted, lexicographical ordering will also be chronological
-        return timestamp > other.timestamp;
+        return timestamp <=> other.timestamp;
     }
 
     /** Loads all test batches found in a directory and returns a reference counted ptr 

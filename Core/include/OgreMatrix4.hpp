@@ -91,6 +91,8 @@ namespace Ogre
         /// Do <b>NOT</b> initialize for efficiency.
         TransformBase() = default;
 
+        [[nodiscard]] inline bool operator == ( const TransformBase& m2 ) const noexcept = default;
+
         template<typename U>
         explicit TransformBase(const U* ptr) {
             for (int i = 0; i < rows; i++)
@@ -268,32 +270,6 @@ namespace Ogre
             return *this;
         }
 
-        /** Tests 2 matrices for equality.
-        */
-        inline bool operator == ( const Matrix4& m2 ) const
-        {
-            if( 
-                m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
-                m[1][0] != m2.m[1][0] || m[1][1] != m2.m[1][1] || m[1][2] != m2.m[1][2] || m[1][3] != m2.m[1][3] ||
-                m[2][0] != m2.m[2][0] || m[2][1] != m2.m[2][1] || m[2][2] != m2.m[2][2] || m[2][3] != m2.m[2][3] ||
-                m[3][0] != m2.m[3][0] || m[3][1] != m2.m[3][1] || m[3][2] != m2.m[3][2] || m[3][3] != m2.m[3][3] )
-                return false;
-            return true;
-        }
-
-        /** Tests 2 matrices for inequality.
-        */
-        inline bool operator != ( const Matrix4& m2 ) const
-        {
-            if( 
-                m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
-                m[1][0] != m2.m[1][0] || m[1][1] != m2.m[1][1] || m[1][2] != m2.m[1][2] || m[1][3] != m2.m[1][3] ||
-                m[2][0] != m2.m[2][0] || m[2][1] != m2.m[2][1] || m[2][2] != m2.m[2][2] || m[2][3] != m2.m[2][3] ||
-                m[3][0] != m2.m[3][0] || m[3][1] != m2.m[3][1] || m[3][2] != m2.m[3][2] || m[3][3] != m2.m[3][3] )
-                return true;
-            return false;
-        }
-
         static const Matrix4 ZERO;
         static const Matrix4 IDENTITY;
         /** Useful little matrix which takes 2D clipspace {-1, 1} to {0,1}
@@ -368,17 +344,7 @@ namespace Ogre
 
         /** Tests 2 matrices for equality.
         */
-        bool operator==(const Affine3& m2) const
-        {
-            if(
-                m[0][0] != m2.m[0][0] || m[0][1] != m2.m[0][1] || m[0][2] != m2.m[0][2] || m[0][3] != m2.m[0][3] ||
-                m[1][0] != m2.m[1][0] || m[1][1] != m2.m[1][1] || m[1][2] != m2.m[1][2] || m[1][3] != m2.m[1][3] ||
-                m[2][0] != m2.m[2][0] || m[2][1] != m2.m[2][1] || m[2][2] != m2.m[2][2] || m[2][3] != m2.m[2][3] )
-                return false;
-            return true;
-        }
-
-        bool operator!=(const Affine3& m2) const { return !(*this == m2); }
+        [[nodiscard]] bool operator==(const Affine3& m2) const noexcept = default;
 
         [[nodiscard]] Affine3 inverse() const;
 

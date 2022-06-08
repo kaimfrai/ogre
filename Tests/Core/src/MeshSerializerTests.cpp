@@ -229,7 +229,8 @@ TEST_F(MeshSerializerTests,Mesh_Version_1_3)
 
 namespace Ogre
 {
-static bool operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b)
+
+[[nodiscard]] static bool operator==(const VertexPoseKeyFrame::PoseRef& a, const VertexPoseKeyFrame::PoseRef& b) noexcept
 {
 
     return a.poseIndex == b.poseIndex && a.influence == b.influence;

@@ -28,6 +28,7 @@ THE SOFTWARE.
 #define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTIONATOM_H
 
 #include <algorithm>
+#include <compare>
 #include <iosfwd>
 #include <vector>
 
@@ -258,29 +259,13 @@ public:
     [[nodiscard]] const String& getReturnType() const noexcept { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
-    bool operator == ( const FunctionInvocation& rhs ) const;
-
-    /** Determines if the current object is not equal to the compared one. */
-    bool operator != ( const FunctionInvocation& rhs ) const;
+    [[nodiscard]] bool operator == ( const FunctionInvocation& rhs ) const noexcept
+    {
+        return (*this <=> rhs) == ::std::strong_ordering::equal;
+    }
 
     /** Determines if the current object is less than the compared one. */
-    bool operator <  ( const FunctionInvocation& rhs ) const;
-
-    /** Comparator function to be used for sorting.
-        Implemented as a struct to make it easier for the compiler to inline
-    */
-    struct FunctionInvocationLessThan
-    {
-        bool operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const;
-    };
-
-    /** Comparator function to be used for comparisons.
-        Implemented as a struct to make it easier for the compiler to inline
-    */
-    struct FunctionInvocationCompare
-    {
-        bool operator()(FunctionInvocation const& lhs, FunctionInvocation const& rhs) const;
-    };
+    [[nodiscard]] ::std::strong_ordering operator <=> ( const FunctionInvocation& rhs ) const noexcept;
 
 private:
     FunctionInvocation() = default;

@@ -143,12 +143,7 @@ class Plane;
 
         /** Determines if the current object is equal to the compared one.
         */
-        bool operator == ( const ConvexBody& rhs ) const;
-
-        /** Determines if the current object is not equal to the compared one.
-        */
-        bool operator != ( const ConvexBody& rhs ) const
-        { return !( *this == rhs ); }
+        [[nodiscard]] bool operator == ( const ConvexBody& rhs ) const noexcept;
 
         /** Prints out the body with all its polygons.
         */

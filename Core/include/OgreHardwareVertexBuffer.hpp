@@ -244,18 +244,8 @@ namespace Ogre {
         /** Utility method to get the most appropriate packed colour vertex element format. */
         static VertexElementType getBestColourVertexElementType();
 
-        inline bool operator== (const VertexElement& rhs) const
-        {
-            if (mType != rhs.mType ||
-                mIndex != rhs.mIndex ||
-                mOffset != rhs.mOffset ||
-                mSemantic != rhs.mSemantic ||
-                mSource != rhs.mSource)
-                return false;
-            else
-                return true;
+        [[nodiscard]] inline bool operator== (const VertexElement& rhs) const noexcept = default;
 
-        }
         /** Adjusts a pointer to the base of a vertex to point at this element.
 
             Pointers are passed as a parameter because we can't
@@ -452,28 +442,7 @@ namespace Ogre {
         [[nodiscard]]
         VertexDeclaration* clone(HardwareBufferManagerBase* mgr = nullptr) const;
 
-        inline bool operator== (const VertexDeclaration& rhs) const
-        {
-            if (mElementList.size() != rhs.mElementList.size())
-                return false;
-
-            VertexElementList::const_iterator i, iend, rhsi, rhsiend;
-            iend = mElementList.end();
-            rhsiend = rhs.mElementList.end();
-            rhsi = rhs.mElementList.begin();
-            for (i = mElementList.begin(); i != iend && rhsi != rhsiend; ++i, ++rhsi)
-            {
-                if ( !(*i == *rhsi) )
-                    return false;
-            }
-
-            return true;
-        }
-        inline bool operator!= (const VertexDeclaration& rhs) const
-        {
-            return !(*this == rhs);
-        }
-
+        [[nodiscard]] bool operator== (const VertexDeclaration& rhs) const noexcept = default;
     };
 
     /** Records the state of all the vertex buffer bindings required to provide a vertex declaration

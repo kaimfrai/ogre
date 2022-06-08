@@ -193,15 +193,9 @@ class Matrix3;
             return q * s;
         }
         Quaternion operator-() const { return {-w, -x, -y, -z}; }
-        inline bool operator== (const Quaternion& rhs) const
-        {
-            return (rhs.x == x) && (rhs.y == y) &&
-                (rhs.z == z) && (rhs.w == w);
-        }
-        inline bool operator!= (const Quaternion& rhs) const
-        {
-            return !operator==(rhs);
-        }
+
+        [[nodiscard]] inline bool operator== (const Quaternion& rhs) const noexcept = default;
+
         // functions of a quaternion
         /// Returns the dot product of the quaternion
         [[nodiscard]] float Dot(const Quaternion& rkQ) const

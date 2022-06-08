@@ -784,7 +784,7 @@ class Sphere;
 
         /** Tests 2 boxes for equality.
         */
-        bool operator== (const AxisAlignedBox& rhs) const
+        [[nodiscard]] bool operator== (const AxisAlignedBox& rhs) const noexcept
         {
             if (this->mExtent != rhs.mExtent)
                 return false;
@@ -794,13 +794,6 @@ class Sphere;
 
             return this->mMinimum == rhs.mMinimum &&
                    this->mMaximum == rhs.mMaximum;
-        }
-
-        /** Tests 2 boxes for inequality.
-        */
-        bool operator!= (const AxisAlignedBox& rhs) const
-        {
-            return !(*this == rhs);
         }
 
         // special values

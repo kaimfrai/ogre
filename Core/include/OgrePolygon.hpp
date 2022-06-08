@@ -130,12 +130,7 @@ namespace Ogre
 
         /** Determines if the current object is equal to the compared one.
         */
-        bool operator == (const Polygon& rhs) const;
-
-        /** Determines if the current object is not equal to the compared one.
-        */
-        bool operator != (const Polygon& rhs) const
-        { return !( *this == rhs ); }
+        [[nodiscard]] bool operator == (const Polygon& rhs) const noexcept;
 
         Polygon& operator=(const Ogre::Polygon&) ;
 

@@ -74,10 +74,7 @@ namespace Ogre
         GLXVideoMode() = default;
         GLXVideoMode(const VideoMode& m) : first(m.width, m.height), second(m.refreshRate) {}
 
-        bool operator!=(const GLXVideoMode& o) const
-        {
-            return first != o.first || second != o.second;
-        }
+        [[nodiscard]] bool operator==(const GLXVideoMode&) const noexcept = default;
     };
     using GLXVideoModes = std::vector<GLXVideoMode>;
 

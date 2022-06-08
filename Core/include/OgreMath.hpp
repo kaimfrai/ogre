@@ -104,12 +104,8 @@ class Sphere;
         Radian operator / ( float f ) const { return Radian ( mRad / f ); }
         Radian& operator /= ( float f ) { mRad /= f; return *this; }
 
-        bool operator <  ( const Radian& r ) const { return mRad <  r.mRad; }
-        bool operator <= ( const Radian& r ) const { return mRad <= r.mRad; }
-        bool operator == ( const Radian& r ) const { return mRad == r.mRad; }
-        bool operator != ( const Radian& r ) const { return mRad != r.mRad; }
-        bool operator >= ( const Radian& r ) const { return mRad >= r.mRad; }
-        bool operator >  ( const Radian& r ) const { return mRad >  r.mRad; }
+        [[nodiscard]] auto operator <=>  ( const Radian& r ) const noexcept = default;
+        [[nodiscard]] bool operator == ( const Radian& r ) const noexcept = default;
 
         inline friend std::ostream& operator <<
             ( std::ostream& o, const Radian& v )
@@ -156,12 +152,8 @@ class Sphere;
         Degree operator / ( float f ) const { return Degree ( mDeg / f ); }
         Degree& operator /= ( float f ) { mDeg /= f; return *this; }
 
-        bool operator <  ( const Degree& d ) const { return mDeg <  d.mDeg; }
-        bool operator <= ( const Degree& d ) const { return mDeg <= d.mDeg; }
-        bool operator == ( const Degree& d ) const { return mDeg == d.mDeg; }
-        bool operator != ( const Degree& d ) const { return mDeg != d.mDeg; }
-        bool operator >= ( const Degree& d ) const { return mDeg >= d.mDeg; }
-        bool operator >  ( const Degree& d ) const { return mDeg >  d.mDeg; }
+        [[nodiscard]] auto operator <=> ( const Degree& d ) const noexcept = default;
+        [[nodiscard]] bool operator == ( const Degree& d ) const noexcept = default;
 
         inline friend std::ostream& operator <<
             ( std::ostream& o, const Degree& v )

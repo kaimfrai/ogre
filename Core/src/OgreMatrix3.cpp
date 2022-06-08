@@ -42,20 +42,6 @@ namespace Ogre
     const unsigned int Matrix3::msSvdMaxIterations = 64;
 
     //-----------------------------------------------------------------------
-    bool Matrix3::operator== (const Matrix3& rkMatrix) const
-    {
-        for (size_t iRow = 0; iRow < 3; iRow++)
-        {
-            for (size_t iCol = 0; iCol < 3; iCol++)
-            {
-                if ( m[iRow][iCol] != rkMatrix.m[iRow][iCol] )
-                    return false;
-            }
-        }
-
-        return true;
-    }
-    //-----------------------------------------------------------------------
     Matrix3 Matrix3::operator+ (const Matrix3& rkMatrix) const
     {
         Matrix3 kSum;

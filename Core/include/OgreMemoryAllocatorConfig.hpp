@@ -81,7 +81,10 @@ namespace Ogre
 {
     class AllocPolicy {};
     // this is a template, mainly so swig does not pick it up
-    template<int Category = MEMCATEGORY_GENERAL> class AllocatedObject {};
+    template<int Category = MEMCATEGORY_GENERAL> class AllocatedObject
+    {
+        friend auto constexpr operator <=>(AllocatedObject, AllocatedObject) = default;
+    };
 
     // Useful shortcuts
     using GeneralAllocPolicy = AllocPolicy;
