@@ -50,8 +50,8 @@ namespace Ogre {
         return i->second;
     }
     //---------------------------------------------------------------------
-    WorkQueue::Request::Request(uint16 channel, uint16 rtype, ::std::any const& rData, uint8 retry, RequestID rid)
-        : mChannel(channel), mType(rtype), mData(rData), mRetryCount(retry), mID(rid) 
+    WorkQueue::Request::Request(uint16 channel, uint16 rtype, ::std::any  rData, uint8 retry, RequestID rid)
+        : mChannel(channel), mType(rtype), mData(std::move(rData)), mRetryCount(retry), mID(rid) 
     {
 
     }
@@ -60,8 +60,8 @@ namespace Ogre {
     = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    WorkQueue::Response::Response(const Request* rq, bool success, ::std::any const& data, String  msg)
-        : mRequest(rq), mSuccess(success), mMessages(std::move(msg)), mData(data)
+    WorkQueue::Response::Response(const Request* rq, bool success, ::std::any  data, String  msg)
+        : mRequest(rq), mSuccess(success), mMessages(std::move(msg)), mData(std::move(data))
     {
         
     }

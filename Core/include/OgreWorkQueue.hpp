@@ -108,7 +108,7 @@ namespace Ogre
 
         public:
             /// Constructor 
-            Request(uint16 channel, uint16 rtype, ::std::any const& rData, uint8 retry, RequestID rid);
+            Request(uint16 channel, uint16 rtype, ::std::any  rData, uint8 retry, RequestID rid);
             ~Request();
             /// Set the abort flag
             void abortRequest() const { mAborted = true; }
@@ -140,7 +140,7 @@ namespace Ogre
             ::std::any mData;
 
         public:
-            Response(const Request* rq, bool success, ::std::any const& data, String  msg = BLANKSTRING);
+            Response(const Request* rq, bool success, ::std::any  data, String  msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] const Request* getRequest() const noexcept { return mRequest.get(); }
             /// Return whether this is a successful response
