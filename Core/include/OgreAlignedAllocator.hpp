@@ -97,7 +97,7 @@ namespace Ogre {
             @par
                 On <b>NULL</b> pointer, nothing happen.
         */
-        static void deallocate(void* p, size_t alignment = SIMD_ALIGNMENT);
+        static void deallocate(void* p, size_t alignment = OGRE_SIMD_ALIGNMENT);
     };
 
     /// STL compatible wrapper for @ref AlignedMemory
