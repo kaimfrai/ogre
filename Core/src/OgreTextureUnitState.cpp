@@ -221,9 +221,9 @@ class Frustum;
         mCompositorRefName = oth.mCompositorRefName;
         mCompositorRefTexName = oth.mCompositorRefTexName;
         // Can't sharing controllers with other TUS, reset to null to avoid potential bug.
-        for (auto j = mEffects.begin(); j != mEffects.end(); ++j)
+        for (auto & mEffect : mEffects)
         {
-            j->second.controller = nullptr;
+            mEffect.second.controller = nullptr;
         }
 
         // Load immediately if Material loaded
@@ -662,13 +662,11 @@ class Frustum;
     void TextureUnitState::removeAllEffects()
     {
         // Iterate over effects to remove controllers
-        EffectMap::iterator i, iend;
-        iend = mEffects.end();
-        for (i = mEffects.begin(); i != iend; ++i)
+        for (auto & mEffect : mEffects)
         {
-            if (i->second.controller)
+            if (mEffect.second.controller)
             {
-                ControllerManager::getSingleton().destroyController(i->second.controller);
+                ControllerManager::getSingleton().destroyController(mEffect.second.controller);
             }
         }
 
@@ -963,9 +961,9 @@ class Frustum;
             createAnimController();
         }
         // Effect controllers
-        for (auto it = mEffects.begin(); it != mEffects.end(); ++it)
+        for (auto & mEffect : mEffects)
         {
-            createEffectController(it->second);
+            createEffectController(mEffect.second);
         }
 
     }
@@ -1149,12 +1147,12 @@ class Frustum;
         }
 
         // Destroy effect controllers
-        for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
+        for (auto & mEffect : mEffects)
         {
-            if (i->second.controller)
+            if (mEffect.second.controller)
             {
-                ControllerManager::getSingleton().destroyController(i->second.controller);
-                i->second.controller = nullptr;
+                ControllerManager::getSingleton().destroyController(mEffect.second.controller);
+                mEffect.second.controller = nullptr;
             }
         }
 
@@ -1178,16 +1176,13 @@ class Frustum;
     {
         // Right now this only returns true for reflection maps
 
-        EffectMap::const_iterator i, iend;
-        iend = mEffects.end();
-        
-        for(i = mEffects.find(ET_ENVIRONMENT_MAP); i != iend; ++i)
+        for(auto i = mEffects.find(ET_ENVIRONMENT_MAP); i != mEffects.end(); ++i)
         {
             if (i->second.subtype == ENV_REFLECTION)
                 return true;
         }
 
-        if(mEffects.find(ET_PROJECTIVE_TEXTURE) != iend)
+        if(mEffects.find(ET_PROJECTIVE_TEXTURE) != mEffects.end())
         {
             return true;
         }

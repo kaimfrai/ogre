@@ -66,10 +66,9 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::_destroyPool()
     {
-        for (auto i = msFreePolygons.begin(); 
-            i != msFreePolygons.end(); ++i)
+        for (auto & msFreePolygon : msFreePolygons)
         {
-            delete *i;
+            delete msFreePolygon;
         }
         msFreePolygons.clear();
     }
@@ -458,10 +457,9 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ConvexBody::reset( )
     {
-        for (auto it = mPolygons.begin(); 
-            it != mPolygons.end(); ++it)
+        for (auto & mPolygon : mPolygons)
         {
-            freePolygon(*it);
+            freePolygon(mPolygon);
         }
         mPolygons.clear();
     }

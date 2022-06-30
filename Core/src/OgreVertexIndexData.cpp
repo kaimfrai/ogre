@@ -89,11 +89,9 @@ class RenderSystem;
         // Copy vertex buffers in turn
         const VertexBufferBinding::VertexBufferBindingMap& bindings = 
             this->vertexBufferBinding->getBindings();
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator vbi, vbend;
-        vbend = bindings.end();
-        for (vbi = bindings.begin(); vbi != vbend; ++vbi)
+        for (const auto & binding : bindings)
         {
-            HardwareVertexBufferSharedPtr srcbuf = vbi->second;
+            HardwareVertexBufferSharedPtr srcbuf = binding.second;
             HardwareVertexBufferSharedPtr dstBuf;
             if (copyData)
             {
@@ -112,7 +110,7 @@ class RenderSystem;
             }
 
             // Copy binding
-            dest->vertexBufferBinding->setBinding(vbi->first, dstBuf);
+            dest->vertexBufferBinding->setBinding(binding.first, dstBuf);
         }
 
         // Basic vertex info
@@ -121,16 +119,14 @@ class RenderSystem;
         // Copy elements
         const VertexDeclaration::VertexElementList elems = 
             this->vertexDeclaration->getElements();
-        VertexDeclaration::VertexElementList::const_iterator ei, eiend;
-        eiend = elems.end();
-        for (ei = elems.begin(); ei != eiend; ++ei)
+        for (const auto & elem : elems)
         {
             dest->vertexDeclaration->addElement(
-                ei->getSource(),
-                ei->getOffset(),
-                ei->getType(),
-                ei->getSemantic(),
-                ei->getIndex() );
+                elem.getSource(),
+                elem.getOffset(),
+                elem.getType(),
+                elem.getSemantic(),
+                elem.getIndex() );
         }
 
         // Copy reference to hardware shadow buffer, no matter whether copy data or not
@@ -295,8 +291,7 @@ class RenderSystem;
                 vertexDeclaration->getElements().begin();
             auto elemiend = 
                 vertexDeclaration->getElements().end();
-            unsigned short idx;
-            for(idx = 0; elemi != elemiend; ++elemi, ++idx) 
+            for(unsigned short idx = 0; elemi != elemiend; ++elemi, ++idx)
             {
                 if (&(*elemi) == posElem)
                 {
@@ -342,14 +337,12 @@ class RenderSystem;
         newDeclaration->closeGapsInSource();
 
         // Build up a list of both old and new elements in each buffer
-        unsigned short buf = 0;
         std::vector<void*> oldBufferLocks;
         std::vector<size_t> oldBufferVertexSizes;
         std::vector<void*> newBufferLocks;
         std::vector<size_t> newBufferVertexSizes;
         VertexBufferBinding* newBinding = pManager->createVertexBufferBinding();
         const VertexBufferBinding::VertexBufferBindingMap& oldBindingMap = vertexBufferBinding->getBindings();
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator itBinding;
 
         // Pre-allocate old buffer locks
         if (!oldBindingMap.empty())
@@ -362,22 +355,21 @@ class RenderSystem;
         bool useShadowBuffer = false;
 
         // Lock all the old buffers for reading
-        for (itBinding = oldBindingMap.begin(); itBinding != oldBindingMap.end(); ++itBinding)
+        for (auto const& itBinding : oldBindingMap)
         {
-            assert(itBinding->second->getNumVertices() >= vertexCount);
+            assert(itBinding.second->getNumVertices() >= vertexCount);
 
-            oldBufferVertexSizes[itBinding->first] =
-                itBinding->second->getVertexSize();
-            oldBufferLocks[itBinding->first] =
-                itBinding->second->lock(
+            oldBufferVertexSizes[itBinding.first] =
+                itBinding.second->getVertexSize();
+            oldBufferLocks[itBinding.first] =
+                itBinding.second->lock(
                     HardwareBuffer::HBL_READ_ONLY);
 
-            useShadowBuffer |= itBinding->second->hasShadowBuffer();
+            useShadowBuffer |= itBinding.second->hasShadowBuffer();
         }
         
         // Create new buffers and lock all for writing
-        buf = 0;
-        while (!newDeclaration->findElementsBySource(buf).empty())
+        for (unsigned short buf = 0; !newDeclaration->findElementsBySource(buf).empty(); ++buf)
         {
             size_t vertexSize = newDeclaration->getVertexSize(buf);
 
@@ -391,21 +383,18 @@ class RenderSystem;
             newBufferVertexSizes.push_back(vertexSize);
             newBufferLocks.push_back(
                 vbuf->lock(HardwareBuffer::HBL_DISCARD));
-            buf++;
         }
 
         // Map from new to old elements
         using NewToOldElementMap = std::map<const VertexElement *, const VertexElement *>;
         NewToOldElementMap newToOldElementMap;
         const VertexDeclaration::VertexElementList& newElemList = newDeclaration->getElements();
-        VertexDeclaration::VertexElementList::const_iterator ei, eiend;
-        eiend = newElemList.end();
-        for (ei = newElemList.begin(); ei != eiend; ++ei)
+        for (const auto & ei : newElemList)
         {
             // Find corresponding old element
             const VertexElement* oldElem = 
                 vertexDeclaration->findElementBySemantic(
-                    (*ei).getSemantic(), (*ei).getIndex());
+                    ei.getSemantic(), ei.getIndex());
             if (!oldElem)
             {
                 // Error, cannot create new elements with this method
@@ -413,16 +402,16 @@ class RenderSystem;
                     "Element not found in old vertex declaration", 
                     "VertexData::reorganiseBuffers");
             }
-            newToOldElementMap[&(*ei)] = oldElem;
+            newToOldElementMap[&ei] = oldElem;
         }
         // Now iterate over the new buffers, pulling data out of the old ones
         // For each vertex
         for (size_t v = 0; v < vertexCount; ++v)
         {
             // For each (new) element
-            for (ei = newElemList.begin(); ei != eiend; ++ei)
+            for (const auto & ei : newElemList)
             {
-                const VertexElement* newElem = &(*ei);
+                const VertexElement* newElem = &ei;
                 auto noi = newToOldElementMap.find(newElem);
                 const VertexElement* oldElem = noi->second;
                 unsigned short oldBufferNo = oldElem->getSource();
@@ -443,11 +432,11 @@ class RenderSystem;
         }
 
         // Unlock all buffers
-        for (itBinding = oldBindingMap.begin(); itBinding != oldBindingMap.end(); ++itBinding)
+        for (const auto & itBinding : oldBindingMap)
         {
-            itBinding->second->unlock();
+            itBinding.second->unlock();
         }
-        for (buf = 0; buf < newBinding->getBufferCount(); ++buf)
+        for (unsigned short buf = 0; buf < newBinding->getBufferCount(); ++buf)
         {
             newBinding->getBuffer(buf)->unlock();
         }
@@ -516,10 +505,8 @@ class RenderSystem;
         // Check for error first
         const VertexDeclaration::VertexElementList& allelems = 
             vertexDeclaration->getElements();
-        VertexDeclaration::VertexElementList::const_iterator ai;
-        for (ai = allelems.begin(); ai != allelems.end(); ++ai)
+        for (const auto & elem : allelems)
         {
-            const VertexElement& elem = *ai;
             if (!vertexBufferBinding->isBufferBound(elem.getSource()))
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
@@ -533,10 +520,9 @@ class RenderSystem;
         vertexBufferBinding->closeGaps(bindingIndexMap);
 
         // Modify vertex elements to reference to new buffer index
-        unsigned short elemIndex = 0;
-        for (ai = allelems.begin(); ai != allelems.end(); ++ai, ++elemIndex)
+        for (unsigned short elemIndex = 0;
+             const VertexElement& elem : allelems)
         {
-            const VertexElement& elem = *ai;
             auto it =
                 bindingIndexMap.find(elem.getSource());
             assert(it != bindingIndexMap.end());
@@ -547,6 +533,7 @@ class RenderSystem;
                     targetSource, elem.getOffset(), elem.getType(), 
                     elem.getSemantic(), elem.getIndex());
             }
+            ++elemIndex;
         }
     }
     //-----------------------------------------------------------------------
@@ -557,10 +544,8 @@ class RenderSystem;
         // Collect used buffers
         const VertexDeclaration::VertexElementList& allelems = 
             vertexDeclaration->getElements();
-        VertexDeclaration::VertexElementList::const_iterator ai;
-        for (ai = allelems.begin(); ai != allelems.end(); ++ai)
+        for (const auto & elem : allelems)
         {
-            const VertexElement& elem = *ai;
             usedBuffers.insert(elem.getSource());
         }
 
@@ -585,16 +570,13 @@ class RenderSystem;
 
         const VertexBufferBinding::VertexBufferBindingMap& bindMap = 
             vertexBufferBinding->getBindings();
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator bindi;
-        for (bindi = bindMap.begin(); bindi != bindMap.end(); ++bindi)
+        for (const auto & bindi : bindMap)
         {
             VertexDeclaration::VertexElementList elems = 
-                vertexDeclaration->findElementsBySource(bindi->first);
+                vertexDeclaration->findElementsBySource(bindi.first);
             bool conversionNeeded = false;
-            VertexDeclaration::VertexElementList::iterator elemi;
-            for (elemi = elems.begin(); elemi != elems.end(); ++elemi)
+            for (auto & elem : elems)
             {
-                VertexElement& elem = *elemi;
                 if (elem.getType() == _DETAIL_SWAP_RB)
                 {
                     conversionNeeded = true;
@@ -603,14 +585,13 @@ class RenderSystem;
 
             if (conversionNeeded)
             {
-                void* pBase = bindi->second->lock(HardwareBuffer::HBL_NORMAL);
+                void* pBase = bindi.second->lock(HardwareBuffer::HBL_NORMAL);
 
-                for (size_t v = 0; v < bindi->second->getNumVertices(); ++v)
+                for (size_t v = 0; v < bindi.second->getNumVertices(); ++v)
                 {
 
-                    for (elemi = elems.begin(); elemi != elems.end(); ++elemi)
+                    for (auto & elem : elems)
                     {
-                        VertexElement& elem = *elemi;
                         if (elem.getType() == _DETAIL_SWAP_RB)
                         {
                             uint32* pRGBA;
@@ -619,24 +600,23 @@ class RenderSystem;
                         }
                     }
                     pBase = static_cast<void*>(
-                        static_cast<char*>(pBase) + bindi->second->getVertexSize());
+                        static_cast<char*>(pBase) + bindi.second->getVertexSize());
                 }
-                bindi->second->unlock();
+                bindi.second->unlock();
 
                 // Modify the elements to reflect the changed type
                 const VertexDeclaration::VertexElementList& allelems = 
                     vertexDeclaration->getElements();
-                VertexDeclaration::VertexElementList::const_iterator ai;
                 unsigned short elemIndex = 0;
-                for (ai = allelems.begin(); ai != allelems.end(); ++ai, ++elemIndex)
+                for (const auto & elem : allelems)
                 {
-                    const VertexElement& elem = *ai;
                     if (elem.getType() == _DETAIL_SWAP_RB)
                     {
                         vertexDeclaration->modifyElement(elemIndex, 
                             elem.getSource(), elem.getOffset(), destType, 
                             elem.getSemantic(), elem.getIndex());
                     }
+                    ++elemIndex;
                 }
 
             }

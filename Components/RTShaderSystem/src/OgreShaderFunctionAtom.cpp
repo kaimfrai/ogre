@@ -168,8 +168,8 @@ FunctionInvocation::FunctionInvocation(const FunctionInvocation& other) :
     mFunctionName = other.mFunctionName;
     mGroupExecutionOrder = other.mGroupExecutionOrder;
     
-    for ( auto it = other.mOperands.begin(); it != other.mOperands.end(); ++it)
-        mOperands.push_back(Operand(*it));
+    for (const auto & mOperand : other.mOperands)
+        mOperands.push_back(Operand(mOperand));
 }
 
 //-----------------------------------------------------------------------

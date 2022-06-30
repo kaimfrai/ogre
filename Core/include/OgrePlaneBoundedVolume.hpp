@@ -71,12 +71,8 @@ namespace Ogre {
             // Get the half-size of the box
             Vector3 halfSize = box.getHalfSize();
             
-            PlaneList::const_iterator i, iend;
-            iend = planes.end();
-            for (i = planes.begin(); i != iend; ++i)
+            for (auto plane : planes)
             {
-                const Plane& plane = *i;
-
                 Plane::Side side = plane.getSide(centre, halfSize);
                 if (side == outside)
                 {
@@ -94,12 +90,8 @@ namespace Ogre {
         */
         [[nodiscard]] inline bool intersects(const Sphere& sphere) const
         {
-            PlaneList::const_iterator i, iend;
-            iend = planes.end();
-            for (i = planes.begin(); i != iend; ++i)
+            for (auto plane : planes)
             {
-                const Plane& plane = *i;
-
                 // Test which side of the plane the sphere is
                 Real d = plane.getDistance(sphere.getCenter());
                 // Negate d if planes point inwards

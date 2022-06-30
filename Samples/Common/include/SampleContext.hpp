@@ -81,13 +81,13 @@ namespace OgreBites
                 Ogre::Root::PluginInstanceList ip = mRoot->getInstalledPlugins();
                 Ogre::StringVector rp = s->getRequiredPlugins();
 
-                for (auto j = rp.begin(); j != rp.end(); j++)
+                for (auto & j : rp)
                 {
                     bool found = false;
                     // try to find the required plugin in the current installed plugins
-                    for (auto k = ip.begin(); k != ip.end(); k++)
+                    for (auto & k : ip)
                     {
-                        if ((*k)->getName() == *j)
+                        if (k->getName() == j)
                         {
                             found = true;
                             break;
@@ -95,7 +95,7 @@ namespace OgreBites
                     }
                     if (!found)  // throw an exception if a plugin is not found
                     {
-                        OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, "Sample requires plugin: " + *j);
+                        OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, "Sample requires plugin: " + j);
                     }
                 }
 

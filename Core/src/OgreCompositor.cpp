@@ -88,11 +88,9 @@ void Compositor::removeTechnique(size_t index)
 //-----------------------------------------------------------------------
 void Compositor::removeAllTechniques()
 {
-    Techniques::iterator i, iend;
-    iend = mTechniques.end();
-    for (i = mTechniques.begin(); i != iend; ++i)
+    for (auto & mTechnique : mTechniques)
     {
-        delete (*i);
+        delete mTechnique;
     }
     mTechniques.clear();
     mSupportedTechniques.clear();
@@ -152,20 +150,20 @@ void Compositor::compile()
 //---------------------------------------------------------------------
 CompositionTechnique* Compositor::getSupportedTechnique(const String& schemeName)
 {
-    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName() == schemeName)
+        if (mSupportedTechnique->getSchemeName() == schemeName)
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 
     // didn't find a matching one
-    for(auto i = mSupportedTechniques.begin(); i != mSupportedTechniques.end(); ++i)
+    for(auto & mSupportedTechnique : mSupportedTechniques)
     {
-        if ((*i)->getSchemeName().empty())
+        if (mSupportedTechnique->getSchemeName().empty())
         {
-            return *i;
+            return mSupportedTechnique;
         }
     }
 
@@ -188,11 +186,9 @@ void Compositor::createGlobalTextures()
     //Initialize global textures from first supported technique
     CompositionTechnique* firstTechnique = mSupportedTechniques[0];
 
-    const CompositionTechnique::TextureDefinitions& tdefs = firstTechnique->getTextureDefinitions();
-    auto texDefIt = tdefs.begin();
-    for (; texDefIt != tdefs.end(); ++texDefIt)
+    for (const CompositionTechnique::TextureDefinitions& tdefs = firstTechnique->getTextureDefinitions();
+            CompositionTechnique::TextureDefinition* def : tdefs)
     {
-        CompositionTechnique::TextureDefinition* def = *texDefIt;
         if (def->scope == CompositionTechnique::TS_GLOBAL) 
         {
             //Check that this is a legit global texture
@@ -275,11 +271,9 @@ void Compositor::createGlobalTextures()
         CompositionTechnique* technique = mSupportedTechniques[i];
         bool isConsistent = true;
         size_t numGlobals = 0;
-        const CompositionTechnique::TextureDefinitions& tdefs2 = technique->getTextureDefinitions();
-        texDefIt = tdefs2.begin();
-        for (; texDefIt != tdefs2.end(); ++texDefIt)
+        for (const CompositionTechnique::TextureDefinitions& tdefs2 = technique->getTextureDefinitions();
+                CompositionTechnique::TextureDefinition* texDef : tdefs2)
         {
-            CompositionTechnique::TextureDefinition* texDef = *texDefIt;
             if (texDef->scope == CompositionTechnique::TS_GLOBAL) 
             {
                 if (globalTextureNames.find(texDef->name) == globalTextureNames.end()) 
@@ -300,20 +294,16 @@ void Compositor::createGlobalTextures()
 //-----------------------------------------------------------------------
 void Compositor::freeGlobalTextures()
 {
-    auto i = mGlobalTextures.begin();
-    while (i != mGlobalTextures.end())
+    for (auto const& i : mGlobalTextures)
     {
-        TextureManager::getSingleton().remove(i->second);
-        ++i;
+        TextureManager::getSingleton().remove(i.second);
     }
     mGlobalTextures.clear();
 
-    auto mrti = mGlobalMRTs.begin();
-    while (mrti != mGlobalMRTs.end())
+    for (auto const& mrti : mGlobalMRTs)
     {
         // remove MRT
-        Root::getSingleton().getRenderSystem()->destroyRenderTarget(mrti->second->getName());
-        ++mrti;
+        Root::getSingleton().getRenderSystem()->destroyRenderTarget(mrti.second->getName());
     }
     mGlobalMRTs.clear();
 

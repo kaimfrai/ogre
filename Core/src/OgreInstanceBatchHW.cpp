@@ -205,19 +205,16 @@ class Camera;
         HardwareBufferLockGuard vertexLock(binding->getBuffer(bufferIdx), HardwareBuffer::HBL_DISCARD);
         auto *pDest = static_cast<float*>(vertexLock.pData);
 
-        auto itor = mInstancedEntities.begin();
-        auto end  = mInstancedEntities.end();
-
         unsigned char numCustomParams           = mCreator->getNumCustomParams();
         size_t customParamIdx                   = 0;
 
-        while( itor != end )
+        for (auto const& itor : mInstancedEntities)
         {
             //Cull on an individual basis, the less entities are visible, the less instances we draw.
             //No need to use null matrices at all!
-            if( (*itor)->findVisible( currentCamera ) )
+            if( itor->findVisible( currentCamera ) )
             {
-                const size_t floatsWritten = (*itor)->getTransforms3x4( (Matrix3x4f*)pDest );
+                const size_t floatsWritten = itor->getTransforms3x4( (Matrix3x4f*)pDest );
 
                 if( mManager->getCameraRelativeRendering() )
                     makeMatrixCameraRelative3x4( (Matrix3x4f*)pDest, floatsWritten / 12 );
@@ -235,7 +232,6 @@ class Camera;
 
                 ++retVal;
             }
-            ++itor;
 
             customParamIdx += numCustomParams;
         }

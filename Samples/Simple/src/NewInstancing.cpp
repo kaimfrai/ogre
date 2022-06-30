@@ -216,23 +216,18 @@ void Sample_NewInstancing::createSceneNodes()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
-    auto itor = mEntities.begin();
-    auto end  = mEntities.end();
-
     //Note: Destroying the instance manager automatically destroys all instanced entities
     //created by this manager (beware of not leaving reference to those pointers)
-    while( itor != end )
+    for (auto const& itor : mEntities)
     {
-        SceneNode *sceneNode = (*itor)->getParentSceneNode();
+        SceneNode *sceneNode = itor->getParentSceneNode();
         if (sceneNode)
         {
             sceneNode->detachAllObjects();
             sceneNode->getParentSceneNode()->removeAndDestroyChild( sceneNode );
         }
 
-        mSceneMgr->destroyInstancedEntity( static_cast<InstancedEntity*>(*itor) );
-
-        ++itor;
+        mSceneMgr->destroyInstancedEntity( static_cast<InstancedEntity*>(itor) );
     }
 
     //Free some memory, but don't destroy the manager so when we switch this technique
@@ -264,13 +259,10 @@ void Sample_NewInstancing::animateUnits( float timeSinceLast )
 {
     //Iterates through all AnimationSets and updates the animation being played. Demonstrates the
     //animation is unique and independent to each instance
-    auto itor = mAnimations.begin();
-    auto end  = mAnimations.end();
 
-    while( itor != end )
+    for (auto const& itor : mAnimations)
     {
-        (*itor)->addTime( timeSinceLast );
-        ++itor;
+        itor->addTime( timeSinceLast );
     }
 }
 
@@ -285,30 +277,27 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
     if (!mSceneNodes.empty())
     {
         //Randomly move the units along their normal, bouncing around invisible walls
-        auto itor = mSceneNodes.begin();
-        auto end  = mSceneNodes.end();
-
-        while( itor != end )
+        for (auto const& itor : mSceneNodes)
         {
             //Calculate bounces
-            Vector3 entityPos = (*itor)->getPosition();
+            Vector3 entityPos = itor->getPosition();
             Vector3 planeNormal = Vector3::ZERO;
-            if( (*itor)->getPosition().x < -5000.0f )
+            if(itor->getPosition().x < -5000.0f )
             {
                 planeNormal = Vector3::UNIT_X;
                 entityPos.x = -4999.0f;
             }
-            else if( (*itor)->getPosition().x > 5000.0f )
+            else if(itor->getPosition().x > 5000.0f )
             {
                 planeNormal = Vector3::NEGATIVE_UNIT_X;
                 entityPos.x = 4999.0f;
             }
-            else if( (*itor)->getPosition().z < -5000.0f )
+            else if(itor->getPosition().z < -5000.0f )
             {
                 planeNormal = Vector3::UNIT_Z;
                 entityPos.z = -4999.0f;
             }
-            else if( (*itor)->getPosition().z > 5000.0f )
+            else if(itor->getPosition().z > 5000.0f )
             {
                 planeNormal = Vector3::NEGATIVE_UNIT_Z;
                 entityPos.z = 4999.0f;
@@ -316,14 +305,13 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 
             if( planeNormal != Vector3::ZERO )
             {
-                const Vector3 vDir( (*itor)->getOrientation().xAxis().normalisedCopy() );
-                (*itor)->setOrientation( lookAt( planeNormal.reflect( vDir ) ) );
-                (*itor)->setPosition( entityPos );
+                const Vector3 vDir(itor->getOrientation().xAxis().normalisedCopy() );
+                itor->setOrientation( lookAt( planeNormal.reflect( vDir ) ) );
+                itor->setPosition( entityPos );
             }
 
             //Move along the direction we're looking to
-            (*itor)->translate( Vector3::UNIT_X * timeSinceLast * fMovSpeed, Node::TS_LOCAL );
-            ++itor;
+            itor->translate( Vector3::UNIT_X * timeSinceLast * fMovSpeed, Node::TS_LOCAL );
         }
     }
     else
@@ -332,13 +320,9 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
         //Update instanced entities directly
 
         //Randomly move the units along their normal, bouncing around invisible walls
-        auto itor = mMovedInstances.begin();
-        auto end  = mMovedInstances.end();
-
-        while( itor != end )
+        for (InstancedEntity* pEnt : mMovedInstances)
         {
             //Calculate bounces
-            InstancedEntity* pEnt = *itor;
             Vector3 entityPos = pEnt->getPosition();
             Vector3 planeNormal = Vector3::ZERO;
             if( pEnt->getPosition().x < -5000.0f )
@@ -372,7 +356,6 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
             //Move along the direction we're looking to
             Vector3 transAmount = Vector3::UNIT_X * timeSinceLast * fMovSpeed;
             pEnt->setPosition( pEnt->getPosition() + pEnt->getOrientation() * transAmount );
-            ++itor;
         }
     }
 }

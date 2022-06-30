@@ -59,10 +59,9 @@ class Camera;
     RenderTarget::~RenderTarget()
     {
         // Delete viewports
-        for (auto i = mViewportList.begin();
-            i != mViewportList.end(); ++i)
+        for (auto & i : mViewportList)
         {
-            fireViewportRemoved(i->second.get());
+            fireViewportRemoved(i.second.get());
         }
 
         //DepthBuffer keeps track of us, avoid a dangling pointer
@@ -166,15 +165,13 @@ class Camera;
     {
         // Go through viewports in Z-order
         // Tell each to refresh
-        auto it = mViewportList.begin();
-        while (it != mViewportList.end())
+        for (auto const& it : mViewportList)
         {
-            Viewport* viewport = (*it).second.get();
+            Viewport* viewport = it.second.get();
             if(viewport->isAutoUpdated())
             {
                 _updateViewport(viewport,updateStatistics);
             }
-            ++it;
         }
     }
 
@@ -255,9 +252,9 @@ class Camera;
 
     void RenderTarget::removeAllViewports()
     {
-        for (auto it = mViewportList.begin(); it != mViewportList.end(); ++it)
+        for (auto & it : mViewportList)
         {
-            fireViewportRemoved(it->second.get());
+            fireViewportRemoved(it.second.get());
         }
 
         mViewportList.clear();
@@ -351,12 +348,9 @@ class Camera;
         RenderTargetEvent evt;
         evt.source = this;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto const& i : mListeners)
         {
-            (*i)->preRenderTargetUpdate(evt);
+            i->preRenderTargetUpdate(evt);
         }
 
 
@@ -367,12 +361,9 @@ class Camera;
         RenderTargetEvent evt;
         evt.source = this;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto const& i : mListeners)
         {
-            (*i)->postRenderTargetUpdate(evt);
+            i->postRenderTargetUpdate(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -424,12 +415,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto const& i : mListeners)
         {
-            (*i)->preViewportUpdate(evt);
+            i->preViewportUpdate(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -438,12 +426,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto const& i : mListeners)
         {
-            (*i)->postViewportUpdate(evt);
+            i->postViewportUpdate(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -452,12 +437,9 @@ class Camera;
         RenderTargetViewportEvent evt;
         evt.source = vp;
 
-        RenderTargetListenerList::iterator i, iend;
-        i = mListeners.begin();
-        iend = mListeners.end();
-        for(; i != iend; ++i)
+        for(auto const& i : mListeners)
         {
-            (*i)->viewportAdded(evt);
+            i->viewportAdded(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -468,14 +450,10 @@ class Camera;
 
         // Make a temp copy of the listeners
         // some will want to remove themselves as listeners when they get this
-        RenderTargetListenerList tempList = mListeners;
-
-        RenderTargetListenerList::iterator i, iend;
-        i = tempList.begin();
-        iend = tempList.end();
-        for(; i != iend; ++i)
+        for(RenderTargetListenerList tempList = mListeners;
+            auto const& i : tempList)
         {
-            (*i)->viewportRemoved(evt);
+            i->viewportRemoved(evt);
         }
     }
     //-----------------------------------------------------------------------
@@ -508,11 +486,9 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::_notifyCameraRemoved(const Camera* cam)
     {
-        ViewportList::iterator i, iend;
-        iend = mViewportList.end();
-        for (i = mViewportList.begin(); i != iend; ++i)
+        for (auto & i : mViewportList)
         {
-            Viewport* v = i->second.get();
+            Viewport* v = i.second.get();
             if (v->getCamera() == cam)
             {
                 // disable camera link

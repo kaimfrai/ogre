@@ -123,15 +123,14 @@ class MovableObject;
     //---------------------------------------------------------------------
     ushort LodStrategy::getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList)
     {
-        Mesh::MeshLodUsageList::const_iterator i, iend;
-        iend = meshLodUsageList.end();
         ushort index = 0;
-        for (i = meshLodUsageList.begin(); i != iend; ++i, ++index)
+        for (const auto & i : meshLodUsageList)
         {
-            if (i->value > value)
+            if (i.value > value)
             {
                 return index ? index - 1 : 0;
             }
+            ++index;
         }
 
         // If we fall all the way through, use the highest value
@@ -140,15 +139,14 @@ class MovableObject;
     //---------------------------------------------------------------------
     ushort LodStrategy::getIndexDescending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList)
     {
-        Mesh::MeshLodUsageList::const_iterator i, iend;
-        iend = meshLodUsageList.end();
         ushort index = 0;
-        for (i = meshLodUsageList.begin(); i != iend; ++i, ++index)
+        for (const auto & i : meshLodUsageList)
         {
-            if (i->value < value)
+            if (i.value < value)
             {
                 return index ? index - 1 : 0;
             }
+            ++index;
         }
 
         // If we fall all the way through, use the highest value
@@ -157,15 +155,14 @@ class MovableObject;
     //---------------------------------------------------------------------
     ushort LodStrategy::getIndexAscending(Real value, const Material::LodValueList& materialLodValueList)
     {
-        Material::LodValueList::const_iterator i, iend;
-        iend = materialLodValueList.end();
         unsigned short index = 0;
-        for (i = materialLodValueList.begin(); i != iend; ++i, ++index)
+        for (float i : materialLodValueList)
         {
-            if (*i > value)
+            if (i > value)
             {
                 return index ? index - 1 : 0;
             }
+            ++index;
         }
 
         // If we fall all the way through, use the highest value
@@ -174,15 +171,14 @@ class MovableObject;
     //---------------------------------------------------------------------
     ushort LodStrategy::getIndexDescending(Real value, const Material::LodValueList& materialLodValueList)
     {
-        Material::LodValueList::const_iterator i, iend;
-        iend = materialLodValueList.end();
         unsigned short index = 0;
-        for (i = materialLodValueList.begin(); i != iend; ++i, ++index)
+        for (float i : materialLodValueList)
         {
-            if (*i < value)
+            if (i < value)
             {
                 return index ? index - 1 : 0;
             }
+            ++index;
         }
 
         // If we fall all the way through, use the highest value

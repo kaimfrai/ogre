@@ -92,16 +92,11 @@ namespace Ogre
         thisVertexData->vertexDeclaration = baseVertexData->vertexDeclaration->clone();
 
         //Reuse all vertex buffers
-        auto itor = baseVertexData->
-                                                            vertexBufferBinding->getBindings().begin();
-        auto end  = baseVertexData->
-                                                            vertexBufferBinding->getBindings().end();
-        while( itor != end )
+        for (auto const& itor : baseVertexData->vertexBufferBinding->getBindings())
         {
-            const unsigned short bufferIdx = itor->first;
-            const HardwareVertexBufferSharedPtr vBuf = itor->second;
+            const unsigned short bufferIdx = itor.first;
+            const HardwareVertexBufferSharedPtr vBuf = itor.second;
             thisVertexData->vertexBufferBinding->setBinding( bufferIdx, vBuf );
-            ++itor;
         }
 
         //Remove the blend weights & indices

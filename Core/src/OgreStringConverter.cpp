@@ -209,12 +209,9 @@ namespace Ogre {
     String StringConverter::toString(const StringVector& val)
     {
         StringStream stream;
-        StringVector::const_iterator i, iend, ibegin;
-        ibegin = val.begin();
-        iend = val.end();
-        for (i = ibegin; i != iend; ++i)
+        for (auto i = val.begin(); i != val.end(); ++i)
         {
-            if (i != ibegin)
+            if (i != val.begin())
                 stream << " ";
 
             stream << *i; 

@@ -400,8 +400,8 @@ class RenderWindow;
         void recalcHash() const
         {
             mListHash = 0;
-            for (auto i = mList.begin(); i != mList.end(); ++i)
-                addToHash(*i);
+            for (auto const& i :mList)
+                addToHash(i);
             mListHashDirty = false;
             
         }

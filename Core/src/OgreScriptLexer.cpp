@@ -51,19 +51,15 @@ namespace Ogre {
 
         // Set up some constant characters of interest
         const wchar_t varopener = '$', quote = '\"', slash = '/', backslash = '\\', openbrace = '{', closebrace = '}', colon = ':', star = '*', cr = '\r', lf = '\n';
-        char c = 0, lastc = 0;
+        char lastc = 0;
 
         String lexeme;
         uint32 line = 1, state = READY, lastQuote = 0, firstOpenBrace = 0, braceLayer = 0;
         ScriptTokenList tokens;
 
         // Iterate over the input
-        String::const_iterator i = str.begin(), end = str.end();
-        while(i != end)
+        for (auto const& c : str)
         {
-            lastc = c;
-            c = *i;
-
             if(c == quote)
                 lastQuote = line;
             
@@ -241,7 +237,7 @@ namespace Ogre {
             if(c == cr || (c == lf && lastc != cr))
                 line++;
 
-            i++;
+            lastc = c;
         }
 
         // Check for valid exit states

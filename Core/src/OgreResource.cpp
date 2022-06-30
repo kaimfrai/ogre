@@ -377,28 +377,25 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void Resource::_fireLoadingComplete(bool wasBackgroundLoaded)
     {
-        for (auto i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->loadingComplete(this);
+            i->loadingComplete(this);
         }
     }
     //-----------------------------------------------------------------------
     void Resource::_firePreparingComplete(bool wasBackgroundLoaded)
     {
-        for (auto i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->preparingComplete(this);
+            i->preparingComplete(this);
         }
     }
     //-----------------------------------------------------------------------
     void Resource::_fireUnloadingComplete()
     {
-        for (auto i = mListenerList.begin();
-            i != mListenerList.end(); ++i)
+        for (auto i : mListenerList)
         {
-            (*i)->unloadingComplete(this);
+            i->unloadingComplete(this);
         }
     }
 }

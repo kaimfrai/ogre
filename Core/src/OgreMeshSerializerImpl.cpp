@@ -177,11 +177,9 @@ namespace Ogre {
             {
                 LogManager::getSingleton().logMessage("Exporting shared geometry bone assignments...");
 
-                Mesh::VertexBoneAssignmentList::const_iterator vi;
-                for (vi = pMesh->mBoneAssignments.begin();
-                vi != pMesh->mBoneAssignments.end(); ++vi)
+                for (const auto & mBoneAssignment : pMesh->mBoneAssignments)
                 {
-                    writeMeshBoneAssignment(vi->second);
+                    writeMeshBoneAssignment(mBoneAssignment.second);
                 }
 
                 LogManager::getSingleton().logMessage("Shared geometry bone assignments exported.");
@@ -234,20 +232,17 @@ namespace Ogre {
         writeChunkHeader(M_SUBMESH_NAME_TABLE, calcSubMeshNameTableSize(pMesh));
 
         // Loop through and save out the index and names.
-        auto it = pMesh->mSubMeshNameMap.begin();
         pushInnerChunk(mStream);
-        while(it != pMesh->mSubMeshNameMap.end())
+        for (auto const& it : pMesh->mSubMeshNameMap)
         {
             // Header
             writeChunkHeader(M_SUBMESH_NAME_TABLE_ELEMENT, MSTREAM_OVERHEAD_SIZE +
-                sizeof(unsigned short) + calcStringSize(it->first));
+                sizeof(unsigned short) + calcStringSize(it.first));
 
             // write the index
-            writeShorts(&it->second, 1);
+            writeShorts(&it.second, 1);
             // name
-            writeString(it->first);
-
-            ++it;
+            writeString(it.first);
         }
         popInnerChunk(mStream);
     }
@@ -306,11 +301,9 @@ namespace Ogre {
         if (!s->mBoneAssignments.empty())
         {
             LogManager::getSingleton().logMessage("Exporting dedicated geometry bone assignments...");
-            SubMesh::VertexBoneAssignmentList::const_iterator vi;
-            for (vi = s->mBoneAssignments.begin();
-            vi != s->mBoneAssignments.end(); ++vi)
+            for (const auto & mBoneAssignment : s->mBoneAssignments)
             {
-                writeSubMeshBoneAssignment(vi->second);
+                writeSubMeshBoneAssignment(mBoneAssignment.second);
             }
             LogManager::getSingleton().logMessage("Dedicated geometry bone assignments exported.");
         }
@@ -359,12 +352,11 @@ namespace Ogre {
         auto *vertices = new float[s->extremityPoints.size() * 3];
         float *pVert = vertices;
 
-        for (auto i = s->extremityPoints.begin();
-             i != s->extremityPoints.end(); ++i)
+        for (auto extremityPoint : s->extremityPoints)
         {
-            *pVert++ = i->x;
-            *pVert++ = i->y;
-            *pVert++ = i->z;
+            *pVert++ = extremityPoint.x;
+            *pVert++ = extremityPoint.y;
+            *pVert++ = extremityPoint.z;
         }
 
         writeFloats(vertices, s->extremityPoints.size () * 3);
@@ -382,20 +374,19 @@ namespace Ogre {
     void MeshSerializerImpl::writeSubMeshTextureAliases(const SubMesh* s)
     {
         size_t chunkSize;
-        AliasTextureNamePairList::const_iterator i;
 
         LogManager::getSingleton().logMessage("Exporting submesh texture aliases...");
 
         // iterate through texture aliases and write them out as a chunk
-        for (i = s->mTextureAliases.begin(); i != s->mTextureAliases.end(); ++i)
+        for (const auto & mTextureAliase : s->mTextureAliases)
         {
             // calculate chunk size based on string length + 1.  Add 1 for the line feed.
-            chunkSize = MSTREAM_OVERHEAD_SIZE + calcStringSize(i->first) + calcStringSize(i->second);
+            chunkSize = MSTREAM_OVERHEAD_SIZE + calcStringSize(mTextureAliase.first) + calcStringSize(mTextureAliase.second);
             writeChunkHeader(M_SUBMESH_TEXTURE_ALIAS, chunkSize);
             // write out alias name
-            writeString(i->first);
+            writeString(mTextureAliase.first);
             // write out texture name
-            writeString(i->second);
+            writeString(mTextureAliase.second);
         }
 
         LogManager::getSingleton().logMessage("Submesh texture aliases exported.");
@@ -418,7 +409,6 @@ namespace Ogre {
             vertexData->vertexDeclaration->getElements();
         const VertexBufferBinding::VertexBufferBindingMap& bindings =
             vertexData->vertexBufferBinding->getBindings();
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator vbi, vbiend;
 
         // Header
         writeChunkHeader(M_GEOMETRY, calcGeometrySize(vertexData));
@@ -434,13 +424,10 @@ namespace Ogre {
 
             pushInnerChunk(mStream);
             {
-        VertexDeclaration::VertexElementList::const_iterator vei, veiend;
-        veiend = elemList.end();
         unsigned short tmp;
         size = MSTREAM_OVERHEAD_SIZE + sizeof(unsigned short) * 5;
-        for (vei = elemList.begin(); vei != veiend; ++vei)
+        for (const auto & elem : elemList)
         {
-            const VertexElement& elem = *vei;
             writeChunkHeader(M_GEOMETRY_VERTEX_ELEMENT, size);
             // unsigned short source;   // buffer bind source
             tmp = elem.getSource();
@@ -464,15 +451,14 @@ namespace Ogre {
 
 
         // Buffers and bindings
-        vbiend = bindings.end();
-        for (vbi = bindings.begin(); vbi != vbiend; ++vbi)
+        for (const auto & binding : bindings)
         {
-            const HardwareVertexBufferSharedPtr& vbuf = vbi->second;
+            const HardwareVertexBufferSharedPtr& vbuf = binding.second;
             size_t vbufSizeInBytes = vbuf->getVertexSize() * vertexData->vertexCount; // vbuf->getSizeInBytes() is too large for meshes prepared for shadow volumes
             size = (MSTREAM_OVERHEAD_SIZE * 2) + (sizeof(unsigned short) * 2) + vbufSizeInBytes;
             writeChunkHeader(M_GEOMETRY_VERTEX_BUFFER,  size);
             // unsigned short bindIndex;    // Index to bind this buffer to
-                unsigned short tmp = vbi->first;
+                unsigned short tmp = binding.first;
             writeShorts(&tmp, 1);
             // unsigned short vertexSize;   // Per-vertex size, must agree with declaration at this index
             tmp = (unsigned short)vbuf->getVertexSize();
@@ -494,7 +480,7 @@ namespace Ogre {
                     tempData,
                     vertexData->vertexCount,
                     vbuf->getVertexSize(),
-                    vertexData->vertexDeclaration->findElementsBySource(vbi->first));
+                    vertexData->vertexDeclaration->findElementsBySource(binding.first));
                 writeData(tempData, vbuf->getVertexSize(), vertexData->vertexCount);
                 delete[] tempData;
             }
@@ -514,15 +500,12 @@ namespace Ogre {
         size_t size = MSTREAM_OVERHEAD_SIZE;
         // Figure out the size of the Name table.
         // Iterate through the subMeshList & add up the size of the indexes and names.
-        auto it = pMesh->mSubMeshNameMap.begin();
-        while(it != pMesh->mSubMeshNameMap.end())
+        for (auto const& it : pMesh->mSubMeshNameMap)
         {
             // size of the index + header size for each element chunk
             size += MSTREAM_OVERHEAD_SIZE + sizeof(uint16);
             // name
-            size += calcStringSize(it->first);
-
-            ++it;
+            size += calcStringSize(it.first);
         }
 
         // size of the sub-mesh name table.
@@ -621,8 +604,7 @@ namespace Ogre {
         // Bone assignments
         if (!pSub->mBoneAssignments.empty())
         {
-            SubMesh::VertexBoneAssignmentList::const_iterator vi;
-            for (vi = pSub->mBoneAssignments.begin();
+            for (auto vi = pSub->mBoneAssignments.begin();
                  vi != pSub->mBoneAssignments.end(); ++vi)
             {
                 size += calcBoneAssignmentSize();
@@ -640,13 +622,12 @@ namespace Ogre {
     size_t MeshSerializerImpl::calcSubMeshTextureAliasesSize(const SubMesh* pSub)
     {
         size_t chunkSize = 0;
-        AliasTextureNamePairList::const_iterator i;
 
         // iterate through texture alias map and calc size of strings
-        for (i = pSub->mTextureAliases.begin(); i != pSub->mTextureAliases.end(); ++i)
+        for (const auto & mTextureAliase : pSub->mTextureAliases)
         {
             // calculate chunk size based on string length + 1.  Add 1 for the line feed.
-            chunkSize += MSTREAM_OVERHEAD_SIZE + calcStringSize(i->first) + calcStringSize(i->second);
+            chunkSize += MSTREAM_OVERHEAD_SIZE + calcStringSize(mTextureAliase.first) + calcStringSize(mTextureAliase.second);
         }
 
         return chunkSize;
@@ -670,11 +651,9 @@ namespace Ogre {
         size += bindings.size() * ((MSTREAM_OVERHEAD_SIZE * 2) + (sizeof(unsigned short)* 2));
 
         // Buffer data
-        VertexBufferBinding::VertexBufferBindingMap::const_iterator vbi, vbiend;
-        vbiend = bindings.end();
-        for (vbi = bindings.begin(); vbi != vbiend; ++vbi)
+        for (const auto & binding : bindings)
         {
-            const HardwareVertexBufferSharedPtr& vbuf = vbi->second;
+            const HardwareVertexBufferSharedPtr& vbuf = binding.second;
             size += vbuf->getVertexSize() * vertexData->vertexCount; // vbuf->getSizeInBytes() is too large for meshes prepared for shadow volumes
         }
         return size;
@@ -880,13 +859,10 @@ namespace Ogre {
         // ?
 
         // Loop through and save out the index and names.
-        auto it = subMeshNames.begin();
-
-        while(it != subMeshNames.end())
+        for (auto const& it : subMeshNames)
         {
             // Name this submesh to the stored name.
-            pMesh->nameSubMesh(it->second, it->first);
-            ++it;
+            pMesh->nameSubMesh(it.second, it.first);
         }
 
 
@@ -1578,16 +1554,14 @@ namespace Ogre {
         void *pBase = pData;
         for (size_t v = 0; v < vertexCount; ++v)
         {
-            VertexDeclaration::VertexElementList::const_iterator ei, eiend;
-            eiend = elems.end();
-            for (ei = elems.begin(); ei != eiend; ++ei)
+            for (const auto & elem : elems)
             {
                 void *pElem;
                 // re-base pointer to the element
-                (*ei).baseVertexPointerToElement(pBase, &pElem);
+                elem.baseVertexPointerToElement(pBase, &pElem);
                 // Flip the endian based on the type
                 size_t typeSize = 0;
-                switch (VertexElement::getBaseType((*ei).getType()))
+                switch (VertexElement::getBaseType(elem.getType()))
                 {
                     case VET_FLOAT1:
                         typeSize = sizeof(float);
@@ -1615,7 +1589,7 @@ namespace Ogre {
                         assert(false); // Should never happen
                 };
 				Bitwise::bswapChunks(pElem, typeSize,
-                    VertexElement::getTypeCount((*ei).getType()));
+                    VertexElement::getTypeCount(elem.getType()));
 
             }
 
@@ -1672,10 +1646,8 @@ namespace Ogre {
 
             size += triSize * edgeData->triangles.size();
             // Write the groups
-            for (auto gi = edgeData->edgeGroups.begin();
-                gi != edgeData->edgeGroups.end(); ++gi)
+            for (const auto & edgeGroup : edgeData->edgeGroups)
             {
-                const EdgeData::EdgeGroup& edgeGroup = *gi;
                 size += calcEdgeGroupSize(edgeGroup);
             }
 
@@ -1736,11 +1708,9 @@ namespace Ogre {
                 writeInts(&count, 1);
                 // Triangle* triangleList
                 // Iterate rather than writing en-masse to allow endian conversion
-                auto t = edgeData->triangles.begin();
-                auto fni = edgeData->triangleFaceNormals.begin();
-                for ( ; t != edgeData->triangles.end(); ++t, ++fni)
+                for (auto fni = edgeData->triangleFaceNormals.begin();
+                     const EdgeData::Triangle& tri : edgeData->triangles)
                 {
-                    const EdgeData::Triangle& tri = *t;
                     // unsigned long indexSet;
                     uint32 tmp[3];
                     tmp[0] = static_cast<uint32>(tri.indexSet);
@@ -1761,14 +1731,13 @@ namespace Ogre {
                     // float normal[4];
                     writeFloats(&(fni->x), 4);
 
+                    ++fni;
                 }
                     pushInnerChunk(mStream);
                     {
                 // Write the groups
-                for (auto gi = edgeData->edgeGroups.begin();
-                    gi != edgeData->edgeGroups.end(); ++gi)
+                for (const auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    const EdgeData::EdgeGroup& edgeGroup = *gi;
                     writeChunkHeader(M_EDGE_GROUP, calcEdgeGroupSize(edgeGroup));
                     // unsigned long vertexSet
                     auto vertexSet = static_cast<uint32>(edgeGroup.vertexSet);
@@ -1784,10 +1753,8 @@ namespace Ogre {
                     writeInts(&count, 1);
                     // Edge* edgeList
                     // Iterate rather than writing en-masse to allow endian conversion
-                    for (auto ei = edgeGroup.edges.begin();
-                        ei != edgeGroup.edges.end(); ++ei)
+                    for (const auto & edge : edgeGroup.edges)
                     {
-                        const EdgeData::Edge& edge = *ei;
                         uint32 tmp[2];
                         // unsigned long  triIndex[2]
                         tmp[0] = static_cast<uint32>(edge.triIndex[0]);
@@ -1845,11 +1812,8 @@ namespace Ogre {
                     readEdgeListLodInfo(stream, usage.edgeData);
 
                     // Postprocessing edge groups
-                    EdgeData::EdgeGroupList::iterator egi, egend;
-                    egend = usage.edgeData->edgeGroups.end();
-                    for (egi = usage.edgeData->edgeGroups.begin(); egi != egend; ++egi)
+                    for (auto & edgeGroup : usage.edgeData->edgeGroups)
                     {
-                        EdgeData::EdgeGroup& edgeGroup = *egi;
                         // Populate edgeGroup.vertexData pointers
                         // If there is shared vertex data, vertexSet 0 is that,
                         // otherwise 0 is first dedicated
@@ -2130,10 +2094,9 @@ namespace Ogre {
         {
             writeChunkHeader(M_POSES, calcPosesSize(pMesh));
             pushInnerChunk(mStream);
-            PoseList::const_iterator it;
-            for(it = pMesh->getPoseList().begin(); it != pMesh->getPoseList().end(); ++it)
+            for (auto it : pMesh->getPoseList())
             {
-                writePose(*it);
+                writePose(it);
             }
             popInnerChunk(mStream);
         }
@@ -2280,11 +2243,9 @@ namespace Ogre {
         writeFloats(&timePos, 1);
         pushInnerChunk(mStream);
         // pose references
-        auto poseRefIt =
-            kf->getPoseReferences().begin();
-        for (;poseRefIt != kf->getPoseReferences().end(); ++poseRefIt)
+        for (auto const& poseRefIt : kf->getPoseReferences())
         {
-            writePoseKeyframePoseRef(*poseRefIt);
+            writePoseKeyframePoseRef(poseRefIt);
         }
         popInnerChunk(mStream);
     }
@@ -3441,15 +3402,12 @@ namespace Ogre {
         }
         else
         {
-            EdgeData::EdgeGroupList::iterator egi, egend;
-            egend = edgeData->edgeGroups.end();
-
             // Calculate number of triangles for edge groups
 
-            for (egi = edgeData->edgeGroups.begin(); egi != egend; ++egi)
+            for (auto & edgeGroup : edgeData->edgeGroups)
             {
-                egi->triStart = 0;
-                egi->triCount = 0;
+                edgeGroup.triStart = 0;
+                edgeGroup.triCount = 0;
             }
 
             bool isGrouped = true;
@@ -3502,11 +3460,11 @@ namespace Ogre {
 
                 // Calculate triStart and reset triCount to zero for each edge group first
                 size_t triStart = 0;
-                for (egi = edgeData->edgeGroups.begin(); egi != egend; ++egi)
+                for (auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    egi->triStart = triStart;
-                    triStart += egi->triCount;
-                    egi->triCount = 0;
+                    edgeGroup.triStart = triStart;
+                    triStart += edgeGroup.triCount;
+                    edgeGroup.triCount = 0;
                 }
 
                 // The map used to mapping original triangle index to new index
@@ -3541,16 +3499,14 @@ namespace Ogre {
                 edgeData->triangleFaceNormals.swap(newTriangleFaceNormals);
 
                 // Now, update old triangle indices to new index
-                for (egi = edgeData->edgeGroups.begin(); egi != egend; ++egi)
+                for (auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    EdgeData::EdgeList::iterator ei, eend;
-                    eend = egi->edges.end();
-                    for (ei = egi->edges.begin(); ei != eend; ++ei)
+                    for (auto & edge : edgeGroup.edges)
                     {
-                        ei->triIndex[0] = triangleIndexRemap[ei->triIndex[0]];
-                        if (!ei->degenerate)
+                        edge.triIndex[0] = triangleIndexRemap[edge.triIndex[0]];
+                        if (!edge.degenerate)
                         {
-                            ei->triIndex[1] = triangleIndexRemap[ei->triIndex[1]];
+                            edge.triIndex[1] = triangleIndexRemap[edge.triIndex[1]];
                         }
                     }
                 }
@@ -3586,10 +3542,8 @@ namespace Ogre {
 
             size += triSize * edgeData->triangles.size();
             // Write the groups
-            for (auto gi = edgeData->edgeGroups.begin();
-                gi != edgeData->edgeGroups.end(); ++gi)
+            for (const auto & edgeGroup : edgeData->edgeGroups)
             {
-                const EdgeData::EdgeGroup& edgeGroup = *gi;
                 size += calcEdgeGroupSize(edgeGroup);
             }
 
@@ -3648,11 +3602,9 @@ namespace Ogre {
                 writeInts(&count, 1);
                 // Triangle* triangleList
                 // Iterate rather than writing en-masse to allow endian conversion
-                auto t = edgeData->triangles.begin();
-                auto fni = edgeData->triangleFaceNormals.begin();
-                for ( ; t != edgeData->triangles.end(); ++t, ++fni)
+                for (auto fni = edgeData->triangleFaceNormals.begin();
+                    const EdgeData::Triangle& tri : edgeData->triangles)
                 {
-                    const EdgeData::Triangle& tri = *t;
                     // unsigned long indexSet;
                     uint32 tmp[3];
                     tmp[0] = static_cast<uint32>(tri.indexSet);
@@ -3672,14 +3624,13 @@ namespace Ogre {
                     writeInts(tmp, 3);
                     // float normal[4];
                     writeFloats(&(fni->x), 4);
-                    
+
+                    ++fni;
                 }
                 pushInnerChunk(mStream);
                 // Write the groups
-                for (auto gi = edgeData->edgeGroups.begin();
-                     gi != edgeData->edgeGroups.end(); ++gi)
+                for (const auto & edgeGroup : edgeData->edgeGroups)
                 {
-                    const EdgeData::EdgeGroup& edgeGroup = *gi;
                     writeChunkHeader(M_EDGE_GROUP, calcEdgeGroupSize(edgeGroup));
                     // unsigned long vertexSet
                     auto vertexSet = static_cast<uint32>(edgeGroup.vertexSet);
@@ -3689,10 +3640,8 @@ namespace Ogre {
                     writeInts(&count, 1);
                     // Edge* edgeList
                     // Iterate rather than writing en-masse to allow endian conversion
-                    for (auto ei = edgeGroup.edges.begin();
-                         ei != edgeGroup.edges.end(); ++ei)
+                    for (const auto & edge : edgeGroup.edges)
                     {
-                        const EdgeData::Edge& edge = *ei;
                         uint32 tmp[2];
                         // unsigned long  triIndex[2]
                         tmp[0] = static_cast<uint32>(edge.triIndex[0]);

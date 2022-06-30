@@ -531,11 +531,8 @@ class Viewport;
                 {
                     bool bPresent = false;
 
-                    for(auto vit = mBodyPoints.begin();
-                        vit != mBodyPoints.end(); ++vit)
+                    for(auto & v : mBodyPoints)
                     {
-                        const Vector3& v = *vit;
-
                         if (vInsert.positionEquals(v))
                         {
                             bPresent = true;

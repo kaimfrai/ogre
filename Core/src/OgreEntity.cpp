@@ -234,25 +234,21 @@ class Sphere;
             return;
 
         // Delete submeshes
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-        for (i = mSubEntityList.begin(); i != iend; ++i)
+        for (auto & i : mSubEntityList)
         {
             // Delete SubEntity
-            delete *i;
-            *i = 0;
+            delete i;
+            i = 0;
         }
         mSubEntityList.clear();
 
         // Delete LOD entities
-        LODEntityList::iterator li, liend;
-        liend = mLodEntityList.end();
-        for (li = mLodEntityList.begin(); li != liend; ++li)
+        for (auto & li : mLodEntityList)
         {
-            if(*li != this) {
+            if(li != this) {
                 // Delete
-                delete *li;
-                *li = 0;
+                delete li;
+                li = 0;
             }
         }
         mLodEntityList.clear();
@@ -347,11 +343,11 @@ class Sphere;
         if (mInitialised)
         {
             // Copy material settings
-            SubEntityList::const_iterator i;
-            unsigned int n = 0;
-            for (i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i, ++n)
+            for (unsigned int n = 0;
+                auto const& i : mSubEntityList)
             {
-                newEnt->getSubEntity(n)->setMaterialName((*i)->getMaterialName());
+                newEnt->getSubEntity(n)->setMaterialName(i->getMaterialName());
+                ++n;
             }
             if (mAnimationState)
             {
@@ -366,10 +362,9 @@ class Sphere;
     void Entity::setMaterialName( const String& name, const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         // Set for all subentities
-        SubEntityList::iterator i;
-        for (i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->setMaterialName(name, groupName);
+            i->setMaterialName(name, groupName);
         }
 
     }
@@ -377,10 +372,9 @@ class Sphere;
     void Entity::setMaterial( const MaterialPtr& material )
     {
         // Set for all subentities
-        SubEntityList::iterator i;
-        for (i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->setMaterial(material);
+            i->setMaterial(material);
         }
     }
     //-----------------------------------------------------------------------
@@ -422,12 +416,10 @@ class Sphere;
             lodValue *= mMaterialLodFactorTransformed;
 
 
-            SubEntityList::iterator i, iend;
-            iend = mSubEntityList.end();
-            for (i = mSubEntityList.begin(); i != iend; ++i)
+            for (auto & i : mSubEntityList)
             {
                 // Get sub-entity material
-                const MaterialPtr& material = (*i)->getMaterial();
+                const MaterialPtr& material = i->getMaterial();
                 
                 // Get material LOD strategy
                 const LodStrategy *materialStrategy = material->getLodStrategy();
@@ -446,20 +438,20 @@ class Sphere;
 
                 // Construct event object
                 EntityMaterialLodChangedEvent subEntEvt;
-                subEntEvt.subEntity = (*i);
+                subEntEvt.subEntity = i;
                 subEntEvt.camera = cam;
                 subEntEvt.lodValue = biasedMaterialLodValue;
-                subEntEvt.previousLodIndex = (*i)->mMaterialLodIndex;
+                subEntEvt.previousLodIndex = i->mMaterialLodIndex;
                 subEntEvt.newLodIndex = idx;
 
                 // Notify LOD event listeners
                 cam->getSceneManager()->_notifyEntityMaterialLodChanged(subEntEvt);
 
                 // Change LOD index
-                (*i)->mMaterialLodIndex = subEntEvt.newLodIndex;
+                i->mMaterialLodIndex = subEntEvt.newLodIndex;
 
                 // Also invalidate any camera distance cache
-                (*i)->_invalidateCameraCache ();
+                i->_invalidateCameraCache ();
             }
 
 
@@ -499,10 +491,9 @@ class Sphere;
                     boneHasVerts[ iBone ] = false;
                 }
                 // for each bone that has vertices weighted to it,
-                for (size_t iBlend = 0; iBlend < mMesh->sharedBlendIndexToBoneIndexMap.size(); ++iBlend)
+                for (unsigned long iBone : mMesh->sharedBlendIndexToBoneIndexMap)
                 {
                     // record which bones have vertices assigned
-                    size_t iBone = mMesh->sharedBlendIndexToBoneIndexMap[ iBlend ];
                     boneHasVerts[ iBone ] = true;
                 }
                 // for each submesh,
@@ -513,9 +504,8 @@ class Sphere;
                     if ( ! submesh->useSharedVertices )
                     {
                         // record which bones have vertices assigned
-                        for (size_t iBlend = 0; iBlend < submesh->blendIndexToBoneIndexMap.size(); ++iBlend)
+                        for (unsigned long iBone : submesh->blendIndexToBoneIndexMap)
                         {
-                            size_t iBone = submesh->blendIndexToBoneIndexMap[ iBlend ];
                             boneHasVerts[ iBone ] = true;
                         }
                     }
@@ -652,36 +642,34 @@ class Sphere;
         }
 
         // Add each visible SubEntity to the queue
-        SubEntityList::iterator i, iend;
-        iend = displayEntity->mSubEntityList.end();
-        for (i = displayEntity->mSubEntityList.begin(); i != iend; ++i)
+        for (auto & i : displayEntity->mSubEntityList)
         {
-            if((*i)->isVisible())
+            if(i->isVisible())
             {
                 // Order: first use subentity queue settings, if available
                 //        if not then use entity queue settings, if available
                 //        finally fall back on default queue settings
-                if((*i)->isRenderQueuePrioritySet())
+                if(i->isRenderQueuePrioritySet())
                 {
-                    assert((*i)->isRenderQueueGroupSet() == true);
-                    queue->addRenderable(*i, (*i)->getRenderQueueGroup(), (*i)->getRenderQueuePriority());
+                    assert(i->isRenderQueueGroupSet() == true);
+                    queue->addRenderable(i, i->getRenderQueueGroup(), i->getRenderQueuePriority());
                 }
-                else if((*i)->isRenderQueueGroupSet())
+                else if(i->isRenderQueueGroupSet())
                 {
-                    queue->addRenderable(*i, (*i)->getRenderQueueGroup());
+                    queue->addRenderable(i, i->getRenderQueueGroup());
                 }
                 else if (mRenderQueuePrioritySet)
                 {
                     assert(mRenderQueueIDSet == true);
-                    queue->addRenderable(*i, mRenderQueueID, mRenderQueuePriority);
+                    queue->addRenderable(i, mRenderQueueID, mRenderQueuePriority);
                 }
                 else if(mRenderQueueIDSet)
                 {
-                    queue->addRenderable(*i, mRenderQueueID);
+                    queue->addRenderable(i, mRenderQueueID);
                 }
                 else
                 {
-                    queue->addRenderable(*i);
+                    queue->addRenderable(i);
                 }
             }
         }
@@ -769,10 +757,8 @@ class Sphere;
         {
             ret = ret && mTempVertexAnimInfo.buffersCheckedOut(true, mMesh->getSharedVertexDataAnimationIncludesNormals());
         }
-        for (auto i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (!sub->getSubMesh()->useSharedVertices
                 && sub->getSubMesh()->getVertexAnimationType() != VAT_NONE)
             {
@@ -791,10 +777,8 @@ class Sphere;
             if (!mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
                 return false;
         }
-        for (auto i = mSubEntityList.begin();
-             i != mSubEntityList.end(); ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             if (sub->isVisible() && sub->mSkelAnimVertexData)
             {
                 if (!sub->mTempSkelAnimInfo.buffersCheckedOut(true, requestNormals))
@@ -853,12 +837,9 @@ class Sphere;
                         mTempVertexAnimInfo.bindTempCopies(mSoftwareVertexAnimVertexData.get(),
                                                            hwAnimation);
                     }
-                    SubEntityList::iterator i, iend;
-                    iend = mSubEntityList.end();
-                    for (i = mSubEntityList.begin(); i != iend; ++i)
+                    for (auto se : mSubEntityList)
                     {
                         // Blend dedicated geometry
-                        SubEntity* se = *i;
                         if (se->isVisible() && se->mSoftwareVertexAnimVertexData
                             && se->getSubMesh()->getVertexAnimationType() != VAT_NONE)
                         {
@@ -904,12 +885,9 @@ class Sphere;
                             blendMatrices, mMesh->sharedBlendIndexToBoneIndexMap.size(),
                             blendNormals);
                     }
-                    SubEntityList::iterator i, iend;
-                    iend = mSubEntityList.end();
-                    for (i = mSubEntityList.begin(); i != iend; ++i)
+                    for (auto se : mSubEntityList)
                     {
                         // Blend dedicated geometry
-                        SubEntity* se = *i;
                         if (se->isVisible() && se->mSkelAnimVertexData)
                         {
                             se->mTempSkelAnimInfo.checkoutTempCopies(true, blendNormals);
@@ -986,9 +964,9 @@ class Sphere;
                 vdata->allocateHardwareAnimationElements(numberOfElements, animateNormals);
         }
         // Initialise parametrics in case we don't use all of them
-        for (size_t i = 0; i < vdata->hwAnimationDataList.size(); ++i)
+        for (auto & i : vdata->hwAnimationDataList)
         {
-            vdata->hwAnimationDataList[i].parametric = 0.0f;
+            i.parametric = 0.0f;
         }
         // reset used count
         vdata->hwAnimDataItemsUsed = 0;
@@ -1026,10 +1004,8 @@ class Sphere;
                 }
                     
 }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (sub->getSubMesh()->getVertexAnimationType() != VAT_NONE &&
                     !sub->getSubMesh()->useSharedVertices)
                 {
@@ -1071,10 +1047,8 @@ class Sphere;
                 initialisePoseVertexData(mMesh->sharedVertexData, mSoftwareVertexAnimVertexData.get(),
                     mMesh->getSharedVertexDataAnimationIncludesNormals());
             }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1096,10 +1070,8 @@ class Sphere;
         // Note - you should only apply one morph animation to each set of vertex data
         // at once; if you do more, only the last one will actually apply
         markBuffersUnusedForAnimation();
-        EnabledAnimationStateList::const_iterator animIt;
-        for(animIt = mAnimationState->getEnabledAnimationStates().begin(); animIt != mAnimationState->getEnabledAnimationStates().end(); ++animIt)
+        for (auto state : mAnimationState->getEnabledAnimationStates())
         {
-            const AnimationState* state = *animIt;
             Animation* anim = msh->_getAnimationImpl(state->getAnimationName());
             if (anim)
             {
@@ -1126,10 +1098,8 @@ class Sphere;
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(false);
             }
-            for (auto si = mSubEntityList.begin();
-                si != mSubEntityList.end(); ++si)
+            for (auto sub : mSubEntityList)
             {
-                SubEntity* sub = *si;
                 if (!sub->getSubMesh()->useSharedVertices &&
                     sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
                 {
@@ -1152,10 +1122,9 @@ class Sphere;
     void Entity::markBuffersUnusedForAnimation()
     {
         mVertexAnimationAppliedThisFrame = false;
-        for (auto i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_markBuffersUnusedForAnimation();
+            i->_markBuffersUnusedForAnimation();
         }
     }
     //-----------------------------------------------------------------------------
@@ -1201,10 +1170,9 @@ class Sphere;
         }
 
 
-        for (auto i = mSubEntityList.begin();
-            i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            (*i)->_restoreBuffersForUnusedAnimation(hardwareAnimation);
+            i->_restoreBuffersForUnusedAnimation(hardwareAnimation);
         }
 
     }
@@ -1460,12 +1428,9 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::setPolygonModeOverrideable(bool overrideable)
     {
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-
-        for( i = mSubEntityList.begin(); i != iend; ++i )
+        for (auto & i : mSubEntityList)
         {
-            (*i)->setPolygonModeOverrideable(overrideable);
+            i->setPolygonModeOverrideable(overrideable);
         }
     }
 
@@ -1545,9 +1510,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::detachObjectFromBone(MovableObject* obj)
     {
-        ChildObjectList::iterator i, iend;
-        iend = mChildObjectList.end();
-        for (i = mChildObjectList.begin(); i != iend; ++i)
+        for (auto i = mChildObjectList.begin(); i != mChildObjectList.end(); ++i)
         {
             if (*i == obj)
             {
@@ -1639,11 +1602,8 @@ class Sphere;
         }
 
         // Do SubEntities
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-        for (i = mSubEntityList.begin(); i != iend; ++i)
+        for (auto s : mSubEntityList)
         {
-            SubEntity* s = *i;
             s->prepareTempBlendBuffers();
         }
 
@@ -1734,11 +1694,8 @@ class Sphere;
         bool hasHardwareAnimation = false;
         bool firstPass = true;
 
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-        for (i = mSubEntityList.begin(); i != iend; ++i)
+        for (auto sub : mSubEntityList)
         {
-            SubEntity* sub = *i;
             const MaterialPtr& m = sub->getMaterial();
             // Make sure it's loaded
             m->load();
@@ -1763,11 +1720,9 @@ class Sphere;
                     mVertexProgramInUse = true;
                     
                     // If shadow renderables already created create their light caps
-                    auto si = mShadowRenderables.begin();
-                    auto siend = mShadowRenderables.end();
-                    for (si = mShadowRenderables.begin(); si != siend; ++si)
+                    for (auto & mShadowRenderable : mShadowRenderables)
                     {
-                        static_cast<EntityShadowRenderable*>(*si)->_createSeparateLightCap();
+                        static_cast<EntityShadowRenderable*>(mShadowRenderable)->_createSeparateLightCap();
                     }
                 }
 
@@ -1938,17 +1893,14 @@ class Sphere;
         // Init shadow renderable list if required
         bool init = mShadowRenderables.empty();
 
-        EdgeData::EdgeGroupList::iterator egi;
-        ShadowRenderableList::iterator si, siend;
         if (init)
             mShadowRenderables.resize(edgeList->edgeGroups.size());
 
         bool isAnimated = hasAnimation;
         bool updatedSharedGeomNormals = false;
         bool extrude = flags & SRF_EXTRUDE_IN_SOFTWARE;
-        siend = mShadowRenderables.end();
-        egi = edgeList->edgeGroups.begin();
-        for (si = mShadowRenderables.begin(); si != siend; ++si, ++egi)
+        auto egi = edgeList->edgeGroups.begin();
+        for (auto & mShadowRenderable : mShadowRenderables)
         {
             const VertexData *pVertData;
             if (isAnimated)
@@ -1970,7 +1922,7 @@ class Sphere;
                 // for extruding the shadow volume) since otherwise we can
                 // get depth-fighting on the light cap
 
-                *si = new EntityShadowRenderable(this, indexBuffer, pVertData,
+                mShadowRenderable = new EntityShadowRenderable(this, indexBuffer, pVertData,
                                                       mVertexProgramInUse || !extrude, subent);
             }
             else
@@ -1980,11 +1932,11 @@ class Sphere;
                 // since a temporary buffer is requested each frame
                 // therefore, we need to update the EntityShadowRenderable
                 // with the current position buffer
-                static_cast<EntityShadowRenderable*>(*si)->rebindPositionBuffer(pVertData, hasAnimation);
+                static_cast<EntityShadowRenderable*>(mShadowRenderable)->rebindPositionBuffer(pVertData, hasAnimation);
 
             }
             // Get shadow renderable
-            HardwareVertexBufferSharedPtr esrPositionBuffer = (*si)->getPositionBuffer();
+            HardwareVertexBufferSharedPtr esrPositionBuffer = mShadowRenderable->getPositionBuffer();
             // For animated entities we need to recalculate the face normals
             if (hasAnimation)
             {
@@ -2020,6 +1972,7 @@ class Sphere;
             // Stop suppressing hardware update now, if we were
             esrPositionBuffer->suppressHardwareUpdate(false);
 
+            ++egi;
         }
         // Calc triangle light facing
         updateEdgeListLightFacing(edgeList, lightPos);
@@ -2038,11 +1991,8 @@ class Sphere;
         {
             return skel? mSkelAnimVertexData.get() : mSoftwareVertexAnimVertexData.get();
         }
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-        for (i = mSubEntityList.begin(); i != iend; ++i)
+        for (auto se : mSubEntityList)
         {
-            SubEntity* se = *i;
             if (orig == se->getSubMesh()->vertexData.get())
             {
                 return skel? se->_getSkelAnimVertexData() : se->_getSoftwareVertexAnimVertexData();
@@ -2061,11 +2011,8 @@ class Sphere;
             return nullptr;
         }
 
-        SubEntityList::iterator i, iend;
-        iend = mSubEntityList.end();
-        for (i = mSubEntityList.begin(); i != iend; ++i)
+        for (auto se : mSubEntityList)
         {
-            SubEntity* se = *i;
             if (orig == se->getSubMesh()->vertexData.get())
             {
                 return se;
@@ -2104,12 +2051,10 @@ class Sphere;
         MovableObject::_notifyAttached(parent, isTagPoint);
 
         // Also notify LOD entities
-        LODEntityList::iterator i, iend;
-        iend = mLodEntityList.end();
-        for (i = mLodEntityList.begin(); i != iend; ++i)
+        for (auto & i : mLodEntityList)
         {
-            if(*i != this)
-                (*i)->_notifyAttached(parent, isTagPoint);
+            if(i != this)
+                i->_notifyAttached(parent, isTagPoint);
         }
     }
     //-----------------------------------------------------------------------
@@ -2176,12 +2121,10 @@ class Sphere;
         // Set render queue for all manual LOD entities
         if (mMesh->hasManualLodLevel())
         {
-            LODEntityList::iterator li, liend;
-            liend = mLodEntityList.end();
-            for (li = mLodEntityList.begin(); li != liend; ++li)
+            for (auto & li : mLodEntityList)
             {
-                if(*li != this)
-                    (*li)->setRenderQueueGroup(queueID);
+                if(li != this)
+                    li->setRenderQueueGroup(queueID);
             }
         }
     }
@@ -2193,12 +2136,10 @@ class Sphere;
         // Set render queue for all manual LOD entities
         if (mMesh->hasManualLodLevel())
         {
-            LODEntityList::iterator li, liend;
-            liend = mLodEntityList.end();
-            for (li = mLodEntityList.begin(); li != liend; ++li)
+            for (auto & li : mLodEntityList)
             {
-                if(*li != this)
-                    (*li)->setRenderQueueGroupAndPriority(queueID, priority);
+                if(li != this)
+                    li->setRenderQueueGroupAndPriority(queueID, priority);
             }
         }
     }
@@ -2343,9 +2284,9 @@ class Sphere;
         bool debugRenderables)
     {
         // Visit each SubEntity
-        for (auto i = mSubEntityList.begin(); i != mSubEntityList.end(); ++i)
+        for (auto & i : mSubEntityList)
         {
-            visitor->visit(*i, 0, false);
+            visitor->visit(i, 0, false);
         }
 
         // if manual LOD is in use, visit those too

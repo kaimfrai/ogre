@@ -138,20 +138,17 @@ namespace Ogre {
                 }
             }
             // Set each vertex
-            auto v = mVertexOffsetMap.begin();
-            auto n = mNormalsMap.begin();
-            
             size_t numFloatsPerVertex = normals ? 6: 3;
             
-            while(v != mVertexOffsetMap.end())
+            for (auto n = mNormalsMap.begin();
+                    auto const& v : mVertexOffsetMap)
             {
                 // Remember, vertex maps are *sparse* so may have missing entries
                 // This is why we skip
-                float* pDst = pFloat + (numFloatsPerVertex * v->first);
-                *pDst++ = v->second.x;
-                *pDst++ = v->second.y;
-                *pDst++ = v->second.z;
-                ++v;
+                float* pDst = pFloat + (numFloatsPerVertex * v.first);
+                *pDst++ = v.second.x;
+                *pDst++ = v.second.y;
+                *pDst++ = v.second.z;
                 if (normals)
                 {
                     *pDst++ = n->second.x;

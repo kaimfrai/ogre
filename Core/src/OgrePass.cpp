@@ -279,23 +279,19 @@ namespace Ogre {
                 programUsage.reset();
         }
 
-        TextureUnitStates::const_iterator i, iend;
-
         // Clear texture units but doesn't notify need recompilation in the case
         // we are cloning, The parent material will take care of this.
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            delete *i;
+            delete mTextureUnitState;
         }
 
         mTextureUnitStates.clear();
 
         // Copy texture units
-        iend = oth.mTextureUnitStates.end();
-        for (i = oth.mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto const& i : oth.mTextureUnitStates)
         {
-            auto* t = new TextureUnitState(this, *(*i));
+            auto* t = new TextureUnitState(this, *i);
             mTextureUnitStates.push_back(t);
         }
 
@@ -309,11 +305,9 @@ namespace Ogre {
         size_t memSize = 0;
 
         // Tally up TU states
-        TextureUnitStates::const_iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto mTextureUnitState : mTextureUnitStates)
         {
-            memSize += (*i)->calculateSize();
+            memSize += mTextureUnitState->calculateSize();
         }
         for(const auto& u : mProgramUsage)
             memSize += u ? u->calculateSize() : 0;
@@ -427,20 +421,16 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     TextureUnitState* Pass::getTextureUnitState(const String& name) const
     {
-        auto i    = mTextureUnitStates.begin();
-        auto iend = mTextureUnitStates.end();
         TextureUnitState* foundTUS = nullptr;
 
         // iterate through TUS Container to find a match
-        while (i != iend)
+        for (auto const& i : mTextureUnitStates)
         {
-            if ( (*i)->getName() == name )
+            if (i->getName() == name )
             {
-                foundTUS = (*i);
+                foundTUS = i;
                 break;
             }
-
-            ++i;
         }
 
         return foundTUS;
@@ -473,11 +463,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Pass::removeAllTextureUnitStates()
     {
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            delete *i;
+            delete mTextureUnitState;
         }
         mTextureUnitStates.clear();
         _notifyNeedsRecompile();
@@ -724,11 +712,9 @@ namespace Ogre {
         // prepared
 
         // prepare each TextureUnitState
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->_prepare();
+            mTextureUnitState->_prepare();
         }
 
     }
@@ -736,11 +722,9 @@ namespace Ogre {
     void Pass::_unprepare()
     {
         // unprepare each TextureUnitState
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->_unprepare();
+            mTextureUnitState->_unprepare();
         }
 
     }
@@ -751,11 +735,9 @@ namespace Ogre {
         // loaded
 
         // Load each TextureUnitState
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->_load();
+            mTextureUnitState->_load();
         }
 
         // Load programs
@@ -772,11 +754,9 @@ namespace Ogre {
     void Pass::_unload()
     {
         // Unload each TextureUnitState
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->_unload();
+            mTextureUnitState->_unload();
         }
 
         // TODO Unload programs
@@ -1007,21 +987,17 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Pass::setTextureFiltering(TextureFilterOptions filterType)
     {
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->setTextureFiltering(filterType);
+            mTextureUnitState->setTextureFiltering(filterType);
         }
     }
     // --------------------------------------------------------------------
     void Pass::setTextureAnisotropy(unsigned int maxAniso)
     {
-        TextureUnitStates::iterator i, iend;
-        iend = mTextureUnitStates.end();
-        for (i = mTextureUnitStates.begin(); i != iend; ++i)
+        for (auto & mTextureUnitState : mTextureUnitStates)
         {
-            (*i)->setTextureAnisotropy(maxAniso);
+            mTextureUnitState->setTextureAnisotropy(maxAniso);
         }
     }
     //-----------------------------------------------------------------------
@@ -1042,11 +1018,9 @@ namespace Ogre {
     {
 
         // Delete items in the graveyard
-        PassSet::iterator i, iend;
-        iend = msPassGraveyard.end();
-        for (i = msPassGraveyard.begin(); i != iend; ++i)
+        for (auto i : msPassGraveyard)
         {
-            delete *i;
+            delete i;
         }
         msPassGraveyard.clear();
 
@@ -1055,10 +1029,8 @@ namespace Ogre {
         // The dirty ones will have been removed from the groups above using the old hash now
         tempDirtyHashList.swap(msDirtyHashList);
 
-        iend = tempDirtyHashList.end();
-        for (i = tempDirtyHashList.begin(); i != iend; ++i)
+        for (auto p : tempDirtyHashList)
         {
-            Pass* p = *i;
             p->_recalculateHash();
         }
     }

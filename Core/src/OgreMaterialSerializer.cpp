@@ -282,10 +282,8 @@ namespace Ogre
                 writeValue(quoteWord(pTech->getShadowReceiverMaterial()->getName()));
             }
             // GPU vendor rules
-            Technique::GPUVendorRuleList::const_iterator vrit;
-            for (vrit = pTech->getGPUVendorRules().begin(); vrit != pTech->getGPUVendorRules().end(); ++vrit)
+            for (auto rule : pTech->getGPUVendorRules())
             {
-                const Technique::GPUVendorRule& rule = *vrit;
                 writeAttribute(2, "gpu_vendor_rule");
                 if (rule.includeOrExclude == Technique::INCLUDE)
                     writeValue("include");
@@ -294,10 +292,8 @@ namespace Ogre
                 writeValue(quoteWord(RenderSystemCapabilities::vendorToString(rule.vendor)));
             }
             // GPU device rules
-            Technique::GPUDeviceNameRuleList::const_iterator dnit;
-            for (dnit = pTech->getGPUDeviceNameRules().begin(); dnit != pTech->getGPUDeviceNameRules().end(); ++dnit)
+            for (const auto & rule : pTech->getGPUDeviceNameRules())
             {
-                const Technique::GPUDeviceNameRule& rule = *dnit;
                 writeAttribute(2, "gpu_device_rule");
                 if (rule.includeOrExclude == Technique::INCLUDE)
                     writeValue("include");
@@ -307,10 +303,9 @@ namespace Ogre
                 writeValue(StringConverter::toString(rule.caseSensitive));
             }
             // Iterate over passes
-            Technique::Passes::const_iterator i;
-            for(i = pTech->getPasses().begin(); i != pTech->getPasses().end(); ++i)
+            for (auto i : pTech->getPasses())
             {
-                writePass(*i);
+                writePass(i);
                 mBuffer += "\n";
             }
 
@@ -805,10 +800,9 @@ namespace Ogre
             }
 
             // Nested texture layers
-            Pass::TextureUnitStates::const_iterator it;
-            for(it = pPass->getTextureUnitStates().begin(); it != pPass->getTextureUnitStates().end(); ++it)
+            for (auto it : pPass->getTextureUnitStates())
             {
-                writeTextureUnit(*it);
+                writeTextureUnit(it);
             }
 
             // Fire write end event.
@@ -1098,10 +1092,9 @@ namespace Ogre
             EffectMap effMap = pTex->getEffects();
             if (!effMap.empty())
             {
-                EffectMap::const_iterator it;
-                for (it = effMap.begin(); it != effMap.end(); ++it)
+                for (auto & it : effMap)
                 {
-                    const TextureUnitState::TextureEffect& ef = it->second;
+                    const TextureUnitState::TextureEffect& ef = it.second;
                     switch (ef.type)
                     {
                     case TextureUnitState::ET_ENVIRONMENT_MAP :
@@ -1562,11 +1555,10 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            for(auto i = floatLogical->map.begin();
-                i != floatLogical->map.end(); ++i)
+            for(auto & i : floatLogical->map)
             {
-                size_t logicalIndex = i->first;
-                const GpuLogicalIndexUse& logicalUse = i->second;
+                size_t logicalIndex = i.first;
+                const GpuLogicalIndexUse& logicalUse = i.second;
 
                 const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                     params->findFloatAutoConstantEntry(logicalIndex);
@@ -1778,14 +1770,11 @@ namespace Ogre
     void MaterialSerializer::writeGpuPrograms()
     {
         // iterate through gpu program names in container
-        auto currentDef = mGpuProgramDefinitionContainer.begin();
-        auto endDef = mGpuProgramDefinitionContainer.end();
-
-        while (currentDef != endDef)
+        for (auto const& currentDef : mGpuProgramDefinitionContainer)
         {
             // get gpu program from gpu program manager
             GpuProgramPtr program = GpuProgramManager::getSingleton().getByName(
-                *currentDef, ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+                currentDef, ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
             // write gpu program definition type to buffer
             // check program type for vertex program
             // write program type
@@ -1845,9 +1834,6 @@ namespace Ogre
             }
             // write closing braces
             endSection(0, false);
-
-            ++currentDef;
-
         }
 
         mGpuProgramBuffer += "\n";
@@ -1870,45 +1856,33 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::fireMaterialEvent(SerializeEvent event, bool& skip, const Material* mat)
     {
-        auto it    = mListeners.begin();
-        auto itEnd = mListeners.end();
-
-        while (it != itEnd)
+        for (auto const& it : mListeners)
         {
-            (*it)->materialEventRaised(this, event, skip, mat);         
+            it->materialEventRaised(this, event, skip, mat);
             if (skip)
                 break;
-            ++it;
         }       
     }
 
     //---------------------------------------------------------------------
     void MaterialSerializer::fireTechniqueEvent(SerializeEvent event, bool& skip, const Technique* tech)
     {
-        auto it    = mListeners.begin();
-        auto itEnd = mListeners.end();
-
-        while (it != itEnd)
+        for (auto const& it : mListeners)
         {
-            (*it)->techniqueEventRaised(this, event, skip, tech);
+            it->techniqueEventRaised(this, event, skip, tech);
             if (skip)
                 break;
-            ++it;
         }
     }
 
     //---------------------------------------------------------------------
     void MaterialSerializer::firePassEvent(SerializeEvent event, bool& skip, const Pass* pass)
     {
-        auto it    = mListeners.begin();
-        auto itEnd = mListeners.end();
-
-        while (it != itEnd)
+        for (auto const& it : mListeners)
         {
-            (*it)->passEventRaised(this, event, skip, pass);
+            it->passEventRaised(this, event, skip, pass);
             if (skip)
                 break;
-            ++it;
         }
     }
 
@@ -1919,15 +1893,11 @@ namespace Ogre
         const GpuProgramParametersSharedPtr& params,
         GpuProgramParameters* defaultParams)
     {
-        auto it    = mListeners.begin();
-        auto itEnd = mListeners.end();
-
-        while (it != itEnd)
+        for (auto const& it : mListeners)
         {
-            (*it)->gpuProgramRefEventRaised(this, event, skip, attrib, program, params, defaultParams);
+            it->gpuProgramRefEventRaised(this, event, skip, attrib, program, params, defaultParams);
             if (skip)
                 break;
-            ++it;
         }
     }   
 
@@ -1935,15 +1905,11 @@ namespace Ogre
     void MaterialSerializer::fireTextureUnitStateEvent(SerializeEvent event, bool& skip,
         const TextureUnitState* textureUnit)
     {
-        auto it    = mListeners.begin();
-        auto itEnd = mListeners.end();
-
-        while (it != itEnd)
+        for (auto const& it : mListeners)
         {
-            (*it)->textureUnitStateEventRaised(this, event, skip, textureUnit);
+            it->textureUnitStateEventRaised(this, event, skip, textureUnit);
             if (skip)
                 break;
-            ++it;
         }
     }   
 }

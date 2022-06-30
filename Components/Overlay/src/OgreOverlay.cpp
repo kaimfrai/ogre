@@ -60,10 +60,9 @@ namespace Ogre {
     {
         // remove children
 
-        for (auto i = m2DElements.begin(); 
-             i != m2DElements.end(); ++i)
+        for (auto & m2DElement : m2DElements)
         {
-            (*i)->_notifyParent(nullptr, nullptr);
+            m2DElement->_notifyParent(nullptr, nullptr);
         }
     }
     //---------------------------------------------------------------------
@@ -77,11 +76,9 @@ namespace Ogre {
         auto zorder = static_cast<ushort>(mZOrder * 100.0f);
 
         // Notify attached 2D elements
-        OverlayContainerList::iterator i, iend;
-        iend = m2DElements.end();
-        for (i = m2DElements.begin(); i != iend; ++i)
+        for (auto const& i : m2DElements)
         {
-            zorder = (*i)->_notifyZOrder(zorder);
+            zorder = i->_notifyZOrder(zorder);
         }
     }
     //---------------------------------------------------------------------
@@ -126,11 +123,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Overlay::initialise()
     {
-        OverlayContainerList::iterator i, iend;
-        iend = m2DElements.end();
-        for (i = m2DElements.begin(); i != iend; ++i)
+        for (auto const& i : m2DElements)
         {
-            (*i)->initialise();
+            i->initialise();
         }
         mInitialised = true;
     }
@@ -192,14 +187,11 @@ namespace Ogre {
       //---------------------------------------------------------------------
     OverlayContainer* Overlay::getChild(const String& name)
     {
-
-        OverlayContainerList::iterator i, iend;
-        iend = m2DElements.end();
-        for (i = m2DElements.begin(); i != iend; ++i)
+        for (auto const& i : m2DElements)
         {
-            if ((*i)->getName() == name)
+            if (i->getName() == name)
             {
-                return *i;
+                return i;
 
             }
         }
@@ -268,14 +260,11 @@ namespace Ogre {
                 mLastViewportHeight = vp->getActualHeight();
             }
 
-            OverlayContainerList::iterator i, iend;
-
             if(tmpViewportDimensionsChanged)
             {
-                iend = m2DElements.end();
-                for (i = m2DElements.begin(); i != iend; ++i)
+                for (auto const& i : m2DElements)
                 {
-                    (*i)->_notifyViewport();
+                    i->_notifyViewport();
                 }
             }
 
@@ -285,10 +274,9 @@ namespace Ogre {
                 Matrix4 xform;
                 _getWorldTransforms(&xform);
 
-                iend = m2DElements.end();
-                for (i = m2DElements.begin(); i != iend; ++i)
+                for (auto const& i : m2DElements)
                 {
-                    (*i)->_notifyWorldTransforms(xform);
+                    i->_notifyWorldTransforms(xform);
                 }
 
                 mTransformUpdated = false;
@@ -308,12 +296,11 @@ namespace Ogre {
             queue->setDefaultQueueGroup(oldgrp);
             queue->setDefaultRenderablePriority(oldPriority);
             // Add 2D elements
-            iend = m2DElements.end();
-            for (i = m2DElements.begin(); i != iend; ++i)
+            for (auto const& i : m2DElements)
             {
-                (*i)->_update();
+                i->_update();
 
-                (*i)->_updateRenderQueue(queue);
+                i->_updateRenderQueue(queue);
             }
         }
     }
@@ -345,14 +332,12 @@ namespace Ogre {
     {
         OverlayElement* ret = nullptr;
         int currZ = -1;
-        OverlayContainerList::iterator i, iend;
-        iend = m2DElements.end();
-        for (i = m2DElements.begin(); i != iend; ++i)
+        for (auto const& i : m2DElements)
         {
-            int z = (*i)->getZOrder();
+            int z = i->getZOrder();
             if (z > currZ)
             {
-                OverlayElement* elementFound = (*i)->findElementAt(x,y);
+                OverlayElement* elementFound = i->findElementAt(x,y);
                 if(elementFound)
                 {
                     currZ = elementFound->getZOrder();

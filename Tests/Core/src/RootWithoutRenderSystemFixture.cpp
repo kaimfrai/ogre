@@ -34,15 +34,13 @@ void RootWithoutRenderSystemFixture::SetUp()
     cf.load(resourcesPath);
     // Go through all sections & settings in the file
     String secName, typeName, archName;
-    ConfigFile::SettingsBySection_::const_iterator seci;
-    for(seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
-        secName = seci->first;
-        const ConfigFile::SettingsMultiMap& settings = seci->second;
-        ConfigFile::SettingsMultiMap::const_iterator i;
-        for (i = settings.begin(); i != settings.end(); ++i)
+    for (const auto & seci : cf.getSettingsBySection()) {
+        secName = seci.first;
+        const ConfigFile::SettingsMultiMap& settings = seci.second;
+        for (const auto & setting : settings)
         {
-            typeName = i->first;
-            archName = i->second;
+            typeName = setting.first;
+            archName = setting.second;
             ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
         }
     }

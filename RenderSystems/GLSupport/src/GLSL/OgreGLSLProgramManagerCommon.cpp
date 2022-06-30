@@ -186,20 +186,19 @@ namespace Ogre {
     void GLSLProgramManagerCommon::destroyAllByShader(GLSLShaderCommon* shader)
     {
         std::vector<uint32> keysToErase;
-        for (auto currentProgram = mPrograms.begin();
-            currentProgram != mPrograms.end(); ++currentProgram)
+        for (auto & mProgram : mPrograms)
         {
-            GLSLProgramCommon* prgm = currentProgram->second.get();
+            GLSLProgramCommon* prgm = mProgram.second.get();
             if(prgm->isUsingShader(shader))
             {
-                currentProgram->second.reset();
-                keysToErase.push_back(currentProgram->first);
+                mProgram.second.reset();
+                keysToErase.push_back(mProgram.first);
             }
         }
 
-        for(size_t i = 0; i < keysToErase.size(); ++i)
+        for(unsigned int & i : keysToErase)
         {
-            mPrograms.erase(mPrograms.find(keysToErase[i]));
+            mPrograms.erase(mPrograms.find(i));
         }
     }
 
@@ -220,10 +219,10 @@ namespace Ogre {
         // Split into tokens
         StringVector parts = StringUtil::split(line, ", \t\r\n");
 
-        for (auto i = parts.begin(); i != parts.end(); ++i)
+        for (auto & part : parts)
         {
             // Is this a type?
-            auto typei = mTypeEnumMap.find(*i);
+            auto typei = mTypeEnumMap.find(part);
             if (typei != mTypeEnumMap.end())
             {
                 def.constType = typei->second;
@@ -233,20 +232,20 @@ namespace Ogre {
             else
             {
                 // if this is not a type, and not empty, it should be a name
-                StringUtil::trim(*i);
-                if (i->empty()) continue;
+                StringUtil::trim(part);
+                if (part.empty()) continue;
 
                 // Skip over precision keywords
-                if(StringUtil::match((*i), "lowp") ||
-                   StringUtil::match((*i), "mediump") ||
-                   StringUtil::match((*i), "highp"))
+                if(StringUtil::match(part, "lowp") ||
+                   StringUtil::match(part, "mediump") ||
+                   StringUtil::match(part, "highp"))
                     continue;
 
-                String::size_type arrayStart = i->find("[", 0);
+                String::size_type arrayStart = part.find("[", 0);
                 if (arrayStart != String::npos)
                 {
                     // potential name (if butted up to array)
-                    String name = i->substr(0, arrayStart);
+                    String name = part.substr(0, arrayStart);
                     StringUtil::trim(name);
                     if (!name.empty())
                         paramName = name;
@@ -255,20 +254,20 @@ namespace Ogre {
 
                     // N-dimensional arrays
                     while (arrayStart != String::npos) {
-                        String::size_type arrayEnd = i->find("]", arrayStart);
-                        String arrayDimTerm = i->substr(arrayStart + 1, arrayEnd - arrayStart - 1);
+                        String::size_type arrayEnd = part.find("]", arrayStart);
+                        String arrayDimTerm = part.substr(arrayStart + 1, arrayEnd - arrayStart - 1);
                         StringUtil::trim(arrayDimTerm);
                         //TODO
                         // the array term might be a simple number or it might be
                         // an expression (e.g. 24*3) or refer to a constant expression
                         // we'd have to evaluate the expression which could get nasty
                         def.arraySize *= StringConverter::parseInt(arrayDimTerm);
-                        arrayStart = i->find("[", arrayEnd);
+                        arrayStart = part.find("[", arrayEnd);
                     }
                 }
                 else
                 {
-                    paramName = *i;
+                    paramName = part;
                     def.arraySize = 1;
                 }
 

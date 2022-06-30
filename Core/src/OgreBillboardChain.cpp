@@ -403,11 +403,8 @@ class RenderSystem;
         {
             mAABB.setNull();
             Vector3 widthVector;
-            for (auto segi = mChainSegmentList.begin();
-                segi != mChainSegmentList.end(); ++segi)
+            for (const auto & seg : mChainSegmentList)
             {
-                const ChainSegment& seg = *segi;
-
                 if (seg.head != SEGMENT_EMPTY)
                 {
 
@@ -465,11 +462,8 @@ class RenderSystem;
         Vector3 eyePos = mParentNode->convertWorldToLocalPosition(camPos);
 
         Vector3 chainTangent;
-        for (auto segi = mChainSegmentList.begin();
-            segi != mChainSegmentList.end(); ++segi)
+        for (auto & seg : mChainSegmentList)
         {
-            ChainSegment& seg = *segi;
-
             // Skip 0 or 1 element segment counts
             if (seg.head != SEGMENT_EMPTY && seg.head != seg.tail)
             {
@@ -599,11 +593,8 @@ class RenderSystem;
             auto* pShort = static_cast<uint16*>(indexLock.pData);
             mIndexData->indexCount = 0;
             // indexes
-            for (auto segi = mChainSegmentList.begin();
-                segi != mChainSegmentList.end(); ++segi)
+            for (auto & seg : mChainSegmentList)
             {
-                ChainSegment& seg = *segi;
-
                 // Skip 0 or 1 element segment counts
                 if (seg.head != SEGMENT_EMPTY && seg.head != seg.tail)
                 {

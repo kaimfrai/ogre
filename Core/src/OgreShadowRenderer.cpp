@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <cstddef>
 #include <map>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <utility>
 #include <vector>
@@ -744,12 +745,8 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
 void SceneManager::ShadowRenderer::destroyShadowTextures()
 {
 
-    ShadowTextureList::iterator i, iend;
-    iend = mShadowTextures.end();
-    for (i = mShadowTextures.begin(); i != iend; ++i)
+    for (auto & shadowTex : mShadowTextures)
     {
-        TexturePtr &shadowTex = *i;
-
         // Cleanup material that references this texture
         String matName = shadowTex->getName() + "Mat" + mSceneManager->getName();
         MaterialPtr mat = MaterialManager::getSingleton().getByName(matName);
@@ -814,17 +811,14 @@ void SceneManager::ShadowRenderer::prepareShadowTextures(Camera* cam, Viewport* 
     // start of the light list, therefore we do not need to deal with potential
     // mismatches in the light<->shadow texture list any more
 
-    LightList::const_iterator i, iend;
-    ShadowTextureList::iterator si, siend;
-    CameraList::iterator ci;
-    iend = lightList->end();
-    siend = mShadowTextures.end();
-    ci = mShadowTextureCameras.begin();
+    auto ci = mShadowTextureCameras.begin();
     mShadowTextureIndexLightList.clear();
     size_t shadowTextureIndex = 0;
-    for (i = lightList->begin(), si = mShadowTextures.begin(); i != iend && si != siend; ++i)
+    for (auto si = mShadowTextures.begin();
+         Light* light : *lightList)
     {
-        Light* light = *i;
+        if(si == mShadowTextures.end())
+            break;
 
         // skip light if shadows are disabled
         if (!light->getCastShadows())
@@ -832,7 +826,7 @@ void SceneManager::ShadowRenderer::prepareShadowTextures(Camera* cam, Viewport* 
 
         // texture iteration per light.
         size_t textureCountPerLight = mShadowTextureCountPerType[light->getType()];
-        for (size_t j = 0; j < textureCountPerLight && si != siend; ++j)
+        for (size_t j = 0; j < textureCountPerLight && si != mShadowTextures.end(); ++j)
         {
             TexturePtr &shadowTex = *si;
             RenderTarget *shadowRTT = shadowTex->getBuffer()->getRenderTarget();
@@ -989,14 +983,8 @@ void SceneManager::ShadowRenderer::renderShadowVolumesToStencil(const Light* lig
         light->_getNearClipVolume(camera);
 
     // Now iterate over the casters and render
-    ShadowCasterList::const_iterator si, siend;
-    siend = casters.end();
-
-
-    // Now iterate over the casters and render
-    for (si = casters.begin(); si != siend; ++si)
+    for (auto caster : casters)
     {
-        ShadowCaster* caster = *si;
         bool zfailAlgo = camera->isCustomNearClipPlaneEnabled();
         unsigned long flags = 0;
 
@@ -1004,8 +992,8 @@ void SceneManager::ShadowRenderer::renderShadowVolumesToStencil(const Light* lig
         Real extrudeDist = mShadowDirLightExtrudeDist;
         if (light->getType() != Light::LT_DIRECTIONAL)
         {
-            // we have to limit shadow extrusion to avoid cliping by far clip plane 
-            extrudeDist = std::min(caster->getPointExtrusionDistance(light), mShadowDirLightExtrudeDist); 
+            // we have to limit shadow extrusion to avoid cliping by far clip plane
+            extrudeDist = std::min(caster->getPointExtrusionDistance(light), mShadowDirLightExtrudeDist);
             // Set autoparams for finite point light extrusion
             mSceneManager->mAutoParamDataSource->setShadowPointLightExtrusionDistance(extrudeDist);
         }
@@ -1569,16 +1557,15 @@ SceneManager::ShadowRenderer::getShadowCasterBoundsInfo( const Light* light, siz
     static VisibleObjectsBoundsInfo nullBox;
 
     // find light
-    unsigned int foundCount = 0;
-    ShadowCamLightMapping::const_iterator it;
-    for ( it = mShadowCamLightMapping.begin() ; it != mShadowCamLightMapping.end(); ++it )
+    for (unsigned int foundCount = 0;
+         auto const& it: mShadowCamLightMapping)
     {
-        if ( it->second == light )
+        if ( it.second == light )
         {
             if (foundCount == iteration)
             {
                 // search the camera-aab list for the texture cam
-                auto camIt = mSceneManager->mCamVisibleObjectsMap.find( it->first );
+                auto camIt = mSceneManager->mCamVisibleObjectsMap.find( it.first );
 
                 if ( camIt == mSceneManager->mCamVisibleObjectsMap.end() )
                 {
@@ -1648,12 +1635,11 @@ void SceneManager::ShadowRenderer::setShadowTextureConfig(size_t shadowIndex,
 void SceneManager::ShadowRenderer::setShadowTextureSize(unsigned short size)
 {
     // default all current
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->width != size || i->height != size)
+        if (i.width != size || i.height != size)
         {
-            i->width = i->height = size;
+            i.width = i.height = size;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1681,24 +1667,22 @@ void SceneManager::ShadowRenderer::setShadowTextureCount(size_t count)
 //---------------------------------------------------------------------
 void SceneManager::ShadowRenderer::setShadowTexturePixelFormat(PixelFormat fmt)
 {
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->format != fmt)
+        if (i.format != fmt)
         {
-            i->format = fmt;
+            i.format = fmt;
             mShadowTextureConfigDirty = true;
         }
     }
 }
 void SceneManager::ShadowRenderer::setShadowTextureFSAA(unsigned short fsaa)
 {
-    for (auto i = mShadowTextureConfigList.begin();
-                i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->fsaa != fsaa)
+        if (i.fsaa != fsaa)
         {
-            i->fsaa = fsaa;
+            i.fsaa = fsaa;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1708,15 +1692,14 @@ void SceneManager::ShadowRenderer::setShadowTextureSettings(unsigned short size,
     unsigned short count, PixelFormat fmt, unsigned short fsaa, uint16 depthBufferPoolId)
 {
     setShadowTextureCount(count);
-    for (auto i = mShadowTextureConfigList.begin();
-        i != mShadowTextureConfigList.end(); ++i)
+    for (auto & i : mShadowTextureConfigList)
     {
-        if (i->width != size || i->height != size || i->format != fmt || i->fsaa != fsaa)
+        if (i.width != size || i.height != size || i.format != fmt || i.fsaa != fsaa)
         {
-            i->width = i->height = size;
-            i->format = fmt;
-            i->fsaa = fsaa;
-            i->depthBufferPoolId = depthBufferPoolId;
+            i.width = i.height = size;
+            i.format = fmt;
+            i.fsaa = fsaa;
+            i.depthBufferPoolId = depthBufferPoolId;
             mShadowTextureConfigDirty = true;
         }
     }
@@ -1798,11 +1781,9 @@ bool SceneManager::ShadowRenderer::ShadowCasterSceneQueryListener::queryResult(
         if (!mIsLightInFrustum || mLight->getType() == Light::LT_DIRECTIONAL)
         {
             // Iterate over volumes
-            PlaneBoundedVolumeList::const_iterator i, iend;
-            iend = mLightClipVolumeList->end();
-            for (i = mLightClipVolumeList->begin(); i != iend; ++i)
+            for (const auto & i : *mLightClipVolumeList)
             {
-                if (i->intersects(object->getWorldBoundingBox()))
+                if (i.intersects(object->getWorldBoundingBox()))
                 {
                     mCasterList->push_back(object);
                     return true;
@@ -1896,12 +1877,9 @@ SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, cons
 void SceneManager::ShadowRenderer::fireShadowTexturesUpdated(size_t numberOfShadowTextures)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->shadowTexturesUpdated(numberOfShadowTextures);
+        i->shadowTexturesUpdated(numberOfShadowTextures);
     }
 }
 //---------------------------------------------------------------------
@@ -1917,12 +1895,9 @@ void SceneManager::ShadowRenderer::fireShadowTexturesPreCaster(Light* light, Cam
 void SceneManager::ShadowRenderer::fireShadowTexturesPreReceiver(Light* light, Frustum* f)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->shadowTextureReceiverPreViewProj(light, f);
+        i->shadowTextureReceiverPreViewProj(light, f);
     }
 }
 void SceneManager::ShadowRenderer::sortLightsAffectingFrustum(LightList& lightList)
@@ -1936,10 +1911,9 @@ void SceneManager::ShadowRenderer::sortLightsAffectingFrustum(LightList& lightLi
     // Reverse iterate so last takes precedence
     bool overridden = false;
     ListenerList listenersCopy = mListeners;
-    for (auto ri = listenersCopy.rbegin();
-        ri != listenersCopy.rend(); ++ri)
+    for (auto & ri : std::ranges::reverse_view(listenersCopy))
     {
-        overridden = (*ri)->sortLightsAffectingFrustum(lightList);
+        overridden = ri->sortLightsAffectingFrustum(lightList);
         if (overridden)
             break;
     }

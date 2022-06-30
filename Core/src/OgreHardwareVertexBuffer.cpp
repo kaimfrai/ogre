@@ -436,9 +436,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     void VertexDeclaration::removeElement(VertexElementSemantic semantic, unsigned short index)
     {
-        VertexElementList::iterator ei, eiend;
-        eiend = mElementList.end();
-        for (ei = mElementList.begin(); ei != eiend; ++ei)
+        for (auto ei = mElementList.begin(); ei != mElementList.end(); ++ei)
         {
             if (ei->getSemantic() == semantic && ei->getIndex() == index)
             {
@@ -469,13 +467,11 @@ namespace Ogre {
     const VertexElement* VertexDeclaration::findElementBySemantic(
         VertexElementSemantic sem, unsigned short index) const
     {
-        VertexElementList::const_iterator ei, eiend;
-        eiend = mElementList.end();
-        for (ei = mElementList.begin(); ei != eiend; ++ei)
+        for (const auto & ei : mElementList)
         {
-            if (ei->getSemantic() == sem && ei->getIndex() == index)
+            if (ei.getSemantic() == sem && ei.getIndex() == index)
             {
-                return &(*ei);
+                return &ei;
             }
         }
 
@@ -488,13 +484,11 @@ namespace Ogre {
         unsigned short source) const
     {
         VertexElementList retList;
-        VertexElementList::const_iterator ei, eiend;
-        eiend = mElementList.end();
-        for (ei = mElementList.begin(); ei != eiend; ++ei)
+        for (const auto & ei : mElementList)
         {
-            if (ei->getSource() == source)
+            if (ei.getSource() == source)
             {
-                retList.push_back(*ei);
+                retList.push_back(ei);
             }
         }
         return retList;
@@ -504,15 +498,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     size_t VertexDeclaration::getVertexSize(unsigned short source) const
     {
-        VertexElementList::const_iterator i, iend;
-        iend = mElementList.end();
         size_t sz = 0;
 
-        for (i = mElementList.begin(); i != iend; ++i)
+        for (const auto & i : mElementList)
         {
-            if (i->getSource() == source)
+            if (i.getSource() == source)
             {
-                sz += i->getSize();
+                sz += i.getSize();
 
             }
         }
@@ -524,11 +516,9 @@ namespace Ogre {
         HardwareBufferManagerBase* pManager = mgr ? mgr : HardwareBufferManager::getSingletonPtr(); 
         VertexDeclaration* ret = pManager->createVertexDeclaration();
 
-        VertexElementList::const_iterator i, iend;
-        iend = mElementList.end();
-        for (i = mElementList.begin(); i != iend; ++i)
+        for (const auto & i : mElementList)
         {
-            ret->addElement(i->getSource(), i->getOffset(), i->getType(), i->getSemantic(), i->getIndex());
+            ret->addElement(i.getSource(), i.getOffset(), i.getType(), i.getSemantic(), i.getIndex());
         }
         return ret;
     }
@@ -572,14 +562,11 @@ namespace Ogre {
         // Sort first
         sort();
 
-        VertexElementList::iterator i, iend;
-        iend = mElementList.end();
         unsigned short targetIdx = 0;
         unsigned short lastIdx = getElement(0)->getSource();
-        unsigned short c = 0;
-        for (i = mElementList.begin(); i != iend; ++i, ++c)
+        for (unsigned short c = 0;
+             VertexElement& elem : mElementList)
         {
-            VertexElement& elem = *i;
             if (lastIdx != elem.getSource())
             {
                 targetIdx++;
@@ -590,7 +577,7 @@ namespace Ogre {
                 modifyElement(c, targetIdx, elem.getOffset(), elem.getType(), 
                     elem.getSemantic(), elem.getIndex());
             }
-
+            ++c;
         }
 
     }
@@ -601,24 +588,21 @@ namespace Ogre {
         VertexDeclaration* newDecl = this->clone();
         // Set all sources to the same buffer (for now)
         const VertexDeclaration::VertexElementList& elems = newDecl->getElements();
-        VertexDeclaration::VertexElementList::const_iterator i;
-        unsigned short c = 0;
-        for (i = elems.begin(); i != elems.end(); ++i, ++c)
+        for (unsigned short c = 0;
+             const VertexElement& elem : elems)
         {
-            const VertexElement& elem = *i;
             // Set source & offset to 0 for now, before sort
             newDecl->modifyElement(c, 0, 0, elem.getType(), elem.getSemantic(), elem.getIndex());
+            ++c;
         }
         newDecl->sort();
         // Now sort out proper buffer assignments and offsets
         size_t offset = 0;
-        c = 0;
         unsigned short buffer = 0;
         VertexElementSemantic prevSemantic = VES_POSITION;
-        for (i = elems.begin(); i != elems.end(); ++i, ++c)
+        for (unsigned short c = 0;
+             const auto & elem : elems)
         {
-            const VertexElement& elem = *i;
-
             bool splitWithPrev = false;
             bool splitWithNext = false;
             switch (elem.getSemantic())
@@ -674,6 +658,7 @@ namespace Ogre {
             {
                 offset += elem.getSize();
             }
+            ++c;
         }
 
         return newDecl;
@@ -683,14 +668,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     unsigned short VertexDeclaration::getMaxSource() const noexcept
     {
-        VertexElementList::const_iterator i, iend;
-        iend = mElementList.end();
         unsigned short ret = 0;
-        for (i = mElementList.begin(); i != iend; ++i)
+        for (const auto & i : mElementList)
         {
-            if (i->getSource() > ret)
+            if (i.getSource() > ret)
             {
-                ret = i->getSource();
+                ret = i.getSource();
             }
 
         }
@@ -700,10 +683,8 @@ namespace Ogre {
     unsigned short VertexDeclaration::getNextFreeTextureCoordinate() const noexcept
     {
         unsigned short texCoord = 0;
-        for (auto i = mElementList.begin(); 
-             i != mElementList.end(); ++i)
+        for (const auto & el : mElementList)
         {
-            const VertexElement& el = *i;
             if (el.getSemantic() == VES_TEXTURE_COORDINATES)
             {
                 ++texCoord;
@@ -787,13 +768,12 @@ namespace Ogre {
         bindingIndexMap.clear();
 
         VertexBufferBindingMap newBindingMap;
-
-        VertexBufferBindingMap::const_iterator it;
         ushort targetIndex = 0;
-        for (it = mBindingMap.begin(); it != mBindingMap.end(); ++it, ++targetIndex)
+        for (auto const& it : mBindingMap)
         {
-            bindingIndexMap[it->first] = targetIndex;
-            newBindingMap[targetIndex] = it->second;
+            bindingIndexMap[it.first] = targetIndex;
+            newBindingMap[targetIndex] = it.second;
+             ++targetIndex;
         }
 
         mBindingMap.swap(newBindingMap);

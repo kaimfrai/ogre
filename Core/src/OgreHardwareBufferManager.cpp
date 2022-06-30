@@ -134,20 +134,18 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::destroyAllDeclarations()
     {
-        VertexDeclarationList::iterator decl;
-        for (decl = mVertexDeclarations.begin(); decl != mVertexDeclarations.end(); ++decl)
+        for (auto mVertexDeclaration : mVertexDeclarations)
         {
-            destroyVertexDeclarationImpl(*decl);
+            destroyVertexDeclarationImpl(mVertexDeclaration);
         }
         mVertexDeclarations.clear();
     }
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::destroyAllBindings()
     {
-        VertexBufferBindingList::iterator bind;
-        for (bind = mVertexBufferBindings.begin(); bind != mVertexBufferBindings.end(); ++bind)
+        for (auto mVertexBufferBinding : mVertexBufferBindings)
         {
-            destroyVertexBufferBindingImpl(*bind);
+            destroyVertexBufferBindingImpl(mVertexBufferBinding);
         }
         mVertexBufferBindings.clear();
     }
@@ -322,7 +320,7 @@ namespace Ogre {
         // Erase the copies which are licensed out
         TemporaryVertexBufferLicenseMap::iterator i;
         i = mTempVertexBufferLicenses.begin();
-        while (i != mTempVertexBufferLicenses.end()) 
+        while (i != mTempVertexBufferLicenses.end())
         {
             auto icur = i++;
             const VertexBufferLicense& vbl = icur->second;

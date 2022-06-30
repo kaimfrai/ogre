@@ -49,31 +49,27 @@ static void GLXProc( RenderWindow *win, const XEvent &event );
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::messagePump()
 {
-    //GLX Message Pump
-    auto win = _msWindows.begin();
-    auto end = _msWindows.end();
 
-    Display* xDisplay = nullptr; // same for all windows
-
-    for (; win != end; win++)
+    for (Display* xDisplay = nullptr; // same for all windows
+        auto const& win : _msWindows)
     {
         XID xid;
         XEvent event;
 
         if (!xDisplay)
-        (*win)->getCustomAttribute("XDISPLAY", &xDisplay);
+            win->getCustomAttribute("XDISPLAY", &xDisplay);
 
-        (*win)->getCustomAttribute("WINDOW", &xid);
+        win->getCustomAttribute("WINDOW", &xid);
 
         while (XCheckWindowEvent (xDisplay, xid, StructureNotifyMask | VisibilityChangeMask | FocusChangeMask, &event))
         {
-        GLXProc(*win, event);
+            GLXProc(win, event);
         }
 
         // The ClientMessage event does not appear under any Event Mask
         while (XCheckTypedWindowEvent (xDisplay, xid, ClientMessage, &event))
         {
-        GLXProc(*win, event);
+            GLXProc(win, event);
         }
     }
 }
@@ -117,7 +113,7 @@ void WindowEventUtilities::_removeRenderWindow(RenderWindow* window)
 static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
 {
     //An iterator for the window listeners
-    WindowEventListeners::iterator index,
+    auto
         start = _msListeners.lower_bound(win),
         end   = _msListeners.upper_bound(win);
 
@@ -132,14 +128,14 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
             //Send message first, to allow app chance to unregister things that need done before
             //window is shutdown
             bool close = true;
-            for(index = start ; index != end; ++index)
+            for(auto index = start ; index != end; ++index)
             {
                 if (!(index->second)->windowClosing(win))
                     close = false;
             }
             if (!close) return;
 
-            for(index = start ; index != end; ++index)
+            for(auto index = start ; index != end; ++index)
                 (index->second)->windowClosed(win);
             win->destroy();
         }
@@ -150,7 +146,7 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
         if (!win->isClosed())
         {
             // Window closed without window manager warning.
-            for(index = start ; index != end; ++index)
+            for(auto index = start ; index != end; ++index)
                 (index->second)->windowClosed(win);
             win->destroy();
         }
@@ -169,31 +165,31 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
 
         if (newLeft != oldLeft || newTop != oldTop)
         {
-            for(index = start ; index != end; ++index)
+            for(auto index = start ; index != end; ++index)
                 (index->second)->windowMoved(win);
         }
 
         if (newWidth != oldWidth || newHeight != oldHeight)
         {
-            for(index = start ; index != end; ++index)
+            for(auto index = start ; index != end; ++index)
                 (index->second)->windowResized(win);
         }
         break;
     }
     case FocusIn:     // Gained keyboard focus
     case FocusOut:    // Lost keyboard focus
-        for(index = start ; index != end; ++index)
+        for(auto index = start ; index != end; ++index)
             (index->second)->windowFocusChange(win);
         break;
     case MapNotify:   //Restored
         win->setActive( true );
-        for(index = start ; index != end; ++index)
+        for(auto index = start ; index != end; ++index)
             (index->second)->windowFocusChange(win);
         break;
     case UnmapNotify: //Minimised
         win->setActive( false );
         win->setVisible( false );
-        for(index = start ; index != end; ++index)
+        for(auto index = start ; index != end; ++index)
             (index->second)->windowFocusChange(win);
         break;
     case VisibilityNotify:
@@ -212,7 +208,7 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
             win->setVisible( false );
             break;
         }
-        for(index = start ; index != end; ++index)
+        for(auto index = start ; index != end; ++index)
             (index->second)->windowFocusChange(win);
         break;
     default:

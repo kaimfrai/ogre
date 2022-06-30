@@ -146,12 +146,9 @@ class AxisAlignedBox;
         else
         {
             //Tell the ones sharing skeleton with us to use their own
-            auto itor = mSharingPartners.begin();
-            auto end  = mSharingPartners.end();
-            while( itor != end )
+            for (auto const& itor : mSharingPartners)
             {
-                (*itor)->stopSharingTransformAsSlave( false );
-                ++itor;
+                itor->stopSharingTransformAsSlave( false );
             }
             mSharingPartners.clear();
         }
@@ -179,11 +176,9 @@ class AxisAlignedBox;
             {
                 Affine3* matrices = mBatchOwner->useBoneWorldMatrices() ? mBoneWorldMatrices : mBoneMatrices;
                 const Mesh::IndexMap *indexMap = mBatchOwner->_getIndexToBoneMap();
-                auto itor = indexMap->begin();
-                auto end  = indexMap->end();
 
-                while( itor != end )
-                    *xform++ = matrices[*itor++];
+                for (auto const& itor : *indexMap)
+                    *xform++ = matrices[itor];
 
                 retVal = indexMap->size();
             }

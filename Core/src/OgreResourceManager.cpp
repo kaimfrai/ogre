@@ -245,15 +245,13 @@ namespace Ogre {
         bool reloadableOnly = (flags & Resource::LF_INCLUDE_NON_RELOADABLE) == 0;
         bool unreferencedOnly = (flags & Resource::LF_ONLY_UNREFERENCED) != 0;
 
-        ResourceMap::iterator i, iend;
-        iend = mResources.end();
-        for (i = mResources.begin(); i != iend; ++i)
+        for (auto & mResource : mResources)
         {
             // A use count of 3 means that only RGM and RM have references
             // RGM has one (this one) and RM has 2 (by name and by handle)
-            if (!unreferencedOnly || i->second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
+            if (!unreferencedOnly || mResource.second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
             {
-                Resource* res = i->second.get();
+                Resource* res = mResource.second.get();
                 if (!reloadableOnly || res->isReloadable())
                 {
                     res->unload();
@@ -267,15 +265,13 @@ namespace Ogre {
         bool reloadableOnly = (flags & Resource::LF_INCLUDE_NON_RELOADABLE) == 0;
         bool unreferencedOnly = (flags & Resource::LF_ONLY_UNREFERENCED) != 0;
 
-        ResourceMap::iterator i, iend;
-        iend = mResources.end();
-        for (i = mResources.begin(); i != iend; ++i)
+        for (auto & mResource : mResources)
         {
             // A use count of 3 means that only RGM and RM have references
             // RGM has one (this one) and RM has 2 (by name and by handle)
-            if (!unreferencedOnly || i->second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
+            if (!unreferencedOnly || mResource.second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
             {
-                Resource* res = i->second.get();
+                Resource* res = mResource.second.get();
                 if (!reloadableOnly || res->isReloadable())
                 {
                     res->reload(flags);
@@ -326,9 +322,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceManager::removeUnreferencedResources(bool reloadableOnly)
     {
-        ResourceMap::iterator i, iend;
-        iend = mResources.end();
-        for (i = mResources.begin(); i != iend; )
+        for (auto i = mResources.begin(); i != mResources.end(); )
         {
             // A use count of 3 means that only RGM and RM have references
             // RGM has one (this one) and RM has 2 (by name and by handle)
@@ -364,13 +358,11 @@ namespace Ogre {
         // look in all grouped pools
         if (groupName == ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME)
         {
-            auto iter = mResourcesWithGroup.begin();
-            auto iterE = mResourcesWithGroup.end();
-            for ( ; iter != iterE ; ++iter )
+            for (auto const& iter : mResourcesWithGroup)
             {
-                auto resMapIt = iter->second.find(name);
+                auto resMapIt = iter.second.find(name);
 
-                if( resMapIt != iter->second.end())
+                if( resMapIt != iter.second.end())
                 {
                     return resMapIt->second;
                 }
@@ -411,15 +403,16 @@ namespace Ogre {
         if (getMemoryUsage() > mMemoryBudget)
         {
             // unload unreferenced resources until we are within our budget again
-            ResourceMap::iterator i, iend;
-            iend = mResources.end();
-            for (i = mResources.begin(); i != iend && getMemoryUsage() > mMemoryBudget; ++i)
+            for (auto const& i : mResources)
             {
+                if (getMemoryUsage() <= mMemoryBudget)
+                    break;
+
                 // A use count of 3 means that only RGM and RM have references
                 // RGM has one (this one) and RM has 2 (by name and by handle)
-                if (i->second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
+                if (i.second.use_count() == ResourceGroupManager::RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS)
                 {
-                    Resource* res = i->second.get();
+                    Resource* res = i.second.get();
                     if (res->isReloadable())
                     {
                         res->unload();
@@ -482,9 +475,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::destroyAllResourcePools()
     {
-        for (auto i = mResourcePoolMap.begin();
-            i != mResourcePoolMap.end(); ++i)
-            delete i->second;
+        for (auto & i : mResourcePoolMap)
+            delete i.second;
 
         mResourcePoolMap.clear();
     }
@@ -508,9 +500,9 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void ResourceManager::ResourcePool::clear()
     {
-        for (auto i = mItems.begin(); i != mItems.end(); ++i)
+        for (auto & mItem : mItems)
         {
-            (*i)->getCreator()->remove((*i)->getHandle());
+            mItem->getCreator()->remove(mItem->getHandle());
         }
         mItems.clear();
     }

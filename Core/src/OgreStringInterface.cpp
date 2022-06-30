@@ -145,11 +145,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StringInterface::setParameterList(const NameValuePairList& paramList)
     {
-        NameValuePairList::const_iterator i, iend;
-        iend = paramList.end();
-        for (i = paramList.begin(); i != iend; ++i)
+        for (const auto & i : paramList)
         {
-            setParameter(i->first, i->second);
+            setParameter(i.first, i.second);
         }
     }
 

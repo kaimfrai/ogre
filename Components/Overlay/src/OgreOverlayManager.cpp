@@ -87,14 +87,14 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::_releaseManualHardwareResources()
     {
-        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_releaseManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_releaseManualHardwareResources();
     }
     //---------------------------------------------------------------------
     void OverlayManager::_restoreManualHardwareResources()
     {
-        for(auto i = mElements.begin(), i_end = mElements.end(); i != i_end; ++i)
-            i->second->_restoreManualHardwareResources();
+        for(auto & mElement : mElements)
+            mElement.second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
     const StringVector& OverlayManager::getScriptPatterns() const noexcept
@@ -188,10 +188,9 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayManager::destroyAll()
     {
-        for (auto i = mOverlayMap.begin();
-            i != mOverlayMap.end(); ++i)
+        for (auto & i : mOverlayMap)
         {
-            delete i->second;
+            delete i.second;
         }
         mOverlayMap.clear();
     }
@@ -226,12 +225,9 @@ class RenderQueue;
             mLastViewportHeight = int(vp->getActualHeight() / mPixelRatio);
         }
 
-        OverlayMap::iterator i, iend;
-        iend = mOverlayMap.end();
-        for (i = mOverlayMap.begin(); i != iend; ++i)
+        for (auto const& o : mOverlayMap)
         {
-            Overlay* o = i->second;
-            o->_findVisibleObjects(cam, pQueue, vp);
+            o.second->_findVisibleObjects(cam, pQueue, vp);
         }
     }
     //---------------------------------------------------------------------

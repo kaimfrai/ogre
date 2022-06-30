@@ -160,9 +160,8 @@ namespace Ogre {
     {
         if (deleteTemplate)
         {
-            ParticleTemplateMap::iterator itr;
-            for (itr = mSystemTemplates.begin(); itr != mSystemTemplates.end(); ++itr)
-                delete itr->second;
+            for (auto & mSystemTemplate : mSystemTemplates)
+                delete mSystemTemplate.second;
         }
 
         mSystemTemplates.clear();

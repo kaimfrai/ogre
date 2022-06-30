@@ -461,14 +461,13 @@ namespace Ogre {
             // Buffers should be the same size
             assert (vertexSize == newBuf->getVertexSize());
 
-            for (auto r = indexRemap.begin();
-                r != indexRemap.end(); ++r)
+            for (auto& r : indexRemap)
             {
-                assert (r->first < oldBuf->getNumVertices());
-                assert (r->second < newBuf->getNumVertices());
+                assert (r.first < oldBuf->getNumVertices());
+                assert (r.second < newBuf->getNumVertices());
 
-                uchar* pSrc = static_cast<uchar*>(oldBufLock.pData) + r->first * vertexSize;
-                uchar* pDst = static_cast<uchar*>(newBufLock.pData) + r->second * vertexSize;
+                uchar* pSrc = static_cast<uchar*>(oldBufLock.pData) + r.first * vertexSize;
+                uchar* pDst = static_cast<uchar*>(newBufLock.pData) + r.second * vertexSize;
                 memcpy(pDst, pSrc, vertexSize);
             }
         }
@@ -537,10 +536,8 @@ namespace Ogre {
         destroy();
 
         // Firstly allocate meshes to regions
-        for (auto qi = mQueuedSubMeshes.begin();
-            qi != mQueuedSubMeshes.end(); ++qi)
+        for (auto qsm : mQueuedSubMeshes)
         {
-            QueuedSubMesh* qsm = *qi;
             Region* region = getRegion(qsm->worldBounds, true);
             region->assign(qsm);
         }
@@ -551,13 +548,12 @@ namespace Ogre {
         }
 
         // Now tell each region to build itself
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->build(stencilShadows);
+            ri.second->build(stencilShadows);
             
             // Set the visibility flags on these regions
-            ri->second->setVisibilityFlags(mVisibilityFlags);
+            ri.second->setVisibilityFlags(mVisibilityFlags);
         }
 
     }
@@ -565,11 +561,10 @@ namespace Ogre {
     void StaticGeometry::destroy()
     {
         // delete the regions
-        for (auto i = mRegionMap.begin();
-            i != mRegionMap.end(); ++i)
+        for (auto & i : mRegionMap)
         {
-            mOwner->extractMovableObject(i->second);
-            delete i->second;
+            mOwner->extractMovableObject(i.second);
+            delete i.second;
         }
         mRegionMap.clear();
     }
@@ -577,24 +572,21 @@ namespace Ogre {
     void StaticGeometry::reset()
     {
         destroy();
-        for (auto i = mQueuedSubMeshes.begin();
-            i != mQueuedSubMeshes.end(); ++i)
+        for (auto & mQueuedSubMeshe : mQueuedSubMeshes)
         {
-            delete *i;
+            delete mQueuedSubMeshe;
         }
         mQueuedSubMeshes.clear();
         // Delete precached geoemtry lists
-        for (auto l = mSubMeshGeometryLookup.begin();
-            l != mSubMeshGeometryLookup.end(); ++l)
+        for (auto & l : mSubMeshGeometryLookup)
         {
-            delete l->second;
+            delete l.second;
         }
         mSubMeshGeometryLookup.clear();
         // Delete optimised geometry
-        for (auto o = mOptimisedSubMeshGeometryList.begin();
-            o != mOptimisedSubMeshGeometryList.end(); ++o)
+        for (auto & o : mOptimisedSubMeshGeometryList)
         {
-            delete *o;
+            delete o;
         }
         mOptimisedSubMeshGeometryList.clear();
 
@@ -604,10 +596,9 @@ namespace Ogre {
     {
         mVisible = visible;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisible(visible);
+            ri.second->setVisible(visible);
         }
     }
     //--------------------------------------------------------------------------
@@ -615,10 +606,9 @@ namespace Ogre {
     {
         mCastShadows = castShadows;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setCastShadows(castShadows);
+            ri.second->setCastShadows(castShadows);
         }
 
     }
@@ -629,10 +619,9 @@ namespace Ogre {
         mRenderQueueIDSet = true;
         mRenderQueueID = queueID;
         // tell any existing regions
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setRenderQueueGroup(queueID);
+            ri.second->setRenderQueueGroup(queueID);
         }
     }
     //--------------------------------------------------------------------------
@@ -644,10 +633,9 @@ namespace Ogre {
     void StaticGeometry::setVisibilityFlags(uint32 flags)
     {
         mVisibilityFlags = flags;
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->setVisibilityFlags(flags);
+            ri.second->setVisibilityFlags(flags);
         }
     }
     //--------------------------------------------------------------------------
@@ -672,10 +660,9 @@ namespace Ogre {
         of << "Max distance: " << mUpperDistance << std::endl;
         of << "Casts shadows?: " << mCastShadows << std::endl;
         of << std::endl;
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto ri : mRegionMap)
         {
-            ri->second->dump(of);
+            ri.second->dump(of);
         }
         of << "-------------------------------------------------" << std::endl;
     }
@@ -683,10 +670,9 @@ namespace Ogre {
     void StaticGeometry::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto ri = mRegionMap.begin();
-            ri != mRegionMap.end(); ++ri)
+        for (auto & ri : mRegionMap)
         {
-            ri->second->visitRenderables(visitor, debugRenderables);
+            ri.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -715,9 +701,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StaticGeometry::Region::_releaseManualHardwareResources()
     {
-        for (auto i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            clearShadowRenderableList((*i)->getShadowRenderableList());
+            clearShadowRenderableList(i->getShadowRenderableList());
         }
     }
     //-----------------------------------------------------------------------
@@ -790,11 +776,9 @@ namespace Ogre {
             auto* lodBucket = mLodBucketList.back().get();
             // Now iterate over the meshes and assign to LODs
             // LOD bucket will pick the right LOD to use
-            QueuedSubMeshList::iterator qi, qiend;
-            qiend = mQueuedSubMeshes.end();
-            for (qi = mQueuedSubMeshes.begin(); qi != qiend; ++qi)
+            for (auto & mQueuedSubMeshe : mQueuedSubMeshes)
             {
-                lodBucket->assign(*qi, lod);
+                lodBucket->assign(mQueuedSubMeshe, lod);
             }
             // now build
             lodBucket->build(stencilShadows);
@@ -854,9 +838,9 @@ namespace Ogre {
     void StaticGeometry::Region::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mLodBucketList.begin(); i != mLodBucketList.end(); ++i)
+        for (auto & i : mLodBucketList)
         {
-            (*i)->visitRenderables(visitor, debugRenderables);
+            i->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -916,10 +900,9 @@ namespace Ogre {
         of << "Bounding radius: " << mBoundingRadius << std::endl;
         of << "Number of LODs: " << mLodBucketList.size() << std::endl;
 
-        for (auto i = mLodBucketList.begin();
-            i != mLodBucketList.end(); ++i)
+        for (const auto & i : mLodBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------" << std::endl;
     }
@@ -979,10 +962,9 @@ namespace Ogre {
         size_t vertexSet = 0;
 
         // Just pass this on to child buckets
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            MaterialBucket* mat = i->second.get();
+            MaterialBucket* mat = i.second.get();
 
             mat->build(stencilShadows);
 
@@ -1028,11 +1010,9 @@ namespace Ogre {
         uint8 group, Real lodValue)
     {
         // Just pass this on to child buckets
-        MaterialBucketMap::iterator i, iend;
-        iend =  mMaterialBucketMap.end();
-        for (i = mMaterialBucketMap.begin(); i != iend; ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            i->second->addRenderables(queue, group, lodValue);
+            i.second->addRenderables(queue, group, lodValue);
         }
     }
     //--------------------------------------------------------------------------
@@ -1042,10 +1022,9 @@ namespace Ogre {
         of << "------------------" << std::endl;
         of << "LOD Value: " << mLodValue << std::endl;
         of << "Number of Materials: " << mMaterialBucketMap.size() << std::endl;
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (const auto & i : mMaterialBucketMap)
         {
-            i->second->dump(of);
+            i.second->dump(of);
         }
         of << "------------------" << std::endl;
 
@@ -1054,10 +1033,9 @@ namespace Ogre {
     void StaticGeometry::LODBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mMaterialBucketMap.begin();
-            i != mMaterialBucketMap.end(); ++i)
+        for (auto & i : mMaterialBucketMap)
         {
-            i->second->visitRenderables(visitor, debugRenderables);
+            i.second->visitRenderables(visitor, debugRenderables);
         }
 
     }
@@ -1076,14 +1054,11 @@ namespace Ogre {
         bool init = mShadowRenderables.empty();
         bool extrude = flags & SRF_EXTRUDE_IN_SOFTWARE;
 
-        EdgeData::EdgeGroupList::iterator egi;
-        ShadowCaster::ShadowRenderableList::iterator si, siend;
         if (init)
             mShadowRenderables.resize(mEdgeList->edgeGroups.size());
 
-        siend = mShadowRenderables.end();
-        egi = mEdgeList->edgeGroups.begin();
-        for (si = mShadowRenderables.begin(); si != siend; ++si, ++egi)
+        auto egi = mEdgeList->edgeGroups.begin();
+        for (auto & mShadowRenderable : mShadowRenderables)
         {
             if (init)
             {
@@ -1092,15 +1067,16 @@ namespace Ogre {
                 // for extruding the shadow volume) since otherwise we can
                 // get depth-fighting on the light cap
 
-                *si = new ShadowRenderable(mParent, indexBuffer, egi->vertexData,
+                mShadowRenderable = new ShadowRenderable(mParent, indexBuffer, egi->vertexData,
                                                 mVertexProgramInUse || !extrude);
             }
             // Extrude vertices in software if required
             if (extrude)
             {
-                mParent->extrudeVertices((*si)->getPositionBuffer(), egi->vertexData->vertexCount, lightPos,
+                mParent->extrudeVertices(mShadowRenderable->getPositionBuffer(), egi->vertexData->vertexCount, lightPos,
                                          extrusionDistance);
             }
+            ++egi;
         }
     }
     //--------------------------------------------------------------------------
@@ -1193,11 +1169,9 @@ namespace Ogre {
         // Determine the current material technique
         mTechnique = mMaterial->getBestTechnique(
             mMaterial->getLodIndex(lodValue));
-        GeometryBucketList::iterator i, iend;
-        iend =  mGeometryBucketList.end();
-        for (i = mGeometryBucketList.begin(); i != iend; ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            queue->addRenderable(i->get(), group);
+            queue->addRenderable(i.get(), group);
         }
 
     }
@@ -1213,10 +1187,9 @@ namespace Ogre {
         of << "Material Bucket " << getMaterialName() << std::endl;
         of << "--------------------------------------------------" << std::endl;
         of << "Geometry buckets: " << mGeometryBucketList.size() << std::endl;
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (const auto & i : mGeometryBucketList)
         {
-            (*i)->dump(of);
+            i->dump(of);
         }
         of << "--------------------------------------------------" << std::endl;
 
@@ -1225,10 +1198,9 @@ namespace Ogre {
     void StaticGeometry::MaterialBucket::visitRenderables(Renderable::Visitor* visitor, 
         bool debugRenderables)
     {
-        for (auto i = mGeometryBucketList.begin();
-            i != mGeometryBucketList.end(); ++i)
+        for (auto & i : mGeometryBucketList)
         {
-            visitor->visit(i->get(), mParent->getLod(), false);
+            visitor->visit(i.get(), mParent->getLod(), false);
         }
 
     }
@@ -1405,12 +1377,9 @@ namespace Ogre {
 
         // Iterate over the geometry items
         uint32 indexOffset = 0;
-        QueuedGeometryList::iterator gi, giend;
-        giend = mQueuedGeometry.end();
         Vector3 regionCentre = mParent->getParent()->getParent()->getCentre();
-        for (gi = mQueuedGeometry.begin(); gi != giend; ++gi)
+        for (auto geom : mQueuedGeometry)
         {
-            QueuedGeometry* geom = *gi;
             // Copy indexes across with offset
             IndexData* srcIdxData = geom->geometry->indexData;
             HardwareBufferLockGuard srcIdxLock(srcIdxData->indexBuffer,
@@ -1454,10 +1423,8 @@ namespace Ogre {
                     // Iterate over vertex elements
                     VertexDeclaration::VertexElementList& elems =
                         bufferElements[b];
-                    VertexDeclaration::VertexElementList::iterator ei;
-                    for (ei = elems.begin(); ei != elems.end(); ++ei)
+                    for (auto & elem : elems)
                     {
-                        VertexElement& elem = *ei;
                         elem.baseVertexPointerToElement(pSrcBase, &pSrcReal);
                         elem.baseVertexPointerToElement(pDstBase, &pDstReal);
                         switch (elem.getSemantic())

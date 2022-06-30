@@ -440,12 +440,12 @@ namespace Ogre {
         HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
         auto* pUV = static_cast<float*>(vbufLock.pData);
         
-        for (uint i = 0; i < 8; ++i)
+        for (auto & i : mBorderUV)
         {
-            *pUV++ = mBorderUV[i].u1; *pUV++ = mBorderUV[i].v1;
-            *pUV++ = mBorderUV[i].u1; *pUV++ = mBorderUV[i].v2;
-            *pUV++ = mBorderUV[i].u2; *pUV++ = mBorderUV[i].v1;
-            *pUV++ = mBorderUV[i].u2; *pUV++ = mBorderUV[i].v2;
+            *pUV++ = i.u1; *pUV++ = i.v1;
+            *pUV++ = i.u1; *pUV++ = i.v2;
+            *pUV++ = i.u2; *pUV++ = i.v1;
+            *pUV++ = i.u2; *pUV++ = i.v2;
         }
     }
     //---------------------------------------------------------------------

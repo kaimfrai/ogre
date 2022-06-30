@@ -120,21 +120,18 @@ void CGProgramWriter::writeSourceCode(std::ostream& os, Program* program)
 
     // Write local parameters.
     const ShaderParameterList& localParams = curFunction->getLocalParameters();
-    ShaderParameterConstIterator itParam;
 
-    for (itParam=localParams.begin();  itParam != localParams.end(); ++itParam)
+    for (auto const& itParam : localParams)
     {
         os << "\t";
-        writeParameter(os, *itParam);
+        writeParameter(os, itParam);
         os << ";" << std::endl;
     }
 
     const FunctionAtomInstanceList& atomInstances = curFunction->getAtomInstances();
-    FunctionAtomInstanceConstIterator itAtom;
-
-    for (itAtom=atomInstances.begin(); itAtom != atomInstances.end(); ++itAtom)
+    for (auto const& itAtom : atomInstances)
     {
-        writeAtomInstance(os, *itAtom);
+        writeAtomInstance(os, itAtom);
     }
 
 
@@ -181,22 +178,20 @@ void CGProgramWriter::writeFunctionDeclaration(std::ostream& os, Function* funct
 
     os << "void main(\n";
 
-    ShaderParameterConstIterator it;
-
     // Write input parameters.
-    for (it=inParams.begin(); it != inParams.end(); ++it)
+    for (auto const& it : inParams)
     {                   
         os << "\t in ";
-        writeFunctionParameter(os, *it);
+        writeFunctionParameter(os, it);
         os << ",\n";
     }
 
 
     // Write output parameters.
-    for (it=outParams.begin(); it != outParams.end(); ++it)
+    for (auto const& it : outParams)
     {
         os << "\t out ";
-        writeFunctionParameter(os, *it);
+        writeFunctionParameter(os, it);
         os << ",\n";
     }
 

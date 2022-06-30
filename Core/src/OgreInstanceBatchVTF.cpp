@@ -86,11 +86,8 @@ class RenderQueue;
     BaseInstanceBatchVTF::~BaseInstanceBatchVTF()
     {
         //Remove cloned caster materials (if any)
-        Material::Techniques::const_iterator it;
-        for(it = mMaterial->getTechniques().begin(); it != mMaterial->getTechniques().end(); ++it)
+        for (auto technique : mMaterial->getTechniques())
         {
-            Technique *technique = *it;
-
             if (technique->getShadowCasterMaterial())
                 MaterialManager::getSingleton().remove( technique->getShadowCasterMaterial() );
         }
@@ -132,11 +129,8 @@ class RenderQueue;
         mMaterial = material->clone( mName + "/VTFMaterial" );
 
         //Now do the same with the techniques which have a material shadow caster
-        Material::Techniques::const_iterator it;
-        for(it = material->getTechniques().begin(); it != material->getTechniques().end(); ++it)
+        for (Technique *technique : material->getTechniques())
         {
-            Technique *technique = *it;
-
             if( technique->getShadowCasterMaterial() )
             {
                 const MaterialPtr &casterMat    = technique->getShadowCasterMaterial();
@@ -222,19 +216,12 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void BaseInstanceBatchVTF::setupMaterialToUseVTF( TextureType textureType, MaterialPtr &material ) const
     {
-        Material::Techniques::const_iterator t;
-        for(t = material->getTechniques().begin(); t != material->getTechniques().end(); ++t)
+        for (auto technique : material->getTechniques())
         {
-            Technique *technique = *t;
-            Technique::Passes::const_iterator i;
-            for(i = technique->getPasses().begin(); i != technique->getPasses().end(); ++i)
+            for (auto pass : technique->getPasses())
             {
-                Pass *pass = *i;
-                Pass::TextureUnitStates::const_iterator it;
-                for(it = pass->getTextureUnitStates().begin(); it != pass->getTextureUnitStates().end(); ++it)
+                for (auto texUnit : pass->getTextureUnitStates())
                 {
-                    TextureUnitState *texUnit = *it;
-
                     if( texUnit->getName() == "InstancingVTF" )
                     {
                         texUnit->setTextureName( mMatrixTexture->getName(), textureType );
@@ -344,9 +331,6 @@ class RenderQueue;
 
         auto *pDest = reinterpret_cast<float*>(pixelBox.data);
 
-        auto itor = mInstancedEntities.begin();
-        auto end  = mInstancedEntities.end();
-
         Matrix3x4f* transforms;
 
         //If using dual quaternion skinning, write the transforms to a temporary buffer,
@@ -362,9 +346,9 @@ class RenderQueue;
         }
 
         
-        while( itor != end )
+        for (auto const& itor : mInstancedEntities)
         {
-            size_t floatsWritten = (*itor)->getTransforms3x4( transforms );
+            size_t floatsWritten = itor->getTransforms3x4( transforms );
 
             if( mManager->getCameraRelativeRendering() )
                 makeMatrixCameraRelative3x4( transforms, floatsWritten / 12 );
@@ -378,8 +362,6 @@ class RenderQueue;
             {
                 transforms += floatsWritten / 12;
             }
-            
-            ++itor;
         }
     }
     /** update the lookup numbers for entities with shared transforms */
@@ -395,24 +377,22 @@ class RenderQueue;
                 uint16 lookupCounter = 0;
                 using MapTransformId = std::map<Affine3 *, uint16>;
                 MapTransformId transformToId;
-                auto itEnt = mInstancedEntities.begin(),
-                    itEntEnd = mInstancedEntities.end();
-                for(;itEnt != itEntEnd ; ++itEnt)
+                for(auto const& itEnt : mInstancedEntities)
                 {
-                    if ((*itEnt)->isInScene())
+                    if (itEnt->isInScene())
                     {
-                        Affine3* transformUniqueId = (*itEnt)->mBoneMatrices;
+                        Affine3* transformUniqueId = itEnt->mBoneMatrices;
                         auto itLu = transformToId.find(transformUniqueId);
                         if (itLu == transformToId.end())
                         {
                             itLu = transformToId.insert(std::make_pair(transformUniqueId,lookupCounter)).first;
                             ++lookupCounter;
                         }
-                        (*itEnt)->setTransformLookupNumber(itLu->second);
+                        itEnt->setTransformLookupNumber(itLu->second);
                     }
                     else 
                     {
-                        (*itEnt)->setTransformLookupNumber(0);
+                        itEnt->setTransformLookupNumber(0);
                     }
                 }
 

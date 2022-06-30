@@ -140,14 +140,11 @@ void IntegratedPSSM3::copyFrom(const SubRenderState& rhs)
     mDebug = rhsPssm.mDebug;
     mShadowTextureParamsList.resize(rhsPssm.mShadowTextureParamsList.size());
 
-    auto itSrc = rhsPssm.mShadowTextureParamsList.begin();
-    auto itDst = mShadowTextureParamsList.begin();
-
-    while(itDst != mShadowTextureParamsList.end())
+    for(auto itSrc = rhsPssm.mShadowTextureParamsList.begin();
+        auto& itDst : mShadowTextureParamsList)
     {
-        itDst->mMaxRange = itSrc->mMaxRange;        
+        itDst.mMaxRange = itSrc->mMaxRange;
         ++itSrc;
-        ++itDst;
     }
 }
 
@@ -169,9 +166,7 @@ bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState,
     mUseTextureCompare = PixelUtil::isDepth(shadowTexFormat) && !mIsD3D9;
     mUseColourShadows = PixelUtil::getComponentType(shadowTexFormat) == PCT_BYTE; // use colour shadowmaps for byte textures
 
-    auto it = mShadowTextureParamsList.begin();
-
-    while(it != mShadowTextureParamsList.end())
+    for(auto& it : mShadowTextureParamsList)
     {
         TextureUnitState* curShadowTexture = dstPass->createTextureUnitState();
             
@@ -183,8 +178,7 @@ bool IntegratedPSSM3::preAddToRenderState(const RenderState* renderState,
             curShadowTexture->setTextureCompareEnabled(true);
             curShadowTexture->setTextureCompareFunction(CMPF_LESS_EQUAL);
         }
-        it->mTextureSamplerIndex = dstPass->getNumTextureUnitStates() - 1;
-        ++it;
+        it.mTextureSamplerIndex = dstPass->getNumTextureUnitStates() - 1;
     }
 
     
@@ -274,22 +268,19 @@ bool IntegratedPSSM3::resolveParameters(ProgramSet* programSet)
     // Get derived scene colour.
     mPSDerivedSceneColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_SCENE_COLOUR);
     
-    auto it = mShadowTextureParamsList.begin();
-    int lightIndex = 0;
-
-    while(it != mShadowTextureParamsList.end())
+    for(int lightIndex = 0;
+        auto& it : mShadowTextureParamsList)
     {
-        it->mWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_TEXTURE_WORLDVIEWPROJ_MATRIX, lightIndex);
+        it.mWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_TEXTURE_WORLDVIEWPROJ_MATRIX, lightIndex);
 
-        it->mVSOutLightPosition = vsMain->resolveOutputParameter(Parameter::Content(Parameter::SPC_POSITION_LIGHT_SPACE0 + lightIndex));        
-        it->mPSInLightPosition = psMain->resolveInputParameter(it->mVSOutLightPosition);
+        it.mVSOutLightPosition = vsMain->resolveOutputParameter(Parameter::Content(Parameter::SPC_POSITION_LIGHT_SPACE0 + lightIndex));
+        it.mPSInLightPosition = psMain->resolveInputParameter(it.mVSOutLightPosition);
         auto stype = mUseTextureCompare ? GCT_SAMPLER2DSHADOW : GCT_SAMPLER2D;
-        it->mTextureSampler = psProgram->resolveParameter(stype, "shadow_map", it->mTextureSamplerIndex);
-        it->mInvTextureSize = psProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_TEXTURE_SIZE,
-                                                          it->mTextureSamplerIndex);
+        it.mTextureSampler = psProgram->resolveParameter(stype, "shadow_map", it.mTextureSamplerIndex);
+        it.mInvTextureSize = psProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_TEXTURE_SIZE,
+                                                          it.mTextureSamplerIndex);
 
         ++lightIndex;
-        ++it;
     }
 
     if (!(mVSInPos.get()) || !(mVSOutPos.get()) || !(mPSDiffuse.get()) || !(mPSSpecualr.get()))
@@ -351,12 +342,9 @@ bool IntegratedPSSM3::addVSInvocation(Function* vsMain, const int groupOrder)
     }
 
     // Compute world space position.    
-    auto it = mShadowTextureParamsList.begin();
-
-    while(it != mShadowTextureParamsList.end())
+    for(auto const& it : mShadowTextureParamsList)
     {
-        stage.callFunction(FFP_FUNC_TRANSFORM, it->mWorldViewProjMatrix, mVSInPos, it->mVSOutLightPosition);
-        ++it;
+        stage.callFunction(FFP_FUNC_TRANSFORM, it.mWorldViewProjMatrix, mVSInPos, it.mVSOutLightPosition);
     }
 
     return true;
@@ -432,22 +420,17 @@ SubRenderState* IntegratedPSSM3Factory::createInstance(ScriptCompiler* compiler,
         {
             IntegratedPSSM3::SplitPointList splitPointList; 
 
-            auto it = prop->values.begin();
-            auto itEnd = prop->values.end();
-
-            while(it != itEnd)
+            for(auto const& it : prop->values)
             {
                 Real curSplitValue;
                 
-                if (false == SGScriptTranslator::getReal(*it, &curSplitValue))
+                if (false == SGScriptTranslator::getReal(it, &curSplitValue))
                 {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                     break;
                 }
 
                 splitPointList.push_back(curSplitValue);
-
-                ++it;
             }
 
             if (splitPointList.size() == 4)

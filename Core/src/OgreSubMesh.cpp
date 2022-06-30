@@ -136,11 +136,9 @@ class HardwareBufferManagerBase;
     //---------------------------------------------------------------------
     void SubMesh::removeLodLevels()
     {
-        LODFaceList::iterator lodi, lodend;
-        lodend = mLodFaceList.end();
-        for (lodi = mLodFaceList.begin(); lodi != lodend; ++lodi)
+        for (auto & lodi : mLodFaceList)
         {
-            delete *lodi;
+            delete lodi;
         }
 
         mLodFaceList.clear();
@@ -200,11 +198,10 @@ class HardwareBufferManagerBase;
             mMin.x = mMin.y = mMin.z = Math::POS_INFINITY;
             mMax.x = mMax.y = mMax.z = Math::NEG_INFINITY;
 
-            for (auto i = mIndices.begin ();
-                 i != mIndices.end (); ++i)
+            for (unsigned int mIndice : mIndices)
             {
                 float *v;
-                poselem->baseVertexPointerToElement (vdata + *i * vsz, &v);
+                poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
                 extend (v);
             }
         }
@@ -304,16 +301,15 @@ class HardwareBufferManagerBase;
             // Find the largest box with more than one vertex :)
             Cluster *split_box = nullptr;
             Real split_volume = -1;
-            for (auto b = boxes.begin ();
-                 b != boxes.end (); ++b)
+            for (auto & boxe : boxes)
             {
-                if (b->empty ())
+                if (boxe.empty ())
                     continue;
-                Real v = b->volume ();
+                Real v = boxe.volume ();
                 if (v > split_volume)
                 {
                     split_volume = v;
-                    split_box = &*b;
+                    split_box = &boxe;
                 }
             }
 
@@ -340,24 +336,21 @@ class HardwareBufferManagerBase;
 
         // Fine, now from every cluster choose the vertex that is most
         // distant from the geometrical center and from other extremes.
-        for (auto b = boxes.begin ();
-             b != boxes.end (); ++b)
+        for (auto & boxe : boxes)
         {
             Real rating = 0;
             Vector3 best_vertex;
 
-            for (auto i = b->mIndices.begin ();
-                 i != b->mIndices.end (); ++i)
+            for (unsigned int mIndice : boxe.mIndices)
             {
                 float *v;
-                poselem->baseVertexPointerToElement (vdata + *i * vsz, &v);
+                poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
 
                 Vector3 vv (v [0], v [1], v [2]);
                 Real r = (vv - center).squaredLength ();
 
-                for (auto e = extremityPoints.begin ();
-                     e != extremityPoints.end (); ++e)
-                    r += (*e - vv).squaredLength ();
+                for (auto & extremityPoint : extremityPoints)
+                    r += (extremityPoint - vv).squaredLength ();
                 if (r > rating)
                 {
                     rating = r;
@@ -416,9 +409,8 @@ class HardwareBufferManagerBase;
 
         // Copy lod face lists
         newSub->mLodFaceList.reserve(this->mLodFaceList.size());
-        SubMesh::LODFaceList::const_iterator facei;
-        for (facei = this->mLodFaceList.begin(); facei != this->mLodFaceList.end(); ++facei) {
-            IndexData* newIndexData = (*facei)->clone(true, bufferManager);
+        for (auto & facei : this->mLodFaceList) {
+            IndexData* newIndexData = facei->clone(true, bufferManager);
             newSub->mLodFaceList.push_back(newIndexData);
         }
         return newSub;

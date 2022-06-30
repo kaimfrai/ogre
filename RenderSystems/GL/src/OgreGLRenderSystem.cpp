@@ -1154,23 +1154,19 @@ namespace Ogre {
     void GLRenderSystem::destroyRenderWindow(const String& name)
     {
         // Find it to remove from list.
-        RenderTarget* pWin = detachRenderTarget(name);
+        ::std::unique_ptr<RenderTarget> pWin{detachRenderTarget(name) };
         OgreAssert(pWin, "unknown RenderWindow name");
 
-        GLContext *windowContext = dynamic_cast<GLRenderTarget*>(pWin)->getContext();
+        GLContext *windowContext = dynamic_cast<GLRenderTarget*>(pWin.get())->getContext();
     
         //1 Window <-> 1 Context, should be always true
         assert( windowContext );
 
-        bool bFound = false;
         //Find the depth buffer from this window and remove it.
-        auto itMap = mDepthBufferPool.begin();
-        auto enMap = mDepthBufferPool.end();
-
-        while( itMap != enMap && !bFound )
+        for (auto& itMap : mDepthBufferPool)
         {
-            auto itor = itMap->second.begin();
-            auto end  = itMap->second.end();
+            auto itor = itMap.second.begin();
+            auto end  = itMap.second.end();
 
             while( itor != end )
             {
@@ -1182,19 +1178,13 @@ namespace Ogre {
                 if( glContext == windowContext &&
                     (depthBuffer->getDepthBuffer() || depthBuffer->getStencilBuffer()) )
                 {
-                    bFound = true;
-
                     delete *itor;
-                    itMap->second.erase( itor );
-                    break;
+                    itMap.second.erase( itor );
+                    return;
                 }
                 ++itor;
             }
-
-            ++itMap;
         }
-
-        delete pWin;
     }
 
     //---------------------------------------------------------------------
@@ -2327,12 +2317,8 @@ namespace Ogre {
 
         const VertexDeclaration::VertexElementList& decl =
             op.vertexData->vertexDeclaration->getElements();
-        VertexDeclaration::VertexElementList::const_iterator elemIter, elemEnd;
-        elemEnd = decl.end();
-
-        for (elemIter = decl.begin(); elemIter != elemEnd; ++elemIter)
+        for (const auto & elem : decl)
         {
-            const VertexElement & elem = *elemIter;
             size_t source = elem.getSource();
 
             if (!op.vertexData->vertexBufferBinding->isBufferBound(source))
@@ -2346,12 +2332,9 @@ namespace Ogre {
 
         if( globalInstanceVertexBuffer && globalVertexDeclaration != nullptr )
         {
-            elemEnd = globalVertexDeclaration->getElements().end();
-            for (elemIter = globalVertexDeclaration->getElements().begin(); elemIter != elemEnd; ++elemIter)
+            for (const auto & elem : globalVertexDeclaration->getElements())
             {
-                const VertexElement & elem = *elemIter;
                 bindVertexElementToGpu(elem, globalInstanceVertexBuffer, 0);
-
             }
         }
 
@@ -2463,15 +2446,15 @@ namespace Ogre {
             glDisableClientState( GL_SECONDARY_COLOR_ARRAY );
         }
         // unbind any custom attributes
-        for (auto ai = mRenderAttribsBound.begin(); ai != mRenderAttribsBound.end(); ++ai)
+        for (unsigned int & ai : mRenderAttribsBound)
         {
-            glDisableVertexAttribArrayARB(*ai);
+            glDisableVertexAttribArrayARB(ai);
         }
 
         // unbind any instance attributes
-        for (auto ai = mRenderInstanceAttribsBound.begin(); ai != mRenderInstanceAttribsBound.end(); ++ai)
+        for (unsigned int & ai : mRenderInstanceAttribsBound)
         {
-            glVertexAttribDivisorARB(*ai, 0);
+            glVertexAttribDivisorARB(ai, 0);
         }
 
         mRenderAttribsBound.clear();

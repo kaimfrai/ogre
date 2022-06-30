@@ -122,10 +122,10 @@ namespace Ogre
         mRequestCondition.notify_all();
 
         // all our threads should have been woken now, so join
-        for (auto i = mWorkers.begin(); i != mWorkers.end(); ++i)
+        for (auto & mWorker : mWorkers)
         {
-            (*i)->join();
-            delete *i;
+            mWorker->join();
+            delete mWorker;
         }
         mWorkers.clear();
 

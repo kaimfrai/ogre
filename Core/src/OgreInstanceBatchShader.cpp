@@ -307,24 +307,20 @@ class InstanceManager;
 
                 for( size_t k=0; k<baseVertexData->vertexCount; ++k )
                 {
-                    auto it = veList.begin();
-                    auto en = veList.end();
-
-                    while( it != en )
+                    for (auto const& it : veList)
                     {
-                        switch( it->getSemantic() )
+                        switch( it.getSemantic() )
                         {
                         case VES_BLEND_INDICES:
-                        *(thisBuf + it->getOffset() + 0) = *(baseBuf + it->getOffset() + 0) + j * numBones;
-                        *(thisBuf + it->getOffset() + 1) = *(baseBuf + it->getOffset() + 1) + j * numBones;
-                        *(thisBuf + it->getOffset() + 2) = *(baseBuf + it->getOffset() + 2) + j * numBones;
-                        *(thisBuf + it->getOffset() + 3) = *(baseBuf + it->getOffset() + 3) + j * numBones;
+                        *(thisBuf + it.getOffset() + 0) = *(baseBuf + it.getOffset() + 0) + j * numBones;
+                        *(thisBuf + it.getOffset() + 1) = *(baseBuf + it.getOffset() + 1) + j * numBones;
+                        *(thisBuf + it.getOffset() + 2) = *(baseBuf + it.getOffset() + 2) + j * numBones;
+                        *(thisBuf + it.getOffset() + 3) = *(baseBuf + it.getOffset() + 3) + j * numBones;
                             break;
                         default:
-                            memcpy( thisBuf + it->getOffset(), baseBuf + it->getOffset(), it->getSize() );
+                            memcpy( thisBuf + it.getOffset(), baseBuf + it.getOffset(), it.getSize() );
                             break;
                         }
-                        ++it;
                     }
                     thisBuf += baseVertexData->vertexDeclaration->getVertexSize(i);
                     baseBuf += baseVertexData->vertexDeclaration->getVertexSize(i);
@@ -335,13 +331,9 @@ class InstanceManager;
     //-----------------------------------------------------------------------
     void InstanceBatchShader::getWorldTransforms( Matrix4* xform ) const
     {
-        auto itor = mInstancedEntities.begin();
-        auto end  = mInstancedEntities.end();
-
-        while( itor != end )
+        for (auto const& itor :  mInstancedEntities)
         {
-            xform += (*itor)->getTransforms( xform );
-            ++itor;
+            xform += itor->getTransforms( xform );
         }
     }
     //-----------------------------------------------------------------------

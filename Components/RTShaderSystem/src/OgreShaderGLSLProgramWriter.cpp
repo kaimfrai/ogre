@@ -221,14 +221,11 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
     os << "void main(void) {" << std::endl;
 
     // Write local parameters.
-    const ShaderParameterList& localParams = curFunction->getLocalParameters();
-    auto itParam = localParams.begin();
-    auto itParamEnd = localParams.end();
-
-    for (; itParam != itParamEnd; ++itParam)
+    for (const ShaderParameterList& localParams = curFunction->getLocalParameters();
+         auto const& itParam : localParams)
     {
         os << "\t";
-        writeParameter(os, *itParam);
+        writeParameter(os, itParam);
         os << ";" << std::endl;
     }
     os << std::endl;
@@ -305,14 +302,9 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
 {
     const ShaderParameterList& inParams = function->getInputParameters();
 
-    auto itParam = inParams.begin();
-    auto itParamEnd = inParams.end();
-
-    int psInLocation = 0;
-
-    for ( ; itParam != itParamEnd; ++itParam)
+    for (int psInLocation = 0;
+         ParameterPtr pParam : inParams)
     {       
-        ParameterPtr pParam = *itParam;
         Parameter::Content paramContent = pParam->getContent();
         const String& paramName = pParam->getName();
 
@@ -390,15 +382,9 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
 {
     const ShaderParameterList& outParams = function->getOutputParameters();
 
-    auto itParam = outParams.begin();
-    auto itParamEnd = outParams.end();
-
-    int vsOutLocation = 0;
-
-    for ( ; itParam != itParamEnd; ++itParam)
+    for (int vsOutLocation = 0;
+         ParameterPtr pParam : outParams)
     {
-        ParameterPtr pParam = *itParam;
-
         if(gpuType == GPT_VERTEX_PROGRAM)
         {
             // GLSL vertex program has to write always gl_Position (but this is also deprecated after version 130)

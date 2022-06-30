@@ -570,33 +570,33 @@ class RenderQueue;
         if( emittedRequested.size() != mEmittedEmitterPoolSize)
             emittedRequested.resize( mEmittedEmitterPoolSize );
 
-        size_t totalRequested, emitterCount, emittedEmitterCount, i, emissionAllowed;
-        ParticleEmitterList::iterator itEmit, iEmitEnd;
-        ActiveEmittedEmitterList::iterator itActiveEmit, itActiveEnd;
+        size_t totalRequested, emitterCount, emittedEmitterCount, emissionAllowed;
 
-        iEmitEnd = mEmitters.end();
         emitterCount = mEmitters.size();
         emittedEmitterCount=mActiveEmittedEmitters.size();
-        itActiveEnd=mActiveEmittedEmitters.end();
         emissionAllowed = mFreeParticles.size();
         totalRequested = 0;
 
         // Count up total requested emissions for regular emitters (and exclude the ones that are used as
         // a template for emitted emitters)
-        for (itEmit = mEmitters.begin(), i = 0; itEmit != iEmitEnd; ++itEmit, ++i)
+        for (size_t i = 0;
+            auto const& itEmit : mEmitters)
         {
-            if (!(*itEmit)->isEmitted())
+            if (!itEmit->isEmitted())
             {
-                requested[i] = (*itEmit)->_getEmissionCount(timeElapsed);
+                requested[i] = itEmit->_getEmissionCount(timeElapsed);
                 totalRequested += requested[i];
             }
+            ++i;
         }
 
         // Add up total requested emissions for (active) emitted emitters
-        for (itActiveEmit = mActiveEmittedEmitters.begin(), i=0; itActiveEmit != itActiveEnd; ++itActiveEmit, ++i)
+        for (size_t  i=0;
+            auto const& itActiveEmit : mActiveEmittedEmitters)
         {
-            emittedRequested[i] = (*itActiveEmit)->_getEmissionCount(timeElapsed);
+            emittedRequested[i] = itActiveEmit->_getEmissionCount(timeElapsed);
             totalRequested += emittedRequested[i];
+            ++i;
         }
 
         // Check if the quota will be exceeded, if so reduce demand
@@ -605,11 +605,11 @@ class RenderQueue;
         {
             // Apportion down requested values to allotted values
             ratio =  (Real)emissionAllowed / (Real)totalRequested;
-            for (i = 0; i < emitterCount; ++i)
+            for (size_t i = 0; i < emitterCount; ++i)
             {
                 requested[i] = static_cast<unsigned>(requested[i] * ratio);
             }
-            for (i = 0; i < emittedEmitterCount; ++i)
+            for (size_t i = 0; i < emittedEmitterCount; ++i)
             {
                 emittedRequested[i] = static_cast<unsigned>(emittedRequested[i] * ratio);
             }
@@ -619,17 +619,23 @@ class RenderQueue;
         // For each emission, apply a subset of the motion for the frame
         // this ensures an even distribution of particles when many are
         // emitted in a single frame
-        for (itEmit = mEmitters.begin(), i = 0; itEmit != iEmitEnd; ++itEmit, ++i)
+        for (size_t i = 0;
+            auto const& itEmit : mEmitters)
         {
             // Trigger the emitters, but exclude the emitters that are already in the emitted emitters list; 
             // they are handled in a separate loop
-            if (!(*itEmit)->isEmitted())
-                _executeTriggerEmitters (*itEmit, static_cast<unsigned>(requested[i]), timeElapsed);
+            if (!itEmit->isEmitted())
+                _executeTriggerEmitters (itEmit, static_cast<unsigned>(requested[i]), timeElapsed);
+            ++i;
         }
 
         // Do the same with all active emitted emitters
-        for (itActiveEmit = mActiveEmittedEmitters.begin(), i = 0; itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit, ++i)
-            _executeTriggerEmitters (*itActiveEmit, emittedRequested[i], timeElapsed);
+        for (size_t i = 0;
+             auto const& itActiveEmit : mActiveEmittedEmitters)
+        {
+            _executeTriggerEmitters (itActiveEmit, emittedRequested[i], timeElapsed);
+            ++i;
+        }
     }
     //-----------------------------------------------------------------------
     void ParticleSystem::_executeTriggerEmitters(ParticleEmitter* emitter, unsigned requested, Real timeElapsed)
@@ -1427,8 +1433,7 @@ class RenderQueue;
     void ParticleSystem::removeFromActiveEmittedEmitters (ParticleEmitter* emitter)
     {
         assert(emitter && "Emitter to be removed is 0!");
-        ActiveEmittedEmitterList::iterator itActiveEmit;
-        for (itActiveEmit = mActiveEmittedEmitters.begin(); itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit)
+        for (auto itActiveEmit = mActiveEmittedEmitters.begin(); itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit)
         {
             if (emitter == (*itActiveEmit))
             {
@@ -1440,12 +1445,11 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void ParticleSystem::addActiveEmittedEmittersToFreeList ()
     {
-        ActiveEmittedEmitterList::iterator itActiveEmit;
-        for (itActiveEmit = mActiveEmittedEmitters.begin(); itActiveEmit != mActiveEmittedEmitters.end(); ++itActiveEmit)
+        for (auto & mActiveEmittedEmitter : mActiveEmittedEmitters)
         {
-            std::list<ParticleEmitter*>* fee = findFreeEmittedEmitter ((*itActiveEmit)->getName());
+            std::list<ParticleEmitter*>* fee = findFreeEmittedEmitter (mActiveEmittedEmitter->getName());
             if (fee)
-                fee->push_back(*itActiveEmit);
+                fee->push_back(mActiveEmittedEmitter);
         }
     }
     //-----------------------------------------------------------------------
@@ -1578,10 +1582,9 @@ class RenderQueue;
     ParticleAffectorFactory::~ParticleAffectorFactory() 
     {
         // Destroy all affectors
-        std::vector<ParticleAffector*>::iterator i;
-        for (i = mAffectors.begin(); i != mAffectors.end(); ++i)
+        for (auto & mAffector : mAffectors)
         {
-            delete (*i);
+            delete mAffector;
         }
             
         mAffectors.clear();
@@ -1590,8 +1593,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void ParticleAffectorFactory::destroyAffector(ParticleAffector* e)
     {
-        std::vector<ParticleAffector*>::iterator i;
-        for (i = mAffectors.begin(); i != mAffectors.end(); ++i)
+        for (auto i = mAffectors.begin(); i != mAffectors.end(); ++i)
         {
             if ((*i) == e)
             {

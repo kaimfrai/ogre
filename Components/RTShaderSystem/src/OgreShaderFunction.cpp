@@ -206,16 +206,16 @@ Function::~Function()
 {
     mAtomInstances.clear();
 
-    for (auto it = mInputParameters.begin(); it != mInputParameters.end(); ++it)
-        (*it).reset();
+    for (auto & mInputParameter : mInputParameters)
+        mInputParameter.reset();
     mInputParameters.clear();
 
-    for (auto it = mOutputParameters.begin(); it != mOutputParameters.end(); ++it)
-        (*it).reset();
+    for (auto & mOutputParameter : mOutputParameters)
+        mOutputParameter.reset();
     mOutputParameters.clear();
 
-    for (auto it = mLocalParameters.begin(); it != mLocalParameters.end(); ++it)
-        (*it).reset();
+    for (auto & mLocalParameter : mLocalParameters)
+        mLocalParameter.reset();
     mLocalParameters.clear();
 
 }
@@ -287,11 +287,9 @@ ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
         index = 0;
 
         // Find the next available index of the target semantic.
-        ShaderParameterIterator it;
-
-        for (it = mInputParameters.begin(); it != mInputParameters.end(); ++it)
+        for (auto const& it : mInputParameters)
         {
-            if ((*it)->getSemantic() == semantic)
+            if (it->getSemantic() == semantic)
             {
                 index++;
             }
@@ -351,11 +349,9 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
         index = 0;
 
         // Find the next available index of the target semantic.
-        ShaderParameterIterator it;
-
-        for (it = mOutputParameters.begin(); it != mOutputParameters.end(); ++it)
+        for (auto const& it : mOutputParameters)
         {
-            if ((*it)->getSemantic() == semantic)
+            if (it->getSemantic() == semantic)
             {
                 index++;
             }
@@ -519,9 +515,7 @@ void Function::addParameter(ShaderParameterList& parameterList, ParameterPtr par
 //-----------------------------------------------------------------------------
 void Function::deleteParameter(ShaderParameterList& parameterList, ParameterPtr parameter)
 {
-    ShaderParameterIterator it;
-
-    for (it = parameterList.begin(); it != parameterList.end(); ++it)
+    for (auto it = parameterList.begin(); it != parameterList.end(); ++it)
     {
         if (*it == parameter)
         {
@@ -535,13 +529,11 @@ void Function::deleteParameter(ShaderParameterList& parameterList, ParameterPtr 
 //-----------------------------------------------------------------------------
 ParameterPtr Function::_getParameterByName( const ShaderParameterList& parameterList, const String& name )
 {
-    ShaderParameterConstIterator it;
-
-    for (it = parameterList.begin(); it != parameterList.end(); ++it)
+    for (auto const& it : parameterList)
     {
-        if ((*it)->getName() == name)
+        if (it->getName() == name)
         {
-            return *it;
+            return it;
         }
     }
 
@@ -553,14 +545,12 @@ ParameterPtr Function::_getParameterBySemantic(const ShaderParameterList& parame
                                                 const Parameter::Semantic semantic, 
                                                 int index)
 {
-    ShaderParameterConstIterator it;
-
-    for (it = parameterList.begin(); it != parameterList.end(); ++it)
+    for (auto const& it : parameterList)
     {
-        if ((*it)->getSemantic() == semantic &&
-            (*it)->getIndex() == index)
+        if (it->getSemantic() == semantic &&
+            it->getIndex() == index)
         {
-            return *it;
+            return it;
         }
     }
 
@@ -570,20 +560,18 @@ ParameterPtr Function::_getParameterBySemantic(const ShaderParameterList& parame
 //-----------------------------------------------------------------------------
 ParameterPtr Function::_getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type)
 {
-    ShaderParameterConstIterator it;
-
     if(type == GCT_UNKNOWN)
         type = typeFromContent(content);
 
     // Search only for known content.
     if (content != Parameter::SPC_UNKNOWN)  
     {
-        for (it = parameterList.begin(); it != parameterList.end(); ++it)
+        for (auto const& it : parameterList)
         {
-            if ((*it)->getContent() == content &&
-                (*it)->getType() == type)
+            if (it->getContent() == content &&
+                it->getType() == type)
             {
-                return *it;
+                return it;
             }
         }
     }
@@ -624,11 +612,11 @@ const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
         return mSortedAtomInstances;
 
     // put atom instances into order
-    for(auto it = mAtomInstances.begin(); it != mAtomInstances.end(); ++it)
+    for(auto & mAtomInstance : mAtomInstances)
     {
         ::std::transform
-        (   it->second.begin(),
-            it->second.end(),
+        (   mAtomInstance.second.begin(),
+            mAtomInstance.second.end(),
             ::std::inserter(mSortedAtomInstances, mSortedAtomInstances.end()),
             ::std::mem_fn(&::std::unique_ptr<FunctionAtom>::get)
         );

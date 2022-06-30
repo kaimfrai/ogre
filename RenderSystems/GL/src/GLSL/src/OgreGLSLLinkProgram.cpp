@@ -228,20 +228,18 @@ namespace Ogre::GLSL {
         uint16 mask, GpuProgramType fromProgType)
     {
         // iterate through uniform reference list and update uniform values
-        auto currentUniform = mGLUniformReferences.begin();
-        auto endUniform = mGLUniformReferences.end();
 
         // determine if we need to transpose matrices when binding
         bool transpose = !mShaders[fromProgType] || mShaders[fromProgType]->getColumnMajorMatrices();
 
-        for (;currentUniform != endUniform; ++currentUniform)
+        for (auto const& currentUniform : mGLUniformReferences)
         {
             // Only pull values from buffer it's supposed to be in (vertex or fragment)
             // This method will be called twice, once for vertex program params, 
             // and once for fragment program params.
-            if (fromProgType == currentUniform->mSourceProgType)
+            if (fromProgType == currentUniform.mSourceProgType)
             {
-                const GpuConstantDefinition* def = currentUniform->mConstantDef;
+                const GpuConstantDefinition* def = currentUniform.mConstantDef;
                 if (def->variability & mask)
                 {
 
@@ -250,7 +248,7 @@ namespace Ogre::GLSL {
                     void* val = def->isSampler() ? (void*)params->getRegPointer(def->physicalIndex)
                                                  : (void*)params->getFloatPointer(def->physicalIndex);
 
-                    bool shouldUpdate = mUniformCache->updateUniform(currentUniform->mLocation, val,
+                    bool shouldUpdate = mUniformCache->updateUniform(currentUniform.mLocation, val,
                                                                      def->elementSize * def->arraySize * 4);
                     if(!shouldUpdate)
                         continue;
@@ -259,73 +257,73 @@ namespace Ogre::GLSL {
                     switch (def->constType)
                     {
                     case GCT_FLOAT1:
-                        glUniform1fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniform1fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_FLOAT2:
-                        glUniform2fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniform2fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_FLOAT3:
-                        glUniform3fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniform3fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_FLOAT4:
-                        glUniform4fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniform4fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_MATRIX_2X2:
-                        glUniformMatrix2fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniformMatrix2fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_MATRIX_2X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix2x3fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix2x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_2X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix2x4fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix2x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_3X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix3x2fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix3x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_3X3:
-                        glUniformMatrix3fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniformMatrix3fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_MATRIX_3X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix3x4fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix3x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_4X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix4x2fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix4x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_4X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
-                            glUniformMatrix4x3fv(currentUniform->mLocation, glArraySize, 
+                            glUniformMatrix4x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
                     case GCT_MATRIX_4X4:
-                        glUniformMatrix4fvARB(currentUniform->mLocation, glArraySize, 
+                        glUniformMatrix4fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
                     case GCT_SAMPLER1D:
@@ -337,18 +335,18 @@ namespace Ogre::GLSL {
                     case GCT_SAMPLERCUBE:
                         // samplers handled like 1-element ints
                     case GCT_INT1:
-                        glUniform1ivARB(currentUniform->mLocation, glArraySize, (GLint*)val);
+                        glUniform1ivARB(currentUniform.mLocation, glArraySize, (GLint*)val);
                         break;
                     case GCT_INT2:
-                        glUniform2ivARB(currentUniform->mLocation, glArraySize, 
+                        glUniform2ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
                     case GCT_INT3:
-                        glUniform3ivARB(currentUniform->mLocation, glArraySize, 
+                        glUniform3ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
                     case GCT_INT4:
-                        glUniform4ivARB(currentUniform->mLocation, glArraySize, 
+                        glUniform4ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
                     case GCT_UNKNOWN:

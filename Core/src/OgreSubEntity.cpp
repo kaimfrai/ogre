@@ -211,11 +211,10 @@ class Technique;
                 // Bones, use cached matrices built when Entity::_updateRenderQueue was called
                 assert(mParentEntity->mBoneWorldMatrices);
 
-                Mesh::IndexMap::const_iterator it, itend;
-                itend = indexMap.end();
-                for (it = indexMap.begin(); it != itend; ++it, ++xform)
+                for (auto const& it : indexMap)
                 {
-                    *xform = mParentEntity->mBoneWorldMatrices[*it];
+                    *xform = mParentEntity->mBoneWorldMatrices[it];
+                    ++xform;
                 }
             }
             else

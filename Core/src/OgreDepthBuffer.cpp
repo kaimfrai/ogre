@@ -106,13 +106,10 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void DepthBuffer::detachFromAllRenderTargets()
     {
-        auto itor = mAttachedRenderTargets.begin();
-        auto end  = mAttachedRenderTargets.end();
-        while( itor != end )
+        for(auto const& itor : mAttachedRenderTargets)
         {
             //If we call, detachDepthBuffer, we'll invalidate the iterators
-            (*itor)->_detachDepthBuffer();
-            ++itor;
+            itor->_detachDepthBuffer();
         }
 
         mAttachedRenderTargets.clear();

@@ -197,15 +197,13 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayContainer::initialise()
     {
-        ChildContainerMap::iterator coni;
-        for (coni =  mChildContainers.begin(); coni != mChildContainers.end(); ++coni)
+        for (auto const& coni : mChildContainers)
         {
-            coni->second->initialise();
+            coni.second->initialise();
         }
-        ChildMap::iterator ci;
-        for (ci =  mChildren.begin(); ci != mChildren.end(); ++ci)
+        for (auto const& ci : mChildren)
         {
-            ci->second->initialise();
+            ci.second->initialise();
         }
     }
     //---------------------------------------------------------------------

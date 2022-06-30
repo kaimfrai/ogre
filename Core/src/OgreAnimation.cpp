@@ -142,10 +142,9 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyAllNodeTracks()
     {
-        NodeTrackList::iterator i;
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto & i : mNodeTrackList)
         {
-            delete i->second;
+            delete i.second;
         }
         mNodeTrackList.clear();
         _keyFrameListChanged();
@@ -217,10 +216,9 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyAllNumericTracks()
     {
-        NumericTrackList::iterator i;
-        for (i = mNumericTrackList.begin(); i != mNumericTrackList.end(); ++i)
+        for (auto & i : mNumericTrackList)
         {
-            delete i->second;
+            delete i.second;
         }
         mNumericTrackList.clear();
         _keyFrameListChanged();
@@ -294,10 +292,9 @@ class VertexData;
     //---------------------------------------------------------------------
     void Animation::destroyAllVertexTracks()
     {
-        VertexTrackList::iterator i;
-        for (i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+        for (auto & i : mVertexTrackList)
         {
-            delete  i->second;
+            delete  i.second;
         }
         mVertexTrackList.clear();
         _keyFrameListChanged();
@@ -322,20 +319,17 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        NodeTrackList::iterator i;
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto & i : mNodeTrackList)
         {
-            i->second->apply(timeIndex, weight, scale);
+            i.second->apply(timeIndex, weight, scale);
         }
-        NumericTrackList::iterator j;
-        for (j = mNumericTrackList.begin(); j != mNumericTrackList.end(); ++j)
+        for (auto & j : mNumericTrackList)
         {
-            j->second->apply(timeIndex, weight, scale);
+            j.second->apply(timeIndex, weight, scale);
         }
-        VertexTrackList::iterator k;
-        for (k = mVertexTrackList.begin(); k != mVertexTrackList.end(); ++k)
+        for (auto & k : mVertexTrackList)
         {
-            k->second->apply(timeIndex, weight, scale);
+            k.second->apply(timeIndex, weight, scale);
         }
 
     }
@@ -347,10 +341,9 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        NodeTrackList::iterator i;
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto & i : mNodeTrackList)
         {
-            i->second->applyToNode(node, timeIndex, weight, scale);
+            i.second->applyToNode(node, timeIndex, weight, scale);
         }
     }
     //---------------------------------------------------------------------
@@ -362,12 +355,11 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        NodeTrackList::iterator i;
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto & i : mNodeTrackList)
         {
             // get bone to apply to 
-            Bone* b = skel->getBone(i->first);
-            i->second->applyToNode(b, timeIndex, weight, scale);
+            Bone* b = skel->getBone(i.first);
+            i.second->applyToNode(b, timeIndex, weight, scale);
         }
 
 
@@ -381,12 +373,11 @@ class VertexData;
         // Calculate time index for fast keyframe search
       TimeIndex timeIndex = _getTimeIndex(timePos);
 
-      NodeTrackList::iterator i;
-      for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+      for (auto & i : mNodeTrackList)
       {
         // get bone to apply to 
-        Bone* b = skel->getBone(i->first);
-        i->second->applyToNode(b, timeIndex, (*blendMask)[b->getHandle()] * weight, scale);
+        Bone* b = skel->getBone(i.first);
+        i.second->applyToNode(b, timeIndex, (*blendMask)[b->getHandle()] * weight, scale);
       }
     }
     //---------------------------------------------------------------------
@@ -398,11 +389,10 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        VertexTrackList::iterator i;
-        for (i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+        for (auto & i : mVertexTrackList)
         {
-            unsigned short handle = i->first;
-            VertexAnimationTrack* track = i->second;
+            unsigned short handle = i.first;
+            VertexAnimationTrack* track = i.second;
 
             VertexData* swVertexData;
             VertexData* hwVertexData;
@@ -448,10 +438,9 @@ class VertexData;
         // Calculate time index for fast keyframe search
         _getTimeIndex(timePos);
 
-        NumericTrackList::iterator j;
-        for (j = mNumericTrackList.begin(); j != mNumericTrackList.end(); ++j)
+        for (auto & j : mNumericTrackList)
         {
-            j->second->applyToAnimable(anim, timePos, weight, scale);
+            j.second->applyToAnimable(anim, timePos, weight, scale);
         }
    }
     //---------------------------------------------------------------------
@@ -462,10 +451,9 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        VertexTrackList::iterator k;
-        for (k = mVertexTrackList.begin(); k != mVertexTrackList.end(); ++k)
+        for (auto & k : mVertexTrackList)
         {
-            k->second->applyToVertexData(data, timeIndex, weight);
+            k.second->applyToVertexData(data, timeIndex, weight);
         }
     }
     //---------------------------------------------------------------------
@@ -534,25 +522,21 @@ class VertexData;
     //-----------------------------------------------------------------------
     void Animation::_collectIdentityNodeTracks(TrackHandleList& tracks) const
     {
-        NodeTrackList::const_iterator i, iend;
-        iend = mNodeTrackList.end();
-        for (i = mNodeTrackList.begin(); i != iend; ++i)
+        for (auto i : mNodeTrackList)
         {
-            const NodeAnimationTrack* track = i->second;
+            const NodeAnimationTrack* track = i.second;
             if (track->hasNonZeroKeyFrames())
             {
-                tracks.erase(i->first);
+                tracks.erase(i.first);
             }
         }
     }
     //-----------------------------------------------------------------------
     void Animation::_destroyNodeTracks(const TrackHandleList& tracks)
     {
-        TrackHandleList::const_iterator t, tend;
-        tend = tracks.end();
-        for (t = tracks.begin(); t != tend; ++t)
+        for (unsigned short track : tracks)
         {
-            destroyNodeTrack(*t);
+            destroyNodeTrack(track);
         }
     }
     //-----------------------------------------------------------------------
@@ -560,14 +544,13 @@ class VertexData;
     {
         // Iterate over the node tracks and identify those with no useful keyframes
         std::list<unsigned short> tracksToDestroy;
-        NodeTrackList::iterator i;
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto & i : mNodeTrackList)
         {
-            NodeAnimationTrack* track = i->second;
+            NodeAnimationTrack* track = i.second;
             if (discardIdentityTracks && !track->hasNonZeroKeyFrames())
             {
                 // mark the entire track for destruction
-                tracksToDestroy.push_back(i->first);
+                tracksToDestroy.push_back(i.first);
             }
             else
             {
@@ -577,10 +560,9 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(auto h = tracksToDestroy.begin();
-            h != tracksToDestroy.end(); ++h)
+        for(unsigned short & h : tracksToDestroy)
         {
-            destroyNodeTrack(*h);
+            destroyNodeTrack(h);
         }
     }
     //-----------------------------------------------------------------------
@@ -588,14 +570,13 @@ class VertexData;
     {
         // Iterate over the node tracks and identify those with no useful keyframes
         std::list<unsigned short> tracksToDestroy;
-        VertexTrackList::iterator i;
-        for (i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+        for (auto & i : mVertexTrackList)
         {
-            VertexAnimationTrack* track = i->second;
+            VertexAnimationTrack* track = i.second;
             if (!track->hasNonZeroKeyFrames())
             {
                 // mark the entire track for destruction
-                tracksToDestroy.push_back(i->first);
+                tracksToDestroy.push_back(i.first);
             }
             else
             {
@@ -605,10 +586,9 @@ class VertexData;
         }
 
         // Now destroy the tracks we marked for death
-        for(auto h = tracksToDestroy.begin();
-            h != tracksToDestroy.end(); ++h)
+        for(unsigned short & h : tracksToDestroy)
         {
-            destroyVertexTrack(*h);
+            destroyVertexTrack(h);
         }
 
     }
@@ -620,20 +600,17 @@ class VertexData;
         newAnim->mRotationInterpolationMode = mRotationInterpolationMode;
         
         // Clone all tracks
-        for (auto i = mNodeTrackList.begin();
-            i != mNodeTrackList.end(); ++i)
+        for (auto i : mNodeTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
-        for (auto i = mNumericTrackList.begin();
-            i != mNumericTrackList.end(); ++i)
+        for (auto i : mNumericTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
-        for (auto i = mVertexTrackList.begin();
-            i != mVertexTrackList.end(); ++i)
+        for (auto i : mVertexTrackList)
         {
-            i->second->_clone(newAnim);
+            i.second->_clone(newAnim);
         }
 
         newAnim->_keyFrameListChanged();
@@ -667,39 +644,35 @@ class VertexData;
     //-----------------------------------------------------------------------
     void Animation::buildKeyFrameTimeList() const
     {
-        NodeTrackList::const_iterator i;
-        NumericTrackList::const_iterator j;
-        VertexTrackList::const_iterator k;
-
         // Clear old keyframe times
         mKeyFrameTimes.clear();
 
         // Collect all keyframe times from each track
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto i : mNodeTrackList)
         {
-            i->second->_collectKeyFrameTimes(mKeyFrameTimes);
+            i.second->_collectKeyFrameTimes(mKeyFrameTimes);
         }
-        for (j = mNumericTrackList.begin(); j != mNumericTrackList.end(); ++j)
+        for (auto j : mNumericTrackList)
         {
-            j->second->_collectKeyFrameTimes(mKeyFrameTimes);
+            j.second->_collectKeyFrameTimes(mKeyFrameTimes);
         }
-        for (k = mVertexTrackList.begin(); k != mVertexTrackList.end(); ++k)
+        for (auto k : mVertexTrackList)
         {
-            k->second->_collectKeyFrameTimes(mKeyFrameTimes);
+            k.second->_collectKeyFrameTimes(mKeyFrameTimes);
         }
 
         // Build global index to local index map for each track
-        for (i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+        for (auto i : mNodeTrackList)
         {
-            i->second->_buildKeyFrameIndexMap(mKeyFrameTimes);
+            i.second->_buildKeyFrameIndexMap(mKeyFrameTimes);
         }
-        for (j = mNumericTrackList.begin(); j != mNumericTrackList.end(); ++j)
+        for (auto j : mNumericTrackList)
         {
-            j->second->_buildKeyFrameIndexMap(mKeyFrameTimes);
+            j.second->_buildKeyFrameIndexMap(mKeyFrameTimes);
         }
-        for (k = mVertexTrackList.begin(); k != mVertexTrackList.end(); ++k)
+        for (auto k : mVertexTrackList)
         {
-            k->second->_buildKeyFrameIndexMap(mKeyFrameTimes);
+            k.second->_buildKeyFrameIndexMap(mKeyFrameTimes);
         }
 
         // Reset dirty flag
@@ -743,9 +716,9 @@ class VertexData;
             
             if (baseAnim)
             {
-                for (auto i = mNodeTrackList.begin(); i != mNodeTrackList.end(); ++i)
+                for (auto & i : mNodeTrackList)
                 {
-                    NodeAnimationTrack* track = i->second;
+                    NodeAnimationTrack* track = i.second;
                     
                     NodeAnimationTrack* baseTrack;
                     if (baseAnim == this)
@@ -758,9 +731,9 @@ class VertexData;
                     track->_applyBaseKeyFrame(&kf);
                 }
                 
-                for (auto i = mVertexTrackList.begin(); i != mVertexTrackList.end(); ++i)
+                for (auto & i : mVertexTrackList)
                 {
-                    VertexAnimationTrack* track = i->second;
+                    VertexAnimationTrack* track = i.second;
                     
                     if (track->getAnimationType() == VAT_POSE)
                     {

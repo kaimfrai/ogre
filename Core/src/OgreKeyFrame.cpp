@@ -150,11 +150,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::updatePoseReference(ushort poseIndex, Real influence)
     {
-        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto & mPoseRef : mPoseRefs)
         {
-            if (i->poseIndex == poseIndex)
+            if (mPoseRef.poseIndex == poseIndex)
             {
-                i->influence = influence;
+                mPoseRef.influence = influence;
                 return;
             }
         }
@@ -199,15 +199,11 @@ namespace Ogre
     {
         // We subtract the matching pose influences in the base keyframe from the
         // influences in this keyframe
-        for (auto i = mPoseRefs.begin(); i != mPoseRefs.end(); ++i)
+        for (auto & myPoseRef : mPoseRefs)
         {
-            PoseRef& myPoseRef = *i;
-            
-            auto basePoseIt = base->getPoseReferences().begin();
             Real baseInfluence = 0.0f;
-            for (;basePoseIt != base->getPoseReferences().end(); ++basePoseIt)
+            for (const PoseRef& basePoseRef : base->getPoseReferences())
             {
-                const PoseRef& basePoseRef = *basePoseIt;
                 if (basePoseRef.poseIndex == myPoseRef.poseIndex)
                 {
                     baseInfluence = basePoseRef.influence;

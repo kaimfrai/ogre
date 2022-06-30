@@ -115,23 +115,22 @@ namespace Ogre {
         mRequiredIndexCount = (mMeshWidth-1) * (mMeshHeight-1) * 2 * iterations * 3;
 
         // Calculate bounds based on control points
-        std::vector<Vector3>::const_iterator ctli;
         Vector3 min = Vector3::ZERO, max = Vector3::UNIT_SCALE;
         Real maxSqRadius = 0;
         bool first = true;
-        for (ctli = mVecCtlPoints.begin(); ctli != mVecCtlPoints.end(); ++ctli)
+        for (auto & mVecCtlPoint : mVecCtlPoints)
         {
             if (first)
             {
-                min = max = *ctli;
-                maxSqRadius = ctli->squaredLength();
+                min = max = mVecCtlPoint;
+                maxSqRadius = mVecCtlPoint.squaredLength();
                 first = false;
             }
             else
             {
-                min.makeFloor(*ctli);
-                max.makeCeil(*ctli);
-                maxSqRadius = std::max(ctli->squaredLength(), maxSqRadius);
+                min.makeFloor(mVecCtlPoint);
+                max.makeCeil(mVecCtlPoint);
+                maxSqRadius = std::max(mVecCtlPoint.squaredLength(), maxSqRadius);
 
             }
         }
@@ -316,74 +315,6 @@ namespace Ogre {
 
     }
 
-    /*
-    //-----------------------------------------------------------------------
-    void PatchSurface::allocateMemory(void)
-    {
-        if (mMemoryAllocated)
-            deallocateMemory();
-
-        // Allocate to the size of max level
-
-        // Create mesh
-        mMesh = MeshManager::getSingleton().createManual(mMeshName);
-        mMesh->sharedVertexData = new VertexData();
-        // Copy all vertex parameters
-        mMesh->sharedVertexData->vertexStart = 0;
-        // Vertex count will be set on build() because it depends on current level
-        // NB clone the declaration because Mesh's VertexData will destroy it
-        mMesh->sharedVertexData->vertexDeclaration = mDeclaration->clone();
-        // Create buffer (only a single buffer)
-        // Allocate enough buffer memory for maximum subdivision, not current subdivision
-        HardwareVertexBufferSharedPtr vbuf = HardwareBufferManager::getSingleton().
-            createVertexBuffer(
-                mDeclaration->getVertexSize(0), 
-                mMaxMeshHeight * mMaxMeshWidth, // maximum size 
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY); // dynamic for changing level
-
-        // Set binding
-        mMesh->sharedVertexData->vertexBufferBinding->setBinding(0, vbuf);
-
-        SubMesh* sm = mMesh->createSubMesh();
-        // Allocate enough index data for max subdivision
-        sm->indexData->indexStart = 0;
-        // Index count will be set on build()
-        unsigned short iterations = (mVSide == VS_BOTH ? 2 : 1);
-        sm->indexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(
-            HardwareIndexBuffer::IT_16BIT, 
-            (mMaxMeshWidth-1) * (mMaxMeshHeight-1) * 2 * iterations * 3,  
-            HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY);
-
-        mMesh->load();
-
-        // Derive bounds from control points, cannot stray outside that
-        Vector3 min, max;
-        Real maxSquaredRadius;
-        bool first = true;
-        std::vector<Vector3>::iterator i, iend;
-        iend = mVecCtlPoints.end();
-        for (i = mVecCtlPoints.begin(); i != iend; ++i)
-        {
-            if (first)
-            {
-                min = max = *i;
-                maxSquaredRadius = i->squaredLength();
-            }
-            else
-            {
-                min.makeFloor(*i);
-                max.makeCeil(*i);
-                maxSquaredRadius = std::max(maxSquaredRadius, i->squaredLength());
-            }
-
-        }
-        mMesh->_setBounds(AxisAlignedBox(min, max));
-        mMesh->_setBoundingSphereRadius(Math::Sqrt(maxSquaredRadius));
-
-
-
-    }
-    */
     //-----------------------------------------------------------------------
     void PatchSurface::distributeControlPoints(void* lockedBuffer)
     {

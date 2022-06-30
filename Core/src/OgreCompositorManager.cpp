@@ -146,10 +146,9 @@ void CompositorManager::removeAll()
 //-----------------------------------------------------------------------
 void CompositorManager::freeChains()
 {
-    Chains::iterator i, iend=mChains.end();
-    for(i=mChains.begin(); i!=iend;++i)
+    for (auto & mChain : mChains)
     {
-        delete  i->second;
+        delete  mChain.second;
     }
     mChains.clear();
 }
@@ -206,9 +205,9 @@ void CompositorManager::_reconstructAllCompositorResources()
     // first, that way shared resources will get freed
     using InstVec = std::vector<CompositorInstance *>;
     InstVec instancesToReenable;
-    for (auto i = mChains.begin(); i != mChains.end(); ++i)
+    for (auto & mChain : mChains)
     {
-        CompositorChain* chain = i->second;
+        CompositorChain* chain = mChain.second;
         for (CompositorInstance* inst : chain->getCompositorInstances())
         {
             if (inst->getEnabled())
@@ -223,9 +222,8 @@ void CompositorManager::_reconstructAllCompositorResources()
     if( mRectangle )
         mRectangle->setDefaultUVs();
 
-    for (auto i = instancesToReenable.begin(); i != instancesToReenable.end(); ++i)
+    for (auto inst : instancesToReenable)
     {
-        CompositorInstance* inst = *i;
         inst->setEnabled(true);
     }
 }
@@ -267,9 +265,8 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
     TexturePtr ret;
     TextureList& texList = i->second;
     // iterate over the existing textures and check if we can re-use
-    for (auto t = texList.begin(); t != texList.end(); ++t)
+    for (auto & tex : texList)
     {
-        TexturePtr& tex = *t;
         // check not already used
         if (texturesAssigned.find(tex.get()) == texturesAssigned.end())
         {
@@ -328,10 +325,8 @@ TexturePtr CompositorManager::getPooledTexture(const String& name,
 bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName)
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
-    CompositionTechnique::TargetPasses::const_iterator it;
-    for (it = passes.begin(); it != passes.end(); ++it)
+    for (auto tp : passes)
     {
-        CompositionTargetPass* tp = *it;
         if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS &&
             tp->getOutputName() == localName)
         {
@@ -347,10 +342,8 @@ bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, const Og
 bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex)
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
-    CompositionTechnique::TargetPasses::const_iterator it;
-    for (it = passes.begin(); it != passes.end(); ++it)
+    for (auto tp : passes)
     {
-        CompositionTargetPass* tp = *it;
         if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
         {
             // Don't have to worry about an MRT, because no MRT can be input previous
@@ -367,12 +360,9 @@ bool CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TextureP
 //---------------------------------------------------------------------
 bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName)
 {
-    CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
-    auto pit = tp->getPasses().begin();
-
-    for (;pit != tp->getPasses().end(); ++pit)
+    for (CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
+        CompositionPass* p : tp->getPasses())
     {
-        CompositionPass* p = *pit;
         for (size_t i = 0; i < p->getNumInputs(); ++i)
         {
             if (p->getInput(i).name == localName)
@@ -386,12 +376,9 @@ bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, const Og
 //---------------------------------------------------------------------()
 bool CompositorManager::isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex)
 {
-    CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
-    auto pit = tp->getPasses().begin();
-
-    for (;pit != tp->getPasses().end(); ++pit)
+    for (CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
+            CompositionPass* p : tp->getPasses())
     {
-        CompositionPass* p = *pit;
         for (size_t i = 0; i < p->getNumInputs(); ++i)
         {
             TexturePtr t = inst->getTextureInstance(p->getInput(i).name, 0);
@@ -408,9 +395,9 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
 {
     if (onlyIfUnreferenced)
     {
-        for (auto i = mTexturesByDef.begin(); i != mTexturesByDef.end(); ++i)
+        for (auto & i : mTexturesByDef)
         {
-            TextureList& texList = i->second;
+            TextureList& texList = i.second;
             for (auto j = texList.begin(); j != texList.end();)
             {
                 // if the resource system, plus this class, are the only ones to have a reference..
@@ -425,9 +412,9 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
                     ++j;
             }
         }
-        for (auto i = mChainTexturesByDef.begin(); i != mChainTexturesByDef.end(); ++i)
+        for (auto & i : mChainTexturesByDef)
         {
-            TextureDefMap& texMap = i->second;
+            TextureDefMap& texMap = i.second;
             for (auto j = texMap.begin(); j != texMap.end();) 
             {
                 const TexturePtr& tex = j->second;

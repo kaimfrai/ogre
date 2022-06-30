@@ -123,12 +123,11 @@ namespace Ogre {
             impl = mVersionData[0]->impl.get();
         else 
         {
-            for (auto i = mVersionData.begin(); 
-                 i != mVersionData.end(); ++i)
+            for (auto & i : mVersionData)
             {
-                if (version == (*i)->version)
+                if (version == i->version)
                 {
-                    impl = (*i)->impl.get();
+                    impl = i->impl.get();
                     break;
                 }
             }
@@ -164,12 +163,11 @@ namespace Ogre {
 
         // Find the implementation to use
         MeshSerializerImpl* impl = nullptr;
-        for (auto i = mVersionData.begin(); 
-             i != mVersionData.end(); ++i)
+        for (auto & i : mVersionData)
         {
-            if ((*i)->versionString == ver)
+            if (i->versionString == ver)
             {
-                impl = (*i)->impl.get();
+                impl = i->impl.get();
                 break;
             }
         }           

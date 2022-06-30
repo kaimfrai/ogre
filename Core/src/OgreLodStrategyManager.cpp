@@ -103,9 +103,9 @@ namespace Ogre {
     void LodStrategyManager::removeAllStrategies()
     {
         // Get beginning iterator
-        for (auto it = mStrategies.begin(); it != mStrategies.end(); ++it)
+        for (auto & mStrategie : mStrategies)
         {
-            delete it->second;
+            delete mStrategie.second;
         }
         mStrategies.clear();
     }

@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
+#include <ranges>
 #include <set>
 
 #include "OgreException.hpp"
@@ -205,11 +206,10 @@ namespace {
         }
 
 
-        Technique::Passes::const_iterator i;
-        for(i = pTech->getPasses().begin(); i != pTech->getPasses().end(); ++i)
+        for (auto i : pTech->getPasses())
         {
             // Insert into solid list
-            collection->addRenderable(*i, rend);
+            collection->addRenderable(i, rend);
         }
     }
     //-----------------------------------------------------------------------
@@ -219,9 +219,8 @@ namespace {
         // Divide the passes into the 3 categories
         const IlluminationPassList& passes = pTech->getIlluminationPasses();
 
-        for(size_t i = 0; i < passes.size(); i++)
+        for(auto p : passes)
         {
-            IlluminationPass* p = passes[i];
             // Insert into solid list
             QueuedRenderableCollection* collection = nullptr;
             switch(p->stage)
@@ -245,21 +244,19 @@ namespace {
     //-----------------------------------------------------------------------
     void RenderPriorityGroup::addUnsortedTransparentRenderable(Technique* pTech, Renderable* rend)
     {
-        Technique::Passes::const_iterator i;
-        for(i = pTech->getPasses().begin(); i != pTech->getPasses().end(); ++i)
+        for (auto i : pTech->getPasses())
         {
             // Insert into transparent list
-            mTransparentsUnsorted.addRenderable(*i, rend);
+            mTransparentsUnsorted.addRenderable(i, rend);
         }
     }
     //-----------------------------------------------------------------------
     void RenderPriorityGroup::addTransparentRenderable(Technique* pTech, Renderable* rend)
     {
-        Technique::Passes::const_iterator i;
-        for(i = pTech->getPasses().begin(); i != pTech->getPasses().end(); ++i)
+        for (auto i : pTech->getPasses())
         {
             // Insert into transparent list
-            mTransparents.addRenderable(*i, rend);
+            mTransparents.addRenderable(i, rend);
         }
     }
     //-----------------------------------------------------------------------
@@ -280,11 +277,9 @@ namespace {
         // the list and can cause problems with future clones
 
         const Pass::PassSet& graveyardList = Pass::getPassGraveyard();
-        Pass::PassSet::const_iterator gi, giend;
-        giend = graveyardList.end();
-        for (gi = graveyardList.begin(); gi != giend; ++gi)
+        for (auto gi : graveyardList)
         {
-            removePassEntry(*gi);
+            removePassEntry(gi);
         }
 
         // Now remove any dirty passes, these will have their hashes recalculated
@@ -292,11 +287,9 @@ namespace {
         // If we don't do this, the std::map will become inconsistent for new insterts
 
         const Pass::PassSet& dirtyList = Pass::getDirtyHashList();
-        Pass::PassSet::const_iterator di, diend;
-        diend = dirtyList.end();
-        for (di = dirtyList.begin(); di != diend; ++di)
+        for (auto di : dirtyList)
         {
-            removePassEntry(*di);
+            removePassEntry(di);
         }
         // NB we do NOT clear the graveyard or the dirty list here, because 
         // it needs to be acted on for all groups, the parent queue takes 
@@ -342,12 +335,10 @@ namespace {
     //-----------------------------------------------------------------------
     void QueuedRenderableCollection::clear()
     {
-        PassGroupRenderableMap::iterator i, iend;
-        iend = mGrouped.end();
-        for (i = mGrouped.begin(); i != iend; ++i)
+        for (auto & i : mGrouped)
         {
             // Clear the list associated with this pass, but leave the pass entry
-            i->second.clear();
+            i.second.clear();
         }
 
         // Clear sorted list
@@ -469,14 +460,12 @@ namespace {
     void QueuedRenderableCollection::acceptVisitorGrouped(
         QueuedRenderableVisitor* visitor) const
     {
-        PassGroupRenderableMap::const_iterator ipass, ipassend;
-        ipassend = mGrouped.end();
-        for (ipass = mGrouped.begin(); ipass != ipassend; ++ipass)
+        for (const auto & ipass : mGrouped)
         {
             // Fast bypass if this group is now empty
-            if (ipass->second.empty()) continue;
+            if (ipass.second.empty()) continue;
 
-            visitor->visit(ipass->first, const_cast<RenderableList&>(ipass->second));
+            visitor->visit(ipass.first, const_cast<RenderableList&>(ipass.second));
         } 
 
     }
@@ -485,12 +474,9 @@ namespace {
         QueuedRenderableVisitor* visitor) const
     {
         // List is already in descending order, so iterate forward
-        RenderablePassList::const_iterator i, iend;
-
-        iend = mSortedDescending.end();
-        for (i = mSortedDescending.begin(); i != iend; ++i)
+        for (auto i : mSortedDescending)
         {
-            visitor->visit(const_cast<RenderablePass*>(&(*i)));
+            visitor->visit(const_cast<RenderablePass*>(&i));
         }
     }
     //-----------------------------------------------------------------------
@@ -498,12 +484,9 @@ namespace {
         QueuedRenderableVisitor* visitor) const
     {
         // List is in descending order, so iterate in reverse
-        RenderablePassList::const_reverse_iterator i, iend;
-
-        iend = mSortedDescending.rend();
-        for (i = mSortedDescending.rbegin(); i != iend; ++i)
+        for (auto i : std::ranges::reverse_view(mSortedDescending))
         {
-            visitor->visit(const_cast<RenderablePass*>(&(*i)));
+            visitor->visit(const_cast<RenderablePass*>(&i));
         }
 
     }

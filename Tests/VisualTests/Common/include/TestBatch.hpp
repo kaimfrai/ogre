@@ -74,8 +74,8 @@ public:
         name = info.getSetting("Name","Info");
         // grab image names
         const Ogre::ConfigFile::SettingsMultiMap& tests = info.getSettings("Tests");
-        for(auto i = tests.begin(); i != tests.end(); ++i)
-            images.push_back(i->second);
+        for(const auto & test : tests)
+            images.push_back(test.second);
     }
 
     /** Manually initialize a batch object
@@ -135,8 +135,8 @@ public:
         else
         {
             ImageValidator validator = ImageValidator(mDirectory, other.mDirectory);
-            for (unsigned int i = 0; i < images.size(); ++i)
-                out.push_back(validator.compare(images[i]));
+            for (const auto & image : images)
+                out.push_back(validator.compare(image));
         }
         return out;
     }
@@ -159,8 +159,8 @@ public:
             config<<"[Tests]\n";
 
             // add entries for each image
-            for (unsigned int i = 0; i < images.size(); ++i)
-                config<<"Test="<<images[i]<<"\n";
+            for (auto & image : images)
+                config<<"Test="<<image<<"\n";
 
             config.close();
         }

@@ -104,22 +104,19 @@ class Affine3;
         serializer.importSkeleton(stream, this);
 
         // Load any linked skeletons
-        LinkedSkeletonAnimSourceList::iterator i;
-        for (i = mLinkedSkeletonAnimSourceList.begin(); 
-            i != mLinkedSkeletonAnimSourceList.end(); ++i)
+        for (auto & i : mLinkedSkeletonAnimSourceList)
         {
-            i->pSkeleton = static_pointer_cast<Skeleton>(
-                SkeletonManager::getSingleton().prepare(i->skeletonName, mGroup));
+            i.pSkeleton = static_pointer_cast<Skeleton>(
+                SkeletonManager::getSingleton().prepare(i.skeletonName, mGroup));
         }
     }
     //---------------------------------------------------------------------
     void Skeleton::unprepareImpl()
     {
         // destroy bones
-        BoneList::iterator i;
-        for (i = mBoneList.begin(); i != mBoneList.end(); ++i)
+        for (auto & i : mBoneList)
         {
-            delete *i;
+            delete i;
         }
         mBoneList.clear();
         mBoneListByName.clear();
@@ -128,10 +125,9 @@ class Affine3;
         mManualBonesDirty = false;
 
         // Destroy animations
-        AnimationList::iterator ai;
-        for (ai = mAnimationsList.begin(); ai != mAnimationsList.end(); ++ai)
+        for (auto & ai : mAnimationsList)
         {
-            delete ai->second;
+            delete ai.second;
         }
         mAnimationsList.clear();
 
@@ -228,10 +224,8 @@ class Affine3;
         {
             // Derive total weights so we can rebalance if > 1.0f
             Real totalWeights = 0.0f;
-            EnabledAnimationStateList::const_iterator animIt;
-            for(animIt = animSet.getEnabledAnimationStates().begin(); animIt != animSet.getEnabledAnimationStates().end(); ++animIt)
+            for (auto animState : animSet.getEnabledAnimationStates())
             {
-                const AnimationState* animState = *animIt;
                 // Make sure we have an anim to match implementation
                 const LinkedSkeletonAnimationSource* linked = nullptr;
                 if (_getAnimationImpl(animState->getAnimationName(), &linked))
@@ -248,10 +242,8 @@ class Affine3;
         }
 
         // Per enabled animation state
-        EnabledAnimationStateList::const_iterator animIt;
-        for(animIt = animSet.getEnabledAnimationStates().begin(); animIt != animSet.getEnabledAnimationStates().end(); ++animIt)
+        for (auto animState : animSet.getEnabledAnimationStates())
         {
-            const AnimationState* animState = *animIt;
             const LinkedSkeletonAnimationSource* linked = nullptr;
             Animation* anim = _getAnimationImpl(animState->getAnimationName(), &linked);
             // tolerate state entries for animations we're not aware of
@@ -279,20 +271,18 @@ class Affine3;
         _updateTransforms();
 
 
-        BoneList::iterator i;
-        for (i = mBoneList.begin(); i != mBoneList.end(); ++i)
+        for (auto & i : mBoneList)
         {            
-            (*i)->setBindingPose();
+            i->setBindingPose();
         }
     }
     //---------------------------------------------------------------------
     void Skeleton::reset(bool resetManualBones)
     {
-        BoneList::iterator i;
-        for (i = mBoneList.begin(); i != mBoneList.end(); ++i)
+        for (auto & i : mBoneList)
         {
-            if(!(*i)->isManuallyControlled() || resetManualBones)
-                (*i)->reset();
+            if(!i->isManuallyControlled() || resetManualBones)
+                i->reset();
         }
     }
     //---------------------------------------------------------------------
@@ -348,8 +338,7 @@ class Affine3;
 
         if (i == mAnimationsList.end())
         {
-            LinkedSkeletonAnimSourceList::const_iterator it;
-            for (it = mLinkedSkeletonAnimSourceList.begin(); 
+            for (auto it = mLinkedSkeletonAnimSourceList.begin();
                 it != mLinkedSkeletonAnimSourceList.end() && !ret; ++it)
             {
                 if (it->pSkeleton)
@@ -395,23 +384,20 @@ class Affine3;
     {
         animSet->removeAllAnimationStates();
            
-        AnimationList::iterator i;
-        for (i = mAnimationsList.begin(); i != mAnimationsList.end(); ++i)
+        for (auto & i : mAnimationsList)
         {
-            Animation* anim = i->second;
+            Animation* anim = i.second;
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
             const String& animName = anim->getName();
             animSet->createAnimationState(animName, 0.0, anim->getLength());
         }
 
         // Also iterate over linked animation
-        LinkedSkeletonAnimSourceList::iterator li;
-        for (li = mLinkedSkeletonAnimSourceList.begin(); 
-            li != mLinkedSkeletonAnimSourceList.end(); ++li)
+        for (auto & li : mLinkedSkeletonAnimSourceList)
         {
-            if (li->pSkeleton)
+            if (li.pSkeleton)
             {
-                li->pSkeleton->_refreshAnimationState(animSet);
+                li.pSkeleton->_refreshAnimationState(animSet);
             }
         }
 
@@ -420,10 +406,9 @@ class Affine3;
     void Skeleton::_refreshAnimationState(AnimationStateSet* animSet)
     {
         // Merge in any new animations
-        AnimationList::iterator i;
-        for (i = mAnimationsList.begin(); i != mAnimationsList.end(); ++i)
+        for (auto & i : mAnimationsList)
         {
-            Animation* anim = i->second;
+            Animation* anim = i.second;
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
             const String& animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
@@ -439,13 +424,11 @@ class Affine3;
             }
         }
         // Also iterate over linked animation
-        LinkedSkeletonAnimSourceList::iterator li;
-        for (li = mLinkedSkeletonAnimSourceList.begin(); 
-            li != mLinkedSkeletonAnimSourceList.end(); ++li)
+        for (auto & li : mLinkedSkeletonAnimSourceList)
         {
-            if (li->pSkeleton)
+            if (li.pSkeleton)
             {
-                li->pSkeleton->_refreshAnimationState(animSet);
+                li.pSkeleton->_refreshAnimationState(animSet);
             }
         }
     }
@@ -484,11 +467,8 @@ class Affine3;
             Also note we combine scale as equivalent axes, no shearing.
         */
 
-        BoneList::const_iterator i, boneend;
-        boneend = mBoneList.end();
-        for (i = mBoneList.begin();i != boneend; ++i)
+        for (auto pBone : mBoneList)
         {
-            Bone* pBone = *i;
             pBone->_getOffsetTransform(*pMatrices);
             pMatrices++;
         }
@@ -544,11 +524,8 @@ class Affine3;
 
         mRootBones.clear();
 
-        BoneList::const_iterator i;
-        auto iend = mBoneList.end();
-        for (i = mBoneList.begin(); i != iend; ++i)
+        for (auto currentBone : mBoneList)
         {
-            Bone* currentBone = *i;
             if (currentBone->getParent() == nullptr)
             {
                 // This is a root
@@ -570,11 +547,8 @@ class Affine3;
         of << "== Bones ==" << std::endl;
         of << "Number of bones: " << (unsigned int)mBoneList.size() << std::endl;
         
-        BoneList::iterator bi;
-        for (bi = mBoneList.begin(); bi != mBoneList.end(); ++bi)
+        for (auto bone : mBoneList)
         {
-            Bone* bone = *bi;
-
             of << "-- Bone " << bone->getHandle() << " --" << std::endl;
             of << "Position: " << bone->getPosition();
             q = bone->getOrientation();
@@ -586,10 +560,9 @@ class Affine3;
         of << "== Animations ==" << std::endl;
         of << "Number of animations: " << (unsigned int)mAnimationsList.size() << std::endl;
 
-        AnimationList::iterator ai;
-        for (ai = mAnimationsList.begin(); ai != mAnimationsList.end(); ++ai)
+        for (auto & ai : mAnimationsList)
         {
-            Animation* anim = ai->second;
+            Animation* anim = ai.second;
 
             of << "-- Animation '" << anim->getName() << "' (length " << anim->getLength() << ") --" << std::endl;
             of << "Number of tracks: " << anim->getNumNodeTracks() << std::endl;
@@ -634,20 +607,15 @@ class Affine3;
     //---------------------------------------------------------------------
     void Skeleton::_updateTransforms()
     {
-        BoneList::iterator i, iend;
-        iend = mRootBones.end();
-        for (i = mRootBones.begin(); i != iend; ++i)
+        for (auto & mRootBone : mRootBones)
         {
-            (*i)->_update(true, false);
+            mRootBone->_update(true, false);
         }
         mManualBonesDirty = false;
     }
     //---------------------------------------------------------------------
     void Skeleton::optimiseAllAnimations(bool preservingIdentityNodeTracks)
     {
-        AnimationList::iterator ai, aiend;
-        aiend = mAnimationsList.end();
-
         if (!preservingIdentityNodeTracks)
         {
             Animation::TrackHandleList tracksToDestroy;
@@ -660,22 +628,22 @@ class Affine3;
             }
 
             // Collect identity node tracks for all animations
-            for (ai = mAnimationsList.begin(); ai != aiend; ++ai)
+            for (auto & ai : mAnimationsList)
             {
-                ai->second->_collectIdentityNodeTracks(tracksToDestroy);
+                ai.second->_collectIdentityNodeTracks(tracksToDestroy);
             }
 
             // Destroy identity node tracks
-            for (ai = mAnimationsList.begin(); ai != aiend; ++ai)
+            for (auto & ai : mAnimationsList)
             {
-                ai->second->_destroyNodeTracks(tracksToDestroy);
+                ai.second->_destroyNodeTracks(tracksToDestroy);
             }
         }
 
-        for (ai = mAnimationsList.begin(); ai != aiend; ++ai)
+        for (auto & ai : mAnimationsList)
         {
             // Don't discard identity node tracks here
-            ai->second->optimise(false);
+            ai.second->optimise(false);
         }
     }
     //---------------------------------------------------------------------
@@ -683,11 +651,9 @@ class Affine3;
         Real scale)
     {
         // Check not already linked
-        LinkedSkeletonAnimSourceList::iterator i;
-        for (i = mLinkedSkeletonAnimSourceList.begin(); 
-            i != mLinkedSkeletonAnimSourceList.end(); ++i)
+        for (auto & i : mLinkedSkeletonAnimSourceList)
         {
-            if (skelName == i->skeletonName)
+            if (skelName == i.skeletonName)
                 return; // don't bother
         }
 

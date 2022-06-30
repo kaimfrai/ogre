@@ -68,17 +68,17 @@ namespace Ogre
 
         file << endl;
 
-        for(auto it = mCapabilitiesMap.begin(); it != mCapabilitiesMap.end(); ++it) {
-            file << "\t" << it->first << " " << StringConverter::toString(caps->hasCapability(it->second)) << endl;
+        for(auto & it : mCapabilitiesMap) {
+            file << "\t" << it.first << " " << StringConverter::toString(caps->hasCapability(it.second)) << endl;
         }
 
         file << endl;
 
         RenderSystemCapabilities::ShaderProfiles profiles = caps->getSupportedShaderProfiles();
         // write every profile
-        for(auto it = profiles.begin(), end = profiles.end(); it != end; ++it)
+        for(const auto & profile : profiles)
         {
-            file << "\t" << "shader_profile " << *it << endl;
+            file << "\t" << "shader_profile " << profile << endl;
         }
 
         file << endl;
@@ -393,13 +393,13 @@ namespace Ogre
     {
         StringVector tokens;
 
-        for (auto it = lines.begin(), end = lines.end(); it != end; ++it)
+        for (auto & line : lines)
         {
             // restore the current line information for debugging
-            mCurrentLine = &(it->first);
-            mCurrentLineNumber = it->second;
+            mCurrentLine = &(line.first);
+            mCurrentLineNumber = line.second;
 
-            tokens = StringUtil::split(it->first);
+            tokens = StringUtil::split(line.first);
             // check for incomplete lines
             if(tokens.size() < 2)
             {

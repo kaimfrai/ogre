@@ -79,10 +79,9 @@ namespace Ogre {
         unsigned long thisFrameNumber = Root::getSingleton().getNextFrameNumber();
         if (thisFrameNumber != mLastFrameNumber)
         {
-            ControllerList::const_iterator ci;
-            for (ci = mControllers.begin(); ci != mControllers.end(); ++ci)
+            for (auto mController : mControllers)
             {
-                (*ci)->update();
+                mController->update();
             }
             mLastFrameNumber = thisFrameNumber;
         }
@@ -90,10 +89,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ControllerManager::clearControllers()
     {
-        ControllerList::iterator ci;
-        for (ci = mControllers.begin(); ci != mControllers.end(); ++ci)
+        for (auto mController : mControllers)
         {
-            delete *ci;
+            delete mController;
         }
         mControllers.clear();
     }

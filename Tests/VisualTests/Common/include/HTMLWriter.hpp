@@ -121,14 +121,14 @@ protected:
         
         // add thumbnails
         HtmlElement* thumbs = contentDiv->appendElement("p");
-        for (unsigned int i = 0; i < mResults.size(); ++i)
+        for (const auto & mResult : mResults)
         {
             HtmlElement* anchor = thumbs->appendElement("a");
-            anchor->appendAttribute("href", Ogre::String("#") + mResults[i].testName);
-            anchor->appendAttribute("title", mResults[i].testName);
+            anchor->appendAttribute("href", Ogre::String("#") + mResult.testName);
+            anchor->appendAttribute("title", mResult.testName);
             HtmlElement* img = anchor->appendElement("img");
-            img->appendAttribute("src",mSet2.name + "/" + mResults[i].image);
-            img->appendAttribute("class", mResults[i].passed ? "thumb" : "thumb_fail");
+            img->appendAttribute("src",mSet2.name + "/" + mResult.image);
+            img->appendAttribute("class", mResult.passed ? "thumb" : "thumb_fail");
         }
 
         // add side-by-side images and summary for each test
@@ -186,8 +186,8 @@ protected:
         {
             int p = 0;
 
-            for(unsigned int i = 0; i < result.size(); ++i)
-                if(result[i]->passed)
+            for(auto i : result)
+                if(i->passed)
                     ++p;
 
             content->appendElement("h4")->appendText(

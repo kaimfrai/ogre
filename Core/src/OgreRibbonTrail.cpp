@@ -77,9 +77,9 @@ namespace Ogre
     RibbonTrail::~RibbonTrail()
     {
         // Detach listeners
-        for (auto i = mNodeList.begin(); i != mNodeList.end(); ++i)
+        for (auto & i : mNodeList)
         {
-            (*i)->setListener(nullptr);
+            i->setListener(nullptr);
         }
 
         if (mFadeController)

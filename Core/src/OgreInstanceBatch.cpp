@@ -313,8 +313,6 @@ class Technique;
                                                 CustomParamsVec &usedParams )
     {
         //Get the the entity closest to the minimum bbox edge and put into "first"
-        auto itor   = usedEntities.begin();
-        auto end   = usedEntities.end();
 
         Vector3 vMinPos = Vector3::ZERO, firstPos = Vector3::ZERO;
         InstancedEntity *first = nullptr;
@@ -326,9 +324,9 @@ class Technique;
             vMinPos      = first->_getDerivedPosition();
         }
 
-        while( itor != end )
+        for (auto const& itor : usedEntities)
         {
-            const Vector3 &vPos      = (*itor)->_getDerivedPosition();
+            const Vector3 &vPos      = itor->_getDerivedPosition();
 
             vMinPos.x = std::min( vMinPos.x, vPos.x );
             vMinPos.y = std::min( vMinPos.y, vPos.y );
@@ -338,8 +336,6 @@ class Technique;
             {
                 firstPos   = vPos;
             }
-
-            ++itor;
         }
 
         //Now collect entities closest to 'first'
@@ -367,7 +363,7 @@ class Technique;
 
             mInstancedEntities.push_back( ::std::move(*closest) );
             //Now the custom params
-            const size_t idx = closest - usedEntities.begin();  
+            const size_t idx = closest - usedEntities.begin();
             for( unsigned char i=0; i<mCreator->getNumCustomParams(); ++i )
             {
                 mCustomParams.push_back( usedParams[idx * mCreator->getNumCustomParams() + i] );

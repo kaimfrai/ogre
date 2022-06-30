@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <iterator>
 #include <memory>
 #include <ostream>
+#include <ranges>
 #include <string>
 #include <utility>
 
@@ -90,13 +91,11 @@ class Renderable;
 
         // Copy Techniques
         this->removeAllTechniques();
-        Techniques::const_iterator i, iend;
-        iend = rhs.mTechniques.end();
-        for(i = rhs.mTechniques.begin(); i != iend; ++i)
+        for (auto mTechnique : rhs.mTechniques)
         {
             Technique* t = this->createTechnique();
-            *t = *(*i);
-            if ((*i)->isSupported())
+            *t = *mTechnique;
+            if (mTechnique->isSupported())
             {
                 insertSupportedTechnique(t);
             }
@@ -123,22 +122,18 @@ class Renderable;
             compile();
 
         // Load all supported techniques
-        Techniques::iterator i, iend;
-        iend = mSupportedTechniques.end();
-        for (i = mSupportedTechniques.begin(); i != iend; ++i)
+        for (auto & mSupportedTechnique : mSupportedTechniques)
         {
-            (*i)->_prepare();
+            mSupportedTechnique->_prepare();
         }
     }
     //-----------------------------------------------------------------------
     void Material::unprepareImpl()
     {
         // Load all supported techniques
-        Techniques::iterator i, iend;
-        iend = mSupportedTechniques.end();
-        for (i = mSupportedTechniques.begin(); i != iend; ++i)
+        for (auto & mSupportedTechnique : mSupportedTechniques)
         {
-            (*i)->_unprepare();
+            mSupportedTechnique->_unprepare();
         }
     }
     //-----------------------------------------------------------------------
@@ -146,11 +141,9 @@ class Renderable;
     {
 
         // Load all supported techniques
-        Techniques::iterator i, iend;
-        iend = mSupportedTechniques.end();
-        for (i = mSupportedTechniques.begin(); i != iend; ++i)
+        for (auto & mSupportedTechnique : mSupportedTechniques)
         {
-            (*i)->_load();
+            mSupportedTechnique->_load();
         }
 
     }
@@ -158,11 +151,9 @@ class Renderable;
     void Material::unloadImpl()
     {
         // Unload all supported techniques
-        Techniques::iterator i, iend;
-        iend = mSupportedTechniques.end();
-        for (i = mSupportedTechniques.begin(); i != iend; ++i)
+        for (auto & mSupportedTechnique : mSupportedTechniques)
         {
-            (*i)->_unload();
+            mSupportedTechnique->_unload();
         }
     }
     //-----------------------------------------------------------------------
@@ -258,19 +249,16 @@ class Renderable;
     //-----------------------------------------------------------------------
     Technique* Material::getTechnique(const String& name) const
     {
-        auto i    = mTechniques.begin();
-        auto iend = mTechniques.end();
         Technique* foundTechnique = nullptr;
 
         // iterate through techniques to find a match
-        while (i != iend)
+        for (auto const& i : mTechniques)
         {
-            if ( (*i)->getName() == name )
+            if ( i->getName() == name )
             {
-                foundTechnique = (*i);
+                foundTechnique = i;
                 break;
             }
-            ++i;
         }
 
         return foundTechnique;
@@ -345,11 +333,11 @@ class Renderable;
             if (li == si->second.end())
             {
                 // Use the next LOD level up
-                for (auto rli = si->second.rbegin(); rli != si->second.rend(); ++rli)
+                for (auto & rli : std::ranges::reverse_view(si->second))
                 {
-                    if (rli->second->getLodIndex() < lodIndex)
+                    if (rli.second->getLodIndex() < lodIndex)
                     {
-                        ret = rli->second;
+                        ret = rli.second;
                         break;
                     }
 
@@ -384,11 +372,9 @@ class Renderable;
     //-----------------------------------------------------------------------
     void Material::removeAllTechniques()
     {
-        Techniques::iterator i, iend;
-        iend = mTechniques.end();
-        for (i = mTechniques.begin(); i != iend; ++i)
+        for (auto & mTechnique : mTechniques)
         {
-            delete(*i);
+            delete mTechnique;
         }
         mTechniques.clear();
         clearBestTechniqueList();
@@ -398,11 +384,9 @@ class Renderable;
     bool Material::isTransparent() const noexcept
     {
         // Check each technique
-        Techniques::const_iterator i, iend;
-        iend = mTechniques.end();
-        for (i = mTechniques.begin(); i != iend; ++i)
+        for (auto mTechnique : mTechniques)
         {
-            if ( (*i)->isTransparent() )
+            if ( mTechnique->isTransparent() )
                 return true;
         }
         return false;
@@ -415,27 +399,26 @@ class Renderable;
         mUnsupportedReasons.clear();
 
 
-        Techniques::iterator i, iend;
-        iend = mTechniques.end();
         size_t techNo = 0;
-        for (i = mTechniques.begin(); i != iend; ++i, ++techNo)
+        for (auto & mTechnique : mTechniques)
         {
-            String compileMessages = (*i)->_compile(autoManageTextureUnits);
-            if ( (*i)->isSupported() )
+            String compileMessages = mTechnique->_compile(autoManageTextureUnits);
+            if ( mTechnique->isSupported() )
             {
-                insertSupportedTechnique(*i);
+                insertSupportedTechnique(mTechnique);
             }
             else
             {
                 // Log informational
                 StringStream str;
                 str << "Material " << mName << " Technique " << techNo;
-                if (!(*i)->getName().empty())
-                    str << "(" << (*i)->getName() << ")";
+                if (!mTechnique->getName().empty())
+                    str << "(" << mTechnique->getName() << ")";
                 str << " is not supported. " << compileMessages;
                 LogManager::getSingleton().logMessage(str.str(), LML_TRIVIAL);
                 mUnsupportedReasons += compileMessages;
             }
+            ++techNo;
         }
 
         mCompilationRequired = false;
@@ -557,19 +540,17 @@ class Renderable;
     void Material::setLodLevels(const LodValueList& lodValues)
     {
         // Square the distances for the internal list
-        LodValueList::const_iterator i, iend;
-        iend = lodValues.end();
         // First, clear and add single zero entry
         mLodValues.clear();
         mUserLodValues.clear();
         mUserLodValues.push_back(0);
         if (mLodStrategy)
             mLodValues.push_back(mLodStrategy->getBaseValue());
-        for (i = lodValues.begin(); i != iend; ++i)
+        for (float lodValue : lodValues)
         {
-            mUserLodValues.push_back(*i);
+            mUserLodValues.push_back(lodValue);
             if (mLodStrategy)
-                mLodValues.push_back(mLodStrategy->transformUserValue(*i));
+                mLodValues.push_back(mLodStrategy->transformUserValue(lodValue));
         }
         
     }

@@ -166,14 +166,10 @@ namespace Ogre
     {
         auto& batchVec = mInstanceBatches[materialName];
 
-        auto itor = batchVec.rbegin();
-        auto end  = batchVec.rend();
-
-        while( itor != end )
+        for (auto const& itor : batchVec)
         {
-            if( !(*itor)->isBatchFull() )
-                return itor->get();
-            ++itor;
+            if( !itor->isBatchFull() )
+                return itor.get();
         }
 
         //None found, or they're all full
@@ -274,32 +270,27 @@ namespace Ogre
         //Do this now to avoid any dangling pointer inside mDirtyBatches
         _updateDirtyBatches();
 
-        auto itor = mInstanceBatches.begin();
-        auto end  = mInstanceBatches.end();
-
-        while( itor != end )
+        for (auto& itor : mInstanceBatches)
         {
-            auto it = itor->second.begin();
-            auto en = itor->second.end();
+            auto it = itor.second.begin();
+            auto en = itor.second.end();
 
             while( it != en )
             {
                 if( (*it)->isBatchUnused() )
                 {
                     //Remove it from the list swapping with the last element and popping back
-                    size_t idx = it - itor->second.begin();
-                    *it = ::std::move(itor->second.back());
-                    itor->second.pop_back();
+                    size_t idx = it - itor.second.begin();
+                    *it = ::std::move(itor.second.back());
+                    itor.second.pop_back();
 
                     //Restore invalidated iterators
-                    it = itor->second.begin() + idx;
-                    en = itor->second.end();
+                    it = itor.second.begin() + idx;
+                    en = itor.second.end();
                 }
                 else
                     ++it;
             }
-
-            ++itor;
         }
 
         //By this point it may happen that all mInstanceBatches' objects are also empty
@@ -389,15 +380,10 @@ namespace Ogre
         if( materialName == BLANKSTRING )
         {
             //Setup all existing materials
-            auto itor = mInstanceBatches.begin();
-            auto end  = mInstanceBatches.end();
-
-            while( itor != end )
+            for (auto const& itor : mInstanceBatches)
             {
-                mBatchSettings[itor->first].setting[id] = value;
-                applySettingToBatches( id, value, itor->second );
-
-                ++itor;
+                mBatchSettings[itor.first].setting[id] = value;
+                applySettingToBatches( id, value, itor.second );
             }
         }
         else
@@ -431,43 +417,30 @@ namespace Ogre
     void InstanceManager::applySettingToBatches( BatchSettingId id, bool value,
                                                  const ::std::vector<::std::unique_ptr<InstanceBatch>> &container )
     {
-        auto itor = container.begin();
-        auto end  = container.end();
-
-        while( itor != end )
+        for (auto const& itor : container)
         {
             switch( id )
             {
             case CAST_SHADOWS:
-                (*itor)->setCastShadows( value );
+                itor->setCastShadows( value );
                 break;
             case SHOW_BOUNDINGBOX:
-                (*itor)->getParentSceneNode()->showBoundingBox( value );
+                itor->getParentSceneNode()->showBoundingBox( value );
                 break;
             default:
                 break;
             }
-            ++itor;
         }
     }
     //-----------------------------------------------------------------------
     void InstanceManager::setBatchesAsStaticAndUpdate( bool bStatic )
     {
-        auto itor = mInstanceBatches.begin();
-        auto end  = mInstanceBatches.end();
-
-        while( itor != end )
+        for (auto const& itor : mInstanceBatches)
         {
-            auto it = itor->second.begin();
-            auto en = itor->second.end();
-
-            while( it != en )
+            for (auto const& it : itor.second)
             {
-                (*it)->setStaticAndUpdate( bStatic );
-                ++it;
+                it->setStaticAndUpdate( bStatic );
             }
-
-            ++itor;
         }
     }
     //-----------------------------------------------------------------------
@@ -481,13 +454,9 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void InstanceManager::_updateDirtyBatches()
     {
-        auto itor = mDirtyBatches.begin();
-        auto end  = mDirtyBatches.end();
-
-        while( itor != end )
+        for (auto const& itor : mDirtyBatches)
         {
-            (*itor)->_updateBounds();
-            ++itor;
+            itor->_updateBounds();
         }
 
         mDirtyBatches.clear();
@@ -593,12 +562,10 @@ namespace Ogre
                 HardwareBufferLockGuard oldLock(sharedVertexBuffer, 0, sharedVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_READ_ONLY);
                 HardwareBufferLockGuard newLock(newVertexBuffer, 0, newVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_NORMAL);
 
-                auto indIt = indicesMap.begin();
-                auto endIndIt = indicesMap.end();
-                for (; indIt != endIndIt; ++indIt)
+                for (auto const& indIt : indicesMap)
                 {
-                    memcpy((uint8*)newLock.pData + vertexSize * indIt->second,
-                           (uint8*)oldLock.pData + vertexSize * indIt->first, vertexSize);
+                    memcpy((uint8*)newLock.pData + vertexSize * indIt.second,
+                           (uint8*)oldLock.pData + vertexSize * indIt.first, vertexSize);
                 }
 
                 newVertexData->vertexBufferBinding->setBinding(bufIdx, newVertexBuffer);

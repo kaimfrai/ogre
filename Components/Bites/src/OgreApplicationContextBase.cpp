@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ios>
 #include <map>
+#include <ranges>
 #include <string>
 #include <type_traits>
 
@@ -227,9 +228,8 @@ void ApplicationContextBase::removeInputListener(NativeWindowType* win, InputLis
 
 bool ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-    for(auto it = mInputListeners.begin();
-            it != mInputListeners.end(); ++it) {
-        it->second->frameRendered(evt);
+    for(const auto & mInputListener : mInputListeners) {
+        mInputListener.second->frameRendered(evt);
     }
 
     return true;
@@ -336,13 +336,12 @@ void ApplicationContextBase::_fireInputEvent(const Event& event, uint32_t window
         {   l.buttonReleased(event);  }
     };
 
-    for(auto it = mInputListeners.begin();
-            it != mInputListeners.end(); ++it)
+    for(const auto & mInputListener : mInputListeners)
     {
         // gamepad events are not window specific
-        if(it->first != windowID && event.index() <= Event{TextInputEvent{}}.index()) continue;
+        if(mInputListener.first != windowID && event.index() <= Event{TextInputEvent{}}.index()) continue;
 
-        Visitor const visitor {*it->second};
+        Visitor const visitor {*mInputListener.second};
         ::std::visit(visitor, event);
     }
 }
@@ -371,17 +370,15 @@ void ApplicationContextBase::locateResources()
 
     Ogre::String sec, type, arch;
     // go through all specified resource groups
-    Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
-    for(seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
-        sec = seci->first;
-        const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
-        Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
+    for(auto const& seci : cf.getSettingsBySection()) {
+        sec = seci.first;
+        const Ogre::ConfigFile::SettingsMultiMap& settings = seci.second;
 
         // go through all resource paths
-        for (i = settings.begin(); i != settings.end(); i++)
+        for (auto const& i : settings)
         {
-            type = i->first;
-            arch = i->second;
+            type = i.first;
+            arch = i.second;
 
             Ogre::StringUtil::trim(arch);
             if (arch.empty() || arch[0] == '.')
@@ -426,9 +423,9 @@ void ApplicationContextBase::reconfigure(const Ogre::String &renderer, Ogre::Nam
     Ogre::RenderSystem* rs = mRoot->getRenderSystemByName(renderer);
 
     // set all given render system options
-    for (auto it = options.begin(); it != options.end(); it++)
+    for (auto & option : options)
     {
-        rs->setConfigOption(it->first, it->second);
+        rs->setConfigOption(option.first, option.second);
     }
 
     mRoot->queueEndRendering();   // break from render loop
@@ -455,9 +452,9 @@ void ApplicationContextBase::shutdown()
     // Destroy the RT Shader System.
     destroyRTShaderSystem();
 
-    for(auto it = mWindows.rbegin(); it != mWindows.rend(); ++it)
+    for(auto & mWindow : std::ranges::reverse_view(mWindows))
     {
-        _destroyWindow(*it);
+        _destroyWindow(mWindow);
     }
     mWindows.clear();
 

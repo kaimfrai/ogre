@@ -548,7 +548,7 @@ namespace Ogre {
                op.Type == Token::TK_LINECONT)
             op = GetToken (true);
 
-        while (true)
+        for(;;)
         {
             if (op.Type != Token::TK_PUNCTUATION)
                 return op;
@@ -785,7 +785,7 @@ namespace Ogre {
             ++braceCount;
 
         size_t len = oArg.Length;
-        while (true)
+        for(;;)
         {
             Token t = GetToken (iExpand);
             switch (t.Type)
@@ -885,7 +885,7 @@ namespace Ogre {
             return t;
         }
 
-        while (true)
+        for(;;)
         {
             if (nargs == MAX_MACRO_ARGS)
             {

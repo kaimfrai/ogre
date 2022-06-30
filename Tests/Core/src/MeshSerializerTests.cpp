@@ -102,14 +102,12 @@ void MeshSerializerTests::SetUp()
     cf.load(resourcesPath);
     String secName, typeName, archName;
 
-    ConfigFile::SettingsBySection_::const_iterator seci;
-    for(seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
-        secName = seci->first;
-        const ConfigFile::SettingsMultiMap& settings = seci->second;
-        ConfigFile::SettingsMultiMap::const_iterator i;
-        for (i = settings.begin(); i != settings.end(); ++i) {
-            typeName = i->first;
-            archName = i->second;
+    for (const auto & seci : cf.getSettingsBySection()) {
+        secName = seci.first;
+        const ConfigFile::SettingsMultiMap& settings = seci.second;
+        for (const auto & setting : settings) {
+            typeName = setting.first;
+            archName = setting.second;
             if (typeName == "FileSystem") {
                 ResourceGroupManager::getSingleton().addResourceLocation(
                     archName, typeName, secName);
@@ -336,16 +334,15 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         const Animation::VertexTrackList& aList = a->getAnimation(i)->_getVertexTrackList();
         const Animation::VertexTrackList& bList = b->getAnimation(i)->_getVertexTrackList();
 
-        auto it = aList.begin();
-        for (; it != aList.end(); ++it)
+        for (auto const& it : aList)
         {
-            EXPECT_EQ(bList.at(it->first)->getAnimationType(), it->second->getAnimationType());
-            ASSERT_EQ(bList.at(it->first)->getNumKeyFrames(), it->second->getNumKeyFrames());
+            EXPECT_EQ(bList.at(it.first)->getAnimationType(), it.second->getAnimationType());
+            ASSERT_EQ(bList.at(it.first)->getNumKeyFrames(), it.second->getNumKeyFrames());
 
-            for (size_t j = 0; j < it->second->getNumKeyFrames(); j++)
+            for (size_t j = 0; j < it.second->getNumKeyFrames(); j++)
             {
-                VertexPoseKeyFrame* aKeyFrame = it->second->getVertexPoseKeyFrame(j);
-                VertexPoseKeyFrame* bKeyFrame = bList.at(it->first)->getVertexPoseKeyFrame(j);
+                VertexPoseKeyFrame* aKeyFrame = it.second->getVertexPoseKeyFrame(j);
+                VertexPoseKeyFrame* bKeyFrame = bList.at(it.first)->getVertexPoseKeyFrame(j);
                 ASSERT_EQ(bKeyFrame->getPoseReferences(), aKeyFrame->getPoseReferences());
             }
         }
@@ -377,16 +374,16 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexBufferBinding::VertexBufferBindingMap& aBindings = a->vertexBufferBinding->getBindings();
             const VertexBufferBinding::VertexBufferBindingMap& bBindings = b->vertexBufferBinding->getBindings();
             EXPECT_TRUE(aBindings.size() == bBindings.size());
-            auto aIt = aBindings.begin();
-            auto aEndIt = aBindings.end();
-            auto bIt = bBindings.begin();
-            for (; aIt != aEndIt; aIt++, bIt++) {
-                EXPECT_TRUE(aIt->first == bIt->first);
-                EXPECT_TRUE((aIt->second.get() == nullptr) == (bIt->second.get() == nullptr));
+
+            for (auto bIt = bBindings.begin();
+                auto const& aIt : aBindings) {
+                EXPECT_TRUE(aIt.first == bIt->first);
+                EXPECT_TRUE((aIt.second.get() == nullptr) == (bIt->second.get() == nullptr));
                 if (a) {
-                    EXPECT_TRUE(aIt->second->getManager() == bIt->second->getManager());
-                    EXPECT_TRUE(aIt->second->getNumVertices() == bIt->second->getNumVertices());
+                    EXPECT_TRUE(aIt.second->getManager() == bIt->second->getManager());
+                    EXPECT_TRUE(aIt.second->getNumVertices() == bIt->second->getNumVertices());
                 }
+                bIt++;
             }
         }
 
@@ -394,15 +391,12 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexDeclaration::VertexElementList& aElements = a->vertexDeclaration->getElements();
             const VertexDeclaration::VertexElementList& bElements = a->vertexDeclaration->getElements();
             EXPECT_TRUE(aElements.size() == bElements.size());
-            using bindingIterator = VertexDeclaration::VertexElementList::const_iterator;
-            auto aIt = aElements.begin();
-            auto aEndIt = aElements.end();
-            bindingIterator bIt;
-            for (; aIt != aEndIt; aIt++) {
-                bIt = std::find(bElements.begin(), bElements.end(), *aIt);
+
+            for (auto const& aIt : aElements) {
+                auto bIt = std::find(bElements.begin(), bElements.end(), aIt);
                 EXPECT_TRUE(bIt != bElements.end());
 
-                const VertexElement& aElem = *aIt;
+                const VertexElement& aElem = aIt;
                 const VertexElement& bElem = *bIt;
                 HardwareVertexBufferSharedPtr abuf = a->vertexBufferBinding->getBuffer(aElem.getSource());
                 HardwareVertexBufferSharedPtr bbuf = b->vertexBufferBinding->getBuffer(bElem.getSource());
@@ -434,12 +428,11 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             const VertexData::HardwareAnimationDataList& aAnimData = a->hwAnimationDataList;
             const VertexData::HardwareAnimationDataList& bAnimData = b->hwAnimationDataList;
             EXPECT_TRUE(aAnimData.size() == bAnimData.size());
-            auto aIt = aAnimData.begin();
-            auto aEndIt = aAnimData.end();
-            auto bIt = bAnimData.begin();
-            for (; aIt != aEndIt; aIt++, bIt++) {
-                EXPECT_TRUE(aIt->parametric == bIt->parametric);
-                EXPECT_TRUE(aIt->targetBufferIndex == bIt->targetBufferIndex);
+            for (auto bIt = bAnimData.begin();
+                 auto const& aIt : aAnimData) {
+                EXPECT_TRUE(aIt.parametric == bIt->parametric);
+                EXPECT_TRUE(aIt.targetBufferIndex == bIt->targetBufferIndex);
+                bIt++;
             }
         }
     }
@@ -459,12 +452,9 @@ bool MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, cons
     if (a.size() != b.size()) {
         return false;
     }
-    typename std::unordered_map<K, V>::const_iterator it, itFind, itEnd;
-    it = a.begin();
-    itEnd = a.end();
-    for (; it != itEnd; it++) {
-        itFind = b.find(it->first);
-        if (itFind == b.end() || itFind->second != it->second) {
+    for (auto const& it : a) {
+        auto itFind = b.find(it.first);
+        if (itFind == b.end() || itFind->second != it.second) {
             return false;
         }
     }
@@ -521,14 +511,11 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     ResourceGroupManager& resourceGroupMgr = ResourceGroupManager::getSingleton();
     String group = resource->getGroup();
     String name = resource->getName();
-    FileInfo* info = nullptr;
+    FileInfo const* info = nullptr;
     FileInfoListPtr locPtr = resourceGroupMgr.listResourceFileInfo(group);
-    FileInfoList::iterator it, itEnd;
-    it = locPtr->begin();
-    itEnd = locPtr->end();
-    for (; it != itEnd; it++) {
-        if (StringUtil::startsWith(name, it->filename)) {
-            info = &*it;
+    for (auto const& it : *locPtr) {
+        if (StringUtil::startsWith(name, it.filename)) {
+            info = &it;
             break;
         }
     }

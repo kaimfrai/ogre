@@ -1625,11 +1625,11 @@ void PS_1_4::clearMachineInstState()
     mDo_Alpha = false;
     mArgCnt = 0;
 
-    for(int i=0; i<MAXOPPARRAMS; i++) {
-        mOpParrams[i].Arg = GL_NONE;
-        mOpParrams[i].Filled = false;
-        mOpParrams[i].MaskRep = GL_NONE;
-        mOpParrams[i].Mod = GL_NONE;
+    for(auto & mOpParram : mOpParrams) {
+        mOpParram.Arg = GL_NONE;
+        mOpParram.Filled = false;
+        mOpParram.MaskRep = GL_NONE;
+        mOpParram.Mod = GL_NONE;
     }
 
 }
@@ -1644,9 +1644,9 @@ void PS_1_4::clearAllMachineInst()
     mPhase2ALU_mi.clear();
 
     // reset write state for all registers
-    for(int i = 0; i<6; i++) {
-        Phase_RegisterUsage[i].Phase1Write = false;
-        Phase_RegisterUsage[i].Phase2Write = false;
+    for(auto & i : Phase_RegisterUsage) {
+        i.Phase1Write = false;
+        i.Phase2Write = false;
 
     }
 

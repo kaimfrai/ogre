@@ -194,10 +194,10 @@ class Renderable;
     //-----------------------------------------------------------------------
     const String& MaterialManager::_getSchemeName(unsigned short index)
     {
-        for (auto i = mSchemes.begin(); i != mSchemes.end(); ++i)
+        for (auto & mScheme : mSchemes)
         {
-            if (i->second == index)
-                return i->first;
+            if (mScheme.second == index)
+                return mScheme.first;
         }
         return DEFAULT_SCHEME_NAME;
     }
@@ -231,9 +231,9 @@ class Renderable;
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (auto i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto & i : listenerList)
             {
-                Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
+                Technique* t = i->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
                 if (t)
                     return t;
@@ -245,9 +245,9 @@ class Renderable;
         if (it != mListenerMap.end()) 
         {
             ListenerList& listenerList = it->second;
-            for (auto i = listenerList.begin(); i != listenerList.end(); ++i)
+            for (auto & i : listenerList)
             {
-                Technique* t = (*i)->handleSchemeNotFound(mActiveSchemeIndex, 
+                Technique* t = i->handleSchemeNotFound(mActiveSchemeIndex, 
                     mActiveSchemeName, mat, lodIndex, rend);
                 if (t)
                     return t;
@@ -266,9 +266,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->afterIlluminationPassesCreated(tech);
+				bool handled = i->afterIlluminationPassesCreated(tech);
 				if(handled)
 					return;
 			}
@@ -279,9 +279,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->afterIlluminationPassesCreated(tech);
+				bool handled = i->afterIlluminationPassesCreated(tech);
 				if(handled)
 					return;
 			}
@@ -295,9 +295,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
+				bool handled = i->beforeIlluminationPassesCleared(tech);
 				if(handled)
 					return;
 			}
@@ -308,9 +308,9 @@ class Renderable;
 		if(it != mListenerMap.end())
 		{
 			ListenerList& listenerList = it->second;
-			for(auto i = listenerList.begin(); i != listenerList.end(); ++i)
+			for(auto & i : listenerList)
 			{
-				bool handled = (*i)->beforeIlluminationPassesCleared(tech);
+				bool handled = i->beforeIlluminationPassesCleared(tech);
 				if(handled)
 					return;
 			}

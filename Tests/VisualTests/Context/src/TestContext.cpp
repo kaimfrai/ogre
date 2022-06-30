@@ -428,9 +428,9 @@ void TestContext::setupDirectories(Ogre::String batchName)
         // add a directory for the render system
         Ogre::String rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
         // strip spaces from render system name
-        for (unsigned int i = 0;i < rsysName.size(); ++i)
-            if (rsysName[i] != ' ')
-                mOutputDir += rsysName[i];
+        for (char i : rsysName)
+            if (i != ' ')
+                mOutputDir += i;
         mOutputDir += "/";
         static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
     }
@@ -468,12 +468,11 @@ void TestContext::finishedTests()
             foundReference = false;
             batches = TestBatch::loadTestBatches(mOutputDir);
             
-            TestBatchSet::iterator i;
-            for (i = batches.begin(); i != batches.end(); ++i)
+            for (const auto & batche : batches)
             {
-                if (mBatch->canCompareWith((*i)))
+                if (mBatch->canCompareWith(batche))
                 {
-                    compareTo = &(*i);
+                    compareTo = &batche;
                     break;
                 }
             }
@@ -504,16 +503,16 @@ void TestContext::finishedTests()
             if(mSummaryOutputDir != "NONE")
             {
                 Ogre::String rs;
-                for(size_t j = 0; j < mRenderSystemName.size(); ++j)
-                    if(mRenderSystemName[j]!=' ')
-                        rs += mRenderSystemName[j];
+                for(char j : mRenderSystemName)
+                    if(j!=' ')
+                        rs += j;
 
                 CppUnitResultWriter cppunitWriter(*compareTo, *mBatch, results);
                 cppunitWriter.writeToFile(mSummaryOutputDir + "/TestResults_" + rs + ".xml");
             }
 
-            for(size_t i = 0; i < results.size(); i++) {
-                mSuccess = mSuccess && results[i].passed;
+            for(auto & result : results) {
+                mSuccess = mSuccess && result.passed;
             }
         }
 

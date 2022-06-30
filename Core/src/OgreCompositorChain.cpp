@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <ranges>
 #include <string>
 #include <utility>
 
@@ -193,11 +194,9 @@ void CompositorChain::removeCompositor(size_t index)
 //-----------------------------------------------------------------------
 void CompositorChain::removeAllCompositors()
 {
-    Instances::iterator i, iend;
-    iend = mInstances.end();
-    for (i = mInstances.begin(); i != iend; ++i)
+    for (auto & mInstance : mInstances)
     {
-        delete *i;
+        delete mInstance;
     }
     mInstances.clear();
     
@@ -250,12 +249,10 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
         CompositorInstance* nextInstance = getNextInstance(inst, true);
         if (nextInstance)
         {
-            const CompositionTechnique::TargetPasses& tps =
-                nextInstance->getTechnique()->getTargetPasses();
-            auto tpit = tps.begin();
-            for(;tpit != tps.end(); ++tpit)
+            for(const CompositionTechnique::TargetPasses& tps =
+                    nextInstance->getTechnique()->getTargetPasses();
+                CompositionTargetPass* tp : tps)
             {
-                CompositionTargetPass* tp = *tpit;
                 if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
                 {
                     if (nextInstance->getTechnique()->getTextureDefinition(tp->getOutputName())->pooled)
@@ -466,10 +463,9 @@ void CompositorChain::viewportDestroyed(Viewport* viewport)
 //-----------------------------------------------------------------------
 void CompositorChain::clearCompiledState()
 {
-    for (auto i = mRenderSystemOperations.begin();
-        i != mRenderSystemOperations.end(); ++i)
+    for (auto & mRenderSystemOperation : mRenderSystemOperations)
     {
-        delete *i;
+        delete mRenderSystemOperation;
     }
     mRenderSystemOperations.clear();
 
@@ -500,13 +496,13 @@ void CompositorChain::_compile()
     /// Set previous CompositorInstance for each compositor in the list
     CompositorInstance *lastComposition = mOriginalScene;
     mOriginalScene->mPreviousInstance = nullptr;
-    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto & mInstance : mInstances)
     {
-        if((*i)->getEnabled())
+        if(mInstance->getEnabled())
         {
             compositorsEnabled = true;
-            (*i)->mPreviousInstance = lastComposition;
-            lastComposition = (*i);
+            mInstance->mPreviousInstance = lastComposition;
+            lastComposition = mInstance;
         }
     }
     
@@ -623,14 +619,14 @@ void CompositorChain::RQListener::flushUpTo(uint8 id)
 CompositorInstance* CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly)
 {
     bool found = false;
-    for(auto i=mInstances.rbegin(); i!=mInstances.rend(); ++i)
+    for(auto & mInstance : std::ranges::reverse_view(mInstances))
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }
@@ -642,14 +638,14 @@ CompositorInstance* CompositorChain::getPreviousInstance(CompositorInstance* cur
 CompositorInstance* CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly)
 {
     bool found = false;
-    for(auto i=mInstances.begin(); i!=mInstances.end(); ++i)
+    for(auto & mInstance : mInstances)
     {
         if (found)
         {
-            if ((*i)->getEnabled() || !activeOnly)
-                return *i;
+            if (mInstance->getEnabled() || !activeOnly)
+                return mInstance;
         }
-        else if(*i == curr)
+        else if(mInstance == curr)
         {
             found = true;
         }

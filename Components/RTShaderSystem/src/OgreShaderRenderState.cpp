@@ -81,9 +81,9 @@ RenderState::~RenderState()
 //-----------------------------------------------------------------------
 void RenderState::reset()
 {
-    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto & it : mSubRenderStateList)
     {
-        ShaderGenerator::getSingleton().destroySubRenderState(*it);
+        ShaderGenerator::getSingleton().destroySubRenderState(it);
     }
     mSubRenderStateList.clear();
 }
@@ -106,10 +106,10 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
     bool addSubRenderState = true;
 
     // Go over the current sub render state.
-    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto & it : mSubRenderStateList)
     {
         // Case the same instance already exists -> do not add to list.
-        if (*it == subRenderState)
+        if (it == subRenderState)
         {
             addSubRenderState = false;
             break;
@@ -118,9 +118,9 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
         // Case it is different sub render state instance with the same type, use the new sub render state
         // instead of the previous sub render state. This scenario is usually caused by material inheritance, so we use the derived material sub render state
         // and destroy the base sub render state.
-        else if ((*it)->getType() == subRenderState->getType())
+        else if (it->getType() == subRenderState->getType())
         {
-            removeSubRenderState(*it);
+            removeSubRenderState(it);
             break;
         }
     }
@@ -257,10 +257,8 @@ void TargetRenderState::createCpuPrograms()
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_VERTEX_PROGRAM)));
     programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_FRAGMENT_PROGRAM)));
 
-    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto srcSubRenderState : mSubRenderStateList)
     {
-        SubRenderState* srcSubRenderState = *it;
-
         if (!srcSubRenderState->createCpuSubPrograms(programSet))
         {
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -281,10 +279,8 @@ ProgramSet* TargetRenderState::createProgramSet()
 void TargetRenderState::updateGpuProgramsParams(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
                                                 const LightList* pLightList)
 {
-    for (auto it=mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto curSubRenderState : mSubRenderStateList)
     {
-        SubRenderState* curSubRenderState = *it;
-
         curSubRenderState->updateGpuProgramsParams(rend, pass, source, pLightList);     
     }
 }

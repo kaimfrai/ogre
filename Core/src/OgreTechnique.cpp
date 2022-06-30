@@ -81,11 +81,9 @@ namespace Ogre {
         size_t memSize = 0;
 
         // Tally up passes
-        Passes::const_iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto mPasse : mPasses)
         {
-            memSize += (*i)->calculateSize();
+            memSize += mPasse->calculateSize();
         }
         return memSize;
     }
@@ -111,12 +109,11 @@ namespace Ogre {
     bool Technique::checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors)
     {
         // Go through each pass, checking requirements
-        Passes::iterator i;
         unsigned short passNum = 0;
         const RenderSystemCapabilities* caps =
             Root::getSingleton().getRenderSystem()->getCapabilities();
         unsigned short numTexUnits = caps->getNumTextureUnits();
-        for (i = mPasses.begin(); i != mPasses.end(); ++i, ++passNum)
+        for (auto i = mPasses.begin(); i != mPasses.end(); ++i)
         {
             Pass* currPass = *i;
             // Adjust pass index
@@ -222,6 +219,8 @@ namespace Ogre {
                     }
                 }
             }
+
+            ++passNum;
         }
         // If we got this far, we're ok
         return true;
@@ -237,21 +236,20 @@ namespace Ogre {
         bool includeRuleMatched = false;
 
         // Check vendors first
-        for (auto i = mGPUVendorRules.begin();
-            i != mGPUVendorRules.end(); ++i)
+        for (auto & mGPUVendorRule : mGPUVendorRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUVendorRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << caps->vendorToString(i->vendor) << " ";
-                if (i->vendor == caps->getVendor())
+                includeRules << caps->vendorToString(mGPUVendorRule.vendor) << " ";
+                if (mGPUVendorRule.vendor == caps->getVendor())
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (i->vendor == caps->getVendor())
+                if (mGPUVendorRule.vendor == caps->getVendor())
                 {
-                    errors << "Excluded GPU vendor: " << caps->vendorToString(i->vendor)
+                    errors << "Excluded GPU vendor: " << caps->vendorToString(mGPUVendorRule.vendor)
                         << std::endl;
                     return false;
                 }
@@ -271,21 +269,20 @@ namespace Ogre {
         includeRulesPresent = false;
         includeRuleMatched = false;
 
-        for (auto i = mGPUDeviceNameRules.begin();
-            i != mGPUDeviceNameRules.end(); ++i)
+        for (auto & mGPUDeviceNameRule : mGPUDeviceNameRules)
         {
-            if (i->includeOrExclude == INCLUDE)
+            if (mGPUDeviceNameRule.includeOrExclude == INCLUDE)
             {
                 includeRulesPresent = true;
-                includeRules << i->devicePattern << " ";
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                includeRules << mGPUDeviceNameRule.devicePattern << " ";
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                     includeRuleMatched = true;
             }
             else // EXCLUDE
             {
-                if (StringUtil::match(caps->getDeviceName(), i->devicePattern, i->caseSensitive))
+                if (StringUtil::match(caps->getDeviceName(), mGPUDeviceNameRule.devicePattern, mGPUDeviceNameRule.caseSensitive))
                 {
-                    errors << "Excluded GPU device: " << i->devicePattern
+                    errors << "Excluded GPU device: " << mGPUDeviceNameRule.devicePattern
                         << std::endl;
                     return false;
                 }
@@ -313,19 +310,16 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     Pass* Technique::getPass(const String& name) const
     {
-        auto i    = mPasses.begin();
-        auto iend = mPasses.end();
         Pass* foundPass = nullptr;
 
         // iterate through techniques to find a match
-        while (i != iend)
+        for (auto const& i : mPasses)
         {
-            if ( (*i)->getName() == name )
+            if (i->getName() == name )
             {
-                foundPass = (*i);
+                foundPass = i;
                 break;
             }
-            ++i;
         }
 
         return foundPass;
@@ -346,11 +340,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     void Technique::removeAllPasses()
     {
-        Passes::iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            (*i)->queueForDeletion();
+            mPasse->queueForDeletion();
         }
         mPasses.clear();
     }
@@ -413,11 +405,9 @@ namespace Ogre {
 
         // copy passes
         removeAllPasses();
-        Passes::const_iterator i, iend;
-        iend = rhs.mPasses.end();
-        for (i = rhs.mPasses.begin(); i != iend; ++i)
+        for (auto mPasse : rhs.mPasses)
         {
-            Pass* p = new Pass(this, (*i)->getIndex(), *(*i));
+            Pass* p = new Pass(this, mPasse->getIndex(), *mPasse);
             mPasses.push_back(p);
         }
         // Compile for categorised illumination on demand
@@ -508,30 +498,24 @@ namespace Ogre {
     {
         assert (mIsSupported && "This technique is not supported");
         // Load each pass
-        Passes::iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            (*i)->_prepare();
+            mPasse->_prepare();
         }
 
-        IlluminationPassList::iterator il, ilend;
-        ilend = mIlluminationPasses.end();
-        for (il = mIlluminationPasses.begin(); il != ilend; ++il)
+        for (auto & mIlluminationPasse : mIlluminationPasses)
         {
-            if((*il)->pass != (*il)->originalPass)
-                (*il)->pass->_prepare();
+            if(mIlluminationPasse->pass != mIlluminationPasse->originalPass)
+                mIlluminationPasse->pass->_prepare();
         }
     }
     //-----------------------------------------------------------------------------
     void Technique::_unprepare()
     {
         // Unload each pass
-        Passes::iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            (*i)->_unprepare();
+            mPasse->_unprepare();
         }
     }
     //-----------------------------------------------------------------------------
@@ -539,19 +523,15 @@ namespace Ogre {
     {
         assert (mIsSupported && "This technique is not supported");
         // Load each pass
-        Passes::iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            (*i)->_load();
+            mPasse->_load();
         }
 
-        IlluminationPassList::iterator il, ilend;
-        ilend = mIlluminationPasses.end();
-        for (il = mIlluminationPasses.begin(); il != ilend; ++il)
+        for (auto & mIlluminationPasse : mIlluminationPasses)
         {
-            if((*il)->pass != (*il)->originalPass)
-                (*il)->pass->_load();
+            if(mIlluminationPasse->pass != mIlluminationPasse->originalPass)
+                mIlluminationPasse->pass->_load();
         }
 
         if (mShadowCasterMaterial)
@@ -581,11 +561,9 @@ namespace Ogre {
     void Technique::_unload()
     {
         // Unload each pass
-        Passes::iterator i, iend;
-        iend = mPasses.end();
-        for (i = mPasses.begin(); i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            (*i)->_unload();
+            mPasse->_unload();
         }   
     }
     //-----------------------------------------------------------------------------
@@ -727,23 +705,19 @@ namespace Ogre {
     bool Technique::checkManuallyOrganisedIlluminationPasses()
     {
         // first check whether all passes have manually assigned illumination
-        Passes::iterator i, ibegin, iend;
-        ibegin = mPasses.begin();
-        iend = mPasses.end();
-
-        for (i = ibegin; i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
-            if ((*i)->getIlluminationStage() == IS_UNKNOWN)
+            if (mPasse->getIlluminationStage() == IS_UNKNOWN)
                 return false;
         }
 
         // ok, all manually controlled, so just use that
-        for (i = ibegin; i != iend; ++i)
+        for (auto & mPasse : mPasses)
         {
             auto* iPass = new IlluminationPass();
             iPass->destroyOnShutdown = false;
-            iPass->originalPass = iPass->pass = *i;
-            iPass->stage = (*i)->getIlluminationStage();
+            iPass->originalPass = iPass->pass = mPasse;
+            iPass->stage = mPasse->getIlluminationStage();
             mIlluminationPasses.push_back(iPass);
         }
 
@@ -798,10 +772,8 @@ namespace Ogre {
                             {
                                 // Alpha rejection passes must retain their transparency, so
                                 // we allow the texture units, but override the colour functions
-                                Pass::TextureUnitStates::const_iterator it;
-                                for(it = newPass->getTextureUnitStates().begin(); it != newPass->getTextureUnitStates().end(); ++it)
+                                for (auto tus : newPass->getTextureUnitStates())
                                 {
-                                    TextureUnitState* tus = *it;
                                     tus->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT);
                                 }
                             }
@@ -884,10 +856,8 @@ namespace Ogre {
                             {
                                 // Alpha rejection passes must retain their transparency, so
                                 // we allow the texture units, but override the colour functions
-                                Pass::TextureUnitStates::const_iterator it;
-                                for(it = newPass->getTextureUnitStates().begin(); it != newPass->getTextureUnitStates().end(); ++it)
+                                for (auto tus : newPass->getTextureUnitStates())
                                 {
-                                    TextureUnitState* tus = *it;
                                     tus->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT);
                                 }
                             }
@@ -984,15 +954,13 @@ namespace Ogre {
         if(MaterialManager::getSingletonPtr())
             MaterialManager::getSingleton()._notifyBeforeIlluminationPassesCleared(this);
 
-        IlluminationPassList::iterator i, iend;
-        iend = mIlluminationPasses.end();
-        for (i = mIlluminationPasses.begin(); i != iend; ++i)
+        for (auto & mIlluminationPasse : mIlluminationPasses)
         {
-            if ((*i)->destroyOnShutdown)
+            if (mIlluminationPasse->destroyOnShutdown)
             {
-                (*i)->pass->queueForDeletion();
+                mIlluminationPasse->pass->queueForDeletion();
             }
-            delete *i;
+            delete mIlluminationPasse;
         }
         mIlluminationPasses.clear();
     }

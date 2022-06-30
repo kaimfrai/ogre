@@ -89,9 +89,7 @@ void Program::addParameter(UniformParameterPtr parameter)
 //-----------------------------------------------------------------------------
 void Program::removeParameter(UniformParameterPtr parameter)
 {
-    UniformParameterIterator it;
-
-    for (it = mParameters.begin(); it != mParameters.end(); ++it)
+    for (auto it = mParameters.begin(); it != mParameters.end(); ++it)
     {
         if ((*it) == parameter)
         {
@@ -249,12 +247,10 @@ UniformParameterPtr Program::resolveParameter(GpuConstantType type,
         index = 0;
 
         // Find the next available index of the target type.
-        UniformParameterIterator it;
-
-        for (it = mParameters.begin(); it != mParameters.end(); ++it)
+        for (auto const& it : mParameters)
         {
-            if ((*it)->getType() == type &&
-                (*it)->isAutoConstantParameter() == false)
+            if (it->getType() == type &&
+                it->isAutoConstantParameter() == false)
             {
                 index++;
             }
@@ -282,13 +278,11 @@ UniformParameterPtr Program::resolveParameter(GpuConstantType type,
 //-----------------------------------------------------------------------------
 UniformParameterPtr Program::getParameterByName(const String& name)
 {
-    UniformParameterIterator it;
-
-    for (it = mParameters.begin(); it != mParameters.end(); ++it)
+    for (auto const& it : mParameters)
     {
-        if ((*it)->getName() == name)
+        if (it->getName() == name)
         {
-            return *it;
+            return it;
         }
     }
 
@@ -298,14 +292,12 @@ UniformParameterPtr Program::getParameterByName(const String& name)
 //-----------------------------------------------------------------------------
 UniformParameterPtr Program::getParameterByType(GpuConstantType type, int index)
 {
-    UniformParameterIterator it;
-
-    for (it = mParameters.begin(); it != mParameters.end(); ++it)
+    for (auto const& it : mParameters)
     {
-        if ((*it)->getType() == type &&
-            (*it)->getIndex() == index)
+        if (it->getType() == type &&
+            it->getIndex() == index)
         {
-            return *it;
+            return it;
         }
     }
 
@@ -315,13 +307,11 @@ UniformParameterPtr Program::getParameterByType(GpuConstantType type, int index)
 //-----------------------------------------------------------------------------
 UniformParameterPtr Program::getParameterByAutoType(GpuProgramParameters::AutoConstantType autoType)
 {
-    UniformParameterIterator it;
-
-    for (it = mParameters.begin(); it != mParameters.end(); ++it)
+    for (auto const& it : mParameters)
     {
-        if ((*it)->isAutoConstantParameter() && (*it)->getAutoConstantType() == autoType)
+        if (it->isAutoConstantParameter() && it->getAutoConstantType() == autoType)
         {
-            return *it;
+            return it;
         }
     }
 
@@ -331,9 +321,9 @@ UniformParameterPtr Program::getParameterByAutoType(GpuProgramParameters::AutoCo
 //-----------------------------------------------------------------------------
 void Program::addDependency(const String& libFileName)
 {
-    for (unsigned int i=0; i < mDependencies.size(); ++i)
+    for (auto & mDependencie : mDependencies)
     {
-        if (mDependencies[i] == libFileName)
+        if (mDependencie == libFileName)
         {
             return;
         }

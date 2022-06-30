@@ -130,15 +130,15 @@ namespace Ogre {
     {
         if (!mInitialized && enabled) 
         {
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->initializeSession();
+            for(auto & mListener : mListeners)
+                mListener->initializeSession();
 
             mInitialized = true;
         }
         else if (mInitialized && !enabled)
         {
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->finializeSession();
+            for(auto & mListener : mListeners)
+                mListener->finializeSession();
 
             mInitialized = false;
             mEnabled = false;
@@ -155,8 +155,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::changeEnableState() 
     {
-        for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-            (*i)->changeEnableState(mNewEnableState);
+        for(auto & mListener : mListeners)
+            mListener->changeEnableState(mNewEnableState);
 
         mEnabled = mNewEnableState;
     }
@@ -388,10 +388,9 @@ namespace Ogre {
         if(frameClocks > maxFrameClocks)
             maxFrameClocks = frameClocks;
 
-        auto it = instance->children.begin(), endit = instance->children.end();
-        for(;it != endit; ++it)
+        for(auto const& it : instance->children)
         {
-            ProfileInstance* child = it->second.get();
+            ProfileInstance* child = it.second.get();
 
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
@@ -408,10 +407,9 @@ namespace Ogre {
     {
         ulong maxFrameClocks = 0;
 
-        auto it = mRoot.children.begin(), endit = mRoot.children.end();
-        for(;it != endit; ++it)
+        for(auto const& it : mRoot.children)
         {
-            ProfileInstance* child = it->second.get();
+            ProfileInstance* child = it.second.get();
 
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
@@ -446,8 +444,8 @@ namespace Ogre {
             // ensure the root won't be culled
             mRoot.frame.calls = 1;
 
-            for( auto i = mListeners.begin(); i != mListeners.end(); ++i )
-                (*i)->displayResults(mRoot, mMaxTotalFrameClocks);
+            for(auto & mListener : mListeners)
+                mListener->displayResults(mRoot, mMaxTotalFrameClocks);
         }
         ++mCurrentFrame;
     }
@@ -461,10 +459,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool ProfileInstance::watchForMax(const String& profileName) 
     {
-        auto it = children.begin(), endit = children.end();
-        for(;it != endit; ++it)
+        for(auto const& it : children)
         {
-            ProfileInstance* child = it->second.get();
+            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForMax()) || child->watchForMax(profileName))
                 return true;
         }
@@ -479,10 +476,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool ProfileInstance::watchForMin(const String& profileName) 
     {
-        auto it = children.begin(), endit = children.end();
-        for(;it != endit; ++it)
+        for(auto const& it : children)
         {
-            ProfileInstance* child = it->second.get();
+            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForMin()) || child->watchForMin(profileName))
                 return true;
         }
@@ -497,10 +493,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
     {
-        auto it = children.begin(), endit = children.end();
-        for(;it != endit; ++it)
+        for(auto const& it : children)
         {
-            ProfileInstance* child = it->second.get();
+            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForLimit(limit, greaterThan)) || child->watchForLimit(profileName, limit, greaterThan))
                 return true;
         }
@@ -511,9 +506,9 @@ namespace Ogre {
     {
         LogManager::getSingleton().logMessage("----------------------Profiler Results----------------------");
 
-        for(auto it = mRoot.children.begin(); it != mRoot.children.end(); ++it)
+        for(auto & it : mRoot.children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
 
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
@@ -565,9 +560,9 @@ namespace Ogre {
         if(history.totalCalls == 0)
             return;
 
-        for(auto it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->logResults();
+            it.second->logResults();
         }
     }
     //-----------------------------------------------------------------------
@@ -585,9 +580,9 @@ namespace Ogre {
 
         history.minClocksPercent = 1;
         history.minClocks = static_cast<ulong>(-1l);
-        for(auto it = children.begin(); it != children.end(); ++it)
+        for(auto & it : children)
         {
-            it->second->reset();
+            it.second->reset();
         }
     }
     //-----------------------------------------------------------------------

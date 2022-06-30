@@ -96,11 +96,9 @@ void SubRenderStateFactory::destroyInstance(SubRenderState* subRenderState)
 //-----------------------------------------------------------------------
 void SubRenderStateFactory::destroyAllInstances()
 {
-    SubRenderStateSetIterator it;
-
-    for (it = mSubRenderStateList.begin(); it != mSubRenderStateList.end(); ++it)
+    for (auto const& it : mSubRenderStateList)
     {       
-        delete *it;            
+        delete it;
     }
     mSubRenderStateList.clear();
 

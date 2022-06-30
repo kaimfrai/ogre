@@ -698,10 +698,9 @@ void SceneManager::clearScene()
     getRootSceneNode()->detachAllObjects();
 
     // Delete all SceneNodes, except root that is
-    for (auto i = mSceneNodes.begin();
-        i != mSceneNodes.end(); ++i)
+    for (auto & mSceneNode : mSceneNodes)
     {
-        delete *i;
+        delete mSceneNode;
     }
     mSceneNodes.clear();
     mNamedNodes.clear();
@@ -772,9 +771,7 @@ void SceneManager::_destroySceneNode(SceneNodeList::iterator i)
     }
 
     // Find any scene nodes which are tracking this node, and turn them off
-    AutoTrackingSceneNodes::iterator ai, aiend;
-    aiend = mAutoTrackingSceneNodes.end();
-    for (ai = mAutoTrackingSceneNodes.begin(); ai != aiend; )
+    for (auto ai = mAutoTrackingSceneNodes.begin(); ai != mAutoTrackingSceneNodes.end(); )
     {
         // Pre-increment incase we delete
         auto curri = ai++;
@@ -1045,10 +1042,8 @@ const Pass* SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
     size_t startLightIndex = pass->getStartLight();
     size_t shadowTexUnitIndex = 0;
     size_t shadowTexIndex = mShadowRenderer.getShadowTexIndex(startLightIndex);
-    Pass::TextureUnitStates::const_iterator it;
-    for(it = pass->getTextureUnitStates().begin(); it != pass->getTextureUnitStates().end(); ++it)
+    for (TextureUnitState* pTex : pass->getTextureUnitStates())
     {
-        TextureUnitState* pTex = *it;
         if (!pass->getIteratePerLight() && isShadowTechniqueTextureBased() &&
             pTex->getContentType() == TextureUnitState::CONTENT_SHADOW)
         {
@@ -1221,11 +1216,9 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
         _updateSceneGraph(camera);
 
         // Auto-track nodes
-        AutoTrackingSceneNodes::iterator atsni, atsniend;
-        atsniend = mAutoTrackingSceneNodes.end();
-        for (atsni = mAutoTrackingSceneNodes.begin(); atsni != atsniend; ++atsni)
+        for (auto mAutoTrackingSceneNode : mAutoTrackingSceneNodes)
         {
-            (*atsni)->_autoTrack();
+            mAutoTrackingSceneNode->_autoTrack();
         }
     }
 
@@ -1345,12 +1338,11 @@ void SceneManager::_releaseManualHardwareResources()
     mShadowRenderer.mShadowIndexBuffer.reset();
 
     // release hardware resources inside all movable objects
-    for(auto ci = mMovableObjectCollectionMap.begin(),
-        ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
+    for(auto & ci : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci->second.get();
-        for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
-            i->second->_releaseManualHardwareResources();
+        MovableObjectCollection* coll = ci.second.get();
+        for(auto & i : coll->map)
+            i.second->_releaseManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -1367,12 +1359,11 @@ void SceneManager::_restoreManualHardwareResources()
     }
 
     // restore hardware resources inside all movable objects
-    for(auto ci = mMovableObjectCollectionMap.begin(),
-        ci_end = mMovableObjectCollectionMap.end(); ci != ci_end; ++ci)
+    for(auto & ci : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci->second.get();
-        for(auto i = coll->map.begin(), i_end = coll->map.end(); i != i_end; ++i)
-            i->second->_restoreManualHardwareResources();
+        MovableObjectCollection* coll = ci.second.get();
+        for(auto & i : coll->map)
+            i.second->_restoreManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -2175,11 +2166,10 @@ void SceneManager::destroyAllAnimations()
     // Destroy all states too, since they cannot reference destroyed animations
     destroyAllAnimationStates();
 
-    AnimationList::iterator i;
-    for (i = mAnimationsList.begin(); i != mAnimationsList.end(); ++i)
+    for (auto & i : mAnimationsList)
     {
         // destroy
-        delete i->second;
+        delete i.second;
     }
     mAnimationsList.clear();
 }
@@ -2218,10 +2208,8 @@ void SceneManager::destroyAllAnimationStates()
 void SceneManager::_applySceneAnimations()
 {
     // Iterate twice, once to reset, once to apply, to allow blending
-    EnabledAnimationStateList::const_iterator animIt;
-    for(animIt = mAnimationStates.getEnabledAnimationStates().begin(); animIt != mAnimationStates.getEnabledAnimationStates().end(); ++animIt)
+    for (auto state : mAnimationStates.getEnabledAnimationStates())
     {
-        const AnimationState* state = *animIt;
         Animation* anim = getAnimation(state->getAnimationName());
 
         // Reset any nodes involved
@@ -2239,9 +2227,8 @@ void SceneManager::_applySceneAnimations()
     }
 
     // this should allow blended animations
-    for(animIt = mAnimationStates.getEnabledAnimationStates().begin(); animIt != mAnimationStates.getEnabledAnimationStates().end(); ++animIt)
+    for(auto state : mAnimationStates.getEnabledAnimationStates())
     {
-        const AnimationState* state = *animIt;
         Animation* anim = getAnimation(state->getAnimationName());
         // Apply the animation
         anim->apply(state->getTimePosition(), state->getWeight());
@@ -2342,9 +2329,7 @@ void SceneManager::addRenderQueueListener(RenderQueueListener* newListener)
 //---------------------------------------------------------------------
 void SceneManager::removeRenderQueueListener(RenderQueueListener* delListener)
 {
-    RenderQueueListenerList::iterator i, iend;
-    iend = mRenderQueueListeners.end();
-    for (i = mRenderQueueListeners.begin(); i != iend; ++i)
+    for (auto i = mRenderQueueListeners.begin(); i != mRenderQueueListeners.end(); ++i)
     {
         if (*i == delListener)
         {
@@ -2362,9 +2347,7 @@ void SceneManager::addRenderObjectListener(RenderObjectListener* newListener)
 //---------------------------------------------------------------------
 void SceneManager::removeRenderObjectListener(RenderObjectListener* delListener)
 {
-    RenderObjectListenerList::iterator i, iend;
-    iend = mRenderObjectListeners.end();
-    for (i = mRenderObjectListeners.begin(); i != iend; ++i)
+    for (auto i = mRenderObjectListeners.begin(); i != mRenderObjectListeners.end(); ++i)
     {
         if (*i == delListener)
         {
@@ -2401,44 +2384,38 @@ void SceneManager::removeShadowTextureListener(ShadowTextureListener* delListene
 //---------------------------------------------------------------------
 void SceneManager::firePreRenderQueues()
 {
-    for (auto i = mRenderQueueListeners.begin(); 
-        i != mRenderQueueListeners.end(); ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->preRenderQueues();
+        mRenderQueueListener->preRenderQueues();
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::firePostRenderQueues()
 {
-    for (auto i = mRenderQueueListeners.begin(); 
-        i != mRenderQueueListeners.end(); ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->postRenderQueues();
+        mRenderQueueListener->postRenderQueues();
     }
 }
 //---------------------------------------------------------------------
 bool SceneManager::fireRenderQueueStarted(uint8 id, const String& invocation)
 {
-    RenderQueueListenerList::iterator i, iend;
     bool skip = false;
 
-    iend = mRenderQueueListeners.end();
-    for (i = mRenderQueueListeners.begin(); i != iend; ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->renderQueueStarted(id, invocation, skip);
+        mRenderQueueListener->renderQueueStarted(id, invocation, skip);
     }
     return skip;
 }
 //---------------------------------------------------------------------
 bool SceneManager::fireRenderQueueEnded(uint8 id, const String& invocation)
 {
-    RenderQueueListenerList::iterator i, iend;
     bool repeat = false;
 
-    iend = mRenderQueueListeners.end();
-    for (i = mRenderQueueListeners.begin(); i != iend; ++i)
+    for (auto & mRenderQueueListener : mRenderQueueListeners)
     {
-        (*i)->renderQueueEnded(id, invocation, repeat);
+        mRenderQueueListener->renderQueueEnded(id, invocation, repeat);
     }
     return repeat;
 }
@@ -2447,36 +2424,27 @@ void SceneManager::fireRenderSingleObject(Renderable* rend, const Pass* pass,
                                            const AutoParamDataSource* source, 
                                            const LightList* pLightList, bool suppressRenderStateChanges)
 {
-    RenderObjectListenerList::iterator i, iend;
-
-    iend = mRenderObjectListeners.end();
-    for (i = mRenderObjectListeners.begin(); i != iend; ++i)
+    for (auto & mRenderObjectListener : mRenderObjectListeners)
     {
-        (*i)->notifyRenderSingleObject(rend, pass, source, pLightList, suppressRenderStateChanges);
+        mRenderObjectListener->notifyRenderSingleObject(rend, pass, source, pLightList, suppressRenderStateChanges);
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::firePreUpdateSceneGraph(Camera* camera)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->preUpdateSceneGraph(this, camera);
+        i->preUpdateSceneGraph(this, camera);
     }
 }
 //---------------------------------------------------------------------
 void SceneManager::firePostUpdateSceneGraph(Camera* camera)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->postUpdateSceneGraph(this, camera);
+        i->postUpdateSceneGraph(this, camera);
     }
 }
 
@@ -2484,12 +2452,9 @@ void SceneManager::firePostUpdateSceneGraph(Camera* camera)
 void SceneManager::firePreFindVisibleObjects(Viewport* v)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->preFindVisibleObjects(this, mIlluminationStage, v);
+        i->preFindVisibleObjects(this, mIlluminationStage, v);
     }
 
 }
@@ -2497,12 +2462,9 @@ void SceneManager::firePreFindVisibleObjects(Viewport* v)
 void SceneManager::firePostFindVisibleObjects(Viewport* v)
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->postFindVisibleObjects(this, mIlluminationStage, v);
+        i->postFindVisibleObjects(this, mIlluminationStage, v);
     }
 
 
@@ -2511,12 +2473,9 @@ void SceneManager::firePostFindVisibleObjects(Viewport* v)
 void SceneManager::fireSceneManagerDestroyed()
 {
     ListenerList listenersCopy = mListeners;
-    ListenerList::iterator i, iend;
-
-    iend = listenersCopy.end();
-    for (i = listenersCopy.begin(); i != iend; ++i)
+    for (auto & i : listenersCopy)
     {
-        (*i)->sceneManagerDestroyed(this);
+        i->sceneManagerDestroyed(this);
     }
 }
 //---------------------------------------------------------------------
@@ -2708,16 +2667,16 @@ void SceneManager::findLightsAffectingFrustum(const Camera* camera)
     if (mCachedLightInfos != mTestLightInfos)
     {
         mLightsAffectingFrustum.resize(mTestLightInfos.size());
-        LightInfoList::const_iterator i;
         auto j = mLightsAffectingFrustum.begin();
-        for (i = mTestLightInfos.begin(); i != mTestLightInfos.end(); ++i, ++j)
+        for (auto & mTestLightInfo : mTestLightInfos)
         {
-            *j = i->light;
+            *j = mTestLightInfo.light;
             // add cam distance for sorting if texture shadows
             if (isShadowTechniqueTextureBased())
             {
                 (*j)->_calcTempSquareDist(camera->getDerivedPosition());
             }
+            ++j;
         }
 
         mShadowRenderer.sortLightsAffectingFrustum(mLightsAffectingFrustum);
@@ -2759,9 +2718,8 @@ ClipResult SceneManager::buildAndSetScissor(const LightList& ll, const Camera* c
     finalRect.left = finalRect.bottom = 1.0f;
     finalRect.right = finalRect.top = -1.0f;
 
-    for (auto i = ll.begin(); i != ll.end(); ++i)
+    for (auto l : ll)
     {
-        Light* l = *i;
         // a directional light is being used, no scissoring can be done, period.
         if (l->getType() == Light::LT_DIRECTIONAL)
             return CLIPPED_NONE;
@@ -2832,8 +2790,8 @@ void SceneManager::checkCachedLightClippingInfo(bool forceScissorRectsInvalidati
     }
     else if(forceScissorRectsInvalidation)
     {
-        for(auto ci = mLightClippingInfoMap.begin(), ci_end = mLightClippingInfoMap.end(); ci != ci_end; ++ci)
-            ci->second.scissorValid = false;
+        for(auto & ci : mLightClippingInfoMap)
+            ci.second.scissorValid = false;
     }
 }
 //---------------------------------------------------------------------
@@ -2859,10 +2817,10 @@ ClipResult SceneManager::buildAndSetLightClip(const LightList& ll)
         return CLIPPED_NONE;
 
     Light* clipBase = nullptr;
-    for (auto i = ll.begin(); i != ll.end(); ++i)
+    for (auto i : ll)
     {
         // a directional light is being used, no clipping can be done, period.
-        if ((*i)->getType() == Light::LT_DIRECTIONAL)
+        if (i->getType() == Light::LT_DIRECTIONAL)
             return CLIPPED_NONE;
 
         if (clipBase)
@@ -2871,7 +2829,7 @@ ClipResult SceneManager::buildAndSetLightClip(const LightList& ll)
             // in this list we could clip by, so clip none
             return CLIPPED_NONE;
         }
-        clipBase = *i;
+        clipBase = i;
     }
 
     if (clipBase)
@@ -3132,11 +3090,9 @@ void SceneManager::destroyStaticGeometry(const String& name)
 //---------------------------------------------------------------------
 void SceneManager::destroyAllStaticGeometry()
 {
-    StaticGeometryList::iterator i, iend;
-    iend = mStaticGeometryList.end();
-    for (i = mStaticGeometryList.begin(); i != iend; ++i)
+    for (auto & i : mStaticGeometryList)
     {
-        delete i->second;
+        delete i.second;
     }
     mStaticGeometryList.clear();
 }
@@ -3202,13 +3158,9 @@ void SceneManager::destroyInstanceManager( InstanceManager *instanceManager )
 //---------------------------------------------------------------------
 void SceneManager::destroyAllInstanceManagers()
 {
-    auto itor = mInstanceManagerMap.begin();
-    auto end  = mInstanceManagerMap.end();
-
-    while( itor != end )
+    for (auto const& itor : mInstanceManagerMap)
     {
-        delete itor->second;
-        ++itor;
+        delete itor.second;
     }
 
     mInstanceManagerMap.clear();
@@ -3265,13 +3217,9 @@ void SceneManager::updateDirtyInstanceManagers()
 
     while( !mDirtyInstanceMgrsTmp.empty() )
     {
-        auto itor = mDirtyInstanceMgrsTmp.begin();
-        auto end  = mDirtyInstanceMgrsTmp.end();
-
-        while( itor != end )
+        for(auto const& itor : mDirtyInstanceMgrsTmp)
         {
-            (*itor)->_updateDirtyBatches();
-            ++itor;
+            itor->_updateDirtyBatches();
         }
 
         //Clear temp buffer
@@ -3433,13 +3381,12 @@ void SceneManager::destroyAllMovableObjectsByType(const String& typeName)
     MovableObjectFactory* factory = 
         Root::getSingleton().getMovableObjectFactory(typeName);
 
-    auto i = objectMap->map.begin();
-    for (; i != objectMap->map.end(); ++i)
+    for (auto const& i : objectMap->map)
     {
         // Only destroy our own
-        if (i->second->_getManager() == this)
+        if (i.second->_getManager() == this)
         {
-            factory->destroyInstance(i->second);
+            factory->destroyInstance(i.second);
         }
     }
     objectMap->map.clear();
@@ -3447,23 +3394,20 @@ void SceneManager::destroyAllMovableObjectsByType(const String& typeName)
 //---------------------------------------------------------------------
 void SceneManager::destroyAllMovableObjects()
 {
-    auto ci = mMovableObjectCollectionMap.begin();
-
-    for(;ci != mMovableObjectCollectionMap.end(); ++ci)
+    for(auto const& ci : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci->second.get();
+        MovableObjectCollection* coll = ci.second.get();
 
-        if (Root::getSingleton().hasMovableObjectFactory(ci->first))
+        if (Root::getSingleton().hasMovableObjectFactory(ci.first))
         {
             // Only destroy if we have a factory instance; otherwise must be injected
             MovableObjectFactory* factory = 
-                Root::getSingleton().getMovableObjectFactory(ci->first);
-            auto i = coll->map.begin();
-            for (; i != coll->map.end(); ++i)
+                Root::getSingleton().getMovableObjectFactory(ci.first);
+            for (auto const& i : coll->map)
             {
-                if (i->second->_getManager() == this)
+                if (i.second->_getManager() == this)
                 {
-                    factory->destroyInstance(i->second);
+                    factory->destroyInstance(i.second);
                 }
             }
         }
@@ -3617,9 +3561,9 @@ void SceneManager::_notifyMovableObjectLodChanged(MovableObjectLodChangedEvent& 
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueMovableObjectLodChanged(evt))
+        if (mLodListener->prequeueMovableObjectLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3632,9 +3576,9 @@ void SceneManager::_notifyEntityMeshLodChanged(EntityMeshLodChangedEvent& evt)
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueEntityMeshLodChanged(evt))
+        if (mLodListener->prequeueEntityMeshLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3647,9 +3591,9 @@ void SceneManager::_notifyEntityMaterialLodChanged(EntityMaterialLodChangedEvent
 {
     // Notify listeners and determine if event needs to be queued
     bool queueEvent = false;
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        if ((*it)->prequeueEntityMaterialLodChanged(evt))
+        if (mLodListener->prequeueEntityMaterialLodChanged(evt))
             queueEvent = true;
     }
 
@@ -3661,16 +3605,16 @@ void SceneManager::_notifyEntityMaterialLodChanged(EntityMaterialLodChangedEvent
 void SceneManager::_handleLodEvents()
 {
     // Handle events with each listener
-    for (auto it = mLodListeners.begin(); it != mLodListeners.end(); ++it)
+    for (auto mLodListener : mLodListeners)
     {
-        for (auto jt = mMovableObjectLodChangedEvents.begin(); jt != mMovableObjectLodChangedEvents.end(); ++jt)
-            (*it)->postqueueMovableObjectLodChanged(*jt);
+        for (auto & mMovableObjectLodChangedEvent : mMovableObjectLodChangedEvents)
+            mLodListener->postqueueMovableObjectLodChanged(mMovableObjectLodChangedEvent);
 
-        for (auto jt = mEntityMeshLodChangedEvents.begin(); jt != mEntityMeshLodChangedEvents.end(); ++jt)
-            (*it)->postqueueEntityMeshLodChanged(*jt);
+        for (auto & mEntityMeshLodChangedEvent : mEntityMeshLodChangedEvents)
+            mLodListener->postqueueEntityMeshLodChanged(mEntityMeshLodChangedEvent);
 
-        for (auto jt = mEntityMaterialLodChangedEvents.begin(); jt != mEntityMaterialLodChangedEvents.end(); ++jt)
-            (*it)->postqueueEntityMaterialLodChanged(*jt);
+        for (auto & mEntityMaterialLodChangedEvent : mEntityMaterialLodChangedEvents)
+            mLodListener->postqueueEntityMaterialLodChanged(mEntityMaterialLodChangedEvent);
     }
 
     // Clear event queues

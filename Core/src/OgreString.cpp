@@ -500,7 +500,7 @@ namespace Ogre {
         std::vector<char> hbuf;
         char* pbuf = sbuf;
 
-        while (true)
+        for(;;)
         {
             va_list va;
             va_start(va, fmt);

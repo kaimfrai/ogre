@@ -263,8 +263,7 @@ namespace Ogre {
 
             // Counter pass
             // Initialise the counts
-            int p;
-            for (p = 0; p < mNumPasses; ++p)
+            for (auto p = 0; p < mNumPasses; ++p)
                 memset(mCounters[p], 0, sizeof(int) * 256);
 
             // Perform alpha pass to count
@@ -284,7 +283,7 @@ namespace Ogre {
                 mSortArea1[u].iter = i;
 
                 // increase counters
-                for (p = 0; p < mNumPasses; ++p)
+                for (auto p = 0; p < mNumPasses; ++p)
                 {
                     unsigned char byteVal = getByte(p, val);
                     mCounters[p][byteVal]++;
@@ -302,8 +301,8 @@ namespace Ogre {
             // Sort passes
             mSrc = &mSortArea1;
             mDest = &mSortArea2;
-
-            for (p = 0; p < mNumPasses - 1; ++p)
+            auto p = 0;
+            for (; p < mNumPasses - 1; ++p)
             {
                 sortPass(p);
                 // flip src/dst
@@ -316,9 +315,9 @@ namespace Ogre {
 
             // Copy everything back
             int c = 0;
-            for (i = dbegin; i != dend; ++i, ++c)
+            for (auto it = dbegin; it != dend; ++it, ++c)
             {
-                *i = ::std::move(*((*mDest)[c].iter));
+                *it = ::std::move(*((*mDest)[c].iter));
             }
         }
 

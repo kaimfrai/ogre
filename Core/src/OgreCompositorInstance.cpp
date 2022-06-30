@@ -238,11 +238,10 @@ public:
         }
 
         // Queue passes from mat
-        Technique::Passes::const_iterator i;
-        for(i = technique->getPasses().begin(); i != technique->getPasses().end(); ++i)
+        for (auto i : technique->getPasses())
         {
             sm->_injectRenderWithPass(
-                *i,
+                i,
                 rect,
                 false // don't allow replacement of shadow passes
                 );
@@ -415,10 +414,8 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             /// Create local material
             MaterialPtr localMat = createLocalMaterial(srcmat->getName());
             /// Copy and adapt passes from source material
-            Technique::Passes::const_iterator i;
-            for(i = srctech->getPasses().begin(); i != srctech->getPasses().end(); ++i)
+            for (auto srcpass : srctech->getPasses())
             {
-                Pass *srcpass = *i;
                 /// Create new target pass
                 targetpass = localMat->getTechnique(0)->createPass();
                 (*targetpass) = (*srcpass);
@@ -544,11 +541,9 @@ void CompositorInstance::setTechnique(CompositionTechnique* tech, bool reuseText
             // make sure we store all (shared) textures in use in our reserve pool
             // this will ensure they don't get destroyed as unreferenced
             // so they're ready to use again later
-            const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-            auto it = tdefs.begin();
-            for (; it != tdefs.end(); ++it)
+            for (const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
+                CompositionTechnique::TextureDefinition *def : tdefs)
             {
-                CompositionTechnique::TextureDefinition *def = *it;
                 if (def->pooled)
                 {
                     auto i = mLocalTextures.find(def->name);
@@ -849,10 +844,8 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
     bool renderingScene = false;
 
     const CompositionTechnique::TargetPasses& passes = mTechnique->getTargetPasses();
-    CompositionTechnique::TargetPasses::const_iterator it;
-    for (it = passes.begin(); it != passes.end(); ++it)
+    for (auto tp : passes)
     {
-        CompositionTargetPass* tp = *it;
         if (tp->getOutputName() == texname)
         {
             if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
@@ -878,11 +871,8 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
             else
             {
                 // look for a render_scene pass
-                auto pit = tp->getPasses().begin();
-
-                for (;pit != tp->getPasses().end(); ++pit)
+                for (CompositionPass* pass : tp->getPasses())
                 {
-                    CompositionPass* pass = *pit;
                     if (pass->getType() == CompositionPass::PT_RENDERSCENE)
                     {
                         renderingScene = true;
@@ -928,12 +918,9 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     // We can also only free textures which are derived from the target size, if
     // required (saves some time & memory thrashing / fragmentation on resize)
 
-    const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
-    auto it = tdefs.begin();
-    for (; it != tdefs.end(); ++it)
+    for (const CompositionTechnique::TextureDefinitions& tdefs = mTechnique->getTextureDefinitions();
+        CompositionTechnique::TextureDefinition *def : tdefs)
     {
-        CompositionTechnique::TextureDefinition *def = *it;
-
         if (!def->refCompName.empty()) 
         {
             //This is a reference, isn't created here
@@ -1217,57 +1204,47 @@ void CompositorInstance::removeListener(Listener *l)
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyMaterialSetup(uint32 pass_id, MaterialPtr &mat)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyMaterialSetup(pass_id, mat);
+    for(auto & mListener : mListeners)
+        mListener->notifyMaterialSetup(pass_id, mat);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyMaterialRender(uint32 pass_id, MaterialPtr &mat)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyMaterialRender(pass_id, mat);
+    for(auto & mListener : mListeners)
+        mListener->notifyMaterialRender(pass_id, mat);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyResourcesCreated(bool forResizeOnly)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyResourcesCreated(forResizeOnly);
+    for(auto & mListener : mListeners)
+        mListener->notifyResourcesCreated(forResizeOnly);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::_fireNotifyResourcesReleased(bool forResizeOnly)
 {
-    Listeners::iterator i, iend=mListeners.end();
-    for(i=mListeners.begin(); i!=iend; ++i)
-        (*i)->notifyResourcesReleased(forResizeOnly);
+    for(auto & mListener : mListeners)
+        mListener->notifyResourcesReleased(forResizeOnly);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::notifyCameraChanged(Camera* camera)
 {
     // update local texture's viewports.
-    auto localTexIter = mLocalTextures.begin();
-    auto localTexIterEnd = mLocalTextures.end();
-    while (localTexIter != localTexIterEnd)
+    for (auto const& localTexIter : mLocalTextures)
     {
-        RenderTexture* target = localTexIter->second->getBuffer()->getRenderTarget();
+        RenderTexture* target = localTexIter.second->getBuffer()->getRenderTarget();
         // skip target that has no viewport (this means texture is under MRT)
         if (target->getNumViewports() == 1)
         {
             target->getViewport(0)->setCamera(camera);
         }
-        ++localTexIter;
     }
 
     // update MRT's viewports.
-    auto localMRTIter = mLocalMRTs.begin();
-    auto localMRTIterEnd = mLocalMRTs.end();
-    while (localMRTIter != localMRTIterEnd)
+    for (auto const& localMRTIter : mLocalMRTs)
     {
-        MultiRenderTarget* target = localMRTIter->second;
+        MultiRenderTarget* target = localMRTIter.second;
         if(target->getNumViewports())
             target->getViewport(0)->setCamera(camera);
-        ++localMRTIter;
     }
 }
 //-----------------------------------------------------------------------

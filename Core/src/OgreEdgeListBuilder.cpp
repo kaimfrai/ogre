@@ -48,32 +48,26 @@ namespace Ogre {
     
     void EdgeData::log(Log* l)
     {
-        EdgeGroupList::iterator i, iend;
-        EdgeList::iterator ei, eiend;
-        TriangleList::iterator ti, tiend;
-        tiend = triangles.end();
         l->logMessage("Edge Data");
         l->logMessage("---------");
-        size_t num = 0;
-        for (ti = triangles.begin(); ti != tiend; ++ti, ++num)
+
+        for (size_t num = 0;
+             Triangle& t : triangles)
         {
-            Triangle& t = *ti;
             l->logMessage("Triangle " + StringConverter::toString(num) + " = {" +
                 "indexSet=" + StringConverter::toString(t.indexSet) + ", " + 
                 "vertexSet=" + StringConverter::toString(t.vertexSet) + ", " + 
                 "v0=" + StringConverter::toString(t.vertIndex[0]) + ", " + 
                 "v1=" + StringConverter::toString(t.vertIndex[1]) + ", " + 
-                "v2=" + StringConverter::toString(t.vertIndex[2]) + "}"); 
+                "v2=" + StringConverter::toString(t.vertIndex[2]) + "}");
+            ++num;
         }
-        iend = edgeGroups.end();
-        for (i = edgeGroups.begin(); i != iend; ++i)
+        for (auto & edgeGroup : edgeGroups)
         {
-            num = 0;
-            eiend = i->edges.end();
-            l->logMessage("Edge Group vertexSet=" + StringConverter::toString(i->vertexSet));
-            for (ei = i->edges.begin(); ei != eiend; ++ei, ++num)
+            l->logMessage("Edge Group vertexSet=" + StringConverter::toString(edgeGroup.vertexSet));
+            for (size_t num = 0;
+                Edge& e : edgeGroup.edges)
             {
-                Edge& e = *ei;
                 l->logMessage(
                     "Edge " + StringConverter::toString(num) + " = {\n" + 
                     "  tri0=" + StringConverter::toString(e.triIndex[0]) + ", \n" + 
@@ -81,7 +75,8 @@ namespace Ogre {
                     "  v0=" + StringConverter::toString(e.vertIndex[0]) + ", \n" + 
                     "  v1=" + StringConverter::toString(e.vertIndex[1]) + ", \n"
                     "  degenerate=" + StringConverter::toString(e.degenerate) + " \n"
-                    "}"); 
+                    "}");
+                ++num;
             }
         }
     }
@@ -188,11 +183,9 @@ namespace Ogre {
         }
 
         // Build triangles and edge list
-        GeometryList::const_iterator i, iend;
-        iend = mGeometryList.end();
-        for (i = mGeometryList.begin(); i != iend; ++i)
+        for (auto & i : mGeometryList)
         {
-            buildTrianglesEdges(*i);
+            buildTrianglesEdges(i);
         }
 
         // Allocate memory for light facing calculate

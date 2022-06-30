@@ -74,9 +74,9 @@ namespace Ogre {
     {
         // Detach all objects, do this manually to avoid needUpdate() call 
         // which can fail because of deleted items
-        for (auto itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
+        for (auto & itr : mObjectsByName)
         {
-            (*itr)->_notifyAttached((SceneNode*)nullptr);
+            itr->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
     }
@@ -198,9 +198,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void SceneNode::detachObject(MovableObject* obj)
     {
-        ObjectMap::iterator i, iend;
-        iend = mObjectsByName.end();
-        for (i = mObjectsByName.begin(); i != iend; ++i)
+        for (auto i = mObjectsByName.begin(); i != mObjectsByName.end(); ++i)
         {
             if (*i == obj)
             {
@@ -218,9 +216,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void SceneNode::detachAllObjects()
     {
-        for (auto itr = mObjectsByName.begin(); itr != mObjectsByName.end(); ++itr )
+        for (auto & itr : mObjectsByName)
         {
-            (*itr)->_notifyAttached((SceneNode*)nullptr);
+            itr->_notifyAttached((SceneNode*)nullptr);
         }
         mObjectsByName.clear();
         // Make sure bounds get updated (must go right to the top)
@@ -233,11 +231,10 @@ namespace Ogre {
         mWorldAABB.setNull();
 
         // Update bounds from own attached objects
-        ObjectMap::iterator i;
-        for (i = mObjectsByName.begin(); i != mObjectsByName.end(); ++i)
+        for (auto & i : mObjectsByName)
         {
             // Merge world bounds of each object
-            mWorldAABB.merge((*i)->getWorldBoundingBox(true));
+            mWorldAABB.merge(i->getWorldBoundingBox(true));
         }
 
         // Merge with children
@@ -258,12 +255,8 @@ namespace Ogre {
             return;
 
         // Add all entities
-        ObjectMap::iterator iobj;
-        auto iobjend = mObjectsByName.end();
-        for (iobj = mObjectsByName.begin(); iobj != iobjend; ++iobj)
+        for (auto mo : mObjectsByName)
         {
-            MovableObject* mo = *iobj;
-
             queue->processVisibleObject(mo, cam, onlyShadowCasters, visibleBounds);
         }
 

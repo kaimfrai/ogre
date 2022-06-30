@@ -344,13 +344,11 @@ namespace Ogre
 
         void load(GLXGLSupport* const glSupport, GLXFBConfig fbConfig)
         {
-            std::map<int,int>::iterator it;
-
-            for (it = fields.begin(); it != fields.end(); it++)
+            for (auto & field : fields)
             {
-                it->second = 0;
+                field.second = 0;
 
-                glSupport->getFBConfigAttrib(fbConfig, it->first, &it->second);
+                glSupport->getFBConfigAttrib(fbConfig, field.first, &field.second);
             }
         }
 
@@ -368,11 +366,9 @@ namespace Ogre
                     return false;
             }
 
-            std::map<int,int>::iterator it;
-
-            for (it = fields.begin(); it != fields.end(); it++)
+            for (auto & field : fields)
             {
-                if (it->first != GLX_CONFIG_CAVEAT && fields[it->first] > alternative.fields[it->first])
+                if (field.first != GLX_CONFIG_CAVEAT && fields[field.first] > alternative.fields[field.first])
                     return true;
             }
 
@@ -608,11 +604,9 @@ namespace Ogre
 
         GLXVideoModes glxVideoModes(mVideoModes.begin(), mVideoModes.end());
 
-        GLXVideoModes::iterator mode;
-        auto end = glxVideoModes.end();
         GLXVideoMode *newMode = nullptr;
 
-        for(mode = glxVideoModes.begin(); mode != end; size++)
+        for(auto mode = glxVideoModes.begin(); mode != glxVideoModes.end(); size++)
         {
             if (mode->first.first >= width &&
                 mode->first.second >= height)
@@ -628,7 +622,7 @@ namespace Ogre
 
             GLXVideoMode *lastMode = &(*mode);
 
-            while (++mode != end && mode->first == lastMode->first)
+            while (++mode != glxVideoModes.end() && mode->first == lastMode->first)
             {
                 if (lastMode == newMode && mode->second == frequency)
                 {

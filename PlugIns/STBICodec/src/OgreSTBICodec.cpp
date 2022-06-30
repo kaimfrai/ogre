@@ -86,9 +86,9 @@ namespace Ogre {
         // Register codecs
         String exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
         StringVector extsVector = StringUtil::split(exts, ",");
-        for (auto v = extsVector.begin(); v != extsVector.end(); ++v)
+        for (auto & v : extsVector)
         {
-            ImageCodec* codec = new STBIImageCodec(*v);
+            ImageCodec* codec = new STBIImageCodec(v);
             msCodecList.push_back(codec);
             Codec::registerCodec(codec);
         }
@@ -98,11 +98,10 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void STBIImageCodec::shutdown()
     {
-        for (auto i = msCodecList.begin();
-            i != msCodecList.end(); ++i)
+        for (auto & i : msCodecList)
         {
-            Codec::unregisterCodec(*i);
-            delete *i;
+            Codec::unregisterCodec(i);
+            delete i;
         }
         msCodecList.clear();
     }

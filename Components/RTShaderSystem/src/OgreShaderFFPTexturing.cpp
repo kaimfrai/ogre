@@ -94,9 +94,9 @@ int FFPTexturing::getExecutionOrder() const noexcept
 //-----------------------------------------------------------------------
 bool FFPTexturing::resolveParameters(ProgramSet* programSet)
 {
-    for (unsigned int i=0; i < mTextureUnitParamsList.size(); ++i)
+    for (auto & i : mTextureUnitParamsList)
     {
-        TextureUnitParams* curParams = &mTextureUnitParamsList[i];
+        TextureUnitParams* curParams = &i;
 
         if (false == resolveUniformParams(curParams, programSet))
             return false;
@@ -269,9 +269,9 @@ bool FFPTexturing::addFunctionInvocations(ProgramSet* programSet)
     Function* vsMain   = vsProgram->getEntryPointFunction();
     Function* psMain   = psProgram->getEntryPointFunction();
 
-    for (unsigned int i=0; i < mTextureUnitParamsList.size(); ++i)
+    for (auto & i : mTextureUnitParamsList)
     {
-        TextureUnitParams* curParams = &mTextureUnitParamsList[i];
+        TextureUnitParams* curParams = &i;
 
         if (false == addVSFunctionInvocations(curParams, vsMain))
             return false;
@@ -517,26 +517,25 @@ TexCoordCalcMethod FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitS
 {
     TexCoordCalcMethod                      texCoordCalcMethod = TEXCALC_NONE;  
     const TextureUnitState::EffectMap&      effectMap = textureUnitState->getEffects(); 
-    TextureUnitState::EffectMap::const_iterator effi;
     
-    for (effi = effectMap.begin(); effi != effectMap.end(); ++effi)
+    for (auto const& effi : effectMap)
     {
-        switch (effi->second.type)
+        switch (effi.second.type)
         {
         case TextureUnitState::ET_ENVIRONMENT_MAP:
-            if (effi->second.subtype == TextureUnitState::ENV_CURVED)
+            if (effi.second.subtype == TextureUnitState::ENV_CURVED)
             {
                 texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP;               
             }
-            else if (effi->second.subtype == TextureUnitState::ENV_PLANAR)
+            else if (effi.second.subtype == TextureUnitState::ENV_PLANAR)
             {
                 texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_PLANAR;                
             }
-            else if (effi->second.subtype == TextureUnitState::ENV_REFLECTION)
+            else if (effi.second.subtype == TextureUnitState::ENV_REFLECTION)
             {
                 texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_REFLECTION;                
             }
-            else if (effi->second.subtype == TextureUnitState::ENV_NORMAL)
+            else if (effi.second.subtype == TextureUnitState::ENV_NORMAL)
             {
                 texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_NORMAL;                
             }
@@ -560,11 +559,10 @@ TexCoordCalcMethod FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitS
 bool FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState)
 {
     const TextureUnitState::EffectMap&      effectMap = textureUnitState->getEffects(); 
-    TextureUnitState::EffectMap::const_iterator effi;
 
-    for (effi = effectMap.begin(); effi != effectMap.end(); ++effi)
+    for (auto const& effi : effectMap)
     {
-        switch (effi->second.type)
+        switch (effi.second.type)
         {
     
         case TextureUnitState::ET_UVSCROLL:
