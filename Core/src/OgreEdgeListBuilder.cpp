@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <format>
 #include <memory>
 #include <string>
 
@@ -61,7 +62,7 @@ namespace Ogre {
         }
         for (auto & edgeGroup : edgeGroups)
         {
-            l->logMessage(::std::format("Edge Group vertexSet={}", i->vertexSet));
+            l->logMessage(::std::format("Edge Group vertexSet={}", edgeGroup.vertexSet));
             for (size_t num = 0;
                 Edge& e : edgeGroup.edges)
             {

@@ -29,6 +29,7 @@
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 #include <cassert>
+#include <format>
 #include <istream>
 #include <map>
 #include <string>

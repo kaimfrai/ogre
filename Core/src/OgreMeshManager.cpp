@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cmath>
 #include <cstddef>
+#include <format>
 #include <map>
 #include <memory>
 #include <string>

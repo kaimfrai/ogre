@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "FileSystemArchiveTests.hpp"
 
 #include <algorithm>
+#include <format>
 #include <map>
 #include <string>
 #include <utility>

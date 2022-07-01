@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <iostream>
+#include <format>
 #include <utility>
 
 #include "OgreConfigFile.hpp"

@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <any>
+#include <format>
 #include <utility>
 
 #include "OgreCodec.hpp"

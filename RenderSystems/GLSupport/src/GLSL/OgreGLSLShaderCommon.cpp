@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cstdlib>
 #include <cstring>
+#include <format>
 #include <string>
 #include <utility>
 

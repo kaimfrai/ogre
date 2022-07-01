@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <any>
 #include <cstring>
+#include <format>
 #include <map>
 #include <string>
 #include <variant>

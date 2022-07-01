@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "OgreGLFBORenderTexture.hpp"
 
 #include <cstddef>
+#include <format>
 #include <map>
 #include <memory>
 #include <ostream>

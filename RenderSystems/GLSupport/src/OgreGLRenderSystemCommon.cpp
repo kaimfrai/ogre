@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include "OgreGLRenderSystemCommon.hpp"
 
 #include <algorithm>
+#include <format>
 #include <map>
 #include <string>
 #include <utility>

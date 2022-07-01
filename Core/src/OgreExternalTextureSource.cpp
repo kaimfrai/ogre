@@ -35,6 +35,7 @@ date                 : Jan 1 2004
 email                : pjcast@yahoo.com
 ***************************************************************************/
 
+#include <format>
 #include <string>
 
 #include "OgreException.hpp"

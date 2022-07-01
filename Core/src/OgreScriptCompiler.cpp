@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
+#include <format>
 #include <list>
 #include <map>
 #include <memory>

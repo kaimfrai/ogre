@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <cstring>
+#include <format>
 #include <string>
 
 #include "OgreAxisAlignedBox.hpp"

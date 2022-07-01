@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "OgreSTBICodec.hpp"
 
 #include <cstdlib>
+#include <format>
 #include <memory>
 #include <ostream>
 #include <string>

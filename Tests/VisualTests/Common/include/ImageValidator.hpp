@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "OgreDataStream.hpp"
 #include "OgreImage.hpp"
 
+#include <format>
 #include <fstream>
 #include <utility>
 

@@ -29,6 +29,7 @@
 #define OGRE_COMPONENTS_BITES_TRAYS_H
 
 #include <cstddef>
+#include <format>
 #include <memory>
 #include <string>
 #include <vector>

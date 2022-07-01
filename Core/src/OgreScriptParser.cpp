@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 
+#include <format>
 #include <list>
 #include <string>
 #include <vector>

@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 
 #include <cstdio>
+#include <format>
 #include <map>
 #include <string>
 #include <utility>

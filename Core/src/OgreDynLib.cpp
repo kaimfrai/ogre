@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cstddef>
+#include <format>
 #include <string>
 
 #include "OgreDynLib.hpp"

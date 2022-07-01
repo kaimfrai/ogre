@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstring>
+#include <format>
 #include <string>
 
 #include "OgreAlignedAllocator.hpp"

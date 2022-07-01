@@ -31,6 +31,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <dlfcn.h>
+#include <format>
 #include <pwd.h>
 #include <string>
 #include <sys/stat.h>

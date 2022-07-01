@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cassert>
+#include <format>
 #include <iterator>
 #include <list>
 #include <map>

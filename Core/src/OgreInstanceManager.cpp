@@ -217,7 +217,7 @@ namespace Ogre
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    ::std::format("Unimplemented instancing technique: {}", mInstancingTechnique),
+                    ::std::format("Unimplemented instancing technique: {}", ::std::to_underlying(mInstancingTechnique)),
                     "InstanceBatch::buildNewBatch()");
         }
 

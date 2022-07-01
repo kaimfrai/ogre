@@ -31,6 +31,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstddef>
+#include <format>
 #include <iosfwd>
 #include <map>
 #include <memory>

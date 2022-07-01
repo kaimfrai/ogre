@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 #include <cstdint>
 #include <cstdio>
+#include <format>
 #include <fstream> // IWYU pragma: keep
 #include <string>
 

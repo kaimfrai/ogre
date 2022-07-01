@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
+#include <format>
 #include <memory>
 #include <ostream>
 #include <string>

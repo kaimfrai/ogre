@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <cassert>
 #include <cstring>
+#include <format>
 #include <list>
 #include <map>
 #include <memory>

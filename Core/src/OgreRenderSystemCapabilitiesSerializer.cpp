@@ -25,6 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+#include <format>
 #include <memory>
 #include <ostream>
 #include <set>
@@ -222,7 +223,7 @@ namespace Ogre
                 case FIND_OPEN_BRACE:
                     if (tokens[0] != "{" || tokens.size() != 1)
                     {
-                        logParseError(::std::format("Expected '{' got: {}. Continuing to next line.", line ));
+                        logParseError(::std::format("Expected '{{' got: {}. Continuing to next line.", line ));
                     }
                     else
                     {

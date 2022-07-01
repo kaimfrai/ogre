@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
+#include <format>
 #include <istream>
 #include <list>
 #include <map>

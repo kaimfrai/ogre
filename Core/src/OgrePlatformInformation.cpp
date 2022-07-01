@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <cstring>
+#include <format>
 #include <ostream>
 #include <string>
 

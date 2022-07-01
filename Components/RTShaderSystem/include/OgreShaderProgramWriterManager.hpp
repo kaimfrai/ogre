@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERMANAGER_H
 #define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERMANAGER_H
 
+#include <format>
 #include <map>
 #include <memory>
 #include <string>

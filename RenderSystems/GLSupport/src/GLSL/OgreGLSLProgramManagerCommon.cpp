@@ -29,6 +29,7 @@
 #include "OgreGLSLProgramManagerCommon.hpp"
 
 #include <cstddef>
+#include <format>
 #include <utility>
 #include <vector>
 

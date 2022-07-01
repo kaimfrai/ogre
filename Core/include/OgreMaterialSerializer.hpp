@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstddef>
+#include <format>
 #include <map>
 #include <set>
 #include <string>

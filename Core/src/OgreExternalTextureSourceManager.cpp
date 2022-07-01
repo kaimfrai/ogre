@@ -36,6 +36,7 @@ email                : pjcast@yahoo.com
 ***************************************************************************/
 
 #include <cassert>
+#include <format>
 #include <utility>
 
 #include "OgreExternalTextureSource.hpp"

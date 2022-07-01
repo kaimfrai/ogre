@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 #include <cstddef>
 #include <map>
+#include <format>
 #include <string>
 #include <utility>
 #include <vector>

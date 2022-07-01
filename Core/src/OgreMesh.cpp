@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cmath>
 #include <cstring>
+#include <format>
 #include <iterator>
 #include <limits>
 #include <list>
