@@ -189,13 +189,13 @@ class Sphere;
     //---------------------------------------------------------------------
     void Camera::addListener(Listener* l)
     {
-        if (std::find(mListeners.begin(), mListeners.end(), l) == mListeners.end())
+        if (std::ranges::find(mListeners, l) == mListeners.end())
             mListeners.push_back(l);
     }
     //---------------------------------------------------------------------
     void Camera::removeListener(Listener* l)
     {
-        auto i = std::find(mListeners.begin(), mListeners.end(), l);
+        auto i = std::ranges::find(mListeners, l);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

@@ -149,7 +149,7 @@ namespace Ogre {
         auto i = mResponseHandlers.emplace(channel, ResponseHandlerList()).first;
 
         ResponseHandlerList& handlers = i->second;
-        if (std::find(handlers.begin(), handlers.end(), rh) == handlers.end())
+        if (std::ranges::find(handlers, rh) == handlers.end())
             handlers.push_back(rh);
     }
     //---------------------------------------------------------------------
@@ -159,8 +159,7 @@ namespace Ogre {
         if (i != mResponseHandlers.end())
         {
             ResponseHandlerList& handlers = i->second;
-            auto j = std::find(
-                handlers.begin(), handlers.end(), rh);
+            auto j = std::ranges::find(handlers, rh);
             if (j != handlers.end())
                 handlers.erase(j);
 

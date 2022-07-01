@@ -443,7 +443,7 @@ namespace Ogre {
 
         // only find index for state attached to this pass
         OgreAssert(state->getParent() == this, "TextureUnitState is not attached to this pass");
-        auto i = std::find(mTextureUnitStates.begin(), mTextureUnitStates.end(), state);
+        auto i = std::ranges::find(mTextureUnitStates, state);
         assert(i != mTextureUnitStates.end() && "state is supposed to attached to this pass");
         return static_cast<unsigned short>(std::distance(mTextureUnitStates.begin(), i));
     }

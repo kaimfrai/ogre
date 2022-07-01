@@ -762,7 +762,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.
-                std::replace( texName.begin(), texName.end(), ' ', '_' ); 
+                std::ranges::replace(texName, ' ', '_' ); 
                 
                 hwGamma = hwGamma && !PixelUtil::isFloatingPoint(def->formatList[0]);
 
@@ -1191,13 +1191,13 @@ void CompositorInstance::queueRenderSystemOp(TargetOperation &finalState, Render
 //-----------------------------------------------------------------------
 void CompositorInstance::addListener(Listener *l)
 {
-    if (std::find(mListeners.begin(), mListeners.end(), l) == mListeners.end())
+    if (std::ranges::find(mListeners, l) == mListeners.end())
         mListeners.push_back(l);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::removeListener(Listener *l)
 {
-    auto i = std::find(mListeners.begin(), mListeners.end(), l);
+    auto i = std::ranges::find(mListeners, l);
     if (i != mListeners.end())
         mListeners.erase(i);
 }

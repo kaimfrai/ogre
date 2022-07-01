@@ -130,7 +130,7 @@ namespace Ogre {
 
         // Also add to name index
         MovableObjectNameExists pred = {obj->getName()};
-        auto it = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
+        auto it = std::ranges::find_if(mObjectsByName, pred);
         if (it != mObjectsByName.end())
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
                         "An object named '" + obj->getName() + "' already attached to this SceneNode");
@@ -144,7 +144,7 @@ namespace Ogre {
     {
         // Look up 
         MovableObjectNameExists pred = {name};
-        auto i = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
+        auto i = std::ranges::find_if(mObjectsByName, pred);
 
         if (i == mObjectsByName.end())
         {
@@ -176,7 +176,7 @@ namespace Ogre {
     MovableObject* SceneNode::detachObject(const String& name)
     {
         MovableObjectNameExists pred = {name};
-        auto it = std::find_if(mObjectsByName.begin(), mObjectsByName.end(), pred);
+        auto it = std::ranges::find_if(mObjectsByName, pred);
 
         if (it == mObjectsByName.end())
         {
@@ -321,7 +321,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void SceneNode::removeAndDestroyChild(SceneNode* child)
     {
-        removeAndDestroyChild(std::find(getChildren().begin(), getChildren().end(), child) -
+        removeAndDestroyChild(std::ranges::find(getChildren(), child) -
                               getChildren().begin());
     }
     //-----------------------------------------------------------------------

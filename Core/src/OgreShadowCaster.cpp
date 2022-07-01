@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <memory>
+#include <span>
 #include <string>
 #include <utility>
 #include <vector>
@@ -265,19 +266,16 @@ namespace Ogre {
                 if (flags & SRF_INCLUDE_LIGHT_CAP) 
                 {
                     // Iterate over the triangles which are using this vertex set
-                    EdgeData::TriangleList::const_iterator ti, tiend;
-                    EdgeData::TriangleLightFacingList::const_iterator lfi;
-                    ti = edgeData->triangles.begin() + eg.triStart;
-                    tiend = ti + eg.triCount;
-                    lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
-                    for ( ; ti != tiend; ++ti, ++lfi)
+                    for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
+                        auto const& ti[[maybe_unused]] : std::span{edgeData->triangles.begin() + eg.triStart, eg.triCount})
                     {
-                        assert(ti->vertexSet == eg.vertexSet);
+                        assert(ti.vertexSet == eg.vertexSet);
                         // Check it's light facing
                         if (*lfi)
                         {
                             preCountIndexes += 3;
                         }
+                        ++lfi;
                     }
 
                 }
@@ -289,21 +287,18 @@ namespace Ogre {
                 if(increment != 0)
                 {
                     // Iterate over the triangles which are using this vertex set
-                    EdgeData::TriangleList::const_iterator ti, tiend;
-                    EdgeData::TriangleLightFacingList::const_iterator lfi;
-                    ti = edgeData->triangles.begin() + eg.triStart;
-                    tiend = ti + eg.triCount;
-                    lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
-                    for ( ; ti != tiend; ++ti, ++lfi)
+                    for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
+                        auto const& ti[[maybe_unused]] : std::span{edgeData->triangles.begin() + eg.triStart, eg.triCount})
                     {
-                        assert(ti->vertexSet == eg.vertexSet);
+                        assert(ti.vertexSet == eg.vertexSet);
                         // Check it's light facing
                         if (*lfi)
                             preCountIndexes += increment;
+                        ++lfi;
                     }
                 }
             }
-             ++si;
+            ++si;
         }
         // End pre-count
         
@@ -442,14 +437,9 @@ namespace Ogre {
                 if (flags & SRF_INCLUDE_DARK_CAP) 
                 {
                     // Iterate over the triangles which are using this vertex set
-                    EdgeData::TriangleList::const_iterator ti, tiend;
-                    EdgeData::TriangleLightFacingList::const_iterator lfi;
-                    ti = edgeData->triangles.begin() + eg.triStart;
-                    tiend = ti + eg.triCount;
-                    lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
-                    for ( ; ti != tiend; ++ti, ++lfi)
+                    for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
+                        const EdgeData::Triangle& t : std::span{edgeData->triangles.begin() + eg.triStart, eg.triCount})
                     {
-                        const EdgeData::Triangle& t = *ti;
                         assert(t.vertexSet == eg.vertexSet);
                         // Check it's light facing
                         if (*lfi)
@@ -462,6 +452,7 @@ namespace Ogre {
                             *pIdx++ = static_cast<unsigned short>(t.vertIndex[2] + originalVertexCount);
                             numIndices += 3;
                         }
+                        ++lfi;
                     }
 
                 }
@@ -483,14 +474,9 @@ namespace Ogre {
                 }
 
                 // Iterate over the triangles which are using this vertex set
-                EdgeData::TriangleList::const_iterator ti, tiend;
-                EdgeData::TriangleLightFacingList::const_iterator lfi;
-                ti = edgeData->triangles.begin() + eg.triStart;
-                tiend = ti + eg.triCount;
-                lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
-                for ( ; ti != tiend; ++ti, ++lfi)
+                for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
+                    const EdgeData::Triangle& t : std::span{edgeData->triangles.begin() + eg.triStart, eg.triCount})
                 {
-                    const EdgeData::Triangle& t = *ti;
                     assert(t.vertexSet == eg.vertexSet);
                     // Check it's light facing
                     if (*lfi)
@@ -503,6 +489,7 @@ namespace Ogre {
                         *pIdx++ = static_cast<unsigned short>(t.vertIndex[2]);
                         numIndices += 3;
                     }
+                    ++lfi;
                 }
 
             }

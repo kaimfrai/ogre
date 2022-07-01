@@ -363,6 +363,11 @@ class SceneManager;
         /// The world fragment, or NULL if this is not a fragment result
         SceneQuery::WorldFragment* worldFragment;
         /// Comparison operator for sorting
+        [[nodiscard]] auto operator == (const RaySceneQueryResultEntry& rhs) const noexcept -> bool
+        {
+            return this->distance == rhs.distance;
+        }
+        /// Comparison operator for sorting
         [[nodiscard]] auto operator <=> (const RaySceneQueryResultEntry& rhs) const noexcept
         {
             return this->distance <=> rhs.distance;

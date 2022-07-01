@@ -31,6 +31,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 #include <limits>
 #include <list>
 #include <map>
+#include <span>
 #include <string>
 
 #include "OgreAlignedAllocator.hpp"
@@ -942,7 +943,7 @@ class Sphere;
                 {
                     mBoneWorldMatrices =
                         static_cast<Affine3*>(::Ogre::AlignedMemory::allocate(sizeof(Affine3) * mNumBoneMatrices));
-                    std::fill(mBoneWorldMatrices, mBoneWorldMatrices + mNumBoneMatrices, Affine3::IDENTITY);
+                    std::ranges::fill(std::span{mBoneWorldMatrices, mNumBoneMatrices}, Affine3::IDENTITY);
                 }
 
                 OptimisedUtil::getImplementation()->concatenateAffineMatrices(
@@ -1446,7 +1447,7 @@ class Sphere;
     TagPoint* Entity::attachObjectToBone(const String &boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition)
     {
         MovableObjectNameExists pred = {pMovable->getName()};
-        auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
+        auto it = std::ranges::find_if(mChildObjectList, pred);
         if (it != mChildObjectList.end())
         {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
@@ -1479,7 +1480,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     void Entity::attachObjectImpl(MovableObject *pObject, TagPoint *pAttachingPoint)
     {
-        assert(std::find_if(mChildObjectList.begin(), mChildObjectList.end(),
+        assert(std::ranges::find_if(mChildObjectList,
                             MovableObjectNameExists{pObject->getName()}) == mChildObjectList.end());
 
         mChildObjectList.push_back(pObject);
@@ -1490,7 +1491,7 @@ class Sphere;
     MovableObject* Entity::detachObjectFromBone(const String &name)
     {
         MovableObjectNameExists pred = {name};
-        auto it = std::find_if(mChildObjectList.begin(), mChildObjectList.end(), pred);
+        auto it = std::ranges::find_if(mChildObjectList, pred);
 
         if (it == mChildObjectList.end())
         {

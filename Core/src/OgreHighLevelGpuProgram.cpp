@@ -26,6 +26,7 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
+#include <span>
 #include <string>
 
 #include "OgreDataStream.hpp"
@@ -358,7 +359,7 @@ namespace Ogre
                 outSource.append(inSource.substr(startMarker, newLineBefore-startMarker+1));
 
             // Count the line number of #include statement, +1 for new line after the statement
-            size_t lineCount = std::count(inSource.begin(), inSource.begin() + newLineAfter, '\n') + 1;
+            size_t lineCount = std::ranges::count(std::span{inSource.begin(), newLineAfter}, '\n') + 1;
 
             // use include filename if supported (cg) - else use include line as id (glsl)
             String incLineFilename = supportsFilename ? StringUtil::format(" \"%s\"", filename.c_str()) : StringUtil::format(" %zu", lineCount);

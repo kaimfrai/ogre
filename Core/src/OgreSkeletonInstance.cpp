@@ -217,7 +217,7 @@ class AnimationStateSet;
     void SkeletonInstance::freeTagPoint(TagPoint* tagPoint)
     {
         auto it =
-            std::find(mActiveTagPoints.begin(), mActiveTagPoints.end(), tagPoint);
+            std::ranges::find(mActiveTagPoints, tagPoint);
         assert(it != mActiveTagPoints.end());
         if (it != mActiveTagPoints.end())
         {

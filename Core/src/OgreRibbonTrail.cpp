@@ -132,7 +132,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::removeNode(const Node* n)
     {
-        auto i = std::find(mNodeList.begin(), mNodeList.end(), n);
+        auto i = std::ranges::find(mNodeList, n);
         if (i != mNodeList.end())
         {
             // also get matching chain segment
@@ -211,7 +211,7 @@ namespace Ogre
         BillboardChain::clearChain(chainIndex);
 
         // Reset if we are tracking for this chain
-        auto i = std::find(mNodeToChainSegment.begin(), mNodeToChainSegment.end(), chainIndex);
+        auto i = std::ranges::find(mNodeToChainSegment, chainIndex);
         if (i != mNodeToChainSegment.end())
         {
             size_t nodeIndex = std::distance(mNodeToChainSegment.begin(), i);

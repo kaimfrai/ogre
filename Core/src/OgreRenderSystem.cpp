@@ -791,7 +791,7 @@ namespace Ogre {
     void RenderSystem::destroyHardwareOcclusionQuery( HardwareOcclusionQuery *hq)
     {
         auto i =
-            std::find(mHwOcclusionQueries.begin(), mHwOcclusionQueries.end(), hq);
+            std::ranges::find(mHwOcclusionQueries, hq);
         if (i != mHwOcclusionQueries.end())
         {
             mHwOcclusionQueries.erase(i);

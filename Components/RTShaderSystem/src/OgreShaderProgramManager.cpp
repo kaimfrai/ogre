@@ -399,9 +399,7 @@ void ProgramManager::synchronizePixelnToBeVertexOut( ProgramSet* programSet )
         ParameterPtr paramToAdd = Function::_getParameterBySemantic(
             pixelOriginalInParams, curOutParemter->getSemantic(), curOutParemter->getIndex());
 
-        pixelOriginalInParams.erase(
-            std::remove(pixelOriginalInParams.begin(), pixelOriginalInParams.end(), paramToAdd),
-            pixelOriginalInParams.end());
+        erase(pixelOriginalInParams, paramToAdd);
 
         if (!paramToAdd)
         {

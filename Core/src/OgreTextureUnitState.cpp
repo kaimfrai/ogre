@@ -719,14 +719,26 @@ class Frustum;
     void TextureUnitState::removeEffect(TextureEffectType type)
     {
         // Get range of items matching this effect
-        std::pair< EffectMap::iterator, EffectMap::iterator > remPair = 
+        auto remPair =
             mEffects.equal_range( type );
+
         // Remove controllers
-        for (auto i = remPair.first; i != remPair.second; ++i)
-        {
-            if (i->second.controller)
+        for (struct
+                Span
             {
-                ControllerManager::getSingleton().destroyController(i->second.controller);
+                decltype(remPair.first) Begin;
+                decltype(remPair.second) End;
+                auto begin() { return Begin; }
+                auto end() { return End; }
+            }   span
+            {   remPair.first
+            ,   remPair.second
+            };
+            auto const& i : span)
+        {
+            if (i.second.controller)
+            {
+                ControllerManager::getSingleton().destroyController(i.second.controller);
             }
         }
         // Erase         
@@ -1175,10 +1187,20 @@ class Frustum;
     bool TextureUnitState::hasViewRelativeTextureCoordinateGeneration() const
     {
         // Right now this only returns true for reflection maps
-
-        for(auto i = mEffects.find(ET_ENVIRONMENT_MAP); i != mEffects.end(); ++i)
+        for(struct
+                Span
+            {
+                EffectMap::const_iterator Begin;
+                decltype(Begin) End;
+                auto begin() { return Begin; }
+                auto end() { return End; }
+            }   span
+            {   mEffects.find(ET_ENVIRONMENT_MAP)
+            ,   mEffects.end()
+            };
+            auto const& i : span)
         {
-            if (i->second.subtype == ENV_REFLECTION)
+            if (i.second.subtype == ENV_REFLECTION)
                 return true;
         }
 

@@ -353,11 +353,23 @@ namespace Ogre {
         if (range.first != range.second)
         {
             std::list<HardwareVertexBufferSharedPtr> holdForDelayDestroy;
-            for (auto it = range.first; it != range.second; ++it)
-            {
-                if (it->second.use_count() <= 1)
+
+            for (struct
+                    Span
                 {
-                    holdForDelayDestroy.push_back(it->second);
+                    _Iter Begin;
+                    _Iter End;
+                    auto begin() {return Begin; }
+                    auto end() { return End; }
+                } span
+                {   range.first
+                ,   range.second
+                };
+                auto const& it : span)
+            {
+                if (it.second.use_count() <= 1)
+                {
+                    holdForDelayDestroy.push_back(it.second);
                 }
             }
 

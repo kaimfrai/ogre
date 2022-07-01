@@ -2047,10 +2047,9 @@ namespace Ogre {
         if (!pMesh->getPoseList().empty())
         {
             size += MSTREAM_OVERHEAD_SIZE;
-            PoseList::const_iterator it;
-            for( it = pMesh->getPoseList().begin(); it != pMesh->getPoseList().end(); ++it)
+            for(auto const& it : pMesh->getPoseList())
             {
-                size += calcPoseSize(*it);
+                size += calcPoseSize(it);
             }
         }
         return size;

@@ -393,7 +393,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
             EXPECT_TRUE(aElements.size() == bElements.size());
 
             for (auto const& aIt : aElements) {
-                auto bIt = std::find(bElements.begin(), bElements.end(), aIt);
+                auto bIt = std::ranges::find(bElements, aIt);
                 EXPECT_TRUE(bIt != bElements.end());
 
                 const VertexElement& aElem = aIt;
@@ -441,7 +441,7 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
 template<typename T>
 bool MeshSerializerTests::isContainerClone(T& a, T& b)
 {
-    return a.size() == b.size() && std::equal(a.begin(), a.end(), b.begin());
+    return a.size() == b.size() && std::ranges::equal(a, b);
 }
 //--------------------------------------------------------------------------
 template<typename K, typename V>

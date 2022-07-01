@@ -238,7 +238,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
             Operand::OpSemantic opSemantic = operand.getSemantic();
 
             bool isInputParam =
-                std::find(inParams.begin(), inParams.end(), param) != inParams.end();
+                std::ranges::find(inParams, param) != inParams.end();
 
             if (opSemantic == Operand::OPS_OUT || opSemantic == Operand::OPS_INOUT)
             {
@@ -249,7 +249,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
                 // If its not a varying param check if a uniform is written
                 if (!doLocalRename)
                 {
-                    doLocalRename = std::find(parameterList.begin(), parameterList.end(),
+                    doLocalRename = std::ranges::find(parameterList,
                                                 param) != parameterList.end();
                 }
 

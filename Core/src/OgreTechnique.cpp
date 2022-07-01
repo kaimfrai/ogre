@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <ostream>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -186,7 +187,7 @@ namespace Ogre {
                     // Move the new pass to the right place (will have been created
                     // at the end, may be other passes in between)
                     assert(mPasses.back() == currPass);
-                    std::copy_backward(i, (mPasses.end() - 1), mPasses.end());
+                    std::ranges::move_backward(std::span{i, mPasses.end() - 1}, mPasses.end());
                     *i = currPass;
                     // Adjust pass index
                     currPass->_notifyIndex(passNum);

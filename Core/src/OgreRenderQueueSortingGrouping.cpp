@@ -391,7 +391,7 @@ namespace {
             else
             {
                 std::stable_sort(
-                    mSortedDescending.begin(), mSortedDescending.end(), 
+                    mSortedDescending.begin(), mSortedDescending.end(),
                     DistanceSortDescendingLess(cam));
             }
         }
@@ -495,17 +495,16 @@ namespace {
     {
         mSortedDescending.insert( mSortedDescending.end(), rhs.mSortedDescending.begin(), rhs.mSortedDescending.end() );
 
-        PassGroupRenderableMap::const_iterator srcGroup;
-        for( srcGroup = rhs.mGrouped.begin(); srcGroup != rhs.mGrouped.end(); ++srcGroup )
+        for(auto const& srcGroup : rhs.mGrouped)
         {
             // Optionally create new pass entry, build a new list
             // Note that this pass and list are never destroyed until the
             // engine shuts down, or a pass is destroyed or has it's hash
             // recalculated, although the lists will be cleared
-            auto dstGroup = mGrouped.emplace(srcGroup->first, RenderableList()).first;
+            auto dstGroup = mGrouped.emplace(srcGroup.first, RenderableList()).first;
 
             // Insert renderable
-            dstGroup->second.insert( dstGroup->second.end(), srcGroup->second.begin(), srcGroup->second.end() );
+            dstGroup->second.insert( dstGroup->second.end(), srcGroup.second.begin(), srcGroup.second.end() );
         }
     }
 

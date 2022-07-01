@@ -598,13 +598,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Profiler::addListener(ProfileSessionListener* listener)
     {
-        if (std::find(mListeners.begin(), mListeners.end(), listener) == mListeners.end())
+        if (std::ranges::find(mListeners, listener) == mListeners.end())
             mListeners.push_back(listener);
     }
     //-----------------------------------------------------------------------
     void Profiler::removeListener(ProfileSessionListener* listener)
     {
-        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::ranges::find(mListeners, listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

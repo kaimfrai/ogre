@@ -135,7 +135,7 @@ void RenderState::addTemplateSubRenderState(SubRenderState* subRenderState)
 //-----------------------------------------------------------------------
 void RenderState::removeSubRenderState(SubRenderState* subRenderState)
 {
-    auto it = std::find(mSubRenderStateList.begin(), mSubRenderStateList.end(), subRenderState);
+    auto it = std::ranges::find(mSubRenderStateList, subRenderState);
     if(it == mSubRenderStateList.end()) return;
 
     mSubRenderStateList.erase(it);
@@ -226,7 +226,7 @@ void TargetRenderState::releasePrograms(Pass* pass)
 static void fixupFFPLighting(TargetRenderState* renderState)
 {
     const SubRenderStateList& subRenderStateList = renderState->getSubRenderStates();
-    auto it = std::find_if(subRenderStateList.begin(), subRenderStateList.end(),
+    auto it = std::ranges::find_if(subRenderStateList,
                            [](const SubRenderState* e) { return e->getType() == FFPLighting::Type; });
 
     if (it == subRenderStateList.end())
@@ -234,7 +234,7 @@ static void fixupFFPLighting(TargetRenderState* renderState)
 
     auto ffpLighting = static_cast<FFPLighting*>(*it);
 
-    it = std::find_if(subRenderStateList.begin(), subRenderStateList.end(),
+    it = std::ranges::find_if(subRenderStateList,
                       [](const SubRenderState* e) { return e->getType() == FFPColour::Type; });
 
     OgreAssert(it != subRenderStateList.end(), "FFPColour required");
@@ -316,7 +316,7 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
         case FFP_TEXTURING:
         case FFP_FOG:
             // Check if this FFP stage already exists.
-            it = std::find_if(mSubRenderStateList.begin(), mSubRenderStateList.end(),
+            it = std::ranges::find_if(mSubRenderStateList,
                               [srcSubRenderState](const SubRenderState* e) {
                                   return srcSubRenderState->getExecutionOrder() == e->getExecutionOrder();
                               });
@@ -328,7 +328,7 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
             continue;
 
         // Check if this type of sub render state already exists.
-        it = std::find_if(mSubRenderStateList.begin(), mSubRenderStateList.end(),
+        it = std::ranges::find_if(mSubRenderStateList,
                           [srcSubRenderState](const SubRenderState* e) {
                               return srcSubRenderState->getType() == e->getType();
                           });
@@ -365,7 +365,7 @@ void TargetRenderState::sortSubRenderStates()
 {
     if (mSubRenderStateSortValid == false)
     {
-        std::sort(mSubRenderStateList.begin(), mSubRenderStateList.end(), CmpSubRenderStates());
+        std::ranges::sort(mSubRenderStateList, CmpSubRenderStates());
         mSubRenderStateSortValid = true;
     }
 }

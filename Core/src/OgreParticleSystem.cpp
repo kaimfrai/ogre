@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 #include <algorithm>
 #include <cassert>
+#include <span>
 #include <utility>
 
 #include "OgreCamera.hpp"
@@ -284,7 +285,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void ParticleSystem::removeEmitter(ParticleEmitter* emitter)
     {
-        auto ei = std::find(mEmitters.begin(), mEmitters.end(), emitter);
+        auto ei = std::ranges::find(mEmitters, emitter);
         OgreAssert(ei != mEmitters.end(), "Emitter is not a part of ParticleSystem!");
         ParticleSystemManager::getSingleton()._destroyEmitter(*ei);
         mEmitters.erase(ei);
@@ -1070,9 +1071,8 @@ class RenderQueue;
         mActiveParticles.clear();
         mFreeParticles.clear();
 
-        ::std::transform
-        (   mParticlePool.begin(),
-            mParticlePool.end(),
+        ::std::ranges::transform
+        (   mParticlePool,
             ::std::inserter(mFreeParticles, mFreeParticles.end()),
             ::std::mem_fn(&::std::unique_ptr<Particle>::get)
         );
@@ -1113,9 +1113,8 @@ class RenderQueue;
             this->increasePool(size);
 
             // Add new items to the queue
-            ::std::transform
-            (   mParticlePool.begin() + currSize,
-                mParticlePool.end(),
+            ::std::ranges::transform
+            (   std::span{mParticlePool.begin() + currSize, mParticlePool.end()},
                 ::std::inserter(mFreeParticles, mFreeParticles.end()),
                 ::std::mem_fn(&::std::unique_ptr<Particle>::get)
             );

@@ -246,7 +246,7 @@ class MovableObject;
             else
             {
                 // Sort entire result array
-                std::sort(mResult.begin(), mResult.end());
+                std::ranges::sort(mResult);
             }
         }
 

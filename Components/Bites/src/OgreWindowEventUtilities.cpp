@@ -104,7 +104,7 @@ void WindowEventUtilities::_addRenderWindow(RenderWindow* window)
 //--------------------------------------------------------------------------------//
 void WindowEventUtilities::_removeRenderWindow(RenderWindow* window)
 {
-    auto i = std::find(_msWindows.begin(), _msWindows.end(), window);
+    auto i = std::ranges::find(_msWindows, window);
     if( i != _msWindows.end() )
         _msWindows.erase( i );
 }
@@ -117,6 +117,19 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
         start = _msListeners.lower_bound(win),
         end   = _msListeners.upper_bound(win);
 
+    struct
+        Span
+    {
+        decltype(start) Begin;
+        decltype(end) End;
+
+        auto begin() { return Begin; }
+        auto end() { return End; }
+    }   span
+    {   start
+    ,   end
+    };
+
     switch(event.type)
     {
     case ClientMessage:
@@ -128,15 +141,15 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
             //Send message first, to allow app chance to unregister things that need done before
             //window is shutdown
             bool close = true;
-            for(auto index = start ; index != end; ++index)
+            for(auto const& index : span)
             {
-                if (!(index->second)->windowClosing(win))
+                if (!index.second->windowClosing(win))
                     close = false;
             }
             if (!close) return;
 
-            for(auto index = start ; index != end; ++index)
-                (index->second)->windowClosed(win);
+            for(auto const& index : span)
+                index.second->windowClosed(win);
             win->destroy();
         }
         break;
@@ -146,8 +159,8 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
         if (!win->isClosed())
         {
             // Window closed without window manager warning.
-            for(auto index = start ; index != end; ++index)
-                (index->second)->windowClosed(win);
+            for(auto const& index : span)
+                index.second->windowClosed(win);
             win->destroy();
         }
         break;
@@ -165,32 +178,32 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
 
         if (newLeft != oldLeft || newTop != oldTop)
         {
-            for(auto index = start ; index != end; ++index)
-                (index->second)->windowMoved(win);
+            for(auto const& index : span)
+                index.second->windowMoved(win);
         }
 
         if (newWidth != oldWidth || newHeight != oldHeight)
         {
-            for(auto index = start ; index != end; ++index)
-                (index->second)->windowResized(win);
+            for(auto const& index : span)
+                index.second->windowResized(win);
         }
         break;
     }
     case FocusIn:     // Gained keyboard focus
     case FocusOut:    // Lost keyboard focus
-        for(auto index = start ; index != end; ++index)
-            (index->second)->windowFocusChange(win);
+        for(auto const& index : span)
+            index.second->windowFocusChange(win);
         break;
     case MapNotify:   //Restored
         win->setActive( true );
-        for(auto index = start ; index != end; ++index)
-            (index->second)->windowFocusChange(win);
+        for(auto const& index : span)
+            index.second->windowFocusChange(win);
         break;
     case UnmapNotify: //Minimised
         win->setActive( false );
         win->setVisible( false );
-        for(auto index = start ; index != end; ++index)
-            (index->second)->windowFocusChange(win);
+        for(auto const& index : span)
+            index.second->windowFocusChange(win);
         break;
     case VisibilityNotify:
         switch(event.xvisibility.state)
@@ -208,8 +221,8 @@ static void GLXProc( Ogre::RenderWindow *win, const XEvent &event )
             win->setVisible( false );
             break;
         }
-        for(auto index = start ; index != end; ++index)
-            (index->second)->windowFocusChange(win);
+        for(auto const& index : span)
+            index.second->windowFocusChange(win);
         break;
     default:
         break;

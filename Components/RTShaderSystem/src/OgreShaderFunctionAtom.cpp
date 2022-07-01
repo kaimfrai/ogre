@@ -280,21 +280,17 @@ static uchar getSwizzledSize(const Operand& op)
             }
     ;
 
-    if  (   ::std::lexicographical_compare
-            (   getFunctionName().begin()
-            ,   getFunctionName().end()
-            ,   rhs.getFunctionName().begin()
-            ,   rhs.getFunctionName().end()
+    if  (   ::std::ranges::lexicographical_compare
+            (   getFunctionName()
+            ,   rhs.getFunctionName()
             ,   fSpecialCompare
             )
         )
         return ::std::strong_ordering::less;
 
-    if  (   ::std::lexicographical_compare
-            (   rhs.getFunctionName().begin()
-            ,   rhs.getFunctionName().end()
-            ,   getFunctionName().begin()
-            ,   getFunctionName().end()
+    if  (   ::std::ranges::lexicographical_compare
+            (   rhs.getFunctionName()
+            ,   getFunctionName()
             ,   fSpecialCompare
             )
         )

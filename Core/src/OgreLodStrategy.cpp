@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <functional>
+#include <span>
 #include <utility>
 #include <vector>
 
@@ -67,9 +68,8 @@ class MovableObject;
     {
         auto it = values.begin();
         Real prev = (*it);
-        for (++it; it != values.end(); ++it)
+        for (Real cur : std::span{it + 1, values.end()})
         {
-            Real cur = (*it);
             if (cur < prev)
                 return false;
             prev = cur;
@@ -82,9 +82,8 @@ class MovableObject;
     {
         auto it = values.begin();
         Real prev = (*it);
-        for (++it; it != values.end(); ++it)
+        for (Real cur : std::span{it + 1, values.end()})
         {
-            Real cur = (*it);
             if (cur > prev)
                 return false;
             prev = cur;
@@ -104,7 +103,7 @@ class MovableObject;
     void LodStrategy::sortAscending(Mesh::MeshLodUsageList& meshLodUsageList)
     {
         // Perform standard sort
-        std::sort(meshLodUsageList.begin(), meshLodUsageList.end(), LodUsageSortLess());
+        std::ranges::sort(meshLodUsageList, LodUsageSortLess());
     }
     //---------------------------------------------------------------------
     struct LodUsageSortGreater
@@ -118,7 +117,7 @@ class MovableObject;
     void LodStrategy::sortDescending(Mesh::MeshLodUsageList& meshLodUsageList)
     {
         // Perform standard sort
-        std::sort(meshLodUsageList.begin(), meshLodUsageList.end(), LodUsageSortGreater());
+        std::ranges::sort(meshLodUsageList, LodUsageSortGreater());
     }
     //---------------------------------------------------------------------
     ushort LodStrategy::getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList)

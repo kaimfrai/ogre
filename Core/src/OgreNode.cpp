@@ -92,7 +92,7 @@ namespace Ogre {
         {
             // Erase from queued updates
             auto it =
-                std::find(msQueuedUpdates.begin(), msQueuedUpdates.end(), this);
+                std::ranges::find(msQueuedUpdates, this);
             assert(it != msQueuedUpdates.end());
             if (it != msQueuedUpdates.end())
             {
@@ -306,7 +306,7 @@ namespace Ogre {
     {
         if (child)
         {
-            auto i = std::find(mChildren.begin(), mChildren.end(), child);
+            auto i = std::ranges::find(mChildren, child);
             if(i != mChildren.end() && *i == child)
             {
                 // cancel any pending update
@@ -582,7 +582,7 @@ namespace Ogre {
     Node* Node::getChild(const String& name) const
     {
         NodeNameExists pred = {name};
-        auto i = std::find_if(mChildren.begin(), mChildren.end(), pred);
+        auto i = std::ranges::find_if(mChildren, pred);
 
         if (i == mChildren.end())
         {
@@ -597,7 +597,7 @@ namespace Ogre {
     {
         OgreAssert(!name.empty(), "");
         NodeNameExists pred = {name};
-        auto i = std::find_if(mChildren.begin(), mChildren.end(), pred);
+        auto i = std::ranges::find_if(mChildren, pred);
 
         if (i == mChildren.end())
         {

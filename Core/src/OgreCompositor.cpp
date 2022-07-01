@@ -246,7 +246,7 @@ void Compositor::createGlobalTextures()
                 
                 // space in the name mixup the cegui in the compositor demo
                 // this is an auto generated name - so no spaces can't hart us.
-                std::replace( texName.begin(), texName.end(), ' ', '_' ); 
+                std::ranges::replace(texName, ' ', '_' ); 
 
                 TexturePtr tex;
                 tex = TextureManager::getSingleton().createManual(

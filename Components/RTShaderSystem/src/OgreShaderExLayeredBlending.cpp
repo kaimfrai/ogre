@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cstddef>
 #include <list>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <vector>
 
@@ -139,9 +140,8 @@ bool LayeredBlending::resolveParameters(ProgramSet* programSet)
         //resolve source modification parameters
         Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 
-        for(size_t i = mTextureBlends.size() - 1; i != (size_t)-1 ; --i)
+        for(TextureBlend& texBlend : std::ranges::reverse_view{mTextureBlends})
         {
-            TextureBlend& texBlend = mTextureBlends[i];
             if ((texBlend.sourceModifier != SM_Invalid) && 
                 (texBlend.sourceModifier != SM_None))
             {

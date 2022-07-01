@@ -1130,7 +1130,7 @@ TrayManager::TrayManager(Ogre::String name, Ogre::RenderWindow *window, TrayList
     Ogre::OverlayManager& om = Ogre::OverlayManager::getSingleton();
 
     Ogre::String nameBase = mName + "/";
-    std::replace(nameBase.begin(), nameBase.end(), ' ', '_');
+    std::ranges::replace(nameBase, ' ', '_');
 
     // create overlay layers for everything
     mBackdropLayer = om.create(nameBase + "BackdropLayer");
@@ -1776,7 +1776,7 @@ void TrayManager::destroyWidget(Widget *widget)
     mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
 
     WidgetList& wList = mWidgets[widget->getTrayLocation()];
-    auto it = std::find(wList.begin(), wList.end(), widget);
+    auto it = std::ranges::find(wList, widget);
     if(it != wList.end())
         wList.erase(it);
 
@@ -1808,7 +1808,7 @@ void TrayManager::moveWidgetToTray(Widget *widget, TrayLocation trayLoc, size_t 
 
     // remove widget from old tray
     WidgetList& wList = mWidgets[widget->getTrayLocation()];
-    auto it = std::find(wList.begin(), wList.end(), widget);
+    auto it = std::ranges::find(wList, widget);
     if (it != wList.end())
     {
         wList.erase(it);

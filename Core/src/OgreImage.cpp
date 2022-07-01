@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <any>
 #include <cstring>
 #include <memory>
+#include <span>
 
 #include "OgreCodec.hpp"
 #include "OgreDataStream.hpp"
@@ -204,29 +205,29 @@ namespace Ogre {
         case 1:
             for (y = 0; y < mHeight; y++)
             {
-                std::reverse(mBuffer + mWidth * y, mBuffer + mWidth * (y + 1));
+                std::ranges::reverse(std::span{mBuffer + mWidth * y, mWidth});
             }
             break;
 
         case 2:
             for (y = 0; y < mHeight; y++)
             {
-                std::reverse((ushort*)mBuffer + mWidth * y, (ushort*)mBuffer + mWidth * (y + 1));
+                std::ranges::reverse(std::span{(ushort*)mBuffer + mWidth * y, mWidth});
             }
             break;
 
         case 3:
-            using uchar3 = uchar[3];
+            using uchar3 = std::array<uchar, 3>;
             for (y = 0; y < mHeight; y++)
             {
-                std::reverse((uchar3*)mBuffer + mWidth * y, (uchar3*)mBuffer + mWidth * (y + 1));
+                std::ranges::reverse(std::span{(uchar3*)mBuffer + mWidth * y, mWidth});
             }
             break;
 
         case 4:
             for (y = 0; y < mHeight; y++)
             {
-                std::reverse((uint*)mBuffer + mWidth * y, (uint*)mBuffer + mWidth * (y + 1));
+                std::ranges::reverse(std::span{(uint*)mBuffer + mWidth * y, mWidth});
             }
             break;
 

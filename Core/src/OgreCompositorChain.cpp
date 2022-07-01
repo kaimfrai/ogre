@@ -205,7 +205,7 @@ void CompositorChain::removeAllCompositors()
 //-----------------------------------------------------------------------
 void CompositorChain::_removeInstance(CompositorInstance *i)
 {
-    auto it = std::find(mInstances.begin(), mInstances.end(), i);
+    auto it = std::ranges::find(mInstances, i);
     assert(it != mInstances.end());
     if(it != mInstances.end())
     {

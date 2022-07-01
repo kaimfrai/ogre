@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <cassert>
 #include <limits>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -220,7 +221,7 @@ class Technique;
             else
             {
                 // All animations disabled, use parent entity world transform only
-                std::fill_n(xform, indexMap.size(), mParentEntity->_getParentNodeFullTransform());
+                std::ranges::fill(std::span{xform, indexMap.size()}, mParentEntity->_getParentNodeFullTransform());
             }
         }
     }

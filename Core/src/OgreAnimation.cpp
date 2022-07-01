@@ -637,7 +637,7 @@ class VertexData;
 
         // Search for global index
         auto it =
-            std::lower_bound(mKeyFrameTimes.begin(), mKeyFrameTimes.end(), timePos);
+            std::ranges::lower_bound(mKeyFrameTimes, timePos);
 
         return {timePos, static_cast<uint>(std::distance(mKeyFrameTimes.begin(), it))};
     }

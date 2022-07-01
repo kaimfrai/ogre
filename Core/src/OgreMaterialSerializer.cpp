@@ -1848,7 +1848,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void MaterialSerializer::removeListener(Listener* listener)
     {
-        auto i = std::find(mListeners.begin(), mListeners.end(), listener);
+        auto i = std::ranges::find(mListeners, listener);
         if (i != mListeners.end())
             mListeners.erase(i);
     }

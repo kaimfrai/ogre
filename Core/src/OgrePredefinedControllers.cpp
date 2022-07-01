@@ -361,7 +361,7 @@ namespace Ogre
     Real LinearControllerFunction::calculate(Real source) {
         Real input = getAdjustedInput(source*mFrequency);
 
-        auto ifirst = std::lower_bound(mKeys.begin(), mKeys.end(), input);
+        auto ifirst = std::ranges::lower_bound(mKeys, input);
         size_t idx = ifirst - mKeys.begin() - 1;
 
         assert(ifirst != mKeys.end());

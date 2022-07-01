@@ -265,7 +265,7 @@ namespace {
     {       
         String cleanName = filename;
 
-        return std::find_if(mFileList.begin(), mFileList.end(), [&cleanName](const Ogre::FileInfo& fi) {
+        return std::ranges::find_if(mFileList, [&cleanName](const Ogre::FileInfo& fi) {
                    return fi.filename == cleanName;
                }) != mFileList.end();
     }

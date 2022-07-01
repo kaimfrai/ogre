@@ -287,13 +287,10 @@ class RenderSystem;
 
             // Now, alter the vertex declaration to change the position source
             // and the offsets of elements using the same buffer
-            auto elemi = 
-                vertexDeclaration->getElements().begin();
-            auto elemiend = 
-                vertexDeclaration->getElements().end();
-            for(unsigned short idx = 0; elemi != elemiend; ++elemi, ++idx)
+            for(unsigned short idx = 0;
+                auto const& elemi : vertexDeclaration->getElements())
             {
-                if (&(*elemi) == posElem)
+                if (&elemi == posElem)
                 {
                     // Modify position to point at new position buffer
                     vertexDeclaration->modifyElement(
@@ -304,21 +301,22 @@ class RenderSystem;
                         VES_POSITION);
                 }
                 else if (wasSharedBuffer &&
-                    elemi->getSource() == posOldSource &&
-                    elemi->getOffset() > prePosVertexSize )
+                    elemi.getSource() == posOldSource &&
+                    elemi.getOffset() > prePosVertexSize )
                 {
                     // This element came after position, remove the position's
                     // size
                     vertexDeclaration->modifyElement(
                         idx, 
                         posOldSource, // same old source
-                        elemi->getOffset() - posElem->getSize(), // less offset now
-                        elemi->getType(), 
-                        elemi->getSemantic(),
-                        elemi->getIndex());
+                        elemi.getOffset() - posElem->getSize(), // less offset now
+                        elemi.getType(),
+                        elemi.getSemantic(),
+                        elemi.getIndex());
 
                 }
 
+                ++idx;
             }
 
 

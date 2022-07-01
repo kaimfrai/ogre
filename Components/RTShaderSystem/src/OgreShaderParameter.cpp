@@ -235,7 +235,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     {
         mName += StringConverter::toString(fAutoConstantData);
         //replace possible illegal point character in name
-        std::replace(mName.begin(), mName.end(), '.', '_'); 
+        std::ranges::replace(mName, '.', '_'); 
     }
     mType               = getGCType(parameterDef);
     mSemantic           = SPS_UNKNOWN;
@@ -260,7 +260,7 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     {
         mName += StringConverter::toString(fAutoConstantData);
         //replace possible illegal point character in name
-        std::replace(mName.begin(), mName.end(), '.', '_'); 
+        std::ranges::replace(mName, '.', '_'); 
     }
     mType               = type;
     mSemantic           = SPS_UNKNOWN;

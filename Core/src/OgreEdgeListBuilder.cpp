@@ -168,7 +168,7 @@ namespace Ogre {
 
         // Sort the geometries in the order of vertex set, so we can grouping
         // triangles by vertex set easy.
-        std::sort(mGeometryList.begin(), mGeometryList.end(), geometryLess());
+        std::ranges::sort(mGeometryList, geometryLess());
         // Initialize edge data
         mEdgeData = new EdgeData();
         // resize the edge group list to equal the number of vertex sets

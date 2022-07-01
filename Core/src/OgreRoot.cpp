@@ -1044,7 +1044,7 @@ namespace Ogre {
     {
         LogManager::getSingleton().logMessage("Uninstalling plugin: " + plugin->getName());
         auto i =
-            std::find(mPlugins.begin(), mPlugins.end(), plugin);
+            std::ranges::find(mPlugins, plugin);
         if (i != mPlugins.end())
         {
             if (mIsInitialised)

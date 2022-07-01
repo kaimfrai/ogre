@@ -209,9 +209,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StringUtil::toLowerCase(String& str)
     {
-        std::transform(
-            str.begin(),
-            str.end(),
+        std::ranges::transform(
+            str,
             str.begin(),
             tolower);
     }
@@ -219,9 +218,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void StringUtil::toUpperCase(String& str) 
     {
-        std::transform(
-            str.begin(),
-            str.end(),
+        std::ranges::transform(
+            str,
             str.begin(),
             toupper);
     }
@@ -271,7 +269,7 @@ namespace Ogre {
     {
         String path = init;
 
-        std::replace( path.begin(), path.end(), '\\', '/' );
+        std::ranges::replace(path, '\\', '/' );
         if( path[path.length() - 1] != '/' )
             path += '/';
 
@@ -368,7 +366,7 @@ namespace Ogre {
     {
         String path = qualifiedName;
         // Replace \ with / first
-        std::replace( path.begin(), path.end(), '\\', '/' );
+        std::ranges::replace(path, '\\', '/' );
         // split based on final /
         size_t i = path.find_last_of('/');
 

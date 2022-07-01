@@ -100,7 +100,7 @@ namespace Ogre {
 
             // No global keyframe index, need to search with local keyframes.
             KeyFrame timeKey(nullptr, timePos);
-            i = std::lower_bound(mKeyFrames.begin(), mKeyFrames.end(), &timeKey, KeyFrameTimeLess());
+            i = std::ranges::lower_bound(mKeyFrames, &timeKey, KeyFrameTimeLess());
         }
 
         if (i == mKeyFrames.end())
@@ -151,7 +151,7 @@ namespace Ogre {
 
         // Insert just before upper bound
         auto i =
-            std::upper_bound(mKeyFrames.begin(), mKeyFrames.end(), kf, KeyFrameTimeLess());
+            std::ranges::upper_bound(mKeyFrames, kf, KeyFrameTimeLess());
         mKeyFrames.insert(i, kf);
 
         _keyFrameDataChanged();
@@ -201,7 +201,7 @@ namespace Ogre {
             Real timePos = mKeyFrame->getTime();
 
             auto it =
-                std::lower_bound(keyFrameTimes.begin(), keyFrameTimes.end(), timePos);
+                std::ranges::lower_bound(keyFrameTimes, timePos);
             if (it == keyFrameTimes.end() || *it != timePos)
             {
                 keyFrameTimes.insert(it, timePos);

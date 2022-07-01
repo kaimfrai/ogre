@@ -614,9 +614,8 @@ const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
     // put atom instances into order
     for(auto & mAtomInstance : mAtomInstances)
     {
-        ::std::transform
-        (   mAtomInstance.second.begin(),
-            mAtomInstance.second.end(),
+        ::std::ranges::transform
+        (   mAtomInstance.second,
             ::std::inserter(mSortedAtomInstances, mSortedAtomInstances.end()),
             ::std::mem_fn(&::std::unique_ptr<FunctionAtom>::get)
         );

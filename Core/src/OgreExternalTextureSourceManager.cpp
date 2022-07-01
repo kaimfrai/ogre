@@ -73,13 +73,11 @@ namespace Ogre
     
     void ExternalTextureSourceManager::setCurrentPlugIn( const String& sTexturePlugInType )
     {
-        TextureSystemList::iterator i;
-            
-        for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )
+        for(auto const& i : mTextureSystems)
         {
-            if( i->first == sTexturePlugInType )
+            if( i.first == sTexturePlugInType )
             {
-                mCurrExternalTextureSource = i->second;
+                mCurrExternalTextureSource = i.second;
                 mCurrExternalTextureSource->initialise();   //Now call overridden Init function
                 return;
             }
@@ -91,11 +89,10 @@ namespace Ogre
     void ExternalTextureSourceManager::destroyAdvancedTexture( const String& sTextureName,
         const String& groupName )
     {
-        TextureSystemList::iterator i;
-        for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )
+        for(auto const& i : mTextureSystems)
         {
             //Broadcast to every registered System... Only the true one will destroy texture
-            i->second->destroyAdvancedTexture( sTextureName, groupName );
+            i.second->destroyAdvancedTexture( sTextureName, groupName );
         }
     }
 
@@ -105,20 +102,18 @@ namespace Ogre
         LogManager::getSingleton().logMessage( "Registering Texture Controller: Type = "
                         + sTexturePlugInType + " Name = " + pTextureSystem->getPluginStringName());
 
-        TextureSystemList::iterator i;
-            
-        for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )
+        for(auto& i : mTextureSystems)
         {
-            if( i->first == sTexturePlugInType )
+            if( i.first == sTexturePlugInType )
             {
                 LogManager::getSingleton().logMessage( "Shutting Down Texture Controller: " 
-                        + i->second->getPluginStringName() 
+                        + i.second->getPluginStringName()
                         + " To be replaced by: "
                         + pTextureSystem->getPluginStringName());
 
-                i->second->shutDown();              //Only one plugIn of Sent Type can be registered at a time
+                i.second->shutDown();              //Only one plugIn of Sent Type can be registered at a time
                                                     //so shut down old plugin before starting new plugin
-                i->second = pTextureSystem;
+                i.second = pTextureSystem;
                 // **Moved this line b/c Rendersystem needs to be selected before things
                 // such as framelistners can be added
                 // pTextureSystem->Initialise();
@@ -131,11 +126,10 @@ namespace Ogre
     //****************************************************************************************
     ExternalTextureSource* ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType )
     {
-        TextureSystemList::iterator i;
-        for( i = mTextureSystems.begin(); i != mTextureSystems.end(); ++i )
+        for(auto const& i : mTextureSystems)
         {
-            if( i->first == sTexturePlugInType )
-                return i->second;
+            if( i.first == sTexturePlugInType )
+                return i.second;
         }
         return nullptr;
     }

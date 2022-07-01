@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <limits>
 #include <memory>
+#include <span>
 #include <string>
 #include <utility>
 
@@ -188,7 +189,7 @@ class AxisAlignedBox;
             if( mSkeletonInstance )
                 retVal = mBatchOwner->_getIndexToBoneMap()->size();
 
-            std::fill_n( xform, retVal, Matrix4::ZERO );
+            std::ranges::fill(std::span{xform, retVal}, Matrix4::ZERO );
         }
 
         return retVal;
@@ -228,7 +229,7 @@ class AxisAlignedBox;
             else
                 retVal = 12;
             
-            std::fill_n( xform, retVal/12, Matrix3x4f(Affine3::ZERO[0]) );
+            std::ranges::fill(std::span{xform, retVal/12}, Matrix3x4f(Affine3::ZERO[0]) );
         }
 
         return retVal;
@@ -267,7 +268,7 @@ class AxisAlignedBox;
             {
                 mBoneWorldMatrices  = static_cast<Affine3*>(::Ogre::AlignedMemory::allocate(sizeof(Affine3) *
                                                                     mSkeletonInstance->getNumBones()));
-                std::fill(mBoneWorldMatrices, mBoneWorldMatrices + mSkeletonInstance->getNumBones(), Affine3::IDENTITY);
+                std::ranges::fill(std::span{mBoneWorldMatrices, mSkeletonInstance->getNumBones()}, Affine3::IDENTITY);
             }
 
             mAnimationState = new AnimationStateSet();

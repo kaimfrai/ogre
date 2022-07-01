@@ -659,14 +659,10 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
         mShadowCamLightMapping.clear();
 
         //Used to get the depth buffer ID setting for each RTT
-        size_t __i = 0;
-
         // Recreate shadow textures
-        for (auto i = mShadowTextures.begin();
-            i != mShadowTextures.end(); ++i, ++__i)
+        for (size_t __i = 0;
+             const TexturePtr& shadowTex  : mShadowTextures)
         {
-            const TexturePtr& shadowTex = *i;
-
             // Camera names are local to SM
             String camName = shadowTex->getName() + "Cam";
             // Material names are global to SM, make specific
@@ -735,7 +731,7 @@ void SceneManager::ShadowRenderer::ensureShadowTexturesCreated()
                     mShadowTextureConfigList[0].format);
             }
 
-
+            ++__i;
         }
         mShadowTextureConfigDirty = false;
     }

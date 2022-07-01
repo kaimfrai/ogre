@@ -46,7 +46,7 @@ THE SOFTWARE.
 namespace Ogre {
     static void removeDuplicates(std::vector<String>& c)
     {
-        std::sort(c.begin(), c.end());
+        std::ranges::sort(c);
         auto p = std::unique(c.begin(), c.end());
         c.erase(p, c.end());
     }

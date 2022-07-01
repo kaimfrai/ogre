@@ -36,6 +36,7 @@ THE SOFTWARE.
 #include <memory>
 #include <ostream>
 #include <set>
+#include <span>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -216,8 +217,8 @@ namespace Ogre {
         // transformation of user values must occur after loading is complete.
 
         // Transform user LOD values (starting at index 1, no need to transform base value)
-        for (auto i = mMeshLodUsageList.begin() + 1; i != mMeshLodUsageList.end(); ++i)
-            i->value = mLodStrategy->transformUserValue(i->userValue);
+        for (auto& i : std::span{mMeshLodUsageList.begin() + 1, mMeshLodUsageList.end()})
+            i.value = mLodStrategy->transformUserValue(i.userValue);
         // Rewrite first value
         mMeshLodUsageList[0].value = mLodStrategy->getBaseValue();
     }
@@ -641,10 +642,9 @@ namespace Ogre {
             {
                 // To many bone assignments on this vertex
                 // Find the start & end (end is in iterator terms ie exclusive)
-                std::pair<VertexBoneAssignmentList::iterator, VertexBoneAssignmentList::iterator> range;
                 // map to sort by weight
                 WeightIteratorMap weightToAssignmentMap;
-                range = assignments.equal_range(v);
+                auto range = assignments.equal_range(v);
                 // Add all the assignments to map
                 for (auto i = range.first; i != range.second; ++i)
                 {
@@ -667,19 +667,30 @@ namespace Ogre {
             // Do this irrespective of whether we had to remove assignments or not
             //   since it gives us a guarantee that weights are normalised
             //  We assume this, so it's a good idea since some modellers may not
-            std::pair<VertexBoneAssignmentList::iterator, VertexBoneAssignmentList::iterator> normalise_range = assignments.equal_range(v);
+            auto normalise_range = assignments.equal_range(v);
             Real totalWeight = 0;
-            // Find total first
-            for (auto i = normalise_range.first; i != normalise_range.second; ++i)
+            struct
+                Span
             {
-                totalWeight += i->second.weight;
+                decltype(normalise_range.first) Begin;
+                decltype(normalise_range.second) End;
+                auto begin() { return Begin; }
+                auto end() { return End; }
+            }   span
+            {   normalise_range.first
+            ,   normalise_range.second
+            };
+            // Find total first
+            for (auto const& i : span)
+            {
+                totalWeight += i.second.weight;
             }
             // Now normalise if total weight is outside tolerance
             if (!Math::RealEqual(totalWeight, 1.0f))
             {
-                for (auto i = normalise_range.first; i != normalise_range.second; ++i)
+                for (auto& i : span)
                 {
-                    i->second.weight = i->second.weight / totalWeight;
+                    i.second.weight = i.second.weight / totalWeight;
                 }
             }
 
@@ -1288,8 +1299,7 @@ namespace Ogre {
             if( baseType0 == baseType1 && totalTypeCount <= 4 )
             {
                 const VertexDeclaration::VertexElementList &veList = vDecl->getElements();
-                auto uv0Itor = std::find( veList.begin(),
-                                                                                    veList.end(), *uv0 );
+                auto uv0Itor = std::ranges::find(veList, *uv0);
                 unsigned short elem_idx     = std::distance( veList.begin(), uv0Itor );
                 VertexElementType newType   = VertexElement::multiplyTypeCount( baseType0,
                                                                                 totalTypeCount );
@@ -1428,9 +1438,22 @@ namespace Ogre {
                         // Copy all bone assignments from the split vertex
                         auto vbstart = mBoneAssignments.lower_bound(remap.splitVertex.first);
                         auto vbend = mBoneAssignments.upper_bound(remap.splitVertex.first);
-                        for (auto vba = vbstart; vba != vbend; ++vba)
+
+
+                        for (struct
+                                Span
+                            {
+                                decltype(vbstart) Begin;
+                                decltype(vbend) End;
+                                auto begin() { return Begin; }
+                                auto end() { return End; }
+                            }   span
+                            {   vbstart
+                            ,   vbend
+                            };
+                            auto const& vba : span)
                         {
-                            VertexBoneAssignment newAsgn = vba->second;
+                            VertexBoneAssignment newAsgn = vba.second;
                             newAsgn.vertexIndex = static_cast<unsigned int>(remap.splitVertex.second);
                             // multimap insert doesn't invalidate iterators
                             addBoneAssignment(newAsgn);
@@ -1442,10 +1465,8 @@ namespace Ogre {
                 // Update poses (some vertices might have been duplicated)
                 // we will just check which vertices have been split and copy
                 // the offset for the original vertex to the corresponding new vertex
-                PoseList::iterator pose_it;
-                for( pose_it = mPoseList.begin(); pose_it != mPoseList.end(); ++pose_it)
+                for(Pose* current_pose : mPoseList)
                 {
-                    Pose* current_pose = *pose_it;
                     const Pose::VertexOffsetMap& offset_map = current_pose->getVertexOffsets();
 
                     for(auto & split : res.vertexSplits)
@@ -1483,9 +1504,21 @@ namespace Ogre {
                             sm->getBoneAssignments().lower_bound(remap.splitVertex.first);
                         auto vbend = 
                             sm->getBoneAssignments().upper_bound(remap.splitVertex.first);
-                        for (auto vba = vbstart; vba != vbend; ++vba)
+
+                        for (struct
+                                Span
+                            {
+                                decltype(vbstart) Begin;
+                                decltype(vbend) End;
+                                auto begin() { return Begin; }
+                                auto end() { return End; }
+                            }   span
+                            {   vbstart
+                            ,   vbend
+                            };
+                            auto const& vba : span)
                         {
-                            VertexBoneAssignment newAsgn = vba->second;
+                            VertexBoneAssignment newAsgn = vba.second;
                             newAsgn.vertexIndex = static_cast<unsigned int>(remap.splitVertex.second);
                             // multimap insert doesn't invalidate iterators
                             sm->addBoneAssignment(newAsgn);
@@ -2334,8 +2367,8 @@ namespace Ogre {
         assert(mMeshLodUsageList.size());
         
         // Re-transform user LOD values (starting at index 1, no need to transform base value)
-        for (auto i = mMeshLodUsageList.begin()+1; i != mMeshLodUsageList.end(); ++i)
-            i->value = mLodStrategy->transformUserValue(i->userValue);
+        for (auto& i : std::span{mMeshLodUsageList.begin()+1, mMeshLodUsageList.end()})
+            i.value = mLodStrategy->transformUserValue(i.userValue);
 
         // Rewrite first value
         mMeshLodUsageList[0].value = mLodStrategy->getBaseValue();

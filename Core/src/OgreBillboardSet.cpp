@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <iterator>
 #include <map>
 #include <memory>
+#include <span>
 #include <string>
 #include <utility>
 
@@ -189,9 +190,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void BillboardSet::removeBillboard( Billboard* pBill )
     {
-        auto it = std::find_if
-            (   mBillboardPool.begin(),
-                mBillboardPool.begin() + mActiveBillboards,
+        auto it = std::ranges::find_if
+            (   std::span{mBillboardPool.begin(), mActiveBillboards},
                 [pBill] (auto const& p) -> bool { return p.get() == pBill; }
             );
         removeBillboard(std::distance(mBillboardPool.begin(), it));
@@ -431,15 +431,14 @@ namespace Ogre {
         else
         {
             mAABB.setNull();
-            auto iend = mBillboardPool.begin() + mActiveBillboards;
             Affine3 invWorld;
             bool invert = mWorldSpace && getParentSceneNode();
             if (invert)
                 invWorld = getParentSceneNode()->_getFullTransform().inverse();
 
-            for (auto i = mBillboardPool.begin(); i != iend; ++i)
+            for (auto const& i : std::span{mBillboardPool.begin(), mActiveBillboards})
             {
-                Vector3 pos = (*i)->getPosition();
+                Vector3 pos = i->getPosition();
                 // transform from world space to local space
                 if (invert)
                     pos = invWorld * pos;
@@ -471,10 +470,9 @@ namespace Ogre {
             }
 
             beginBillboards(mActiveBillboards);
-            auto iend = mBillboardPool.begin() + mActiveBillboards;
-            for (auto it = mBillboardPool.begin(); it != iend; ++it)
+            for (auto const& it : std::span{mBillboardPool.begin(), mActiveBillboards})
             {
-                injectBillboard(*(*it));
+                injectBillboard(*it);
             }
             endBillboards();
             mBillboardDataChanged = false;

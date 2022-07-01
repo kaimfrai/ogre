@@ -27,6 +27,7 @@ THE SOFTWARE
 #include "OgreTextAreaOverlayElement.hpp"
 
 #include <string>
+#include <span>
 #include <vector>
 
 #include "OgreException.hpp"
@@ -267,9 +268,8 @@ namespace Ogre {
             if( newLine )
             {
                 Real len = 0.0f;
-                for( auto j = i; j != iend; j++ )
+                for(Font::CodePoint character : std::span{i,  iend})
                 {
-                    Font::CodePoint character = *j;
                     if (character == UNICODE_CR
                         || character == UNICODE_NEL
                         || character == UNICODE_LF) 

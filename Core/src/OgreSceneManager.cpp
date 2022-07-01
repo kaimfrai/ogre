@@ -2358,26 +2358,26 @@ void SceneManager::removeRenderObjectListener(RenderObjectListener* delListener)
 }
 void SceneManager::addListener(Listener* newListener)
 {
-    if (std::find(mListeners.begin(), mListeners.end(), newListener) == mListeners.end())
+    if (std::ranges::find(mListeners, newListener) == mListeners.end())
         mListeners.push_back(newListener);
 }
 //---------------------------------------------------------------------
 void SceneManager::removeListener(Listener* delListener)
 {
-    auto i = std::find(mListeners.begin(), mListeners.end(), delListener);
+    auto i = std::ranges::find(mListeners, delListener);
     if (i != mListeners.end())
         mListeners.erase(i);
 }
 void SceneManager::addShadowTextureListener(ShadowTextureListener* newListener)
 {
-    if (std::find(mShadowRenderer.mListeners.begin(), mShadowRenderer.mListeners.end(), newListener) ==
+    if (std::ranges::find(mShadowRenderer.mListeners, newListener) ==
         mShadowRenderer.mListeners.end())
         mShadowRenderer.mListeners.push_back(newListener);
 }
 //---------------------------------------------------------------------
 void SceneManager::removeShadowTextureListener(ShadowTextureListener* delListener)
 {
-    auto i = std::find(mShadowRenderer.mListeners.begin(), mShadowRenderer.mListeners.end(), delListener);
+    auto i = std::ranges::find(mShadowRenderer.mListeners, delListener);
     if (i != mShadowRenderer.mListeners.end())
         mShadowRenderer.mListeners.erase(i);
 }
