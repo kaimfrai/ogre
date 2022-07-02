@@ -167,12 +167,6 @@ namespace Ogre {
             @return An updated string with the sub-string replaced
         */
         static const String replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat);
-
-        /** create a string from a printf expression
-         *
-         * @note this function - like printf - uses a locale dependent decimal point
-         */
-        static String format(const char* fmt, ...);
     };
 
     using _StringHash = ::std::hash<String>;
