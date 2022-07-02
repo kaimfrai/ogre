@@ -74,7 +74,7 @@ class AxisAlignedBox;
         //otherwise due to reparenting when defragmenting)
         mName = ::std::format("{}/InstancedEntity_{}/{}",
                     batchOwner->getName(),
-                    StringConverter::toString(mInstanceId),
+                    mInstanceId,
                     msNameGenerator.generate());
 
         if (sharedTransformEntity)

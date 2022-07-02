@@ -58,7 +58,7 @@ namespace Ogre
 
         file << "\t" << "render_system_name " << caps->getRenderSystemName() << endl;
         file << endl;
-        
+
 
         file << "\t" << "device_name " << caps->getDeviceName() << endl;
         const DriverVersion& driverVer = caps->getDriverVersion();
@@ -87,7 +87,7 @@ namespace Ogre
 
         file << endl;
         file << "\t" << "non_pow2_textures_limited " << StringConverter::toString(caps->getNonPOW2TexturesLimited()) << endl;
-        
+
         file << endl;
         file << "\t" << "num_texture_units " << StringConverter::toString(caps->getNumTextureUnits()) << endl;
         file << "\t" << "num_multi_render_targets " << StringConverter::toString(caps->getNumMultiRenderTargets()) << endl;
@@ -467,8 +467,7 @@ namespace Ogre
         if (mCurrentLine != nullptr && mCurrentStream)
         {
             LogManager::getSingleton().logMessage(
-                ::std::format("Error in .rendercaps {}:", mCurrentStream->getName() ) + StringConverter::toString(mCurrentLineNumber) +
-                ::std::format(" : {}", error));
+                ::std::format("Error in .rendercaps {}:{} : {}", mCurrentStream->getName(), mCurrentLineNumber, error));
         }
         else if (mCurrentStream)
         {

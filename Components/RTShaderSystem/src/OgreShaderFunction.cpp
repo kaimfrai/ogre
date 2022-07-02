@@ -43,6 +43,7 @@ THE SOFTWARE.
 #include "OgreShaderParameter.hpp"
 #include "OgreShaderPrerequisites.hpp"
 #include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 
 namespace Ogre::RTShader {
 
@@ -308,7 +309,7 @@ ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
             }
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
                         std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
-                            static_cast<int>(semantic), index));
+                            semantic, index));
         }
     }
 
@@ -370,7 +371,7 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
             }
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
                         std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
-                            static_cast<int>(semantic), index));
+                            semantic, index));
         }
     }
     
@@ -387,7 +388,7 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
 
     default:
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                    std::format("Semantic not supported as output parameter: {}", static_cast<int>(semantic)));
+                    std::format("Semantic not supported as output parameter: {}", semantic));
         break;
     }
 

@@ -472,7 +472,7 @@ void SelectMenu::setItems(const Ogre::StringVector &items)
         Ogre::BorderPanelOverlayElement* e =
                 (Ogre::BorderPanelOverlayElement*)Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
                 ("SdkTrays/SelectMenuItem", "BorderPanel",
-                 ::std::format("{}/Item{}", mExpandedBox->getName(), Ogre::StringConverter::toString(i + 1)));
+                 ::std::format("{}/Item{}", mExpandedBox->getName(), i + 1));
 
         e->setTop(6 + i * (mSmallBox->getHeight() - 8));
         e->setWidth(mExpandedBox->getWidth() - 32);
@@ -499,7 +499,7 @@ void SelectMenu::removeItem(const Ogre::DisplayString &item)
 void SelectMenu::removeItem(size_t index)
 {
     if(index >= mItems.size()){
-        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName(), Ogre::StringConverter::toString(index) );
+        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName(), index );
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::removeItem");
     }
     mItems.erase(mItems.begin() + index);
@@ -535,7 +535,7 @@ void SelectMenu::selectItem(size_t index, bool notifyListener)
 {
     if (index >= mItems.size())
     {
-        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName() , Ogre::StringConverter::toString(index) );
+        Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName() , index);
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
     }
 
@@ -974,7 +974,7 @@ void ParamsPanel::setParamValue(unsigned int index, const Ogre::DisplayString &p
 {
     if (index >= mNames.size())
     {
-        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , Ogre::StringConverter::toString(index));
+        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , index);
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
     }
 
@@ -998,7 +998,7 @@ Ogre::DisplayString ParamsPanel::getParamValue(unsigned int index)
 {
     if (index >= mNames.size())
     {
-        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , Ogre::StringConverter::toString(index) );
+        Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName(),index);
         OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
     }
 

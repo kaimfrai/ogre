@@ -94,133 +94,107 @@ namespace Ogre {
         pLog->logMessage(::std::format("GPU Vendor: {}", vendorToString(getVendor())));
         pLog->logMessage(::std::format("Device Name: {}", getDeviceName()));
         pLog->logMessage(::std::format("Driver Version: {}", getDriverVersion().toString()));
-        pLog->logMessage(::std::format(" * Fixed function pipeline: {}", StringConverter::toString(hasCapability(RSC_FIXED_FUNCTION)), true));
-        pLog->logMessage(::std::format(" * 32-bit index buffers: {}", StringConverter::toString(hasCapability(RSC_32BIT_INDEX)), true));
-        pLog->logMessage(::std::format(" * Hardware stencil buffer: {}", StringConverter::toString(hasCapability(RSC_HWSTENCIL)), true));
+        pLog->logMessage(::std::format(" * Fixed function pipeline: {}", hasCapability(RSC_FIXED_FUNCTION)));;
+        pLog->logMessage(::std::format(" * 32-bit index buffers: {}", hasCapability(RSC_32BIT_INDEX)));;
+        pLog->logMessage(::std::format(" * Hardware stencil buffer: {}", hasCapability(RSC_HWSTENCIL)));;
         if (hasCapability(RSC_HWSTENCIL))
         {
-            pLog->logMessage(::std::format("   - Two sided stencil support: {}", StringConverter::toString(hasCapability(RSC_TWO_SIDED_STENCIL)), true));
-            pLog->logMessage(::std::format("   - Wrap stencil values: {}", StringConverter::toString(hasCapability(RSC_STENCIL_WRAP)), true));
+            pLog->logMessage(::std::format("   - Two sided stencil support: {}", hasCapability(RSC_TWO_SIDED_STENCIL)));;
+            pLog->logMessage(::std::format("   - Wrap stencil values: {}", hasCapability(RSC_STENCIL_WRAP)));;
         }
         pLog->logMessage(" * Vertex programs: yes");
-        pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mVertexProgramConstantFloatCount)));
+        pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mVertexProgramConstantFloatCount));
         pLog->logMessage(" * Fragment programs: yes");
-        pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mFragmentProgramConstantFloatCount)));
-        pLog->logMessage(::std::format(" * Geometry programs: {}", StringConverter::toString(hasCapability(RSC_GEOMETRY_PROGRAM)), true));
+        pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mFragmentProgramConstantFloatCount));
+        pLog->logMessage(::std::format(" * Geometry programs: {}", hasCapability(RSC_GEOMETRY_PROGRAM)));;
         if (hasCapability(RSC_GEOMETRY_PROGRAM))
         {
-            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mGeometryProgramConstantFloatCount)));
+            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mGeometryProgramConstantFloatCount));
         }
-        pLog->logMessage(::std::format(" * Tessellation Hull programs: {}", StringConverter::toString(hasCapability(RSC_TESSELLATION_HULL_PROGRAM)), true));
+        pLog->logMessage(::std::format(" * Tessellation Hull programs: {}", hasCapability(RSC_TESSELLATION_HULL_PROGRAM)));;
         if (hasCapability(RSC_TESSELLATION_HULL_PROGRAM))
         {
-            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mTessellationHullProgramConstantFloatCount)));
+            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mTessellationHullProgramConstantFloatCount));
         }
-        pLog->logMessage(::std::format(" * Tessellation Domain programs: {}", StringConverter::toString(hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM)), true));
+        pLog->logMessage(::std::format(" * Tessellation Domain programs: {}", hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM)));;
         if (hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM))
         {
-            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mTessellationDomainProgramConstantFloatCount)));
+            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mTessellationDomainProgramConstantFloatCount));
         }
-        pLog->logMessage(::std::format(" * Compute programs: {}", StringConverter::toString(hasCapability(RSC_COMPUTE_PROGRAM)), true));
+        pLog->logMessage(::std::format(" * Compute programs: {}", hasCapability(RSC_COMPUTE_PROGRAM)));;
         if (hasCapability(RSC_COMPUTE_PROGRAM))
         {
-            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", StringConverter::toString(mComputeProgramConstantFloatCount)));
+            pLog->logMessage(::std::format("   - Number of constant 4-vectors: {}", mComputeProgramConstantFloatCount));
         }
         pLog->logMessage(
-            ::std::format(" * Supported Shader Profiles: {}", StringConverter::toString(StringVector(mSupportedShaderProfiles.begin(), mSupportedShaderProfiles.end()))));
-        pLog->logMessage(::std::format(" * Read-back compiled shader: {}", StringConverter::toString(hasCapability(RSC_CAN_GET_COMPILED_SHADER_BUFFER)), true));
-        pLog->logMessage(::std::format(" * Number of vertex attributes: {}", StringConverter::toString(mNumVertexAttributes)));
+            ::std::format(" * Supported Shader Profiles: {}", StringVector(mSupportedShaderProfiles.begin(), mSupportedShaderProfiles.end())));
+        pLog->logMessage(::std::format(" * Read-back compiled shader: {}", hasCapability(RSC_CAN_GET_COMPILED_SHADER_BUFFER)));;
+        pLog->logMessage(::std::format(" * Number of vertex attributes: {}", mNumVertexAttributes));
         pLog->logMessage(" * Textures");
-        pLog->logMessage(::std::format("   - Number of texture units: {}", StringConverter::toString(mNumTextureUnits)));
-        pLog->logMessage(::std::format("   - Floating point: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_FLOAT)), true));
+        pLog->logMessage(::std::format("   - Number of texture units: {}", mNumTextureUnits));
+        pLog->logMessage(::std::format("   - Floating point: {}", hasCapability(RSC_TEXTURE_FLOAT)));;
         pLog->logMessage(
-            ::std::format("   - Non-power-of-two: {}", StringConverter::toString(hasCapability(RSC_NON_POWER_OF_2_TEXTURES)), true) +
+            ::std::format("   - Non-power-of-two: {}", hasCapability(RSC_NON_POWER_OF_2_TEXTURES), true) +
             (mNonPOW2TexturesLimited ? " (limited)" : ""));
-        pLog->logMessage(::std::format("   - 1D textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_1D)), true));
-        pLog->logMessage(::std::format("   - 2D array textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_2D_ARRAY)), true));
-        pLog->logMessage(::std::format("   - 3D textures: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_3D)), true));
-        pLog->logMessage(::std::format("   - Anisotropic filtering: {}", StringConverter::toString(hasCapability(RSC_ANISOTROPY)), true));
+        pLog->logMessage(::std::format("   - 1D textures: {}", hasCapability(RSC_TEXTURE_1D)));;
+        pLog->logMessage(::std::format("   - 2D array textures: {}", hasCapability(RSC_TEXTURE_2D_ARRAY)));;
+        pLog->logMessage(::std::format("   - 3D textures: {}", hasCapability(RSC_TEXTURE_3D)));;
+        pLog->logMessage(::std::format("   - Anisotropic filtering: {}", hasCapability(RSC_ANISOTROPY)));;
 
-        pLog->logMessage(
-            " * Texture Compression: "
-            + StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION), true));
+        pLog->logMessage(::std::format(" * Texture Compression: {}", hasCapability(RSC_TEXTURE_COMPRESSION)));;
         if (hasCapability(RSC_TEXTURE_COMPRESSION))
         {
-            pLog->logMessage(::std::format("   - DXT: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_DXT)), true));
-            pLog->logMessage(::std::format("   - VTC: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_VTC)), true));
-            pLog->logMessage(::std::format("   - PVRTC: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_PVRTC)), true));
-            pLog->logMessage(::std::format("   - ATC: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_ATC)), true));
-            pLog->logMessage(::std::format("   - ETC1: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_ETC1)), true));
-            pLog->logMessage(::std::format("   - ETC2: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_ETC2)), true));
-            pLog->logMessage(::std::format("   - BC4/BC5: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5)), true));
-            pLog->logMessage(::std::format("   - BC6H/BC7: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7)), true));
-            pLog->logMessage(::std::format("   - ASTC: {}", StringConverter::toString(hasCapability(RSC_TEXTURE_COMPRESSION_ASTC)), true));
-            pLog->logMessage(::std::format("   - Automatic mipmap generation: {}", StringConverter::toString(hasCapability(RSC_AUTOMIPMAP_COMPRESSED)), true));
+            pLog->logMessage(::std::format("   - DXT: {}", hasCapability(RSC_TEXTURE_COMPRESSION_DXT)));;
+            pLog->logMessage(::std::format("   - VTC: {}", hasCapability(RSC_TEXTURE_COMPRESSION_VTC)));;
+            pLog->logMessage(::std::format("   - PVRTC: {}", hasCapability(RSC_TEXTURE_COMPRESSION_PVRTC)));;
+            pLog->logMessage(::std::format("   - ATC: {}", hasCapability(RSC_TEXTURE_COMPRESSION_ATC)));;
+            pLog->logMessage(::std::format("   - ETC1: {}", hasCapability(RSC_TEXTURE_COMPRESSION_ETC1)));;
+            pLog->logMessage(::std::format("   - ETC2: {}", hasCapability(RSC_TEXTURE_COMPRESSION_ETC2)));;
+            pLog->logMessage(::std::format("   - BC4/BC5: {}", hasCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5)));;
+            pLog->logMessage(::std::format("   - BC6H/BC7: {}", hasCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7)));;
+            pLog->logMessage(::std::format("   - ASTC: {}", hasCapability(RSC_TEXTURE_COMPRESSION_ASTC)));;
+            pLog->logMessage(::std::format("   - Automatic mipmap generation: {}", hasCapability(RSC_AUTOMIPMAP_COMPRESSED)));;
         }
 
         pLog->logMessage(" * Vertex Buffers");
-        pLog->logMessage(::std::format("   - Render to Vertex Buffer: {}", StringConverter::toString(hasCapability(RSC_HWRENDER_TO_VERTEX_BUFFER)), true));
-        pLog->logMessage(::std::format("   - Instance Data: {}", StringConverter::toString(hasCapability(RSC_VERTEX_BUFFER_INSTANCE_DATA)), true));
-        pLog->logMessage(::std::format("   - Primitive Restart: {}", StringConverter::toString(hasCapability(RSC_PRIMITIVE_RESTART)), true));
-        pLog->logMessage(::std::format(" * Vertex texture fetch: {}", StringConverter::toString(hasCapability(RSC_VERTEX_TEXTURE_FETCH)), true));
+        pLog->logMessage(::std::format("   - Render to Vertex Buffer: {}", hasCapability(RSC_HWRENDER_TO_VERTEX_BUFFER)));;
+        pLog->logMessage(::std::format("   - Instance Data: {}", hasCapability(RSC_VERTEX_BUFFER_INSTANCE_DATA)));;
+        pLog->logMessage(::std::format("   - Primitive Restart: {}", hasCapability(RSC_PRIMITIVE_RESTART)));;
+        pLog->logMessage(::std::format(" * Vertex texture fetch: {}", hasCapability(RSC_VERTEX_TEXTURE_FETCH)));;
         if (hasCapability(RSC_VERTEX_TEXTURE_FETCH))
         {
-            pLog->logMessage(::std::format("   - Max vertex textures: {}", StringConverter::toString(mNumVertexTextureUnits)));
-            pLog->logMessage(::std::format("   - Vertex textures shared: {}", StringConverter::toString(mVertexTextureUnitsShared, true)));
+            pLog->logMessage(::std::format("   - Max vertex textures: {}", mNumVertexTextureUnits));
+            pLog->logMessage(::std::format("   - Vertex textures shared: {}", mVertexTextureUnitsShared));;
         }
-        pLog->logMessage(::std::format(" * Read/Write Buffers: {}", StringConverter::toString(hasCapability(RSC_READ_WRITE_BUFFERS)), true));
-        pLog->logMessage(
-            " * Hardware Occlusion Query: "
-            + StringConverter::toString(hasCapability(RSC_HWOCCLUSION), true));
-        pLog->logMessage(
-            " * User clip planes: "
-            + StringConverter::toString(hasCapability(RSC_USER_CLIP_PLANES), true));
-        pLog->logMessage(
-            " * Depth clamping: "
-            + StringConverter::toString(hasCapability(RSC_DEPTH_CLAMP), true));
-        pLog->logMessage(
-            " * Hardware render-to-texture: "
-            + StringConverter::toString(hasCapability(RSC_HWRENDER_TO_TEXTURE), true));
-        pLog->logMessage(::std::format("   - Multiple Render Targets: {}", StringConverter::toString(mNumMultiRenderTargets)));
-        pLog->logMessage(::std::format("   - With different bit depths: {}", StringConverter::toString(hasCapability(RSC_MRT_DIFFERENT_BIT_DEPTHS)), true));
-        pLog->logMessage(::std::format(" * Point Sprites: {}", StringConverter::toString(hasCapability(RSC_POINT_SPRITES)), true));
+        pLog->logMessage(::std::format(" * Read/Write Buffers: {}", hasCapability(RSC_READ_WRITE_BUFFERS)));;
+        pLog->logMessage(::std::format(" * Hardware Occlusion Query: ", hasCapability(RSC_HWOCCLUSION)));;
+        pLog->logMessage(::std::format(" * User clip planes: ", hasCapability(RSC_USER_CLIP_PLANES)));;
+        pLog->logMessage(::std::format(" * Depth clamping: ", hasCapability(RSC_DEPTH_CLAMP)));;
+        pLog->logMessage(::std::format(" * Hardware render-to-texture: ", hasCapability(RSC_HWRENDER_TO_TEXTURE)));;
+        pLog->logMessage(::std::format("   - Multiple Render Targets: {}", mNumMultiRenderTargets));
+        pLog->logMessage(::std::format("   - With different bit depths: {}", hasCapability(RSC_MRT_DIFFERENT_BIT_DEPTHS)));;
+        pLog->logMessage(::std::format(" * Point Sprites: {}", hasCapability(RSC_POINT_SPRITES)));;
         if (hasCapability(RSC_POINT_SPRITES))
         {
-            pLog->logMessage(::std::format("   - Extended parameters: {}", StringConverter::toString(hasCapability(RSC_POINT_EXTENDED_PARAMETERS)), true));
-            pLog->logMessage(::std::format("   - Max Size: {}", StringConverter::toString(mMaxPointSize)));
+            pLog->logMessage(::std::format("   - Extended parameters: {}", hasCapability(RSC_POINT_EXTENDED_PARAMETERS)));;
+            pLog->logMessage(::std::format("   - Max Size: {}", mMaxPointSize));
         }
-        pLog->logMessage(
-            " * Wide Lines: "
-            + StringConverter::toString(hasCapability(RSC_WIDE_LINES), true));
-        pLog->logMessage(
-            " * Hardware Gamma: "
-            + StringConverter::toString(hasCapability(RSC_HW_GAMMA), true));
+        pLog->logMessage(::std::format(" * Wide Lines: ", hasCapability(RSC_WIDE_LINES)));;
+        pLog->logMessage(::std::format(" * Hardware Gamma: ", hasCapability(RSC_HW_GAMMA)));;
         if (mCategoryRelevant[CAPS_CATEGORY_GL])
         {
-            pLog->logMessage(
-                " * PBuffer support: "
-                + StringConverter::toString(hasCapability(RSC_PBUFFER), true));
-            pLog->logMessage(
-                " * Vertex Array Objects: "
-                + StringConverter::toString(hasCapability(RSC_VAO), true));
-            pLog->logMessage(::std::format(" * Separate shader objects: {}", StringConverter::toString(hasCapability(RSC_SEPARATE_SHADER_OBJECTS)), true));
-            pLog->logMessage(::std::format("   - redeclare GLSL interface block: {}", StringConverter::toString(hasCapability(RSC_GLSL_SSO_REDECLARE)), true));
-            pLog->logMessage(
-                " * Debugging/ profiling events: "
-                + StringConverter::toString(hasCapability(RSC_DEBUG), true));
-            pLog->logMessage(
-                " * Map buffer storage: "
-                + StringConverter::toString(hasCapability(RSC_MAPBUFFER), true));
+            pLog->logMessage(::std::format(" * PBuffer support: ", hasCapability(RSC_PBUFFER)));;
+            pLog->logMessage(::std::format(" * Vertex Array Objects: ", hasCapability(RSC_VAO)));;
+            pLog->logMessage(::std::format(" * Separate shader objects: {}", hasCapability(RSC_SEPARATE_SHADER_OBJECTS)));;
+            pLog->logMessage(::std::format("   - redeclare GLSL interface block: {}", hasCapability(RSC_GLSL_SSO_REDECLARE)));;
+            pLog->logMessage(::std::format(" * Debugging/ profiling events: ", hasCapability(RSC_DEBUG)));;
+            pLog->logMessage(::std::format(" * Map buffer storage: ", hasCapability(RSC_MAPBUFFER)));;
         }
 
         if (mCategoryRelevant[CAPS_CATEGORY_D3D9])
         {
-            pLog->logMessage(
-                " * DirectX per stage constants: "
-                + StringConverter::toString(hasCapability(RSC_PERSTAGECONSTANT), true));
-            pLog->logMessage(
-                " * W-Buffer supported: "
-                + StringConverter::toString(hasCapability(RSC_WBUFFER), true));
+            pLog->logMessage(::std::format(" * DirectX per stage constants: ", hasCapability(RSC_PERSTAGECONSTANT)));;
+            pLog->logMessage(::std::format(" * W-Buffer supported: ", hasCapability(RSC_WBUFFER)));;
         }
     }
     //---------------------------------------------------------------------

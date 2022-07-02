@@ -136,7 +136,7 @@ namespace Ogre
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    ::std::format("Unimplemented instancing technique: {}", StringConverter::toString(mInstancingTechnique)),
+                    ::std::format("Unimplemented instancing technique: {}", mInstancingTechnique),
                     "InstanceBatch::getMaxOrBestNumInstancesPerBatches()");
         }
 
@@ -217,7 +217,7 @@ namespace Ogre
             break;
         default:
             OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
-                    ::std::format("Unimplemented instancing technique: {}", ::std::to_underlying(mInstancingTechnique)),
+                    ::std::format("Unimplemented instancing technique: {}", mInstancingTechnique),
                     "InstanceBatch::buildNewBatch()");
         }
 

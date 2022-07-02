@@ -81,7 +81,7 @@ namespace Ogre {
             if(msMapCodecs.empty())
                 formats_str = "There are no formats supported (no codecs registered).";
             else
-                formats_str = ::std::format("Supported formats are: {}.", StringConverter::toString(getExtensions()) );
+                formats_str = ::std::format("Supported formats are: {}.", getExtensions() );
 
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
                         ::std::format("Can not find codec for '{}' format.\n", extension ) + formats_str);

@@ -430,8 +430,7 @@ namespace Ogre
             uint32 off = chunk->offset;
             delete chunk;
             OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
-                ::std::format("Corrupt chunk detected in stream {} at byte ", mStream->getName() )
-                + StringConverter::toString(off), 
+                ::std::format("Corrupt chunk detected in stream {} at byte {}", mStream->getName(), off),
                 "StreamSerialiser::readChunkImpl");
         }
         else

@@ -155,7 +155,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
+                ::std::format("A bone with the handle {} already exists", handle ),
                 "Skeleton::createBone" );
         }
         Bone* ret = new Bone(handle, this);
@@ -178,7 +178,7 @@ class Affine3;
         {
             OGRE_EXCEPT(
                 Exception::ERR_DUPLICATE_ITEM,
-                ::std::format("A bone with the handle {} already exists", StringConverter::toString(handle) ),
+                ::std::format("A bone with the handle {} already exists", handle ),
                 "Skeleton::createBone" );
         }
         // Check name not used

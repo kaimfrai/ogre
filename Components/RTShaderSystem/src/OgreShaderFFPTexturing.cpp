@@ -341,7 +341,7 @@ bool FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams
     
             
     // Add texture sampling code.
-    ParameterPtr texel = psMain->resolveLocalParameter(GCT_FLOAT4, c_ParamTexelEx + StringConverter::toString(textureUnitParams->mTextureSamplerIndex));
+    ParameterPtr texel = psMain->resolveLocalParameter(GCT_FLOAT4, ::std::format("{}{}", c_ParamTexelEx, textureUnitParams->mTextureSamplerIndex));
 
     // Build colour argument for source1.
     source1 = getPSArgument(texel, colourBlend.source1, colourBlend.colourArg1, colourBlend.alphaArg1, false);

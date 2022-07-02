@@ -468,7 +468,7 @@ SubRenderStateFactory*  ShaderGenerator::getSubRenderStateFactory(size_t index)
     }
 
     OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-        ::std::format("A factory on index {} does not exist.", StringConverter::toString(index) ),
+        ::std::format("A factory on index {} does not exist.", index ),
         "ShaderGenerator::addSubRenderStateFactory");
         
     return nullptr;

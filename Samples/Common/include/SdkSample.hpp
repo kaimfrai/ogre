@@ -251,7 +251,7 @@ namespace OgreBites
         {
             using namespace Ogre;
             // Create material
-            String matName = ::std::format("Ogre/DebugTexture{}", StringConverter::toString(i));
+            String matName = ::std::format("Ogre/DebugTexture{}", i);
             MaterialPtr debugMat = MaterialManager::getSingleton().getByName(
                 matName, ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
             if (!debugMat)
@@ -275,7 +275,7 @@ namespace OgreBites
             }
 
             // add widget
-            String widgetName = ::std::format("DebugTex{}", StringConverter::toString(i));
+            String widgetName = ::std::format("DebugTex{}", i);
             Widget* w = mTrayMgr->getWidget(widgetName);
             if (!w)
             {

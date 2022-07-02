@@ -393,7 +393,7 @@ namespace OgreBites
 
                     if (all || info["Category"] == selectedCategory)
                     {
-                        Ogre::String name = ::std::format("SdkTrays/SampleThumb{}", Ogre::StringConverter::toString(sampleTitles.size() + 1));
+                        Ogre::String name = ::std::format("SdkTrays/SampleThumb{}", sampleTitles.size() + 1);
 
                         // clone a new material for sample thumbnail
                         Ogre::MaterialPtr newMat = templateMat->clone(name);
@@ -452,7 +452,7 @@ namespace OgreBites
                 {
                     i++;
                     SelectMenu* optionMenu = mTrayMgr->createLongSelectMenu
-                        (TL_LEFT, ::std::format("ConfigOption{}", Ogre::StringConverter::toString(i)), option.first, 450, 240, 10);
+                        (TL_LEFT, ::std::format("ConfigOption{}", i), option.first, 450, 240, 10);
                     optionMenu->setItems(option.second.possibleValues);
 
                     // if the current config value is not in the menu, add it
@@ -474,7 +474,7 @@ namespace OgreBites
         void sliderMoved(Slider* slider) override
         {
             // format the caption to be fraction style
-            Ogre::String denom = ::std::format("/{}", Ogre::StringConverter::toString(mSampleMenu->getNumItems()));
+            Ogre::String denom = ::std::format("/{}", mSampleMenu->getNumItems());
             slider->setValueCaption(slider->getValueCaption() + denom);
 
             // tell the sample menu to change if it hasn't already

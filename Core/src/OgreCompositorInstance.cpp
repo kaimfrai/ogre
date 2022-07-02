@@ -718,7 +718,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
             if (def->formatList.size() > 1)
             {
                 String MRTbaseName = ::std::format("mrt/c{}/{}/{}",
-                    StringConverter::toString(dummyCounter++),
+                    dummyCounter++,
                     def->name,
                     mChain->getViewport()->getTarget()->getName());
                 MultiRenderTarget* mrt = 
@@ -765,7 +765,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
             else
             {
                 String texName =  ::std::format("c{}/{}/{}",
-                    StringConverter::toString(dummyCounter++),
+                    dummyCounter++,
                     def->name,
                     mChain->getViewport()->getTarget()->getName());
                 

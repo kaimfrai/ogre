@@ -190,8 +190,8 @@ protected:
 
             content->appendElement("h4")->appendText(
                 ::std::format("{} of {} images passed.",
-                    Ogre::StringConverter::toString(p),
-                    Ogre::StringConverter::toString(result.size())));
+                    p,
+                    result.size()));
         }
 
         // loop over images
@@ -202,7 +202,7 @@ protected:
 
             // add a frame label if more than one image
             if(result.size() > 1)
-                content->appendElement("h4")->appendText(::std::format("Frame {}:", Ogre::StringConverter::toString(result[i]->frame) ));
+                content->appendElement("h4")->appendText(::std::format("Frame {}:", result[i]->frame ));
 
             HtmlElement* imageBox = content->appendElement("div");
 
@@ -228,8 +228,7 @@ protected:
             {
                 HtmlElement* absDiff = imageBox->appendElement("p");
                 absDiff->appendAttribute("class", "diffreport");
-                absDiff->appendText(Ogre::StringConverter::toString(result[i]->incorrectPixels) +
-                    " pixels differed.");
+                absDiff->appendText(std::format("{} pixels differed.", result[i]->incorrectPixels));
 
                 HtmlElement* mse = imageBox->appendElement("p");
                 mse->appendAttribute("class", "diffreport");
@@ -288,8 +287,8 @@ protected:
         row->appendElement("th")->appendText("Resolution:");
         row->appendElement("td")->appendText(
             ::std::format("{} x {}",
-                Ogre::StringConverter::toString(set.resolutionX),
-                Ogre::StringConverter::toString(set.resolutionY)));
+                set.resolutionX,
+                set.resolutionY));
         row = table->appendElement("tr");
         row->appendElement("th")->appendText("Comment:");
         row->appendElement("td")->appendText(set.comment);

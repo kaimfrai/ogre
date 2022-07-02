@@ -30,9 +30,12 @@ THE SOFTWARE.
 #define OGRE_CORE_STRINGCONVERTER_H
 
 #include <cstddef>
+#include <format>
 #include <iosfwd>
 #include <locale>
 #include <string>
+#include <type_traits>
+#include <utility>
 
 #include "OgreColourValue.hpp"
 #include "OgreCommon.hpp"
@@ -333,7 +336,117 @@ namespace Ogre {
     /** @} */
 }
 
+template<typename CharT>
+struct std::formatter<Ogre::Vector2, CharT>
+{
+    std::formatter<Ogre::Real, CharT> realFormatter;
 
+    auto constexpr parse(auto& pc)
+    {
+        return realFormatter.parse(pc);
+    }
+
+    template<class FormatContext>
+    auto constexpr format(Ogre::Vector2 const& vec, FormatContext& fc) const
+    {
+        auto x = std::formatter<Ogre::Real, CharT>::format(vec.x, fc);
+        *x++ = CharT{' '};
+        fc.advance_to(x);
+        return std::formatter<Ogre::Real, CharT>::format(vec.y, fc);
+    }
+};
+
+template<typename CharT>
+struct std::formatter<Ogre::Vector3, CharT>
+{
+    std::formatter<Ogre::Real, CharT> realFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return realFormatter.parse(pc);
+    }
+
+    auto constexpr format(Ogre::Vector3 const& vec, auto& fc)
+    {
+        auto x = realFormatter.format(vec.x, fc);
+        *x++ = CharT{' '};
+        fc.advance_to(x);
+        auto y = realFormatter.format(vec.y, fc);
+        *y++ = CharT{' '};
+        fc.advance_to(y);
+        return realFormatter.format(vec.z, fc);
+    }
+};
+
+template<typename CharT>
+struct std::formatter<Ogre::Vector4, CharT>
+{
+    std::formatter<Ogre::Real, CharT> realFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return realFormatter.parse(pc);
+    }
+
+    auto constexpr format(Ogre::Vector4 const& vec, auto& fc) const
+    {
+        auto x = realFormatter.format(vec.x, fc);
+        *x++ = CharT{' '};
+        fc.advance_to(x);
+        auto y = realFormatter.format(vec.y, fc);
+        *y++ = CharT{' '};
+        fc.advance_to(y);
+        auto z = realFormatter.format(vec.z, fc);
+        *z++ = CharT{' '};
+        fc.advance_to(z);
+        return realFormatter.format(vec.w, fc);
+    }
+};
+
+
+template<typename T, typename CharT>
+requires
+    ::std::is_enum_v<T>
+struct std::formatter<T, CharT>
+{
+    std::formatter<::std::underlying_type_t<T>, CharT> underlyingFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return underlyingFormatter.parse(pc);
+    }
+
+    auto constexpr format(T t, auto& fc)
+    {
+        return underlyingFormatter.format(std::to_underlying(t), fc);
+    }
+};
+
+template<typename CharT>
+struct std::formatter<Ogre::StringVector, CharT>
+{
+    std::formatter<::std::string, CharT> stringFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return stringFormatter.parse(pc);
+    }
+
+    auto constexpr format(Ogre::StringVector const& val, auto& fc)
+    {
+        auto out = fc.out();
+        for (auto i = val.begin(); i != val.end(); ++i)
+        {
+            if (i != val.begin())
+            {
+                *out++ = CharT{' '};
+            }
+
+            fc.advance_to(out);
+            out = stringFormatter.format(*i, fc);
+        }
+        return out;
+    }
+};
 
 #endif
-

@@ -159,9 +159,9 @@ namespace Ogre {
         std::pair<ResourceHandleMap::iterator, bool> resultHandle = mResourcesByHandle.emplace(res->getHandle(), res);
         if (!resultHandle.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, getResourceType()+" with the handle " +
-                StringConverter::toString((long) (res->getHandle())) +
-                " already exists.", "ResourceManager::add");
+            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+                        std::format("{} with the handle {} already exists.", getResourceType(), (long) (res->getHandle())),
+                        "ResourceManager::add");
         }
     }
     //-----------------------------------------------------------------------

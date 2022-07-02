@@ -708,8 +708,8 @@ namespace Ogre {
                 "your animation may look slightly different. To eliminate this, reduce "
                 "the number of bone assignments per vertex on your mesh to {}.",
                 mName,
-                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS),
-                static_cast<int>(OGRE_MAX_BLEND_WEIGHTS)));
+                OGRE_MAX_BLEND_WEIGHTS,
+                OGRE_MAX_BLEND_WEIGHTS));
             // we've adjusted them down to the max
             maxBones = OGRE_MAX_BLEND_WEIGHTS;
 

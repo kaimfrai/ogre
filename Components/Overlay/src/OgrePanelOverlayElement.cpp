@@ -462,10 +462,10 @@ class RenderQueue;
 
         static_cast<const PanelOverlayElement*>(target)->getUV(u1, v1, u2, v2);
         String ret = ::std::format(" {} {} {} {}",
-            StringConverter::toString(u1),
-            StringConverter::toString(v1),
-            StringConverter::toString(u2),
-            StringConverter::toString(v2));
+            u1,
+            v1,
+            u2,
+            v2);
 
         return ret;
     }

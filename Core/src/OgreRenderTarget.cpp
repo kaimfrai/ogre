@@ -209,8 +209,7 @@ class Camera;
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,"No viewport with given zorder : "
-                + StringConverter::toString(zorder), "RenderTarget::_updateViewport");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, std::format("No viewport with given zorder : {}", zorder), "RenderTarget::_updateViewport");
         }
     }
 
@@ -388,8 +387,7 @@ class Camera;
         auto i = mViewportList.find(ZOrder);
         if(i == mViewportList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,"No viewport with given Z-order: "
-                + StringConverter::toString(ZOrder), "RenderTarget::getViewportByZOrder");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, std::format("No viewport with given Z-order: {}", ZOrder), "RenderTarget::getViewportByZOrder");
         }
         return i->second.get();
     }

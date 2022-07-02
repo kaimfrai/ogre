@@ -73,12 +73,12 @@ namespace Ogre {
                     "  v0={}, \n"
                     "  v1={}, \n"
                     "  degenerate={} \n}}",
-                    StringConverter::toString(num),
-                    StringConverter::toString(e.triIndex[0]),
-                    StringConverter::toString(e.triIndex[1]),
-                    StringConverter::toString(e.vertIndex[0]),
-                    StringConverter::toString(e.vertIndex[1]),
-                    StringConverter::toString(e.degenerate) )
+                    num,
+                    e.triIndex[0],
+                    e.triIndex[1],
+                    e.vertIndex[0],
+                    e.vertIndex[1],
+                    e.degenerate )
                     );
                 ++num;
             }
@@ -456,8 +456,8 @@ namespace Ogre {
     {
         l->logMessage("EdgeListBuilder Log");
         l->logMessage("-------------------");
-        l->logMessage(::std::format("Number of vertex sets: {}", StringConverter::toString(mVertexDataList.size())));
-        l->logMessage(::std::format("Number of index sets: {}", StringConverter::toString(mGeometryList.size())));
+        l->logMessage(::std::format("Number of vertex sets: {}", mVertexDataList.size()));
+        l->logMessage(::std::format("Number of index sets: {}", mGeometryList.size()));
         
         size_t i, j, k;
         // Log original vertex data
@@ -467,8 +467,8 @@ namespace Ogre {
             l->logMessage(".");
             l->logMessage(::std::format("Original vertex set {}"
                 " - vertex count {}",
-                StringConverter::toString(i),
-                StringConverter::toString(vData->vertexCount)));
+                i,
+                vData->vertexCount));
             const VertexElement* posElem = vData->vertexDeclaration->findElementBySemantic(VES_POSITION);
             HardwareVertexBufferSharedPtr vbuf = 
                 vData->vertexBufferBinding->getBuffer(posElem->getSource());
@@ -481,10 +481,10 @@ namespace Ogre {
                 posElem->baseVertexPointerToElement(pBaseVertex, &pFloat);
                 l->logMessage(
                     ::std::format("Vertex {}: ({}, {}, {})",
-                    StringConverter::toString(j),
-                    StringConverter::toString(pFloat[0]),
-                    StringConverter::toString(pFloat[1]),
-                    StringConverter::toString(pFloat[2])
+                    j,
+                    pFloat[0],
+                    pFloat[1],
+                    pFloat[2]
                     ));
                 pBaseVertex += vbuf->getVertexSize();
             }
@@ -497,10 +497,10 @@ namespace Ogre {
             l->logMessage(".");
             l->logMessage(
                 ::std::format("Original triangle set {} - index count {} - vertex set {} - operationType {}",
-                StringConverter::toString(mGeometryList[i].indexSet),
-                StringConverter::toString(iData->indexCount),
-                StringConverter::toString(mGeometryList[i].vertexSet),
-                StringConverter::toString(mGeometryList[i].opType)));
+                mGeometryList[i].indexSet,
+                iData->indexCount,
+                mGeometryList[i].vertexSet,
+                mGeometryList[i].opType));
             // Get the indexes ready for reading
             HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
             auto* p16Idx = static_cast<unsigned short*>(indexLock.pData);
@@ -518,17 +518,17 @@ namespace Ogre {
                         unsigned int n2 = *p32Idx++;
                         unsigned int n3 = *p32Idx++;
                         l->logMessage(::std::format("Triangle {}: ({}, {}, {})",
-                            StringConverter::toString(j),
-                            StringConverter::toString(n1),
-                            StringConverter::toString(n2),
-                            StringConverter::toString(n3)));
+                            j,
+                            n1,
+                            n2,
+                            n3));
                         j += 3;
                     }
                     else
                     {
                         l->logMessage(::std::format("Triangle {}: ({})",
-                            StringConverter::toString(j),
-                            StringConverter::toString(*p32Idx++) ));
+                            j,
+                            *p32Idx++));
                         j++;
                     }
                 }
@@ -541,16 +541,15 @@ namespace Ogre {
                         unsigned short n2 = *p16Idx++;
                         unsigned short n3 = *p16Idx++;
                         l->logMessage(::std::format("Index {}: ({}, {}, {})",
-                            StringConverter::toString(j),
-                            StringConverter::toString(n1),
-                            StringConverter::toString(n2),
-                            StringConverter::toString(n3)));
+                            j,
+                            n1,
+                            n2,
+                            n3));
                         j += 3;
                     }
                     else
                     {
-                        l->logMessage(::std::format("Triangle {}: ({})",
-                            StringConverter::toString(j), StringConverter::toString(*p16Idx++) ));
+                        l->logMessage(::std::format("Triangle {}: ({})", j, *p16Idx++ ));
                         j++;
                     }
                 }
@@ -558,16 +557,15 @@ namespace Ogre {
 
             // Log common vertex list
             l->logMessage(".");
-            l->logMessage(::std::format("Common vertex list - vertex count {}",
-                StringConverter::toString(mVertices.size())));
+            l->logMessage(::std::format("Common vertex list - vertex count {}", mVertices.size()));
             for (k = 0; k < mVertices.size(); ++k)
             {
                 CommonVertex& c = mVertices[k];
                 l->logMessage(::std::format("Common vertex {}: (vertexSet={}, originalIndex={}, position={})",
-                    StringConverter::toString(k),
-                    StringConverter::toString(c.vertexSet),
-                    StringConverter::toString(c.originalIndex),
-                    StringConverter::toString(c.position)));
+                    k,
+                    c.vertexSet,
+                    c.originalIndex,
+                    c.position));
             }
         }
 
