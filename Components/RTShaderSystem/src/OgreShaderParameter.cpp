@@ -471,7 +471,7 @@ auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Paramet
     case GCT_UINT2:
     case GCT_UINT3:
     case GCT_UINT4:
-        return std::make_shared<Parameter>(type, StringUtil::format("iTexcoord_{}", index),
+        return std::make_shared<Parameter>(type, std::format("iTexcoord_{}", index),
                                            Parameter::SPS_TEXTURE_COORDINATES, index, content);
     default:
     case GCT_SAMPLER1D:
@@ -497,7 +497,7 @@ auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parame
     case GCT_FLOAT2:
     case GCT_FLOAT3:
     case GCT_FLOAT4:
-        return std::make_shared<Parameter>(type, StringUtil::format("oTexcoord_{}", index),
+        return std::make_shared<Parameter>(type, std::format("oTexcoord_{}", index),
                                            Parameter::SPS_TEXTURE_COORDINATES, index, content);
     default:
     case GCT_SAMPLER1D:

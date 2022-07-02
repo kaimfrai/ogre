@@ -97,8 +97,7 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    struct LodUsageSortLess :
-    public std::binary_function<const MeshLodUsage&, const MeshLodUsage&, bool>
+    struct LodUsageSortLess
     {
         auto operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2) -> bool
         {
@@ -112,8 +111,7 @@ class MovableObject;
         std::sort(meshLodUsageList.begin(), meshLodUsageList.end(), LodUsageSortLess());
     }
     //---------------------------------------------------------------------
-    struct LodUsageSortGreater :
-    public std::binary_function<const MeshLodUsage&, const MeshLodUsage&, bool>
+    struct LodUsageSortGreater
     {
         auto operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2) -> bool
         {

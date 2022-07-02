@@ -66,7 +66,7 @@ namespace Ogre {
         // dlopen() does not add .so to the filename, like windows does for .dll
         if (name.find(".so") == String::npos)
         {
-            name += StringUtil::format(".so.{}.{}", /*OGRE_VERSION_MAJOR*/13, /*OGRE_VERSION_MINOR*/3);
+            name += std::format(".so.{}.{}", /*OGRE_VERSION_MAJOR*/13, /*OGRE_VERSION_MINOR*/3);
         }
 
         // Log library load

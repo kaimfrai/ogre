@@ -286,7 +286,7 @@ auto IntegratedPSSM3::resolveDependencies(ProgramSet* programSet) -> bool
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency(SGX_LIB_INTEGRATEDPSSM);
 
-    psProgram->addPreprocessorDefines(StringUtil::format("PROJ_SPACE_SPLITS,PSSM_NUM_SPLITS={},PCF_XSAMPLES={:.1f}",
+    psProgram->addPreprocessorDefines(std::format("PROJ_SPACE_SPLITS,PSSM_NUM_SPLITS={},PCF_XSAMPLES={:.1f}",
                                                          mShadowTextureParamsList.size(), mPCFxSamples));
 
     if(mDebug)
