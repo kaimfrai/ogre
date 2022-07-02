@@ -351,35 +351,35 @@ namespace Ogre {
         if(_isSupportCpuid())
         {
             pLog->logMessage(
-                ::std::format(" *          SSE: {}", hasCpuFeature(CPU_FEATURE_SSE), true));
+                ::std::format(" *          SSE: {}", hasCpuFeature(CPU_FEATURE_SSE)));
             pLog->logMessage(
-                ::std::format(" *         SSE2: {}", hasCpuFeature(CPU_FEATURE_SSE2), true));
+                ::std::format(" *         SSE2: {}", hasCpuFeature(CPU_FEATURE_SSE2)));
             pLog->logMessage(
-                ::std::format(" *         SSE3: {}", hasCpuFeature(CPU_FEATURE_SSE3), true));
+                ::std::format(" *         SSE3: {}", hasCpuFeature(CPU_FEATURE_SSE3)));
             pLog->logMessage(
-                ::std::format(" *        SSE41: {}", hasCpuFeature(CPU_FEATURE_SSE41), true));
+                ::std::format(" *        SSE41: {}", hasCpuFeature(CPU_FEATURE_SSE41)));
             pLog->logMessage(
-                ::std::format(" *        SSE42: {}", hasCpuFeature(CPU_FEATURE_SSE42), true));
+                ::std::format(" *        SSE42: {}", hasCpuFeature(CPU_FEATURE_SSE42)));
             pLog->logMessage(
-                ::std::format(" *          MMX: {}", hasCpuFeature(CPU_FEATURE_MMX), true));
+                ::std::format(" *          MMX: {}", hasCpuFeature(CPU_FEATURE_MMX)));
             pLog->logMessage(
-                ::std::format(" *       MMXEXT: {}", hasCpuFeature(CPU_FEATURE_MMXEXT), true));
+                ::std::format(" *       MMXEXT: {}", hasCpuFeature(CPU_FEATURE_MMXEXT)));
             pLog->logMessage(
-                ::std::format(" *        3DNOW: {}", hasCpuFeature(CPU_FEATURE_3DNOW), true));
+                ::std::format(" *        3DNOW: {}", hasCpuFeature(CPU_FEATURE_3DNOW)));
             pLog->logMessage(
-                ::std::format(" *     3DNOWEXT: {}", hasCpuFeature(CPU_FEATURE_3DNOWEXT), true));
+                ::std::format(" *     3DNOWEXT: {}", hasCpuFeature(CPU_FEATURE_3DNOWEXT)));
             pLog->logMessage(
-                ::std::format(" *         CMOV: {}", hasCpuFeature(CPU_FEATURE_CMOV), true));
+                ::std::format(" *         CMOV: {}", hasCpuFeature(CPU_FEATURE_CMOV)));
             pLog->logMessage(
-                ::std::format(" *          TSC: {}", hasCpuFeature(CPU_FEATURE_TSC), true));
+                ::std::format(" *          TSC: {}", hasCpuFeature(CPU_FEATURE_TSC)));
             pLog->logMessage(
-                ::std::format(" *INVARIANT TSC: {}", hasCpuFeature(CPU_FEATURE_INVARIANT_TSC), true));
+                ::std::format(" *INVARIANT TSC: {}", hasCpuFeature(CPU_FEATURE_INVARIANT_TSC)));
             pLog->logMessage(
-                ::std::format(" *          FPU: {}", hasCpuFeature(CPU_FEATURE_FPU), true));
+                ::std::format(" *          FPU: {}", hasCpuFeature(CPU_FEATURE_FPU)));
             pLog->logMessage(
-                ::std::format(" *          PRO: {}", hasCpuFeature(CPU_FEATURE_PRO), true));
+                ::std::format(" *          PRO: {}", hasCpuFeature(CPU_FEATURE_PRO)));
             pLog->logMessage(
-                ::std::format(" *           HT: {}", hasCpuFeature(CPU_FEATURE_HTT), true));
+                ::std::format(" *           HT: {}", hasCpuFeature(CPU_FEATURE_HTT)));
         }
 
         pLog->logMessage("-------------------------");

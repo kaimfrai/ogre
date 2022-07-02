@@ -337,26 +337,6 @@ namespace Ogre {
 }
 
 template<typename CharT>
-struct std::formatter<Ogre::Vector2, CharT>
-{
-    std::formatter<Ogre::Real, CharT> realFormatter;
-
-    auto constexpr parse(auto& pc)
-    {
-        return realFormatter.parse(pc);
-    }
-
-    template<class FormatContext>
-    auto constexpr format(Ogre::Vector2 const& vec, FormatContext& fc) const
-    {
-        auto x = std::formatter<Ogre::Real, CharT>::format(vec.x, fc);
-        *x++ = CharT{' '};
-        fc.advance_to(x);
-        return std::formatter<Ogre::Real, CharT>::format(vec.y, fc);
-    }
-};
-
-template<typename CharT>
 struct std::formatter<Ogre::Vector3, CharT>
 {
     std::formatter<Ogre::Real, CharT> realFormatter;
@@ -377,32 +357,6 @@ struct std::formatter<Ogre::Vector3, CharT>
         return realFormatter.format(vec.z, fc);
     }
 };
-
-template<typename CharT>
-struct std::formatter<Ogre::Vector4, CharT>
-{
-    std::formatter<Ogre::Real, CharT> realFormatter;
-
-    auto constexpr parse(auto& pc)
-    {
-        return realFormatter.parse(pc);
-    }
-
-    auto constexpr format(Ogre::Vector4 const& vec, auto& fc) const
-    {
-        auto x = realFormatter.format(vec.x, fc);
-        *x++ = CharT{' '};
-        fc.advance_to(x);
-        auto y = realFormatter.format(vec.y, fc);
-        *y++ = CharT{' '};
-        fc.advance_to(y);
-        auto z = realFormatter.format(vec.z, fc);
-        *z++ = CharT{' '};
-        fc.advance_to(z);
-        return realFormatter.format(vec.w, fc);
-    }
-};
-
 
 template<typename T, typename CharT>
 requires
