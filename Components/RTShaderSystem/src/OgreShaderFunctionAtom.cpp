@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <algorithm>
 #include <compare>
 #include <cstddef>
+#include <format>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -185,7 +186,7 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, const String& targetL
 //-----------------------------------------------------------------------
 static String parameterNullMsg(const String& name, size_t pos)
 {
-    return StringUtil::format("%s: parameter #%zu is NULL", name.c_str(), pos);
+    return std::format("{}: parameter #{} is NULL", name.c_str(), pos);
 }
 
 void FunctionAtom::pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask, int indirectionLevel)

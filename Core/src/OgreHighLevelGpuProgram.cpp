@@ -219,7 +219,7 @@ namespace Ogre
         String tmp = getLanguage();
         StringUtil::toUpperCase(tmp);
         auto ver = renderSystem ? renderSystem->getNativeShadingLanguageVersion() : 0;
-        defines += StringUtil::format("OGRE_%s=%d", tmp.c_str(), ver);
+        defines += std::format("OGRE_{}={}", tmp.c_str(), ver);
 
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
         tmp = GpuProgram::getProgramTypeName(getType());
@@ -284,7 +284,7 @@ namespace Ogre
         size_t startMarker = 0;
         size_t i = inSource.find("#include");
 
-        String lineFilename = supportsFilename ? StringUtil::format(" \"%s\"", fileName.c_str()) : " 0";
+        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.c_str()) : " 0";
 
         while (i != String::npos)
         {
@@ -364,7 +364,7 @@ namespace Ogre
             size_t lineCount = std::ranges::count(std::span{inSource.begin(), newLineAfter}, '\n') + 1;
 
             // use include filename if supported (cg) - else use include line as id (glsl)
-            String incLineFilename = supportsFilename ? StringUtil::format(" \"%s\"", filename.c_str()) : StringUtil::format(" %zu", lineCount);
+            String incLineFilename = supportsFilename ? std::format(" \"{}\"", filename.c_str()) : std::format(" {}", lineCount);
 
             // Add #line to the start of the included file to correct the line count)
             outSource.append(::std::format("#line 1 {}\n", incLineFilename));

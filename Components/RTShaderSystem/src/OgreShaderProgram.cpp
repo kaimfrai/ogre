@@ -80,7 +80,7 @@ void Program::addParameter(UniformParameterPtr parameter)
     if (getParameterByName(parameter->getName()).get() != nullptr)
     {
         OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
-            ::std::format("Parameter <{{}}> already declared in program.", parameter->getName() ),
+            ::std::format("Parameter '{}' already declared in program.", parameter->getName() ),
             "Program::addParameter" );
     }
 

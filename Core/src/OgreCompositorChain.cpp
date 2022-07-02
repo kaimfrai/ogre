@@ -92,7 +92,7 @@ void CompositorChain::destroyResources()
 //-----------------------------------------------------------------------
 const String CompositorChain::getCompositorName() const
 {
-    return StringUtil::format("Ogre/Scene/%zu", (size_t)mViewport);
+    return std::format("Ogre/Scene/{}", (size_t)mViewport);
 }
 //-----------------------------------------------------------------------
 void CompositorChain::createOriginalScene()

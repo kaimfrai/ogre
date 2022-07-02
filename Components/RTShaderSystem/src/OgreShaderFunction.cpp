@@ -257,7 +257,7 @@ static String getParameterName(const char* prefix, Parameter::Semantic semantic,
         name = "Param";
         break;
     };
-    return StringUtil::format("%s%s_%d", prefix, name, index);
+    return std::format("{}{}_{}", prefix, name, index);
 }
 
 //-----------------------------------------------------------------------------
@@ -307,8 +307,8 @@ ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
                 return param;
             }
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        StringUtil::format("Can not resolve parameter due to type mismatch: semantic: %d, index: %d",
-                            semantic, index));
+                        std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
+                            static_cast<int>(semantic), index));
         }
     }
 
@@ -369,8 +369,8 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
                 return param;
             }
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        StringUtil::format("Can not resolve parameter due to type mismatch: semantic: %d, index: %d",
-                            semantic, index));
+                        std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
+                            static_cast<int>(semantic), index));
         }
     }
     
@@ -387,7 +387,7 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
 
     default:
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                    StringUtil::format("Semantic not supported as output parameter: %d", semantic));
+                    std::format("Semantic not supported as output parameter: {}", static_cast<int>(semantic)));
         break;
     }
 

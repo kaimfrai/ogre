@@ -341,7 +341,7 @@ String ProgramManager::generateHash(const String& programString, const String& d
     MurmurHash3_128(programString.c_str(), programString.size(), seed, hash);
 
     //Generate the string
-    return StringUtil::format("%08x%08x%08x%08x", hash[0], hash[1], hash[2], hash[3]);
+    return std::format("{:#08x}{:#08x}{:#08x}{:#08x}", hash[0], hash[1], hash[2], hash[3]);
 }
 
 

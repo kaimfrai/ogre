@@ -362,7 +362,7 @@ static const uchar depthBits[] =
                             if (_tryFormat(depthFormats[depth], stencilFormats[stencil]))
                             {
                                 /// Add mode to allowed modes
-                                str << StringUtil::format("D%dS%d ", depthBits[depth], stencilBits[stencil]);
+                                str << std::format("D{}S{} ", depthBits[depth], stencilBits[stencil]);
                                 FormatProperties::Mode mode;
                                 mode.depth = depth;
                                 mode.stencil = stencil;

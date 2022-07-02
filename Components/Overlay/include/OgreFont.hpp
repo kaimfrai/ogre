@@ -29,6 +29,7 @@ THE SOFTWARE
 
 #include <algorithm>
 #include <cstddef>
+#include <format>
 #include <map>
 #include <utility>
 #include <vector>
@@ -262,7 +263,7 @@ class ResourceManager;
             if (i == mCodePointMap.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            StringUtil::format("Code point %d not found in font %s", id, mName.c_str()));
+                            std::format("Code point {} not found in font {}", id, mName.c_str()));
             }
             return i->second;
         }

@@ -32,6 +32,7 @@
 #include <cassert>
 #include <cctype>
 #include <cstdio>
+#include <format>
 #include <iterator>
 #include <memory>
 #include <utility>
@@ -244,9 +245,9 @@ namespace Ogre {
     {
         String msg;
         if (iToken)
-            msg = StringUtil::format("line %d: %s: `%.*s'\n", iLine, iError, int(iToken->Length), iToken->String);
+            msg = std::format("line {0}: {1}: `{3:.{2}}'\n", iLine, iError, int(iToken->Length), iToken->String);
         else
-            msg = StringUtil::format("line %d: %s\n", iLine, iError);
+            msg = std::format("line {}: {}\n", iLine, iError);
         LogManager::getSingleton().logMessage(msg, LML_CRITICAL);
     }
 
