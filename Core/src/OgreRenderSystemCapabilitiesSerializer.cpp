@@ -222,7 +222,7 @@ namespace Ogre
                 case FIND_OPEN_BRACE:
                     if (tokens[0] != "{" || tokens.size() != 1)
                     {
-                        logParseError(::std::format("Expected '{' got: {}. Continuing to next line.", line ));
+                        logParseError(::std::format("Expected '{{' got: {}. Continuing to next line.", line ));
                     }
                     else
                     {

@@ -262,7 +262,7 @@ class ResourceManager;
             if (i == mCodePointMap.end())
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                            StringUtil::format("Code point {} not found in font {}", id, mName.c_str()));
+                            std::format("Code point {} not found in font {}", id, mName.c_str()));
             }
             return i->second;
         }

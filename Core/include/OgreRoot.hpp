@@ -167,19 +167,12 @@ struct SceneManagerMetaData;
 
         RenderWindow* mAutoWindow;
 
-<<<<<<< HEAD:Core/include/OgreRoot.hpp
         unsigned long mNextFrame{0};
         Real mFrameSmoothingTime{0.0f};
         bool mRemoveQueueStructuresOnClear{false};
         Real mDefaultMinPixelSize{0};
-=======
-        unsigned long mNextFrame;
-        Real mFrameSmoothingTime;
-        bool mRemoveQueueStructuresOnClear;
-        Real mDefaultMinPixelSize;
         // maximum amount of frames
         ::std::size_t mFrameCount;
->>>>>>> cpp23:Core/include/OgreRoot.h
 
     private:
         /// List of plugin DLLs loaded

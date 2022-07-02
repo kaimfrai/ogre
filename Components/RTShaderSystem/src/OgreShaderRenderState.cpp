@@ -189,7 +189,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
         hasError = hasError || prog->hasCompileError();
         if (logProgramNames)
         {
-            LogManager::getSingleton().logMessage(StringUtil::format(
+            LogManager::getSingleton().logMessage(std::format(
                 "RTSS: using {} for Pass {} of '{}'", prog->getName().c_str(), pass->getIndex(), matName));
         }
 
@@ -202,7 +202,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
     if (hasError)
     {
         LogManager::getSingleton().logError(
-            StringUtil::format("RTSS: failed to create GpuPrograms for Pass {} of '{}'", pass->getIndex(), matName));
+            std::format("RTSS: failed to create GpuPrograms for Pass {} of '{}'", pass->getIndex(), matName));
     }
 
     mParent = pass;

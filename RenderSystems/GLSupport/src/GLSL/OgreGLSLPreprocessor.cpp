@@ -246,9 +246,9 @@ MAX_MACRO_ARGS = 16
     {
         String msg;
         if (iToken)
-            msg = StringUtil::format("line {0}: {1}: `{3:.{2}}'\n", iLine, iError, int(iToken->Length), iToken->String);
+            msg = std::format("line {0}: {1}: `{3:.{2}}'\n", iLine, iError, int(iToken->Length), iToken->String);
         else
-            msg = StringUtil::format("line {}: {}\n", iLine, iError);
+            msg = std::format("line {}: {}\n", iLine, iError);
         LogManager::getSingleton().logMessage(msg, LML_CRITICAL);
     }
 
