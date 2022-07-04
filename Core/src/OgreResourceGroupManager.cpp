@@ -146,9 +146,8 @@ namespace Ogre {
     void ResourceGroupManager::initialiseAllResourceGroups()
     {
         // Intialise all declared resource groups
-        for (auto & i : mResourceGroupMap)
+        for (auto const& [key, grp] : mResourceGroupMap)
         {
-            ResourceGroup* grp = i.second;
             if (grp->groupStatus == ResourceGroup::UNINITIALSED)
             {
                 // in the process of initialising
@@ -156,7 +155,7 @@ namespace Ogre {
                 // Set current group
                 mCurrentGroup = grp;
                 parseResourceGroupScripts(grp);
-                LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", i.first));
+                LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", key));
                 createDeclaredResources(grp);
                 grp->groupStatus = ResourceGroup::INITIALISED;
                 LogManager::getSingleton().logMessage("All done");
@@ -176,19 +175,19 @@ namespace Ogre {
 
         // Count up resources for starting event
         size_t resourceCount = 0;
-        for (auto const& oi : grp->loadResourceOrderMap)
+        for (auto const& [key, value] : grp->loadResourceOrderMap)
         {
-            resourceCount += oi.second.size();
+            resourceCount += value.size();
         }
 
         fireResourceGroupPrepareStarted(name, resourceCount);
 
         // Now load for real
-        for (auto const& oi : grp->loadResourceOrderMap)
+        for (auto const& [key, value] : grp->loadResourceOrderMap)
         {
             size_t n = 0;
-            auto l = oi.second.begin();
-            while (l != oi.second.end())
+            auto l = value.begin();
+            while (l != value.end())
             {
                 ResourcePtr res = *l;
 
@@ -211,7 +210,7 @@ namespace Ogre {
                 // been invalidated
                 if (res->getGroup() != name)
                 {
-                    l = oi.second.begin();
+                    l = value.begin();
                     std::advance(l, n);
                 }
                 else
@@ -238,19 +237,19 @@ namespace Ogre {
 
         // Count up resources for starting event
         size_t resourceCount = grp->customStageCount;
-        for (auto const& oi : grp->loadResourceOrderMap)
+        for (auto const& [key, value] : grp->loadResourceOrderMap)
         {
-            resourceCount += oi.second.size();
+            resourceCount += value.size();
         }
 
         fireResourceGroupLoadStarted(name, resourceCount);
 
         // Now load for real
-        for (auto const& oi : grp->loadResourceOrderMap)
+        for (auto const& [key, value] : grp->loadResourceOrderMap)
         {
             size_t n = 0;
-            auto l = oi.second.begin();
-            while (l != oi.second.end())
+            auto l = value.begin();
+            while (l != value.end())
             {
                 ResourcePtr res = *l;
 
@@ -273,7 +272,7 @@ namespace Ogre {
                 // been invalidated
                 if (res->getGroup() != name)
                 {
-                    l = oi.second.begin();
+                    l = value.begin();
                     std::advance(l, n);
                 }
                 else
@@ -539,13 +538,13 @@ namespace Ogre {
         if (pArch == nullptr && (searchGroupsIfNotFound ||
             groupName == AUTODETECT_RESOURCE_GROUP_NAME || grp->inGlobalPool))
         {
-            std::pair<Archive*, ResourceGroup*> ret = resourceExistsInAnyGroupImpl(resourceName);
+            auto[key, value] = resourceExistsInAnyGroupImpl(resourceName);
 
-            if(ret.second && resourceBeingLoaded && !grp->inGlobalPool) {
-                resourceBeingLoaded->changeGroupOwnership(ret.second->name);
+            if(value && resourceBeingLoaded && !grp->inGlobalPool) {
+                resourceBeingLoaded->changeGroupOwnership(value->name);
             }
 
-            pArch = ret.first;
+            pArch = key;
         }
 
         if (pArch)
@@ -743,9 +742,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ResourceGroupManager::_findScriptLoader(const String &pattern) const -> ScriptLoader *
     {
-        for (auto oi : mScriptLoaderOrderMap)
+        for (auto const& [key, su] : mScriptLoaderOrderMap)
         {
-            ScriptLoader* su = oi.second;
             const StringVector& patterns = su->getScriptPatterns();
 
             // Search for matches in the patterns
@@ -771,10 +769,8 @@ namespace Ogre {
         ScriptLoaderFileList scriptLoaderFileList;
         size_t scriptCount = 0;
         // Iterate over script users in loading order and get streams
-        for (auto oi : mScriptLoaderOrderMap)
+        for (auto const& [key, su] : mScriptLoaderOrderMap)
         {
-            ScriptLoader* su = oi.second;
-
             scriptLoaderFileList.push_back(LoaderFileListPair(su, FileInfoList()));
 
             // Get all the patterns and search them
@@ -793,11 +789,10 @@ namespace Ogre {
 
         // Iterate over scripts and parse
         // Note we respect original ordering
-        for (auto & slfli : scriptLoaderFileList)
+        for (auto const& [su, item] : scriptLoaderFileList)
         {
-            ScriptLoader* su = slfli.first;
             // Iterate over each item in the list
-            for (auto & fii : slfli.second)
+            for (auto & fii : item)
             {
                 bool skipScript = false;
                 fireScriptStarted(fii.filename, skipScript);
@@ -956,17 +951,17 @@ namespace Ogre {
         for (const auto & grpi : mResourceGroupMap)
         {
             // Iterate over all priorities
-            for (auto & oi : grpi.second->loadResourceOrderMap)
+            for (auto& [key, value] : grpi.second->loadResourceOrderMap)
             {
                 // Iterate over all resources
-                for (auto l = oi.second.begin();
-                    l != oi.second.end(); )
+                for (auto l = value.begin();
+                    l != value.end(); )
                 {
                     if ((*l)->getCreator() == manager)
                     {
                         // Increment first since iterator will be invalidated
                         auto del = l++;
-                        oi.second.erase(del);
+                        value.erase(del);
                     }
                     else
                     {

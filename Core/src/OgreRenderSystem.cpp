@@ -698,9 +698,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::_notifyCameraRemoved(const Camera* cam)
     {
-        for (auto & mRenderTarget : mRenderTargets)
+        for (auto const& [key, target] : mRenderTargets)
         {
-            RenderTarget* target = mRenderTarget.second;
             target->_notifyCameraRemoved(cam);
         }
     }

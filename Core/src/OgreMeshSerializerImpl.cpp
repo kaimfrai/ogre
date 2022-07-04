@@ -419,77 +419,76 @@ namespace Ogre {
 
         pushInnerChunk(mStream);
         {
-        // Vertex declaration
+            // Vertex declaration
             size_t size = MSTREAM_OVERHEAD_SIZE + elemList.size() * (MSTREAM_OVERHEAD_SIZE + sizeof(unsigned short)* 5);
-        writeChunkHeader(M_GEOMETRY_VERTEX_DECLARATION, size);
+            writeChunkHeader(M_GEOMETRY_VERTEX_DECLARATION, size);
 
             pushInnerChunk(mStream);
             {
-        unsigned short tmp;
-        size = MSTREAM_OVERHEAD_SIZE + sizeof(unsigned short) * 5;
-        for (const auto & elem : elemList)
-        {
-            writeChunkHeader(M_GEOMETRY_VERTEX_ELEMENT, size);
-            // unsigned short source;   // buffer bind source
-            tmp = elem.getSource();
-            writeShorts(&tmp, 1);
-            // unsigned short type;     // VertexElementType
-            tmp = static_cast<unsigned short>(elem.getType());
-            writeShorts(&tmp, 1);
-            // unsigned short semantic; // VertexElementSemantic
-            tmp = static_cast<unsigned short>(elem.getSemantic());
-            writeShorts(&tmp, 1);
-            // unsigned short offset;   // start offset in buffer in bytes
-            tmp = static_cast<unsigned short>(elem.getOffset());
-            writeShorts(&tmp, 1);
-            // unsigned short index;    // index of the semantic (for colours and texture coords)
-            tmp = elem.getIndex();
-            writeShorts(&tmp, 1);
+                unsigned short tmp;
+                size = MSTREAM_OVERHEAD_SIZE + sizeof(unsigned short) * 5;
+                for (const auto & elem : elemList)
+                {
+                    writeChunkHeader(M_GEOMETRY_VERTEX_ELEMENT, size);
+                    // unsigned short source;   // buffer bind source
+                    tmp = elem.getSource();
+                    writeShorts(&tmp, 1);
+                    // unsigned short type;     // VertexElementType
+                    tmp = static_cast<unsigned short>(elem.getType());
+                    writeShorts(&tmp, 1);
+                    // unsigned short semantic; // VertexElementSemantic
+                    tmp = static_cast<unsigned short>(elem.getSemantic());
+                    writeShorts(&tmp, 1);
+                    // unsigned short offset;   // start offset in buffer in bytes
+                    tmp = static_cast<unsigned short>(elem.getOffset());
+                    writeShorts(&tmp, 1);
+                    // unsigned short index;    // index of the semantic (for colours and texture coords)
+                    tmp = elem.getIndex();
+                    writeShorts(&tmp, 1);
 
-        }
+                }
             }
             popInnerChunk(mStream);
 
 
-        // Buffers and bindings
-        for (const auto & binding : bindings)
-        {
-            const HardwareVertexBufferSharedPtr& vbuf = binding.second;
-            size_t vbufSizeInBytes = vbuf->getVertexSize() * vertexData->vertexCount; // vbuf->getSizeInBytes() is too large for meshes prepared for shadow volumes
-            size = (MSTREAM_OVERHEAD_SIZE * 2) + (sizeof(unsigned short) * 2) + vbufSizeInBytes;
-            writeChunkHeader(M_GEOMETRY_VERTEX_BUFFER,  size);
-            // unsigned short bindIndex;    // Index to bind this buffer to
-                unsigned short tmp = binding.first;
-            writeShorts(&tmp, 1);
-            // unsigned short vertexSize;   // Per-vertex size, must agree with declaration at this index
-            tmp = (unsigned short)vbuf->getVertexSize();
-            writeShorts(&tmp, 1);
+            // Buffers and bindings
+            for (auto const& [key, vbuf] : bindings)
+            {
+                size_t vbufSizeInBytes = vbuf->getVertexSize() * vertexData->vertexCount; // vbuf->getSizeInBytes() is too large for meshes prepared for shadow volumes
+                size = (MSTREAM_OVERHEAD_SIZE * 2) + (sizeof(unsigned short) * 2) + vbufSizeInBytes;
+                writeChunkHeader(M_GEOMETRY_VERTEX_BUFFER,  size);
+                // unsigned short bindIndex;    // Index to bind this buffer to
+                unsigned short tmp = key;
+                writeShorts(&tmp, 1);
+                // unsigned short vertexSize;   // Per-vertex size, must agree with declaration at this index
+                tmp = (unsigned short)vbuf->getVertexSize();
+                writeShorts(&tmp, 1);
                 pushInnerChunk(mStream);
                 {
-            // Data
-            size = MSTREAM_OVERHEAD_SIZE + vbufSizeInBytes;
-            writeChunkHeader(M_GEOMETRY_VERTEX_BUFFER_DATA, size);
-            HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
+                    // Data
+                    size = MSTREAM_OVERHEAD_SIZE + vbufSizeInBytes;
+                    writeChunkHeader(M_GEOMETRY_VERTEX_BUFFER_DATA, size);
+                    HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
 
-            if (mFlipEndian)
-            {
-                // endian conversion
-                // Copy data
-                auto* tempData = new unsigned char[vbufSizeInBytes];
-                memcpy(tempData, vbufLock.pData, vbufSizeInBytes);
-                flipToLittleEndian(
-                    tempData,
-                    vertexData->vertexCount,
-                    vbuf->getVertexSize(),
-                    vertexData->vertexDeclaration->findElementsBySource(binding.first));
-                writeData(tempData, vbuf->getVertexSize(), vertexData->vertexCount);
-                delete[] tempData;
-            }
-            else
-            {
-                writeData(vbufLock.pData, vbuf->getVertexSize(), vertexData->vertexCount);
-            }
-        }
+                    if (mFlipEndian)
+                    {
+                        // endian conversion
+                        // Copy data
+                        auto* tempData = new unsigned char[vbufSizeInBytes];
+                        memcpy(tempData, vbufLock.pData, vbufSizeInBytes);
+                        flipToLittleEndian(
+                            tempData,
+                            vertexData->vertexCount,
+                            vbuf->getVertexSize(),
+                            vertexData->vertexDeclaration->findElementsBySource(key));
+                        writeData(tempData, vbuf->getVertexSize(), vertexData->vertexCount);
+                        delete[] tempData;
+                    }
+                    else
+                    {
+                        writeData(vbufLock.pData, vbuf->getVertexSize(), vertexData->vertexCount);
+                    }
+                }
                 popInnerChunk(mStream);
             }
         }
@@ -652,9 +651,8 @@ namespace Ogre {
         size += bindings.size() * ((MSTREAM_OVERHEAD_SIZE * 2) + (sizeof(unsigned short)* 2));
 
         // Buffer data
-        for (const auto & binding : bindings)
+        for (auto const& [key, vbuf] : bindings)
         {
-            const HardwareVertexBufferSharedPtr& vbuf = binding.second;
             size += vbuf->getVertexSize() * vertexData->vertexCount; // vbuf->getSizeInBytes() is too large for meshes prepared for shadow volumes
         }
         return size;

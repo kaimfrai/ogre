@@ -76,9 +76,8 @@ class InstanceManager;
         if( technique )
         {
             GpuProgramParametersSharedPtr vertexParam = technique->getPass(0)->getVertexProgramParameters();
-            for(auto& it : vertexParam->getConstantDefinitions().map)
+            for(auto const& [key, constDef] : vertexParam->getConstantDefinitions().map)
             {
-                const GpuConstantDefinition &constDef = it.second;
                 if(((constDef.constType == GCT_MATRIX_3X4 ||
                     constDef.constType == GCT_MATRIX_4X3 ||             //OGL GLSL bitches without this
                     constDef.constType == GCT_MATRIX_2X4 ||

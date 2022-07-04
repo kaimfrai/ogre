@@ -394,13 +394,13 @@ namespace Ogre
     {
         StringVector tokens;
 
-        for (auto & line : lines)
+        for (auto & [key, number] : lines)
         {
             // restore the current line information for debugging
-            mCurrentLine = &(line.first);
-            mCurrentLineNumber = line.second;
+            mCurrentLine = &key;
+            mCurrentLineNumber = number;
 
-            tokens = StringUtil::split(line.first);
+            tokens = StringUtil::split(key);
             // check for incomplete lines
             if(tokens.size() < 2)
             {

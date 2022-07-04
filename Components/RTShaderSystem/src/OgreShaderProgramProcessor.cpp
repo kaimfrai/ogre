@@ -751,14 +751,12 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
 //-----------------------------------------------------------------------------
 void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& localParamsMap, ParameterOperandMap& paramsRefMap)
 {
-    for (auto const& it : localParamsMap)
+    for (auto const& [curSrcParam, dstParameter] : localParamsMap)
     {
-        Parameter* curSrcParam = it.first;
         auto itParamRefs = paramsRefMap.find(curSrcParam);
 
         if (itParamRefs != paramsRefMap.end())
         {
-            ParameterPtr dstParameter      = it.second;
             OperandPtrVector& srcParamRefs = itParamRefs->second;
 
             for (auto srcOperandPtr : srcParamRefs)

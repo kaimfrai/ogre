@@ -92,10 +92,8 @@ namespace Ogre
         thisVertexData->vertexDeclaration = baseVertexData->vertexDeclaration->clone();
 
         //Reuse all vertex buffers
-        for (auto const& itor : baseVertexData->vertexBufferBinding->getBindings())
+        for (auto const& [bufferIdx, vBuf]: baseVertexData->vertexBufferBinding->getBindings())
         {
-            const unsigned short bufferIdx = itor.first;
-            const HardwareVertexBufferSharedPtr vBuf = itor.second;
             thisVertexData->vertexBufferBinding->setBinding( bufferIdx, vBuf );
         }
 

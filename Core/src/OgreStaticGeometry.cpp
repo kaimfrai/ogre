@@ -962,10 +962,8 @@ namespace Ogre {
         size_t vertexSet = 0;
 
         // Just pass this on to child buckets
-        for (auto & i : mMaterialBucketMap)
+        for (auto const& [key, mat] : mMaterialBucketMap)
         {
-            MaterialBucket* mat = i.second.get();
-
             mat->build(stencilShadows);
 
             if (stencilShadows)

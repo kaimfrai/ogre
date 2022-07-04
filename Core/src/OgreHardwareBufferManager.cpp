@@ -349,8 +349,8 @@ namespace Ogre {
         // For safely reason, use following code to resolve reenter problem.
         //
         using _Iter = FreeTemporaryVertexBufferMap::iterator;
-        std::pair<_Iter, _Iter> range = mFreeTempVertexBufferMap.equal_range(sourceBuffer);
-        if (range.first != range.second)
+        auto [begin, end] = mFreeTempVertexBufferMap.equal_range(sourceBuffer);
+        if (begin!= end)
         {
             std::list<HardwareVertexBufferSharedPtr> holdForDelayDestroy;
 
@@ -362,18 +362,18 @@ namespace Ogre {
                     auto begin() {return Begin; }
                     auto end() { return End; }
                 } span
-                {   range.first
-                ,   range.second
+                {   begin
+                ,   end
                 };
-                auto const& it : span)
+                auto const& [key, value] : span)
             {
-                if (it.second.use_count() <= 1)
+                if (value.use_count() <= 1)
                 {
-                    holdForDelayDestroy.push_back(it.second);
+                    holdForDelayDestroy.push_back(value);
                 }
             }
 
-            mFreeTempVertexBufferMap.erase(range.first, range.second);
+            mFreeTempVertexBufferMap.erase(begin, end);
 
             // holdForDelayDestroy will destroy auto.
         }

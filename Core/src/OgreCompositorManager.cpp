@@ -205,9 +205,8 @@ void CompositorManager::_reconstructAllCompositorResources()
     // first, that way shared resources will get freed
     using InstVec = std::vector<CompositorInstance *>;
     InstVec instancesToReenable;
-    for (auto & mChain : mChains)
+    for (auto const& [key, chain] : mChains)
     {
-        CompositorChain* chain = mChain.second;
         for (CompositorInstance* inst : chain->getCompositorInstances())
         {
             if (inst->getEnabled())
@@ -395,9 +394,8 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
 {
     if (onlyIfUnreferenced)
     {
-        for (auto & i : mTexturesByDef)
+        for (auto& [key, texList] : mTexturesByDef)
         {
-            TextureList& texList = i.second;
             for (auto j = texList.begin(); j != texList.end();)
             {
                 // if the resource system, plus this class, are the only ones to have a reference..
@@ -412,9 +410,8 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
                     ++j;
             }
         }
-        for (auto & i : mChainTexturesByDef)
+        for (auto& [key, texMap] : mChainTexturesByDef)
         {
-            TextureDefMap& texMap = i.second;
             for (auto j = texMap.begin(); j != texMap.end();) 
             {
                 const TexturePtr& tex = j->second;

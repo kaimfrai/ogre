@@ -387,10 +387,10 @@ namespace Ogre {
         newMesh->mEdgeListsBuilt = mEdgeListsBuilt;
         
         // Clone vertex animation
-        for (auto & i : mAnimationsList)
+        for (auto const& [key, value] : mAnimationsList)
         {
-            Animation *newAnim = i.second->clone(i.second->getName());
-            newMesh->mAnimationsList[i.second->getName()] = newAnim;
+            Animation *newAnim = value->clone(value->getName());
+            newMesh->mAnimationsList[value->getName()] = newAnim;
         }
         // Clone pose list
         for (auto & i : mPoseList)
@@ -586,9 +586,8 @@ namespace Ogre {
         }
 
         // Merge in any new vertex animations
-        for (auto & i : mAnimationsList)
+        for (auto const& [key, anim] : mAnimationsList)
         {
-            Animation* anim = i.second;
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
             const String& animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
@@ -645,9 +644,9 @@ namespace Ogre {
                 // Find the start & end (end is in iterator terms ie exclusive)
                 // map to sort by weight
                 WeightIteratorMap weightToAssignmentMap;
-                auto range = assignments.equal_range(v);
+
                 // Add all the assignments to map
-                for (auto i = range.first; i != range.second; ++i)
+                for (auto [i, end] = assignments.equal_range(v); i != end; ++i)
                 {
                     // insert value weight->iterator
                     weightToAssignmentMap.emplace(i->second.weight, i);
@@ -682,16 +681,16 @@ namespace Ogre {
             ,   normalise_range.second
             };
             // Find total first
-            for (auto const& i : span)
+            for (auto const& [key, value] : span)
             {
-                totalWeight += i.second.weight;
+                totalWeight += value.weight;
             }
             // Now normalise if total weight is outside tolerance
             if (!Math::RealEqual(totalWeight, 1.0f))
             {
-                for (auto& i : span)
+                for (auto& [key, value] : span)
                 {
-                    i.second.weight = i.second.weight / totalWeight;
+                    value.weight = value.weight / totalWeight;
                 }
             }
 
@@ -1018,15 +1017,15 @@ namespace Ogre {
         Real maxRadius = Real(0);
         Real minWeight = Real(0.01);
         // for each vertex-bone assignment,
-        for (const auto & boneAssignment : boneAssignments)
+        for (auto const& [key, value] : boneAssignments)
         {
             // if weight is close to zero, ignore
-            if (boneAssignment.second.weight > minWeight)
+            if (value.weight > minWeight)
             {
                 // if we have a bounding box around all bone origins, we consider how far outside this box the
                 // current vertex could ever get (assuming it is only attached to the given bone, and the bones all have unity scale)
-                size_t iBone = boneAssignment.second.boneIndex;
-                const Vector3& v = vertexPositions[ boneAssignment.second.vertexIndex ];
+                size_t iBone = value.boneIndex;
+                const Vector3& v = vertexPositions[ value.vertexIndex ];
                 Vector3 diff = v - bonePositions[ iBone ];
                 Real dist = diff.length();  // max distance of vertex v outside of bounding box
                 // if this bone has children, we can reduce the dist under the assumption that the children may rotate wrt their parent, but don't translate
@@ -1040,7 +1039,7 @@ namespace Ogre {
                     dist = std::min( dist, distChild );
                 }
                 // scale the distance by the weight, this prevents the radius from being over-inflated because of a vertex that is lightly influenced by a faraway bone
-                dist *= boneAssignment.second.weight;
+                dist *= value.weight;
                 maxRadius = std::max( maxRadius, dist );
             }
         }
@@ -1455,9 +1454,9 @@ namespace Ogre {
                             {   vbstart
                             ,   vbend
                             };
-                            auto const& vba : span)
+                            auto const& [key, value] : span)
                         {
-                            VertexBoneAssignment newAsgn = vba.second;
+                            VertexBoneAssignment newAsgn = value;
                             newAsgn.vertexIndex = static_cast<unsigned int>(remap.splitVertex.second);
                             // multimap insert doesn't invalidate iterators
                             addBoneAssignment(newAsgn);
@@ -1520,9 +1519,9 @@ namespace Ogre {
                             {   vbstart
                             ,   vbend
                             };
-                            auto const& vba : span)
+                            auto const& [key, value] : span)
                         {
-                            VertexBoneAssignment newAsgn = vba.second;
+                            VertexBoneAssignment newAsgn = value;
                             newAsgn.vertexIndex = static_cast<unsigned int>(remap.splitVertex.second);
                             // multimap insert doesn't invalidate iterators
                             sm->addBoneAssignment(newAsgn);
@@ -2128,10 +2127,8 @@ namespace Ogre {
         // relating to each vertex data
         for(const auto& ai : mAnimationsList)
         {
-            for (const auto& vit : ai.second->_getVertexTrackList())
+            for (auto const& [handle, track] : ai.second->_getVertexTrackList())
             {
-                VertexAnimationTrack* track = vit.second;
-                ushort handle = vit.first;
                 if (handle == 0)
                 {
                     // shared data

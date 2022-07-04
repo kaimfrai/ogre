@@ -353,18 +353,18 @@ namespace Ogre
             }
             else
             {
-                std::pair<bool, Real> planeRes = 
+                auto [key, value] =
                     ray.intersects(plane);
-                if (planeRes.first)
+                if (key)
                 {
                     if( !end.first )
                     {
                         end.first = true;
-                        end.second = planeRes.second;
+                        end.second = value;
                     }
                     else
                     {
-                        end.second = std::min( planeRes.second, end.second );
+                        end.second = std::min( value, end.second );
                     }
 
                 }

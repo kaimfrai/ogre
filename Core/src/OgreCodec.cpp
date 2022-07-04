@@ -93,17 +93,17 @@ namespace Ogre {
 
     auto Codec::getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*
     {
-        for (auto & msMapCodec : msMapCodecs)
+        for (auto & [key, value] : msMapCodecs)
         {
-            String ext = msMapCodec.second->magicNumberToFileExt(magicNumberPtr, maxbytes);
+            String ext = value->magicNumberToFileExt(magicNumberPtr, maxbytes);
             if (!ext.empty())
             {
                 // check codec type matches
                 // if we have a single codec class that can handle many types, 
                 // and register many instances of it against different types, we
                 // can end up matching the wrong one here, so grab the right one
-                if (ext == msMapCodec.second->getType())
-                    return msMapCodec.second;
+                if (ext == value->getType())
+                    return value;
                 else
                     return getCodec(ext);
             }

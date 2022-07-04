@@ -383,11 +383,8 @@ class VertexData;
         // Calculate time index for fast keyframe search
         TimeIndex timeIndex = _getTimeIndex(timePos);
 
-        for (auto & i : mVertexTrackList)
+        for (auto const& [handle, track] : mVertexTrackList)
         {
-            unsigned short handle = i.first;
-            VertexAnimationTrack* track = i.second;
-
             VertexData* swVertexData;
             VertexData* hwVertexData;
             if (handle == 0)
@@ -516,12 +513,11 @@ class VertexData;
     //-----------------------------------------------------------------------
     void Animation::_collectIdentityNodeTracks(TrackHandleList& tracks) const
     {
-        for (auto i : mNodeTrackList)
+        for (auto [key, track] : mNodeTrackList)
         {
-            const NodeAnimationTrack* track = i.second;
             if (track->hasNonZeroKeyFrames())
             {
-                tracks.erase(i.first);
+                tracks.erase(key);
             }
         }
     }
@@ -538,13 +534,12 @@ class VertexData;
     {
         // Iterate over the node tracks and identify those with no useful keyframes
         std::list<unsigned short> tracksToDestroy;
-        for (auto & i : mNodeTrackList)
+        for (auto const& [key, track] : mNodeTrackList)
         {
-            NodeAnimationTrack* track = i.second;
             if (discardIdentityTracks && !track->hasNonZeroKeyFrames())
             {
                 // mark the entire track for destruction
-                tracksToDestroy.push_back(i.first);
+                tracksToDestroy.push_back(key);
             }
             else
             {
@@ -564,13 +559,12 @@ class VertexData;
     {
         // Iterate over the node tracks and identify those with no useful keyframes
         std::list<unsigned short> tracksToDestroy;
-        for (auto & i : mVertexTrackList)
+        for (auto const& [key, track] : mVertexTrackList)
         {
-            VertexAnimationTrack* track = i.second;
             if (!track->hasNonZeroKeyFrames())
             {
                 // mark the entire track for destruction
-                tracksToDestroy.push_back(i.first);
+                tracksToDestroy.push_back(key);
             }
             else
             {
@@ -710,10 +704,8 @@ class VertexData;
             
             if (baseAnim)
             {
-                for (auto & i : mNodeTrackList)
+                for (auto const& [key, track] : mNodeTrackList)
                 {
-                    NodeAnimationTrack* track = i.second;
-                    
                     NodeAnimationTrack* baseTrack;
                     if (baseAnim == this)
                         baseTrack = track;
@@ -725,10 +717,8 @@ class VertexData;
                     track->_applyBaseKeyFrame(&kf);
                 }
                 
-                for (auto & i : mVertexTrackList)
+                for (auto const& [key, track] : mVertexTrackList)
                 {
-                    VertexAnimationTrack* track = i.second;
-                    
                     if (track->getAnimationType() == VAT_POSE)
                     {
                         VertexAnimationTrack* baseTrack;

@@ -1238,9 +1238,9 @@ void CompositorInstance::_fireNotifyResourcesReleased(bool forResizeOnly)
 void CompositorInstance::notifyCameraChanged(Camera* camera)
 {
     // update local texture's viewports.
-    for (auto const& localTexIter : mLocalTextures)
+    for (auto const& [key, value] : mLocalTextures)
     {
-        RenderTexture* target = localTexIter.second->getBuffer()->getRenderTarget();
+        RenderTexture* target = value->getBuffer()->getRenderTarget();
         // skip target that has no viewport (this means texture is under MRT)
         if (target->getNumViewports() == 1)
         {
@@ -1249,9 +1249,8 @@ void CompositorInstance::notifyCameraChanged(Camera* camera)
     }
 
     // update MRT's viewports.
-    for (auto const& localMRTIter : mLocalMRTs)
+    for (auto const& [key, target] : mLocalMRTs)
     {
-        MultiRenderTarget* target = localMRTIter.second;
         if(target->getNumViewports())
             target->getViewport(0)->setCamera(camera);
     }

@@ -74,11 +74,11 @@ namespace Ogre
     
     void ExternalTextureSourceManager::setCurrentPlugIn( const String& sTexturePlugInType )
     {
-        for(auto const& i : mTextureSystems)
+        for(auto const& [key, value] : mTextureSystems)
         {
-            if( i.first == sTexturePlugInType )
+            if(key == sTexturePlugInType )
             {
-                mCurrExternalTextureSource = i.second;
+                mCurrExternalTextureSource = value;
                 mCurrExternalTextureSource->initialise();   //Now call overridden Init function
                 return;
             }

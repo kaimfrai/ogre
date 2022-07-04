@@ -101,14 +101,8 @@ void MeshSerializerTests::SetUp()
 
     // Go through all sections & settings in the file
     cf.load(resourcesPath);
-    String secName, typeName, archName;
-
-    for (const auto & seci : cf.getSettingsBySection()) {
-        secName = seci.first;
-        const ConfigFile::SettingsMultiMap& settings = seci.second;
-        for (const auto & setting : settings) {
-            typeName = setting.first;
-            archName = setting.second;
+    for (auto const& [secName, settings] : cf.getSettingsBySection()) {
+        for (auto const& [typeName, archName] : settings) {
             if (typeName == "FileSystem") {
                 ResourceGroupManager::getSingleton().addResourceLocation(
                     archName, typeName, secName);
@@ -335,15 +329,15 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         const Animation::VertexTrackList& aList = a->getAnimation(i)->_getVertexTrackList();
         const Animation::VertexTrackList& bList = b->getAnimation(i)->_getVertexTrackList();
 
-        for (auto const& it : aList)
+        for (auto const& [key, value] : aList)
         {
-            EXPECT_EQ(bList.at(it.first)->getAnimationType(), it.second->getAnimationType());
-            ASSERT_EQ(bList.at(it.first)->getNumKeyFrames(), it.second->getNumKeyFrames());
+            EXPECT_EQ(bList.at(key)->getAnimationType(), value->getAnimationType());
+            ASSERT_EQ(bList.at(key)->getNumKeyFrames(), value->getNumKeyFrames());
 
-            for (size_t j = 0; j < it.second->getNumKeyFrames(); j++)
+            for (size_t j = 0; j < value->getNumKeyFrames(); j++)
             {
-                VertexPoseKeyFrame* aKeyFrame = it.second->getVertexPoseKeyFrame(j);
-                VertexPoseKeyFrame* bKeyFrame = bList.at(it.first)->getVertexPoseKeyFrame(j);
+                VertexPoseKeyFrame* aKeyFrame = value->getVertexPoseKeyFrame(j);
+                VertexPoseKeyFrame* bKeyFrame = bList.at(key)->getVertexPoseKeyFrame(j);
                 ASSERT_EQ(bKeyFrame->getPoseReferences(), aKeyFrame->getPoseReferences());
             }
         }
@@ -453,9 +447,9 @@ auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, cons
     if (a.size() != b.size()) {
         return false;
     }
-    for (auto const& it : a) {
-        auto itFind = b.find(it.first);
-        if (itFind == b.end() || itFind->second != it.second) {
+    for (auto const& [key, value] : a) {
+        auto itFind = b.find(key);
+        if (itFind == b.end() || itFind->second != value) {
             return false;
         }
     }

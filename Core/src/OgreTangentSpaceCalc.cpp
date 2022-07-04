@@ -116,9 +116,8 @@ namespace Ogre
             VertexBufferBinding* newBindings = HardwareBufferManager::getSingleton().createVertexBufferBinding();
             const VertexBufferBinding::VertexBufferBindingMap& bindmap = 
                 mVData->vertexBufferBinding->getBindings();
-            for (const auto & i : bindmap)
+            for (auto const& [key, srcbuf] : bindmap)
             {
-                HardwareVertexBufferSharedPtr srcbuf = i.second;
                 // Derive vertex count from buffer not vertex data, in case using
                 // the vertexStart option in vertex data
                 size_t newVertexCount = srcbuf->getNumVertices() + vertexSplits.size();
@@ -127,7 +126,7 @@ namespace Ogre
                     HardwareBufferManager::getSingleton().createVertexBuffer(
                     srcbuf->getVertexSize(), newVertexCount, srcbuf->getUsage(), 
                     srcbuf->hasShadowBuffer());
-                newBindings->setBinding(i.first, newBuf);
+                newBindings->setBinding(key, newBuf);
 
                 // Copy existing contents (again, entire buffer, not just elements referenced)
                 newBuf->copyData(*(srcbuf.get()), 0, 0, srcbuf->getNumVertices() * srcbuf->getVertexSize(), true);

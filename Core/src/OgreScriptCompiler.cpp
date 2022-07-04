@@ -705,21 +705,21 @@ namespace Ogre
 
         // Loop through overrides, either inserting source nodes or overriding
         insertPos = dest.children.begin();
-        for(auto & override : overrides)
+        for(auto const& [key, value] : overrides)
         {
-            if(override.second != dest.children.end())
+            if(value != dest.children.end())
             {
                 // Override the destination with the source (base) object
-                overlayObject(*override.first,
-                    static_cast<ObjectAbstractNode&>(**override.second));
-                insertPos = override.second;
+                overlayObject(*key,
+                    static_cast<ObjectAbstractNode&>(**value));
+                insertPos = value;
                 insertPos++;
             }
             else
             {
                 // No override was possible, so insert this node at the insert position
                 // into the destination (child) object
-                AbstractNodePtr newNode(override.first->clone());
+                AbstractNodePtr newNode(key->clone());
                 newNode->parent = &dest;
                 if(insertPos != dest.children.end())
                 {

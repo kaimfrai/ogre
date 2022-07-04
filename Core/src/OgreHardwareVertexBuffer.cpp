@@ -769,10 +769,10 @@ namespace Ogre {
 
         VertexBufferBindingMap newBindingMap;
         ushort targetIndex = 0;
-        for (auto const& it : mBindingMap)
+        for (auto const& [key, value] : mBindingMap)
         {
-            bindingIndexMap[it.first] = targetIndex;
-            newBindingMap[targetIndex] = it.second;
+            bindingIndexMap[key] = targetIndex;
+            newBindingMap[targetIndex] = value;
              ++targetIndex;
         }
 

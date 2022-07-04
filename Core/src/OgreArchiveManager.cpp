@@ -119,9 +119,8 @@ namespace Ogre {
         // We now raise an assert.
 
         // Unload & delete resources in turn
-        for(auto & mArchive : mArchives)
+        for(auto const& [key, arch] : mArchives)
         {
-            Archive* arch = mArchive.second;
             // Unload
             arch->unload();
             // Find factory to destroy. An archive factory created this file, it should still be there!

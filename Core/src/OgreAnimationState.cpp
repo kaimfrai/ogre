@@ -232,9 +232,8 @@ namespace Ogre
     AnimationStateSet::AnimationStateSet(const AnimationStateSet& rhs)
         : mDirtyFrameNumber(std::numeric_limits<unsigned long>::max())
     {
-        for (const auto & mAnimationState : rhs.mAnimationStates)
+        for (auto const& [key, src]: rhs.mAnimationStates)
         {
-            AnimationState* src = mAnimationState.second;
             mAnimationStates[src->getAnimationName()] = new AnimationState(this, *src);
         }
 

@@ -305,10 +305,8 @@ class ResourceManager;
         mLogicalToPhysical->bufferSize = mConstantDefs->bufferSize;
         mLogicalToPhysical->map.clear();
         // need to set up logical mappings too for some rendersystems
-        for (auto & i : mConstantDefs->map)
+        for (auto const& [name, def] : mConstantDefs->map)
         {
-            const String& name = i.first;
-            const GpuConstantDefinition& def = i.second;
             // only consider non-array entries
             if (name.find('[') == String::npos)
             {

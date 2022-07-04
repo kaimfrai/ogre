@@ -277,11 +277,8 @@ namespace Ogre
 
         // simple export of all the named constants, no chunks
         // name, physical index
-        for (const auto & i : pConsts->map)
+        for (auto const& [name, def] : pConsts->map)
         {
-            const String& name = i.first;
-            const GpuConstantDefinition& def = i.second;
-
             writeString(name);
             writeInts(((const uint32*)&def.physicalIndex), 1);
             writeInts(((const uint32*)&def.logicalIndex), 1);
@@ -559,11 +556,8 @@ namespace Ogre
         mCopyDataList.clear();
 
         const GpuConstantDefinitionMap& sharedmap = mSharedParams->getConstantDefinitions().map;
-        for (const auto & i : sharedmap)
+        for (auto const& [pName, shareddef] : sharedmap)
         {
-            const String& pName = i.first;
-            const GpuConstantDefinition& shareddef = i.second;
-
             const GpuConstantDefinition* instdef = mParams->_findNamedConstantDefinition(pName, false);
             if (instdef)
             {

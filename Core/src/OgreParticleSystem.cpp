@@ -415,9 +415,9 @@ class RenderQueue;
     {
         // Never shrink below size()
         size_t currSize = 0;
-        for (auto& kv : mEmittedEmitterPool)
+        for (auto const& [key, value] : mEmittedEmitterPool)
         {
-            currSize += kv.second.size();
+            currSize += value.size();
         }
 
         if( currSize < size )
@@ -1278,9 +1278,9 @@ class RenderQueue;
         }
         else
         {
-            for (auto& kv : mEmittedEmitterPool)
+            for (auto const& [key, value] : mEmittedEmitterPool)
             {
-                currSize += kv.second.size();
+                currSize += value.size();
             }
         }
 
@@ -1334,11 +1334,8 @@ class RenderQueue;
         size_t maxNumberOfEmitters = size / mEmittedEmitterPool.size(); // equally distribute the number for each emitted emitter list
     
         // Run through mEmittedEmitterPool and search for every key (=name) its corresponding emitter in mEmitters
-        for (auto& kv : mEmittedEmitterPool)
+        for (auto& [name, e] : mEmittedEmitterPool)
         {
-            const auto& name = kv.first;
-            auto& e = kv.second;
-
             // Search the correct emitter in the mEmitters vector
             for (ParticleEmitter* emitter : mEmitters)
             {
@@ -1374,10 +1371,8 @@ class RenderQueue;
         std::list<ParticleEmitter*>* fee = nullptr;
 
         // Run through the emittedEmitterPool map
-        for (auto& kv : mEmittedEmitterPool)
+        for (auto const& [name, emittedEmitters] : mEmittedEmitterPool)
         {
-            const auto& name = kv.first;
-            auto& emittedEmitters = kv.second;
             fee = findFreeEmittedEmitter(name);
 
             // If its not in the map, create an empty one

@@ -388,17 +388,15 @@ namespace Ogre {
         if(frameClocks > maxFrameClocks)
             maxFrameClocks = frameClocks;
 
-        for(auto const& it : instance->children)
+        for(auto const& [key, child] : instance->children)
         {
-            ProfileInstance* child = it.second.get();
-
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
             child->history.numCallsThisFrame = 0;
 
             if(child->frame.calls > 0)
             {
-                processFrameStats(child, maxFrameClocks);
+                processFrameStats(child.get(), maxFrameClocks);
             }
         }
     }
@@ -407,17 +405,15 @@ namespace Ogre {
     {
         ulong maxFrameClocks = 0;
 
-        for(auto const& it : mRoot.children)
+        for(auto const& [key, child] : mRoot.children)
         {
-            ProfileInstance* child = it.second.get();
-
             // we set the number of times each profile was called per frame to 0
             // because not all profiles are called every frame
             child->history.numCallsThisFrame = 0;
 
             if(child->frame.calls > 0)
             {
-                processFrameStats(child, maxFrameClocks);
+                processFrameStats(child.get(), maxFrameClocks);
             }
         }
 
@@ -459,9 +455,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ProfileInstance::watchForMax(const String& profileName) -> bool 
     {
-        for(auto const& it : children)
+        for(auto const& [key, child] : children)
         {
-            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForMax()) || child->watchForMax(profileName))
                 return true;
         }
@@ -476,9 +471,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ProfileInstance::watchForMin(const String& profileName) -> bool 
     {
-        for(auto const& it : children)
+        for(auto const& [key, child] : children)
         {
-            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForMin()) || child->watchForMin(profileName))
                 return true;
         }
@@ -493,9 +487,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
-        for(auto const& it : children)
+        for(auto const& [key, child] : children)
         {
-            ProfileInstance* child = it.second.get();
             if( (child->name == profileName && child->watchForLimit(limit, greaterThan)) || child->watchForLimit(profileName, limit, greaterThan))
                 return true;
         }

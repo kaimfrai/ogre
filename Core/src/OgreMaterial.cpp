@@ -334,11 +334,11 @@ class Renderable;
             if (li == si->second.end())
             {
                 // Use the next LOD level up
-                for (auto & rli : std::ranges::reverse_view(si->second))
+                for (auto const& [key, value] : std::ranges::reverse_view(si->second))
                 {
-                    if (rli.second->getLodIndex() < lodIndex)
+                    if (value->getLodIndex() < lodIndex)
                     {
-                        ret = rli.second;
+                        ret = value;
                         break;
                     }
 

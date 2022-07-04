@@ -386,13 +386,12 @@ namespace {
         serialiser.write(&sizeOfArray);
         
         // loop the array and save it
-        for ( const auto& entry : mMicrocodeCache )
+        for (auto const& [key, microcodeOfShader] : mMicrocodeCache )
         {
             // saves the id of the shader
-            serialiser.write(&entry.first);
+            serialiser.write(&key);
 
             // saves the microcode
-            const Microcode & microcodeOfShader = entry.second;
             auto microcodeLength = static_cast<uint32>(microcodeOfShader->size());
             serialiser.write(&microcodeLength);
             serialiser.writeData(microcodeOfShader->getPtr(), 1, microcodeLength);

@@ -314,9 +314,7 @@ namespace Ogre {
         }
 
         bool optionError = false;
-        for (const auto & seci : cfg.getSettingsBySection()) {
-            const ConfigFile::SettingsMultiMap& settings = seci.second;
-            const String& renderSystem = seci.first;
+        for (auto const& [renderSystem, settings] : cfg.getSettingsBySection()) {
 
             RenderSystem* rs = getRenderSystemByName(renderSystem);
             if (!rs)
@@ -325,11 +323,11 @@ namespace Ogre {
                 continue;
             }
 
-            for (auto p : settings)
+            for (auto const& [key, value] : settings)
             {
                 try
                 {
-                    rs->setConfigOption(p.first, p.second);
+                    rs->setConfigOption(key, value);
                 }
                 catch(const InvalidParametersException& e)
                 {
@@ -463,12 +461,8 @@ namespace Ogre {
             // Capabilities Database setting must be in the same format as
             // resources.cfg in Ogre examples.
             const ConfigFile::SettingsMultiMap& dbs = cfg.getSettings("Capabilities Database");
-            for(const auto & db : dbs)
+            for(auto const& [archType, filename] : dbs)
             {
-                const String& archType = db.first;
-
-                String filename = db.second;
-
                 rscManager.parseCapabilitiesFromArchive(filename, archType, true);
             }
 

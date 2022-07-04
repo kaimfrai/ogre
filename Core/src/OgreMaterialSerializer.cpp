@@ -1092,9 +1092,8 @@ namespace Ogre
             EffectMap effMap = pTex->getEffects();
             if (!effMap.empty())
             {
-                for (auto & it : effMap)
+                for (auto const& [key, ef] : effMap)
                 {
-                    const TextureUnitState::TextureEffect& ef = it.second;
                     switch (ef.type)
                     {
                     case TextureUnitState::ET_ENVIRONMENT_MAP :
@@ -1518,12 +1517,9 @@ namespace Ogre
         GpuProgramParameters* defaultParams, unsigned short level,
         const bool useMainBuffer)
     {
-        for(auto& it : params->getConstantDefinitions().map)
+        for(auto const& [paramName, def] : params->getConstantDefinitions().map)
         {
             // get the constant definition
-            const String& paramName = it.first;
-            const GpuConstantDefinition& def = it.second;
-
             // get any auto-link
             const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                 params->findAutoConstantEntry(paramName);
@@ -1555,11 +1551,8 @@ namespace Ogre
         GpuLogicalBufferStructPtr floatLogical = params->getLogicalBufferStruct();
         if( floatLogical )
         {
-            for(auto & i : floatLogical->map)
+            for(auto const& [logicalIndex, logicalUse] : floatLogical->map)
             {
-                size_t logicalIndex = i.first;
-                const GpuLogicalIndexUse& logicalUse = i.second;
-
                 const GpuProgramParameters::AutoConstantEntry* autoEntry = 
                     params->findFloatAutoConstantEntry(logicalIndex);
                 const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry = nullptr;

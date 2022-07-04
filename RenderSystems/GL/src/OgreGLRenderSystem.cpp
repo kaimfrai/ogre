@@ -1163,10 +1163,10 @@ namespace Ogre {
         assert( windowContext );
 
         //Find the depth buffer from this window and remove it.
-        for (auto& itMap : mDepthBufferPool)
+        for (auto& [key, value] : mDepthBufferPool)
         {
-            auto itor = itMap.second.begin();
-            auto end  = itMap.second.end();
+            auto itor = value.begin();
+            auto end  = value.end();
 
             while( itor != end )
             {
@@ -1179,7 +1179,7 @@ namespace Ogre {
                     (depthBuffer->getDepthBuffer() || depthBuffer->getStencilBuffer()) )
                 {
                     delete *itor;
-                    itMap.second.erase( itor );
+                    value.erase( itor );
                     return;
                 }
                 ++itor;

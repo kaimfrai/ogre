@@ -576,10 +576,8 @@ namespace Ogre {
         */
         void merge( const RenderQueueGroup* rhs )
         {
-            for ( const auto& pg : rhs->getPriorityGroups() )
+            for (auto  const& [priority, pSrcPriorityGrp] : rhs->getPriorityGroups() )
             {
-                ushort priority = pg.first;
-                RenderPriorityGroup* pSrcPriorityGrp = pg.second.get();
                 RenderPriorityGroup* pDstPriorityGrp;
 
                 // Check if priority group is there
@@ -605,7 +603,7 @@ namespace Ogre {
                 }
 
                 // merge
-                pDstPriorityGrp->merge( pSrcPriorityGrp );
+                pDstPriorityGrp->merge( pSrcPriorityGrp.get() );
             }
         }
     };

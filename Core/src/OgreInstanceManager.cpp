@@ -264,23 +264,23 @@ namespace Ogre
         //Do this now to avoid any dangling pointer inside mDirtyBatches
         _updateDirtyBatches();
 
-        for (auto& itor : mInstanceBatches)
+        for (auto& [key, value] : mInstanceBatches)
         {
-            auto it = itor.second.begin();
-            auto en = itor.second.end();
+            auto it = value.begin();
+            auto en = value.end();
 
             while( it != en )
             {
                 if( (*it)->isBatchUnused() )
                 {
                     //Remove it from the list swapping with the last element and popping back
-                    size_t idx = it - itor.second.begin();
-                    *it = ::std::move(itor.second.back());
-                    itor.second.pop_back();
+                    size_t idx = it - value.begin();
+                    *it = ::std::move(value.back());
+                    value.pop_back();
 
                     //Restore invalidated iterators
-                    it = itor.second.begin() + idx;
-                    en = itor.second.end();
+                    it = value.begin() + idx;
+                    en = value.end();
                 }
                 else
                     ++it;

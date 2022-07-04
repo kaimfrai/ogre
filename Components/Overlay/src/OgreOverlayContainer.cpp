@@ -233,10 +233,10 @@ class RenderQueue;
         newZOrder++; 
 
         // Update children
-        for (const auto& p : mChildren)
+        for (const auto& [key, value] : mChildren)
         {
             // Children "consume" Z-order values, so keep track of them
-            newZOrder = p.second->_notifyZOrder(newZOrder);
+            newZOrder = value->_notifyZOrder(newZOrder);
         }
 
         return newZOrder;
@@ -307,9 +307,8 @@ class RenderQueue;
             ret = OverlayElement::findElementAt(x,y);   //default to the current container if no others are found
             if (ret && mChildrenProcessEvents)
             {
-                for (const auto& p : mChildren)
+                for (auto const& [key, currentOverlayElement] : mChildren)
                 {
-                    OverlayElement* currentOverlayElement = p.second;
                     if (currentOverlayElement->isVisible() && currentOverlayElement->isEnabled())
                     {
                         int z = currentOverlayElement->getZOrder();
@@ -335,9 +334,8 @@ class RenderQueue;
 
             if (templateOverlay->isContainer() && isContainer())
             {
-             for (const auto& p : static_cast<OverlayContainer*>(templateOverlay)->getChildren())
+             for (auto const& [key, oldChildElement] : static_cast<OverlayContainer*>(templateOverlay)->getChildren())
              {
-                 OverlayElement* oldChildElement = p.second;
                  if (oldChildElement->isCloneable())
                  {
                      OverlayElement* newChildElement = 
@@ -357,9 +355,8 @@ class RenderQueue;
 
         newContainer = static_cast<OverlayContainer*>(OverlayElement::clone(instanceName));
 
-        for (const auto& p : mChildren)
+        for (auto const& [key, oldChildElement] : mChildren)
         {
-            OverlayElement* oldChildElement = p.second;
             if (oldChildElement->isCloneable())
             {
                 OverlayElement* newChildElement = oldChildElement->clone(instanceName);

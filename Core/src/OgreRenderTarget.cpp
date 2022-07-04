@@ -165,12 +165,11 @@ class Camera;
     {
         // Go through viewports in Z-order
         // Tell each to refresh
-        for (auto const& it : mViewportList)
+        for (auto const& [key, viewport] : mViewportList)
         {
-            Viewport* viewport = it.second.get();
             if(viewport->isAutoUpdated())
             {
-                _updateViewport(viewport,updateStatistics);
+                _updateViewport(viewport.get(),updateStatistics);
             }
         }
     }
@@ -484,9 +483,8 @@ class Camera;
     //-----------------------------------------------------------------------
     void RenderTarget::_notifyCameraRemoved(const Camera* cam)
     {
-        for (auto & i : mViewportList)
+        for (auto const& [key, v] : mViewportList)
         {
-            Viewport* v = i.second.get();
             if (v->getCamera() == cam)
             {
                 // disable camera link

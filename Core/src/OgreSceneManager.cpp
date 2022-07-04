@@ -1338,11 +1338,10 @@ void SceneManager::_releaseManualHardwareResources()
     mShadowRenderer.mShadowIndexBuffer.reset();
 
     // release hardware resources inside all movable objects
-    for(auto & ci : mMovableObjectCollectionMap)
+    for(auto const& [key1, coll] : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci.second.get();
-        for(auto & i : coll->map)
-            i.second->_releaseManualHardwareResources();
+        for(auto const& [key2, value] : coll->map)
+            value->_releaseManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -1359,11 +1358,10 @@ void SceneManager::_restoreManualHardwareResources()
     }
 
     // restore hardware resources inside all movable objects
-    for(auto & ci : mMovableObjectCollectionMap)
+    for(auto const& [key1, coll] : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci.second.get();
-        for(auto & i : coll->map)
-            i.second->_restoreManualHardwareResources();
+        for(auto const& [key2, value] : coll->map)
+            value->_restoreManualHardwareResources();
     }
 }
 //-----------------------------------------------------------------------
@@ -1693,10 +1691,8 @@ void SceneManager::renderBasicQueueGroupObjects(RenderQueueGroup* pGroup,
     // Iterate through priorities
     auto visitor = mActiveQueuedRenderableVisitor;
 
-    for (const auto& pg : pGroup->getPriorityGroups())
+    for (const auto& [key, pPriorityGrp] : pGroup->getPriorityGroups())
     {
-        RenderPriorityGroup* pPriorityGrp = pg.second.get();
-
         // Sort the queue first
         pPriorityGrp->sort(mCameraInProgress);
 
@@ -2213,15 +2209,15 @@ void SceneManager::_applySceneAnimations()
         Animation* anim = getAnimation(state->getAnimationName());
 
         // Reset any nodes involved
-        for (const auto& it : anim->_getNodeTrackList())
+        for (const auto& [key, value] : anim->_getNodeTrackList())
         {
-            if (Node* nd = it.second->getAssociatedNode())
+            if (Node* nd = value->getAssociatedNode())
                 nd->resetToInitialState();
         }
 
-        for (const auto& it : anim->_getNumericTrackList())
+        for (const auto& [key, value] : anim->_getNumericTrackList())
         {
-            if (const auto& animPtr = it.second->getAssociatedAnimable())
+            if (const auto& animPtr = value->getAssociatedAnimable())
                 animPtr->resetToBaseValue();
         }
     }
@@ -3393,15 +3389,13 @@ void SceneManager::destroyAllMovableObjectsByType(const String& typeName)
 //---------------------------------------------------------------------
 void SceneManager::destroyAllMovableObjects()
 {
-    for(auto const& ci : mMovableObjectCollectionMap)
+    for(auto const& [key, coll] : mMovableObjectCollectionMap)
     {
-        MovableObjectCollection* coll = ci.second.get();
-
-        if (Root::getSingleton().hasMovableObjectFactory(ci.first))
+        if (Root::getSingleton().hasMovableObjectFactory(key))
         {
             // Only destroy if we have a factory instance; otherwise must be injected
             MovableObjectFactory* factory = 
-                Root::getSingleton().getMovableObjectFactory(ci.first);
+                Root::getSingleton().getMovableObjectFactory(key);
             for (auto const& i : coll->map)
             {
                 if (i.second->_getManager() == this)

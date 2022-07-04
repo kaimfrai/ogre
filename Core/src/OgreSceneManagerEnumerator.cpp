@@ -61,15 +61,15 @@ class RenderSystem;
         // Destroy all remaining instances
         // Really should have shutdown and unregistered by now, but catch here in case
         Instances instancesCopy = mInstances;
-        for (auto & i : instancesCopy)
+        for (auto const& [key, value] : instancesCopy)
         {
             // destroy instances
             for(auto & mFactorie : mFactories)
             {
-                if (mFactorie->getMetaData().typeName == i.second->getTypeName())
+                if (mFactorie->getMetaData().typeName == value->getTypeName())
                 {
-                    mFactorie->destroyInstance(i.second);
-                    mInstances.erase(i.first);
+                    mFactorie->destroyInstance(value);
+                    mInstances.erase(key);
                     break;
                 }
             }

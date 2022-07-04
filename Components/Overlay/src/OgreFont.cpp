@@ -393,9 +393,9 @@ namespace Ogre
 
         // Calculate maximum width, height and bearing
         size_t glyphCount = 0;
-        for (const CodePointRange& range : mCodePointRangeList)
+        for (auto const& [begin, end] : mCodePointRangeList)
         {
-            for(CodePoint cp = range.first; cp <= range.second; ++cp, ++glyphCount)
+            for(CodePoint cp = begin; cp <= end; ++cp, ++glyphCount)
             {
                 FT_Load_Char( face, cp, FT_LOAD_RENDER );
 
@@ -434,9 +434,9 @@ namespace Ogre
         img.setTo(ColourValue::ZERO);
 
         uint32 l = 0, m = 0;
-        for (const CodePointRange& range : mCodePointRangeList)
+        for (auto const& [begin, end] : mCodePointRangeList)
         {
-            for(CodePoint cp = range.first; cp <= range.second; ++cp )
+            for(CodePoint cp = begin; cp <= end; ++cp )
             {
                 uchar* buffer;
                 int buffer_h = 0, buffer_pitch = 0;

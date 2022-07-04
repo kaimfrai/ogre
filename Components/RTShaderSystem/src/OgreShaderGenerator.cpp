@@ -523,9 +523,9 @@ auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler,
 {
     SubRenderState* subRenderState = nullptr;
 
-    for (auto const& it : mSubRenderStateFactories)
+    for (auto const& [key, value] : mSubRenderStateFactories)
     {
-        subRenderState = it.second->createInstance(compiler, prop, pass, translator);
+        subRenderState = value->createInstance(compiler, prop, pass, translator);
         if (subRenderState != nullptr)     
             break;              
     }   
@@ -540,9 +540,9 @@ auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler,
 {
     SubRenderState* subRenderState = nullptr;
 
-    for (auto const& it : mSubRenderStateFactories)
+    for (auto const& [key, value] : mSubRenderStateFactories)
     {
-        subRenderState = it.second->createInstance(compiler, prop, texState, translator);
+        subRenderState = value->createInstance(compiler, prop, texState, translator);
         if (subRenderState != nullptr)     
             break;              
     }   

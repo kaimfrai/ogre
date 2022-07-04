@@ -89,9 +89,8 @@ class RenderSystem;
         // Copy vertex buffers in turn
         const VertexBufferBinding::VertexBufferBindingMap& bindings = 
             this->vertexBufferBinding->getBindings();
-        for (const auto & binding : bindings)
+        for (auto const& [key, srcbuf]: bindings)
         {
-            HardwareVertexBufferSharedPtr srcbuf = binding.second;
             HardwareVertexBufferSharedPtr dstBuf;
             if (copyData)
             {
@@ -110,7 +109,7 @@ class RenderSystem;
             }
 
             // Copy binding
-            dest->vertexBufferBinding->setBinding(binding.first, dstBuf);
+            dest->vertexBufferBinding->setBinding(key, dstBuf);
         }
 
         // Basic vertex info
@@ -353,17 +352,17 @@ class RenderSystem;
         bool useShadowBuffer = false;
 
         // Lock all the old buffers for reading
-        for (auto const& itBinding : oldBindingMap)
+        for (auto const& [key, value] : oldBindingMap)
         {
-            assert(itBinding.second->getNumVertices() >= vertexCount);
+            assert(value->getNumVertices() >= vertexCount);
 
-            oldBufferVertexSizes[itBinding.first] =
-                itBinding.second->getVertexSize();
-            oldBufferLocks[itBinding.first] =
-                itBinding.second->lock(
+            oldBufferVertexSizes[key] =
+                value->getVertexSize();
+            oldBufferLocks[key] =
+                value->lock(
                     HardwareBuffer::HBL_READ_ONLY);
 
-            useShadowBuffer |= itBinding.second->hasShadowBuffer();
+            useShadowBuffer |= value->hasShadowBuffer();
         }
         
         // Create new buffers and lock all for writing
@@ -568,10 +567,10 @@ class RenderSystem;
 
         const VertexBufferBinding::VertexBufferBindingMap& bindMap = 
             vertexBufferBinding->getBindings();
-        for (const auto & bindi : bindMap)
+        for (auto const& [key, value] : bindMap)
         {
             VertexDeclaration::VertexElementList elems = 
-                vertexDeclaration->findElementsBySource(bindi.first);
+                vertexDeclaration->findElementsBySource(key);
             bool conversionNeeded = false;
             for (auto & elem : elems)
             {
@@ -583,9 +582,9 @@ class RenderSystem;
 
             if (conversionNeeded)
             {
-                void* pBase = bindi.second->lock(HardwareBuffer::HBL_NORMAL);
+                void* pBase = value->lock(HardwareBuffer::HBL_NORMAL);
 
-                for (size_t v = 0; v < bindi.second->getNumVertices(); ++v)
+                for (size_t v = 0; v < value->getNumVertices(); ++v)
                 {
 
                     for (auto & elem : elems)
@@ -598,9 +597,9 @@ class RenderSystem;
                         }
                     }
                     pBase = static_cast<void*>(
-                        static_cast<char*>(pBase) + bindi.second->getVertexSize());
+                        static_cast<char*>(pBase) + value->getVertexSize());
                 }
-                bindi.second->unlock();
+                value->unlock();
 
                 // Modify the elements to reflect the changed type
                 const VertexDeclaration::VertexElementList& allelems = 

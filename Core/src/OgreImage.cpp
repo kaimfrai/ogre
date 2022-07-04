@@ -47,9 +47,9 @@ namespace Ogre {
 
     void ImageCodec::decode(const DataStreamPtr& input, ::std::any const& output) const
     {
-        DecodeResult res = decode(input);
+        auto[data, codec] = decode(input);
 
-        auto pData = static_cast<ImageCodec::ImageData*>(res.second.get());
+        auto pData = static_cast<ImageCodec::ImageData*>(codec.get());
 
         auto* dest = any_cast<Image*>(output);
         dest->mWidth = pData->width;
@@ -60,9 +60,9 @@ namespace Ogre {
         dest->mFlags = pData->flags;
         dest->mFormat = pData->format;
         // Just use internal buffer of returned memory stream
-        dest->mBuffer = res.first->getPtr();
+        dest->mBuffer = data->getPtr();
         // Make sure stream does not delete
-        res.first->setFreeOnClose(false);
+        data->setFreeOnClose(false);
     }
 
     auto ImageCodec::encode(::std::any const& input) const -> DataStreamPtr

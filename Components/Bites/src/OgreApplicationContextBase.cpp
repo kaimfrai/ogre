@@ -368,18 +368,13 @@ void ApplicationContextBase::locateResources()
         rgm.addResourceLocation(getDefaultMediaDir(), "FileSystem", Ogre::RGN_DEFAULT);
     }
 
-    Ogre::String sec, type, arch;
     // go through all specified resource groups
-    for(auto const& seci : cf.getSettingsBySection()) {
-        sec = seci.first;
-        const Ogre::ConfigFile::SettingsMultiMap& settings = seci.second;
+    for(auto const& [sec, settings] : cf.getSettingsBySection()) {
 
         // go through all resource paths
-        for (auto const& i : settings)
+        for (auto const& [type, value] : settings)
         {
-            type = i.first;
-            arch = i.second;
-
+            auto arch = value;
             Ogre::StringUtil::trim(arch);
             if (arch.empty() || arch[0] == '.')
             {

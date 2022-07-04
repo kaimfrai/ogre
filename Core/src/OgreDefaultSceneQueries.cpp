@@ -94,10 +94,9 @@ namespace Ogre {
                 auto factItLater = factIt;
                 while (factItLater != factories.end())
                 {
-                    for (const auto& objItC :
+                    for (const auto& [key, c] :
                          mParentSceneMgr->getMovableObjects((factItLater++)->first))
                     {
-                        MovableObject* c = objItC.second;
                         // skip entire section if type doesn't match
                         if (!(c->getTypeFlags() & mQueryTypeMask))
                             break;
@@ -140,9 +139,8 @@ namespace Ogre {
         // Iterate over all movable types
         for(const auto& factIt : Root::getSingleton().getMovableObjectFactories())
         {
-            for (const auto& objIt : mParentSceneMgr->getMovableObjects(factIt.first))
+            for (const auto& [key, a] : mParentSceneMgr->getMovableObjects(factIt.first))
             {
-                MovableObject* a = objIt.second;
                 // skip whole group if type doesn't match
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;
@@ -177,9 +175,8 @@ namespace Ogre {
         // Iterate over all movable types
         for(const auto& factIt : Root::getSingleton().getMovableObjectFactories())
         {
-            for (const auto& objIt : mParentSceneMgr->getMovableObjects(factIt.first))
+            for (const auto& [key, a] : mParentSceneMgr->getMovableObjects(factIt.first))
             {
-                MovableObject* a = objIt.second;
                 // skip whole group if type doesn't match
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;
@@ -214,9 +211,8 @@ namespace Ogre {
         // Iterate over all movable types
         for(const auto& factIt : Root::getSingleton().getMovableObjectFactories())
         {
-            for (const auto& objIt : mParentSceneMgr->getMovableObjects(factIt.first))
+            for (const auto& [key, a] : mParentSceneMgr->getMovableObjects(factIt.first))
             {
-                MovableObject* a = objIt.second;
                 // skip whole group if type doesn't match
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;
@@ -249,9 +245,8 @@ namespace Ogre {
         // Iterate over all movable types
         for(const auto& factIt : Root::getSingleton().getMovableObjectFactories())
         {
-            for (const auto& objIt : mParentSceneMgr->getMovableObjects(factIt.first))
+            for (const auto& [key, a] : mParentSceneMgr->getMovableObjects(factIt.first))
             {
-                MovableObject* a = objIt.second;
                 // skip whole group if type doesn't match
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;

@@ -385,9 +385,8 @@ class Affine3;
     {
         animSet->removeAllAnimationStates();
            
-        for (auto & i : mAnimationsList)
+        for (auto const& [key, anim] : mAnimationsList)
         {
-            Animation* anim = i.second;
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
             const String& animName = anim->getName();
             animSet->createAnimationState(animName, 0.0, anim->getLength());
@@ -407,9 +406,8 @@ class Affine3;
     void Skeleton::_refreshAnimationState(AnimationStateSet* animSet)
     {
         // Merge in any new animations
-        for (auto & i : mAnimationsList)
+        for (auto const& [key, anim] : mAnimationsList)
         {
-            Animation* anim = i.second;
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
             const String& animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
@@ -561,10 +559,8 @@ class Affine3;
         of << "== Animations ==" << std::endl;
         of << "Number of animations: " << (unsigned int)mAnimationsList.size() << std::endl;
 
-        for (auto & ai : mAnimationsList)
+        for (auto const& [first, anim] : mAnimationsList)
         {
-            Animation* anim = ai.second;
-
             of << "-- Animation '" << anim->getName() << "' (length " << anim->getLength() << ") --" << std::endl;
             of << "Number of tracks: " << anim->getNumNodeTracks() << std::endl;
 

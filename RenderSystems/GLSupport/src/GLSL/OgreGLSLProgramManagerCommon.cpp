@@ -187,13 +187,12 @@ namespace Ogre {
     void GLSLProgramManagerCommon::destroyAllByShader(GLSLShaderCommon* shader)
     {
         std::vector<uint32> keysToErase;
-        for (auto & mProgram : mPrograms)
+        for (auto& [key, prgm] : mPrograms)
         {
-            GLSLProgramCommon* prgm = mProgram.second.get();
             if(prgm->isUsingShader(shader))
             {
-                mProgram.second.reset();
-                keysToErase.push_back(mProgram.first);
+                prgm.reset();
+                keysToErase.push_back(key);
             }
         }
 

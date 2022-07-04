@@ -173,9 +173,9 @@ namespace Ogre {
                 { F|L|T, AxisAlignedBox::FAR_LEFT_TOP },    { F|R|T, AxisAlignedBox::FAR_RIGHT_TOP },
                 { N|L|B, AxisAlignedBox::NEAR_LEFT_BOTTOM },{ N|R|B, AxisAlignedBox::NEAR_RIGHT_BOTTOM },
                 { N|L|T, AxisAlignedBox::NEAR_LEFT_TOP },   { N|R|T, AxisAlignedBox::NEAR_RIGHT_TOP }};
-            for(auto& c : cornerMap)
-                if((lightSidesMask & c.first) != 0 && (lightSidesMask & c.first) != c.first) // if adjacent sides not all lit or all unlit
-                    edgeCorners[edgeCornersCount++] = lightCapBounds.getCorner(c.second);
+            for(auto const& [key, value] : cornerMap)
+                if((lightSidesMask & key) != 0 && (lightSidesMask & key) != key) // if adjacent sides not all lit or all unlit
+                    edgeCorners[edgeCornersCount++] = lightCapBounds.getCorner(value);
             
             // find max angular size in range [0..pi] by finding min cos of angular size, range [1..-1]
             Real cosAngle = 1.0;

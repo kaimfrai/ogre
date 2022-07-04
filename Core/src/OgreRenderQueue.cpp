@@ -114,9 +114,9 @@ namespace Ogre {
         // Note: We clear dirty passes from all RenderQueues in all 
         // SceneManagers, because the following recalculation of pass hashes
         // also considers all RenderQueues and could become inconsistent, otherwise.
-        for (auto p : SceneManagerEnumerator::getSingleton().getSceneManagers())
+        for (auto const& [key, value] : SceneManagerEnumerator::getSingleton().getSceneManagers())
         {
-            RenderQueue* queue = p.second->getRenderQueue();
+            RenderQueue* queue = value->getRenderQueue();
 
             for (auto & mGroup : queue->mGroups)
             {
