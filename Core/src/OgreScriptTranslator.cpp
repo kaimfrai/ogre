@@ -109,7 +109,7 @@ class LodStrategy;
         }
     }
 
-    static GpuProgramType translateIDToGpuProgramType(uint32 id)
+    static auto translateIDToGpuProgramType(uint32 id) -> GpuProgramType
     {
         switch (id)
         {
@@ -129,7 +129,7 @@ class LodStrategy;
         }
     }
 
-    String getPropertyName(const ScriptCompiler *compiler, uint32 id)
+    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String
     {
         for(auto& kv : compiler->mIds)
             if(kv.second == id)
@@ -139,43 +139,43 @@ class LodStrategy;
     }
 
     template <typename T>
-    bool getValue(const AbstractNodePtr &node, T& result);
-    template<> bool getValue(const AbstractNodePtr &node, float& result)
+    auto getValue(const AbstractNodePtr &node, T& result) -> bool;
+    template<> auto getValue(const AbstractNodePtr &node, float& result) -> bool
     {
         return ScriptTranslator::getFloat(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, double& result)
+    template<> auto getValue(const AbstractNodePtr &node, double& result) -> bool
     {
         return ScriptTranslator::getDouble(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, bool& result)
+    template<> auto getValue(const AbstractNodePtr &node, bool& result) -> bool
     {
         return ScriptTranslator::getBoolean(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, uint32& result)
+    template<> auto getValue(const AbstractNodePtr &node, uint32& result) -> bool
     {
         return ScriptTranslator::getUInt(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, int32& result)
+    template<> auto getValue(const AbstractNodePtr &node, int32& result) -> bool
     {
         return ScriptTranslator::getInt(node, &result);
     }
-    template<> bool getValue(const AbstractNodePtr &node, String& result)
+    template<> auto getValue(const AbstractNodePtr &node, String& result) -> bool
     {
         return ScriptTranslator::getString(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, CompareFunction& result)
+    template<> auto getValue(const AbstractNodePtr& node, CompareFunction& result) -> bool
     {
         return ScriptTranslator::getCompareFunction(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, StencilOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, StencilOperation& result) -> bool
     {
         return ScriptTranslator::getStencilOp(node, &result);
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, IlluminationStage& result)
+    template<> auto getValue(const AbstractNodePtr& node, IlluminationStage& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -196,7 +196,7 @@ class LodStrategy;
         }
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, SceneBlendType& result)
+    template<> auto getValue(const AbstractNodePtr& node, SceneBlendType& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -221,7 +221,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, SceneBlendOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, SceneBlendOperation& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -249,7 +249,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, CullingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, CullingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -271,7 +271,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, ManualCullingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, ManualCullingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -293,7 +293,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, ShadeOptions& result)
+    template<> auto getValue(const AbstractNodePtr& node, ShadeOptions& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -315,7 +315,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, PolygonMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, PolygonMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -337,7 +337,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendOperation& result)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperation& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -362,7 +362,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -420,7 +420,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, LayerBlendSource& source1)
+    template<> auto getValue(const AbstractNodePtr& node, LayerBlendSource& source1) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -448,7 +448,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result)
+    template<> auto getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -468,7 +468,7 @@ class LodStrategy;
     }
 
 
-    template<> bool getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -487,7 +487,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, FilterOptions& tmip)
+    template<> auto getValue(const AbstractNodePtr& node, FilterOptions& tmip) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -512,7 +512,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> bool getValue(const AbstractNodePtr& node, TextureAddressingMode& result)
+    template<> auto getValue(const AbstractNodePtr& node, TextureAddressingMode& result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -538,7 +538,7 @@ class LodStrategy;
     }
 
     template <typename T>
-    static bool getValue(PropertyAbstractNode* prop, ScriptCompiler *compiler, T& val)
+    static auto getValue(PropertyAbstractNode* prop, ScriptCompiler *compiler, T& val) -> bool
     {
         if(prop->values.empty())
         {
@@ -562,8 +562,8 @@ class LodStrategy;
     }
 
     template <typename T>
-    static bool _getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end,
-                          std::vector<T>& vals, size_t count)
+    static auto _getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end,
+                          std::vector<T>& vals, size_t count) -> bool
     {
         vals.reserve(count);
         size_t n = 0;
@@ -583,7 +583,7 @@ class LodStrategy;
         return true;
     }
 
-    static GpuProgramType getProgramType(int id)
+    static auto getProgramType(int id) -> GpuProgramType
     {
         switch(id)
         {
@@ -631,7 +631,7 @@ class LodStrategy;
                                ::std::format("token \"{}\" is not recognized", static_cast<ObjectAbstractNode*>(node.get())->cls));
     }
     //-------------------------------------------------------------------------
-    AbstractNodeList::const_iterator ScriptTranslator::getNodeAt(const AbstractNodeList &nodes, size_t index)
+    auto ScriptTranslator::getNodeAt(const AbstractNodeList &nodes, size_t index) -> AbstractNodeList::const_iterator
     {
         if(index >= nodes.size())
             return nodes.end();
@@ -639,7 +639,7 @@ class LodStrategy;
         return std::next(nodes.begin(), index);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getBoolean(const AbstractNodePtr &node, bool *result)
+    auto ScriptTranslator::getBoolean(const AbstractNodePtr &node, bool *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
@@ -653,7 +653,7 @@ class LodStrategy;
 		return false;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getString(const AbstractNodePtr &node, String *result)
+    auto ScriptTranslator::getString(const AbstractNodePtr &node, String *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -662,7 +662,7 @@ class LodStrategy;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getFloat(const Ogre::AbstractNodePtr &node, float *result)
+    auto ScriptTranslator::getFloat(const Ogre::AbstractNodePtr &node, float *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -671,7 +671,7 @@ class LodStrategy;
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getDouble(const Ogre::AbstractNodePtr &node, double *result)
+    auto ScriptTranslator::getDouble(const Ogre::AbstractNodePtr &node, double *result) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -680,7 +680,7 @@ class LodStrategy;
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getInt(const Ogre::AbstractNodePtr &node, int *result)
+    auto ScriptTranslator::getInt(const Ogre::AbstractNodePtr &node, int *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
@@ -689,7 +689,7 @@ class LodStrategy;
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getUInt(const Ogre::AbstractNodePtr &node, uint *result)
+    auto ScriptTranslator::getUInt(const Ogre::AbstractNodePtr &node, uint *result) -> bool
     {
         if (node->type != ANT_ATOM)
             return false;
@@ -698,7 +698,7 @@ class LodStrategy;
         return StringConverter::parse(atom->value, *result);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries)
+    auto ScriptTranslator::getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries) -> bool
     {
         int n = 0;
         while(i != end && n < maxEntries)
@@ -733,7 +733,7 @@ class LodStrategy;
         return (n >= 3 || n == maxEntries);
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getSceneBlendFactor(const Ogre::AbstractNodePtr &node, Ogre::SceneBlendFactor *sbf)
+    auto ScriptTranslator::getSceneBlendFactor(const Ogre::AbstractNodePtr &node, Ogre::SceneBlendFactor *sbf) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -776,7 +776,7 @@ class LodStrategy;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getCompareFunction(const AbstractNodePtr &node, CompareFunction *func)
+    auto ScriptTranslator::getCompareFunction(const AbstractNodePtr &node, CompareFunction *func) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -813,7 +813,7 @@ class LodStrategy;
         return true;
     }
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m)
+    auto ScriptTranslator::getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m) -> bool
     {
         int n = 0;
         while (i != end && n < 16)
@@ -836,18 +836,18 @@ class LodStrategy;
         return true;
     }
 
-    bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count)
+    auto ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count) -> bool
     {
         return _getVector(i, end, vals, count);
     }
 
-    bool ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count)
+    auto ScriptTranslator::getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count) -> bool
     {
         return _getVector(i, end, vals, count);
     }
 
     //-------------------------------------------------------------------------
-    bool ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op)
+    auto ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op) -> bool
     {
         if(node->type != ANT_ATOM)
             return false;
@@ -884,7 +884,7 @@ class LodStrategy;
         return true;
     }
     //---------------------------------------------------------------------
-    bool ScriptTranslator::getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op)
+    auto ScriptTranslator::getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op) -> bool
     {
 
         String val;
@@ -1550,7 +1550,7 @@ class LodStrategy;
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
                                                prop->file,
                                                prop->line,
-                                               ::std::format("scene_blend does not support \"{}\" and \"{}\" as arguments", (*i0)->getValue(), (*i1)->getValue()));
+                                               ::std::format(R"(scene_blend does not support "{}" and "{}" as arguments)", (*i0)->getValue(), (*i1)->getValue()));
                         }
                     }
                     break;
@@ -2246,7 +2246,7 @@ class LodStrategy;
         }
     }
 
-    static GpuProgramPtr getProgram(ScriptCompiler* compiler, ObjectAbstractNode* node)
+    static auto getProgram(ScriptCompiler* compiler, ObjectAbstractNode* node) -> GpuProgramPtr
     {
         if(node->name.empty())
         {
@@ -3656,7 +3656,7 @@ class LodStrategy;
         }
     }
     //-------------------------------------------------------------------------
-    static int parseProgramParameterDimensions(String& declarator, BaseConstantType& type)
+    static auto parseProgramParameterDimensions(String& declarator, BaseConstantType& type) -> int
     {
         // Assume 1 unless otherwise specified
         int dimensions = 1;
@@ -5289,7 +5289,7 @@ class LodStrategy;
     BuiltinScriptTranslatorManager::BuiltinScriptTranslatorManager()
     = default;
     //-------------------------------------------------------------------------
-    ScriptTranslator *BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node)
+    auto BuiltinScriptTranslatorManager::getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *
     {
         ScriptTranslator *translator = nullptr;
 

@@ -113,7 +113,7 @@ namespace Ogre {
             This property is useful for determining the type of affector procedurally so another
             can be created.
         */
-        [[nodiscard]] const String &getType() const noexcept { return mType; }
+        [[nodiscard]] auto getType() const noexcept -> const String & { return mType; }
 
     };
     /** @} */

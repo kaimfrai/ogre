@@ -53,11 +53,11 @@ class Renderable;
 
     //-----------------------------------------------------------------------
     template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
-    MaterialManager* MaterialManager::getSingletonPtr() noexcept
+    auto MaterialManager::getSingletonPtr() noexcept -> MaterialManager*
     {
         return msSingleton;
     }
-    MaterialManager& MaterialManager::getSingleton() noexcept
+    auto MaterialManager::getSingleton() noexcept -> MaterialManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -94,26 +94,26 @@ class Renderable;
         ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
     }
     //-----------------------------------------------------------------------
-    Resource* MaterialManager::createImpl(const String& name, ResourceHandle handle,
+    auto MaterialManager::createImpl(const String& name, ResourceHandle handle,
         const String& group, bool isManual, ManualResourceLoader* loader,
-    const NameValuePairList* params)
+    const NameValuePairList* params) -> Resource*
     {
         return new Material(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    MaterialPtr MaterialManager::create (const String& name, const String& group,
+    auto MaterialManager::create (const String& name, const String& group,
                                     bool isManual, ManualResourceLoader* loader,
-                                    const NameValuePairList* createParams)
+                                    const NameValuePairList* createParams) -> MaterialPtr
     {
         return static_pointer_cast<Material>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    MaterialPtr MaterialManager::getByName(const String& name, const String& groupName) const
+    auto MaterialManager::getByName(const String& name, const String& groupName) const -> MaterialPtr
     {
         return static_pointer_cast<Material>(getResourceByName(name, groupName));
     }
 
-    MaterialPtr MaterialManager::getDefaultMaterial(bool useLighting) {
+    auto MaterialManager::getDefaultMaterial(bool useLighting) -> MaterialPtr {
         MaterialPtr ret = getByName(useLighting ? "BaseWhite" : "BaseWhiteNoLighting",
                                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
 
@@ -153,7 +153,7 @@ class Renderable;
         TextureManager::getSingleton().getDefaultSampler()->setAnisotropy(maxAniso);
     }
     //-----------------------------------------------------------------------
-    unsigned int MaterialManager::getDefaultAnisotropy() const noexcept
+    auto MaterialManager::getDefaultAnisotropy() const noexcept -> unsigned int
     {
         return TextureManager::getSingleton().getDefaultSampler()->getAnisotropy();
     }
@@ -169,12 +169,12 @@ class Renderable;
         TextureManager::getSingleton().getDefaultSampler()->setFiltering(minFilter, magFilter, mipFilter);
     }
     //-----------------------------------------------------------------------
-    FilterOptions MaterialManager::getDefaultTextureFiltering(FilterType ftype) const
+    auto MaterialManager::getDefaultTextureFiltering(FilterType ftype) const -> FilterOptions
     {
         return TextureManager::getSingleton().getDefaultSampler()->getFiltering(ftype);
     }
     //-----------------------------------------------------------------------
-    unsigned short MaterialManager::_getSchemeIndex(const String& schemeName)
+    auto MaterialManager::_getSchemeIndex(const String& schemeName) -> unsigned short
     {
         unsigned short ret = 0;
         auto i = mSchemes.find(schemeName);
@@ -192,7 +192,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    const String& MaterialManager::_getSchemeName(unsigned short index)
+    auto MaterialManager::_getSchemeName(unsigned short index) -> const String&
     {
         for (auto & mScheme : mSchemes)
         {
@@ -223,8 +223,8 @@ class Renderable;
         mListenerMap[schemeName].remove(l);
     }
     //---------------------------------------------------------------------
-    Technique* MaterialManager::_arbitrateMissingTechniqueForActiveScheme(
-        Material* mat, unsigned short lodIndex, const Renderable* rend)
+    auto MaterialManager::_arbitrateMissingTechniqueForActiveScheme(
+        Material* mat, unsigned short lodIndex, const Renderable* rend) -> Technique*
     {
         //First, check the scheme specific listeners
         auto it = mListenerMap.find(mActiveSchemeName);

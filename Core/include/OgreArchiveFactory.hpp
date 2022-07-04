@@ -68,10 +68,10 @@ namespace Ogre {
             the factory.
         */
         [[nodiscard]]
-        virtual Archive* createInstance(const String& name, bool readOnly) = 0;
+        virtual auto createInstance(const String& name, bool readOnly) -> Archive* = 0;
 
         [[nodiscard]]
-        Archive* createInstance(const String& name) override { return createInstance(name, true); }
+        auto createInstance(const String& name) -> Archive* override { return createInstance(name, true); }
     };
     /** @} */
     /** @} */

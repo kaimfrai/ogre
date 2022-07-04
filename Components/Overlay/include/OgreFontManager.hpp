@@ -53,13 +53,13 @@ namespace Ogre
 
         /// Create a new font
         /// @see ResourceManager::createResource
-        FontPtr create (const String& name, const String& group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
-                            const NameValuePairList* createParams = nullptr);
+                            const NameValuePairList* createParams = nullptr) -> FontPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        FontPtr getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const;
+        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> FontPtr;
 
         /** Override standard Singleton retrieval.
         @remarks
@@ -76,16 +76,16 @@ namespace Ogre
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static FontManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> FontManager&;
         /// @copydoc Singleton::getSingleton()
-        static FontManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> FontManager*;
 
     private:
 
         /// Internal methods
-        Resource* createImpl(const String& name, ResourceHandle handle, 
+        auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* params) override;
+            const NameValuePairList* params) -> Resource* override;
         void parseAttribute(const String& line, FontPtr& pFont);
 
         void logBadAttrib(const String& line, FontPtr& pFont);

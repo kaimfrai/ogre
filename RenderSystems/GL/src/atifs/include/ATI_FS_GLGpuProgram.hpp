@@ -56,7 +56,7 @@ class ResourceManager;
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
 
         /// Get the assigned GL program id
-        GLuint getProgramID() const noexcept
+        auto getProgramID() const noexcept -> GLuint
         { return mProgramID; }
 
     protected:

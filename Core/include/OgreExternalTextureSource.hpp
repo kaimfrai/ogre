@@ -86,15 +86,15 @@ namespace Ogre
         /// Sets an input file name - if needed by plugin
         void setInputName( const String &sIN ) { mInputFileName = sIN; }
         /// Gets currently set input file name
-        [[nodiscard]] const String& getInputName( ) const noexcept { return mInputFileName; }
+        [[nodiscard]] auto getInputName( ) const noexcept -> const String& { return mInputFileName; }
         /// Sets the frames per second - plugin may or may not use this
         void setFPS( int iFPS ) { mFramesPerSecond = iFPS; }
         /// Gets currently set frames per second
-        [[nodiscard]] int getFPS( ) const noexcept { return mFramesPerSecond; }
+        [[nodiscard]] auto getFPS( ) const noexcept -> int { return mFramesPerSecond; }
         /// Sets a play mode
         void setPlayMode( eTexturePlayMode eMode )  { mMode = eMode; }
         /// Gets currently set play mode
-        [[nodiscard]] eTexturePlayMode getPlayMode() const noexcept { return mMode; }
+        [[nodiscard]] auto getPlayMode() const noexcept -> eTexturePlayMode { return mMode; }
 
         /// Used for attaching texture to Technique, State, and texture unit layer
         void setTextureTecPassStateLevel( int t, int p, int s ) 
@@ -107,13 +107,13 @@ namespace Ogre
         void addBaseParams();
 
         /** Returns the string name of this Plugin (as set by the Plugin)*/
-        [[nodiscard]] const String& getPluginStringName( ) const noexcept { return mPluginName; }
+        [[nodiscard]] auto getPluginStringName( ) const noexcept -> const String& { return mPluginName; }
         /** Returns dictionary name */
-        [[nodiscard]] const String& getDictionaryStringName( ) const noexcept { return mDictionaryName; }
+        [[nodiscard]] auto getDictionaryStringName( ) const noexcept -> const String& { return mDictionaryName; }
 
         //Pure virtual functions that plugins must Override
         /** Call this function from manager to init system */
-        virtual bool initialise() = 0;
+        virtual auto initialise() -> bool = 0;
         /** Shuts down Plugin */
         virtual void shutDown() = 0;
 

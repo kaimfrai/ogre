@@ -49,8 +49,8 @@ namespace Ogre {
     Bone::~Bone()
     = default;
     //---------------------------------------------------------------------
-    Bone* Bone::createChild(unsigned short handle, const Vector3& inTranslate, 
-        const Quaternion& inRotate)
+    auto Bone::createChild(unsigned short handle, const Vector3& inTranslate, 
+        const Quaternion& inRotate) -> Bone*
     {
         Bone* retBone = mCreator->createBone(handle);
         retBone->translate(inTranslate);
@@ -59,12 +59,12 @@ namespace Ogre {
         return retBone;
     }
     //---------------------------------------------------------------------
-    Node* Bone::createChildImpl()
+    auto Bone::createChildImpl() -> Node*
     {
         return mCreator->createBone();
     }
     //---------------------------------------------------------------------
-    Node* Bone::createChildImpl(const String& name)
+    auto Bone::createChildImpl(const String& name) -> Node*
     {
         return mCreator->createBone(name);
     }
@@ -90,7 +90,7 @@ namespace Ogre {
         mCreator->_notifyManualBoneStateChange(this);
     }
     //---------------------------------------------------------------------
-    bool Bone::isManuallyControlled() const noexcept {
+    auto Bone::isManuallyControlled() const noexcept -> bool {
         return mManuallyControlled;
     }
     //---------------------------------------------------------------------
@@ -113,7 +113,7 @@ namespace Ogre {
         m.makeTransform(locTranslate, locScale, locRotate);
     }
     //---------------------------------------------------------------------
-    unsigned short Bone::getHandle() const noexcept
+    auto Bone::getHandle() const noexcept -> unsigned short
     {
         return mHandle;
     }

@@ -70,12 +70,12 @@ class Technique;
     }
     SubEntity::~SubEntity() = default; // ensure unique_ptr destructors are in cpp
     //-----------------------------------------------------------------------
-    SubMesh* SubEntity::getSubMesh() noexcept
+    auto SubEntity::getSubMesh() noexcept -> SubMesh*
     {
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    const String& SubEntity::getMaterialName() const noexcept
+    auto SubEntity::getMaterialName() const noexcept -> const String&
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }
@@ -119,7 +119,7 @@ class Technique;
         mParentEntity->reevaluateVertexProcessing();
     }
     //-----------------------------------------------------------------------
-    Technique* SubEntity::getTechnique() const noexcept
+    auto SubEntity::getTechnique() const noexcept -> Technique*
     {
         return mMaterialPtr->getBestTechnique(mMaterialLodIndex, this);
     }
@@ -145,7 +145,7 @@ class Technique;
             mIndexStart = start_index;
     }
     //-----------------------------------------------------------------------
-    size_t SubEntity::getIndexDataStartIndex() const
+    auto SubEntity::getIndexDataStartIndex() const -> size_t
     {
         return mIndexStart;
     }
@@ -156,7 +156,7 @@ class Technique;
             mIndexEnd = end_index;
     }
     //-----------------------------------------------------------------------
-    size_t SubEntity::getIndexDataEndIndex() const
+    auto SubEntity::getIndexDataEndIndex() const -> size_t
     {
         return mIndexEnd;
     }
@@ -167,7 +167,7 @@ class Technique;
         mIndexEnd = 0;
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::getVertexDataForBinding() noexcept
+    auto SubEntity::getVertexDataForBinding() noexcept -> VertexData*
     {
         if (mSubMesh->useSharedVertices)
         {
@@ -229,7 +229,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short SubEntity::getNumWorldTransforms() const noexcept
+    auto SubEntity::getNumWorldTransforms() const noexcept -> unsigned short
     {
         if (!mParentEntity->mNumBoneMatrices ||
             !mParentEntity->isHardwareAnimationEnabled())
@@ -248,7 +248,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    Real SubEntity::getSquaredViewDepth(const Camera* cam) const
+    auto SubEntity::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         // First of all, check the cached value
         // NB this is manually invalidated by parent each _notifyCurrentCamera call
@@ -283,7 +283,7 @@ class Technique;
         return dist;
     }
     //-----------------------------------------------------------------------
-    const LightList& SubEntity::getLights() const noexcept
+    auto SubEntity::getLights() const noexcept -> const LightList&
     {
         return mParentEntity->queryLights();
     }
@@ -332,35 +332,35 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    bool SubEntity::getCastsShadows() const noexcept
+    auto SubEntity::getCastsShadows() const noexcept -> bool
     {
         return mParentEntity->getCastShadows();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getSkelAnimVertexData() 
+    auto SubEntity::_getSkelAnimVertexData() -> VertexData* 
     {
         assert (mSkelAnimVertexData && "Not software skinned or has no dedicated geometry!");
         return mSkelAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getSoftwareVertexAnimVertexData()
+    auto SubEntity::_getSoftwareVertexAnimVertexData() -> VertexData*
     {
         assert (mSoftwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mSoftwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    VertexData* SubEntity::_getHardwareVertexAnimVertexData()
+    auto SubEntity::_getHardwareVertexAnimVertexData() -> VertexData*
     {
         assert (mHardwareVertexAnimVertexData && "Not vertex animated or has no dedicated geometry!");
         return mHardwareVertexAnimVertexData.get();
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* SubEntity::_getSkelAnimTempBufferInfo() 
+    auto SubEntity::_getSkelAnimTempBufferInfo() -> TempBlendedBufferInfo* 
     {
         return &mTempSkelAnimInfo;
     }
     //-----------------------------------------------------------------------
-    TempBlendedBufferInfo* SubEntity::_getVertexAnimTempBufferInfo() 
+    auto SubEntity::_getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo* 
     {
         return &mTempVertexAnimInfo;
     }

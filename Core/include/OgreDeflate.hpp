@@ -64,7 +64,7 @@ namespace Ogre
 
         /** Cache data pointed by 'buf'. If 'count' is greater than cache size, we cache only last bytes.
          Returns number of bytes written to cache. */
-        size_t cacheData(const void* buf, size_t count)
+        auto cacheData(const void* buf, size_t count) -> size_t
         {
             assert(avail() == 0 && "It is assumed that you cache data only after you have read everything.");
 
@@ -98,7 +98,7 @@ namespace Ogre
             }
         }
         /** Read data from cache to 'buf' (maximum 'count' bytes). Returns number of bytes read from cache. */
-        size_t read(void* buf, size_t count)
+        auto read(void* buf, size_t count) -> size_t
         {
             size_t rb = avail();
             rb = (rb < count) ? rb : count;
@@ -108,7 +108,7 @@ namespace Ogre
         }
 
         /** Step back in cached stream by 'count' bytes. Returns 'true' if cache contains resulting position. */
-        bool rewind(size_t count)
+        auto rewind(size_t count) -> bool
         {
             if (mPos < count)
             {
@@ -122,7 +122,7 @@ namespace Ogre
             }
         }
         /** Step forward in cached stream by 'count' bytes. Returns 'true' if cache contains resulting position. */
-        bool ff(size_t count)
+        auto ff(size_t count) -> bool
         {
             if (avail() < count)
             {
@@ -137,7 +137,7 @@ namespace Ogre
         }
 
         /** Returns number of bytes available for reading in cache after rewinding. */
-        [[nodiscard]] size_t avail() const
+        [[nodiscard]] auto avail() const -> size_t
         {
             return mValidBytes - mPos;
         }
@@ -199,7 +199,7 @@ namespace Ogre
         void destroy();
         void compressFinal();
 
-        size_t getAvailInForSinglePass();
+        auto getAvailInForSinglePass() -> size_t;
     public:
         /** Constructor for creating unnamed stream wrapping another stream.
          @param compressedStream The stream that this stream will use when reading / 
@@ -240,15 +240,15 @@ namespace Ogre
             deflate algorithm, this method returns false and all read commands
             will actually be executed as passthroughs as a fallback. 
         */
-        [[nodiscard]] bool isCompressedStreamValid() const noexcept { return mStreamType != Invalid; }
+        [[nodiscard]] auto isCompressedStreamValid() const noexcept -> bool { return mStreamType != Invalid; }
         
         /** @copydoc DataStream::read
          */
-        size_t read(void* buf, size_t count) override;
+        auto read(void* buf, size_t count) -> size_t override;
         
         /** @copydoc DataStream::write
          */
-        size_t write(const void* buf, size_t count) override;
+        auto write(const void* buf, size_t count) -> size_t override;
                 
         /** @copydoc DataStream::skip
          */
@@ -260,11 +260,11 @@ namespace Ogre
         
         /** @copydoc DataStream::tell
          */
-        [[nodiscard]] size_t tell() const override;
+        [[nodiscard]] auto tell() const -> size_t override;
         
         /** @copydoc DataStream::eof
          */
-        [[nodiscard]] bool eof() const override;
+        [[nodiscard]] auto eof() const -> bool override;
         
         /** @copydoc DataStream::close
          */

@@ -64,9 +64,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
-    bool setParameter(const String& name, const String& value) noexcept override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
     static String Type;
 
@@ -75,23 +75,23 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    bool resolveParameters(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** Resolve global lighting parameters */
-    virtual bool resolveGlobalParameters(ProgramSet* programSet);
+    virtual auto resolveGlobalParameters(ProgramSet* programSet) -> bool;
 
     /** Resolve per light parameters */
-    virtual bool resolvePerLightParameters(ProgramSet* programSet);
+    virtual auto resolvePerLightParameters(ProgramSet* programSet) -> bool;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    bool resolveDependencies(ProgramSet* programSet) override;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    bool addFunctionInvocations(ProgramSet* programSet) override;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
     
 
     /** 
@@ -127,12 +127,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -145,7 +145,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

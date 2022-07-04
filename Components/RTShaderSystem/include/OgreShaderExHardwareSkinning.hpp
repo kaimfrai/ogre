@@ -93,12 +93,12 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
     /**
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const noexcept override;
+    auto getExecutionOrder() const noexcept -> int override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -121,36 +121,36 @@ public:
     Returns the number of bones in the model assigned to the material.
     @see setHardwareSkinningParam()
     */
-    ushort getBoneCount() noexcept;
+    auto getBoneCount() noexcept -> ushort;
 
     /**
     Returns the number of weights/bones affecting a vertex.
     @see setHardwareSkinningParam()
     */
-    ushort getWeightCount() noexcept;
+    auto getWeightCount() noexcept -> ushort;
 
     /**
     Returns the current skinning type in use.
     @see setHardwareSkinningParam()
      */
-    SkinningType getSkinningType();
+    auto getSkinningType() -> SkinningType;
 
     /**
     Only applicable for dual quaternion skinning.
     @see setHardwareSkinningParam()
     */
-    bool hasCorrectAntipodalityHandling();
+    auto hasCorrectAntipodalityHandling() -> bool;
 
     /**
     Only applicable for dual quaternion skinning.
     @see setHardwareSkinningParam()
     */
-    bool hasScalingShearingSupport();
+    auto hasScalingShearingSupport() -> bool;
 
     /**
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     /**
     Set the factory which created this sub render state
@@ -164,17 +164,17 @@ protected:
     /**
     @see SubRenderState::resolveParameters.
     */
-    bool resolveParameters(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::resolveDependencies.
     */
-    bool resolveDependencies(ProgramSet* programSet) override;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /**
     @see SubRenderState::addFunctionInvocations.
     */
-    bool addFunctionInvocations(ProgramSet* programSet) override;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
     SharedPtr<LinearSkinning> mLinear;
     SharedPtr<DualQuaternionSkinning> mDualQuat;
@@ -199,12 +199,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -226,12 +226,12 @@ public:
     /** 
     Returns the name of a custom shadow caster material for a given number of weights
     */
-    [[nodiscard]] const MaterialPtr& getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const;
+    [[nodiscard]] auto getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&;
 
     /** 
     Returns the name of a custom shadow receiver material for a given number of weights
     */
-    [[nodiscard]] const MaterialPtr& getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const;
+    [[nodiscard]] auto getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&;
 
     /**
         @brief 
@@ -260,7 +260,7 @@ public:
 
         The default value for this property is 70 which correspond to pixel shader model 3 limitations
     */
-    [[nodiscard]] ushort getMaxCalculableBoneCount() const noexcept {
+    [[nodiscard]] auto getMaxCalculableBoneCount() const noexcept -> ushort {
         return mMaxCalculableBoneCount; }
     /** 
         Sets the maximum number of bones for which hardware skinning is performed.
@@ -286,10 +286,10 @@ public:
         but the implementation stays in this single compilation unit,
         preventing link errors.
     */
-    static HardwareSkinningFactory& getSingleton() noexcept;
+    static auto getSingleton() noexcept -> HardwareSkinningFactory&;
     
     /// @copydoc Singleton::getSingleton()
-    static HardwareSkinningFactory* getSingletonPtr() noexcept;
+    static auto getSingletonPtr() noexcept -> HardwareSkinningFactory*;
 
 protected:
     /** 
@@ -302,8 +302,8 @@ protected:
         @param weightCount The maximum number of weights used by the entity.
         @return Returns true if the entity can use HS. False if not. 
     */
-    bool extractSkeletonData(const Entity* pEntity, size_t subEntityIndex,
-        ushort& boneCount, ushort& weightCount);
+    auto extractSkeletonData(const Entity* pEntity, size_t subEntityIndex,
+        ushort& boneCount, ushort& weightCount) -> bool;
 
     /** 
         @brief
@@ -315,15 +315,15 @@ protected:
         @param weightCount The maximum number of weights used by the entity.
         @return Returns true if the data was updated on the material. False if not.
     */
-    bool imprintSkeletonData(const MaterialPtr& pMaterial, bool isValid, 
-        ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport);
+    auto imprintSkeletonData(const MaterialPtr& pMaterial, bool isValid, 
+        ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport) -> bool;
 
 protected:
 
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
     /// A set of custom shadow caster materials
     MaterialPtr mCustomShadowCasterMaterialsLinear[HS_MAX_WEIGHT_COUNT];

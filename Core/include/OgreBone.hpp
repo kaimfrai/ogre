@@ -77,11 +77,11 @@ class Skeleton;
             @param
                 rotate Initial rotation relative to parent
         */
-        Bone* createChild(unsigned short handle, 
-            const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY);
+        auto createChild(unsigned short handle, 
+            const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> Bone*;
 
         /** Gets the numeric handle for this bone (unique within the skeleton). */
-        unsigned short getHandle() const noexcept;
+        auto getHandle() const noexcept -> unsigned short;
 
         /** Sets the current position / orientation to be the 'binding pose' ie the layout in which 
             bones were originally bound to a mesh.
@@ -111,7 +111,7 @@ class Skeleton;
         void setManuallyControlled(bool manuallyControlled);
 
         /** Getter for mManuallyControlled Flag */
-        bool isManuallyControlled() const noexcept;
+        auto isManuallyControlled() const noexcept -> bool;
 
         
         /** Gets the transform which takes bone space to current from the binding pose. 
@@ -121,11 +121,11 @@ class Skeleton;
         void _getOffsetTransform(Affine3& m) const;
 
         /** Gets the inverted binding pose scale. */
-        const Vector3& _getBindingPoseInverseScale() const noexcept { return mBindDerivedInverseScale; }
+        auto _getBindingPoseInverseScale() const noexcept -> const Vector3& { return mBindDerivedInverseScale; }
         /** Gets the inverted binding pose position. */
-        const Vector3& _getBindingPoseInversePosition() const noexcept { return mBindDerivedInversePosition; }
+        auto _getBindingPoseInversePosition() const noexcept -> const Vector3& { return mBindDerivedInversePosition; }
         /** Gets the inverted binding pose orientation. */
-        const Quaternion& _getBindingPoseInverseOrientation() const noexcept { return mBindDerivedInverseOrientation; }
+        auto _getBindingPoseInverseOrientation() const noexcept -> const Quaternion& { return mBindDerivedInverseOrientation; }
 
         /// @see Node::needUpdate
         void needUpdate(bool forceParentUpdate = false) override;
@@ -133,9 +133,9 @@ class Skeleton;
 
     private:
         /** See Node. */
-        Node* createChildImpl() override;
+        auto createChildImpl() -> Node* override;
         /** See Node. */
-        Node* createChildImpl(const String& name) override;
+        auto createChildImpl(const String& name) -> Node* override;
 
         /// Pointer back to creator, for child creation (not smart ptr so child does not preserve parent)
         Skeleton* mCreator;

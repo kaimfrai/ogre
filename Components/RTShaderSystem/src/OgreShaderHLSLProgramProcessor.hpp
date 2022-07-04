@@ -57,16 +57,16 @@ public:
     ~HLSLProgramProcessor() override;
 
     /** Return the target language of this processor. */
-    [[nodiscard]] virtual const String& getTargetLanguage() const noexcept { return TargetLanguage; }
+    [[nodiscard]] virtual auto getTargetLanguage() const noexcept -> const String& { return TargetLanguage; }
 
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
-    bool preCreateGpuPrograms(ProgramSet* programSet) override;
+    auto preCreateGpuPrograms(ProgramSet* programSet) -> bool override;
     /** 
     @see ProgramProcessor::postCreateGpuPrograms
     */
-    bool postCreateGpuPrograms(ProgramSet* programSet) override;
+    auto postCreateGpuPrograms(ProgramSet* programSet) -> bool override;
 
     static String TargetLanguage;
 

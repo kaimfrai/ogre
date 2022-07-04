@@ -116,7 +116,7 @@ class Matrix3;
         }
 
         /// Array accessor operator
-        inline float operator [] ( const size_t i ) const
+        inline auto operator [] ( const size_t i ) const -> float
         {
             assert( i < 4 );
 
@@ -124,7 +124,7 @@ class Matrix3;
         }
 
         /// Array accessor operator
-        inline float& operator [] ( const size_t i )
+        inline auto operator [] ( const size_t i ) -> float&
         {
             assert( i < 4 );
 
@@ -132,13 +132,13 @@ class Matrix3;
         }
 
         /// Pointer accessor for direct copying
-        inline float* ptr()
+        inline auto ptr() -> float*
         {
             return &w;
         }
 
         /// Pointer accessor for direct copying
-        [[nodiscard]] inline const float* ptr() const
+        [[nodiscard]] inline auto ptr() const -> const float*
         {
             return &w;
         }
@@ -167,57 +167,57 @@ class Matrix3;
         /** Returns the X orthonormal axis defining the quaternion. Same as doing
             xAxis = Vector3::UNIT_X * this. Also called the local X-axis
         */
-        [[nodiscard]] Vector3 xAxis() const;
+        [[nodiscard]] auto xAxis() const -> Vector3;
 
         /** Returns the Y orthonormal axis defining the quaternion. Same as doing
             yAxis = Vector3::UNIT_Y * this. Also called the local Y-axis
         */
-        [[nodiscard]] Vector3 yAxis() const;
+        [[nodiscard]] auto yAxis() const -> Vector3;
 
         /** Returns the Z orthonormal axis defining the quaternion. Same as doing
             zAxis = Vector3::UNIT_Z * this. Also called the local Z-axis
         */
-        [[nodiscard]] Vector3 zAxis() const;
+        [[nodiscard]] auto zAxis() const -> Vector3;
 
-        inline Quaternion& operator= (const Quaternion& rkQ)
+        inline auto operator= (const Quaternion& rkQ) -> Quaternion&
         = default;
-        Quaternion operator+ (const Quaternion& rkQ) const;
-        Quaternion operator- (const Quaternion& rkQ) const;
-        Quaternion operator*(const Quaternion& rkQ) const;
-        Quaternion operator*(float s) const
+        auto operator+ (const Quaternion& rkQ) const -> Quaternion;
+        auto operator- (const Quaternion& rkQ) const -> Quaternion;
+        auto operator*(const Quaternion& rkQ) const -> Quaternion;
+        auto operator*(float s) const -> Quaternion
         {
             return {s * w, s * x, s * y, s * z};
         }
-        friend Quaternion operator*(float s, const Quaternion& q)
+        friend auto operator*(float s, const Quaternion& q) -> Quaternion
         {
             return q * s;
         }
-        Quaternion operator-() const { return {-w, -x, -y, -z}; }
+        auto operator-() const -> Quaternion { return {-w, -x, -y, -z}; }
 
-        [[nodiscard]] inline bool operator== (const Quaternion& rhs) const noexcept = default;
+        [[nodiscard]] inline auto operator== (const Quaternion& rhs) const noexcept -> bool = default;
 
         // functions of a quaternion
         /// Returns the dot product of the quaternion
-        [[nodiscard]] float Dot(const Quaternion& rkQ) const
+        [[nodiscard]] auto Dot(const Quaternion& rkQ) const -> float
         {
             return w * rkQ.w + x * rkQ.x + y * rkQ.y + z * rkQ.z;
         }
         /// Returns the normal length of this quaternion.
-        [[nodiscard]] float Norm() const { return std::sqrt(w * w + x * x + y * y + z * z); }
+        [[nodiscard]] auto Norm() const -> float { return std::sqrt(w * w + x * x + y * y + z * z); }
         /// Normalises this quaternion, and returns the previous length
-        float normalise()
+        auto normalise() -> float
         {
             float len = Norm();
             *this = 1.0f / len * *this;
             return len;
         }
-        [[nodiscard]] Quaternion Inverse () const;  /// Apply to non-zero quaternion
-        [[nodiscard]] Quaternion UnitInverse () const;  /// Apply to unit-length quaternion
-        [[nodiscard]] Quaternion Exp () const;
-        [[nodiscard]] Quaternion Log () const;
+        [[nodiscard]] auto Inverse () const -> Quaternion;  /// Apply to non-zero quaternion
+        [[nodiscard]] auto UnitInverse () const -> Quaternion;  /// Apply to unit-length quaternion
+        [[nodiscard]] auto Exp () const -> Quaternion;
+        [[nodiscard]] auto Log () const -> Quaternion;
 
         /// Rotation of a vector by a quaternion
-        Vector3 operator* (const Vector3& rkVector) const;
+        auto operator* (const Vector3& rkVector) const -> Vector3;
 
         /** Calculate the local roll element of this quaternion.
         @param reprojectAxis By default the method returns the 'intuitive' result
@@ -229,7 +229,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        [[nodiscard]] Radian getRoll(bool reprojectAxis = true) const;
+        [[nodiscard]] auto getRoll(bool reprojectAxis = true) const -> Radian;
         /** Calculate the local pitch element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
             that is, if you projected the local Y of the quaternion onto the YZ plane,
@@ -240,7 +240,7 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        [[nodiscard]] Radian getPitch(bool reprojectAxis = true) const;
+        [[nodiscard]] auto getPitch(bool reprojectAxis = true) const -> Radian;
         /** Calculate the local yaw element of this quaternion
         @param reprojectAxis By default the method returns the 'intuitive' result
             that is, if you projected the local Z of the quaternion onto the ZX plane,
@@ -251,13 +251,13 @@ class Matrix3;
             backward compatibility, to decompose quaternion into yaw, pitch and roll use
             q.ToRotationMatrix().ToEulerAnglesYXZ(yaw, pitch, roll) instead.
         */
-        [[nodiscard]] Radian getYaw(bool reprojectAxis = true) const;
+        [[nodiscard]] auto getYaw(bool reprojectAxis = true) const -> Radian;
         
         /** Equality with tolerance (tolerance is max angle difference)
         @remark Both equals() and orientationEquals() measure the exact same thing.
                 One measures the difference by angle, the other by a different, non-linear metric.
         */
-        [[nodiscard]] bool equals(const Quaternion& rhs, const Radian& tolerance) const
+        [[nodiscard]] auto equals(const Quaternion& rhs, const Radian& tolerance) const -> bool
         {
             float d = Dot(rhs);
             Radian angle = Math::ACos(2.0f * d*d - 1.0f);
@@ -273,7 +273,7 @@ class Matrix3;
             therefore be careful if your code relies in the order of the operands.
             This is specially important in IK animation.
         */
-        [[nodiscard]] inline bool orientationEquals( const Quaternion& other, float tolerance = 1e-3f ) const
+        [[nodiscard]] inline auto orientationEquals( const Quaternion& other, float tolerance = 1e-3f ) const -> bool
         {
             float d = this->Dot(other);
             return 1 - d*d < tolerance;
@@ -291,16 +291,16 @@ class Matrix3;
             therefore be careful if your code relies in the order of the operands.
             This is specially important in IK animation.
         */
-        static Quaternion Slerp (Real fT, const Quaternion& rkP,
-            const Quaternion& rkQ, bool shortestPath = false);
+        static auto Slerp (Real fT, const Quaternion& rkP,
+            const Quaternion& rkQ, bool shortestPath = false) -> Quaternion;
 
         /** @see Slerp. It adds extra "spins" (i.e. rotates several times) specified
             by parameter 'iExtraSpins' while interpolating before arriving to the
             final values
         */
-        static Quaternion SlerpExtraSpins (Real fT,
+        static auto SlerpExtraSpins (Real fT,
             const Quaternion& rkP, const Quaternion& rkQ,
-            int iExtraSpins);
+            int iExtraSpins) -> Quaternion;
 
         /// Setup for spherical quadratic interpolation
         static void Intermediate (const Quaternion& rkQ0,
@@ -308,9 +308,9 @@ class Matrix3;
             Quaternion& rka, Quaternion& rkB);
 
         /// Spherical quadratic interpolation
-        static Quaternion Squad (Real fT, const Quaternion& rkP,
+        static auto Squad (Real fT, const Quaternion& rkP,
             const Quaternion& rkA, const Quaternion& rkB,
-            const Quaternion& rkQ, bool shortestPath = false);
+            const Quaternion& rkQ, bool shortestPath = false) -> Quaternion;
 
         /** Performs Normalised linear interpolation between two quaternions, and returns the result.
             nlerp ( 0.0f, A, B ) = A
@@ -326,8 +326,8 @@ class Matrix3;
             if your scene relies on the timing of the rotation or assumes it will point
             at a specific angle at a specific weight value, Slerp is a better choice.
         */
-        static Quaternion nlerp(Real fT, const Quaternion& rkP, 
-            const Quaternion& rkQ, bool shortestPath = false);
+        static auto nlerp(Real fT, const Quaternion& rkP, 
+            const Quaternion& rkQ, bool shortestPath = false) -> Quaternion;
 
         /// Cutoff for sine near zero
         static const float msEpsilon;
@@ -339,7 +339,7 @@ class Matrix3;
         float w, x, y, z;
 
         /// Check whether this quaternion contains valid values
-        [[nodiscard]] inline bool isNaN() const noexcept
+        [[nodiscard]] inline auto isNaN() const noexcept -> bool
         {
             return Math::isNaN(x) || Math::isNaN(y) || Math::isNaN(z) || Math::isNaN(w);
         }
@@ -347,8 +347,8 @@ class Matrix3;
         /** Function for writing to a stream. Outputs "Quaternion(w, x, y, z)" with w,x,y,z
             being the member values of the quaternion.
         */
-        inline friend std::ostream& operator <<
-            ( std::ostream& o, const Quaternion& q )
+        inline friend auto operator <<
+            ( std::ostream& o, const Quaternion& q ) -> std::ostream&
         {
             o << "Quaternion(" << q.w << ", " << q.x << ", " << q.y << ", " << q.z << ")";
             return o;

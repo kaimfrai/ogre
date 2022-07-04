@@ -94,7 +94,7 @@ namespace Ogre {
                 True to go ahead, false to abort rendering and drop
                 out of the rendering loop.
         */
-        virtual bool frameStarted(const FrameEvent& evt)
+        virtual auto frameStarted(const FrameEvent& evt) -> bool
         { (void)evt; return true; }
         
         /** Called after all render targets have had their rendering commands 
@@ -113,7 +113,7 @@ namespace Ogre {
         @return
             True to continue rendering, false to drop out of the rendering loop.
         */
-        virtual bool frameRenderingQueued(const FrameEvent& evt)
+        virtual auto frameRenderingQueued(const FrameEvent& evt) -> bool
                 { (void)evt; return true; }
 
         /** Called just after a frame has been rendered.
@@ -124,7 +124,7 @@ namespace Ogre {
                 True to continue with the next frame, false to drop
                 out of the rendering loop.
         */
-        virtual bool frameEnded(const FrameEvent& evt)
+        virtual auto frameEnded(const FrameEvent& evt) -> bool
         { (void)evt; return true; }
 
         virtual ~FrameListener() = default;

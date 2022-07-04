@@ -108,10 +108,10 @@ class Archive;
         virtual ~Archive() = default;
 
         /// Get the name of this archive
-        [[nodiscard]] const String& getName() const noexcept { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> const String& { return mName; }
 
         /// Returns whether this archive is case sensitive in the way it matches files
-        [[nodiscard]] virtual bool isCaseSensitive() const noexcept = 0;
+        [[nodiscard]] virtual auto isCaseSensitive() const noexcept -> bool = 0;
 
         /** Loads the archive.
         @remarks
@@ -132,7 +132,7 @@ class Archive;
         /** Reports whether this Archive is read-only, or whether the contents
             can be updated. 
         */
-        [[nodiscard]] virtual bool isReadOnly() const noexcept { return mReadOnly; }
+        [[nodiscard]] virtual auto isReadOnly() const noexcept -> bool { return mReadOnly; }
 
         /** Open a stream on a given file. 
         @note
@@ -145,7 +145,7 @@ class Archive;
             read / write the file. If the file is not present, returns a null
             shared pointer.
         */
-        [[nodiscard]] virtual DataStreamPtr open(const String& filename, bool readOnly = true) const = 0;
+        [[nodiscard]] virtual auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr = 0;
 
         /** Create a new file (or overwrite one already there). 
         @note If the archive is read-only then this method will fail.
@@ -153,7 +153,7 @@ class Archive;
         @return A shared pointer to a DataStream which can be used to 
         read / write the file. 
         */
-        virtual DataStreamPtr create(const String& filename);
+        virtual auto create(const String& filename) -> DataStreamPtr;
 
         /** Delete a named file.
         @remarks Not possible on read-only archives
@@ -171,7 +171,7 @@ class Archive;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        [[nodiscard]] virtual StringVectorPtr list(bool recursive = true, bool dirs = false) const = 0;
+        [[nodiscard]] virtual auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr = 0;
         
         /** List all files in the archive with accompanying information.
         @param recursive Whether all paths of the archive are searched (if the 
@@ -181,7 +181,7 @@ class Archive;
         @return A list of structures detailing quite a lot of information about
             all the files in the archive.
         */
-        [[nodiscard]] virtual FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false) const = 0;
+        [[nodiscard]] virtual auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr = 0;
 
         /** Find all file or directory names matching a given pattern
             in this archive.
@@ -195,14 +195,14 @@ class Archive;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        [[nodiscard]] virtual StringVectorPtr find(const String& pattern, bool recursive = true,
-            bool dirs = false) const = 0;
+        [[nodiscard]] virtual auto find(const String& pattern, bool recursive = true,
+            bool dirs = false) const -> StringVectorPtr = 0;
 
         /** Find out if the named file exists (note: fully qualified filename required) */
-        [[nodiscard]] virtual bool exists(const String& filename) const = 0;
+        [[nodiscard]] virtual auto exists(const String& filename) const -> bool = 0;
 
         /** Retrieve the modification time of a given file */
-        [[nodiscard]] virtual time_t getModifiedTime(const String& filename) const = 0;
+        [[nodiscard]] virtual auto getModifiedTime(const String& filename) const -> time_t = 0;
 
 
         /** Find all files or directories matching a given pattern in this
@@ -215,11 +215,11 @@ class Archive;
         @return A list of file information structures for all files matching 
             the criteria.
         */
-        [[nodiscard]] virtual FileInfoListPtr findFileInfo(const String& pattern, 
-            bool recursive = true, bool dirs = false) const = 0;
+        [[nodiscard]] virtual auto findFileInfo(const String& pattern, 
+            bool recursive = true, bool dirs = false) const -> FileInfoListPtr = 0;
 
         /// Return the type code of this Archive
-        [[nodiscard]] const String& getType() const noexcept { return mType; }
+        [[nodiscard]] auto getType() const noexcept -> const String& { return mType; }
         
     };
     /** @} */

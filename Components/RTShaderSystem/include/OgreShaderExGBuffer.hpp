@@ -76,12 +76,12 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    int getExecutionOrder() const noexcept override;
+    auto getExecutionOrder() const noexcept -> int override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -91,9 +91,9 @@ public:
     /**
     @see SubRenderState::createCpuSubPrograms.
     */
-    bool createCpuSubPrograms(ProgramSet* programSet) override;
+    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
 
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     void setOutBuffers(const TargetBuffers& buffers) { mOutBuffers = buffers; }
 
@@ -118,13 +118,13 @@ public:
     /**
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /**
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                           SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                           SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /**
     @see SubRenderStateFactory::writeInstance.
@@ -135,7 +135,7 @@ protected:
     /**
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 };
 
 /** @} */

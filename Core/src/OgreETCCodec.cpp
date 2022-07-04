@@ -140,7 +140,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    ImageCodec::DecodeResult ETCCodec::decode(const DataStreamPtr& stream) const
+    auto ETCCodec::decode(const DataStreamPtr& stream) const -> ImageCodec::DecodeResult
     {
         DecodeResult ret;
         if (decodeKTX(stream, ret))
@@ -154,12 +154,12 @@ namespace Ogre {
                     "This is not a valid ETC file!", "ETCCodec::decode");
     }
     //---------------------------------------------------------------------
-    String ETCCodec::getType() const
+    auto ETCCodec::getType() const -> String
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    String ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const
+    auto ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
     {
         if (maxbytes >= sizeof(uint32))
         {
@@ -177,7 +177,7 @@ namespace Ogre {
         return BLANKSTRING;
     }
     //---------------------------------------------------------------------
-    bool ETCCodec::decodePKM(const DataStreamPtr& stream, DecodeResult& result) const
+    auto ETCCodec::decodePKM(const DataStreamPtr& stream, DecodeResult& result) const -> bool
     {
         PKMHeader header;
 
@@ -255,7 +255,7 @@ namespace Ogre {
         return true;
     }
     //---------------------------------------------------------------------
-    bool ETCCodec::decodeKTX(const DataStreamPtr& stream, DecodeResult& result) const
+    auto ETCCodec::decodeKTX(const DataStreamPtr& stream, DecodeResult& result) const -> bool
     {
         KTXHeader header;
         // Read the KTX header

@@ -120,7 +120,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    OverlayContainer::ChildMap::iterator OverlayContainer::removeChild(const String& name)
+    auto OverlayContainer::removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -153,7 +153,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    OverlayContainer::ChildMap::iterator OverlayContainer::_removeChild(const String& name)
+    auto OverlayContainer::_removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -174,7 +174,7 @@ class RenderQueue;
         return eraseIt;
     }
     //---------------------------------------------------------------------
-    OverlayElement* OverlayContainer::getChild(const String& name)
+    auto OverlayContainer::getChild(const String& name) -> OverlayElement*
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -186,7 +186,7 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    OverlayContainer::ChildContainerIterator OverlayContainer::getChildContainerIterator()
+    auto OverlayContainer::getChildContainerIterator() -> OverlayContainer::ChildContainerIterator
     {
         return {mChildContainers.begin(), mChildContainers.end()};
     }
@@ -226,7 +226,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    ushort OverlayContainer::_notifyZOrder(ushort newZOrder)
+    auto OverlayContainer::_notifyZOrder(ushort newZOrder) -> ushort
     {
         OverlayElement::_notifyZOrder(newZOrder);
         // One for us
@@ -295,7 +295,7 @@ class RenderQueue;
     }
 
 
-    OverlayElement* OverlayContainer::findElementAt(Real x, Real y)         // relative to parent
+    auto OverlayContainer::findElementAt(Real x, Real y) -> OverlayElement*         // relative to parent
     {
 
         OverlayElement* ret = nullptr;
@@ -351,7 +351,7 @@ class RenderQueue;
         }
     }
 
-    OverlayElement* OverlayContainer::clone(const String& instanceName)
+    auto OverlayContainer::clone(const String& instanceName) -> OverlayElement*
     {
         OverlayContainer *newContainer;
 

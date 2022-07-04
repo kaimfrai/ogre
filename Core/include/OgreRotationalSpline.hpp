@@ -66,10 +66,10 @@ namespace Ogre {
         void addPoint(const Quaternion& p);
 
         /** Gets the detail of one of the control points of the spline. */
-        [[nodiscard]] const Quaternion& getPoint(unsigned short index) const;
+        [[nodiscard]] auto getPoint(unsigned short index) const -> const Quaternion&;
 
         /** Gets the number of control points in the spline. */
-        [[nodiscard]] unsigned short getNumPoints() const noexcept;
+        [[nodiscard]] auto getNumPoints() const noexcept -> unsigned short;
 
         /** Clears all the points in the spline. */
         void clear();
@@ -87,14 +87,14 @@ namespace Ogre {
         @param t Parametric value.
         @param useShortestPath Defines if rotation should take the shortest possible path
         */
-        Quaternion interpolate(Real t, bool useShortestPath=true);
+        auto interpolate(Real t, bool useShortestPath=true) -> Quaternion;
 
         /** Interpolates a single segment of the spline given a parametric value.
         @param fromIndex The point index to treat as t=0. fromIndex + 1 is deemed to be t=1
         @param t Parametric value
         @param useShortestPath Defines if rotation should take the shortest possible path
         */
-        Quaternion interpolate(unsigned int fromIndex, Real t, bool useShortestPath=true);
+        auto interpolate(unsigned int fromIndex, Real t, bool useShortestPath=true) -> Quaternion;
 
         /** Tells the spline whether it should automatically calculate tangents on demand
             as points are added.

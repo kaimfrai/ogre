@@ -71,7 +71,7 @@ namespace OgreBites
             The RenderWindow which created this events
         @return True will close the window(default).
         */
-        virtual bool windowClosing(Ogre::RenderWindow* rw) noexcept { return true; }
+        virtual auto windowClosing(Ogre::RenderWindow* rw) noexcept -> bool { return true; }
 
         /**
         @remarks

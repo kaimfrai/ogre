@@ -55,11 +55,11 @@ class Archive;
     public:
         ~ZipArchiveFactory() override = default;
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
 
         using ArchiveFactory::createInstance;
 
-        Archive *createInstance( const String& name, bool readOnly ) override;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
     };
 
     /** Specialisation of ZipArchiveFactory for embedded Zip files. */
@@ -69,11 +69,11 @@ class Archive;
         EmbeddedZipArchiveFactory();
         ~EmbeddedZipArchiveFactory() override;
 
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
 
         using ArchiveFactory::createInstance;
 
-        Archive *createInstance( const String& name, bool readOnly ) override;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
         void destroyInstance( Archive* ptr) override;
         
         /** a function type to decrypt embedded zip file

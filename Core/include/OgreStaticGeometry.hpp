@@ -231,24 +231,24 @@ class Technique;
         public:
             GeometryBucket(MaterialBucket* parent, const VertexData* vData, const IndexData* iData);
             ~GeometryBucket() override = default;
-            MaterialBucket* getParent() noexcept { return mParent; }
+            auto getParent() noexcept -> MaterialBucket* { return mParent; }
             /// Get the vertex data for this geometry 
-            [[nodiscard]] const VertexData* getVertexData() const noexcept { return mVertexData.get(); }
+            [[nodiscard]] auto getVertexData() const noexcept -> const VertexData* { return mVertexData.get(); }
             /// Get the index data for this geometry 
-            [[nodiscard]] const IndexData* getIndexData() const noexcept { return mIndexData.get(); }
+            [[nodiscard]] auto getIndexData() const noexcept -> const IndexData* { return mIndexData.get(); }
             /// @copydoc Renderable::getMaterial
-            [[nodiscard]] const MaterialPtr& getMaterial() const noexcept override;
-            [[nodiscard]] Technique* getTechnique() const noexcept override;
+            [[nodiscard]] auto getMaterial() const noexcept -> const MaterialPtr& override;
+            [[nodiscard]] auto getTechnique() const noexcept -> Technique* override;
             void getRenderOperation(RenderOperation& op) override;
             void getWorldTransforms(Matrix4* xform) const override;
-            Real getSquaredViewDepth(const Camera* cam) const override;
-            [[nodiscard]] const LightList& getLights() const noexcept override;
-            [[nodiscard]] bool getCastsShadows() const noexcept override;
+            auto getSquaredViewDepth(const Camera* cam) const -> Real override;
+            [[nodiscard]] auto getLights() const noexcept -> const LightList& override;
+            [[nodiscard]] auto getCastsShadows() const noexcept -> bool override;
             
             /** Try to assign geometry to this bucket.
             @return false if there is no room left in this bucket
             */
-            bool assign(QueuedGeometry* qsm);
+            auto assign(QueuedGeometry* qsm) -> bool;
             /// Build
             void build(bool stencilShadows);
             /// Dump contents for diagnostics
@@ -278,9 +278,9 @@ class Technique;
         public:
             MaterialBucket(LODBucket* parent, const MaterialPtr& material);
             virtual ~MaterialBucket() = default;
-            LODBucket* getParent() noexcept { return mParent; }
+            auto getParent() noexcept -> LODBucket* { return mParent; }
             /// Get the material name
-            [[nodiscard]] const String& getMaterialName() const noexcept { return mMaterial->getName(); }
+            [[nodiscard]] auto getMaterialName() const noexcept -> const String& { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -289,16 +289,16 @@ class Technique;
             void addRenderables(RenderQueue* queue, uint8 group, 
                 Real lodValue);
             /// Get the material for this bucket
-            [[nodiscard]] const MaterialPtr& getMaterial() const noexcept { return mMaterial; }
+            [[nodiscard]] auto getMaterial() const noexcept -> const MaterialPtr& { return mMaterial; }
             /// Override Material without changing the partitioning. For advanced use only.
             void _setMaterial(const MaterialPtr& material);
             /// Iterator over geometry
             using GeometryIterator = VectorIterator<GeometryBucketList>;
             /// Get a list of the contained geometry
-            [[nodiscard]] const GeometryBucketList& getGeometryList() const noexcept { return mGeometryBucketList; }
+            [[nodiscard]] auto getGeometryList() const noexcept -> const GeometryBucketList& { return mGeometryBucketList; }
 
             /// Get the current Technique
-            [[nodiscard]] Technique* getCurrentTechnique() const noexcept { return mTechnique; }
+            [[nodiscard]] auto getCurrentTechnique() const noexcept -> Technique* { return mTechnique; }
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
@@ -333,11 +333,11 @@ class Technique;
         public:
             LODBucket(Region* parent, unsigned short lod, Real lodValue);
             virtual ~LODBucket();
-            Region* getParent() noexcept { return mParent; }
+            auto getParent() noexcept -> Region* { return mParent; }
             /// Get the LOD index
-            [[nodiscard]] ushort getLod() const noexcept { return mLod; }
+            [[nodiscard]] auto getLod() const noexcept -> ushort { return mLod; }
             /// Get the LOD value
-            [[nodiscard]] Real getLodValue() const noexcept { return mLodValue; }
+            [[nodiscard]] auto getLodValue() const noexcept -> Real { return mLodValue; }
             /// Assign a queued submesh to this bucket, using specified mesh LOD
             void assign(QueuedSubMesh* qsm, ushort atLod);
             /// Build
@@ -348,14 +348,14 @@ class Technique;
             /// Iterator over the materials in this LOD
             using MaterialIterator = MapIterator<MaterialBucketMap>;
             /// Get an iterator over the materials in this LOD
-            [[nodiscard]] const MaterialBucketMap& getMaterialBuckets() const noexcept { return mMaterialBucketMap; }
+            [[nodiscard]] auto getMaterialBuckets() const noexcept -> const MaterialBucketMap& { return mMaterialBucketMap; }
 
             /// Dump contents for diagnostics
             void dump(std::ofstream& of) const;
             void visitRenderables(Renderable::Visitor* visitor, bool debugRenderables);
-            [[nodiscard]] EdgeData* getEdgeList() const noexcept { return mEdgeList.get(); }
-            ShadowCaster::ShadowRenderableList& getShadowRenderableList() noexcept { return mShadowRenderables; }
-            [[nodiscard]] bool isVertexProgramInUse() const noexcept { return mVertexProgramInUse; }
+            [[nodiscard]] auto getEdgeList() const noexcept -> EdgeData* { return mEdgeList.get(); }
+            auto getShadowRenderableList() noexcept -> ShadowCaster::ShadowRenderableList& { return mShadowRenderables; }
+            [[nodiscard]] auto isVertexProgramInUse() const noexcept -> bool { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,
                                          Real extrusionDistance, int flags = 0);
         };
@@ -409,35 +409,35 @@ class Technique;
                 uint32 regionID, const Vector3& centre);
             ~Region() override;
             // more fields can be added in subclasses
-            StaticGeometry* getParent() const noexcept { return mParent;}
+            auto getParent() const noexcept -> StaticGeometry* { return mParent;}
             /// Assign a queued mesh to this region, read for final build
             void assign(QueuedSubMesh* qmesh);
             /// Build this region
             void build(bool stencilShadows);
             /// Get the region ID of this region
-            uint32 getID() const noexcept { return mRegionID; }
+            auto getID() const noexcept -> uint32 { return mRegionID; }
             /// Get the centre point of the region
-            const Vector3& getCentre() const noexcept { return mCentre; }
-            const String& getMovableType() const noexcept override;
+            auto getCentre() const noexcept -> const Vector3& { return mCentre; }
+            auto getMovableType() const noexcept -> const String& override;
             void _notifyCurrentCamera(Camera* cam) override;
-            const AxisAlignedBox& getBoundingBox() const noexcept override;
-            Real getBoundingRadius() const override;
+            auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
+            auto getBoundingRadius() const -> Real override;
             void _updateRenderQueue(RenderQueue* queue) override;
             /// @copydoc MovableObject::visitRenderables
             void visitRenderables(Renderable::Visitor* visitor, 
                 bool debugRenderables = false) override;
-            bool isVisible() const noexcept override;
-            uint32 getTypeFlags() const noexcept override;
+            auto isVisible() const noexcept -> bool override;
+            auto getTypeFlags() const noexcept -> uint32 override;
 
             using LODIterator = VectorIterator<LODBucketList>;
 
             /// Get an list of the LODs in this region
-            const LODBucketList& getLODBuckets() const noexcept { return mLodBucketList; }
-            const ShadowRenderableList&
+            auto getLODBuckets() const noexcept -> const LODBucketList& { return mLodBucketList; }
+            auto
             getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                           size_t& indexBufferUsedSize, float extrusionDistance,
-                                          int flags = 0) override;
-            EdgeData* getEdgeList() noexcept override;
+                                          int flags = 0) -> const ShadowRenderableList& override;
+            auto getEdgeList() noexcept -> EdgeData* override;
 
             void _releaseManualHardwareResources() override;
             void _restoreManualHardwareResources() override;
@@ -490,36 +490,36 @@ class Technique;
         /** Virtual method for getting a region most suitable for the
             passed in bounds. Can be overridden by subclasses.
         */
-        virtual Region* getRegion(const AxisAlignedBox& bounds, bool autoCreate);
+        virtual auto getRegion(const AxisAlignedBox& bounds, bool autoCreate) -> Region*;
         /** Get the region within which a point lies */
-        virtual Region* getRegion(const Vector3& point, bool autoCreate);
+        virtual auto getRegion(const Vector3& point, bool autoCreate) -> Region*;
         /** Get the region using indexes */
-        virtual Region* getRegion(ushort x, ushort y, ushort z, bool autoCreate);
+        virtual auto getRegion(ushort x, ushort y, ushort z, bool autoCreate) -> Region*;
         /** Get the region using a packed index, returns null if it doesn't exist. */
-        virtual Region* getRegion(uint32 index);
+        virtual auto getRegion(uint32 index) -> Region*;
         /** Get the region indexes for a point.
         */
         virtual void getRegionIndexes(const Vector3& point, 
             ushort& x, ushort& y, ushort& z);
         /** Pack 3 indexes into a single index value
         */
-        virtual uint32 packIndex(ushort x, ushort y, ushort z);
+        virtual auto packIndex(ushort x, ushort y, ushort z) -> uint32;
         /** Get the volume intersection for an indexed region with some bounds.
         */
-        virtual Real getVolumeIntersection(const AxisAlignedBox& box,  
-            ushort x, ushort y, ushort z);
+        virtual auto getVolumeIntersection(const AxisAlignedBox& box,  
+            ushort x, ushort y, ushort z) -> Real;
         /** Get the bounds of an indexed region.
         */
-        virtual AxisAlignedBox getRegionBounds(ushort x, ushort y, ushort z);
+        virtual auto getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox;
         /** Get the centre of an indexed region.
         */
-        virtual Vector3 getRegionCentre(ushort x, ushort y, ushort z);
+        virtual auto getRegionCentre(ushort x, ushort y, ushort z) -> Vector3;
         /** Calculate world bounds from a set of vertex data. */
-        virtual AxisAlignedBox calculateBounds(VertexData* vertexData, 
+        virtual auto calculateBounds(VertexData* vertexData, 
             const Vector3& position, const Quaternion& orientation, 
-            const Vector3& scale);
+            const Vector3& scale) -> AxisAlignedBox;
         /** Look up or calculate the geometry data to use for this SubMesh */
-        SubMeshLodGeometryLinkList* determineGeometry(SubMesh* sm);
+        auto determineGeometry(SubMesh* sm) -> SubMeshLodGeometryLinkList*;
         /** Split some shared geometry into dedicated geometry. */
         void splitGeometry(VertexData* vd, IndexData* id, 
             SubMeshLodGeometryLink* targetGeomLink);
@@ -562,7 +562,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        [[nodiscard]] const String& getName() const noexcept { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> const String& { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 
@@ -644,17 +644,17 @@ class Technique;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        [[nodiscard]] virtual Real getRenderingDistance() const noexcept { return mUpperDistance; }
+        [[nodiscard]] virtual auto getRenderingDistance() const noexcept -> Real { return mUpperDistance; }
 
         /** Gets the squared distance at which batches are no longer rendered. */
-        [[nodiscard]] virtual Real getSquaredRenderingDistance() const 
-        noexcept { return mSquaredUpperDistance; }
+        [[nodiscard]] virtual auto getSquaredRenderingDistance() const 
+        noexcept -> Real { return mSquaredUpperDistance; }
 
         /** Hides or shows all the batches. */
         virtual void setVisible(bool visible);
 
         /** Are the batches visible? */
-        [[nodiscard]] virtual bool isVisible() const noexcept { return mVisible; }
+        [[nodiscard]] virtual auto isVisible() const noexcept -> bool { return mVisible; }
 
         /** Sets whether this geometry should cast shadows.
         @remarks
@@ -675,7 +675,7 @@ class Technique;
         */
         virtual void setCastShadows(bool castShadows);
         /// Will the geometry from this object cast shadows?
-        virtual bool getCastShadows() noexcept { return mCastShadows; }
+        virtual auto getCastShadows() noexcept -> bool { return mCastShadows; }
 
         /** Sets the size of a single region of geometry.
         @remarks
@@ -692,7 +692,7 @@ class Technique;
             mHalfRegionDimensions = size * 0.5;
         }
         /** Gets the size of a single batch of geometry. */
-        [[nodiscard]] virtual const Vector3& getRegionDimensions() const noexcept { return mRegionDimensions; }
+        [[nodiscard]] virtual auto getRegionDimensions() const noexcept -> const Vector3& { return mRegionDimensions; }
         /** Sets the origin of the geometry.
         @remarks
             This method allows you to configure the world centre of the geometry,
@@ -706,12 +706,12 @@ class Technique;
         */
         virtual void setOrigin(const Vector3& origin) { mOrigin = origin; }
         /** Gets the origin of this geometry. */
-        [[nodiscard]] virtual const Vector3& getOrigin() const noexcept { return mOrigin; }
+        [[nodiscard]] virtual auto getOrigin() const noexcept -> const Vector3& { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
         void setVisibilityFlags(uint32 flags);
         /// Returns the visibility flags of the regions
-        [[nodiscard]] uint32 getVisibilityFlags() const noexcept;
+        [[nodiscard]] auto getVisibilityFlags() const noexcept -> uint32;
 
         /** Sets the render queue group this object will be rendered through.
         @remarks
@@ -727,7 +727,7 @@ class Technique;
         virtual void setRenderQueueGroup(uint8 queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        [[nodiscard]] virtual uint8 getRenderQueueGroup() const noexcept;
+        [[nodiscard]] virtual auto getRenderQueueGroup() const noexcept -> uint8;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);
@@ -735,7 +735,7 @@ class Technique;
         /// Iterator for iterating over contained regions
         using RegionIterator = MapIterator<RegionMap>;
         /// Get an list of the regions in this geometry
-        [[nodiscard]] const RegionMap& getRegions() const noexcept { return mRegionMap; }
+        [[nodiscard]] auto getRegions() const noexcept -> const RegionMap& { return mRegionMap; }
 
         /** Dump the contents of this StaticGeometry to a file for diagnostic
             purposes.
@@ -748,14 +748,14 @@ class Technique;
     /** Dummy factory to let Regions adhere to MovableObject protocol */
     class StaticGeometryFactory : public MovableObjectFactory
     {
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) noexcept override { return nullptr; }
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) noexcept -> MovableObject* override { return nullptr; }
     public:
         StaticGeometryFactory() = default;
         ~StaticGeometryFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const noexcept override { return FACTORY_TYPE_NAME; }
+        [[nodiscard]] auto getType() const noexcept -> const String& override { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

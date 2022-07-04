@@ -74,13 +74,13 @@ namespace Ogre {
         ::Ogre::AlignedMemory::deallocate(mScratchBufferPool);
     }
     //-----------------------------------------------------------------------
-    GLStateCacheManager * GLHardwareBufferManager::getStateCacheManager() noexcept
+    auto GLHardwareBufferManager::getStateCacheManager() noexcept -> GLStateCacheManager *
     {
         return mRenderSystem->_getStateCacheManager();
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr GLHardwareBufferManager::createVertexBuffer(
-        size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer)
+    auto GLHardwareBufferManager::createVertexBuffer(
+        size_t vertexSize, size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr
     {
         auto impl = new GLHardwareVertexBuffer(GL_ARRAY_BUFFER, vertexSize * numVerts, usage, useShadowBuffer);
         auto buf = std::make_shared<HardwareVertexBuffer>(this, vertexSize, numVerts, impl);
@@ -90,10 +90,10 @@ namespace Ogre {
         return buf;
     }
     //-----------------------------------------------------------------------
-    HardwareIndexBufferSharedPtr 
+    auto 
     GLHardwareBufferManager::createIndexBuffer(
         HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
-        HardwareBuffer::Usage usage, bool useShadowBuffer)
+        HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareIndexBufferSharedPtr
     {
         // Calculate the size of the indexes
         auto indexSize = HardwareIndexBuffer::indexSize(itype);
@@ -102,19 +102,19 @@ namespace Ogre {
         return std::make_shared<HardwareIndexBuffer>(this, itype, numIndexes, impl);
     }
     //---------------------------------------------------------------------
-    RenderToVertexBufferSharedPtr 
-        GLHardwareBufferManager::createRenderToVertexBuffer()
+    auto 
+        GLHardwareBufferManager::createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr
     {
         return RenderToVertexBufferSharedPtr(new GLRenderToVertexBuffer);
     }
     //---------------------------------------------------------------------
-    GLenum GLHardwareBufferManager::getGLUsage(unsigned int usage)
+    auto GLHardwareBufferManager::getGLUsage(unsigned int usage) -> GLenum
     {
         return (usage == HBU_GPU_TO_CPU) ? GL_STATIC_READ
                                          : (usage == HBU_GPU_ONLY) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
     }
     //---------------------------------------------------------------------
-    GLenum GLHardwareBufferManager::getGLType(unsigned int type)
+    auto GLHardwareBufferManager::getGLType(unsigned int type) -> GLenum
     {
         switch(type)
         {
@@ -145,7 +145,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    void* GLHardwareBufferManager::allocateScratch(uint32 size)
+    auto GLHardwareBufferManager::allocateScratch(uint32 size) -> void*
     {
         // simple forward link search based on alloc sizes
         // not that fast but the list should never get that long since not many
@@ -249,7 +249,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    size_t GLHardwareBufferManager::getGLMapBufferThreshold() const
+    auto GLHardwareBufferManager::getGLMapBufferThreshold() const -> size_t
     {
         return mMapBufferThreshold;
     }

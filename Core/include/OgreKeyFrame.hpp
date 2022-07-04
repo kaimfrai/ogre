@@ -67,11 +67,11 @@ class AnimationTrack;
         virtual ~KeyFrame() = default;
 
         /** Gets the time of this keyframe in the animation sequence. */
-        [[nodiscard]] Real getTime() const noexcept { return mTime; }
+        [[nodiscard]] auto getTime() const noexcept -> Real { return mTime; }
 
         /** Clone a keyframe (internal use only) */
         [[nodiscard]]
-        virtual KeyFrame* _clone(AnimationTrack* newParent) const;
+        virtual auto _clone(AnimationTrack* newParent) const -> KeyFrame*;
 
 
     protected:
@@ -90,7 +90,7 @@ class AnimationTrack;
         ~NumericKeyFrame() override = default;
 
         /** Get the value at this keyframe. */
-        [[nodiscard]] virtual const AnyNumeric& getValue() const noexcept;
+        [[nodiscard]] virtual auto getValue() const noexcept -> const AnyNumeric&;
         /** Set the value at this keyframe.
         @remarks
             All keyframe values must have a consistent type. 
@@ -98,7 +98,7 @@ class AnimationTrack;
         virtual void setValue(const AnyNumeric& val);
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const override;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
     private:
         AnyNumeric mValue;
     };
@@ -120,7 +120,7 @@ class AnimationTrack;
         virtual void setTranslate(const Vector3& trans);
 
         /** Gets the translation applied by this keyframe. */
-        [[nodiscard]] const Vector3& getTranslate() const noexcept;
+        [[nodiscard]] auto getTranslate() const noexcept -> const Vector3&;
 
         /** Sets the scaling factor applied by this keyframe to the animable
         object at it's time index.
@@ -130,7 +130,7 @@ class AnimationTrack;
         virtual void setScale(const Vector3& scale);
 
         /** Gets the scaling factor applied by this keyframe. */
-        [[nodiscard]] virtual const Vector3& getScale() const noexcept;
+        [[nodiscard]] virtual auto getScale() const noexcept -> const Vector3&;
 
         /** Sets the rotation applied by this keyframe.
         @param rot The rotation applied; use Quaternion methods to convert from angle/axis or Matrix3 if
@@ -139,10 +139,10 @@ class AnimationTrack;
         virtual void setRotation(const Quaternion& rot);
 
         /** Gets the rotation applied by this keyframe. */
-        [[nodiscard]] virtual const Quaternion& getRotation() const noexcept;
+        [[nodiscard]] virtual auto getRotation() const noexcept -> const Quaternion&;
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const override;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
     private:
         Vector3 mTranslate;
         Vector3 mScale;
@@ -172,10 +172,10 @@ class AnimationTrack;
         void setVertexBuffer(const HardwareVertexBufferSharedPtr& buf);
 
         /** Gets the vertex buffer containing positions for this keyframe. */
-        [[nodiscard]] const HardwareVertexBufferSharedPtr& getVertexBuffer() const noexcept;
+        [[nodiscard]] auto getVertexBuffer() const noexcept -> const HardwareVertexBufferSharedPtr&;
 
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const override;      
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;      
 
     private:
         HardwareVertexBufferSharedPtr mBuffer;
@@ -233,12 +233,12 @@ class AnimationTrack;
 
 
         /** Get a const reference to the list of pose references. */
-        [[nodiscard]] const PoseRefList& getPoseReferences() const noexcept;
+        [[nodiscard]] auto getPoseReferences() const noexcept -> const PoseRefList&;
 
         using PoseRefIterator = VectorIterator<PoseRefList>;
         using ConstPoseRefIterator = ConstVectorIterator<PoseRefList>;
         /** Clone a keyframe (internal use only) */
-        KeyFrame* _clone(AnimationTrack* newParent) const override;
+        auto _clone(AnimationTrack* newParent) const -> KeyFrame* override;
         
         void _applyBaseKeyFrame(const VertexPoseKeyFrame* base);
         

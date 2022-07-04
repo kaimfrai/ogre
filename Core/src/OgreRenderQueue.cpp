@@ -144,7 +144,7 @@ namespace Ogre {
         addRenderable(pRend, mDefaultQueueGroup, mDefaultRenderablePriority);
     }
     //-----------------------------------------------------------------------
-    uint8 RenderQueue::getDefaultQueueGroup() const noexcept
+    auto RenderQueue::getDefaultQueueGroup() const noexcept -> uint8
     {
         return mDefaultQueueGroup;
     }
@@ -154,7 +154,7 @@ namespace Ogre {
         mDefaultQueueGroup = grp;
     }
     //-----------------------------------------------------------------------
-    ushort RenderQueue::getDefaultRenderablePriority() const noexcept
+    auto RenderQueue::getDefaultRenderablePriority() const noexcept -> ushort
     {
         return mDefaultRenderablePriority;
     }
@@ -166,7 +166,7 @@ namespace Ogre {
     
     
     //-----------------------------------------------------------------------
-    RenderQueueGroup* RenderQueue::getQueueGroup(uint8 groupID)
+    auto RenderQueue::getQueueGroup(uint8 groupID) -> RenderQueueGroup*
     {
         if (!mGroups[groupID])
         {
@@ -190,7 +190,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitPassesByLightingType() const noexcept
+    auto RenderQueue::getSplitPassesByLightingType() const noexcept -> bool
     {
         return mSplitPassesByLightingType;
     }
@@ -206,7 +206,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getSplitNoShadowPasses() const noexcept
+    auto RenderQueue::getSplitNoShadowPasses() const noexcept -> bool
     {
         return mSplitNoShadowPasses;
     }
@@ -222,7 +222,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool RenderQueue::getShadowCastersCannotBeReceivers() const noexcept
+    auto RenderQueue::getShadowCastersCannotBeReceivers() const noexcept -> bool
     {
         return mShadowCastersCannotBeReceivers;
     }

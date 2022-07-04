@@ -3,7 +3,7 @@
 #include "OgreLog.hpp"
 #include "OgreLogManager.hpp"
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
     Ogre::LogManager logMgr{};
     logMgr.createLog("OgreTest.log", true, false);

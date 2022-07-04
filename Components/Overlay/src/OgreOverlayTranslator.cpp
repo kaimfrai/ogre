@@ -294,7 +294,7 @@ OverlayTranslatorManager::~OverlayTranslatorManager()
 }
 
 //! [font_get_translator]
-ScriptTranslator* OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node)
+auto OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*
 {
     if (node->type != ANT_OBJECT)
         return nullptr;

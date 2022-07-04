@@ -63,11 +63,11 @@ namespace Ogre {
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
     template<> Profiler* Singleton<Profiler>::msSingleton = nullptr;
-    Profiler* Profiler::getSingletonPtr() noexcept
+    auto Profiler::getSingletonPtr() noexcept -> Profiler*
     {
         return msSingleton;
     }
-    Profiler& Profiler::getSingleton() noexcept
+    auto Profiler::getSingleton() noexcept -> Profiler&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -120,7 +120,7 @@ namespace Ogre {
         mTimer = t;
     }
     //-----------------------------------------------------------------------
-    Timer* Profiler::getTimer() noexcept
+    auto Profiler::getTimer() noexcept -> Timer*
     {
         assert(mTimer && "Timer not set!");
         return mTimer;
@@ -148,7 +148,7 @@ namespace Ogre {
         mNewEnableState = enabled;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::getEnabled() const noexcept
+    auto Profiler::getEnabled() const noexcept -> bool
     {
         return mEnabled;
     }
@@ -450,14 +450,14 @@ namespace Ogre {
         ++mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForMax(const String& profileName) 
+    auto Profiler::watchForMax(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
 
         return mRoot.watchForMax(profileName);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForMax(const String& profileName) 
+    auto ProfileInstance::watchForMax(const String& profileName) -> bool 
     {
         for(auto const& it : children)
         {
@@ -468,13 +468,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForMin(const String& profileName) 
+    auto Profiler::watchForMin(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForMin(profileName);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForMin(const String& profileName) 
+    auto ProfileInstance::watchForMin(const String& profileName) -> bool 
     {
         for(auto const& it : children)
         {
@@ -485,13 +485,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    bool Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan)
+    auto Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    bool ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan)
+    auto ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
         for(auto const& it : children)
         {
@@ -514,7 +514,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("------------------------------------------------------------");
     }
 
-    long double ProfileHistory::StandardDeviationMilliseconds() const
+    auto ProfileHistory::StandardDeviationMilliseconds() const -> long double
     {
         if (totalCalls == 0ul)
             return 0.0l;
@@ -583,7 +583,7 @@ namespace Ogre {
         mUpdateDisplayFrequency = freq;
     }
     //-----------------------------------------------------------------------
-    uint Profiler::getUpdateDisplayFrequency() const noexcept
+    auto Profiler::getUpdateDisplayFrequency() const noexcept -> uint
     {
         return mUpdateDisplayFrequency;
     }

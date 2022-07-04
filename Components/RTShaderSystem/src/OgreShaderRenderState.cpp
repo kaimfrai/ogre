@@ -95,7 +95,7 @@ void RenderState::setLightCount(const Vector3i& lightCount)
 }
 
 //-----------------------------------------------------------------------
-const Vector3i& RenderState::getLightCount() const noexcept
+auto RenderState::getLightCount() const noexcept -> const Vector3i&
 {
     return mLightCount;
 }
@@ -268,7 +268,7 @@ void TargetRenderState::createCpuPrograms()
 }
 
 //-----------------------------------------------------------------------
-ProgramSet* TargetRenderState::createProgramSet()
+auto TargetRenderState::createProgramSet() -> ProgramSet*
 {
     mProgramSet = std::make_unique<ProgramSet>();
 
@@ -353,7 +353,7 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
 
 namespace {
     struct CmpSubRenderStates {
-        bool operator()(const SubRenderState* a, const SubRenderState* b) const
+        auto operator()(const SubRenderState* a, const SubRenderState* b) const -> bool
         {
             return a->getExecutionOrder() < b->getExecutionOrder();
         }

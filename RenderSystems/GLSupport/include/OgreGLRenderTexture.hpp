@@ -67,7 +67,7 @@ class RenderTarget;
 
         /** Bind FrameBufferObject. Attempt to bind on incompatible GL context will cause FBO destruction and optional recreation.
         */
-        virtual bool bind(bool recreateIfNeeded) = 0;
+        virtual auto bind(bool recreateIfNeeded) -> bool = 0;
 
         /** Bind a surface to a certain attachment point.
             attachment: 0..OGRE_MAX_MULTIPLE_RENDER_TARGETS-1
@@ -78,18 +78,18 @@ class RenderTarget;
         void unbindSurface(size_t attachment);
 
         /// Accessors
-        [[nodiscard]] int32 getFSAA() const noexcept { return mNumSamples; }
-        [[nodiscard]] uint32 getWidth() const noexcept;
-        [[nodiscard]] uint32 getHeight() const noexcept;
-        [[nodiscard]] PixelFormat getFormat() const;
+        [[nodiscard]] auto getFSAA() const noexcept -> int32 { return mNumSamples; }
+        [[nodiscard]] auto getWidth() const noexcept -> uint32;
+        [[nodiscard]] auto getHeight() const noexcept -> uint32;
+        [[nodiscard]] auto getFormat() const -> PixelFormat;
 
-        [[nodiscard]] GLContext* getContext() const noexcept { return mContext; }
+        [[nodiscard]] auto getContext() const noexcept -> GLContext* { return mContext; }
         /// Get the GL id for the FBO
-        [[nodiscard]] uint32 getGLFBOID() const noexcept { return mFB; }
+        [[nodiscard]] auto getGLFBOID() const noexcept -> uint32 { return mFB; }
         /// Get the GL id for the multisample FBO
-        [[nodiscard]] uint32 getGLMultisampleFBOID() const noexcept { return mMultisampleFB; }
+        [[nodiscard]] auto getGLMultisampleFBOID() const noexcept -> uint32 { return mMultisampleFB; }
 
-        [[nodiscard]] const GLSurfaceDesc &getSurface(size_t attachment) const { return mColour[attachment]; }
+        [[nodiscard]] auto getSurface(size_t attachment) const -> const GLSurfaceDesc & { return mColour[attachment]; }
 
         void notifyContextDestroyed(GLContext* context) { if(mContext == context) { mContext = nullptr; mFB = 0; mMultisampleFB = 0; } }
     protected:
@@ -119,7 +119,7 @@ class RenderTarget;
     {
     public:
         GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
-        [[nodiscard]] bool requiresTextureFlipping() const noexcept override { return true; }
+        [[nodiscard]] auto requiresTextureFlipping() const noexcept -> bool override { return true; }
 
         static const String CustomAttributeString_FBO;
         static const String CustomAttributeString_TARGET;
@@ -136,7 +136,7 @@ class RenderTarget;
 
         /** Create a texture rendertarget object
          */
-        virtual RenderTexture *createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) = 0;
+        virtual auto createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * = 0;
 
         /** Release a render buffer. Ignore silently if surface.buffer is 0.
          */
@@ -144,7 +144,7 @@ class RenderTarget;
 
         /** Check if a certain format is usable as FBO rendertarget format
         */
-        bool checkFormat(PixelFormat format) { return mProps[format].valid; }
+        auto checkFormat(PixelFormat format) -> bool { return mProps[format].valid; }
 
         /** Bind a certain render target.
             @note only needed for FBO RTTs
@@ -166,12 +166,12 @@ class RenderTarget;
 
         /** Get the closest supported alternative format. If format is supported, returns format.
          */
-        PixelFormat getSupportedAlternative(PixelFormat format);
+        auto getSupportedAlternative(PixelFormat format) -> PixelFormat;
 
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> GLRTTManager&;
         /// @copydoc Singleton::getSingleton()
-        static GLRTTManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> GLRTTManager*;
     protected:
         /** Frame Buffer Object properties for a certain texture format.
          */

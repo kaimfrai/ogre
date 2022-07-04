@@ -80,7 +80,7 @@ namespace Ogre {
             *this /= 255;
         }
 
-        [[nodiscard]] bool operator==(const ColourValue& rhs) const noexcept = default;
+        [[nodiscard]] auto operator==(const ColourValue& rhs) const noexcept -> bool = default;
 
         float r,g,b,a;
 
@@ -88,19 +88,19 @@ namespace Ogre {
         /// @{
 
         /// value packed as #PF_R8G8B8A8
-        [[nodiscard]] RGBA getAsRGBA() const;
+        [[nodiscard]] auto getAsRGBA() const -> RGBA;
 
         /// value packed as #PF_A8R8G8B8
-        [[nodiscard]] ARGB getAsARGB() const;
+        [[nodiscard]] auto getAsARGB() const -> ARGB;
 
         /// value packed as #PF_B8G8R8A8
-        [[nodiscard]] BGRA getAsBGRA() const;
+        [[nodiscard]] auto getAsBGRA() const -> BGRA;
 
         /// value packed as #PF_A8B8G8R8
-        [[nodiscard]] ABGR getAsABGR() const;
+        [[nodiscard]] auto getAsABGR() const -> ABGR;
 
         /// value packed as #PF_BYTE_RGBA
-        [[nodiscard]] RGBA getAsBYTE() const
+        [[nodiscard]] auto getAsBYTE() const -> RGBA
         {
             return getAsABGR();
         }
@@ -145,7 +145,7 @@ namespace Ogre {
 
         /** As saturate, except that this colour value is unaffected and
             the saturated colour value is returned as a copy. */
-        [[nodiscard]] ColourValue saturateCopy() const
+        [[nodiscard]] auto saturateCopy() const -> ColourValue
         {
             ColourValue ret = *this;
             ret.saturate();
@@ -153,7 +153,7 @@ namespace Ogre {
         }
 
         /// Array accessor operator
-        float operator [] ( const size_t i ) const
+        auto operator [] ( const size_t i ) const -> float
         {
             assert( i < 4 );
 
@@ -161,7 +161,7 @@ namespace Ogre {
         }
 
         /// Array accessor operator
-        float& operator [] ( const size_t i )
+        auto operator [] ( const size_t i ) -> float&
         {
             assert( i < 4 );
 
@@ -169,19 +169,19 @@ namespace Ogre {
         }
 
         /// Pointer accessor for direct copying
-        float* ptr()
+        auto ptr() -> float*
         {
             return &r;
         }
         /// Pointer accessor for direct copying
-        [[nodiscard]] const float* ptr() const
+        [[nodiscard]] auto ptr() const -> const float*
         {
             return &r;
         }
 
         
         // arithmetic operations
-        ColourValue operator + ( const ColourValue& rkVector ) const
+        auto operator + ( const ColourValue& rkVector ) const -> ColourValue
         {
             ColourValue kSum;
 
@@ -193,7 +193,7 @@ namespace Ogre {
             return kSum;
         }
 
-        ColourValue operator - ( const ColourValue& rkVector ) const
+        auto operator - ( const ColourValue& rkVector ) const -> ColourValue
         {
             ColourValue kDiff;
 
@@ -205,7 +205,7 @@ namespace Ogre {
             return kDiff;
         }
 
-        ColourValue operator * (const float fScalar ) const
+        auto operator * (const float fScalar ) const -> ColourValue
         {
             ColourValue kProd;
 
@@ -217,7 +217,7 @@ namespace Ogre {
             return kProd;
         }
 
-        ColourValue operator * ( const ColourValue& rhs) const
+        auto operator * ( const ColourValue& rhs) const -> ColourValue
         {
             ColourValue kProd;
 
@@ -229,7 +229,7 @@ namespace Ogre {
             return kProd;
         }
 
-        ColourValue operator / ( const ColourValue& rhs) const
+        auto operator / ( const ColourValue& rhs) const -> ColourValue
         {
             ColourValue kProd;
 
@@ -241,7 +241,7 @@ namespace Ogre {
             return kProd;
         }
 
-        ColourValue operator / (const float fScalar ) const
+        auto operator / (const float fScalar ) const -> ColourValue
         {
             assert( fScalar != 0.0 );
 
@@ -256,7 +256,7 @@ namespace Ogre {
             return kDiv;
         }
 
-        friend ColourValue operator * (const float fScalar, const ColourValue& rkVector )
+        friend auto operator * (const float fScalar, const ColourValue& rkVector ) -> ColourValue
         {
             ColourValue kProd;
 
@@ -269,7 +269,7 @@ namespace Ogre {
         }
 
         // arithmetic updates
-        ColourValue& operator += ( const ColourValue& rkVector )
+        auto operator += ( const ColourValue& rkVector ) -> ColourValue&
         {
             r += rkVector.r;
             g += rkVector.g;
@@ -279,7 +279,7 @@ namespace Ogre {
             return *this;
         }
 
-        ColourValue& operator -= ( const ColourValue& rkVector )
+        auto operator -= ( const ColourValue& rkVector ) -> ColourValue&
         {
             r -= rkVector.r;
             g -= rkVector.g;
@@ -289,7 +289,7 @@ namespace Ogre {
             return *this;
         }
 
-        ColourValue& operator *= (const float fScalar )
+        auto operator *= (const float fScalar ) -> ColourValue&
         {
             r *= fScalar;
             g *= fScalar;
@@ -298,7 +298,7 @@ namespace Ogre {
             return *this;
         }
 
-        ColourValue& operator /= (const float fScalar )
+        auto operator /= (const float fScalar ) -> ColourValue&
         {
             assert( fScalar != 0.0 );
 
@@ -328,8 +328,8 @@ namespace Ogre {
 
         /** Function for writing to a stream.
         */
-        inline friend std::ostream& operator <<
-            ( std::ostream& o, const ColourValue& c )
+        inline friend auto operator <<
+            ( std::ostream& o, const ColourValue& c ) -> std::ostream&
         {
             o << "ColourValue(" << c.r << ", " << c.g << ", " << c.b << ", " << c.a << ")";
             return o;

@@ -46,19 +46,19 @@ namespace Ogre {
     public:
         /** Returns value with reversed bytes order.
         */
-        static inline uint16 bswap16(uint16 arg)
+        static inline auto bswap16(uint16 arg) -> uint16
         {
             return ::std::byteswap<uint16>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static inline uint32 bswap32(uint32 arg)
+        static inline auto bswap32(uint32 arg) -> uint32
         {
             return  ::std::byteswap<uint32>(arg);
         }
         /** Returns value with reversed bytes order.
         */
-        static inline uint64 bswap64(uint64 arg)
+        static inline auto bswap64(uint64 arg) -> uint64
         {
             return ::std::byteswap<uint64>(arg);
         }
@@ -93,7 +93,7 @@ namespace Ogre {
 
         /** Returns the most significant bit set in a value.
         */
-        static inline unsigned int mostSignificantBitSet(unsigned int value)
+        static inline auto mostSignificantBitSet(unsigned int value) -> unsigned int
         {
             //                                     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
             static const unsigned char msb[16] = { 0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4 };
@@ -109,7 +109,7 @@ namespace Ogre {
             @note 0 and 1 are powers of two, so 
                 firstPO2From(0)==0 and firstPO2From(1)==1.
         */
-        static inline uint32 firstPO2From(uint32 n)
+        static inline auto firstPO2From(uint32 n) -> uint32
         {
             --n;            
             n |= n >> 16;
@@ -124,7 +124,7 @@ namespace Ogre {
             @note 0 and 1 are tread as power of two.
         */
         template<typename T>
-        static inline bool isPO2(T n)
+        static inline auto isPO2(T n) -> bool
         {
             return (n & (n-1)) == 0;
         }
@@ -132,7 +132,7 @@ namespace Ogre {
             remove right-hand zeros.
         */
         template<typename T>
-        static inline unsigned int getBitShift(T mask)
+        static inline auto getBitShift(T mask) -> unsigned int
         {
             if (mask == 0)
                 return 0;
@@ -151,7 +151,7 @@ namespace Ogre {
                 This routine is useful for colour conversion.
         */
         template<typename SrcT, typename DestT>
-        static inline DestT convertBitPattern(SrcT srcValue, SrcT srcBitMask, DestT destBitMask)
+        static inline auto convertBitPattern(SrcT srcValue, SrcT srcBitMask, DestT destBitMask) -> DestT
         {
             // Mask off irrelevant source value bits (if any)
             srcValue = srcValue & srcBitMask;
@@ -176,7 +176,7 @@ namespace Ogre {
          * Convert N bit colour channel value to P bits. It fills P bits with the
          * bit pattern repeated. (this is /((1<<n)-1) in fixed point)
          */
-        static inline unsigned int fixedToFixed(uint32 value, unsigned int n, unsigned int p) 
+        static inline auto fixedToFixed(uint32 value, unsigned int n, unsigned int p) -> unsigned int 
         {
             if(n > p) 
             {
@@ -200,7 +200,7 @@ namespace Ogre {
          * Convert floating point colour channel value between 0.0 and 1.0 (otherwise clamped) 
          * to integer of a certain number of bits. Works for any value of bits between 0 and 31.
          */
-        static inline unsigned int floatToFixed(const float value, const unsigned int bits)
+        static inline auto floatToFixed(const float value, const unsigned int bits) -> unsigned int
         {
             if(value <= 0.0f) return 0;
             else if (value >= 1.0f) return (1<<bits)-1;
@@ -210,7 +210,7 @@ namespace Ogre {
         /**
          * Fixed point to float
          */
-        static inline float fixedToFloat(unsigned value, unsigned int bits)
+        static inline auto fixedToFloat(unsigned value, unsigned int bits) -> float
         {
             return (float)value/(float)((1<<bits)-1);
         }
@@ -240,7 +240,7 @@ namespace Ogre {
         /**
          * Read a n*8 bits integer value to memory in native endian.
          */
-        static inline unsigned int intRead(const void *src, int n) {
+        static inline auto intRead(const void *src, int n) -> unsigned int {
             switch(n) {
                 case 1:
                     return ((const uint8*)src)[0];
@@ -260,13 +260,13 @@ namespace Ogre {
         /** Convert a float32 to a float16 (NV_half_float)
             Courtesy of OpenEXR
         */
-        static inline uint16 floatToHalf(float i)
+        static inline auto floatToHalf(float i) -> uint16
         {
             return floatToHalfI(::std::bit_cast<uint32>(i));
         }
         /** Converts float in uint32 format to a a half in uint16 format
         */
-        static inline uint16 floatToHalfI(uint32 i)
+        static inline auto floatToHalfI(uint32 i) -> uint16
         {
             int s =  (i >> 16) & 0x00008000;
             int e = ((i >> 23) & 0x000000ff) - (127 - 15);
@@ -309,14 +309,14 @@ namespace Ogre {
          * Convert a float16 (NV_half_float) to a float32
          * Courtesy of OpenEXR
          */
-        static inline float halfToFloat(uint16 y)
+        static inline auto halfToFloat(uint16 y) -> float
         {
             return ::std::bit_cast<float>(halfToFloatI(y));
         }
         /** Converts a half in uint16 format to a float
             in uint32 format
          */
-        static inline uint32 halfToFloatI(uint16 y)
+        static inline auto halfToFloatI(uint16 y) -> uint32
         {
             int s = (y >> 15) & 0x00000001;
             int e = (y >> 10) & 0x0000001f;

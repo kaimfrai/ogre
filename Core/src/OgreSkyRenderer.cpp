@@ -395,14 +395,14 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
     mSkyDomeGenParameters.skyDomeYSegments_keep = ySegmentsToKeep;
 }
 
-MeshPtr SceneManager::SkyDomeRenderer::createSkydomePlane(
+auto SceneManager::SkyDomeRenderer::createSkydomePlane(
                                        BoxPlane bp,
                                        Real curvature,
                                        Real tiling,
                                        Real distance,
                                        const Quaternion& orientation,
                                        int xsegments, int ysegments, int ysegments_keep,
-                                       const String& groupName)
+                                       const String& groupName) -> MeshPtr
 {
 
     Plane plane;

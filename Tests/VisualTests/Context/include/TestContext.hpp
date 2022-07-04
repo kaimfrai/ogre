@@ -61,15 +61,15 @@ class TestContext : public OgreBites::SampleContext
     /** Does basic setup for the context */
     void setup() override;
 
-    bool frameRenderingQueued(const Ogre::FrameEvent& evt) override;
+    auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool override;
 
     /** Frame listener callback, handles updating of the tests at the start of frames
      *        @param evt The frame event (passed in for the framelistener) */
-    bool frameStarted(const FrameEvent& evt) override;
+    auto frameStarted(const FrameEvent& evt) -> bool override;
 
     /** Frame listener callback, handles updating of the tests at the end of frames
      *        @param evt The frame event (passed in for the framelistener) */
-    bool frameEnded(const FrameEvent& evt) noexcept override;
+    auto frameEnded(const FrameEvent& evt) noexcept -> bool override;
 
     /** Runs a given test or sample
      *        @param s The OgreBites::Sample to run
@@ -79,7 +79,7 @@ class TestContext : public OgreBites::SampleContext
 
     /** Loads test plugins
      *        @return The initial tets or sample to run */
-    OgreBites::Sample* loadTests();
+    auto loadTests() -> OgreBites::Sample*;
 
     /** Setup the Root */
     void createRoot(ulong frameCount = -1) override;
@@ -88,7 +88,7 @@ class TestContext : public OgreBites::SampleContext
     void go(OgreBites::Sample* initialSample = nullptr, ulong frameCount = -1) override;
 
     /** Handles the config dialog */
-    bool oneTimeConfig() override;
+    auto oneTimeConfig() -> bool override;
 
     /** Set up directories for the tests to output to */
     virtual void setupDirectories(String batchName);
@@ -103,10 +103,10 @@ class TestContext : public OgreBites::SampleContext
     void setTimestep(Real timestep);
 
     /** Gets the current timestep value */
-    Real getTimestep();
+    auto getTimestep() -> Real;
 
     /// Returns whether the entire test was successful or not.
-    [[nodiscard]] bool wasSuccessful() const {
+    [[nodiscard]] auto wasSuccessful() const -> bool {
         return mSuccess;
     }
 

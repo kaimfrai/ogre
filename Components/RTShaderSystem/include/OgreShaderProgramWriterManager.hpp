@@ -61,9 +61,9 @@ public:
     void addProgramWriter(const String& lang, ::std::unique_ptr<ProgramWriter> writer);
 
     /** Returns whether a given high-level language is supported. */
-    bool isLanguageSupported(const String& lang);
+    auto isLanguageSupported(const String& lang) -> bool;
 
-    [[nodiscard]] ProgramWriter* getProgramWriter(const String& language) const
+    [[nodiscard]] auto getProgramWriter(const String& language) const -> ProgramWriter*
     {
         auto it = mProgramWriters.find(language);
         if (it != mProgramWriters.end())
@@ -87,10 +87,10 @@ public:
     but the implementation stays in this single compilation unit,
     preventing link errors.
     */
-    static ProgramWriterManager& getSingleton() noexcept;
+    static auto getSingleton() noexcept -> ProgramWriterManager&;
 
     /// @copydoc Singleton::getSingleton()
-    static ProgramWriterManager* getSingletonPtr() noexcept;
+    static auto getSingletonPtr() noexcept -> ProgramWriterManager*;
 };
 /** @} */
 /** @} */

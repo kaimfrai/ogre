@@ -64,7 +64,7 @@ namespace Ogre::RTShader {
 
     //-----------------------------------------------------------------------
 
-	bool TriplanarTexturing::resolveParameters(ProgramSet* programSet)
+	auto TriplanarTexturing::resolveParameters(ProgramSet* programSet) -> bool
 	{
 		Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
 		Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
@@ -112,7 +112,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    bool TriplanarTexturing::resolveDependencies(ProgramSet* programSet)
+    auto TriplanarTexturing::resolveDependencies(ProgramSet* programSet) -> bool
     {
         Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
         Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -123,7 +123,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-	bool TriplanarTexturing::addFunctionInvocations(ProgramSet* programSet)
+	auto TriplanarTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
 	{
         Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
         Function* psMain = psProgram->getEntryPointFunction();
@@ -143,19 +143,19 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    const String& TriplanarTexturing::getType() const noexcept
+    auto TriplanarTexturing::getType() const noexcept -> const String&
     {
         return type;
     }
 
     //-----------------------------------------------------------------------
-    int TriplanarTexturing::getExecutionOrder() const noexcept
+    auto TriplanarTexturing::getExecutionOrder() const noexcept -> int
     {
         return FFP_TEXTURING;
     }
 
     //-----------------------------------------------------------------------
-    bool TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept
+    auto TriplanarTexturing::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept -> bool
     {
         TextureUnitState* textureUnit;
     
@@ -226,14 +226,14 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    const String& TriplanarTexturingFactory::getType() const noexcept
+    auto TriplanarTexturingFactory::getType() const noexcept -> const String&
     {
         return TriplanarTexturing::type;
     }
 
     //-----------------------------------------------------------------------
-    SubRenderState* TriplanarTexturingFactory::createInstance(ScriptCompiler* compiler, 
-                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
+    auto TriplanarTexturingFactory::createInstance(ScriptCompiler* compiler, 
+                                                       PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState*
     {
         if (prop->name == "triplanarTexturing")
         {
@@ -296,7 +296,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    SubRenderState* TriplanarTexturingFactory::createInstanceImpl()
+    auto TriplanarTexturingFactory::createInstanceImpl() -> SubRenderState*
     {
         return new TriplanarTexturing;
     }

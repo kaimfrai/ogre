@@ -43,13 +43,13 @@ namespace Ogre {
             mAttributes = std::make_unique<Attributes>(*other.mAttributes);
     }
 
-    UserObjectBindings& UserObjectBindings::swap(UserObjectBindings& rhs)
+    auto UserObjectBindings::swap(UserObjectBindings& rhs) -> UserObjectBindings&
     {
         std::swap(mAttributes, rhs.mAttributes);
         return *this;
     }
 
-    UserObjectBindings& UserObjectBindings::operator=(const UserObjectBindings& rhs)
+    auto UserObjectBindings::operator=(const UserObjectBindings& rhs) -> UserObjectBindings&
     {
         UserObjectBindings(rhs).swap(*this);
         return *this;
@@ -66,7 +66,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    ::std::any const& UserObjectBindings::getUserAny() const noexcept
+    auto UserObjectBindings::getUserAny() const noexcept -> ::std::any const&
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -90,7 +90,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    ::std::any const& UserObjectBindings::getUserAny(const String& key) const
+    auto UserObjectBindings::getUserAny(const String& key) const -> ::std::any const&
     {
         if (!mAttributes)
             return emptyAny;

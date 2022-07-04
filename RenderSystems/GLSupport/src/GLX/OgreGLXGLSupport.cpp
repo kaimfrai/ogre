@@ -53,7 +53,7 @@ class RenderWindow;
 
 static bool ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;
-static int ctxErrorHandler( Display *dpy, XErrorEvent *ev )
+static auto ctxErrorHandler( Display *dpy, XErrorEvent *ev ) -> int
 {
     char buffer[512] = {0};
     ctxErrorOccurred = true;
@@ -75,11 +75,11 @@ namespace Ogre
         GLXVideoMode() = default;
         GLXVideoMode(const VideoMode& m) : first(m.width, m.height), second(m.refreshRate) {}
 
-        [[nodiscard]] bool operator==(const GLXVideoMode&) const noexcept = default;
+        [[nodiscard]] auto operator==(const GLXVideoMode&) const noexcept -> bool = default;
     };
     using GLXVideoModes = std::vector<GLXVideoMode>;
 
-    GLNativeSupport* getGLSupport(int profile)
+    auto getGLSupport(int profile) -> GLNativeSupport*
     {
         return new GLXGLSupport(profile);
     }
@@ -138,7 +138,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    RenderWindow* GLXGLSupport::newWindow(const String &name, unsigned int width, unsigned int height, bool fullScreen, const NameValuePairList *miscParams)
+    auto GLXGLSupport::newWindow(const String &name, unsigned int width, unsigned int height, bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
     {
         auto* window = new GLXWindow(this);
 
@@ -148,7 +148,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLPBuffer *GLXGLSupport::createPBuffer(PixelComponentType format, size_t width, size_t height)
+    auto GLXGLSupport::createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer *
     {
         return new GLXPBuffer(this, format, width, height);
     }
@@ -173,7 +173,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void* GLXGLSupport::getProcAddress(const char* procname) const {
+    auto GLXGLSupport::getProcAddress(const char* procname) const -> void* {
         return (void*)glXGetProcAddressARB((const GLubyte*)procname);
     }
 
@@ -209,7 +209,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     // Returns the FBConfig behind a GLXContext
 
-    GLXFBConfig GLXGLSupport::getFBConfigFromContext(::GLXContext context)
+    auto GLXGLSupport::getFBConfigFromContext(::GLXContext context) -> GLXFBConfig
     {
         GLXFBConfig fbConfig = nullptr;
 
@@ -237,7 +237,7 @@ namespace Ogre
     //   missing GLX_SGIX_fbconfig and drawable is Window (unlikely), OR
     //   missing GLX_VERSION_1_3 and drawable is a GLXPixmap (possible).
 
-    GLXFBConfig GLXGLSupport::getFBConfigFromDrawable(GLXDrawable drawable, unsigned int *width, unsigned int *height)
+    auto GLXGLSupport::getFBConfigFromDrawable(GLXDrawable drawable, unsigned int *width, unsigned int *height) -> GLXFBConfig
     {
         GLXFBConfig fbConfig = nullptr;
 
@@ -282,7 +282,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     // Finds a GLXFBConfig compatible with a given VisualID.
 
-    GLXFBConfig GLXGLSupport::getFBConfigFromVisualID(VisualID visualid)
+    auto GLXGLSupport::getFBConfigFromVisualID(VisualID visualid) -> GLXFBConfig
     {
         auto glXGetFBConfigFromVisualSGIX = 
             (PFNGLXGETFBCONFIGFROMVISUALSGIXPROC)getProcAddress("glXGetFBConfigFromVisualSGIX");
@@ -353,7 +353,7 @@ namespace Ogre
             }
         }
 
-        bool operator>(FBConfigAttribs& alternative)
+        auto operator>(FBConfigAttribs& alternative) -> bool
         {
             // Caveats are best avoided, but might be needed for anti-aliasing
 
@@ -385,7 +385,7 @@ namespace Ogre
     // Resembles glXChooseFBConfig, but is forgiving to platforms
     // that do not support the attributes listed in the maxAttribs.
 
-    GLXFBConfig GLXGLSupport::selectFBConfig (const int* minAttribs, const int *maxAttribs)
+    auto GLXGLSupport::selectFBConfig (const int* minAttribs, const int *maxAttribs) -> GLXFBConfig
     {
         GLXFBConfig *fbConfigs;
         GLXFBConfig fbConfig = nullptr;
@@ -435,7 +435,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getGLDisplay() noexcept
+    auto GLXGLSupport::getGLDisplay() noexcept -> Display*
     {
         if (! mGLDisplay)
         {
@@ -460,7 +460,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    Display* GLXGLSupport::getXDisplay() noexcept
+    auto GLXGLSupport::getXDisplay() noexcept -> Display*
     {
         if (! mXDisplay)
         {
@@ -482,13 +482,13 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    String GLXGLSupport::getDisplayName()
+    auto GLXGLSupport::getDisplayName() -> String
     {
         return {(const char*)XDisplayName(DisplayString(mGLDisplay))};
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLXFBConfig* GLXGLSupport::chooseFBConfig(const GLint *attribList, GLint *nElements)
+    auto GLXGLSupport::chooseFBConfig(const GLint *attribList, GLint *nElements) -> GLXFBConfig*
     {
         GLXFBConfig *fbConfigs;
 
@@ -498,7 +498,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    ::GLXContext GLXGLSupport::createNewContext(GLXFBConfig fbConfig, GLint renderType, ::GLXContext shareList, GLboolean direct) const
+    auto GLXGLSupport::createNewContext(GLXFBConfig fbConfig, GLint renderType, ::GLXContext shareList, GLboolean direct) const -> ::GLXContext
     {
         ::GLXContext glxContext = nullptr;
 
@@ -578,7 +578,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLint GLXGLSupport::getFBConfigAttrib(GLXFBConfig fbConfig, GLint attribute, GLint *value)
+    auto GLXGLSupport::getFBConfigAttrib(GLXFBConfig fbConfig, GLint attribute, GLint *value) -> GLint
     {
         GLint status;
 
@@ -588,7 +588,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    XVisualInfo* GLXGLSupport::getVisualFromFBConfig(GLXFBConfig fbConfig)
+    auto GLXGLSupport::getVisualFromFBConfig(GLXFBConfig fbConfig) -> XVisualInfo*
     {
         XVisualInfo *visualInfo;
 

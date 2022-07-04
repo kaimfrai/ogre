@@ -77,12 +77,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const noexcept override;
+    auto getExecutionOrder() const noexcept -> int override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -92,7 +92,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     /** 
     Set the fog calculation mode. Either per vertex or per pixel.
@@ -100,12 +100,12 @@ public:
     */
     void setCalcMode(CalcMode calcMode) { mCalcMode = calcMode; }
 
-    bool setParameter(const String& name, const String& value) noexcept override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
     /** 
     Return the current calculation mode.
     */
-    CalcMode getCalcMode() const noexcept { return mCalcMode; }
+    auto getCalcMode() const noexcept -> CalcMode { return mCalcMode; }
 
     static String Type;
 
@@ -115,17 +115,17 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    bool resolveParameters(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    bool resolveDependencies(ProgramSet* programSet) override;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    bool addFunctionInvocations(ProgramSet* programSet) override;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
 // Attributes.
 protected:  
@@ -164,12 +164,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -182,7 +182,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

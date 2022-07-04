@@ -220,7 +220,7 @@ class VertexData;
         /// @copydoc Resource::unloadImpl
         void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const override;
+        auto calculateSize() const -> size_t override;
 
         void mergeAdjacentTexcoords( unsigned short finalTexCoordSet,
                                      unsigned short texCoordSetToDestroy, VertexData *vertexData );
@@ -244,11 +244,11 @@ class VertexData;
             Note - use with extreme caution - you must be sure that
             you have set up the geometry properly.
         */
-        SubMesh* createSubMesh();
+        auto createSubMesh() -> SubMesh*;
 
         /** Creates a new SubMesh and gives it a name
         */
-        SubMesh* createSubMesh(const String& name);
+        auto createSubMesh(const String& name) -> SubMesh*;
         
         /** Gives a name to a SubMesh
         */
@@ -263,25 +263,25 @@ class VertexData;
             Useful if you identify the SubMeshes by name (using nameSubMesh)
             but wish to have faster repeat access.
         */
-        ushort _getSubMeshIndex(const String& name) const;
+        auto _getSubMeshIndex(const String& name) const -> ushort;
 
         /** Gets the number of sub meshes which comprise this mesh.
         *  @deprecated use getSubMeshes() instead
         */
-        size_t getNumSubMeshes() const {
+        auto getNumSubMeshes() const -> size_t {
             return mSubMeshList.size();
         }
 
         /** Gets a pointer to the submesh indicated by the index.
         *  @deprecated use getSubMeshes() instead
         */
-        SubMesh* getSubMesh(size_t index) const {
+        auto getSubMesh(size_t index) const -> SubMesh* {
             return mSubMeshList[index];
         }
 
         /** Gets a SubMesh by name
         */
-        SubMesh* getSubMesh(const String& name) const ;
+        auto getSubMesh(const String& name) const -> SubMesh* ;
         
         /** Destroy a SubMesh with the given index. 
         @note
@@ -302,7 +302,7 @@ class VertexData;
         using SubMeshIterator = VectorIterator<SubMeshList>;
       
         /// Gets the available submeshes
-        const SubMeshList& getSubMeshes() const noexcept {
+        auto getSubMeshes() const noexcept -> const SubMeshList& {
             return mSubMeshList;
         }
 
@@ -349,20 +349,20 @@ class VertexData;
             if you leave this blank, the clone will be assigned to the same
             group as this Mesh.
         */
-        MeshPtr clone(const String& newName, const String& newGroup = BLANKSTRING);
+        auto clone(const String& newName, const String& newGroup = BLANKSTRING) -> MeshPtr;
 
         /** @copydoc Resource::reload */
         void reload(LoadingFlags flags = LF_DEFAULT) override;
 
         /** Get the axis-aligned bounding box for this mesh.
         */
-        const AxisAlignedBox& getBounds() const noexcept;
+        auto getBounds() const noexcept -> const AxisAlignedBox&;
 
         /** Gets the radius of the bounding sphere surrounding this mesh. */
-        Real getBoundingSphereRadius() const;
+        auto getBoundingSphereRadius() const -> Real;
 
         /** Gets the radius used to inflate the bounding box around the bones. */
-        Real getBoneBoundingRadius() const;
+        auto getBoneBoundingRadius() const -> Real;
 
         /** Manually set the bounding box for this Mesh.
         @remarks
@@ -427,20 +427,20 @@ class VertexData;
         void setSkeletonName(const String& skelName);
 
         /** Returns true if this Mesh has a linked Skeleton. */
-        bool hasSkeleton() const { return mSkeleton != nullptr; }
+        auto hasSkeleton() const -> bool { return mSkeleton != nullptr; }
 
         /** Returns whether or not this mesh has some kind of vertex animation. 
         */
-        bool hasVertexAnimation() const;
+        auto hasVertexAnimation() const -> bool;
         
         /** Gets a pointer to any linked Skeleton. 
         @return
             Weak reference to the skeleton - copy this if you want to hold a strong pointer.
         */
-        const SkeletonPtr& getSkeleton() const noexcept { return mSkeleton; }
+        auto getSkeleton() const noexcept -> const SkeletonPtr& { return mSkeleton; }
 
         /** Gets the name of any linked Skeleton */
-        const String& getSkeletonName() const noexcept;
+        auto getSkeletonName() const noexcept -> const String&;
         /** Initialise an animation set suitable for use with this mesh. 
         @remarks
             Only recommended for use inside the engine, not by applications.
@@ -483,15 +483,15 @@ class VertexData;
 
         /** Gets a const reference to the list of bone assignments
         */
-        const VertexBoneAssignmentList& getBoneAssignments() const noexcept { return mBoneAssignments; }
+        auto getBoneAssignments() const noexcept -> const VertexBoneAssignmentList& { return mBoneAssignments; }
 
         /** Returns the number of levels of detail that this mesh supports. 
         @remarks
             This number includes the original model.
         */
-        ushort getNumLodLevels() const noexcept { return mNumLods; }
+        auto getNumLodLevels() const noexcept -> ushort { return mNumLods; }
         /** Gets details of the numbered level of detail entry. */
-        const MeshLodUsage& getLodLevel(ushort index) const;
+        auto getLodLevel(ushort index) const -> const MeshLodUsage&;
 
         /** Retrieves the level of detail index for the given LOD value. 
         @note
@@ -499,14 +499,14 @@ class VertexData;
             an original source value (e.g. distance), use LodStrategy::transformUserValue
             to turn this into a lookup value.
         */
-        ushort getLodIndex(Real value) const;
+        auto getLodIndex(Real value) const -> ushort;
 
         /** Returns true if this mesh has a manual LOD level.
         @remarks
             A mesh can either use automatically generated LOD, or it can use alternative
             meshes as provided by an artist.
         */
-        bool hasManualLodLevel() const noexcept { return mHasManualLodLevel; }
+        auto hasManualLodLevel() const noexcept -> bool { return mHasManualLodLevel; }
 
         /** Changes the alternate mesh to use as a manual LOD at the given index.
         @remarks
@@ -527,7 +527,7 @@ class VertexData;
         void _setSubMeshLodFaceList(unsigned short subIdx, unsigned short level, IndexData* facedata);
 
         /** Internal methods for loading LOD, do not use. */
-        bool _isManualLodLevel(unsigned short level) const;
+        auto _isManualLodLevel(unsigned short level) const -> bool;
 
 
         /** Removes all LOD data from this Mesh. */
@@ -555,7 +555,7 @@ class VertexData;
             generated for such mesh, it could be cloned, transformed and serialized.
         */
         void setHardwareBufferManager(HardwareBufferManagerBase* bufferManager) { mBufferManager = bufferManager; }
-        HardwareBufferManagerBase* getHardwareBufferManager() noexcept;
+        auto getHardwareBufferManager() noexcept -> HardwareBufferManagerBase*;
         /** Sets the policy for the vertex buffers to be used when loading
             this Mesh.
         @remarks
@@ -607,13 +607,13 @@ class VertexData;
         */
         void setIndexBufferPolicy(HardwareBuffer::Usage usage, bool shadowBuffer = false);
         /** Gets the usage setting for this meshes vertex buffers. */
-        HardwareBuffer::Usage getVertexBufferUsage() const noexcept { return mVertexBufferUsage; }
+        auto getVertexBufferUsage() const noexcept -> HardwareBuffer::Usage { return mVertexBufferUsage; }
         /** Gets the usage setting for this meshes index buffers. */
-        HardwareBuffer::Usage getIndexBufferUsage() const noexcept { return mIndexBufferUsage; }
+        auto getIndexBufferUsage() const noexcept -> HardwareBuffer::Usage { return mIndexBufferUsage; }
         /** Gets whether or not this meshes vertex buffers are shadowed. */
-        bool isVertexBufferShadowed() const noexcept { return mVertexBufferShadowBuffer; }
+        auto isVertexBufferShadowed() const noexcept -> bool { return mVertexBufferShadowBuffer; }
         /** Gets whether or not this meshes index buffers are shadowed. */
-        bool isIndexBufferShadowed() const noexcept { return mIndexBufferShadowBuffer; }
+        auto isIndexBufferShadowed() const noexcept -> bool { return mIndexBufferShadowBuffer; }
        
 
         /** Rationalises the passed in bone assignment list.
@@ -632,7 +632,7 @@ class VertexData;
         @return
             The maximum number of bone assignments per vertex found, clamped to [1-4]
         */
-        unsigned short _rationaliseBoneAssignments(size_t vertexCount, VertexBoneAssignmentList& assignments);
+        auto _rationaliseBoneAssignments(size_t vertexCount, VertexBoneAssignmentList& assignments) -> unsigned short;
 
         /** Internal method, be called once to compile bone assignments into geometry buffer. 
         @remarks
@@ -724,8 +724,8 @@ class VertexData;
             Reference to a destination element index (e.g. texture coord set)
             which will be populated
         */
-        bool suggestTangentVectorBuildParams(VertexElementSemantic targetSemantic,
-            unsigned short& outSourceCoordSet, unsigned short& outIndex);
+        auto suggestTangentVectorBuildParams(VertexElementSemantic targetSemantic,
+            unsigned short& outSourceCoordSet, unsigned short& outIndex) -> bool;
 
         /** Builds an edge list for this mesh, which can be used for generating a shadow volume
             among other things.
@@ -744,7 +744,7 @@ class VertexData;
         @param lodIndex
             The LOD at which to get the edge list, 0 being the highest.
         */
-        EdgeData* getEdgeList(unsigned short lodIndex = 0);
+        auto getEdgeList(unsigned short lodIndex = 0) -> EdgeData*;
 
         /** Return the edge list for this mesh, building it if required. 
         @remarks
@@ -753,14 +753,14 @@ class VertexData;
         @param lodIndex
             The LOD at which to get the edge list, 0 being the highest.
         */
-        const EdgeData* getEdgeList(unsigned short lodIndex = 0) const;
+        auto getEdgeList(unsigned short lodIndex = 0) const -> const EdgeData*;
 
         /** Returns whether this mesh has already had it's geometry prepared for use in 
             rendering shadow volumes. */
-        bool isPreparedForShadowVolumes() const noexcept { return mPreparedForShadowVolumes; }
+        auto isPreparedForShadowVolumes() const noexcept -> bool { return mPreparedForShadowVolumes; }
 
         /** Returns whether this mesh has an attached edge list. */
-        bool isEdgeListBuilt() const noexcept { return mEdgeListsBuilt; }
+        auto isEdgeListBuilt() const noexcept -> bool { return mEdgeListsBuilt; }
 
         /** Prepare matrices for software indexed vertex blend.
         @remarks
@@ -852,7 +852,7 @@ class VertexData;
             const std::map<size_t, Vector3>& normalsMap,
             VertexData* targetVertexData);
         /** Gets a reference to the optional name assignments of the SubMeshes. */
-        const SubMeshNameMap& getSubMeshNameMap() const noexcept { return mSubMeshNameMap; }
+        auto getSubMeshNameMap() const noexcept -> const SubMeshNameMap& { return mSubMeshNameMap; }
 
         /** Sets whether or not this Mesh should automatically build edge lists
             when asked for them, or whether it should never build them if
@@ -869,14 +869,14 @@ class VertexData;
             when asked for them, or whether it should never build them if
             they are not already provided.
         */
-        bool getAutoBuildEdgeLists() const noexcept { return mAutoBuildEdgeLists; }
+        auto getAutoBuildEdgeLists() const noexcept -> bool { return mAutoBuildEdgeLists; }
 
         /** Gets the type of vertex animation the shared vertex data of this mesh supports.
         */
-        virtual VertexAnimationType getSharedVertexDataAnimationType() const;
+        virtual auto getSharedVertexDataAnimationType() const -> VertexAnimationType;
 
         /// Returns whether animation on shared vertex data includes normals.
-        bool getSharedVertexDataAnimationIncludesNormals() const noexcept { return mSharedVertexDataAnimationIncludesNormals; }
+        auto getSharedVertexDataAnimationIncludesNormals() const noexcept -> bool { return mSharedVertexDataAnimationIncludesNormals; }
 
         /** Creates a new Animation object for vertex animating this mesh. 
         @param name
@@ -884,33 +884,33 @@ class VertexData;
         @param length
             The length of the animation in seconds.
         */
-        Animation* createAnimation(const String& name, Real length) override;
+        auto createAnimation(const String& name, Real length) -> Animation* override;
 
         /** Returns the named vertex Animation object. 
         @param name
             The name of the animation.
         */
-        Animation* getAnimation(const String& name) const override;
+        auto getAnimation(const String& name) const -> Animation* override;
 
         /** Internal access to the named vertex Animation object - returns null 
             if it does not exist. 
         @param name
             The name of the animation.
         */
-        virtual Animation* _getAnimationImpl(const String& name) const;
+        virtual auto _getAnimationImpl(const String& name) const -> Animation*;
 
         /** Returns whether this mesh contains the named vertex animation. */
-        bool hasAnimation(const String& name) const override;
+        auto hasAnimation(const String& name) const -> bool override;
 
         /** Removes vertex Animation from this mesh. */
         void removeAnimation(const String& name) override;
 
         /** Gets the number of morph animations in this mesh. */
-        unsigned short getNumAnimations() const noexcept override;
+        auto getNumAnimations() const noexcept -> unsigned short override;
 
         /** Gets a single morph animation by index. 
         */
-        Animation* getAnimation(unsigned short index) const override;
+        auto getAnimation(unsigned short index) const -> Animation* override;
 
         /** Removes all morph Animations from this mesh. */
         virtual void removeAllAnimations();
@@ -919,7 +919,7 @@ class VertexData;
         @remarks
             0 means the shared vertex data, 1+ means a submesh vertex data (index+1)
         */
-        VertexData* getVertexDataByTrackHandle(unsigned short handle);
+        auto getVertexDataByTrackHandle(unsigned short handle) -> VertexData*;
 
         /** Internal method which, if animation types have not been determined,
             scans any vertex animations and determines the type for each set of
@@ -927,7 +927,7 @@ class VertexData;
         */
         void _determineAnimationTypes() const;
         /** Are the derived animation types out of date? */
-        bool _getAnimationTypesDirty() const noexcept { return mAnimationTypesDirty; }
+        auto _getAnimationTypesDirty() const noexcept -> bool { return mAnimationTypesDirty; }
 
         /** Create a new Pose for this mesh or one of its submeshes.
         @param target
@@ -938,13 +938,13 @@ class VertexData;
         @return
             A new Pose ready for population.
         */
-        Pose* createPose(ushort target, const String& name = BLANKSTRING);
+        auto createPose(ushort target, const String& name = BLANKSTRING) -> Pose*;
         /** Get the number of poses */
-        size_t getPoseCount() const { return mPoseList.size(); }
+        auto getPoseCount() const -> size_t { return mPoseList.size(); }
         /** Retrieve an existing Pose by index */
-        Pose* getPose(size_t index) const { return mPoseList.at(index); }
+        auto getPose(size_t index) const -> Pose* { return mPoseList.at(index); }
         /** Retrieve an existing Pose by name.*/
-        Pose* getPose(const String& name) const;
+        auto getPose(const String& name) const -> Pose*;
         /** Destroy a pose by index.
         @note
             This will invalidate any animation tracks referring to this pose or those after it.
@@ -962,10 +962,10 @@ class VertexData;
         using ConstPoseIterator = ConstVectorIterator<PoseList>;
 
         /** Get pose list. */
-        const PoseList& getPoseList() const noexcept;
+        auto getPoseList() const noexcept -> const PoseList&;
 
         /** Get LOD strategy used by this mesh. */
-        const LodStrategy *getLodStrategy() const;
+        auto getLodStrategy() const -> const LodStrategy *;
 
         /** Set the lod strategy used by this mesh. */
         void setLodStrategy(LodStrategy *lodStrategy);

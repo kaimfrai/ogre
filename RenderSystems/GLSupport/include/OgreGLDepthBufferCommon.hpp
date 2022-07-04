@@ -33,11 +33,11 @@ namespace Ogre
 
         ~GLDepthBufferCommon() override;
 
-        bool isCompatible( RenderTarget *renderTarget ) const override;
+        auto isCompatible( RenderTarget *renderTarget ) const -> bool override;
 
-        [[nodiscard]] GLContext* getGLContext() const noexcept { return mCreatorContext; }
-        [[nodiscard]] GLHardwarePixelBufferCommon* getDepthBuffer() const noexcept { return mDepthBuffer.get(); }
-        [[nodiscard]] GLHardwarePixelBufferCommon* getStencilBuffer() const noexcept { return mStencilBuffer.get(); }
+        [[nodiscard]] auto getGLContext() const noexcept -> GLContext* { return mCreatorContext; }
+        [[nodiscard]] auto getDepthBuffer() const noexcept -> GLHardwarePixelBufferCommon* { return mDepthBuffer.get(); }
+        [[nodiscard]] auto getStencilBuffer() const noexcept -> GLHardwarePixelBufferCommon* { return mStencilBuffer.get(); }
 
     protected:
         GLContext                   *mCreatorContext;

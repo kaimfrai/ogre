@@ -47,7 +47,7 @@ THE SOFTWARE.
 
 namespace Ogre::RTShader {
 
-static GpuConstantType typeFromContent(Parameter::Content content)
+static auto typeFromContent(Parameter::Content content) -> GpuConstantType
 {
     switch (content)
     {
@@ -124,7 +124,7 @@ static GpuConstantType typeFromContent(Parameter::Content content)
     }
 }
 
-static Parameter::Semantic semanticFromContent(Parameter::Content content, bool isVSOut = false)
+static auto semanticFromContent(Parameter::Content content, bool isVSOut = false) -> Parameter::Semantic
 {
     switch (content)
     {
@@ -161,7 +161,7 @@ static Parameter::Semantic semanticFromContent(Parameter::Content content, bool 
 }
 
 /// fixed index for texcoords, next free semantic slot else
-static int indexFromContent(Parameter::Content content)
+static auto indexFromContent(Parameter::Content content) -> int
 {
     int c = int(content);
     if(c < Parameter::SPC_TEXTURE_COORDINATE0 || c > Parameter::SPC_TEXTURE_COORDINATE7)
@@ -222,7 +222,7 @@ Function::~Function()
 
 }
 
-static String getParameterName(const char* prefix, Parameter::Semantic semantic, int index)
+static auto getParameterName(const char* prefix, Parameter::Semantic semantic, int index) -> String
 {
     const char* name = "";
     switch (semantic)
@@ -262,10 +262,10 @@ static String getParameterName(const char* prefix, Parameter::Semantic semantic,
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
+auto Function::resolveInputParameter(Parameter::Semantic semantic,
                                         int index,
                                         const Parameter::Content content,
-                                        GpuConstantType type)
+                                        GpuConstantType type) -> ParameterPtr
 {
     if(type == GCT_UNKNOWN)
         type = typeFromContent(content);
@@ -324,10 +324,10 @@ ParameterPtr Function::resolveInputParameter(Parameter::Semantic semantic,
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
+auto Function::resolveOutputParameter(Parameter::Semantic semantic,
                                             int index,
                                             Parameter::Content content,                                         
-                                            GpuConstantType type)
+                                            GpuConstantType type) -> ParameterPtr
 {
     if(type == GCT_UNKNOWN)
         type = typeFromContent(content);
@@ -398,7 +398,7 @@ ParameterPtr Function::resolveOutputParameter(Parameter::Semantic semantic,
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::resolveLocalParameter(GpuConstantType type, const String& name)
+auto Function::resolveLocalParameter(GpuConstantType type, const String& name) -> ParameterPtr
 {
     ParameterPtr param;
 
@@ -423,7 +423,7 @@ ParameterPtr Function::resolveLocalParameter(GpuConstantType type, const String&
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::resolveLocalParameter(const Parameter::Content content, GpuConstantType type)
+auto Function::resolveLocalParameter(const Parameter::Content content, GpuConstantType type) -> ParameterPtr
 {
     ParameterPtr param;
 
@@ -529,7 +529,7 @@ void Function::deleteParameter(ShaderParameterList& parameterList, ParameterPtr 
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::_getParameterByName( const ShaderParameterList& parameterList, const String& name )
+auto Function::_getParameterByName( const ShaderParameterList& parameterList, const String& name ) -> ParameterPtr
 {
     for (auto const& it : parameterList)
     {
@@ -543,9 +543,9 @@ ParameterPtr Function::_getParameterByName( const ShaderParameterList& parameter
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::_getParameterBySemantic(const ShaderParameterList& parameterList,
+auto Function::_getParameterBySemantic(const ShaderParameterList& parameterList,
                                                 const Parameter::Semantic semantic, 
-                                                int index)
+                                                int index) -> ParameterPtr
 {
     for (auto const& it : parameterList)
     {
@@ -560,7 +560,7 @@ ParameterPtr Function::_getParameterBySemantic(const ShaderParameterList& parame
 }
 
 //-----------------------------------------------------------------------------
-ParameterPtr Function::_getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type)
+auto Function::_getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type) -> ParameterPtr
 {
     if(type == GCT_UNKNOWN)
         type = typeFromContent(content);
@@ -590,7 +590,7 @@ void Function::addAtomInstance(FunctionAtom* atomInstance)
 }
 
 //-----------------------------------------------------------------------------
-bool Function::deleteAtomInstance(FunctionAtom* atomInstance)
+auto Function::deleteAtomInstance(FunctionAtom* atomInstance) -> bool
 {
     size_t g = atomInstance->getGroupExecutionOrder();
     for (auto it=mAtomInstances[g].begin(); it != mAtomInstances[g].end(); ++it)
@@ -608,7 +608,7 @@ bool Function::deleteAtomInstance(FunctionAtom* atomInstance)
 }
 
 //-----------------------------------------------------------------------------
-const FunctionAtomInstanceList& Function::getAtomInstances() noexcept
+auto Function::getAtomInstances() noexcept -> const FunctionAtomInstanceList&
 {
     if(!mSortedAtomInstances.empty())
         return mSortedAtomInstances;

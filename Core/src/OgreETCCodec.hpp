@@ -60,17 +60,17 @@ namespace Ogre {
         ~ETCCodec() override = default;
 
         using ImageCodec::decode;
-        [[nodiscard]] DecodeResult decode(const DataStreamPtr& input) const override;
-        String magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const override;
-        [[nodiscard]] String getType() const override;
+        [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
+        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
+        [[nodiscard]] auto getType() const -> String override;
 
         /// Static method to startup and register the ETC codec
         static void startup();
         /// Static method to shutdown and unregister the ETC codec
         static void shutdown();
     private:
-        bool decodePKM(const DataStreamPtr& input, DecodeResult& result) const;
-        bool decodeKTX(const DataStreamPtr& input, DecodeResult& result) const;
+        auto decodePKM(const DataStreamPtr& input, DecodeResult& result) const -> bool;
+        auto decodeKTX(const DataStreamPtr& input, DecodeResult& result) const -> bool;
 
     };
     /** @} */

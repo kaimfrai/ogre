@@ -170,7 +170,7 @@ class ResourceManager;
         }
 
         /// protected assignment as this is merely abstract
-        Resource& operator=(const Resource& rhs);
+        auto operator=(const Resource& rhs) -> Resource&;
 
         /** Internal hook to perform actions before the load process, but
             after the resource has been marked as 'loading'.
@@ -215,7 +215,7 @@ class ResourceManager;
         virtual void unloadImpl() = 0;
 
         /** Calculate the size of a resource; this will only be called after 'load' */
-        virtual size_t calculateSize() const;
+        virtual auto calculateSize() const -> size_t;
     public:
         /** Standard constructor.
         @param creator Pointer to the ResourceManager that is creating this resource
@@ -277,14 +277,14 @@ class ResourceManager;
 
         /** Returns true if the Resource is reloadable, false otherwise.
         */
-        bool isReloadable() const noexcept
+        auto isReloadable() const noexcept -> bool
         {
             return !mIsManual || mLoader;
         }
 
         /** Is this resource manually loaded?
         */
-        bool isManuallyLoaded() const noexcept
+        auto isManuallyLoaded() const noexcept -> bool
         {
             return mIsManual;
         }
@@ -296,7 +296,7 @@ class ResourceManager;
 
         /** Retrieves info about the size of the resource.
         */
-        size_t getSize() const
+        auto getSize() const -> size_t
         { 
             return mSize; 
         }
@@ -307,13 +307,13 @@ class ResourceManager;
 
         /** Gets resource name.
         */
-        const String& getName() const noexcept { return mName; }
+        auto getName() const noexcept -> const String& { return mName; }
 
-        ResourceHandle getHandle() const noexcept { return mHandle; }
+        auto getHandle() const noexcept -> ResourceHandle { return mHandle; }
 
         /** Returns true if the Resource has been prepared, false otherwise.
         */
-        bool isPrepared() const noexcept
+        auto isPrepared() const noexcept -> bool
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_PREPARED);
@@ -321,7 +321,7 @@ class ResourceManager;
 
         /** Returns true if the Resource has been loaded, false otherwise.
         */
-        bool isLoaded() const noexcept
+        auto isLoaded() const noexcept -> bool
         { 
             // No lock required to read this state since no modify
             return (mLoadingState.load() == LOADSTATE_LOADED);
@@ -330,14 +330,14 @@ class ResourceManager;
         /** Returns whether the resource is currently in the process of
             background loading.
         */
-        bool isLoading() const noexcept
+        auto isLoading() const noexcept -> bool
         {
             return (mLoadingState.load() == LOADSTATE_LOADING);
         }
 
         /** Returns the current loading state.
         */
-        LoadingState getLoadingState() const
+        auto getLoadingState() const -> LoadingState
         {
             return mLoadingState.load();
         }
@@ -353,7 +353,7 @@ class ResourceManager;
             other users of this resource should check isLoaded(), and if that
             returns false, don't use the resource and come back later.
         */
-        bool isBackgroundLoaded() const noexcept { return mIsBackgroundLoaded; }
+        auto isBackgroundLoaded() const noexcept -> bool { return mIsBackgroundLoaded; }
 
         /** Tells the resource whether it is background loaded or not.
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        const String& getGroup() const noexcept { return mGroup; }
+        auto getGroup() const noexcept -> const String& { return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -399,14 +399,14 @@ class ResourceManager;
         virtual void changeGroupOwnership(const String& newGroup);
 
         /// Gets the manager which created this resource
-        ResourceManager* getCreator() noexcept { return mCreator; }
+        auto getCreator() noexcept -> ResourceManager* { return mCreator; }
         /** Get the origin of this resource, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        const String& getOrigin() const noexcept { return mOrigin; }
+        auto getOrigin() const noexcept -> const String& { return mOrigin; }
         /// Notify this resource of it's origin
         void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
@@ -417,7 +417,7 @@ class ResourceManager;
             know whether it needs rebuilding. This is a nice way of monitoring
             changes without having a tightly-bound callback.
         */
-        virtual size_t getStateCount() const noexcept { return mStateCount; }
+        virtual auto getStateCount() const noexcept -> size_t { return mStateCount; }
 
         /** Manually mark the state of this resource as having been changed.
         @remarks

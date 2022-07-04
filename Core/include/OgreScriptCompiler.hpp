@@ -116,9 +116,9 @@ class Material;
         AbstractNode(AbstractNode *ptr);
         virtual ~AbstractNode()= default;
         /// Returns a new AbstractNode which is a replica of this one.
-        [[nodiscard]] virtual AbstractNode *clone() const = 0;
+        [[nodiscard]] virtual auto clone() const -> AbstractNode * = 0;
         /// Returns a string value depending on the type of the AbstractNode.
-        [[nodiscard]] virtual const String& getValue() const noexcept = 0;
+        [[nodiscard]] virtual auto getValue() const noexcept -> const String& = 0;
     };
 
     /** This is an abstract node which cannot be broken down further */
@@ -129,8 +129,8 @@ class Material;
         uint32 id{0};
     public:
         AtomAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const override;
-        [[nodiscard]] const String& getValue() const noexcept override { return value; }
+        [[nodiscard]] auto clone() const -> AbstractNode * override;
+        [[nodiscard]] auto getValue() const noexcept -> const String& override { return value; }
     };
 
     /** This specific abstract node represents a script object */
@@ -148,13 +148,13 @@ class Material;
         AbstractNodeList overrides; // For use when processing object inheritance and overriding
     public:
         ObjectAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const override;
-        [[nodiscard]] const String& getValue() const noexcept override { return cls; }
+        [[nodiscard]] auto clone() const -> AbstractNode * override;
+        [[nodiscard]] auto getValue() const noexcept -> const String& override { return cls; }
 
         void addVariable(const String &name);
         void setVariable(const String &name, const String &value);
-        [[nodiscard]] std::pair<bool,String> getVariable(const String &name) const;
-        [[nodiscard]] const std::map<String,String> &getVariables() const;
+        [[nodiscard]] auto getVariable(const String &name) const -> std::pair<bool,String>;
+        [[nodiscard]] auto getVariables() const -> const std::map<String,String> &;
     };
 
     /** This abstract node represents a script property */
@@ -166,8 +166,8 @@ class Material;
         AbstractNodeList values;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const override;
-        [[nodiscard]] const String& getValue() const noexcept override { return name; }
+        [[nodiscard]] auto clone() const -> AbstractNode * override;
+        [[nodiscard]] auto getValue() const noexcept -> const String& override { return name; }
     };
 
     /** This abstract node represents an import statement */
@@ -177,8 +177,8 @@ class Material;
         String target, source;
     public:
         ImportAbstractNode();
-        [[nodiscard]] AbstractNode *clone() const override;
-        [[nodiscard]] const String& getValue() const noexcept override { return target; }
+        [[nodiscard]] auto clone() const -> AbstractNode * override;
+        [[nodiscard]] auto getValue() const noexcept -> const String& override { return target; }
     };
 
     /** This abstract node represents a variable assignment */
@@ -188,8 +188,8 @@ class Material;
         String name;
     public:
         VariableAccessAbstractNode(AbstractNode *ptr);
-        [[nodiscard]] AbstractNode *clone() const override;
-        [[nodiscard]] const String& getValue() const noexcept override { return name; }
+        [[nodiscard]] auto clone() const -> AbstractNode * override;
+        [[nodiscard]] auto getValue() const noexcept -> const String& override { return name; }
     };
 
     class ScriptCompilerEvent;
@@ -221,7 +221,7 @@ class Material;
             CE_REFERENCETOANONEXISTINGOBJECT,
             CE_DEPRECATEDSYMBOL
         };
-        static String formatErrorCode(uint32 code);
+        static auto formatErrorCode(uint32 code) -> String;
     public:
         ScriptCompiler();
         virtual ~ScriptCompiler() = default;
@@ -232,17 +232,17 @@ class Material;
          * @param source The source of the script code (e.g. a script file)
          * @param group The resource group to place the compiled resources into
          */
-        bool compile(const String &str, const String &source, const String &group);
+        auto compile(const String &str, const String &source, const String &group) -> bool;
         /// Compiles resources from the given concrete node list
-        bool compile(const ConcreteNodeListPtr &nodes, const String &group);
+        auto compile(const ConcreteNodeListPtr &nodes, const String &group) -> bool;
         /// Adds the given error to the compiler's list of errors
         void addError(uint32 code, const String &file, int line, const String &msg = "");
         /// Sets the listener used by the compiler
         void setListener(ScriptCompilerListener *listener);
         /// Returns the currently set listener
-        ScriptCompilerListener *getListener();
+        auto getListener() -> ScriptCompilerListener *;
         /// Returns the resource group currently set for this compiler
-        [[nodiscard]] const String &getResourceGroup() const;
+        [[nodiscard]] auto getResourceGroup() const -> const String &;
         /// Adds a name exclusion to the map
         /**
          * Name exclusions identify object types which cannot accept
@@ -253,7 +253,7 @@ class Material;
         /// Removes a name exclusion
         //void removeNameExclusion(const String &type);
         /// Internal method for firing the handleEvent method
-        bool _fireEvent(ScriptCompilerEvent *evt, void *retval);
+        auto _fireEvent(ScriptCompilerEvent *evt, void *retval) -> bool;
 
 		/// Adds a custom word id which can be used for custom script translators
 		/** 
@@ -266,16 +266,16 @@ class Material;
 		@note
 		If the word is already registered, the already registered id is returned.
 		*/
-		uint32 registerCustomWordId(const String &word);
+		auto registerCustomWordId(const String &word) -> uint32;
 
     private: // Tree processing
-        AbstractNodeListPtr convertToAST(const ConcreteNodeList &nodes);
+        auto convertToAST(const ConcreteNodeList &nodes) -> AbstractNodeListPtr;
         /// This built-in function processes import nodes
         void processImports(AbstractNodeList &nodes);
         /// Loads the requested script and converts it to an AST
-        AbstractNodeListPtr loadImportPath(const String &name);
+        auto loadImportPath(const String &name) -> AbstractNodeListPtr;
         /// Returns the abstract nodes from the given tree which represent the target
-        AbstractNodeList locateTarget(const AbstractNodeList& nodes, const String &target);
+        auto locateTarget(const AbstractNodeList& nodes, const String &target) -> AbstractNodeList;
         /// Handles object inheritance and variable expansion
         void processObjects(AbstractNodeList& nodes, const AbstractNodeList &top);
         /// Handles processing the variables
@@ -283,11 +283,11 @@ class Material;
         /// This function overlays the given object on the destination object following inheritance rules
         void overlayObject(const ObjectAbstractNode &source, ObjectAbstractNode& dest);
         /// Returns true if the given class is name excluded
-        bool isNameExcluded(const ObjectAbstractNode& node, AbstractNode *parent);
+        auto isNameExcluded(const ObjectAbstractNode& node, AbstractNode *parent) -> bool;
         /// This function sets up the initial values in word id map
         void initWordMap();
     private:
-        friend String getPropertyName(const ScriptCompiler *compiler, uint32 id);
+        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String;
         // Resource group
         String mGroup;
         // The word -> id conversion table
@@ -330,7 +330,7 @@ class Material;
             ScriptCompiler *mCompiler;
         public:
             AbstractTreeBuilder(ScriptCompiler *compiler);
-            [[nodiscard]] const AbstractNodeListPtr &getResult() const;
+            [[nodiscard]] auto getResult() const -> const AbstractNodeListPtr &;
             void visit(ConcreteNode *node);
             static void visit(AbstractTreeBuilder *visitor, const ConcreteNodeList &nodes);
         };
@@ -361,7 +361,7 @@ class Material;
         ScriptCompilerEvent(String type):mType(std::move(type)){}
         virtual ~ScriptCompilerEvent()= default;
         ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
-        ScriptCompilerEvent &operator = (const ScriptCompilerEvent&) = delete;
+        auto operator = (const ScriptCompilerEvent&) -> ScriptCompilerEvent & = delete;
     };
 
     /** This is a listener for the compiler. The compiler can be customized with
@@ -375,7 +375,7 @@ class Material;
         virtual ~ScriptCompilerListener() = default;
 
         /// Returns the concrete node list from the given file
-        virtual ConcreteNodeListPtr importFile(ScriptCompiler *compiler, const String &name);
+        virtual auto importFile(ScriptCompiler *compiler, const String &name) -> ConcreteNodeListPtr;
         /// Allows for responding to and overriding behavior before a CST is translated into an AST
         virtual void preConversion(ScriptCompiler *compiler, ConcreteNodeListPtr nodes);
         /// Allows vetoing of continued compilation after the entire AST conversion process finishes
@@ -385,7 +385,7 @@ class Material;
                     the compilation process.
          @return True continues compilation, false aborts
          */
-        virtual bool postConversion(ScriptCompiler *compiler, const AbstractNodeListPtr&);
+        virtual auto postConversion(ScriptCompiler *compiler, const AbstractNodeListPtr&) -> bool;
         /// Called when an error occurred
         virtual void handleError(ScriptCompiler *compiler, uint32 code, const String &file, int line, const String &msg);
         /// Called when an event occurs during translation, return true if handled
@@ -398,7 +398,7 @@ class Material;
          @arg retval A possible return value from handlers
          @return True if the handler processed the event
         */
-        virtual bool handleEvent(ScriptCompiler *compiler, ScriptCompilerEvent *evt, void *retval);
+        virtual auto handleEvent(ScriptCompiler *compiler, ScriptCompilerEvent *evt, void *retval) -> bool;
     };
 
     class ScriptTranslator;
@@ -427,7 +427,7 @@ class Material;
         /// Sets the listener used for compiler instances
         void setListener(ScriptCompilerListener *listener);
         /// Returns the currently set listener used for compiler instances
-        ScriptCompilerListener *getListener();
+        auto getListener() -> ScriptCompilerListener *;
 
         /// Adds the given translator manager to the list of managers
         void addTranslatorManager(ScriptTranslatorManager *man);
@@ -436,7 +436,7 @@ class Material;
         /// Clears all translator managers
         void clearTranslatorManagers();
         /// Retrieves a ScriptTranslator from the supported managers
-        ScriptTranslator *getTranslator(const AbstractNodePtr &node);
+        auto getTranslator(const AbstractNodePtr &node) -> ScriptTranslator *;
 
 		/// Adds a custom word id which can be used for custom script translators
 		/** 
@@ -449,21 +449,21 @@ class Material;
 		@note
 		If the word is already registered, the already registered id is returned.
 		*/
-		uint32 registerCustomWordId(const String &word);
+		auto registerCustomWordId(const String &word) -> uint32;
 
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(const String &pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] const StringVector& getScriptPatterns() const noexcept override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
-        [[nodiscard]] Real getLoadingOrder() const override;
+        [[nodiscard]] auto getLoadingOrder() const -> Real override;
 
         /// @copydoc Singleton::getSingleton()
-        static ScriptCompilerManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> ScriptCompilerManager&;
         /// @copydoc Singleton::getSingleton()
-        static ScriptCompilerManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> ScriptCompilerManager*;
     };
 
     /// @deprecated do not use

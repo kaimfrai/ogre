@@ -254,7 +254,7 @@ ManualObject::ManualObject(const String& name)
                          .getSize();
     }
     //-----------------------------------------------------------------------------
-    size_t ManualObject::getCurrentVertexCount() const
+    auto ManualObject::getCurrentVertexCount() const -> size_t
     {
         if (!mCurrentSection)
             return 0;
@@ -269,7 +269,7 @@ ManualObject::ManualObject(const String& name)
         
     }
     //-----------------------------------------------------------------------------
-    size_t ManualObject::getCurrentIndexCount() const
+    auto ManualObject::getCurrentIndexCount() const -> size_t
     {
         if (!mCurrentSection)
             return 0;
@@ -357,7 +357,7 @@ ManualObject::ManualObject(const String& name)
 
     }
     //-----------------------------------------------------------------------------
-    ManualObject::ManualObjectSection* ManualObject::end()
+    auto ManualObject::end() -> ManualObject::ManualObjectSection*
     {
         OgreAssert(mCurrentSection, "You cannot call end() until after you call begin()");
         if (mTempVertexPending)
@@ -483,7 +483,7 @@ ManualObject::ManualObject(const String& name)
         return result;
     }
     //-----------------------------------------------------------------------------
-    MeshPtr ManualObject::convertToMesh(const String& meshName, const String& groupName)
+    auto ManualObject::convertToMesh(const String& meshName, const String& groupName) -> MeshPtr
     {
         OgreAssert(!mCurrentSection, "You cannot call convertToMesh() whilst you are in the middle of "
                                      "defining the object; call end() first.");
@@ -530,7 +530,7 @@ ManualObject::ManualObject(const String& name)
         mUseIdentityView = useIdentityView;
     }
     //-----------------------------------------------------------------------------
-    const String& ManualObject::getMovableType() const noexcept
+    auto ManualObject::getMovableType() const noexcept -> const String&
     {
         return ManualObjectFactory::FACTORY_TYPE_NAME;
     }
@@ -570,7 +570,7 @@ ManualObject::ManualObject(const String& name)
 
     }
     //-----------------------------------------------------------------------------
-    EdgeData* ManualObject::getEdgeList() noexcept
+    auto ManualObject::getEdgeList() noexcept -> EdgeData*
     {
         // Build on demand
         if (!mEdgeList && mAnyIndexed)
@@ -600,9 +600,9 @@ ManualObject::ManualObject(const String& name)
         return mEdgeList;
     }
     //-----------------------------------------------------------------------------
-    const ShadowRenderableList& ManualObject::getShadowVolumeRenderableList(
+    auto ManualObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDistance, int flags)
+        float extrusionDistance, int flags) -> const ShadowRenderableList&
     {
         EdgeData* edgeList = getEdgeList();
         if (!edgeList)
@@ -708,12 +708,12 @@ ManualObject::ManualObject(const String& name)
         delete mRenderOperation.indexData; // ok to delete 0
     }
     //-----------------------------------------------------------------------------
-    RenderOperation* ManualObject::ManualObjectSection::getRenderOperation() noexcept
+    auto ManualObject::ManualObjectSection::getRenderOperation() noexcept -> RenderOperation*
     {
         return &mRenderOperation;
     }
     //-----------------------------------------------------------------------------
-    const MaterialPtr& ManualObject::ManualObjectSection::getMaterial() const noexcept
+    auto ManualObject::ManualObjectSection::getMaterial() const noexcept -> const MaterialPtr&
     {
         if (!mMaterial)
         {
@@ -752,13 +752,13 @@ ManualObject::ManualObject(const String& name)
         xform[0] = mParent->_getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------------
-    Real ManualObject::ManualObjectSection::getSquaredViewDepth(const Ogre::Camera *cam) const
+    auto ManualObject::ManualObjectSection::getSquaredViewDepth(const Ogre::Camera *cam) const -> Real
     {
         Node* n = mParent->getParentNode();
         return n ? n->getSquaredViewDepth(cam) : 0;
     }
     //-----------------------------------------------------------------------------
-    const LightList& ManualObject::ManualObjectSection::getLights() const noexcept
+    auto ManualObject::ManualObjectSection::getLights() const noexcept -> const LightList&
     {
         return mParent->queryLights();
     }
@@ -783,13 +783,13 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
-    const String& ManualObjectFactory::getType() const noexcept
+    auto ManualObjectFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------------
-    MovableObject* ManualObjectFactory::createInstanceImpl(
-        const String& name, const NameValuePairList* params)
+    auto ManualObjectFactory::createInstanceImpl(
+        const String& name, const NameValuePairList* params) -> MovableObject*
     {
         return new ManualObject(name);
     }

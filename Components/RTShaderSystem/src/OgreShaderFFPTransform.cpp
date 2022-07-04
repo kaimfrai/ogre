@@ -59,19 +59,19 @@ namespace Ogre::RTShader {
 String FFPTransform::Type = "FFP_Transform";
 
 //-----------------------------------------------------------------------
-const String& FFPTransform::getType() const noexcept
+auto FFPTransform::getType() const noexcept -> const String&
 {
     return Type;
 }
 
 
 //-----------------------------------------------------------------------
-int FFPTransform::getExecutionOrder() const noexcept
+auto FFPTransform::getExecutionOrder() const noexcept -> int
 {
     return FFP_TRANSFORM;
 }
 
-bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
+auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
     mSetPointSize = srcPass->getPointSize() != 1.0f || srcPass->isPointAttenuationEnabled();
     mDoLightCalculations = srcPass->getLightingEnabled();
@@ -79,7 +79,7 @@ bool FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* src
 }
 
 //-----------------------------------------------------------------------
-bool FFPTransform::createCpuSubPrograms(ProgramSet* programSet)
+auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     //! [param_resolve]
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
@@ -152,14 +152,14 @@ void FFPTransform::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-const String& FFPTransformFactory::getType() const noexcept
+auto FFPTransformFactory::getType() const noexcept -> const String&
 {
     return FFPTransform::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
-                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
+auto FFPTransformFactory::createInstance(ScriptCompiler* compiler, 
+                                                   PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState*
 {
     if (prop->name == "transform_stage")
     {
@@ -204,7 +204,7 @@ void FFPTransformFactory::writeInstance(MaterialSerializer* ser, SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* FFPTransformFactory::createInstanceImpl()
+auto FFPTransformFactory::createInstanceImpl() -> SubRenderState*
 {
     return new FFPTransform;
 }

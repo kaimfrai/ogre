@@ -41,7 +41,7 @@ void GLTextureCommon::getCustomAttribute(const String& name, void* pData)
         *static_cast<uint*>(pData) = mTextureID;
 }
 
-uint32 GLTextureCommon::getMaxMipmaps() noexcept {
+auto GLTextureCommon::getMaxMipmaps() noexcept -> uint32 {
     // see ARB_texture_non_power_of_two
     return Bitwise::mostSignificantBitSet(std::max(mWidth, std::max(mHeight, mDepth)));
 }

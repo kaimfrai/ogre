@@ -11,7 +11,7 @@
 #include <bit>
 
 namespace {
-    OgreBites::Event convert(const SDL_Event& in)
+    auto convert(const SDL_Event& in) -> OgreBites::Event
     {
         using namespace OgreBites;
         switch(in.type)

@@ -94,7 +94,7 @@ class VertexData;
     */
     class BillboardChain : public MovableObject, public Renderable
     {
-        bool getCastsShadows() const noexcept override { return getCastShadows(); }
+        auto getCastsShadows() const noexcept -> bool override { return getCastShadows(); }
     public:
 
         /** Contains the data of an element of the BillboardChain.
@@ -141,7 +141,7 @@ class VertexData;
         virtual void setMaxChainElements(size_t maxElements);
         /** Get the maximum number of chain elements per chain 
         */
-        virtual size_t getMaxChainElements() const noexcept { return mMaxElementsPerChain; }
+        virtual auto getMaxChainElements() const noexcept -> size_t { return mMaxElementsPerChain; }
         /** Set the number of chain segments (this class can render multiple chains
             at once using the same material). 
         */
@@ -149,7 +149,7 @@ class VertexData;
         /** Get the number of chain segments (this class can render multiple chains
         at once using the same material). 
         */
-        virtual size_t getNumberOfChains() const noexcept { return mChainCount; }
+        virtual auto getNumberOfChains() const noexcept -> size_t { return mChainCount; }
 
         /** Sets whether texture coordinate information should be included in the
             final buffers generated.
@@ -161,7 +161,7 @@ class VertexData;
         /** Gets whether texture coordinate information should be included in the
             final buffers generated.
         */
-        virtual bool getUseTextureCoords() const noexcept { return mUseTexCoords; }
+        virtual auto getUseTextureCoords() const noexcept -> bool { return mUseTexCoords; }
 
         /** The direction in which texture coordinates from elements of the
             chain are used.
@@ -181,7 +181,7 @@ class VertexData;
         /** Gets the direction in which texture coords specified on each element
             are deemed to run.
         */
-        virtual TexCoordDirection getTextureCoordDirection() noexcept { return mTexCoordDir; }
+        virtual auto getTextureCoordDirection() noexcept -> TexCoordDirection { return mTexCoordDir; }
 
         /** Set the range of the texture coordinates generated across the width of
             the chain elements.
@@ -192,7 +192,7 @@ class VertexData;
         /** Get the range of the texture coordinates generated across the width of
             the chain elements.
         */
-        virtual const Real* getOtherTextureCoordRange() const noexcept { return mOtherTexCoordRange; }
+        virtual auto getOtherTextureCoordRange() const noexcept -> const Real* { return mOtherTexCoordRange; }
 
         /** Sets whether vertex colour information should be included in the
             final buffers generated.
@@ -204,7 +204,7 @@ class VertexData;
         /** Gets whether vertex colour information should be included in the
             final buffers generated.
         */
-        virtual bool getUseVertexColours() const noexcept { return mUseVertexColour; }
+        virtual auto getUseVertexColours() const noexcept -> bool { return mUseVertexColour; }
 
         /** Sets whether or not the buffers created for this object are suitable
             for dynamic alteration.
@@ -214,7 +214,7 @@ class VertexData;
         /** Gets whether or not the buffers created for this object are suitable
             for dynamic alteration.
         */
-        virtual bool getDynamic() const noexcept { return mDynamic; }
+        virtual auto getDynamic() const noexcept -> bool { return mDynamic; }
         
         /** Add an element to the 'head' of a chain.
         @remarks
@@ -243,10 +243,10 @@ class VertexData;
         @param elementIndex The element index within the chain, measured from
             the 'head' of the chain
         */
-        virtual const Element& getChainElement(size_t chainIndex, size_t elementIndex) const;
+        virtual auto getChainElement(size_t chainIndex, size_t elementIndex) const -> const Element&;
 
         /** Returns the number of chain elements. */
-        virtual size_t getNumChainElements(size_t chainIndex) const;
+        virtual auto getNumChainElements(size_t chainIndex) const -> size_t;
 
         /** Remove all elements of a given chain (but leave the chain intact). */
         virtual void clearChain(size_t chainIndex);
@@ -272,22 +272,22 @@ class VertexData;
         void setFaceCamera( bool faceCamera, const Vector3 &normalVector=Vector3::UNIT_X );
 
         /// Get the material name in use
-        virtual const String& getMaterialName() const noexcept { return mMaterial->getName(); }
+        virtual auto getMaterialName() const noexcept -> const String& { return mMaterial->getName(); }
         /// Set the material name to use for rendering
         virtual void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
 
         // Overridden members follow
-        Real getSquaredViewDepth(const Camera* cam) const override;
-        Real getBoundingRadius() const override;
-        const AxisAlignedBox& getBoundingBox() const noexcept override;
-        const MaterialPtr& getMaterial() const noexcept override;
-        const String& getMovableType() const noexcept override;
+        auto getSquaredViewDepth(const Camera* cam) const -> Real override;
+        auto getBoundingRadius() const -> Real override;
+        auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
+        auto getMaterial() const noexcept -> const MaterialPtr& override;
+        auto getMovableType() const noexcept -> const String& override;
         void _updateRenderQueue(RenderQueue *) override;
         void getRenderOperation(RenderOperation &) override;
-        bool preRender(SceneManager* sm, RenderSystem* rsys) override;
+        auto preRender(SceneManager* sm, RenderSystem* rsys) -> bool override;
         void getWorldTransforms(Matrix4 *) const override;
-        const LightList& getLights() const noexcept override;
+        auto getLights() const noexcept -> const LightList& override;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false) override;
@@ -383,14 +383,14 @@ class VertexData;
     class BillboardChainFactory : public MovableObjectFactory
     {
     private:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         BillboardChainFactory() = default;
         ~BillboardChainFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
     };
 
     /** @} */

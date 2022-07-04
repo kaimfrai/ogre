@@ -224,7 +224,7 @@ namespace Ogre
             major = minor = release = build = 0;
         }
 
-        [[nodiscard]] String toString() const;
+        [[nodiscard]] auto toString() const -> String;
         void fromString(const String& versionString);
     };
 
@@ -333,12 +333,12 @@ namespace Ogre
         }
 
 
-        [[nodiscard]] DriverVersion getDriverVersion() const
+        [[nodiscard]] auto getDriverVersion() const -> DriverVersion
         {
             return mDriverVersion;
         }
 
-        [[nodiscard]] GPUVendor getVendor() const
+        [[nodiscard]] auto getVendor() const -> GPUVendor
         {
             return mVendor;
         }
@@ -355,11 +355,11 @@ namespace Ogre
         }
 
         /// Convert a vendor string to an enum
-        static GPUVendor vendorFromString(const String& vendorString);
+        static auto vendorFromString(const String& vendorString) -> GPUVendor;
         /// Convert a vendor enum to a string
-        static const String& vendorToString(GPUVendor v);
+        static auto vendorToString(GPUVendor v) -> const String&;
 
-        [[nodiscard]] bool isDriverOlderThanVersion(const DriverVersion &v) const
+        [[nodiscard]] auto isDriverOlderThanVersion(const DriverVersion &v) const -> bool
         {
             if (mDriverVersion.major < v.major)
                 return true;
@@ -400,7 +400,7 @@ namespace Ogre
             mNumVertexAttributes = num;
         }
 
-        [[nodiscard]] ushort getNumVertexAttributes() const noexcept
+        [[nodiscard]] auto getNumVertexAttributes() const noexcept -> ushort
         {
             return mNumVertexAttributes;
         }
@@ -417,26 +417,26 @@ namespace Ogre
         to the fixed-function pipeline, the number available to the 
         programmable pipeline depends on the shader model in use.
         */
-        [[nodiscard]] ushort getNumTextureUnits() const noexcept
+        [[nodiscard]] auto getNumTextureUnits() const noexcept -> ushort
         {
             return mNumTextureUnits;
         }
 
         /// @deprecated assume 8-bit stencil buffer
-        [[nodiscard]] ushort getStencilBufferBitDepth() const noexcept
+        [[nodiscard]] auto getStencilBufferBitDepth() const noexcept -> ushort
         {
             return mStencilBufferBitDepth;
         }
 
         /// The number of simultaneous render targets supported
-        [[nodiscard]] ushort getNumMultiRenderTargets() const noexcept
+        [[nodiscard]] auto getNumMultiRenderTargets() const noexcept -> ushort
         {
             return mNumMultiRenderTargets;
         }
 
         /** Returns true if capability is render system specific
         */
-        [[nodiscard]] bool isCapabilityRenderSystemSpecific(const Capabilities c) const
+        [[nodiscard]] auto isCapabilityRenderSystemSpecific(const Capabilities c) const -> bool
         {
             int cat = c >> OGRE_CAPS_BITSHIFT;
             if(cat == CAPS_CATEGORY_GL || cat == CAPS_CATEGORY_D3D9)
@@ -464,7 +464,7 @@ namespace Ogre
 
         /** Checks for a capability
         */
-        [[nodiscard]] bool hasCapability(const Capabilities c) const
+        [[nodiscard]] auto hasCapability(const Capabilities c) const -> bool
         {
             int index = (CAPS_CATEGORY_MASK & c) >> OGRE_CAPS_BITSHIFT;
             // test against
@@ -488,28 +488,28 @@ namespace Ogre
 
         /** Returns true if profile is in the list of supported profiles
         */
-        [[nodiscard]] bool isShaderProfileSupported(const String& profile) const;
+        [[nodiscard]] auto isShaderProfileSupported(const String& profile) const -> bool;
 
         /** Returns a set of all supported shader profiles
         * */
-        [[nodiscard]] const ShaderProfiles& getSupportedShaderProfiles() const noexcept
+        [[nodiscard]] auto getSupportedShaderProfiles() const noexcept -> const ShaderProfiles&
         {
             return mSupportedShaderProfiles;
         }
 
 
         /// The number of floating-point 4-vector constants vertex programs support
-        [[nodiscard]] ushort getVertexProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getVertexProgramConstantFloatCount() const noexcept -> ushort
         {
             return mVertexProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants geometry programs support
-        [[nodiscard]] ushort getGeometryProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getGeometryProgramConstantFloatCount() const noexcept -> ushort
         {
             return mGeometryProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        [[nodiscard]] ushort getFragmentProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getFragmentProgramConstantFloatCount() const noexcept -> ushort
         {
             return mFragmentProgramConstantFloatCount;
         }
@@ -521,7 +521,7 @@ namespace Ogre
         }
 
         /// gets the device name for render system
-        [[nodiscard]] String getDeviceName() const
+        [[nodiscard]] auto getDeviceName() const -> String
         {
             return mDeviceName;
         }
@@ -548,7 +548,7 @@ namespace Ogre
             mMaxPointSize = s;
         }
         /// Maximum point screen size in pixels
-        [[nodiscard]] Real getMaxPointSize() const
+        [[nodiscard]] auto getMaxPointSize() const -> Real
         {
             return mMaxPointSize;
         }
@@ -565,7 +565,7 @@ namespace Ogre
         <li>You don't use DXT texture compression</li>
         <li>You use clamp texture addressing</li></ul>
         */
-        [[nodiscard]] bool getNonPOW2TexturesLimited() const noexcept
+        [[nodiscard]] auto getNonPOW2TexturesLimited() const noexcept -> bool
         {
             return mNonPOW2TexturesLimited;
         }
@@ -575,7 +575,7 @@ namespace Ogre
             mMaxSupportedAnisotropy = s;
         }
         /// Get the maximum supported anisotropic filtering
-        [[nodiscard]] Real getMaxSupportedAnisotropy() const
+        [[nodiscard]] auto getMaxSupportedAnisotropy() const -> Real
         {
             return mMaxSupportedAnisotropy;
         }
@@ -586,7 +586,7 @@ namespace Ogre
             mNumVertexTextureUnits = n;
         }
         /// Get the number of vertex texture units supported
-        [[nodiscard]] ushort getNumVertexTextureUnits() const noexcept
+        [[nodiscard]] auto getNumVertexTextureUnits() const noexcept -> ushort
         {
             return mNumVertexTextureUnits;
         }
@@ -597,13 +597,13 @@ namespace Ogre
             mGeometryProgramNumOutputVertices = numOutputVertices;
         }
         /// Get the number of vertices a single geometry program run can emit
-        [[nodiscard]] int getGeometryProgramNumOutputVertices() const noexcept
+        [[nodiscard]] auto getGeometryProgramNumOutputVertices() const noexcept -> int
         {
             return mGeometryProgramNumOutputVertices;
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        [[nodiscard]] const String& getRenderSystemName() const noexcept
+        [[nodiscard]] auto getRenderSystemName() const noexcept -> const String&
         {
             return mRenderSystemName;
         }
@@ -620,7 +620,7 @@ namespace Ogre
         }
 
         /// Return whether a category is 'relevant' or not, ie will it be reported
-        bool isCategoryRelevant(CapabilitiesCategory cat)
+        auto isCategoryRelevant(CapabilitiesCategory cat) -> bool
         {
             return mCategoryRelevant[cat];
         }
@@ -636,12 +636,12 @@ namespace Ogre
             mComputeProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        [[nodiscard]] ushort getComputeProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getComputeProgramConstantFloatCount() const noexcept -> ushort
         {
             return mComputeProgramConstantFloatCount;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        [[nodiscard]] ushort getTessellationDomainProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getTessellationDomainProgramConstantFloatCount() const noexcept -> ushort
         {
             return mTessellationDomainProgramConstantFloatCount;
         }
@@ -651,7 +651,7 @@ namespace Ogre
             mTessellationDomainProgramConstantFloatCount = c;
         }
         /// The number of floating-point 4-vector constants fragment programs support
-        [[nodiscard]] ushort getTessellationHullProgramConstantFloatCount() const noexcept
+        [[nodiscard]] auto getTessellationHullProgramConstantFloatCount() const noexcept -> ushort
         {
             return mTessellationHullProgramConstantFloatCount;
         }
@@ -662,8 +662,8 @@ namespace Ogre
         }
     };
 
-    inline String to_string(GPUVendor v) { return RenderSystemCapabilities::vendorToString(v); }
-    inline String to_string(const DriverVersion& v) { return v.toString(); }
+    inline auto to_string(GPUVendor v) -> String { return RenderSystemCapabilities::vendorToString(v); }
+    inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }
 
     /** @} */
     /** @} */

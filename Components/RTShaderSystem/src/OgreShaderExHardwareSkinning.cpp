@@ -74,11 +74,11 @@ template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinni
 
 namespace RTShader {
 
-HardwareSkinningFactory* HardwareSkinningFactory::getSingletonPtr() noexcept
+auto HardwareSkinningFactory::getSingletonPtr() noexcept -> HardwareSkinningFactory*
 {
     return msSingleton;
 }
-HardwareSkinningFactory& HardwareSkinningFactory::getSingleton() noexcept
+auto HardwareSkinningFactory::getSingleton() noexcept -> HardwareSkinningFactory&
 {  
     assert( msSingleton );  return ( *msSingleton );
 }
@@ -93,13 +93,13 @@ HardwareSkinning::HardwareSkinning()
 = default;
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinning::getType() const noexcept
+auto HardwareSkinning::getType() const noexcept -> const String&
 {
     return Type;
 }
 
 //-----------------------------------------------------------------------
-int HardwareSkinning::getExecutionOrder() const noexcept
+auto HardwareSkinning::getExecutionOrder() const noexcept -> int
 {
     return FFP_TRANSFORM;
 }
@@ -132,35 +132,35 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getBoneCount() noexcept
+auto HardwareSkinning::getBoneCount() noexcept -> ushort
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getBoneCount();
 }
 
 //-----------------------------------------------------------------------
-ushort HardwareSkinning::getWeightCount() noexcept
+auto HardwareSkinning::getWeightCount() noexcept -> ushort
 {
     assert(mActiveTechnique);
     return mActiveTechnique->getWeightCount();
 }
 
 //-----------------------------------------------------------------------
-SkinningType HardwareSkinning::getSkinningType()
+auto HardwareSkinning::getSkinningType() -> SkinningType
 {
     assert(mActiveTechnique);
     return mSkinningType;
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::hasCorrectAntipodalityHandling()
+auto HardwareSkinning::hasCorrectAntipodalityHandling() -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->hasCorrectAntipodalityHandling();
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::hasScalingShearingSupport()
+auto HardwareSkinning::hasScalingShearingSupport() -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->hasScalingShearingSupport();
@@ -180,7 +180,7 @@ void HardwareSkinning::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
+auto HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
     bool isValid = true;
     Technique* pFirstTech = srcPass->getParent()->getParent()->getTechnique(0);
@@ -242,21 +242,21 @@ bool HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::resolveParameters(ProgramSet* programSet)
+auto HardwareSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->resolveParameters(programSet);
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::resolveDependencies(ProgramSet* programSet)
+auto HardwareSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->resolveDependencies(programSet);
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinning::addFunctionInvocations(ProgramSet* programSet)
+auto HardwareSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
     assert(mActiveTechnique);
     return mActiveTechnique->addFunctionInvocations(programSet);
@@ -270,13 +270,13 @@ HardwareSkinningFactory::HardwareSkinningFactory()
 HardwareSkinningFactory::~HardwareSkinningFactory() = default;
 
 //-----------------------------------------------------------------------
-const String& HardwareSkinningFactory::getType() const noexcept
+auto HardwareSkinningFactory::getType() const noexcept -> const String&
 {
     return HardwareSkinning::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
+auto HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState*
 {
     if (prop->name == "hardware_skinning")
     {
@@ -363,7 +363,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* HardwareSkinningFactory::createInstanceImpl()
+auto HardwareSkinningFactory::createInstanceImpl() -> SubRenderState*
 {
     auto* pSkin = new HardwareSkinning;
     
@@ -412,7 +412,7 @@ void HardwareSkinningFactory::setCustomShadowReceiverMaterials(const SkinningTyp
 }
 
 //-----------------------------------------------------------------------
-const MaterialPtr& HardwareSkinningFactory::getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const
+auto HardwareSkinningFactory::getCustomShadowCasterMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
@@ -427,7 +427,7 @@ const MaterialPtr& HardwareSkinningFactory::getCustomShadowCasterMaterial(const 
 }
 
 //-----------------------------------------------------------------------
-const MaterialPtr& HardwareSkinningFactory::getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const
+auto HardwareSkinningFactory::getCustomShadowReceiverMaterial(const SkinningType skinningType, ushort index) const -> const MaterialPtr&
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
@@ -473,7 +473,7 @@ void HardwareSkinningFactory::prepareEntityForSkinning(const Entity* pEntity, Sk
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t subEntityIndex, ushort& boneCount, ushort& weightCount)
+auto HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t subEntityIndex, ushort& boneCount, ushort& weightCount) -> bool
 {
     bool isValidData = false;
     boneCount = 0;
@@ -530,8 +530,8 @@ bool HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
 }
 
 //-----------------------------------------------------------------------
-bool HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, bool isVaild, 
-                ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport)
+auto HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, bool isVaild, 
+                ushort boneCount, ushort weightCount, SkinningType skinningType, bool correctAntidpodalityHandling, bool scalingShearingSupport) -> bool
 {
     bool isUpdated = false;
     if (pMaterial->getNumTechniques() > 0) 

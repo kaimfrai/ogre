@@ -129,7 +129,7 @@ namespace Ogre
          @param unit The texture unit to activate.
          @return Whether or not the texture unit was successfully activated.
          */
-        bool activateGLTextureUnit(size_t unit);
+        auto activateGLTextureUnit(size_t unit) -> bool;
 
         /// Set the blend equation for RGB and alpha separately.
         void setBlendEquation(GLenum eqRGB, GLenum eqA);
@@ -149,7 +149,7 @@ namespace Ogre
         /** Gets the current depth test function.
          @return The current depth test function.
          */
-        [[nodiscard]] GLenum getDepthFunc() const noexcept { return mDepthFunc; }
+        [[nodiscard]] auto getDepthFunc() const noexcept -> GLenum { return mDepthFunc; }
 
         /** Sets the current depth test function.
          @param func The depth test function to use.
@@ -159,7 +159,7 @@ namespace Ogre
         /** Gets the clear depth in the range from [0..1].
          @return The current clearing depth.
          */
-        [[nodiscard]] GLclampf getClearDepth() const noexcept { return mClearDepth; }
+        [[nodiscard]] auto getClearDepth() const noexcept -> GLclampf { return mClearDepth; }
 
         /** Sets the clear depth in the range from [0..1].
          @param depth The clear depth to use.
@@ -195,7 +195,7 @@ namespace Ogre
         /** Gets the current polygon rendering mode, fill, wireframe, points, etc.
          @return The current polygon rendering mode.
          */
-        [[nodiscard]] GLenum getPolygonMode() const noexcept { return mPolygonMode; }
+        [[nodiscard]] auto getPolygonMode() const noexcept -> GLenum { return mPolygonMode; }
 
         /** Sets the current polygon rendering mode.
          @param mode The polygon mode to use.
@@ -205,7 +205,7 @@ namespace Ogre
         /** Sets the face culling mode.
          @return The current face culling mode
          */
-        [[nodiscard]] GLenum getCullFace() const noexcept { return mCullFace; }
+        [[nodiscard]] auto getCullFace() const noexcept -> GLenum { return mCullFace; }
 
         /** Sets the face culling setting.
          @param face The face culling mode to use.

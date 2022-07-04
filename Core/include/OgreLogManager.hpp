@@ -94,16 +94,16 @@ namespace Ogre
                 log and no file output will be written. If you do this you should
                 register a LogListener so log output is not lost.
         */
-        Log* createLog( const String& name, bool defaultLog = false, bool debuggerOutput = true, 
-            bool suppressFileOutput = false);
+        auto createLog( const String& name, bool defaultLog = false, bool debuggerOutput = true, 
+            bool suppressFileOutput = false) -> Log*;
 
         /** Retrieves a log managed by this class.
         */
-        Log* getLog( const String& name);
+        auto getLog( const String& name) -> Log*;
 
         /** Returns a pointer to the default log.
         */
-        Log* getDefaultLog() noexcept;
+        auto getDefaultLog() noexcept -> Log*;
 
         /** Closes and removes a named log. */
         void destroyLog(const String& name);
@@ -113,7 +113,7 @@ namespace Ogre
         /** Sets the passed in log as the default log.
         @return The previous default log.
         */
-        Log* setDefaultLog(Log* newLog);
+        auto setDefaultLog(Log* newLog) -> Log*;
 
         /** Log a message to the default log.
         */
@@ -131,15 +131,15 @@ namespace Ogre
             bool maskDebug = false) { logMessage(message, lml, maskDebug); }
 
         /** Get a stream on the default log. */
-        Log::Stream stream(LogMessageLevel lml = LML_NORMAL, 
-            bool maskDebug = false);
+        auto stream(LogMessageLevel lml = LML_NORMAL, 
+            bool maskDebug = false) -> Log::Stream;
 
         /// sets the minimal #LogMessageLevel for the default log
         void setMinLogLevel(LogMessageLevel lml);
         /// @copydoc Singleton::getSingleton()
-        static LogManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> LogManager&;
         /// @copydoc Singleton::getSingleton()
-        static LogManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> LogManager*;
 
     };
 

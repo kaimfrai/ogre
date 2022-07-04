@@ -49,7 +49,7 @@ Torus Knot Software Ltd.
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs ) noexcept
+    auto operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs ) noexcept -> bool
     {
         if ( lhs.width != rhs.width ||
             lhs.height != rhs.height ||
@@ -62,11 +62,11 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     template<> ShadowTextureManager* Singleton<ShadowTextureManager>::msSingleton = nullptr;
-    ShadowTextureManager* ShadowTextureManager::getSingletonPtr() noexcept
+    auto ShadowTextureManager::getSingletonPtr() noexcept -> ShadowTextureManager*
     {
         return msSingleton;
     }
-    ShadowTextureManager& ShadowTextureManager::getSingleton() noexcept
+    auto ShadowTextureManager::getSingleton() noexcept -> ShadowTextureManager&
     {
         assert( msSingleton );  return ( *msSingleton );
     }
@@ -129,7 +129,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    TexturePtr ShadowTextureManager::getNullShadowTexture(PixelFormat format)
+    auto ShadowTextureManager::getNullShadowTexture(PixelFormat format) -> TexturePtr
     {
         for (auto & tex : mNullTextureList)
         {

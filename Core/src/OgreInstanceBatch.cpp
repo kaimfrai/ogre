@@ -115,7 +115,7 @@ class Technique;
         mInstancesPerBatch = instancesPerBatch;
     }
     //-----------------------------------------------------------------------
-    bool InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh )
+    auto InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
         OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
                    "Only meshes with OT_TRIANGLE_LIST are supported");
@@ -191,7 +191,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    InstancedEntity* InstanceBatch::generateInstancedEntity(size_t num)
+    auto InstanceBatch::generateInstancedEntity(size_t num) -> InstancedEntity*
     {
         return new InstancedEntity(this, static_cast<uint32>(num));
     }
@@ -216,7 +216,7 @@ class Technique;
         }
     }
     //-----------------------------------------------------------------------
-    RenderOperation InstanceBatch::build( const SubMesh* baseSubMesh )
+    auto InstanceBatch::build( const SubMesh* baseSubMesh ) -> RenderOperation
     {
         if( checkSubMeshCompatibility( baseSubMesh ) )
         {
@@ -239,7 +239,7 @@ class Technique;
         createAllInstancedEntities();
     }
     //-----------------------------------------------------------------------
-    InstancedEntity* InstanceBatch::createInstancedEntity()
+    auto InstanceBatch::createInstancedEntity() -> InstancedEntity*
     {
         InstancedEntity *retVal = nullptr;
 
@@ -427,7 +427,7 @@ class Technique;
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    const String& InstanceBatch::getMovableType() const noexcept
+    auto InstanceBatch::getMovableType() const noexcept -> const String&
     {
         static String sType = "InstanceBatch";
         return sType;
@@ -515,17 +515,17 @@ class Technique;
         // MovableObject::_notifyCurrentCamera( cam ); // it does not suit
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& InstanceBatch::getBoundingBox() const noexcept
+    auto InstanceBatch::getBoundingBox() const noexcept -> const AxisAlignedBox&
     {
         return mFullBoundingBox;
     }
     //-----------------------------------------------------------------------
-    Real InstanceBatch::getBoundingRadius() const
+    auto InstanceBatch::getBoundingRadius() const -> Real
     {
         return mBoundingRadius;
     }
     //-----------------------------------------------------------------------
-    Real InstanceBatch::getSquaredViewDepth( const Camera* cam ) const
+    auto InstanceBatch::getSquaredViewDepth( const Camera* cam ) const -> Real
     {
         unsigned long currentFrameNumber = Root::getSingleton().getNextFrameNumber();
 
@@ -541,12 +541,12 @@ class Technique;
         return mCachedCameraDist;
     }
     //-----------------------------------------------------------------------
-    const LightList& InstanceBatch::getLights( ) const noexcept
+    auto InstanceBatch::getLights( ) const noexcept -> const LightList&
     {
         return queryLights();
     }
     //-----------------------------------------------------------------------
-    Technique* InstanceBatch::getTechnique( ) const noexcept
+    auto InstanceBatch::getTechnique( ) const noexcept -> Technique*
     {
         return mMaterial->getBestTechnique( mMaterialLodIndex, this );
     }
@@ -590,7 +590,7 @@ class Technique;
         mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx] = newParam;
     }
     //-----------------------------------------------------------------------
-    const Vector4& InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx )
+    auto InstanceBatch::_getCustomParam( InstancedEntity *instancedEntity, unsigned char idx ) -> const Vector4&
     {
         return mCustomParams[instancedEntity->mInstanceId * mCreator->getNumCustomParams() + idx];
     }

@@ -126,7 +126,7 @@ void CameraMan::frameRendered(const Ogre::FrameEvent &evt)
     }
 }
 
-bool CameraMan::keyPressed(const KeyDownEvent &evt) noexcept
+auto CameraMan::keyPressed(const KeyDownEvent &evt) noexcept -> bool
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -143,7 +143,7 @@ bool CameraMan::keyPressed(const KeyDownEvent &evt) noexcept
     return InputListener::keyPressed(evt);
 }
 
-bool CameraMan::keyReleased(const KeyUpEvent &evt) noexcept
+auto CameraMan::keyReleased(const KeyUpEvent &evt) noexcept -> bool
 {
     if (mStyle == CS_FREELOOK)
     {
@@ -160,7 +160,7 @@ bool CameraMan::keyReleased(const KeyUpEvent &evt) noexcept
     return InputListener::keyReleased(evt);
 }
 
-Ogre::Real CameraMan::getDistToTarget()
+auto CameraMan::getDistToTarget() -> Ogre::Real
 {
     Ogre::Vector3 offset = mCamera->getPosition() - mTarget->_getDerivedPosition() - mOffset;
     return offset.length();
@@ -174,7 +174,7 @@ void CameraMan::setPivotOffset(const Ogre::Vector3& pivot)
     mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TS_LOCAL);
 }
 
-bool CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept
+auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
 {
     if (mStyle == CS_ORBIT)
     {
@@ -208,7 +208,7 @@ bool CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept
     return InputListener::mouseMoved(evt);
 }
 
-bool CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept {
+auto CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept -> bool {
     if (mStyle == CS_ORBIT && evt.y != 0)
     {
         Ogre::Real dist = (mCamera->getPosition() - mTarget->_getDerivedPosition()).length();
@@ -218,7 +218,7 @@ bool CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept {
     return InputListener::mouseWheelRolled(evt);
 }
 
-bool CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept
+auto CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 {
     if (mStyle == CS_ORBIT)
     {
@@ -229,7 +229,7 @@ bool CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept
     return InputListener::mousePressed(evt);
 }
 
-bool CameraMan::mouseReleased(const MouseButtonUpEvent &evt) noexcept
+auto CameraMan::mouseReleased(const MouseButtonUpEvent &evt) noexcept -> bool
 {
     if (mStyle == CS_ORBIT)
     {

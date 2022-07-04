@@ -94,14 +94,14 @@ class VertexData;
                             const String &batchName );
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
 
         /** @see InstanceBatch::buildFrom */
         void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const override;
-        unsigned short getNumWorldTransforms() const noexcept override;
+        auto getNumWorldTransforms() const noexcept -> unsigned short override;
     };
 }
 

@@ -249,7 +249,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    unsigned short Serializer::readChunk(const DataStreamPtr& stream)
+    auto Serializer::readChunk(const DataStreamPtr& stream) -> unsigned short
     {
         unsigned short id;
         readShorts(stream, &id, 1);
@@ -298,7 +298,7 @@ namespace Ogre {
         flipFromLittleEndian(pDest, sizeof(uint32), count);
     }
     //---------------------------------------------------------------------
-    String Serializer::readString(const DataStreamPtr& stream, size_t numChars)
+    auto Serializer::readString(const DataStreamPtr& stream, size_t numChars) -> String
     {
         OgreAssert(numChars <= 255, "");
         char str[255];
@@ -307,7 +307,7 @@ namespace Ogre {
         return str;
     }
     //---------------------------------------------------------------------
-    String Serializer::readString(const DataStreamPtr& stream)
+    auto Serializer::readString(const DataStreamPtr& stream) -> String
     {
         return stream->getLine(false);
     }
@@ -361,12 +361,12 @@ namespace Ogre {
         }
     }
     
-    size_t Serializer::calcChunkHeaderSize()
+    auto Serializer::calcChunkHeaderSize() -> size_t
     {
         return sizeof(uint16) + sizeof(uint32);
     }
 
-    size_t Serializer::calcStringSize( const String& string )
+    auto Serializer::calcStringSize( const String& string ) -> size_t
     {
         // string + terminating \n character
         return string.length() + 1;

@@ -66,7 +66,7 @@ namespace Ogre {
 
         /** Retrieves the custom key less user object associated with this class.
         */
-        [[nodiscard]] ::std::any const& getUserAny() const noexcept;
+        [[nodiscard]] auto getUserAny() const noexcept -> ::std::any const&;
 
         /** Sets any kind of user object on this class instance.
         @remarks
@@ -83,7 +83,7 @@ namespace Ogre {
         @remarks
         In case no object associated with this key the returned Any object will be empty.
         */
-        [[nodiscard]] ::std::any const& getUserAny(const String& key) const;
+        [[nodiscard]] auto getUserAny(const String& key) const -> ::std::any const&;
 
         /** Erase the custom user object associated with this class and key from this binding.
         @param key The key that the requested user object is associated with.
@@ -98,9 +98,9 @@ namespace Ogre {
         /** Copy constructor. Performs a copy of all stored UserAny. */
         UserObjectBindings(const UserObjectBindings& other);
 
-        UserObjectBindings& swap(UserObjectBindings& rhs);
+        auto swap(UserObjectBindings& rhs) -> UserObjectBindings&;
 
-        UserObjectBindings& operator=(const UserObjectBindings& rhs);
+        auto operator=(const UserObjectBindings& rhs) -> UserObjectBindings&;
 
     // Types.
     private:
@@ -127,8 +127,8 @@ namespace Ogre {
         };
 
         /** \brief Protected getter for the attributes map, to allow derived classes to inspect its elements. */
-        [[nodiscard]] const Attributes* getAttributes() const noexcept { return mAttributes.get(); }
-        Attributes* getAttributes() noexcept { return mAttributes.get(); }
+        [[nodiscard]] auto getAttributes() const noexcept -> const Attributes* { return mAttributes.get(); }
+        auto getAttributes() noexcept -> Attributes* { return mAttributes.get(); }
 
     // Attributes.
     private:

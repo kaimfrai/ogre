@@ -77,8 +77,8 @@ namespace Ogre {
         OrientationMode mLastViewportOrientationMode{OR_DEGREE_0};
         float mPixelRatio{1};
 
-        bool parseChildren( DataStreamPtr& chunk, const String& line, int& l,
-            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = nullptr);
+        auto parseChildren( DataStreamPtr& chunk, const String& line, int& l,
+            Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = nullptr) -> bool;
 
         FactoryMap mFactories;
 
@@ -99,20 +99,20 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] const StringVector& getScriptPatterns() const noexcept override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, const String& groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
-        [[nodiscard]] Real getLoadingOrder() const override;
+        [[nodiscard]] auto getLoadingOrder() const -> Real override;
 
         void addOverlay(Overlay* overlay);
 
         /** Create a new Overlay. */
-        Overlay* create(const String& name);
+        auto create(const String& name) -> Overlay*;
         /** Retrieve an Overlay by name 
         @return A pointer to the Overlay, or 0 if not found
         */
-        Overlay* getByName(const String& name);
+        auto getByName(const String& name) -> Overlay*;
         /** Destroys an existing overlay by name */
         void destroy(const String& name);
         /** Destroys an existing overlay */
@@ -120,27 +120,27 @@ namespace Ogre {
         /** Destroys all existing overlays */
         void destroyAll();
         using OverlayMapIterator = MapIterator<OverlayMap>;
-        OverlayMapIterator getOverlayIterator();
+        auto getOverlayIterator() -> OverlayMapIterator;
 
         /** Internal method for queueing the visible overlays for rendering. */
         void _queueOverlaysForRendering(Camera* cam, RenderQueue* pQueue, Viewport *vp);
 
         /** Gets the height of the destination viewport in pixels. */
-        [[nodiscard]] int getViewportHeight() const noexcept;
+        [[nodiscard]] auto getViewportHeight() const noexcept -> int;
         
         /** Gets the width of the destination viewport in pixels. */
-        [[nodiscard]] int getViewportWidth() const noexcept;
-        [[nodiscard]] Real getViewportAspectRatio() const;
+        [[nodiscard]] auto getViewportWidth() const noexcept -> int;
+        [[nodiscard]] auto getViewportAspectRatio() const -> Real;
 
         /** Gets the orientation mode of the destination viewport. */
-        [[nodiscard]] OrientationMode getViewportOrientationMode() const;
+        [[nodiscard]] auto getViewportOrientationMode() const -> OrientationMode;
 
        /** Sets the pixel ratio: how many viewport pixels represent a single overlay pixel (in one dimension).
 
        By default this is an 1:1 mapping. However on HiDPI screens you want to increase that to scale up your Overlay.
        @see RenderWindow::getViewPointToPixelScale */
        void setPixelRatio(float ratio);
-       [[nodiscard]] float getPixelRatio() const noexcept;
+       [[nodiscard]] auto getPixelRatio() const noexcept -> float;
 
         /** Creates a new OverlayElement of the type requested.
         @remarks
@@ -149,13 +149,13 @@ namespace Ogre {
         @param typeName The type of element to create.
         @param instanceName The name to give the new instance.
         */
-        OverlayElement* createOverlayElement(const String& typeName, const String& instanceName, bool = false);
+        auto createOverlayElement(const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
 
         /** Gets a reference to an existing element. */
-        OverlayElement* getOverlayElement(const String& name, bool = false);
+        auto getOverlayElement(const String& name, bool = false) -> OverlayElement*;
 
         /** Tests if an element exists. */
-        bool hasOverlayElement(const String& name, bool = false);
+        auto hasOverlayElement(const String& name, bool = false) -> bool;
         
         /** Destroys a OverlayElement. 
         @remarks
@@ -186,19 +186,19 @@ namespace Ogre {
         void addOverlayElementFactory(OverlayElementFactory* elemFactory);
         
         /** Get const access to the list of registered OverlayElement factories. */
-        [[nodiscard]] const FactoryMap& getOverlayElementFactoryMap() const noexcept {
+        [[nodiscard]] auto getOverlayElementFactoryMap() const noexcept -> const FactoryMap& {
             return mFactories;
         }
 
-        OverlayElement* createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool = false);
+        auto createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
         /**
         *  @remarks
         *  Creates a new OverlayElement object from the specified template name.  The new
         *  object's name, and all of it's children, will be instanceName/orignalName.
         */
-        OverlayElement* cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName);
+        auto cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*;
 
-        OverlayElement* createOverlayElementFromFactory(const String& typeName, const String& instanceName);
+        auto createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*;
 
         /** Override standard Singleton retrieval.
         @remarks
@@ -215,9 +215,9 @@ namespace Ogre {
         but the implementation stays in this single compilation unit,
         preventing link errors.
         */
-        static OverlayManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> OverlayManager&;
         /// @copydoc Singleton::getSingleton()
-        static OverlayManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> OverlayManager*;
     };
 
 

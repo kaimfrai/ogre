@@ -103,13 +103,13 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
-        [[nodiscard]] virtual const String& getName() const noexcept;
+        [[nodiscard]] virtual auto getName() const noexcept -> const String&;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
 
-        [[nodiscard]] virtual uint32 getWidth() const noexcept;
-        [[nodiscard]] virtual uint32 getHeight() const noexcept;
+        [[nodiscard]] virtual auto getWidth() const noexcept -> uint32;
+        [[nodiscard]] virtual auto getHeight() const noexcept -> uint32;
 
         /**
          * Sets the pool ID this RenderTarget should query from. Default value is POOL_DEFAULT.
@@ -121,12 +121,12 @@ struct Box;
         void setDepthBufferPool( uint16 poolId );
 
         //Returns the pool ID this RenderTarget should query from. @see DepthBuffer
-        [[nodiscard]] uint16 getDepthBufferPool() const noexcept;
+        [[nodiscard]] auto getDepthBufferPool() const noexcept -> uint16;
 
-        [[nodiscard]] DepthBuffer* getDepthBuffer() const noexcept;
+        [[nodiscard]] auto getDepthBuffer() const noexcept -> DepthBuffer*;
 
         //Returns false if couldn't attach
-        virtual bool attachDepthBuffer( DepthBuffer *depthBuffer );
+        virtual auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool;
 
         virtual void detachDepthBuffer();
 
@@ -192,22 +192,22 @@ struct Box;
             @param
                 height The relative height of the viewport on the target, as a value between 0 and 1.
         */
-        virtual Viewport* addViewport(Camera* cam, int ZOrder = 0, float left = 0.0f, float top = 0.0f ,
-            float width = 1.0f, float height = 1.0f);
+        virtual auto addViewport(Camera* cam, int ZOrder = 0, float left = 0.0f, float top = 0.0f ,
+            float width = 1.0f, float height = 1.0f) -> Viewport*;
 
         /** Returns the number of viewports attached to this target.*/
-        [[nodiscard]] virtual unsigned short getNumViewports() const noexcept;
+        [[nodiscard]] virtual auto getNumViewports() const noexcept -> unsigned short;
 
         /** Retrieves a pointer to the viewport with the given index. */
-        virtual Viewport* getViewport(unsigned short index);
+        virtual auto getViewport(unsigned short index) -> Viewport*;
 
         /** Retrieves a pointer to the viewport with the given Z-order. 
             @remarks throws if not found.
         */
-        virtual Viewport* getViewportByZOrder(int ZOrder);
+        virtual auto getViewportByZOrder(int ZOrder) -> Viewport*;
 
         /** Returns true if and only if a viewport exists at the given Z-order. */
-        virtual bool hasViewportWithZOrder(int ZOrder);
+        virtual auto hasViewportWithZOrder(int ZOrder) -> bool;
 
         /** Removes a viewport at a given Z-order.
         */
@@ -218,7 +218,7 @@ struct Box;
         virtual void removeAllViewports();
 
         /** Retieves details of current rendering performance. */
-        [[nodiscard]] const FrameStats& getStatistics() const noexcept {
+        [[nodiscard]] auto getStatistics() const noexcept -> const FrameStats& {
             return mStats;
         }
 
@@ -256,7 +256,7 @@ struct Box;
          * 
          * @overload
          */
-        uint getCustomAttribute(const String& name)
+        auto getCustomAttribute(const String& name) -> uint
         {
             uint ret = 0;
             getCustomAttribute(name, &ret);
@@ -288,11 +288,11 @@ struct Box;
         */
         virtual void setPriority( uchar priority ) { mPriority = priority; }
         /** Gets the priority of a render target. */
-        [[nodiscard]] virtual uchar getPriority() const noexcept { return mPriority; }
+        [[nodiscard]] virtual auto getPriority() const noexcept -> uchar { return mPriority; }
 
         /** Used to retrieve or set the active state of the render target.
         */
-        [[nodiscard]] virtual bool isActive() const noexcept;
+        [[nodiscard]] virtual auto isActive() const noexcept -> bool;
 
         /** Used to set the active state of the render target.
         */
@@ -313,7 +313,7 @@ struct Box;
         /** Gets whether this target is automatically updated if Ogre's rendering
             loop or Root::_updateAllRenderTargets is being used.
         */
-        [[nodiscard]] virtual bool isAutoUpdated() const noexcept;
+        [[nodiscard]] virtual auto isAutoUpdated() const noexcept -> bool;
 
         /** Copies the current contents of the render target to a pixelbox. 
         @remarks See suggestPixelFormat for a tip as to the best pixel format to
@@ -325,16 +325,16 @@ struct Box;
         /** Suggests a pixel format to use for extracting the data in this target,
             when calling copyContentsToMemory.
         */
-        [[nodiscard]] virtual PixelFormat suggestPixelFormat() const noexcept { return PF_BYTE_RGBA; }
+        [[nodiscard]] virtual auto suggestPixelFormat() const noexcept -> PixelFormat { return PF_BYTE_RGBA; }
         
         /** Writes the current contents of the render target to the named file. */
         void writeContentsToFile(const String& filename);
 
         /** Writes the current contents of the render target to the (PREFIX)(time-stamp)(SUFFIX) file.
             @return the name of the file used.*/
-        virtual String writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix);
+        virtual auto writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix) -> String;
 
-        [[nodiscard]] virtual bool requiresTextureFlipping() const = 0;
+        [[nodiscard]] virtual auto requiresTextureFlipping() const -> bool = 0;
 
         /** Utility method to notify a render target that a camera has been removed,
         incase it was referring to it as a viewer.
@@ -347,10 +347,10 @@ struct Box;
             This is the case because it holds the context for vertex,
             index buffers and textures.
         */
-        [[nodiscard]] virtual bool isPrimary() const noexcept;
+        [[nodiscard]] virtual auto isPrimary() const noexcept -> bool;
 
 		/** Indicates whether stereo is currently enabled for this target. Default is false. */
-		[[nodiscard]] virtual bool isStereoEnabled() const noexcept;
+		[[nodiscard]] virtual auto isStereoEnabled() const noexcept -> bool;
 		
         /** Indicates whether on rendering, linear colour space is converted to 
             sRGB gamma colour space. This is the exact opposite conversion of
@@ -359,14 +359,14 @@ struct Box;
             enabled through the 'gamma' creation misc parameter. For textures, 
             it is enabled through the hwGamma parameter to the create call.
         */
-        [[nodiscard]] virtual bool isHardwareGammaEnabled() const noexcept { return mHwGamma; }
+        [[nodiscard]] virtual auto isHardwareGammaEnabled() const noexcept -> bool { return mHwGamma; }
 
         /** Indicates whether multisampling is performed on rendering and at what level.
         */
-        [[nodiscard]] virtual uint getFSAA() const noexcept { return mFSAA; }
+        [[nodiscard]] virtual auto getFSAA() const noexcept -> uint { return mFSAA; }
 
         /// RenderSystem specific FSAA option. See @ref RenderSystem::_createRenderWindow for details.
-        [[nodiscard]] virtual const String& getFSAAHint() const noexcept { return mFSAAHint; }
+        [[nodiscard]] virtual auto getFSAAHint() const noexcept -> const String& { return mFSAAHint; }
 
         /** Set the level of multisample AA to be used if hardware support it.
             This option will be ignored if the hardware does not support it 

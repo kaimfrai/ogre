@@ -56,7 +56,7 @@ namespace OgreBites
             mLastSample = nullptr;
         }
 
-        virtual Sample* getCurrentSample() noexcept
+        virtual auto getCurrentSample() noexcept -> Sample*
         {
             return mCurrentSample;
         }
@@ -138,7 +138,7 @@ namespace OgreBites
 
         virtual void loadStartUpSample() {}
 
-        bool isCurrentSamplePaused() noexcept
+        auto isCurrentSamplePaused() noexcept -> bool
         {
             return !mCurrentSample || mSamplePaused;
         }
@@ -164,7 +164,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame started events.
         -----------------------------------------------------------------------------*/
-        bool frameStarted(const Ogre::FrameEvent& evt) override
+        auto frameStarted(const Ogre::FrameEvent& evt) -> bool override
         {
             pollEvents();
 
@@ -175,7 +175,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes rendering queued events.
         -----------------------------------------------------------------------------*/
-        bool frameRenderingQueued(const Ogre::FrameEvent& evt) override
+        auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool override
         {
             // manually call sample callback to ensure correct order
             return !isCurrentSamplePaused() ? mCurrentSample->frameRenderingQueued(evt) : true;
@@ -184,7 +184,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Processes frame ended events.
         -----------------------------------------------------------------------------*/
-        bool frameEnded(const Ogre::FrameEvent& evt) noexcept override
+        auto frameEnded(const Ogre::FrameEvent& evt) noexcept -> bool override
         {
             // manually call sample callback to ensure correct order
             if (mCurrentSample && !mSamplePaused && !mCurrentSample->frameEnded(evt)) return false;
@@ -213,7 +213,7 @@ namespace OgreBites
             if (!isCurrentSamplePaused()) mCurrentSample->windowMoved(rw);
         }
 
-        bool windowClosing(Ogre::RenderWindow* rw) noexcept override
+        auto windowClosing(Ogre::RenderWindow* rw) noexcept -> bool override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->windowClosing(rw);
             return true;
@@ -231,7 +231,7 @@ namespace OgreBites
 
         // keyboard and mouse callbacks which manually call their respective sample callbacks to ensure correct order
 
-        bool keyPressed(const KeyDownEvent& evt) noexcept override
+        auto keyPressed(const KeyDownEvent& evt) noexcept -> bool override
         {
             // Ignore repeated signals from key being held down.
             if (evt.repeat) return true;
@@ -240,71 +240,71 @@ namespace OgreBites
             return true;
         }
 
-        bool keyReleased(const KeyUpEvent& evt) noexcept override
+        auto keyReleased(const KeyUpEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused()) return mCurrentSample->keyReleased(evt);
             return true;
         }
 
-        bool touchMoved(const TouchFingerMotionEvent& evt) noexcept override
+        auto touchMoved(const TouchFingerMotionEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchMoved(evt);
             return true;
         }
 
-        bool mouseMoved(const MouseMotionEvent& evt) noexcept override
+        auto mouseMoved(const MouseMotionEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseMoved(evt);
             return true;
         }
 
-        bool touchPressed(const TouchFingerDownEvent& evt) noexcept override
+        auto touchPressed(const TouchFingerDownEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchPressed(evt);
             return true;
         }
 
-        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override
+        auto mousePressed(const MouseButtonDownEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mousePressed(evt);
             return true;
         }
 
-        bool touchReleased(const TouchFingerUpEvent& evt) noexcept override
+        auto touchReleased(const TouchFingerUpEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->touchReleased(evt);
             return true;
         }
 
-        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override
+        auto mouseReleased(const MouseButtonUpEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseReleased(evt);
             return true;
         }
 
-        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override
+        auto mouseWheelRolled(const MouseWheelEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused())
                 return mCurrentSample->mouseWheelRolled(evt);
             return true;
         }
 
-        bool textInput (const TextInputEvent& evt) noexcept override
+        auto textInput (const TextInputEvent& evt) noexcept -> bool override
         {
             if (!isCurrentSamplePaused ())
                 return mCurrentSample->textInput (evt);
             return true;
         }
 
-        bool isFirstRun() noexcept { return mFirstRun; }
+        auto isFirstRun() noexcept -> bool { return mFirstRun; }
         void setFirstRun(bool flag) { mFirstRun = flag; }
-        bool isLastRun() noexcept { return mLastRun; }
+        auto isLastRun() noexcept -> bool { return mLastRun; }
         void setLastRun(bool flag) { mLastRun = flag; }
     protected:
         /*-----------------------------------------------------------------------------

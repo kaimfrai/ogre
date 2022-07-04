@@ -43,11 +43,11 @@ namespace Ogre {
     //------------------------------------------------------------------------
     //-----------------------------------------------------------------------
     template<> ResourceBackgroundQueue* Singleton<ResourceBackgroundQueue>::msSingleton = nullptr;
-    ResourceBackgroundQueue* ResourceBackgroundQueue::getSingletonPtr() noexcept
+    auto ResourceBackgroundQueue::getSingletonPtr() noexcept -> ResourceBackgroundQueue*
     {
         return msSingleton;
     }
-    ResourceBackgroundQueue& ResourceBackgroundQueue::getSingleton() noexcept
+    auto ResourceBackgroundQueue::getSingleton() noexcept -> ResourceBackgroundQueue&
     {  
         assert( msSingleton );  return ( *msSingleton );  
     }
@@ -113,8 +113,8 @@ namespace Ogre {
         wq->removeResponseHandler(mWorkQueueChannel, this);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::initialiseResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener)
+    auto ResourceBackgroundQueue::initialiseResourceGroup(
+        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -124,9 +124,9 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket 
+    auto 
     ResourceBackgroundQueue::initialiseAllResourceGroups( 
-        ResourceBackgroundQueue::Listener* listener)
+        ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -135,8 +135,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::prepareResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener)
+    auto ResourceBackgroundQueue::prepareResourceGroup(
+        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -146,8 +146,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::loadResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener)
+    auto ResourceBackgroundQueue::loadResourceGroup(
+        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -157,12 +157,12 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::prepare(
+    auto ResourceBackgroundQueue::prepare(
         const String& resType, const String& name, 
         const String& group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
-        ResourceBackgroundQueue::Listener* listener)
+        ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -178,12 +178,12 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::load(
+    auto ResourceBackgroundQueue::load(
         const String& resType, const String& name, 
         const String& group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
-        ResourceBackgroundQueue::Listener* listener)
+        ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -199,8 +199,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //---------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::unload(
-        const String& resType, const String& name, Listener* listener)
+    auto ResourceBackgroundQueue::unload(
+        const String& resType, const String& name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -211,8 +211,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //---------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::unload(
-        const String& resType, ResourceHandle handle, Listener* listener)
+    auto ResourceBackgroundQueue::unload(
+        const String& resType, ResourceHandle handle, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -223,8 +223,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //---------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::unloadResourceGroup(
-        const String& name, Listener* listener)
+    auto ResourceBackgroundQueue::unloadResourceGroup(
+        const String& name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -234,8 +234,8 @@ namespace Ogre {
         return addRequest(req);
     }
     //------------------------------------------------------------------------
-    bool ResourceBackgroundQueue::isProcessComplete(
-            BackgroundProcessTicket ticket)
+    auto ResourceBackgroundQueue::isProcessComplete(
+            BackgroundProcessTicket ticket) -> bool
     {
         return mOutstandingRequestSet.find(ticket) == mOutstandingRequestSet.end();
     }
@@ -247,7 +247,7 @@ namespace Ogre {
         queue->abortRequest( ticket );
     }
     //------------------------------------------------------------------------
-    BackgroundProcessTicket ResourceBackgroundQueue::addRequest(ResourceRequest& req)
+    auto ResourceBackgroundQueue::addRequest(ResourceRequest& req) -> BackgroundProcessTicket
     {
         WorkQueue* queue = Root::getSingleton().getWorkQueue();
 
@@ -262,12 +262,12 @@ namespace Ogre {
         return requestID;
     }
     //-----------------------------------------------------------------------
-    bool ResourceBackgroundQueue::canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
+    auto ResourceBackgroundQueue::canHandleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> bool
     {
         return true;
     }
     //-----------------------------------------------------------------------
-    WorkQueue::Response* ResourceBackgroundQueue::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ)
+    auto ResourceBackgroundQueue::handleRequest(const WorkQueue::Request* req, const WorkQueue* srcQ) -> WorkQueue::Response*
     {
 
         auto resreq = any_cast<ResourceRequest>(req->getData());
@@ -360,7 +360,7 @@ namespace Ogre {
 
     }
     //------------------------------------------------------------------------
-    bool ResourceBackgroundQueue::canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ)
+    auto ResourceBackgroundQueue::canHandleResponse(const WorkQueue::Response* res, const WorkQueue* srcQ) -> bool
     {
         return true;
     }

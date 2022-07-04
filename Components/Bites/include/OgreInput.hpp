@@ -169,19 +169,19 @@ The convention is to return true if the event was handled and false if it should
 struct InputListener {
     virtual ~InputListener() = default;
     virtual void frameRendered(const Ogre::FrameEvent& evt) { }
-    virtual bool keyPressed(const KeyDownEvent& evt) noexcept { return false;}
-    virtual bool keyReleased(const KeyUpEvent& evt) noexcept { return false; }
-    virtual bool touchMoved(const TouchFingerMotionEvent& evt) noexcept { return false; }
-    virtual bool touchPressed(const TouchFingerDownEvent& evt) noexcept { return false; }
-    virtual bool touchReleased(const TouchFingerUpEvent& evt) noexcept { return false; }
-    virtual bool mouseMoved(const MouseMotionEvent& evt) noexcept { return false; }
-    virtual bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept { return false; }
-    virtual bool mousePressed(const MouseButtonDownEvent& evt) noexcept { return false; }
-    virtual bool mouseReleased(const MouseButtonUpEvent& evt) noexcept { return false; }
-    virtual bool textInput(const TextInputEvent& evt) noexcept { return false; }
-    virtual bool axisMoved(const AxisEvent& evt) noexcept { return false; }
-    virtual bool buttonPressed(const ButtonDownEvent& evt) noexcept { return false; }
-    virtual bool buttonReleased(const ButtonUpEvent& evt) noexcept { return false; }
+    virtual auto keyPressed(const KeyDownEvent& evt) noexcept -> bool { return false;}
+    virtual auto keyReleased(const KeyUpEvent& evt) noexcept -> bool { return false; }
+    virtual auto touchMoved(const TouchFingerMotionEvent& evt) noexcept -> bool { return false; }
+    virtual auto touchPressed(const TouchFingerDownEvent& evt) noexcept -> bool { return false; }
+    virtual auto touchReleased(const TouchFingerUpEvent& evt) noexcept -> bool { return false; }
+    virtual auto mouseMoved(const MouseMotionEvent& evt) noexcept -> bool { return false; }
+    virtual auto mouseWheelRolled(const MouseWheelEvent& evt) noexcept -> bool { return false; }
+    virtual auto mousePressed(const MouseButtonDownEvent& evt) noexcept -> bool { return false; }
+    virtual auto mouseReleased(const MouseButtonUpEvent& evt) noexcept -> bool { return false; }
+    virtual auto textInput(const TextInputEvent& evt) noexcept -> bool { return false; }
+    virtual auto axisMoved(const AxisEvent& evt) noexcept -> bool { return false; }
+    virtual auto buttonPressed(const ButtonDownEvent& evt) noexcept -> bool { return false; }
+    virtual auto buttonReleased(const ButtonUpEvent& evt) noexcept -> bool { return false; }
 };
 
 /**
@@ -198,13 +198,13 @@ public:
     InputListenerChain() = default;
     InputListenerChain(std::vector<InputListener*> chain) : mListenerChain(std::move(chain)) {}
 
-    InputListenerChain& operator=(const InputListenerChain& o)
+    auto operator=(const InputListenerChain& o) -> InputListenerChain&
     {
         mListenerChain = o.mListenerChain;
         return *this;
     }
 
-    bool keyPressed(const KeyDownEvent& evt) noexcept override
+    auto keyPressed(const KeyDownEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -213,7 +213,7 @@ public:
         }
         return false;
     }
-    bool keyReleased(const KeyUpEvent& evt) noexcept override
+    auto keyReleased(const KeyUpEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -222,7 +222,7 @@ public:
         }
         return false;
     }
-    bool touchMoved(const TouchFingerMotionEvent& evt) noexcept override
+    auto touchMoved(const TouchFingerMotionEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -231,7 +231,7 @@ public:
         }
         return false;
     }
-    bool touchPressed(const TouchFingerDownEvent& evt) noexcept override
+    auto touchPressed(const TouchFingerDownEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -240,7 +240,7 @@ public:
         }
         return false;
     }
-    bool touchReleased(const TouchFingerUpEvent& evt) noexcept override
+    auto touchReleased(const TouchFingerUpEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -249,7 +249,7 @@ public:
         }
         return false;
     }
-    bool mouseMoved(const MouseMotionEvent& evt) noexcept override
+    auto mouseMoved(const MouseMotionEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -258,7 +258,7 @@ public:
         }
         return false;
     }
-    bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override
+    auto mouseWheelRolled(const MouseWheelEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -267,7 +267,7 @@ public:
         }
         return false;
     }
-    bool mousePressed(const MouseButtonDownEvent& evt) noexcept override
+    auto mousePressed(const MouseButtonDownEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -276,7 +276,7 @@ public:
         }
         return false;
     }
-    bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override
+    auto mouseReleased(const MouseButtonUpEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {
@@ -285,7 +285,7 @@ public:
         }
         return false;
     }
-    bool textInput (const TextInputEvent& evt) noexcept override
+    auto textInput (const TextInputEvent& evt) noexcept -> bool override
     {
         for (auto listner : mListenerChain)
         {

@@ -19,7 +19,7 @@ SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderG
     mShaderGenerator = pShaderGenerator;
 }
 
-Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) {
+auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) -> Ogre::Technique * {
     if (!mShaderGenerator->hasRenderState(schemeName))
     {
         return nullptr;
@@ -53,7 +53,7 @@ Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned shor
     return nullptr;
 }
 
-bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech) noexcept
+auto SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique *tech) noexcept -> bool
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {
@@ -65,7 +65,7 @@ bool SGTechniqueResolverListener::afterIlluminationPassesCreated(Ogre::Technique
     return false;
 }
 
-bool SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech) noexcept
+auto SGTechniqueResolverListener::beforeIlluminationPassesCleared(Ogre::Technique *tech) noexcept -> bool
 {
     if(mShaderGenerator->hasRenderState(tech->getSchemeName()))
     {

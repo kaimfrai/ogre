@@ -9,7 +9,7 @@
 #include "OgrePrerequisites.hpp"
 
 namespace {
-    int safeXErrorHandler (Display *display, XErrorEvent *event)
+    auto safeXErrorHandler (Display *display, XErrorEvent *event) -> int
     {
         // Ignore all XErrorEvents
         return 0;
@@ -19,7 +19,7 @@ namespace {
 
 namespace Ogre
 {
-Display* getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state)
+auto getXDisplay(Display* glDisplay, Atom& deleteWindow, Atom& fullScreen, Atom& state) -> Display*
 {
     char* displayString = glDisplay ? DisplayString(glDisplay) : nullptr;
 
@@ -54,8 +54,8 @@ void validateParentWindow(Display* display, Window parentWindow)
     XSetErrorHandler(oldXErrorHandler);
 }
 
-Window createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
-                     uint& height, Atom wmFullScreen, bool fullScreen)
+auto createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int& left, int& top, uint& width,
+                     uint& height, Atom wmFullScreen, bool fullScreen) -> Window
 {
     XSetWindowAttributes attr;
     attr.background_pixel = 0;
@@ -164,7 +164,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     height = windowAttrib.height;
 }
 
-bool getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes)
+auto getXVideoModes(Display* display, VideoMode& currentMode, VideoModes& videoModes) -> bool
 {
     int dummy;
     if (!XQueryExtension(display, "RANDR", &dummy, &dummy, &dummy))

@@ -66,14 +66,14 @@ class ResourceManager;
         class CmdAttach : public ParamCommand
         {
         public:
-            String doGet(const void* target) const override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, const String& shaderNames) override;
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
-            String doGet(const void* target) const override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, const String& val) override;
         };
 
@@ -84,7 +84,7 @@ class ResourceManager;
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
 
-        String getAttachedShaderNames() const noexcept { return mAttachedShaderNames; }
+        auto getAttachedShaderNames() const noexcept -> String { return mAttachedShaderNames; }
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
@@ -93,25 +93,25 @@ class ResourceManager;
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }
         /** Gets whether matrix packed in column-major order. */
-        bool getColumnMajorMatrices() const noexcept { return mColumnMajorMatrices; }
+        auto getColumnMajorMatrices() const noexcept -> bool { return mColumnMajorMatrices; }
 
         /// Only used for separable programs.
-        virtual bool linkSeparable() noexcept { return false; }
+        virtual auto linkSeparable() noexcept -> bool { return false; }
 
         /// reset link status of separable program
         void resetLinked() { mLinked = 0; }
 
         /// Get the OGRE assigned shader ID.
-        uint getShaderID() const noexcept { return mShaderID; }
+        auto getShaderID() const noexcept -> uint { return mShaderID; }
 
         /// If we are using program pipelines, the OpenGL program handle
-        uint getGLProgramHandle() const noexcept { return mGLProgramHandle; }
+        auto getGLProgramHandle() const noexcept -> uint { return mGLProgramHandle; }
 
         /// Get the uniform cache for this shader
-        GLUniformCache* getUniformCache() noexcept{return &mUniformCache;}
+        auto getUniformCache() noexcept -> GLUniformCache*{return &mUniformCache;}
 
         /// GLSL does not provide access to the low level code of the shader, so use this shader for binding as well
-        GpuProgram* _getBindingDelegate() noexcept override { return this; }
+        auto _getBindingDelegate() noexcept -> GpuProgram* override { return this; }
     protected:
         /// GLSL does not provide access to the low level implementation of the shader, so this method s a no-op
         void createLowLevelImpl() override {}
@@ -119,7 +119,7 @@ class ResourceManager;
         static CmdAttach msCmdAttach;
         static CmdColumnMajorMatrices msCmdColumnMajorMatrices;
 
-        String getResourceLogName() const;
+        auto getResourceLogName() const -> String;
 
         void prepareImpl() override;
 

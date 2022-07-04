@@ -523,7 +523,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    PixelFormat GLXWindow::suggestPixelFormat() const noexcept
+    auto GLXWindow::suggestPixelFormat() const noexcept -> PixelFormat
     {
         return mGLSupport->getContextProfile() == GLNativeSupport::CONTEXT_ES ? PF_BYTE_RGBA : PF_BYTE_RGB;
     }

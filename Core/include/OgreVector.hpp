@@ -68,28 +68,28 @@ namespace Ogre
             data[0] = _x; data[1] = _y; data[2] = _z; data[3] = _w;
         }
         T data[dims];
-        T* ptr() noexcept { return data; }
-        [[nodiscard]] const T* ptr() const noexcept { return data; }
+        auto ptr() noexcept -> T* { return data; }
+        [[nodiscard]] auto ptr() const noexcept -> const T* { return data; }
 
-        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
+        [[nodiscard]] auto operator==(VectorBase const&) const noexcept -> bool = default;
     };
     template <> struct VectorBase<2, Real>
     {
         VectorBase() = default;
         VectorBase(Real _x, Real _y) : x(_x), y(_y) {}
         Real x, y;
-        Real* ptr() { return &x; }
-        [[nodiscard]] const Real* ptr() const { return &x; }
+        auto ptr() -> Real* { return &x; }
+        [[nodiscard]] auto ptr() const -> const Real* { return &x; }
 
         /** Returns a vector at a point half way between this and the passed
             in vector.
         */
-        [[nodiscard]] Vector2 midPoint( const Vector2& vec ) const;
+        [[nodiscard]] auto midPoint( const Vector2& vec ) const -> Vector2;
 
         /** Calculates the 2 dimensional cross-product of 2 vectors, which results
             in a single floating point value which is 2 times the area of the triangle.
         */
-        [[nodiscard]] Real crossProduct( const VectorBase& rkVector ) const
+        [[nodiscard]] auto crossProduct( const VectorBase& rkVector ) const -> Real
         {
             return x * rkVector.y - y * rkVector.x;
         }
@@ -101,7 +101,7 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        [[nodiscard]] Vector2 perpendicular() const;
+        [[nodiscard]] auto perpendicular() const -> Vector2;
 
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
@@ -115,14 +115,14 @@ namespace Ogre
                 vector will not be normalised, normalise it if you wish
                 afterwards.
         */
-        [[nodiscard]] Vector2 randomDeviant(Radian angle) const;
+        [[nodiscard]] auto randomDeviant(Radian angle) const -> Vector2;
 
         /**  Gets the oriented angle between 2 vectors.
         @remarks
             Vectors do not have to be unit-length but must represent directions.
             The angle is comprised between 0 and 2 PI.
         */
-        [[nodiscard]] Radian angleTo(const Vector2& other) const;
+        [[nodiscard]] auto angleTo(const Vector2& other) const -> Radian;
 
         // special points
         static const Vector2 ZERO;
@@ -131,7 +131,7 @@ namespace Ogre
         static const Vector2 NEGATIVE_UNIT_X;
         static const Vector2 NEGATIVE_UNIT_Y;
         static const Vector2 UNIT_SCALE;
-        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
+        [[nodiscard]] auto operator==(VectorBase const&) const noexcept -> bool = default;
     };
 
     template <> struct VectorBase<3, Real>
@@ -139,8 +139,8 @@ namespace Ogre
         VectorBase() = default;
         VectorBase(Real _x, Real _y, Real _z) : x(_x), y(_y), z(_z) {}
         Real x, y, z;
-        Real* ptr() { return &x; }
-        [[nodiscard]] const Real* ptr() const { return &x; }
+        auto ptr() -> Real* { return &x; }
+        [[nodiscard]] auto ptr() const -> const Real* { return &x; }
 
         /** Calculates the cross-product of 2 vectors, i.e. the vector that
             lies perpendicular to them both.
@@ -170,7 +170,7 @@ namespace Ogre
                 and will go <i>inside</i> the screen, towards the cathode tube
                 (assuming you're using a CRT monitor, of course).
         */
-        [[nodiscard]] Vector3 crossProduct( const Vector3& rkVector ) const;
+        [[nodiscard]] auto crossProduct( const Vector3& rkVector ) const -> Vector3;
 
         /** Generates a vector perpendicular to this vector (eg an 'up' vector).
             @remarks
@@ -179,9 +179,9 @@ namespace Ogre
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        [[nodiscard]] Vector3 perpendicular() const;
+        [[nodiscard]] auto perpendicular() const -> Vector3;
 
-        Vector3& operator = ( const Real fScaler )
+        auto operator = ( const Real fScaler ) -> Vector3&
         {
             x = fScaler;
             y = fScaler;
@@ -200,7 +200,7 @@ namespace Ogre
             @return
                 A Real representing the absolute dot product value.
         */
-        [[nodiscard]] Real absDotProduct(const VectorBase& vec) const
+        [[nodiscard]] auto absDotProduct(const VectorBase& vec) const -> Real
         {
             return Math::Abs(x * vec.x) + Math::Abs(y * vec.y) + Math::Abs(z * vec.z);
         }
@@ -208,7 +208,7 @@ namespace Ogre
         /** Returns a vector at a point half way between this and the passed
             in vector.
         */
-        [[nodiscard]] Vector3 midPoint( const Vector3& vec ) const;
+        [[nodiscard]] auto midPoint( const Vector3& vec ) const -> Vector3;
 
         /** Generates a new random vector which deviates from this vector by a
             given angle in a random direction.
@@ -229,7 +229,7 @@ namespace Ogre
                 vector will not be normalised, normalise it if you wish
                 afterwards.
         */
-        [[nodiscard]] Vector3 randomDeviant(const Radian& angle, const Vector3& up = ZERO) const;
+        [[nodiscard]] auto randomDeviant(const Radian& angle, const Vector3& up = ZERO) const -> Vector3;
 
         /** Gets the shortest arc quaternion to rotate this vector to the destination
             vector.
@@ -239,7 +239,7 @@ namespace Ogre
             (if specified, or a generated axis if not) since in this case
             ANY axis of rotation is valid.
         */
-        [[nodiscard]] Quaternion getRotationTo(const Vector3& dest, const Vector3& fallbackAxis = ZERO) const;
+        [[nodiscard]] auto getRotationTo(const Vector3& dest, const Vector3& fallbackAxis = ZERO) const -> Quaternion;
 
         /** Returns whether this vector is within a positional tolerance
             of another vector, also take scale of the vectors into account.
@@ -247,7 +247,7 @@ namespace Ogre
         @param tolerance The amount (related to the scale of vectors) that distance
             of the vector may vary by and still be considered close
         */
-        [[nodiscard]] bool positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const;
+        [[nodiscard]] auto positionCloses(const Vector3& rhs, Real tolerance = 1e-03f) const -> bool;
 
         /** Returns whether this vector is within a directional tolerance
             of another vector.
@@ -256,10 +256,10 @@ namespace Ogre
             still be considered equal
         @note Both vectors should be normalised.
         */
-        [[nodiscard]] bool directionEquals(const Vector3& rhs, const Radian& tolerance) const;
+        [[nodiscard]] auto directionEquals(const Vector3& rhs, const Radian& tolerance) const -> bool;
 
         /// Extract the primary (dominant) axis from this direction vector
-        [[nodiscard]] const Vector3& primaryAxis() const;
+        [[nodiscard]] auto primaryAxis() const -> const Vector3&;
 
         // special points
         static const Vector3 ZERO;
@@ -270,7 +270,7 @@ namespace Ogre
         static const Vector3 NEGATIVE_UNIT_Y;
         static const Vector3 NEGATIVE_UNIT_Z;
         static const Vector3 UNIT_SCALE;
-        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
+        [[nodiscard]] auto operator==(VectorBase const&) const noexcept -> bool = default;
     };
 
     template <> struct VectorBase<4, Real>
@@ -278,10 +278,10 @@ namespace Ogre
         VectorBase() = default;
         VectorBase(Real _x, Real _y, Real _z, Real _w) : x(_x), y(_y), z(_z), w(_w) {}
         Real x, y, z, w;
-        Real* ptr() { return &x; }
-        [[nodiscard]] const Real* ptr() const { return &x; }
+        auto ptr() -> Real* { return &x; }
+        [[nodiscard]] auto ptr() const -> const Real* { return &x; }
 
-        Vector4& operator = ( const Real fScalar)
+        auto operator = ( const Real fScalar) -> Vector4&
         {
             x = fScalar;
             y = fScalar;
@@ -290,7 +290,7 @@ namespace Ogre
             return (Vector4&)*this;
         }
 
-        Vector4& operator = (const VectorBase<3, Real>& rhs)
+        auto operator = (const VectorBase<3, Real>& rhs) -> Vector4&
         {
             x = rhs.x;
             y = rhs.y;
@@ -301,7 +301,7 @@ namespace Ogre
 
         // special points
         static const Vector4 ZERO;
-        [[nodiscard]] bool operator==(VectorBase const&) const noexcept = default;
+        [[nodiscard]] auto operator==(VectorBase const&) const noexcept -> bool = default;
     };
 
     /** Standard N-dimensional vector.
@@ -347,24 +347,24 @@ namespace Ogre
 
         /** Swizzle-like narrowing operations
         */
-        [[nodiscard]] Vector<3, T> xyz() const
+        [[nodiscard]] auto xyz() const -> Vector<3, T>
         {
             static_assert(dims > 3, "just use assignment");
             return Vector<3, T>(ptr());
         }
-        [[nodiscard]] Vector<2, T> xy() const
+        [[nodiscard]] auto xy() const -> Vector<2, T>
         {
             static_assert(dims > 2, "just use assignment");
             return Vector<2, T>(ptr());
         }
 
-        T operator[](size_t i) const
+        auto operator[](size_t i) const -> T
         {
             assert(i < dims);
             return ptr()[i];
         }
 
-        T& operator[](size_t i)
+        auto operator[](size_t i) -> T&
         {
             assert(i < dims);
             return ptr()[i];
@@ -376,7 +376,7 @@ namespace Ogre
         @param tolerance The amount that each element of the vector may vary by
             and still be considered equal
         */
-        [[nodiscard]] bool positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const noexcept
+        [[nodiscard]] auto positionEquals(const Vector& rhs, Real tolerance = 1e-03f) const noexcept -> bool
         {
             for (int i = 0; i < dims; i++)
                 if (!Math::RealEqual(ptr()[i], rhs[i], tolerance))
@@ -384,7 +384,7 @@ namespace Ogre
             return true;
         }
 
-        [[nodiscard]] ::std::partial_ordering operator<=>(const Vector& rhs) const noexcept
+        [[nodiscard]] auto operator<=>(const Vector& rhs) const noexcept -> ::std::partial_ordering
         {
             if constexpr (dims == 0uz)
                 return ::std::partial_ordering::equivalent;
@@ -445,7 +445,7 @@ namespace Ogre
             @return
                 A float representing the dot product value.
         */
-        [[nodiscard]] T dotProduct(const VectorBase<dims, T>& vec) const
+        [[nodiscard]] auto dotProduct(const VectorBase<dims, T>& vec) const -> T
         {
             T ret = 0;
             for (int i = 0; i < dims; i++)
@@ -463,10 +463,10 @@ namespace Ogre
                 want to find the longest / shortest vector without incurring
                 the square root.
         */
-        [[nodiscard]] T squaredLength() const { return dotProduct(*this); }
+        [[nodiscard]] auto squaredLength() const -> T { return dotProduct(*this); }
 
         /** Returns true if this vector is zero length. */
-        [[nodiscard]] bool isZeroLength() const noexcept
+        [[nodiscard]] auto isZeroLength() const noexcept -> bool
         {
             return squaredLength() < 1e-06 * 1e-06;
         }
@@ -478,7 +478,7 @@ namespace Ogre
                 length (e.g. for just comparing lengths) use squaredLength()
                 instead.
         */
-        [[nodiscard]] Real length() const { return Math::Sqrt(squaredLength()); }
+        [[nodiscard]] auto length() const -> Real { return Math::Sqrt(squaredLength()); }
 
         /** Returns the distance to another vector.
             @warning
@@ -487,7 +487,7 @@ namespace Ogre
                 distance (e.g. for just comparing distances) use squaredDistance()
                 instead.
         */
-        [[nodiscard]] Real distance(const Vector& rhs) const
+        [[nodiscard]] auto distance(const Vector& rhs) const -> Real
         {
             return (*this - rhs).length();
         }
@@ -502,7 +502,7 @@ namespace Ogre
                 Use this if you want to find the longest / shortest distance
                 without incurring the square root.
         */
-        [[nodiscard]] T squaredDistance(const Vector& rhs) const
+        [[nodiscard]] auto squaredDistance(const Vector& rhs) const -> T
         {
             return (*this - rhs).squaredLength();
         }
@@ -516,7 +516,7 @@ namespace Ogre
                 will be no changes made to their components.
             @return The previous length of the vector.
         */
-        Real normalise()
+        auto normalise() -> Real
         {
             Real fLength = length();
 
@@ -535,7 +535,7 @@ namespace Ogre
 
         /** As normalise, except that this vector is unaffected and the
             normalised vector is returned as a copy. */
-        [[nodiscard]] Vector normalisedCopy() const
+        [[nodiscard]] auto normalisedCopy() const -> Vector
         {
             Vector ret = *this;
             ret.normalise();
@@ -543,7 +543,7 @@ namespace Ogre
         }
 
         /// Check whether this vector contains valid values
-        [[nodiscard]] bool isNaN() const noexcept
+        [[nodiscard]] auto isNaN() const noexcept -> bool
         {
             for (int i = 0; i < dims; i++)
                 if (Math::isNaN(ptr()[i]))
@@ -555,7 +555,7 @@ namespace Ogre
         @remarks
             Vectors do not have to be unit-length but must represent directions.
         */
-        [[nodiscard]] Radian angleBetween(const Vector& dest) const
+        [[nodiscard]] auto angleBetween(const Vector& dest) const -> Radian
         {
             Real lenProduct = length() * dest.length();
 
@@ -573,17 +573,17 @@ namespace Ogre
         /** Calculates a reflection vector to the plane with the given normal .
         @remarks NB assumes 'this' is pointing AWAY FROM the plane, invert if it is not.
         */
-        [[nodiscard]] Vector reflect(const Vector& normal) const { return *this - (2 * dotProduct(normal) * normal); }
+        [[nodiscard]] auto reflect(const Vector& normal) const -> Vector { return *this - (2 * dotProduct(normal) * normal); }
 
         // Vector: arithmetic updates
-        Vector& operator*=(Real s)
+        auto operator*=(Real s) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] *= s;
             return *this;
         }
 
-        Vector& operator/=(Real s)
+        auto operator/=(Real s) -> Vector&
         {
             assert( s != 0.0 ); // legacy assert
             Real fInv = 1.0f/s;
@@ -592,42 +592,42 @@ namespace Ogre
             return *this;
         }
 
-        Vector& operator+=(Real s)
+        auto operator+=(Real s) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] += s;
             return *this;
         }
 
-        Vector& operator-=(Real s)
+        auto operator-=(Real s) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] -= s;
             return *this;
         }
 
-        Vector& operator+=(const Vector& b)
+        auto operator+=(const Vector& b) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] += b[i];
             return *this;
         }
 
-        Vector& operator-=(const Vector& b)
+        auto operator-=(const Vector& b) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] -= b[i];
             return *this;
         }
 
-        Vector& operator*=(const Vector& b)
+        auto operator*=(const Vector& b) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] *= b[i];
             return *this;
         }
 
-        Vector& operator/=(const Vector& b)
+        auto operator/=(const Vector& b) -> Vector&
         {
             for (int i = 0; i < dims; i++)
                 ptr()[i] /= b[i];
@@ -635,19 +635,19 @@ namespace Ogre
         }
 
         // Scalar * Vector
-        friend Vector operator*(Real s, Vector v)
+        friend auto operator*(Real s, Vector v) -> Vector
         {
             v *= s;
             return v;
         }
 
-        friend Vector operator+(Real s, Vector v)
+        friend auto operator+(Real s, Vector v) -> Vector
         {
             v += s;
             return v;
         }
 
-        friend Vector operator-(Real s, const Vector& v)
+        friend auto operator-(Real s, const Vector& v) -> Vector
         {
             Vector ret;
             for (int i = 0; i < dims; i++)
@@ -655,7 +655,7 @@ namespace Ogre
             return ret;
         }
 
-        friend Vector operator/(Real s, const Vector& v)
+        friend auto operator/(Real s, const Vector& v) -> Vector
         {
             Vector ret;
             for (int i = 0; i < dims; i++)
@@ -664,68 +664,68 @@ namespace Ogre
         }
 
         // Vector * Scalar
-        Vector operator-() const
+        auto operator-() const -> Vector
         {
             return -1 * *this;
         }
 
-        const Vector& operator+() const
+        auto operator+() const -> const Vector&
         {
             return *this;
         }
 
-        Vector operator*(Real s) const
+        auto operator*(Real s) const -> Vector
         {
             return s * *this;
         }
 
-        Vector operator/(Real s) const
+        auto operator/(Real s) const -> Vector
         {
             assert( s != 0.0 ); // legacy assert
             Real fInv = 1.0f / s;
             return fInv * *this;
         }
 
-        Vector operator-(Real s) const
+        auto operator-(Real s) const -> Vector
         {
             return -s + *this;
         }
 
-        Vector operator+(Real s) const
+        auto operator+(Real s) const -> Vector
         {
             return s + *this;
         }
 
         // Vector * Vector
-        Vector operator+(const Vector& b) const
+        auto operator+(const Vector& b) const -> Vector
         {
             Vector ret = *this;
             ret += b;
             return ret;
         }
 
-        Vector operator-(const Vector& b) const
+        auto operator-(const Vector& b) const -> Vector
         {
             Vector ret = *this;
             ret -= b;
             return ret;
         }
 
-        Vector operator*(const Vector& b) const
+        auto operator*(const Vector& b) const -> Vector
         {
             Vector ret = *this;
             ret *= b;
             return ret;
         }
 
-        Vector operator/(const Vector& b) const
+        auto operator/(const Vector& b) const -> Vector
         {
             Vector ret = *this;
             ret /= b;
             return ret;
         }
 
-        friend std::ostream& operator<<(std::ostream& o, const Vector& v)
+        friend auto operator<<(std::ostream& o, const Vector& v) -> std::ostream&
         {
             o << "Vector" << dims << "(";
             for (int i = 0; i < dims; i++) {
@@ -737,14 +737,14 @@ namespace Ogre
         }
     };
 
-    inline Vector2 VectorBase<2, Real>::midPoint( const Vector2& vec ) const
+    inline auto VectorBase<2, Real>::midPoint( const Vector2& vec ) const -> Vector2
     {
         return {
             ( x + vec.x ) * 0.5f,
             ( y + vec.y ) * 0.5f };
     }
 
-    inline Vector2 VectorBase<2, Real>::randomDeviant(Radian angle) const
+    inline auto VectorBase<2, Real>::randomDeviant(Radian angle) const -> Vector2
     {
         angle *= Math::RangeRandom(-1, 1);
         Real cosa = Math::Cos(angle);
@@ -753,7 +753,7 @@ namespace Ogre
                        sina * x + cosa * y};
     }
 
-    inline Radian VectorBase<2, Real>::angleTo(const Vector2& other) const
+    inline auto VectorBase<2, Real>::angleTo(const Vector2& other) const -> Radian
     {
         Radian angle = ((const Vector2*)this)->angleBetween(other);
 
@@ -763,12 +763,12 @@ namespace Ogre
         return angle;
     }
 
-    inline Vector2 VectorBase<2, Real>::perpendicular() const
+    inline auto VectorBase<2, Real>::perpendicular() const -> Vector2
     {
         return {-y, x};
     }
 
-    inline Vector3 VectorBase<3, Real>::perpendicular() const
+    inline auto VectorBase<3, Real>::perpendicular() const -> Vector3
     {
         // From Sam Hocevar's article "On picking an orthogonal
         // vector (and combing coconuts)"
@@ -777,7 +777,7 @@ namespace Ogre
         return perp.normalisedCopy();
     }
 
-    inline Vector3 VectorBase<3, Real>::crossProduct( const Vector3& rkVector ) const
+    inline auto VectorBase<3, Real>::crossProduct( const Vector3& rkVector ) const -> Vector3
     {
         return {
             y * rkVector.z - z * rkVector.y,
@@ -785,7 +785,7 @@ namespace Ogre
             x * rkVector.y - y * rkVector.x};
     }
 
-    inline Vector3 VectorBase<3, Real>::midPoint( const Vector3& vec ) const
+    inline auto VectorBase<3, Real>::midPoint( const Vector3& vec ) const -> Vector3
     {
         return {
             ( x + vec.x ) * 0.5f,
@@ -793,7 +793,7 @@ namespace Ogre
             ( z + vec.z ) * 0.5f };
     }
 
-    inline Vector3 VectorBase<3, Real>::randomDeviant(const Radian& angle, const Vector3& up) const
+    inline auto VectorBase<3, Real>::randomDeviant(const Radian& angle, const Vector3& up) const -> Vector3
     {
         Vector3 newUp;
 
@@ -817,7 +817,7 @@ namespace Ogre
         return q * (const Vector3&)(*this);
     }
 
-    inline Quaternion VectorBase<3, Real>::getRotationTo(const Vector3& dest, const Vector3& fallbackAxis) const
+    inline auto VectorBase<3, Real>::getRotationTo(const Vector3& dest, const Vector3& fallbackAxis) const -> Quaternion
     {
         // From Sam Hocevar's article "Quaternion from two vectors:
         // the final version"
@@ -846,13 +846,13 @@ namespace Ogre
         return q;
     }
 
-    inline bool VectorBase<3, Real>::positionCloses(const Vector3& rhs, Real tolerance) const
+    inline auto VectorBase<3, Real>::positionCloses(const Vector3& rhs, Real tolerance) const -> bool
     {
         return ((const Vector3*)this)->squaredDistance(rhs) <=
             (((const Vector3*)this)->squaredLength() + rhs.squaredLength()) * tolerance;
     }
 
-    inline bool VectorBase<3, Real>::directionEquals(const Vector3& rhs, const Radian& tolerance) const
+    inline auto VectorBase<3, Real>::directionEquals(const Vector3& rhs, const Radian& tolerance) const -> bool
     {
         Real dot = rhs.dotProduct(*this);
         Radian angle = Math::ACos(dot);
@@ -860,7 +860,7 @@ namespace Ogre
         return Math::Abs(angle.valueRadians()) <= tolerance.valueRadians();
     }
 
-    inline const Vector3& VectorBase<3, Real>::primaryAxis() const
+    inline auto VectorBase<3, Real>::primaryAxis() const -> const Vector3&
     {
         Real absx = Math::Abs(x);
         Real absy = Math::Abs(y);
@@ -878,27 +878,27 @@ namespace Ogre
     }
 
     // Math functions
-    inline Vector3 Math::calculateBasicFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3)
+    inline auto Math::calculateBasicFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
     {
         Vector3 normal = (v2 - v1).crossProduct(v3 - v1);
         normal.normalise();
         return normal;
     }
-    inline Vector4 Math::calculateFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3)
+    inline auto Math::calculateFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector4
     {
         Vector3 normal = calculateBasicFaceNormal(v1, v2, v3);
         // Now set up the w (distance of tri from origin
         return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
     }
-    inline Vector3 Math::calculateBasicFaceNormalWithoutNormalize(
-        const Vector3& v1, const Vector3& v2, const Vector3& v3)
+    inline auto Math::calculateBasicFaceNormalWithoutNormalize(
+        const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
     {
         return (v2 - v1).crossProduct(v3 - v1);
     }
 
-    inline Vector4 Math::calculateFaceNormalWithoutNormalize(const Vector3& v1,
+    inline auto Math::calculateFaceNormalWithoutNormalize(const Vector3& v1,
                                                              const Vector3& v2,
-                                                             const Vector3& v3)
+                                                             const Vector3& v3) -> Vector4
     {
         Vector3 normal = calculateBasicFaceNormalWithoutNormalize(v1, v2, v3);
         // Now set up the w (distance of tri from origin)

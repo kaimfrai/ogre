@@ -61,7 +61,7 @@ namespace Ogre
         @see
             RenderSystem
         */
-        virtual bool display() = 0;
+        virtual auto display() -> bool = 0;
     };
     /** @} */
     /** @} */

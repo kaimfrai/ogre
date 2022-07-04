@@ -118,7 +118,7 @@ namespace Ogre {
     using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
     using ConstShadowTextureConfigIterator = ConstVectorIterator<ShadowTextureConfigList>;
 
-    bool operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs) noexcept;
+    auto operator== ( const ShadowTextureConfig& lhs, const ShadowTextureConfig& rhs) noexcept -> bool;
 
     /** Structure for holding a position & orientation pair. */
     struct ViewPoint
@@ -240,7 +240,7 @@ namespace Ogre {
             may sort.
         @return true if you sorted the list, false otherwise.
         */
-        virtual bool sortLightsAffectingFrustum(LightList& lightList)
+        virtual auto sortLightsAffectingFrustum(LightList& lightList) -> bool
                     { (void)lightList; return false; }
     };
 
@@ -296,12 +296,12 @@ namespace Ogre {
         */
         struct materialLess
         {
-            bool operator()(const Material* x, const Material* y) const;
+            auto operator()(const Material* x, const Material* y) const -> bool;
         };
         /// Comparator for sorting lights relative to a point
         struct lightLess
         {
-            bool operator()(const Light* a, const Light* b) const;
+            auto operator()(const Light* a, const Light* b) const -> bool;
         };
 
         /// Describes the stage of rendering when performing complex illumination
@@ -455,9 +455,9 @@ namespace Ogre {
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.
-        virtual SceneNode* createSceneNodeImpl();
+        virtual auto createSceneNodeImpl() -> SceneNode*;
         /// Subclasses can override this to ensure their specialised SceneNode is used.
-        virtual SceneNode* createSceneNodeImpl(const String& name);
+        virtual auto createSceneNodeImpl(const String& name) -> SceneNode*;
 
         /// Instance name
         String mName;
@@ -564,12 +564,12 @@ namespace Ogre {
             std::array<Entity*, 5> mSkyDomeEntity;
             Quaternion mSkyDomeOrientation;
 
-            MeshPtr createSkydomePlane(
+            auto createSkydomePlane(
                 BoxPlane bp,
                 Real curvature, Real tiling, Real distance,
                 const Quaternion& orientation,
                 int xsegments, int ysegments, int ySegmentsToKeep,
-                const String& groupName);
+                const String& groupName) -> MeshPtr;
             void _updateRenderQueue(RenderQueue* queue) override;
         public:
             SkyDomeRenderer(SceneManager* owner)  : SkyRenderer(owner) {}
@@ -621,7 +621,7 @@ namespace Ogre {
             Vector3 position;   /// Sets to zero if directional light
             uint32 lightMask;   /// Light mask
 
-            [[nodiscard]] bool operator== (const LightInfo& rhs) const noexcept = default;
+            [[nodiscard]] auto operator== (const LightInfo& rhs) const noexcept -> bool = default;
         };
 
         using LightInfoList = std::vector<LightInfo>;
@@ -643,12 +643,12 @@ namespace Ogre {
         @remarks
             This method create new collection if the collection does not exist.
         */
-        MovableObjectCollection* getMovableObjectCollection(const String& typeName);
+        auto getMovableObjectCollection(const String& typeName) -> MovableObjectCollection*;
         /** Gets the movable object collection for the given type name.
         @remarks
             This method throw exception if the collection does not exist.
         */
-        const MovableObjectCollection* getMovableObjectCollection(const String& typeName) const;
+        auto getMovableObjectCollection(const String& typeName) const -> const MovableObjectCollection*;
 
         /** Internal method for initialising the render queue.
         @remarks
@@ -743,7 +743,7 @@ namespace Ogre {
                 and fudge the AutoParamDataSource to set black lighting for
                 passes with vertex programs.
             */
-            const Pass* deriveShadowCasterPass(const Pass* pass);
+            auto deriveShadowCasterPass(const Pass* pass) -> const Pass*;
             /** Internal method for turning a regular pass into a shadow receiver pass.
             @remarks
             This is only used for texture shadows, basically we're trying to
@@ -752,7 +752,7 @@ namespace Ogre {
             all fixed function passes, but will merge in a vertex program
             for passes with vertex programs.
             */
-            const Pass* deriveShadowReceiverPass(const Pass* pass);
+            auto deriveShadowReceiverPass(const Pass* pass) -> const Pass*;
 
             void initShadowVolumeMaterials();
             void setShadowTextureCasterMaterial(const MaterialPtr& mat);
@@ -781,7 +781,7 @@ namespace Ogre {
                 QueuedRenderableCollection::OrganisationMode om);
 
             /**  Returns the shadow caster AAB for a specific light-camera combination */
-            const VisibleObjectsBoundsInfo& getShadowCasterBoundsInfo(const Light* light, size_t iteration) const;
+            auto getShadowCasterBoundsInfo(const Light* light, size_t iteration) const -> const VisibleObjectsBoundsInfo&;
 
             /** Internal method for rendering all the objects for a given light into the
                 stencil buffer.
@@ -804,11 +804,11 @@ namespace Ogre {
                 Pass* pass, const LightList *manualLightList, unsigned long flags,
                 bool secondpass, bool zfail, bool twosided);
 
-            size_t getShadowTexIndex(size_t lightIndex);
+            auto getShadowTexIndex(size_t lightIndex) -> size_t;
 
             void setShadowIndexBufferSize(size_t size);
 
-            const TexturePtr& getShadowTexture(size_t shadowIndex);
+            auto getShadowTexture(size_t shadowIndex) -> const TexturePtr&;
 
             void resolveShadowTexture(TextureUnitState* tu, size_t shadowIndex, size_t shadowTexUnitIndex) const;
 
@@ -855,8 +855,8 @@ namespace Ogre {
                     mLight = light;
                     mFarDistSquared = farDistSquared;
                 }
-                bool queryResult(MovableObject* object) override;
-                bool queryResult(SceneQuery::WorldFragment* fragment) override;
+                auto queryResult(MovableObject* object) -> bool override;
+                auto queryResult(SceneQuery::WorldFragment* fragment) -> bool override;
             };
 
             std::unique_ptr<ShadowCasterSceneQueryListener> mShadowCasterQueryListener;
@@ -864,7 +864,7 @@ namespace Ogre {
             /** Internal method for locating a list of shadow casters which
                 could be affecting the frustum for a given light.
             */
-            const ShadowCasterList& findShadowCastersForLight(const Light* light, const Camera* camera);
+            auto findShadowCastersForLight(const Light* light, const Camera* camera) -> const ShadowCasterList&;
             /// Internal method for firing the texture shadows updated event
             void fireShadowTexturesUpdated(size_t numberOfShadowTextures);
             /// Internal method for firing the pre caster texture shadows event
@@ -880,7 +880,7 @@ namespace Ogre {
             allow the SceneManager to omit it if required. A return value of false
             skips this pass. 
         */
-        bool validatePassForRendering(const Pass* pass);
+        auto validatePassForRendering(const Pass* pass) -> bool;
 
         /** Internal method to validate whether a Renderable should be allowed to render.
         @remarks
@@ -888,7 +888,7 @@ namespace Ogre {
         allow the SceneManager to omit it if required. A return value of false
         skips it. 
         */
-        bool validateRenderableForRendering(const Pass* pass, const Renderable* rend);
+        auto validateRenderableForRendering(const Pass* pass, const Renderable* rend) -> bool;
 
         /// Flag indicating whether SceneNodes will be rendered as a set of 3 axes
         bool mDisplayNodes{false};
@@ -922,9 +922,9 @@ namespace Ogre {
         /// Internal method for firing the queue end event
         void firePostRenderQueues();
         /// Internal method for firing the queue start event, returns true if queue is to be skipped
-        virtual bool fireRenderQueueStarted(uint8 id, const String& invocation);
+        virtual auto fireRenderQueueStarted(uint8 id, const String& invocation) -> bool;
         /// Internal method for firing the queue end event, returns true if queue is to be repeated
-        virtual bool fireRenderQueueEnded(uint8 id, const String& invocation);
+        virtual auto fireRenderQueueEnded(uint8 id, const String& invocation) -> bool;
         /// Internal method for firing when rendering a single object.
         void fireRenderSingleObject(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
             const LightList* pLightList, bool suppressRenderStateChanges);
@@ -962,7 +962,7 @@ namespace Ogre {
             bool lightScissoringClipping, bool doLightIteration, const LightList* manualLightList = nullptr);
 
         /** Internal method for creating the AutoParamDataSource instance. */
-        AutoParamDataSource* createAutoParamDataSource() const
+        auto createAutoParamDataSource() const -> AutoParamDataSource*
         {
             return new AutoParamDataSource();
         }
@@ -1001,7 +1001,7 @@ namespace Ogre {
         */
         struct lightsForShadowTextureLess
         {
-            bool operator()(const Light* l1, const Light* l2) const;
+            auto operator()(const Light* l1, const Light* l2) const -> bool;
         };
 
 
@@ -1045,7 +1045,7 @@ namespace Ogre {
         /** Pause rendering of the frame. This has to be called when inside a renderScene call
             (Usually using a listener of some sort)
         */
-        RenderContext* _pauseRendering();
+        auto _pauseRendering() -> RenderContext*;
         /** Resume rendering of the frame. This has to be called after a _pauseRendering call
         @param context The rendring context, as returned by the _pauseRendering call
         */
@@ -1069,12 +1069,12 @@ namespace Ogre {
             bool suppressShadows, bool suppressRenderState);
 
         /// Set up a scissor rectangle from a group of lights
-        ClipResult buildAndSetScissor(const LightList& ll, const Camera* cam);
+        auto buildAndSetScissor(const LightList& ll, const Camera* cam) -> ClipResult;
         /// Update a scissor rectangle from a single light
         void buildScissor(const Light* l, const Camera* cam, RealRect& rect);
         void resetScissor();
         /// Build a set of user clip planes from a single non-directional light
-        ClipResult buildAndSetLightClip(const LightList& ll);
+        auto buildAndSetLightClip(const LightList& ll) -> ClipResult;
         void buildLightClip(const Light* l, PlaneList& planes);
         void resetLightClip();
         void checkCachedLightClippingInfo(bool forceScissorRectsInvalidation = false);
@@ -1123,7 +1123,7 @@ namespace Ogre {
         virtual ~SceneManager();
 
         /** Return the instance name of this SceneManager. */
-        const String& getName() const noexcept { return mName; }
+        auto getName() const noexcept -> const String& { return mName; }
 
         /** Retrieve the type name of this scene manager.
         @remarks
@@ -1131,7 +1131,7 @@ namespace Ogre {
             return the type name of this SceneManager which agrees with 
             the type name of the SceneManagerFactory which created it.
         */
-        virtual const String& getTypeName() const noexcept = 0;
+        virtual auto getTypeName() const noexcept -> const String& = 0;
 
         using CameraIterator = MapIterator<CameraList>;
         /// @name Cameras
@@ -1143,16 +1143,16 @@ namespace Ogre {
             @param
                 name Name to give the new camera.
         */
-        virtual Camera* createCamera(const String& name);
+        virtual auto createCamera(const String& name) -> Camera*;
 
         /** Retrieves a pointer to the named camera.
         @note Throws an exception if the named instance does not exist
         */
-        Camera* getCamera(const String& name) const;
+        auto getCamera(const String& name) const -> Camera*;
 
         /** Returns whether a camera with the given name exists.
         */
-        bool hasCamera(const String& name) const;
+        auto hasCamera(const String& name) const -> bool;
 
         /** Removes a camera from the scene.
             @remarks
@@ -1200,11 +1200,11 @@ namespace Ogre {
         /** Get whether to use camera-relative co-ordinates when rendering, ie
             to always place the camera at the origin and move the world around it.
         */
-        bool getCameraRelativeRendering() const noexcept { return mCameraRelativeRendering; }
+        auto getCameraRelativeRendering() const noexcept -> bool { return mCameraRelativeRendering; }
 
         /** Returns a const version of the camera list.
         */
-        const CameraList& getCameras() const noexcept { return mCameras; }
+        auto getCameras() const noexcept -> const CameraList& { return mCameras; }
         /// @}
 
         /// @name Lights
@@ -1219,10 +1219,10 @@ namespace Ogre {
             @param
                 name The name of the new light, to identify it later.
         */
-        virtual Light* createLight(const String& name);
+        virtual auto createLight(const String& name) -> Light*;
 
         /// @overload
-        Light* createLight(const String& name, Light::LightTypes type)
+        auto createLight(const String& name, Light::LightTypes type) -> Light*
         {
             auto l = createLight(name);
             l->setType(type);
@@ -1230,10 +1230,10 @@ namespace Ogre {
         }
 
         /** Creates a light with a generated name. */
-        virtual Light* createLight();
+        virtual auto createLight() -> Light*;
 
         /// @overload
-        Light* createLight(Light::LightTypes type)
+        auto createLight(Light::LightTypes type) -> Light*
         {
             auto l = createLight();
             l->setType(type);
@@ -1241,18 +1241,18 @@ namespace Ogre {
         }
 
         /// @copydoc getMovableObject()
-        virtual Light* getLight(const String& name) const;
+        virtual auto getLight(const String& name) const -> Light*;
 
         /// @copydoc hasMovableObject()
-        virtual bool hasLight(const String& name) const;
+        virtual auto hasLight(const String& name) const -> bool;
 
         /** Retrieve a set of clipping planes for a given light. 
         */
-        const PlaneList& getLightClippingPlanes(Light* l);
+        auto getLightClippingPlanes(Light* l) -> const PlaneList&;
 
         /** Retrieve a scissor rectangle for a given light and camera. 
         */
-        const RealRect& getLightScissorRect(Light* l, const Camera* cam);
+        auto getLightScissorRect(Light* l, const Camera* cam) -> const RealRect&;
 
         /** Scissor rects are cached during frame, and this cache should be explicitly invalidated
             if several renders are done during one frame using different projections matrices,
@@ -1289,13 +1289,13 @@ namespace Ogre {
             changes are detected (including changes to the light list itself or to a light's
             position or attenuation range) then it increases the lights dirty counter.
         */
-        ulong _getLightsDirtyCounter() const noexcept { return mLightsDirtyCounter; }
+        auto _getLightsDirtyCounter() const noexcept -> ulong { return mLightsDirtyCounter; }
 
         /** Get the list of lights which could be affecting the frustum.
         @remarks
             This returns a cached light list which is populated when rendering the scene.
         */
-        const LightList& _getLightsAffectingFrustum() const;
+        auto _getLightsAffectingFrustum() const -> const LightList&;
 
         /** Populate a light list with an ordered set of the lights which are closest
         to the position specified.
@@ -1338,10 +1338,10 @@ namespace Ogre {
                 If you wish to create a node with a specific name, call the alternative method
                 which takes a name parameter.
         */
-        virtual SceneNode* createSceneNode();
+        virtual auto createSceneNode() -> SceneNode*;
 
         /// @overload
-        virtual SceneNode* createSceneNode(const String& name);
+        virtual auto createSceneNode(const String& name) -> SceneNode*;
 
         /** Destroys a SceneNode.
         @remarks
@@ -1369,7 +1369,7 @@ namespace Ogre {
                 However, in all cases there is only ever one root node of
                 the hierarchy, and this method returns a pointer to it.
         */
-        SceneNode* getRootSceneNode() noexcept;
+        auto getRootSceneNode() noexcept -> SceneNode*;
 
         /** Retrieves a named SceneNode from the scene graph.
 
@@ -1378,11 +1378,11 @@ namespace Ogre {
             @param name
             @param throwExceptionIfNotFound Throws an exception if the named instance does not exist
         */
-        SceneNode* getSceneNode(const String& name, bool throwExceptionIfNotFound = true) const;
+        auto getSceneNode(const String& name, bool throwExceptionIfNotFound = true) const -> SceneNode*;
 
         /** Returns whether a scene node with the given name exists.
         */
-        bool hasSceneNode(const String& name) const { return getSceneNode(name, false) != nullptr; }
+        auto hasSceneNode(const String& name) const -> bool { return getSceneNode(name, false) != nullptr; }
 
         /** Tells the SceneManager whether it should render the SceneNodes which
             make up the scene as well as the objects in the scene.
@@ -1393,15 +1393,15 @@ namespace Ogre {
         */
         void setDisplaySceneNodes(bool display);
         /** Returns true if all scene nodes axis are to be displayed */
-        bool getDisplaySceneNodes() const noexcept {return mDisplayNodes;}
+        auto getDisplaySceneNodes() const noexcept -> bool {return mDisplayNodes;}
 
         /** Allows all bounding boxes of scene nodes to be displayed. */
         void showBoundingBoxes(bool bShow);
 
         /** Returns if all bounding boxes of scene nodes are to be displayed */
-        bool getShowBoundingBoxes() const noexcept;
+        auto getShowBoundingBoxes() const noexcept -> bool;
 
-        DebugDrawer* getDebugDrawer() const noexcept { return mDebugDrawer.get(); }
+        auto getDebugDrawer() const noexcept -> DebugDrawer* { return mDebugDrawer.get(); }
         /// @}
 
         /** Prefab shapes available without loading a model.
@@ -1425,7 +1425,7 @@ namespace Ogre {
                 mesh will be loaded if it is not already.
             @param groupName The resource name where the mesh lives
         */
-        Entity* createEntity(const String& entityName, const String& meshName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        auto createEntity(const String& entityName, const String& meshName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME ) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh).
             @param
@@ -1433,20 +1433,20 @@ namespace Ogre {
             @param
                 pMesh The pointer to the Mesh it is to be based on.
         */
-        Entity* createEntity(const String& entityName, const MeshPtr& pMesh );
+        auto createEntity(const String& entityName, const MeshPtr& pMesh ) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) with an autogenerated name.
             @param
                 meshName The name of the Mesh it is to be based on (e.g. 'knot.oof'). The
                 mesh will be loaded if it is not already.
         */
-        Entity* createEntity(const String& meshName);
+        auto createEntity(const String& meshName) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) with an autogenerated name.
             @param
                 pMesh The pointer to the Mesh it is to be based on.
         */
-        Entity* createEntity(const MeshPtr& pMesh);
+        auto createEntity(const MeshPtr& pMesh) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) from a range of prefab shapes.
             @param
@@ -1454,16 +1454,16 @@ namespace Ogre {
             @param
                 ptype The prefab type.
         */
-        Entity* createEntity(const String& entityName, PrefabType ptype);
+        auto createEntity(const String& entityName, PrefabType ptype) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) from a range of prefab shapes, generating the name.
             @param ptype The prefab type.
         */
-        Entity* createEntity(PrefabType ptype);
+        auto createEntity(PrefabType ptype) -> Entity*;
         /// @copydoc getMovableObject()
-        Entity* getEntity(const String& name) const;
+        auto getEntity(const String& name) const -> Entity*;
         /// @copydoc hasMovableObject()
-        bool hasEntity(const String& name) const;
+        auto hasEntity(const String& name) const -> bool;
 
         /** Removes & destroys an Entity from the SceneManager.
             @warning
@@ -1497,15 +1497,15 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        ManualObject* createManualObject(const String& name);
+        auto createManualObject(const String& name) -> ManualObject*;
         /** Create a ManualObject, an object which you populate with geometry
         manually through a GL immediate-mode style interface, generating the name.
         */
-        ManualObject* createManualObject();
+        auto createManualObject() -> ManualObject*;
         /// @copydoc getMovableObject()
-        ManualObject* getManualObject(const String& name) const;
+        auto getManualObject(const String& name) const -> ManualObject*;
         /// @copydoc hasMovableObject()
-        bool hasManualObject(const String& name) const;
+        auto hasManualObject(const String& name) const -> bool;
 
         /** Removes & destroys a ManualObject from the SceneManager.
         */
@@ -1524,13 +1524,13 @@ namespace Ogre {
         @param name The name to be given to the object (must be unique).
         @param includeTextureCoords whether to create texture coordinates
         */
-        Rectangle2D* createScreenSpaceRect(const String& name, bool includeTextureCoords = false);
+        auto createScreenSpaceRect(const String& name, bool includeTextureCoords = false) -> Rectangle2D*;
         /// @overload
-        Rectangle2D* createScreenSpaceRect(bool includeTextureCoords = false);
+        auto createScreenSpaceRect(bool includeTextureCoords = false) -> Rectangle2D*;
         /// @copydoc hasMovableObject()
-        bool hasScreenSpaceRect(const String& name) const;
+        auto hasScreenSpaceRect(const String& name) const -> bool;
         /// @copydoc getMovableObject()
-        Rectangle2D* getScreenSpaceRect(const String& name) const;
+        auto getScreenSpaceRect(const String& name) const -> Rectangle2D*;
         /// @}
 
         /// @name Billboard Chains
@@ -1540,15 +1540,15 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        BillboardChain* createBillboardChain(const String& name);
+        auto createBillboardChain(const String& name) -> BillboardChain*;
         /** Create a BillboardChain, an object which you can use to render
         a linked chain of billboards, with a generated name.
         */
-        BillboardChain* createBillboardChain();
+        auto createBillboardChain() -> BillboardChain*;
         /// @copydoc getMovableObject()
-        BillboardChain* getBillboardChain(const String& name) const;
+        auto getBillboardChain(const String& name) const -> BillboardChain*;
         /// @copydoc hasMovableObject()
-        bool hasBillboardChain(const String& name) const;
+        auto hasBillboardChain(const String& name) const -> bool;
 
         /** Removes & destroys a BillboardChain from the SceneManager.
         */
@@ -1563,15 +1563,15 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        RibbonTrail* createRibbonTrail(const String& name);
+        auto createRibbonTrail(const String& name) -> RibbonTrail*;
         /** Create a RibbonTrail, an object which you can use to render
         a linked chain of billboards which follows one or more nodes, generating the name.
         */
-        RibbonTrail* createRibbonTrail();
+        auto createRibbonTrail() -> RibbonTrail*;
         /// @copydoc getMovableObject()
-        RibbonTrail* getRibbonTrail(const String& name) const;
+        auto getRibbonTrail(const String& name) const -> RibbonTrail*;
         /// @copydoc hasMovableObject()
-        bool hasRibbonTrail(const String& name) const;
+        auto hasRibbonTrail(const String& name) const -> bool;
 
         /** Removes & destroys a RibbonTrail from the SceneManager.
         */
@@ -1605,8 +1605,8 @@ namespace Ogre {
         @param 
             templateName The name of the template to base the new instance on.
         */
-        ParticleSystem* createParticleSystem(const String& name,
-            const String& templateName);
+        auto createParticleSystem(const String& name,
+            const String& templateName) -> ParticleSystem*;
         /** Create a blank particle system.
         @remarks
             This method creates a new, blank ParticleSystem instance and returns a pointer to it.
@@ -1626,17 +1626,17 @@ namespace Ogre {
         @param
             resourceGroup The resource group which will be used to load dependent resources
         */
-        ParticleSystem* createParticleSystem(const String& name,
+        auto createParticleSystem(const String& name,
             size_t quota = 500, 
-            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
 
         /// @overload
-        ParticleSystem* createParticleSystem(size_t quota = 500,
-            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        auto createParticleSystem(size_t quota = 500,
+            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
         /// @copydoc getMovableObject()
-        ParticleSystem* getParticleSystem(const String& name) const;
+        auto getParticleSystem(const String& name) const -> ParticleSystem*;
         /// @copydoc hasMovableObject()
-        bool hasParticleSystem(const String& name) const;
+        auto hasParticleSystem(const String& name) const -> bool;
 
         /** Removes & destroys a ParticleSystem from the SceneManager.
         */
@@ -1671,7 +1671,7 @@ namespace Ogre {
 
         /** Returns the ambient light level to be used for the scene.
         */
-        const ColourValue& getAmbientLight() const noexcept;
+        auto getAmbientLight() const noexcept -> const ColourValue&;
 
         /// @name World Geometry
         /// @{
@@ -1710,7 +1710,7 @@ namespace Ogre {
         @note 
             The default is to return 0, ie to not report progress. 
         */
-        virtual size_t estimateWorldGeometry(const String& filename)
+        virtual auto estimateWorldGeometry(const String& filename) -> size_t
         { (void)filename; return 0; }
 
         /** @overload
@@ -1719,8 +1719,8 @@ namespace Ogre {
             contained in the stream - not required if this manager only 
             supports one type of world geometry.
         */      
-        virtual size_t estimateWorldGeometry(DataStreamPtr& stream, 
-            const String& typeName = BLANKSTRING)
+        virtual auto estimateWorldGeometry(DataStreamPtr& stream, 
+            const String& typeName = BLANKSTRING) -> size_t
         { (void)stream; (void)typeName; return 0; }
         /// @}
 
@@ -1738,7 +1738,7 @@ namespace Ogre {
             @par
                 On failure, false is returned.
         */
-        virtual ViewPoint getSuggestedViewpoint(bool random = false);
+        virtual auto getSuggestedViewpoint(bool random = false) -> ViewPoint;
 
         /** Method for setting a specific option of the Scene Manager. These options are usually
             specific for a certain implemntation of the Scene Manager class, and may (and probably
@@ -1753,7 +1753,7 @@ namespace Ogre {
             @par
                 On failure, false is returned.
         */
-        virtual bool setOption( const String& strKey, const void* pValue )
+        virtual auto setOption( const String& strKey, const void* pValue ) -> bool
         { (void)strKey; (void)pValue; return false; }
 
         /** Method for getting the value of an implementation-specific Scene Manager option.
@@ -1769,7 +1769,7 @@ namespace Ogre {
             @par
                 On failure, false is returned and pDestValue is set to NULL.
         */
-        virtual bool getOption( const String& strKey, void* pDestValue )
+        virtual auto getOption( const String& strKey, void* pDestValue ) -> bool
         { (void)strKey; (void)pDestValue; return false; }
 
         /** Method for verifying whether the scene manager has an implementation-specific
@@ -1781,7 +1781,7 @@ namespace Ogre {
             @remarks
                 If it does not, false is returned.
         */
-        virtual bool hasOption( const String& strKey ) const
+        virtual auto hasOption( const String& strKey ) const -> bool
         { (void)strKey; return false; }
 
         /** Method for getting all possible values for a specific option. When this list is too large
@@ -1798,7 +1798,7 @@ namespace Ogre {
             @par
                 On failure, false is returned.
         */
-        virtual bool getOptionValues( const String& strKey, StringVector& refValueList )
+        virtual auto getOptionValues( const String& strKey, StringVector& refValueList ) -> bool
         { (void)strKey; (void)refValueList; return false; }
 
         /** Method for getting all the implementation-specific options of the scene manager.
@@ -1807,7 +1807,7 @@ namespace Ogre {
             @return
                 On success, true is returned. On failure, false is returned.
         */
-        virtual bool getOptionKeys( StringVector& refKeys )
+        virtual auto getOptionKeys( StringVector& refKeys ) -> bool
         { (void)refKeys; return false; }
 
         /** Internal method for updating the scene graph ie the tree of SceneNode instances managed by this class.
@@ -1956,13 +1956,13 @@ namespace Ogre {
         void setSkyPlaneEnabled(bool enable) { mSkyPlane.setEnabled(enable); }
 
         /** Return whether a key plane is enabled */
-        bool isSkyPlaneEnabled() const noexcept { return mSkyPlane.mEnabled; }
+        auto isSkyPlaneEnabled() const noexcept -> bool { return mSkyPlane.mEnabled; }
 
         /** Get the sky plane node, if enabled. */
-        SceneNode* getSkyPlaneNode() const noexcept { return mSkyPlane.mSceneNode; }
+        auto getSkyPlaneNode() const noexcept -> SceneNode* { return mSkyPlane.mSceneNode; }
 
         /** Get the parameters used to construct the SkyPlane, if any **/
-        const SkyPlaneGenParameters& getSkyPlaneGenParameters() const noexcept { return mSkyPlane.mSkyPlaneGenParameters; }
+        auto getSkyPlaneGenParameters() const noexcept -> const SkyPlaneGenParameters& { return mSkyPlane.mSkyPlaneGenParameters; }
 
         /** Enables / disables a 'sky box' i.e. a 6-sided box at constant
             distance from the camera representing the sky.
@@ -2020,13 +2020,13 @@ namespace Ogre {
         void setSkyBoxEnabled(bool enable) { mSkyBox.setEnabled(enable); }
 
         /** Return whether a skybox is enabled */
-        bool isSkyBoxEnabled() const noexcept { return mSkyBox.mEnabled; }
+        auto isSkyBoxEnabled() const noexcept -> bool { return mSkyBox.mEnabled; }
 
         /** Get the skybox node, if enabled. */
-        SceneNode* getSkyBoxNode() const noexcept { return mSkyBox.mSceneNode; }
+        auto getSkyBoxNode() const noexcept -> SceneNode* { return mSkyBox.mSceneNode; }
 
         /** Get the parameters used to generate the current SkyBox, if any */
-        const SkyBoxGenParameters& getSkyBoxGenParameters() const noexcept { return mSkyBox.mSkyBoxGenParameters; }
+        auto getSkyBoxGenParameters() const noexcept -> const SkyBoxGenParameters& { return mSkyBox.mSkyBoxGenParameters; }
 
         /** Enables / disables a 'sky dome' i.e. an illusion of a curved sky.
             @remarks
@@ -2103,13 +2103,13 @@ namespace Ogre {
         void setSkyDomeEnabled(bool enable) { mSkyDome.setEnabled(enable); }
 
         /** Return whether a skydome is enabled */
-        bool isSkyDomeEnabled() const noexcept { return mSkyDome.mEnabled; }
+        auto isSkyDomeEnabled() const noexcept -> bool { return mSkyDome.mEnabled; }
 
         /** Get the sky dome node, if enabled. */
-        SceneNode* getSkyDomeNode() const noexcept { return mSkyDome.mSceneNode; }
+        auto getSkyDomeNode() const noexcept -> SceneNode* { return mSkyDome.mSceneNode; }
 
         /** Get the parameters used to generate the current SkyDome, if any */
-        const SkyDomeGenParameters& getSkyDomeGenParameters() const noexcept { return mSkyDome.mSkyDomeGenParameters; }
+        auto getSkyDomeGenParameters() const noexcept -> const SkyDomeGenParameters& { return mSkyDome.mSkyDomeGenParameters; }
         /// @}
 
         /// @name Fogging
@@ -2144,23 +2144,23 @@ namespace Ogre {
 
         /** Returns the fog mode for the scene.
         */
-        FogMode getFogMode() const;
+        auto getFogMode() const -> FogMode;
 
         /** Returns the fog colour for the scene.
         */
-        const ColourValue& getFogColour() const noexcept;
+        auto getFogColour() const noexcept -> const ColourValue&;
 
         /** Returns the fog start distance for the scene.
         */
-        Real getFogStart() const;
+        auto getFogStart() const -> Real;
 
         /** Returns the fog end distance for the scene.
         */
-        Real getFogEnd() const;
+        auto getFogEnd() const -> Real;
 
         /** Returns the fog density for the scene.
         */
-        Real getFogDensity() const;
+        auto getFogDensity() const -> Real;
         /// @}
 
         /// @name Billboard Sets
@@ -2180,22 +2180,22 @@ namespace Ogre {
             @see
                 BillboardSet
         */
-        BillboardSet* createBillboardSet(unsigned int poolSize = 20);
+        auto createBillboardSet(unsigned int poolSize = 20) -> BillboardSet*;
 
         /** @overload
             @copydoc createBillboardSet(unsigned int)
             @param
                 name The name to give to this billboard set. Must be unique.
         */
-        BillboardSet* createBillboardSet(const String& name, unsigned int poolSize = 20);
+        auto createBillboardSet(const String& name, unsigned int poolSize = 20) -> BillboardSet*;
 
         /** Retrieves a pointer to the named BillboardSet.
         @note Throws an exception if the named instance does not exist
         */
-        BillboardSet* getBillboardSet(const String& name) const;
+        auto getBillboardSet(const String& name) const -> BillboardSet*;
         /** Returns whether a billboardset with the given name exists.
         */
-        bool hasBillboardSet(const String& name) const;
+        auto hasBillboardSet(const String& name) const -> bool;
 
         /** Removes & destroys an BillboardSet from the SceneManager.
             @warning
@@ -2249,15 +2249,15 @@ namespace Ogre {
         @param name The name of the animation, must be unique within this SceneManager.
         @param length The total length of the animation.
         */
-        Animation* createAnimation(const String& name, Real length);
+        auto createAnimation(const String& name, Real length) -> Animation*;
 
         /** Looks up an Animation object previously created with createAnimation. 
         @note Throws an exception if the named instance does not exist
         */
-        Animation* getAnimation(const String& name) const;
+        auto getAnimation(const String& name) const -> Animation*;
         /** Returns whether an animation with the given name exists.
         */
-        bool hasAnimation(const String& name) const;
+        auto hasAnimation(const String& name) const -> bool;
 
         /** Destroys an Animation. 
         @remarks
@@ -2296,15 +2296,15 @@ namespace Ogre {
             default). @see AnimableValue::setAsBaseValue.
         @param animName The name of an animation created already with createAnimation.
         */
-        AnimationState* createAnimationState(const String& animName);
+        auto createAnimationState(const String& animName) -> AnimationState*;
 
         /** Retrieves animation state as previously created using createAnimationState. 
         @note Throws an exception if the named instance does not exist
         */
-        AnimationState* getAnimationState(const String& animName) const;
+        auto getAnimationState(const String& animName) const -> AnimationState*;
         /** Returns whether an animation state with the given name exists.
         */
-        bool hasAnimationState(const String& name) const;
+        auto hasAnimationState(const String& name) const -> bool;
 
         /** Destroys an AnimationState. 
         @remarks
@@ -2318,10 +2318,10 @@ namespace Ogre {
 
         /** Returns a const version of the animation list.
         */
-        const AnimationList& getAnimations() const noexcept { return mAnimationsList; }
+        auto getAnimations() const noexcept -> const AnimationList& { return mAnimationsList; }
 
         /** Returns a specialised Map over all animation states in the scene. */
-        const AnimationStateMap& getAnimationStates() noexcept {
+        auto getAnimationStates() noexcept -> const AnimationStateMap& {
             return mAnimationStates.getAnimationStates();
         }
         /// @}
@@ -2386,7 +2386,7 @@ namespace Ogre {
             more information. Do not access this directly unless you know what 
             you are doing.
         */
-        RenderQueue* getRenderQueue() noexcept;
+        auto getRenderQueue() noexcept -> RenderQueue*;
 
         /** Registers a new RenderQueueListener which will be notified when render queues
             are processed.
@@ -2432,14 +2432,14 @@ namespace Ogre {
         */
         void setSpecialCaseRenderQueueMode(SpecialCaseRenderQueueMode mode);
         /** Gets the way the special case render queue list is processed. */
-        SpecialCaseRenderQueueMode getSpecialCaseRenderQueueMode();
+        auto getSpecialCaseRenderQueueMode() -> SpecialCaseRenderQueueMode;
         /** Returns whether or not the named queue will be rendered based on the
             current 'special case' render queue list and mode.
         @see SceneManager::addSpecialCaseRenderQueue
         @param qid The identifier of the queue which should be tested
         @return true if the queue will be rendered, false otherwise
         */
-        bool isRenderQueueToBeProcessed(uint8 qid);
+        auto isRenderQueueToBeProcessed(uint8 qid) -> bool;
 
         /** Sets the render queue that the world geometry (if any) this SceneManager
             renders will be associated with.
@@ -2467,7 +2467,7 @@ namespace Ogre {
             world geometry, it should still pick a queue to represent it's manual
             rendering, and check isRenderQueueToBeProcessed before rendering.
         */
-        uint8 getWorldGeometryRenderQueue() noexcept;
+        auto getWorldGeometryRenderQueue() noexcept -> uint8;
 
         /** Internal method for notifying the manager that a SceneNode is autotracking. */
         void _notifyAutotrackingSceneNode(SceneNode* node, bool autoTrack);
@@ -2486,8 +2486,8 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
             certain objects; see SceneQuery for details.
         */
-        virtual AxisAlignedBoxSceneQuery* 
-            createAABBQuery(const AxisAlignedBox& box, uint32 mask = 0xFFFFFFFF);
+        virtual auto 
+            createAABBQuery(const AxisAlignedBox& box, uint32 mask = 0xFFFFFFFF) -> AxisAlignedBoxSceneQuery*;
         /** Creates a SphereSceneQuery for this scene manager. 
         @remarks
             This method creates a new instance of a query object for this scene manager, 
@@ -2500,8 +2500,8 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
             certain objects; see SceneQuery for details.
         */
-        virtual SphereSceneQuery* 
-            createSphereQuery(const Sphere& sphere, uint32 mask = 0xFFFFFFFF);
+        virtual auto 
+            createSphereQuery(const Sphere& sphere, uint32 mask = 0xFFFFFFFF) -> SphereSceneQuery*;
         /** Creates a PlaneBoundedVolumeListSceneQuery for this scene manager. 
         @remarks
         This method creates a new instance of a query object for this scene manager, 
@@ -2514,8 +2514,8 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
         certain objects; see SceneQuery for details.
         */
-        virtual PlaneBoundedVolumeListSceneQuery* 
-            createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, uint32 mask = 0xFFFFFFFF);
+        virtual auto 
+            createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, uint32 mask = 0xFFFFFFFF) -> PlaneBoundedVolumeListSceneQuery*;
 
 
         /** Creates a RaySceneQuery for this scene manager. 
@@ -2530,8 +2530,8 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
             certain objects; see SceneQuery for details.
         */
-        virtual ::std::unique_ptr<RaySceneQuery>
-            createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF);
+        virtual auto
+            createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<RaySceneQuery>;
 
         /** Creates an IntersectionSceneQuery for this scene manager. 
         @remarks
@@ -2544,8 +2544,8 @@ namespace Ogre {
         @param mask The query mask to apply to this query; can be used to filter out
             certain objects; see SceneQuery for details.
         */
-        virtual ::std::unique_ptr<IntersectionSceneQuery>
-            createIntersectionQuery(uint32 mask = 0xFFFFFFFF);
+        virtual auto
+            createIntersectionQuery(uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<IntersectionSceneQuery>;
 
         /** Destroys a scene query of any type. */
         void destroyQuery(SceneQuery* query);
@@ -2588,12 +2588,12 @@ namespace Ogre {
         void setShadowTechnique(ShadowTechnique technique);
         
         /** Gets the current shadow technique. */
-        ShadowTechnique getShadowTechnique() const { return mShadowRenderer.mShadowTechnique; }
+        auto getShadowTechnique() const -> ShadowTechnique { return mShadowRenderer.mShadowTechnique; }
 
         /** Enables / disables the rendering of debug information for shadows. */
         void setShowDebugShadows(bool debug) { mShadowRenderer.mDebugShadows = debug; }
         /** Are debug shadows shown? */
-        bool getShowDebugShadows( ) const { return mShadowRenderer.mDebugShadows; }
+        auto getShowDebugShadows( ) const -> bool { return mShadowRenderer.mDebugShadows; }
 
         /** Set the colour used to modulate areas in shadow. 
         @remarks This is only applicable for shadow techniques which involve 
@@ -2608,7 +2608,7 @@ namespace Ogre {
         This colour provided is used as a modulative value to darken the
         areas.
         */
-        const ColourValue& getShadowColour() const noexcept;
+        auto getShadowColour() const noexcept -> const ColourValue&;
         /** Sets the distance a shadow volume is extruded for a directional light.
         @remarks
             Although directional lights are essentially infinite, there are many
@@ -2623,7 +2623,7 @@ namespace Ogre {
         void setShadowDirectionalLightExtrusionDistance(Real dist);
         /** Gets the distance a shadow volume is extruded for a directional light.
         */
-        Real getShadowDirectionalLightExtrusionDistance() const;
+        auto getShadowDirectionalLightExtrusionDistance() const -> Real;
         /** Sets the default maximum distance away from the camera that shadows
         will be visible. You have to call this function before you create lights
         or the default distance of zero will be used.
@@ -2644,9 +2644,9 @@ namespace Ogre {
         /** Gets the default maximum distance away from the camera that shadows
         will be visible.
         */
-        Real getShadowFarDistance() const
+        auto getShadowFarDistance() const -> Real
         { return mShadowRenderer.mDefaultShadowFarDist; }
-        Real getShadowFarDistanceSquared() const
+        auto getShadowFarDistanceSquared() const -> Real
         { return mShadowRenderer.mDefaultShadowFarDistSquared; }
 
         /** Sets the maximum size of the index buffer used to render shadow
@@ -2676,12 +2676,12 @@ namespace Ogre {
         */
         void setShadowIndexBufferSize(size_t size);
         /// Get the size of the shadow index buffer
-        size_t getShadowIndexBufferSize() const { return mShadowRenderer.mShadowIndexBufferSize; }
+        auto getShadowIndexBufferSize() const -> size_t { return mShadowRenderer.mShadowIndexBufferSize; }
         /** Get the shadow camera setup in use for all lights which don't have
             their own shadow camera setup.
         @see ShadowCameraSetup
         */
-        const ShadowCameraSetupPtr& getShadowCameraSetup() const noexcept;
+        auto getShadowCameraSetup() const noexcept -> const ShadowCameraSetupPtr&;
 
         /** Sets whether we should use an inifinite camera far plane
             when rendering stencil shadows.
@@ -2723,22 +2723,22 @@ namespace Ogre {
             mShadowRenderer.mShadowUseInfiniteFarPlane = enable; }
 
         /** Is there a stencil shadow based shadowing technique in use? */
-        bool isShadowTechniqueStencilBased() const noexcept
+        auto isShadowTechniqueStencilBased() const noexcept -> bool
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_STENCIL) != 0; }
         /** Is there a texture shadow based shadowing technique in use? */
-        bool isShadowTechniqueTextureBased() const noexcept
+        auto isShadowTechniqueTextureBased() const noexcept -> bool
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_TEXTURE) != 0; }
         /** Is there a modulative shadowing technique in use? */
-        bool isShadowTechniqueModulative() const noexcept
+        auto isShadowTechniqueModulative() const noexcept -> bool
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_MODULATIVE) != 0; }
         /** Is there an additive shadowing technique in use? */
-        bool isShadowTechniqueAdditive() const noexcept
+        auto isShadowTechniqueAdditive() const noexcept -> bool
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_ADDITIVE) != 0; }
         /** Is the shadow technique integrated into primary materials? */
-        bool isShadowTechniqueIntegrated() const noexcept
+        auto isShadowTechniqueIntegrated() const noexcept -> bool
         { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_INTEGRATED) != 0; }
         /** Is there any shadowing technique in use? */
-        bool isShadowTechniqueInUse() const noexcept
+        auto isShadowTechniqueInUse() const noexcept -> bool
         { return mShadowRenderer.mShadowTechnique != SHADOWTYPE_NONE; }
         /** Sets whether when using a built-in additive shadow mode, user clip
             planes should be used to restrict light rendering.
@@ -2747,7 +2747,7 @@ namespace Ogre {
         /** Gets whether when using a built-in additive shadow mode, user clip
         planes should be used to restrict light rendering.
         */
-        bool getShadowUseLightClipPlanes() const noexcept { return mShadowRenderer.mShadowAdditiveLightClip; }
+        auto getShadowUseLightClipPlanes() const noexcept -> bool { return mShadowRenderer.mShadowAdditiveLightClip; }
         /// @}
 
         /// @name Shadow Texture Config
@@ -2793,7 +2793,7 @@ namespace Ogre {
         }
 
         /** Get the current shadow texture settings. */
-        const ShadowTextureConfigList& getShadowTextureConfigList() const noexcept { return mShadowRenderer.mShadowTextureConfigList; }
+        auto getShadowTextureConfigList() const noexcept -> const ShadowTextureConfigList& { return mShadowRenderer.mShadowTextureConfigList; }
 
         /** Set the pixel format of the textures used for texture-based shadows.
         @remarks
@@ -2839,7 +2839,7 @@ namespace Ogre {
         void setShadowTextureCountPerLightType(Light::LightTypes type, size_t count)
         { mShadowRenderer.mShadowTextureCountPerType[type] = count; }
         /// Get the number of shadow textures is assigned for the given light type.
-        size_t getShadowTextureCountPerLightType(Light::LightTypes type) const
+        auto getShadowTextureCountPerLightType(Light::LightTypes type) const -> size_t
         {return mShadowRenderer.mShadowTextureCountPerType[type]; }
 
         /** Sets the size and count of textures used in texture-based shadows. 
@@ -2861,7 +2861,7 @@ namespace Ogre {
             be correct, so be sure not to hold the returned reference over 
             texture shadow configuration changes.
         */
-        const TexturePtr& getShadowTexture(size_t shadowIndex)
+        auto getShadowTexture(size_t shadowIndex) -> const TexturePtr&
         {
             return mShadowRenderer.getShadowTexture(shadowIndex);
         }
@@ -2884,7 +2884,7 @@ namespace Ogre {
         /** Gets the proportional distance which a texture shadow which is generated from a
         directional light will be offset into the camera view to make best use of texture space.
         */
-        Real getShadowDirLightTextureOffset()  const { return mShadowRenderer.mShadowTextureOffset; }
+        auto getShadowDirLightTextureOffset()  const -> Real { return mShadowRenderer.mShadowTextureOffset; }
         /** Sets the proportional distance at which texture shadows begin to fade out.
         @remarks
             To hide the edges where texture shadows end (in directional lights)
@@ -2919,7 +2919,7 @@ namespace Ogre {
         void setShadowTextureSelfShadow(bool selfShadow);
 
         /// Gets whether or not texture shadows attempt to self-shadow.
-        bool getShadowTextureSelfShadow() const noexcept
+        auto getShadowTextureSelfShadow() const noexcept -> bool
         { return mShadowRenderer.mShadowTextureSelfShadow; }
         /** Sets the default material to use for rendering shadow casters.
         @remarks
@@ -2983,7 +2983,7 @@ namespace Ogre {
         /** Gets whether or not shadow casters should be rendered into shadow
             textures using their back faces rather than their front faces. 
         */
-        bool getShadowCasterRenderBackFaces() const noexcept { return mShadowRenderer.mShadowCasterRenderBackFaces; }
+        auto getShadowCasterRenderBackFaces() const noexcept -> bool { return mShadowRenderer.mShadowCasterRenderBackFaces; }
 
         /** Set the shadow camera setup to use for all lights which don't have
             their own shadow camera setup.
@@ -3006,10 +3006,10 @@ namespace Ogre {
         
         /** Gets whether using late material resolving or not.
             @see setLateMaterialResolving */
-        bool isLateMaterialResolving() const noexcept { return mLateMaterialResolving; }
+        auto isLateMaterialResolving() const noexcept -> bool { return mLateMaterialResolving; }
 
         /** Gets the active compositor chain of the current scene being rendered */
-        CompositorChain* _getActiveCompositorChain() const noexcept { return mActiveCompositorChain; }
+        auto _getActiveCompositorChain() const noexcept -> CompositorChain* { return mActiveCompositorChain; }
 
         /** Add a listener which will get called back on scene manager events.
         */
@@ -3036,13 +3036,13 @@ namespace Ogre {
         @param name The name to give the new object
         @return The new StaticGeometry instance
         */
-        StaticGeometry* createStaticGeometry(const String& name);
+        auto createStaticGeometry(const String& name) -> StaticGeometry*;
         /** Retrieve a previously created StaticGeometry instance. 
         @note Throws an exception if the named instance does not exist
         */
-        StaticGeometry* getStaticGeometry(const String& name) const;
+        auto getStaticGeometry(const String& name) const -> StaticGeometry*;
         /** Returns whether a static geometry instance with the given name exists. */
-        bool hasStaticGeometry(const String& name) const;
+        auto hasStaticGeometry(const String& name) const -> bool;
         /** Remove & destroy a StaticGeometry instance. */
         void destroyStaticGeometry(StaticGeometry* geom);
         /** Remove & destroy a StaticGeometry instance. */
@@ -3071,19 +3071,19 @@ namespace Ogre {
         says which submesh to pick (must be <= Mesh::getNumSubMeshes())
         @return The new InstanceManager instance
         */
-        InstanceManager* createInstanceManager( const String &customName, const String &meshName,
+        auto createInstanceManager( const String &customName, const String &meshName,
                                                         const String &groupName,
                                                         InstanceManager::InstancingTechnique technique,
                                                         size_t numInstancesPerBatch, uint16 flags=0,
-                                                        unsigned short subMeshIdx=0 );
+                                                        unsigned short subMeshIdx=0 ) -> InstanceManager*;
 
         /** Retrieves an existing InstanceManager by it's name.
         @note Throws an exception if the named InstanceManager does not exist
         */
-        InstanceManager* getInstanceManager( const String &managerName ) const;
+        auto getInstanceManager( const String &managerName ) const -> InstanceManager*;
 
         /** Returns whether an InstanceManager with the given name exists. */
-        bool hasInstanceManager( const String &managerName ) const;
+        auto hasInstanceManager( const String &managerName ) const -> bool;
 
         /** Destroys an InstanceManager <b>if</b> it was created with createInstanceManager()
         @remarks
@@ -3108,11 +3108,11 @@ namespace Ogre {
             The ideal (or maximum, depending on flags) number of instances per batch for
             the given technique. Zero if technique is unsupported or errors were spotted
         */
-        size_t getNumInstancesPerBatch( const String &meshName, const String &groupName,
+        auto getNumInstancesPerBatch( const String &meshName, const String &groupName,
                                                 const String &materialName,
                                                 InstanceManager::InstancingTechnique technique,
                                                 size_t numInstancesPerBatch, uint16 flags=0,
-                                                unsigned short subMeshIdx=0 );
+                                                unsigned short subMeshIdx=0 ) -> size_t;
 
         /** Creates an InstancedEntity based on an existing InstanceManager
 
@@ -3126,8 +3126,8 @@ namespace Ogre {
         @param managerName Name of the instance manager
         @return An InstancedEntity ready to be attached to a SceneNode
         */
-        InstancedEntity* createInstancedEntity( const String &materialName,
-                                                        const String &managerName );
+        auto createInstancedEntity( const String &materialName,
+                                                        const String &managerName ) -> InstancedEntity*;
 
         /** Removes an InstancedEntity, @see SceneManager::createInstancedEntity &
             @see InstanceBatch::removeInstancedEntity
@@ -3155,10 +3155,10 @@ namespace Ogre {
         @param params Optional name/value pair list to give extra parameters to
             the created object.
         */
-        MovableObject* createMovableObject(const String& name,
-            const String& typeName, const NameValuePairList* params = nullptr);
+        auto createMovableObject(const String& name,
+            const String& typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
         /// @overload
-        MovableObject* createMovableObject(const String& typeName, const NameValuePairList* params = nullptr);
+        auto createMovableObject(const String& typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
         /** Destroys a MovableObject with the name specified, of the type specified.
         @remarks
             The MovableObject will automatically detach itself from any nodes
@@ -3178,15 +3178,15 @@ namespace Ogre {
         /** Get a reference to a previously created object instance
         @note Throws an exception if the named instance does not exist
         */
-        MovableObject* getMovableObject(const String& name, const String& typeName) const;
+        auto getMovableObject(const String& name, const String& typeName) const -> MovableObject*;
         /** Returns whether a object instance with the given name exists. */
-        bool hasMovableObject(const String& name, const String& typeName) const;
+        auto hasMovableObject(const String& name, const String& typeName) const -> bool;
         /** Get all MovableObect instances of a given type.
         @note
             The iterator returned from this method is not thread safe, do not use this
             if you are creating or deleting objects of this type in another thread.
         */
-        const MovableObjectMap& getMovableObjects(const String& typeName);
+        auto getMovableObjects(const String& typeName) -> const MovableObjectMap&;
 
         /** Inject a MovableObject instance created externally.
         @remarks
@@ -3229,12 +3229,12 @@ namespace Ogre {
         /** Gets a mask which is bitwise 'and'ed with objects own visibility masks
             to determine if the object is visible.
         */
-        uint32 getVisibilityMask() noexcept { return mVisibilityMask; }
+        auto getVisibilityMask() noexcept -> uint32 { return mVisibilityMask; }
 
         /** Internal method for getting the combination between the global visibility
             mask and the per-viewport visibility mask.
         */
-        uint32 _getCombinedVisibilityMask() const;
+        auto _getCombinedVisibilityMask() const -> uint32;
 
         /** Sets whether the SceneManager should search for visible objects, or
             whether they are being manually handled.
@@ -3247,7 +3247,7 @@ namespace Ogre {
         /** Gets whether the SceneManager should search for visible objects, or
             whether they are being manually handled.
         */
-        bool getFindVisibleObjects() noexcept { return mFindVisibleObjects; }
+        auto getFindVisibleObjects() noexcept -> bool { return mFindVisibleObjects; }
 
         /** Set whether to automatically normalise normals on objects whenever they
             are scaled.
@@ -3262,7 +3262,7 @@ namespace Ogre {
         /** Get whether to automatically normalise normals on objects whenever they
             are scaled.
         */
-        bool getNormaliseNormalsOnScale() const noexcept { return mNormaliseNormalsOnScale; }
+        auto getNormaliseNormalsOnScale() const noexcept -> bool { return mNormaliseNormalsOnScale; }
 
         /** Set whether to automatically flip the culling mode on objects whenever they
             are negatively scaled.
@@ -3277,7 +3277,7 @@ namespace Ogre {
         /** Get whether to automatically flip the culling mode on objects whenever they
             are negatively scaled.
         */
-        bool getFlipCullingOnNegativeScale() const noexcept { return mFlipCullingOnNegativeScale; }
+        auto getFlipCullingOnNegativeScale() const noexcept -> bool { return mFlipCullingOnNegativeScale; }
 
         /** Render something as if it came from the current queue.
         @param rend The renderable to issue to the pipeline
@@ -3303,8 +3303,8 @@ namespace Ogre {
                 A Pass object that was used instead of the one passed in, can
                 happen when rendering shadow passes
         */
-        const Pass* _setPass(const Pass* pass,
-            bool evenIfSuppressed = false, bool shadowDerivation = true);
+        auto _setPass(const Pass* pass,
+            bool evenIfSuppressed = false, bool shadowDerivation = true) -> const Pass*;
         
         /** Method to allow you to mark gpu parameters as dirty, causing them to 
             be updated according to the mask that you set when updateGpuProgramParameters is
@@ -3338,7 +3338,7 @@ namespace Ogre {
         void setQueuedRenderableVisitor(SceneMgrQueuedRenderableVisitor* visitor);
 
         /** Gets the current visitor object which processes queued renderables. */
-        SceneMgrQueuedRenderableVisitor* getQueuedRenderableVisitor() const noexcept
+        auto getQueuedRenderableVisitor() const noexcept -> SceneMgrQueuedRenderableVisitor*
         {
             return mActiveQueuedRenderableVisitor;
         }
@@ -3346,17 +3346,17 @@ namespace Ogre {
         /** Get the rendersystem subclass to which the output of this Scene Manager
             gets sent
         */
-        RenderSystem *getDestinationRenderSystem();
+        auto getDestinationRenderSystem() -> RenderSystem *;
 
         /** Gets the current viewport being rendered (advanced use only, only 
             valid during viewport update. */
-        Viewport* getCurrentViewport() const noexcept { return mCurrentViewport; }
+        auto getCurrentViewport() const noexcept -> Viewport* { return mCurrentViewport; }
 
         /** Returns a visibility boundary box for a specific camera. */
-        const VisibleObjectsBoundsInfo& getVisibleObjectsBoundsInfo(const Camera* cam) const;
+        auto getVisibleObjectsBoundsInfo(const Camera* cam) const -> const VisibleObjectsBoundsInfo&;
 
         /**  Returns the shadow caster AAB for a specific light-camera combination */
-        const VisibleObjectsBoundsInfo& getShadowCasterBoundsInfo(const Light* light, size_t iteration = 0) const;
+        auto getShadowCasterBoundsInfo(const Light* light, size_t iteration = 0) const -> const VisibleObjectsBoundsInfo&;
 
         /** Add a level of detail listener. */
         void addLodListener(LodListener *listener);
@@ -3380,9 +3380,9 @@ namespace Ogre {
         /** Handle LOD events. */
         void _handleLodEvents();
 
-        IlluminationRenderStage _getCurrentRenderStage() {return mIlluminationStage;}
+        auto _getCurrentRenderStage() -> IlluminationRenderStage {return mIlluminationStage;}
 
-        const AutoParamDataSource* _getAutoParamDataSource() { return mAutoParamDataSource.get(); }
+        auto _getAutoParamDataSource() -> const AutoParamDataSource* { return mAutoParamDataSource.get(); }
     };
 
     /// Interface for visualising debugging the SceneManager state
@@ -3466,7 +3466,7 @@ namespace Ogre {
         SceneManagerFactory()  = default;
         virtual ~SceneManagerFactory() = default;
         /** Get information about the SceneManager type created by this factory. */
-        virtual const SceneManagerMetaData& getMetaData() const noexcept 
+        virtual auto getMetaData() const noexcept -> const SceneManagerMetaData& 
         {
             if (mMetaDataInit)
             {
@@ -3479,7 +3479,7 @@ namespace Ogre {
         @remarks
         Don't call directly, use SceneManagerEnumerator::createSceneManager.
         */
-        virtual SceneManager* createInstance(const String& instanceName) = 0;
+        virtual auto createInstance(const String& instanceName) -> SceneManager* = 0;
         /** Destroy an instance of a SceneManager. */
         virtual void destroyInstance(SceneManager* instance) { delete instance; }
 

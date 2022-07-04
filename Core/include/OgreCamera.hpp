@@ -174,7 +174,7 @@ class Viewport;
         PolygonMode mSceneDetail{PM_SOLID};
 
         // Internal functions for calcs
-        bool isViewOutOfDate() const noexcept override;
+        auto isViewOutOfDate() const noexcept -> bool override;
         /// Signal to update frustum information.
         void invalidateFrustum() const override;
         /// Signal to update view information.
@@ -188,7 +188,7 @@ class Viewport;
         virtual void setWindowImpl() const;
 
         /** Helper function for forwardIntersect that intersects rays with canonical plane */
-        virtual std::vector<Vector4> getRayForwardIntersect(const Vector3& anchor, const Vector3 *dir, Real planeOffset) const;
+        virtual auto getRayForwardIntersect(const Vector3& anchor, const Vector3 *dir, Real planeOffset) const -> std::vector<Vector4>;
 
     public:
         /** Standard constructor.
@@ -206,7 +206,7 @@ class Viewport;
 
         /** Returns a pointer to the SceneManager this camera is rendering through.
         */
-        SceneManager* getSceneManager() const noexcept;
+        auto getSceneManager() const noexcept -> SceneManager*;
 
         /** Sets the level of rendering detail required from this camera.
         @remarks
@@ -219,7 +219,7 @@ class Viewport;
 
         /** Retrieves the level of detail that the camera will render.
         */
-        PolygonMode getPolygonMode() const;
+        auto getPolygonMode() const -> PolygonMode;
 
         /** Tells the Camera to contact the SceneManager to render from it's viewpoint.
         @param vp The viewport to render to
@@ -228,7 +228,7 @@ class Viewport;
 
         /** Function for outputting to a stream.
         */
-        friend std::ostream& operator<<(std::ostream& o, const Camera& c);
+        friend auto operator<<(std::ostream& o, const Camera& c) -> std::ostream&;
 
         /** Internal method to notify camera of the visible faces in the last render.
         */
@@ -240,45 +240,45 @@ class Viewport;
 
         /** Internal method to retrieve the number of visible faces in the last render.
         */
-        unsigned int _getNumRenderedFaces() const;
+        auto _getNumRenderedFaces() const -> unsigned int;
 
         /** Internal method to retrieve the number of visible batches in the last render.
         */
-        unsigned int _getNumRenderedBatches() const;
+        auto _getNumRenderedBatches() const -> unsigned int;
 
         /** Gets the derived orientation of the camera, including any
             rotation inherited from a node attachment and reflection matrix. */
-        const Quaternion& getDerivedOrientation() const noexcept;
+        auto getDerivedOrientation() const noexcept -> const Quaternion&;
         /** Gets the derived position of the camera, including any
             translation inherited from a node attachment and reflection matrix. */
-        const Vector3& getDerivedPosition() const noexcept;
+        auto getDerivedPosition() const noexcept -> const Vector3&;
         /** Gets the derived direction vector of the camera, including any
             rotation inherited from a node attachment and reflection matrix. */
-        Vector3 getDerivedDirection() const;
+        auto getDerivedDirection() const -> Vector3;
         /** Gets the derived up vector of the camera, including any
             rotation inherited from a node attachment and reflection matrix. */
-        Vector3 getDerivedUp() const;
+        auto getDerivedUp() const -> Vector3;
         /** Gets the derived right vector of the camera, including any
             rotation inherited from a node attachment and reflection matrix. */
-        Vector3 getDerivedRight() const;
+        auto getDerivedRight() const -> Vector3;
 
         /** Gets the real world orientation of the camera, including any
             rotation inherited from a node attachment */
-        const Quaternion& getRealOrientation() const noexcept;
+        auto getRealOrientation() const noexcept -> const Quaternion&;
         /** Gets the real world position of the camera, including any
             translation inherited from a node attachment. */
-        const Vector3& getRealPosition() const noexcept;
+        auto getRealPosition() const noexcept -> const Vector3&;
         /** Gets the real world direction vector of the camera, including any
             rotation inherited from a node attachment. */
-        Vector3 getRealDirection() const;
+        auto getRealDirection() const -> Vector3;
         /** Gets the real world up vector of the camera, including any
             rotation inherited from a node attachment. */
-        Vector3 getRealUp() const;
+        auto getRealUp() const -> Vector3;
         /** Gets the real world right vector of the camera, including any
             rotation inherited from a node attachment. */
-        Vector3 getRealRight() const;
+        auto getRealRight() const -> Vector3;
 
-        const String& getMovableType() const noexcept override;
+        auto getMovableType() const noexcept -> const String& override;
 
         /** Sets the level-of-detail factor for this Camera.
         @remarks
@@ -301,7 +301,7 @@ class Viewport;
         @remarks
             See Camera::setLodBias for more details.
         */
-        Real getLodBias() const;
+        auto getLodBias() const -> Real;
 
         /** Set a pointer to the camera which should be used to determine
             LOD settings. 
@@ -323,14 +323,14 @@ class Viewport;
             If setLodCamera hasn't been called with a different camera, this
             method will return 'this'. 
         */
-        virtual const Camera* getLodCamera() const noexcept;
+        virtual auto getLodCamera() const noexcept -> const Camera*;
 
 
         /** Gets a world space ray as cast from the camera through a viewport position.
         @param screenx, screeny The x and y position at which the ray should intersect the viewport,
             in normalised screen coordinates [0,1]
         */
-        Ray getCameraToViewportRay(Real screenx, Real screeny) const;
+        auto getCameraToViewportRay(Real screenx, Real screeny) const -> Ray;
         /** Gets a world space ray as cast from the camera through a viewport position.
         @param screenx, screeny The x and y position at which the ray should intersect the viewport, 
             in normalised screen coordinates [0,1]
@@ -348,8 +348,8 @@ class Viewport;
         @param includeFarPlane If true, the volume is truncated by the camera far plane, 
             by default it is left open-ended
         */
-        PlaneBoundedVolume getCameraToViewportBoxVolume(Real screenLeft, 
-            Real screenTop, Real screenRight, Real screenBottom, bool includeFarPlane = false);
+        auto getCameraToViewportBoxVolume(Real screenLeft, 
+            Real screenTop, Real screenRight, Real screenBottom, bool includeFarPlane = false) -> PlaneBoundedVolume;
 
         /// @overload
         void getCameraToViewportBoxVolume(Real screenLeft, 
@@ -357,7 +357,7 @@ class Viewport;
             PlaneBoundedVolume* outVolume, bool includeFarPlane = false);
 
         /** Internal method for OGRE to use for LOD calculations. */
-        Real _getLodBiasInverse() const;
+        auto _getLodBiasInverse() const -> Real;
 
         /** Sets the viewing window inside of viewport.
         @remarks
@@ -372,18 +372,18 @@ class Viewport;
         /// Cancel view window.
         virtual void resetWindow ();
         /// Returns if a viewport window is being used
-        virtual bool isWindowSet() const noexcept { return mWindowSet; }
+        virtual auto isWindowSet() const noexcept -> bool { return mWindowSet; }
         /// Gets the window clip planes, only applicable if isWindowSet == true
-        const std::vector<Plane>& getWindowPlanes() const noexcept;
+        auto getWindowPlanes() const noexcept -> const std::vector<Plane>&;
 
-        Real getBoundingRadius() const override;
+        auto getBoundingRadius() const -> Real override;
         
         /** Get the last viewport which was attached to this camera. 
         @note This is not guaranteed to be the only viewport which is
             using this camera, just the last once which was created referring
             to it.
         */
-        Viewport* getViewport() const noexcept {return mLastViewport;}
+        auto getViewport() const noexcept -> Viewport* {return mLastViewport;}
         /** Notifies this camera that a viewport is using it.*/
         void _notifyViewport(Viewport* viewport) {mLastViewport = viewport;}
 
@@ -398,7 +398,7 @@ class Viewport;
 
         /** Retrieves if AutoAspectRatio is currently set or not
         */
-        bool getAutoAspectRatio() const noexcept;
+        auto getAutoAspectRatio() const noexcept -> bool;
 
         /** Tells the camera to use a separate Frustum instance to perform culling.
         @remarks
@@ -413,7 +413,7 @@ class Viewport;
         */
         void setCullingFrustum(Frustum* frustum) { mCullFrustum = frustum; }
         /** Returns the custom culling frustum in use. */
-        Frustum* getCullingFrustum() const noexcept { return mCullFrustum; }
+        auto getCullingFrustum() const noexcept -> Frustum* { return mCullFrustum; }
 
         /** Forward projects frustum rays to find forward intersection with plane.
         @remarks
@@ -422,24 +422,24 @@ class Viewport;
         virtual void forwardIntersect(const Plane& worldPlane, std::vector<Vector4>* intersect3d) const;
 
         /// @copydoc Frustum::isVisible(const AxisAlignedBox&, FrustumPlane*) const
-        bool isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const override;
+        auto isVisible(const AxisAlignedBox& bound, FrustumPlane* culledBy = nullptr) const -> bool override;
         /// @copydoc Frustum::isVisible(const Sphere&, FrustumPlane*) const
-        bool isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const override;
+        auto isVisible(const Sphere& bound, FrustumPlane* culledBy = nullptr) const -> bool override;
         /// @copydoc Frustum::isVisible(const Vector3&, FrustumPlane*) const
-        bool isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const override;
+        auto isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const -> bool override;
         /// @copydoc Frustum::getWorldSpaceCorners
-        const Corners& getWorldSpaceCorners() const noexcept override;
+        auto getWorldSpaceCorners() const noexcept -> const Corners& override;
         /// @copydoc Frustum::getFrustumPlane
-        const Plane& getFrustumPlane( unsigned short plane ) const override;
+        auto getFrustumPlane( unsigned short plane ) const -> const Plane& override;
         /// @copydoc Frustum::projectSphere
-        bool projectSphere(const Sphere& sphere, 
-            Real* left, Real* top, Real* right, Real* bottom) const override;
+        auto projectSphere(const Sphere& sphere, 
+            Real* left, Real* top, Real* right, Real* bottom) const -> bool override;
         /// @copydoc Frustum::getNearClipDistance
-        Real getNearClipDistance() const;
+        auto getNearClipDistance() const -> Real;
         /// @copydoc Frustum::getFarClipDistance
-        Real getFarClipDistance() const;
+        auto getFarClipDistance() const -> Real;
         /// @copydoc Frustum::getViewMatrix
-        const Affine3& getViewMatrix() const noexcept;
+        auto getViewMatrix() const noexcept -> const Affine3&;
         /** Specialised version of getViewMatrix allowing caller to differentiate
             whether the custom culling frustum should be allowed or not. 
         @remarks
@@ -448,7 +448,7 @@ class Viewport;
             performing CPU calculations, but the final rendering must be performed
             using the real view matrix in order to display the correct debug view.
         */
-        const Affine3& getViewMatrix(bool ownFrustumOnly) const;
+        auto getViewMatrix(bool ownFrustumOnly) const -> const Affine3&;
         /** Set whether this camera should use the 'rendering distance' on
             objects to exclude distant objects from the final image. The
             default behaviour is to use it.
@@ -458,7 +458,7 @@ class Viewport;
         /** Get whether this camera should use the 'rendering distance' on
             objects to exclude distant objects from the final image.
         */
-        virtual bool getUseRenderingDistance() const noexcept { return mUseRenderingDistance; }
+        virtual auto getUseRenderingDistance() const noexcept -> bool { return mUseRenderingDistance; }
 
         /** Synchronise core camera settings with another. 
         @remarks
@@ -476,7 +476,7 @@ class Viewport;
         /** Returns whether to use min display size calculations 
         @see Camera::setUseMinDisplaySize
         */
-        bool getUseMinPixelSize() const noexcept { return mUseMinPixelSize; }
+        auto getUseMinPixelSize() const noexcept -> bool { return mUseMinPixelSize; }
 
         /** Returns an estimated ratio between a pixel and the display area it represents.
             For orthographic cameras this function returns the amount of meters covered by
@@ -488,12 +488,12 @@ class Viewport;
         @note
             This parameter is used in min display size calculations.
         */
-        Real getPixelDisplayRatio() const noexcept { return mPixelDisplayRatio; }
+        auto getPixelDisplayRatio() const noexcept -> Real { return mPixelDisplayRatio; }
 
         /// Set the function used to compute the camera-distance for sorting Renderables
         void setSortMode(SortMode sm) { mSortMode = sm; }
         /// get the currently used @ref SortMode
-        SortMode getSortMode() const noexcept { return mSortMode; }
+        auto getSortMode() const noexcept -> SortMode { return mSortMode; }
     };
     /** @} */
     /** @} */

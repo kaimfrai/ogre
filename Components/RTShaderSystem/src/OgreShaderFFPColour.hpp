@@ -79,12 +79,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const noexcept override;
+    auto getExecutionOrder() const noexcept -> int override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -94,7 +94,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     /**
     Set the resolve stage flags that this sub render state will produce.
@@ -107,7 +107,7 @@ public:
     /**
     Get the current resolve stage flags.
     */
-    unsigned int getResolveStageFlags() const noexcept { return mResolveStageFlags; }
+    auto getResolveStageFlags() const noexcept -> unsigned int { return mResolveStageFlags; }
 
     /**
     Add the given mask to resolve stage flags that this sub render state will produce.
@@ -125,9 +125,9 @@ public:
 
 // Protected methods
 protected:  
-    bool resolveParameters(ProgramSet* programSet) override; 
-    bool resolveDependencies(ProgramSet* programSet) override;
-    bool addFunctionInvocations(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override; 
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
 // Attributes.
 protected:
@@ -159,12 +159,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -177,7 +177,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

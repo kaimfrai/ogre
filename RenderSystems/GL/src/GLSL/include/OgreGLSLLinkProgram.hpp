@@ -75,7 +75,7 @@ class GLUniformCache;
         */
         void activate() override;
 
-        bool isAttributeValid(VertexElementSemantic semantic, uint index);
+        auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool;
         
         /** Updates program object uniforms using data from GpuProgramParameters.
         normally called by GLSLGpuProgram::bindParameters() just before rendering occurs.
@@ -83,7 +83,7 @@ class GLUniformCache;
         void updateUniforms(GpuProgramParametersSharedPtr params, uint16 mask, GpuProgramType fromProgType) override;
 
         /// Get the GL Handle for the program object
-        [[nodiscard]] uint getGLHandle() const noexcept { return mGLProgramHandle; }
+        [[nodiscard]] auto getGLHandle() const noexcept -> uint { return mGLProgramHandle; }
     };
 
     }

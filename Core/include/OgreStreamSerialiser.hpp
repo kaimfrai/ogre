@@ -145,7 +145,7 @@ class Sphere;
             If the result is ENDIAN_AUTO, this mode will change when the first piece of
             data is read / written. 
         */
-        [[nodiscard]] virtual Endian getEndian() const noexcept { return mEndian; }
+        [[nodiscard]] virtual auto getEndian() const noexcept -> Endian { return mEndian; }
 
         /** Pack a 4-character code into a 32-bit identifier.
         @remarks
@@ -153,7 +153,7 @@ class Sphere;
             4-character codes rather than assigning numerical IDs, if you like.
         @param code String to pack - must be 4 characters and '\0'
         */
-        static uint32 makeIdentifier(const char (&code)[5]);
+        static auto makeIdentifier(const char (&code)[5]) -> uint32;
 
         /** Report the current depth of the chunk nesting, whether reading or writing. 
         @remarks
@@ -161,13 +161,13 @@ class Sphere;
             either writing or reading. In order to tidily finish, you must call
             read/writeChunkEnd this many times.
         */
-        [[nodiscard]] size_t getCurrentChunkDepth() const { return mChunkStack.size(); }
+        [[nodiscard]] auto getCurrentChunkDepth() const -> size_t { return mChunkStack.size(); }
 
         /** Get the ID of the chunk that's currently being read/written, if any.
         @return The id of the current chunk being read / written (at the tightest
             level of nesting), or zero if no chunk is being processed.
         */
-        [[nodiscard]] uint32 getCurrentChunkID() const noexcept;
+        [[nodiscard]] auto getCurrentChunkID() const noexcept -> uint32;
 
         /** Get the current byte position relative to the start of the data section
             of the last chunk that was read or written. 
@@ -176,7 +176,7 @@ class Sphere;
             header), or that no chunk is currently active. Use getCurrentChunkID
             or getCurrentChunkDepth to determine if a chunk is active.
         */
-        [[nodiscard]] size_t getOffsetFromChunkStart() const;
+        [[nodiscard]] auto getOffsetFromChunkStart() const -> size_t;
 
         /** Reads the start of the next chunk in the file.
         @remarks
@@ -189,7 +189,7 @@ class Sphere;
             the stack. 
         @return The Chunk that comes next
         */
-        virtual const Chunk* readChunkBegin();
+        virtual auto readChunkBegin() -> const Chunk*;
 
         /** Reads the start of the next chunk so long as it's of a given ID and version.
         @remarks
@@ -203,7 +203,7 @@ class Sphere;
         @param msg Descriptive text added to the log if versions are not compatible
         @return The chunk if it passes the validation.
         */
-        virtual const Chunk* readChunkBegin(uint32 id, uint16 maxVersion, const String& msg = BLANKSTRING);
+        virtual auto readChunkBegin(uint32 id, uint16 maxVersion, const String& msg = BLANKSTRING) -> const Chunk*;
 
         /** Call this to 'rewind' the stream to just before the start of the current
             chunk. 
@@ -217,7 +217,7 @@ class Sphere;
         virtual void undoReadChunk(uint32 id);
 
         /** Call this to 'peek' at the next chunk ID without permanently moving the stream pointer. */
-        virtual uint32 peekNextChunkID(); 
+        virtual auto peekNextChunkID() -> uint32; 
 
         /** Finish the reading of a chunk.
         @remarks
@@ -232,13 +232,13 @@ class Sphere;
         /** Return whether the current data pointer is at the end of the current chunk.
         @param id The id of the chunk that you were reading (for validation purposes)
         */
-        virtual bool isEndOfChunk(uint32 id);
+        virtual auto isEndOfChunk(uint32 id) -> bool;
 
         /// Reports whether the stream is at the end of file
-        [[nodiscard]] virtual bool eof() const;
+        [[nodiscard]] virtual auto eof() const -> bool;
 
         /** Get the definition of the current chunk being read (if any). */
-        [[nodiscard]] virtual const Chunk* getCurrentChunk() const noexcept;
+        [[nodiscard]] virtual auto getCurrentChunk() const noexcept -> const Chunk*;
 
         /** Begin writing a new chunk.
         @remarks
@@ -351,17 +351,17 @@ class Sphere;
         static uint32 REVERSE_HEADER_ID;
         static uint32 CHUNK_HEADER_SIZE;
 
-        virtual Chunk* readChunkImpl();
+        virtual auto readChunkImpl() -> Chunk*;
         virtual void writeChunkImpl(uint32 id, uint16 version);
         virtual void readHeader();
         virtual void writeHeader();
-        virtual uint32 calculateChecksum(Chunk* c);
+        virtual auto calculateChecksum(Chunk* c) -> uint32;
         virtual void checkStream(bool failOnEof = false, 
             bool validateReadable = false, bool validateWriteable = false) const;
 
 
         virtual void determineEndianness();
-        virtual Chunk* popChunk(uint id);
+        virtual auto popChunk(uint id) -> Chunk*;
 
         virtual void writeFloatsAsDoubles(const float* val, size_t count);
         virtual void writeDoublesAsFloats(const double* val, size_t count);

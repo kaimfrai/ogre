@@ -93,7 +93,7 @@ protected:
     SGMaterialSerializerListener();
 
     /** Internal method that returns SGPass instance from a given source pass. */
-    ShaderGenerator::SGPass*    getShaderGeneratedPass  (const Pass* srcPass);
+    auto    getShaderGeneratedPass  (const Pass* srcPass) -> ShaderGenerator::SGPass*;
     
 
 // Attributes.

@@ -87,24 +87,24 @@ class VertexData;
         @param[in] currentCamera The camera being used for render (valid when using bone matrix lookup)
         @return The number of instances to be rendered
         */
-        virtual size_t updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera);
+        virtual auto updateInstanceDataBuffer(bool isFirstTime, Camera* currentCamera) -> size_t;
 
 
-        bool checkSubMeshCompatibility( const SubMesh* baseSubMesh ) override;
+        auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool override;
 
         /** Keeps filling the VTF with world matrix data. Overloaded to avoid culled objects
             and update visible instances' animation
         */
-        size_t updateVertexTexture( Camera *currentCamera );
+        auto updateVertexTexture( Camera *currentCamera ) -> size_t;
 
-        bool matricesTogetherPerRow() const noexcept override { return true; }
+        auto matricesTogetherPerRow() const noexcept -> bool override { return true; }
     public:
         InstanceBatchHW_VTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
                             const String &batchName );
         ~InstanceBatchHW_VTF() override;
         /** @see InstanceBatch::calculateMaxNumInstances */
-        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
 
         /** @copydoc InstanceBatchHW::_boundsDirty */
         void _boundsDirty() override;
@@ -112,7 +112,7 @@ class VertexData;
         /** @copydoc InstanceBatchHW::setStaticAndUpdate */
         void setStaticAndUpdate( bool bStatic ) override;
 
-        bool isStatic() const noexcept override { return mKeepStatic; }
+        auto isStatic() const noexcept -> bool override { return mKeepStatic; }
 
         /** Overloaded to visibility on a per unit basis and finally updated the vertex texture */
         void _updateRenderQueue( RenderQueue* queue ) override;

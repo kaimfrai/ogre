@@ -61,12 +61,12 @@ namespace Ogre {
         void swapBuffers() override;
 
         /// Override so we can attach the depth buffer to the FBO
-        bool attachDepthBuffer( DepthBuffer *depthBuffer ) override;
+        auto attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool override;
         void detachDepthBuffer() override;
         void _detachDepthBuffer() override;
 
-        [[nodiscard]] GLContext* getContext() const noexcept override { return mFB.getContext(); }
-        GLFrameBufferObjectCommon* getFBO() noexcept override { return &mFB; }
+        [[nodiscard]] auto getContext() const noexcept -> GLContext* override { return mFB.getContext(); }
+        auto getFBO() noexcept -> GLFrameBufferObjectCommon* override { return &mFB; }
     protected:
         GLFrameBufferObject mFB;
     };
@@ -94,15 +94,15 @@ namespace Ogre {
         
         /** Create a texture rendertarget object
         */
-        GLFBORenderTexture *createRenderTexture(const String &name, 
-            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) override;
+        auto createRenderTexture(const String &name, 
+            const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture * override;
         
         /** Request a render buffer. If format is GL_NONE, return a zero buffer.
         */
-        GLSurfaceDesc requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa);
+        auto requestRenderBuffer(GLenum format, uint32 width, uint32 height, uint fsaa) -> GLSurfaceDesc;
         /** Get a FBO without depth/stencil for temporary use, like blitting between textures.
         */
-        GLuint getTemporaryFBO() noexcept { return mTempFBO; }
+        auto getTemporaryFBO() noexcept -> GLuint { return mTempFBO; }
     private:
         /** Temporary FBO identifier
          */
@@ -113,8 +113,8 @@ namespace Ogre {
         
         /** Detect allowed FBO formats */
         void detectFBOFormats();
-        GLuint _tryFormat(GLenum depthFormat, GLenum stencilFormat);
-        bool _tryPackedFormat(GLenum packedFormat);
+        auto _tryFormat(GLenum depthFormat, GLenum stencilFormat) -> GLuint;
+        auto _tryPackedFormat(GLenum packedFormat) -> bool;
         void _createTempFramebuffer(GLuint internalfmt, GLuint fmt, GLenum type, GLuint &fb, GLuint &tid);
     };
     

@@ -175,7 +175,7 @@ namespace Ogre {
         /// Sets the listener for this serializer
         void setListener(MeshSerializerListener *listener);
         /// Returns the current listener
-        MeshSerializerListener *getListener();
+        auto getListener() -> MeshSerializerListener *;
         
     private:
         using MeshVersionDataList = std::vector<::std::unique_ptr<MeshVersionData>>;

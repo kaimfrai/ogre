@@ -131,7 +131,7 @@ namespace Ogre {
             postqueueMovableObjectLodChanged called after
             rendering is complete.
         */
-        virtual bool prequeueMovableObjectLodChanged(const MovableObjectLodChangedEvent& evt)
+        virtual auto prequeueMovableObjectLodChanged(const MovableObjectLodChangedEvent& evt) -> bool
         { (void)evt; return false; }
 
         /**
@@ -159,7 +159,7 @@ namespace Ogre {
             postqueueEntityMeshLodChanged called after
             rendering is complete.
         */
-        virtual bool prequeueEntityMeshLodChanged(EntityMeshLodChangedEvent& evt)
+        virtual auto prequeueEntityMeshLodChanged(EntityMeshLodChangedEvent& evt) -> bool
         { (void)evt; return false; }
 
         /**
@@ -187,7 +187,7 @@ namespace Ogre {
             postqueueMaterialLodChanged called after
             rendering is complete.
         */
-        virtual bool prequeueEntityMaterialLodChanged(EntityMaterialLodChangedEvent& evt)
+        virtual auto prequeueEntityMaterialLodChanged(EntityMaterialLodChangedEvent& evt) -> bool
         { (void)evt; return false; }
 
         /**

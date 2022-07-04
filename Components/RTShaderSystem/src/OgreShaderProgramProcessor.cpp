@@ -118,7 +118,7 @@ void ProgramProcessor::bindAutoParameters(Program* pCpuProgram, GpuProgramPtr pG
 }
 
 //-----------------------------------------------------------------------------
-bool ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain)
+auto ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain) -> bool
 {
 
     int outTexCoordSlots;
@@ -433,9 +433,9 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
 }
 
 //-----------------------------------------------------------------------------
-bool ProgramProcessor::mergeParametersByCombination(const MergeCombination& combination, 
+auto ProgramProcessor::mergeParametersByCombination(const MergeCombination& combination, 
                                     ShaderParameterList paramsTable[4], 
-                                    MergeParameter* mergedParameter)
+                                    MergeParameter* mergedParameter) -> bool
 {
     // Make sure we have enough parameters to combine.
     if (combination.srcParameterTypeCount[0] > paramsTable[0].size() ||
@@ -782,7 +782,7 @@ void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& local
 }
 
 //-----------------------------------------------------------------------------
-int ProgramProcessor::getParameterFloatCount(GpuConstantType type)
+auto ProgramProcessor::getParameterFloatCount(GpuConstantType type) -> int
 {
     int floatCount = 0;
 
@@ -802,7 +802,7 @@ int ProgramProcessor::getParameterFloatCount(GpuConstantType type)
 }
 
 //-----------------------------------------------------------------------------
-Operand::OpMask ProgramProcessor::getParameterMaskByType(GpuConstantType type)
+auto ProgramProcessor::getParameterMaskByType(GpuConstantType type) -> Operand::OpMask
 {
     switch (type)
     {
@@ -816,7 +816,7 @@ Operand::OpMask ProgramProcessor::getParameterMaskByType(GpuConstantType type)
 }
 
 //-----------------------------------------------------------------------------
-Operand::OpMask ProgramProcessor::getParameterMaskByFloatCount(int floatCount)
+auto ProgramProcessor::getParameterMaskByFloatCount(int floatCount) -> Operand::OpMask
 {
     switch (floatCount)
     {
@@ -918,7 +918,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
 }
 
 //-----------------------------------------------------------------------------
-int ProgramProcessor::MergeParameter::getUsedFloatCount() noexcept
+auto ProgramProcessor::MergeParameter::getUsedFloatCount() noexcept -> int
 {
     return mUsedFloatCount;
 }
@@ -960,7 +960,7 @@ void ProgramProcessor::MergeParameter::createDestinationParameter(int usage, int
 }
 
 //-----------------------------------------------------------------------------
-Ogre::RTShader::ParameterPtr ProgramProcessor::MergeParameter::getDestinationParameter(int usage, int index)
+auto ProgramProcessor::MergeParameter::getDestinationParameter(int usage, int index) -> Ogre::RTShader::ParameterPtr
 {
     if (!mDstParameter)
         createDestinationParameter(usage, index);

@@ -39,14 +39,14 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     String GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
-    const String& GLSLProgramFactory::getLanguage() const noexcept
+    auto GLSLProgramFactory::getLanguage() const noexcept -> const String&
     {
         return sLanguageName;
     }
     //-----------------------------------------------------------------------
-    GpuProgram* GLSLProgramFactory::create(ResourceManager* creator,
+    auto GLSLProgramFactory::create(ResourceManager* creator,
         const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader)
+        const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
     {
         return new GLSLProgram(creator, name, handle, group, isManual, loader);
     }

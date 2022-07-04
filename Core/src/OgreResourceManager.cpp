@@ -54,8 +54,8 @@ namespace Ogre {
         ScriptCompilerManager::getSingleton().parseScript(stream, groupName);
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::createResource(const String& name, const String& group,
-        bool isManual, ManualResourceLoader* loader, const NameValuePairList* params)
+    auto ResourceManager::createResource(const String& name, const String& group,
+        bool isManual, ManualResourceLoader* loader, const NameValuePairList* params) -> ResourcePtr
     {
         OgreAssert(!name.empty(), "resource name must not be empty");
 
@@ -73,11 +73,11 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    ResourceManager::ResourceCreateOrRetrieveResult 
+    auto 
     ResourceManager::createOrRetrieve(
         const String& name, const String& group, 
         bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> ResourceManager::ResourceCreateOrRetrieveResult
     {
         ResourcePtr res = getResourceByName(name, group);
         bool created = false;
@@ -90,9 +90,9 @@ namespace Ogre {
         return { res, created };
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::prepare(const String& name, 
+    auto ResourceManager::prepare(const String& name, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* loadParams, bool backgroundThread)
+        const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
         // ensure prepared
@@ -100,9 +100,9 @@ namespace Ogre {
         return r;
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::load(const String& name, 
+    auto ResourceManager::load(const String& name, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* loadParams, bool backgroundThread)
+        const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
         // ensure loaded
@@ -211,7 +211,7 @@ namespace Ogre {
         checkUsage();
     }
     //-----------------------------------------------------------------------
-    size_t ResourceManager::getMemoryBudget() const
+    auto ResourceManager::getMemoryBudget() const -> size_t
     {
         return mMemoryBudget;
     }
@@ -343,7 +343,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::getResourceByName(const String& name, const String& groupName) const
+    auto ResourceManager::getResourceByName(const String& name, const String& groupName) const -> ResourcePtr
     {
         // resource should be in global pool
         bool isGlobal = ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(groupName);
@@ -388,13 +388,13 @@ namespace Ogre {
         return {};
     }
     //-----------------------------------------------------------------------
-    ResourcePtr ResourceManager::getByHandle(ResourceHandle handle) const
+    auto ResourceManager::getByHandle(ResourceHandle handle) const -> ResourcePtr
     {
         auto it = mResourcesByHandle.find(handle);
         return it == mResourcesByHandle.end() ? ResourcePtr() : it->second;
     }
     //-----------------------------------------------------------------------
-    ResourceHandle ResourceManager::getNextHandle()
+    auto ResourceManager::getNextHandle() -> ResourceHandle
     {
         // This is an atomic operation and hence needs no locking
         return mNextHandle++;
@@ -440,7 +440,7 @@ namespace Ogre {
         mMemoryUsage -= res->getSize();
     }
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool* ResourceManager::getResourcePool(const String& name)
+    auto ResourceManager::getResourcePool(const String& name) -> ResourceManager::ResourcePool*
     {
         auto i = mResourcePoolMap.find(name);
         if (i == mResourcePoolMap.end())
@@ -495,7 +495,7 @@ namespace Ogre {
         clear();
     }
     //---------------------------------------------------------------------
-    const String& ResourceManager::ResourcePool::getName() const noexcept
+    auto ResourceManager::ResourcePool::getName() const noexcept -> const String&
     {
         return mName;
     }

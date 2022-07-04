@@ -90,7 +90,7 @@ void CompositorChain::destroyResources()
     }
 }
 //-----------------------------------------------------------------------
-const String CompositorChain::getCompositorName() const
+auto CompositorChain::getCompositorName() const -> const String
 {
     return std::format("Ogre/Scene/{}", (size_t)mViewport);
 }
@@ -155,7 +155,7 @@ void CompositorChain::destroyOriginalScene()
 }
 
 //-----------------------------------------------------------------------
-CompositorInstance* CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme)
+auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme) -> CompositorInstance*
 {
 
 
@@ -220,7 +220,7 @@ void CompositorChain::_queuedOperation(CompositorInstance::RenderSystemOperation
 
 }
 //-----------------------------------------------------------------------
-size_t CompositorChain::getCompositorPosition(const String& name) const
+auto CompositorChain::getCompositorPosition(const String& name) const -> size_t
 {
     for (auto it = mInstances.begin(); it != mInstances.end(); ++it)
     {
@@ -231,7 +231,7 @@ size_t CompositorChain::getCompositorPosition(const String& name) const
     }
     return NPOS;
 }
-CompositorInstance *CompositorChain::getCompositor(const String& name) const
+auto CompositorChain::getCompositor(const String& name) const -> CompositorInstance *
 {
     size_t idx = getCompositorPosition(name);
     return idx == NPOS ? nullptr : mInstances[idx];
@@ -270,7 +270,7 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
     inst->setEnabled(state);
 }
 //-----------------------------------------------------------------------
-static const Quaternion& getCubemapRotation(int i)
+static auto getCubemapRotation(int i) -> const Quaternion&
 {
     static const Quaternion CubemapRotations[6] = {
         Quaternion(Degree(-90), Vector3::UNIT_Y), //+X
@@ -545,7 +545,7 @@ void CompositorChain::_markDirty()
     mDirty = true;
 }
 //-----------------------------------------------------------------------
-Viewport *CompositorChain::getViewport()
+auto CompositorChain::getViewport() -> Viewport *
 {
     return mViewport;
 }
@@ -616,7 +616,7 @@ void CompositorChain::RQListener::flushUpTo(uint8 id)
     }
 }
 //-----------------------------------------------------------------------
-CompositorInstance* CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly)
+auto CompositorChain::getPreviousInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
     for(auto & mInstance : std::ranges::reverse_view(mInstances))
@@ -635,7 +635,7 @@ CompositorInstance* CompositorChain::getPreviousInstance(CompositorInstance* cur
     return nullptr;
 }
 //---------------------------------------------------------------------
-CompositorInstance* CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly)
+auto CompositorChain::getNextInstance(CompositorInstance* curr, bool activeOnly) -> CompositorInstance*
 {
     bool found = false;
     for(auto & mInstance : mInstances)

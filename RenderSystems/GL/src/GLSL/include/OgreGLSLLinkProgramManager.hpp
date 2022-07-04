@@ -46,11 +46,11 @@ class GLSLProgram;
         GLSLLinkProgram* mActiveLinkProgram{nullptr};
 
         /// Find where the data for a specific uniform should come from, populate
-        static bool completeParamSource(const String& paramName,
+        static auto completeParamSource(const String& paramName,
             const GpuConstantDefinitionMap* vertexConstantDefs, 
             const GpuConstantDefinitionMap* geometryConstantDefs,
             const GpuConstantDefinitionMap* fragmentConstantDefs,
-            GLUniformReference& refToUpdate);
+            GLUniformReference& refToUpdate) -> bool;
 
     public:
 
@@ -61,7 +61,7 @@ class GLSLProgram;
             Get the program object that links the two active shader objects together
             if a program object was not already created and linked a new one is created and linked
         */
-        GLSLLinkProgram* getActiveLinkProgram() noexcept;
+        auto getActiveLinkProgram() noexcept -> GLSLLinkProgram*;
 
         /** Set the active fragment shader for the next rendering state.
             The active program object will be cleared.
@@ -89,8 +89,8 @@ class GLSLProgram;
             const GpuConstantDefinitionMap* fragmentConstantDefs,
             GLUniformReferenceList& list);
 
-        static GLSLLinkProgramManager& getSingleton() noexcept;
-        static GLSLLinkProgramManager* getSingletonPtr() noexcept;
+        static auto getSingleton() noexcept -> GLSLLinkProgramManager&;
+        static auto getSingletonPtr() noexcept -> GLSLLinkProgramManager*;
 
     };
 

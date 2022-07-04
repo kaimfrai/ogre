@@ -75,12 +75,12 @@ NormalMapLighting::NormalMapLighting()
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLighting::getType() const noexcept
+auto NormalMapLighting::getType() const noexcept -> const String&
 {
     return Type;
 }
 //-----------------------------------------------------------------------
-bool NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet)
+auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
@@ -171,7 +171,7 @@ void NormalMapLighting::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
+auto NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
     TextureUnitState* normalMapTexture = dstPass->createTextureUnitState();
 
@@ -182,7 +182,7 @@ bool NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass
     return true;
 }
 
-bool NormalMapLighting::setParameter(const String& name, const String& value) noexcept
+auto NormalMapLighting::setParameter(const String& name, const String& value) noexcept -> bool
 {
 	if(name == "normalmap_space")
 	{
@@ -231,14 +231,14 @@ bool NormalMapLighting::setParameter(const String& name, const String& value) no
 }
 
 //-----------------------------------------------------------------------
-const String& NormalMapLightingFactory::getType() const noexcept
+auto NormalMapLightingFactory::getType() const noexcept -> const String&
 {
     return NormalMapLighting::Type;
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* NormalMapLightingFactory::createInstance(ScriptCompiler* compiler, 
-                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept
+auto NormalMapLightingFactory::createInstance(ScriptCompiler* compiler, 
+                                                        PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState*
 {
     if (prop->name == "lighting_stage")
     {
@@ -350,7 +350,7 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* NormalMapLightingFactory::createInstanceImpl()
+auto NormalMapLightingFactory::createInstanceImpl() -> SubRenderState*
 {
     return new NormalMapLighting;
 }

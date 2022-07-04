@@ -305,7 +305,7 @@ namespace Ogre
     using String = std::string;
 
     // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
-    [[nodiscard]] ::std::strong_ordering inline operator <=> (String const& left, String const& right) noexcept
+    [[nodiscard]] auto inline operator <=> (String const& left, String const& right) noexcept -> ::std::strong_ordering
     {
         auto const cmp = left.compare(right);
         if (cmp < 0) return ::std::strong_ordering::less;

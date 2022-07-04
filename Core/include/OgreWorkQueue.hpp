@@ -113,17 +113,17 @@ namespace Ogre
             /// Set the abort flag
             void abortRequest() const { mAborted = true; }
             /// Get the request channel (top level categorisation)
-            uint16 getChannel() const noexcept { return mChannel; }
+            auto getChannel() const noexcept -> uint16 { return mChannel; }
             /// Get the type of this request within the given channel
-            uint16 getType() const noexcept { return mType; }
+            auto getType() const noexcept -> uint16 { return mType; }
             /// Get the user details of this request
-            ::std::any const& getData() const noexcept { return mData; }
+            auto getData() const noexcept -> ::std::any const& { return mData; }
             /// Get the remaining retry count
-            uint8 getRetryCount() const noexcept { return mRetryCount; }
+            auto getRetryCount() const noexcept -> uint8 { return mRetryCount; }
             /// Get the identifier of this request
-            RequestID getID() const noexcept { return mID; }
+            auto getID() const noexcept -> RequestID { return mID; }
             /// Get the abort flag
-            bool getAborted() const noexcept { return mAborted; }
+            auto getAborted() const noexcept -> bool { return mAborted; }
         };
 
         /** General purpose response structure. 
@@ -142,13 +142,13 @@ namespace Ogre
         public:
             Response(const Request* rq, bool success, ::std::any  data, String  msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
-            [[nodiscard]] const Request* getRequest() const noexcept { return mRequest.get(); }
+            [[nodiscard]] auto getRequest() const noexcept -> const Request* { return mRequest.get(); }
             /// Return whether this is a successful response
-            [[nodiscard]] bool succeeded() const noexcept { return mSuccess; }
+            [[nodiscard]] auto succeeded() const noexcept -> bool { return mSuccess; }
             /// Get any diagnostic messages about the process
-            [[nodiscard]] const String& getMessages() const noexcept { return mMessages; }
+            [[nodiscard]] auto getMessages() const noexcept -> const String& { return mMessages; }
             /// Return the response data (user defined, only valid on success)
-            [[nodiscard]] ::std::any const& getData() const noexcept { return mData; }
+            [[nodiscard]] auto getData() const noexcept -> ::std::any const& { return mData; }
             /// Abort the request
             void abortRequest() { mRequest->abortRequest(); mData.reset(); }
         };
@@ -178,7 +178,7 @@ namespace Ogre
             which deal with different types of request, you can override
             this method. 
             */
-            virtual bool canHandleRequest(const Request* req, const WorkQueue* srcQ) 
+            virtual auto canHandleRequest(const Request* req, const WorkQueue* srcQ) -> bool 
             { (void)srcQ; return !req->getAborted(); }
 
             /** The handler method every subclass must implement. 
@@ -192,7 +192,7 @@ namespace Ogre
             for deleting the object.
             */
             [[nodiscard]]
-            virtual Response* handleRequest(const Request* req, const WorkQueue* srcQ) = 0;
+            virtual auto handleRequest(const Request* req, const WorkQueue* srcQ) -> Response* = 0;
         };
 
         /** Interface definition for a handler of responses. 
@@ -214,7 +214,7 @@ namespace Ogre
             which deal with different types of response, you can override
             this method. 
             */
-            virtual bool canHandleResponse(const Response* res, const WorkQueue* srcQ) 
+            virtual auto canHandleResponse(const Response* res, const WorkQueue* srcQ) -> bool 
             { (void)srcQ; return !res->getRequest()->getAborted(); }
 
             /** The handler method every subclass must implement. 
@@ -278,8 +278,8 @@ namespace Ogre
             3. If you have lot of more important threads. (example: physics).
         @return The ID of the request that has been added
         */
-        virtual RequestID addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
-            bool forceSynchronous = false, bool idleThread = false) = 0;
+        virtual auto addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
+            bool forceSynchronous = false, bool idleThread = false) -> RequestID = 0;
 
         /** Abort a previously issued request.
         If the request is still waiting to be processed, it will be 
@@ -295,7 +295,7 @@ namespace Ogre
          * @retval true If request was aborted successfully.
          * @retval false If request is already being processed so it can not be aborted.
          */
-        virtual bool abortPendingRequest(RequestID id) = 0;
+        virtual auto abortPendingRequest(RequestID id) -> bool = 0;
 
         /** Abort all previously issued requests in a given channel.
         Any requests still waiting to be processed of the given channel, will be 
@@ -326,7 +326,7 @@ namespace Ogre
         */
         virtual void setPaused(bool pause) = 0;
         /// Return whether the queue is paused ie not sending more work to workers
-        virtual bool isPaused() const noexcept = 0;
+        virtual auto isPaused() const noexcept -> bool = 0;
 
         /** Set whether to accept new requests or not. 
         If true, requests are added to the queue as usual. If false, requests
@@ -334,7 +334,7 @@ namespace Ogre
         */
         virtual void setRequestsAccepted(bool accept) = 0;
         /// Returns whether requests are being accepted right now
-        virtual bool getRequestsAccepted() const noexcept = 0;
+        virtual auto getRequestsAccepted() const noexcept -> bool = 0;
 
         /** Process the responses in the queue.
         @remarks
@@ -349,7 +349,7 @@ namespace Ogre
         /** Get the time limit imposed on the processing of responses in a
             single frame, in milliseconds (0 indicates no limit).
         */
-        virtual unsigned long getResponseProcessingTimeLimit() const noexcept = 0;
+        virtual auto getResponseProcessingTimeLimit() const noexcept -> unsigned long = 0;
 
         /** Set the time limit imposed on the processing of responses in a
             single frame, in milliseconds (0 indicates no limit).
@@ -369,7 +369,7 @@ namespace Ogre
             applications to not worry about channel clashes through manually
             assigned channel numbers.
         */
-        virtual uint16 getChannel(const String& channelName);
+        virtual auto getChannel(const String& channelName) -> uint16;
 
     };
 
@@ -386,11 +386,11 @@ namespace Ogre
         DefaultWorkQueueBase(String  name = BLANKSTRING);
         ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
-        const String& getName() const noexcept;
+        auto getName() const noexcept -> const String&;
         /** Get the number of worker threads that this queue will start when 
             startup() is called. 
         */
-        virtual size_t getWorkerThreadCount() const;
+        virtual auto getWorkerThreadCount() const -> size_t;
 
         /** Set the number of worker threads that this queue will start
             when startup() is called (default 1).
@@ -405,7 +405,7 @@ namespace Ogre
             a context is maintained for that thread. Threads can not use GPU resources, and the render system can
             work in non-threadsafe mode, which is more efficient.
         */
-        virtual bool getWorkersCanAccessRenderSystem() const noexcept;
+        virtual auto getWorkersCanAccessRenderSystem() const noexcept -> bool;
 
 
         /** Set whether worker threads will be allowed to access render system
@@ -431,7 +431,7 @@ namespace Ogre
         virtual void _threadMain() = 0;
 
         /** Returns whether the queue is trying to shut down. */
-        virtual bool isShuttingDown() const noexcept { return mShuttingDown; }
+        virtual auto isShuttingDown() const noexcept -> bool { return mShuttingDown; }
 
         /// @copydoc WorkQueue::addRequestHandler
         void addRequestHandler(uint16 channel, RequestHandler* rh) override;
@@ -443,12 +443,12 @@ namespace Ogre
         void removeResponseHandler(uint16 channel, ResponseHandler* rh) override;
 
         /// @copydoc WorkQueue::addRequest
-        RequestID addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
-            bool forceSynchronous = false, bool idleThread = false) override;
+        auto addRequest(uint16 channel, uint16 requestType, ::std::any const& rData, uint8 retryCount = 0, 
+            bool forceSynchronous = false, bool idleThread = false) -> RequestID override;
         /// @copydoc WorkQueue::abortRequest
         void abortRequest(RequestID id) override;
         /// @copydoc WorkQueue::abortPendingRequest
-        bool abortPendingRequest(RequestID id) override;
+        auto abortPendingRequest(RequestID id) -> bool override;
         /// @copydoc WorkQueue::abortRequestsByChannel
         void abortRequestsByChannel(uint16 channel) override;
         /// @copydoc WorkQueue::abortPendingRequestsByChannel
@@ -458,15 +458,15 @@ namespace Ogre
         /// @copydoc WorkQueue::setPaused
         void setPaused(bool pause) override;
         /// @copydoc WorkQueue::isPaused
-        bool isPaused() const noexcept override;
+        auto isPaused() const noexcept -> bool override;
         /// @copydoc WorkQueue::setRequestsAccepted
         void setRequestsAccepted(bool accept) override;
         /// @copydoc WorkQueue::getRequestsAccepted
-        bool getRequestsAccepted() const noexcept override;
+        auto getRequestsAccepted() const noexcept -> bool override;
         /// @copydoc WorkQueue::processResponses
         void processResponses() override; 
         /// @copydoc WorkQueue::getResponseProcessingTimeLimit
-        unsigned long getResponseProcessingTimeLimit() const noexcept override { return mResposeTimeLimitMS; }
+        auto getResponseProcessingTimeLimit() const noexcept -> unsigned long override { return mResposeTimeLimitMS; }
         /// @copydoc WorkQueue::setResponseProcessingTimeLimit
         void setResponseProcessingTimeLimit(unsigned long ms) override { mResposeTimeLimitMS = ms; }
     protected:
@@ -522,12 +522,12 @@ namespace Ogre
             /** Get handler pointer - note, only use this for == comparison or similar,
                 do not attempt to call it as it is not thread safe. 
             */
-            RequestHandler* getHandler() noexcept { return mHandler; }
+            auto getHandler() noexcept -> RequestHandler* { return mHandler; }
 
             /** Process a request if possible.
             @return Valid response if processed, null otherwise
             */
-            Response* handleRequest(const Request* req, const WorkQueue* srcQ)
+            auto handleRequest(const Request* req, const WorkQueue* srcQ) -> Response*
             {
                 // Read mutex so that multiple requests can be processed by the
                 // same handler in parallel if required
@@ -571,7 +571,7 @@ namespace Ogre
 
 
         void processRequestResponse(Request* r, bool synchronous);
-        Response* processRequest(Request* r);
+        auto processRequest(Request* r) -> Response*;
         void processResponse(Response* r);
         /// Notify workers about a new request. 
         virtual void notifyWorkers() = 0;
@@ -583,7 +583,7 @@ namespace Ogre
         Request* mIdleProcessed{nullptr}; // Guarded by mProcessMutex
         
 
-        bool processIdleRequests();
+        auto processIdleRequests() -> bool;
     };
 
 

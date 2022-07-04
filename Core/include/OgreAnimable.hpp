@@ -224,7 +224,7 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        [[nodiscard]] virtual const String& getAnimableDictionaryName() const noexcept
+        [[nodiscard]] virtual auto getAnimableDictionaryName() const noexcept -> const String&
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.
@@ -232,7 +232,7 @@ namespace Ogre {
         void createAnimableDictionary() const;
     
         /// Get an updateable reference to animable value list
-        StringVector& _getAnimableValueNames();
+        auto _getAnimableValueNames() -> StringVector&;
 
         /** Internal method for initialising dictionary; should be implemented by 
             subclasses wanting to expose animable parameters.
@@ -245,7 +245,7 @@ namespace Ogre {
         virtual ~AnimableObject() = default;
 
         /** Gets a list of animable value names for this object. */
-        [[nodiscard]] const StringVector& getAnimableValueNames() const noexcept;
+        [[nodiscard]] auto getAnimableValueNames() const noexcept -> const StringVector&;
 
         /** Create a reference-counted AnimableValuePtr for the named value.
         @remarks
@@ -253,7 +253,7 @@ namespace Ogre {
             using AnimationTrack. Subclasses must override this if they wish 
             to support animation of their values.
         */
-        virtual AnimableValuePtr createAnimableValue(const String& valueName)
+        virtual auto createAnimableValue(const String& valueName) -> AnimableValuePtr
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
                 ::std::format("No animable value named '{}' present.", valueName ), 

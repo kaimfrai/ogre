@@ -59,13 +59,13 @@ namespace Ogre {
         ParticleAffectorFactory() = default;
         virtual ~ParticleAffectorFactory();
         /** Returns the name of the factory, the name which identifies the particle affector type this factory creates. */
-        [[nodiscard]] virtual String getName() const = 0;
+        [[nodiscard]] virtual auto getName() const -> String = 0;
 
         /** Creates a new affector instance.
         @remarks
             The subclass MUST add a pointer to the created instance to mAffectors.
         */
-        virtual ParticleAffector* createAffector(ParticleSystem* psys) = 0;
+        virtual auto createAffector(ParticleSystem* psys) -> ParticleAffector* = 0;
 
         /** Destroys the affector pointed to by the parameter (for early clean up if required). */
         virtual void destroyAffector(ParticleAffector* e);

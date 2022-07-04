@@ -77,9 +77,9 @@ class SubMesh;
         void setupIndices( const SubMesh* baseSubMesh ) override;
 
         void removeBlendData();
-        bool checkSubMeshCompatibility( const SubMesh* baseSubMesh ) override;
+        auto checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool override;
 
-        size_t updateVertexBuffer( Camera *currentCamera );
+        auto updateVertexBuffer( Camera *currentCamera ) -> size_t;
 
     public:
         InstanceBatchHW( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
@@ -88,7 +88,7 @@ class SubMesh;
         ~InstanceBatchHW() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        size_t calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
 
         /** @see InstanceBatch::buildFrom */
         void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;
@@ -106,11 +106,11 @@ class SubMesh;
         */
         void setStaticAndUpdate( bool bStatic ) override;
 
-        bool isStatic() const noexcept override { return mKeepStatic; }
+        auto isStatic() const noexcept -> bool override { return mKeepStatic; }
 
         //Renderable overloads
         void getWorldTransforms( Matrix4* xform ) const override;
-        unsigned short getNumWorldTransforms() const noexcept override;
+        auto getNumWorldTransforms() const noexcept -> unsigned short override;
 
         /** Overloaded to avoid updating skeletons (which we don't support), check visibility on a
             per unit basis and finally updated the vertex buffer */

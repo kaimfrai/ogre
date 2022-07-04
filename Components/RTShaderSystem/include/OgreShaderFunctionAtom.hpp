@@ -99,28 +99,28 @@ public:
     /** Copy the given Operand to this Operand.
     @param rhs The other Operand to copy to this state.
     */
-    Operand& operator= (const Operand & rhs);
+    auto operator= (const Operand & rhs) -> Operand&;
 
     /** Class destructor */
     ~Operand() = default;
 
     /** Returns the parameter object as weak reference */
-    [[nodiscard]] const ParameterPtr& getParameter() const noexcept { return mParameter; }
+    [[nodiscard]] auto getParameter() const noexcept -> const ParameterPtr& { return mParameter; }
 
     /** Returns true if not all fields used. (usage is described through semantic)*/
-    [[nodiscard]] bool hasFreeFields()    const { return mMask != OPM_ALL; }
+    [[nodiscard]] auto hasFreeFields()    const -> bool { return mMask != OPM_ALL; }
     
     /** Returns the mask bitfield. */
-    [[nodiscard]] OpMask getMask()   const noexcept { return mMask; }
+    [[nodiscard]] auto getMask()   const noexcept -> OpMask { return mMask; }
 
-    Operand& x() { return mask(OPM_X); }
-    Operand& y() { return mask(OPM_Y); }
-    Operand& z() { return mask(OPM_Z); }
-    Operand& w() { return mask(OPM_W); }
-    Operand& xy() { return mask(OPM_XY); }
-    Operand& xyz() { return mask(OPM_XYZ); }
+    auto x() -> Operand& { return mask(OPM_X); }
+    auto y() -> Operand& { return mask(OPM_Y); }
+    auto z() -> Operand& { return mask(OPM_Z); }
+    auto w() -> Operand& { return mask(OPM_W); }
+    auto xy() -> Operand& { return mask(OPM_XY); }
+    auto xyz() -> Operand& { return mask(OPM_XYZ); }
 
-    Operand& mask(OpMask opMask)
+    auto mask(OpMask opMask) -> Operand&
     {
         mMask = opMask;
         return *this;
@@ -130,20 +130,20 @@ public:
     void setMaskToParamType();
 
     /** Returns the operand semantic (do we read/write or both with the parameter). */
-    [[nodiscard]] OpSemantic getSemantic()    const noexcept { return mSemantic; }
+    [[nodiscard]] auto getSemantic()    const noexcept -> OpSemantic { return mSemantic; }
 
     /** Returns the level of indirection. 
     The greater the indirection level the more the parameter needs to be nested in brackets.
     For example given 4 parameters x1...x4 with the indirections levels 0,1,1,2 
     respectively. The parameters should form the following string: x1[x2][x3[x4]].
     */
-    [[nodiscard]] ushort getIndirectionLevel() const noexcept { return mIndirectionLevel; }
+    [[nodiscard]] auto getIndirectionLevel() const noexcept -> ushort { return mIndirectionLevel; }
 
     /** write the parameter name and the usage mask like this 'color.xyz' */
     void write(std::ostream& os) const;
 
     /** Return the float count of the given mask. */
-    static int getFloatCount(int mask);
+    static auto getFloatCount(int mask) -> int;
 protected:
     /// The parameter being carried by the operand
     ParameterPtr mParameter;
@@ -200,10 +200,10 @@ public:
     virtual ~FunctionAtom() = default;
 
     /** Get the group execution order of this function atom. */
-    [[nodiscard]] int getGroupExecutionOrder() const noexcept;
+    [[nodiscard]] auto getGroupExecutionOrder() const noexcept -> int;
 
     /** Get a list of parameters this function invocation will use in the function call as arguments. */
-    OperandVector& getOperandList() noexcept { return mOperands; }
+    auto getOperandList() noexcept -> OperandVector& { return mOperands; }
 
     /** Push a new operand (on the end) to the function.
     @param parameter A function parameter.
@@ -253,19 +253,19 @@ public:
     void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
 
     /** Return the function name */
-    [[nodiscard]] const String& getFunctionName() const noexcept { return mFunctionName; }
+    [[nodiscard]] auto getFunctionName() const noexcept -> const String& { return mFunctionName; }
 
     /** Return the return type */
-    [[nodiscard]] const String& getReturnType() const noexcept { return mReturnType; }
+    [[nodiscard]] auto getReturnType() const noexcept -> const String& { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
-    [[nodiscard]] bool operator == ( const FunctionInvocation& rhs ) const noexcept
+    [[nodiscard]] auto operator == ( const FunctionInvocation& rhs ) const noexcept -> bool
     {
         return (*this <=> rhs) == ::std::strong_ordering::equal;
     }
 
     /** Determines if the current object is less than the compared one. */
-    [[nodiscard]] ::std::strong_ordering operator <=> ( const FunctionInvocation& rhs ) const noexcept;
+    [[nodiscard]] auto operator <=> ( const FunctionInvocation& rhs ) const noexcept -> ::std::strong_ordering;
 
 private:
     FunctionInvocation() = default;

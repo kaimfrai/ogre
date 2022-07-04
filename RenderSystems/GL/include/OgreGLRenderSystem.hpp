@@ -101,8 +101,8 @@ struct GLGpuProgramBase;
         void setGLLight(size_t index, bool lt);
         void makeGLMatrix(GLfloat gl_matrix[16], const Matrix4& m);
  
-        [[nodiscard]] GLint getBlendMode(SceneBlendFactor ogreBlend) const;
-        [[nodiscard]] GLint getTextureAddressingMode(TextureAddressingMode tam) const;
+        [[nodiscard]] auto getBlendMode(SceneBlendFactor ogreBlend) const -> GLint;
+        [[nodiscard]] auto getTextureAddressingMode(TextureAddressingMode tam) const -> GLint;
                 void initialiseContext(RenderWindow* primary);
 
         /// Store last stencil mask state
@@ -110,8 +110,8 @@ struct GLGpuProgramBase;
         /// Store last depth write state
         bool mDepthWrite{true};
 
-        [[nodiscard]] GLint convertCompareFunction(CompareFunction func) const;
-        [[nodiscard]] GLint convertStencilOp(StencilOperation op, bool invert = false) const;
+        [[nodiscard]] auto convertCompareFunction(CompareFunction func) const -> GLint;
+        [[nodiscard]] auto convertStencilOp(StencilOperation op, bool invert = false) const -> GLint;
 
         bool mUseAutoTextureMatrix{false};
         GLfloat mAutoTextureMatrix[16];
@@ -162,17 +162,17 @@ struct GLGpuProgramBase;
         // Overridden RenderSystem functions
         // ----------------------------------
 
-        const GpuProgramParametersPtr& getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) override;
+        auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr& override;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
 
-        [[nodiscard]] const String& getName() const noexcept override;
+        [[nodiscard]] auto getName() const noexcept -> const String& override;
 
         void _initialise() override;
 
         void initConfigOptions() override;
 
-        [[nodiscard]] RenderSystemCapabilities* createRenderSystemCapabilities() const override;
+        [[nodiscard]] auto createRenderSystemCapabilities() const -> RenderSystemCapabilities* override;
 
         void initialiseFromRenderSystemCapabilities(RenderSystemCapabilities* caps, RenderTarget* primary) override;
 
@@ -183,14 +183,14 @@ struct GLGpuProgramBase;
         void setLightingEnabled(bool enabled) override;
         
         /// @copydoc RenderSystem::_createRenderWindow
-        RenderWindow* _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
-                                          bool fullScreen, const NameValuePairList *miscParams = nullptr) override;
+        auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+                                          bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc RenderSystem::_createDepthBufferFor
-        DepthBuffer* _createDepthBufferFor( RenderTarget *renderTarget ) override;
+        auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer* override;
         
         /// @copydoc RenderSystem::createMultiRenderTarget
-        MultiRenderTarget * createMultiRenderTarget(const String & name) override; 
+        auto createMultiRenderTarget(const String & name) -> MultiRenderTarget * override; 
         
 
         void destroyRenderWindow(const String& name) override;
@@ -277,7 +277,7 @@ struct GLGpuProgramBase;
         void clearFrameBuffer(unsigned int buffers, 
                               const ColourValue& colour = ColourValue::Black, 
                               float depth = 1.0f, unsigned short stencil = 0) override;
-        HardwareOcclusionQuery* createHardwareOcclusionQuery() override;
+        auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery* override;
 
         // ----------------------------------
         // GLRenderSystem specific members
@@ -299,7 +299,7 @@ struct GLGpuProgramBase;
          */
         void _unregisterContext(GLContext *context) override;
 
-        GLStateCacheManager * _getStateCacheManager() noexcept { return mStateCacheManager; }
+        auto _getStateCacheManager() noexcept -> GLStateCacheManager * { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
         void beginProfileEvent( const String &eventName ) override;

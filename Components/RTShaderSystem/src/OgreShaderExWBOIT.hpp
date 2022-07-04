@@ -35,10 +35,10 @@ namespace Ogre::RTShader
 class WBOIT : public SubRenderState
 {
 public:
-    const String& getType() const noexcept override;
-    int getExecutionOrder() const noexcept override;
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
-    bool createCpuSubPrograms(ProgramSet* programSet) override;
+    auto getType() const noexcept -> const String& override;
+    auto getExecutionOrder() const noexcept -> int override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
+    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
     void copyFrom(const SubRenderState& rhs) override {}
 
     static String Type;
@@ -51,15 +51,15 @@ A factory that enables creation of GBuffer instances.
 class WBOITFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                           SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                           SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
 protected:
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 };
 
 /** @} */

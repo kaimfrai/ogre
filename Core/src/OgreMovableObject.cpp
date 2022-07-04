@@ -143,7 +143,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    SceneNode* MovableObject::getParentSceneNode() const noexcept
+    auto MovableObject::getParentSceneNode() const noexcept -> SceneNode*
     {
         if (mParentIsTagPoint)
         {
@@ -173,7 +173,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isInScene() const noexcept
+    auto MovableObject::isInScene() const noexcept -> bool
     {
         if (mParentNode != nullptr)
         {
@@ -207,7 +207,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool MovableObject::isVisible() const noexcept
+    auto MovableObject::isVisible() const noexcept -> bool
     {
         if (!mVisible || mBeyondFarDistance || mRenderingDisabled)
             return false;
@@ -304,7 +304,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const Affine3& MovableObject::_getParentNodeFullTransform() const
+    auto MovableObject::_getParentNodeFullTransform() const -> const Affine3&
     {
         
         if(mParentNode)
@@ -316,7 +316,7 @@ namespace Ogre {
         return Affine3::IDENTITY;
     }
 
-    Real MovableObject::getBoundingRadiusScaled() const
+    auto MovableObject::getBoundingRadiusScaled() const -> Real
     {
         const Vector3& scl = mParentNode->_getDerivedScale();
         Real factor = std::max(std::max(std::abs(scl.x), std::abs(scl.y)), std::abs(scl.z));
@@ -324,7 +324,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getWorldBoundingBox(bool derive) const
+    auto MovableObject::getWorldBoundingBox(bool derive) const -> const AxisAlignedBox&
     {
         if (derive)
         {
@@ -336,7 +336,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const Sphere& MovableObject::getWorldBoundingSphere(bool derive) const
+    auto MovableObject::getWorldBoundingSphere(bool derive) const -> const Sphere&
     {
         if (derive)
         {
@@ -346,7 +346,7 @@ namespace Ogre {
         return mWorldBoundingSphere;
     }
     //-----------------------------------------------------------------------
-    const LightList& MovableObject::queryLights() const noexcept
+    auto MovableObject::queryLights() const noexcept -> const LightList&
     {
         // Try listener first
         if (mListener)
@@ -387,21 +387,21 @@ namespace Ogre {
         return mLightList;
     }
     //-----------------------------------------------------------------------
-    const ShadowRenderableList& MovableObject::getShadowVolumeRenderableList(
+    auto MovableObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDist, int flags)
+        float extrusionDist, int flags) -> const ShadowRenderableList&
     {
         static ShadowRenderableList dummyList;
         return dummyList;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getLightCapBounds() const noexcept
+    auto MovableObject::getLightCapBounds() const noexcept -> const AxisAlignedBox&
     {
         // Same as original bounds
         return getWorldBoundingBox();
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const
+    auto MovableObject::getDarkCapBounds(const Light& light, Real extrusionDist) const -> const AxisAlignedBox&
     {
         // Extrude own light cap bounds
         mWorldDarkCapBounds = getLightCapBounds();
@@ -411,7 +411,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    Real MovableObject::getPointExtrusionDistance(const Light* l) const
+    auto MovableObject::getPointExtrusionDistance(const Light* l) const -> Real
     {
         if (mParentNode)
         {
@@ -437,7 +437,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    uint32 MovableObject::getTypeFlags() const noexcept
+    auto MovableObject::getTypeFlags() const noexcept -> uint32
     {
         if (mCreator)
         {
@@ -472,7 +472,7 @@ namespace Ogre {
         }
     };
     //---------------------------------------------------------------------
-    bool MovableObject::getReceivesShadows() noexcept
+    auto MovableObject::getReceivesShadows() noexcept -> bool
     {
         MORecvShadVisitor visitor;
         visitRenderables(&visitor);
@@ -481,9 +481,9 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    MovableObject* MovableObjectFactory::createInstance(
+    auto MovableObjectFactory::createInstance(
         const String& name, SceneManager* manager, 
-        const NameValuePairList* params)
+        const NameValuePairList* params) -> MovableObject*
     {
         MovableObject* m = createInstanceImpl(name, params);
         m->_notifyCreator(this);

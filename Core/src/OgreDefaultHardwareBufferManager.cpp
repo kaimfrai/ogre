@@ -46,7 +46,7 @@ namespace Ogre {
         AlignedMemory::deallocate(mData);
     }
     //-----------------------------------------------------------------------
-    void* DefaultHardwareBuffer::lockImpl(size_t offset, size_t length, LockOptions options)
+    auto DefaultHardwareBuffer::lockImpl(size_t offset, size_t length, LockOptions options) -> void*
     {
         // Only for use internally, no 'locking' as such
         return mData + offset;
@@ -80,17 +80,17 @@ namespace Ogre {
         destroyAllBindings(); 
     }
     //-----------------------------------------------------------------------
-    HardwareVertexBufferSharedPtr 
+    auto 
         DefaultHardwareBufferManagerBase::createVertexBuffer(size_t vertexSize, 
-        size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer)
+        size_t numVerts, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareVertexBufferSharedPtr
     {
         return std::make_shared<HardwareVertexBuffer>(this, vertexSize, numVerts,
                                                       new DefaultHardwareBuffer(vertexSize * numVerts));
     }
     //-----------------------------------------------------------------------
-    HardwareIndexBufferSharedPtr 
+    auto 
         DefaultHardwareBufferManagerBase::createIndexBuffer(HardwareIndexBuffer::IndexType itype, 
-        size_t numIndexes, HardwareBuffer::Usage usage, bool useShadowBuffer)
+        size_t numIndexes, HardwareBuffer::Usage usage, bool useShadowBuffer) -> HardwareIndexBufferSharedPtr
     {
         return std::make_shared<HardwareIndexBuffer>(
             this, itype, numIndexes,

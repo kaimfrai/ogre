@@ -37,13 +37,13 @@ class CookTorranceLighting : public SubRenderState
 public:
     CookTorranceLighting();
 
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
-    int getExecutionOrder() const noexcept override { return FFP_LIGHTING; }
+    auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING; }
 
     void copyFrom(const SubRenderState& rhs) override;
 
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     // Type of this render state.
     static String Type;
@@ -51,11 +51,11 @@ public:
     /**
     Return the metallic-roughness map texture name.
     */
-    const String& getMetalRoughnessMapName() const noexcept { return mMetalRoughnessMapName; }
+    auto getMetalRoughnessMapName() const noexcept -> const String& { return mMetalRoughnessMapName; }
 
-    bool setParameter(const String& name, const String& value) noexcept override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
-    bool createCpuSubPrograms(ProgramSet* programSet) override;
+    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
 
 private:
     String mMetalRoughnessMapName;
@@ -66,14 +66,14 @@ private:
 class CookTorranceLightingFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                   SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                   SGScriptTranslator* translator) noexcept -> SubRenderState* override;
     void writeInstance(MaterialSerializer* ser, SubRenderState* subRenderState, Pass* srcPass, Pass* dstPass) override;
 
 protected:
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 };
 
 /** @} */

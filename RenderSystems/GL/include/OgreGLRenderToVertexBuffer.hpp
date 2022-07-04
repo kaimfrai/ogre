@@ -70,8 +70,8 @@ class SceneManager;
     protected:
         void reallocateBuffer(size_t index);
         void bindVerticesOutput(Pass* pass);
-        GLint getGLSemanticType(VertexElementSemantic semantic);
-        String getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index);
+        auto getGLSemanticType(VertexElementSemantic semantic) -> GLint;
+        auto getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> String;
         HardwareVertexBufferSharedPtr mVertexBuffers[2];
         size_t mFrontBufferIndex{ static_cast<size_t>(-1) };
         GLuint mPrimitivesDrawnQuery;

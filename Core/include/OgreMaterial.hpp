@@ -148,7 +148,7 @@ class Technique;
         */
         void unloadImpl() override;
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const override;
+        auto calculateSize() const -> size_t override;
     public:
 
         /** Constructor - use resource manager's create method rather than this.
@@ -159,12 +159,12 @@ class Technique;
         ~Material() override;
         /** Assignment operator to allow easy copying between materials.
         */
-        Material& operator=( const Material& rhs );
+        auto operator=( const Material& rhs ) -> Material&;
 
         /** Determines if the material has any transparency with the rest of the scene (derived from 
             whether any Techniques say they involve transparency).
         */
-        bool isTransparent() const noexcept;
+        auto isTransparent() const noexcept -> bool;
 
         /** Sets whether objects using this material will receive shadows.
         @remarks
@@ -181,7 +181,7 @@ class Technique;
         */
         void setReceiveShadows(bool enabled) { mReceiveShadows = enabled; }
         /** Returns whether or not objects using this material will receive shadows. */
-        bool getReceiveShadows() const noexcept { return mReceiveShadows; }
+        auto getReceiveShadows() const noexcept -> bool { return mReceiveShadows; }
 
         /** Sets whether objects using this material be classified as opaque to the shadow caster system.
         @remarks
@@ -193,7 +193,7 @@ class Technique;
         */
         void setTransparencyCastsShadows(bool enabled) { mTransparencyCastsShadows = enabled; }
         /** Returns whether or not objects using this material be classified as opaque to the shadow caster system. */
-        bool getTransparencyCastsShadows() const noexcept { return mTransparencyCastsShadows; }
+        auto getTransparencyCastsShadows() const noexcept -> bool { return mTransparencyCastsShadows; }
 
         using TechniqueIterator = VectorIterator<Techniques>;
         /// @name Techniques
@@ -212,22 +212,22 @@ class Technique;
             to higher-indexed Techniques, ie when asked for the 'best' technique it will
             return the first one in the technique list which is supported by the hardware.
         */
-        Technique* createTechnique();
+        auto createTechnique() -> Technique*;
         /** Gets the indexed technique. */
-        Technique* getTechnique(size_t index) const { return mTechniques.at(index); }
+        auto getTechnique(size_t index) const -> Technique* { return mTechniques.at(index); }
         /** searches for the named technique.
             Return 0 if technique with name is not found
         */
-        Technique* getTechnique(const String& name) const;
+        auto getTechnique(const String& name) const -> Technique*;
         /** Retrieves the number of techniques.  */
-        size_t getNumTechniques() const { return mTechniques.size(); }
+        auto getNumTechniques() const -> size_t { return mTechniques.size(); }
         /** Removes the technique at the given index. */        
         void removeTechnique(unsigned short index);     
         /** Removes all the techniques in this Material. */
         void removeAllTechniques();
 
         /** Get the Techniques in this Material. */
-        const Techniques& getTechniques() const noexcept {
+        auto getTechniques() const noexcept -> const Techniques& {
             return mTechniques;
         }
 
@@ -237,16 +237,16 @@ class Technique;
             which typically happens on loading the material. Therefore, if this method returns
             an empty list, try calling Material::load.
         */
-        const Techniques& getSupportedTechniques() const noexcept {
+        auto getSupportedTechniques() const noexcept -> const Techniques& {
             return mSupportedTechniques;
         }
         
         /** Gets the indexed supported technique. */
-        Technique* getSupportedTechnique(size_t index) const { return mSupportedTechniques.at(index); }
+        auto getSupportedTechnique(size_t index) const -> Technique* { return mSupportedTechniques.at(index); }
         /** Retrieves the number of supported techniques. */
-        size_t getNumSupportedTechniques() const { return mSupportedTechniques.size(); }
+        auto getNumSupportedTechniques() const -> size_t { return mSupportedTechniques.size(); }
         /** Gets a string explaining why any techniques are not supported. */
-        const String& getUnsupportedTechniquesExplanation() const noexcept { return mUnsupportedReasons; }
+        auto getUnsupportedTechniquesExplanation() const noexcept -> const String& { return mUnsupportedReasons; }
 
         /** Gets the best supported technique. 
         @remarks
@@ -263,7 +263,7 @@ class Technique;
             scheme is found, at which point it is passed to 
             MaterialManager::Listener::handleSchemeNotFound as information.
         */
-        Technique* getBestTechnique(unsigned short lodIndex = 0, const Renderable* rend = nullptr);
+        auto getBestTechnique(unsigned short lodIndex = 0, const Renderable* rend = nullptr) -> Technique*;
         /// @}
 
         /** Creates a new copy of this material with the same settings but a new name.
@@ -273,10 +273,10 @@ class Technique;
             if you leave this blank, the clone will be assigned to the same
             group as this Material.
         */
-        MaterialPtr clone(const String& newName, const String& newGroup = BLANKSTRING) const;
+        auto clone(const String& newName, const String& newGroup = BLANKSTRING) const -> MaterialPtr;
 
         // needed because of deprecated variant below
-        MaterialPtr clone(const String& newName, const char* newGroup) const { return clone(newName, String(newGroup)); }
+        auto clone(const String& newName, const char* newGroup) const -> MaterialPtr { return clone(newName, String(newGroup)); }
 
         /** Copies the details of this material into another, preserving the target's handle and name
         (unlike operator=) but copying everything else.
@@ -580,13 +580,13 @@ class Technique;
         @remarks
             Note that this will not be up to date until the material has been compiled.
         */
-        unsigned short getNumLodLevels(unsigned short schemeIndex) const;
+        auto getNumLodLevels(unsigned short schemeIndex) const -> unsigned short;
         /** Gets the number of levels-of-detail this material has in the
             given scheme, based on Technique::setLodIndex.
         @remarks
             Note that this will not be up to date until the material has been compiled.
         */
-        unsigned short getNumLodLevels(const String& schemeName) const;
+        auto getNumLodLevels(const String& schemeName) const -> unsigned short;
         /** Sets the distance at which level-of-detail (LOD) levels come into effect.
         @remarks
             You should only use this if you have assigned LOD indexes to the Technique
@@ -610,7 +610,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getLodValues() const noexcept {
+        auto getLodValues() const noexcept -> const LodValueList& {
             return mLodValues;
         }
 
@@ -621,7 +621,7 @@ class Technique;
             entry at the start (since the highest LOD starts at value 0). Also, the
             values returned are after being transformed by LodStrategy::transformUserValue.
         */
-        const LodValueList& getUserLodValues() const noexcept {
+        auto getUserLodValues() const noexcept -> const LodValueList& {
             return mUserLodValues;
         }
 
@@ -630,10 +630,10 @@ class Technique;
         an original source value (e.g. distance), use LodStrategy::transformUserValue
         to turn this into a lookup value.
         */
-        ushort getLodIndex(Real value) const;
+        auto getLodIndex(Real value) const -> ushort;
 
         /** Get LOD strategy used by this material. */
-        const LodStrategy *getLodStrategy() const;
+        auto getLodStrategy() const -> const LodStrategy *;
         /** Set the LOD strategy used by this material. */
         void setLodStrategy(LodStrategy *lodStrategy);
         /// @}
@@ -651,7 +651,7 @@ class Technique;
         /** Gets the compilation status of the material.
         @return True if the material needs recompilation.
         */
-        bool getCompilationRequired() const noexcept
+        auto getCompilationRequired() const noexcept -> bool
         {
             return mCompilationRequired;
         }

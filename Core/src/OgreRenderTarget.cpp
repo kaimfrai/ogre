@@ -77,7 +77,7 @@ class Camera;
 
     }
 
-    const String& RenderTarget::getName() const noexcept
+    auto RenderTarget::getName() const noexcept -> const String&
     {
         return mName;
     }
@@ -89,11 +89,11 @@ class Camera;
         height = mHeight;
     }
 
-    unsigned int RenderTarget::getWidth() const noexcept
+    auto RenderTarget::getWidth() const noexcept -> unsigned int
     {
         return mWidth;
     }
-    unsigned int RenderTarget::getHeight() const noexcept
+    auto RenderTarget::getHeight() const noexcept -> unsigned int
     {
         return mHeight;
     }
@@ -107,17 +107,17 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    uint16 RenderTarget::getDepthBufferPool() const noexcept
+    auto RenderTarget::getDepthBufferPool() const noexcept -> uint16
     {
         return mDepthBufferPoolId;
     }
     //-----------------------------------------------------------------------
-    DepthBuffer* RenderTarget::getDepthBuffer() const noexcept
+    auto RenderTarget::getDepthBuffer() const noexcept -> DepthBuffer*
     {
         return mDepthBuffer;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer )
+    auto RenderTarget::attachDepthBuffer( DepthBuffer *depthBuffer ) -> bool
     {
         bool retVal = false;
 
@@ -213,8 +213,8 @@ class Camera;
         }
     }
 
-    Viewport* RenderTarget::addViewport(Camera* cam, int ZOrder, float left, float top ,
-        float width , float height)
+    auto RenderTarget::addViewport(Camera* cam, int ZOrder, float left, float top ,
+        float width , float height) -> Viewport*
     {       
         // Check no existing viewport with this Z-order
         auto it = mViewportList.find(ZOrder);
@@ -366,13 +366,13 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    unsigned short RenderTarget::getNumViewports() const noexcept
+    auto RenderTarget::getNumViewports() const noexcept -> unsigned short
     {
         return (unsigned short)mViewportList.size();
 
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderTarget::getViewport(unsigned short index)
+    auto RenderTarget::getViewport(unsigned short index) -> Viewport*
     {
         assert (index < mViewportList.size() && "Index out of bounds");
 
@@ -382,7 +382,7 @@ class Camera;
         return i->second.get();
     }
     //-----------------------------------------------------------------------
-    Viewport* RenderTarget::getViewportByZOrder(int ZOrder)
+    auto RenderTarget::getViewportByZOrder(int ZOrder) -> Viewport*
     {
         auto i = mViewportList.find(ZOrder);
         if(i == mViewportList.end())
@@ -392,13 +392,13 @@ class Camera;
         return i->second.get();
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::hasViewportWithZOrder(int ZOrder)
+    auto RenderTarget::hasViewportWithZOrder(int ZOrder) -> bool
     {
         auto i = mViewportList.find(ZOrder);
         return i != mViewportList.end();
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isActive() const noexcept
+    auto RenderTarget::isActive() const noexcept -> bool
     {
         return mActive;
     }
@@ -455,7 +455,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    String RenderTarget::writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix)
+    auto RenderTarget::writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix) -> String
     {
         struct tm *pTime;
         time_t ctTime; time(&ctTime);
@@ -500,18 +500,18 @@ class Camera;
         mAutoUpdate = autoup;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isAutoUpdated() const noexcept
+    auto RenderTarget::isAutoUpdated() const noexcept -> bool
     {
         return mAutoUpdate;
     }
     //-----------------------------------------------------------------------
-    bool RenderTarget::isPrimary() const noexcept
+    auto RenderTarget::isPrimary() const noexcept -> bool
     {
         // RenderWindow will override and return true for the primary window
         return false;
     }  
 	//-----------------------------------------------------------------------
-    bool RenderTarget::isStereoEnabled() const noexcept
+    auto RenderTarget::isStereoEnabled() const noexcept -> bool
     {
         return mStereoEnabled;
     }

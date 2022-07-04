@@ -51,7 +51,7 @@ class ResourceManager;
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;
 
-    String GLSLShaderCommon::getResourceLogName() const
+    auto GLSLShaderCommon::getResourceLogName() const -> String
     {
         if(mLoadFromFile)
             return ::std::format("'{}'", mFilename );
@@ -112,7 +112,7 @@ class ResourceManager;
     {
     }
     //-----------------------------------------------------------------------
-    String GLSLShaderCommon::CmdAttach::doGet(const void *target) const
+    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> String
     {
         return (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames();
     }
@@ -154,7 +154,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    String GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const
+    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> String
     {
         return StringConverter::toString(static_cast<const GLSLShaderCommon*>(target)->getColumnMajorMatrices());
     }

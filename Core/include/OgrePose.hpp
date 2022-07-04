@@ -70,9 +70,9 @@ class VertexData;
         */
         Pose(ushort target, String  name = BLANKSTRING);
         /// Return the name of the pose (may be blank)
-        const String& getName() const noexcept { return mName; }
+        auto getName() const noexcept -> const String& { return mName; }
         /// Return the target geometry index of the pose
-        ushort getTarget() const noexcept { return mTarget; }
+        auto getTarget() const noexcept -> ushort { return mTarget; }
         /// A collection of vertex offsets based on the vertex index
         using VertexOffsetMap = std::map<size_t, Vector3>;
         /// An iterator over the vertex offsets
@@ -86,7 +86,7 @@ class VertexData;
         /// An iterator over the vertex offsets
         using ConstNormalsIterator = ConstMapIterator<NormalsMap>;
         /// Return whether the pose vertices include normals
-        bool getIncludesNormals() const noexcept { return !mNormalsMap.empty(); }
+        auto getIncludesNormals() const noexcept -> bool { return !mNormalsMap.empty(); }
 
         /** Adds an offset to a vertex for this pose. 
         @param index The vertex index
@@ -108,31 +108,31 @@ class VertexData;
         void clearVertices();
 
         /** Gets a const reference to the vertex offsets. */
-        const VertexOffsetMap& getVertexOffsets() const noexcept { return mVertexOffsetMap; }
+        auto getVertexOffsets() const noexcept -> const VertexOffsetMap& { return mVertexOffsetMap; }
 
         /** Gets a const reference to the vertex normals */
-        const NormalsMap& getNormals() const noexcept { return mNormalsMap; }
+        auto getNormals() const noexcept -> const NormalsMap& { return mNormalsMap; }
 
         /** writable access to the vertex offsets for offline processing
          *
          * @attention does not invalidate the vertexbuffer
          */
-        VertexOffsetMap& _getVertexOffsets() noexcept { return mVertexOffsetMap; }
+        auto _getVertexOffsets() noexcept -> VertexOffsetMap& { return mVertexOffsetMap; }
 
         /** writable access to the vertex normals for offline processing
          *
          * @attention does not invalidate the vertexbuffer
          */
-        NormalsMap& _getNormals() noexcept { return mNormalsMap; }
+        auto _getNormals() noexcept -> NormalsMap& { return mNormalsMap; }
 
         /** Get a hardware vertex buffer version of the vertex offsets. */
-        const HardwareVertexBufferSharedPtr& _getHardwareVertexBuffer(const VertexData* origData) const;
+        auto _getHardwareVertexBuffer(const VertexData* origData) const -> const HardwareVertexBufferSharedPtr&;
 
         /** Clone this pose and create another one configured exactly the same
             way (only really useful for cloning holders of this class).
         */
         [[nodiscard]]
-        Pose* clone() const;
+        auto clone() const -> Pose*;
     private:
         /// Target geometry index
         ushort mTarget;

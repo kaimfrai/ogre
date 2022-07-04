@@ -42,7 +42,7 @@ namespace Ogre {
     const ColourValue ColourValue::Blue = ColourValue(0.0,0.0,1.0);
 
     //---------------------------------------------------------------------
-    RGBA ColourValue::getAsRGBA() const
+    auto ColourValue::getAsRGBA() const -> RGBA
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -69,7 +69,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    ARGB ColourValue::getAsARGB() const
+    auto ColourValue::getAsARGB() const -> ARGB
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -97,7 +97,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    BGRA ColourValue::getAsBGRA() const
+    auto ColourValue::getAsBGRA() const -> BGRA
     {
         uint8 val8;
         uint32 val32 = 0;
@@ -125,7 +125,7 @@ namespace Ogre {
         return val32;
     }
     //---------------------------------------------------------------------
-    ABGR ColourValue::getAsABGR() const
+    auto ColourValue::getAsABGR() const -> ABGR
     {
         uint8 val8;
         uint32 val32 = 0;

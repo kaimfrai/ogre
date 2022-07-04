@@ -85,7 +85,7 @@ TrackMemory::~TrackMemory() noexcept
 }
 #endif
 
-int main(int argc, char *argv[]) {
+auto main(int argc, char *argv[]) -> int {
 
     try
     {

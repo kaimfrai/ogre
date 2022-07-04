@@ -51,7 +51,7 @@ class RenderTexture;
         
         void getCustomAttribute(const String& name, void* pData) override;
 
-        [[nodiscard]] GLContext* getContext() const noexcept override { return nullptr; }
+        [[nodiscard]] auto getContext() const noexcept -> GLContext* override { return nullptr; }
     };
     
     /** Simple, copying manager/factory for RenderTextures. This is only used as the last fallback if
@@ -60,11 +60,11 @@ class RenderTexture;
     class GLCopyingRTTManager: public GLRTTManager
     {
     public:
-        RenderTexture *createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) override {
+        auto createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * override {
             return new GLCopyingRenderTexture(this, name, target, writeGamma, fsaa);
         }
 
-        bool checkFormat(PixelFormat format) {
+        auto checkFormat(PixelFormat format) -> bool {
             return true;
         }
         

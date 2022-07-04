@@ -159,7 +159,7 @@ namespace Ogre {
         /// Manual blending factor
         Real factor;
 
-        [[nodiscard]] bool operator==(const LayerBlendModeEx& rhs) const noexcept
+        [[nodiscard]] auto operator==(const LayerBlendModeEx& rhs) const noexcept -> bool
         {
             if (blendType != rhs.blendType) return false;
 
@@ -287,7 +287,7 @@ namespace Ogre {
         = default;
 
         /// can we simply overwrite the existing pixels or do we have to blend
-        [[nodiscard]] bool blendingEnabled() const
+        [[nodiscard]] auto blendingEnabled() const -> bool
         {
             return !(sourceFactor == SBF_ONE && destFactor == SBF_ZERO &&
                      sourceFactorAlpha == SBF_ONE && destFactorAlpha == SBF_ZERO);

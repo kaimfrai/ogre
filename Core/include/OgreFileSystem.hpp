@@ -46,7 +46,7 @@ class Archive;
     */
 
     /// internal method to open a FileStreamDataStream
-    DataStreamPtr _openFileStream(const String& path, std::ios::openmode mode, const String& name = "");
+    auto _openFileStream(const String& path, std::ios::openmode mode, const String& name = "") -> DataStreamPtr;
 
     /** Specialisation of the ArchiveFactory to allow reading of files from
         filesystem folders / directories.
@@ -55,11 +55,11 @@ class Archive;
     {
     public:
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
 
         using ArchiveFactory::createInstance;
 
-        Archive *createInstance( const String& name, bool readOnly ) override;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
 
         /// Set whether filesystem enumeration will include hidden files or not.
         /// This should be called prior to declaring and/or initializing filesystem
@@ -67,7 +67,7 @@ class Archive;
         static void setIgnoreHidden(bool ignore);
 
         /// Get whether hidden files are ignored during filesystem enumeration.
-        static bool getIgnoreHidden() noexcept;
+        static auto getIgnoreHidden() noexcept -> bool;
     };
 
     class APKFileSystemArchiveFactory : public ArchiveFactory
@@ -76,9 +76,9 @@ class Archive;
         APKFileSystemArchiveFactory(AAssetManager* assetMgr) : mAssetMgr(assetMgr) {}
         ~APKFileSystemArchiveFactory() override = default;
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
         /// @copydoc ArchiveFactory::createInstance
-        Archive *createInstance( const String& name, bool readOnly ) override;
+        auto createInstance( const String& name, bool readOnly ) -> Archive * override;
     private:
         AAssetManager* mAssetMgr;
     };

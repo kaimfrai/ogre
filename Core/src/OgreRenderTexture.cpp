@@ -59,7 +59,7 @@ struct Box;
         mBuffer->blitToMemory(src, dst);
     }
     //---------------------------------------------------------------------
-    PixelFormat RenderTexture::suggestPixelFormat() const noexcept
+    auto RenderTexture::suggestPixelFormat() const noexcept -> PixelFormat
     {
         return mBuffer->getFormat();
     }

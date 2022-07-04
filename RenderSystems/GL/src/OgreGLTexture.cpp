@@ -71,7 +71,7 @@ class ResourceManager;
         }
     }
 
-    GLenum GLTexture::getGLTextureTarget() const
+    auto GLTexture::getGLTextureTarget() const -> GLenum
     {
         switch(mTextureType)
         {

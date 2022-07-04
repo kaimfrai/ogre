@@ -147,11 +147,11 @@ class ResourceManager;
 
         /** Gets the type of texture 
         */
-        TextureType getTextureType() const noexcept { return mTextureType; }
+        auto getTextureType() const noexcept -> TextureType { return mTextureType; }
 
         /** Gets the number of mipmaps to be used for this texture.
         */
-        uint32 getNumMipmaps() const noexcept {return mNumMipmaps;}
+        auto getNumMipmaps() const noexcept -> uint32 {return mNumMipmaps;}
 
         /** Sets the number of mipmaps to be used for this texture.
             @note
@@ -168,11 +168,11 @@ class ResourceManager;
         @remarks
             Will only be accurate after texture load, or createInternalResources
         */
-        bool getMipmapsHardwareGenerated() const noexcept { return mMipmapsHardwareGenerated; }
+        auto getMipmapsHardwareGenerated() const noexcept -> bool { return mMipmapsHardwareGenerated; }
 
         /** Returns the gamma adjustment factor applied to this texture on loading.
         */
-        float getGamma() const noexcept { return mGamma; }
+        auto getGamma() const noexcept -> float { return mGamma; }
 
         /** Sets the gamma adjustment factor applied to this texture on loading the
             data.
@@ -207,7 +207,7 @@ class ResourceManager;
         /** Gets whether this texture will be set up so that on sampling it, 
         hardware gamma correction is applied.
         */
-        bool isHardwareGammaEnabled() const noexcept { return mHwGamma; }
+        auto isHardwareGammaEnabled() const noexcept -> bool { return mHwGamma; }
 
         /** Set the level of multisample AA to be used if this texture is a 
             rendertarget.
@@ -221,35 +221,35 @@ class ResourceManager;
         /** Get the level of multisample AA to be used if this texture is a 
         rendertarget.
         */
-        uint getFSAA() const noexcept { return mFSAA; }
+        auto getFSAA() const noexcept -> uint { return mFSAA; }
 
         /** Get the multisample AA hint if this texture is a rendertarget.
         */
-        const String& getFSAAHint() const noexcept { return mFSAAHint; }
+        auto getFSAAHint() const noexcept -> const String& { return mFSAAHint; }
 
         /** Returns the height of the texture.
         */
-        uint32 getHeight() const noexcept { return mHeight; }
+        auto getHeight() const noexcept -> uint32 { return mHeight; }
 
         /** Returns the width of the texture.
         */
-        uint32 getWidth() const noexcept { return mWidth; }
+        auto getWidth() const noexcept -> uint32 { return mWidth; }
 
         /** Returns the depth of the texture (only applicable for 3D textures).
         */
-        uint32 getDepth() const noexcept { return mDepth; }
+        auto getDepth() const noexcept -> uint32 { return mDepth; }
 
         /** Returns the height of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcHeight() const noexcept { return mSrcHeight; }
+        auto getSrcHeight() const noexcept -> uint32 { return mSrcHeight; }
 
         /** Returns the width of the original input texture (may differ due to hardware requirements).
         */
-        uint32 getSrcWidth() const noexcept { return mSrcWidth; }
+        auto getSrcWidth() const noexcept -> uint32 { return mSrcWidth; }
 
         /** Returns the original depth of the input texture (only applicable for 3D textures).
         */
-        uint32 getSrcDepth() const noexcept { return mSrcDepth; }
+        auto getSrcDepth() const noexcept -> uint32 { return mSrcDepth; }
 
         /** Set the height of the texture; can only do this before load();
         */
@@ -266,7 +266,7 @@ class ResourceManager;
 
         /** Returns the TextureUsage identifier for this Texture
         */
-        int getUsage() const noexcept
+        auto getUsage() const noexcept -> int
         {
             return mUsage;
         }
@@ -329,13 +329,13 @@ class ResourceManager;
         void _loadImages( const ConstImagePtrList& images );
 
         /** Returns the pixel format for the texture surface. */
-        PixelFormat getFormat() const
+        auto getFormat() const -> PixelFormat
         {
             return mFormat;
         }
 
         /** Returns the desired pixel format for the texture surface. */
-        PixelFormat getDesiredFormat() const
+        auto getDesiredFormat() const -> PixelFormat
         {
             return mDesiredFormat;
         }
@@ -343,7 +343,7 @@ class ResourceManager;
         /** Returns the pixel format of the original input texture (may differ due to
             hardware requirements and pixel format conversion).
         */
-        PixelFormat getSrcFormat() const
+        auto getSrcFormat() const -> PixelFormat
         {
             return mSrcFormat;
         }
@@ -352,7 +352,7 @@ class ResourceManager;
         void setFormat(PixelFormat pf);
 
         /** Returns true if the texture has an alpha layer. */
-        bool hasAlpha() const;
+        auto hasAlpha() const -> bool;
 
         /** Sets desired bit depth for integer pixel format textures.
 
@@ -363,7 +363,7 @@ class ResourceManager;
 
         /** gets desired bit depth for integer pixel format textures.
         */
-        ushort getDesiredIntegerBitDepth() const noexcept;
+        auto getDesiredIntegerBitDepth() const noexcept -> ushort;
 
         /** Sets desired bit depth for float pixel format textures.
 
@@ -374,7 +374,7 @@ class ResourceManager;
 
         /** gets desired bit depth for float pixel format textures.
         */
-        ushort getDesiredFloatBitDepth() const noexcept;
+        auto getDesiredFloatBitDepth() const noexcept -> ushort;
 
         /** Sets desired bit depth for integer and float pixel format.
         */
@@ -386,7 +386,7 @@ class ResourceManager;
         /** Return the number of faces this texture has. This will be 6 for a cubemap
             texture and 1 for a 1D, 2D or 3D one.
         */
-        uint32 getNumFaces() const noexcept;
+        auto getNumFaces() const noexcept -> uint32;
 
         /** Return hardware pixel buffer for a surface. This buffer can then
             be used to copy data from and to a particular level of the texture.
@@ -400,7 +400,7 @@ class ResourceManager;
             @remarks The buffer is invalidated when the resource is unloaded or destroyed.
             Do not use it after the lifetime of the containing texture.
         */
-        virtual const HardwarePixelBufferSharedPtr& getBuffer(size_t face=0, size_t mipmap=0);
+        virtual auto getBuffer(size_t face=0, size_t mipmap=0) -> const HardwarePixelBufferSharedPtr&;
 
 
         /** Populate an Image with the contents of this texture. 
@@ -425,7 +425,7 @@ class ResourceManager;
          * 
          * @overload
          */
-        uint getCustomAttribute(const String& name)
+        auto getCustomAttribute(const String& name) -> uint
         {
             uint ret = 0;
             getCustomAttribute(name, &ret);
@@ -499,7 +499,7 @@ class ResourceManager;
         void loadImpl() override;
 
         /// @copydoc Resource::calculateSize
-        size_t calculateSize() const override;
+        auto calculateSize() const -> size_t override;
         
 
         /** Implementation of creating internal texture resources 
@@ -516,7 +516,7 @@ class ResourceManager;
         /** Identify the source file type as a string, either from the extension
             or from a magic number.
         */
-        String getSourceFileType() const;
+        auto getSourceFileType() const -> String;
 
         static const char* CUBEMAP_SUFFIXES[6];
     };

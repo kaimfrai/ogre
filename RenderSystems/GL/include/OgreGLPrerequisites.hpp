@@ -51,7 +51,7 @@ namespace Ogre {
 #include <glad/glad.h>
 
 namespace Ogre {
-    inline const char* glErrorToString(GLenum glErr) {
+    inline auto glErrorToString(GLenum glErr) -> const char* {
         switch(glErr)
         {
             case GL_INVALID_ENUM:

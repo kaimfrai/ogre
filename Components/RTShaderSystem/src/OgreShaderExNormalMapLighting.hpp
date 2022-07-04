@@ -67,9 +67,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
-    int getExecutionOrder() const noexcept override { return FFP_LIGHTING - 1; }
+    auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING - 1; }
 
     /** 
     @see SubRenderState::copyFrom.
@@ -80,7 +80,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     /** 
     Set the index of the input vertex shader texture coordinate set 
@@ -90,7 +90,7 @@ public:
     /** 
     Return the index of the input vertex shader texture coordinate set.
     */
-    unsigned int getTexCoordIndex() const noexcept { return mVSTexCoordSetIndex; }
+    auto getTexCoordIndex() const noexcept -> unsigned int { return mVSTexCoordSetIndex; }
 
     // Type of this render state.
     static String Type;
@@ -109,18 +109,18 @@ public:
     void setNormalMapSpace(NormalMapSpace normalMapSpace) { mNormalMapSpace = normalMapSpace; }
 
     /** Return the normal map space. */
-    NormalMapSpace getNormalMapSpace() const noexcept { return mNormalMapSpace; }
+    auto getNormalMapSpace() const noexcept -> NormalMapSpace { return mNormalMapSpace; }
 
     /** 
     Return the normal map texture name.
     */
-    const String& getNormalMapTextureName() const noexcept { return mNormalMapTextureName; }
+    auto getNormalMapTextureName() const noexcept -> const String& { return mNormalMapTextureName; }
 
-    bool setParameter(const String& name, const String& value) noexcept override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
 // Protected methods
 protected:
-    bool createCpuSubPrograms(ProgramSet* programSet) override;
+    auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
 
 // Attributes.
 protected:  
@@ -148,12 +148,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -166,7 +166,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

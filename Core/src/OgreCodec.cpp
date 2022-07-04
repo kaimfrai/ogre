@@ -41,7 +41,7 @@ namespace Ogre {
 
     Codec::~Codec() = default;
 
-    DataStreamPtr Codec::encode(::std::any const& input) const
+    auto Codec::encode(::std::any const& input) const -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to memory not supported", getType()));
         return {};
@@ -52,7 +52,7 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }
 
-    StringVector Codec::getExtensions()
+    auto Codec::getExtensions() -> StringVector
     {
         StringVector result;
         result.reserve(msMapCodecs.size());
@@ -70,7 +70,7 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
     }
 
-    Codec* Codec::getCodec(const String& extension)
+    auto Codec::getCodec(const String& extension) -> Codec*
     {
         String lwrcase = extension;
         StringUtil::toLowerCase(lwrcase);
@@ -91,7 +91,7 @@ namespace Ogre {
 
     }
 
-    Codec* Codec::getCodec(char *magicNumberPtr, size_t maxbytes)
+    auto Codec::getCodec(char *magicNumberPtr, size_t maxbytes) -> Codec*
     {
         for (auto & msMapCodec : msMapCodecs)
         {

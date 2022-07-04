@@ -74,7 +74,7 @@ namespace Ogre
         mVertexList.push_back(vdata);
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getVertex( size_t vertex ) const
+    auto Polygon::getVertex( size_t vertex ) const -> const Vector3&
     {
         OgreAssertDbg(vertex < getVertexCount(), "Search position out of range");
 
@@ -105,12 +105,12 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    size_t Polygon::getVertexCount( ) const
+    auto Polygon::getVertexCount( ) const -> size_t
     {
         return mVertexList.size();
     }
     //-----------------------------------------------------------------------
-    const Vector3& Polygon::getNormal( ) const noexcept
+    auto Polygon::getNormal( ) const noexcept -> const Vector3&
     {
         updateNormal();
 
@@ -178,7 +178,7 @@ namespace Ogre
         mIsNormalSet = false;
     }
     //-----------------------------------------------------------------------
-    bool Polygon::operator == (const Polygon& rhs) const noexcept
+    auto Polygon::operator == (const Polygon& rhs) const noexcept -> bool
     {
         if ( getVertexCount() != rhs.getVertexCount() )
             return false;
@@ -212,10 +212,10 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    Polygon& Polygon::operator=(const Ogre::Polygon& rhs)
+    auto Polygon::operator=(const Ogre::Polygon& rhs) -> Polygon&
     = default;
     //-----------------------------------------------------------------------
-    std::ostream& operator<< ( std::ostream& strm, const Polygon& poly )
+    auto operator<< ( std::ostream& strm, const Polygon& poly ) -> std::ostream&
     {
         strm << "NUM VERTICES: " << poly.getVertexCount() << std::endl;
 
@@ -227,7 +227,7 @@ namespace Ogre
         return strm;
     }
     //-----------------------------------------------------------------------
-    bool Polygon::isPointInside(const Vector3& point) const
+    auto Polygon::isPointInside(const Vector3& point) const -> bool
     {
         // sum the angles 
         Real anglesum = 0;

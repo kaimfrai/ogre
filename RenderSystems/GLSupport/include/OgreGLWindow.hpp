@@ -46,16 +46,16 @@ struct Box;
     public:
         GLWindow();
 
-        [[nodiscard]] bool isVisible() const noexcept override { return mVisible; }
+        [[nodiscard]] auto isVisible() const noexcept -> bool override { return mVisible; }
         void setVisible(bool visible) override { mVisible = visible; }
-        [[nodiscard]] bool isHidden() const noexcept override { return mHidden; }
+        [[nodiscard]] auto isHidden() const noexcept -> bool override { return mHidden; }
 
-        [[nodiscard]] bool isVSyncEnabled() const noexcept override { return mVSync; }
+        [[nodiscard]] auto isVSyncEnabled() const noexcept -> bool override { return mVSync; }
         void setVSyncInterval(unsigned int interval) override;
 
         void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer) override;
-        [[nodiscard]] bool requiresTextureFlipping() const noexcept override { return false; }
-        [[nodiscard]] GLContext* getContext() const noexcept override { return mContext.get(); }
+        [[nodiscard]] auto requiresTextureFlipping() const noexcept -> bool override { return false; }
+        [[nodiscard]] auto getContext() const noexcept -> GLContext* override { return mContext.get(); }
 
     protected:
         bool mVisible;

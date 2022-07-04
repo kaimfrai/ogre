@@ -53,31 +53,31 @@ class ResourceManager;
         void detachFromProgramObject( const uint programObject ) override;
 
         /// Overridden from GpuProgram
-        const String& getLanguage() const noexcept override;
+        auto getLanguage() const noexcept -> const String& override;
 
-        bool getPassTransformStates() const noexcept override {
+        auto getPassTransformStates() const noexcept -> bool override {
             return mPassFFPStates;
         }
-        bool getPassSurfaceAndLightStates() const noexcept override {
+        auto getPassSurfaceAndLightStates() const noexcept -> bool override {
             return mPassFFPStates;
         }
-        bool getPassFogStates() const noexcept override {
+        auto getPassFogStates() const noexcept -> bool override {
             return mPassFFPStates;
         }
 
         /** Returns the operation type that this geometry program expects to
             receive as input
         */
-        RenderOperation::OperationType getInputOperationType() const
-        noexcept { return mInputOperationType; }
+        auto getInputOperationType() const
+        noexcept -> RenderOperation::OperationType { return mInputOperationType; }
         /** Returns the operation type that this geometry program will emit
         */
-        RenderOperation::OperationType getOutputOperationType() const
-        noexcept { return mOutputOperationType; }
+        auto getOutputOperationType() const
+        noexcept -> RenderOperation::OperationType { return mOutputOperationType; }
         /** Returns the maximum number of vertices that this geometry program can
             output in a single run
         */
-        int getMaxOutputVertices() const noexcept { return mMaxOutputVertices; }
+        auto getMaxOutputVertices() const noexcept -> int { return mMaxOutputVertices; }
 
         /** Sets the operation type that this geometry program expects to receive
         */
@@ -110,7 +110,7 @@ class ResourceManager;
         void bindProgram() override;
         void unbindProgram() override;
         void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
-        bool isAttributeValid(VertexElementSemantic semantic, uint index) override;
+        auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool override;
     protected:
         void loadFromSource() override;
         /// Internal unload implementation, must be implemented by subclasses

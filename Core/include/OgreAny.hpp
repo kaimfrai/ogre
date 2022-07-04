@@ -66,13 +66,13 @@ namespace Ogre
         VTable const* mVTable;
 
         template<typename ValueType>
-        [[nodiscard]] static ValueType& get(AnyNumeric& numeric) noexcept
+        [[nodiscard]] static auto get(AnyNumeric& numeric) noexcept -> ValueType&
         {
             return *::std::any_cast<ValueType>(&numeric.mContent);
         }
 
         template<typename ValueType>
-        [[nodiscard]] static ValueType const& get(AnyNumeric const& numeric) noexcept
+        [[nodiscard]] static auto get(AnyNumeric const& numeric) noexcept -> ValueType const&
         {
             return *::std::any_cast<ValueType const>(&numeric.mContent);
         }
@@ -110,50 +110,50 @@ namespace Ogre
         , mVTable{&VTableFor<::std::decay_t<ValueType>>}
         {}
 
-        [[nodiscard]] friend AnyNumeric operator+(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        [[nodiscard]] friend auto operator+(AnyNumeric lhs, AnyNumeric const& rhs) noexcept -> AnyNumeric
         {
             return lhs += rhs;
         }
-        [[nodiscard]] friend AnyNumeric operator-(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        [[nodiscard]] friend auto operator-(AnyNumeric lhs, AnyNumeric const& rhs) noexcept -> AnyNumeric
         {
             return lhs -= rhs;
         }
-        [[nodiscard]] friend AnyNumeric operator*(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        [[nodiscard]] friend auto operator*(AnyNumeric lhs, AnyNumeric const& rhs) noexcept -> AnyNumeric
         {
             return lhs *= rhs;
         }
-        [[nodiscard]] friend AnyNumeric operator*(AnyNumeric lhs, Real factor) noexcept
+        [[nodiscard]] friend auto operator*(AnyNumeric lhs, Real factor) noexcept -> AnyNumeric
         {
             return lhs *= factor;
         }
-        [[nodiscard]] friend AnyNumeric operator/(AnyNumeric lhs, AnyNumeric const& rhs) noexcept
+        [[nodiscard]] friend auto operator/(AnyNumeric lhs, AnyNumeric const& rhs) noexcept -> AnyNumeric
         {
             return lhs /= rhs;
         }
-        AnyNumeric& operator+=(AnyNumeric const& rhs) & noexcept
+        auto operator+=(AnyNumeric const& rhs) & noexcept -> AnyNumeric&
         {
             assert(mVTable == rhs.mVTable);
             mVTable->additionAssignment(*this, rhs);
             return *this;
         }
-        AnyNumeric& operator-=(AnyNumeric const& rhs) & noexcept
+        auto operator-=(AnyNumeric const& rhs) & noexcept -> AnyNumeric&
         {
             assert(mVTable == rhs.mVTable);
             mVTable->subtractionAssignment(*this, rhs);
             return *this;
         }
-        AnyNumeric& operator*=(AnyNumeric const& rhs) & noexcept
+        auto operator*=(AnyNumeric const& rhs) & noexcept -> AnyNumeric&
         {
             assert(mVTable == rhs.mVTable);
             mVTable->multiplicationAssignment(*this, rhs);
             return *this;
         }
-        AnyNumeric& operator*=(Real rhs) & noexcept
+        auto operator*=(Real rhs) & noexcept -> AnyNumeric&
         {
             mVTable->scale(*this, rhs);
             return *this;
         }
-        AnyNumeric& operator/=(AnyNumeric const& rhs) & noexcept
+        auto operator/=(AnyNumeric const& rhs) & noexcept -> AnyNumeric&
         {
             assert(mVTable == rhs.mVTable);
             mVTable->divisionAssignment(*this, rhs);

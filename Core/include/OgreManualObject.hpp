@@ -203,7 +203,7 @@ class SubMesh;
         }
 
         /** Gets whether this object is marked as dynamic */
-        bool getDynamic() const noexcept { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
+        auto getDynamic() const noexcept -> bool { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
 
         /** Start the definition of an update to a part of the object.
         @remarks
@@ -438,16 +438,16 @@ class SubMesh;
         }
 
         /// Get the number of vertices in the section currently being defined (returns 0 if no section is in progress).
-        virtual size_t getCurrentVertexCount() const;
+        virtual auto getCurrentVertexCount() const -> size_t;
 
         /// Get the number of indices in the section currently being defined (returns 0 if no section is in progress).
-        virtual size_t getCurrentIndexCount() const;
+        virtual auto getCurrentIndexCount() const -> size_t;
         
         /** Finish defining the object and compile the final renderable version. 
         @note
             Will return a pointer to the finished section or NULL if the section was discarded (i.e. has zero vertices/indices).
         */
-        virtual ManualObjectSection* end();
+        virtual auto end() -> ManualObjectSection*;
 
         /** Alter the material for a subsection of this object after it has been
             specified.
@@ -485,8 +485,8 @@ class SubMesh;
         @param meshName The name to give the mesh
         @param groupName The resource group to create the mesh in
         */
-        virtual MeshPtr convertToMesh(const String& meshName, 
-            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        virtual auto convertToMesh(const String& meshName, 
+            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -508,7 +508,7 @@ class SubMesh;
             need to change this.
         @see ManualObject::setUseIdentityProjection
         */
-        bool getUseIdentityProjection() const noexcept { return mUseIdentityProjection; }
+        auto getUseIdentityProjection() const noexcept -> bool { return mUseIdentityProjection; }
 
         /** Sets whether or not to use an 'identity' view.
         @remarks
@@ -530,7 +530,7 @@ class SubMesh;
             Normally you don't need to change this.
         @see ManualObject::setUseIdentityView
         */
-        bool getUseIdentityView() const noexcept { return mUseIdentityView; }
+        auto getUseIdentityView() const noexcept -> bool { return mUseIdentityView; }
 
         /** Sets the bounding box.
             @remarks Call this after having finished creating sections to modify the
@@ -543,11 +543,11 @@ class SubMesh;
 
         /** Gets the list of ManualObjectSection, i.e. a part of a ManualObject.
         */
-        const std::vector<ManualObjectSection*>& getSections() const noexcept { return mSectionList; }
+        auto getSections() const noexcept -> const std::vector<ManualObjectSection*>& { return mSectionList; }
 
-        ManualObjectSection* getSection(size_t index) const { return mSectionList.at(index); }
+        auto getSection(size_t index) const -> ManualObjectSection* { return mSectionList.at(index); }
 
-        size_t getNumSections() const { return mSectionList.size(); }
+        auto getNumSections() const -> size_t { return mSectionList.size(); }
 
 
         /** Sets whether or not to keep the original declaration order when 
@@ -565,23 +565,23 @@ class SubMesh;
         @return A flag indication if the declaration order will be kept when 
             queuing the renderables.
         */
-        bool getKeepDeclarationOrder() const noexcept { return mKeepDeclarationOrder; }
+        auto getKeepDeclarationOrder() const noexcept -> bool { return mKeepDeclarationOrder; }
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        const String& getMovableType() const noexcept override;
+        auto getMovableType() const noexcept -> const String& override;
         /** @copydoc MovableObject::getBoundingBox */
-        const AxisAlignedBox& getBoundingBox() const noexcept override { return mAABB; }
+        auto getBoundingBox() const noexcept -> const AxisAlignedBox& override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
-        Real getBoundingRadius() const noexcept override { return mRadius; }
+        auto getBoundingRadius() const noexcept -> Real override { return mRadius; }
         /** @copydoc MovableObject::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue) override;
         /** Implement this method to enable stencil shadows */
-        EdgeData* getEdgeList() noexcept override;
+        auto getEdgeList() noexcept -> EdgeData* override;
         /** Implement this method to enable stencil shadows. */
-        const ShadowRenderableList& getShadowVolumeRenderableList(
+        auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) override;
+            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
 
         /// Built, renderable section of geometry
         class ManualObjectSection : public Renderable, public MovableAlloc
@@ -605,11 +605,11 @@ class SubMesh;
             ~ManualObjectSection() override;
 
             /// Retrieve render operation for manipulation
-            RenderOperation* getRenderOperation() noexcept;
+            auto getRenderOperation() noexcept -> RenderOperation*;
             /// Retrieve the material name in use
-            const String& getMaterialName() const noexcept { return mMaterialName; }
+            auto getMaterialName() const noexcept -> const String& { return mMaterialName; }
             /// Retrieve the material group in use
-            const String& getMaterialGroup() const noexcept { return mGroupName; }
+            auto getMaterialGroup() const noexcept -> const String& { return mGroupName; }
             /// update the material name in use
             void setMaterialName(const String& name,
                 const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
@@ -620,19 +620,19 @@ class SubMesh;
             /// Set whether we need 32-bit indices
             void set32BitIndices(bool n32) { m32BitIndices = n32; }
             /// Get whether we need 32-bit indices
-            bool get32BitIndices() const noexcept { return m32BitIndices; }
+            auto get32BitIndices() const noexcept -> bool { return m32BitIndices; }
             
             // Renderable overrides
             /** @copydoc Renderable::getMaterial */
-            const MaterialPtr& getMaterial() const noexcept override;
+            auto getMaterial() const noexcept -> const MaterialPtr& override;
             /** @copydoc Renderable::getRenderOperation */
             void getRenderOperation(RenderOperation& op) override;
             /** @copydoc Renderable::getWorldTransforms */
             void getWorldTransforms(Matrix4* xform) const override;
             /** @copydoc Renderable::getSquaredViewDepth */
-            Real getSquaredViewDepth(const Ogre::Camera *) const override;
+            auto getSquaredViewDepth(const Ogre::Camera *) const -> Real override;
             /** @copydoc Renderable::getLights */
-            const LightList &getLights() const noexcept override;
+            auto getLights() const noexcept -> const LightList & override;
 
             /// convert this section to a SubMesh
             void convertToSubMesh(SubMesh* sm) const;
@@ -724,14 +724,14 @@ class SubMesh;
     class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
-        MovableObject* createInstanceImpl( const String& name, const NameValuePairList* params) override;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         ManualObjectFactory() = default;
         ~ManualObjectFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] const String& getType() const noexcept override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
     };
     /** @} */
     /** @} */

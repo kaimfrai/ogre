@@ -110,31 +110,31 @@ class Plane;
 
         /** Returns the current number of polygons.
         */
-        [[nodiscard]] size_t getPolygonCount( ) const;
+        [[nodiscard]] auto getPolygonCount( ) const -> size_t;
 
         /** Returns the number of vertices for a polygon
         */
-        [[nodiscard]] size_t getVertexCount( size_t poly ) const;
+        [[nodiscard]] auto getVertexCount( size_t poly ) const -> size_t;
 
         /** Returns a polygon.
         */
-        [[nodiscard]] const Polygon& getPolygon( size_t poly ) const;
+        [[nodiscard]] auto getPolygon( size_t poly ) const -> const Polygon&;
 
         /** Returns a specific vertex of a polygon.
         */
-        [[nodiscard]] const Vector3& getVertex( size_t poly, size_t vertex ) const;
+        [[nodiscard]] auto getVertex( size_t poly, size_t vertex ) const -> const Vector3&;
 
         /** Returns the normal of a specified polygon.
         */
-        const Vector3& getNormal( size_t poly );
+        auto getNormal( size_t poly ) -> const Vector3&;
 
         /** Returns an AABB representation.
         */
-        [[nodiscard]] AxisAlignedBox getAABB( ) const;
+        [[nodiscard]] auto getAABB( ) const -> AxisAlignedBox;
 
         /** Checks if the body has a closed hull.
         */
-        [[nodiscard]] bool hasClosedHull( ) const;
+        [[nodiscard]] auto hasClosedHull( ) const -> bool;
 
         /** Merges all neighboring polygons into one single polygon if they are
             lay in the same plane.
@@ -143,11 +143,11 @@ class Plane;
 
         /** Determines if the current object is equal to the compared one.
         */
-        [[nodiscard]] bool operator == ( const ConvexBody& rhs ) const noexcept;
+        [[nodiscard]] auto operator == ( const ConvexBody& rhs ) const noexcept -> bool;
 
         /** Prints out the body with all its polygons.
         */
-        friend std::ostream& operator<< ( std::ostream& strm, const ConvexBody& body );
+        friend auto operator<< ( std::ostream& strm, const ConvexBody& body ) -> std::ostream&;
 
         /** Log details of this body */
         void logInfo() const;
@@ -161,7 +161,7 @@ class Plane;
     private:
         /** Get a new polygon from the pool.
         */
-        static Polygon* allocatePolygon();
+        static auto allocatePolygon() -> Polygon*;
         /** Release a polygon back tot he pool. */
         static void freePolygon(Polygon* poly);
         /** Inserts a polygon at a particular point in the body.
@@ -197,7 +197,7 @@ class Plane;
         @note
             The retrieved polygon needs to be deleted later by the caller.
         */
-        Polygon* unlinkPolygon(size_t poly);
+        auto unlinkPolygon(size_t poly) -> Polygon*;
 
         /** Moves all polygons from the parameter body to this instance.
         @note Both the passed in object and this instance are modified
@@ -224,7 +224,7 @@ class Plane;
         /** Returns the single edges in an EdgeMap (= edges where one side is a vertex and the
             other is empty space (a hole in the body)).
         */
-        [[nodiscard]] Polygon::EdgeMap getSingleEdges() const;
+        [[nodiscard]] auto getSingleEdges() const -> Polygon::EdgeMap;
 
         /** Stores the edges of a specific polygon in a passed in structure.
         */
@@ -245,8 +245,8 @@ class Plane;
             vertex at the matching edge, if found.
         @return True if a match was found
         */
-        bool findAndEraseEdgePair(const Vector3& vec, 
-            Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const;
+        auto findAndEraseEdgePair(const Vector3& vec, 
+            Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const -> bool;
 
     };
     /** @} */

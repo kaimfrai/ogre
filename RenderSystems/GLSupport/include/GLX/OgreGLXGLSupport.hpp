@@ -60,11 +60,11 @@ namespace Ogre {
         Atom mAtomState;
 
         /// @copydoc RenderSystem::createRenderWindow
-        RenderWindow* newWindow(const String &name, unsigned int width, unsigned int height,
-                                bool fullScreen, const NameValuePairList *miscParams = nullptr) override;
+        auto newWindow(const String &name, unsigned int width, unsigned int height,
+                                bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc GLNativeSupport::createPBuffer
-        GLPBuffer* createPBuffer(PixelComponentType format, size_t width, size_t height) override;
+        auto createPBuffer(PixelComponentType format, size_t width, size_t height) -> GLPBuffer* override;
 
         /** @copydoc see GLNativeSupport::start */
         void start() override;
@@ -76,7 +76,7 @@ namespace Ogre {
         void initialiseExtensions();
 
         /** @copydoc see GLNativeSupport::getProcAddress */
-        void* getProcAddress(const char* procname) const override;
+        auto getProcAddress(const char* procname) const -> void* override;
 
         // The remaining functions are internal to the GLX Rendersystem:
 
@@ -93,7 +93,7 @@ namespace Ogre {
          *
          * @returns              Display name.
          */
-        String getDisplayName ();
+        auto getDisplayName () -> String;
 
         /**
          * Get the Display connection used for rendering
@@ -102,14 +102,14 @@ namespace Ogre {
          *
          * @returns              Display connection
          */
-        Display* getGLDisplay() noexcept;
+        auto getGLDisplay() noexcept -> Display*;
 
         /**
          * Get the Display connection used for window management & events
          *
          * @returns              Display connection
          */
-        Display* getXDisplay() noexcept;
+        auto getXDisplay() noexcept -> Display*;
 
         /**
          * Switch video modes
@@ -131,7 +131,7 @@ namespace Ogre {
          * @param drawable   GLXContext
          * @returns               GLXFBConfig used to create the context
          */
-        GLXFBConfig getFBConfigFromContext (::GLXContext context);
+        auto getFBConfigFromContext (::GLXContext context) -> GLXFBConfig;
 
         /**
          * Get the GLXFBConfig used to create a GLXDrawable.
@@ -142,7 +142,7 @@ namespace Ogre {
          * @param height         Receiver for the drawable height
          * @returns               GLXFBConfig used to create the drawable
          */
-        GLXFBConfig getFBConfigFromDrawable (GLXDrawable drawable, unsigned int *width, unsigned int *height);
+        auto getFBConfigFromDrawable (GLXDrawable drawable, unsigned int *width, unsigned int *height) -> GLXFBConfig;
 
         /**
          * Select an FBConfig given a list of required and a list of desired properties
@@ -151,7 +151,7 @@ namespace Ogre {
          * @param maxAttribs FBConfig attributes that are desirable with maximum values
          * @returns               GLXFBConfig with attributes or 0 when unsupported.
          */
-        GLXFBConfig selectFBConfig(const int *minAttribs, const int *maxAttribs);
+        auto selectFBConfig(const int *minAttribs, const int *maxAttribs) -> GLXFBConfig;
 
         /**
          * Gets a GLXFBConfig compatible with a VisualID
@@ -163,27 +163,27 @@ namespace Ogre {
          * @param visualid   VisualID
          * @returns               FBConfig for VisualID
          */
-        GLXFBConfig getFBConfigFromVisualID(VisualID visualid);
+        auto getFBConfigFromVisualID(VisualID visualid) -> GLXFBConfig;
 
         /**
          * Portable replacement for glXChooseFBConfig
          */
-        GLXFBConfig* chooseFBConfig(const GLint *attribList, GLint *nElements);
+        auto chooseFBConfig(const GLint *attribList, GLint *nElements) -> GLXFBConfig*;
 
         /**
          * Portable replacement for glXCreateNewContext
          */
-        ::GLXContext createNewContext(GLXFBConfig fbConfig, GLint renderType, ::GLXContext shareList, GLboolean direct) const;
+        auto createNewContext(GLXFBConfig fbConfig, GLint renderType, ::GLXContext shareList, GLboolean direct) const -> ::GLXContext;
 
         /**
          * Portable replacement for glXGetFBConfigAttrib
          */
-        GLint getFBConfigAttrib(GLXFBConfig fbConfig, GLint attribute, GLint *value);
+        auto getFBConfigAttrib(GLXFBConfig fbConfig, GLint attribute, GLint *value) -> GLint;
 
         /**
          * Portable replacement for glXGetVisualFromFBConfig
          */
-        XVisualInfo* getVisualFromFBConfig(GLXFBConfig fbConfig);
+        auto getVisualFromFBConfig(GLXFBConfig fbConfig) -> XVisualInfo*;
 
     private:
         Display* mGLDisplay{nullptr}; // used for GL/GLX commands

@@ -43,7 +43,7 @@ namespace Ogre {
         GLFrameBufferObject(GLFBOManager *manager, uint fsaa);
         ~GLFrameBufferObject() override;
 
-        bool bind(bool recreateIfNeeded) override;
+        auto bind(bool recreateIfNeeded) -> bool override;
 
         /** Swap buffers - only useful when using multisample buffers.
         */
@@ -57,7 +57,7 @@ namespace Ogre {
         void attachDepthBuffer( DepthBuffer *depthBuffer );
         void detachDepthBuffer();
         
-        GLFBOManager *getManager() noexcept { return mManager; }
+        auto getManager() noexcept -> GLFBOManager * { return mManager; }
     private:
         GLFBOManager *mManager;
         GLSurfaceDesc mMultisampleColourBuffer;

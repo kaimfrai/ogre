@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    DataStreamPtr Archive::create(const String&)
+    auto Archive::create(const String&) -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
                     "This archive does not support creation of files.", 

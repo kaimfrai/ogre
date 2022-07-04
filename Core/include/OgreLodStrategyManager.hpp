@@ -72,7 +72,7 @@ class LodStrategy;
             The removed strategy is returned so the user can control
             how it is destroyed.
         */
-        LodStrategy *removeStrategy(const String& name);
+        auto removeStrategy(const String& name) -> LodStrategy *;
 
         /** Remove and delete all strategies from the manager.
         @remarks
@@ -82,7 +82,7 @@ class LodStrategy;
         void removeAllStrategies();
 
         /** Get the strategy with the specified name. */
-        LodStrategy *getStrategy(const String& name);
+        auto getStrategy(const String& name) -> LodStrategy *;
 
         /** Set the default strategy. */
         void setDefaultStrategy(LodStrategy *strategy);
@@ -91,15 +91,15 @@ class LodStrategy;
         void setDefaultStrategy(const String& name);
 
         /** Get the current default strategy. */
-        LodStrategy *getDefaultStrategy();
+        auto getDefaultStrategy() -> LodStrategy *;
 
         /** Get an iterator for all contained strategies. */
-        MapIterator<StrategyMap> getIterator();
+        auto getIterator() -> MapIterator<StrategyMap>;
 
         /// @copydoc Singleton::getSingleton()
-        static LodStrategyManager& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> LodStrategyManager&;
         /// @copydoc Singleton::getSingleton()
-        static LodStrategyManager* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> LodStrategyManager*;
     };
     /** @} */
     /** @} */

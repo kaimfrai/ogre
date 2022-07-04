@@ -163,7 +163,7 @@ namespace Ogre
             mListeners.erase(i);
     }
     //---------------------------------------------------------------------
-    Log::Stream Log::stream(LogMessageLevel lml, bool maskDebug) 
+    auto Log::stream(LogMessageLevel lml, bool maskDebug) -> Log::Stream 
     {
         return {this, lml, maskDebug};
 

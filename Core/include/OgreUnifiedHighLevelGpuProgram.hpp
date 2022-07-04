@@ -85,7 +85,7 @@ class ResourceManager;
             const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~UnifiedHighLevelGpuProgram() override;
 
-        size_t calculateSize() const override;
+        auto calculateSize() const -> size_t override;
 
         /** Adds a new delegate program to the list.
         @remarks
@@ -97,10 +97,10 @@ class ResourceManager;
         void clearDelegatePrograms();
 
         /// Get the chosen delegate
-        const GpuProgramPtr& _getDelegate() const;
+        auto _getDelegate() const -> const GpuProgramPtr&;
 
         /** @copydoc GpuProgram::getLanguage */
-        const String& getLanguage() const noexcept override;
+        auto getLanguage() const noexcept -> const String& override;
 
         /** Creates a new parameters object compatible with this program definition. 
         @remarks
@@ -109,47 +109,47 @@ class ResourceManager;
         HighLevelGpuProgramManager. This method creates a new instance of a parameters
         object containing the definition of the parameters this program understands.
         */
-        GpuProgramParametersSharedPtr createParameters() override;
+        auto createParameters() -> GpuProgramParametersSharedPtr override;
         /** @copydoc GpuProgram::_getBindingDelegate */
-        GpuProgram* _getBindingDelegate() noexcept override;
+        auto _getBindingDelegate() noexcept -> GpuProgram* override;
 
         // All the following methods must delegate to the implementation
 
         /** @copydoc GpuProgram::isSupported */
-        bool isSupported() const noexcept override;
+        auto isSupported() const noexcept -> bool override;
 
-        const String& getSource() const noexcept override
+        auto getSource() const noexcept -> const String& override
         {
             return _getDelegate() ? _getDelegate()->getSource() : BLANKSTRING;
         }
 
         /** @copydoc GpuProgram::isSkeletalAnimationIncluded */
-        bool isSkeletalAnimationIncluded() const noexcept override;
+        auto isSkeletalAnimationIncluded() const noexcept -> bool override;
 
-        bool isMorphAnimationIncluded() const noexcept override;
+        auto isMorphAnimationIncluded() const noexcept -> bool override;
 
-        bool isPoseAnimationIncluded() const noexcept override;
-        ushort getNumberOfPosesIncluded() const noexcept override;
+        auto isPoseAnimationIncluded() const noexcept -> bool override;
+        auto getNumberOfPosesIncluded() const noexcept -> ushort override;
 
-        bool isVertexTextureFetchRequired() const noexcept override;
-        const GpuProgramParametersPtr& getDefaultParameters() noexcept override;
-        bool hasDefaultParameters() const override;
-        bool getPassSurfaceAndLightStates() const noexcept override;
-        bool getPassFogStates() const noexcept override;
-        bool getPassTransformStates() const noexcept override;
-        bool hasCompileError() const noexcept override;
+        auto isVertexTextureFetchRequired() const noexcept -> bool override;
+        auto getDefaultParameters() noexcept -> const GpuProgramParametersPtr& override;
+        auto hasDefaultParameters() const -> bool override;
+        auto getPassSurfaceAndLightStates() const noexcept -> bool override;
+        auto getPassFogStates() const noexcept -> bool override;
+        auto getPassTransformStates() const noexcept -> bool override;
+        auto hasCompileError() const noexcept -> bool override;
         void resetCompileError() override;
 
         void load(bool backgroundThread = false) override;
         void reload(LoadingFlags flags = LF_DEFAULT) override;
-        bool isReloadable() const noexcept;
-        bool isLoaded() const noexcept;
-        bool isLoading() const noexcept;
-        LoadingState getLoadingState() const;
+        auto isReloadable() const noexcept -> bool;
+        auto isLoaded() const noexcept -> bool;
+        auto isLoading() const noexcept -> bool;
+        auto getLoadingState() const -> LoadingState;
         void unload() override;
-        size_t getSize() const;
+        auto getSize() const -> size_t;
         void touch() override;
-        bool isBackgroundLoaded() const noexcept;
+        auto isBackgroundLoaded() const noexcept -> bool;
         void setBackgroundLoaded(bool bl);
         void escalateLoading() override;
         void addListener(Listener* lis) override;
@@ -164,10 +164,10 @@ class ResourceManager;
         UnifiedHighLevelGpuProgramFactory();
         ~UnifiedHighLevelGpuProgramFactory() override;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] const String& getLanguage() const noexcept override;
-        GpuProgram* create(ResourceManager* creator,
+        [[nodiscard]] auto getLanguage() const noexcept -> const String& override;
+        auto create(ResourceManager* creator,
             const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) override;
+            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
     };
 
     /** @} */

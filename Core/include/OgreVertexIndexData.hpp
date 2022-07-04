@@ -69,7 +69,7 @@ class HardwareBufferManagerBase;
         /// Protected copy constructor, to prevent misuse
         VertexData(const VertexData& rhs) = delete; /* do nothing, should not use */
         /// Protected operator=, to prevent misuse
-        VertexData& operator=(const VertexData& rhs) = delete; /* do not use */
+        auto operator=(const VertexData& rhs) -> VertexData& = delete; /* do not use */
 
     private:
         HardwareBufferManagerBase* mMgr;
@@ -126,7 +126,7 @@ class HardwareBufferManagerBase;
         @remarks The caller is expected to delete the returned pointer when ready
         */
         [[nodiscard]]
-        VertexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const;
+        auto clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const -> VertexData*;
 
         /** Modifies the vertex data to be suitable for use for rendering shadow geometry as in @cite mcguire2003fast
 
@@ -255,7 +255,7 @@ class HardwareBufferManagerBase;
             If normals are animated, then twice the number of 3D texture coordinates are required
          @return The number of sets that were supported
         */
-        ushort allocateHardwareAnimationElements(ushort count, bool animateNormals);
+        auto allocateHardwareAnimationElements(ushort count, bool animateNormals) -> ushort;
 
 
 
@@ -268,7 +268,7 @@ class HardwareBufferManagerBase;
         /// Protected copy constructor, to prevent misuse
         IndexData(const IndexData& rhs) = delete; /* do nothing, should not use */
         /// Protected operator=, to prevent misuse
-        IndexData& operator=(const IndexData& rhs) = delete; /* do not use */
+        auto operator=(const IndexData& rhs) -> IndexData& = delete; /* do not use */
         IndexData();
         ~IndexData();
         /// Pointer to the HardwareIndexBuffer to use, must be specified if useIndexes = true
@@ -285,7 +285,7 @@ class HardwareBufferManagerBase;
         @param mgr If supplied, the buffer manager through which copies should be made
         @remarks The caller is expected to delete the returned pointer when finished
         */
-        IndexData* clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const;
+        auto clone(bool copyData = true, HardwareBufferManagerBase* mgr = nullptr) const -> IndexData*;
 
         /** Re-order the indexes in this index data structure to be more
             vertex cache friendly; that is to re-use the same vertices as close
@@ -322,9 +322,9 @@ class HardwareBufferManagerBase;
             void reset() { hit = 0; miss = 0; tail = 0; buffersize = 0; }
             void flush() { tail = 0; buffersize = 0; }
 
-            unsigned int getHits() noexcept { return hit; }
-            unsigned int getMisses() noexcept { return miss; }
-            unsigned int getSize() noexcept { return size; }
+            auto getHits() noexcept -> unsigned int { return hit; }
+            auto getMisses() noexcept -> unsigned int { return miss; }
+            auto getSize() noexcept -> unsigned int { return size; }
         private:
             unsigned int size;
             uint32 *cache;
@@ -332,7 +332,7 @@ class HardwareBufferManagerBase;
             unsigned int tail{0}, buffersize{0};
             unsigned int hit{0}, miss{0};
 
-            bool inCache(unsigned int index);
+            auto inCache(unsigned int index) -> bool;
     };
     /** @} */
     /** @} */

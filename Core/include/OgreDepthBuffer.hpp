@@ -93,14 +93,14 @@ class RenderTarget;
         void _setPoolId( uint16 poolId );
 
         /// Gets the pool id in which this DepthBuffer lives
-        [[nodiscard]] virtual uint16 getPoolId() const noexcept;
-        [[nodiscard]] virtual uint32 getWidth() const noexcept;
-        [[nodiscard]] virtual uint32 getHeight() const noexcept;
-        [[nodiscard]] uint32 getFSAA() const noexcept { return mFsaa; }
+        [[nodiscard]] virtual auto getPoolId() const noexcept -> uint16;
+        [[nodiscard]] virtual auto getWidth() const noexcept -> uint32;
+        [[nodiscard]] virtual auto getHeight() const noexcept -> uint32;
+        [[nodiscard]] auto getFSAA() const noexcept -> uint32 { return mFsaa; }
 
         /** Manual DepthBuffers are cleared in RenderSystem's destructor. Non-manual ones are released
             with it's render target (aka, a backbuffer or similar) */
-        [[nodiscard]] bool isManual() const noexcept;
+        [[nodiscard]] auto isManual() const noexcept -> bool;
 
         /** Returns whether the specified RenderTarget is compatible with this DepthBuffer
             That is, this DepthBuffer can be attached to that RenderTarget
@@ -111,7 +111,7 @@ class RenderTarget;
                 They need to have the same FSAA setting
             @param renderTarget The render target to test against
         */
-        virtual bool isCompatible( RenderTarget *renderTarget ) const;
+        virtual auto isCompatible( RenderTarget *renderTarget ) const -> bool;
 
         /** Called when a RenderTarget is attaches this DepthBuffer
             @remarks

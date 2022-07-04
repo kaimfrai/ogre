@@ -97,12 +97,12 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void* DynLib::getSymbol( const String& strName ) const noexcept
+    auto DynLib::getSymbol( const String& strName ) const noexcept -> void*
     {
         return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
     }
     //-----------------------------------------------------------------------
-    String DynLib::dynlibError( ) 
+    auto DynLib::dynlibError( ) -> String 
     {
         return {dlerror()};
     }

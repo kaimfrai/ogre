@@ -366,8 +366,8 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    const BillboardChain::Element&
-    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const
+    auto
+    BillboardChain::getChainElement(size_t chainIndex, size_t elementIndex) const -> const BillboardChain::Element&
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         OgreAssert(seg.head != SEGMENT_EMPTY, "Chain segment is empty");
@@ -379,7 +379,7 @@ class RenderSystem;
         return mChainElementList[idx];
     }
     //-----------------------------------------------------------------------
-    size_t BillboardChain::getNumChainElements(size_t chainIndex) const
+    auto BillboardChain::getNumChainElements(size_t chainIndex) const -> size_t
     {
         const ChainSegment& seg = mChainSegmentList.at(chainIndex);
         
@@ -636,23 +636,23 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    Real BillboardChain::getSquaredViewDepth(const Camera* cam) const
+    auto BillboardChain::getSquaredViewDepth(const Camera* cam) const -> Real
     {
         return (cam->getDerivedPosition() - mAABB.getCenter()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    Real BillboardChain::getBoundingRadius() const
+    auto BillboardChain::getBoundingRadius() const -> Real
     {
         return mRadius;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& BillboardChain::getBoundingBox() const noexcept
+    auto BillboardChain::getBoundingBox() const noexcept -> const AxisAlignedBox&
     {
         updateBoundingBox();
         return mAABB;
     }
     //-----------------------------------------------------------------------
-    const MaterialPtr& BillboardChain::getMaterial() const noexcept
+    auto BillboardChain::getMaterial() const noexcept -> const MaterialPtr&
     {
         return mMaterial;
     }
@@ -673,7 +673,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    const String& BillboardChain::getMovableType() const noexcept
+    auto BillboardChain::getMovableType() const noexcept -> const String&
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -703,7 +703,7 @@ class RenderSystem;
         op.vertexData = mVertexData.get();
     }
     //-----------------------------------------------------------------------
-    bool BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys)
+    auto BillboardChain::preRender(SceneManager* sm, RenderSystem* rsys) -> bool
     {
         // Retrieve the current viewport from the scene manager.
         // The viewport is only valid during a viewport update.
@@ -720,7 +720,7 @@ class RenderSystem;
         *xform = _getParentNodeFullTransform();
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardChain::getLights() const noexcept
+    auto BillboardChain::getLights() const noexcept -> const LightList&
     {
         return queryLights();
     }
@@ -735,13 +735,13 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    const String& BillboardChainFactory::getType() const noexcept
+    auto BillboardChainFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* BillboardChainFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto BillboardChainFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         size_t maxElements = 20;
         size_t numberOfChains = 1;

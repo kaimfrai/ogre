@@ -43,7 +43,7 @@ namespace Ogre
 
 
         /// @copydoc Plugin::getName
-        [[nodiscard]] const String& getName() const noexcept override;
+        [[nodiscard]] auto getName() const noexcept -> const String& override;
 
         /// @copydoc Plugin::install
         void install() override;

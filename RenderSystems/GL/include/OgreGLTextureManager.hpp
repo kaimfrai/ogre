@@ -47,19 +47,19 @@ class GLRenderSystem;
         ~GLTextureManager() override;
 
         /// @copydoc TextureManager::getNativeFormat
-        PixelFormat getNativeFormat(TextureType ttype, PixelFormat format, int usage) override;
+        auto getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat override;
 
         /// @copydoc TextureManager::isHardwareFilteringSupported
-        bool isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
-            bool preciseFormatOnly = false) override;
+        auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+            bool preciseFormatOnly = false) -> bool override;
 
     protected:
         friend class GLRenderSystem;
 
         /// @copydoc ResourceManager::createImpl
-        Resource* createImpl(const String& name, ResourceHandle handle, 
+        auto createImpl(const String& name, ResourceHandle handle, 
             const String& group, bool isManual, ManualResourceLoader* loader, 
-            const NameValuePairList* createParams) override;
+            const NameValuePairList* createParams) -> Resource* override;
 
         GLRenderSystem* mRenderSystem;
     };

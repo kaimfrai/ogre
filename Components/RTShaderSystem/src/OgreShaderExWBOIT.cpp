@@ -39,19 +39,19 @@ namespace Ogre::RTShader
 String WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
-const String& WBOIT::getType() const noexcept { return Type; }
+auto WBOIT::getType() const noexcept -> const String& { return Type; }
 
 //-----------------------------------------------------------------------
-int WBOIT::getExecutionOrder() const noexcept { return FFP_POST_PROCESS; }
+auto WBOIT::getExecutionOrder() const noexcept -> int { return FFP_POST_PROCESS; }
 
-bool WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept
+auto WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
     dstPass->setTransparentSortingEnabled(false);
     dstPass->setSeparateSceneBlending(SBF_ONE, SBF_ONE, SBF_ZERO, SBF_ONE_MINUS_SOURCE_ALPHA);
     return true;
 }
 
-bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
+auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
     psProgram->addDependency("SGXLib_WBOIT");
@@ -90,11 +90,11 @@ bool WBOIT::createCpuSubPrograms(ProgramSet* programSet)
 }
 
 //-----------------------------------------------------------------------
-const String& WBOITFactory::getType() const noexcept { return WBOIT::Type; }
+auto WBOITFactory::getType() const noexcept -> const String& { return WBOIT::Type; }
 
 //-----------------------------------------------------------------------
-SubRenderState* WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
-                                               SGScriptTranslator* translator) noexcept
+auto WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
+                                               SGScriptTranslator* translator) noexcept -> SubRenderState*
 {
     if (prop->name != "weighted_blended_oit" || prop->values.empty())
         return nullptr;
@@ -123,6 +123,6 @@ void WBOITFactory::writeInstance(MaterialSerializer* ser, SubRenderState* subRen
 }
 
 //-----------------------------------------------------------------------
-SubRenderState* WBOITFactory::createInstanceImpl() { return new WBOIT; }
+auto WBOITFactory::createInstanceImpl() -> SubRenderState* { return new WBOIT; }
 
 } // namespace Ogre

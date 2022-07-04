@@ -42,7 +42,7 @@ namespace Ogre
     const unsigned int Matrix3::msSvdMaxIterations = 64;
 
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::operator+ (const Matrix3& rkMatrix) const
+    auto Matrix3::operator+ (const Matrix3& rkMatrix) const -> Matrix3
     {
         Matrix3 kSum;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -56,7 +56,7 @@ namespace Ogre
         return kSum;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::operator- (const Matrix3& rkMatrix) const
+    auto Matrix3::operator- (const Matrix3& rkMatrix) const -> Matrix3
     {
         Matrix3 kDiff;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -70,7 +70,7 @@ namespace Ogre
         return kDiff;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::operator* (const Matrix3& rkMatrix) const
+    auto Matrix3::operator* (const Matrix3& rkMatrix) const -> Matrix3
     {
         Matrix3 kProd;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -86,7 +86,7 @@ namespace Ogre
         return kProd;
     }
     //-----------------------------------------------------------------------
-    Vector3 operator* (const Vector3& rkPoint, const Matrix3& rkMatrix)
+    auto operator* (const Vector3& rkPoint, const Matrix3& rkMatrix) -> Vector3
     {
         Vector3 kProd;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -99,7 +99,7 @@ namespace Ogre
         return kProd;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::operator- () const
+    auto Matrix3::operator- () const -> Matrix3
     {
         Matrix3 kNeg;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -110,7 +110,7 @@ namespace Ogre
         return kNeg;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::operator* (Real fScalar) const
+    auto Matrix3::operator* (Real fScalar) const -> Matrix3
     {
         Matrix3 kProd;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -121,7 +121,7 @@ namespace Ogre
         return kProd;
     }
     //-----------------------------------------------------------------------
-    Matrix3 operator* (Real fScalar, const Matrix3& rkMatrix)
+    auto operator* (Real fScalar, const Matrix3& rkMatrix) -> Matrix3
     {
         Matrix3 kProd;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -132,7 +132,7 @@ namespace Ogre
         return kProd;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::Transpose () const
+    auto Matrix3::Transpose () const -> Matrix3
     {
         Matrix3 kTranspose;
         for (size_t iRow = 0; iRow < 3; iRow++)
@@ -143,7 +143,7 @@ namespace Ogre
         return kTranspose;
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::Inverse (Matrix3& rkInverse, Real fTolerance) const
+    auto Matrix3::Inverse (Matrix3& rkInverse, Real fTolerance) const -> bool
     {
         // Invert a 3x3 using cofactors.  This is about 8 times faster than
         // the Numerical Recipes code which uses Gaussian elimination.
@@ -185,7 +185,7 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    Matrix3 Matrix3::Inverse (Real fTolerance) const
+    auto Matrix3::Inverse (Real fTolerance) const -> Matrix3
     {
         Matrix3 kInverse = Matrix3::ZERO;
         Inverse(kInverse,fTolerance);
@@ -638,7 +638,7 @@ namespace Ogre
         kU[2] = kR[1][2]/kD[1];
     }
     //-----------------------------------------------------------------------
-    Real Matrix3::MaxCubicRoot (Real afCoeff[3])
+    auto Matrix3::MaxCubicRoot (Real afCoeff[3]) -> Real
     {
         // Spectral norm is for A^T*A, so characteristic polynomial
         // P(x) = c[0]+c[1]*x+c[2]*x^2+x^3 has three positive real roots.
@@ -682,7 +682,7 @@ namespace Ogre
         return fX;
     }
     //-----------------------------------------------------------------------
-    Real Matrix3::SpectralNorm () const
+    auto Matrix3::SpectralNorm () const -> Real
     {
         Matrix3 kP;
         size_t iRow, iCol;
@@ -846,8 +846,8 @@ namespace Ogre
         m[2][2] = fZ2*fOneMinusCos+fCos;
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesXYZ (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesXYZ (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz          -cy*sz           sy
         //        cz*sx*sy+cx*sz  cx*cz-sx*sy*sz -cy*sx
@@ -881,8 +881,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesXZY (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesXZY (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz          -sz              cz*sy
         //        sx*sy+cx*cy*sz  cx*cz          -cy*sx+cx*sy*sz
@@ -916,8 +916,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesYXZ (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesYXZ (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz+sx*sy*sz  cz*sx*sy-cy*sz  cx*sy
         //        cx*sz           cx*cz          -sx
@@ -951,8 +951,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesYZX (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesYZX (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz           sx*sy-cx*cy*sz  cx*sy+cy*sx*sz
         //        sz              cx*cz          -cz*sx
@@ -986,8 +986,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesZXY (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesZXY (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz-sx*sy*sz -cx*sz           cz*sy+cy*sx*sz
         //        cz*sx*sy+cy*sz  cx*cz          -cy*cz*sx+sy*sz
@@ -1021,8 +1021,8 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::ToEulerAnglesZYX (Radian& rfYAngle, Radian& rfPAngle,
-        Radian& rfRAngle) const
+    auto Matrix3::ToEulerAnglesZYX (Radian& rfYAngle, Radian& rfPAngle,
+        Radian& rfRAngle) const -> bool
     {
         // rot =  cy*cz           cz*sx*sy-cx*sz  cx*cz*sy+sx*sz
         //        cy*sz           cx*cz+sx*sy*sz -cz*sx+cx*sy*sz
@@ -1234,7 +1234,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    bool Matrix3::QLAlgorithm (Real afDiag[3], Real afSubDiag[3])
+    auto Matrix3::QLAlgorithm (Real afDiag[3], Real afSubDiag[3]) -> bool
     {
         // QL iteration with implicit shifting to reduce matrix from tridiagonal
         // to diagonal

@@ -39,7 +39,7 @@ namespace Ogre
          
     = default;
     //---------------------------------------------------------------------
-    const String& GLPlugin::getName() const noexcept
+    auto GLPlugin::getName() const noexcept -> const String&
     {
         return sPluginName;
     }

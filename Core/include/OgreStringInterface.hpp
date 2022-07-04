@@ -82,7 +82,7 @@ namespace Ogre {
     class ParamCommand
     {
     public:
-        virtual String doGet(const void* target) const = 0;
+        virtual auto doGet(const void* target) const -> String = 0;
         virtual void doSet(void* target, const String& val) = 0;
 
         virtual ~ParamCommand() = default;
@@ -94,7 +94,7 @@ namespace Ogre {
     template <typename _Class, typename Param, Param (_Class::*getter)() const, void (_Class::*setter)(Param)>
     class SimpleParamCommand : public ParamCommand {
     public:
-        String doGet(const void* target) const override {
+        auto doGet(const void* target) const -> String override {
             return StringConverter::toString((static_cast<const _Class*>(target)->*getter)());
         }
 
@@ -109,7 +109,7 @@ namespace Ogre {
     template <typename _Class, const String& (_Class::*getter)() const, void (_Class::*setter)(const String&)>
     class SimpleParamCommand<_Class, const String&, getter, setter> : public ParamCommand {
     public:
-        String doGet(const void* target) const override {
+        auto doGet(const void* target) const -> String override {
             return (static_cast<const _Class*>(target)->*getter)();
         }
 
@@ -129,8 +129,8 @@ namespace Ogre {
         ParamCommandMap mParamCommands;
 
         /** Retrieves the parameter command object for a named parameter. */
-        ParamCommand* getParamCommand(const String& name);
-        [[nodiscard]] const ParamCommand* getParamCommand(const String& name) const;
+        auto getParamCommand(const String& name) -> ParamCommand*;
+        [[nodiscard]] auto getParamCommand(const String& name) const -> const ParamCommand*;
     public:
         ParamDictionary();
         ~ParamDictionary();
@@ -152,7 +152,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] const ParameterList& getParameters() const noexcept
+        [[nodiscard]] auto getParameters() const noexcept -> const ParameterList&
         {
             return mParamDefs;
         }
@@ -186,7 +186,7 @@ namespace Ogre {
         @return
             true if a new dictionary was created, false if it was already there
         */
-        bool createParamDictionary(const String& className);
+        auto createParamDictionary(const String& className) -> bool;
 
     public:
         StringInterface()  = default;
@@ -201,12 +201,12 @@ namespace Ogre {
             Pointer to ParamDictionary shared by all instances of this class
             which you can add parameters to, retrieve parameters etc.
         */
-        ParamDictionary* getParamDictionary() noexcept
+        auto getParamDictionary() noexcept -> ParamDictionary*
         {
             return mParamDict;
         }
 
-        [[nodiscard]] const ParamDictionary* getParamDictionary() const noexcept
+        [[nodiscard]] auto getParamDictionary() const noexcept -> const ParamDictionary*
         {
             return mParamDict;
         }
@@ -216,7 +216,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] const ParameterList& getParameters() const noexcept;
+        [[nodiscard]] auto getParameters() const noexcept -> const ParameterList&;
 
         /** Generic parameter setting method.
         @remarks
@@ -232,7 +232,7 @@ namespace Ogre {
         @return
             true if set was successful, false otherwise (NB no exceptions thrown - tolerant method)
         */
-        bool setParameter(const String& name, const String& value);
+        auto setParameter(const String& name, const String& value) -> bool;
         /** Generic multiple parameter setting method.
         @remarks
             Call this method with a list of name / value pairs
@@ -254,7 +254,7 @@ namespace Ogre {
         @return
             String value of parameter, blank if not found
         */
-        [[nodiscard]] String getParameter(const String& name) const;
+        [[nodiscard]] auto getParameter(const String& name) const -> String;
         /** Method for copying this object's parameters to another object.
         @remarks
             This method takes the values of all the object's parameters and tries to set the

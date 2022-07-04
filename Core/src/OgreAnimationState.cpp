@@ -70,12 +70,12 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    const String& AnimationState::getAnimationName() const noexcept
+    auto AnimationState::getAnimationName() const noexcept -> const String&
     {
         return mAnimationName;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getTimePosition() const
+    auto AnimationState::getTimePosition() const -> Real
     {
         return mTimePos;
     }
@@ -103,7 +103,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getLength() const
+    auto AnimationState::getLength() const -> Real
     {
         return mLength;
     }
@@ -113,7 +113,7 @@ namespace Ogre
         mLength = len;
     }
     //---------------------------------------------------------------------
-    Real AnimationState::getWeight() const
+    auto AnimationState::getWeight() const -> Real
     {
         return mWeight;
     }
@@ -131,12 +131,12 @@ namespace Ogre
         setTimePosition(mTimePos + offset);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::hasEnded() const
+    auto AnimationState::hasEnded() const -> bool
     {
         return (mTimePos >= mLength && !mLoop);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::getEnabled() const noexcept
+    auto AnimationState::getEnabled() const noexcept -> bool
     {
         return mEnabled;
     }
@@ -147,7 +147,7 @@ namespace Ogre
         mParent->_notifyAnimationStateEnabled(this, enabled);
     }
     //---------------------------------------------------------------------
-    bool AnimationState::operator==(const AnimationState& rhs) const noexcept
+    auto AnimationState::operator==(const AnimationState& rhs) const noexcept -> bool
     {
         return mAnimationName == rhs.mAnimationName &&
             mEnabled == rhs.mEnabled &&
@@ -273,8 +273,8 @@ namespace Ogre
         mEnabledAnimationStates.clear();
     }
     //---------------------------------------------------------------------
-    AnimationState* AnimationStateSet::createAnimationState(const String& name,  
-        Real timePos, Real length, Real weight, bool enabled)
+    auto AnimationStateSet::createAnimationState(const String& name,  
+        Real timePos, Real length, Real weight, bool enabled) -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
@@ -291,7 +291,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    AnimationState* AnimationStateSet::getAnimationState(const String& name) const
+    auto AnimationStateSet::getAnimationState(const String& name) const -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
@@ -303,12 +303,12 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    bool AnimationStateSet::hasAnimationState(const String& name) const
+    auto AnimationStateSet::hasAnimationState(const String& name) const -> bool
     {
         return mAnimationStates.find(name) != mAnimationStates.end();
     }
     //---------------------------------------------------------------------
-    AnimationStateIterator AnimationStateSet::getAnimationStateIterator()
+    auto AnimationStateSet::getAnimationStateIterator() -> AnimationStateIterator
     {
         // returned iterator not threadsafe, noted in header
         return {

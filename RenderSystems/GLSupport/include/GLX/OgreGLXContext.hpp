@@ -49,7 +49,7 @@ class GLXGLSupport;
         void endCurrent() override;
         
         /// @copydoc GLContext::clone
-        [[nodiscard]] GLContext* clone() const override;
+        [[nodiscard]] auto clone() const -> GLContext* override;
         
         ::GLXDrawable  mDrawable;
         ::GLXContext   mContext{nullptr};

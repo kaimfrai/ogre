@@ -89,7 +89,7 @@ class SceneNode;
             @return
                 true if allows queue for rendering, false otherwise.
             */
-            virtual bool objectRendering(const MovableObject*, const Camera*) noexcept { return true; }
+            virtual auto objectRendering(const MovableObject*, const Camera*) noexcept -> bool { return true; }
             /** Called when the movable object needs to query a light list.
             @remarks
                 If you want to customize light finding for this object, you should override 
@@ -112,7 +112,7 @@ class SceneNode;
                 A pointer to a light list if you populated the light list yourself, or
                 NULL to fall back on the default finding process.
             */
-            virtual const LightList* objectQueryLights(const MovableObject*) noexcept { return nullptr; }
+            virtual auto objectQueryLights(const MovableObject*) noexcept -> const LightList* { return nullptr; }
         };
 
     protected:
@@ -190,11 +190,11 @@ class SceneNode;
         /** Notify the object of it's creator (internal use only) */
         virtual void _notifyCreator(MovableObjectFactory* fact) { mCreator = fact; }
         /** Get the creator of this object, if any (internal use only) */
-        MovableObjectFactory*  _getCreator() const noexcept { return mCreator; }
+        auto  _getCreator() const noexcept -> MovableObjectFactory* { return mCreator; }
         /** Notify the object of it's manager (internal use only) */
         virtual void _notifyManager(SceneManager* man) { mManager = man; }
         /** Get the manager of this object, if any (internal use only) */
-        SceneManager* _getManager() const noexcept { return mManager; }
+        auto _getManager() const noexcept -> SceneManager* { return mManager; }
 
         /** Notifies the movable object that hardware resources were lost
             @remarks
@@ -213,10 +213,10 @@ class SceneNode;
         virtual void _restoreManualHardwareResources() {}
 
         /** Returns the name of this object. */
-        const String& getName() const noexcept { return mName; }
+        auto getName() const noexcept -> const String& { return mName; }
 
         /** Returns the type name of this object. */
-        virtual const String& getMovableType() const noexcept = 0;
+        virtual auto getMovableType() const noexcept -> const String& = 0;
 
         /** Returns the node to which this object is attached.
         @remarks
@@ -224,7 +224,7 @@ class SceneNode;
             the latter case if it's attached to a bone on an animated entity. 
             Both are Node subclasses so this method will return either.
         */
-        Node* getParentNode() const noexcept { return mParentNode; }
+        auto getParentNode() const noexcept -> Node* { return mParentNode; }
 
         /** Returns the scene node to which this object is attached.
         @remarks
@@ -233,17 +233,17 @@ class SceneNode;
             This method will return the scene node of the parent entity 
             if the latter is true.
         */
-        SceneNode* getParentSceneNode() const noexcept;
+        auto getParentSceneNode() const noexcept -> SceneNode*;
 
         /// Gets whether the parent node is a TagPoint (or a SceneNode)
-        bool isParentTagPoint() const noexcept { return mParentIsTagPoint; }
+        auto isParentTagPoint() const noexcept -> bool { return mParentIsTagPoint; }
 
         /** Internal method called to notify the object that it has been attached to a node.
         */
         virtual void _notifyAttached(Node* parent, bool isTagPoint = false);
 
         /** Returns true if this object is attached to a SceneNode or TagPoint. */
-        bool isAttached() const noexcept { return (mParentNode != nullptr); }
+        auto isAttached() const noexcept -> bool { return (mParentNode != nullptr); }
 
         /** Detaches an object from a parent SceneNode or TagPoint, if attached. */
         void detachFromParent();
@@ -251,7 +251,7 @@ class SceneNode;
         /** Returns true if this object is attached to a SceneNode or TagPoint, 
             and this SceneNode / TagPoint is currently in an active part of the
             scene graph. */
-        virtual bool isInScene() const noexcept;
+        virtual auto isInScene() const noexcept -> bool;
 
         /** Internal method called to notify the object that it has been moved.
         */
@@ -268,20 +268,20 @@ class SceneNode;
             @remarks
                 This bounding box is in local coordinates.
         */
-        virtual const AxisAlignedBox& getBoundingBox() const noexcept = 0;
+        virtual auto getBoundingBox() const noexcept -> const AxisAlignedBox& = 0;
 
         /** Retrieves the radius of the origin-centered bounding sphere 
              for this object.
         */
-        virtual Real getBoundingRadius() const = 0;
+        virtual auto getBoundingRadius() const -> Real = 0;
 
         /// as getBoundingRadius, but with scaling applied
-        Real getBoundingRadiusScaled() const;
+        auto getBoundingRadiusScaled() const -> Real;
 
         /** Retrieves the axis-aligned bounding box for this object in world coordinates. */
-        const AxisAlignedBox& getWorldBoundingBox(bool derive = false) const override;
+        auto getWorldBoundingBox(bool derive = false) const -> const AxisAlignedBox& override;
         /** Retrieves the worldspace bounding sphere for this object. */
-        virtual const Sphere& getWorldBoundingSphere(bool derive = false) const;
+        virtual auto getWorldBoundingSphere(bool derive = false) const -> const Sphere&;
         /** Internal method by which the movable object must add Renderable subclass instances to the rendering queue.
             @remarks
                 The engine will call this method when this object is to be rendered. The object must then create one or more
@@ -309,13 +309,13 @@ class SceneNode;
         @remarks
             Returns the value set by MovableObject::setVisible only.
         */
-        bool getVisible() const noexcept { return mVisible; }
+        auto getVisible() const noexcept -> bool { return mVisible; }
 
         /** Returns whether or not this object is supposed to be visible or not. 
         @remarks
             Takes into account both upper rendering distance and visible flag.
         */
-        virtual bool isVisible() const noexcept;
+        virtual auto isVisible() const noexcept -> bool;
 
         /** Sets the distance at which the object is no longer rendered.
         @note Camera::setUseRenderingDistance() needs to be called for this parameter to be used.
@@ -328,7 +328,7 @@ class SceneNode;
         }
 
         /** Gets the distance at which batches are no longer rendered. */
-        Real getRenderingDistance() const noexcept { return mUpperDistance; }
+        auto getRenderingDistance() const noexcept -> Real { return mUpperDistance; }
 
         /** Sets the minimum pixel size an object needs to be in both screen axes in order to be rendered
         @note Camera::setUseMinPixelSize() needs to be called for this parameter to be used.
@@ -341,7 +341,7 @@ class SceneNode;
 
         /** Returns the minimum pixel size an object needs to be in both screen axes in order to be rendered
         */
-        Real getRenderingMinPixelSize() const {
+        auto getRenderingMinPixelSize() const -> Real {
             return mMinPixelSize; 
         }
 
@@ -349,13 +349,13 @@ class SceneNode;
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        UserObjectBindings& getUserObjectBindings() noexcept { return mUserObjectBindings; }
+        auto getUserObjectBindings() noexcept -> UserObjectBindings& { return mUserObjectBindings; }
 
         /** Return an instance of user objects binding associated with this class.
         You can use it to associate one or more custom objects with this class instance.
         @see UserObjectBindings::setUserAny.        
         */
-        const UserObjectBindings& getUserObjectBindings() const noexcept { return mUserObjectBindings; }
+        auto getUserObjectBindings() const noexcept -> const UserObjectBindings& { return mUserObjectBindings; }
 
         /** Sets the render queue group this entity will be rendered through.
         @remarks
@@ -391,10 +391,10 @@ class SceneNode;
         /** Gets the queue group for this entity
         @see setRenderQueueGroup
         */
-        uint8 getRenderQueueGroup() const noexcept { return mRenderQueueID; }
+        auto getRenderQueueGroup() const noexcept -> uint8 { return mRenderQueueID; }
 
         /// Return the full transformation of the parent sceneNode or the attachingPoint node
-        virtual const Affine3& _getParentNodeFullTransform() const;
+        virtual auto _getParentNodeFullTransform() const -> const Affine3&;
 
         /** Sets the query flags for this object.
         @remarks
@@ -414,7 +414,7 @@ class SceneNode;
         void removeQueryFlags(uint32 flags) { mQueryFlags &= ~flags; }
         
         /// Returns the query flags relevant for this object
-        virtual uint32 getQueryFlags() const noexcept { return mQueryFlags; }
+        virtual auto getQueryFlags() const noexcept -> uint32 { return mQueryFlags; }
 
         /** Set the default query flags for all future MovableObject instances.
         */
@@ -422,7 +422,7 @@ class SceneNode;
 
         /** Get the default query flags for all future MovableObject instances.
         */
-        static uint32 getDefaultQueryFlags() noexcept { return msDefaultQueryFlags; }
+        static auto getDefaultQueryFlags() noexcept -> uint32 { return msDefaultQueryFlags; }
 
         
         /** Sets the visibility flags for this object.
@@ -442,7 +442,7 @@ class SceneNode;
         void removeVisibilityFlags(uint32 flags) { mVisibilityFlags &= ~flags; }
         
         /// Returns the visibility flags relevant for this object
-        virtual uint32 getVisibilityFlags() const noexcept { return mVisibilityFlags; }
+        virtual auto getVisibilityFlags() const noexcept -> uint32 { return mVisibilityFlags; }
 
         /** Set the default visibility flags for all future MovableObject instances.
         */
@@ -450,7 +450,7 @@ class SceneNode;
         
         /** Get the default visibility flags for all future MovableObject instances.
         */
-        static uint32 getDefaultVisibilityFlags() noexcept { return msDefaultVisibilityFlags; }
+        static auto getDefaultVisibilityFlags() noexcept -> uint32 { return msDefaultVisibilityFlags; }
 
         /** Sets a listener for this object.
         @remarks
@@ -461,7 +461,7 @@ class SceneNode;
 
         /** Gets the current listener for this object.
         */
-        Listener* getListener() const noexcept { return mListener; }
+        auto getListener() const noexcept -> Listener* { return mListener; }
 
         /** Gets a list of lights, ordered relative to how close they are to this movable object.
         @remarks
@@ -481,13 +481,13 @@ class SceneNode;
             the renderable is a part of the movable.
         @return The list of lights use to lighting this object.
         */
-        const LightList& queryLights() const noexcept ;
+        auto queryLights() const noexcept -> const LightList& ;
 
         /** Get a bitwise mask which will filter the lights affecting this object
         @remarks
         By default, this mask is fully set meaning all lights will affect this object
         */
-        uint32 getLightMask() const noexcept { return mLightMask; }
+        auto getLightMask() const noexcept -> uint32 { return mLightMask; }
         /** Set a bitwise mask which will filter the lights affecting this object
         @remarks
         This mask will be compared against the mask held against Light to determine
@@ -502,17 +502,17 @@ class SceneNode;
             (say if you want to use it to implement this method, and use the pointer
             as a return value) and for reading it's only accurate as at the last frame.
         */
-        LightList* _getLightList() { return &mLightList; }
+        auto _getLightList() -> LightList* { return &mLightList; }
 
         /// Returns details of the edges which might be used to determine a silhouette
-        EdgeData* getEdgeList() noexcept override { return nullptr; }
+        auto getEdgeList() noexcept -> EdgeData* override { return nullptr; }
         /// Define a default implementation of method from ShadowCaster which implements no shadows
-        const ShadowRenderableList& getShadowVolumeRenderableList(
+        auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) override;
+            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
 
-        const AxisAlignedBox& getLightCapBounds() const noexcept override;
-        const AxisAlignedBox& getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const override;
+        auto getLightCapBounds() const noexcept -> const AxisAlignedBox& override;
+        auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& override;
         /** Sets whether or not this object will cast shadows.
         @remarks
         This setting simply allows you to turn on/off shadows for a given object.
@@ -527,14 +527,14 @@ class SceneNode;
         */
         void setCastShadows(bool enabled) { mCastShadows = enabled; }
         /** Returns whether shadow casting is enabled for this object. */
-        bool getCastShadows() const noexcept override { return mCastShadows; }
+        auto getCastShadows() const noexcept -> bool override { return mCastShadows; }
         /** Returns whether the Material of any Renderable that this MovableObject will add to 
             the render queue will receive shadows. 
         */
-        bool getReceivesShadows() noexcept;
+        auto getReceivesShadows() noexcept -> bool;
             
         /** Get the distance to extrude for a point/spot light */
-        Real getPointExtrusionDistance(const Light* l) const override;
+        auto getPointExtrusionDistance(const Light* l) const -> Real override;
         /** Get the 'type flags' for this MovableObject.
         @remarks
             A type flag identifies the type of the MovableObject as a bitpattern. 
@@ -545,7 +545,7 @@ class SceneNode;
             Custom objects which don't use MovableObjectFactory will need to 
             override this if they want to be included in queries.
         */
-        virtual uint32 getTypeFlags() const noexcept;
+        virtual auto getTypeFlags() const noexcept -> uint32;
 
         /** Method to allow a caller to abstractly iterate over the Renderable
             instances that this MovableObject will add to the render queue when
@@ -571,7 +571,7 @@ class SceneNode;
         */
         void setDebugDisplayEnabled(bool enabled) { mDebugDisplay = enabled; }
         /// Gets whether debug display of this object is enabled. 
-        bool isDebugDisplayEnabled() const noexcept { return mDebugDisplay; }
+        auto isDebugDisplayEnabled() const noexcept -> bool { return mDebugDisplay; }
 
 
 
@@ -591,13 +591,13 @@ class SceneNode;
         uint32 mTypeFlag{0xFFFFFFFF};
 
         /// Internal implementation of create method - must be overridden
-        virtual MovableObject* createInstanceImpl(
-            const String& name, const NameValuePairList* params = nullptr) = 0;
+        virtual auto createInstanceImpl(
+            const String& name, const NameValuePairList* params = nullptr) -> MovableObject* = 0;
     public:
         MovableObjectFactory()  = default;
         virtual ~MovableObjectFactory() = default;
         /// Get the type of the object to be created
-        [[nodiscard]] virtual const String& getType() const noexcept = 0;
+        [[nodiscard]] virtual auto getType() const noexcept -> const String& = 0;
 
         /** Create a new instance of the object.
         @param name The name of the new object
@@ -606,9 +606,9 @@ class SceneNode;
         @param params Name/value pair list of additional parameters required to 
             construct the object (defined per subtype). Optional.
         */
-        MovableObject* createInstance(
+        auto createInstance(
             const String& name, SceneManager* manager, 
-            const NameValuePairList* params = nullptr);
+            const NameValuePairList* params = nullptr) -> MovableObject*;
         /** Destroy an instance of the object */
         virtual void destroyInstance(MovableObject* obj) { delete obj; }
 
@@ -625,7 +625,7 @@ class SceneNode;
             and given that you don't know what other MovableObject types are 
             registered, Root will allocate you one. 
         */
-        [[nodiscard]] virtual bool requestTypeFlags() const noexcept { return false; }
+        [[nodiscard]] virtual auto requestTypeFlags() const noexcept -> bool { return false; }
         /** Notify this factory of the type mask to apply. 
         @remarks
             This should normally only be called by Root in response to
@@ -641,7 +641,7 @@ class SceneNode;
             A type flag is like a query flag, except that it applies to all instances
             of a certain type of object.
         */
-        [[nodiscard]] uint32 getTypeFlags() const noexcept { return mTypeFlag; }
+        [[nodiscard]] auto getTypeFlags() const noexcept -> uint32 { return mTypeFlag; }
 
     };
     /** @} */

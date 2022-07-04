@@ -125,7 +125,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const Ogre::String& getType                 () const noexcept override;
+    auto getType                 () const noexcept -> const Ogre::String& override;
 
 
     /** 
@@ -138,7 +138,7 @@ public:
     /** 
     Return the blend mode of the given texture unit index.
     */
-    BlendMode getBlendMode(unsigned short index) const;
+    auto getBlendMode(unsigned short index) const -> BlendMode;
 
     
 
@@ -157,7 +157,7 @@ public:
     @param modType The source modification type to use
     @param customNum The custom parameter number used to control the modification
     */
-    bool getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const;
+    auto getSourceModifier(unsigned short index, SourceModifier& modType, int& customNum) const -> bool;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -172,12 +172,12 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    bool resolveParameters(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    bool resolveDependencies(Ogre::RTShader::ProgramSet* programSet) override;
+    auto resolveDependencies(Ogre::RTShader::ProgramSet* programSet) -> bool override;
 
 
     void addPSBlendInvocations(Function* psMain, 
@@ -218,12 +218,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, TextureUnitState* texState, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -236,33 +236,33 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
     /** 
     @Converts string to Enum
     */
-    LayeredBlending::BlendMode stringToBlendMode(const String &strValue);
+    auto stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode;
     /** 
     @Converts Enum to string
     */
-    String blendModeToString(LayeredBlending::BlendMode blendMode);
+    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> String;
 
     /** 
     @Converts string to Enum
     */
-    LayeredBlending::SourceModifier stringToSourceModifier(const String &strValue);
+    auto stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier;
     
     /** 
     @Converts Enum to string
     */
-    String sourceModifierToString(LayeredBlending::SourceModifier modifier);
+    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String;
 
     /** 
     Returns the LayeredBlending sub-rener state previously created for this material/pass.
     if no such sub-render state exists creates a new one
     @param translator compiler
     */
-    LayeredBlending* createOrRetrieveSubRenderState(SGScriptTranslator* translator);
+    auto createOrRetrieveSubRenderState(SGScriptTranslator* translator) -> LayeredBlending*;
 };
 
 } // namespace Ogre

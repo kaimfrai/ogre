@@ -84,7 +84,7 @@ namespace Ogre
            */
         void getCustomAttribute(const String& name, void* pData) override;
         
-        [[nodiscard]] PixelFormat suggestPixelFormat() const noexcept override;
+        [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override;
 
     private:
         GLXGLSupport* mGLSupport;

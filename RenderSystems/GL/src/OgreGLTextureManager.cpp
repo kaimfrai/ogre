@@ -53,15 +53,15 @@ namespace Ogre {
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------------
-    Resource* GLTextureManager::createImpl(const String& name, ResourceHandle handle, 
+    auto GLTextureManager::createImpl(const String& name, ResourceHandle handle, 
         const String& group, bool isManual, ManualResourceLoader* loader, 
-        const NameValuePairList* createParams)
+        const NameValuePairList* createParams) -> Resource*
     {
         return new GLTexture(this, name, handle, group, isManual, loader, mRenderSystem);
     }
 
     //-----------------------------------------------------------------------------
-    PixelFormat GLTextureManager::getNativeFormat(TextureType ttype, PixelFormat format, int usage)
+    auto GLTextureManager::getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat
     {
         // Adjust requested parameters to capabilities
         const RenderSystemCapabilities *caps = Root::getSingleton().getRenderSystem()->getCapabilities();
@@ -99,8 +99,8 @@ namespace Ogre {
         
     }
     //-----------------------------------------------------------------------------
-    bool GLTextureManager::isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
-            bool preciseFormatOnly)
+    auto GLTextureManager::isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+            bool preciseFormatOnly) -> bool
     {
         // precise format check
         if (!TextureManager::isHardwareFilteringSupported(ttype, format, usage, preciseFormatOnly))

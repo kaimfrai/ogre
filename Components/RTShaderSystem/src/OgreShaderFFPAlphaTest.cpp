@@ -57,14 +57,14 @@ namespace Ogre::RTShader {
 
 
 		//-----------------------------------------------------------------------
-		const Ogre::String& FFPAlphaTest::getType() const noexcept
+		auto FFPAlphaTest::getType() const noexcept -> const Ogre::String&
 		{
 			return Type;
 		}
 
 
 		//-----------------------------------------------------------------------
-		bool FFPAlphaTest::resolveParameters(ProgramSet* programSet)
+		auto FFPAlphaTest::resolveParameters(ProgramSet* programSet) -> bool
 		{
 			Program* psProgram  = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
@@ -80,7 +80,7 @@ namespace Ogre::RTShader {
 
 
 		//-----------------------------------------------------------------------
-		bool FFPAlphaTest::resolveDependencies(ProgramSet* programSet)
+		auto FFPAlphaTest::resolveDependencies(ProgramSet* programSet) -> bool
 		{
 			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			psProgram->addDependency(FFP_LIB_ALPHA_TEST);
@@ -94,7 +94,7 @@ namespace Ogre::RTShader {
 
 		}
 
-		bool FFPAlphaTest::addFunctionInvocations( ProgramSet* programSet )
+		auto FFPAlphaTest::addFunctionInvocations( ProgramSet* programSet ) -> bool
 		{
 			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
@@ -105,12 +105,12 @@ namespace Ogre::RTShader {
             return true;
 		}
 
-		int FFPAlphaTest::getExecutionOrder() const noexcept
+		auto FFPAlphaTest::getExecutionOrder() const noexcept -> int
 		{
 			return FFP_ALPHA_TEST;
 		}
 
-		bool FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept
+		auto FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept -> bool
 		{
 			return srcPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS;
 		}
@@ -122,13 +122,13 @@ namespace Ogre::RTShader {
 
 		//----------------------Factory Implementation---------------------------
 		//-----------------------------------------------------------------------
-		const String& FFPAlphaTestFactory ::getType() const noexcept
+		auto FFPAlphaTestFactory ::getType() const noexcept -> const String&
 		{
 			return FFPAlphaTest::Type;
 		}
 
 		//-----------------------------------------------------------------------
-		SubRenderState*	FFPAlphaTestFactory::createInstanceImpl()
+		auto	FFPAlphaTestFactory::createInstanceImpl() -> SubRenderState*
 		{
 			return new FFPAlphaTest;
 		}

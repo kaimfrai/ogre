@@ -59,35 +59,35 @@ class MovableObject;
     {
     protected:
         /// @copydoc LodStrategy::getValueImpl
-        Real getValueImpl(const MovableObject *movableObject, const Camera *camera) const override;
+        auto getValueImpl(const MovableObject *movableObject, const Camera *camera) const -> Real override;
 
     public:
         /** Default constructor. */
         DistanceLodStrategyBase(const String& name);
 
         /// @copydoc LodStrategy::getBaseValue
-        [[nodiscard]] Real getBaseValue() const override;
+        [[nodiscard]] auto getBaseValue() const -> Real override;
 
         /// @copydoc LodStrategy::transformBias
-        [[nodiscard]] Real transformBias(Real factor) const override;
+        [[nodiscard]] auto transformBias(Real factor) const -> Real override;
 
         /// @copydoc LodStrategy::transformUserValue
-        [[nodiscard]] Real transformUserValue(Real userValue) const override;
+        [[nodiscard]] auto transformUserValue(Real userValue) const -> Real override;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] ushort getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const override;
+        [[nodiscard]] auto getIndex(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) const -> ushort override;
 
         /// @copydoc LodStrategy::getIndex
-        [[nodiscard]] ushort getIndex(Real value, const Material::LodValueList& materialLodValueList) const override;
+        [[nodiscard]] auto getIndex(Real value, const Material::LodValueList& materialLodValueList) const -> ushort override;
 
         /// @copydoc LodStrategy::sort
         void sort(Mesh::MeshLodUsageList& meshLodUsageList) const override;
 
         /// @copydoc LodStrategy::isSorted
-        [[nodiscard]] bool isSorted(const Mesh::LodValueList& values) const override;
+        [[nodiscard]] auto isSorted(const Mesh::LodValueList& values) const -> bool override;
 
         /** Get the squared distance between the camera and the LOD object */
-        virtual Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const = 0;
+        virtual auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real = 0;
 
         /** Sets the reference view upon which the distances were based.
         @note
@@ -104,7 +104,7 @@ class MovableObject;
         void setReferenceViewEnabled(bool value);
 
         /** Determine if use of the reference view is enabled */
-        [[nodiscard]] bool isReferenceViewEnabled() const noexcept;
+        [[nodiscard]] auto isReferenceViewEnabled() const noexcept -> bool;
 
     private:
         bool mReferenceViewEnabled{false};
@@ -137,12 +137,12 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodSphereStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
+        auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real override;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> DistanceLodSphereStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodSphereStrategy* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> DistanceLodSphereStrategy*;
     };
     /** @} */
     /** @} */
@@ -170,12 +170,12 @@ class MovableObject;
         /** Default constructor. */
         DistanceLodBoxStrategy();
 
-        Real getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const override;
+        auto getSquaredDepth(const MovableObject *movableObject, const Ogre::Camera *camera) const -> Real override;
 
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy& getSingleton() noexcept;
+        static auto getSingleton() noexcept -> DistanceLodBoxStrategy&;
         /// @copydoc Singleton::getSingleton()
-        static DistanceLodBoxStrategy* getSingletonPtr() noexcept;
+        static auto getSingletonPtr() noexcept -> DistanceLodBoxStrategy*;
     };
 
     /** @} */

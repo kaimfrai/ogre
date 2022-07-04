@@ -48,12 +48,12 @@ RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSin
 
 namespace RTShader {
 //-----------------------------------------------------------------------
-ProgramWriterManager* ProgramWriterManager::getSingletonPtr() noexcept
+auto ProgramWriterManager::getSingletonPtr() noexcept -> ProgramWriterManager*
 {
     return msSingleton;
 }
 //-----------------------------------------------------------------------
-ProgramWriterManager& ProgramWriterManager::getSingleton() noexcept
+auto ProgramWriterManager::getSingleton() noexcept -> ProgramWriterManager&
 {  
     assert( msSingleton );  
     return ( *msSingleton );  
@@ -74,7 +74,7 @@ void ProgramWriterManager::addProgramWriter(const String& lang, ::std::unique_pt
     mProgramWriters[lang] = ::std::move(writer);
 }
 //-----------------------------------------------------------------------
-bool ProgramWriterManager::isLanguageSupported(const String& lang)
+auto ProgramWriterManager::isLanguageSupported(const String& lang) -> bool
 {
     return mProgramWriters.find(lang) != mProgramWriters.end();
 }

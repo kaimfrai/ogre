@@ -128,9 +128,9 @@ namespace Ogre {
         _destroyBuffers();
     }
     //-----------------------------------------------------------------------
-    Billboard* BillboardSet::createBillboard(
+    auto BillboardSet::createBillboard(
         const Vector3& position,
-        const ColourValue& colour )
+        const ColourValue& colour ) -> Billboard*
     {
         if( mActiveBillboards == mBillboardPool.size() )
         {
@@ -174,7 +174,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    Billboard* BillboardSet::getBillboard( unsigned int index ) const
+    auto BillboardSet::getBillboard( unsigned int index ) const -> Billboard*
     {
         assert(index < mActiveBillboards && "Billboard index out of bounds.");
         return mBillboardPool[index].get();
@@ -232,7 +232,7 @@ namespace Ogre {
         : sortDir(dir)
     {
     }
-    float BillboardSet::SortByDirectionFunctor::operator()(Billboard const* bill) const noexcept
+    auto BillboardSet::SortByDirectionFunctor::operator()(Billboard const* bill) const noexcept -> float
     {
         return sortDir.dotProduct(bill->getPosition());
     }
@@ -240,13 +240,13 @@ namespace Ogre {
         : sortPos(pos)
     {
     }
-    float BillboardSet::SortByDistanceFunctor::operator()(Billboard const* bill) const noexcept
+    auto BillboardSet::SortByDistanceFunctor::operator()(Billboard const* bill) const noexcept -> float
     {
         // Sort descending by squared distance
         return - (sortPos - bill->getPosition()).squaredLength();
     }
     //-----------------------------------------------------------------------
-    SortMode BillboardSet::_getSortMode() const
+    auto BillboardSet::_getSortMode() const -> SortMode
     {
         // Need to sort by distance if we're using accurate facing, or perpendicular billboard type.
         if (mAccurateFacing ||
@@ -744,7 +744,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    bool BillboardSet::billboardVisible(Camera* cam, const Billboard& bill)
+    auto BillboardSet::billboardVisible(Camera* cam, const Billboard& bill) -> bool
     {
         // Return always visible if not culling individually
         if (!mCullIndividual) return true;
@@ -852,7 +852,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    uint32 BillboardSet::getTypeFlags() const noexcept
+    auto BillboardSet::getTypeFlags() const noexcept -> uint32
     {
         return SceneManager::FX_TYPE_MASK;
     }
@@ -1065,18 +1065,18 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    const String& BillboardSet::getMovableType() const noexcept
+    auto BillboardSet::getMovableType() const noexcept -> const String&
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    Real BillboardSet::getSquaredViewDepth(const Camera* const cam) const
+    auto BillboardSet::getSquaredViewDepth(const Camera* const cam) const -> Real
     {
         assert(mParentNode);
         return mParentNode->getSquaredViewDepth(cam);
     }
     //-----------------------------------------------------------------------
-    const LightList& BillboardSet::getLights() const noexcept
+    auto BillboardSet::getLights() const noexcept -> const LightList&
     {
         // It's actually quite unlikely that this will be called,
         // because most billboards are unlit, but here we go anyway
@@ -1161,13 +1161,13 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    const String& BillboardSetFactory::getType() const noexcept
+    auto BillboardSetFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    MovableObject* BillboardSetFactory::createInstanceImpl( const String& name,
-        const NameValuePairList* params)
+    auto BillboardSetFactory::createInstanceImpl( const String& name,
+        const NameValuePairList* params) -> MovableObject*
     {
         // may have parameters
         bool externalData = false;

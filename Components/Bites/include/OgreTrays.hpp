@@ -137,35 +137,35 @@ namespace OgreBites
         /**
         Static utility method to check if the cursor is over an overlay element.
         */
-        static bool isCursorOver(Ogre::OverlayElement* element, const Ogre::Vector2& cursorPos, Ogre::Real voidBorder = 0);
+        static auto isCursorOver(Ogre::OverlayElement* element, const Ogre::Vector2& cursorPos, Ogre::Real voidBorder = 0) -> bool;
 
         /**
         Static utility method used to get the cursor's offset from the center
         of an overlay element in pixels.
         */
-        static Ogre::Vector2 cursorOffset(Ogre::OverlayElement* element, const Ogre::Vector2& cursorPos);
+        static auto cursorOffset(Ogre::OverlayElement* element, const Ogre::Vector2& cursorPos) -> Ogre::Vector2;
 
         /**
         Static utility method used to get the width of a caption in a text area.
         */
-        static Ogre::Real getCaptionWidth(const Ogre::DisplayString& caption, Ogre::TextAreaOverlayElement* area);
+        static auto getCaptionWidth(const Ogre::DisplayString& caption, Ogre::TextAreaOverlayElement* area) -> Ogre::Real;
 
         /**
         Static utility method to cut off a string to fit in a text area.
         */
         static void fitCaptionToArea(const Ogre::DisplayString& caption, Ogre::TextAreaOverlayElement* area, Ogre::Real maxWidth);
 
-        Ogre::OverlayElement* getOverlayElement() noexcept
+        auto getOverlayElement() noexcept -> Ogre::OverlayElement*
         {
             return mElement;
         }
 
-        const Ogre::String& getName() noexcept
+        auto getName() noexcept -> const Ogre::String&
         {
             return mElement->getName();
         }
 
-        TrayLocation getTrayLocation()
+        auto getTrayLocation() -> TrayLocation
         {
             return mTrayLoc;
         }
@@ -180,7 +180,7 @@ namespace OgreBites
             mElement->show();
         }
 
-        bool isVisible() noexcept
+        auto isVisible() noexcept -> bool
         {
             return mElement->isVisible();
         }
@@ -218,14 +218,14 @@ namespace OgreBites
 
         ~Button() override = default;
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
 
         void setCaption(const Ogre::DisplayString& caption);
 
-        const ButtonState& getState() noexcept { return mState; }
+        auto getState() noexcept -> const ButtonState& { return mState; }
 
         void _cursorPressed(const Ogre::Vector2& cursorPos) override;
 
@@ -257,12 +257,12 @@ namespace OgreBites
 
         void setPadding(Ogre::Real padding);
 
-        Ogre::Real getPadding()
+        auto getPadding() -> Ogre::Real
         {
             return mPadding;
         }
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mCaptionTextArea->getCaption();
         }
@@ -272,7 +272,7 @@ namespace OgreBites
             mCaptionTextArea->setCaption(caption);
         }
 
-        const Ogre::DisplayString& getText() noexcept
+        auto getText() noexcept -> const Ogre::DisplayString&
         {
             return mText;
         }
@@ -310,7 +310,7 @@ namespace OgreBites
         /**
         Gets how far scrolled down the text is as a percentage.
         */
-        Ogre::Real getScrollPercentage()
+        auto getScrollPercentage() -> Ogre::Real
         {
             return mScrollPercentage;
         }
@@ -318,7 +318,7 @@ namespace OgreBites
         /**
         Gets how many lines of text can fit in this window.
         */
-        unsigned int getHeightInLines() noexcept
+        auto getHeightInLines() noexcept -> unsigned int
         {
             return (unsigned int) ((mElement->getHeight() - 2 * mPadding - mCaptionBar->getHeight() + 5) / mTextArea->getCharHeight());
         }
@@ -369,24 +369,24 @@ namespace OgreBites
         SelectMenu(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width,
             Ogre::Real boxWidth, size_t maxItemsShown);
         void copyItemsFrom(SelectMenu* other);
-        bool isExpanded() noexcept
+        auto isExpanded() noexcept -> bool
         {
             return mExpanded;
         }
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
 
         void setCaption(const Ogre::DisplayString& caption);
 
-        const Ogre::StringVector& getItems() noexcept
+        auto getItems() noexcept -> const Ogre::StringVector&
         {
             return mItems;
         }
 
-        size_t getNumItems()
+        auto getNumItems() -> size_t
         {
             return mItems.size();
         }
@@ -413,13 +413,13 @@ namespace OgreBites
 
         void selectItem(size_t index, bool notifyListener = true);
 
-        bool containsItem(const Ogre::DisplayString& item);
+        auto containsItem(const Ogre::DisplayString& item) -> bool;
 
         void selectItem(const Ogre::DisplayString& item, bool notifyListener = true);
 
-        Ogre::DisplayString getSelectedItem();
+        auto getSelectedItem() -> Ogre::DisplayString;
 
-        int getSelectionIndex() noexcept
+        auto getSelectionIndex() noexcept -> int
         {
             return mSelectionIndex;
         }
@@ -480,7 +480,7 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         Label(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
@@ -492,7 +492,7 @@ namespace OgreBites
 
         void _cursorPressed(const Ogre::Vector2& cursorPos) override;
 
-        bool _isFitToTray()
+        auto _isFitToTray() -> bool
         {
             return mFitToTray;
         }
@@ -513,7 +513,7 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         Separator(const Ogre::String& name, Ogre::Real width);
 
-        bool _isFitToTray()
+        auto _isFitToTray() -> bool
         {
             return mFitToTray;
         }
@@ -539,7 +539,7 @@ namespace OgreBites
         */
         void setRange(Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps, bool notifyListener = true);
 
-        const Ogre::DisplayString& getValueCaption() noexcept
+        auto getValueCaption() noexcept -> const Ogre::DisplayString&
         {
             return mValueTextArea->getCaption();
         }
@@ -554,12 +554,12 @@ namespace OgreBites
 
         void setValue(Ogre::Real value, bool notifyListener = true);
 
-        Ogre::Real getValue()
+        auto getValue() -> Ogre::Real
         {
             return mValue;
         }
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
@@ -583,7 +583,7 @@ namespace OgreBites
         Internal method - given a percentage (from left to right), gets the
         value of the nearest marker.
         */
-        Ogre::Real getSnappedValue(Ogre::Real percentage)
+        auto getSnappedValue(Ogre::Real percentage) -> Ogre::Real
         {
             percentage = Ogre::Math::saturate(percentage);
             auto whichMarker = (unsigned int) (percentage * (mMaxValue - mMinValue) / mInterval + 0.5);
@@ -615,7 +615,7 @@ namespace OgreBites
 
         void setAllParamNames(const Ogre::StringVector& paramNames);
 
-        const Ogre::StringVector& getAllParamNames() noexcept
+        auto getAllParamNames() noexcept -> const Ogre::StringVector&
         {
             return mNames;
         }
@@ -626,11 +626,11 @@ namespace OgreBites
 
         void setParamValue(unsigned int index, const Ogre::DisplayString& paramValue);
 
-        Ogre::DisplayString getParamValue(const Ogre::DisplayString& paramName);
+        auto getParamValue(const Ogre::DisplayString& paramName) -> Ogre::DisplayString;
 
-        Ogre::DisplayString getParamValue(unsigned int index);
+        auto getParamValue(unsigned int index) -> Ogre::DisplayString;
 
-        const Ogre::StringVector& getAllParamValues() noexcept
+        auto getAllParamValues() noexcept -> const Ogre::StringVector&
         {
             return mValues;
         }
@@ -658,14 +658,14 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         CheckBox(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
 
         void setCaption(const Ogre::DisplayString& caption);
 
-        bool isChecked() noexcept
+        auto isChecked() noexcept -> bool
         {
             return mX->isVisible();
         }
@@ -718,12 +718,12 @@ namespace OgreBites
         /**
         Gets the progress as a percentage.
         */
-        Ogre::Real getProgress()
+        auto getProgress() -> Ogre::Real
         {
             return mProgress;
         }
 
-        const Ogre::DisplayString& getCaption() noexcept
+        auto getCaption() noexcept -> const Ogre::DisplayString&
         {
             return mTextArea->getCaption();
         }
@@ -733,7 +733,7 @@ namespace OgreBites
             mTextArea->setCaption(caption);
         }
 
-        const Ogre::DisplayString& getComment() noexcept
+        auto getComment() noexcept -> const Ogre::DisplayString&
         {
             return mCommentTextArea->getCaption();
         }
@@ -773,29 +773,29 @@ namespace OgreBites
         /**
         Converts a 2D screen coordinate (in pixels) to a 3D ray into the scene.
         */
-        static Ogre::Ray screenToScene(Ogre::Camera* cam, const Ogre::Vector2& pt);
+        static auto screenToScene(Ogre::Camera* cam, const Ogre::Vector2& pt) -> Ogre::Ray;
 
         /**
         Converts a 3D scene position to a 2D screen position (in relative screen size, 0.0-1.0).
         */
-        static Ogre::Vector2 sceneToScreen(Ogre::Camera* cam, const Ogre::Vector3& pt);
+        static auto sceneToScreen(Ogre::Camera* cam, const Ogre::Vector3& pt) -> Ogre::Vector2;
 
         // these methods get the underlying overlays and overlay elements
 
-        Ogre::OverlayContainer* getTrayContainer(TrayLocation trayLoc) { return mTrays[trayLoc]; }
-        Ogre::Overlay* getBackdropLayer() noexcept { return mBackdropLayer; }
-        Ogre::Overlay* getTraysLayer() noexcept { return mTraysLayer; }
-        Ogre::Overlay* getCursorLayer() noexcept { return mCursorLayer; }
-        Ogre::OverlayContainer* getBackdropContainer() noexcept { return mBackdrop; }
-        Ogre::OverlayContainer* getCursorContainer() noexcept { return mCursor; }
-        Ogre::OverlayElement* getCursorImage() noexcept { return mCursor->getChild(::std::format("{}/CursorImage", mCursor->getName())); }
+        auto getTrayContainer(TrayLocation trayLoc) -> Ogre::OverlayContainer* { return mTrays[trayLoc]; }
+        auto getBackdropLayer() noexcept -> Ogre::Overlay* { return mBackdropLayer; }
+        auto getTraysLayer() noexcept -> Ogre::Overlay* { return mTraysLayer; }
+        auto getCursorLayer() noexcept -> Ogre::Overlay* { return mCursorLayer; }
+        auto getBackdropContainer() noexcept -> Ogre::OverlayContainer* { return mBackdrop; }
+        auto getCursorContainer() noexcept -> Ogre::OverlayContainer* { return mCursor; }
+        auto getCursorImage() noexcept -> Ogre::OverlayElement* { return mCursor->getChild(::std::format("{}/CursorImage", mCursor->getName())); }
 
         void setListener(TrayListener* listener)
         {
             mListener = listener;
         }
 
-        TrayListener* getListener() noexcept
+        auto getListener() noexcept -> TrayListener*
         {
             return mListener;
         }
@@ -834,9 +834,9 @@ namespace OgreBites
 
         void hideTrays();
 
-        bool isCursorVisible() noexcept { return mCursorLayer->isVisible(); }
-        bool isBackdropVisible() noexcept { return mBackdropLayer->isVisible(); }
-        bool areTraysVisible() { return mTraysLayer->isVisible(); }
+        auto isCursorVisible() noexcept -> bool { return mCursorLayer->isVisible(); }
+        auto isBackdropVisible() noexcept -> bool { return mBackdropLayer->isVisible(); }
+        auto areTraysVisible() -> bool { return mTraysLayer->isVisible(); }
 
         /**
         Sets horizontal alignment of a tray's contents.
@@ -850,9 +850,9 @@ namespace OgreBites
         void setWidgetSpacing(Ogre::Real spacing);
         void setTrayPadding(Ogre::Real padding);
 
-        [[nodiscard]] virtual Ogre::Real getWidgetPadding() const noexcept { return mWidgetPadding; }
-        [[nodiscard]] virtual Ogre::Real getWidgetSpacing() const noexcept { return mWidgetSpacing; }
-        [[nodiscard]] virtual Ogre::Real getTrayPadding() const noexcept { return mTrayPadding; }
+        [[nodiscard]] virtual auto getWidgetPadding() const noexcept -> Ogre::Real { return mWidgetPadding; }
+        [[nodiscard]] virtual auto getWidgetSpacing() const noexcept -> Ogre::Real { return mWidgetSpacing; }
+        [[nodiscard]] virtual auto getTrayPadding() const noexcept -> Ogre::Real { return mTrayPadding; }
 
         /**
         Fits trays to their contents and snaps them to their anchor locations.
@@ -862,47 +862,47 @@ namespace OgreBites
         /**
         Returns a 3D ray into the scene that is directly underneath the cursor.
         */
-        Ogre::Ray getCursorRay(Ogre::Camera* cam);
+        auto getCursorRay(Ogre::Camera* cam) -> Ogre::Ray;
 
-        Button* createButton(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& caption, Ogre::Real width = 0);
+        auto createButton(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& caption, Ogre::Real width = 0) -> Button*;
 
-        TextBox* createTextBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, Ogre::Real height);
+        auto createTextBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width, Ogre::Real height) -> TextBox*;
 
-        SelectMenu* createThickSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector());
+        auto createThickSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
 
-        SelectMenu* createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector());
+        auto createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
 
-        SelectMenu* createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector());
+        auto createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
 
-        Label* createLabel(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width = 0);
+        auto createLabel(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width = 0) -> Label*;
 
-        Separator* createSeparator(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width = 0);
+        auto createSeparator(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width = 0) -> Separator*;
 
-        Slider* createThickSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps);
+        auto createThickSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        Slider* createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width,
-            Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps);
+        auto createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width,
+            Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        Slider* createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps);
+        auto createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        ParamsPanel* createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width, unsigned int lines);
+        auto createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width, unsigned int lines) -> ParamsPanel*;
 
-        ParamsPanel* createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width,
-            const Ogre::StringVector& paramNames);
+        auto createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width,
+            const Ogre::StringVector& paramNames) -> ParamsPanel*;
 
-        CheckBox* createCheckBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width = 0);
+        auto createCheckBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width = 0) -> CheckBox*;
 
-        DecorWidget* createDecorWidget(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& templateName);
+        auto createDecorWidget(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& templateName) -> DecorWidget*;
 
-        ProgressBar* createProgressBar(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, Ogre::Real commentBoxWidth);
+        auto createProgressBar(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+            Ogre::Real width, Ogre::Real commentBoxWidth) -> ProgressBar*;
 
         /**
         Shows frame statistics widget set in the specified location.
@@ -914,7 +914,7 @@ namespace OgreBites
         */
         void hideFrameStats();
 
-        bool areFrameStatsVisible()
+        auto areFrameStatsVisible() -> bool
         {
             return mFpsLabel != nullptr;
         }
@@ -934,7 +934,7 @@ namespace OgreBites
 
         void hideLogo();
 
-        bool isLogoVisible() noexcept
+        auto isLogoVisible() noexcept -> bool
         {
             return mLogo != nullptr;
         }
@@ -957,34 +957,34 @@ namespace OgreBites
         /**
         Determines if any dialog is currently visible.
         */
-        bool isDialogVisible() noexcept;
+        auto isDialogVisible() noexcept -> bool;
 
         /**
         Gets a widget from a tray by name.
         */
-        Widget* getWidget(TrayLocation trayLoc, const Ogre::String& name);
+        auto getWidget(TrayLocation trayLoc, const Ogre::String& name) -> Widget*;
 
         /**
         Gets a widget by name.
         */
-        Widget* getWidget(const Ogre::String& name);
+        auto getWidget(const Ogre::String& name) -> Widget*;
 
         /**
         Gets the number of widgets in total.
         */
-        unsigned int getNumWidgets() noexcept;
+        auto getNumWidgets() noexcept -> unsigned int;
 
         /**
         Gets all the widgets of a specific tray.
         */
-        [[nodiscard]] const WidgetList& getWidgets(TrayLocation trayLoc) const {
+        [[nodiscard]] auto getWidgets(TrayLocation trayLoc) const -> const WidgetList& {
             return mWidgets[trayLoc];
         }
 
         /**
         Gets a widget's position in its tray.
         */
-        int locateWidgetInTray(Widget* widget);
+        auto locateWidgetInTray(Widget* widget) -> int;
 
         /**
         Destroys a widget.
@@ -1135,21 +1135,21 @@ namespace OgreBites
         Processes mouse button down events. Returns true if the event was
         consumed and should not be passed on to other handlers.
         */
-        bool mousePressed(const MouseButtonDownEvent& evt) noexcept override;
+        auto mousePressed(const MouseButtonDownEvent& evt) noexcept -> bool override;
 
         /**
         Processes mouse button up events. Returns true if the event was
         consumed and should not be passed on to other handlers.
         */
-        bool mouseReleased(const MouseButtonUpEvent& evt) noexcept override;
+        auto mouseReleased(const MouseButtonUpEvent& evt) noexcept -> bool override;
 
         /**
         Updates cursor position. Returns true if the event was
         consumed and should not be passed on to other handlers.
         */
-        bool mouseMoved(const MouseMotionEvent& evt) noexcept override;
+        auto mouseMoved(const MouseMotionEvent& evt) noexcept -> bool override;
 
-        bool mouseWheelRolled(const MouseWheelEvent& evt) noexcept override;
+        auto mouseWheelRolled(const MouseWheelEvent& evt) noexcept -> bool override;
 
     protected:
 

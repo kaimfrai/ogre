@@ -76,12 +76,12 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    const String& getType() const noexcept override;
+    auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderState::getType.
     */
-    int getExecutionOrder() const noexcept override;
+    auto getExecutionOrder() const noexcept -> int override;
 
     /** 
     @see SubRenderState::updateGpuProgramsParams.
@@ -96,7 +96,7 @@ public:
     /** 
     @see SubRenderState::preAddToRenderState.
     */
-    bool preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept override;
+    auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     /** normalise the blinn-phong reflection model to make it energy conserving
      *
@@ -104,14 +104,14 @@ public:
      */
     void setNormaliseEnabled(bool enable) { mNormalisedEnable = enable; }
 
-    bool setParameter(const String& name, const String& value) noexcept override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
     static String Type;
 
     /**
     Get the specular component state.
     */
-    bool getSpecularEnable() const noexcept { return mSpecularEnable; }
+    auto getSpecularEnable() const noexcept -> bool { return mSpecularEnable; }
 
 // Protected types:
 protected:
@@ -159,7 +159,7 @@ protected:
     /** 
     Return the current track per vertex type.
     */
-    TrackVertexColourType getTrackVertexColourType() const noexcept { return mTrackVertexColourType; }
+    auto getTrackVertexColourType() const noexcept -> TrackVertexColourType { return mTrackVertexColourType; }
 
     /** 
     Set the light count per light type that this sub render state will generate.
@@ -171,7 +171,7 @@ protected:
     Get the light count per light type that this sub render state will generate.
     @see ShaderGenerator::getLightCount.
     */
-    Vector3i getLightCount() const;
+    auto getLightCount() const -> Vector3i;
 
     /** 
     Set the specular component state. If set to true this sub render state will compute a specular
@@ -183,17 +183,17 @@ protected:
     /** 
     @see SubRenderState::resolveParameters.
     */
-    bool resolveParameters(ProgramSet* programSet) override;
+    auto resolveParameters(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::resolveDependencies.
     */
-    bool resolveDependencies(ProgramSet* programSet) override;
+    auto resolveDependencies(ProgramSet* programSet) -> bool override;
 
     /** 
     @see SubRenderState::addFunctionInvocations.
     */
-    bool addFunctionInvocations(ProgramSet* programSet) override;
+    auto addFunctionInvocations(ProgramSet* programSet) -> bool override;
 
 
     /** 
@@ -259,12 +259,12 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] const String& getType() const noexcept override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
     */
-    SubRenderState* createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept override;
+    auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass, SGScriptTranslator* translator) noexcept -> SubRenderState* override;
 
     /** 
     @see SubRenderStateFactory::writeInstance.
@@ -277,7 +277,7 @@ protected:
     /** 
     @see SubRenderStateFactory::createInstanceImpl.
     */
-    SubRenderState* createInstanceImpl() override;
+    auto createInstanceImpl() -> SubRenderState* override;
 
 
 };

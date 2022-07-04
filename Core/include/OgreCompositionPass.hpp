@@ -76,14 +76,14 @@ class CompositionTargetPass;
         /** Set the type of composition pass */
         void setType(PassType type);
         /** Get the type of composition pass */
-        [[nodiscard]] PassType getType() const;
+        [[nodiscard]] auto getType() const -> PassType;
         
         /** Set an identifier for this pass. This identifier can be used to
             "listen in" on this pass with an CompositorInstance::Listener. 
         */
         void setIdentifier(uint32 id);
         /** Get the identifier for this pass */
-        [[nodiscard]] uint32 getIdentifier() const noexcept;
+        [[nodiscard]] auto getIdentifier() const noexcept -> uint32;
 
         /** Set the material used by this pass
             @note applies when PassType is RENDERQUAD 
@@ -96,7 +96,7 @@ class CompositionTargetPass;
         /** Get the material used by this pass 
             @note applies when PassType is RENDERQUAD 
         */
-        [[nodiscard]] const MaterialPtr& getMaterial() const noexcept;
+        [[nodiscard]] auto getMaterial() const noexcept -> const MaterialPtr&;
         /** Set the first render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
@@ -104,7 +104,7 @@ class CompositionTargetPass;
         /** Get the first render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        [[nodiscard]] uint8 getFirstRenderQueue() const noexcept;
+        [[nodiscard]] auto getFirstRenderQueue() const noexcept -> uint8;
         /** Set the last render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
@@ -112,7 +112,7 @@ class CompositionTargetPass;
         /** Get the last render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        [[nodiscard]] uint8 getLastRenderQueue() const noexcept;
+        [[nodiscard]] auto getLastRenderQueue() const noexcept -> uint8;
 
         /** Set the material scheme used by this pass.
         @remarks
@@ -125,7 +125,7 @@ class CompositionTargetPass;
             Only applicable to passes that render the scene.
             @see Technique::setScheme.
         */
-        [[nodiscard]] const String& getMaterialScheme() const noexcept;
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> const String&;
 
         /** Would be nice to have for RENDERSCENE:
             flags to:
@@ -141,7 +141,7 @@ class CompositionTargetPass;
         /** Get the viewport clear buffers.
             @note applies when PassType is CLEAR
         */
-        [[nodiscard]] uint32 getClearBuffers() const noexcept;
+        [[nodiscard]] auto getClearBuffers() const noexcept -> uint32;
         /** Set the viewport clear colour (defaults to 0,0,0,0) 
             @note applies when PassType is CLEAR
          */
@@ -149,7 +149,7 @@ class CompositionTargetPass;
         /** Get the viewport clear colour (defaults to 0,0,0,0) 
             @note applies when PassType is CLEAR
          */
-        [[nodiscard]] const ColourValue &getClearColour() const;
+        [[nodiscard]] auto getClearColour() const -> const ColourValue &;
         /** Set the clear colour to be the background colour of the original viewport
         @note applies when PassType is CLEAR
         */
@@ -157,7 +157,7 @@ class CompositionTargetPass;
         /** Retrieves if the clear colour is automatically setted to the background colour of the original viewport
         @note applies when PassType is CLEAR
         */
-        [[nodiscard]] bool getAutomaticColour() const noexcept;
+        [[nodiscard]] auto getAutomaticColour() const noexcept -> bool;
         /** Set the viewport clear depth (defaults to 1.0) 
             @note applies when PassType is CLEAR
         */
@@ -165,7 +165,7 @@ class CompositionTargetPass;
         /** Get the viewport clear depth (defaults to 1.0) 
             @note applies when PassType is CLEAR
         */
-        [[nodiscard]] float getClearDepth() const noexcept;
+        [[nodiscard]] auto getClearDepth() const noexcept -> float;
         /** Set the viewport clear stencil value (defaults to 0) 
             @note applies when PassType is CLEAR
         */
@@ -173,7 +173,7 @@ class CompositionTargetPass;
         /** Get the viewport clear stencil value (defaults to 0) 
             @note applies when PassType is CLEAR
         */
-        [[nodiscard]] uint16 getClearStencil() const noexcept;
+        [[nodiscard]] auto getClearStencil() const noexcept -> uint16;
 
         /** Set stencil check on or off.
             @note applies when PassType is STENCIL
@@ -182,7 +182,7 @@ class CompositionTargetPass;
         /** Get stencil check enable.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] bool getStencilCheck() const noexcept;
+        [[nodiscard]] auto getStencilCheck() const noexcept -> bool;
         /** Set stencil compare function.
             @note applies when PassType is STENCIL
         */
@@ -190,7 +190,7 @@ class CompositionTargetPass;
         /** Get stencil compare function.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] CompareFunction getStencilFunc() const; 
+        [[nodiscard]] auto getStencilFunc() const -> CompareFunction; 
         /** Set stencil reference value.
             @note applies when PassType is STENCIL
         */
@@ -198,7 +198,7 @@ class CompositionTargetPass;
         /** Get stencil reference value.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] uint32 getStencilRefValue() const noexcept;
+        [[nodiscard]] auto getStencilRefValue() const noexcept -> uint32;
         /** Set stencil mask.
             @note applies when PassType is STENCIL
         */
@@ -206,7 +206,7 @@ class CompositionTargetPass;
         /** Get stencil mask.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] uint32 getStencilMask() const noexcept;
+        [[nodiscard]] auto getStencilMask() const noexcept -> uint32;
         /** Set stencil fail operation.
             @note applies when PassType is STENCIL
         */
@@ -214,7 +214,7 @@ class CompositionTargetPass;
         /** Get stencil fail operation.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] StencilOperation getStencilFailOp() const;
+        [[nodiscard]] auto getStencilFailOp() const -> StencilOperation;
         /** Set stencil depth fail operation.
             @note applies when PassType is STENCIL
         */
@@ -222,7 +222,7 @@ class CompositionTargetPass;
         /** Get stencil depth fail operation.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] StencilOperation getStencilDepthFailOp() const;
+        [[nodiscard]] auto getStencilDepthFailOp() const -> StencilOperation;
         /** Set stencil pass operation.
             @note applies when PassType is STENCIL
         */
@@ -230,7 +230,7 @@ class CompositionTargetPass;
         /** Get stencil pass operation.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] StencilOperation getStencilPassOp() const;
+        [[nodiscard]] auto getStencilPassOp() const -> StencilOperation;
         /** Set two sided stencil operation.
             @note applies when PassType is STENCIL
         */
@@ -238,9 +238,9 @@ class CompositionTargetPass;
         /** Get two sided stencil operation.
             @note applies when PassType is STENCIL
         */
-        [[nodiscard]] bool getStencilTwoSidedOperation() const noexcept;
+        [[nodiscard]] auto getStencilTwoSidedOperation() const noexcept -> bool;
 
-        [[nodiscard]] const StencilState& getStencilState() const noexcept { return mStencilState; }
+        [[nodiscard]] auto getStencilState() const noexcept -> const StencilState& { return mStencilState; }
 
         /// Inputs (for material used for rendering the quad)
         struct InputTex
@@ -266,12 +266,12 @@ class CompositionTargetPass;
             @param id    Input to get. Must be in 0..OGRE_MAX_TEXTURE_LAYERS-1.
             @note applies when PassType is RENDERQUAD 
         */
-        [[nodiscard]] const InputTex &getInput(size_t id) const;
+        [[nodiscard]] auto getInput(size_t id) const -> const InputTex &;
         
         /** Get the number of inputs used.
             @note applies when PassType is RENDERQUAD 
         */
-        [[nodiscard]] size_t getNumInputs() const;
+        [[nodiscard]] auto getNumInputs() const -> size_t;
         
         /** Clear all inputs.
             @note applies when PassType is RENDERQUAD 
@@ -281,11 +281,11 @@ class CompositionTargetPass;
         /** Get parent object 
             @note applies when PassType is RENDERQUAD 
         */
-        CompositionTargetPass *getParent();
+        auto getParent() -> CompositionTargetPass *;
 
         /** Determine if this target pass is supported on the current rendering device. 
          */
-        bool _isSupported();
+        auto _isSupported() -> bool;
 
         /** Set quad normalised positions [-1;1]x[-1;1]
             @note applies when PassType is RENDERQUAD
@@ -295,7 +295,7 @@ class CompositionTargetPass;
         /** Get quad normalised positions [-1;1]x[-1;1]
             @note applies when PassType is RENDERQUAD 
          */
-        bool getQuadCorners(FloatRect& quad) const { quad = mQuad.rect; return mQuad.cornerModified; }
+        auto getQuadCorners(FloatRect& quad) const -> bool { quad = mQuad.rect; return mQuad.cornerModified; }
             
         /** Sets the use of camera frustum far corners provided in the quad's normals
             @note applies when PassType is RENDERQUAD 
@@ -305,12 +305,12 @@ class CompositionTargetPass;
         /** Returns true if camera frustum far corners are provided in the quad.
             @note applies when PassType is RENDERQUAD 
         */
-        [[nodiscard]] bool getQuadFarCorners() const noexcept;
+        [[nodiscard]] auto getQuadFarCorners() const noexcept -> bool;
 
         /** Returns true if the far corners provided in the quad are in view space
             @note applies when PassType is RENDERQUAD 
         */
-        [[nodiscard]] bool getQuadFarCornersViewSpace() const noexcept;
+        [[nodiscard]] auto getQuadFarCornersViewSpace() const noexcept -> bool;
 
         /** Set the type name of this custom composition pass.
             @note applies when PassType is RENDERCUSTOM
@@ -322,16 +322,16 @@ class CompositionTargetPass;
             @note applies when PassType is RENDERCUSTOM
             @see CompositorManager::registerCustomCompositionPass
         */
-        [[nodiscard]] const String& getCustomType() const noexcept;
+        [[nodiscard]] auto getCustomType() const noexcept -> const String&;
 
         void setThreadGroups(const Vector3i& g) { mThreadGroups = g; }
-        [[nodiscard]] const Vector3i& getThreadGroups() const noexcept { return mThreadGroups; }
+        [[nodiscard]] auto getThreadGroups() const noexcept -> const Vector3i& { return mThreadGroups; }
 
         void setCameraName(const String& name) { mRenderScene.cameraName = name; }
-        [[nodiscard]] const String& getCameraName() const noexcept { return mRenderScene.cameraName; }
+        [[nodiscard]] auto getCameraName() const noexcept -> const String& { return mRenderScene.cameraName; }
 
         void setAlignCameraToFace(bool val) { mRenderScene.alignCameraToFace = val; }
-        [[nodiscard]] bool getAlignCameraToFace() const noexcept { return mRenderScene.alignCameraToFace; }
+        [[nodiscard]] auto getAlignCameraToFace() const noexcept -> bool { return mRenderScene.alignCameraToFace; }
     private:
         /// Parent technique
         CompositionTargetPass *mParent;

@@ -47,13 +47,13 @@ class MovableObject;
     LodStrategy::~LodStrategy()
     = default;
     //-----------------------------------------------------------------------
-    Real LodStrategy::transformUserValue(Real userValue) const
+    auto LodStrategy::transformUserValue(Real userValue) const -> Real
     {
         // No transformation by default
         return userValue;
     }
     //-----------------------------------------------------------------------
-    Real LodStrategy::getValue(const MovableObject *movableObject, const Camera *camera) const
+    auto LodStrategy::getValue(const MovableObject *movableObject, const Camera *camera) const -> Real
     {
         // Just return implementation with LOD camera
         return getValueImpl(movableObject, camera->getLodCamera());
@@ -64,7 +64,7 @@ class MovableObject;
         assert(isSorted(values) && "The LOD values must be sorted");
     }
     //---------------------------------------------------------------------
-    bool LodStrategy::isSortedAscending(const Mesh::LodValueList& values)
+    auto LodStrategy::isSortedAscending(const Mesh::LodValueList& values) -> bool
     {
         auto it = values.begin();
         Real prev = (*it);
@@ -78,7 +78,7 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    bool LodStrategy::isSortedDescending(const Mesh::LodValueList& values)
+    auto LodStrategy::isSortedDescending(const Mesh::LodValueList& values) -> bool
     {
         auto it = values.begin();
         Real prev = (*it);
@@ -94,7 +94,7 @@ class MovableObject;
     //---------------------------------------------------------------------
     struct LodUsageSortLess
     {
-        bool operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2)
+        auto operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2) -> bool
         {
             // Sort ascending
             return mesh1.value < mesh2.value;
@@ -108,7 +108,7 @@ class MovableObject;
     //---------------------------------------------------------------------
     struct LodUsageSortGreater
     {
-        bool operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2)
+        auto operator() (const MeshLodUsage& mesh1, const MeshLodUsage& mesh2) -> bool
         {
             // Sort descending
             return mesh1.value > mesh2.value;
@@ -120,7 +120,7 @@ class MovableObject;
         std::ranges::sort(meshLodUsageList, LodUsageSortGreater());
     }
     //---------------------------------------------------------------------
-    ushort LodStrategy::getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList)
+    auto LodStrategy::getIndexAscending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) -> ushort
     {
         ushort index = 0;
         for (const auto & i : meshLodUsageList)
@@ -136,7 +136,7 @@ class MovableObject;
         return static_cast<ushort>(meshLodUsageList.size() - 1);
     }
     //---------------------------------------------------------------------
-    ushort LodStrategy::getIndexDescending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList)
+    auto LodStrategy::getIndexDescending(Real value, const Mesh::MeshLodUsageList& meshLodUsageList) -> ushort
     {
         ushort index = 0;
         for (const auto & i : meshLodUsageList)
@@ -152,7 +152,7 @@ class MovableObject;
         return static_cast<ushort>(meshLodUsageList.size() - 1);
     }
     //---------------------------------------------------------------------
-    ushort LodStrategy::getIndexAscending(Real value, const Material::LodValueList& materialLodValueList)
+    auto LodStrategy::getIndexAscending(Real value, const Material::LodValueList& materialLodValueList) -> ushort
     {
         unsigned short index = 0;
         for (float i : materialLodValueList)
@@ -168,7 +168,7 @@ class MovableObject;
         return static_cast<ushort>(materialLodValueList.size() - 1);
     }
     //---------------------------------------------------------------------
-    ushort LodStrategy::getIndexDescending(Real value, const Material::LodValueList& materialLodValueList)
+    auto LodStrategy::getIndexDescending(Real value, const Material::LodValueList& materialLodValueList) -> ushort
     {
         unsigned short index = 0;
         for (float i : materialLodValueList)

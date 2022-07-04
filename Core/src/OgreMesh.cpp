@@ -110,12 +110,12 @@ namespace Ogre {
         unload();
     }
     //-----------------------------------------------------------------------
-    HardwareBufferManagerBase* Mesh::getHardwareBufferManager() noexcept
+    auto Mesh::getHardwareBufferManager() noexcept -> HardwareBufferManagerBase*
     {
         return mBufferManager ? mBufferManager : HardwareBufferManager::getSingletonPtr();
     }
     //-----------------------------------------------------------------------
-    SubMesh* Mesh::createSubMesh()
+    auto Mesh::createSubMesh() -> SubMesh*
     {
         auto* sub = new SubMesh();
         sub->parent = this;
@@ -128,7 +128,7 @@ namespace Ogre {
         return sub;
     }
     //-----------------------------------------------------------------------
-    SubMesh* Mesh::createSubMesh(const String& name)
+    auto Mesh::createSubMesh(const String& name) -> SubMesh*
     {
         SubMesh *sub = createSubMesh();
         nameSubMesh(name, (ushort)mSubMeshList.size()-1);
@@ -192,7 +192,7 @@ namespace Ogre {
             mSubMeshNameMap.erase(i);
     }
     //-----------------------------------------------------------------------
-    SubMesh* Mesh::getSubMesh(const String& name) const
+    auto Mesh::getSubMesh(const String& name) const -> SubMesh*
     {
         ushort index = _getSubMeshIndex(name);
         return getSubMesh(index);
@@ -318,7 +318,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    MeshPtr Mesh::clone(const String& newName, const String& newGroup)
+    auto Mesh::clone(const String& newName, const String& newGroup) -> MeshPtr
     {
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager
@@ -407,7 +407,7 @@ namespace Ogre {
         return newMesh;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& Mesh::getBounds() const noexcept
+    auto Mesh::getBounds() const noexcept -> const AxisAlignedBox&
     {
         return mAABB;
     }
@@ -621,7 +621,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     using WeightIteratorMap = std::multimap<Real, Mesh::VertexBoneAssignmentList::iterator>;
-    unsigned short Mesh::_rationaliseBoneAssignments(size_t vertexCount, Mesh::VertexBoneAssignmentList& assignments)
+    auto Mesh::_rationaliseBoneAssignments(size_t vertexCount, Mesh::VertexBoneAssignmentList& assignments) -> unsigned short
     {
         // Iterate through, finding the largest # bones per vertex
         unsigned short maxBones = 0;
@@ -977,7 +977,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    static Real distLineSegToPoint( const Vector3& line0, const Vector3& line1, const Vector3& pt )
+    static auto distLineSegToPoint( const Vector3& line0, const Vector3& line1, const Vector3& pt ) -> Real
     {
         Vector3 v01 = line1 - line0;
         Real tt = v01.dotProduct( pt - line0 ) / std::max( v01.dotProduct(v01), std::numeric_limits<Real>::epsilon() );
@@ -986,11 +986,11 @@ namespace Ogre {
         return pt.distance( onLine );
     }
     //---------------------------------------------------------------------
-    static Real _computeBoneBoundingRadiusHelper( VertexData* vertexData,
+    static auto _computeBoneBoundingRadiusHelper( VertexData* vertexData,
         const Mesh::VertexBoneAssignmentList& boneAssignments,
         const std::vector<Vector3>& bonePositions,
         const std::vector< std::vector<ushort> >& boneChildren
-        )
+        ) -> Real
     {
         std::vector<Vector3> vertexPositions;
         {
@@ -1107,12 +1107,12 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    const String& Mesh::getSkeletonName() const noexcept
+    auto Mesh::getSkeletonName() const noexcept -> const String&
     {
         return mSkeleton ? mSkeleton->getName() : BLANKSTRING;
     }
     //---------------------------------------------------------------------
-    const MeshLodUsage& Mesh::getLodLevel(ushort index) const
+    auto Mesh::getLodLevel(ushort index) const -> const MeshLodUsage&
     {
         index = std::min(index, (ushort)(mMeshLodUsageList.size() - 1));
         if (this->_isManualLodLevel(index) && index > 0 && !mMeshLodUsageList[index].manualMesh)
@@ -1143,7 +1143,7 @@ namespace Ogre {
         return mMeshLodUsageList[index];
     }
     //---------------------------------------------------------------------
-    ushort Mesh::getLodIndex(Real value) const
+    auto Mesh::getLodIndex(Real value) const -> ushort
     {
         // Get index from strategy
         return mLodStrategy->getIndex(value, mMeshLodUsageList);
@@ -1210,12 +1210,12 @@ namespace Ogre {
         sm->mLodFaceList[level - 1] = facedata;
     }
     //---------------------------------------------------------------------
-    bool Mesh::_isManualLodLevel( unsigned short level ) const
+    auto Mesh::_isManualLodLevel( unsigned short level ) const -> bool
     {
         return !mMeshLodUsageList[level].manualName.empty();
     }
     //---------------------------------------------------------------------
-    ushort Mesh::_getSubMeshIndex(const String& name) const
+    auto Mesh::_getSubMeshIndex(const String& name) const -> ushort
     {
         auto i = mSubMeshNameMap.find(name) ;
         if (i == mSubMeshNameMap.end())
@@ -1246,12 +1246,12 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    Real Mesh::getBoundingSphereRadius() const
+    auto Mesh::getBoundingSphereRadius() const -> Real
     {
         return mBoundRadius;
     }
     //---------------------------------------------------------------------
-    Real Mesh::getBoneBoundingRadius() const
+    auto Mesh::getBoneBoundingRadius() const -> Real
     {
         return mBoneBoundingRadius;
     }
@@ -1536,8 +1536,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    bool Mesh::suggestTangentVectorBuildParams(VertexElementSemantic targetSemantic,
-        unsigned short& outSourceCoordSet, unsigned short& outIndex)
+    auto Mesh::suggestTangentVectorBuildParams(VertexElementSemantic targetSemantic,
+        unsigned short& outSourceCoordSet, unsigned short& outIndex) -> bool
     {
         // Go through all the vertex data and locate source and dest (must agree)
         bool sharedGeometryDone = false;
@@ -1784,7 +1784,7 @@ namespace Ogre {
         mPreparedForShadowVolumes = true;
     }
     //---------------------------------------------------------------------
-    EdgeData* Mesh::getEdgeList(unsigned short lodIndex)
+    auto Mesh::getEdgeList(unsigned short lodIndex) -> EdgeData*
     {
         // Build edge list on demand
         if (!mEdgeListsBuilt && mAutoBuildEdgeLists)
@@ -1794,7 +1794,7 @@ namespace Ogre {
         return getLodLevel(lodIndex).edgeData;
     }
     //---------------------------------------------------------------------
-    const EdgeData* Mesh::getEdgeList(unsigned short lodIndex) const
+    auto Mesh::getEdgeList(unsigned short lodIndex) const -> const EdgeData*
     {
         return getLodLevel(lodIndex).edgeData;
     }
@@ -2045,7 +2045,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    size_t Mesh::calculateSize() const
+    auto Mesh::calculateSize() const -> size_t
     {
         // calculate GPU size
         size_t ret = 0;
@@ -2085,12 +2085,12 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------------
-    bool Mesh::hasVertexAnimation() const
+    auto Mesh::hasVertexAnimation() const -> bool
     {
         return !mAnimationsList.empty();
     }
     //---------------------------------------------------------------------
-    VertexAnimationType Mesh::getSharedVertexDataAnimationType() const
+    auto Mesh::getSharedVertexDataAnimationType() const -> VertexAnimationType
     {
         if (mAnimationTypesDirty)
         {
@@ -2180,7 +2180,7 @@ namespace Ogre {
         mAnimationTypesDirty = false;
     }
     //---------------------------------------------------------------------
-    Animation* Mesh::createAnimation(const String& name, Real length)
+    auto Mesh::createAnimation(const String& name, Real length) -> Animation*
     {
         // Check name not used
         if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -2204,7 +2204,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    Animation* Mesh::getAnimation(const String& name) const
+    auto Mesh::getAnimation(const String& name) const -> Animation*
     {
         Animation* ret = _getAnimationImpl(name);
         if (!ret)
@@ -2217,7 +2217,7 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------
-    Animation* Mesh::getAnimation(unsigned short index) const
+    auto Mesh::getAnimation(unsigned short index) const -> Animation*
     {
         // If you hit this assert, then the index is out of bounds.
         assert( index < mAnimationsList.size() );
@@ -2230,17 +2230,17 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    unsigned short Mesh::getNumAnimations() const noexcept
+    auto Mesh::getNumAnimations() const noexcept -> unsigned short
     {
         return static_cast<unsigned short>(mAnimationsList.size());
     }
     //---------------------------------------------------------------------
-    bool Mesh::hasAnimation(const String& name) const
+    auto Mesh::hasAnimation(const String& name) const -> bool
     {
         return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
-    Animation* Mesh::_getAnimationImpl(const String& name) const
+    auto Mesh::_getAnimationImpl(const String& name) const -> Animation*
     {
         Animation* ret = nullptr;
         auto i = mAnimationsList.find(name);
@@ -2281,7 +2281,7 @@ namespace Ogre {
         mAnimationTypesDirty = true;
     }
     //---------------------------------------------------------------------
-    VertexData* Mesh::getVertexDataByTrackHandle(unsigned short handle)
+    auto Mesh::getVertexDataByTrackHandle(unsigned short handle) -> VertexData*
     {
         if (handle == 0)
         {
@@ -2293,14 +2293,14 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    Pose* Mesh::createPose(ushort target, const String& name)
+    auto Mesh::createPose(ushort target, const String& name) -> Pose*
     {
         Pose* retPose = new Pose(target, name);
         mPoseList.push_back(retPose);
         return retPose;
     }
     //---------------------------------------------------------------------
-    Pose* Mesh::getPose(const String& name) const
+    auto Mesh::getPose(const String& name) const -> Pose*
     {
         for (auto i : mPoseList)
         {
@@ -2353,12 +2353,12 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    const PoseList& Mesh::getPoseList() const noexcept
+    auto Mesh::getPoseList() const noexcept -> const PoseList&
     {
         return mPoseList;
     }
     //---------------------------------------------------------------------
-    const LodStrategy *Mesh::getLodStrategy() const
+    auto Mesh::getLodStrategy() const -> const LodStrategy *
     {
         return mLodStrategy;
     }

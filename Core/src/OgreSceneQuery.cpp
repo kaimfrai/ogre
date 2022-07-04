@@ -55,7 +55,7 @@ class MovableObject;
         mQueryMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryMask() const noexcept
+    auto SceneQuery::getQueryMask() const noexcept -> uint32
     {
         return mQueryMask;
     }
@@ -65,7 +65,7 @@ class MovableObject;
         mQueryTypeMask = mask;
     }
     //-----------------------------------------------------------------------
-    uint32 SceneQuery::getQueryTypeMask() const noexcept
+    auto SceneQuery::getQueryTypeMask() const noexcept -> uint32
     {
         return mQueryTypeMask;
     }
@@ -81,8 +81,8 @@ class MovableObject;
         mWorldFragmentType = wft;
     }
     //-----------------------------------------------------------------------
-    SceneQuery::WorldFragmentType 
-    SceneQuery::getWorldFragmentType() const
+    auto 
+    SceneQuery::getWorldFragmentType() const -> SceneQuery::WorldFragmentType
     {
         return mWorldFragmentType;
     }
@@ -97,7 +97,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    SceneQueryResult& RegionSceneQuery::getLastResults() const noexcept
+    auto RegionSceneQuery::getLastResults() const noexcept -> SceneQueryResult&
     {
         assert(mLastResult);
         return *mLastResult;
@@ -109,8 +109,8 @@ class MovableObject;
         mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
-    SceneQueryResult&
-    RegionSceneQuery::execute()
+    auto
+    RegionSceneQuery::execute() -> SceneQueryResult&
     {
         clearResults();
         mLastResult = new SceneQueryResult();
@@ -119,8 +119,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    bool RegionSceneQuery::
-        queryResult(MovableObject* obj)
+    auto RegionSceneQuery::
+        queryResult(MovableObject* obj) -> bool
     {
         // Add to internal list
         mLastResult->movables.push_back(obj);
@@ -128,7 +128,7 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    bool RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment)
+    auto RegionSceneQuery::queryResult(SceneQuery::WorldFragment* fragment) -> bool
     {
         // Add to internal list
         mLastResult->worldFragments.push_back(fragment);
@@ -149,7 +149,7 @@ class MovableObject;
         mAABB = box;
     }
     //-----------------------------------------------------------------------
-    const AxisAlignedBox& AxisAlignedBoxSceneQuery::getBox() const noexcept
+    auto AxisAlignedBoxSceneQuery::getBox() const noexcept -> const AxisAlignedBox&
     {
         return mAABB;
     }
@@ -167,7 +167,7 @@ class MovableObject;
         mSphere = sphere;
     }
     //-----------------------------------------------------------------------
-    const Sphere& SphereSceneQuery::getSphere() const noexcept
+    auto SphereSceneQuery::getSphere() const noexcept -> const Sphere&
     {
         return mSphere;
     }
@@ -186,7 +186,7 @@ class MovableObject;
         mVolumes = volumes;
     }
     //-----------------------------------------------------------------------
-    const PlaneBoundedVolumeList& PlaneBoundedVolumeListSceneQuery::getVolumes() const noexcept
+    auto PlaneBoundedVolumeListSceneQuery::getVolumes() const noexcept -> const PlaneBoundedVolumeList&
     {
         return mVolumes;
     }
@@ -206,7 +206,7 @@ class MovableObject;
         mRay = ray;
     }
     //-----------------------------------------------------------------------
-    const Ray& RaySceneQuery::getRay() const noexcept
+    auto RaySceneQuery::getRay() const noexcept -> const Ray&
     {
         return mRay;
     }
@@ -217,17 +217,17 @@ class MovableObject;
         mMaxResults = maxresults;
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::getSortByDistance() const noexcept
+    auto RaySceneQuery::getSortByDistance() const noexcept -> bool
     {
         return mSortByDistance;
     }
     //-----------------------------------------------------------------------
-    ushort RaySceneQuery::getMaxResults() const noexcept
+    auto RaySceneQuery::getMaxResults() const noexcept -> ushort
     {
         return mMaxResults;
     }
     //-----------------------------------------------------------------------
-    RaySceneQueryResult& RaySceneQuery::execute()
+    auto RaySceneQuery::execute() -> RaySceneQueryResult&
     {
         // Clear without freeing the vector buffer
         mResult.clear();
@@ -253,7 +253,7 @@ class MovableObject;
         return mResult;
     }
     //-----------------------------------------------------------------------
-    RaySceneQueryResult& RaySceneQuery::getLastResults() noexcept
+    auto RaySceneQuery::getLastResults() noexcept -> RaySceneQueryResult&
     {
         return mResult;
     }
@@ -264,7 +264,7 @@ class MovableObject;
         RaySceneQueryResult().swap(mResult);
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::queryResult(MovableObject* obj, Real distance)
+    auto RaySceneQuery::queryResult(MovableObject* obj, Real distance) -> bool
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
@@ -276,7 +276,7 @@ class MovableObject;
         return true;
     }
     //-----------------------------------------------------------------------
-    bool RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance)
+    auto RaySceneQuery::queryResult(SceneQuery::WorldFragment* fragment, Real distance) -> bool
     {
         // Add to internal list
         RaySceneQueryResultEntry dets;
@@ -298,7 +298,7 @@ class MovableObject;
         clearResults();
     }
     //-----------------------------------------------------------------------
-    IntersectionSceneQueryResult& IntersectionSceneQuery::getLastResults() const noexcept
+    auto IntersectionSceneQuery::getLastResults() const noexcept -> IntersectionSceneQueryResult&
     {
         assert(mLastResult);
         return *mLastResult;
@@ -310,8 +310,8 @@ class MovableObject;
         mLastResult = nullptr;
     }
     //---------------------------------------------------------------------
-    IntersectionSceneQueryResult&
-    IntersectionSceneQuery::execute()
+    auto
+    IntersectionSceneQuery::execute() -> IntersectionSceneQueryResult&
     {
         clearResults();
         mLastResult = new IntersectionSceneQueryResult();
@@ -320,8 +320,8 @@ class MovableObject;
         return *mLastResult;
     }
     //---------------------------------------------------------------------
-    bool IntersectionSceneQuery::
-        queryResult(MovableObject* first, MovableObject* second)
+    auto IntersectionSceneQuery::
+        queryResult(MovableObject* first, MovableObject* second) -> bool
     {
         // Add to internal list
         mLastResult->movables2movables.push_back(
@@ -331,8 +331,8 @@ class MovableObject;
         return true;
     }
     //---------------------------------------------------------------------
-    bool IntersectionSceneQuery::
-        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment)
+    auto IntersectionSceneQuery::
+        queryResult(MovableObject* movable, SceneQuery::WorldFragment* fragment) -> bool
     {
         // Add to internal list
         mLastResult->movables2world.push_back(
