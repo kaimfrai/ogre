@@ -55,11 +55,11 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    AnimationState::AnimationState(String  animName, 
+    AnimationState::AnimationState(std::string_view animName, 
         AnimationStateSet *parent, Real timePos, Real length, Real weight, 
         bool enabled)
         : mBlendMask(nullptr)
-        , mAnimationName(std::move(animName))
+        , mAnimationName(animName)
         , mParent(parent)
         , mTimePos(timePos)
         , mLength(length)

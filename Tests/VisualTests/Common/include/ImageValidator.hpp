@@ -67,8 +67,8 @@ class ImageValidator
 public:
 
     /** Constructor, takes paths to each set's directory */
-    ImageValidator(Ogre::String directory1, Ogre::String directory2)
-        :mDirectory1(std::move(directory1)),mDirectory2(std::move(directory2)) {}
+    ImageValidator(std::string_view directory1, std::string_view directory2)
+        :mDirectory1(directory1),mDirectory2(directory2) {}
 
     /** Compare the the two set's versions of the specified image name
      *        @param name filename of the image (filename only, no path) */

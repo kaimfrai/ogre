@@ -42,8 +42,8 @@ namespace OgreBites
     {
     public:
 
-        SamplePlugin(Ogre::String  name)
-        : mName(std::move(name))
+        SamplePlugin(std::string_view name)
+        : mName(name)
         {
         }
 

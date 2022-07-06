@@ -372,7 +372,7 @@ namespace Ogre {
         return *this;
     }
     //---------------------------------------------------------------------
-    auto Image::getFileExtFromMagic(const DataStreamPtr stream) -> String
+    auto Image::getFileExtFromMagic(const DataStreamPtr stream) -> std::string_view
     {
         // read the first 32 bytes or file size, if less
         size_t magicLen = std::min(stream->size(), (size_t)32);

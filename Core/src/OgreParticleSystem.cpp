@@ -196,14 +196,14 @@ class RenderQueue;
         mCastShadows = false;
     }
     //-----------------------------------------------------------------------
-    ParticleSystem::ParticleSystem(const String& name, String  resourceGroup)
+    ParticleSystem::ParticleSystem(const String& name, std::string_view resourceGroup)
       : MovableObject(name),
         mAABB(),
         mBoundingRadius(1.0f),
         mBoundsAutoUpdate(true),
         mBoundsUpdateTime(10.0f),
         mUpdateRemainTime(0),
-        mResourceGroupName(std::move(resourceGroup)),
+        mResourceGroupName(resourceGroup),
         mIsRendererConfigured(false),
         mSpeedFactor(1.0f),
         mIterationInterval(0),
@@ -655,7 +655,7 @@ class RenderQueue;
             // Create a new particle & init using emitter
             // The particle is a visual particle if the emit_emitter property of the emitter isn't set 
             Particle* p = nullptr;
-            String  emitterName = emitter->getEmittedEmitter();
+            std::string_view emitterName = emitter->getEmittedEmitter();
             if (emitterName.empty())
                 p = createParticle();
             else
@@ -743,7 +743,7 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::createEmitterParticle(const String& emitterName) -> Particle*
+    auto ParticleSystem::createEmitterParticle(std::string_view emitterName) -> Particle*
     {
         // Get the appropriate list and retrieve an emitter 
         ParticleEmitter* p = nullptr;
@@ -1411,10 +1411,9 @@ class RenderQueue;
         mActiveEmittedEmitters.clear();
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::findFreeEmittedEmitter (const String& name) -> std::list<ParticleEmitter*>*
+    auto ParticleSystem::findFreeEmittedEmitter (std::string_view name) -> std::list<ParticleEmitter*>*
     {
-        FreeEmittedEmitterMap::iterator it;
-        it = mFreeEmittedEmitters.find (name);
+        auto it = mFreeEmittedEmitters.find (name);
         if (it != mFreeEmittedEmitters.end())
         {
             // Found it

@@ -386,7 +386,7 @@ namespace Ogre {
             dstream = ResourceGroupManager::getSingleton().openResource(::std::format("{}_rt", mName), mGroup, nullptr, false);
         }
 
-        return dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING;
+        return String{ dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING };
 
     }
     auto Texture::getBuffer(size_t face, size_t mipmap) -> const HardwarePixelBufferSharedPtr&

@@ -108,7 +108,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     STBIImageCodec::STBIImageCodec(String type):
-        mType(std::move(type))
+        mType(type)
     { 
     }
     //---------------------------------------------------------------------
@@ -229,12 +229,12 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------    
-    auto STBIImageCodec::getType() const -> String
+    auto STBIImageCodec::getType() const -> std::string_view
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
+    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
     {
         return BLANKSTRING;
     }

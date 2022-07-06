@@ -50,10 +50,10 @@ namespace Ogre
     }
     #define OGRE_DEFLATE_TMP_SIZE 16384
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, std::string_view tmpFileName, size_t avail_in)
     : DataStream(compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(std::move(tmpFileName))
+    , mTempFileName(tmpFileName)
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
@@ -63,10 +63,10 @@ namespace Ogre
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, String  tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, std::string_view tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(std::move(tmpFileName))
+    , mTempFileName(tmpFileName)
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)
@@ -76,10 +76,10 @@ namespace Ogre
         init();
     }
     //---------------------------------------------------------------------
-    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, String  tmpFileName, size_t avail_in)
+    DeflateStream::DeflateStream(const String& name, const DataStreamPtr& compressedStream, StreamType streamType, std::string_view tmpFileName, size_t avail_in)
     : DataStream(name, compressedStream->getAccessMode())
     , mCompressedStream(compressedStream)
-    , mTempFileName(std::move(tmpFileName))
+    , mTempFileName(tmpFileName)
     , mZStream(nullptr)
     , mCurrentPos(0)
     , mAvailIn(avail_in)

@@ -68,7 +68,7 @@ class VertexData;
                 dedicated at the submesh index + 1)
             @param name Optional name
         */
-        Pose(ushort target, String  name = BLANKSTRING);
+        Pose(ushort target, std::string_view name = BLANKSTRING);
         /// Return the name of the pose (may be blank)
         auto getName() const noexcept -> const String& { return mName; }
         /// Return the target geometry index of the pose

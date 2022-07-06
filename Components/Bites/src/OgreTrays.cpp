@@ -391,7 +391,7 @@ void TextBox::filterLines()
 
     for (unsigned int i = 0; i < maxLines; i++)
     {
-        shown = ::std::format("{}{}\n", ::std::move(shown), mLines[mStartingLine + i]);
+        shown = ::std::format("{}{}\n", std::string_view{shown}, mLines[mStartingLine + i]);
     }
 
     mTextArea->setCaption(shown);    // show just the filtered lines
@@ -1117,8 +1117,8 @@ void ProgressBar::setProgress(Ogre::Real progress)
     mFill->setWidth(std::max<int>((int)mFill->getHeight(), (int)(mProgress * (mMeter->getWidth() - 2 * mFill->getLeft()))));
 }
 
-TrayManager::TrayManager(Ogre::String name, Ogre::RenderWindow *window, TrayListener *listener) :
-    mName(std::move(name)), mWindow(window), mWidgetDeathRow(), mListener(listener) 
+TrayManager::TrayManager(std::string_view name, Ogre::RenderWindow *window, TrayListener *listener) :
+    mName(name), mWindow(window), mWidgetDeathRow(), mListener(listener)
 {
     mTimer = Ogre::Root::getSingleton().getTimer();
     mLastStatUpdateTime = -FRAME_UPDATE_DELAY; // update immediately on first call

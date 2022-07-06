@@ -100,8 +100,8 @@ class Archive;
 
         /** Constructor - don't call direct, used by ArchiveFactory.
         */
-        Archive( String  name, String  archType )
-            : mName(std::move(name)), mType(std::move(archType)) {}
+        Archive( std::string_view name, std::string_view archType )
+            : mName(name), mType(archType) {}
 
         /** Default destructor.
         */

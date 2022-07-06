@@ -254,7 +254,7 @@ public:
 class RSSetSchemeOperation: public CompositorInstance::RenderSystemOperation
 {
 public:
-    RSSetSchemeOperation(String  schemeName) :  mSchemeName(std::move(schemeName)) {}
+    RSSetSchemeOperation(std::string_view schemeName) :  mSchemeName(schemeName) {}
     
     String mPreviousScheme;
     bool mPreviousLateResolving{false};

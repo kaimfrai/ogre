@@ -62,7 +62,7 @@ public:
     /** Initialize based on a config file
      *        @param info Reference to loaded config file with details about the set 
      *        @param directory The full path to this set's directory */
-    TestBatch(Ogre::ConfigFile& info, Ogre::String directory):mDirectory(std::move(directory))
+    TestBatch(Ogre::ConfigFile& info, std::string_view directory):mDirectory(directory)
     {
         // fill out basic info
         Ogre::String res = info.getSetting("Resolution","Info");
@@ -85,15 +85,15 @@ public:
      *        @param resx The width of the render window used
      *        @param resy The height of the render window used 
      *        @param directory The directory this batch is saved to */
-    TestBatch(Ogre::String batchName, Ogre::String pluginName,
-        Ogre::String t, size_t resx, size_t resy, Ogre::String directory)
-        :name(std::move(batchName))
-        ,plugin(std::move(pluginName))
-        ,timestamp(std::move(t))
+    TestBatch(std::string_view batchName, std::string_view pluginName,
+        std::string_view t, size_t resx, size_t resy, std::string_view directory)
+        :name(batchName)
+        ,plugin(pluginName)
+        ,timestamp(t)
         ,comment("")
         ,resolutionX(resx)
         ,resolutionY(resy)
-        ,mDirectory(std::move(directory))
+        ,mDirectory(directory)
     {
         Ogre::StringStream ver;
         ver<</*OGRE_VERSION_MAJOR*/13<<"."<</*OGRE_VERSION_MINOR*/3<<" ("<<

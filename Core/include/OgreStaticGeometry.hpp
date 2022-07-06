@@ -557,7 +557,7 @@ class Technique;
         
     public:
         /// Constructor; do not use directly (@see SceneManager::createStaticGeometry)
-        StaticGeometry(SceneManager* owner, String  name);
+        StaticGeometry(SceneManager* owner, std::string_view name);
         /// Destructor
         virtual ~StaticGeometry();
 

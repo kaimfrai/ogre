@@ -64,8 +64,8 @@ namespace Ogre {
 
     const String& OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
     //---------------------------------------------------------------------
-    OverlayElement::OverlayElement(String  name)
-      : mName(std::move(name))
+    OverlayElement::OverlayElement(std::string_view name)
+      : mName(name)
        
     {
         // default overlays to preserve their own detail level

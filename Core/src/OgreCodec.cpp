@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    std::map< String, Codec * > Codec::msMapCodecs;
+    std::map<std::string_view, Codec * > Codec::msMapCodecs;
 
     Codec::~Codec() = default;
 
@@ -52,9 +52,9 @@ namespace Ogre {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }
 
-    auto Codec::getExtensions() -> StringVector
+    auto Codec::getExtensions() -> std::vector<std::string_view>
     {
-        StringVector result;
+        std::vector<std::string_view> result;
         result.reserve(msMapCodecs.size());
         for (auto & msMapCodec : msMapCodecs)
         {
@@ -70,9 +70,9 @@ namespace Ogre {
             OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
     }
 
-    auto Codec::getCodec(const String& extension) -> Codec*
+    auto Codec::getCodec(std::string_view extension) -> Codec*
     {
-        String lwrcase = extension;
+        String lwrcase{extension};
         StringUtil::toLowerCase(lwrcase);
         auto i = msMapCodecs.find(lwrcase);
         if (i == msMapCodecs.end())
@@ -95,7 +95,7 @@ namespace Ogre {
     {
         for (auto & [key, value] : msMapCodecs)
         {
-            String ext = value->magicNumberToFileExt(magicNumberPtr, maxbytes);
+            auto ext = value->magicNumberToFileExt(magicNumberPtr, maxbytes);
             if (!ext.empty())
             {
                 // check codec type matches

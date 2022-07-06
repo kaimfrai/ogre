@@ -56,13 +56,13 @@ namespace Ogre {
         static ETCCodec* msKTXInstance;
 
     public:
-        ETCCodec(String type);
+        ETCCodec(std::string_view type);
         ~ETCCodec() override = default;
 
         using ImageCodec::decode;
         [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
-        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
-        [[nodiscard]] auto getType() const -> String override;
+        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view override;
+        [[nodiscard]] auto getType() const -> std::string_view override;
 
         /// Static method to startup and register the ETC codec
         static void startup();

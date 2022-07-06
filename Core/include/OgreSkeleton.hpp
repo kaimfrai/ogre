@@ -477,11 +477,11 @@ class ResourceManager;
         String skeletonName;
         SkeletonPtr pSkeleton;
         Real scale;
-        LinkedSkeletonAnimationSource(String  skelName, Real scl)
-            : skeletonName(std::move(skelName)), scale(scl) {}
-            LinkedSkeletonAnimationSource(String  skelName, Real scl, 
+        LinkedSkeletonAnimationSource(std::string_view skelName, Real scl)
+            : skeletonName(skelName), scale(scl) {}
+            LinkedSkeletonAnimationSource(std::string_view skelName, Real scl, 
                 SkeletonPtr skelPtr)
-                : skeletonName(std::move(skelName)), pSkeleton(skelPtr), scale(scl) {}
+                : skeletonName(skelName), pSkeleton(skelPtr), scale(scl) {}
     };
     /** @} */
     /** @} */

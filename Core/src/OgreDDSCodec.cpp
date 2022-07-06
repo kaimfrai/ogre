@@ -1057,12 +1057,12 @@ namespace {
 
     }
     //---------------------------------------------------------------------    
-    auto DDSCodec::getType() const -> String 
+    auto DDSCodec::getType() const -> std::string_view
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
+    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
     {
         if (maxbytes >= sizeof(uint32))
         {

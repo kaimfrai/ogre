@@ -596,9 +596,9 @@ class SubMesh;
 
 
         public:
-            ManualObjectSection(ManualObject* parent, String  materialName,
+            ManualObjectSection(ManualObject* parent, std::string_view materialName,
                 RenderOperation::OperationType opType,
-                String  groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+                std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
             /// @remark mat should not be null.
             ManualObjectSection(ManualObject* parent, const MaterialPtr& mat,
                 RenderOperation::OperationType opType);

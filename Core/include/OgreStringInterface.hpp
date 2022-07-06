@@ -73,8 +73,8 @@ namespace Ogre {
     {
     public:
         String name;
-        ParameterDef(String  newName, const String& = "", ParameterType = PT_INT)
-            : name(std::move(newName)) {}
+        ParameterDef(std::string_view newName, const String& = "", ParameterType = PT_INT)
+            : name(newName) {}
     };
     using ParameterList = std::vector<String>;
 

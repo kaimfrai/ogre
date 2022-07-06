@@ -232,8 +232,8 @@ class ResourceManager;
             anything ever causes it to unload. Therefore provision of a proper
             ManualResourceLoader instance is strongly recommended.
         */
-        Resource(ResourceManager* creator, String  name, ResourceHandle handle,
-            String  group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Resource(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         /** Virtual destructor. Shouldn't need to be overloaded, as the resource
             deallocation code should reside in unload()

@@ -87,8 +87,8 @@ namespace Ogre {
         /// Constructor for creating unnamed streams
         DataStream(uint16 accessMode = READ) : mSize(0), mAccess(accessMode) {}
         /// Constructor for creating named streams
-        DataStream(String  name, uint16 accessMode = READ) 
-            : mName(std::move(name)), mSize(0), mAccess(accessMode) {}
+        DataStream(std::string_view name, uint16 accessMode = READ) 
+            : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
         auto getName() noexcept -> const String& { return mName; }
         /// Gets the access mode of the stream

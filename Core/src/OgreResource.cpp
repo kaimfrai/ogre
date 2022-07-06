@@ -43,9 +43,9 @@ THE SOFTWARE.
 namespace Ogre 
 {
     //-----------------------------------------------------------------------
-    Resource::Resource(ResourceManager* creator, String  name, ResourceHandle handle,
-        String  group, bool isManual, ManualResourceLoader* loader)
-        : mCreator(creator), mName(std::move(name)), mGroup(std::move(group)), mHandle(handle), 
+    Resource::Resource(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
+        : mCreator(creator), mName(name), mGroup(group), mHandle(handle),
         mLoadingState(LOADSTATE_UNLOADED), mIsBackgroundLoaded(false),
         mIsManual(isManual), mSize(0),  mLoader(loader), mStateCount(0)
     {

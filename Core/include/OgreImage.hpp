@@ -448,7 +448,7 @@ namespace Ogre {
         static auto calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
 
         /// Static function to get an image type string from a stream via magic numbers
-        static auto getFileExtFromMagic(DataStreamPtr stream) -> String;
+        static auto getFileExtFromMagic(DataStreamPtr stream) -> std::string_view;
 
     private:
         /// The width of the image in pixels

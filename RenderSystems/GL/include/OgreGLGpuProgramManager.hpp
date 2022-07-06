@@ -49,7 +49,7 @@ struct CreateCallbackWrapper : public GpuProgramFactory
         // type and syntax code will be corrected by GpuProgramManager
         return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");
     }
-    CreateCallbackWrapper(String  lang, CreateGpuProgramCallback cb) : language(std::move(lang)), callback(cb) {}
+    CreateCallbackWrapper(std::string_view lang, CreateGpuProgramCallback cb) : language(lang), callback(cb) {}
 };
 
 class GLGpuProgramManager

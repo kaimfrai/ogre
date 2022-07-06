@@ -140,7 +140,7 @@ namespace Ogre
             ::std::any mData;
 
         public:
-            Response(const Request* rq, bool success, ::std::any  data, String  msg = BLANKSTRING);
+            Response(const Request* rq, bool success, ::std::any  data, std::string_view msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] auto getRequest() const noexcept -> const Request* { return mRequest.get(); }
             /// Return whether this is a successful response
@@ -383,7 +383,7 @@ namespace Ogre
             Call startup() to initialise.
         @param name Optional name, just helps to identify logging output
         */
-        DefaultWorkQueueBase(String  name = BLANKSTRING);
+        DefaultWorkQueueBase(std::string_view name = BLANKSTRING);
         ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
         auto getName() const noexcept -> const String&;

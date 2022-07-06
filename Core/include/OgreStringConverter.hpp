@@ -403,4 +403,31 @@ struct std::formatter<Ogre::StringVector, CharT>
     }
 };
 
+template<typename CharT>
+struct std::formatter<std::vector<std::string_view>, CharT>
+{
+    std::formatter<std::string_view, CharT> stringFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return stringFormatter.parse(pc);
+    }
+
+    auto constexpr format(std::vector<std::string_view> const& val, auto& fc)
+    {
+        auto out = fc.out();
+        for (auto i = val.begin(); i != val.end(); ++i)
+        {
+            if (i != val.begin())
+            {
+                *out++ = CharT{' '};
+            }
+
+            fc.advance_to(out);
+            out = stringFormatter.format(*i, fc);
+        }
+        return out;
+    }
+};
+
 #endif

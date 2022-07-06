@@ -87,7 +87,7 @@ namespace Ogre {
             You should use the ParticleSystemManager to create particle systems rather than creating
             them directly.
         */
-        ParticleSystem(const String& name, String  resourceGroupName);
+        ParticleSystem(const String& name, std::string_view resourceGroupName);
 
         ~ParticleSystem() override;
 
@@ -226,7 +226,7 @@ namespace Ogre {
             emitting other emitters, which also emit emitters.
         @param emitterName The name of a particle emitter that must be emitted.
         */
-        auto createEmitterParticle(const String& emitterName) -> Particle*;
+        auto createEmitterParticle(std::string_view emitterName) -> Particle*;
 
         /** Retrieve a particle from the system for manual tweaking.
         @remarks
@@ -643,7 +643,7 @@ namespace Ogre {
         using FreeEmittedEmitterList = std::list<ParticleEmitter *>;
         using ActiveEmittedEmitterList = std::list<ParticleEmitter *>;
         using EmittedEmitterList = std::vector<ParticleEmitter *>;
-        using FreeEmittedEmitterMap = std::map<String, FreeEmittedEmitterList>;
+        using FreeEmittedEmitterMap = std::map<std::string_view, FreeEmittedEmitterList>;
         using EmittedEmitterPool = std::map<String, EmittedEmitterList>;
 
         /** Pool of emitted emitters for use and reuse in the active emitted emitter list.
@@ -758,7 +758,7 @@ namespace Ogre {
         /** Find the list with free emitted emitters.
             @param name The name that identifies the list with free emitted emitters.
         */
-        auto findFreeEmittedEmitter (const String& name) -> FreeEmittedEmitterList*;
+        auto findFreeEmittedEmitter (std::string_view name) -> FreeEmittedEmitterList*;
 
         /** Removes an emitter from the active emitted emitter list.
             @remarks

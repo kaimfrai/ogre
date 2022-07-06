@@ -47,8 +47,8 @@ THE SOFTWARE.
 namespace Ogre {
 
     //---------------------------------------------------------------------
-    Overlay::Overlay(String  name) :
-        mName(std::move(name)),
+    Overlay::Overlay(std::string_view name) :
+        mName(name),
         mRotate(0.0f) 
 
     {

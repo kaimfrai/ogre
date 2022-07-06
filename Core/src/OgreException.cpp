@@ -43,7 +43,7 @@ namespace Ogre {
     {
     }
 
-    Exception::Exception(int num, String  desc, String  src, 
+    Exception::Exception(int num, std::string_view desc, std::string_view src, 
         const char* typ, const char* fil, long lin) :
         line( lin ),
         typeName(typ),

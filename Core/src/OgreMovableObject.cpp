@@ -66,8 +66,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     MovableObject::MovableObject() : MovableObject(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    MovableObject::MovableObject(String  name)
-        : mName(std::move(name))
+    MovableObject::MovableObject(std::string_view name)
+        : mName(name)
         , mCreator(nullptr)
         , mManager(nullptr)
         , mParentNode(nullptr)

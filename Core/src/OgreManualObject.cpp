@@ -677,8 +677,8 @@ ManualObject::ManualObject(const String& name)
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
     ManualObject::ManualObjectSection::ManualObjectSection(ManualObject* parent,
-        String  materialName, RenderOperation::OperationType opType, String  groupName)
-        : mParent(parent), mMaterialName(std::move(materialName)), mGroupName(std::move(groupName)), m32BitIndices(false)
+        std::string_view materialName, RenderOperation::OperationType opType, std::string_view groupName)
+        : mParent(parent), mMaterialName(materialName), mGroupName(groupName), m32BitIndices(false)
     {
         mRenderOperation.operationType = opType;
         // default to no indexes unless we're told

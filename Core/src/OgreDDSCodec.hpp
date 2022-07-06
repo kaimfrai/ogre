@@ -83,8 +83,8 @@ class ColourValue;
 
         void encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName, const CodecDataPtr& pData) const override;
         [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
-        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String override;
-        [[nodiscard]] auto getType() const -> String override;
+        auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view override;
+        [[nodiscard]] auto getType() const -> std::string_view override;
 
         /// Static method to startup and register the DDS codec
         static void startup();

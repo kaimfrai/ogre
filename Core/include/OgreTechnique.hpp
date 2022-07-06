@@ -150,8 +150,8 @@ class Material;
             bool caseSensitive;
             GPUDeviceNameRule()
                 : includeOrExclude(EXCLUDE), caseSensitive(false) {}
-            GPUDeviceNameRule(String  pattern, IncludeOrExclude ie, bool caseSen)
-                : devicePattern(std::move(pattern)), includeOrExclude(ie), caseSensitive(caseSen) {}
+            GPUDeviceNameRule(std::string_view pattern, IncludeOrExclude ie, bool caseSen)
+                : devicePattern(pattern), includeOrExclude(ie), caseSensitive(caseSen) {}
         };
         using GPUVendorRuleList = std::vector<GPUVendorRule>;
         using GPUDeviceNameRuleList = std::vector<GPUDeviceNameRule>;

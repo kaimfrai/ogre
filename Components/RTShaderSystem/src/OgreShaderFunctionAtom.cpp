@@ -155,8 +155,8 @@ auto FunctionAtom::getGroupExecutionOrder() const noexcept -> int
 
 //-----------------------------------------------------------------------
 FunctionInvocation::FunctionInvocation(const String& functionName, int groupOrder,
-                                       String  returnType)
-    : mReturnType(std::move(returnType))
+                                       std::string_view returnType)
+    : mReturnType(returnType)
 {
     mFunctionName = functionName;
     mGroupExecutionOrder = groupOrder;

@@ -182,7 +182,7 @@ class SceneNode;
         MovableObject();
 
         /// Named constructor
-        MovableObject(String  name);
+        MovableObject(std::string_view name);
         /** Virtual destructor - read Scott Meyers if you don't know why this is needed.
         */
         ~MovableObject() override;

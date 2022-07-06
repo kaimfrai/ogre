@@ -179,10 +179,10 @@ Parameter::Parameter() : mName(""), mType(GCT_UNKNOWN), mSemantic(SPS_UNKNOWN), 
 }
 
 //-----------------------------------------------------------------------
-Parameter::Parameter(GpuConstantType type, String  name, 
+Parameter::Parameter(GpuConstantType type, std::string_view name, 
             const Semantic& semantic, int index, 
             const Content& content, size_t size) :
-    mName(std::move(name)), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
+    mName(name), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
 {
 }
 

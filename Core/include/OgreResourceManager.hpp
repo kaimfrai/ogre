@@ -403,7 +403,7 @@ namespace Ogre {
         {
             String mName;
         public:
-            ResourcePool(String  name);
+            ResourcePool(std::string_view name);
             ~ResourcePool() override;
             /// Get the name of the pool
             [[nodiscard]] auto getName() const noexcept -> const String&;

@@ -426,7 +426,7 @@ template <int dims, typename T> class Vector;
         bool mDirty{false};
 
     public:
-        GpuSharedParameters(String  name);
+        GpuSharedParameters(std::string_view name);
 
         /// Get the name of this shared parameter set.
         auto getName() noexcept -> const String& { return mName; }
@@ -1189,10 +1189,10 @@ template <int dims, typename T> class Vector;
             /// The type of any extra data
             ACDataType dataType;
 
-        AutoConstantDefinition(AutoConstantType _acType, String  _name,
+        AutoConstantDefinition(AutoConstantType _acType, std::string_view _name,
                                size_t _elementCount, ElementType _elementType,
                                ACDataType _dataType)
-        :acType(_acType), name(std::move(_name)), elementCount(_elementCount),
+        :acType(_acType), name(_name), elementCount(_elementCount),
                 elementType(_elementType), dataType(_dataType)
             {
 

@@ -61,7 +61,7 @@ class MovableObject;
 
     public:
         /** Constructor accepting name. */
-        LodStrategy(String  name);
+        LodStrategy(std::string_view name);
 
         /** Virtual destructor. */
         virtual ~LodStrategy();

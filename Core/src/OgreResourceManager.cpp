@@ -481,8 +481,8 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool::ResourcePool(String  name)
-        : mName(std::move(name))
+    ResourceManager::ResourcePool::ResourcePool(std::string_view name)
+        : mName(name)
     {
 
     }

@@ -51,8 +51,8 @@ class VertexData;
     Animation::RotationInterpolationMode 
         Animation::msDefaultRotationInterpolationMode = Animation::RIM_LINEAR;
     //---------------------------------------------------------------------
-    Animation::Animation(String  name, Real length)
-        : mName(std::move(name))
+    Animation::Animation(std::string_view name, Real length)
+        : mName(name)
         , mLength(length)
         , mInterpolationMode(msDefaultInterpolationMode)
         , mRotationInterpolationMode(msDefaultRotationInterpolationMode)

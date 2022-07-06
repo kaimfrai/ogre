@@ -250,8 +250,8 @@ class CompositionTargetPass;
             /// MRT surface index if applicable
             size_t mrtIndex;
             InputTex() : mrtIndex(0) {}
-            InputTex(String  _name, size_t _mrtIndex = 0)
-                : name(std::move(_name)), mrtIndex(_mrtIndex) {}
+            InputTex(std::string_view _name, size_t _mrtIndex = 0)
+                : name(_name), mrtIndex(_mrtIndex) {}
         };
 
         /** Set an input local texture. An empty string clears the input.

@@ -81,7 +81,7 @@ class AnimationStateSet;
             @param
                 enabled Whether the animation state is enabled.
         */
-        AnimationState(String  animName, AnimationStateSet *parent, 
+        AnimationState(std::string_view animName, AnimationStateSet *parent, 
             Real timePos, Real length, Real weight = 1.0, bool enabled = false);
         /// Constructor to copy from an existing state with new parent
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);

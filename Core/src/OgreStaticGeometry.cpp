@@ -66,9 +66,9 @@ namespace Ogre {
     #define REGION_MIN_INDEX -512
 
     //--------------------------------------------------------------------------
-    StaticGeometry::StaticGeometry(SceneManager* owner, String  name):
+    StaticGeometry::StaticGeometry(SceneManager* owner, std::string_view name):
         mOwner(owner),
-        mName(std::move(name)),
+        mName(name),
         
         mRegionDimensions(Vector3(1000,1000,1000)),
         mHalfRegionDimensions(Vector3(500,500,500)),

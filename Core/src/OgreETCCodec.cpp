@@ -135,8 +135,8 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    ETCCodec::ETCCodec(String type):
-        mType(std::move(type))
+    ETCCodec::ETCCodec(std::string_view type):
+        mType(type)
     {
     }
     //---------------------------------------------------------------------
@@ -154,12 +154,12 @@ namespace Ogre {
                     "This is not a valid ETC file!", "ETCCodec::decode");
     }
     //---------------------------------------------------------------------
-    auto ETCCodec::getType() const -> String
+    auto ETCCodec::getType() const -> std::string_view
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> String
+    auto ETCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
     {
         if (maxbytes >= sizeof(uint32))
         {
