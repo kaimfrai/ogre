@@ -41,6 +41,22 @@ namespace Ogre {
      *  @{
      */
 
+    template<::std::size_t N>
+    struct SmallString
+    {
+        char data[N];
+        static auto constexpr Create(::std::string_view string) -> SmallString
+        {
+            SmallString small{};
+            if  (string.size() >= N)
+            {
+                ::std::unreachable();
+            }
+            ::std::copy(string.begin(), string.end(), small.data);
+            return small;
+        }
+    };
+
     /** Utility class for manipulating Strings.  */
     class StringUtil
     {

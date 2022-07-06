@@ -39,6 +39,7 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreString.hpp"
 #include "OgreQuaternion.hpp"
 #include "OgreVector.hpp"
 
@@ -46,22 +47,6 @@ namespace Ogre {
     template <typename T> class VectorIterator;
     template <typename T> class ConstVectorIterator;
 class Camera;
-
-    template<::std::size_t N>
-    struct SmallString
-    {
-        char data[N];
-        static auto constexpr Create(::std::string_view string) -> SmallString
-        {
-            SmallString small{};
-            if  (string.size() >= N)
-            {
-                ::std::unreachable();
-            }
-            ::std::copy(string.begin(), string.end(), small.data);
-            return small;
-        }
-    };
 
     /** \addtogroup Core
     *  @{
