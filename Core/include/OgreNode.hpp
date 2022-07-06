@@ -56,7 +56,7 @@ class Camera;
             SmallString small{};
             if  (string.size() >= N)
             {
-                return small;
+                ::std::unreachable();
             }
             ::std::copy(string.begin(), string.end(), small.data);
             return small;
