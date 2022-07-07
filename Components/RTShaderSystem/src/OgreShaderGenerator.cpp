@@ -755,12 +755,12 @@ static auto findSourceTechnique(const Material& mat, std::string_view srcTechniq
                                       bool overProgrammable) -> Technique*
 {
     // Find the source technique
-    for (Technique* curTechnique : mat.getTechniques())
+    for (auto const& curTechnique : mat.getTechniques())
     {
         if (curTechnique->getSchemeName() == srcTechniqueSchemeName &&
-            (hasFixedFunctionPass(curTechnique) || overProgrammable))
+            (hasFixedFunctionPass(curTechnique.get()) || overProgrammable))
         {
-            return curTechnique;
+            return curTechnique.get();
         }
     }
 
@@ -944,7 +944,7 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
 
     //first gather the techniques to remove
     std::set<unsigned short> schemesToRemove;
-    for(Technique* pSrcTech : srcMat.getTechniques())
+    for(auto const& pSrcTech : srcMat.getTechniques())
     {
         Pass* pSrcPass = pSrcTech->getNumPasses() > 0 ? pSrcTech->getPass(0) : nullptr;
         if (pSrcPass)

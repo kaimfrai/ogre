@@ -67,7 +67,7 @@ class ResourceManager;
     class UnifiedHighLevelGpuProgram final : public GpuProgram
     {
         /// Ordered list of potential delegates
-        std::vector<std::string_view> mDelegateNames;
+        std::vector<std::string> mDelegateNames;
         /// The chosen delegate
         mutable GpuProgramPtr mChosenDelegate;
 

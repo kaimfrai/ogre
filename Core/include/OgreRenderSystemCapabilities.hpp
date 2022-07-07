@@ -257,7 +257,7 @@ namespace Ogre
 
     public:
 
-        using ShaderProfiles = std::set<std::string_view>;
+        using ShaderProfiles = std::set<std::string, std::less<>>;
     private:
         /// This is used to build a database of RSC's
         /// if a RSC with same name, but newer version is introduced, the older one 

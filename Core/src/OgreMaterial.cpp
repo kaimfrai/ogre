@@ -92,7 +92,7 @@ class Renderable;
 
         // Copy Techniques
         this->removeAllTechniques();
-        for (auto mTechnique : rhs.mTechniques)
+        for (auto& mTechnique : rhs.mTechniques)
         {
             Technique* t = this->createTechnique();
             *t = *mTechnique;
@@ -163,7 +163,7 @@ class Renderable;
         size_t memSize = sizeof(*this) + Resource::calculateSize();
 
         // Tally up techniques
-        for (auto t : mTechniques)
+        for (auto const& t : mTechniques)
         {
             memSize += t->calculateSize();
         }
@@ -242,10 +242,9 @@ class Renderable;
     //-----------------------------------------------------------------------
     auto Material::createTechnique() -> Technique*
     {
-        auto *t = new Technique(this);
-        mTechniques.push_back(t);
+        mTechniques.push_back(std::make_unique<Technique>(this));
         mCompilationRequired = true;
-        return t;
+        return mTechniques.back().get();
     }
     //-----------------------------------------------------------------------
     auto Material::getTechnique(std::string_view name) const -> Technique*
@@ -257,7 +256,7 @@ class Renderable;
         {
             if ( i->getName() == name )
             {
-                foundTechnique = i;
+                foundTechnique = i.get();
                 break;
             }
         }
@@ -366,17 +365,12 @@ class Renderable;
     {
         assert (index < mTechniques.size() && "Index out of bounds.");
         auto i = mTechniques.begin() + index;
-        delete(*i);
         mTechniques.erase(i);
         clearBestTechniqueList();
     }
     //-----------------------------------------------------------------------
     void Material::removeAllTechniques()
     {
-        for (auto & mTechnique : mTechniques)
-        {
-            delete mTechnique;
-        }
         mTechniques.clear();
         clearBestTechniqueList();
     }
@@ -385,7 +379,7 @@ class Renderable;
     auto Material::isTransparent() const noexcept -> bool
     {
         // Check each technique
-        for (auto mTechnique : mTechniques)
+        for (auto const& mTechnique : mTechniques)
         {
             if ( mTechnique->isTransparent() )
                 return true;
@@ -406,7 +400,7 @@ class Renderable;
             auto const compileMessages = mTechnique->_compile(autoManageTextureUnits);
             if ( mTechnique->isSupported() )
             {
-                insertSupportedTechnique(mTechnique);
+                insertSupportedTechnique(mTechnique.get());
             }
             else
             {
@@ -440,7 +434,7 @@ class Renderable;
         mCompilationRequired = true;
     }
     //-----------------------------------------------------------------------
-    #define ALL_TECHNIQUES(fncall) for(auto t : mTechniques) t->fncall
+    #define ALL_TECHNIQUES(fncall) for(auto& t : mTechniques) t->fncall
     void Material::setPointSize(Real ps) { ALL_TECHNIQUES(setPointSize(ps)); }
     //-----------------------------------------------------------------------
     void Material::setAmbient(float red, float green, float blue) { setAmbient(ColourValue(red, green, blue)); }

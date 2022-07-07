@@ -40,6 +40,7 @@ THE SOFTWARE.
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
+#include "OgreRenderSystemCapabilities.hpp"
 #include "OgreResource.hpp"
 #include "OgreResourceGroupManager.hpp"
 #include "OgreResourceManager.hpp"
@@ -95,7 +96,7 @@ namespace Ogre {
     public:
 
         using SyntaxCodes = std::set<std::string_view>;
-        using SharedParametersMap = std::map<std::string_view, GpuSharedParametersPtr>;
+        using SharedParametersMap = std::map<std::string, GpuSharedParametersPtr, std::less<>>;
 
         using Microcode = MemoryDataStreamPtr;
 
@@ -151,7 +152,7 @@ namespace Ogre {
             std::string_view syntaxCode) -> GpuProgramPtr;
 
         /** Returns the syntaxes that the RenderSystem supports. */
-        static auto getSupportedSyntax() noexcept -> const SyntaxCodes&;
+        static auto getSupportedSyntax() noexcept -> const RenderSystemCapabilities::ShaderProfiles&;
 
         /** Returns whether a given syntax code (e.g. "glsl330", "vs_4_0", "arbvp1") is supported. */
         static auto isSyntaxSupported(std::string_view syntaxCode) -> bool;

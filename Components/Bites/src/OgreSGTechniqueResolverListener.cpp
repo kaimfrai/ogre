@@ -42,11 +42,11 @@ auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeInde
     mShaderGenerator->validateMaterial(schemeName, *originalMaterial);
 
     // Grab the generated technique.
-    for(Ogre::Technique* curTech : originalMaterial->getTechniques())
+    for(auto const& curTech : originalMaterial->getTechniques())
     {
         if (curTech->getSchemeName() == schemeName)
         {
-            return curTech;
+            return curTech.get();
         }
     }
 

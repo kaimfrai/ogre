@@ -66,8 +66,8 @@ namespace Ogre {
     class OverlayManager : public Singleton<OverlayManager>, public ScriptLoader, public OverlayAlloc
     {
     public:
-        using OverlayMap = std::map<std::string_view, Overlay *>;
-        using ElementMap = std::map<std::string_view, OverlayElement *>;
+        using OverlayMap = std::map<std::string, Overlay*, std::less<>>;
+        using ElementMap = std::map<std::string, OverlayElement*, std::less<>>;
         using FactoryMap = std::map<std::string_view, ::std::unique_ptr<OverlayElementFactory>>;
     private:
         OverlayMap mOverlayMap;

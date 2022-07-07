@@ -86,7 +86,7 @@ class RenderQueue;
     BaseInstanceBatchVTF::~BaseInstanceBatchVTF()
     {
         //Remove cloned caster materials (if any)
-        for (auto technique : mMaterial->getTechniques())
+        for (auto const& technique : mMaterial->getTechniques())
         {
             if (technique->getShadowCasterMaterial())
                 MaterialManager::getSingleton().remove( technique->getShadowCasterMaterial() );
@@ -129,7 +129,7 @@ class RenderQueue;
         mMaterial = material->clone( ::std::format("{}/VTFMaterial", mName) );
 
         //Now do the same with the techniques which have a material shadow caster
-        for (Technique *technique : material->getTechniques())
+        for (auto const& technique : material->getTechniques())
         {
             if( technique->getShadowCasterMaterial() )
             {
@@ -216,11 +216,11 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void BaseInstanceBatchVTF::setupMaterialToUseVTF( TextureType textureType, MaterialPtr &material ) const
     {
-        for (auto technique : material->getTechniques())
+        for (auto const& technique : material->getTechniques())
         {
             for (auto pass : technique->getPasses())
             {
-                for (auto texUnit : pass->getTextureUnitStates())
+                for (auto const& texUnit : pass->getTextureUnitStates())
                 {
                     if( texUnit->getName() == "InstancingVTF" )
                     {

@@ -48,9 +48,9 @@ namespace Ogre {
     */
     struct ConfigOption
     {
-        String name;
+        std::string_view name;
         String currentValue;
-        std::vector<std::string_view> possibleValues;
+        std::vector<std::string> possibleValues;
         bool immutable;
     };
 

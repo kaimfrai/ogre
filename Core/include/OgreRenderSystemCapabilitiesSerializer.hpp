@@ -104,7 +104,7 @@ namespace Ogre {
         using CapabilitiesMap = std::map<std::string_view, Capabilities>;
         CapabilitiesMap mCapabilitiesMap;
 
-        inline void addCapabilitiesMapping(String name, Capabilities cap)
+        inline void addCapabilitiesMapping(std::string_view name, Capabilities cap)
         {
             mCapabilitiesMap.emplace(name, cap);
         }

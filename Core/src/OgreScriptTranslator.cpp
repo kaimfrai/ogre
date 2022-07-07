@@ -89,7 +89,7 @@ class LodStrategy;
 
     static void applyTextureAliases(const Material* mat, const NameValuePairList& aliasList)
     {
-        for (auto t : mat->getTechniques())
+        for (auto const& t : mat->getTechniques())
         {
             for (auto p : t->getPasses())
             {

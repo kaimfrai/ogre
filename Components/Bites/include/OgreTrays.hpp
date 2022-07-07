@@ -392,6 +392,7 @@ namespace OgreBites
         }
 
         void setItems(std::span<std::string_view const> items);
+        void setItems(std::span<std::string const> items);
 
         void addItem(std::string_view item)
         {

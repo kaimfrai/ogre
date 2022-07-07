@@ -483,6 +483,37 @@ void SelectMenu::setItems(std::span<std::string_view const> items)
     else mSmallTextArea->setCaption("");
 }
 
+void SelectMenu::setItems(std::span<std::string const> items)
+{
+    mItems.assign(items.begin(), items.end());
+    mSelectionIndex = -1;
+
+    for (auto & mItemElement : mItemElements)   // destroy all the item elements
+    {
+        nukeOverlayElement(mItemElement);
+    }
+    mItemElements.clear();
+
+    mItemsShown = Ogre::Math::Clamp<size_t>(mMaxItemsShown, 1, mItems.size());
+
+    for (unsigned int i = 0; i < mItemsShown; i++)   // create all the item elements
+    {
+        Ogre::BorderPanelOverlayElement* e =
+                (Ogre::BorderPanelOverlayElement*)Ogre::OverlayManager::getSingleton().createOverlayElementFromTemplate
+                ("SdkTrays/SelectMenuItem", "BorderPanel",
+                 ::std::format("{}/Item{}", mExpandedBox->getName(), i + 1));
+
+        e->setTop(6 + i * (mSmallBox->getHeight() - 8));
+        e->setWidth(mExpandedBox->getWidth() - 32);
+
+        mExpandedBox->addChild(e);
+        mItemElements.push_back(e);
+    }
+
+    if (!items.empty()) selectItem(0, false);
+    else mSmallTextArea->setCaption("");
+}
+
 void SelectMenu::removeItem(std::string_view item)
 {
     for (size_t i=0; i < mItems.size(); i++)

@@ -101,7 +101,7 @@ class Technique;
         /// distance list used to specify LOD
         using LodValueList = std::vector<Real>;
         using LodValueIterator = ConstVectorIterator<LodValueList>;
-        using Techniques = std::vector<Technique *>;
+        using Techniques = std::vector<std::unique_ptr<Technique>>;
     private:
 
 
@@ -112,7 +112,7 @@ class Technique;
         /// All techniques, supported and unsupported
         Techniques mTechniques;
         /// Supported techniques of any sort
-        Techniques mSupportedTechniques;
+        std::vector<Technique*> mSupportedTechniques;
         using LodTechniques = std::map<unsigned short, Technique *>;
         using BestTechniquesBySchemeList = std::map<unsigned short, LodTechniques>;
         /** Map of scheme -> list of LOD techniques. 
@@ -214,7 +214,7 @@ class Technique;
         */
         auto createTechnique() -> Technique*;
         /** Gets the indexed technique. */
-        auto getTechnique(size_t index) const -> Technique* { return mTechniques.at(index); }
+        auto getTechnique(size_t index) const -> Technique* { return mTechniques.at(index).get(); }
         /** searches for the named technique.
             Return 0 if technique with name is not found
         */
@@ -227,7 +227,7 @@ class Technique;
         void removeAllTechniques();
 
         /** Get the Techniques in this Material. */
-        auto getTechniques() const noexcept -> const Techniques& {
+        auto getTechniques() const noexcept -> std::span<std::unique_ptr<Technique> const> {
             return mTechniques;
         }
 
@@ -237,7 +237,7 @@ class Technique;
             which typically happens on loading the material. Therefore, if this method returns
             an empty list, try calling Material::load.
         */
-        auto getSupportedTechniques() const noexcept -> const Techniques& {
+        auto getSupportedTechniques() const noexcept -> std::span<Technique* const> {
             return mSupportedTechniques;
         }
         

@@ -121,7 +121,7 @@ namespace Ogre
 
     void ObjectAbstractNode::setVariable(std::string_view inName, std::string_view value)
     {
-        mEnv[inName] = value;
+        mEnv[std::string{inName}] = value;
     }
 
     auto ObjectAbstractNode::getVariable(std::string_view inName) const -> std::pair<bool,String>
@@ -141,7 +141,7 @@ namespace Ogre
         return std::make_pair(false, "");
     }
 
-    auto ObjectAbstractNode::getVariables() const -> const std::map<std::string_view,String> &
+    auto ObjectAbstractNode::getVariables() const -> const decltype(mEnv)&
     {
         return mEnv;
     }

@@ -284,7 +284,7 @@ class ScriptLoader;
         ResourceLoadingListener *mLoadingListener{nullptr};
 
         /// Resource index entry, resourcename->location 
-        using ResourceLocationIndex = std::map<std::string_view, Archive *>;
+        using ResourceLocationIndex = std::map<std::string, Archive*, std::less<>>;
 
         /// List of resources which can be loaded / unloaded
         using LoadUnloadResourceList = std::list<ResourcePtr>;
@@ -325,7 +325,7 @@ class ScriptLoader;
 
         };
         /// Map from resource group names to groups
-        using ResourceGroupMap = std::map<std::string_view, ResourceGroup *>;
+        using ResourceGroupMap = std::map<std::string, ResourceGroup*, std::less<>>;
         ResourceGroupMap mResourceGroupMap;
 
         /// Group name for world resources

@@ -515,8 +515,7 @@ namespace Ogre {
     void SkeletonSerializer::readAnimation(DataStreamPtr& stream, Skeleton* pSkel)
     {
         // char* name                       : Name of the animation
-        String name;
-        name = readString(stream);
+        auto const name = readString(stream);
         // float length                      : Length of the animation in seconds
         float len;
         readFloats(stream, &len, 1);

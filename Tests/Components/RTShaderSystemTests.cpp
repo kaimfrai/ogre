@@ -70,20 +70,20 @@ TEST_F(RTShaderSystem, createShaderBasedTechnique)
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
     auto mat = MaterialManager::getSingleton().create("TestMat", RGN_DEFAULT);
 
-    EXPECT_TRUE(shaderGen.createShaderBasedTechnique(mat->getTechniques()[0], "MyScheme"));
+    EXPECT_TRUE(shaderGen.createShaderBasedTechnique(mat->getTechniques()[0].get(), "MyScheme"));
     shaderGen.getRenderState("MyScheme")->setLightCountAutoUpdate(false);
 
     EXPECT_EQ(mat->getTechniques().size(), size_t(1));
     shaderGen.validateMaterial("MyScheme", *mat);
     EXPECT_EQ(mat->getTechniques().size(), size_t(2));
 
-    auto newTech = mat->getTechniques()[1];
+    auto& newTech = mat->getTechniques()[1];
 
     EXPECT_EQ(newTech->getSchemeName(), "MyScheme");
     EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GPT_VERTEX_PROGRAM));
     EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GPT_FRAGMENT_PROGRAM));
 
-    EXPECT_TRUE(shaderGen.removeShaderBasedTechnique(mat->getTechniques()[0], "MyScheme"));
+    EXPECT_TRUE(shaderGen.removeShaderBasedTechnique(mat->getTechniques()[0].get(), "MyScheme"));
 }
 
 TEST_F(RTShaderSystem, MaterialSerializer)
@@ -91,7 +91,7 @@ TEST_F(RTShaderSystem, MaterialSerializer)
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
     auto mat = MaterialManager::getSingleton().create("TestMat", RGN_DEFAULT);
 
-    shaderGen.createShaderBasedTechnique(mat->getTechniques()[0], "MyScheme");
+    shaderGen.createShaderBasedTechnique(mat->getTechniques()[0].get(), "MyScheme");
     shaderGen.getRenderState("MyScheme")->setLightCountAutoUpdate(false);
 
     auto rstate = shaderGen.getRenderState("MyScheme", *mat);

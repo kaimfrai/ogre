@@ -73,11 +73,11 @@ namespace Ogre {
         mCategoryRelevant[CAPS_CATEGORY_GL] = false;
     }
 
-    void RenderSystemCapabilities::addShaderProfile(std::string_view profile) { mSupportedShaderProfiles.insert(profile); }
+    void RenderSystemCapabilities::addShaderProfile(std::string_view profile) { mSupportedShaderProfiles.emplace(profile); }
 
     void RenderSystemCapabilities::removeShaderProfile(std::string_view profile)
     {
-        mSupportedShaderProfiles.erase(profile);
+        mSupportedShaderProfiles.erase(mSupportedShaderProfiles.find(profile));
     }
 
     auto RenderSystemCapabilities::isShaderProfileSupported(std::string_view profile) const -> bool

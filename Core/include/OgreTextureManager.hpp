@@ -426,7 +426,7 @@ class Image;
         uint32 mDefaultNumMipmaps{MIP_UNLIMITED};
         TexturePtr mWarningTexture;
         SamplerPtr mDefaultSampler;
-        std::map<std::string_view, SamplerPtr> mNamedSamplers;
+        std::map<std::string, SamplerPtr, std::less<>> mNamedSamplers;
     };
 
     /// Specialisation of TextureManager for offline processing. Cannot be used with an active RenderSystem.

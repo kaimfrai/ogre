@@ -76,7 +76,7 @@ namespace Ogre {
         ParameterDef(std::string_view newName, std::string_view = "", ParameterType = PT_INT)
             : name(newName) {}
     };
-    using ParameterList = std::vector<std::string_view>;
+    using ParameterList = std::vector<std::string>;
 
     /** Abstract class which is command object which gets/sets parameters.*/
     class ParamCommand
@@ -87,7 +87,7 @@ namespace Ogre {
 
         virtual ~ParamCommand() = default;
     };
-    using ParamCommandMap = std::map<std::string_view, ParamCommand *>;
+    using ParamCommandMap = std::map<std::string, ParamCommand*, std::less<>>;
 
     /** Generic ParamCommand implementation
      stores pointers to the class getter and setter functions */
@@ -152,7 +152,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string_view const>
+        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string const>
         {
             return mParamDefs;
         }
@@ -216,7 +216,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string_view const>;
+        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string const>;
 
         /** Generic parameter setting method.
         @remarks

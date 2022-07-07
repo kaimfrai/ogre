@@ -137,7 +137,7 @@ class Material;
     class ObjectAbstractNode : public AbstractNode
     {
     private:
-        std::map<std::string_view,String> mEnv;
+        std::map<std::string, String, std::less<>> mEnv;
     public:
         String name, cls;
         std::vector<String> bases;
@@ -154,7 +154,7 @@ class Material;
         void addVariable(std::string_view name);
         void setVariable(std::string_view name, std::string_view value);
         [[nodiscard]] auto getVariable(std::string_view name) const -> std::pair<bool,String>;
-        [[nodiscard]] auto getVariables() const -> const std::map<std::string_view,String> &;
+        [[nodiscard]] auto getVariables() const -> const decltype(mEnv) &;
     };
 
     /** This abstract node represents a script property */
@@ -300,9 +300,9 @@ class Material;
         using Environment = std::map<std::string_view, String>;
         Environment mEnv;
 
-        using ImportCacheMap = std::map<std::string_view, AbstractNodeListPtr>;
+        using ImportCacheMap = std::map<std::string, AbstractNodeListPtr, std::less<>>;
         ImportCacheMap mImports; // The set of imported scripts to avoid circular dependencies
-        using ImportRequestMap = std::multimap<std::string_view, String>;
+        using ImportRequestMap = std::multimap<std::string, String, std::less<>>;
         ImportRequestMap mImportRequests; // This holds the target objects for each script to be imported
 
         // This stores the imports of the scripts, so they are separated and can be treated specially
