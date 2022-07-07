@@ -116,11 +116,11 @@ namespace Ogre {
                 the place in which OGRE found the problem, and a text
                 description from the 3D rendering library, if available.
         */
-        [[nodiscard]] auto getFullDescription() const noexcept -> std::string_view { return fullDesc; }
+        [[nodiscard]] auto getFullDescription() const noexcept -> std::string_view{ return fullDesc; }
 
         /** Gets the source function.
         */
-        [[nodiscard]] auto getSource() const noexcept -> std::string_view { return source; }
+        [[nodiscard]] auto getSource() const noexcept -> std::string_view{ return source; }
 
         /** Gets source file name.
         */
@@ -134,7 +134,7 @@ namespace Ogre {
             getFullDescriptionto get a full description of the error including line number,
             error number and what function threw the exception.
         */
-        [[nodiscard]] auto getDescription() const noexcept -> std::string_view { return description; }
+        [[nodiscard]] auto getDescription() const noexcept -> std::string_view{ return description; }
 
         /// Override std::exception::what
         [[nodiscard]] auto what() const noexcept -> const char* override { return fullDesc.c_str(); }

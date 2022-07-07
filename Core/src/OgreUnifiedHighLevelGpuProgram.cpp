@@ -46,7 +46,7 @@ class ResourceManager;
     class CmdDelegate : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
+        auto doGet(const void* target) const -> std::string override;
         void doSet(void* target, std::string_view val) override;
     };
     static CmdDelegate msCmdDelegate;
@@ -133,7 +133,7 @@ class ResourceManager;
         memSize += GpuProgram::calculateSize();
 
         // Delegate Names
-        for (const auto & mDelegateName : mDelegateNames)
+        for (std::string_view mDelegateName : mDelegateNames)
             memSize += mDelegateName.size() * sizeof(char);
 
         return memSize;
@@ -392,10 +392,10 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdDelegate::doGet(const void* target) const -> String
+    auto CmdDelegate::doGet(const void* target) const -> std::string
     {
         // Can't do this (not one delegate), shouldn't matter
-        return BLANKSTRING;
+        return "";
     }
     //-----------------------------------------------------------------------
     void CmdDelegate::doSet(void* target, std::string_view val)

@@ -148,7 +148,7 @@ public:
     /** Get the library name of the given index dependency.
     @param index The index of the dependecy.
     */
-    [[nodiscard]] auto getDependency(unsigned int index) const -> std::string_view ;
+    [[nodiscard]] auto getDependency(unsigned int index) const -> std::string_view;
     
 
     /** Sets whether a vertex program includes the required instructions
@@ -182,7 +182,7 @@ public:
 
     void addPreprocessorDefines(std::string_view defines);
 
-    [[nodiscard]] auto getPreprocessorDefines() const noexcept -> std::string_view { return mPreprocessorDefines; }
+    [[nodiscard]] auto getPreprocessorDefines() const noexcept -> std::string_view{ return mPreprocessorDefines; }
 
     /** Class destructor */
     ~Program();
@@ -210,7 +210,7 @@ private:
     // Entry point function for this program.   
     ::std::unique_ptr<Function> mEntryPointFunction;
     // Program dependencies.
-    StringVector mDependencies;
+    std::vector<std::string_view> mDependencies;
     /// preprocessor definitions
     String mPreprocessorDefines;
     // Skeletal animation calculation

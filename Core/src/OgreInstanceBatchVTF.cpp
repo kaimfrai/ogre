@@ -122,7 +122,7 @@ class RenderQueue;
     void BaseInstanceBatchVTF::cloneMaterial( const MaterialPtr &material )
     {
         //Used to track down shadow casters, so the same material caster doesn't get cloned twice
-        using MatMap = std::map<String, MaterialPtr>;
+        using MatMap = std::map<std::string_view, MaterialPtr>;
         MatMap clonedMaterials;
 
         //We need to clone the material so we can have different textures for each batch.

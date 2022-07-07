@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    std::map<std::string_view, Codec * > Codec::msMapCodecs;
+    Codec::CodecList Codec::msMapCodecs;
 
     Codec::~Codec() = default;
 
@@ -72,9 +72,7 @@ namespace Ogre {
 
     auto Codec::getCodec(std::string_view extension) -> Codec*
     {
-        String lwrcase{extension};
-        StringUtil::toLowerCase(lwrcase);
-        auto i = msMapCodecs.find(lwrcase);
+        auto i = msMapCodecs.find(StringUtil::LowerView(extension));
         if (i == msMapCodecs.end())
         {
             String formats_str;

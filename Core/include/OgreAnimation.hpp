@@ -130,7 +130,7 @@ class VertexData;
         virtual ~Animation();
 
         /** Gets the name of this animation. */
-        auto getName() const noexcept -> std::string_view ;
+        auto getName() const noexcept -> std::string_view;
 
         /** Gets the total length of the animation. */
         auto getLength() const -> Real;
@@ -489,13 +489,13 @@ class VertexData;
         @param keyframeTime The time corresponding to the base keyframe, if any
         @param baseAnimName Optionally a different base animation (must contain the same tracks)
         */
-        void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, std::string_view baseAnimName = BLANKSTRING);
+        void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, std::string_view baseAnimName = "");
         /** Whether a base keyframe is being used for this Animation. */
         auto getUseBaseKeyFrame() const noexcept -> bool;
         /** If a base keyframe is being used, the time of that keyframe. */
         auto getBaseKeyFrameTime() const -> Real;
         /** If a base keyframe is being used, the Animation that provides that keyframe. */
-        auto getBaseKeyFrameAnimationName() const noexcept -> std::string_view ;
+        auto getBaseKeyFrameAnimationName() const noexcept -> std::string_view;
         
         /// Internal method to adjust keyframes relative to a base keyframe (@see setUseBaseKeyFrame) */
         void _applyBaseKeyFrame();

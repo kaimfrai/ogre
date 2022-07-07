@@ -540,7 +540,7 @@ class Affine3;
         Quaternion q;
         Radian angle;
         Vector3 axis;
-        of.open(filename.c_str());
+        of.open(std::filesystem::path{filename});
 
         of << "-= Debug output of skeleton " << mName << " =-" << std::endl << std::endl;
         of << "== Bones ==" << std::endl;

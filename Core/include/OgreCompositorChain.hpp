@@ -84,7 +84,7 @@ class SceneManager;
         @param scheme
             Scheme to use (blank means default).
         */
-        auto addCompositor(CompositorPtr filter, size_t addPosition=LAST, std::string_view scheme = BLANKSTRING) -> CompositorInstance*;
+        auto addCompositor(CompositorPtr filter, size_t addPosition=LAST, std::string_view scheme = "") -> CompositorInstance*;
 
         /** Remove a compositor.
         @param position

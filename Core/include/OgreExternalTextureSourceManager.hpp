@@ -92,7 +92,7 @@ class ExternalTextureSource;
         ExternalTextureSource* mCurrExternalTextureSource;
         
         // Collection of loaded texture System PlugIns, keyed by registered type
-        using TextureSystemList = std::map<String, ExternalTextureSource *>;
+        using TextureSystemList = std::map<std::string_view, ExternalTextureSource *>;
         TextureSystemList mTextureSystems;
     };
     /** @} */

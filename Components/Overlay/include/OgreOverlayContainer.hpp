@@ -61,9 +61,9 @@ class RenderQueue;
     class OverlayContainer : public OverlayElement
     {
     public:
-        using ChildMap = std::map<String, OverlayElement *>;
+        using ChildMap = std::map<std::string_view, OverlayElement *>;
         using ChildIterator = MapIterator<ChildMap>;
-        using ChildContainerMap = std::map<String, OverlayContainer *>;
+        using ChildContainerMap = std::map<std::string_view, OverlayContainer *>;
         using ChildContainerIterator = MapIterator<ChildContainerMap>;
     private:
         /// Map of all children

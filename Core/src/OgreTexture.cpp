@@ -363,10 +363,10 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Texture::getSourceFileType() const -> String
+    auto Texture::getSourceFileType() const -> std::string
     {
         if (mName.empty())
-            return BLANKSTRING;
+            return "";
 
         String::size_type pos = mName.find_last_of('.');
         if (pos != String::npos && pos < (mName.length() - 1))
@@ -415,7 +415,7 @@ namespace Ogre {
     }
 
     //--------------------------------------------------------------------------
-    void Texture::getCustomAttribute(std::string_view , void*)
+    void Texture::getCustomAttribute(std::string_view, void*)
     {
     }
 

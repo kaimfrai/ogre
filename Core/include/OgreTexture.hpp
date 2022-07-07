@@ -225,7 +225,7 @@ class ResourceManager;
 
         /** Get the multisample AA hint if this texture is a rendertarget.
         */
-        auto getFSAAHint() const noexcept -> std::string_view { return mFSAAHint; }
+        auto getFSAAHint() const noexcept -> std::string_view{ return mFSAAHint; }
 
         /** Returns the height of the texture.
         */
@@ -516,7 +516,7 @@ class ResourceManager;
         /** Identify the source file type as a string, either from the extension
             or from a magic number.
         */
-        auto getSourceFileType() const -> String;
+        auto getSourceFileType() const -> std::string;
 
         static const char* CUBEMAP_SUFFIXES[6];
     };

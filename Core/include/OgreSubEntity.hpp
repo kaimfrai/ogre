@@ -140,7 +140,7 @@ class VertexData;
     public:
         /** Gets the name of the Material in use by this instance.
         */
-        auto getMaterialName() const noexcept -> std::string_view ;
+        auto getMaterialName() const noexcept -> std::string_view;
 
         /** Sets the name of the Material to be used.
             @remarks

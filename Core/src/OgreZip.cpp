@@ -173,7 +173,7 @@ namespace {
     auto ZipArchive::open(std::string_view filename, bool readOnly) const -> DataStreamPtr
     {
         // zip is not threadsafe
-        String lookUpFileName = filename;
+        std::string const lookUpFileName{filename};
 
         bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), true) == 0;
 
@@ -264,9 +264,7 @@ namespace {
     //-----------------------------------------------------------------------
     auto ZipArchive::exists(std::string_view filename) const -> bool
     {       
-        String cleanName = filename;
-
-        return std::ranges::find_if(mFileList, [&cleanName](const Ogre::FileInfo& fi) {
+        return std::ranges::find_if(mFileList, [cleanName = filename](const Ogre::FileInfo& fi) {
                    return fi.filename == cleanName;
                }) != mFileList.end();
     }
@@ -320,7 +318,7 @@ namespace {
     };
     //-----------------------------------------------------------------------
     /// A type for a map between the file names to file index
-    using EmbbedFileDataList = std::map<String, EmbeddedFileData>;
+    using EmbbedFileDataList = std::map<std::string_view, EmbeddedFileData>;
 
     namespace {
     /// A static list to store the embedded files data

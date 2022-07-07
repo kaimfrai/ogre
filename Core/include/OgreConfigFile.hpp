@@ -81,15 +81,15 @@ namespace Ogre {
         @param section The name of the section it must be in (if any)
         @param defaultValue The value to return if the setting is not found
         */
-        [[nodiscard]] auto getSetting(std::string_view key, std::string_view section = BLANKSTRING, std::string_view defaultValue = BLANKSTRING) const -> String;
+        [[nodiscard]] auto getSetting(std::string_view key, std::string_view section = "", std::string_view defaultValue = "") const -> std::string_view;
         /** Gets all settings from the file with the named key. */
-        [[nodiscard]] auto getMultiSetting(std::string_view key, std::string_view section = BLANKSTRING) const -> StringVector;
+        [[nodiscard]] auto getMultiSetting(std::string_view key, std::string_view section = "") const -> StringVector;
 
-        using SettingsMultiMap = std::multimap<String, String>;
+        using SettingsMultiMap = std::multimap<std::string_view, String>;
         using SettingsIterator = MapIterator<SettingsMultiMap>;
         /** Gets an iterator for stepping through all the keys / values in the file. */
-        using SettingsBySection = std::map<String, SettingsMultiMap *>;
-        using SettingsBySection_ = std::map<String, SettingsMultiMap>;
+        using SettingsBySection = std::map<std::string_view, SettingsMultiMap *>;
+        using SettingsBySection_ = std::map<std::string_view, SettingsMultiMap>;
         using SectionIterator = MapIterator<SettingsBySection>;
 
         /** Get all the available settings grouped by sections */
@@ -98,7 +98,7 @@ namespace Ogre {
         }
 
         /** Get all the available settings in a section */
-        [[nodiscard]] auto getSettings(std::string_view section = BLANKSTRING) const -> const SettingsMultiMap&;
+        [[nodiscard]] auto getSettings(std::string_view section = "") const -> const SettingsMultiMap&;
         
         /** Clear the settings */
         void clear();

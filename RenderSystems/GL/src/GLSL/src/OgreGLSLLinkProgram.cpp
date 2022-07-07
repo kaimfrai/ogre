@@ -400,8 +400,8 @@ namespace Ogre::GLSL {
                     if (startpos != String::npos && startpos < pos)
                     {
                         // final check 
-                        String expr = vpSource.substr(startpos, pos + strlen(a.name) - startpos);
-                        StringVector vec = StringUtil::split(expr);
+                        auto const expr = vpSource.substr(startpos, pos + strlen(a.name) - startpos);
+                        auto const vec = StringUtil::split(expr);
                         if ((vec[0] == "in" || vec[0] == "attribute") && vec[2] == a.name)
                         {
                             glBindAttribLocationARB((GLhandleARB)mGLProgramHandle, a.attrib, a.name);
@@ -458,7 +458,7 @@ namespace Ogre::GLSL {
         
         if(mLinked)
         {
-            logObjectInfo(  getCombinedName() + String(" GLSL link result : "), mGLProgramHandle );
+            logObjectInfo(std::format("{}{}", getCombinedName(), " GLSL link result : "), mGLProgramHandle );
         }
 
         if (mLinked)

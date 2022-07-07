@@ -104,8 +104,8 @@ namespace Ogre {
         void readObject(const DataStreamPtr& stream, Vector3& pDest);
         void readObject(const DataStreamPtr& stream, Quaternion& pDest);
 
-        auto readString(const DataStreamPtr& stream) -> String;
-        auto readString(const DataStreamPtr& stream, size_t numChars) -> String;
+        auto readString(const DataStreamPtr& stream) -> std::string;
+        auto readString(const DataStreamPtr& stream, size_t numChars) -> std::string;
         
         void flipToLittleEndian(void* pData, size_t size, size_t count = 1);
         void flipFromLittleEndian(void* pData, size_t size, size_t count = 1);

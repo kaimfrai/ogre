@@ -221,7 +221,7 @@ class SceneManager;
         @return
             The instance name for the texture, corresponds to a real texture.
         */
-        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view ;
+        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view;
 
         /** Get the instance of a local texture.
         @note Textures are only valid when local textures have been loaded, 
@@ -343,10 +343,10 @@ class SceneManager;
         /// Is this instance allocating resources?
         bool mAlive{false};
         /// Map from name->local texture.
-        using LocalTextureMap = std::map<String, TexturePtr>;
+        using LocalTextureMap = std::map<std::string_view, TexturePtr>;
         LocalTextureMap mLocalTextures;
         /// Store a list of MRTs we've created.
-        using LocalMRTMap = std::map<String, MultiRenderTarget *>;
+        using LocalMRTMap = std::map<std::string_view, MultiRenderTarget *>;
         LocalMRTMap mLocalMRTs;
         using ReserveTextureMap = std::map<CompositionTechnique::TextureDefinition *, TexturePtr>;
         /** Textures that are not currently in use, but that we want to keep for now,
@@ -403,12 +403,12 @@ class SceneManager;
         void queueRenderSystemOp(TargetOperation &finalState, RenderSystemOperation *op);
 
         /// Util method for assigning a local texture name to a MRT attachment
-        static auto getMRTTexLocalName(std::string_view baseName, size_t attachment) -> String;
+        static auto getMRTTexLocalName(std::string_view baseName, size_t attachment) -> std::string;
 
         /** Search for options like AA and hardware gamma which we may want to 
             inherit from the main render target to which we're attached. 
         */
-        void deriveTextureRenderTargetOptions(std::string_view texname, 
+        void deriveTextureRenderTargetOptions(std::string_view texname,
             bool *hwGammaWrite, uint *fsaa, String* fsaaHint);
 
         /// Notify this instance that the primary viewport's camera has changed.

@@ -86,7 +86,7 @@ namespace Ogre
         /// Sets an input file name - if needed by plugin
         void setInputName( std::string_view sIN ) { mInputFileName = sIN; }
         /// Gets currently set input file name
-        [[nodiscard]] auto getInputName( ) const noexcept -> std::string_view { return mInputFileName; }
+        [[nodiscard]] auto getInputName( ) const noexcept -> std::string_view{ return mInputFileName; }
         /// Sets the frames per second - plugin may or may not use this
         void setFPS( int iFPS ) { mFramesPerSecond = iFPS; }
         /// Gets currently set frames per second
@@ -107,9 +107,9 @@ namespace Ogre
         void addBaseParams();
 
         /** Returns the string name of this Plugin (as set by the Plugin)*/
-        [[nodiscard]] auto getPluginStringName( ) const noexcept -> std::string_view { return mPluginName; }
+        [[nodiscard]] auto getPluginStringName( ) const noexcept -> std::string_view{ return mPluginName; }
         /** Returns dictionary name */
-        [[nodiscard]] auto getDictionaryStringName( ) const noexcept -> std::string_view { return mDictionaryName; }
+        [[nodiscard]] auto getDictionaryStringName( ) const noexcept -> std::string_view{ return mDictionaryName; }
 
         //Pure virtual functions that plugins must Override
         /** Call this function from manager to init system */

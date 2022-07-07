@@ -248,7 +248,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static auto _detectCpuIdentifier() -> String
+    static auto _detectCpuIdentifier() -> std::string
     {
         // Supports CPUID instruction ?
         if (_isSupportCpuid())

@@ -228,11 +228,11 @@ class Viewport;
         Instances mInstances;
 
         /// Map of registered compositor logics
-        using CompositorLogicMap = std::map<String, CompositorLogic *>;
+        using CompositorLogicMap = std::map<std::string_view, CompositorLogic *>;
         CompositorLogicMap mCompositorLogics;
 
         /// Map of registered custom composition passes
-        using CustomCompositionPassMap = std::map<String, CustomCompositionPass *>;
+        using CustomCompositionPassMap = std::map<std::string_view, CustomCompositionPass *>;
         CustomCompositionPassMap mCustomCompositionPasses;
 
         using TextureList = std::vector<TexturePtr>;
@@ -258,7 +258,7 @@ class Viewport;
         using TexturesByDef = std::map<TextureDef, TextureList>;
         TexturesByDef mTexturesByDef;
 
-        using StringPair = std::pair<String, String>;
+        using StringPair = std::pair<std::string_view, std::string_view>;
         using TextureDefMap = std::map<TextureDef, TexturePtr>;
         using ChainTexturesByDef = std::map<StringPair, TextureDefMap>;
         

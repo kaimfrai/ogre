@@ -90,7 +90,7 @@ namespace Ogre {
         DataStream(std::string_view name, uint16 accessMode = READ) 
             : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
-        auto getName() noexcept -> std::string_view { return mName; }
+        auto getName() noexcept -> std::string_view{ return mName; }
         /// Gets the access mode of the stream
         [[nodiscard]] auto getAccessMode() const noexcept -> uint16 { return mAccess; }
         /** Reports whether this stream is readable. */
@@ -151,14 +151,14 @@ namespace Ogre {
             trimAfter If true, the line is trimmed for whitespace (as in 
             String.trim(true,true))
         */
-        virtual auto getLine( bool trimAfter = true ) -> String;
+        virtual auto getLine( bool trimAfter = true ) -> std::string;
 
         /** Returns a String containing the entire stream. 
         @remarks
             This is a convenience method for text streams only, allowing you to 
             retrieve a String object containing all the data in the stream.
         */
-        virtual auto getAsString() -> String;
+        virtual auto getAsString() -> std::string;
 
         /** Skip a single line from the stream.
         @note

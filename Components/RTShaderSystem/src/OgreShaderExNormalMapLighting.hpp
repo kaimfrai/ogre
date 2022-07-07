@@ -114,7 +114,7 @@ public:
     /** 
     Return the normal map texture name.
     */
-    auto getNormalMapTextureName() const noexcept -> std::string_view { return mNormalMapTextureName; }
+    auto getNormalMapTextureName() const noexcept -> std::string_view{ return mNormalMapTextureName; }
 
     auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 

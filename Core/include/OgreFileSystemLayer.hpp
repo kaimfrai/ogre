@@ -28,6 +28,7 @@
 #ifndef OGRE_CORE_FILESYSTEMLAYER_H
 #define OGRE_CORE_FILESYSTEMLAYER_H
 
+#include <format>
 #include <string>
 #include <vector>
 
@@ -84,7 +85,7 @@ namespace Ogre
             // 2. in the config file search paths
             for (std::string_view cpath : mConfigPaths)
             {
-                path = cpath + filename;
+                path = ::std::format("{}{}", cpath, filename);
                 if (fileExists(path))
                     return path;
             }
@@ -108,9 +109,9 @@ namespace Ogre
          @param filename Name of the file.
          @return The full path to a writable location for the given filename.
          */
-        [[nodiscard]] auto getWritablePath(std::string_view filename) const -> Ogre::String
+        [[nodiscard]] auto getWritablePath(std::string_view filename) const -> std::string
         {
-            return mHomePath + filename;
+            return std::format("{}{}", mHomePath, filename);
         }
         
         void setConfigPaths(const Ogre::StringVector &paths){
@@ -127,7 +128,7 @@ namespace Ogre
          * @param path
          * @return path inside the bundle
          */
-        static auto resolveBundlePath(String path) -> String;
+        static auto resolveBundlePath(String path) -> std::string;
 
         /** Create a directory. */
         static auto createDirectory(std::string_view name) -> bool;

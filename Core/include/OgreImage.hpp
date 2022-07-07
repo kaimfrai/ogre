@@ -288,8 +288,8 @@ namespace Ogre {
         */
         auto loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream, const DataStreamPtr& alphaStream,
                                    PixelFormat format = PF_BYTE_RGBA,
-                                   std::string_view rgbType = BLANKSTRING,
-                                   std::string_view alphaType = BLANKSTRING) -> Image&;
+                                   std::string_view rgbType = "",
+                                   std::string_view alphaType = "") -> Image&;
 
         /** Utility method to combine 2 separate images into this one, with the first
             image source supplying the RGB channels, and the second image supplying the 

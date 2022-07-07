@@ -173,7 +173,7 @@ class Material;
         /** Internal compilation method; see Material::compile. 
         @return Any information explaining problems with the compile.
         */
-        auto _compile(bool autoManageTextureUnits) -> String;
+        auto _compile(bool autoManageTextureUnits) -> std::string;
         /// Internal method for checking hardware support
         auto checkHardwareSupport(bool autoManageTextureUnits, StringStream& compileErrors) -> bool;
         [[nodiscard]] auto calculateSize() const -> size_t;
@@ -230,7 +230,7 @@ class Material;
         auto operator=(const Technique& rhs) -> Technique&;
 
         /// Gets the resource group of the ultimate parent Material
-        [[nodiscard]] auto getResourceGroup() const noexcept -> std::string_view ;
+        [[nodiscard]] auto getResourceGroup() const noexcept -> std::string_view;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -599,7 +599,7 @@ class Material;
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view ;
+        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view;
         
         /// Internal method for getting the scheme index
         [[nodiscard]] auto _getSchemeIndex() const -> unsigned short;
@@ -620,7 +620,7 @@ class Material;
         */
         void setName(std::string_view name);
         /// Gets the name of the technique
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
 
         using GPUVendorRuleIterator = ConstVectorIterator<GPUVendorRuleList>;
         using GPUDeviceNameRuleIterator = ConstVectorIterator<GPUDeviceNameRuleList>;

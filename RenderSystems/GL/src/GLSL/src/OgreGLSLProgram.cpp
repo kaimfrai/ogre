@@ -136,7 +136,7 @@ class ResourceManager;
     class CmdInputOperationType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override
+        auto doGet(const void* target) const -> std::string override
         {
             const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
@@ -151,7 +151,7 @@ class ResourceManager;
     class CmdOutputOperationType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override
+        auto doGet(const void* target) const -> std::string override
         {
             const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
@@ -166,7 +166,7 @@ class ResourceManager;
     class CmdMaxOutputVertices : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override
+        auto doGet(const void* target) const -> std::string override
         {
             const auto* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());

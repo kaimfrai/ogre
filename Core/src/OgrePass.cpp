@@ -69,9 +69,8 @@ namespace Ogre {
 
             for (ushort i = 0; i < c; ++i)
             {
-                const TextureUnitState* tus = nullptr;
-                tus = p->getTextureUnitState(i);
-                hash = FastHash(tus->getTextureName().c_str(), tus->getTextureName().size(), hash);
+                const TextureUnitState* tus = p->getTextureUnitState(i);
+                hash = FastHash(tus->getTextureName().data(), tus->getTextureName().size(), hash);
             }
 
             return hash;
@@ -92,7 +91,7 @@ namespace Ogre {
             {
                 std::string_view name = p->getGpuProgramName(GpuProgramType(i));
                 if(!name.empty()) {
-                    hash = FastHash(name.c_str(), name.size(), hash);
+                    hash = FastHash(name.data(), name.size(), hash);
                 }
             }
 

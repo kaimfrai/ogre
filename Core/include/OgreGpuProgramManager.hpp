@@ -61,7 +61,7 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() = default;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] virtual auto getLanguage() const noexcept -> std::string_view = 0;
+        [[nodiscard]] virtual auto getLanguage() const noexcept -> std::string_view= 0;
         virtual auto create(ResourceManager* creator, std::string_view name, ResourceHandle handle,
                                    std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* = 0;
         virtual void destroy(GpuProgram* prog) { delete prog; }
@@ -82,7 +82,7 @@ namespace Ogre {
         using ResourceManager::load;
 
         /// Factories capable of creating GpuProgram instances
-        using FactoryMap = std::map<String, GpuProgramFactory *>;
+        using FactoryMap = std::map<std::string_view, GpuProgramFactory *>;
         FactoryMap mFactories;
 
         /// Factory for dealing with programs for languages we can't create
@@ -94,8 +94,8 @@ namespace Ogre {
 
     public:
 
-        using SyntaxCodes = std::set<String>;
-        using SharedParametersMap = std::map<String, GpuSharedParametersPtr>;
+        using SyntaxCodes = std::set<std::string_view>;
+        using SharedParametersMap = std::map<std::string_view, GpuSharedParametersPtr>;
 
         using Microcode = MemoryDataStreamPtr;
 
@@ -106,7 +106,7 @@ namespace Ogre {
         bool mSaveMicrocodesToCache;
         bool mCacheDirty;           // When this is true the cache is 'dirty' and should be resaved to disk.
             
-        static auto addRenderSystemToName( std::string_view name ) -> String;
+        static auto addRenderSystemToName( std::string_view name ) -> std::string;
 
         /// Generic create method
         auto createImpl(std::string_view name, ResourceHandle handle,

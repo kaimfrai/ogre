@@ -89,7 +89,7 @@ namespace Ogre {
         return memSize;
     }
     //-----------------------------------------------------------------------------
-    auto Technique::_compile(bool autoManageTextureUnits) -> String
+    auto Technique::_compile(bool autoManageTextureUnits) -> std::string
     {
         StringStream errors;
 
@@ -265,7 +265,7 @@ namespace Ogre {
         }
 
         // now check device names
-        includeRules.str(BLANKSTRING);
+        includeRules.str("");
         includeRulesPresent = false;
         includeRuleMatched = false;
 

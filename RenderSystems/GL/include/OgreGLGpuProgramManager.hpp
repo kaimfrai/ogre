@@ -36,7 +36,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, std::string_view , ResourceHandle, std::string_view , bool, ManualResourceLoader *, GpuProgramType, std::string_view );
+using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, std::string_view, ResourceHandle, std::string_view, bool, ManualResourceLoader *, GpuProgramType, std::string_view);
 
 struct CreateCallbackWrapper : public GpuProgramFactory
 {

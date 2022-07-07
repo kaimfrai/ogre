@@ -307,7 +307,7 @@ class ResourceManager;
 
         /** Gets resource name.
         */
-        auto getName() const noexcept -> std::string_view { return mName; }
+        auto getName() const noexcept -> std::string_view{ return mName; }
 
         auto getHandle() const noexcept -> ResourceHandle { return mHandle; }
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        auto getGroup() const noexcept -> std::string_view { return mGroup; }
+        auto getGroup() const noexcept -> std::string_view{ return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -406,7 +406,7 @@ class ResourceManager;
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> std::string_view { return mOrigin; }
+        auto getOrigin() const noexcept -> std::string_view{ return mOrigin; }
         /// Notify this resource of it's origin
         void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
 

@@ -93,8 +93,11 @@ namespace Ogre
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Queue is empty !", "MaterialSerializer::exportQueued");
 
         LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LML_NORMAL);
-        FILE *fp;
-        fp = fopen(fileName.c_str(), "w");
+
+        if (*fileName.end() != '\0')
+            std::unreachable();
+
+        FILE *fp = fopen(fileName.data(), "w");
         if (!fp)
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create material file.",
             "MaterialSerializer::export");
@@ -113,8 +116,10 @@ namespace Ogre
         // were not included in material script
         if (!includeProgDef && !mGpuProgramBuffer.empty() && !programFilename.empty())
         {
-            FILE *locFp;
-            locFp = fopen(programFilename.c_str(), "w");
+            if (*programFilename.end() != '\0')
+                std::unreachable();
+
+            FILE *locFp = fopen(programFilename.data(), "w");
             if (!locFp)
                 OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create program material file.",
                 "MaterialSerializer::export");
@@ -817,7 +822,7 @@ namespace Ogre
         LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
+    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> std::string_view
     {
         switch (fo)
         {
@@ -834,7 +839,7 @@ namespace Ogre
         return "point";
     }
     //-----------------------------------------------------------------------
-    static auto convertTexAddressMode(TextureAddressingMode tam) -> String
+    static auto convertTexAddressMode(TextureAddressingMode tam) -> std::string_view
     {
         switch (tam)
         {
@@ -1653,7 +1658,7 @@ namespace Ogre
 
         if (!defaultParams || different)
         {
-            String label = commandName;
+            std::string label{ commandName };
 
             // is it auto
             if (autoEntry)
@@ -1777,7 +1782,7 @@ namespace Ogre
             // write program name
             writeValue( quoteWord(program->getName()), false);
             // write program language
-            const String language = program->getLanguage();
+            auto const language = program->getLanguage();
             writeValue( language, false );
             // write opening braces
             beginSection(0, false);
@@ -1793,18 +1798,18 @@ namespace Ogre
                         name != "micro_code" &&
                         name != "external_micro_code")
                     {
-                        String paramstr = program->getParameter(name);
+                        auto paramstr = program->getParameter(name);
                         if ((name == "includes_skeletal_animation") && (paramstr == "false"))
-                            paramstr.clear();
+                            paramstr = "";
                         if ((name == "includes_morph_animation") && (paramstr == "false"))
-                            paramstr.clear();
+                            paramstr = "";
                         if ((name == "includes_pose_animation") && (paramstr == "0"))
-                            paramstr.clear();
+                            paramstr = "";
                         if ((name == "uses_vertex_texture_fetch") && (paramstr == "false"))
-                            paramstr.clear();
+                            paramstr = "";
 
                         if ((language != "asm") && (name == "syntax"))
-                            paramstr.clear();
+                            paramstr = "";
 
                         if (!paramstr.empty())
                         {

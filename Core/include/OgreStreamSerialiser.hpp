@@ -203,7 +203,7 @@ class Sphere;
         @param msg Descriptive text added to the log if versions are not compatible
         @return The chunk if it passes the validation.
         */
-        virtual auto readChunkBegin(uint32 id, uint16 maxVersion, std::string_view msg = BLANKSTRING) -> const Chunk*;
+        virtual auto readChunkBegin(uint32 id, uint16 maxVersion, std::string_view msg = "") -> const Chunk*;
 
         /** Call this to 'rewind' the stream to just before the start of the current
             chunk. 

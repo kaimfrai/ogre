@@ -50,7 +50,7 @@ namespace Ogre {
         return *this;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::getLine(bool trimAfter) -> String
+    auto DataStream::getLine(bool trimAfter) -> std::string
     {
         char tmpBuf[OGRE_STREAM_TEMP_SIZE];
         String retString;
@@ -111,7 +111,7 @@ namespace Ogre {
             tmpBuf[readCount] = '\0';
 
             // Find first delimiter
-            size_t pos = strcspn(tmpBuf, delim.c_str());
+            size_t pos = std::string_view{tmpBuf}.find_first_not_of(delim);
 
             if (pos < readCount)
             {
@@ -161,7 +161,7 @@ namespace Ogre {
             tmpBuf[readCount] = '\0';
 
             // Find first delimiter
-            size_t pos = strcspn(tmpBuf, delim.c_str());
+            size_t pos = std::string_view{tmpBuf}.find_first_not_of(delim);
 
             if (pos < readCount)
             {
@@ -180,7 +180,7 @@ namespace Ogre {
         return total;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::getAsString() -> String
+    auto DataStream::getAsString() -> std::string
     {
         // Read the entire buffer - ideally in one read, but if the size of
         // the buffer is unknown, do multiple fixed size reads.

@@ -55,7 +55,7 @@ namespace Ogre {
     private:
         String mName;
         /// Gets the last loading error
-        auto dynlibError() -> String;
+        auto dynlibError() -> std::string_view;
     public:
         /** Default constructor - used by DynLibManager.
             @warning
@@ -74,7 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
 
         /**
             Returns the address of the given symbol from the loaded library.

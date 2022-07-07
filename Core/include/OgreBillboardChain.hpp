@@ -272,7 +272,7 @@ class VertexData;
         void setFaceCamera( bool faceCamera, const Vector3 &normalVector=Vector3::UNIT_X );
 
         /// Get the material name in use
-        virtual auto getMaterialName() const noexcept -> std::string_view { return mMaterial->getName(); }
+        virtual auto getMaterialName() const noexcept -> std::string_view{ return mMaterial->getName(); }
         /// Set the material name to use for rendering
         virtual void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 

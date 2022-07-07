@@ -118,7 +118,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, std::string_view name) -> String
+    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, std::string_view name) -> std::string
     {
         using namespace std;
         
@@ -143,7 +143,7 @@ namespace Ogre
         // parser operating data
         String line;
         ParseAction parseAction = PARSE_HEADER;
-        StringVector tokens;
+        std::vector<std::string_view> tokens;
         bool parsedAtLeastOneRSC = false;
 
         // collect capabilities lines (i.e. everything that is not header, "{", "}",
@@ -392,15 +392,13 @@ namespace Ogre
 
     void RenderSystemCapabilitiesSerializer::parseCapabilitiesLines(CapabilitiesLinesList& lines)
     {
-        StringVector tokens;
-
         for (auto & [key, number] : lines)
         {
             // restore the current line information for debugging
             mCurrentLine = &key;
             mCurrentLineNumber = number;
 
-            tokens = StringUtil::split(key);
+            auto const tokens = StringUtil::split(key);
             // check for incomplete lines
             if(tokens.size() < 2)
             {
@@ -410,13 +408,13 @@ namespace Ogre
 
             // the first token must the the keyword identifying the capability
             // the remaining tokens are the parameters
-            String keyword = tokens[0];
-            String everythingElse = "";
+            auto const keyword = tokens[0];
+            std::string everythingElse = "";
             for(unsigned int i = 1; i < tokens.size() - 1; i ++)
             {
                everythingElse = ::std::format("{}{} ", everythingElse , tokens[i]);
             }
-            everythingElse = everythingElse + tokens[tokens.size() - 1];
+            everythingElse = ::std::format("{}{}", everythingElse, tokens[tokens.size() - 1]);
 
             CapabilityKeywordType keywordType = getKeywordType(keyword);
 

@@ -246,7 +246,7 @@ class Technique;
         /** Retrieves the number of supported techniques. */
         auto getNumSupportedTechniques() const -> size_t { return mSupportedTechniques.size(); }
         /** Gets a string explaining why any techniques are not supported. */
-        auto getUnsupportedTechniquesExplanation() const noexcept -> std::string_view { return mUnsupportedReasons; }
+        auto getUnsupportedTechniquesExplanation() const noexcept -> std::string_view{ return mUnsupportedReasons; }
 
         /** Gets the best supported technique. 
         @remarks
@@ -273,7 +273,7 @@ class Technique;
             if you leave this blank, the clone will be assigned to the same
             group as this Material.
         */
-        auto clone(std::string_view newName, std::string_view newGroup = BLANKSTRING) const -> MaterialPtr;
+        auto clone(std::string_view newName, std::string_view newGroup = "") const -> MaterialPtr;
 
         // needed because of deprecated variant below
         auto clone(std::string_view newName, const char* newGroup) const -> MaterialPtr { return clone(newName, String(newGroup)); }

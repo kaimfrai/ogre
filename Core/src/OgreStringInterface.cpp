@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    auto StringInterface::getParameters() const noexcept -> const ParameterList&
+    auto StringInterface::getParameters() const noexcept -> std::span<std::string_view const>
     {
         static ParameterList emptyList;
 
@@ -104,7 +104,7 @@ namespace Ogre {
 
     }
 
-    auto StringInterface::getParameter(std::string_view name) const -> String
+    auto StringInterface::getParameter(std::string_view name) const -> std::string
     {
         // Get dictionary
         const ParamDictionary* dict = getParamDictionary();

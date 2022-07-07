@@ -253,10 +253,10 @@ public:
     void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const override;
 
     /** Return the function name */
-    [[nodiscard]] auto getFunctionName() const noexcept -> std::string_view { return mFunctionName; }
+    [[nodiscard]] auto getFunctionName() const noexcept -> std::string_view{ return mFunctionName; }
 
     /** Return the return type */
-    [[nodiscard]] auto getReturnType() const noexcept -> std::string_view { return mReturnType; }
+    [[nodiscard]] auto getReturnType() const noexcept -> std::string_view{ return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
     [[nodiscard]] auto operator == ( const FunctionInvocation& rhs ) const noexcept -> bool

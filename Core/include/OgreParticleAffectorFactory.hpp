@@ -59,7 +59,7 @@ namespace Ogre {
         ParticleAffectorFactory() = default;
         virtual ~ParticleAffectorFactory();
         /** Returns the name of the factory, the name which identifies the particle affector type this factory creates. */
-        [[nodiscard]] virtual auto getName() const -> String = 0;
+        [[nodiscard]] virtual auto getName() const -> std::string_view = 0;
 
         /** Creates a new affector instance.
         @remarks

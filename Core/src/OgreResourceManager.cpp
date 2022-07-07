@@ -75,7 +75,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto 
     ResourceManager::createOrRetrieve(
-        std::string_view name, std::string_view group,
+        std::string_view name, std::string_view group, 
         bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* params) -> ResourceManager::ResourceCreateOrRetrieveResult
     {
@@ -90,8 +90,8 @@ namespace Ogre {
         return { res, created };
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::prepare(std::string_view name,
-        std::string_view group, bool isManual, ManualResourceLoader* loader,
+    auto ResourceManager::prepare(std::string_view name, 
+        std::string_view group, bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -100,8 +100,8 @@ namespace Ogre {
         return r;
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::load(std::string_view name,
-        std::string_view group, bool isManual, ManualResourceLoader* loader,
+    auto ResourceManager::load(std::string_view name, 
+        std::string_view group, bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -222,7 +222,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to unload unknown resource: {} in group ", name ) + group);
+                        ::std::format("attempting to unload unknown resource: {} in group {}", name , group));
 
         if (res)
         {
@@ -291,7 +291,7 @@ namespace Ogre {
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to remove unknown resource: {} in group ", name ) + group);
+                        ::std::format("attempting to remove unknown resource: {} in group {}", name, group));
 
         if (res)
         {

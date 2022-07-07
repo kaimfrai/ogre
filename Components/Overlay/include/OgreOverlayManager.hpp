@@ -66,12 +66,12 @@ namespace Ogre {
     class OverlayManager : public Singleton<OverlayManager>, public ScriptLoader, public OverlayAlloc
     {
     public:
-        using OverlayMap = std::map<String, Overlay *>;
-        using ElementMap = std::map<String, OverlayElement *>;
-        using FactoryMap = std::map<String, ::std::unique_ptr<OverlayElementFactory>>;
+        using OverlayMap = std::map<std::string_view, Overlay *>;
+        using ElementMap = std::map<std::string_view, OverlayElement *>;
+        using FactoryMap = std::map<std::string_view, ::std::unique_ptr<OverlayElementFactory>>;
     private:
         OverlayMap mOverlayMap;
-        StringVector mScriptPatterns;
+        std::vector<std::string_view> mScriptPatterns;
 
         int mLastViewportWidth{0}, mLastViewportHeight{0};
         OrientationMode mLastViewportOrientationMode{OR_DEGREE_0};
@@ -99,7 +99,7 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> std::span<std::string_view const> override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder

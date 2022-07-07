@@ -293,7 +293,7 @@ namespace Ogre {
         */
         void setName(std::string_view name) { mName = name; }
         /// Get the name of the pass
-        auto getName() const noexcept -> std::string_view { return mName; }
+        auto getName() const noexcept -> std::string_view{ return mName; }
 
         /// @name Surface properties
         /// @{
@@ -1166,7 +1166,7 @@ namespace Ogre {
         auto getParent() const noexcept -> Technique* { return mParent; }
 
         /// Gets the resource group of the ultimate parent Material
-        auto getResourceGroup() const noexcept -> std::string_view ;
+        auto getResourceGroup() const noexcept -> std::string_view;
 
         /// @name Gpu Programs
         /// @{
@@ -1239,19 +1239,19 @@ namespace Ogre {
         void setComputeProgram(std::string_view name, bool resetParams = true);
 
         /** Gets the name of the program used by this pass. */
-        auto getGpuProgramName(GpuProgramType type) const -> std::string_view ;
+        auto getGpuProgramName(GpuProgramType type) const -> std::string_view;
         /// @overload
-        auto getFragmentProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_FRAGMENT_PROGRAM); }
+        auto getFragmentProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_FRAGMENT_PROGRAM); }
         /// @overload
-        auto getGeometryProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_GEOMETRY_PROGRAM); }
+        auto getGeometryProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_GEOMETRY_PROGRAM); }
         /// @overload
-        auto getTessellationDomainProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_DOMAIN_PROGRAM); }
+        auto getTessellationDomainProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_DOMAIN_PROGRAM); }
         /// @overload
-        auto getTessellationHullProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_HULL_PROGRAM); }
+        auto getTessellationHullProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_HULL_PROGRAM); }
         /// @overload
-        auto getVertexProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_VERTEX_PROGRAM); }
+        auto getVertexProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_VERTEX_PROGRAM); }
         /// @overload
-        auto getComputeProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_COMPUTE_PROGRAM); }
+        auto getComputeProgramName() const noexcept -> std::string_view{ return getGpuProgramName(GPT_COMPUTE_PROGRAM); }
 
         /** Sets the Gpu program parameters.
             @remarks

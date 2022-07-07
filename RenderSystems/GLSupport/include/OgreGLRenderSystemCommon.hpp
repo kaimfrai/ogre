@@ -63,7 +63,7 @@ namespace Ogre {
         ::std::unique_ptr<GLNativeSupport> mGLSupport;
 
         // This contains the complete list of supported extensions
-        std::set<String> mExtensionList;
+        std::set<std::string_view> mExtensionList;
         GPUVendor mVendor;
 
         /** Manager object for creating render textures.

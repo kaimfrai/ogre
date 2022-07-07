@@ -118,7 +118,7 @@ class Material;
         /// Returns a new AbstractNode which is a replica of this one.
         [[nodiscard]] virtual auto clone() const -> AbstractNode * = 0;
         /// Returns a string value depending on the type of the AbstractNode.
-        [[nodiscard]] virtual auto getValue() const noexcept -> std::string_view = 0;
+        [[nodiscard]] virtual auto getValue() const noexcept -> std::string_view= 0;
     };
 
     /** This is an abstract node which cannot be broken down further */
@@ -137,7 +137,7 @@ class Material;
     class ObjectAbstractNode : public AbstractNode
     {
     private:
-        std::map<String,String> mEnv;
+        std::map<std::string_view,String> mEnv;
     public:
         String name, cls;
         std::vector<String> bases;
@@ -154,7 +154,7 @@ class Material;
         void addVariable(std::string_view name);
         void setVariable(std::string_view name, std::string_view value);
         [[nodiscard]] auto getVariable(std::string_view name) const -> std::pair<bool,String>;
-        [[nodiscard]] auto getVariables() const -> const std::map<String,String> &;
+        [[nodiscard]] auto getVariables() const -> const std::map<std::string_view,String> &;
     };
 
     /** This abstract node represents a script property */
@@ -202,8 +202,8 @@ class Material;
     class ScriptCompiler : public ScriptCompilerAlloc
     {
     public: // Externally accessible types
-        //typedef std::map<String,uint32> IdMap;
-        using IdMap = std::unordered_map<String, uint32>;
+        //typedef std::map<std::string_view,uint32> IdMap;
+        using IdMap = std::unordered_map<std::string_view, uint32>;
 
         // These are the built-in error codes
         enum{
@@ -221,7 +221,7 @@ class Material;
             CE_REFERENCETOANONEXISTINGOBJECT,
             CE_DEPRECATEDSYMBOL
         };
-        static auto formatErrorCode(uint32 code) -> String;
+        static auto formatErrorCode(uint32 code) -> std::string_view;
     public:
         ScriptCompiler();
         virtual ~ScriptCompiler() = default;
@@ -242,7 +242,7 @@ class Material;
         /// Returns the currently set listener
         auto getListener() -> ScriptCompilerListener *;
         /// Returns the resource group currently set for this compiler
-        [[nodiscard]] auto getResourceGroup() const -> std::string_view ;
+        [[nodiscard]] auto getResourceGroup() const -> std::string_view;
         /// Adds a name exclusion to the map
         /**
          * Name exclusions identify object types which cannot accept
@@ -287,7 +287,7 @@ class Material;
         /// This function sets up the initial values in word id map
         void initWordMap();
     private:
-        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String;
+        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view;
         // Resource group
         String mGroup;
         // The word -> id conversion table
@@ -297,12 +297,12 @@ class Material;
 		uint32 mLargestRegisteredWordId;
 
         // This is an environment map
-        using Environment = std::map<String, String>;
+        using Environment = std::map<std::string_view, String>;
         Environment mEnv;
 
-        using ImportCacheMap = std::map<String, AbstractNodeListPtr>;
+        using ImportCacheMap = std::map<std::string_view, AbstractNodeListPtr>;
         ImportCacheMap mImports; // The set of imported scripts to avoid circular dependencies
-        using ImportRequestMap = std::multimap<String, String>;
+        using ImportRequestMap = std::multimap<std::string_view, String>;
         ImportRequestMap mImportRequests; // This holds the target objects for each script to be imported
 
         // This stores the imports of the scripts, so they are separated and can be treated specially
@@ -312,7 +312,7 @@ class Material;
         // The container for errors
         struct Error
         {
-            String file, message;
+            std::string_view file, message;
             int line;
             uint32 code;
         };
@@ -410,7 +410,7 @@ class Material;
     {
     private:
         // A list of patterns loaded by this compiler manager
-        StringVector mScriptPatterns;
+        std::vector<std::string_view> mScriptPatterns;
 
         // Stores a map from object types to the translators that handle them
         std::vector<ScriptTranslatorManager*> mManagers;
@@ -454,7 +454,7 @@ class Material;
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
         void addScriptPattern(std::string_view pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> std::span<std::string_view const> override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder

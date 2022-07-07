@@ -427,7 +427,7 @@ class ResourceManager;
 
     protected:
         /// Storage of animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        using AnimationList = std::map<std::string_view, Animation *>;
         AnimationList mAnimationsList;
     private:
         /// Lookup by bone name

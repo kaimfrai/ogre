@@ -126,7 +126,7 @@ namespace Ogre
         /** Gets the program being used. */
         [[nodiscard]] auto getProgram() const noexcept -> const GpuProgramPtr& { return mProgram; }
         /** Gets the program being used. */
-        [[nodiscard]] auto getProgramName() const noexcept -> std::string_view { return mProgram->getName(); }
+        [[nodiscard]] auto getProgramName() const noexcept -> std::string_view{ return mProgram->getName(); }
 
         /** Sets the program parameters that should be used; because parameters can be
             shared between multiple usages for efficiency, this method is here for you

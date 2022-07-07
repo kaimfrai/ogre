@@ -450,9 +450,9 @@ namespace Ogre {
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
 
-        using CameraList = std::map<String, Camera *>;
-        using AnimationList = std::map<String, Animation *>;
-        using MovableObjectMap = std::map<String, MovableObject *>;
+        using CameraList = std::map<std::string_view, Camera *>;
+        using AnimationList = std::map<std::string_view, Animation *>;
+        using MovableObjectMap = std::map<std::string_view, MovableObject *>;
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.
@@ -473,12 +473,12 @@ namespace Ogre {
         */
         CameraList mCameras;
 
-        using StaticGeometryList = std::map<String, StaticGeometry *>;
+        using StaticGeometryList = std::map<std::string_view, StaticGeometry *>;
         StaticGeometryList mStaticGeometryList;
-        using InstancedGeometryList = std::map<String, InstancedGeometry *>;
+        using InstancedGeometryList = std::map<std::string_view, InstancedGeometry *>;
         InstancedGeometryList mInstancedGeometryList;
 
-        using InstanceManagerMap = std::map<String, InstanceManager *>;
+        using InstanceManagerMap = std::map<std::string_view, InstanceManager *>;
         InstanceManagerMap  mInstanceManagerMap;
 
         using SceneNodeList = std::vector<SceneNode *>;
@@ -637,7 +637,7 @@ namespace Ogre {
         {
                     MovableObjectMap map;
         };
-        using MovableObjectCollectionMap = std::map<String, ::std::unique_ptr<MovableObjectCollection>>;
+        using MovableObjectCollectionMap = std::map<std::string_view, ::std::unique_ptr<MovableObjectCollection>>;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
         NameGenerator mMovableNameGenerator;
         /** Gets the movable object collection for the given type name.
@@ -1124,7 +1124,7 @@ namespace Ogre {
         virtual ~SceneManager();
 
         /** Return the instance name of this SceneManager. */
-        auto getName() const noexcept -> std::string_view { return mName; }
+        auto getName() const noexcept -> std::string_view{ return mName; }
 
         /** Retrieve the type name of this scene manager.
         @remarks
@@ -1132,7 +1132,7 @@ namespace Ogre {
             return the type name of this SceneManager which agrees with 
             the type name of the SceneManagerFactory which created it.
         */
-        virtual auto getTypeName() const noexcept -> std::string_view = 0;
+        virtual auto getTypeName() const noexcept -> std::string_view= 0;
 
         using CameraIterator = MapIterator<CameraList>;
         /// @name Cameras
@@ -1697,7 +1697,7 @@ namespace Ogre {
                 supports one type of world geometry.
         */
         virtual void setWorldGeometry(DataStreamPtr& stream, 
-            std::string_view typeName = BLANKSTRING);
+            std::string_view typeName = "");
 
         /** Estimate the number of loading stages required to load the named
             world geometry. 
@@ -1721,7 +1721,7 @@ namespace Ogre {
             supports one type of world geometry.
         */      
         virtual auto estimateWorldGeometry(DataStreamPtr& stream, 
-            std::string_view typeName = BLANKSTRING) -> size_t
+            std::string_view typeName = "") -> size_t
         { (void)stream; (void)typeName; return 0; }
         /// @}
 

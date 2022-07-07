@@ -744,10 +744,8 @@ namespace Ogre {
     {
         for (auto const& [key, su] : mScriptLoaderOrderMap)
         {
-            const StringVector& patterns = su->getScriptPatterns();
-
             // Search for matches in the patterns
-            for (const auto & p : patterns)
+            for (const auto & p : su->getScriptPatterns())
             {
                 if(p == pattern)
                     return su;
@@ -774,8 +772,7 @@ namespace Ogre {
             scriptLoaderFileList.push_back(LoaderFileListPair(su, FileInfoList()));
 
             // Get all the patterns and search them
-            const StringVector& patterns = su->getScriptPatterns();
-            for (const auto & pattern : patterns)
+            for (const auto & pattern : su->getScriptPatterns())
             {
                 FileInfoListPtr fileList = findResourceFileInfo(grp->name, pattern);
                 FileInfoList& lst = scriptLoaderFileList.back().second;
@@ -1006,8 +1003,8 @@ namespace Ogre {
         if (i == mResourceManagerMap.end())
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot locate resource manager for resource type '" +
-                resourceType + "'", "ResourceGroupManager::_getResourceManager");
+                std::format("Cannot locate resource manager for resource type '{}'",
+                resourceType), "ResourceGroupManager::_getResourceManager");
         }
         return i->second;
 
@@ -1331,47 +1328,8 @@ namespace Ogre {
             return grp->name;
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            "Unable to derive resource group for " +
-            filename + " automatically since the resource was not "
-            "found.",
+            std::format("Unable to derive resource group for {} automatically since the resource was not found.", filename),
             "ResourceGroupManager::findGroupContainingResource");
-    }
-    //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceLocations(std::string_view groupName) const -> StringVectorPtr
-    {
-        StringVectorPtr vec(new StringVector());
-
-        // Try to find in resource index first
-        ResourceGroup* grp = getResourceGroup(groupName, true);
-
-        // Iterate over the archives
-        for (auto & i : grp->locationList)
-        {
-            vec->push_back(i.archive->getName());
-        }
-
-        return vec;
-    }
-    //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceLocation(std::string_view groupName, std::string_view pattern) const -> StringVectorPtr
-    {
-        StringVectorPtr vec(new StringVector());
-
-        // Try to find in resource index first
-        ResourceGroup* grp = getResourceGroup(groupName, true);
-
-        // Iterate over the archives
-        for (auto & i : grp->locationList)
-        {
-            String location = i.archive->getName();
-            // Search for the pattern
-            if(StringUtil::match(location, pattern))
-            {
-                vec->push_back(location);
-            }
-        }
-
-        return vec;
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::setCustomStagesForResourceGroup(std::string_view group, uint32 stageCount)

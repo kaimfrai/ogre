@@ -105,7 +105,7 @@ namespace Ogre {
         /** Gets the ParticleRenderer to be used to render this particle system. */
         auto getRenderer() const noexcept -> ParticleSystemRenderer*;
         /** Gets the name of the ParticleRenderer to be used to render this particle system. */
-        auto getRendererName() const noexcept -> std::string_view ;
+        auto getRendererName() const noexcept -> std::string_view;
 
         /** Adds an emitter to this particle system.
         @remarks
@@ -298,7 +298,7 @@ namespace Ogre {
         /** Sets the name of the material to be used for this billboard set.
             @return The name of the material that is used for this set.
         */
-        virtual auto getMaterialName() const noexcept -> std::string_view ;
+        virtual auto getMaterialName() const noexcept -> std::string_view;
 
         void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
@@ -442,14 +442,14 @@ namespace Ogre {
         */
         virtual void setCullIndividually(bool cullIndividual);
         /// Return the resource group to be used to load dependent resources
-        virtual auto getResourceGroupName() const noexcept -> std::string_view { return mResourceGroupName; }
+        virtual auto getResourceGroupName() const noexcept -> std::string_view{ return mResourceGroupName; }
         /** Get the origin of this particle system, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this particle system chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> std::string_view { return mOrigin; }
+        auto getOrigin() const noexcept -> std::string_view{ return mOrigin; }
         /// Notify this particle system of it's origin
         void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
 
@@ -644,7 +644,7 @@ namespace Ogre {
         using ActiveEmittedEmitterList = std::list<ParticleEmitter *>;
         using EmittedEmitterList = std::vector<ParticleEmitter *>;
         using FreeEmittedEmitterMap = std::map<std::string_view, FreeEmittedEmitterList>;
-        using EmittedEmitterPool = std::map<String, EmittedEmitterList>;
+        using EmittedEmitterPool = std::map<std::string_view, EmittedEmitterList>;
 
         /** Pool of emitted emitters for use and reuse in the active emitted emitter list.
         @remarks

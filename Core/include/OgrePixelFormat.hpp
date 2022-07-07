@@ -533,7 +533,7 @@ namespace Ogre {
 
         /** Gets the name of an image format
         */
-        static auto getFormatName(PixelFormat srcformat) -> std::string_view ;
+        static auto getFormatName(PixelFormat srcformat) -> std::string_view;
 
         /** Returns whether the format can be packed or unpacked with the packColour()
         and unpackColour() functions. This is generally not true for compressed
@@ -650,7 +650,7 @@ namespace Ogre {
         static void bulkPixelVerticalFlip(const PixelBox &box);
     };
 
-    inline auto to_string(PixelFormat v) -> std::string_view { return PixelUtil::getFormatName(v); }
+    inline auto to_string(PixelFormat v) -> std::string_view{ return PixelUtil::getFormatName(v); }
     /** @} */
     /** @} */
 

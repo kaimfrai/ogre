@@ -454,7 +454,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    auto RenderTarget::writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> String
+    auto RenderTarget::writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> std::string
     {
         struct tm *pTime;
         time_t ctTime; time(&ctTime);

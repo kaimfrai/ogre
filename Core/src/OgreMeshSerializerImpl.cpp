@@ -967,7 +967,7 @@ namespace Ogre {
         SubMesh* sm = pMesh->createSubMesh();
 
         // char* materialName
-        String materialName = readString(stream);
+        String materialName{ readString(stream) };
         if(listener)
             listener->processMaterialName(pMesh, &materialName);
         if (auto material = MaterialManager::getSingleton().getByName(materialName, pMesh->getGroup()))
@@ -1069,8 +1069,8 @@ namespace Ogre {
             }
 
             if (seenTexAlias)
-                LogManager::getSingleton().logWarning("texture aliases for SubMeshes are deprecated - " +
-                                                      stream->getName());
+                LogManager::getSingleton().logWarning(std::format("texture aliases for SubMeshes are deprecated - {}",
+                                                      stream->getName()));
 
             if (!stream->eof())
             {
@@ -1094,8 +1094,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void MeshSerializerImpl::readSubMeshTextureAlias(const DataStreamPtr& stream, Mesh* pMesh, SubMesh* sub)
     {
-        String aliasName = readString(stream);
-        String textureName = readString(stream);
+        auto const aliasName = readString(stream);
+        auto const textureName = readString(stream);
         sub->addTextureAlias(aliasName, textureName);
     }
     //---------------------------------------------------------------------
@@ -2608,12 +2608,12 @@ namespace Ogre {
     MeshSerializerImpl_v1_8::~MeshSerializerImpl_v1_8()
     = default;
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName) -> String
+    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(std::string_view strategyName) -> std::string_view
     {
         if(strategyName == "distance_box" || strategyName == "distance_sphere")
-            strategyName = "Distance";
+            return "Distance";
         else if(strategyName == "pixel_count" || strategyName == "screen_ratio_pixel_count")
-            strategyName = "PixelCount";
+            return "PixelCount";
         return strategyName;
     }
     //--------------------------------------------------------------------

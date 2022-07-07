@@ -54,19 +54,19 @@ namespace Ogre {
         loadDirect(filename, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::load(std::string_view filename, std::string_view resourceGroup, 
+    void ConfigFile::load(std::string_view filename, std::string_view resourceGroup,
         std::string_view separators, bool trimWhitespace)
     {
         loadFromResourceSystem(filename, resourceGroup, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::loadDirect(std::string_view filename, std::string_view separators, 
+    void ConfigFile::loadDirect(std::string_view filename, std::string_view separators,
         bool trimWhitespace)
     {
         load(_openFileStream(filename, std::ios::in | std::ios::binary), separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::loadFromResourceSystem(std::string_view filename, 
+    void ConfigFile::loadFromResourceSystem(std::string_view filename,
         std::string_view resourceGroup, std::string_view separators, bool trimWhitespace)
     {
         DataStreamPtr stream = 
@@ -74,13 +74,13 @@ namespace Ogre {
         load(stream, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::load(const DataStreamPtr& stream, std::string_view separators, 
+    void ConfigFile::load(const DataStreamPtr& stream, std::string_view separators,
         bool trimWhitespace)
     {
         /* Clear current settings map */
         clear();
 
-        String currentSection = BLANKSTRING;
+        String currentSection{BLANKSTRING};
         SettingsMultiMap* currentSettings = &mSettings[currentSection];
         mSettingsPtr[currentSection] = currentSettings;
 
@@ -124,7 +124,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSetting(std::string_view key, std::string_view section, std::string_view defaultValue) const -> String
+    auto ConfigFile::getSetting(std::string_view key, std::string_view section, std::string_view defaultValue) const -> std::string_view
     {
         
         auto seci = mSettings.find(section);

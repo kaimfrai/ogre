@@ -141,7 +141,7 @@ namespace Ogre
         return std::make_pair(false, "");
     }
 
-    auto ObjectAbstractNode::getVariables() const -> const std::map<String,String> &
+    auto ObjectAbstractNode::getVariables() const -> const std::map<std::string_view,String> &
     {
         return mEnv;
     }
@@ -243,7 +243,7 @@ namespace Ogre
     }
 
     // ScriptCompiler
-    auto ScriptCompiler::formatErrorCode(uint32 code) -> String
+    auto ScriptCompiler::formatErrorCode(uint32 code) -> std::string_view
     {
         switch(code)
         {
@@ -1543,7 +1543,7 @@ namespace Ogre
         mScriptPatterns.push_back(pattern);
     }
     //-----------------------------------------------------------------------
-    auto ScriptCompilerManager::getScriptPatterns() const noexcept -> const StringVector&
+    auto ScriptCompilerManager::getScriptPatterns() const noexcept -> std::span<std::string_view const>
     {
         return mScriptPatterns;
     }

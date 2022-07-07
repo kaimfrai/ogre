@@ -43,7 +43,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
-        [[nodiscard]] auto getDescription() const -> String;
+        [[nodiscard]] auto getDescription() const -> std::string;
     };
     using VideoModes = std::vector<VideoMode>;
 
@@ -53,7 +53,7 @@ namespace Ogre
     class GLNativeSupport
     {
         public:
-            using ExtensionList = std::set<String>;
+            using ExtensionList = std::set<std::string_view>;
 
             enum ContextProfile {
                 CONTEXT_CORE = 1,

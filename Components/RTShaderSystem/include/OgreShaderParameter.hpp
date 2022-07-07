@@ -343,7 +343,7 @@ public:
     virtual ~Parameter() = default;;
 
     /** Get the name of this parameter. */
-    [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+    [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
 
     /// internal function for aliasing to GLSL builtins e.g. gl_Position
     void _rename(std::string_view newName, bool onlyLocal = false)
@@ -369,7 +369,7 @@ public:
     [[nodiscard]] virtual auto isConstParameter() const noexcept -> bool { return false; }
 
     /** Returns the string representation of this parameter. */
-    [[nodiscard]] virtual auto toString() const noexcept -> String { return mName; }
+    [[nodiscard]] virtual auto toString() const noexcept -> std::string { return mName; }
     
     /** Returns Whether this parameter is an array. */
     [[nodiscard]] auto isArray() const noexcept -> bool { return mSize > 0; }
@@ -659,7 +659,7 @@ public:
     /** 
     @see Parameter::toString.
     */
-    [[nodiscard]] auto toString() const noexcept -> String override = 0;
+    [[nodiscard]] auto toString() const noexcept -> std::string override = 0;
 
 protected:
     valueType mValue;

@@ -202,7 +202,7 @@ namespace Ogre {
         }
     }
 
-    void GLSLProgramManagerCommon::parseGLSLUniform(String line, GpuNamedConstants& defs,
+    void GLSLProgramManagerCommon::parseGLSLUniform(std::string_view line, GpuNamedConstants& defs,
                                                     std::string_view filename)
     {
         GpuConstantDefinition def;
@@ -213,13 +213,15 @@ namespace Ogre {
         // places (e.g. "vec3 something [3]" won't work).
         //FIXME What are valid ways of including spaces in GLSL
         // variable declarations?  May need regex.
-        for (String::size_type sqp = line.find (" ["); sqp != String::npos;
-             sqp = line.find (" ["))
-            line.erase (sqp, 1);
+        std::string tempLine{line};
+        for (String::size_type sqp = tempLine.find (" ["); sqp != String::npos;
+             sqp = tempLine.find (" ["))
+            tempLine.erase (sqp, 1);
+        line = tempLine;
         // Split into tokens
-        StringVector parts = StringUtil::split(line, ", \t\r\n");
+        auto const parts = StringUtil::split(line, ", \t\r\n");
 
-        for (auto & part : parts)
+        for (std::string_view part : parts)
         {
             // Is this a type?
             auto typei = mTypeEnumMap.find(part);
@@ -245,7 +247,7 @@ namespace Ogre {
                 if (arrayStart != String::npos)
                 {
                     // potential name (if butted up to array)
-                    String name = part.substr(0, arrayStart);
+                    auto name = part.substr(0, arrayStart);
                     StringUtil::trim(name);
                     if (!name.empty())
                         paramName = name;
@@ -255,7 +257,7 @@ namespace Ogre {
                     // N-dimensional arrays
                     while (arrayStart != String::npos) {
                         String::size_type arrayEnd = part.find("]", arrayStart);
-                        String arrayDimTerm = part.substr(arrayStart + 1, arrayEnd - arrayStart - 1);
+                        auto arrayDimTerm = part.substr(arrayStart + 1, arrayEnd - arrayStart - 1);
                         StringUtil::trim(arrayDimTerm);
                         //TODO
                         // the array term might be a simple number or it might be
@@ -354,7 +356,7 @@ namespace Ogre {
                 // otherwise treat as if it is a uniform block
                 String::size_type lineEndPos = src.find_first_of("\n\r", currPos);
                 line = src.substr(currPos, lineEndPos - currPos);
-                StringVector parts = StringUtil::split(line, " \t");
+                auto const parts = StringUtil::split(line, " \t");
 
                 // Skip over precision keywords
                 if(StringUtil::match((parts.front()), "lowp") ||
@@ -367,9 +369,6 @@ namespace Ogre {
                 auto typei = mTypeEnumMap.find(typeString);
                 if (typei == mTypeEnumMap.end())
                 {
-                    // Gobble up the external name
-                    String externalName = parts.front();
-
                     // Now there should be an opening brace
                     String::size_type openBracePos = src.find('{', currPos);
                     if (openBracePos != String::npos)

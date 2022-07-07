@@ -482,7 +482,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    auto GLXGLSupport::getDisplayName() -> String
+    auto GLXGLSupport::getDisplayName() -> std::string_view
     {
         return {(const char*)XDisplayName(DisplayString(mGLDisplay))};
     }

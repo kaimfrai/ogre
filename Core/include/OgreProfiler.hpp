@@ -139,7 +139,7 @@ namespace Ogre {
     public:
         ProfileInstance();
 
-        using ProfileChildren = std::map<String, ::std::unique_ptr<ProfileInstance>>;
+        using ProfileChildren = std::map<std::string_view, ::std::unique_ptr<ProfileInstance>>;
 
         void logResults();
         void reset();
@@ -389,7 +389,7 @@ namespace Ogre {
             void changeEnableState();
 
             // lol. Uses typedef; put's original container type in name.
-            using DisabledProfileMap = std::set<String>;
+            using DisabledProfileMap = std::set<std::string_view>;
             using ProfileChildren = ProfileInstance::ProfileChildren;
 
             ProfileInstance* mCurrent;

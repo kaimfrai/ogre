@@ -49,7 +49,7 @@ namespace Ogre {
     locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, OGRE_DEFAULT_LOCALE, nullptr);
 
     template<typename T>
-    auto StringConverter::_toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> String
+    auto StringConverter::_toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> std::string
     {
         StringStream stream;
         stream.width(width);
@@ -68,7 +68,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     auto StringConverter::toString(float val, unsigned short precision,
-                                     unsigned short width, char fill, std::ios::fmtflags flags) -> String
+                                     unsigned short width, char fill, std::ios::fmtflags flags) -> std::string
     {
         StringStream stream;
         stream.precision(precision);
@@ -82,7 +82,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     auto StringConverter::toString(double val, unsigned short precision,
-                                     unsigned short width, char fill, std::ios::fmtflags flags) -> String
+                                     unsigned short width, char fill, std::ios::fmtflags flags) -> std::string
     {
         StringStream stream;
         stream.precision(precision);
@@ -96,7 +96,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     auto StringConverter::toString(long double val, unsigned short precision,
-                                     unsigned short width, char fill, std::ios::fmtflags flags) -> String
+                                     unsigned short width, char fill, std::ios::fmtflags flags) -> std::string
     {
         StringStream stream;
         stream.precision(precision);
@@ -110,28 +110,28 @@ namespace Ogre {
 
 
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Vector2& val) -> String
+    auto StringConverter::toString(const Vector2& val) -> std::string
     {
         StringStream stream;
         stream << val.x << " " << val.y;
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Vector3& val) -> String
+    auto StringConverter::toString(const Vector3& val) -> std::string
     {
         StringStream stream;
         stream << val.x << " " << val.y << " " << val.z;
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Vector4& val) -> String
+    auto StringConverter::toString(const Vector4& val) -> std::string
     {
         StringStream stream;
         stream << val.x << " " << val.y << " " << val.z << " " << val.w;
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Matrix3& val) -> String
+    auto StringConverter::toString(const Matrix3& val) -> std::string
     {
         StringStream stream;
         stream << val[0][0] << " "
@@ -146,7 +146,7 @@ namespace Ogre {
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(bool val, bool yesNo) -> String
+    auto StringConverter::toString(bool val, bool yesNo) -> std::string
     {
         if (val)
         {
@@ -170,7 +170,7 @@ namespace Ogre {
             }
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Matrix4& val) -> String
+    auto StringConverter::toString(const Matrix4& val) -> std::string
     {
         StringStream stream;
         stream << val[0][0] << " "
@@ -192,21 +192,21 @@ namespace Ogre {
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const Quaternion& val) -> String
+    auto StringConverter::toString(const Quaternion& val) -> std::string
     {
         StringStream stream;
         stream  << val.w << " " << val.x << " " << val.y << " " << val.z;
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const ColourValue& val) -> String
+    auto StringConverter::toString(const ColourValue& val) -> std::string
     {
         StringStream stream;
         stream << val.r << " " << val.g << " " << val.b << " " << val.a;
         return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(const StringVector& val) -> String
+    auto StringConverter::toString(const StringVector& val) -> std::string
     {
         StringStream stream;
         for (auto i = val.begin(); i != val.end(); ++i)
@@ -230,59 +230,59 @@ namespace Ogre {
     auto StringConverter::parse(std::string_view val, float& ret) -> bool
     {
         char* end;
-        auto tmp = (float)strtod_l(val.c_str(), &end, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (float)strtod_l(val.data(), &end, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(std::string_view val, double& ret) -> bool
     {
         char* end;
-        auto tmp = strtod_l(val.c_str(), &end, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = strtod_l(val.data(), &end, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(std::string_view val, int32& ret) -> bool
     {
         char* end;
-        auto tmp = (int32)strtol_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (int32)strtol_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(std::string_view val, int64& ret) -> bool
     {
         char* end;
-        int64 tmp = strtoll_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        int64 tmp = strtoll_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(std::string_view val, unsigned long& ret) -> bool
     {
         char* end;
-        unsigned long tmp = strtoull_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        unsigned long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(std::string_view val, unsigned long long& ret) -> bool
     {
         char* end;
-        unsigned long long tmp = strtoull_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        unsigned long long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(std::string_view val, uint32& ret) -> bool
     {
         char* end;
-        auto tmp = (uint32)strtoul_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (uint32)strtoul_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(std::string_view val, bool& ret) -> bool
     {
         //FIXME Returns both parsed value and error in same value - ambiguous.
         // Suggested alternatives: implement exception handling or make either
         // error or parsed value a parameter.
-        if ((StringUtil::startsWith(val, "true") || StringUtil::startsWith(val, "yes")
-             || StringUtil::startsWith(val, "1") ||  StringUtil::startsWith(val, "on")))
+        if (val.starts_with("true") || val.starts_with("yes")
+             || val.starts_with("1") ||  val.starts_with("on"))
             ret = true;
-        else if ((StringUtil::startsWith(val, "false") || StringUtil::startsWith(val, "no")
-                  || StringUtil::startsWith(val, "0") ||  StringUtil::startsWith(val, "off")))
+        else if (val.starts_with("false") || val.starts_with("no")
+                  || val.starts_with("0") || val.starts_with("off"))
             ret = false;
         else
             return false;
@@ -294,7 +294,7 @@ namespace Ogre {
     static auto parseReals(std::string_view val, T* dst, size_t n) -> bool
     {
         // Split on space
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
         if(vec.size() != n)
             return false;
 
@@ -338,7 +338,7 @@ namespace Ogre {
     auto StringConverter::parse(std::string_view val, ColourValue& ret) -> bool
     {
         // Split on space
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         if (vec.size() == 4)
         {
@@ -359,11 +359,11 @@ namespace Ogre {
     auto StringConverter::isNumber(std::string_view val) -> bool
     {
         char* end;
-        strtod(val.c_str(), &end);
-        return end == (val.c_str() + val.size());
+        strtod(val.data(), &end);
+        return end == (val.data() + val.size());
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::toString(StereoModeType val) -> String
+    auto StringConverter::toString(StereoModeType val) -> std::string
     {
 		StringStream stream;
 		switch (val)

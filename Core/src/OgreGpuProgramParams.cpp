@@ -309,7 +309,7 @@ namespace Ogre
         while (!stream->eof())
         {
             GpuConstantDefinition def;
-            String name = readString(stream);
+            auto const name = readString(stream);
             // Hmm, deal with trailing information
             if (name.empty())
                 continue;

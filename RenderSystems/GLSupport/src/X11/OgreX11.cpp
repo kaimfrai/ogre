@@ -144,7 +144,7 @@ void finaliseTopLevel(Display* display, Window window, int& left, int& top, uint
     }
 
     XTextProperty titleprop;
-    char* lst = const_cast<char*>(title.c_str());
+    char* lst = const_cast<char*>(title.data());
     XStringListToTextProperty(&lst, 1, &titleprop);
     XSetWMProperties(display, window, &titleprop, nullptr, nullptr, 0, sizeHints, wmHints, nullptr);
 

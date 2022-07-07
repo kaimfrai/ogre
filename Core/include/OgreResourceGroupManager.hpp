@@ -257,7 +257,7 @@ class ScriptLoader;
         };
         /// List of resource declarations
         using ResourceDeclarationList = std::list<ResourceDeclaration>;
-        using ResourceManagerMap = std::map<String, ResourceManager *>;
+        using ResourceManagerMap = std::map<std::string_view, ResourceManager *>;
         using ResourceManagerIterator = MapIterator<ResourceManagerMap>;
         /// Resource location entry
         struct ResourceLocation
@@ -284,7 +284,7 @@ class ScriptLoader;
         ResourceLoadingListener *mLoadingListener{nullptr};
 
         /// Resource index entry, resourcename->location 
-        using ResourceLocationIndex = std::map<String, Archive *>;
+        using ResourceLocationIndex = std::map<std::string_view, Archive *>;
 
         /// List of resources which can be loaded / unloaded
         using LoadUnloadResourceList = std::list<ResourcePtr>;
@@ -325,7 +325,7 @@ class ScriptLoader;
 
         };
         /// Map from resource group names to groups
-        using ResourceGroupMap = std::map<String, ResourceGroup *>;
+        using ResourceGroupMap = std::map<std::string_view, ResourceGroup *>;
         ResourceGroupMap mResourceGroupMap;
 
         /// Group name for world resources
@@ -703,7 +703,7 @@ class ScriptLoader;
         @return Name of the resource group the resource was found in. An
             exception is thrown if the group could not be determined.
         */
-        [[nodiscard]] auto findGroupContainingResource(std::string_view filename) const -> std::string_view ;
+        [[nodiscard]] auto findGroupContainingResource(std::string_view filename) const -> std::string_view;
 
         /** Find all files or directories matching a given pattern in a group
             and get some detailed information about them.
@@ -719,19 +719,6 @@ class ScriptLoader;
 
         /** Retrieve the modification time of a given file */
         [[nodiscard]] auto resourceModifiedTime(std::string_view group, std::string_view filename) const -> time_t;
-        /** List all resource locations in a resource group.
-        @param groupName The name of the group
-        @return A list of resource locations matching the criteria
-        */
-        [[nodiscard]] auto listResourceLocations(std::string_view groupName) const -> StringVectorPtr;
-
-        /** Find all resource location names matching a given pattern in a
-            resource group.
-        @param groupName The name of the group
-        @param pattern The pattern to search for; wildcards (*) are allowed
-        @return A list of resource locations matching the criteria
-        */
-        [[nodiscard]] auto findResourceLocation(std::string_view groupName, std::string_view pattern) const -> StringVectorPtr;
 
         /** Create a new resource file in a given group.
         @remarks
@@ -748,7 +735,7 @@ class ScriptLoader;
             will be considered candidates for creation.
         */
         auto createResource(std::string_view filename, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            bool overwrite = false, std::string_view locationPattern = BLANKSTRING) -> DataStreamPtr;
+            bool overwrite = false, std::string_view locationPattern = "") -> DataStreamPtr;
 
         /** Delete a single resource file.
         @param filename The name of the file to delete. 
@@ -760,7 +747,7 @@ class ScriptLoader;
             will be considered candidates for deletion.
         */
         void deleteResource(std::string_view filename, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            std::string_view locationPattern = BLANKSTRING);
+            std::string_view locationPattern = "");
 
         /** Delete all matching resource files.
         @param filePattern The pattern (see StringUtil::match) of the files to delete. 
@@ -772,7 +759,7 @@ class ScriptLoader;
             will be considered candidates for deletion.
         */
         void deleteMatchingResources(std::string_view filePattern, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            std::string_view locationPattern = BLANKSTRING);
+            std::string_view locationPattern = "");
 
         /** Adds a ResourceGroupListener which will be called back during 
             resource loading events. 
@@ -790,7 +777,7 @@ class ScriptLoader;
         void setWorldResourceGroupName(std::string_view groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
-        [[nodiscard]] auto getWorldResourceGroupName() const noexcept -> std::string_view { return mWorldGroupName; }
+        [[nodiscard]] auto getWorldResourceGroupName() const noexcept -> std::string_view{ return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
 

@@ -366,7 +366,7 @@ template <typename T> class Controller;
             or will be the name of the current frame for an animated
             or otherwise multi-frame texture.
         */
-        auto getTextureName() const noexcept -> std::string_view ;
+        auto getTextureName() const noexcept -> std::string_view;
 
         /** Sets this texture layer to use a single texture, given the
             name of the texture to use on this layer.
@@ -433,7 +433,7 @@ template <typename T> class Controller;
         /** Gets the name of the texture associated with a frame number.
             Throws an exception if frameNumber exceeds the number of stored frames.
         */
-        auto getFrameTextureName(unsigned int frameNumber) const -> std::string_view ;
+        auto getFrameTextureName(unsigned int frameNumber) const -> std::string_view;
 
         /** Sets the name of the texture associated with a frame.
         @param name
@@ -988,9 +988,9 @@ template <typename T> class Controller;
         void setCompositorReference(std::string_view compositorName, std::string_view textureName, size_t mrtIndex = 0);
 
         /** Gets the name of the compositor that this texture referneces. */
-        auto getReferencedCompositorName() const noexcept -> std::string_view { return mCompositorRefName; }
+        auto getReferencedCompositorName() const noexcept -> std::string_view{ return mCompositorRefName; }
         /** Gets the name of the texture in the compositor that this texture references. */
-        auto getReferencedTextureName() const noexcept -> std::string_view { return mCompositorRefTexName; }
+        auto getReferencedTextureName() const noexcept -> std::string_view{ return mCompositorRefTexName; }
         /** Gets the MRT index of the texture in the compositor that this texture references. */ 
         auto getReferencedMRTIndex() const noexcept -> size_t { return mCompositorRefMrtIndex; }
     
@@ -1020,10 +1020,10 @@ template <typename T> class Controller;
         */
         void setName(std::string_view name);
         /// Get the name of the Texture Unit State.
-        auto getName() const noexcept -> std::string_view { return mName; }
+        auto getName() const noexcept -> std::string_view{ return mName; }
 
         /// @deprecated use getName()
-        auto getTextureNameAlias() const noexcept -> std::string_view { return getName();}
+        auto getTextureNameAlias() const noexcept -> std::string_view{ return getName();}
 
         /** Notify this object that its parent has changed. */
         void _notifyParent(Pass* parent);

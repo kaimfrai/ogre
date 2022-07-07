@@ -51,11 +51,11 @@ class ArchiveFactory;
     class ArchiveManager : public Singleton<ArchiveManager>, public ArchiveAlloc
     {
     private:
-        using ArchiveFactoryMap = std::map<String, ArchiveFactory *>;
+        using ArchiveFactoryMap = std::map<std::string_view, ArchiveFactory *>;
         /// Factories available to create archives, indexed by archive type (String identifier e.g. 'Zip')
         ArchiveFactoryMap mArchFactories;
         /// Currently loaded archives
-        using ArchiveMap = std::map<String, Archive *>;
+        using ArchiveMap = std::map<std::string_view, Archive *>;
         ArchiveMap mArchives;
 
     public:

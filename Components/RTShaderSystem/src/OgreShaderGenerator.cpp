@@ -978,8 +978,8 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
         for (const SGTechniqueList& techniqueEntires = itSrcMatEntry->second->getTechniqueList();
              auto const& itTechEntry : techniqueEntires)
         {
-            String srcFromTechniqueScheme = itTechEntry->getSourceTechnique()->getSchemeName();
-            String srcToTechniqueScheme = itTechEntry->getDestinationTechniqueSchemeName();
+            auto const srcFromTechniqueScheme = itTechEntry->getSourceTechnique()->getSchemeName();
+            auto const srcToTechniqueScheme = itTechEntry->getDestinationTechniqueSchemeName();
             
             //for every technique in the source material create a shader based technique in the 
             //destination material
@@ -1258,10 +1258,8 @@ void ShaderGenerator::setTargetLanguage(std::string_view shaderLanguage)
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::setShaderCachePath( std::string_view cachePath )
+void ShaderGenerator::setShaderCachePath( std::string_view stdCachePath )
 {
-    String stdCachePath = cachePath;
-
     // Standardise the cache path in case of none empty string.
     if (stdCachePath.empty() == false)
         stdCachePath = StringUtil::standardisePath(stdCachePath);

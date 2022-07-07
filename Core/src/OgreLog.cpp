@@ -55,7 +55,7 @@ namespace Ogre
     {
         if (!mSuppressFile)
         {
-            mLog.open(name.c_str());
+            mLog.open(std::filesystem::path{name});
         }
 
         char* val = getenv("OGRE_MIN_LOGLEVEL");

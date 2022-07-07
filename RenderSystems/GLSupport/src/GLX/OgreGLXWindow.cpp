@@ -79,7 +79,7 @@ namespace Ogre
                            bool fullScreen, const NameValuePairList *miscParams)
     {
         Display *xDisplay = mGLSupport->getXDisplay();
-        String title = name;
+        std::string title{ name };
         uint samples = 0;
         short frequency = 0;
         bool vsync = false;
@@ -158,7 +158,7 @@ namespace Ogre
             if ((opt = miscParams->find("parentWindowHandle")) != end ||
                 (opt = miscParams->find("externalWindowHandle")) != end)
             {
-                std::vector<String> tokens = StringUtil::split(opt->second, " :");
+                auto const tokens = StringUtil::split(opt->second, " :");
 
                 if (tokens.size() >= 3)
                 {

@@ -207,7 +207,7 @@ class Technique;
         void writeScrollEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
         void writeEnvironmentMapEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex);
 
-        auto convertFiltering(FilterOptions fo) -> String;
+        auto convertFiltering(FilterOptions fo) -> std::string_view;
 
         
         /** Internal methods that invokes registered listeners callback.
@@ -283,7 +283,7 @@ class Technique;
             const bool includeProgDef = false, std::string_view programFilename = "", 
             std::string_view materialName = "");
         /** Returns a string representing the parsed material(s) */
-        [[nodiscard]] auto getQueuedAsString() const -> std::string_view ;
+        [[nodiscard]] auto getQueuedAsString() const -> std::string_view;
         /** Clears the internal buffer */
         void clearQueue();
 
@@ -300,7 +300,7 @@ class Technique;
     private:
         String mBuffer;
         String mGpuProgramBuffer;
-        using GpuProgramDefinitionContainer = std::set<String>;
+        using GpuProgramDefinitionContainer = std::set<std::string_view>;
         using GpuProgramDefIterator = GpuProgramDefinitionContainer::iterator;
         GpuProgramDefinitionContainer mGpuProgramDefinitionContainer;
         bool mDefaults;
@@ -344,11 +344,11 @@ class Technique;
             buffer += (::std::format(" {}", val));
         }
 
-        auto quoteWord(std::string_view val) -> String
+        auto quoteWord(std::string_view val) -> std::string
         {
             if (val.find_first_of("{}$: \t") != String::npos)
-                return (::std::format("\"{}\"", val ));
-            else return val;
+                return ::std::format("\"{}\"", val );
+            else return std::string{ val };
         }
 
 

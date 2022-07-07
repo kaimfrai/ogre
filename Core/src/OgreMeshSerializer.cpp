@@ -158,7 +158,7 @@ namespace Ogre {
                 "MeshSerializer::importMesh");
         }
         // Read version
-        String ver = readString(stream);
+        auto const ver = readString(stream);
         // Jump back to start
         stream->seek(0);
 

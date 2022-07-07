@@ -403,7 +403,7 @@ class Renderable;
         size_t techNo = 0;
         for (auto & mTechnique : mTechniques)
         {
-            String compileMessages = mTechnique->_compile(autoManageTextureUnits);
+            auto const compileMessages = mTechnique->_compile(autoManageTextureUnits);
             if ( mTechnique->isSupported() )
             {
                 insertSupportedTechnique(mTechnique);

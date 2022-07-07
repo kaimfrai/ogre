@@ -224,7 +224,7 @@ namespace Ogre
             major = minor = release = build = 0;
         }
 
-        [[nodiscard]] auto toString() const -> String;
+        [[nodiscard]] auto toString() const -> std::string;
         void fromString(std::string_view versionString);
     };
 
@@ -257,7 +257,7 @@ namespace Ogre
 
     public:
 
-        using ShaderProfiles = std::set<String>;
+        using ShaderProfiles = std::set<std::string_view>;
     private:
         /// This is used to build a database of RSC's
         /// if a RSC with same name, but newer version is introduced, the older one 
@@ -266,7 +266,7 @@ namespace Ogre
         /// GPU Vendor
         GPUVendor mVendor{GPU_UNKNOWN};
 
-        static String msGPUVendorStrings[GPU_VENDOR_COUNT];
+        static std::string_view msGPUVendorStrings[GPU_VENDOR_COUNT];
         static void initVendorStrings();
 
         /// The number of texture units available
@@ -357,7 +357,7 @@ namespace Ogre
         /// Convert a vendor string to an enum
         static auto vendorFromString(std::string_view vendorString) -> GPUVendor;
         /// Convert a vendor enum to a string
-        static auto vendorToString(GPUVendor v) -> std::string_view ;
+        static auto vendorToString(GPUVendor v) -> std::string_view;
 
         [[nodiscard]] auto isDriverOlderThanVersion(const DriverVersion &v) const -> bool
         {
@@ -521,7 +521,7 @@ namespace Ogre
         }
 
         /// gets the device name for render system
-        [[nodiscard]] auto getDeviceName() const -> String
+        [[nodiscard]] auto getDeviceName() const -> std::string_view
         {
             return mDeviceName;
         }
@@ -662,8 +662,8 @@ namespace Ogre
         }
     };
 
-    inline auto to_string(GPUVendor v) -> String { return RenderSystemCapabilities::vendorToString(v); }
-    inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }
+    inline auto to_string(GPUVendor v) -> std::string { return std::string{ RenderSystemCapabilities::vendorToString(v) }; }
+    inline auto to_string(const DriverVersion& v) -> std::string { return v.toString(); }
 
     /** @} */
     /** @} */

@@ -79,7 +79,7 @@ namespace Ogre
     class WorkQueue : public UtilityAlloc
     {
     protected:
-        using ChannelMap = std::map<String, uint16>;
+        using ChannelMap = std::map<std::string_view, uint16>;
         ChannelMap mChannelMap;
         uint16 mNextChannel{0};
         mutable std::recursive_mutex mChannelMapMutex;
@@ -146,7 +146,7 @@ namespace Ogre
             /// Return whether this is a successful response
             [[nodiscard]] auto succeeded() const noexcept -> bool { return mSuccess; }
             /// Get any diagnostic messages about the process
-            [[nodiscard]] auto getMessages() const noexcept -> std::string_view { return mMessages; }
+            [[nodiscard]] auto getMessages() const noexcept -> std::string_view{ return mMessages; }
             /// Return the response data (user defined, only valid on success)
             [[nodiscard]] auto getData() const noexcept -> ::std::any const& { return mData; }
             /// Abort the request
@@ -386,7 +386,7 @@ namespace Ogre
         DefaultWorkQueueBase(std::string_view name = BLANKSTRING);
         ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
-        auto getName() const noexcept -> std::string_view ;
+        auto getName() const noexcept -> std::string_view;
         /** Get the number of worker threads that this queue will start when 
             startup() is called. 
         */

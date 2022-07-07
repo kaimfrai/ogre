@@ -37,7 +37,7 @@ namespace Ogre {
     auto ScriptLexer::tokenize(std::string_view str, std::string_view source) -> ScriptTokenList
     {
         String error;
-        ScriptTokenList ret = _tokenize(str, source.c_str(), error);
+        ScriptTokenList ret = _tokenize(str, source, error);
 
         if (!error.empty())
             LogManager::getSingleton().logError(::std::format("ScriptLexer - {}", error));
@@ -45,7 +45,7 @@ namespace Ogre {
         return ret;
     }
 
-    auto ScriptLexer::_tokenize(std::string_view str, const char* source, String& error) -> ScriptTokenList
+    auto ScriptLexer::_tokenize(std::string_view str, std::string_view source, String& error) -> ScriptTokenList
     {
         // State enums
         enum{ READY = 0, COMMENT, MULTICOMMENT, WORD, QUOTE, VAR, POSSIBLECOMMENT };

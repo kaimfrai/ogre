@@ -140,7 +140,7 @@ class VertexData;
         /** A hashmap used to store optional SubMesh names.
             Translates a name into SubMesh index.
         */
-        using SubMeshNameMap = std::unordered_map<String, ushort> ;
+        using SubMeshNameMap = std::unordered_map<std::string_view, ushort> ;
 
         
     private:
@@ -190,7 +190,7 @@ class VertexData;
         bool mAutoBuildEdgeLists{true};
 
         /// Storage of morph animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        using AnimationList = std::map<std::string_view, Animation *>;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
         mutable VertexAnimationType mSharedVertexDataAnimationType{VAT_NONE};
@@ -349,7 +349,7 @@ class VertexData;
             if you leave this blank, the clone will be assigned to the same
             group as this Mesh.
         */
-        auto clone(std::string_view newName, std::string_view newGroup = BLANKSTRING) -> MeshPtr;
+        auto clone(std::string_view newName, std::string_view newGroup = "") -> MeshPtr;
 
         /** @copydoc Resource::reload */
         void reload(LoadingFlags flags = LF_DEFAULT) override;
@@ -440,7 +440,7 @@ class VertexData;
         auto getSkeleton() const noexcept -> const SkeletonPtr& { return mSkeleton; }
 
         /** Gets the name of any linked Skeleton */
-        auto getSkeletonName() const noexcept -> std::string_view ;
+        auto getSkeletonName() const noexcept -> std::string_view;
         /** Initialise an animation set suitable for use with this mesh. 
         @remarks
             Only recommended for use inside the engine, not by applications.
@@ -938,7 +938,7 @@ class VertexData;
         @return
             A new Pose ready for population.
         */
-        auto createPose(ushort target, std::string_view name = BLANKSTRING) -> Pose*;
+        auto createPose(ushort target, std::string_view name = "") -> Pose*;
         /** Get the number of poses */
         auto getPoseCount() const -> size_t { return mPoseList.size(); }
         /** Retrieve an existing Pose by index */

@@ -39,7 +39,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    static auto unquoted(std::string_view str, bool trim = true) -> String
+    static auto unquoted(std::string_view str, bool trim = true) -> std::string_view
     {
         return trim ? str.substr(1, str.size() - 2) : str;
     }

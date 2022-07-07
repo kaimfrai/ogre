@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_STRING_H
 #define OGRE_CORE_STRING_H
 
+#include <ranges>
 #include <string>
 #include <vector>
 
@@ -57,6 +58,56 @@ namespace Ogre {
         }
     };
 
+    struct
+        ToLower
+    {
+        auto constexpr operator()(char c) const
+        {   return static_cast<char>(std::tolower(c));
+        }
+    };
+
+    struct
+        ToUpper
+    {
+        auto constexpr operator()(char c) const
+        {   return static_cast<char>(std::toupper(c));
+        }
+    };
+
+    template
+        <   typename
+                Transform
+        >
+    struct
+        StringTransformView
+    {
+        std::ranges::transform_view<std::string_view, Transform> transform;
+
+        friend auto constexpr begin(StringTransformView view) { return begin(view.transform); }
+        friend auto constexpr end(StringTransformView view) { return end(view.transform); }
+
+
+        friend auto constexpr operator== (StringTransformView left, StringTransformView right) -> bool
+        {
+            return std::ranges::equal(left, right);
+        }
+
+        friend auto constexpr operator== (StringTransformView left, std::string_view right) -> bool
+        {
+            return std::ranges::equal(left, right);
+        }
+
+        friend auto constexpr operator< (StringTransformView left, std::string_view right) -> bool
+        {
+            return std::ranges::lexicographical_compare(left, right);
+        }
+
+        friend auto constexpr operator< (std::string_view left, StringTransformView right) -> bool
+        {
+            return std::ranges::lexicographical_compare(left, right);
+        }
+    };
+
     /** Utility class for manipulating Strings.  */
     class StringUtil
     {
@@ -70,6 +121,12 @@ namespace Ogre {
         */
         static void trim( String& str, bool left = true, bool right = true );
 
+        static void trim(std::string_view& view)
+        {
+            static const std::string_view constexpr delims = " \t\r\n";
+            view = view.substr(view.find_first_not_of(delims), view.find_last_not_of(delims) + 1uz);
+        }
+
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument.
             @param str
@@ -81,7 +138,7 @@ namespace Ogre {
             @param
             preserveDelims Flag to determine if delimiters should be saved as substrings
         */
-        static auto split( std::string_view str, std::string_view delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<String>;
+        static auto split( std::string_view str, std::string_view delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<std::string_view>;
 
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument,
@@ -96,7 +153,7 @@ namespace Ogre {
             maxSplits The maximum number of splits to perform (0 for unlimited splits). If this
             parameters is > 0, the splitting process will stop after this many splits, left to right.
         */
-        static auto tokenise( std::string_view str, std::string_view delims = "\t\n ", std::string_view doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<String>;
+        static auto tokenise( std::string_view str, std::string_view delims = "\t\n ", std::string_view doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<std::string_view>;
 
         /** Lower-cases all the characters in the string.
          */
@@ -105,6 +162,16 @@ namespace Ogre {
         /** Upper-cases all the characters in the string.
          */
         static void toUpperCase( String& str );
+
+        static auto LowerView(std::string_view view) -> StringTransformView<ToLower>
+        {
+            return { std::ranges::transform_view(view, ToLower{}) };
+        }
+
+        static auto UpperView(std::string_view view) -> StringTransformView<ToUpper>
+        {
+            return { std::ranges::transform_view(view, ToUpper{}) };
+        }
 
         /** Upper-cases the first letter of each word.
          */
@@ -129,7 +196,7 @@ namespace Ogre {
 
         /** Method for standardising paths - use forward slashes only, end with slash.
          */
-        static auto standardisePath( std::string_view init) -> String;
+        static auto standardisePath( std::string_view init) -> std::string;
         /** Returns a normalized version of a file path
             This method can be used to make file path strings which point to the same directory
             but have different texts to be normalized to the same text. The function:
@@ -141,7 +208,7 @@ namespace Ogre {
             @param init The file path to normalize.
             @param makeLowerCase If true, transforms all characters in the string to lowercase.
         */
-        static auto normalizeFilePath(std::string_view init, bool makeLowerCase = false) -> String;
+        static auto normalizeFilePath(std::string_view init, bool makeLowerCase = false) -> std::string;
 
 
         /** Method for splitting a fully qualified filename into the base name
@@ -182,7 +249,7 @@ namespace Ogre {
             @param replaceWithWhat Sub-string to replace with (the new sub-string)
             @return An updated string with the sub-string replaced
         */
-        static auto replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> const String;
+        static auto replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> std::string;
     };
 
     using _StringHash = ::std::hash<String>;

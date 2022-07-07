@@ -280,7 +280,7 @@ class Technique;
             virtual ~MaterialBucket() = default;
             auto getParent() noexcept -> LODBucket* { return mParent; }
             /// Get the material name
-            [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view { return mMaterial->getName(); }
+            [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view{ return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -312,7 +312,7 @@ class Technique;
         {
         public:
             /// Lookup of Material Buckets in this region
-            using MaterialBucketMap = std::map<String, ::std::unique_ptr<MaterialBucket>>;
+            using MaterialBucketMap = std::map<std::string_view, ::std::unique_ptr<MaterialBucket>>;
         private:
             /// Pointer to parent region
             Region* mParent;
@@ -562,7 +562,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 

@@ -115,11 +115,10 @@ auto Widget::getCaptionWidth(std::string_view caption, Ogre::TextAreaOverlayElem
     return (unsigned int)lineWidth;
 }
 
-void Widget::fitCaptionToArea(std::string_view caption, Ogre::TextAreaOverlayElement *area, Ogre::Real maxWidth)
+void Widget::fitCaptionToArea(std::string_view s, Ogre::TextAreaOverlayElement *area, Ogre::Real maxWidth)
 {
     Ogre::FontPtr f = area->getFont();
     f->load();
-    Ogre::String s = caption;
 
     size_t nl = s.find('\n');
     if (nl != Ogre::String::npos) s = s.substr(0, nl);
@@ -254,7 +253,7 @@ void TextBox::setText(std::string_view text)
     Ogre::FontPtr font = mTextArea->getFont();
     font->load(); // ensure glyph info is there
 
-    Ogre::String current = text;
+    std::string current{ text };
     bool firstWord = true;
     unsigned int lastSpace = 0;
     unsigned int lineBegin = 0;
@@ -438,8 +437,7 @@ SelectMenu::SelectMenu(std::string_view name, std::string_view caption, Ogre::Re
 }
 
 void SelectMenu::copyItemsFrom(SelectMenu *other){
-    const Ogre::StringVector& items = other->getItems();
-    for(auto const& item : items){
+    for(auto const& item : other->getItems()){
         this->addItem(item);
     }
 }
@@ -454,9 +452,9 @@ void SelectMenu::setCaption(std::string_view caption)
     }
 }
 
-void SelectMenu::setItems(const Ogre::StringVector &items)
+void SelectMenu::setItems(std::span<std::string_view const> items)
 {
-    mItems = items;
+    mItems.assign(items.begin(), items.end());
     mSelectionIndex = -1;
 
     for (auto & mItemElement : mItemElements)   // destroy all the item elements
@@ -575,7 +573,7 @@ void SelectMenu::selectItem(std::string_view item, bool notifyListener)
     OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
 }
 
-auto SelectMenu::getSelectedItem() -> Ogre::DisplayString
+auto SelectMenu::getSelectedItem() -> std::string_view
 {
     if (mSelectionIndex == -1)
     {
@@ -1428,7 +1426,7 @@ auto TrayManager::createTextBox(TrayLocation trayLoc, std::string_view name, std
     return tb;
 }
 
-auto TrayManager::createThickSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
+auto TrayManager::createThickSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width, unsigned int maxItemsShown, std::span<std::string_view const> items) -> SelectMenu *
 {
     auto* sm = new SelectMenu(name, caption, width, 0, maxItemsShown);
     moveWidgetToTray(sm, trayLoc);
@@ -1437,7 +1435,7 @@ auto TrayManager::createThickSelectMenu(TrayLocation trayLoc, std::string_view n
     return sm;
 }
 
-auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
+auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, std::span<std::string_view const> items) -> SelectMenu *
 {
     auto* sm = new SelectMenu(name, caption, width, boxWidth, maxItemsShown);
     moveWidgetToTray(sm, trayLoc);
@@ -1446,7 +1444,7 @@ auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, std::string_view na
     return sm;
 }
 
-auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector &items) -> SelectMenu *
+auto TrayManager::createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real boxWidth, unsigned int maxItemsShown, std::span<std::string_view const> items) -> SelectMenu *
 {
     return createLongSelectMenu(trayLoc, name, caption, 0, boxWidth, maxItemsShown, items);
 }

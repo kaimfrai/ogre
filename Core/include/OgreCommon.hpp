@@ -599,16 +599,16 @@ class RenderWindow;
 
 
     /// Constant blank string, useful for returning by ref where local does not exist
-    const String BLANKSTRING;
+    std::string_view constexpr inline BLANKSTRING = "";
 
-    using UnaryOptionList = std::map<String, bool>;
-    using BinaryOptionList = std::map<String, String>;
+    using UnaryOptionList = std::map<std::string_view, bool>;
+    using BinaryOptionList = std::map<std::string_view, String>;
 
     /// Name / value parameter pair (first = name, second = value)
-    using NameValuePairList = std::map<String, String>;
+    using NameValuePairList = std::map<std::string_view, String>;
 
     /// Alias / Texture name pair (first = alias, second = texture name)
-    using AliasTextureNamePairList = std::map<String, String>;
+    using AliasTextureNamePairList = std::map<std::string_view, String>;
 
         template< typename T > struct TRect
         {

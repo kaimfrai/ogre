@@ -76,25 +76,25 @@ namespace Ogre {
         ParameterDef(std::string_view newName, std::string_view = "", ParameterType = PT_INT)
             : name(newName) {}
     };
-    using ParameterList = std::vector<String>;
+    using ParameterList = std::vector<std::string_view>;
 
     /** Abstract class which is command object which gets/sets parameters.*/
     class ParamCommand
     {
     public:
-        virtual auto doGet(const void* target) const -> String = 0;
+        virtual auto doGet(const void* target) const -> std::string  = 0;
         virtual void doSet(void* target, std::string_view val) = 0;
 
         virtual ~ParamCommand() = default;
     };
-    using ParamCommandMap = std::map<String, ParamCommand *>;
+    using ParamCommandMap = std::map<std::string_view, ParamCommand *>;
 
     /** Generic ParamCommand implementation
      stores pointers to the class getter and setter functions */
     template <typename _Class, typename Param, Param (_Class::*getter)() const, void (_Class::*setter)(Param)>
     class SimpleParamCommand : public ParamCommand {
     public:
-        auto doGet(const void* target) const -> String override {
+        auto doGet(const void* target) const -> std::string  override {
             return StringConverter::toString((static_cast<const _Class*>(target)->*getter)());
         }
 
@@ -106,10 +106,10 @@ namespace Ogre {
     };
 
     /// specialization for strings
-    template <typename _Class, std::string_view (_Class::*getter)() const, void (_Class::*setter)(std::string_view )>
-    class SimpleParamCommand<_Class, std::string_view , getter, setter> : public ParamCommand {
+    template <typename _Class, std::string_view(_Class::*getter)() const, void (_Class::*setter)(std::string_view)>
+    class SimpleParamCommand<_Class, std::string_view, getter, setter> : public ParamCommand {
     public:
-        auto doGet(const void* target) const -> String override {
+        auto doGet(const void* target) const -> std::string  override {
             return (static_cast<const _Class*>(target)->*getter)();
         }
 
@@ -152,12 +152,12 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] auto getParameters() const noexcept -> const ParameterList&
+        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string_view const>
         {
             return mParamDefs;
         }
     };
-    using ParamDictionaryMap = std::map<String, ParamDictionary>;
+    using ParamDictionaryMap = std::map<std::string_view, ParamDictionary>;
     
     /** Class defining the common interface which classes can use to 
         present a reflection-style, self-defining parameter set to callers.
@@ -216,7 +216,7 @@ namespace Ogre {
             A reference to a static list of ParameterDef objects.
 
         */
-        [[nodiscard]] auto getParameters() const noexcept -> const ParameterList&;
+        [[nodiscard]] auto getParameters() const noexcept -> std::span<std::string_view const>;
 
         /** Generic parameter setting method.
         @remarks
@@ -254,7 +254,7 @@ namespace Ogre {
         @return
             String value of parameter, blank if not found
         */
-        [[nodiscard]] auto getParameter(std::string_view name) const -> String;
+        [[nodiscard]] auto getParameter(std::string_view name) const -> std::string;
         /** Method for copying this object's parameters to another object.
         @remarks
             This method takes the values of all the object's parameters and tries to set the
