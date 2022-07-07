@@ -302,7 +302,7 @@ namespace Ogre
         ++mStateCount;  
     }
     //-----------------------------------------------------------------------
-    void Resource::changeGroupOwnership(const String& newGroup)
+    void Resource::changeGroupOwnership(std::string_view newGroup)
     {
         if (mGroup != newGroup)
         {

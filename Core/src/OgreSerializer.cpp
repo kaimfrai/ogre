@@ -299,16 +299,16 @@ namespace Ogre {
         flipFromLittleEndian(pDest, sizeof(uint32), count);
     }
     //---------------------------------------------------------------------
-    auto Serializer::readString(const DataStreamPtr& stream, size_t numChars) -> String
+    auto Serializer::readString(const DataStreamPtr& stream, size_t numChars) -> std::string
     {
         OgreAssert(numChars <= 255, "");
         char str[255];
         stream->read(str, numChars);
         str[numChars] = '\0';
-        return str;
+        return {str, numChars};
     }
     //---------------------------------------------------------------------
-    auto Serializer::readString(const DataStreamPtr& stream) -> String
+    auto Serializer::readString(const DataStreamPtr& stream) -> std::string
     {
         return stream->getLine(false);
     }
@@ -367,7 +367,7 @@ namespace Ogre {
         return sizeof(uint16) + sizeof(uint32);
     }
 
-    auto Serializer::calcStringSize( const String& string ) -> size_t
+    auto Serializer::calcStringSize( std::string_view string ) -> size_t
     {
         // string + terminating \n character
         return string.length() + 1;

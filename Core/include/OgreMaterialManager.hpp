@@ -115,7 +115,7 @@ class Technique;
                 use the default technique for this material
             */
             virtual auto handleSchemeNotFound(unsigned short schemeIndex, 
-                const String& schemeName, Material* originalMaterial, unsigned short lodIndex, 
+                std::string_view schemeName, Material* originalMaterial, unsigned short lodIndex,
                 const Renderable* rend) -> Technique* = 0;
 
 			/** Called right after illuminated passes were created,
@@ -135,12 +135,12 @@ class Technique;
         /// Default settings
         MaterialPtr mDefaultSettings;
 
-        auto createImpl(const String& name, ResourceHandle handle, 
-            const String& group, bool isManual, ManualResourceLoader* loader,
+        auto createImpl(std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* params) -> Resource* override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
-        using SchemeMap = std::map<String, unsigned short>;
+        using SchemeMap = std::map<std::string_view, unsigned short>;
         /// List of material schemes
         SchemeMap mSchemes;
         /// Current material scheme
@@ -150,7 +150,7 @@ class Technique;
 
         /// The list of per-scheme (and general) material listeners
         using ListenerList = std::list<Listener *>;
-        using ListenerMap = std::map<String, ListenerList>;
+        using ListenerMap = std::map<std::string_view, ListenerList>;
         ListenerMap mListenerMap;
 
     public:
@@ -159,13 +159,13 @@ class Technique;
 
         /// Create a new material
         /// @see ResourceManager::createResource
-        auto create (const String& name, const String& group,
+        auto create (std::string_view name, std::string_view group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> MaterialPtr;
         
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> MaterialPtr;
+        auto getByName(std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> MaterialPtr;
 
         /// Get a default material that is always available even when no resources were loaded
         /// @param useLighting whether the material should be lit
@@ -241,11 +241,11 @@ class Technique;
         /** Internal method - returns index for a given material scheme name.
         @see Technique::setSchemeName
         */
-        virtual auto _getSchemeIndex(const String& name) -> unsigned short;
+        virtual auto _getSchemeIndex(std::string_view name) -> unsigned short;
         /** Internal method - returns name for a given material scheme index.
         @see Technique::setSchemeName
         */
-        virtual auto _getSchemeName(unsigned short index) -> const String&;
+        virtual auto _getSchemeName(unsigned short index) -> std::string_view;
         /** Internal method - returns the active scheme index.
         @see Technique::setSchemeName
         */
@@ -254,24 +254,24 @@ class Technique;
         /** Returns the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        auto getActiveScheme() const noexcept -> const String& { return mActiveSchemeName; }
+        auto getActiveScheme() const noexcept -> std::string_view{ return mActiveSchemeName; }
         
         /** Sets the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        virtual void setActiveScheme(const String& schemeName);
+        virtual void setActiveScheme(std::string_view schemeName);
 
         /** 
         Add a listener to handle material events. 
         If schemeName is supplied, the listener will only receive events for that certain scheme.
         */
-        virtual void addListener(Listener* l, const Ogre::String& schemeName = BLANKSTRING);
+        virtual void addListener(Listener* l, std::string_view schemeName = "");
 
         /** 
         Remove a listener handling material events. 
         If the listener was added with a custom scheme name, it needs to be supplied here as well.
         */
-        virtual void removeListener(Listener* l, const Ogre::String& schemeName = BLANKSTRING);
+        virtual void removeListener(Listener* l, std::string_view schemeName = "");
 
         /// Internal method for sorting out missing technique for a scheme
         virtual auto _arbitrateMissingTechniqueForActiveScheme(

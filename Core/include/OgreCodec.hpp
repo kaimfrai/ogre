@@ -57,7 +57,7 @@ namespace Ogre {
     class Codec : public CodecAlloc
     {
     private:
-        using CodecList = std::map<std::string_view, Codec *>;
+        using CodecList = std::map<std::string_view, Codec *, std::less<>>;
         /** A map that contains all the registered codecs.
         */
         static CodecList msMapCodecs;
@@ -108,7 +108,7 @@ namespace Ogre {
         @param input The input data (codec type specific)
         @param outFileName The filename to write to
         */
-        virtual void encodeToFile(::std::any const& input, const String& outFileName) const;
+        virtual void encodeToFile(::std::any const& input, std::string_view outFileName) const;
 
         /** Codes the data from the input chunk into the output chunk.
             @param input Stream containing the encoded data

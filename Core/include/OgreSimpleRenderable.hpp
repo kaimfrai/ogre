@@ -76,7 +76,7 @@ class SceneManager;
         SimpleRenderable();
 
         /// Named constructor
-        SimpleRenderable(const String& name);
+        SimpleRenderable(std::string_view name);
 
         virtual void setMaterial(const MaterialPtr& mat);
         auto getMaterial() const noexcept -> const MaterialPtr& override;
@@ -97,7 +97,7 @@ class SceneManager;
 
         void visitRenderables(Renderable::Visitor* visitor,
             bool debugRenderables = false) override;
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
         auto getLights() const noexcept -> const LightList& override;
 
     };

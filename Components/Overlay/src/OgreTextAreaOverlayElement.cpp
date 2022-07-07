@@ -53,50 +53,50 @@ namespace Ogre {
     class CmdCaption : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdCharHeight : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdSpaceWidth : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdFontName : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdColourTop : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdColourBottom : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdColour : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     class CmdAlignment : public ParamCommand
     {
     public:
-        auto doGet( const void* target ) const -> String override;
-        void doSet( void* target, const String& val ) override;
+        auto doGet( const void* target ) const -> std::string override;
+        void doSet( void* target, std::string_view val ) override;
     };
     // Command objects
     static CmdCharHeight msCmdCharHeight;
@@ -115,7 +115,7 @@ namespace Ogre {
     #define UNICODE_SPACE 0x0020
     #define UNICODE_ZERO 0x0030
     //---------------------------------------------------------------------
-    TextAreaOverlayElement::TextAreaOverlayElement(const String& name)
+    TextAreaOverlayElement::TextAreaOverlayElement(std::string_view name)
         : OverlayElement(name), mColourBottom(ColourValue::White), mColourTop(ColourValue::White)
     {
         mTransparent = false;
@@ -428,14 +428,14 @@ namespace Ogre {
         // Nothing to do, we combine positions and textures
     }
 
-    void TextAreaOverlayElement::setCaption( const DisplayString& caption )
+    void TextAreaOverlayElement::setCaption( std::string_view caption )
     {
         mCaption = caption;
         mGeomPositionsOutOfDate = true;
         mGeomUVsOutOfDate = true;
     }
 
-    void TextAreaOverlayElement::setFontName( const String& font, const String& group )
+    void TextAreaOverlayElement::setFontName( std::string_view font, std::string_view group )
     {
         mFont = FontManager::getSingleton().getByName(font, group);
         if (!mFont)
@@ -502,7 +502,7 @@ namespace Ogre {
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getTypeName() const noexcept -> const String&
+    auto TextAreaOverlayElement::getTypeName() const noexcept -> std::string_view
     {
         return msTypeName;
     }
@@ -701,12 +701,12 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Char height command object
     //
-    auto CmdCharHeight::doGet( const void* target ) const -> String
+    auto CmdCharHeight::doGet( const void* target ) const -> std::string
     {
         return StringConverter::toString( 
             static_cast< const TextAreaOverlayElement* >( target )->getCharHeight() );
     }
-    void CmdCharHeight::doSet( void* target, const String& val )
+    void CmdCharHeight::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setCharHeight( 
             StringConverter::parseReal( val ) );
@@ -714,12 +714,12 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Space width command object
     //
-    auto CmdSpaceWidth::doGet( const void* target ) const -> String
+    auto CmdSpaceWidth::doGet( const void* target ) const -> std::string
     {
         return StringConverter::toString( 
             static_cast< const TextAreaOverlayElement* >( target )->getSpaceWidth() );
     }
-    void CmdSpaceWidth::doSet( void* target, const String& val )
+    void CmdSpaceWidth::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setSpaceWidth( 
             StringConverter::parseReal( val ) );
@@ -729,11 +729,11 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Font name command object
     //
-    auto CmdFontName::doGet( const void* target ) const -> String
+    auto CmdFontName::doGet( const void* target ) const -> std::string
     {
-        return static_cast< const TextAreaOverlayElement* >( target )->getFont()->getName();
+        return std::string{ static_cast< const TextAreaOverlayElement* >( target )->getFont()->getName() };
     }
-    void CmdFontName::doSet( void* target, const String& val )
+    void CmdFontName::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setFontName( val );
     }
@@ -741,12 +741,12 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Colour command object
     //
-    auto CmdColour::doGet( const void* target ) const -> String
+    auto CmdColour::doGet( const void* target ) const -> std::string
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColour());
     }
-    void CmdColour::doSet( void* target, const String& val )
+    void CmdColour::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setColour( 
             StringConverter::parseColourValue(val) );
@@ -756,12 +756,12 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Top colour command object
     //
-    auto CmdColourTop::doGet( const void* target ) const -> String
+    auto CmdColourTop::doGet( const void* target ) const -> std::string
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColourTop());
     }
-    void CmdColourTop::doSet( void* target, const String& val )
+    void CmdColourTop::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setColourTop( 
             StringConverter::parseColourValue(val) );
@@ -771,12 +771,12 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Bottom colour command object
     //
-    auto CmdColourBottom::doGet( const void* target ) const -> String
+    auto CmdColourBottom::doGet( const void* target ) const -> std::string
     {
         return StringConverter::toString (
             static_cast< const TextAreaOverlayElement* >( target )->getColourBottom());
     }
-    void CmdColourBottom::doSet( void* target, const String& val )
+    void CmdColourBottom::doSet( void* target, std::string_view val )
     {
         static_cast< TextAreaOverlayElement* >( target )->setColourBottom( 
             StringConverter::parseColourValue(val) );
@@ -786,7 +786,7 @@ namespace Ogre {
     //---------------------------------------------------------------------------------------------
     // Alignment command object
     //
-    auto CmdAlignment::doGet( const void* target ) const -> String
+    auto CmdAlignment::doGet( const void* target ) const -> std::string
     {
         TextAreaOverlayElement::Alignment align = static_cast< const TextAreaOverlayElement* >( target )->getAlignment();
         switch (align)
@@ -802,7 +802,7 @@ namespace Ogre {
         // To keep compiler happy
         return "left";
     }
-    void CmdAlignment::doSet( void* target, const String& val )
+    void CmdAlignment::doSet( void* target, std::string_view val )
     {
         if (val == "center")
         {

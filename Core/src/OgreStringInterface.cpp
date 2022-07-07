@@ -42,7 +42,7 @@ namespace Ogre {
     ParamDictionary::ParamDictionary() = default;
     ParamDictionary::~ParamDictionary() = default;
 
-    auto ParamDictionary::getParamCommand(const String& name) -> ParamCommand*
+    auto ParamDictionary::getParamCommand(std::string_view name) -> ParamCommand*
     {
         auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -55,7 +55,7 @@ namespace Ogre {
         }
     }
 
-    auto ParamDictionary::getParamCommand(const String& name) const -> const ParamCommand*
+    auto ParamDictionary::getParamCommand(std::string_view name) const -> const ParamCommand*
     {
         auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -68,13 +68,13 @@ namespace Ogre {
         }
     }
 
-    void ParamDictionary::addParameter(const String& name, ParamCommand* paramCmd)
+    void ParamDictionary::addParameter(std::string_view name, ParamCommand* paramCmd)
     {
         mParamDefs.push_back(name);
         mParamCommands[name] = paramCmd;
     }
 
-    auto StringInterface::createParamDictionary(const String& className) -> bool
+    auto StringInterface::createParamDictionary(std::string_view className) -> bool
     {
         auto it = msDictionary.find(className);
 
@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    auto StringInterface::getParameters() const noexcept -> const ParameterList&
+    auto StringInterface::getParameters() const noexcept -> std::span<std::string_view const>
     {
         static ParameterList emptyList;
 
@@ -104,7 +104,7 @@ namespace Ogre {
 
     }
 
-    auto StringInterface::getParameter(const String& name) const -> String
+    auto StringInterface::getParameter(std::string_view name) const -> std::string
     {
         // Get dictionary
         const ParamDictionary* dict = getParamDictionary();
@@ -124,7 +124,7 @@ namespace Ogre {
         return "";
     }
 
-    auto StringInterface::setParameter(const String& name, const String& value) -> bool
+    auto StringInterface::setParameter(std::string_view name, std::string_view value) -> bool
     {
         // Get dictionary
         ParamDictionary* dict = getParamDictionary();

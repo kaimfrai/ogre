@@ -226,7 +226,7 @@ TEST(MaterialSerializer, Basic)
     // export to string
     MaterialSerializer ser;
     ser.queueForExport(mat);
-    auto str = ser.getQueuedAsString();
+    std::string str { ser.getQueuedAsString() };
 
     // printf("%s\n", str.c_str());
 

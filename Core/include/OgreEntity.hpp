@@ -118,7 +118,7 @@ class VertexData;
         Entity();
         /** Private constructor - specify name (the usual constructor used).
         */
-        Entity( const String& name, const MeshPtr& mesh);
+        Entity( std::string_view name, const MeshPtr& mesh);
 
         /** The Mesh that this Entity is based on.
         */
@@ -370,7 +370,7 @@ class VertexData;
         @remarks 
             Names should be initialized during a Mesh creation.
         */
-        auto getSubEntity( const String& name ) const -> SubEntity*;
+        auto getSubEntity( std::string_view name ) const -> SubEntity*;
 
         /** Retrieves the number of SubEntity objects making up this entity.
         */
@@ -391,7 +391,7 @@ class VertexData;
         @param newName
             Name for the new entity.
         */
-        auto clone( const String& newName ) const -> Entity*;
+        auto clone( std::string_view newName ) const -> Entity*;
 
         /** Sets the material to use for the whole of this entity.
         @remarks
@@ -401,7 +401,7 @@ class VertexData;
             is only one. Otherwise call getSubEntity() and call the same
             method on the individual SubEntity.
         */
-        void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
         
         /** Sets the material to use for the whole of this entity.
@@ -429,7 +429,7 @@ class VertexData;
         auto getChildObjectsBoundingBox() const -> AxisAlignedBox;
 
         void _updateRenderQueue(RenderQueue* queue) override;
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
 
         /** For entities based on animated meshes, gets the AnimationState object for a single animation.
         @remarks
@@ -437,9 +437,9 @@ class VertexData;
             current state of each animation available to the entity. The AnimationState objects are
             initialised from the Mesh object.
         */
-        auto getAnimationState(const String& name) const -> AnimationState*;
+        auto getAnimationState(std::string_view name) const -> AnimationState*;
         /** Returns whether the AnimationState with the given name exists. */
-        auto hasAnimationState(const String& name) const -> bool;
+        auto hasAnimationState(std::string_view name) const -> bool;
         /** For entities based on animated meshes, gets the AnimationState objects for all animations.
         @return
             In case the entity is animated, this functions returns the pointer to a AnimationStateSet
@@ -562,7 +562,7 @@ class VertexData;
         @return
             The TagPoint to which the object has been attached
         */
-        auto attachObjectToBone(const String &boneName,
+        auto attachObjectToBone(std::string_view boneName,
             MovableObject *pMovable,
             const Quaternion &offsetOrientation = Quaternion::IDENTITY,
             const Vector3 &offsetPosition = Vector3::ZERO) -> TagPoint*;
@@ -572,7 +572,7 @@ class VertexData;
         @param movableName
             The name of the movable object to be detached.
         */
-        auto detachObjectFromBone(const String &movableName) -> MovableObject*;
+        auto detachObjectFromBone(std::string_view movableName) -> MovableObject*;
 
         /** Detaches an object by pointer.
         @remarks
@@ -872,14 +872,14 @@ class VertexData;
     class EntityFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
     public:
         EntityFactory() = default;
         ~EntityFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> const String& override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };
     /** @} */
     /** @} */

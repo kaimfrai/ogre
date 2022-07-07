@@ -90,7 +90,7 @@ namespace Ogre {
         DataStream(std::string_view name, uint16 accessMode = READ) 
             : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
-        auto getName() noexcept -> const String& { return mName; }
+        auto getName() noexcept -> std::string_view{ return mName; }
         /// Gets the access mode of the stream
         [[nodiscard]] auto getAccessMode() const noexcept -> uint16 { return mAccess; }
         /** Reports whether this stream is readable. */
@@ -135,7 +135,7 @@ namespace Ogre {
         @param delim The delimiter to stop at
         @return The number of bytes read, excluding the terminating character
         */
-        virtual auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t;
+        virtual auto readLine(char* buf, size_t maxCount, std::string_view delim = "\n") -> size_t;
         
         /** Returns a String containing the next line of data, optionally 
             trimmed for whitespace. 
@@ -151,14 +151,14 @@ namespace Ogre {
             trimAfter If true, the line is trimmed for whitespace (as in 
             String.trim(true,true))
         */
-        virtual auto getLine( bool trimAfter = true ) -> String;
+        virtual auto getLine( bool trimAfter = true ) -> std::string;
 
         /** Returns a String containing the entire stream. 
         @remarks
             This is a convenience method for text streams only, allowing you to 
             retrieve a String object containing all the data in the stream.
         */
-        virtual auto getAsString() -> String;
+        virtual auto getAsString() -> std::string;
 
         /** Skip a single line from the stream.
         @note
@@ -168,7 +168,7 @@ namespace Ogre {
             delim The delimiter(s) to stop at
         @return The number of bytes skipped
         */
-        virtual auto skipLine(const String& delim = "\n") -> size_t;
+        virtual auto skipLine(std::string_view delim = "\n") -> size_t;
 
         /** Skip a defined number of bytes. This can also be a negative value, in which case
         the file pointer rewinds a defined number of bytes. */
@@ -231,7 +231,7 @@ namespace Ogre {
             when the stream is destroyed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
-        MemoryDataStream(const String& name, void* pMem, size_t size, 
+        MemoryDataStream(std::string_view name, void* pMem, size_t size, 
                 bool freeOnClose = false, bool readOnly = false);
 
         /** Create a stream which pre-buffers the contents of another stream.
@@ -275,7 +275,7 @@ namespace Ogre {
             when the stream is destroyed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
-        MemoryDataStream(const String& name, DataStream& sourceStream, 
+        MemoryDataStream(std::string_view name, DataStream& sourceStream, 
                 bool freeOnClose = true, bool readOnly = false);
 
         /** Create a named stream which pre-buffers the contents of 
@@ -291,7 +291,7 @@ namespace Ogre {
         when the stream is destroyed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
-        MemoryDataStream(const String& name, const DataStreamPtr& sourceStream, 
+        MemoryDataStream(std::string_view name, const DataStreamPtr& sourceStream, 
             bool freeOnClose = true, bool readOnly = false);
 
         /** Create a stream with a brand new empty memory chunk.
@@ -308,7 +308,7 @@ namespace Ogre {
             when the stream is destroyed.
         @param readOnly Whether to make the stream on this memory read-only once created
         */
-        MemoryDataStream(const String& name, size_t size, 
+        MemoryDataStream(std::string_view name, size_t size, 
                 bool freeOnClose = true, bool readOnly = false);
 
         ~MemoryDataStream() override;
@@ -329,11 +329,11 @@ namespace Ogre {
 
         /** @copydoc DataStream::readLine
         */
-        auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t override;
+        auto readLine(char* buf, size_t maxCount, std::string_view delim = "\n") -> size_t override;
         
         /** @copydoc DataStream::skipLine
         */
-        auto skipLine(const String& delim = "\n") -> size_t override;
+        auto skipLine(std::string_view delim = "\n") -> size_t override;
 
         /** @copydoc DataStream::skip
         */
@@ -396,7 +396,7 @@ namespace Ogre {
         @param freeOnClose Whether to delete the underlying stream on 
             destruction of this class
         */
-        FileStreamDataStream(const String& name, 
+        FileStreamDataStream(std::string_view name, 
             std::ifstream* s, 
             bool freeOnClose = true);
 
@@ -406,7 +406,7 @@ namespace Ogre {
         @param freeOnClose Whether to delete the underlying stream on 
         destruction of this class
         */
-        FileStreamDataStream(const String& name, 
+        FileStreamDataStream(std::string_view name, 
             std::fstream* s, 
             bool freeOnClose = true);
 
@@ -422,7 +422,7 @@ namespace Ogre {
         @param freeOnClose Whether to delete the underlying stream on 
             destruction of this class.
         */
-        FileStreamDataStream(const String& name, 
+        FileStreamDataStream(std::string_view name, 
             std::ifstream* s, 
             size_t size, 
             bool freeOnClose = true);
@@ -439,7 +439,7 @@ namespace Ogre {
         @param freeOnClose Whether to delete the underlying stream on 
         destruction of this class.
         */
-        FileStreamDataStream(const String& name, 
+        FileStreamDataStream(std::string_view name, 
             std::fstream* s, 
             size_t size, 
             bool freeOnClose = true);
@@ -456,7 +456,7 @@ namespace Ogre {
 
         /** @copydoc DataStream::readLine
         */
-        auto readLine(char* buf, size_t maxCount, const String& delim = "\n") -> size_t override;
+        auto readLine(char* buf, size_t maxCount, std::string_view delim = "\n") -> size_t override;
         
         /** @copydoc DataStream::skip
         */
@@ -498,7 +498,7 @@ namespace Ogre {
         /// Create stream from a C file handle
         FileHandleDataStream(FILE* handle, uint16 accessMode = READ);
         /// Create named stream from a C file handle
-        FileHandleDataStream(const String& name, FILE* handle, uint16 accessMode = READ);
+        FileHandleDataStream(std::string_view name, FILE* handle, uint16 accessMode = READ);
         ~FileHandleDataStream() override;
 
         /** @copydoc DataStream::read

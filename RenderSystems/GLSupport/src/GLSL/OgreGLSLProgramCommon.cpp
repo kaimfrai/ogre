@@ -123,7 +123,7 @@ auto GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, u
     return attributeIndex[semantic];
 }
 
-auto GLSLProgramCommon::getCombinedName() -> String
+auto GLSLProgramCommon::getCombinedName() -> std::string
 {
     StringStream ss;
 

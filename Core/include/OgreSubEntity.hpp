@@ -140,7 +140,7 @@ class VertexData;
     public:
         /** Gets the name of the Material in use by this instance.
         */
-        auto getMaterialName() const noexcept -> const String&;
+        auto getMaterialName() const noexcept -> std::string_view;
 
         /** Sets the name of the Material to be used.
             @remarks
@@ -148,7 +148,7 @@ class VertexData;
                 uses. This call can alter that so that the Material is different
                 for this instance.
         */
-        void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
         /// @copydoc setMaterialName
         void setMaterial( const MaterialPtr& material );

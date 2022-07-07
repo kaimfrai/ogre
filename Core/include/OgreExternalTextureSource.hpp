@@ -84,9 +84,9 @@ namespace Ogre
         //manually to create video through code 
 
         /// Sets an input file name - if needed by plugin
-        void setInputName( const String &sIN ) { mInputFileName = sIN; }
+        void setInputName( std::string_view sIN ) { mInputFileName = sIN; }
         /// Gets currently set input file name
-        [[nodiscard]] auto getInputName( ) const noexcept -> const String& { return mInputFileName; }
+        [[nodiscard]] auto getInputName( ) const noexcept -> std::string_view{ return mInputFileName; }
         /// Sets the frames per second - plugin may or may not use this
         void setFPS( int iFPS ) { mFramesPerSecond = iFPS; }
         /// Gets currently set frames per second
@@ -107,9 +107,9 @@ namespace Ogre
         void addBaseParams();
 
         /** Returns the string name of this Plugin (as set by the Plugin)*/
-        [[nodiscard]] auto getPluginStringName( ) const noexcept -> const String& { return mPluginName; }
+        [[nodiscard]] auto getPluginStringName( ) const noexcept -> std::string_view{ return mPluginName; }
         /** Returns dictionary name */
-        [[nodiscard]] auto getDictionaryStringName( ) const noexcept -> const String& { return mDictionaryName; }
+        [[nodiscard]] auto getDictionaryStringName( ) const noexcept -> std::string_view{ return mDictionaryName; }
 
         //Pure virtual functions that plugins must Override
         /** Call this function from manager to init system */
@@ -121,13 +121,13 @@ namespace Ogre
         (it's up to plugin to use a material or create one)
         Before calling, ensure that needed params have been defined via the stringInterface
         or regular methods */
-        virtual void createDefinedTexture( const String& sMaterialName,
-            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) = 0;
+        virtual void createDefinedTexture( std::string_view sMaterialName,
+            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) = 0;
         /** What this destroys is dependent on the plugin... See specific plugin
         doc to know what is all destroyed (normally, plugins will destroy only
         what they created, or used directly - ie. just texture unit) */
-        virtual void destroyAdvancedTexture( const String& sTextureName,
-            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) = 0;
+        virtual void destroyAdvancedTexture( std::string_view sTextureName,
+            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) = 0;
 
     protected:
         /// String Name of this Plugin

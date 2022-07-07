@@ -53,11 +53,11 @@ class OverlayElement;
     class PanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        auto createOverlayElement(std::string_view instanceName) -> OverlayElement* override
         {
             return new PanelOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const noexcept -> const String& override
+        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
             static String name = "Panel";
             return name;
@@ -68,11 +68,11 @@ class OverlayElement;
     class BorderPanelOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        auto createOverlayElement(std::string_view instanceName) -> OverlayElement* override
         {
             return new BorderPanelOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const noexcept -> const String& override
+        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
             static String name = "BorderPanel";
             return name;
@@ -83,11 +83,11 @@ class OverlayElement;
     class TextAreaOverlayElementFactory: public OverlayElementFactory
     {
     public:
-        auto createOverlayElement(const String& instanceName) -> OverlayElement* override
+        auto createOverlayElement(std::string_view instanceName) -> OverlayElement* override
         {
             return new TextAreaOverlayElement(instanceName);
         }
-        [[nodiscard]] auto getTypeName() const noexcept -> const String& override
+        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
             static String name = "TextArea";
             return name;
@@ -124,7 +124,7 @@ class OverlayElement;
             RenderSystem::setSharedListener(nullptr);
     }
     //---------------------------------------------------------------------
-    void OverlaySystem::renderQueueStarted(uint8 queueGroupId, const String& invocation, 
+    void OverlaySystem::renderQueueStarted(uint8 queueGroupId, std::string_view invocation, 
             bool& skipThisInvocation)
     {
         if(queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
@@ -141,7 +141,7 @@ class OverlayElement;
         }
     }
     //---------------------------------------------------------------------
-	void OverlaySystem::eventOccurred(const String& eventName, const NameValuePairList* parameters)
+	void OverlaySystem::eventOccurred(std::string_view eventName, const NameValuePairList* parameters)
 	{
 		if(eventName == "DeviceLost")
 		{

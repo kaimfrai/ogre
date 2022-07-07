@@ -68,7 +68,7 @@ void CompositionPass::setMaterial(const MaterialPtr& mat)
     mMaterial.material = mat;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setMaterialName(const String &name)
+void CompositionPass::setMaterialName(std::string_view name)
 {
     mMaterial.material = MaterialManager::getSingleton().getByName(name);
 }
@@ -108,7 +108,7 @@ auto CompositionPass::getAutomaticColour() const noexcept -> bool
     return mClear.automaticColour;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setInput(size_t id, const String &input, size_t mrtIndex)
+void CompositionPass::setInput(size_t id, std::string_view input, size_t mrtIndex)
 {
     assert(id<OGRE_MAX_TEXTURE_LAYERS);
     mMaterial.inputs[id] = InputTex(input, mrtIndex);
@@ -164,12 +164,12 @@ auto CompositionPass::getLastRenderQueue() const noexcept -> uint8
     return mRenderScene.lastRenderQueue ;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setMaterialScheme(const String& schemeName)
+void CompositionPass::setMaterialScheme(std::string_view schemeName)
 {
     mRenderScene.materialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-auto CompositionPass::getMaterialScheme() const noexcept -> const String&
+auto CompositionPass::getMaterialScheme() const noexcept -> std::string_view
 {
     return mRenderScene.materialScheme;
 }
@@ -269,12 +269,12 @@ auto CompositionPass::getQuadFarCornersViewSpace() const noexcept -> bool
     return mQuad.farCornersViewSpace;
 }
         
-void CompositionPass::setCustomType(const String& customType)
+void CompositionPass::setCustomType(std::string_view customType)
 {
     mCustomType = customType;
 }
 
-auto CompositionPass::getCustomType() const noexcept -> const String&
+auto CompositionPass::getCustomType() const noexcept -> std::string_view
 {
     return mCustomType;
 }

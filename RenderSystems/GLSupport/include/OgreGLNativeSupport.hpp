@@ -43,7 +43,7 @@ namespace Ogre
         int16 refreshRate;
         uint8  bpp;
 
-        [[nodiscard]] auto getDescription() const -> String;
+        [[nodiscard]] auto getDescription() const -> std::string;
     };
     using VideoModes = std::vector<VideoMode>;
 
@@ -53,7 +53,7 @@ namespace Ogre
     class GLNativeSupport
     {
         public:
-            using ExtensionList = std::set<String>;
+            using ExtensionList = std::set<std::string_view>;
 
             enum ContextProfile {
                 CONTEXT_CORE = 1,
@@ -65,7 +65,7 @@ namespace Ogre
             virtual ~GLNativeSupport() = default;
 
             /// @copydoc RenderSystem::_createRenderWindow
-            virtual auto newWindow(const String &name,
+            virtual auto newWindow(std::string_view name,
                                             unsigned int width, unsigned int height,
                                             bool fullScreen,
                                             const NameValuePairList *miscParams = nullptr) -> RenderWindow* = 0;
@@ -79,7 +79,7 @@ namespace Ogre
             */
             virtual auto getProcAddress(const char* procname) const -> void * = 0;
 
-            [[nodiscard]] auto checkExtension(const String& ext) const -> bool {
+            [[nodiscard]] auto checkExtension(std::string_view ext) const -> bool {
                 return extensionList.find(ext) != extensionList.end();
             }
 

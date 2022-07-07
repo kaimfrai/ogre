@@ -77,7 +77,7 @@ namespace Ogre {
             rendered. Note that in this case the renderQueueEnded event will not be raised
             for this queue group.
         */
-        virtual void renderQueueStarted(uint8 queueGroupId, const String& invocation, 
+        virtual void renderQueueStarted(uint8 queueGroupId, std::string_view invocation, 
             bool& skipThisInvocation)
         { (void)queueGroupId; (void)invocation; (void)skipThisInvocation; }
 
@@ -93,7 +93,7 @@ namespace Ogre {
             rendered will be repeated, and the renderQueueStarted and renderQueueEnded
             events will also be fired for it again.
         */
-        virtual void renderQueueEnded(uint8 queueGroupId, const String& invocation, 
+        virtual void renderQueueEnded(uint8 queueGroupId, std::string_view invocation, 
             bool& repeatThisInvocation)
         { (void)queueGroupId; (void)invocation; (void)repeatThisInvocation; }
     };

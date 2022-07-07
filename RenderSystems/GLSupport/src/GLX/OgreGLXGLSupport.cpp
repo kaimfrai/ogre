@@ -138,7 +138,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    auto GLXGLSupport::newWindow(const String &name, unsigned int width, unsigned int height, bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
+    auto GLXGLSupport::newWindow(std::string_view name, unsigned int width, unsigned int height, bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
     {
         auto* window = new GLXWindow(this);
 
@@ -482,7 +482,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    auto GLXGLSupport::getDisplayName() -> String
+    auto GLXGLSupport::getDisplayName() -> std::string_view
     {
         return {(const char*)XDisplayName(DisplayString(mGLDisplay))};
     }

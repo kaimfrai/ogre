@@ -61,8 +61,8 @@ class ResourceManager;
     class Compositor: public Resource
     {
     public:
-        Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Compositor(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Compositor() override;
         
         /// Data types for internal lists
@@ -123,21 +123,21 @@ class ResourceManager;
         @param schemeName The scheme name you are looking for. Blank means to 
             look for techniques with no scheme associated
         */
-        auto getSupportedTechnique(const String& schemeName = BLANKSTRING) -> CompositionTechnique *;
+        auto getSupportedTechnique(std::string_view schemeName = "") -> CompositionTechnique *;
 
         /** Get the instance name for a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The instance name for the texture, corresponds to a real texture
         */
-        auto getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&;
+        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view;
 
         /** Get the instance of a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The texture pointer, corresponds to a real texture
         */
-        auto getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&;
+        auto getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&;
 
         /** Get the render target for a given render texture name. 
         @remarks
@@ -145,7 +145,7 @@ class ResourceManager;
             targets manually or any other modifications, the compositor instance 
             is in charge of this.
         */
-        auto getRenderTarget(const String& name, int slice = 0) -> RenderTarget*;
+        auto getRenderTarget(std::string_view name, int slice = 0) -> RenderTarget*;
 
     protected:
         /// @copydoc Resource::loadImpl
@@ -178,10 +178,10 @@ class ResourceManager;
 
         //TODO GSOC : These typedefs are duplicated from CompositorInstance. Solve?
         /// Map from name->local texture
-        using GlobalTextureMap = std::map<String, TexturePtr>;
+        using GlobalTextureMap = std::map<std::string_view, TexturePtr>;
         GlobalTextureMap mGlobalTextures;
         /// Store a list of MRTs we've created
-        using GlobalMRTMap = std::map<String, MultiRenderTarget *>;
+        using GlobalMRTMap = std::map<std::string_view, MultiRenderTarget *>;
         GlobalMRTMap mGlobalMRTs;
     };
     /** @} */

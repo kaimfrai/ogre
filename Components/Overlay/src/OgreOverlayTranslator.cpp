@@ -131,7 +131,7 @@ void FontTranslator::parseAttribute(ScriptCompiler* compiler, FontPtr& pFont,
         {
 
             bool succ = getString(v, &val);
-            StringVector itemVec = StringUtil::split(val, "-");
+            auto const itemVec = StringUtil::split(val, "-");
             if (succ && itemVec.size() == 2)
             {
                 pFont->addCodePointRange(
@@ -167,7 +167,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
     if(obj->values.empty() || ((obj->cls == "template") && obj->values.size() == 1))
     {
         // legacy naming support
-        std::vector<String> params = StringUtil::split(name, "()", 2);
+        auto const params = StringUtil::split(name, "()", 2);
 
         if (params.size() != 2)
         {

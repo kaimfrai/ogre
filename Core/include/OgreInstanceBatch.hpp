@@ -190,7 +190,7 @@ class Technique;
     public:
         InstanceBatch( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                        size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                       const String &batchName );
+                       std::string_view batchName );
         ~InstanceBatch() override;
 
         auto _getMeshRef() noexcept -> MeshPtr& { return mMeshReference; }
@@ -357,7 +357,7 @@ class Technique;
         auto getTechnique() const noexcept -> Technique* override;
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
         /** @copydoc MovableObject::_notifyCurrentCamera */
         void _notifyCurrentCamera( Camera* cam ) override;
         /** @copydoc MovableObject::getBoundingBox */

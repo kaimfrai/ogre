@@ -60,78 +60,78 @@ class RenderQueue;
     class CmdQuota : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for emittedEmitterQuota (see ParamCommand).*/
     class CmdEmittedEmitterQuota : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for material (see ParamCommand).*/
     class CmdMaterial : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for cull_each (see ParamCommand).*/
     class CmdCull : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for particle_width (see ParamCommand).*/
     class CmdWidth : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for particle_height (see ParamCommand).*/
     class CmdHeight : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for renderer (see ParamCommand).*/
     class CmdRenderer : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for sorting (see ParamCommand).*/
     class CmdSorted : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for local space (see ParamCommand).*/
     class CmdLocalSpace : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for iteration interval(see ParamCommand).*/
     class CmdIterationInterval : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for nonvisible timeout (see ParamCommand).*/
     class CmdNonvisibleTimeout : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     /// Command objects
     static CmdCull msCullCmd;
@@ -196,7 +196,7 @@ class RenderQueue;
         mCastShadows = false;
     }
     //-----------------------------------------------------------------------
-    ParticleSystem::ParticleSystem(const String& name, std::string_view resourceGroup)
+    ParticleSystem::ParticleSystem(std::string_view name, std::string_view resourceGroup)
       : MovableObject(name),
         mAABB(),
         mBoundingRadius(1.0f),
@@ -256,7 +256,7 @@ class RenderQueue;
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::addEmitter(const String& emitterType) -> ParticleEmitter*
+    auto ParticleSystem::addEmitter(std::string_view emitterType) -> ParticleEmitter*
     {
         ParticleEmitter* em = 
             ParticleSystemManager::getSingleton()._createEmitter(emitterType, this);
@@ -301,7 +301,7 @@ class RenderQueue;
         mEmitters.clear();
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::addAffector(const String& affectorType) -> ParticleAffector*
+    auto ParticleSystem::addAffector(std::string_view affectorType) -> ParticleAffector*
     {
         ParticleAffector* af = 
             ParticleSystemManager::getSingleton()._createAffector(affectorType, this);
@@ -938,7 +938,7 @@ class RenderQueue;
         return mIsEmitting;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getMovableType() const noexcept -> const String&
+    auto ParticleSystem::getMovableType() const noexcept -> std::string_view
     {
         return ParticleSystemFactory::FACTORY_TYPE_NAME;
     }
@@ -1036,7 +1036,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::setMaterialName( const String& name, const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void ParticleSystem::setMaterialName( std::string_view name, std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
         if (!mMaterial)
@@ -1054,7 +1054,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getMaterialName() const noexcept -> const String&
+    auto ParticleSystem::getMaterialName() const noexcept -> std::string_view
     {
         return mMaterial->getName();
     }
@@ -1087,7 +1087,7 @@ class RenderQueue;
         mUpdateRemainTime = 0;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::setRenderer(const String& rendererName)
+    void ParticleSystem::setRenderer(std::string_view rendererName)
     {
         if (mRenderer)
         {
@@ -1145,7 +1145,7 @@ class RenderQueue;
         return mRenderer;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getRendererName() const noexcept -> const String&
+    auto ParticleSystem::getRendererName() const noexcept -> std::string_view
     {
         if (mRenderer)
         {
@@ -1452,118 +1452,118 @@ class RenderQueue;
         mEmittedEmitterPoolInitialised = false; // Don't rearrange immediately; it will be performed in the regular flow
     }
     //-----------------------------------------------------------------------
-    auto CmdCull::doGet(const void* target) const -> String
+    auto CmdCull::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getCullIndividually() );
     }
-    void CmdCull::doSet(void* target, const String& val)
+    void CmdCull::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setCullIndividually(
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdHeight::doGet(const void* target) const -> String
+    auto CmdHeight::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getDefaultHeight() );
     }
-    void CmdHeight::doSet(void* target, const String& val)
+    void CmdHeight::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setDefaultHeight(
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdWidth::doGet(const void* target) const -> String
+    auto CmdWidth::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getDefaultWidth() );
     }
-    void CmdWidth::doSet(void* target, const String& val)
+    void CmdWidth::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setDefaultWidth(
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdMaterial::doGet(const void* target) const -> String
+    auto CmdMaterial::doGet(const void* target) const -> std::string
     {
-        return static_cast<const ParticleSystem*>(target)->getMaterialName();
+        return std::string{ static_cast<const ParticleSystem*>(target)->getMaterialName() };
     }
-    void CmdMaterial::doSet(void* target, const String& val)
+    void CmdMaterial::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setMaterialName(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdQuota::doGet(const void* target) const -> String
+    auto CmdQuota::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getParticleQuota() );
     }
-    void CmdQuota::doSet(void* target, const String& val)
+    void CmdQuota::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setParticleQuota(
             StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdEmittedEmitterQuota::doGet(const void* target) const -> String
+    auto CmdEmittedEmitterQuota::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getEmittedEmitterQuota() );
     }
-    void CmdEmittedEmitterQuota::doSet(void* target, const String& val)
+    void CmdEmittedEmitterQuota::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setEmittedEmitterQuota(
             StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdRenderer::doGet(const void* target) const -> String
+    auto CmdRenderer::doGet(const void* target) const -> std::string
     {
-        return static_cast<const ParticleSystem*>(target)->getRendererName();
+        return std::string{ static_cast<const ParticleSystem*>(target)->getRendererName() };
     }
-    void CmdRenderer::doSet(void* target, const String& val)
+    void CmdRenderer::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setRenderer(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdSorted::doGet(const void* target) const -> String
+    auto CmdSorted::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getSortingEnabled());
     }
-    void CmdSorted::doSet(void* target, const String& val)
+    void CmdSorted::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setSortingEnabled(
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdLocalSpace::doGet(const void* target) const -> String
+    auto CmdLocalSpace::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getKeepParticlesInLocalSpace());
     }
-    void CmdLocalSpace::doSet(void* target, const String& val)
+    void CmdLocalSpace::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setKeepParticlesInLocalSpace(
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdIterationInterval::doGet(const void* target) const -> String
+    auto CmdIterationInterval::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getIterationInterval());
     }
-    void CmdIterationInterval::doSet(void* target, const String& val)
+    void CmdIterationInterval::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setIterationInterval(
             StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdNonvisibleTimeout::doGet(const void* target) const -> String
+    auto CmdNonvisibleTimeout::doGet(const void* target) const -> std::string
     {
         return StringConverter::toString(
             static_cast<const ParticleSystem*>(target)->getNonVisibleUpdateTimeout());
     }
-    void CmdNonvisibleTimeout::doSet(void* target, const String& val)
+    void CmdNonvisibleTimeout::doSet(void* target, std::string_view val)
     {
         static_cast<ParticleSystem*>(target)->setNonVisibleUpdateTimeout(
             StringConverter::parseReal(val));

@@ -19,7 +19,7 @@ SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderG
     mShaderGenerator = pShaderGenerator;
 }
 
-auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, const Ogre::String &schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) -> Ogre::Technique * {
+auto SGTechniqueResolverListener::handleSchemeNotFound(unsigned short schemeIndex, std::string_view schemeName, Ogre::Material *originalMaterial, unsigned short lodIndex, const Ogre::Renderable *rend) -> Ogre::Technique * {
     if (!mShaderGenerator->hasRenderState(schemeName))
     {
         return nullptr;

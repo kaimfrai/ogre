@@ -56,7 +56,7 @@ class RenderQueue;
     String Frustum::msMovableType = "Frustum";
     const Real Frustum::INFINITE_FAR_PLANE_ADJUST = 0.00001;
     //-----------------------------------------------------------------------
-    Frustum::Frustum(const String& name) : 
+    Frustum::Frustum(std::string_view name) : 
         mFOVy(Radian(Math::PI/4.0f)), 
         
         mFrustumOffset(Vector2::ZERO),
@@ -737,7 +737,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    auto Frustum::getMovableType() const noexcept -> const String&
+    auto Frustum::getMovableType() const noexcept -> std::string_view
     {
         return msMovableType;
     }

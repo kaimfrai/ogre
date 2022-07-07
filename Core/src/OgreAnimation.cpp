@@ -301,7 +301,7 @@ class VertexData;
         destroyAllVertexTracks();
     }
     //---------------------------------------------------------------------
-    auto Animation::getName() const noexcept -> const String&
+    auto Animation::getName() const noexcept -> std::string_view
     {
         return mName;
     }
@@ -581,7 +581,7 @@ class VertexData;
 
     }
     //-----------------------------------------------------------------------
-    auto Animation::clone(const String& newName) const -> Animation*
+    auto Animation::clone(std::string_view newName) const -> Animation*
     {
         auto* newAnim = new Animation(newName, mLength);
         newAnim->mInterpolationMode = mInterpolationMode;
@@ -667,7 +667,7 @@ class VertexData;
         mKeyFrameTimesDirty = false;
     }
     //-----------------------------------------------------------------------
-    void Animation::setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime, const String& baseAnimName)
+    void Animation::setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime, std::string_view baseAnimName)
     {
         if (useBaseKeyFrame != mUseBaseKeyFrame ||
             keyframeTime != mBaseKeyFrameTime ||
@@ -689,7 +689,7 @@ class VertexData;
         return mBaseKeyFrameTime;
     }
     //-----------------------------------------------------------------------
-    auto Animation::getBaseKeyFrameAnimationName() const noexcept -> const String&
+    auto Animation::getBaseKeyFrameAnimationName() const noexcept -> std::string_view
     {
         return mBaseKeyFrameAnimationName;
     }

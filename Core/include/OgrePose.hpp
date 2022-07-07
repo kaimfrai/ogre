@@ -70,7 +70,7 @@ class VertexData;
         */
         Pose(ushort target, std::string_view name = BLANKSTRING);
         /// Return the name of the pose (may be blank)
-        auto getName() const noexcept -> const String& { return mName; }
+        auto getName() const noexcept -> std::string_view{ return mName; }
         /// Return the target geometry index of the pose
         auto getTarget() const noexcept -> ushort { return mTarget; }
         /// A collection of vertex offsets based on the vertex index

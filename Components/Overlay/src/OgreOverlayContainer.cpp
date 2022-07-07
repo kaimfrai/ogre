@@ -42,7 +42,7 @@ class Matrix4;
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    OverlayContainer::OverlayContainer(const String& name)
+    OverlayContainer::OverlayContainer(std::string_view name)
         : OverlayElement(name)
         
     {
@@ -77,7 +77,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayContainer::addChildImpl(OverlayElement* elem)
     {
-        String name = elem->getName();
+        auto const name = elem->getName();
         auto i = mChildren.find(name);
         if (i != mChildren.end())
         {
@@ -120,7 +120,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
+    auto OverlayContainer::removeChild(std::string_view name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -153,7 +153,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::_removeChild(const String& name) -> OverlayContainer::ChildMap::iterator
+    auto OverlayContainer::_removeChild(std::string_view name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -174,7 +174,7 @@ class RenderQueue;
         return eraseIt;
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::getChild(const String& name) -> OverlayElement*
+    auto OverlayContainer::getChild(std::string_view name) -> OverlayElement*
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -349,7 +349,7 @@ class RenderQueue;
         }
     }
 
-    auto OverlayContainer::clone(const String& instanceName) -> OverlayElement*
+    auto OverlayContainer::clone(std::string_view instanceName) -> OverlayElement*
     {
         OverlayContainer *newContainer;
 

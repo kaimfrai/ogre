@@ -203,7 +203,7 @@ namespace {
     { 
     }
     //---------------------------------------------------------------------
-    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName,
+    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
                                 const CodecDataPtr& pData) const
     {
         // Unwrap codecDataPtr - data is cleaned by calling function
@@ -422,7 +422,7 @@ namespace {
             {
                 // Write the file
                 std::ofstream of;
-                of.open(outFileName.c_str(), std::ios_base::binary|std::ios_base::out);
+                of.open(std::filesystem::path{outFileName}, std::ios_base::binary|std::ios_base::out);
                 of.write((const char *)&ddsMagic, sizeof(uint32));
                 of.write((const char *)&ddsHeader, DDS_HEADER_SIZE);
                 // XXX flipEndian on each pixel chunk written unless isFloat32r ?

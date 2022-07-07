@@ -49,7 +49,7 @@ class LodStrategy;
     class LodStrategyManager : public Singleton<LodStrategyManager>, public LodAlloc
     {
         /** Map of strategies. */
-        using StrategyMap = std::map<String, LodStrategy *>;
+        using StrategyMap = std::map<std::string_view, LodStrategy *>;
 
         /** Internal map of strategies. */
         StrategyMap mStrategies;
@@ -72,7 +72,7 @@ class LodStrategy;
             The removed strategy is returned so the user can control
             how it is destroyed.
         */
-        auto removeStrategy(const String& name) -> LodStrategy *;
+        auto removeStrategy(std::string_view name) -> LodStrategy *;
 
         /** Remove and delete all strategies from the manager.
         @remarks
@@ -82,13 +82,13 @@ class LodStrategy;
         void removeAllStrategies();
 
         /** Get the strategy with the specified name. */
-        auto getStrategy(const String& name) -> LodStrategy *;
+        auto getStrategy(std::string_view name) -> LodStrategy *;
 
         /** Set the default strategy. */
         void setDefaultStrategy(LodStrategy *strategy);
 
         /** Set the default strategy by name. */
-        void setDefaultStrategy(const String& name);
+        void setDefaultStrategy(std::string_view name);
 
         /** Get the current default strategy. */
         auto getDefaultStrategy() -> LodStrategy *;

@@ -64,11 +64,11 @@ namespace {
         @param detailList
             Populated if retrieving a detailed list.
         */
-        void findFiles(const String& pattern, bool recursive, bool dirs,
+        void findFiles(std::string_view pattern, bool recursive, bool dirs,
             StringVector* simpleList, FileInfoList* detailList) const;
 
     public:
-        FileSystemArchive(const String& name, const String& archType, bool readOnly );
+        FileSystemArchive(std::string_view name, std::string_view archType, bool readOnly );
         ~FileSystemArchive() override;
 
         /// @copydoc Archive::isCaseSensitive
@@ -80,13 +80,13 @@ namespace {
         void unload() override;
 
         /// @copydoc Archive::open
-        [[nodiscard]] auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr override;
+        [[nodiscard]] auto open(std::string_view filename, bool readOnly = true) const -> DataStreamPtr override;
 
         /// @copydoc Archive::create
-        auto create(const String& filename) -> DataStreamPtr override;
+        auto create(std::string_view filename) -> DataStreamPtr override;
 
         /// @copydoc Archive::remove
-        void remove(const String& filename) override;
+        void remove(std::string_view filename) override;
 
         /// @copydoc Archive::list
         [[nodiscard]] auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr override;
@@ -95,25 +95,25 @@ namespace {
         [[nodiscard]] auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::find
-        [[nodiscard]] auto find(const String& pattern, bool recursive = true,
+        [[nodiscard]] auto find(std::string_view pattern, bool recursive = true,
             bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::findFileInfo
-        [[nodiscard]] auto findFileInfo(const String& pattern, bool recursive = true,
+        [[nodiscard]] auto findFileInfo(std::string_view pattern, bool recursive = true,
             bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::exists
-        [[nodiscard]] auto exists(const String& filename) const -> bool override;
+        [[nodiscard]] auto exists(std::string_view filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
-        [[nodiscard]] auto getModifiedTime(const String& filename) const -> time_t override;
+        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> time_t override;
     };
 
     bool gIgnoreHidden = true;
 }
 
     //-----------------------------------------------------------------------
-    FileSystemArchive::FileSystemArchive(const String& name, const String& archType, bool readOnly )
+    FileSystemArchive::FileSystemArchive(std::string_view name, std::string_view archType, bool readOnly )
         : Archive(name, archType)
     {
         // Even failed attempt to write to read only location violates Apple AppStore validation process.
@@ -127,26 +127,26 @@ namespace {
         return true;
     }
     //-----------------------------------------------------------------------
-    static auto is_reserved_dir (const char *fn) -> bool
+    static auto is_reserved_dir (std::string_view fn) -> bool
     {
         return (fn [0] == '.' && (fn [1] == 0 || (fn [1] == '.' && fn [2] == 0)));
     }
     //-----------------------------------------------------------------------
-    static auto is_absolute_path(const char* path) -> bool
+    static auto is_absolute_path(std::string_view path) -> bool
     {
         return path[0] == '/' || path[0] == '\\';
     }
     //-----------------------------------------------------------------------
-    static auto concatenate_path(const String& base, const String& name) -> String
+    static auto concatenate_path(std::string_view base, std::string_view name) -> std::string
     {
-        if (base.empty() || is_absolute_path(name.c_str()))
-            return name;
+        if (base.empty() || is_absolute_path(name))
+            return std::string{name};
         else
-            return base + '/' + name;
+            return std::format("{}/{}", base, name);
     }
 
     //-----------------------------------------------------------------------
-    void FileSystemArchive::findFiles(const String& pattern, bool recursive, 
+    void FileSystemArchive::findFiles(std::string_view pattern, bool recursive, 
         bool dirs, StringVector* simpleList, FileInfoList* detailList) const
     {
         intptr_t lHandle, res;
@@ -257,7 +257,7 @@ namespace {
         // nothing to see here, move along
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchive::open(const String& filename, bool readOnly) const -> DataStreamPtr
+    auto FileSystemArchive::open(std::string_view filename, bool readOnly) const -> DataStreamPtr
     {
         if (!readOnly && isReadOnly())
         {
@@ -272,13 +272,16 @@ namespace {
 
         return _openFileStream(concatenate_path(mName, filename), mode, filename);
     }
-    auto _openFileStream(const String& full_path, std::ios::openmode mode, const String& name) -> DataStreamPtr
+    auto _openFileStream(std::string_view full_path, std::ios::openmode mode, std::string_view name) -> DataStreamPtr
     {
+        if (*full_path.end() != '\0')
+            std::unreachable();
+
         // Use filesystem to determine size 
         // (quicker than streaming to the end and back)
 
         struct stat tagStat;
-        int ret = stat(full_path.c_str(), &tagStat);
+        int ret = stat(full_path.data(), &tagStat);
 
         size_t st_size = ret == 0 ? tagStat.st_size : 0;
 
@@ -290,7 +293,7 @@ namespace {
         {
             rwStream = new std::fstream();
 
-            rwStream->open(full_path.c_str(), mode);
+            rwStream->open(std::filesystem::path{full_path}, mode);
 
             baseStream = rwStream;
         }
@@ -298,7 +301,7 @@ namespace {
         {
             roStream = new std::ifstream();
 
-            roStream->open(full_path.c_str(), mode);
+            roStream->open(std::filesystem::path{full_path}, mode);
 
             baseStream = roStream;
         }
@@ -314,7 +317,7 @@ namespace {
 
         /// Construct return stream, tell it to delete on destroy
         FileStreamDataStream* stream = nullptr;
-        const String& streamname = name.empty() ? full_path : name;
+        std::string_view streamname = name.empty() ? full_path : name;
         if (rwStream)
         {
             // use the writeable stream
@@ -329,7 +332,7 @@ namespace {
         return DataStreamPtr(stream);
     }
     //---------------------------------------------------------------------
-    auto FileSystemArchive::create(const String& filename) -> DataStreamPtr
+    auto FileSystemArchive::create(std::string_view filename) -> DataStreamPtr
     {
         if (isReadOnly())
         {
@@ -359,7 +362,7 @@ namespace {
         return DataStreamPtr(stream);
     }
     //---------------------------------------------------------------------
-    void FileSystemArchive::remove(const String& filename)
+    void FileSystemArchive::remove(std::string_view filename)
     {
         if (isReadOnly())
         {
@@ -389,7 +392,7 @@ namespace {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchive::find(const String& pattern,
+    auto FileSystemArchive::find(std::string_view pattern,
                                             bool recursive, bool dirs) const -> StringVectorPtr
     {
         StringVectorPtr ret(new StringVector());
@@ -400,7 +403,7 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchive::findFileInfo(const String& pattern, 
+    auto FileSystemArchive::findFileInfo(std::string_view pattern, 
         bool recursive, bool dirs) const -> FileInfoListPtr
     {
         FileInfoListPtr ret(new FileInfoList());
@@ -410,7 +413,7 @@ namespace {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchive::exists(const String& filename) const -> bool
+    auto FileSystemArchive::exists(std::string_view filename) const -> bool
     {
         if (filename.empty())
             return false;
@@ -422,7 +425,7 @@ namespace {
 
         // stat will return true if the filename is absolute, but we need to check
         // the file is actually in this archive
-        if (ret && is_absolute_path(filename.c_str()))
+        if (ret && is_absolute_path(filename))
         {
             // only valid if full path starts with our base
 
@@ -433,7 +436,7 @@ namespace {
         return ret;
     }
     //---------------------------------------------------------------------
-    auto FileSystemArchive::getModifiedTime(const String& filename) const -> time_t
+    auto FileSystemArchive::getModifiedTime(std::string_view filename) const -> time_t
     {
         String full_path = concatenate_path(mName, filename);
 
@@ -451,13 +454,13 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchiveFactory::getType() const noexcept -> const String&
+    auto FileSystemArchiveFactory::getType() const noexcept -> std::string_view
     {
         static String name = "FileSystem";
         return name;
     }
 
-    auto FileSystemArchiveFactory::createInstance( const String& name, bool readOnly ) -> Archive *
+    auto FileSystemArchiveFactory::createInstance( std::string_view name, bool readOnly ) -> Archive *
     {
         return new FileSystemArchive(name, getType(), readOnly);
     }

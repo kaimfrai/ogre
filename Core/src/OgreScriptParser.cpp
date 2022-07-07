@@ -39,12 +39,12 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    static auto unquoted(const String& str, bool trim = true) -> String
+    static auto unquoted(std::string_view str, bool trim = true) -> std::string_view
     {
         return trim ? str.substr(1, str.size() - 2) : str;
     }
 
-    auto ScriptParser::parse(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
+    auto ScriptParser::parse(const ScriptTokenList &tokens, std::string_view file) -> ConcreteNodeListPtr
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());
@@ -434,7 +434,7 @@ namespace Ogre
         return nodes;
     }
 
-    auto ScriptParser::parseChunk(const ScriptTokenList &tokens, const String& file) -> ConcreteNodeListPtr
+    auto ScriptParser::parseChunk(const ScriptTokenList &tokens, std::string_view file) -> ConcreteNodeListPtr
     {
         // MEMCATEGORY_GENERAL because SharedPtr can only free using that category
         ConcreteNodeListPtr nodes(new ConcreteNodeList());

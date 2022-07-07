@@ -89,7 +89,7 @@ namespace Ogre {
         return memSize;
     }
     //-----------------------------------------------------------------------------
-    auto Technique::_compile(bool autoManageTextureUnits) -> String
+    auto Technique::_compile(bool autoManageTextureUnits) -> std::string
     {
         StringStream errors;
 
@@ -265,7 +265,7 @@ namespace Ogre {
         }
 
         // now check device names
-        includeRules.str(BLANKSTRING);
+        includeRules.str("");
         includeRulesPresent = false;
         includeRuleMatched = false;
 
@@ -308,7 +308,7 @@ namespace Ogre {
         return newPass;
     }
     //-----------------------------------------------------------------------------
-    auto Technique::getPass(const String& name) const -> Pass*
+    auto Technique::getPass(std::string_view name) const -> Pass*
     {
         Pass* foundPass = nullptr;
 
@@ -664,7 +664,7 @@ namespace Ogre {
     #undef ALL_PASSES
 
     // --------------------------------------------------------------------
-    void Technique::setName(const String& name)
+    void Technique::setName(std::string_view name)
     {
         mName = name;
     }
@@ -686,13 +686,13 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    void Technique::setSchemeName(const String& schemeName)
+    void Technique::setSchemeName(std::string_view schemeName)
     {
         mSchemeIndex = MaterialManager::getSingleton()._getSchemeIndex(schemeName);
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    auto Technique::getSchemeName() const noexcept -> const String&
+    auto Technique::getSchemeName() const noexcept -> std::string_view
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
@@ -986,7 +986,7 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    auto Technique::getResourceGroup() const noexcept -> const String&
+    auto Technique::getResourceGroup() const noexcept -> std::string_view
     {
         return mParent->getGroup();
     }
@@ -1012,7 +1012,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void  Technique::setShadowCasterMaterial(const Ogre::String &name) 
+    void  Technique::setShadowCasterMaterial(std::string_view name) 
     { 
         setShadowCasterMaterial(MaterialManager::getSingleton().getByName(name));
     }
@@ -1036,7 +1036,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void  Technique::setShadowReceiverMaterial(const Ogre::String &name)  
+    void  Technique::setShadowReceiverMaterial(std::string_view name)  
     { 
         mShadowReceiverMaterialName = name;
         mShadowReceiverMaterial = MaterialManager::getSingleton().getByName(name);
@@ -1065,7 +1065,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Technique::addGPUDeviceNameRule(const String& devicePattern, 
+    void Technique::addGPUDeviceNameRule(std::string_view devicePattern, 
         Technique::IncludeOrExclude includeOrExclude, bool caseSensitive)
     {
         addGPUDeviceNameRule(GPUDeviceNameRule(devicePattern, includeOrExclude, caseSensitive));
@@ -1078,7 +1078,7 @@ namespace Ogre {
         mGPUDeviceNameRules.push_back(rule);
     }
     //---------------------------------------------------------------------
-    void Technique::removeGPUDeviceNameRule(const String& devicePattern)
+    void Technique::removeGPUDeviceNameRule(std::string_view devicePattern)
     {
         for (auto i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
         {

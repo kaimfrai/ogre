@@ -86,13 +86,13 @@ void SceneManager::SkyRenderer::setEnabled(bool enable)
 void SceneManager::SkyPlaneRenderer::setSkyPlane(
                                bool enable,
                                const Plane& plane,
-                               const String& materialName,
+                               std::string_view materialName,
                                Real gscale,
                                Real tiling,
                                uint8 renderQueue,
                                Real bow,
                                int xsegments, int ysegments,
-                               const String& groupName)
+                               std::string_view groupName)
 {
     if (enable)
     {
@@ -183,11 +183,11 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
 
 void SceneManager::SkyBoxRenderer::setSkyBox(
                              bool enable,
-                             const String& materialName,
+                             std::string_view materialName,
                              Real distance,
                              uint8 renderQueue,
                              const Quaternion& orientation,
-                             const String& groupName)
+                             std::string_view groupName)
 {
     if (enable)
     {
@@ -316,14 +316,14 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
 
 void SceneManager::SkyDomeRenderer::setSkyDome(
                               bool enable,
-                              const String& materialName,
+                              std::string_view materialName,
                               Real curvature,
                               Real tiling,
                               Real distance,
                               uint8 renderQueue,
                               const Quaternion& orientation,
                               int xsegments, int ysegments, int ySegmentsToKeep,
-                              const String& groupName)
+                              std::string_view groupName)
 {
     if (enable)
     {
@@ -402,7 +402,7 @@ auto SceneManager::SkyDomeRenderer::createSkydomePlane(
                                        Real distance,
                                        const Quaternion& orientation,
                                        int xsegments, int ysegments, int ysegments_keep,
-                                       const String& groupName) -> MeshPtr
+                                       std::string_view groupName) -> MeshPtr
 {
 
     Plane plane;

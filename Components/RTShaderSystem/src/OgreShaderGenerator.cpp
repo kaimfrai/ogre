@@ -474,7 +474,7 @@ auto  ShaderGenerator::getSubRenderStateFactory(size_t index) -> SubRenderStateF
     return nullptr;
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::getSubRenderStateFactory(const String& type) -> SubRenderStateFactory*
+auto ShaderGenerator::getSubRenderStateFactory(std::string_view type) -> SubRenderStateFactory*
 {
     auto itFind = mSubRenderStateFactories.find(type);
     return (itFind != mSubRenderStateFactories.end()) ? itFind->second : NULL;
@@ -491,7 +491,7 @@ void ShaderGenerator::removeSubRenderStateFactory(SubRenderStateFactory* factory
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::createSubRenderState(const String& type) -> SubRenderState*
+auto ShaderGenerator::createSubRenderState(std::string_view type) -> SubRenderState*
 {
     auto itFind = mSubRenderStateFactories.find(type);
 
@@ -551,13 +551,13 @@ auto ShaderGenerator::createSubRenderState(ScriptCompiler* compiler,
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::createScheme(const String& schemeName)
+void ShaderGenerator::createScheme(std::string_view schemeName)
 {
     createOrRetrieveScheme(schemeName);
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::getRenderState(const String& schemeName) -> RenderState*
+auto ShaderGenerator::getRenderState(std::string_view schemeName) -> RenderState*
 {
     auto itFind = mSchemeEntriesMap.find(schemeName);
     
@@ -572,21 +572,21 @@ auto ShaderGenerator::getRenderState(const String& schemeName) -> RenderState*
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::hasRenderState(const String& schemeName) const -> bool
+auto ShaderGenerator::hasRenderState(std::string_view schemeName) const -> bool
 {
     auto itFind = mSchemeEntriesMap.find(schemeName);
     return itFind != mSchemeEntriesMap.end();
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::createOrRetrieveRenderState(const String& schemeName) -> ShaderGenerator::RenderStateCreateOrRetrieveResult
+auto ShaderGenerator::createOrRetrieveRenderState(std::string_view schemeName) -> ShaderGenerator::RenderStateCreateOrRetrieveResult
 {
     SchemeCreateOrRetrieveResult res = createOrRetrieveScheme(schemeName);
     return { res.first->getRenderState(),res.second };
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::createOrRetrieveScheme(const String& schemeName) -> ShaderGenerator::SchemeCreateOrRetrieveResult
+auto ShaderGenerator::createOrRetrieveScheme(std::string_view schemeName) -> ShaderGenerator::SchemeCreateOrRetrieveResult
 {
     bool wasCreated = false;
     auto itScheme = mSchemeEntriesMap.find(schemeName);
@@ -606,9 +606,9 @@ auto ShaderGenerator::createOrRetrieveScheme(const String& schemeName) -> Shader
     return { schemeEntry, wasCreated };
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::getRenderState(const String& schemeName, 
-                                     const String& materialName, 
-                                     const String& groupName, 
+auto ShaderGenerator::getRenderState(std::string_view schemeName, 
+                                     std::string_view materialName, 
+                                     std::string_view groupName, 
                                      unsigned short passIndex) -> RenderState*
 {
     auto itFind = mSchemeEntriesMap.find(schemeName);
@@ -681,7 +681,7 @@ void ShaderGenerator::_setActiveSceneManager(SceneManager* sceneManager)
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::setShaderProfiles(GpuProgramType type, const String& shaderProfiles)
+void ShaderGenerator::setShaderProfiles(GpuProgramType type, std::string_view shaderProfiles)
 {
     switch(type)
     {
@@ -697,7 +697,7 @@ void ShaderGenerator::setShaderProfiles(GpuProgramType type, const String& shade
     }
 }
 
-auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> const String&
+auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> std::string_view
 {
     switch(type)
     {
@@ -710,10 +710,10 @@ auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> const Stri
     }
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::hasShaderBasedTechnique(const String& materialName, 
-                                                 const String& groupName, 
-                                                 const String& srcTechniqueSchemeName, 
-                                                 const String& dstTechniqueSchemeName) const -> bool
+auto ShaderGenerator::hasShaderBasedTechnique(std::string_view materialName, 
+                                                 std::string_view groupName, 
+                                                 std::string_view srcTechniqueSchemeName, 
+                                                 std::string_view dstTechniqueSchemeName) const -> bool
 {
     // Make sure material exists;
     if (false == MaterialManager::getSingleton().resourceExists(materialName, groupName))
@@ -751,7 +751,7 @@ static auto hasFixedFunctionPass(Technique* tech) -> bool
     return false;
 }
 
-static auto findSourceTechnique(const Material& mat, const String& srcTechniqueSchemeName,
+static auto findSourceTechnique(const Material& mat, std::string_view srcTechniqueSchemeName,
                                       bool overProgrammable) -> Technique*
 {
     // Find the source technique
@@ -768,8 +768,8 @@ static auto findSourceTechnique(const Material& mat, const String& srcTechniqueS
 }
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::createShaderBasedTechnique(const Material& srcMat,
-                                                 const String& srcTechniqueSchemeName, 
-                                                 const String& dstTechniqueSchemeName,
+                                                 std::string_view srcTechniqueSchemeName, 
+                                                 std::string_view dstTechniqueSchemeName,
                                                  bool overProgrammable) -> bool
 {
     // No technique created -> check if one can be created from the given source technique scheme.  
@@ -783,13 +783,13 @@ auto ShaderGenerator::createShaderBasedTechnique(const Material& srcMat,
 
     return createShaderBasedTechnique(srcTechnique, dstTechniqueSchemeName, overProgrammable);
 }
-auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, const String& dstTechniqueSchemeName,
+auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, std::string_view dstTechniqueSchemeName,
                                                  bool overProgrammable) -> bool
 {
     // Update group name in case it is AUTODETECT_RESOURCE_GROUP_NAME
     Material* srcMat = srcTechnique->getParent();
-    const String& materialName = srcMat->getName();
-    const String& trueGroupName = srcMat->getGroup();
+    std::string_view materialName = srcMat->getName();
+    std::string_view trueGroupName = srcMat->getGroup();
 
     auto itMatEntry = findMaterialEntryIt(materialName, trueGroupName);
 
@@ -847,7 +847,7 @@ auto ShaderGenerator::createShaderBasedTechnique(const Technique* srcTechnique, 
     return true;
 }
 
-auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const String& dstTechniqueSchemeName) -> bool
+auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, std::string_view dstTechniqueSchemeName) -> bool
 {
     // Make sure scheme exists.
     auto itScheme = mSchemeEntriesMap.find(dstTechniqueSchemeName);
@@ -900,7 +900,7 @@ auto ShaderGenerator::removeShaderBasedTechnique(const Technique* srcTech, const
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::removeAllShaderBasedTechniques(const String& materialName, const String& groupName) -> bool
+auto ShaderGenerator::removeAllShaderBasedTechniques(std::string_view materialName, std::string_view groupName) -> bool
 {
     // Find the material entry.
     auto itMatEntry = findMaterialEntryIt(materialName, groupName);
@@ -978,8 +978,8 @@ auto ShaderGenerator::cloneShaderBasedTechniques(const Material& srcMat, Materia
         for (const SGTechniqueList& techniqueEntires = itSrcMatEntry->second->getTechniqueList();
              auto const& itTechEntry : techniqueEntires)
         {
-            String srcFromTechniqueScheme = itTechEntry->getSourceTechnique()->getSchemeName();
-            String srcToTechniqueScheme = itTechEntry->getDestinationTechniqueSchemeName();
+            auto const srcFromTechniqueScheme = itTechEntry->getSourceTechnique()->getSchemeName();
+            auto const srcToTechniqueScheme = itTechEntry->getDestinationTechniqueSchemeName();
             
             //for every technique in the source material create a shader based technique in the 
             //destination material
@@ -1047,14 +1047,14 @@ void ShaderGenerator::preFindVisibleObjects(SceneManager* source,
                                             SceneManager::IlluminationRenderStage irs, 
                                             Viewport* v)
 {
-    const String& curMaterialScheme = v->getMaterialScheme();
+    std::string_view curMaterialScheme = v->getMaterialScheme();
         
     mActiveSceneMgr      = source;
     mActiveViewportValid = validateScheme(curMaterialScheme);
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::invalidateScheme(const String& schemeName)
+void ShaderGenerator::invalidateScheme(std::string_view schemeName)
 {
     auto itScheme = mSchemeEntriesMap.find(schemeName);
 
@@ -1064,7 +1064,7 @@ void ShaderGenerator::invalidateScheme(const String& schemeName)
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::validateScheme(const String& schemeName) -> bool
+auto ShaderGenerator::validateScheme(std::string_view schemeName) -> bool
 {
     auto itScheme = mSchemeEntriesMap.find(schemeName);
 
@@ -1078,7 +1078,7 @@ auto ShaderGenerator::validateScheme(const String& schemeName) -> bool
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::invalidateMaterial(const String& schemeName, const String& materialName, const String& groupName)
+void ShaderGenerator::invalidateMaterial(std::string_view schemeName, std::string_view materialName, std::string_view groupName)
 {
     auto itScheme = mSchemeEntriesMap.find(schemeName);
     
@@ -1087,7 +1087,7 @@ void ShaderGenerator::invalidateMaterial(const String& schemeName, const String&
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::validateMaterial(const String& schemeName, const String& materialName, const String& groupName) -> bool
+auto ShaderGenerator::validateMaterial(std::string_view schemeName, std::string_view materialName, std::string_view groupName) -> bool
 {
     auto itScheme = mSchemeEntriesMap.find(schemeName);
 
@@ -1099,7 +1099,7 @@ auto ShaderGenerator::validateMaterial(const String& schemeName, const String& m
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::invalidateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName)
+void ShaderGenerator::invalidateMaterialIlluminationPasses(std::string_view schemeName, std::string_view materialName, std::string_view groupName)
 {
 	auto itScheme = mSchemeEntriesMap.find(schemeName);
 
@@ -1108,7 +1108,7 @@ void ShaderGenerator::invalidateMaterialIlluminationPasses(const String& schemeN
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::validateMaterialIlluminationPasses(const String& schemeName, const String& materialName, const String& groupName) -> bool
+auto ShaderGenerator::validateMaterialIlluminationPasses(std::string_view schemeName, std::string_view materialName, std::string_view groupName) -> bool
 {
 	auto itScheme = mSchemeEntriesMap.find(schemeName);
 
@@ -1241,7 +1241,7 @@ auto ShaderGenerator::getShaderCount(GpuProgramType type) const -> size_t
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::setTargetLanguage(const String& shaderLanguage)
+void ShaderGenerator::setTargetLanguage(std::string_view shaderLanguage)
 {
     // Make sure that the shader language is supported.
     if (!mProgramWriterManager->isLanguageSupported(shaderLanguage))
@@ -1258,10 +1258,8 @@ void ShaderGenerator::setTargetLanguage(const String& shaderLanguage)
 }
 
 //-----------------------------------------------------------------------------
-void ShaderGenerator::setShaderCachePath( const String& cachePath )
+void ShaderGenerator::setShaderCachePath( std::string_view stdCachePath )
 {
-    String stdCachePath = cachePath;
-
     // Standardise the cache path in case of none empty string.
     if (stdCachePath.empty() == false)
         stdCachePath = StringUtil::standardisePath(stdCachePath);
@@ -1293,7 +1291,7 @@ void ShaderGenerator::setShaderCachePath( const String& cachePath )
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::findMaterialEntryIt(const String& materialName, const String& groupName) -> ShaderGenerator::SGMaterialIterator
+auto ShaderGenerator::findMaterialEntryIt(std::string_view materialName, std::string_view groupName) -> ShaderGenerator::SGMaterialIterator
 {
     SGMaterialIterator itMatEntry;
     //check if we have auto detect request
@@ -1317,7 +1315,7 @@ auto ShaderGenerator::findMaterialEntryIt(const String& materialName, const Stri
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::findMaterialEntryIt(const String& materialName, const String& groupName) const -> ShaderGenerator::SGMaterialConstIterator
+auto ShaderGenerator::findMaterialEntryIt(std::string_view materialName, std::string_view groupName) const -> ShaderGenerator::SGMaterialConstIterator
 {
     SGMaterialConstIterator itMatEntry;
     //check if we have auto detect request
@@ -1345,7 +1343,7 @@ auto ShaderGenerator::getRTShaderSchemeCount() const -> size_t
     return mSchemeEntriesMap.size();
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::getRTShaderScheme(size_t index) const -> const String&
+auto ShaderGenerator::getRTShaderScheme(size_t index) const -> std::string_view
 {
     auto it = mSchemeEntriesMap.begin();
     while ((index != 0) && (it != mSchemeEntriesMap.end()))
@@ -1409,7 +1407,7 @@ ShaderGenerator::SGPass::~SGPass()
 void ShaderGenerator::SGPass::buildTargetRenderState()
 {   
     if(mSrcPass->isProgrammable() && !mParent->overProgrammablePass() && !isIlluminationPass()) return;
-    const String& schemeName = mParent->getDestinationTechniqueSchemeName();
+    std::string_view schemeName = mParent->getDestinationTechniqueSchemeName();
     const RenderState* renderStateGlobal = ShaderGenerator::getSingleton().getRenderState(schemeName);
     
 
@@ -1529,8 +1527,8 @@ void ShaderGenerator::SGTechnique::destroyIlluminationSGPasses()
 //-----------------------------------------------------------------------------
 ShaderGenerator::SGTechnique::~SGTechnique()
 {
-    const String& materialName = mParent->getMaterialName();
-    const String& groupName = mParent->getGroupName();
+    std::string_view materialName = mParent->getMaterialName();
+    std::string_view groupName = mParent->getGroupName();
 
     // Destroy the passes.
     destroySGPasses();
@@ -1707,7 +1705,7 @@ auto ShaderGenerator::SGScheme::getRenderState() noexcept -> RenderState*
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::SGScheme::getRenderState(const String& materialName, const String& groupName, unsigned short passIndex) -> RenderState*
+auto ShaderGenerator::SGScheme::getRenderState(std::string_view materialName, std::string_view groupName, unsigned short passIndex) -> RenderState*
 {
     // Find the desired technique.
     bool doAutoDetect = groupName == ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
@@ -1823,7 +1821,7 @@ void ShaderGenerator::SGScheme::synchronizeWithFogSettings()
 }
 
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::SGScheme::validate(const String& materialName, const String& groupName) -> bool
+auto ShaderGenerator::SGScheme::validate(std::string_view materialName, std::string_view groupName) -> bool
 {
     // Synchronize with light settings.
     synchronizeWithLightSettings();
@@ -1851,7 +1849,7 @@ auto ShaderGenerator::SGScheme::validate(const String& materialName, const Strin
     return false;
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::SGScheme::validateIlluminationPasses(const String& materialName, const String& groupName) -> bool
+auto ShaderGenerator::SGScheme::validateIlluminationPasses(std::string_view materialName, std::string_view groupName) -> bool
 {
 	// Synchronize with light settings.
 	synchronizeWithLightSettings();
@@ -1877,7 +1875,7 @@ auto ShaderGenerator::SGScheme::validateIlluminationPasses(const String& materia
 	return false;
 }
 //-----------------------------------------------------------------------------
-void ShaderGenerator::SGScheme::invalidateIlluminationPasses(const String& materialName, const String& groupName)
+void ShaderGenerator::SGScheme::invalidateIlluminationPasses(std::string_view materialName, std::string_view groupName)
 {
 	// Find the desired technique.
 	bool doAutoDetect = groupName == ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
@@ -1892,7 +1890,7 @@ void ShaderGenerator::SGScheme::invalidateIlluminationPasses(const String& mater
 	}
 }
 //-----------------------------------------------------------------------------
-void ShaderGenerator::SGScheme::invalidate(const String& materialName, const String& groupName)
+void ShaderGenerator::SGScheme::invalidate(std::string_view materialName, std::string_view groupName)
 {
     // Find the desired technique.
     bool doAutoDetect = groupName == ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;

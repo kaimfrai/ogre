@@ -153,8 +153,8 @@ class Technique;
 
         /** Constructor - use resource manager's create method rather than this.
         */
-        Material(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Material(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         ~Material() override;
         /** Assignment operator to allow easy copying between materials.
@@ -218,7 +218,7 @@ class Technique;
         /** searches for the named technique.
             Return 0 if technique with name is not found
         */
-        auto getTechnique(const String& name) const -> Technique*;
+        auto getTechnique(std::string_view name) const -> Technique*;
         /** Retrieves the number of techniques.  */
         auto getNumTechniques() const -> size_t { return mTechniques.size(); }
         /** Removes the technique at the given index. */        
@@ -246,7 +246,7 @@ class Technique;
         /** Retrieves the number of supported techniques. */
         auto getNumSupportedTechniques() const -> size_t { return mSupportedTechniques.size(); }
         /** Gets a string explaining why any techniques are not supported. */
-        auto getUnsupportedTechniquesExplanation() const noexcept -> const String& { return mUnsupportedReasons; }
+        auto getUnsupportedTechniquesExplanation() const noexcept -> std::string_view{ return mUnsupportedReasons; }
 
         /** Gets the best supported technique. 
         @remarks
@@ -273,10 +273,10 @@ class Technique;
             if you leave this blank, the clone will be assigned to the same
             group as this Material.
         */
-        auto clone(const String& newName, const String& newGroup = BLANKSTRING) const -> MaterialPtr;
+        auto clone(std::string_view newName, std::string_view newGroup = "") const -> MaterialPtr;
 
         // needed because of deprecated variant below
-        auto clone(const String& newName, const char* newGroup) const -> MaterialPtr { return clone(newName, String(newGroup)); }
+        auto clone(std::string_view newName, const char* newGroup) const -> MaterialPtr { return clone(newName, String(newGroup)); }
 
         /** Copies the details of this material into another, preserving the target's handle and name
         (unlike operator=) but copying everything else.
@@ -586,7 +586,7 @@ class Technique;
         @remarks
             Note that this will not be up to date until the material has been compiled.
         */
-        auto getNumLodLevels(const String& schemeName) const -> unsigned short;
+        auto getNumLodLevels(std::string_view schemeName) const -> unsigned short;
         /** Sets the distance at which level-of-detail (LOD) levels come into effect.
         @remarks
             You should only use this if you have assigned LOD indexes to the Technique

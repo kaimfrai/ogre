@@ -53,12 +53,12 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::getByName(const String& name, const String& groupName) const -> SkeletonPtr
+    auto SkeletonManager::getByName(std::string_view name, std::string_view groupName) const -> SkeletonPtr
     {
         return static_pointer_cast<Skeleton>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::create (const String& name, const String& group,
+    auto SkeletonManager::create (std::string_view name, std::string_view group,
                                     bool isManual, ManualResourceLoader* loader,
                                     const NameValuePairList* createParams) -> SkeletonPtr
     {
@@ -70,8 +70,8 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------
-    auto SkeletonManager::createImpl(const String& name, ResourceHandle handle, 
-        const String& group, bool isManual, ManualResourceLoader* loader, 
+    auto SkeletonManager::createImpl(std::string_view name, ResourceHandle handle, 
+        std::string_view group, bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* createParams) -> Resource*
     {
         return new Skeleton(this, name, handle, group, isManual, loader);

@@ -111,8 +111,8 @@ namespace OgreBites
         virtual void labelHit(Label* label) {}
         virtual void sliderMoved(Slider* slider) {}
         virtual void checkBoxToggled(CheckBox* box) {}
-        virtual void okDialogClosed(const Ogre::DisplayString& message) {}
-        virtual void yesNoDialogClosed(const Ogre::DisplayString& question, bool yesHit) {}
+        virtual void okDialogClosed(std::string_view message) {}
+        virtual void yesNoDialogClosed(std::string_view question, bool yesHit) {}
     };
 
     /**
@@ -148,19 +148,19 @@ namespace OgreBites
         /**
         Static utility method used to get the width of a caption in a text area.
         */
-        static auto getCaptionWidth(const Ogre::DisplayString& caption, Ogre::TextAreaOverlayElement* area) -> Ogre::Real;
+        static auto getCaptionWidth(std::string_view caption, Ogre::TextAreaOverlayElement* area) -> Ogre::Real;
 
         /**
         Static utility method to cut off a string to fit in a text area.
         */
-        static void fitCaptionToArea(const Ogre::DisplayString& caption, Ogre::TextAreaOverlayElement* area, Ogre::Real maxWidth);
+        static void fitCaptionToArea(std::string_view caption, Ogre::TextAreaOverlayElement* area, Ogre::Real maxWidth);
 
         auto getOverlayElement() noexcept -> Ogre::OverlayElement*
         {
             return mElement;
         }
 
-        auto getName() noexcept -> const Ogre::String&
+        auto getName() noexcept -> std::string_view
         {
             return mElement->getName();
         }
@@ -214,16 +214,16 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        Button(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
+        Button(std::string_view name, std::string_view caption, Ogre::Real width);
 
         ~Button() override = default;
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption);
+        void setCaption(std::string_view caption);
 
         auto getState() noexcept -> const ButtonState& { return mState; }
 
@@ -253,7 +253,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        TextBox(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width, Ogre::Real height);
+        TextBox(std::string_view name, std::string_view caption, Ogre::Real width, Ogre::Real height);
 
         void setPadding(Ogre::Real padding);
 
@@ -262,17 +262,17 @@ namespace OgreBites
             return mPadding;
         }
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mCaptionTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption)
+        void setCaption(std::string_view caption)
         {
             mCaptionTextArea->setCaption(caption);
         }
 
-        auto getText() noexcept -> const Ogre::DisplayString&
+        auto getText() noexcept -> std::string_view 
         {
             return mText;
         }
@@ -280,7 +280,7 @@ namespace OgreBites
         /**
         Sets text box content. Most of this method is for wordwrap.
         */
-        void setText(const Ogre::DisplayString& text);
+        void setText(std::string_view text);
 
         /**
         Sets text box content horizontal alignment.
@@ -292,9 +292,9 @@ namespace OgreBites
             setText("");
         }
 
-        void appendText(const Ogre::DisplayString& text)
+        void appendText(std::string_view text)
         {
-            setText(getText() + text);
+            setText(std::format("{}{}", getText(), text));
         }
 
         /**
@@ -366,7 +366,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        SelectMenu(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width,
+        SelectMenu(std::string_view name, std::string_view caption, Ogre::Real width,
             Ogre::Real boxWidth, size_t maxItemsShown);
         void copyItemsFrom(SelectMenu* other);
         auto isExpanded() noexcept -> bool
@@ -374,14 +374,14 @@ namespace OgreBites
             return mExpanded;
         }
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption);
+        void setCaption(std::string_view caption);
 
-        auto getItems() noexcept -> const Ogre::StringVector&
+        auto getItems() noexcept -> std::span<std::string_view const>
         {
             return mItems;
         }
@@ -391,21 +391,21 @@ namespace OgreBites
             return mItems.size();
         }
 
-        void setItems(const Ogre::StringVector& items);
+        void setItems(std::span<std::string_view const> items);
 
-        void addItem(const Ogre::DisplayString& item)
+        void addItem(std::string_view item)
         {
             mItems.push_back(item);
             setItems(mItems);
         }
 
-        void insertItem(size_t index, const Ogre::DisplayString& item)
+        void insertItem(size_t index, std::string_view item)
         {
             mItems.insert(mItems.begin() + index, item);
             setItems(mItems);
         }
 
-        void removeItem(const Ogre::DisplayString& item);
+        void removeItem(std::string_view item);
 
         void removeItem(size_t index);
 
@@ -413,11 +413,11 @@ namespace OgreBites
 
         void selectItem(size_t index, bool notifyListener = true);
 
-        auto containsItem(const Ogre::DisplayString& item) -> bool;
+        auto containsItem(std::string_view item) -> bool;
 
-        void selectItem(const Ogre::DisplayString& item, bool notifyListener = true);
+        void selectItem(std::string_view item, bool notifyListener = true);
 
-        auto getSelectedItem() -> Ogre::DisplayString;
+        auto getSelectedItem() -> std::string_view;
 
         auto getSelectionIndex() noexcept -> int
         {
@@ -463,7 +463,7 @@ namespace OgreBites
         bool mExpanded;
         bool mFitToContents;
         bool mDragging;
-        Ogre::StringVector mItems;
+        std::vector<std::string_view> mItems;
         int mSelectionIndex;
         int mHighlightIndex{0};
         int mDisplayIndex{0};
@@ -478,14 +478,14 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        Label(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
+        Label(std::string_view name, std::string_view caption, Ogre::Real width);
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption)
+        void setCaption(std::string_view caption)
         {
             mTextArea->setCaption(caption);
         }
@@ -511,7 +511,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        Separator(const Ogre::String& name, Ogre::Real width);
+        Separator(std::string_view name, Ogre::Real width);
 
         auto _isFitToTray() -> bool
         {
@@ -531,7 +531,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        Slider(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width, Ogre::Real trackWidth,
+        Slider(std::string_view name, std::string_view caption, Ogre::Real width, Ogre::Real trackWidth,
             Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps);
 
         /**
@@ -539,7 +539,7 @@ namespace OgreBites
         */
         void setRange(Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps, bool notifyListener = true);
 
-        auto getValueCaption() noexcept -> const Ogre::DisplayString&
+        auto getValueCaption() noexcept -> std::string_view 
         {
             return mValueTextArea->getCaption();
         }
@@ -547,7 +547,7 @@ namespace OgreBites
         /**
         You can use this method to manually format how the value is displayed.
         */
-        void setValueCaption(const Ogre::DisplayString& caption)
+        void setValueCaption(std::string_view caption)
         {
             mValueTextArea->setCaption(caption);
         }
@@ -559,12 +559,12 @@ namespace OgreBites
             return mValue;
         }
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption);
+        void setCaption(std::string_view caption);
 
         void _cursorPressed(const Ogre::Vector2& cursorPos) override;
 
@@ -611,7 +611,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        ParamsPanel(const Ogre::String& name, Ogre::Real width, unsigned int lines);
+        ParamsPanel(std::string_view name, Ogre::Real width, unsigned int lines);
 
         void setAllParamNames(const Ogre::StringVector& paramNames);
 
@@ -622,11 +622,11 @@ namespace OgreBites
 
         void setAllParamValues(const Ogre::StringVector& paramValues);
 
-        void setParamValue(const Ogre::DisplayString& paramName, const Ogre::DisplayString& paramValue);
+        void setParamValue(std::string_view paramName, std::string_view paramValue);
 
-        void setParamValue(unsigned int index, const Ogre::DisplayString& paramValue);
+        void setParamValue(unsigned int index, std::string_view paramValue);
 
-        auto getParamValue(const Ogre::DisplayString& paramName) -> Ogre::DisplayString;
+        auto getParamValue(std::string_view paramName) -> Ogre::DisplayString;
 
         auto getParamValue(unsigned int index) -> Ogre::DisplayString;
 
@@ -656,14 +656,14 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        CheckBox(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width);
+        CheckBox(std::string_view name, std::string_view caption, Ogre::Real width);
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption);
+        void setCaption(std::string_view caption);
 
         auto isChecked() noexcept -> bool
         {
@@ -697,7 +697,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        DecorWidget(const Ogre::String& name, const Ogre::String& templateName);
+        DecorWidget(std::string_view name, std::string_view templateName);
     };
 
     /**
@@ -708,7 +708,7 @@ namespace OgreBites
     public:
 
         /// Do not instantiate any widgets directly. Use TrayManager.
-        ProgressBar(const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width, Ogre::Real commentBoxWidth);
+        ProgressBar(std::string_view name, std::string_view caption, Ogre::Real width, Ogre::Real commentBoxWidth);
 
         /**
         Sets the progress as a percentage.
@@ -723,22 +723,22 @@ namespace OgreBites
             return mProgress;
         }
 
-        auto getCaption() noexcept -> const Ogre::DisplayString&
+        auto getCaption() noexcept -> std::string_view 
         {
             return mTextArea->getCaption();
         }
 
-        void setCaption(const Ogre::DisplayString& caption)
+        void setCaption(std::string_view caption)
         {
             mTextArea->setCaption(caption);
         }
 
-        auto getComment() noexcept -> const Ogre::DisplayString&
+        auto getComment() noexcept -> std::string_view 
         {
             return mCommentTextArea->getCaption();
         }
 
-        void setComment(const Ogre::DisplayString& comment)
+        void setComment(std::string_view comment)
         {
             mCommentTextArea->setCaption(comment);
         }
@@ -808,7 +808,7 @@ namespace OgreBites
         Displays specified material on backdrop, or the last material used if
         none specified. Good for pause menus like in the browser.
         */
-        void showBackdrop(const Ogre::String& materialName = Ogre::BLANKSTRING);
+        void showBackdrop(std::string_view materialName = Ogre::BLANKSTRING);
 
         void hideBackdrop()
         {
@@ -819,7 +819,7 @@ namespace OgreBites
         Displays specified material on cursor, or the last material used if
         none specified. Used to change cursor type.
         */
-        void showCursor(const Ogre::String& materialName = Ogre::BLANKSTRING);
+        void showCursor(std::string_view materialName = Ogre::BLANKSTRING);
 
         void hideCursor();
 
@@ -864,44 +864,44 @@ namespace OgreBites
         */
         auto getCursorRay(Ogre::Camera* cam) -> Ogre::Ray;
 
-        auto createButton(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& caption, Ogre::Real width = 0) -> Button*;
+        auto createButton(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width = 0) -> Button*;
 
-        auto createTextBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+        auto createTextBox(TrayLocation trayLoc, std::string_view name, std::string_view caption,
             Ogre::Real width, Ogre::Real height) -> TextBox*;
 
-        auto createThickSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
+        auto createThickSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption,
+            Ogre::Real width, unsigned int maxItemsShown, std::span<std::string_view const> items = {}) -> SelectMenu*;
 
-        auto createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
+        auto createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption,
+            Ogre::Real width, Ogre::Real boxWidth, unsigned int maxItemsShown, std::span<std::string_view const> items = {}) -> SelectMenu*;
 
-        auto createLongSelectMenu(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
-            Ogre::Real boxWidth, unsigned int maxItemsShown, const Ogre::StringVector& items = Ogre::StringVector()) -> SelectMenu*;
+        auto createLongSelectMenu(TrayLocation trayLoc, std::string_view name, std::string_view caption,
+            Ogre::Real boxWidth, unsigned int maxItemsShown, std::span<std::string_view const> items = {}) -> SelectMenu*;
 
-        auto createLabel(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width = 0) -> Label*;
+        auto createLabel(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width = 0) -> Label*;
 
-        auto createSeparator(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width = 0) -> Separator*;
+        auto createSeparator(TrayLocation trayLoc, std::string_view name, Ogre::Real width = 0) -> Separator*;
 
-        auto createThickSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+        auto createThickSlider(TrayLocation trayLoc, std::string_view name, std::string_view caption,
             Ogre::Real width, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        auto createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption, Ogre::Real width,
+        auto createLongSlider(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width,
             Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        auto createLongSlider(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+        auto createLongSlider(TrayLocation trayLoc, std::string_view name, std::string_view caption,
             Ogre::Real trackWidth, Ogre::Real valueBoxWidth, Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps) -> Slider*;
 
-        auto createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width, unsigned int lines) -> ParamsPanel*;
+        auto createParamsPanel(TrayLocation trayLoc, std::string_view name, Ogre::Real width, unsigned int lines) -> ParamsPanel*;
 
-        auto createParamsPanel(TrayLocation trayLoc, const Ogre::String& name, Ogre::Real width,
+        auto createParamsPanel(TrayLocation trayLoc, std::string_view name, Ogre::Real width,
             const Ogre::StringVector& paramNames) -> ParamsPanel*;
 
-        auto createCheckBox(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+        auto createCheckBox(TrayLocation trayLoc, std::string_view name, std::string_view caption,
             Ogre::Real width = 0) -> CheckBox*;
 
-        auto createDecorWidget(TrayLocation trayLoc, const Ogre::String& name, const Ogre::String& templateName) -> DecorWidget*;
+        auto createDecorWidget(TrayLocation trayLoc, std::string_view name, std::string_view templateName) -> DecorWidget*;
 
-        auto createProgressBar(TrayLocation trayLoc, const Ogre::String& name, const Ogre::DisplayString& caption,
+        auto createProgressBar(TrayLocation trayLoc, std::string_view name, std::string_view caption,
             Ogre::Real width, Ogre::Real commentBoxWidth) -> ProgressBar*;
 
         /**
@@ -942,12 +942,12 @@ namespace OgreBites
         /**
         Pops up a message dialog with an OK button.
         */
-        void showOkDialog(const Ogre::DisplayString& caption, const Ogre::DisplayString& message);
+        void showOkDialog(std::string_view caption, std::string_view message);
 
         /**
         Pops up a question dialog with Yes and No buttons.
         */
-        void showYesNoDialog(const Ogre::DisplayString& caption, const Ogre::DisplayString& question);
+        void showYesNoDialog(std::string_view caption, std::string_view question);
 
         /**
         Hides whatever dialog is currently showing.
@@ -962,12 +962,12 @@ namespace OgreBites
         /**
         Gets a widget from a tray by name.
         */
-        auto getWidget(TrayLocation trayLoc, const Ogre::String& name) -> Widget*;
+        auto getWidget(TrayLocation trayLoc, std::string_view name) -> Widget*;
 
         /**
         Gets a widget by name.
         */
-        auto getWidget(const Ogre::String& name) -> Widget*;
+        auto getWidget(std::string_view name) -> Widget*;
 
         /**
         Gets the number of widgets in total.
@@ -996,12 +996,12 @@ namespace OgreBites
             destroyWidget(mWidgets[trayLoc][place]);
         }
 
-        void destroyWidget(TrayLocation trayLoc, const Ogre::String& name)
+        void destroyWidget(TrayLocation trayLoc, std::string_view name)
         {
             destroyWidget(getWidget(trayLoc, name));
         }
 
-        void destroyWidget(const Ogre::String& name)
+        void destroyWidget(std::string_view name)
         {
             destroyWidget(getWidget(name));
         }
@@ -1021,12 +1021,12 @@ namespace OgreBites
         */
         void moveWidgetToTray(Widget* widget, TrayLocation trayLoc, size_t place = -1);
 
-        void moveWidgetToTray(const Ogre::String& name, TrayLocation trayLoc, size_t place = -1)
+        void moveWidgetToTray(std::string_view name, TrayLocation trayLoc, size_t place = -1)
         {
             moveWidgetToTray(getWidget(name), trayLoc, place);
         }
 
-        void moveWidgetToTray(TrayLocation currentTrayLoc, const Ogre::String& name, TrayLocation targetTrayLoc,
+        void moveWidgetToTray(TrayLocation currentTrayLoc, std::string_view name, TrayLocation targetTrayLoc,
             size_t place = -1)
         {
             moveWidgetToTray(getWidget(currentTrayLoc, name), targetTrayLoc, place);
@@ -1046,12 +1046,12 @@ namespace OgreBites
             moveWidgetToTray(widget, TL_NONE);
         }
 
-        void removeWidgetFromTray(const Ogre::String& name)
+        void removeWidgetFromTray(std::string_view name)
         {
             removeWidgetFromTray(getWidget(name));
         }
 
-        void removeWidgetFromTray(TrayLocation trayLoc, const Ogre::String& name)
+        void removeWidgetFromTray(TrayLocation trayLoc, std::string_view name)
         {
             removeWidgetFromTray(getWidget(trayLoc, name));
         }
@@ -1079,23 +1079,23 @@ namespace OgreBites
 
         void windowUpdate();
 
-        void resourceGroupScriptingStarted(const Ogre::String& groupName, size_t scriptCount) override
+        void resourceGroupScriptingStarted(std::string_view groupName, size_t scriptCount) override
         {
             mLoadInc = mGroupInitProportion / float(scriptCount);
             windowUpdate();
         }
 
-        void scriptParseStarted(const Ogre::String& scriptName, bool& skipThisScript) override
+        void scriptParseStarted(std::string_view scriptName, bool& skipThisScript) override
         {
             windowUpdate();
         }
 
-        void scriptParseEnded(const Ogre::String& scriptName, bool skipped) override
+        void scriptParseEnded(std::string_view scriptName, bool skipped) override
         {
             windowUpdate();
         }
 
-        void resourceGroupLoadStarted(const Ogre::String& groupName, size_t resourceCount) override
+        void resourceGroupLoadStarted(std::string_view groupName, size_t resourceCount) override
         {
             mLoadInc = mGroupLoadProportion / float(resourceCount);
             windowUpdate();
@@ -1111,7 +1111,7 @@ namespace OgreBites
             windowUpdate();
         }
 
-        void customStageStarted(const Ogre::String& description) override
+        void customStageStarted(std::string_view description) override
         {
             windowUpdate();
         }

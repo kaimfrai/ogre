@@ -28,6 +28,7 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_STRING_H
 #define OGRE_CORE_STRING_H
 
+#include <ranges>
 #include <string>
 #include <vector>
 
@@ -57,6 +58,56 @@ namespace Ogre {
         }
     };
 
+    struct
+        ToLower
+    {
+        auto constexpr operator()(char c) const
+        {   return static_cast<char>(std::tolower(c));
+        }
+    };
+
+    struct
+        ToUpper
+    {
+        auto constexpr operator()(char c) const
+        {   return static_cast<char>(std::toupper(c));
+        }
+    };
+
+    template
+        <   typename
+                Transform
+        >
+    struct
+        StringTransformView
+    {
+        std::ranges::transform_view<std::string_view, Transform> transform;
+
+        friend auto constexpr begin(StringTransformView view) { return begin(view.transform); }
+        friend auto constexpr end(StringTransformView view) { return end(view.transform); }
+
+
+        friend auto constexpr operator== (StringTransformView left, StringTransformView right) -> bool
+        {
+            return std::ranges::equal(left, right);
+        }
+
+        friend auto constexpr operator== (StringTransformView left, std::string_view right) -> bool
+        {
+            return std::ranges::equal(left, right);
+        }
+
+        friend auto constexpr operator< (StringTransformView left, std::string_view right) -> bool
+        {
+            return std::ranges::lexicographical_compare(left, right);
+        }
+
+        friend auto constexpr operator< (std::string_view left, StringTransformView right) -> bool
+        {
+            return std::ranges::lexicographical_compare(left, right);
+        }
+    };
+
     /** Utility class for manipulating Strings.  */
     class StringUtil
     {
@@ -70,6 +121,12 @@ namespace Ogre {
         */
         static void trim( String& str, bool left = true, bool right = true );
 
+        static void trim(std::string_view& view)
+        {
+            static const std::string_view constexpr delims = " \t\r\n";
+            view = view.substr(view.find_first_not_of(delims), view.find_last_not_of(delims) + 1uz);
+        }
+
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument.
             @param str
@@ -81,7 +138,7 @@ namespace Ogre {
             @param
             preserveDelims Flag to determine if delimiters should be saved as substrings
         */
-        static auto split( const String& str, const String& delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<String>;
+        static auto split( std::string_view str, std::string_view delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<std::string_view>;
 
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument,
@@ -96,7 +153,7 @@ namespace Ogre {
             maxSplits The maximum number of splits to perform (0 for unlimited splits). If this
             parameters is > 0, the splitting process will stop after this many splits, left to right.
         */
-        static auto tokenise( const String& str, const String& delims = "\t\n ", const String& doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<String>;
+        static auto tokenise( std::string_view str, std::string_view delims = "\t\n ", std::string_view doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<std::string_view>;
 
         /** Lower-cases all the characters in the string.
          */
@@ -105,6 +162,16 @@ namespace Ogre {
         /** Upper-cases all the characters in the string.
          */
         static void toUpperCase( String& str );
+
+        static auto LowerView(std::string_view view) -> StringTransformView<ToLower>
+        {
+            return { std::ranges::transform_view(view, ToLower{}) };
+        }
+
+        static auto UpperView(std::string_view view) -> StringTransformView<ToUpper>
+        {
+            return { std::ranges::transform_view(view, ToUpper{}) };
+        }
 
         /** Upper-cases the first letter of each word.
          */
@@ -117,7 +184,7 @@ namespace Ogre {
             @param lowerCase If true, the start of the string will be lower cased before
             comparison, pattern should also be in lower case.
         */
-        static auto startsWith(const String& str, const String& pattern, bool lowerCase = true) -> bool;
+        static auto startsWith(std::string_view str, std::string_view pattern, bool lowerCase = true) -> bool;
 
         /** Returns whether the string ends with the pattern passed in.
             @param str
@@ -125,11 +192,11 @@ namespace Ogre {
             @param lowerCase If true, the end of the string will be lower cased before
             comparison, pattern should also be in lower case.
         */
-        static auto endsWith(const String& str, const String& pattern, bool lowerCase = true) -> bool;
+        static auto endsWith(std::string_view str, std::string_view pattern, bool lowerCase = true) -> bool;
 
         /** Method for standardising paths - use forward slashes only, end with slash.
          */
-        static auto standardisePath( const String &init) -> String;
+        static auto standardisePath( std::string_view init) -> std::string;
         /** Returns a normalized version of a file path
             This method can be used to make file path strings which point to the same directory
             but have different texts to be normalized to the same text. The function:
@@ -141,7 +208,7 @@ namespace Ogre {
             @param init The file path to normalize.
             @param makeLowerCase If true, transforms all characters in the string to lowercase.
         */
-        static auto normalizeFilePath(const String& init, bool makeLowerCase = false) -> String;
+        static auto normalizeFilePath(std::string_view init, bool makeLowerCase = false) -> std::string;
 
 
         /** Method for splitting a fully qualified filename into the base name
@@ -149,7 +216,7 @@ namespace Ogre {
             @remarks
             Path is standardised as in standardisePath
         */
-        static void splitFilename(const String& qualifiedName,
+        static void splitFilename(std::string_view qualifiedName,
                                   String& outBasename, String& outPath);
 
         /** Method for splitting a fully qualified filename into the base name,
@@ -157,14 +224,14 @@ namespace Ogre {
             @remarks
             Path is standardised as in standardisePath
         */
-        static void splitFullFilename(const Ogre::String& qualifiedName,
+        static void splitFullFilename(std::string_view qualifiedName,
                                       Ogre::String& outBasename, Ogre::String& outExtention,
                                       Ogre::String& outPath);
 
         /** Method for splitting a filename into the base name
             and extension.
         */
-        static void splitBaseFilename(const Ogre::String& fullName,
+        static void splitBaseFilename(std::string_view fullName,
                                       Ogre::String& outBasename, Ogre::String& outExtention);
 
 
@@ -173,7 +240,7 @@ namespace Ogre {
             @param pattern Pattern to match against; can include simple '*' wildcards
             @param caseSensitive Whether the match is case sensitive or not
         */
-        static auto match(const String& str, const String& pattern, bool caseSensitive = true) -> bool;
+        static auto match(std::string_view str, std::string_view pattern, bool caseSensitive = true) -> bool;
 
 
         /** Replace all instances of a sub-string with a another sub-string.
@@ -182,7 +249,7 @@ namespace Ogre {
             @param replaceWithWhat Sub-string to replace with (the new sub-string)
             @return An updated string with the sub-string replaced
         */
-        static auto replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat) -> const String;
+        static auto replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> std::string;
     };
 
     using _StringHash = ::std::hash<String>;

@@ -65,38 +65,38 @@ namespace Ogre
     class CmdType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     class CmdSource : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     class CmdCharSpacer : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     class CmdSize : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     class CmdResolution : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
     class CmdCodePoints : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        auto doGet(const void* target) const -> std::string override;
+        void doSet(void* target, std::string_view val) override;
     };
 
     // Command object for setting / getting parameters
@@ -129,8 +129,8 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------
-    Font::Font(ResourceManager* creator, const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader)
+    Font::Font(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
         :Resource (creator, name, handle, group, isManual, loader) 
     {
 
@@ -176,7 +176,7 @@ namespace Ogre
         return mType;
     }
     //---------------------------------------------------------------------
-    void Font::setSource(const String& source)
+    void Font::setSource(std::string_view source)
     {
         mSource = source;
     }
@@ -191,7 +191,7 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    auto Font::getSource() const noexcept -> const String&
+    auto Font::getSource() const noexcept -> std::string_view
     {
         return mSource;
     }
@@ -519,7 +519,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdType::doGet(const void* target) const -> String
+    auto CmdType::doGet(const void* target) const -> std::string
     {
         const Font* f = static_cast<const Font*>(target);
         if (f->getType() == FT_TRUETYPE)
@@ -531,7 +531,7 @@ namespace Ogre
             return "image";
         }
     }
-    void CmdType::doSet(void* target, const String& val)
+    void CmdType::doSet(void* target, std::string_view val)
     {
         Font* f = static_cast<Font*>(target);
         if (val == "truetype")
@@ -544,46 +544,46 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto CmdSource::doGet(const void* target) const -> String
+    auto CmdSource::doGet(const void* target) const -> std::string
     {
         const Font* f = static_cast<const Font*>(target);
-        return f->getSource();
+        return std::string{ f->getSource() };
     }
-    void CmdSource::doSet(void* target, const String& val)
+    void CmdSource::doSet(void* target, std::string_view val)
     {
         Font* f = static_cast<Font*>(target);
         f->setSource(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdCharSpacer::doGet(const void* target) const -> String
+    auto CmdCharSpacer::doGet(const void* target) const -> std::string
     {
         return "1";
     }
-    void CmdCharSpacer::doSet(void* target, const String& val) {}
+    void CmdCharSpacer::doSet(void* target, std::string_view val) {}
     //-----------------------------------------------------------------------
-    auto CmdSize::doGet(const void* target) const -> String
+    auto CmdSize::doGet(const void* target) const -> std::string
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeSize());
     }
-    void CmdSize::doSet(void* target, const String& val)
+    void CmdSize::doSet(void* target, std::string_view val)
     {
         Font* f = static_cast<Font*>(target);
         f->setTrueTypeSize(StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdResolution::doGet(const void* target) const -> String
+    auto CmdResolution::doGet(const void* target) const -> std::string
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeResolution());
     }
-    void CmdResolution::doSet(void* target, const String& val)
+    void CmdResolution::doSet(void* target, std::string_view val)
     {
         Font* f = static_cast<Font*>(target);
         f->setTrueTypeResolution(StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdCodePoints::doGet(const void* target) const -> String
+    auto CmdCodePoints::doGet(const void* target) const -> std::string
     {
         const Font* f = static_cast<const Font*>(target);
         StringStream str;
@@ -593,15 +593,15 @@ namespace Ogre
         }
         return str.str();
     }
-    void CmdCodePoints::doSet(void* target, const String& val)
+    void CmdCodePoints::doSet(void* target, std::string_view val)
     {
         // Format is "code_points start1-end1 start2-end2"
         Font* f = static_cast<Font*>(target);
 
-        StringVector vec = StringUtil::split(val, " \t");
+        auto const vec = StringUtil::split(val, " \t");
         for (auto & item : vec)
         {
-            StringVector itemVec = StringUtil::split(item, "-");
+            auto const itemVec = StringUtil::split(item, "-");
             if (itemVec.size() == 2)
             {
                 f->addCodePointRange({StringConverter::parseUnsignedInt(itemVec[0]),

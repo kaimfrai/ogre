@@ -98,7 +98,7 @@ namespace Ogre {
         /** Create a new local texture definition, and return a pointer to it.
             @param name     Name of the local texture
         */
-        auto createTextureDefinition(const String &name) -> TextureDefinition *;
+        auto createTextureDefinition(std::string_view name) -> TextureDefinition *;
         
         /** Remove and destroy a local texture definition.
         */
@@ -110,7 +110,7 @@ namespace Ogre {
         
         /** Get a local texture definition with a specific name.
         */
-        [[nodiscard]] auto getTextureDefinition(const String& name) const -> TextureDefinition *;
+        [[nodiscard]] auto getTextureDefinition(std::string_view name) const -> TextureDefinition *;
 
         /** Get the number of local texture definitions.*/
         [[nodiscard]] auto getNumTextureDefinitions() const -> size_t { return mTextureDefinitions.size(); }
@@ -156,17 +156,17 @@ namespace Ogre {
         /** Assign a scheme name to this technique, used to switch between 
             multiple techniques by choice rather than for hardware compatibility.
         */
-        virtual void setSchemeName(const String& schemeName);
+        virtual void setSchemeName(std::string_view schemeName);
         /** Get the scheme name assigned to this technique. */
-        [[nodiscard]] auto getSchemeName() const noexcept -> const String& { return mSchemeName; }
+        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view{ return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
         */
-        void setCompositorLogicName(const String& compositorLogicName) 
+        void setCompositorLogicName(std::string_view compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        [[nodiscard]] auto getCompositorLogicName() const noexcept -> const String& { return mCompositorLogicName; }
+        [[nodiscard]] auto getCompositorLogicName() const noexcept -> std::string_view{ return mCompositorLogicName; }
 
         /** Get parent object */
         auto getParent() -> Compositor *;

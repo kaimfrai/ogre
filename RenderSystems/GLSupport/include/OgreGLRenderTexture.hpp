@@ -118,7 +118,7 @@ class RenderTarget;
     class GLRenderTexture : public RenderTexture, public GLRenderTarget
     {
     public:
-        GLRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
+        GLRenderTexture(std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
         [[nodiscard]] auto requiresTextureFlipping() const noexcept -> bool override { return true; }
 
         static const String CustomAttributeString_FBO;
@@ -136,7 +136,7 @@ class RenderTarget;
 
         /** Create a texture rendertarget object
          */
-        virtual auto createRenderTexture(const String &name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * = 0;
+        virtual auto createRenderTexture(std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * = 0;
 
         /** Release a render buffer. Ignore silently if surface.buffer is 0.
          */

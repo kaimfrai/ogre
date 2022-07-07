@@ -110,7 +110,7 @@ struct SceneManagerMetaData;
         // RenderSystem::initialise is used directly
         friend class RenderSystem;
     public:
-        using MovableObjectFactoryMap = std::map<String, MovableObjectFactory *>;
+        using MovableObjectFactoryMap = std::map<std::string_view, MovableObjectFactory *>;
         using PluginLibList = std::vector<DynLib *>;
         using PluginInstanceList = std::vector<Plugin *>;
     private:
@@ -194,7 +194,7 @@ struct SceneManagerMetaData;
             @param
                 pluginsfile The file that contains plugins information.
         */
-        void loadPlugins(const String& pluginsfile = "plugins.cfg");
+        void loadPlugins(std::string_view pluginsfile = "plugins.cfg");
         /** Initialise all loaded plugins - allows plugins to perform actions
             once the renderer is initialised.
         */
@@ -251,9 +251,9 @@ struct SceneManagerMetaData;
         @param logFileName The logfile to create, defaults to Ogre.log, may be 
             left blank if you've already set up LogManager & Log yourself
         */
-        Root(const String& pluginFileName = "plugins.cfg",
-            const String& configFileName = "ogre.cfg", 
-            const String& logFileName = "Ogre.log",
+        Root(std::string_view pluginFileName = "plugins.cfg",
+            std::string_view configFileName = "ogre.cfg", 
+            std::string_view logFileName = "Ogre.log",
             ulong frameCount = -1);
         ~Root();
 
@@ -326,7 +326,7 @@ struct SceneManagerMetaData;
             @return
                 A pointer to the render system, <b>NULL</b> if no found.
         */
-        auto getRenderSystemByName(const String& name) -> RenderSystem*;
+        auto getRenderSystemByName(std::string_view name) -> RenderSystem*;
 
         /** Sets the rendering subsystem to be used.
             @remarks
@@ -368,8 +368,8 @@ struct SceneManagerMetaData;
                 A pointer to the automatically created window, if
                 requested, otherwise <b>NULL</b>.
         */
-        auto initialise(bool autoCreateWindow, const String& windowTitle = "OGRE Render Window",
-                                    const String& customCapabilitiesConfig = BLANKSTRING) -> RenderWindow*;
+        auto initialise(bool autoCreateWindow, std::string_view windowTitle = "OGRE Render Window",
+                                    std::string_view customCapabilitiesConfig = "") -> RenderWindow*;
 
         /** Returns whether the system is initialised or not. */
         [[nodiscard]] auto isInitialised() const noexcept -> bool { return mIsInitialised; }
@@ -401,8 +401,8 @@ struct SceneManagerMetaData;
         /// @copydoc SceneManagerEnumerator::addFactory
         void removeSceneManagerFactory(SceneManagerFactory* fact);
 
-        /// @copydoc SceneManagerEnumerator::getMetaData(const String& )const
-        [[nodiscard]] auto getSceneManagerMetaData(const String& typeName) const -> const SceneManagerMetaData*;
+        /// @copydoc SceneManagerEnumerator::getMetaData(std::string_view)const
+        [[nodiscard]] auto getSceneManagerMetaData(std::string_view typeName) const -> const SceneManagerMetaData*;
 
         /// @copydoc SceneManagerEnumerator::getMetaData()const
         [[nodiscard]] auto getSceneManagerMetaData() const noexcept -> const SceneManagerEnumerator::MetaDataList&;
@@ -413,18 +413,18 @@ struct SceneManagerMetaData;
             return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME);
         }
 
-        /// @copydoc SceneManagerEnumerator::createSceneManager(const String&, const String&)
-        auto createSceneManager(const String& typeName, 
-            const String& instanceName = BLANKSTRING) -> SceneManager*;
+        /// @copydoc SceneManagerEnumerator::createSceneManager(std::string_view, std::string_view)
+        auto createSceneManager(std::string_view typeName, 
+            std::string_view instanceName = "") -> SceneManager*;
 
         /// @copydoc SceneManagerEnumerator::destroySceneManager
         void destroySceneManager(SceneManager* sm);
 
         /// @copydoc SceneManagerEnumerator::getSceneManager
-        [[nodiscard]] auto getSceneManager(const String& instanceName) const -> SceneManager*;
+        [[nodiscard]] auto getSceneManager(std::string_view instanceName) const -> SceneManager*;
 
         /// @copydoc SceneManagerEnumerator::hasSceneManager
-        [[nodiscard]] auto hasSceneManager(const String& instanceName) const -> bool;
+        [[nodiscard]] auto hasSceneManager(std::string_view instanceName) const -> bool;
 
         /// @copydoc SceneManagerEnumerator::getSceneManagers
         [[nodiscard]] auto getSceneManagers() const noexcept -> const SceneManagerEnumerator::Instances&;
@@ -571,9 +571,9 @@ struct SceneManagerMetaData;
             only locations which match that pattern (as determined by StringUtil::match)
             will be considered candidates for creation.
         */
-        static auto createFileStream(const String& filename,
-                const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                bool overwrite = false, const String& locationPattern = BLANKSTRING) -> DataStreamPtr;
+        static auto createFileStream(std::string_view filename,
+                std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+                bool overwrite = false, std::string_view locationPattern = "") -> DataStreamPtr;
 
         /** Helper method to assist you in accessing readable file streams.
         @remarks
@@ -584,8 +584,8 @@ struct SceneManagerMetaData;
         @param groupName The name of the group in which to create the file, if the 
             resource system is used
         */      
-        static auto openFileStream(const String& filename,
-                const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> DataStreamPtr;
+        static auto openFileStream(std::string_view filename,
+                std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> DataStreamPtr;
 
         /** Retrieves a pointer to the window that was created automatically
             @remarks
@@ -599,7 +599,7 @@ struct SceneManagerMetaData;
 
         /** @copydoc RenderSystem::_createRenderWindow
         */
-        auto createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+        auto createRenderWindow(std::string_view name, unsigned int width, unsigned int height, 
             bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* ;
 
         /// @overload
@@ -621,7 +621,7 @@ struct SceneManagerMetaData;
         @note
         If the render target cannot be found, NULL is returned.
         */
-        auto detachRenderTarget( const String & name ) -> RenderTarget*;
+        auto detachRenderTarget( std::string_view name ) -> RenderTarget*;
 
         /** Destroys the given RenderTarget.
         */
@@ -631,11 +631,11 @@ struct SceneManagerMetaData;
 
         /** Destroys the given named RenderTarget.
         */
-        void destroyRenderTarget(const String &name);
+        void destroyRenderTarget(std::string_view name);
 
         /** Retrieves a pointer to a named render target.
         */
-        auto getRenderTarget(const String &name) -> RenderTarget *;
+        auto getRenderTarget(std::string_view name) -> RenderTarget *;
 
         /** Manually load a Plugin contained in a DLL / DSO.
          @remarks
@@ -647,7 +647,7 @@ struct SceneManagerMetaData;
             It should also implement dllStopPlugin (see Root::unloadPlugin)
         @param pluginName Name of the plugin library to load
         */
-        void loadPlugin(const String& pluginName);
+        void loadPlugin(std::string_view pluginName);
 
         /** Manually unloads a Plugin contained in a DLL / DSO.
          @remarks
@@ -658,7 +658,7 @@ struct SceneManagerMetaData;
             Root::uninstallPlugin.
         @param pluginName Name of the plugin library to unload
         */
-        void unloadPlugin(const String& pluginName);
+        void unloadPlugin(std::string_view pluginName);
 
         /** Install a new plugin.
         @remarks
@@ -882,9 +882,9 @@ struct SceneManagerMetaData;
         */
         void removeMovableObjectFactory(MovableObjectFactory* fact);
         /// Checks whether a factory is registered for a given MovableObject type
-        [[nodiscard]] auto hasMovableObjectFactory(const String& typeName) const -> bool;
+        [[nodiscard]] auto hasMovableObjectFactory(std::string_view typeName) const -> bool;
         /// Get a MovableObjectFactory for the given type
-        auto getMovableObjectFactory(const String& typeName) -> MovableObjectFactory*;
+        auto getMovableObjectFactory(std::string_view typeName) -> MovableObjectFactory*;
         /** Allocate the next MovableObject type flag.
         @remarks
             This is done automatically if MovableObjectFactory::requestTypeFlags

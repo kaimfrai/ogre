@@ -80,7 +80,7 @@ namespace Ogre {
         void writeFileHeader();
         void writeChunkHeader(uint16 id, size_t size);
         auto calcChunkHeaderSize() -> size_t;
-        auto calcStringSize(const String& string) -> size_t;
+        auto calcStringSize(std::string_view string) -> size_t;
 
         void writeFloats(const float* const pfloat, size_t count);
         void writeFloats(const double* const pfloat, size_t count);
@@ -104,8 +104,8 @@ namespace Ogre {
         void readObject(const DataStreamPtr& stream, Vector3& pDest);
         void readObject(const DataStreamPtr& stream, Quaternion& pDest);
 
-        auto readString(const DataStreamPtr& stream) -> String;
-        auto readString(const DataStreamPtr& stream, size_t numChars) -> String;
+        auto readString(const DataStreamPtr& stream) -> std::string;
+        auto readString(const DataStreamPtr& stream, size_t numChars) -> std::string;
         
         void flipToLittleEndian(void* pData, size_t size, size_t count = 1);
         void flipFromLittleEndian(void* pData, size_t size, size_t count = 1);

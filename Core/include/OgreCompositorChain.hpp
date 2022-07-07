@@ -84,7 +84,7 @@ class SceneManager;
         @param scheme
             Scheme to use (blank means default).
         */
-        auto addCompositor(CompositorPtr filter, size_t addPosition=LAST, const String& scheme = BLANKSTRING) -> CompositorInstance*;
+        auto addCompositor(CompositorPtr filter, size_t addPosition=LAST, std::string_view scheme = "") -> CompositorInstance*;
 
         /** Remove a compositor.
         @param position
@@ -98,13 +98,13 @@ class SceneManager;
         
         /** Get compositor instance by name. Returns null if not found.
         */
-        [[nodiscard]] auto getCompositor(const String& name) const -> CompositorInstance*;
+        [[nodiscard]] auto getCompositor(std::string_view name) const -> CompositorInstance*;
 
         /// @overload
         [[nodiscard]] auto getCompositor(size_t index) const -> CompositorInstance * { return mInstances.at(index); }
 
         /// Get compositor position by name. Returns #NPOS if not found.
-        [[nodiscard]] auto getCompositorPosition(const String& name) const -> size_t;
+        [[nodiscard]] auto getCompositorPosition(std::string_view name) const -> size_t;
 
         /** Get the original scene compositor instance for this chain (internal use). 
         */
@@ -215,8 +215,8 @@ class SceneManager;
         public:
             RQListener()  = default;
 
-            void renderQueueStarted(uint8 queueGroupId, const String& invocation, bool& skipThisInvocation) override;
-            void renderQueueEnded(uint8 queueGroupId, const String& invocation, bool& repeatThisInvocation) override;
+            void renderQueueStarted(uint8 queueGroupId, std::string_view invocation, bool& skipThisInvocation) override;
+            void renderQueueEnded(uint8 queueGroupId, std::string_view invocation, bool& repeatThisInvocation) override;
 
             /** Set current operation and target. */
             void setOperation(CompositorInstance::TargetOperation *op,SceneManager *sm,RenderSystem *rs);

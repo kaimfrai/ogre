@@ -53,11 +53,11 @@ class ResourceManager;
         GLSLProgramFactory() = default;
         ~GLSLProgramFactory() override = default;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] auto getLanguage() const noexcept -> const String& override;
+        [[nodiscard]] auto getLanguage() const noexcept -> std::string_view override;
         /// Create an instance of GLSLProgram
         auto create(ResourceManager* creator,
-            const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
+            std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
 
     private:
         ::std::unique_ptr<GLSLLinkProgramManager> mLinkProgramManager = ::std::make_unique<GLSLLinkProgramManager>();

@@ -87,8 +87,8 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    Mesh::Mesh(ResourceManager* creator, const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader)
+    Mesh::Mesh(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
         : Resource(creator, name, handle, group, isManual, loader),
         
         mLodStrategy(LodStrategyManager::getSingleton().getDefaultStrategy())
@@ -128,7 +128,7 @@ namespace Ogre {
         return sub;
     }
     //-----------------------------------------------------------------------
-    auto Mesh::createSubMesh(const String& name) -> SubMesh*
+    auto Mesh::createSubMesh(std::string_view name) -> SubMesh*
     {
         SubMesh *sub = createSubMesh();
         nameSubMesh(name, (ushort)mSubMeshList.size()-1);
@@ -173,26 +173,26 @@ namespace Ogre {
         
     }
     //-----------------------------------------------------------------------
-    void Mesh::destroySubMesh(const String& name)
+    void Mesh::destroySubMesh(std::string_view name)
     {
         unsigned short index = _getSubMeshIndex(name);
         destroySubMesh(index);
     }
     //---------------------------------------------------------------------
-    void Mesh::nameSubMesh(const String& name, ushort index)
+    void Mesh::nameSubMesh(std::string_view name, ushort index)
     {
         mSubMeshNameMap[name] = index ;
     }
 
     //---------------------------------------------------------------------
-    void Mesh::unnameSubMesh(const String& name)
+    void Mesh::unnameSubMesh(std::string_view name)
     {
         auto i = mSubMeshNameMap.find(name);
         if (i != mSubMeshNameMap.end())
             mSubMeshNameMap.erase(i);
     }
     //-----------------------------------------------------------------------
-    auto Mesh::getSubMesh(const String& name) const -> SubMesh*
+    auto Mesh::getSubMesh(std::string_view name) const -> SubMesh*
     {
         ushort index = _getSubMeshIndex(name);
         return getSubMesh(index);
@@ -318,13 +318,13 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto Mesh::clone(const String& newName, const String& newGroup) -> MeshPtr
+    auto Mesh::clone(std::string_view newName, std::string_view newGroup) -> MeshPtr
     {
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager
 
         // New Mesh is assumed to be manually defined rather than loaded since you're cloning it for a reason
-        String theGroup = newGroup.empty() ? this->getGroup() : newGroup;
+        auto const theGroup = newGroup.empty() ? this->getGroup() : newGroup;
         MeshPtr newMesh = MeshManager::getSingleton().createManual(newName, theGroup);
 
         if(!newMesh) // interception by collision handler
@@ -504,7 +504,7 @@ namespace Ogre {
         outRadius = std::sqrt(radiusSqr);
     }
     //-----------------------------------------------------------------------
-    void Mesh::setSkeletonName(const String& skelName)
+    void Mesh::setSkeletonName(std::string_view skelName)
     {
         if (skelName != getSkeletonName())
         {
@@ -589,7 +589,7 @@ namespace Ogre {
         for (auto const& [key, anim] : mAnimationsList)
         {
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
-            const String& animName = anim->getName();
+            std::string_view animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
             {
                 animSet->createAnimationState(animName, 0.0, anim->getLength());
@@ -1106,7 +1106,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto Mesh::getSkeletonName() const noexcept -> const String&
+    auto Mesh::getSkeletonName() const noexcept -> std::string_view
     {
         return mSkeleton ? mSkeleton->getName() : BLANKSTRING;
     }
@@ -1148,7 +1148,7 @@ namespace Ogre {
         return mLodStrategy->getIndex(value, mMeshLodUsageList);
     }
     //---------------------------------------------------------------------
-    void Mesh::updateManualLodLevel(ushort index, const String& meshName)
+    void Mesh::updateManualLodLevel(ushort index, std::string_view meshName)
     {
 
         // Basic prerequisites
@@ -1214,7 +1214,7 @@ namespace Ogre {
         return !mMeshLodUsageList[level].manualName.empty();
     }
     //---------------------------------------------------------------------
-    auto Mesh::_getSubMeshIndex(const String& name) const -> ushort
+    auto Mesh::_getSubMeshIndex(std::string_view name) const -> ushort
     {
         auto i = mSubMeshNameMap.find(name) ;
         if (i == mSubMeshNameMap.end())
@@ -2177,7 +2177,7 @@ namespace Ogre {
         mAnimationTypesDirty = false;
     }
     //---------------------------------------------------------------------
-    auto Mesh::createAnimation(const String& name, Real length) -> Animation*
+    auto Mesh::createAnimation(std::string_view name, Real length) -> Animation*
     {
         // Check name not used
         if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -2201,7 +2201,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto Mesh::getAnimation(const String& name) const -> Animation*
+    auto Mesh::getAnimation(std::string_view name) const -> Animation*
     {
         Animation* ret = _getAnimationImpl(name);
         if (!ret)
@@ -2232,12 +2232,12 @@ namespace Ogre {
         return static_cast<unsigned short>(mAnimationsList.size());
     }
     //---------------------------------------------------------------------
-    auto Mesh::hasAnimation(const String& name) const -> bool
+    auto Mesh::hasAnimation(std::string_view name) const -> bool
     {
         return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
-    auto Mesh::_getAnimationImpl(const String& name) const -> Animation*
+    auto Mesh::_getAnimationImpl(std::string_view name) const -> Animation*
     {
         Animation* ret = nullptr;
         auto i = mAnimationsList.find(name);
@@ -2251,7 +2251,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void Mesh::removeAnimation(const String& name)
+    void Mesh::removeAnimation(std::string_view name)
     {
         auto i = mAnimationsList.find(name);
 
@@ -2290,14 +2290,14 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Mesh::createPose(ushort target, const String& name) -> Pose*
+    auto Mesh::createPose(ushort target, std::string_view name) -> Pose*
     {
         Pose* retPose = new Pose(target, name);
         mPoseList.push_back(retPose);
         return retPose;
     }
     //---------------------------------------------------------------------
-    auto Mesh::getPose(const String& name) const -> Pose*
+    auto Mesh::getPose(std::string_view name) const -> Pose*
     {
         for (auto i : mPoseList)
         {
@@ -2322,7 +2322,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void Mesh::removePose(const String& name)
+    void Mesh::removePose(std::string_view name)
     {
         for (auto i = mPoseList.begin(); i != mPoseList.end(); ++i)
         {

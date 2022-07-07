@@ -60,7 +60,7 @@ namespace Ogre {
         Atom mAtomState;
 
         /// @copydoc RenderSystem::createRenderWindow
-        auto newWindow(const String &name, unsigned int width, unsigned int height,
+        auto newWindow(std::string_view name, unsigned int width, unsigned int height,
                                 bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc GLNativeSupport::createPBuffer
@@ -93,7 +93,7 @@ namespace Ogre {
          *
          * @returns              Display name.
          */
-        auto getDisplayName () -> String;
+        auto getDisplayName () -> std::string_view;
 
         /**
          * Get the Display connection used for rendering

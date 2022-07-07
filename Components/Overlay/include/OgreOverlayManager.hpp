@@ -66,18 +66,18 @@ namespace Ogre {
     class OverlayManager : public Singleton<OverlayManager>, public ScriptLoader, public OverlayAlloc
     {
     public:
-        using OverlayMap = std::map<String, Overlay *>;
-        using ElementMap = std::map<String, OverlayElement *>;
-        using FactoryMap = std::map<String, ::std::unique_ptr<OverlayElementFactory>>;
+        using OverlayMap = std::map<std::string_view, Overlay *>;
+        using ElementMap = std::map<std::string_view, OverlayElement *>;
+        using FactoryMap = std::map<std::string_view, ::std::unique_ptr<OverlayElementFactory>>;
     private:
         OverlayMap mOverlayMap;
-        StringVector mScriptPatterns;
+        std::vector<std::string_view> mScriptPatterns;
 
         int mLastViewportWidth{0}, mLastViewportHeight{0};
         OrientationMode mLastViewportOrientationMode{OR_DEGREE_0};
         float mPixelRatio{1};
 
-        auto parseChildren( DataStreamPtr& chunk, const String& line, int& l,
+        auto parseChildren( DataStreamPtr& chunk, std::string_view line, int& l,
             Overlay* pOverlay, bool isTemplate, OverlayContainer* parent = nullptr) -> bool;
 
         FactoryMap mFactories;
@@ -99,22 +99,22 @@ namespace Ogre {
         void _restoreManualHardwareResources();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> std::span<std::string_view const> override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, const String& groupName) override;
+        void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]] auto getLoadingOrder() const -> Real override;
 
         void addOverlay(Overlay* overlay);
 
         /** Create a new Overlay. */
-        auto create(const String& name) -> Overlay*;
+        auto create(std::string_view name) -> Overlay*;
         /** Retrieve an Overlay by name 
         @return A pointer to the Overlay, or 0 if not found
         */
-        auto getByName(const String& name) -> Overlay*;
+        auto getByName(std::string_view name) -> Overlay*;
         /** Destroys an existing overlay by name */
-        void destroy(const String& name);
+        void destroy(std::string_view name);
         /** Destroys an existing overlay */
         void destroy(Overlay* overlay);
         /** Destroys all existing overlays */
@@ -149,20 +149,20 @@ namespace Ogre {
         @param typeName The type of element to create.
         @param instanceName The name to give the new instance.
         */
-        auto createOverlayElement(const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
+        auto createOverlayElement(std::string_view typeName, std::string_view instanceName, bool = false) -> OverlayElement*;
 
         /** Gets a reference to an existing element. */
-        auto getOverlayElement(const String& name, bool = false) -> OverlayElement*;
+        auto getOverlayElement(std::string_view name, bool = false) -> OverlayElement*;
 
         /** Tests if an element exists. */
-        auto hasOverlayElement(const String& name, bool = false) -> bool;
+        auto hasOverlayElement(std::string_view name, bool = false) -> bool;
         
         /** Destroys a OverlayElement. 
         @remarks
         Make sure you're not still using this in an Overlay. If in
         doubt, let OGRE destroy elements on shutdown.
         */
-        void destroyOverlayElement(const String& instanceName, bool = false);
+        void destroyOverlayElement(std::string_view instanceName, bool = false);
 
         /** Destroys a OverlayElement. 
         @remarks
@@ -190,15 +190,15 @@ namespace Ogre {
             return mFactories;
         }
 
-        auto createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool = false) -> OverlayElement*;
+        auto createOverlayElementFromTemplate(std::string_view templateName, std::string_view typeName, std::string_view instanceName, bool = false) -> OverlayElement*;
         /**
         *  @remarks
         *  Creates a new OverlayElement object from the specified template name.  The new
         *  object's name, and all of it's children, will be instanceName/orignalName.
         */
-        auto cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*;
+        auto cloneOverlayElementFromTemplate(std::string_view templateName, std::string_view instanceName) -> OverlayElement*;
 
-        auto createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*;
+        auto createOverlayElementFromFactory(std::string_view typeName, std::string_view instanceName) -> OverlayElement*;
 
         /** Override standard Singleton retrieval.
         @remarks

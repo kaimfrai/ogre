@@ -74,7 +74,7 @@ class VertexDeclaration;
 
     using DepthBufferVec = std::vector<DepthBuffer *>;
     using DepthBufferMap = std::map<uint16, DepthBufferVec>;
-    using RenderTargetMap = std::map<String, RenderTarget *>;
+    using RenderTargetMap = std::map<std::string_view, RenderTarget *>;
     using RenderTargetPriorityMap = std::multimap<uchar, RenderTarget *>;
 
     class TextureManager;
@@ -194,7 +194,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        [[nodiscard]] virtual auto getName() const noexcept -> const String& = 0;
+        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view= 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -252,7 +252,7 @@ class VertexDeclaration;
         @param
         value The value to set the option to.
         */
-        virtual void setConfigOption(const String &name, const String &value) = 0;
+        virtual void setConfigOption(std::string_view name, std::string_view value) = 0;
 
         /** get a RenderWindowDescription from the current ConfigOptionMap
          */
@@ -270,7 +270,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual auto validateConfigOptions() noexcept -> String { return BLANKSTRING; }
+        virtual auto validateConfigOptions() noexcept -> std::string_view { return BLANKSTRING; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 
@@ -392,21 +392,21 @@ class VertexDeclaration;
         | maxStencilBufferSize | Positive integer (usually 0, 8) | 0 | EGL_STENCIL_SIZE | Android |
         | maxDepthBufferSize | Positive integer (usually 0, 16, 24) | 16 | EGL_DEPTH_SIZE | Android |
         */
-        virtual auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
+        virtual auto _createRenderWindow(std::string_view name, unsigned int width, unsigned int height,
             bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow*;
         
         /** Create a MultiRenderTarget, which is a render target that renders to multiple RenderTextures
         at once. Surfaces can be bound and unbound at will.
         This fails if mCapabilities->getNumMultiRenderTargets() is smaller than 2.
         */
-        virtual auto createMultiRenderTarget(const String & name) -> MultiRenderTarget * = 0; 
+        virtual auto createMultiRenderTarget(std::string_view name) -> MultiRenderTarget * = 0;
 
         /** Destroys a render window */
-        virtual void destroyRenderWindow(const String& name);
+        virtual void destroyRenderWindow(std::string_view name);
         /** Destroys a render texture */
-        virtual void destroyRenderTexture(const String& name);
+        virtual void destroyRenderTexture(std::string_view name);
         /** Destroys a render target of any sort */
-        virtual void destroyRenderTarget(const String& name);
+        virtual void destroyRenderTarget(std::string_view name);
 
         /** Attaches the passed render target to the render system.
         */
@@ -414,13 +414,13 @@ class VertexDeclaration;
         /** Returns a pointer to the render target with the passed name, or NULL if that
         render target cannot be found.
         */
-        auto getRenderTarget( const String &name ) -> RenderTarget *;
+        auto getRenderTarget( std::string_view name ) -> RenderTarget *;
         /** Detaches the render target with the passed name from the render system and
         returns a pointer to it.
         @note
         If the render target cannot be found, NULL is returned.
         */
-        virtual auto detachRenderTarget( const String &name ) -> RenderTarget *;
+        virtual auto detachRenderTarget( std::string_view name ) -> RenderTarget *;
 
         /** Returns the global instance vertex buffer.
         */
@@ -774,7 +774,7 @@ class VertexDeclaration;
             viewports.  It is a necessary step on these render systems for
             render textures to be rendered into properly.
         */
-        [[nodiscard]] auto _getDefaultViewportMaterialScheme() const -> const String&;
+        [[nodiscard]] auto _getDefaultViewportMaterialScheme() const -> std::string_view;
 
         /** Binds a given GpuProgram (but not the parameters). 
         @remarks Only one GpuProgram of each type can be bound at once, binding another
@@ -939,7 +939,7 @@ class VertexDeclaration;
             @param parameters A list of parameters that may belong to this event,
             may be null if there are no parameters
             */
-            virtual void eventOccurred(const String& eventName, 
+            virtual void eventOccurred(std::string_view eventName,
                 const NameValuePairList* parameters = nullptr) = 0;
         };
 
@@ -1024,7 +1024,7 @@ class VertexDeclaration;
         /**
         * This marks the beginning of an event for GPU profiling.
         */
-        virtual void beginProfileEvent( const String &eventName ) = 0;
+        virtual void beginProfileEvent( std::string_view eventName ) = 0;
 
         /**
         * Ends the currently active GPU profiling event.
@@ -1035,14 +1035,14 @@ class VertexDeclaration;
         * Marks an instantaneous event for graphics profilers.  
         * This is equivalent to calling @see beginProfileEvent and @see endProfileEvent back to back.
         */
-        virtual void markProfileEvent( const String &event ) = 0;
+        virtual void markProfileEvent( std::string_view event ) = 0;
 
         /** Gets a custom (maybe platform-specific) attribute.
         @remarks This is a nasty way of satisfying any API's need to see platform-specific details.
         @param name The name of the attribute.
         @param pData Pointer to memory of the right kind of structure to receive the info.
         */
-        virtual void getCustomAttribute(const String& name, void* pData);
+        virtual void getCustomAttribute(std::string_view name, void* pData);
 
 		/**
 		* Sets the colour buffer that the render system will to draw. If the render system
@@ -1124,7 +1124,7 @@ class VertexDeclaration;
         StringVector mEventNames;
 
         /// Internal method for firing a rendersystem event
-        void fireEvent(const String& name, const NameValuePairList* params = nullptr);
+        void fireEvent(std::string_view name, const NameValuePairList* params = nullptr);
 
         using ListenerList = std::list<Listener *>;
         ListenerList mEventListeners;

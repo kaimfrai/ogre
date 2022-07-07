@@ -146,7 +146,7 @@ void TestContext::setup()
     mPluginNameMap.emplace("VTests", new VTestPlugin());
     mPluginNameMap.emplace("PlayPenTests", new PlaypenTestPlugin());
 
-    Ogre::String batchName = BLANKSTRING;
+    std::string batchName = "";
     time_t raw = time(nullptr);
 
     // timestamp for the filename
@@ -161,7 +161,7 @@ void TestContext::setup()
     {
         Ogre::String filestamp = Ogre::String(temp);
         // name for this batch (used for naming the directory, and uniquely identifying this batch)
-        ::std::format("{}_{}", batchName = mTestSetName , filestamp);
+        batchName = ::std::format("{}_{}", mTestSetName, filestamp);
 
         if (mReferenceSet)
             batchName = "Reference";
@@ -323,9 +323,8 @@ void TestContext::createRoot(ulong frameCount)
 {
     // note that we use a separate config file here
 
-    Ogre::String pluginsPath = Ogre::BLANKSTRING;
     // we use separate config and log files for the tests
-    mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
+    mRoot = new Ogre::Root("", mFSLayer->getWritablePath("ogretests.cfg"),
                                 mFSLayer->getWritablePath("ogretests.log"), frameCount);
 
     mStaticPluginLoader.load();
@@ -425,7 +424,7 @@ void TestContext::setupDirectories(Ogre::String batchName)
         static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
 
         // add a directory for the render system
-        Ogre::String rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
+        auto const rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
         // strip spaces from render system name
         for (char i : rsysName)
             if (i != ' ')
@@ -545,7 +544,7 @@ auto main(int argc, char *argv[]) -> int
     catch (Ogre::Exception& e)
     {
 
-        std::cerr << "An exception has occurred: " << e.getFullDescription().c_str() << std::endl;
+        std::cerr << "An exception has occurred: " << e.getFullDescription() << std::endl;
 
         return -1;
     }
