@@ -357,9 +357,9 @@ class RenderQueue;
         However, being a common requirement it is in the top-level interface to avoid
         having to set it via the StringInterface all the time.
         */
-        virtual void setCaption(const DisplayString& text);
+        virtual void setCaption(std::string_view text);
         /** Gets the caption for this element. */
-        [[nodiscard]] auto getCaption() const noexcept -> const DisplayString& { return mCaption; }
+        [[nodiscard]] auto getCaption() const noexcept -> std::string_view { return mCaption; }
         /** Sets the colour on elements that support it. 
         @remarks
         This property doesn't do something on all elements, just those that support it.

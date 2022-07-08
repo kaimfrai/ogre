@@ -665,7 +665,7 @@ namespace Ogre {
             &msVisibleCmd);
     }
     //-----------------------------------------------------------------------
-    void OverlayElement::setCaption( const DisplayString& caption )
+    void OverlayElement::setCaption( std::string_view caption )
     {
         mCaption = caption;
         _positionsOutOfDate();

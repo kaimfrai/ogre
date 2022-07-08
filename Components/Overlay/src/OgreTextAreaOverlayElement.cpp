@@ -428,7 +428,7 @@ namespace Ogre {
         // Nothing to do, we combine positions and textures
     }
 
-    void TextAreaOverlayElement::setCaption( const DisplayString& caption )
+    void TextAreaOverlayElement::setCaption( std::string_view caption )
     {
         mCaption = caption;
         mGeomPositionsOutOfDate = true;

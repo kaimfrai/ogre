@@ -67,7 +67,7 @@ namespace Ogre
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         void _restoreManualHardwareResources() override;
 
-        void setCaption(const DisplayString& text) override;
+        void setCaption(std::string_view text) override;
 
         void setCharHeight( Real height );
         [[nodiscard]] auto getCharHeight() const -> Real;
