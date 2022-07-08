@@ -388,7 +388,7 @@ namespace Ogre {
         optRTTMode.possibleValues = {"FBO", "PBuffer", "Copy"};
         optRTTMode.currentValue = optRTTMode.possibleValues[0];
         optRTTMode.immutable = true;
-        mOptions[optRTTMode.name] = optRTTMode;
+        mOptions["RTT Preferred Mode"] = optRTTMode;
 
         ConfigOption opt;
         opt.name = "Fixed Pipeline Enabled";
@@ -396,7 +396,7 @@ namespace Ogre {
         opt.currentValue = opt.possibleValues[0];
         opt.immutable = false;
 
-        mOptions[opt.name] = opt;
+        mOptions["Fixed Pipeline Enabled"] = opt;
     }
 
     auto GLRenderSystem::createRenderSystemCapabilities() const -> RenderSystemCapabilities*

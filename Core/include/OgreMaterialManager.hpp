@@ -140,7 +140,7 @@ class Technique;
             const NameValuePairList* params) -> Resource* override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
-        using SchemeMap = std::map<String, unsigned short>;
+        using SchemeMap = std::map<std::string, unsigned short, std::less<>>;
         /// List of material schemes
         SchemeMap mSchemes;
         /// Current material scheme
@@ -150,7 +150,7 @@ class Technique;
 
         /// The list of per-scheme (and general) material listeners
         using ListenerList = std::list<Listener *>;
-        using ListenerMap = std::map<String, ListenerList>;
+        using ListenerMap = std::map<std::string_view, ListenerList>;
         ListenerMap mListenerMap;
 
     public:

@@ -101,18 +101,18 @@ public:
 private:
 
     //-----------------------------------------------------------------------------
-    using GpuProgramsMap = std::map<String, GpuProgramPtr>;
+    using GpuProgramsMap = std::map<std::string, GpuProgramPtr, std::less<>>;
     using GpuProgramsMapIterator = GpuProgramsMap::iterator;
     using GpuProgramsMapConstIterator = GpuProgramsMap::const_iterator;
 
     //-----------------------------------------------------------------------------
     using ProgramList = std::set<Program *>;
     using ProgramListIterator = ProgramList::iterator;
-    using ProgramWriterMap = std::map<String, ProgramWriter *>;
+    using ProgramWriterMap = std::map<std::string_view, ProgramWriter *>;
     using ProgramWriterIterator = ProgramWriterMap::iterator;
     
     //-----------------------------------------------------------------------------
-    using ProgramProcessorMap = std::map<String, ProgramProcessor *>;
+    using ProgramProcessorMap = std::map<std::string_view, ProgramProcessor *>;
     using ProgramProcessorIterator = ProgramProcessorMap::iterator;
     using ProgramProcessorConstIterator = ProgramProcessorMap::const_iterator;
     using ProgramProcessorList = std::vector< ::std::unique_ptr<ProgramProcessor>>;

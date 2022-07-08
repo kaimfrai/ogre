@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-[[nodiscard]] static auto operator<=> (const FileInfo& a, const FileInfo& b) noexcept -> ::std::strong_ordering
+[[nodiscard]] static auto operator<=> (const FileInfo& a, const FileInfo& b) noexcept -> ::std::weak_ordering
 {
     return a.basename <=> b.basename;
 }

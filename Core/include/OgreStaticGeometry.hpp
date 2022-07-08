@@ -312,7 +312,7 @@ class Technique;
         {
         public:
             /// Lookup of Material Buckets in this region
-            using MaterialBucketMap = std::map<String, ::std::unique_ptr<MaterialBucket>>;
+            using MaterialBucketMap = std::map<std::string_view, ::std::unique_ptr<MaterialBucket>>;
         private:
             /// Pointer to parent region
             Region* mParent;

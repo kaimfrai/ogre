@@ -265,7 +265,7 @@ static auto getSwizzledSize(const Operand& op) -> uchar
     return Operand::getFloatCount(op.getMask());
 }
 
-auto FunctionInvocation::operator<=>(FunctionInvocation const& rhs) const noexcept -> ::std::strong_ordering
+auto FunctionInvocation::operator<=>(FunctionInvocation const& rhs) const noexcept -> ::std::weak_ordering
 {
     // Check the function names first
     // Adding an exception to std::string sorting.  I feel that functions beginning with an underscore should be placed before

@@ -74,7 +74,7 @@ class VertexDeclaration;
 
     using DepthBufferVec = std::vector<DepthBuffer *>;
     using DepthBufferMap = std::map<uint16, DepthBufferVec>;
-    using RenderTargetMap = std::map<String, RenderTarget *>;
+    using RenderTargetMap = std::map<std::string_view, RenderTarget *>;
     using RenderTargetPriorityMap = std::multimap<uchar, RenderTarget *>;
 
     class TextureManager;

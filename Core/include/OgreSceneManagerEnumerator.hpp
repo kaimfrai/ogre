@@ -95,7 +95,7 @@ class RenderSystem;
     {
     public:
         /// Scene manager instances, indexed by instance name
-        using Instances = std::map<String, SceneManager *>;
+        using Instances = std::map<std::string, SceneManager*, std::less<>>;
         /// List of available scene manager types as meta data
         using MetaDataList = std::vector<const SceneManagerMetaData *>;
     private:

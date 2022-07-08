@@ -87,7 +87,7 @@ namespace Ogre {
 
         virtual ~ParamCommand() = default;
     };
-    using ParamCommandMap = std::map<String, ParamCommand *>;
+    using ParamCommandMap = std::map<std::string, ParamCommand*, std::less<>>;
 
     /** Generic ParamCommand implementation
      stores pointers to the class getter and setter functions */
@@ -157,7 +157,7 @@ namespace Ogre {
             return mParamDefs;
         }
     };
-    using ParamDictionaryMap = std::map<String, ParamDictionary>;
+    using ParamDictionaryMap = std::map<std::string_view, ParamDictionary>;
     
     /** Class defining the common interface which classes can use to 
         present a reflection-style, self-defining parameter set to callers.

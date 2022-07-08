@@ -501,7 +501,7 @@ private:
     using SGMaterialIterator = SGMaterialMap::iterator;
     using SGMaterialConstIterator = SGMaterialMap::const_iterator;
 
-    using SGSchemeMap = std::map<String, SGScheme *>;
+    using SGSchemeMap = std::map<std::string, SGScheme*, std::less<>>;
     using SGSchemeIterator = SGSchemeMap::iterator;
     using SGSchemeConstIterator = SGSchemeMap::const_iterator;
 
@@ -750,7 +750,7 @@ private:
     };
 
     //-----------------------------------------------------------------------------
-    using SubRenderStateFactoryMap = std::map<String, SubRenderStateFactory *>;
+    using SubRenderStateFactoryMap = std::map<std::string_view, SubRenderStateFactory *>;
     using SubRenderStateFactoryIterator = SubRenderStateFactoryMap::iterator;
     using SubRenderStateFactoryConstIterator = SubRenderStateFactoryMap::const_iterator;
 

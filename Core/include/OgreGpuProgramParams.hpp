@@ -310,7 +310,7 @@ template <int dims, typename T> class Vector;
         : physicalIndex((std::numeric_limits<size_t>::max)())
              {}
     };
-    using GpuConstantDefinitionMap = std::map<String, GpuConstantDefinition>;
+    using GpuConstantDefinitionMap = std::map<std::string, GpuConstantDefinition, std::less<>>;
     using GpuConstantDefinitionIterator = ConstMapIterator<GpuConstantDefinitionMap>;
 
     /// Struct collecting together the information for named constants.

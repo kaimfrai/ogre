@@ -105,9 +105,9 @@ namespace Ogre
         };
 
         using InstanceBatchVec = std::vector<InstanceBatch *>;   //vec[batchN] = Batch
-        using InstanceBatchMap = std::map<String, ::std::vector<::std::unique_ptr<InstanceBatch>>>;   //map[materialName] = Vec
+        using InstanceBatchMap = std::map<std::string_view, ::std::vector<::std::unique_ptr<InstanceBatch>>>;   //map[materialName] = Vec
 
-        using BatchSettingsMap = std::map<String, BatchSettings>;
+        using BatchSettingsMap = std::map<std::string_view, BatchSettings>;
 
         const String            mName;                  //Not the name of the mesh
         MeshPtr                 mMeshReference;

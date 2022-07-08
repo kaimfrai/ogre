@@ -54,7 +54,7 @@ namespace Ogre {
     class GLSLProgramManagerCommon
     {
     protected:
-        using StringToEnumMap = std::map<String, GpuConstantType>;
+        using StringToEnumMap = std::map<std::string_view, GpuConstantType>;
         StringToEnumMap mTypeEnumMap;
 
         /** Parse an individual uniform from a GLSL source file and

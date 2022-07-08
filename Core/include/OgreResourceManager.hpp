@@ -496,7 +496,7 @@ namespace Ogre {
         }
 
     protected:
-        using ResourcePoolMap = std::map<String, ResourcePool *>;
+        using ResourcePoolMap = std::map<std::string_view, ResourcePool *>;
         ResourcePoolMap mResourcePoolMap;
     };
 

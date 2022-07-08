@@ -139,7 +139,7 @@ namespace Ogre {
     public:
         ProfileInstance();
 
-        using ProfileChildren = std::map<String, ::std::unique_ptr<ProfileInstance>>;
+        using ProfileChildren = std::map<std::string_view, ::std::unique_ptr<ProfileInstance>>;
 
         void logResults();
         void reset();

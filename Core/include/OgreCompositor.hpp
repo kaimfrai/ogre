@@ -178,10 +178,10 @@ class ResourceManager;
 
         //TODO GSOC : These typedefs are duplicated from CompositorInstance. Solve?
         /// Map from name->local texture
-        using GlobalTextureMap = std::map<String, TexturePtr>;
+        using GlobalTextureMap = std::map<std::string_view, TexturePtr>;
         GlobalTextureMap mGlobalTextures;
         /// Store a list of MRTs we've created
-        using GlobalMRTMap = std::map<String, MultiRenderTarget *>;
+        using GlobalMRTMap = std::map<std::string_view, MultiRenderTarget *>;
         GlobalMRTMap mGlobalMRTs;
     };
     /** @} */

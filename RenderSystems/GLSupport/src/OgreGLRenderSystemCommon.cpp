@@ -66,7 +66,7 @@ namespace Ogre {
         ConfigOption optDisplayFrequency;
         optDisplayFrequency.name = "Display Frequency";
         optDisplayFrequency.immutable = false;
-        mOptions[optDisplayFrequency.name] = optDisplayFrequency;
+        mOptions["Display Frequency"] = optDisplayFrequency;
 
         ConfigOption optVideoMode;
         optVideoMode.name = "Video Mode";
@@ -77,7 +77,7 @@ namespace Ogre {
         }
         removeDuplicates(optVideoMode.possibleValues); // also sorts
         optVideoMode.currentValue = optVideoMode.possibleValues[0];
-        mOptions[optVideoMode.name] = optVideoMode;
+        mOptions["Video Mode"] = optVideoMode;
 
         ConfigOption optFSAA;
         optFSAA.name = "FSAA";
@@ -91,7 +91,7 @@ namespace Ogre {
             removeDuplicates(optFSAA.possibleValues);
             optFSAA.currentValue = optFSAA.possibleValues[0];
         }
-        mOptions[optFSAA.name] = optFSAA;
+        mOptions["FSAA"] = optFSAA;
 
         refreshConfig();
     }

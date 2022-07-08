@@ -450,9 +450,9 @@ namespace Ogre {
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
 
-        using CameraList = std::map<String, Camera *>;
-        using AnimationList = std::map<String, Animation *>;
-        using MovableObjectMap = std::map<String, MovableObject *>;
+        using CameraList = std::map<std::string, Camera*, std::less<>>;
+        using AnimationList = std::map<std::string_view, Animation *>;
+        using MovableObjectMap = std::map<std::string, MovableObject*, std::less<>>;
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.
@@ -473,12 +473,12 @@ namespace Ogre {
         */
         CameraList mCameras;
 
-        using StaticGeometryList = std::map<String, StaticGeometry *>;
+        using StaticGeometryList = std::map<std::string_view, StaticGeometry *>;
         StaticGeometryList mStaticGeometryList;
-        using InstancedGeometryList = std::map<String, InstancedGeometry *>;
+        using InstancedGeometryList = std::map<std::string_view, InstancedGeometry *>;
         InstancedGeometryList mInstancedGeometryList;
 
-        using InstanceManagerMap = std::map<String, InstanceManager *>;
+        using InstanceManagerMap = std::map<std::string_view, InstanceManager *>;
         InstanceManagerMap  mInstanceManagerMap;
 
         using SceneNodeList = std::vector<SceneNode *>;
@@ -492,7 +492,7 @@ namespace Ogre {
         SceneNodeList mSceneNodes;
 
         /// additional map to speed up lookup by name
-        std::map<StringView, SceneNode*> mNamedNodes;
+        std::map<std::string_view, SceneNode*> mNamedNodes;
 
         /// Camera in progress
         Camera* mCameraInProgress{nullptr};
@@ -637,7 +637,7 @@ namespace Ogre {
         {
                     MovableObjectMap map;
         };
-        using MovableObjectCollectionMap = std::map<String, ::std::unique_ptr<MovableObjectCollection>>;
+        using MovableObjectCollectionMap = std::map<std::string_view, ::std::unique_ptr<MovableObjectCollection>>;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
         NameGenerator mMovableNameGenerator;
         /** Gets the movable object collection for the given type name.

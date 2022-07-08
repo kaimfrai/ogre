@@ -78,33 +78,33 @@ namespace Ogre {
         // "automipmap" and "pbuffer" are both activated with setCapability (passing RSC_AUTOMIPMAP and RSC_PBUFFER respectivelly)
         // while "max_num_multi_render_targets" is an integer and has it's own method: setMaxMultiNumRenderTargets
         // we need to know these types to automatically parse each capability
-        using KeywordTypeMap = std::map<String, CapabilityKeywordType>;
+        using KeywordTypeMap = std::map<std::string_view, CapabilityKeywordType>;
         KeywordTypeMap mKeywordTypeMap;
 
         using SetStringMethod = void (RenderSystemCapabilities::*)(StringView );
         // maps capability keywords to setCapability(String& cap) style methods
-        using SetStringMethodDispatchTable = std::map<String, SetStringMethod>;
+        using SetStringMethodDispatchTable = std::map<std::string_view, SetStringMethod>;
         SetStringMethodDispatchTable mSetStringMethodDispatchTable;
 
         // SET_INT_METHOD parsing tables
         using SetIntMethod = void (RenderSystemCapabilities::*)(ushort);
-        using SetIntMethodDispatchTable = std::map<String, SetIntMethod>;
+        using SetIntMethodDispatchTable = std::map<std::string_view, SetIntMethod>;
         SetIntMethodDispatchTable mSetIntMethodDispatchTable;
 
         // SET_BOOL_METHOD parsing tables
         using SetBoolMethod = void (RenderSystemCapabilities::*)(bool);
-        using SetBoolMethodDispatchTable = std::map<String, SetBoolMethod>;
+        using SetBoolMethodDispatchTable = std::map<std::string_view, SetBoolMethod>;
         SetBoolMethodDispatchTable mSetBoolMethodDispatchTable;
 
         // SET_REAL_METHOD parsing tables
         using SetRealMethod = void (RenderSystemCapabilities::*)(Real);
-        using SetRealMethodDispatchTable = std::map<String, SetRealMethod>;
+        using SetRealMethodDispatchTable = std::map<std::string_view, SetRealMethod>;
         SetRealMethodDispatchTable mSetRealMethodDispatchTable;
 
-        using CapabilitiesMap = std::map<String, Capabilities>;
+        using CapabilitiesMap = std::map<std::string_view, Capabilities>;
         CapabilitiesMap mCapabilitiesMap;
 
-        inline void addCapabilitiesMapping(String name, Capabilities cap)
+        inline void addCapabilitiesMapping(std::string_view name, Capabilities cap)
         {
             mCapabilitiesMap.emplace(name, cap);
         }
@@ -121,7 +121,7 @@ namespace Ogre {
 
         RenderSystemCapabilities* mCurrentCapabilities{nullptr};
 
-        inline void addKeywordType(String keyword, CapabilityKeywordType type)
+        inline void addKeywordType(std::string_view keyword, CapabilityKeywordType type)
         {
             mKeywordTypeMap.emplace(keyword, type);
         }
@@ -136,7 +136,7 @@ namespace Ogre {
             return SET_CAPABILITY_ENUM_BOOL;
         }
 
-        inline void addSetStringMethod(String keyword, SetStringMethod method)
+        inline void addSetStringMethod(std::string_view keyword, SetStringMethod method)
         {
             mSetStringMethodDispatchTable.emplace(keyword, method);
         }
@@ -156,7 +156,7 @@ namespace Ogre {
         }
 
 
-        inline void addSetIntMethod(String keyword, SetIntMethod method)
+        inline void addSetIntMethod(std::string_view keyword, SetIntMethod method)
         {
             mSetIntMethodDispatchTable.emplace(keyword, method);
         }
@@ -176,7 +176,7 @@ namespace Ogre {
         }
 
 
-        inline void addSetBoolMethod(String keyword, SetBoolMethod method)
+        inline void addSetBoolMethod(std::string_view keyword, SetBoolMethod method)
         {
             mSetBoolMethodDispatchTable.emplace(keyword, method);
         }
@@ -196,7 +196,7 @@ namespace Ogre {
         }
 
 
-        inline void addSetRealMethod(String keyword, SetRealMethod method)
+        inline void addSetRealMethod(std::string_view keyword, SetRealMethod method)
         {
             mSetRealMethodDispatchTable.emplace(keyword, method);
         }

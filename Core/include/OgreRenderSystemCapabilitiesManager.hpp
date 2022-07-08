@@ -69,8 +69,9 @@ namespace Ogre {
         */
         auto loadParsedCapabilities(StringView name) -> RenderSystemCapabilities*;
 
+        using CapabilitiesMap = std::map<std::string, ::std::unique_ptr<RenderSystemCapabilities>, std::less<>>;
         /** Access to the internal map of loaded capabilities */
-        [[nodiscard]] auto getCapabilities() const -> const std::map<String, ::std::unique_ptr<RenderSystemCapabilities>> &;
+        [[nodiscard]] auto getCapabilities() const -> const CapabilitiesMap&;
 
         /** Method used by RenderSystemCapabilitiesSerializer::parseScript */
         void _addRenderSystemCapabilities(StringView name, RenderSystemCapabilities* caps);
@@ -84,7 +85,6 @@ namespace Ogre {
 
         ::std::unique_ptr<RenderSystemCapabilitiesSerializer> mSerializer{nullptr};
 
-        using CapabilitiesMap = std::map<String, ::std::unique_ptr<RenderSystemCapabilities>>;
         CapabilitiesMap mCapabilitiesMap;
 
         const String mScriptPattern;

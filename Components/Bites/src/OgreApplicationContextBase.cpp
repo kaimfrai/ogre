@@ -374,7 +374,7 @@ void ApplicationContextBase::locateResources()
         // go through all resource paths
         for (auto const& [type, value] : settings)
         {
-            auto arch = value;
+            std::string arch{ value };
             Ogre::StringUtil::trim(arch);
             if (arch.empty() || arch[0] == '.')
             {

@@ -168,7 +168,7 @@ public:
     }
 
     /** Greater than operator, so they can be sorted chronologically */
-    [[nodiscard]] auto operator<=>(const TestBatch& other) const noexcept -> ::std::strong_ordering
+    [[nodiscard]] auto operator<=>(const TestBatch& other) const noexcept -> ::std::weak_ordering
     {
         using namespace Ogre;
         // due to the way timestamps are formatted, lexicographical ordering will also be chronological

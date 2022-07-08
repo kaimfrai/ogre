@@ -52,7 +52,7 @@ namespace Ogre::RTShader {
 class ProgramWriterManager 
     : public Singleton<ProgramWriterManager>, public RTShaderSystemAlloc
 {
-    std::map<String, ::std::unique_ptr<ProgramWriter>> mProgramWriters;
+    std::map<std::string_view, ::std::unique_ptr<ProgramWriter>> mProgramWriters;
 
 public:
     ProgramWriterManager();

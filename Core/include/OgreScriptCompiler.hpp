@@ -137,7 +137,7 @@ class Material;
     class ObjectAbstractNode : public AbstractNode
     {
     private:
-        std::map<String,String> mEnv;
+        std::map<std::string, String, std::less<>> mEnv;
     public:
         String name, cls;
         std::vector<String> bases;
@@ -154,7 +154,7 @@ class Material;
         void addVariable(StringView name);
         void setVariable(StringView name, StringView value);
         [[nodiscard]] auto getVariable(StringView name) const -> std::pair<bool,String>;
-        [[nodiscard]] auto getVariables() const -> const std::map<String,String> &;
+        [[nodiscard]] auto getVariables() const -> const decltype(mEnv)&;
     };
 
     /** This abstract node represents a script property */
@@ -202,7 +202,7 @@ class Material;
     class ScriptCompiler : public ScriptCompilerAlloc
     {
     public: // Externally accessible types
-        //typedef std::map<String,uint32> IdMap;
+        //typedef std::map<std::string_view,uint32> IdMap;
         using IdMap = std::unordered_map<String, uint32>;
 
         // These are the built-in error codes
@@ -297,12 +297,12 @@ class Material;
 		uint32 mLargestRegisteredWordId;
 
         // This is an environment map
-        using Environment = std::map<String, String>;
+        using Environment = std::map<std::string_view, String>;
         Environment mEnv;
 
-        using ImportCacheMap = std::map<String, AbstractNodeListPtr>;
+        using ImportCacheMap = std::map<std::string, AbstractNodeListPtr, std::less<>>;
         ImportCacheMap mImports; // The set of imported scripts to avoid circular dependencies
-        using ImportRequestMap = std::multimap<String, String>;
+        using ImportRequestMap = std::multimap<std::string, String, std::less<>>;
         ImportRequestMap mImportRequests; // This holds the target objects for each script to be imported
 
         // This stores the imports of the scripts, so they are separated and can be treated specially

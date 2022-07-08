@@ -80,7 +80,7 @@ namespace Ogre {
         return mCapabilitiesMap[name].get();
     }
 
-    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const std::map<String, ::std::unique_ptr<RenderSystemCapabilities>> &
+    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const CapabilitiesMap&
     {
         return mCapabilitiesMap;
     }

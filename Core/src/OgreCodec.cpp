@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    std::map<StringView, Codec * > Codec::msMapCodecs;
+    std::map<std::string_view, Codec * > Codec::msMapCodecs;
 
     Codec::~Codec() = default;
 

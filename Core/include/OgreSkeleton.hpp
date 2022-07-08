@@ -427,11 +427,11 @@ class ResourceManager;
 
     protected:
         /// Storage of animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        using AnimationList = std::map<std::string, Animation*, std::less<>>;
         AnimationList mAnimationsList;
     private:
         /// Lookup by bone name
-        using BoneListByName = std::map<StringView, Bone *>;
+        using BoneListByName = std::map<std::string_view, Bone *>;
         BoneListByName mBoneListByName;
 
         /// Pointer to root bones (can now have multiple roots)

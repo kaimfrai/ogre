@@ -643,8 +643,8 @@ namespace Ogre {
         using FreeEmittedEmitterList = std::list<ParticleEmitter *>;
         using ActiveEmittedEmitterList = std::list<ParticleEmitter *>;
         using EmittedEmitterList = std::vector<ParticleEmitter *>;
-        using FreeEmittedEmitterMap = std::map<StringView, FreeEmittedEmitterList>;
-        using EmittedEmitterPool = std::map<String, EmittedEmitterList>;
+        using FreeEmittedEmitterMap = std::map<std::string_view, FreeEmittedEmitterList>;
+        using EmittedEmitterPool = std::map<std::string_view, EmittedEmitterList>;
 
         /** Pool of emitted emitters for use and reuse in the active emitted emitter list.
         @remarks

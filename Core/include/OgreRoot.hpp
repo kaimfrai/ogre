@@ -110,7 +110,7 @@ struct SceneManagerMetaData;
         // RenderSystem::initialise is used directly
         friend class RenderSystem;
     public:
-        using MovableObjectFactoryMap = std::map<String, MovableObjectFactory *>;
+        using MovableObjectFactoryMap = std::map<std::string_view, MovableObjectFactory *>;
         using PluginLibList = std::vector<DynLib *>;
         using PluginInstanceList = std::vector<Plugin *>;
     private:

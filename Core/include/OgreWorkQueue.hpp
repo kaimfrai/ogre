@@ -79,7 +79,7 @@ namespace Ogre
     class WorkQueue : public UtilityAlloc
     {
     protected:
-        using ChannelMap = std::map<String, uint16>;
+        using ChannelMap = std::map<std::string_view, uint16>;
         ChannelMap mChannelMap;
         uint16 mNextChannel{0};
         mutable std::recursive_mutex mChannelMapMutex;

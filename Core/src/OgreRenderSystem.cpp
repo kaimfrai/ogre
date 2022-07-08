@@ -960,7 +960,7 @@ namespace Ogre {
         optFullScreen.possibleValues.push_back( "Yes" );
         optFullScreen.currentValue = optFullScreen.possibleValues[0];
         optFullScreen.immutable = false;
-        mOptions[optFullScreen.name] = optFullScreen;
+        mOptions["Full Screen"] = optFullScreen;
 
         ConfigOption optVSync;
         optVSync.name = "VSync";
@@ -968,7 +968,7 @@ namespace Ogre {
         optVSync.possibleValues.push_back("No");
         optVSync.possibleValues.push_back("Yes");
         optVSync.currentValue = optVSync.possibleValues[1];
-        mOptions[optVSync.name] = optVSync;
+        mOptions["VSync"] = optVSync;
 
         ConfigOption optVSyncInterval;
         optVSyncInterval.name = "VSync Interval";
@@ -978,7 +978,7 @@ namespace Ogre {
         optVSyncInterval.possibleValues.push_back("3");
         optVSyncInterval.possibleValues.push_back("4");
         optVSyncInterval.currentValue = optVSyncInterval.possibleValues[0];
-        mOptions[optVSyncInterval.name] = optVSyncInterval;
+        mOptions["VSync Interval"] = optVSyncInterval;
 
         ConfigOption optSRGB;
         optSRGB.name = "sRGB Gamma Conversion";
@@ -986,7 +986,7 @@ namespace Ogre {
         optSRGB.possibleValues.push_back("No");
         optSRGB.possibleValues.push_back("Yes");
         optSRGB.currentValue = optSRGB.possibleValues[0];
-        mOptions[optSRGB.name] = optSRGB;
+        mOptions["sRGB Gamma Conversion"] = optSRGB;
     }
 
     auto RenderSystem::reverseCompareFunction(CompareFunction func) -> CompareFunction

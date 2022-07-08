@@ -48,13 +48,13 @@ namespace Ogre {
     */
     struct ConfigOption
     {
-        String name;
+        std::string_view name;
         String currentValue;
         StringVector possibleValues;
         bool immutable;
     };
 
-    using ConfigOptionMap = std::map<String, ConfigOption>;
+    using ConfigOptionMap = std::map<std::string_view, ConfigOption>;
     /** @} */
     /** @} */
 }

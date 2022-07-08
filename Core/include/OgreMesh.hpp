@@ -190,7 +190,7 @@ class VertexData;
         bool mAutoBuildEdgeLists{true};
 
         /// Storage of morph animations, lookup by name
-        using AnimationList = std::map<String, Animation *>;
+        using AnimationList = std::map<std::string, Animation*, std::less<>>;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
         mutable VertexAnimationType mSharedVertexDataAnimationType{VAT_NONE};

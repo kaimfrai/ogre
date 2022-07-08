@@ -141,7 +141,7 @@ namespace Ogre
         return std::make_pair(false, "");
     }
 
-    auto ObjectAbstractNode::getVariables() const -> const std::map<String,String> &
+    auto ObjectAbstractNode::getVariables() const -> const decltype(mEnv) &
     {
         return mEnv;
     }

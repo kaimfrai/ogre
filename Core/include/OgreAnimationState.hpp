@@ -190,7 +190,7 @@ class AnimationStateSet;
     };
 
     // A map of animation states
-    using AnimationStateMap = std::map<String, AnimationState *>;
+    using AnimationStateMap = std::map<std::string_view, AnimationState *>;
     using AnimationStateIterator = MapIterator<AnimationStateMap>;
     using ConstAnimationStateIterator = ConstMapIterator<AnimationStateMap>;
     // A list of enabled animation states

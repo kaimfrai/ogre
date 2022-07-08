@@ -88,10 +88,10 @@ class ParticleSystemRenderer;
     {
         friend class ParticleSystemFactory;
     public:
-        using ParticleTemplateMap = std::map<String, ParticleSystem *>;
-        using ParticleAffectorFactoryMap = std::map<String, ParticleAffectorFactory *>;
-        using ParticleEmitterFactoryMap = std::map<String, ParticleEmitterFactory *>;
-        using ParticleSystemRendererFactoryMap = std::map<String, ParticleSystemRendererFactory *>;
+        using ParticleTemplateMap = std::map<std::string_view, ParticleSystem *>;
+        using ParticleAffectorFactoryMap = std::map<std::string_view, ParticleAffectorFactory *>;
+        using ParticleEmitterFactoryMap = std::map<std::string_view, ParticleEmitterFactory *>;
+        using ParticleSystemRendererFactoryMap = std::map<std::string_view, ParticleSystemRendererFactory *>;
     private:
         /// Templates based on scripts
         ParticleTemplateMap mSystemTemplates;

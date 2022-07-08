@@ -261,11 +261,11 @@ public:
     /** Determines if the current object is equal to the compared one. */
     [[nodiscard]] auto operator == ( const FunctionInvocation& rhs ) const noexcept -> bool
     {
-        return (*this <=> rhs) == ::std::strong_ordering::equal;
+        return (*this <=> rhs) == ::std::weak_ordering::equivalent;
     }
 
     /** Determines if the current object is less than the compared one. */
-    [[nodiscard]] auto operator <=> ( const FunctionInvocation& rhs ) const noexcept -> ::std::strong_ordering;
+    [[nodiscard]] auto operator <=> ( const FunctionInvocation& rhs ) const noexcept -> ::std::weak_ordering;
 
 private:
     FunctionInvocation() = default;

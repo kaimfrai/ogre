@@ -343,10 +343,10 @@ class SceneManager;
         /// Is this instance allocating resources?
         bool mAlive{false};
         /// Map from name->local texture.
-        using LocalTextureMap = std::map<String, TexturePtr>;
+        using LocalTextureMap = std::map<std::string_view, TexturePtr>;
         LocalTextureMap mLocalTextures;
         /// Store a list of MRTs we've created.
-        using LocalMRTMap = std::map<String, MultiRenderTarget *>;
+        using LocalMRTMap = std::map<std::string_view, MultiRenderTarget *>;
         LocalMRTMap mLocalMRTs;
         using ReserveTextureMap = std::map<CompositionTechnique::TextureDefinition *, TexturePtr>;
         /** Textures that are not currently in use, but that we want to keep for now,
