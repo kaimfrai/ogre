@@ -45,7 +45,7 @@ namespace OgreBites
     protected:
         void _destroyWindow(const NativeWindowPair& win) override;
     public:
-        explicit ApplicationContextSDL(std::string_view appName = "Ogre3D");
+        explicit ApplicationContextSDL(StringView appName = "Ogre3D");
 
         void setWindowGrab(NativeWindowType* win, bool grab) override;
         [[nodiscard]] auto getDisplayDPI() const noexcept -> float override;
@@ -54,7 +54,7 @@ namespace OgreBites
         void addInputListener(NativeWindowType* win, InputListener* lis) override;
         void removeInputListener(NativeWindowType* win, InputListener* lis) override;
         auto
-        createWindow(std::string_view name, uint32_t w = 0, uint32_t h = 0,
+        createWindow(StringView name, uint32_t w = 0, uint32_t h = 0,
                      Ogre::NameValuePairList miscParams = Ogre::NameValuePairList()) -> NativeWindowPair override;
 
         using ApplicationContextBase::setWindowGrab;

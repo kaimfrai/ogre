@@ -77,7 +77,7 @@ namespace Ogre
     class MultiRenderTarget: public RenderTarget
     {
     public:
-        MultiRenderTarget(std::string_view name);
+        MultiRenderTarget(StringView name);
 
         /** Bind a surface to a certain attachment point.
             @param attachment   0 .. mCapabilities->getNumMultiRenderTargets()-1

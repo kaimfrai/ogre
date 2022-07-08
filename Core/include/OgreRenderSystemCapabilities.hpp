@@ -225,7 +225,7 @@ namespace Ogre
         }
 
         [[nodiscard]] auto toString() const -> String;
-        void fromString(std::string_view versionString);
+        void fromString(StringView versionString);
     };
 
     /** Enumeration of GPU vendors. */
@@ -325,7 +325,7 @@ namespace Ogre
             mDriverVersion = version;
         }
 
-        void parseDriverVersionFromString(std::string_view versionString)
+        void parseDriverVersionFromString(StringView versionString)
         {
             DriverVersion version;
             version.fromString(versionString);
@@ -349,15 +349,15 @@ namespace Ogre
         }
 
         /// Parse and set vendor
-        void parseVendorFromString(std::string_view vendorString)
+        void parseVendorFromString(StringView vendorString)
         {
             setVendor(vendorFromString(vendorString));
         }
 
         /// Convert a vendor string to an enum
-        static auto vendorFromString(std::string_view vendorString) -> GPUVendor;
+        static auto vendorFromString(StringView vendorString) -> GPUVendor;
         /// Convert a vendor enum to a string
-        static auto vendorToString(GPUVendor v) -> std::string_view ;
+        static auto vendorToString(GPUVendor v) -> StringView ;
 
         [[nodiscard]] auto isDriverOlderThanVersion(const DriverVersion &v) const -> bool
         {
@@ -480,15 +480,15 @@ namespace Ogre
 
         /** Adds the profile to the list of supported profiles
         */
-        void addShaderProfile(std::string_view profile);
+        void addShaderProfile(StringView profile);
 
         /** Remove a given shader profile, if present.
         */
-        void removeShaderProfile(std::string_view profile);
+        void removeShaderProfile(StringView profile);
 
         /** Returns true if profile is in the list of supported profiles
         */
-        [[nodiscard]] auto isShaderProfileSupported(std::string_view profile) const -> bool;
+        [[nodiscard]] auto isShaderProfileSupported(StringView profile) const -> bool;
 
         /** Returns a set of all supported shader profiles
         * */
@@ -515,7 +515,7 @@ namespace Ogre
         }
 
         /// sets the device name for Render system
-        void setDeviceName(std::string_view name)
+        void setDeviceName(StringView name)
         {
             mDeviceName = name;
         }
@@ -603,12 +603,12 @@ namespace Ogre
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        [[nodiscard]] auto getRenderSystemName() const noexcept -> std::string_view
+        [[nodiscard]] auto getRenderSystemName() const noexcept -> StringView
         {
             return mRenderSystemName;
         }
         ///  Set the identifier of the rendersystem from which these capabilities were generated
-        void setRenderSystemName(std::string_view rs)
+        void setRenderSystemName(StringView rs)
         {
             mRenderSystemName = rs;
         }

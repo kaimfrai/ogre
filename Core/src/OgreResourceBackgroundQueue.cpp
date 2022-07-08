@@ -114,7 +114,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::initialiseResourceGroup(
-        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        StringView name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -136,7 +136,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::prepareResourceGroup(
-        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        StringView name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -147,7 +147,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::loadResourceGroup(
-        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        StringView name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -158,8 +158,8 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::prepare(
-        std::string_view resType, std::string_view name, 
-        std::string_view group, bool isManual, 
+        StringView resType, StringView name, 
+        StringView group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
@@ -179,8 +179,8 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::load(
-        std::string_view resType, std::string_view name, 
-        std::string_view group, bool isManual, 
+        StringView resType, StringView name, 
+        StringView group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
@@ -200,7 +200,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unload(
-        std::string_view resType, std::string_view name, Listener* listener) -> BackgroundProcessTicket
+        StringView resType, StringView name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -212,7 +212,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unload(
-        std::string_view resType, ResourceHandle handle, Listener* listener) -> BackgroundProcessTicket
+        StringView resType, ResourceHandle handle, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -224,7 +224,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unloadResourceGroup(
-        std::string_view name, Listener* listener) -> BackgroundProcessTicket
+        StringView name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;

@@ -145,7 +145,7 @@ private:
     @param defines defines for the final source code
     @return A string representing a 128 bit hash value of the original string
     */
-    static auto generateHash(std::string_view programString, std::string_view defines) -> String;
+    static auto generateHash(StringView programString, StringView defines) -> String;
 
     /** Create GPU program based on the give CPU program.
     @param shaderProgram The CPU program instance.
@@ -157,21 +157,21 @@ private:
     */
     auto createGpuProgram(Program* shaderProgram, 
         ProgramWriter* programWriter,
-        std::string_view language,
-        std::string_view profiles,
-        std::string_view cachePath) -> GpuProgramPtr;
+        StringView language,
+        StringView profiles,
+        StringView cachePath) -> GpuProgramPtr;
 
     /** 
     Add program processor instance to this manager.
     @param processor The instance to add.
     */
-    void addProgramProcessor(std::string_view lang, ProgramProcessor* processor);
+    void addProgramProcessor(StringView lang, ProgramProcessor* processor);
 
     /** 
     Remove program processor instance from this manager. 
     @param processor The instance to remove.
     */
-    void removeProgramProcessor(std::string_view lang);
+    void removeProgramProcessor(StringView lang);
 
     /** Destroy a GPU program by name.
     @param gpuProgram The program to destroy.

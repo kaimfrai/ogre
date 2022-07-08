@@ -68,8 +68,8 @@ namespace Ogre
 {
     struct MeshCodec : public Codec
     {
-        auto magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const -> std::string_view override { return ""; }
-        [[nodiscard]] auto getType() const -> std::string_view override { return "mesh"; }
+        auto magicNumberToFileExt(const char* magicNumberPtr, size_t maxbytes) const -> StringView override { return ""; }
+        [[nodiscard]] auto getType() const -> StringView override { return "mesh"; }
         void decode(const DataStreamPtr& input, ::std::any const& output) const override
         {
             Mesh* dst = any_cast<Mesh*>(output);
@@ -111,7 +111,7 @@ namespace Ogre
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::getByName(std::string_view name, std::string_view groupName) const -> MeshPtr
+    auto MeshManager::getByName(StringView name, StringView groupName) const -> MeshPtr
     {
         return static_pointer_cast<Mesh>(getResourceByName(name, groupName));
     }
@@ -126,7 +126,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     auto MeshManager::createOrRetrieve(
-        std::string_view name, std::string_view group,
+        StringView name, StringView group,
         bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* params,
         HardwareBuffer::Usage vertexBufferUsage, 
@@ -146,7 +146,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::prepare( std::string_view filename, std::string_view groupName, 
+    auto MeshManager::prepare( StringView filename, StringView groupName, 
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage, 
         bool vertexBufferShadowed, bool indexBufferShadowed) -> MeshPtr
@@ -158,7 +158,7 @@ namespace Ogre
         return pMesh;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::load( std::string_view filename, std::string_view groupName, 
+    auto MeshManager::load( StringView filename, StringView groupName, 
         HardwareBuffer::Usage vertexBufferUsage, 
         HardwareBuffer::Usage indexBufferUsage, 
         bool vertexBufferShadowed, bool indexBufferShadowed) -> MeshPtr
@@ -170,21 +170,21 @@ namespace Ogre
         return pMesh;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::create (std::string_view name, std::string_view group,
+    auto MeshManager::create (StringView name, StringView group,
                                     bool isManual, ManualResourceLoader* loader,
                                     const NameValuePairList* createParams) -> MeshPtr
     {
         return static_pointer_cast<Mesh>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createManual( std::string_view name, std::string_view groupName, 
+    auto MeshManager::createManual( StringView name, StringView groupName, 
         ManualResourceLoader* loader) -> MeshPtr
     {
         // Don't try to get existing, create should fail if already exists
         return create(name, groupName, true, loader);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createPlane( std::string_view name, std::string_view groupName,
+    auto MeshManager::createPlane( StringView name, StringView groupName,
         const Plane& plane, Real width, Real height, int xsegments, int ysegments,
         bool normals, unsigned short numTexCoordSets, Real xTile, Real yTile, const Vector3& upVector,
         HardwareBuffer::Usage vertexBufferUsage, HardwareBuffer::Usage indexBufferUsage,
@@ -220,7 +220,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto MeshManager::createCurvedPlane( std::string_view name, std::string_view groupName, 
+    auto MeshManager::createCurvedPlane( StringView name, StringView groupName, 
         const Plane& plane, Real width, Real height, Real bow, int xsegments, int ysegments,
         bool normals, unsigned short numTexCoordSets, Real xTile, Real yTile, const Vector3& upVector,
             HardwareBuffer::Usage vertexBufferUsage, HardwareBuffer::Usage indexBufferUsage,
@@ -258,7 +258,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     auto MeshManager::createCurvedIllusionPlane(
-        std::string_view name, std::string_view groupName, const Plane& plane,
+        StringView name, StringView groupName, const Plane& plane,
         Real width, Real height, Real curvature,
         int xsegments, int ysegments,
         bool normals, unsigned short numTexCoordSets,
@@ -866,7 +866,7 @@ namespace Ogre
         pMesh->_setBounds(aabb, true);
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createBezierPatch(std::string_view name, std::string_view groupName,
+    auto MeshManager::createBezierPatch(StringView name, StringView groupName,
             void* controlPointBuffer, VertexDeclaration *declaration, 
             size_t width, size_t height,
             size_t uMaxSubdivisionLevel, size_t vMaxSubdivisionLevel,
@@ -937,8 +937,8 @@ namespace Ogre
         mBoundsPaddingFactor = paddingFactor;
     }
     //-----------------------------------------------------------------------
-    auto MeshManager::createImpl(std::string_view name, ResourceHandle handle, 
-        std::string_view group, bool isManual, ManualResourceLoader* loader, 
+    auto MeshManager::createImpl(StringView name, ResourceHandle handle, 
+        StringView group, bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* createParams) -> Resource*
     {
         // no use for createParams here

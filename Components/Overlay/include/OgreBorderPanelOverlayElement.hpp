@@ -69,7 +69,7 @@ class RenderQueue;
         friend class BorderRenderable;
     public:
         /** Constructor */
-        BorderPanelOverlayElement(std::string_view name);
+        BorderPanelOverlayElement(StringView name);
         ~BorderPanelOverlayElement() override;
 
         void initialise() override;
@@ -79,7 +79,7 @@ class RenderQueue;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         void _restoreManualHardwareResources() override;
 
-        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getTypeName() const noexcept -> StringView override;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -171,9 +171,9 @@ class RenderQueue;
         /// @}
 
         /** Sets the name of the material to use for the borders. */
-        void setBorderMaterialName(std::string_view name, std::string_view group = DEFAULT_RESOURCE_GROUP );
+        void setBorderMaterialName(StringView name, StringView group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        [[nodiscard]] auto getBorderMaterialName() const noexcept -> std::string_view ;
+        [[nodiscard]] auto getBorderMaterialName() const noexcept -> StringView ;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue) override;

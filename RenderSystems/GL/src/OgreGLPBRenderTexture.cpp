@@ -42,7 +42,7 @@ class GLContext;
 class RenderTexture;
 
 //-----------------------------------------------------------------------------  
-    GLPBRenderTexture::GLPBRenderTexture(GLPBRTTManager *manager, std::string_view name, 
+    GLPBRenderTexture::GLPBRenderTexture(GLPBRTTManager *manager, StringView name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa):
         GLRenderTexture(name, target, writeGamma, fsaa),
         mManager(manager)
@@ -56,7 +56,7 @@ class RenderTexture;
         // Release PBuffer
         mManager->releasePBuffer(mPBFormat);
     }
-    void GLPBRenderTexture::getCustomAttribute(std::string_view name, void* pData)
+    void GLPBRenderTexture::getCustomAttribute(StringView name, void* pData)
     {
         if( name == GLRenderTexture::CustomAttributeString_TARGET )
         {
@@ -93,7 +93,7 @@ class RenderTexture;
         }
     }
 
-    auto GLPBRTTManager::createRenderTexture(std::string_view name, 
+    auto GLPBRTTManager::createRenderTexture(StringView name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture *
     {
         return new GLPBRenderTexture(this, name, target, writeGamma, fsaa);

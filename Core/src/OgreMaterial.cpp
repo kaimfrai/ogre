@@ -47,8 +47,8 @@ namespace Ogre {
 class Renderable;
 
     //-----------------------------------------------------------------------
-    Material::Material(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader)
+    Material::Material(ResourceManager* creator, StringView name, ResourceHandle handle,
+        StringView group, bool isManual, ManualResourceLoader* loader)
         :Resource(creator, name, handle, group, false, nullptr)
          
     {
@@ -173,10 +173,10 @@ class Renderable;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto Material::clone(std::string_view newName, std::string_view newGroup) const -> MaterialPtr
+    auto Material::clone(StringView newName, StringView newGroup) const -> MaterialPtr
     {
         MaterialPtr newMat =
-            MaterialManager::getSingleton().create(newName, newGroup.empty() ? mGroup : newGroup);
+            MaterialManager::getSingleton().create(newName, newGroup.empty() ? StringView{mGroup} : newGroup);
 
         if(!newMat) // interception by collision handler
             return newMat;
@@ -248,7 +248,7 @@ class Renderable;
         return t;
     }
     //-----------------------------------------------------------------------
-    auto Material::getTechnique(std::string_view name) const -> Technique*
+    auto Material::getTechnique(StringView name) const -> Technique*
     {
         Technique* foundTechnique = nullptr;
 
@@ -283,7 +283,7 @@ class Renderable;
         return static_cast<unsigned short>(i->second.size());
     }
     //-----------------------------------------------------------------------
-    auto Material::getNumLodLevels(std::string_view schemeName) const -> unsigned short
+    auto Material::getNumLodLevels(StringView schemeName) const -> unsigned short
     {
         return getNumLodLevels(
             MaterialManager::getSingleton()._getSchemeIndex(schemeName));

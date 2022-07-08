@@ -67,11 +67,11 @@ namespace Ogre {
         ~OverlaySystem() override;
 
         /// @see RenderQueueListener
-        void renderQueueStarted(uint8 queueGroupId, std::string_view invocation, 
+        void renderQueueStarted(uint8 queueGroupId, StringView invocation, 
             bool& skipThisInvocation) override;
 
         /// @see RenderSystem::Listener
-        void eventOccurred(std::string_view eventName, const NameValuePairList* parameters) override;
+        void eventOccurred(StringView eventName, const NameValuePairList* parameters) override;
 
         static auto getSingleton() noexcept -> OverlaySystem&;
         static auto getSingletonPtr() noexcept -> OverlaySystem*;

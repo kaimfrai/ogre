@@ -42,12 +42,12 @@ namespace OgreBites
     {
     public:
 
-        SamplePlugin(std::string_view name)
+        SamplePlugin(StringView name)
         : mName(name)
         {
         }
 
-        [[nodiscard]] auto getName() const noexcept -> std::string_view override
+        [[nodiscard]] auto getName() const noexcept -> StringView override
         {
             return mName;
         }

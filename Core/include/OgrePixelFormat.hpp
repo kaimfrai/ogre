@@ -533,7 +533,7 @@ namespace Ogre {
 
         /** Gets the name of an image format
         */
-        static auto getFormatName(PixelFormat srcformat) -> std::string_view ;
+        static auto getFormatName(PixelFormat srcformat) -> StringView ;
 
         /** Returns whether the format can be packed or unpacked with the packColour()
         and unpackColour() functions. This is generally not true for compressed
@@ -560,7 +560,7 @@ namespace Ogre {
             @param  caseSensitive   Should be set true if string match should use case sensitivity.
             @return                The format match the format name, or PF_UNKNOWN if is invalid name.
         */
-        static auto getFormatFromName(std::string_view name, bool accessibleOnly = false, bool caseSensitive = false) -> PixelFormat;
+        static auto getFormatFromName(StringView name, bool accessibleOnly = false, bool caseSensitive = false) -> PixelFormat;
 
         /** Returns the similar format but acoording with given bit depths.
             @param fmt      The original foamt.
@@ -650,7 +650,7 @@ namespace Ogre {
         static void bulkPixelVerticalFlip(const PixelBox &box);
     };
 
-    inline auto to_string(PixelFormat v) -> std::string_view { return PixelUtil::getFormatName(v); }
+    inline auto to_string(PixelFormat v) -> StringView { return PixelUtil::getFormatName(v); }
     /** @} */
     /** @} */
 

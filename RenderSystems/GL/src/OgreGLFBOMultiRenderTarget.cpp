@@ -37,7 +37,7 @@ namespace Ogre {
 class DepthBuffer;
 class GLFBOManager;
 
-    GLFBOMultiRenderTarget::GLFBOMultiRenderTarget(GLFBOManager *manager, std::string_view name):
+    GLFBOMultiRenderTarget::GLFBOMultiRenderTarget(GLFBOManager *manager, StringView name):
         MultiRenderTarget(name),
         fbo(manager, 0 /* TODO: multisampling on MRTs? */)
     {
@@ -67,7 +67,7 @@ class GLFBOManager;
         mHeight = fbo.getHeight();
     }
 
-    void GLFBOMultiRenderTarget::getCustomAttribute( std::string_view name, void *pData )
+    void GLFBOMultiRenderTarget::getCustomAttribute( StringView name, void *pData )
     {
         if( name == GLRenderTexture::CustomAttributeString_FBO )
         {

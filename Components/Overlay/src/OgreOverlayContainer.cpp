@@ -42,7 +42,7 @@ class Matrix4;
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    OverlayContainer::OverlayContainer(std::string_view name)
+    OverlayContainer::OverlayContainer(StringView name)
         : OverlayElement(name)
         
     {
@@ -120,7 +120,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::removeChild(std::string_view name) -> OverlayContainer::ChildMap::iterator
+    auto OverlayContainer::removeChild(StringView name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -153,7 +153,7 @@ class RenderQueue;
         }
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::_removeChild(std::string_view name) -> OverlayContainer::ChildMap::iterator
+    auto OverlayContainer::_removeChild(StringView name) -> OverlayContainer::ChildMap::iterator
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -174,7 +174,7 @@ class RenderQueue;
         return eraseIt;
     }
     //---------------------------------------------------------------------
-    auto OverlayContainer::getChild(std::string_view name) -> OverlayElement*
+    auto OverlayContainer::getChild(StringView name) -> OverlayElement*
     {
         auto i = mChildren.find(name);
         if (i == mChildren.end())
@@ -349,7 +349,7 @@ class RenderQueue;
         }
     }
 
-    auto OverlayContainer::clone(std::string_view instanceName) -> OverlayElement*
+    auto OverlayContainer::clone(StringView instanceName) -> OverlayElement*
     {
         OverlayContainer *newContainer;
 

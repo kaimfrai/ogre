@@ -53,13 +53,13 @@ namespace Ogre
 
         /// Create a new font
         /// @see ResourceManager::createResource
-        auto create (std::string_view name, std::string_view group,
+        auto create (StringView name, StringView group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> FontPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> FontPtr;
+        auto getByName(StringView name, StringView groupName OGRE_RESOURCE_GROUP_INIT) const -> FontPtr;
 
         /** Override standard Singleton retrieval.
         @remarks
@@ -83,12 +83,12 @@ namespace Ogre
     private:
 
         /// Internal methods
-        auto createImpl(std::string_view name, ResourceHandle handle, 
-            std::string_view group, bool isManual, ManualResourceLoader* loader, 
+        auto createImpl(StringView name, ResourceHandle handle, 
+            StringView group, bool isManual, ManualResourceLoader* loader, 
             const NameValuePairList* params) -> Resource* override;
-        void parseAttribute(std::string_view line, FontPtr& pFont);
+        void parseAttribute(StringView line, FontPtr& pFont);
 
-        void logBadAttrib(std::string_view line, FontPtr& pFont);
+        void logBadAttrib(StringView line, FontPtr& pFont);
 
 
     };

@@ -150,7 +150,7 @@ class Material;
             bool caseSensitive;
             GPUDeviceNameRule()
                 : includeOrExclude(EXCLUDE), caseSensitive(false) {}
-            GPUDeviceNameRule(std::string_view pattern, IncludeOrExclude ie, bool caseSen)
+            GPUDeviceNameRule(StringView pattern, IncludeOrExclude ie, bool caseSen)
                 : devicePattern(pattern), includeOrExclude(ie), caseSensitive(caseSen) {}
         };
         using GPUVendorRuleList = std::vector<GPUVendorRule>;
@@ -198,7 +198,7 @@ class Material;
         /** Retrieves the Pass matching name.
             Returns 0 if name match is not found.
         */
-        [[nodiscard]] auto getPass(std::string_view name) const -> Pass*;
+        [[nodiscard]] auto getPass(StringView name) const -> Pass*;
         /** Retrieves the number of passes. */
         [[nodiscard]] auto getNumPasses() const -> size_t { return mPasses.size(); }
         /** Removes the Pass with the given index. */
@@ -230,7 +230,7 @@ class Material;
         auto operator=(const Technique& rhs) -> Technique&;
 
         /// Gets the resource group of the ultimate parent Material
-        [[nodiscard]] auto getResourceGroup() const noexcept -> std::string_view ;
+        [[nodiscard]] auto getResourceGroup() const noexcept -> StringView ;
 
         /** Returns true if this Technique involves transparency. 
         @remarks
@@ -297,7 +297,7 @@ class Material;
         void setShadowCasterMaterial(MaterialPtr val);
         /** set this material specific  shadow casting specific material
         */
-        void setShadowCasterMaterial(std::string_view name);
+        void setShadowCasterMaterial(StringView name);
         /** return this material specific shadow receiving specific material
         */
         [[nodiscard]] auto getShadowReceiverMaterial() const -> MaterialPtr;
@@ -306,7 +306,7 @@ class Material;
         void setShadowReceiverMaterial(MaterialPtr val);
         /** set this material specific  shadow receiving specific material
         */
-        void setShadowReceiverMaterial(std::string_view name);
+        void setShadowReceiverMaterial(StringView name);
         /// @}
 
         /** @name Forwarded Pass Properties
@@ -595,11 +595,11 @@ class Material;
             two ways - either by calling Viewport::setMaterialScheme, or
             by manually calling MaterialManager::setActiveScheme.
         */
-        void setSchemeName(std::string_view schemeName);
+        void setSchemeName(StringView schemeName);
         /** Returns the scheme to which this technique is assigned.
             @see Technique::setSchemeName
         */
-        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view ;
+        [[nodiscard]] auto getSchemeName() const noexcept -> StringView ;
         
         /// Internal method for getting the scheme index
         [[nodiscard]] auto _getSchemeIndex() const -> unsigned short;
@@ -618,9 +618,9 @@ class Material;
         The use of technique name is optional.  Its useful in material scripts where a material could inherit
         from another material and only want to modify a particular technique.
         */
-        void setName(std::string_view name);
+        void setName(StringView name);
         /// Gets the name of the technique
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> StringView { return mName; }
 
         using GPUVendorRuleIterator = ConstVectorIterator<GPUVendorRuleList>;
         using GPUDeviceNameRuleIterator = ConstVectorIterator<GPUDeviceNameRuleList>;
@@ -686,13 +686,13 @@ class Material;
         @param includeOrExclude Whether this is an inclusive or exclusive rule
         @param caseSensitive Whether the match is case sensitive or not
         */
-        void addGPUDeviceNameRule(std::string_view devicePattern, IncludeOrExclude includeOrExclude, bool caseSensitive = false);
+        void addGPUDeviceNameRule(StringView devicePattern, IncludeOrExclude includeOrExclude, bool caseSensitive = false);
         /// @overload
         void addGPUDeviceNameRule(const GPUDeviceNameRule& rule);
         /** Removes a matching device name rule.
         @see addGPUDeviceNameRule
         */
-        void removeGPUDeviceNameRule(std::string_view devicePattern);
+        void removeGPUDeviceNameRule(StringView devicePattern);
 
         /// Get the currently registered device name rules.
         [[nodiscard]] auto getGPUDeviceNameRules() const noexcept -> const GPUDeviceNameRuleList& { return mGPUDeviceNameRules; }

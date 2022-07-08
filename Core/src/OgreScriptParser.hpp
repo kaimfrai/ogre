@@ -46,8 +46,8 @@ namespace Ogre {
     class ScriptParser : public ScriptCompilerAlloc
     {
     public:
-        static auto parse(const ScriptTokenList &tokens, std::string_view file) -> ConcreteNodeListPtr;
-        static auto parseChunk(const ScriptTokenList &tokens, std::string_view file) -> ConcreteNodeListPtr;
+        static auto parse(const ScriptTokenList &tokens, StringView file) -> ConcreteNodeListPtr;
+        static auto parseChunk(const ScriptTokenList &tokens, StringView file) -> ConcreteNodeListPtr;
     private:
         static auto getToken(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end, int offset) -> const ScriptToken *;
         static auto skipNewlines(ScriptTokenList::const_iterator i, ScriptTokenList::const_iterator end) -> ScriptTokenList::const_iterator;

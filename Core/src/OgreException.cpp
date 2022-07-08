@@ -38,12 +38,12 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    Exception::Exception(int num, std::string_view desc, std::string_view src) :
+    Exception::Exception(int num, StringView desc, StringView src) :
         Exception(num, desc, src, "", "", 0)
     {
     }
 
-    Exception::Exception(int num, std::string_view desc, std::string_view src, 
+    Exception::Exception(int num, StringView desc, StringView src, 
         const char* typ, const char* fil, long lin) :
         line( lin ),
         typeName(typ),

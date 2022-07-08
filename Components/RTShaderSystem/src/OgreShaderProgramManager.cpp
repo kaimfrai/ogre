@@ -192,7 +192,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     }
 
     // Grab the matching writer.
-    std::string_view language = ShaderGenerator::getSingleton().getTargetLanguage();
+    StringView language = ShaderGenerator::getSingleton().getTargetLanguage();
 
     auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
@@ -233,9 +233,9 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------------
 auto ProgramManager::createGpuProgram(Program* shaderProgram, 
                                                ProgramWriter* programWriter,
-                                               std::string_view language,
-                                               std::string_view profiles,
-                                               std::string_view cachePath) -> GpuProgramPtr
+                                               StringView language,
+                                               StringView profiles,
+                                               StringView cachePath) -> GpuProgramPtr
 {
     std::stringstream sourceCodeStringStream;
 
@@ -273,7 +273,7 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
     if (!cachePath.empty())
     {
         auto const programFullName = ::std::format("{}.{}", programName , programWriter->getTargetLanguage());
-        auto const programFileName = cachePath + programFullName;
+        auto const programFileName = std::format("{}{}", cachePath, programFullName);
         std::ifstream programFile;
 
         // Check if program file already exist.
@@ -333,7 +333,7 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
 
 
 //-----------------------------------------------------------------------------
-auto ProgramManager::generateHash(std::string_view programString, std::string_view defines) -> String
+auto ProgramManager::generateHash(StringView programString, StringView defines) -> String
 {
     //Different programs must have unique hash values.
     uint32_t hash[4];
@@ -346,7 +346,7 @@ auto ProgramManager::generateHash(std::string_view programString, std::string_vi
 
 
 //-----------------------------------------------------------------------------
-void ProgramManager::addProgramProcessor(std::string_view lang, ProgramProcessor* processor)
+void ProgramManager::addProgramProcessor(StringView lang, ProgramProcessor* processor)
 {
     
     auto itFind = mProgramProcessorsMap.find(lang);
@@ -360,7 +360,7 @@ void ProgramManager::addProgramProcessor(std::string_view lang, ProgramProcessor
 }
 
 //-----------------------------------------------------------------------------
-void ProgramManager::removeProgramProcessor(std::string_view lang)
+void ProgramManager::removeProgramProcessor(StringView lang)
 {
     auto itFind = mProgramProcessorsMap.find(lang);
 

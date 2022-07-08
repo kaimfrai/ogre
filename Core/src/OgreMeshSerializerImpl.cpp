@@ -1069,8 +1069,8 @@ namespace Ogre {
             }
 
             if (seenTexAlias)
-                LogManager::getSingleton().logWarning("texture aliases for SubMeshes are deprecated - " +
-                                                      stream->getName());
+                LogManager::getSingleton().logWarning(std::format("texture aliases for SubMeshes are deprecated - {}",
+                                                      stream->getName()));
 
             if (!stream->eof())
             {
@@ -1099,7 +1099,7 @@ namespace Ogre {
         sub->addTextureAlias(aliasName, textureName);
     }
     //---------------------------------------------------------------------
-    void MeshSerializerImpl::writeSkeletonLink(std::string_view skelName)
+    void MeshSerializerImpl::writeSkeletonLink(StringView skelName)
     {
         writeChunkHeader(M_MESH_SKELETON_LINK, calcSkeletonLinkSize(skelName));
 
@@ -1123,7 +1123,7 @@ namespace Ogre {
         // Material definition section phased out of 1.1
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSkeletonLinkSize(std::string_view skelName) -> size_t
+    auto MeshSerializerImpl::calcSkeletonLinkSize(StringView skelName) -> size_t
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 

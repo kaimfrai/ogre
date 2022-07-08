@@ -295,12 +295,12 @@ namespace Ogre {
 		return ret;
     }
     //---------------------------------------------------------------------    
-    auto ASTCCodec::getType() const -> std::string_view
+    auto ASTCCodec::getType() const -> StringView
     {
         return mType;
     }
     //---------------------------------------------------------------------    
-	auto ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
+	auto ASTCCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView
 	{
 		if (maxbytes >= sizeof(uint32))
 		{

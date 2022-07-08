@@ -71,7 +71,7 @@ namespace Ogre {
 
         // Subclasses should register (when this is fully constructed)
     }
-    auto TextureManager::createSampler(std::string_view name) -> SamplerPtr
+    auto TextureManager::createSampler(StringView name) -> SamplerPtr
     {
         SamplerPtr ret = _createSamplerImpl();
         if(!name.empty())
@@ -84,7 +84,7 @@ namespace Ogre {
     }
 
     /// retrieve an named sampler
-    auto TextureManager::getSampler(std::string_view name) const -> const SamplerPtr&
+    auto TextureManager::getSampler(StringView name) const -> const SamplerPtr&
     {
         static SamplerPtr nullPtr;
         auto it = mNamedSamplers.find(name);
@@ -93,12 +93,12 @@ namespace Ogre {
         return it->second;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::getByName(std::string_view name, std::string_view groupName) const -> TexturePtr
+    auto TextureManager::getByName(StringView name, StringView groupName) const -> TexturePtr
     {
         return static_pointer_cast<Texture>(getResourceByName(name, groupName));
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::create (std::string_view name, std::string_view group,
+    auto TextureManager::create (StringView name, StringView group,
                                     bool isManual, ManualResourceLoader* loader,
                                     const NameValuePairList* createParams) -> TexturePtr
     {
@@ -106,7 +106,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto TextureManager::createOrRetrieve(
-            std::string_view name, std::string_view group, bool isManual, ManualResourceLoader* loader,
+            StringView name, StringView group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams, TextureType texType, int numMipmaps, Real gamma,
             bool isAlpha, PixelFormat desiredFormat, bool hwGamma) -> TextureManager::ResourceCreateOrRetrieveResult
     {
@@ -127,7 +127,7 @@ namespace Ogre {
         return res;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::prepare(std::string_view name, std::string_view group, TextureType texType,
+    auto TextureManager::prepare(StringView name, StringView group, TextureType texType,
                                        int numMipmaps, Real gamma, bool isAlpha,
                                        PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
@@ -138,7 +138,7 @@ namespace Ogre {
         return tex;
     }
 
-    auto TextureManager::load(std::string_view name, std::string_view group, TextureType texType,
+    auto TextureManager::load(StringView name, StringView group, TextureType texType,
                                     int numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         auto res = createOrRetrieve(name, group, false, nullptr, nullptr, texType, numMipmaps, gamma, false,
@@ -148,7 +148,7 @@ namespace Ogre {
         return tex;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::loadImage( std::string_view name, std::string_view group,
+    auto TextureManager::loadImage( StringView name, StringView group,
         const Image &img, TextureType texType, int numMipmaps, Real gamma, bool isAlpha, 
         PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
@@ -166,7 +166,7 @@ namespace Ogre {
         return tex;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::loadRawData(std::string_view name, std::string_view group,
+    auto TextureManager::loadRawData(StringView name, StringView group,
         DataStreamPtr& stream, ushort uWidth, ushort uHeight, 
         PixelFormat format, TextureType texType, 
         int numMipmaps, Real gamma, bool hwGamma) -> TexturePtr
@@ -183,10 +183,10 @@ namespace Ogre {
         return tex;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::createManual(std::string_view name, std::string_view group,
+    auto TextureManager::createManual(StringView name, StringView group,
         TextureType texType, uint width, uint height, uint depth, int numMipmaps,
         PixelFormat format, int usage, ManualResourceLoader* loader, bool hwGamma, 
-        uint fsaa, std::string_view fsaaHint) -> TexturePtr
+        uint fsaa, StringView fsaaHint) -> TexturePtr
     {
         TexturePtr ret;
 

@@ -51,8 +51,8 @@ namespace Ogre {
 class ResourceManager;
 
 //-----------------------------------------------------------------------
-Compositor::Compositor(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader):
+Compositor::Compositor(ResourceManager* creator, StringView name, ResourceHandle handle,
+            StringView group, bool isManual, ManualResourceLoader* loader):
     Resource(creator, name, handle, group, isManual, loader)
     
 {
@@ -148,7 +148,7 @@ void Compositor::compile()
     mCompilationRequired = false;
 }
 //---------------------------------------------------------------------
-auto Compositor::getSupportedTechnique(std::string_view schemeName) -> CompositionTechnique*
+auto Compositor::getSupportedTechnique(StringView schemeName) -> CompositionTechnique*
 {
     for(auto & mSupportedTechnique : mSupportedTechniques)
     {
@@ -312,12 +312,12 @@ void Compositor::freeGlobalTextures()
 
 }
 //-----------------------------------------------------------------------
-auto Compositor::getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view
+auto Compositor::getTextureInstanceName(StringView name, size_t mrtIndex) -> StringView
 {
     return getTextureInstance(name, mrtIndex)->getName();
 }
 //-----------------------------------------------------------------------       
-auto Compositor::getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&
+auto Compositor::getTextureInstance(StringView name, size_t mrtIndex) -> const TexturePtr&
 {
     //Try simple texture
     auto i = mGlobalTextures.find(name);
@@ -338,7 +338,7 @@ auto Compositor::getTextureInstance(std::string_view name, size_t mrtIndex) -> c
         
 }
 //---------------------------------------------------------------------
-auto Compositor::getRenderTarget(std::string_view name, int slice) -> RenderTarget*
+auto Compositor::getRenderTarget(StringView name, int slice) -> RenderTarget*
 {
     // try simple texture
     auto i = mGlobalTextures.find(name);

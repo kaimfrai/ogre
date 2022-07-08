@@ -324,7 +324,7 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    auto PlatformInformation::getCpuIdentifier() noexcept -> std::string_view
+    auto PlatformInformation::getCpuIdentifier() noexcept -> StringView
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;

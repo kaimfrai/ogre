@@ -153,24 +153,24 @@ public:
     @param shaderLanguage The output shader language to use.
     @remarks The default shader language is cg.
     */
-    void setTargetLanguage(std::string_view shaderLanguage);
+    void setTargetLanguage(StringView shaderLanguage);
 
     /** 
     Return the target shader language currently in use.     
     */
-    [[nodiscard]] auto getTargetLanguage() const noexcept -> std::string_view { return mShaderLanguage; }
+    [[nodiscard]] auto getTargetLanguage() const noexcept -> StringView { return mShaderLanguage; }
 
     /** 
     Set the output shader target profiles.
     @param type shader type
     @param shaderProfiles The target profiles for the shader.
     */
-    void setShaderProfiles(GpuProgramType type, std::string_view shaderProfiles);
+    void setShaderProfiles(GpuProgramType type, StringView shaderProfiles);
 
     /** 
     Get the output shader target profiles.
     */
-    [[nodiscard]] auto getShaderProfiles(GpuProgramType type) const -> std::string_view ;
+    [[nodiscard]] auto getShaderProfiles(GpuProgramType type) const -> StringView ;
 
     /** 
     Set the output shader cache path. Generated shader code will be written to this path.
@@ -178,12 +178,12 @@ public:
     @param cachePath The cache path of the shader.  
     The default is empty cache path.
     */
-    void setShaderCachePath(std::string_view cachePath);
+    void setShaderCachePath(StringView cachePath);
 
     /** 
     Get the output shader cache path.
     */
-    [[nodiscard]] auto getShaderCachePath() const noexcept -> std::string_view { return mShaderCachePath; }
+    [[nodiscard]] auto getShaderCachePath() const noexcept -> StringView { return mShaderCachePath; }
 
     /** 
     Flush the shader cache. This operation will cause all active schemes to be invalidated and will
@@ -199,7 +199,7 @@ public:
     regenerate shaders.
     @param schemeName The destination scheme name.
     */
-    auto getRenderState(std::string_view schemeName) -> RenderState*;
+    auto getRenderState(StringView schemeName) -> RenderState*;
 
 
     using RenderStateCreateOrRetrieveResult = std::pair<RenderState *, bool>;
@@ -207,14 +207,14 @@ public:
     Returns a requested render state. If the render state does not exist this function creates it.
     @param schemeName The scheme name to retrieve.
     */
-    auto createOrRetrieveRenderState(std::string_view schemeName) -> RenderStateCreateOrRetrieveResult;
+    auto createOrRetrieveRenderState(StringView schemeName) -> RenderStateCreateOrRetrieveResult;
 
 
     /** 
     Tells if a given render state exists
     @param schemeName The scheme name to check.
     */
-    [[nodiscard]] auto hasRenderState(std::string_view schemeName) const -> bool;
+    [[nodiscard]] auto hasRenderState(StringView schemeName) const -> bool;
     
     /**
      Get render state of specific pass.
@@ -224,10 +224,10 @@ public:
      @param groupName The specific material name.
      @param passIndex The pass index.
      */
-    auto getRenderState(std::string_view schemeName, std::string_view materialName, std::string_view groupName, unsigned short passIndex) -> RenderState*;
+    auto getRenderState(StringView schemeName, StringView materialName, StringView groupName, unsigned short passIndex) -> RenderState*;
 
     /// @overload
-    auto getRenderState(std::string_view schemeName, const Material& mat, uint16 passIndex = 0) -> RenderState*
+    auto getRenderState(StringView schemeName, const Material& mat, uint16 passIndex = 0) -> RenderState*
     {
         return getRenderState(schemeName, mat.getName(), mat.getGroup(), passIndex);
     }
@@ -254,7 +254,7 @@ public:
     /** 
     Returns a sub render state factory by name
     */
-    auto getSubRenderStateFactory(std::string_view type) -> SubRenderStateFactory*;
+    auto getSubRenderStateFactory(StringView type) -> SubRenderStateFactory*;
 
     /** 
     Remove sub render state factory. 
@@ -266,7 +266,7 @@ public:
     Create an instance of sub render state from a given type. 
     @param type The type of sub render state to create.
     */
-    auto createSubRenderState(std::string_view type) -> SubRenderState*;
+    auto createSubRenderState(StringView type) -> SubRenderState*;
 
     /// @overload
     template<typename T>
@@ -289,10 +289,10 @@ public:
      @param srcTechniqueSchemeName The source technique scheme name.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
-    [[nodiscard]] auto hasShaderBasedTechnique(std::string_view materialName, std::string_view groupName, std::string_view srcTechniqueSchemeName, std::string_view dstTechniqueSchemeName) const -> bool;
+    [[nodiscard]] auto hasShaderBasedTechnique(StringView materialName, StringView groupName, StringView srcTechniqueSchemeName, StringView dstTechniqueSchemeName) const -> bool;
 
     /// @overload
-    [[nodiscard]] auto hasShaderBasedTechnique(const Material& mat, std::string_view srcTechniqueSchemeName, std::string_view dstTechniqueSchemeName) const -> bool
+    [[nodiscard]] auto hasShaderBasedTechnique(const Material& mat, StringView srcTechniqueSchemeName, StringView dstTechniqueSchemeName) const -> bool
     {
         return hasShaderBasedTechnique(mat.getName(), mat.getGroup(), srcTechniqueSchemeName, dstTechniqueSchemeName);
     }
@@ -306,10 +306,10 @@ public:
     @param dstTechniqueSchemeName The destination shader based technique scheme name.
     @param overProgrammable If true a shader will be created even if the pass already has shaders
     */
-    auto createShaderBasedTechnique(const Material& srcMat, std::string_view srcTechniqueSchemeName, std::string_view dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
+    auto createShaderBasedTechnique(const Material& srcMat, StringView srcTechniqueSchemeName, StringView dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
 
     /// @overload
-    auto createShaderBasedTechnique(const Technique* srcTech, std::string_view dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
+    auto createShaderBasedTechnique(const Technique* srcTech, StringView dstTechniqueSchemeName, bool overProgrammable = false) -> bool;
 
     /**
      Remove shader based technique from a given technique.
@@ -318,7 +318,7 @@ public:
      @param srcTech The source technique.
      @param dstTechniqueSchemeName The destination shader based technique scheme name.
      */
-    auto removeShaderBasedTechnique(const Technique* srcTech, std::string_view dstTechniqueSchemeName) -> bool;
+    auto removeShaderBasedTechnique(const Technique* srcTech, StringView dstTechniqueSchemeName) -> bool;
 
     /** 
     Remove all shader based techniques of the given material. 
@@ -326,7 +326,7 @@ public:
     @param materialName The source material name.   
     @param groupName The source group name. 
     */
-    auto removeAllShaderBasedTechniques(std::string_view materialName, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    auto removeAllShaderBasedTechniques(StringView materialName, StringView groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
 
     /// @overload
     auto removeAllShaderBasedTechniques(const Material& mat) -> bool
@@ -353,21 +353,21 @@ public:
     Create a scheme.
     @param schemeName The scheme name to create.
     */
-    void createScheme(std::string_view schemeName);
+    void createScheme(StringView schemeName);
 
     /** 
     Invalidate a given scheme. This action will lead to shader regeneration of all techniques belongs to the
     given scheme name.
     @param schemeName The scheme to invalidate.
     */
-    void invalidateScheme(std::string_view schemeName);
+    void invalidateScheme(StringView schemeName);
 
     /** 
     Validate a given scheme. This action will generate shader programs for all techniques of the
     given scheme name.
     @param schemeName The scheme to validate.
     */
-    auto validateScheme(std::string_view schemeName) -> bool;
+    auto validateScheme(StringView schemeName) -> bool;
     
     /** 
     Invalidate specific material scheme. This action will lead to shader regeneration of the technique belongs to the
@@ -376,10 +376,10 @@ public:
     @param materialName The material to invalidate.
     @param groupName The source group name. 
     */
-    void invalidateMaterial(std::string_view schemeName, std::string_view materialName, std::string_view groupName OGRE_RESOURCE_GROUP_INIT);
+    void invalidateMaterial(StringView schemeName, StringView materialName, StringView groupName OGRE_RESOURCE_GROUP_INIT);
 
     /// @overload
-    void invalidateMaterial(std::string_view schemeName, const Material& mat)
+    void invalidateMaterial(StringView schemeName, const Material& mat)
     {
         invalidateMaterial(schemeName, mat.getName(), mat.getGroup());
     }
@@ -391,10 +391,10 @@ public:
     @param materialName The material to validate.
     @param groupName The source group name. 
     */
-    auto validateMaterial(std::string_view schemeName, std::string_view materialName, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+    auto validateMaterial(StringView schemeName, StringView materialName, StringView groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
 
     /// @overload
-    void validateMaterial(std::string_view schemeName, const Material& mat)
+    void validateMaterial(StringView schemeName, const Material& mat)
     {
         validateMaterial(schemeName, mat.getName(), mat.getGroup());
     }
@@ -406,7 +406,7 @@ public:
 	@param materialName The material to invalidate.
 	@param groupName The source group name.
 	*/
-    void invalidateMaterialIlluminationPasses(std::string_view schemeName, std::string_view materialName, std::string_view groupName OGRE_RESOURCE_GROUP_INIT);
+    void invalidateMaterialIlluminationPasses(StringView schemeName, StringView materialName, StringView groupName OGRE_RESOURCE_GROUP_INIT);
 
 	/**
 	Validate specific material scheme. This action will generate shader programs illumination passes of the technique of the
@@ -415,7 +415,7 @@ public:
 	@param materialName The material to validate.
 	@param groupName The source group name.
 	*/
-	auto validateMaterialIlluminationPasses(std::string_view schemeName, std::string_view materialName, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
+	auto validateMaterialIlluminationPasses(StringView schemeName, StringView materialName, StringView groupName OGRE_RESOURCE_GROUP_INIT) -> bool;
 
     /** 
     Return custom material Serializer of the shader generator.
@@ -464,7 +464,7 @@ public:
 
     /** Returns the scheme name used in the for RT shader generation by index
     */
-    [[nodiscard]] auto getRTShaderScheme(size_t index) const -> std::string_view ;
+    [[nodiscard]] auto getRTShaderScheme(size_t index) const -> StringView ;
 
     /// Default material scheme of the shader generator.
     static String DEFAULT_SCHEME_NAME;
@@ -559,7 +559,7 @@ private:
     {
     public:
         SGTechnique(SGMaterial* parent, const Technique* srcTechnique,
-                    std::string_view dstTechniqueSchemeName, bool overProgrammable);
+                    StringView dstTechniqueSchemeName, bool overProgrammable);
         ~SGTechnique();
         
         /** Get the parent SGMaterial */
@@ -572,7 +572,7 @@ private:
         auto getDestinationTechnique() noexcept -> Technique* { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
-        [[nodiscard]] auto getDestinationTechniqueSchemeName() const noexcept -> std::string_view { return mDstTechniqueSchemeName; }
+        [[nodiscard]] auto getDestinationTechniqueSchemeName() const noexcept -> StringView { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
         void buildTargetRenderState();
@@ -644,14 +644,14 @@ private:
     
     public:
         /** Class constructor. */
-        SGMaterial(std::string_view materialName, std::string_view groupName) : mName(materialName), mGroup(groupName)
+        SGMaterial(StringView materialName, StringView groupName) : mName(materialName), mGroup(groupName)
         {}
 
         /** Get the material name. */
-        [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getMaterialName() const noexcept -> StringView { return mName; }
         
         /** Get the group name. */
-        [[nodiscard]] auto getGroupName() const noexcept -> std::string_view { return mGroup; }
+        [[nodiscard]] auto getGroupName() const noexcept -> StringView { return mGroup; }
 
         /** Get the const techniques list of this material. */
         [[nodiscard]] auto getTechniqueList() const noexcept -> const SGTechniqueList& { return mTechniqueEntries; }
@@ -673,7 +673,7 @@ private:
     class SGScheme : public RTShaderSystemAlloc
     {   
     public:
-        SGScheme(std::string_view schemeName);
+        SGScheme(StringView schemeName);
         ~SGScheme();    
 
 
@@ -694,22 +694,22 @@ private:
         /** Invalidate specific material.
         @see ShaderGenerator::invalidateMaterial.
         */
-        void invalidate(std::string_view materialName, std::string_view groupName);
+        void invalidate(StringView materialName, StringView groupName);
 
         /** Validate specific material.
         @see ShaderGenerator::validateMaterial.
         */
-        auto validate(std::string_view materialName, std::string_view groupName) -> bool;
+        auto validate(StringView materialName, StringView groupName) -> bool;
 
 		/** Validate illumination passes of the specific material.
 		@see ShaderGenerator::invalidateMaterialIlluminationPasses.
 		*/
-        void invalidateIlluminationPasses(std::string_view materialName, std::string_view groupName);
+        void invalidateIlluminationPasses(StringView materialName, StringView groupName);
 
 		/** Validate illumination passes of the specific material.
 		@see ShaderGenerator::validateMaterialIlluminationPasses.
 		*/
-        auto validateIlluminationPasses(std::string_view materialName, std::string_view groupName) -> bool;
+        auto validateIlluminationPasses(StringView materialName, StringView groupName) -> bool;
 
         /** Add a technique to current techniques list. */
         void addTechniqueEntry(SGTechnique* techEntry);
@@ -726,7 +726,7 @@ private:
         /** Get specific pass render state. 
         @see ShaderGenerator::getRenderState.
         */
-        auto getRenderState(std::string_view materialName, std::string_view groupName, unsigned short passIndex) -> RenderState*;
+        auto getRenderState(StringView materialName, StringView groupName, unsigned short passIndex) -> RenderState*;
 
     protected:
         /** Synchronize the current light settings of this scheme with the current settings of the scene. */
@@ -829,8 +829,8 @@ private:
     This function is able to find materials with group specified as 
     AUTODETECT_RESOURCE_GROUP_NAME 
     */
-    auto findMaterialEntryIt(std::string_view materialName, std::string_view groupName) -> SGMaterialIterator;
-    [[nodiscard]] auto findMaterialEntryIt(std::string_view materialName, std::string_view groupName) const -> SGMaterialConstIterator;
+    auto findMaterialEntryIt(StringView materialName, StringView groupName) -> SGMaterialIterator;
+    [[nodiscard]] auto findMaterialEntryIt(StringView materialName, StringView groupName) const -> SGMaterialConstIterator;
 
 
     using SchemeCreateOrRetrieveResult = std::pair<SGScheme *, bool>;
@@ -838,7 +838,7 @@ private:
     Returns a requested scheme. If the scheme does not exist this function creates it.
     @param schemeName The scheme name to retrieve.
     */
-    auto createOrRetrieveScheme(std::string_view schemeName) -> SchemeCreateOrRetrieveResult;
+    auto createOrRetrieveScheme(StringView schemeName) -> SchemeCreateOrRetrieveResult;
 
     /** Used to check if finalizing */
     [[nodiscard]] auto getIsFinalizing() const noexcept -> bool;

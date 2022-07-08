@@ -49,7 +49,7 @@ class DepthBuffer;
 class GLContext;
 
 //-----------------------------------------------------------------------------    
-    GLFBORenderTexture::GLFBORenderTexture(GLFBOManager *manager, std::string_view name,
+    GLFBORenderTexture::GLFBORenderTexture(GLFBOManager *manager, StringView name,
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa):
         GLRenderTexture(name, target, writeGamma, fsaa),
         mFB(manager, fsaa)
@@ -61,7 +61,7 @@ class GLContext;
         mHeight = mFB.getHeight();
     }
 
-    void GLFBORenderTexture::getCustomAttribute(std::string_view name, void* pData)
+    void GLFBORenderTexture::getCustomAttribute(StringView name, void* pData)
     {
         if( name == GLRenderTexture::CustomAttributeString_FBO )
         {
@@ -479,7 +479,7 @@ static const uchar depthBits[] =
         *stencilFormat = requestDepthOnly ? 0 : stencilFormats[props.modes[bestmode].stencil];
     }
 
-    auto GLFBOManager::createRenderTexture(std::string_view name, 
+    auto GLFBOManager::createRenderTexture(StringView name, 
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture *
     {
         auto *retval = new GLFBORenderTexture(this, name, target, writeGamma, fsaa);

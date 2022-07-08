@@ -48,8 +48,8 @@ class ResourceManager;
 
 
 
-    GLTexture::GLTexture(ResourceManager* creator, std::string_view name, 
-        ResourceHandle handle, std::string_view group, bool isManual, 
+    GLTexture::GLTexture(ResourceManager* creator, StringView name, 
+        ResourceHandle handle, StringView group, bool isManual, 
         ManualResourceLoader* loader, GLRenderSystem* renderSystem) 
         : GLTextureCommon(creator, name, handle, group, isManual, loader),
           mRenderSystem(renderSystem)

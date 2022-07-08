@@ -117,7 +117,7 @@ class Sphere;
     {
     }
     //-----------------------------------------------------------------------
-    Entity::Entity( std::string_view name, const MeshPtr& mesh) : Entity()
+    Entity::Entity( StringView name, const MeshPtr& mesh) : Entity()
     {
         mName = name;
         mMesh = mesh;
@@ -330,13 +330,13 @@ class Sphere;
         return mMesh;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getSubEntity(std::string_view name) const -> SubEntity*
+    auto Entity::getSubEntity(StringView name) const -> SubEntity*
     {
         ushort index = mMesh->_getSubMeshIndex(name);
         return getSubEntity(index);
     }
     //-----------------------------------------------------------------------
-    auto Entity::clone( std::string_view newName) const -> Entity*
+    auto Entity::clone( StringView newName) const -> Entity*
     {
         OgreAssert(mManager, "Cannot clone an Entity that wasn't created through a SceneManager");
         Entity* newEnt = mManager->createEntity(newName, getMesh()->getName() );
@@ -360,7 +360,7 @@ class Sphere;
         return newEnt;
     }
     //-----------------------------------------------------------------------
-    void Entity::setMaterialName( std::string_view name, std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void Entity::setMaterialName( StringView name, StringView groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         // Set for all subentities
         for (auto & i : mSubEntityList)
@@ -729,13 +729,13 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    auto Entity::getAnimationState(std::string_view name) const -> AnimationState*
+    auto Entity::getAnimationState(StringView name) const -> AnimationState*
     {
         OgreAssert(mAnimationState, "Entity is not animated");
         return mAnimationState->getAnimationState(name);
     }
     //-----------------------------------------------------------------------
-    auto Entity::hasAnimationState(std::string_view name) const -> bool
+    auto Entity::hasAnimationState(StringView name) const -> bool
     {
         return mAnimationState && mAnimationState->hasAnimationState(name);
     }
@@ -745,7 +745,7 @@ class Sphere;
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getMovableType() const noexcept -> std::string_view
+    auto Entity::getMovableType() const noexcept -> StringView
     {
         return EntityFactory::FACTORY_TYPE_NAME;
     }
@@ -1438,13 +1438,13 @@ class Sphere;
     //-----------------------------------------------------------------------
 
     struct MovableObjectNameExists {
-        std::string_view name;
+        StringView name;
         auto operator()(const MovableObject* mo) -> bool {
             return mo->getName() == name;
         }
     };
 
-    auto Entity::attachObjectToBone(std::string_view boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition) -> TagPoint*
+    auto Entity::attachObjectToBone(StringView boneName, MovableObject *pMovable, const Quaternion &offsetOrientation, const Vector3 &offsetPosition) -> TagPoint*
     {
         MovableObjectNameExists pred = {pMovable->getName()};
         auto it = std::ranges::find_if(mChildObjectList, pred);
@@ -1488,7 +1488,7 @@ class Sphere;
     }
 
     //-----------------------------------------------------------------------
-    auto Entity::detachObjectFromBone(std::string_view name) -> MovableObject*
+    auto Entity::detachObjectFromBone(StringView name) -> MovableObject*
     {
         MovableObjectNameExists pred = {name};
         auto it = std::ranges::find_if(mChildObjectList, pred);
@@ -2308,12 +2308,12 @@ class Sphere;
     //-----------------------------------------------------------------------
     String EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
-    auto EntityFactory::getType() const noexcept -> std::string_view
+    auto EntityFactory::getType() const noexcept -> StringView
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto EntityFactory::createInstanceImpl( std::string_view name,
+    auto EntityFactory::createInstanceImpl( StringView name,
         const NameValuePairList* params) -> MovableObject*
     {
         // must have mesh parameter

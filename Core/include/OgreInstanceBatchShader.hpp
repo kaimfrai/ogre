@@ -91,7 +91,7 @@ class VertexData;
     public:
         InstanceBatchShader( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                            std::string_view batchName );
+                            StringView batchName );
 
         /** @see InstanceBatch::calculateMaxNumInstances */
         auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;

@@ -40,8 +40,8 @@ namespace Ogre {
 class ResourceManager;
 
 GLGpuNvparseProgram::GLGpuNvparseProgram(ResourceManager* creator, 
-        std::string_view name, ResourceHandle handle, 
-        std::string_view group, bool isManual, ManualResourceLoader* loader) 
+        StringView name, ResourceHandle handle, 
+        StringView group, bool isManual, ManualResourceLoader* loader) 
         : GLGpuProgram(creator, name, handle, group, isManual, loader)
 {
     mProgramID = glGenLists(1);

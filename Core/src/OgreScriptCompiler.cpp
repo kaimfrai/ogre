@@ -114,17 +114,17 @@ namespace Ogre
         return node;
     }
 
-    void ObjectAbstractNode::addVariable(std::string_view inName)
+    void ObjectAbstractNode::addVariable(StringView inName)
     {
         mEnv.insert(std::make_pair(inName, ""));
     }
 
-    void ObjectAbstractNode::setVariable(std::string_view inName, std::string_view value)
+    void ObjectAbstractNode::setVariable(StringView inName, StringView value)
     {
         mEnv[inName] = value;
     }
 
-    auto ObjectAbstractNode::getVariable(std::string_view inName) const -> std::pair<bool,String>
+    auto ObjectAbstractNode::getVariable(StringView inName) const -> std::pair<bool,String>
     {
         auto i = mEnv.find(inName);
         if(i != mEnv.end())
@@ -209,7 +209,7 @@ namespace Ogre
     ScriptCompilerListener::ScriptCompilerListener()
     = default;
 
-    auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, std::string_view name) -> ConcreteNodeListPtr
+    auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, StringView name) -> ConcreteNodeListPtr
     {
         return {};
     }
@@ -224,7 +224,7 @@ namespace Ogre
         return true;
     }
 
-    void ScriptCompilerListener::handleError(ScriptCompiler *compiler, uint32 code, std::string_view file, int line, std::string_view msg)
+    void ScriptCompilerListener::handleError(ScriptCompiler *compiler, uint32 code, StringView file, int line, StringView msg)
     {
         StringStream ss;
         ss << "ScriptCompiler - " << ScriptCompiler::formatErrorCode(code) << " in " << file << "(" << line << ")";
@@ -284,13 +284,13 @@ namespace Ogre
         initWordMap();
     }
 
-    auto ScriptCompiler::compile(std::string_view str, std::string_view source, std::string_view group) -> bool
+    auto ScriptCompiler::compile(StringView str, StringView source, StringView group) -> bool
     {
         ConcreteNodeListPtr nodes = ScriptParser::parse(ScriptLexer::tokenize(str, source), source);
         return compile(nodes, group);
     }
 
-    auto ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, std::string_view group) -> bool
+    auto ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, StringView group) -> bool
     {
         // Set up the compilation context
         mGroup = group;
@@ -335,7 +335,7 @@ namespace Ogre
         return mErrors.empty();
     }
 
-    void ScriptCompiler::addError(uint32 code, std::string_view file, int line, std::string_view msg)
+    void ScriptCompiler::addError(uint32 code, StringView file, int line, StringView msg)
     {
         if(mListener)
         {
@@ -360,7 +360,7 @@ namespace Ogre
         return mListener;
     }
 
-    auto ScriptCompiler::getResourceGroup() const -> std::string_view
+    auto ScriptCompiler::getResourceGroup() const -> StringView
     {
         return mGroup;
     }
@@ -466,7 +466,7 @@ namespace Ogre
         }
     }
 
-    auto ScriptCompiler::loadImportPath(std::string_view name) -> AbstractNodeListPtr
+    auto ScriptCompiler::loadImportPath(StringView name) -> AbstractNodeListPtr
     {
         AbstractNodeListPtr retval;
         ConcreteNodeListPtr nodes;
@@ -490,7 +490,7 @@ namespace Ogre
         return retval;
     }
 
-    auto ScriptCompiler::locateTarget(const AbstractNodeList& nodes, std::string_view target) -> AbstractNodeList
+    auto ScriptCompiler::locateTarget(const AbstractNodeList& nodes, StringView target) -> AbstractNodeList
     {
         auto iter = nodes.end();
     
@@ -1169,7 +1169,7 @@ namespace Ogre
 		mLargestRegisteredWordId = ID_END_BUILTIN_IDS;
 	}
 
-	auto ScriptCompiler::registerCustomWordId(std::string_view word) -> uint32
+	auto ScriptCompiler::registerCustomWordId(StringView word) -> uint32
 	{
 		// if the word is already registered, just return the right id
 		auto iter = mIds.find(word);
@@ -1533,12 +1533,12 @@ namespace Ogre
         return translator;
 	}
 	//-----------------------------------------------------------------------
-	auto ScriptCompilerManager::registerCustomWordId(std::string_view word) -> uint32
+	auto ScriptCompilerManager::registerCustomWordId(StringView word) -> uint32
 	{
 		return mScriptCompiler.registerCustomWordId(word);
     }
     //-----------------------------------------------------------------------
-    void ScriptCompilerManager::addScriptPattern(std::string_view pattern)
+    void ScriptCompilerManager::addScriptPattern(StringView pattern)
     {
         mScriptPatterns.push_back(pattern);
     }
@@ -1554,7 +1554,7 @@ namespace Ogre
         return 90.0f;
     }
     //-----------------------------------------------------------------------
-    void ScriptCompilerManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
+    void ScriptCompilerManager::parseScript(DataStreamPtr& stream, StringView groupName)
     {
         ConcreteNodeListPtr nodes =
             ScriptParser::parse(ScriptLexer::tokenize(stream->getAsString(), stream->getName()), stream->getName());

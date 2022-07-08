@@ -66,37 +66,37 @@ namespace Ogre
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
     class CmdSource : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
     class CmdCharSpacer : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
     class CmdSize : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
     class CmdResolution : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
     class CmdCodePoints : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, std::string_view val) override;
+        void doSet(void* target, StringView val) override;
     };
 
     // Command object for setting / getting parameters
@@ -129,8 +129,8 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------
-    Font::Font(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader)
+    Font::Font(ResourceManager* creator, StringView name, ResourceHandle handle,
+        StringView group, bool isManual, ManualResourceLoader* loader)
         :Resource (creator, name, handle, group, isManual, loader) 
     {
 
@@ -176,7 +176,7 @@ namespace Ogre
         return mType;
     }
     //---------------------------------------------------------------------
-    void Font::setSource(std::string_view source)
+    void Font::setSource(StringView source)
     {
         mSource = source;
     }
@@ -191,7 +191,7 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    auto Font::getSource() const noexcept -> std::string_view
+    auto Font::getSource() const noexcept -> StringView
     {
         return mSource;
     }
@@ -531,7 +531,7 @@ namespace Ogre
             return "image";
         }
     }
-    void CmdType::doSet(void* target, std::string_view val)
+    void CmdType::doSet(void* target, StringView val)
     {
         Font* f = static_cast<Font*>(target);
         if (val == "truetype")
@@ -549,7 +549,7 @@ namespace Ogre
         const Font* f = static_cast<const Font*>(target);
         return f->getSource();
     }
-    void CmdSource::doSet(void* target, std::string_view val)
+    void CmdSource::doSet(void* target, StringView val)
     {
         Font* f = static_cast<Font*>(target);
         f->setSource(val);
@@ -559,14 +559,14 @@ namespace Ogre
     {
         return "1";
     }
-    void CmdCharSpacer::doSet(void* target, std::string_view val) {}
+    void CmdCharSpacer::doSet(void* target, StringView val) {}
     //-----------------------------------------------------------------------
     auto CmdSize::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeSize());
     }
-    void CmdSize::doSet(void* target, std::string_view val)
+    void CmdSize::doSet(void* target, StringView val)
     {
         Font* f = static_cast<Font*>(target);
         f->setTrueTypeSize(StringConverter::parseReal(val));
@@ -577,7 +577,7 @@ namespace Ogre
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeResolution());
     }
-    void CmdResolution::doSet(void* target, std::string_view val)
+    void CmdResolution::doSet(void* target, StringView val)
     {
         Font* f = static_cast<Font*>(target);
         f->setTrueTypeResolution(StringConverter::parseUnsignedInt(val));
@@ -593,7 +593,7 @@ namespace Ogre
         }
         return str.str();
     }
-    void CmdCodePoints::doSet(void* target, std::string_view val)
+    void CmdCodePoints::doSet(void* target, StringView val)
     {
         // Format is "code_points start1-end1 start2-end2"
         Font* f = static_cast<Font*>(target);

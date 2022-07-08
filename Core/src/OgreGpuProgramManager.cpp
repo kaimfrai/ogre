@@ -55,18 +55,18 @@ namespace {
 
     public:
         NullProgram(ResourceManager* creator,
-            std::string_view name, ResourceHandle handle, std::string_view group,
+            StringView name, ResourceHandle handle, StringView group,
             bool isManual, ManualResourceLoader* loader)
             : GpuProgram(creator, name, handle, group, isManual, loader){}
         ~NullProgram() override = default;
         /// Overridden from GpuProgram - never supported
         auto isSupported() const noexcept -> bool override { return false; }
         /// Overridden from GpuProgram
-        auto getLanguage() const noexcept -> std::string_view override { return sNullLang; }
+        auto getLanguage() const noexcept -> StringView override { return sNullLang; }
         auto calculateSize() const noexcept -> size_t override { return 0; }
 
         /// Overridden from StringInterface
-        auto setParameter(std::string_view name, std::string_view value) -> bool
+        auto setParameter(StringView name, StringView value) -> bool
         {
             // always silently ignore all parameters so as not to report errors on
             // unsupported platforms
@@ -80,20 +80,20 @@ namespace {
         NullProgramFactory() = default;
         ~NullProgramFactory() override = default;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] auto getLanguage() const noexcept -> std::string_view override
+        [[nodiscard]] auto getLanguage() const noexcept -> StringView override
         {
             return sNullLang;
         }
         auto create(ResourceManager* creator,
-            std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
+            StringView name, ResourceHandle handle,
+            StringView group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
         {
             return new NullProgram(creator, name, handle, group, isManual, loader);
         }
     };
 }
 
-    auto GpuProgramManager::createImpl(std::string_view name, ResourceHandle handle, std::string_view group,
+    auto GpuProgramManager::createImpl(StringView name, ResourceHandle handle, StringView group,
                                             bool isManual, ManualResourceLoader* loader,
                                             const NameValuePairList* params) -> Resource*
     {
@@ -138,7 +138,7 @@ namespace {
         assert( msSingleton );  return ( *msSingleton );  
     }
     //-----------------------------------------------------------------------
-    auto GpuProgramManager::getByName(std::string_view name, std::string_view group) const -> GpuProgramPtr
+    auto GpuProgramManager::getByName(StringView name, StringView group) const -> GpuProgramPtr
     {
         return static_pointer_cast<GpuProgram>(getResourceByName(name, group));
     }
@@ -165,9 +165,9 @@ namespace {
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::load(std::string_view name,
-        std::string_view groupName, std::string_view filename, 
-        GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgramPtr
+    auto GpuProgramManager::load(StringView name,
+        StringView groupName, StringView filename,
+        GpuProgramType gptype, StringView syntaxCode) -> GpuProgramPtr
     {
         GpuProgramPtr prg;
         {
@@ -182,9 +182,9 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::loadFromString(std::string_view name, 
-        std::string_view groupName, std::string_view code, 
-        GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgramPtr
+    auto GpuProgramManager::loadFromString(StringView name,
+        StringView groupName, StringView code,
+        GpuProgramType gptype, StringView syntaxCode) -> GpuProgramPtr
     {
         GpuProgramPtr prg;
         {
@@ -199,8 +199,8 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::create(std::string_view name, std::string_view group, GpuProgramType gptype,
-                                            std::string_view syntaxCode, bool isManual,
+    auto GpuProgramManager::create(StringView name, StringView group, GpuProgramType gptype,
+                                            StringView syntaxCode, bool isManual,
                                             ManualResourceLoader* loader) -> GpuProgramPtr
     {
         auto prg = getFactory(syntaxCode)->create(this, name, getNextHandle(), group, isManual, loader);
@@ -215,18 +215,18 @@ namespace {
         return static_pointer_cast<GpuProgram>(ret);
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::createProgram(std::string_view name, std::string_view groupName,
-                                                   std::string_view filename, GpuProgramType gptype,
-                                                   std::string_view syntaxCode) -> GpuProgramPtr
+    auto GpuProgramManager::createProgram(StringView name, StringView groupName,
+                                                   StringView filename, GpuProgramType gptype,
+                                                   StringView syntaxCode) -> GpuProgramPtr
     {
         GpuProgramPtr prg = createProgram(name, groupName, syntaxCode, gptype);
         prg->setSourceFile(filename);
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::createProgramFromString(std::string_view name, 
-        std::string_view groupName, std::string_view code, GpuProgramType gptype, 
-        std::string_view syntaxCode) -> GpuProgramPtr
+    auto GpuProgramManager::createProgramFromString(StringView name,
+        StringView groupName, StringView code, GpuProgramType gptype,
+        StringView syntaxCode) -> GpuProgramPtr
     {
         GpuProgramPtr prg = createProgram(name, groupName, syntaxCode, gptype);
         prg->setSource(code);
@@ -243,7 +243,7 @@ namespace {
     }
 
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::isSyntaxSupported(std::string_view syntaxCode) -> bool
+    auto GpuProgramManager::isSyntaxSupported(StringView syntaxCode) -> bool
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -257,7 +257,7 @@ namespace {
         return GpuProgramParametersSharedPtr(new GpuProgramParameters());
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::createSharedParameters(std::string_view name) -> GpuSharedParametersPtr
+    auto GpuProgramManager::createSharedParameters(StringView name) -> GpuSharedParametersPtr
     {
         if (mSharedParametersMap.find(name) != mSharedParametersMap.end())
         {
@@ -270,7 +270,7 @@ namespace {
         return ret;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::getSharedParameters(std::string_view name) const -> GpuSharedParametersPtr
+    auto GpuProgramManager::getSharedParameters(StringView name) const -> GpuSharedParametersPtr
     {
         auto i = mSharedParametersMap.find(name);
         if (i == mSharedParametersMap.end())
@@ -316,7 +316,7 @@ namespace {
         return mCacheDirty;     
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::addRenderSystemToName( std::string_view name ) -> String
+    auto GpuProgramManager::addRenderSystemToName( StringView name ) -> String
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -413,8 +413,8 @@ namespace {
         }
         catch (const InvalidStateException& e)
         {
-            LogManager::getSingleton().logWarning("Could not load Microcode Cache: " +
-                                                  e.getDescription());
+            LogManager::getSingleton().logWarning(std::format("Could not load Microcode Cache: {}",
+                                                  e.getDescription()));
             return;
         }
 
@@ -469,7 +469,7 @@ namespace {
         }
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::getFactory(std::string_view language) -> GpuProgramFactory*
+    auto GpuProgramManager::getFactory(StringView language) -> GpuProgramFactory*
     {
         auto i = mFactories.find(language);
 
@@ -481,7 +481,7 @@ namespace {
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::isLanguageSupported(std::string_view lang) const -> bool
+    auto GpuProgramManager::isLanguageSupported(StringView lang) const -> bool
     {
         return mFactories.find(lang) != mFactories.end();
     }

@@ -71,7 +71,7 @@ class RenderQueue;
 
     BaseInstanceBatchVTF::BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
-                                        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName) :
+                                        const Mesh::IndexMap *indexToBoneMap, StringView batchName) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName ),
                 
@@ -134,7 +134,7 @@ class RenderQueue;
             if( technique->getShadowCasterMaterial() )
             {
                 const MaterialPtr &casterMat    = technique->getShadowCasterMaterial();
-                std::string_view casterName        = casterMat->getName();
+                StringView casterName        = casterMat->getName();
 
                 //Was this material already cloned?
                 auto itor = clonedMaterials.find(casterName);
@@ -449,7 +449,7 @@ class RenderQueue;
     InstanceBatchVTF::InstanceBatchVTF( 
         InstanceManager *creator, MeshPtr &meshReference, 
         const MaterialPtr &material, size_t instancesPerBatch, 
-        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName )
+        const Mesh::IndexMap *indexToBoneMap, StringView batchName )
             : BaseInstanceBatchVTF (creator, meshReference, material, 
                                     instancesPerBatch, indexToBoneMap, batchName)
     {

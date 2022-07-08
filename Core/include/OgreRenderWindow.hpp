@@ -104,7 +104,7 @@ namespace Ogre
                 miscParams A variable number of pointers to platform-specific arguments. The
                 actual requirements must be defined by the implementing subclasses.
         */
-        virtual void create(std::string_view name, unsigned int widthPt, unsigned int heightPt,
+        virtual void create(StringView name, unsigned int widthPt, unsigned int heightPt,
                 bool fullScreen, const NameValuePairList *miscParams) = 0;
 
         /** Alter fullscreen mode options. 

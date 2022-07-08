@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    PixelCountLodStrategyBase::PixelCountLodStrategyBase(std::string_view name)
+    PixelCountLodStrategyBase::PixelCountLodStrategyBase(StringView name)
         : LodStrategy(name)
     { }
     //---------------------------------------------------------------------

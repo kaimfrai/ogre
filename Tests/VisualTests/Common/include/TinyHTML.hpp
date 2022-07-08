@@ -48,7 +48,7 @@ struct HtmlTextNode : public HtmlNode
 {
     Ogre::String contents;
 
-    HtmlTextNode(std::string_view text):contents(text){}
+    HtmlTextNode(StringView text):contents(text){}
     //-------------------------------------------------------------------
 
     auto print(Ogre::String indent = "") -> Ogre::String override

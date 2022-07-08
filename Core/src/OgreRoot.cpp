@@ -124,8 +124,8 @@ namespace Ogre {
     using DLL_STOP_PLUGIN = void (*)();
 
     //-----------------------------------------------------------------------
-    Root::Root(std::string_view pluginFileName, std::string_view configFileName,
-        std::string_view logFileName, ulong frameCount)
+    Root::Root(StringView pluginFileName, StringView configFileName,
+        StringView logFileName, ulong frameCount)
       : 
        mFrameCount(frameCount)
        
@@ -389,7 +389,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto Root::getRenderSystemByName(std::string_view name) -> RenderSystem*
+    auto Root::getRenderSystemByName(StringView name) -> RenderSystem*
     {
         if (name.empty())
         {
@@ -443,7 +443,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto Root::initialise(bool autoCreateWindow, std::string_view windowTitle, std::string_view customCapabilitiesConfig) -> RenderWindow*
+    auto Root::initialise(bool autoCreateWindow, StringView windowTitle, StringView customCapabilitiesConfig) -> RenderWindow*
     {
         OgreAssert(mActiveRenderer, "Cannot initialise");
 
@@ -518,7 +518,7 @@ namespace Ogre {
         mSceneManagerEnum->removeFactory(fact);
     }
     //-----------------------------------------------------------------------
-    auto Root::getSceneManagerMetaData(std::string_view typeName) const -> const SceneManagerMetaData*
+    auto Root::getSceneManagerMetaData(StringView typeName) const -> const SceneManagerMetaData*
     {
         return mSceneManagerEnum->getMetaData(typeName);
     }
@@ -530,8 +530,8 @@ namespace Ogre {
         return mSceneManagerEnum->getMetaData();
     }
     //-----------------------------------------------------------------------
-    auto Root::createSceneManager(std::string_view typeName,
-        std::string_view instanceName) -> SceneManager*
+    auto Root::createSceneManager(StringView typeName,
+        StringView instanceName) -> SceneManager*
     {
         return mSceneManagerEnum->createSceneManager(typeName, instanceName);
     }
@@ -541,12 +541,12 @@ namespace Ogre {
         mSceneManagerEnum->destroySceneManager(sm);
     }
     //-----------------------------------------------------------------------
-    auto Root::getSceneManager(std::string_view instanceName) const -> SceneManager*
+    auto Root::getSceneManager(StringView instanceName) const -> SceneManager*
     {
         return mSceneManagerEnum->getSceneManager(instanceName);
     }
     //---------------------------------------------------------------------
-    auto Root::hasSceneManager(std::string_view instanceName) const -> bool
+    auto Root::hasSceneManager(StringView instanceName) const -> bool
     {
         return mSceneManagerEnum->hasSceneManager(instanceName);
     }
@@ -827,7 +827,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("*-*-* OGRE Shutdown");
     }
     //-----------------------------------------------------------------------
-    void Root::loadPlugins( std::string_view pluginsfile )
+    void Root::loadPlugins( StringView pluginsfile )
     {
         StringVector pluginList;
         String pluginDir;
@@ -920,8 +920,8 @@ namespace Ogre {
         mPlugins.clear();
     }
     //---------------------------------------------------------------------
-    auto Root::createFileStream(std::string_view filename, std::string_view groupName,
-        bool overwrite, std::string_view locationPattern) -> DataStreamPtr
+    auto Root::createFileStream(StringView filename, StringView groupName,
+        bool overwrite, StringView locationPattern) -> DataStreamPtr
     {
         // Does this file include path specifiers?
         String path, basename;
@@ -950,7 +950,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto Root::openFileStream(std::string_view filename, std::string_view groupName) -> DataStreamPtr
+    auto Root::openFileStream(StringView filename, StringView groupName) -> DataStreamPtr
     {
         auto ret = ResourceGroupManager::getSingleton().openResource(filename, groupName, nullptr, false);
         if(ret)
@@ -964,7 +964,7 @@ namespace Ogre {
         return mAutoWindow;
     }
     //-----------------------------------------------------------------------
-    auto Root::createRenderWindow(std::string_view name, unsigned int width, unsigned int height,
+    auto Root::createRenderWindow(StringView name, unsigned int width, unsigned int height,
             bool fullScreen, const NameValuePairList *miscParams) -> RenderWindow*
     {
         OgreAssert(mIsInitialised,
@@ -991,7 +991,7 @@ namespace Ogre {
         return mActiveRenderer->detachRenderTarget( target->getName() );
     }
     //-----------------------------------------------------------------------
-    auto Root::detachRenderTarget(std::string_view name) -> RenderTarget*
+    auto Root::detachRenderTarget(StringView name) -> RenderTarget*
     {
         OgreAssert(mActiveRenderer, "Cannot detach target");
         return mActiveRenderer->detachRenderTarget( name );
@@ -1008,13 +1008,13 @@ namespace Ogre {
         mActiveRenderer->destroyRenderWindow(target->getName());
     }
     //-----------------------------------------------------------------------
-    void Root::destroyRenderTarget(std::string_view name)
+    void Root::destroyRenderTarget(StringView name)
     {
         RenderTarget* target = getRenderTarget(name);
         destroyRenderTarget(target);
     }
     //-----------------------------------------------------------------------
-    auto Root::getRenderTarget(std::string_view name) -> RenderTarget*
+    auto Root::getRenderTarget(StringView name) -> RenderTarget*
     {
         OgreAssert(mActiveRenderer, "Cannot get target");
         return mActiveRenderer->getRenderTarget(name);
@@ -1052,11 +1052,11 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void Root::loadPlugin(std::string_view pluginName)
+    void Root::loadPlugin(StringView pluginName)
     {
     }
     //-----------------------------------------------------------------------
-    void Root::unloadPlugin(std::string_view pluginName)
+    void Root::unloadPlugin(StringView pluginName)
     {
 
     }
@@ -1157,17 +1157,16 @@ namespace Ogre {
         // Save
         mMovableObjectFactoryMap[fact->getType()] = fact;
 
-        LogManager::getSingleton().logMessage("MovableObjectFactory for type '" +
-            fact->getType() + "' registered.");
+        LogManager::getSingleton().logMessage(std::format("MovableObjectFactory for type '{}' registered.", fact->getType()));
 
     }
     //---------------------------------------------------------------------
-    auto Root::hasMovableObjectFactory(std::string_view typeName) const -> bool
+    auto Root::hasMovableObjectFactory(StringView typeName) const -> bool
     {
         return !(mMovableObjectFactoryMap.find(typeName) == mMovableObjectFactoryMap.end());
     }
     //---------------------------------------------------------------------
-    auto Root::getMovableObjectFactory(std::string_view typeName) -> MovableObjectFactory*
+    auto Root::getMovableObjectFactory(StringView typeName) -> MovableObjectFactory*
     {
         auto i =
             mMovableObjectFactoryMap.find(typeName);

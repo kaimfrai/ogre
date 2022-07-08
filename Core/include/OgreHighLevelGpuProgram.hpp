@@ -114,8 +114,8 @@ struct GpuNamedConstants;
         void setupBaseParamDictionary() override;
     public:
         /** Constructor, should be used only by factory classes. */
-        HighLevelGpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        HighLevelGpuProgram(ResourceManager* creator, StringView name, ResourceHandle handle,
+            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~HighLevelGpuProgram() override = default;
 
 
@@ -139,17 +139,17 @@ struct GpuNamedConstants;
         auto calculateSize() const -> size_t override;
 
         /** Sets the preprocessor defines used to compile the program. */
-        void setPreprocessorDefines(std::string_view defines) { mPreprocessorDefines = defines; }
+        void setPreprocessorDefines(StringView defines) { mPreprocessorDefines = defines; }
         /** Gets the preprocessor defines used to compile the program. */
-        auto getPreprocessorDefines() const noexcept -> std::string_view { return mPreprocessorDefines; }
+        auto getPreprocessorDefines() const noexcept -> StringView { return mPreprocessorDefines; }
 
         /** Sets the entry point for this program i.e, the first method called. */
-        void setEntryPoint(std::string_view entryPoint) { mEntryPoint = entryPoint; }
+        void setEntryPoint(StringView entryPoint) { mEntryPoint = entryPoint; }
         /** Gets the entry point defined for this program. */
-        auto getEntryPoint() const noexcept -> std::string_view { return mEntryPoint; }
+        auto getEntryPoint() const noexcept -> StringView { return mEntryPoint; }
 
         /// Scan the source for \#include and replace with contents from OGRE resources
-        static auto _resolveIncludes(std::string_view source, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename = false) -> String;
+        static auto _resolveIncludes(StringView source, Resource* resourceBeingLoaded, StringView fileName, bool supportsFilename = false) -> String;
     };
     /** @} */
     /** @} */

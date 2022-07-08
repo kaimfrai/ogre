@@ -154,8 +154,8 @@ auto FunctionAtom::getGroupExecutionOrder() const noexcept -> int
 }
 
 //-----------------------------------------------------------------------
-FunctionInvocation::FunctionInvocation(std::string_view functionName, int groupOrder,
-                                       std::string_view returnType)
+FunctionInvocation::FunctionInvocation(StringView functionName, int groupOrder,
+                                       StringView returnType)
     : mReturnType(returnType)
 {
     mFunctionName = functionName;
@@ -174,7 +174,7 @@ FunctionInvocation::FunctionInvocation(const FunctionInvocation& other) :
 }
 
 //-----------------------------------------------------------------------
-void FunctionInvocation::writeSourceCode(std::ostream& os, std::string_view targetLanguage) const
+void FunctionInvocation::writeSourceCode(std::ostream& os, StringView targetLanguage) const
 {
     // Write function name.
     os << mFunctionName << "(";
@@ -184,7 +184,7 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, std::string_view targ
 }
 
 //-----------------------------------------------------------------------
-static auto parameterNullMsg(std::string_view name, size_t pos) -> String
+static auto parameterNullMsg(StringView name, size_t pos) -> String
 {
     return std::format("{}: parameter #{} is NULL", name.c_str(), pos);
 }
@@ -341,7 +341,7 @@ AssignmentAtom::AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder) {
     mFunctionName = "assign";
 }
 
-void AssignmentAtom::writeSourceCode(std::ostream& os, std::string_view targetLanguage) const
+void AssignmentAtom::writeSourceCode(std::ostream& os, StringView targetLanguage) const
 {
     auto outOp = mOperands.begin();
     // find the output operand
@@ -360,7 +360,7 @@ SampleTextureAtom::SampleTextureAtom(const In& sampler, const In& texcoord, cons
     mFunctionName = "sampleTexture";
 }
 
-void SampleTextureAtom::writeSourceCode(std::ostream& os, std::string_view targetLanguage) const
+void SampleTextureAtom::writeSourceCode(std::ostream& os, StringView targetLanguage) const
 {
     auto outOp = mOperands.begin();
     // find the output operand
@@ -404,7 +404,7 @@ BinaryOpAtom::BinaryOpAtom(char op, const In& a, const In& b, const Out& dst, in
     mFunctionName = op;
 }
 
-void BinaryOpAtom::writeSourceCode(std::ostream& os, std::string_view targetLanguage) const
+void BinaryOpAtom::writeSourceCode(std::ostream& os, StringView targetLanguage) const
 {
     // find the output operand
     auto outOp = mOperands.begin();

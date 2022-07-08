@@ -81,7 +81,7 @@ namespace Ogre {
         auto wrapper = std::make_shared<MemoryDataStream>(src->getData(), src->getSize(), false);
         return encode(wrapper, imgData);
     }
-    void ImageCodec::encodeToFile(::std::any const& input, std::string_view outFileName) const
+    void ImageCodec::encodeToFile(::std::any const& input, StringView outFileName) const
     {
         auto* src = any_cast<Image*>(input);
 
@@ -301,7 +301,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(std::string_view strFileName, std::string_view group) -> Image &
+    auto Image::load(StringView strFileName, StringView group) -> Image &
     {
 
         String strExt;
@@ -317,7 +317,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    void Image::save(std::string_view filename)
+    void Image::save(StringView filename)
     {
         OgreAssert(mBuffer, "No image data loaded");
 
@@ -328,14 +328,14 @@ namespace Ogre {
         Codec::getCodec(ext)->encodeToFile(this, filename);
     }
     //---------------------------------------------------------------------
-    auto Image::encode(std::string_view formatextension) -> DataStreamPtr
+    auto Image::encode(StringView formatextension) -> DataStreamPtr
     {
         OgreAssert(mBuffer, "No image data loaded");
         // getCodec throws when no codec is found
         return Codec::getCodec(formatextension)->encode(this);
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(const DataStreamPtr& stream, std::string_view type ) -> Image &
+    auto Image::load(const DataStreamPtr& stream, StringView type ) -> Image &
     {
         freeMemory();
 
@@ -372,7 +372,7 @@ namespace Ogre {
         return *this;
     }
     //---------------------------------------------------------------------
-    auto Image::getFileExtFromMagic(const DataStreamPtr stream) -> std::string_view
+    auto Image::getFileExtFromMagic(const DataStreamPtr stream) -> StringView
     {
         // read the first 32 bytes or file size, if less
         size_t magicLen = std::min(stream->size(), (size_t)32);
@@ -659,8 +659,8 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto Image::loadTwoImagesAsRGBA(std::string_view rgbFilename, std::string_view alphaFilename,
-        std::string_view groupName, PixelFormat fmt) -> Image &
+    auto Image::loadTwoImagesAsRGBA(StringView rgbFilename, StringView alphaFilename,
+        StringView groupName, PixelFormat fmt) -> Image &
     {
         Image rgb, alpha;
 
@@ -673,7 +673,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto Image::loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream,
                                       const DataStreamPtr& alphaStream, PixelFormat fmt,
-                                      std::string_view rgbType, std::string_view alphaType) -> Image&
+                                      StringView rgbType, StringView alphaType) -> Image&
     {
         Image rgb, alpha;
 

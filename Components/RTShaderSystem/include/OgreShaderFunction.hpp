@@ -176,7 +176,7 @@ public:
     @param type The type of the desired parameter.  
     @return parameter instance in case of that resolve operation succeeded.
     */
-    auto resolveLocalParameter(GpuConstantType type, std::string_view name) -> ParameterPtr;
+    auto resolveLocalParameter(GpuConstantType type, StringView name) -> ParameterPtr;
 
     /** Resolve local parameter of this function
 
@@ -197,7 +197,7 @@ public:
         return _getParameterByContent(mLocalParameters, content, GCT_UNKNOWN);
     }
     /// @overload
-    auto getLocalParameter(std::string_view name) -> ParameterPtr
+    auto getLocalParameter(StringView name) -> ParameterPtr
     {
         return _getParameterByName(mLocalParameters, name);
     }
@@ -250,7 +250,7 @@ public:
 
 private:
 
-    static auto _getParameterByName(const ShaderParameterList& parameterList, std::string_view name) -> ParameterPtr;
+    static auto _getParameterByName(const ShaderParameterList& parameterList, StringView name) -> ParameterPtr;
     static auto _getParameterBySemantic(const ShaderParameterList& parameterList, const Parameter::Semantic semantic, int index) -> ParameterPtr;
     static auto _getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type) -> ParameterPtr;
 

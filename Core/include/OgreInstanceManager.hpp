@@ -132,7 +132,7 @@ namespace Ogre
         /** Finds a batch with at least one free instanced entity we can use.
             If none found, creates one.
         */
-        inline auto getFreeBatch( std::string_view materialName ) -> InstanceBatch*;
+        inline auto getFreeBatch( StringView materialName ) -> InstanceBatch*;
 
         /** Called when batches are fully exhausted (can't return more instances) so a new batch
             is created.
@@ -143,7 +143,7 @@ namespace Ogre
         @param firstTime True if this is the first time it is called
         @return The created InstancedManager for convenience
         */
-        auto buildNewBatch( std::string_view materialName, bool firstTime ) -> InstanceBatch*;
+        auto buildNewBatch( StringView materialName, bool firstTime ) -> InstanceBatch*;
 
         /** @see defragmentBatches overload, this takes care of an array of batches
             for a specific material */
@@ -163,11 +163,11 @@ namespace Ogre
 
     public:
         InstanceManager( String customName, SceneManager *sceneManager,
-                         std::string_view meshName, std::string_view groupName,
+                         StringView meshName, StringView groupName,
                          InstancingTechnique instancingTechnique, uint16 instancingFlags,
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
 
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> StringView { return mName; }
 
         [[nodiscard]] auto getSceneManager() const noexcept -> SceneManager* { return mSceneManager; }
 
@@ -226,10 +226,10 @@ namespace Ogre
         @param flags @ref InstanceManagerFlags to pass to the InstanceManager
         @return The max/best amount of instances per batch given the suggested size and flags
         */
-        auto getMaxOrBestNumInstancesPerBatch( std::string_view materialName, size_t suggestedSize, uint16 flags ) -> size_t;
+        auto getMaxOrBestNumInstancesPerBatch( StringView materialName, size_t suggestedSize, uint16 flags ) -> size_t;
 
         /// Creates an InstancedEntity
-        auto createInstancedEntity( std::string_view materialName ) -> InstancedEntity*;
+        auto createInstancedEntity( StringView materialName ) -> InstancedEntity*;
 
         /** This function can be useful to improve CPU speed after having too many instances
             created, which where now removed, thus freeing many batches with zero used Instanced Entities
@@ -279,15 +279,15 @@ namespace Ogre
         @param enabled Boolean value. It's meaning depends on the id.
         @param materialName When Blank, the setting is applied to all existing materials
         */
-        void setSetting( BatchSettingId id, bool enabled, std::string_view materialName = BLANKSTRING );
+        void setSetting( BatchSettingId id, bool enabled, StringView materialName = BLANKSTRING );
 
         /// If settings for the given material didn't exist, default value is returned
-        [[nodiscard]] auto getSetting( BatchSettingId id, std::string_view materialName ) const -> bool;
+        [[nodiscard]] auto getSetting( BatchSettingId id, StringView materialName ) const -> bool;
 
         /** Returns true if settings were already created for the given material name.
             If false is returned, it means getSetting will return default settings.
         */
-        [[nodiscard]] auto hasSettings( std::string_view materialName ) const -> bool;
+        [[nodiscard]] auto hasSettings( StringView materialName ) const -> bool;
 
         /** @copydoc InstanceBatch::setStaticAndUpdate */
         void setBatchesAsStaticAndUpdate( bool bStatic );
@@ -313,7 +313,7 @@ namespace Ogre
             setCustomParameter), but there's no synchronization mechanism when
             multithreading or creating more instances, that's up to the user.
         */
-        [[nodiscard]] auto getInstanceBatchIterator( std::string_view materialName ) const -> InstanceBatchIterator;
+        [[nodiscard]] auto getInstanceBatchIterator( StringView materialName ) const -> InstanceBatchIterator;
     };
 } // namespace Ogre
 

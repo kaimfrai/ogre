@@ -41,13 +41,13 @@ namespace Ogre::GLSL {
 
     /** Check for GL errors and report them in the Ogre Log.
     */
-    void reportGLSLError(GLenum glErr, std::string_view ogreMethod, std::string_view errorTextPrefix, const uint obj, const bool forceInfoLog = false, const bool forceException = false);
+    void reportGLSLError(GLenum glErr, StringView ogreMethod, StringView errorTextPrefix, const uint obj, const bool forceInfoLog = false, const bool forceException = false);
 
     /** if there is a message in GL info log then post it in the Ogre Log
     @param msg the info log message string is appended to this string
     @param obj the GL object that is used to retrieve the info log
     */
-    auto logObjectInfo(std::string_view msg, uint obj) -> String;
+    auto logObjectInfo(StringView msg, uint obj) -> String;
 
     /// just return the info without logging it
     auto getObjectInfo(GLuint obj) -> String;

@@ -54,7 +54,7 @@ class Camera;
 
     InstanceBatchHW::InstanceBatchHW( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
-                                        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName ) :
+                                        const Mesh::IndexMap *indexToBoneMap, StringView batchName ) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName )
                 

@@ -68,10 +68,10 @@ namespace Ogre {
             the factory.
         */
         [[nodiscard]]
-        virtual auto createInstance(std::string_view name, bool readOnly) -> Archive* = 0;
+        virtual auto createInstance(StringView name, bool readOnly) -> Archive* = 0;
 
         [[nodiscard]]
-        auto createInstance(std::string_view name) -> Archive* override { return createInstance(name, true); }
+        auto createInstance(StringView name) -> Archive* override { return createInstance(name, true); }
     };
     /** @} */
     /** @} */

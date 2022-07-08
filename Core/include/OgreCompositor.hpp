@@ -61,8 +61,8 @@ class ResourceManager;
     class Compositor: public Resource
     {
     public:
-        Compositor(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Compositor(ResourceManager* creator, StringView name, ResourceHandle handle,
+            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Compositor() override;
         
         /// Data types for internal lists
@@ -123,21 +123,21 @@ class ResourceManager;
         @param schemeName The scheme name you are looking for. Blank means to 
             look for techniques with no scheme associated
         */
-        auto getSupportedTechnique(std::string_view schemeName = BLANKSTRING) -> CompositionTechnique *;
+        auto getSupportedTechnique(StringView schemeName = BLANKSTRING) -> CompositionTechnique *;
 
         /** Get the instance name for a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The instance name for the texture, corresponds to a real texture
         */
-        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view ;
+        auto getTextureInstanceName(StringView name, size_t mrtIndex) -> StringView ;
 
         /** Get the instance of a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The texture pointer, corresponds to a real texture
         */
-        auto getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&;
+        auto getTextureInstance(StringView name, size_t mrtIndex) -> const TexturePtr&;
 
         /** Get the render target for a given render texture name. 
         @remarks
@@ -145,7 +145,7 @@ class ResourceManager;
             targets manually or any other modifications, the compositor instance 
             is in charge of this.
         */
-        auto getRenderTarget(std::string_view name, int slice = 0) -> RenderTarget*;
+        auto getRenderTarget(StringView name, int slice = 0) -> RenderTarget*;
 
     protected:
         /// @copydoc Resource::loadImpl

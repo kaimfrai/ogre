@@ -378,7 +378,7 @@ namespace Ogre::GLSL {
             // until it is linked (chicken and egg!) we have to parse the source
 
             size_t numAttribs = sizeof(msCustomAttributes)/sizeof(CustomAttribute);
-            std::string_view vpSource = mShaders[GPT_VERTEX_PROGRAM]->getSource();
+            StringView vpSource = mShaders[GPT_VERTEX_PROGRAM]->getSource();
             
             hash = mShaders[GPT_VERTEX_PROGRAM]->_getHash(hash);
             for (size_t i = 0; i < numAttribs; ++i)
@@ -400,7 +400,7 @@ namespace Ogre::GLSL {
                     if (startpos != String::npos && startpos < pos)
                     {
                         // final check 
-                        String expr = vpSource.substr(startpos, pos + strlen(a.name) - startpos);
+                        String expr = std::string{vpSource.substr(startpos, pos + strlen(a.name) - startpos)};
                         StringVector vec = StringUtil::split(expr);
                         if ((vec[0] == "in" || vec[0] == "attribute") && vec[2] == a.name)
                         {

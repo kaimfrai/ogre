@@ -182,7 +182,7 @@ class SceneNode;
         MovableObject();
 
         /// Named constructor
-        MovableObject(std::string_view name);
+        MovableObject(StringView name);
         /** Virtual destructor - read Scott Meyers if you don't know why this is needed.
         */
         ~MovableObject() override;
@@ -213,10 +213,10 @@ class SceneNode;
         virtual void _restoreManualHardwareResources() {}
 
         /** Returns the name of this object. */
-        auto getName() const noexcept -> std::string_view { return mName; }
+        auto getName() const noexcept -> StringView { return mName; }
 
         /** Returns the type name of this object. */
-        virtual auto getMovableType() const noexcept -> std::string_view = 0;
+        virtual auto getMovableType() const noexcept -> StringView = 0;
 
         /** Returns the node to which this object is attached.
         @remarks
@@ -592,12 +592,12 @@ class SceneNode;
 
         /// Internal implementation of create method - must be overridden
         virtual auto createInstanceImpl(
-            std::string_view name, const NameValuePairList* params = nullptr) -> MovableObject* = 0;
+            StringView name, const NameValuePairList* params = nullptr) -> MovableObject* = 0;
     public:
         MovableObjectFactory()  = default;
         virtual ~MovableObjectFactory() = default;
         /// Get the type of the object to be created
-        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view = 0;
+        [[nodiscard]] virtual auto getType() const noexcept -> StringView = 0;
 
         /** Create a new instance of the object.
         @param name The name of the new object
@@ -607,7 +607,7 @@ class SceneNode;
             construct the object (defined per subtype). Optional.
         */
         auto createInstance(
-            std::string_view name, SceneManager* manager, 
+            StringView name, SceneManager* manager, 
             const NameValuePairList* params = nullptr) -> MovableObject*;
         /** Destroy an instance of the object */
         virtual void destroyInstance(MovableObject* obj) { delete obj; }

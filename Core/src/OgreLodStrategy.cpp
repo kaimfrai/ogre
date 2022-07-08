@@ -40,7 +40,7 @@ namespace Ogre {
 class MovableObject;
 
     //-----------------------------------------------------------------------
-    LodStrategy::LodStrategy(std::string_view name)
+    LodStrategy::LodStrategy(StringView name)
         : mName(name)
     { }
     //-----------------------------------------------------------------------

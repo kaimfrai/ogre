@@ -79,7 +79,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto StringUtil::split( std::string_view str, std::string_view delims, unsigned int maxSplits, bool preserveDelims) -> StringVector
+    auto StringUtil::split( StringView str, StringView delims, unsigned int maxSplits, bool preserveDelims) -> StringVector
     {
         StringVector ret;
         // Pre-allocate some space for performance
@@ -101,13 +101,13 @@ namespace Ogre {
             else if (pos == String::npos || (maxSplits && numSplits == maxSplits))
             {
                 // Copy the rest of the string
-                ret.push_back( str.substr(start) );
+                ret.push_back( std::string{str.substr(start)} );
                 break;
             }
             else
             {
                 // Copy up to delimiter
-                ret.push_back( str.substr(start, pos - start) );
+                ret.push_back( std::string{str.substr(start, pos - start)} );
 
                 if(preserveDelims)
                 {
@@ -118,11 +118,11 @@ namespace Ogre {
                     if (delimPos == String::npos)
                     {
                         // Copy the rest of the string
-                        ret.push_back( str.substr(delimStart) );
+                        ret.push_back(std::string{str.substr(delimStart)});
                     }
                     else
                     {
-                        ret.push_back( str.substr(delimStart, delimPos - delimStart) );
+                        ret.push_back( std::string{str.substr(delimStart, delimPos - delimStart)} );
                     }
                 }
 
@@ -139,14 +139,14 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::tokenise( std::string_view str, std::string_view singleDelims, std::string_view doubleDelims, unsigned int maxSplits) -> StringVector
+    auto StringUtil::tokenise( StringView str, StringView singleDelims, StringView doubleDelims, unsigned int maxSplits) -> StringVector
     {
         StringVector ret;
         // Pre-allocate some space for performance
         ret.reserve(maxSplits ? maxSplits+1 : 10);    // 10 is guessed capacity for most case
 
         unsigned int numSplits = 0;
-        String delims = singleDelims + doubleDelims;
+        String delims = std::format("{}{}", singleDelims, doubleDelims);
 
         // Use STL methods 
         size_t start, pos;
@@ -180,7 +180,7 @@ namespace Ogre {
                     //Missing closer. Warn or throw exception?
                 }
                 // Copy the rest of the string
-                ret.push_back( str.substr(start) );
+                ret.push_back( std::string{str.substr(start)} );
                 break;
             }
             else
@@ -191,7 +191,7 @@ namespace Ogre {
                 }
 
                 // Copy up to delimiter
-                ret.push_back( str.substr(start, pos - start) );
+                ret.push_back( std::string{str.substr(start, pos - start)} );
                 start = pos + 1;
             }
             if (curDoubleDelim == 0)
@@ -237,7 +237,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::startsWith(std::string_view str, std::string_view pattern, bool lowerCase) -> bool
+    auto StringUtil::startsWith(StringView str, StringView pattern, bool lowerCase) -> bool
     {
         if (pattern.empty())
             return false;
@@ -250,7 +250,7 @@ namespace Ogre {
         return strncmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::endsWith(std::string_view str, std::string_view pattern, bool lowerCase) -> bool
+    auto StringUtil::endsWith(StringView str, StringView pattern, bool lowerCase) -> bool
     {
         if (pattern.empty())
             return false;
@@ -265,7 +265,7 @@ namespace Ogre {
         return strncmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::standardisePath(std::string_view init) -> String
+    auto StringUtil::standardisePath(StringView init) -> String
     {
         String path = init;
 
@@ -276,7 +276,7 @@ namespace Ogre {
         return path;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::normalizeFilePath(std::string_view init, bool makeLowerCase) -> String
+    auto StringUtil::normalizeFilePath(StringView init, bool makeLowerCase) -> String
     {
         const char* bufferSrc = init.c_str();
         int pathLen = (int)init.size();
@@ -361,7 +361,7 @@ namespace Ogre {
         return normalized;      
     }
     //-----------------------------------------------------------------------
-    void StringUtil::splitFilename(std::string_view qualifiedName, 
+    void StringUtil::splitFilename(StringView qualifiedName, 
         String& outBasename, String& outPath)
     {
         String path = qualifiedName;
@@ -383,7 +383,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void StringUtil::splitBaseFilename(std::string_view fullName, 
+    void StringUtil::splitBaseFilename(StringView fullName, 
         Ogre::String& outBasename, Ogre::String& outExtention)
     {
         size_t i = fullName.find_last_of('.');
@@ -399,7 +399,7 @@ namespace Ogre {
         }
     }
     // ----------------------------------------------------------------------------------------------------------------------------------------------
-    void StringUtil::splitFullFilename( std::string_view qualifiedName, 
+    void StringUtil::splitFullFilename( StringView qualifiedName, 
         Ogre::String& outBasename, Ogre::String& outExtention, Ogre::String& outPath )
     {
         Ogre::String fullName;
@@ -407,7 +407,7 @@ namespace Ogre {
         splitBaseFilename( fullName, outBasename, outExtention );
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::match(std::string_view str, std::string_view pattern, bool caseSensitive) -> bool
+    auto StringUtil::match(StringView str, StringView pattern, bool caseSensitive) -> bool
     {
         String tmpStr = str;
         String tmpPattern = pattern;
@@ -476,7 +476,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> const String
+    auto StringUtil::replaceAll(StringView source, StringView replaceWhat, StringView replaceWithWhat) -> const String
     {
         String result = source;
         String::size_type pos = 0;

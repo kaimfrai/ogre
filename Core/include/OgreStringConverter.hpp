@@ -161,28 +161,28 @@ namespace Ogre {
         /** Converts a String to a basic value type
             @return whether the conversion was successful
         */
-        static auto parse(std::string_view str, ColourValue& v) -> bool;
-        static auto parse(std::string_view str, Quaternion& v) -> bool;
-        static auto parse(std::string_view str, Matrix4& v) -> bool;
-        static auto parse(std::string_view str, Matrix3& v) -> bool;
-        static auto parse(std::string_view str, Vector4& v) -> bool;
-        static auto parse(std::string_view str, Vector3& v) -> bool;
-        static auto parse(std::string_view str, Vector2& v) -> bool;
-        static auto parse(std::string_view str, int32& v) -> bool;
-        static auto parse(std::string_view str, uint32& v) -> bool;
-        static auto parse(std::string_view str, int64& v) -> bool;
+        static auto parse(StringView str, ColourValue& v) -> bool;
+        static auto parse(StringView str, Quaternion& v) -> bool;
+        static auto parse(StringView str, Matrix4& v) -> bool;
+        static auto parse(StringView str, Matrix3& v) -> bool;
+        static auto parse(StringView str, Vector4& v) -> bool;
+        static auto parse(StringView str, Vector3& v) -> bool;
+        static auto parse(StringView str, Vector2& v) -> bool;
+        static auto parse(StringView str, int32& v) -> bool;
+        static auto parse(StringView str, uint32& v) -> bool;
+        static auto parse(StringView str, int64& v) -> bool;
         // provide both long long and long to catch size_t on all platforms
-        static auto parse(std::string_view str, unsigned long& v) -> bool;
-        static auto parse(std::string_view str, unsigned long long& v) -> bool;
-        static auto parse(std::string_view str, bool& v) -> bool;
-        static auto parse(std::string_view str, double& v) -> bool;
-        static auto parse(std::string_view str, float& v) -> bool;
+        static auto parse(StringView str, unsigned long& v) -> bool;
+        static auto parse(StringView str, unsigned long long& v) -> bool;
+        static auto parse(StringView str, bool& v) -> bool;
+        static auto parse(StringView str, double& v) -> bool;
+        static auto parse(StringView str, float& v) -> bool;
 
         /** Converts a String to a Real. 
         @return
             0.0 if the value could not be parsed, otherwise the Real version of the String.
         */
-        static auto parseReal(std::string_view val, Real defaultValue = 0) -> Real
+        static auto parseReal(StringView val, Real defaultValue = 0) -> Real
         {
             Real ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -191,14 +191,14 @@ namespace Ogre {
         @return
             0.0 if the value could not be parsed, otherwise the Angle version of the String.
         */
-        static auto parseAngle(std::string_view val, Radian defaultValue = Radian(0)) -> Radian {
+        static auto parseAngle(StringView val, Radian defaultValue = Radian(0)) -> Radian {
             return Angle(parseReal(val, defaultValue.valueRadians()));
         }
         /** Converts a String to a whole number. 
         @return
             0.0 if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseInt(std::string_view val, int32 defaultValue = 0) -> int32
+        static auto parseInt(StringView val, int32 defaultValue = 0) -> int32
         {
             int32 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -207,7 +207,7 @@ namespace Ogre {
         @return
             0.0 if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseUnsignedInt(std::string_view val, uint32 defaultValue = 0) -> uint32
+        static auto parseUnsignedInt(StringView val, uint32 defaultValue = 0) -> uint32
         {
             uint32 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -217,7 +217,7 @@ namespace Ogre {
         @return
             defaultValue if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseSizeT(std::string_view val, size_t defaultValue = 0) -> size_t
+        static auto parseSizeT(StringView val, size_t defaultValue = 0) -> size_t
         {
             size_t ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -228,7 +228,7 @@ namespace Ogre {
             matches "true", "yes", "1", or "on", false if "false", "no", "0" 
             or "off".
         */
-        static auto parseBool(std::string_view val, bool defaultValue = false) -> bool
+        static auto parseBool(StringView val, bool defaultValue = false) -> bool
         {
             bool ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -238,7 +238,7 @@ namespace Ogre {
             Format is "x y" ie. 2 Real components, space delimited. Failure to parse returns
             Vector2::ZERO.
         */
-        static auto parseVector2(std::string_view val, const Vector2& defaultValue = Vector2::ZERO) -> Vector2
+        static auto parseVector2(StringView val, const Vector2& defaultValue = Vector2::ZERO) -> Vector2
         {
             Vector2 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -248,7 +248,7 @@ namespace Ogre {
             Format is "x y z" ie. 3 Real components, space delimited. Failure to parse returns
             Vector3::ZERO.
         */
-        static auto parseVector3(std::string_view val, const Vector3& defaultValue = Vector3::ZERO) -> Vector3
+        static auto parseVector3(StringView val, const Vector3& defaultValue = Vector3::ZERO) -> Vector3
         {
             Vector3 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -258,7 +258,7 @@ namespace Ogre {
             Format is "x y z w" ie. 4 Real components, space delimited. Failure to parse returns
             Vector4::ZERO.
         */
-        static auto parseVector4(std::string_view val, const Vector4& defaultValue = Vector4::ZERO) -> Vector4
+        static auto parseVector4(StringView val, const Vector4& defaultValue = Vector4::ZERO) -> Vector4
         {
             Vector4 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -268,7 +268,7 @@ namespace Ogre {
             Format is "00 01 02 10 11 12 20 21 22" where '01' means row 0 column 1 etc.
             Failure to parse returns Matrix3::IDENTITY.
         */
-        static auto parseMatrix3(std::string_view val, const Matrix3& defaultValue = Matrix3::IDENTITY) -> Matrix3
+        static auto parseMatrix3(StringView val, const Matrix3& defaultValue = Matrix3::IDENTITY) -> Matrix3
         {
             Matrix3 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -278,7 +278,7 @@ namespace Ogre {
             Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33" where 
             '01' means row 0 column 1 etc. Failure to parse returns Matrix4::IDENTITY.
         */
-        static auto parseMatrix4(std::string_view val, const Matrix4& defaultValue = Matrix4::IDENTITY) -> Matrix4
+        static auto parseMatrix4(StringView val, const Matrix4& defaultValue = Matrix4::IDENTITY) -> Matrix4
         {
             Matrix4 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -288,7 +288,7 @@ namespace Ogre {
             Format is "w x y z" (i.e. 4x Real values, space delimited). 
             Failure to parse returns Quaternion::IDENTITY.
         */
-        static auto parseQuaternion(std::string_view val, const Quaternion& defaultValue = Quaternion::IDENTITY) -> Quaternion
+        static auto parseQuaternion(StringView val, const Quaternion& defaultValue = Quaternion::IDENTITY) -> Quaternion
         {
             Quaternion ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -298,14 +298,14 @@ namespace Ogre {
             Format is "r g b a" (i.e. 4x Real values, space delimited), or "r g b" which implies
             an alpha value of 1.0 (opaque). Failure to parse returns ColourValue::Black.
         */
-        static auto parseColourValue(std::string_view val, const ColourValue& defaultValue = ColourValue::Black) -> ColourValue
+        static auto parseColourValue(StringView val, const ColourValue& defaultValue = ColourValue::Black) -> ColourValue
         {
             ColourValue ret;
             return parse(val, ret) ? ret : defaultValue;
         }
 
         /** Checks the String is a valid number value. */
-        static auto isNumber(std::string_view val) -> bool;
+        static auto isNumber(StringView val) -> bool;
 
 		/** Converts a StereoModeType to a String
 		@remarks
@@ -317,7 +317,7 @@ namespace Ogre {
 		@remarks
 			String input format should be "None", "Frame Sequential", etc.
 		*/
-		static auto parseStereoMode(std::string_view val, StereoModeType defaultValue = SMT_NONE) -> StereoModeType;
+		static auto parseStereoMode(StringView val, StereoModeType defaultValue = SMT_NONE) -> StereoModeType;
 
 		static locale_t _numLocale;
     private:
@@ -404,7 +404,7 @@ struct std::formatter<Ogre::StringVector, CharT>
 };
 
 template<typename CharT>
-struct std::formatter<std::vector<std::string_view>, CharT>
+struct std::formatter<std::vector<Ogre::StringView>, CharT>
 {
     std::formatter<std::string_view, CharT> stringFormatter;
 
@@ -413,7 +413,7 @@ struct std::formatter<std::vector<std::string_view>, CharT>
         return stringFormatter.parse(pc);
     }
 
-    auto constexpr format(std::vector<std::string_view> const& val, auto& fc)
+    auto constexpr format(std::vector<Ogre::StringView> const& val, auto& fc)
     {
         auto out = fc.out();
         for (auto i = val.begin(); i != val.end(); ++i)

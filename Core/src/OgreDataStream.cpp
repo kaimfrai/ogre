@@ -92,7 +92,7 @@ namespace Ogre {
         return retString;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::readLine(char* buf, size_t maxCount, std::string_view delim) -> size_t
+    auto DataStream::readLine(char* buf, size_t maxCount, StringView delim) -> size_t
     {
         // Deal with both Unix & Windows LFs
         bool trimCR = false;
@@ -149,7 +149,7 @@ namespace Ogre {
         return totalCount;
     }
     //-----------------------------------------------------------------------
-    auto DataStream::skipLine(std::string_view delim) -> size_t
+    auto DataStream::skipLine(StringView delim) -> size_t
     {
         char tmpBuf[OGRE_STREAM_TEMP_SIZE];
         size_t total = 0;
@@ -209,7 +209,7 @@ namespace Ogre {
         assert(mEnd >= mPos);
     }
     //-----------------------------------------------------------------------
-    MemoryDataStream::MemoryDataStream(std::string_view name, void* pMem, size_t inSize, 
+    MemoryDataStream::MemoryDataStream(StringView name, void* pMem, size_t inSize,
         bool freeOnClose, bool readOnly)
         : DataStream(name, static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
@@ -272,7 +272,7 @@ namespace Ogre {
         assert(mEnd >= mPos);
     }
     //-----------------------------------------------------------------------
-    MemoryDataStream::MemoryDataStream(std::string_view name, DataStream& sourceStream, 
+    MemoryDataStream::MemoryDataStream(StringView name, DataStream& sourceStream,
         bool freeOnClose, bool readOnly)
         : DataStream(name, static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
@@ -298,7 +298,7 @@ namespace Ogre {
         assert(mEnd >= mPos);
     }
     //-----------------------------------------------------------------------
-    MemoryDataStream::MemoryDataStream(std::string_view name, const DataStreamPtr& sourceStream, 
+    MemoryDataStream::MemoryDataStream(StringView name, const DataStreamPtr& sourceStream,
         bool freeOnClose, bool readOnly)
         : DataStream(name, static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
@@ -335,7 +335,7 @@ namespace Ogre {
         assert(mEnd >= mPos);
     }
     //-----------------------------------------------------------------------
-    MemoryDataStream::MemoryDataStream(std::string_view name, size_t inSize, 
+    MemoryDataStream::MemoryDataStream(StringView name, size_t inSize,
         bool freeOnClose, bool readOnly)
         : DataStream(name, static_cast<uint16>(readOnly ? READ : (READ | WRITE)))
     {
@@ -388,7 +388,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto MemoryDataStream::readLine(char* buf, size_t maxCount, 
-        std::string_view delim) -> size_t
+        StringView delim) -> size_t
     {
         // Deal with both Unix & Windows LFs
         bool trimCR = false;
@@ -425,7 +425,7 @@ namespace Ogre {
         return pos;
     }
     //-----------------------------------------------------------------------
-    auto MemoryDataStream::skipLine(std::string_view delim) -> size_t
+    auto MemoryDataStream::skipLine(StringView delim) -> size_t
     {
         size_t pos = 0;
 
@@ -490,7 +490,7 @@ namespace Ogre {
         determineAccess();
     }
     //-----------------------------------------------------------------------
-    FileStreamDataStream::FileStreamDataStream(std::string_view name, 
+    FileStreamDataStream::FileStreamDataStream(StringView name,
         std::ifstream* s, bool freeOnClose)
         : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(nullptr), mFreeOnClose(freeOnClose)
     {
@@ -501,7 +501,7 @@ namespace Ogre {
         determineAccess();
     }
     //-----------------------------------------------------------------------
-    FileStreamDataStream::FileStreamDataStream(std::string_view name, 
+    FileStreamDataStream::FileStreamDataStream(StringView name,
         std::ifstream* s, size_t inSize, bool freeOnClose)
         : DataStream(name), mInStream(s), mFStreamRO(s), mFStream(nullptr), mFreeOnClose(freeOnClose)
     {
@@ -522,7 +522,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    FileStreamDataStream::FileStreamDataStream(std::string_view name, 
+    FileStreamDataStream::FileStreamDataStream(StringView name,
         std::fstream* s, bool freeOnClose)
         : DataStream(name, false), mInStream(s), mFStreamRO(nullptr), mFStream(s), mFreeOnClose(freeOnClose)
     {
@@ -534,7 +534,7 @@ namespace Ogre {
         determineAccess();
     }
     //-----------------------------------------------------------------------
-    FileStreamDataStream::FileStreamDataStream(std::string_view name, 
+    FileStreamDataStream::FileStreamDataStream(StringView name,
         std::fstream* s, size_t inSize, bool freeOnClose)
         : DataStream(name, false), mInStream(s), mFStreamRO(nullptr), mFStream(s), mFreeOnClose(freeOnClose)
     {
@@ -576,7 +576,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto FileStreamDataStream::readLine(char* buf, size_t maxCount, 
-        std::string_view delim) -> size_t
+        StringView delim) -> size_t
     {
         if (delim.empty())
         {
@@ -702,7 +702,7 @@ namespace Ogre {
         fseek(mFileHandle, 0, SEEK_SET);
     }
     //-----------------------------------------------------------------------
-    FileHandleDataStream::FileHandleDataStream(std::string_view name, FILE* handle, uint16 accessMode)
+    FileHandleDataStream::FileHandleDataStream(StringView name, FILE* handle, uint16 accessMode)
         : DataStream(name, accessMode), mFileHandle(handle)
     {
         // Determine size

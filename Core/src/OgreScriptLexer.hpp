@@ -78,10 +78,10 @@ namespace Ogre {
     {
     public:
         /** Tokenizes the given input and returns the list of tokens found */
-        static auto tokenize(std::string_view str, std::string_view source) -> ScriptTokenList;
+        static auto tokenize(StringView str, StringView source) -> ScriptTokenList;
     private: // Private utility operations
-        static auto _tokenize(std::string_view str, const char* source, String& error) -> ScriptTokenList;
-        static void setToken(std::string_view lexeme, uint32 line, ScriptTokenList& tokens);
+        static auto _tokenize(StringView str, const char* source, String& error) -> ScriptTokenList;
+        static void setToken(StringView lexeme, uint32 line, ScriptTokenList& tokens);
         static auto isWhitespace(Ogre::String::value_type c) -> bool;
         static auto isNewline(Ogre::String::value_type c) -> bool;
     };

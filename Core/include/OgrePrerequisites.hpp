@@ -30,6 +30,7 @@ THE SOFTWARE
 #include "OgrePlatform.hpp"
 
 #include <compare>
+#include <format>
 #include <memory>
 #include <string>
 
@@ -304,6 +305,29 @@ namespace Ogre
 {
     using String = std::string;
 
+    struct StringView : std::string_view
+    {
+        using std::string_view::string_view;
+
+        constexpr StringView(std::string_view s)
+        : std::string_view{s}
+        {}
+
+        constexpr StringView(std::string const& s)
+        : std::string_view{static_cast<std::string_view>(s)}
+        {}
+
+        constexpr operator std::string() const
+        {
+            return std::string{*this};
+        }
+
+        char const* c_str() const
+        {
+            return data();
+        }
+    };
+
     // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
     [[nodiscard]] auto inline operator <=> (String const& left, String const& right) noexcept -> ::std::strong_ordering
     {
@@ -318,6 +342,22 @@ namespace Ogre
     template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;
 }
+
+template<typename CharT>
+struct std::formatter<Ogre::StringView, CharT>
+{
+    std::formatter<std::string_view, CharT> stringFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return stringFormatter.parse(pc);
+    }
+
+    auto constexpr format(Ogre::StringView val, auto& fc)
+    {
+        return stringFormatter.format(val, fc);
+    }
+};
 
 #endif // OGRE_CORE_PREREQUISITES_H
 

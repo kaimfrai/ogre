@@ -45,6 +45,7 @@ namespace Ogre {
 }  // namespace Ogre
 
 namespace OgreBites {
+    using Ogre::StringView;
 /** \addtogroup Optional
 *  @{
 */
@@ -65,7 +66,7 @@ public:
         scheme name we will try to create shader generated technique for it.
     */
     auto handleSchemeNotFound(unsigned short schemeIndex,
-                                          std::string_view schemeName,
+                                          StringView schemeName,
                                           Ogre::Material* originalMaterial, unsigned short lodIndex,
                                           const Ogre::Renderable* rend) -> Ogre::Technique* override;
 

@@ -85,7 +85,7 @@ namespace Ogre {
             Actual detecting are performs in the first time call to this function,
             and then all future calls with return internal cached value.
         */
-        static auto getCpuIdentifier() noexcept -> std::string_view ;
+        static auto getCpuIdentifier() noexcept -> StringView ;
 
         /** Gets a or-masked of enum CpuFeatures that are supported by the CPU.
         @note

@@ -181,7 +181,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     auto StreamSerialiser::readChunkBegin(
-        uint32 id, uint16 maxVersion, std::string_view msg) -> const StreamSerialiser::Chunk*
+        uint32 id, uint16 maxVersion, StringView msg) -> const StreamSerialiser::Chunk*
     {
         const Chunk* c = readChunkBegin();
         if (c->id != id)

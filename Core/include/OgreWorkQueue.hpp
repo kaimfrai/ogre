@@ -140,13 +140,13 @@ namespace Ogre
             ::std::any mData;
 
         public:
-            Response(const Request* rq, bool success, ::std::any  data, std::string_view msg = BLANKSTRING);
+            Response(const Request* rq, bool success, ::std::any  data, StringView msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] auto getRequest() const noexcept -> const Request* { return mRequest.get(); }
             /// Return whether this is a successful response
             [[nodiscard]] auto succeeded() const noexcept -> bool { return mSuccess; }
             /// Get any diagnostic messages about the process
-            [[nodiscard]] auto getMessages() const noexcept -> std::string_view { return mMessages; }
+            [[nodiscard]] auto getMessages() const noexcept -> StringView { return mMessages; }
             /// Return the response data (user defined, only valid on success)
             [[nodiscard]] auto getData() const noexcept -> ::std::any const& { return mData; }
             /// Abort the request
@@ -369,7 +369,7 @@ namespace Ogre
             applications to not worry about channel clashes through manually
             assigned channel numbers.
         */
-        virtual auto getChannel(std::string_view channelName) -> uint16;
+        virtual auto getChannel(StringView channelName) -> uint16;
 
     };
 
@@ -383,10 +383,10 @@ namespace Ogre
             Call startup() to initialise.
         @param name Optional name, just helps to identify logging output
         */
-        DefaultWorkQueueBase(std::string_view name = BLANKSTRING);
+        DefaultWorkQueueBase(StringView name = BLANKSTRING);
         ~DefaultWorkQueueBase() override = default;
         /// Get the name of the work queue
-        auto getName() const noexcept -> std::string_view ;
+        auto getName() const noexcept -> StringView ;
         /** Get the number of worker threads that this queue will start when 
             startup() is called. 
         */

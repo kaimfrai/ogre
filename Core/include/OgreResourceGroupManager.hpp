@@ -117,7 +117,7 @@ class ScriptLoader;
         @param groupName The name of the group 
         @param scriptCount The number of scripts which will be parsed
         */
-        virtual void resourceGroupScriptingStarted(std::string_view groupName, size_t scriptCount) {}
+        virtual void resourceGroupScriptingStarted(StringView groupName, size_t scriptCount) {}
         /** This event is fired when a script is about to be parsed.
             @param scriptName Name of the to be parsed
             @param skipThisScript A boolean passed by reference which is by default set to 
@@ -125,20 +125,20 @@ class ScriptLoader;
             parsed. Note that in this case the scriptParseEnded event will not be raised
             for this script.
         */
-        virtual void scriptParseStarted(std::string_view scriptName, bool& skipThisScript) {}
+        virtual void scriptParseStarted(StringView scriptName, bool& skipThisScript) {}
 
         /** This event is fired when the script has been fully parsed.
         */
-        virtual void scriptParseEnded(std::string_view scriptName, bool skipped) {}
+        virtual void scriptParseEnded(StringView scriptName, bool skipped) {}
         /** This event is fired when a resource group finished parsing scripts. */
-        virtual void resourceGroupScriptingEnded(std::string_view groupName) {}
+        virtual void resourceGroupScriptingEnded(StringView groupName) {}
 
         /** This event is fired  when a resource group begins preparing.
         @param groupName The name of the group being prepared
         @param resourceCount The number of resources which will be prepared, including
             a number of stages required to prepare any linked world geometry
         */
-        virtual void resourceGroupPrepareStarted(std::string_view groupName, size_t resourceCount)
+        virtual void resourceGroupPrepareStarted(StringView groupName, size_t resourceCount)
                 { (void)groupName; (void)resourceCount; }
 
         /** This event is fired when a declared resource is about to be prepared. 
@@ -151,7 +151,7 @@ class ScriptLoader;
         */
         virtual void resourcePrepareEnded() {}
         /** This event is fired when a resource group finished preparing. */
-        virtual void resourceGroupPrepareEnded(std::string_view groupName)
+        virtual void resourceGroupPrepareEnded(StringView groupName)
         { (void)groupName; }
 
         /** This event is fired  when a resource group begins loading.
@@ -159,7 +159,7 @@ class ScriptLoader;
         @param resourceCount The number of resources which will be loaded, including
             a number of custom stages required to load anything else
         */
-        virtual void resourceGroupLoadStarted(std::string_view groupName, size_t resourceCount) {}
+        virtual void resourceGroupLoadStarted(StringView groupName, size_t resourceCount) {}
         /** This event is fired when a declared resource is about to be loaded. 
         @param resource Weak reference to the resource loaded.
         */
@@ -172,14 +172,14 @@ class ScriptLoader;
             included in the resourceCount passed in resourceGroupLoadStarted.
         @param description Text description of what is about to be done
         */
-        virtual void customStageStarted(std::string_view description){}
+        virtual void customStageStarted(StringView description){}
         /** This event is fired when a custom loading stage
             has been completed. The number of stages required will have been 
             included in the resourceCount passed in resourceGroupLoadStarted.
         */
         virtual void customStageEnded() {}
         /** This event is fired when a resource group finished loading. */
-        virtual void resourceGroupLoadEnded(std::string_view groupName) {}
+        virtual void resourceGroupLoadEnded(StringView groupName) {}
         /** This event is fired when a resource was just created.
         @param resource Weak reference to the resource created.
         */
@@ -204,14 +204,14 @@ class ScriptLoader;
         virtual ~ResourceLoadingListener() = default;
 
         /** This event is called when a resource beings loading. */
-        virtual auto resourceLoading(std::string_view name, std::string_view group, Resource *resource) noexcept -> DataStreamPtr { return nullptr; }
+        virtual auto resourceLoading(StringView name, StringView group, Resource *resource) noexcept -> DataStreamPtr { return nullptr; }
 
         /** This event is called when a resource stream has been opened, but not processed yet. 
 
             You may alter the stream if you wish or alter the incoming pointer to point at
             another stream if you wish.
         */
-        virtual void resourceStreamOpened(std::string_view name, std::string_view group, Resource *resource, DataStreamPtr& dataStream) {}
+        virtual void resourceStreamOpened(StringView name, StringView group, Resource *resource, DataStreamPtr& dataStream) {}
 
         /** This event is called when a resource collides with another existing one in a resource manager
 
@@ -319,8 +319,8 @@ class ScriptLoader;
             // in global pool flag - if true the resource will be loaded even a different   group was requested in the load method as a parameter.
             bool inGlobalPool;
 
-            void addToIndex(std::string_view filename, Archive* arch);
-            void removeFromIndex(std::string_view filename, Archive* arch);
+            void addToIndex(StringView filename, Archive* arch);
+            void removeFromIndex(StringView filename, Archive* arch);
             void removeFromIndex(Archive* arch);
 
         };
@@ -345,54 +345,54 @@ class ScriptLoader;
         /** Adds a created resource to a group. */
         void addCreatedResource(ResourcePtr& res, ResourceGroup& group) const;
         /** Get resource group */
-        [[nodiscard]] auto getResourceGroup(std::string_view name, bool throwOnFailure = false) const -> ResourceGroup*;
+        [[nodiscard]] auto getResourceGroup(StringView name, bool throwOnFailure = false) const -> ResourceGroup*;
         /** Drops contents of a group, leave group there, notify ResourceManagers. */
         void dropGroupContents(ResourceGroup* grp);
         /** Delete a group for shutdown - don't notify ResourceManagers. */
         void deleteGroup(ResourceGroup* grp);
         /// Internal find method for auto groups
         [[nodiscard]] auto
-        resourceExistsInAnyGroupImpl(std::string_view filename) const -> std::pair<Archive*, ResourceGroup*>;
+        resourceExistsInAnyGroupImpl(StringView filename) const -> std::pair<Archive*, ResourceGroup*>;
         /// Internal event firing method
-        void fireResourceGroupScriptingStarted(std::string_view groupName, size_t scriptCount) const;
+        void fireResourceGroupScriptingStarted(StringView groupName, size_t scriptCount) const;
         /// Internal event firing method
-        void fireScriptStarted(std::string_view scriptName, bool &skipScript) const;
+        void fireScriptStarted(StringView scriptName, bool &skipScript) const;
         /// Internal event firing method
-        void fireScriptEnded(std::string_view scriptName, bool skipped) const;
+        void fireScriptEnded(StringView scriptName, bool skipped) const;
         /// Internal event firing method
-        void fireResourceGroupScriptingEnded(std::string_view groupName) const;
+        void fireResourceGroupScriptingEnded(StringView groupName) const;
         /// Internal event firing method
-        void fireResourceGroupLoadStarted(std::string_view groupName, size_t resourceCount) const;
+        void fireResourceGroupLoadStarted(StringView groupName, size_t resourceCount) const;
         /// Internal event firing method
         void fireResourceLoadStarted(const ResourcePtr& resource) const;
         /// Internal event firing method
         void fireResourceLoadEnded() const;
         /// Internal event firing method
-        void fireResourceGroupLoadEnded(std::string_view groupName) const;
+        void fireResourceGroupLoadEnded(StringView groupName) const;
         /// Internal event firing method
-        void fireResourceGroupPrepareStarted(std::string_view groupName, size_t resourceCount) const;
+        void fireResourceGroupPrepareStarted(StringView groupName, size_t resourceCount) const;
         /// Internal event firing method
         void fireResourcePrepareStarted(const ResourcePtr& resource) const;
         /// Internal event firing method
         void fireResourcePrepareEnded() const;
         /// Internal event firing method
-        void fireResourceGroupPrepareEnded(std::string_view groupName) const;
+        void fireResourceGroupPrepareEnded(StringView groupName) const;
         /// Internal event firing method
         void fireResourceCreated(const ResourcePtr& resource) const;
         /// Internal event firing method
         void fireResourceRemove(const ResourcePtr& resource) const;
         /** Internal modification time retrieval */
-        auto resourceModifiedTime(ResourceGroup* group, std::string_view filename) const -> time_t;
+        auto resourceModifiedTime(ResourceGroup* group, StringView filename) const -> time_t;
 
         /** Find out if the named file exists in a group. Internal use only
          @param group Pointer to the resource group
          @param filename Fully qualified name of the file to test for
          */
-        auto resourceExists(ResourceGroup* group, std::string_view filename) const -> Archive*;
+        auto resourceExists(ResourceGroup* group, StringView filename) const -> Archive*;
 
         /** Open resource with optional searching in other groups if it is not found. Internal use only */
-        auto openResourceImpl(std::string_view resourceName,
-            std::string_view groupName,
+        auto openResourceImpl(StringView resourceName,
+            StringView groupName,
             bool searchGroupsIfNotFound,
             Resource* resourceBeingLoaded,
             bool throwOnFailure = true) const -> DataStreamPtr;
@@ -410,7 +410,7 @@ class ScriptLoader;
             group was requested in the load method as a parameter.
         @see @ref Resource-Management
         */
-        void createResourceGroup(std::string_view name, bool inGlobalPool = false);
+        void createResourceGroup(StringView name, bool inGlobalPool = false);
 
 
         /** Initialises a resource group.
@@ -426,7 +426,7 @@ class ScriptLoader;
         @param name The name of the resource group to initialise
         @see @ref Resource-Management
         */
-        void initialiseResourceGroup(std::string_view name);
+        void initialiseResourceGroup(StringView name);
 
         /** Initialise all resource groups which are yet to be initialised.
         @see #initialiseResourceGroup
@@ -445,7 +445,7 @@ class ScriptLoader;
             which have been registered to update them on progress. 
         @param name The name of the resource group to prepare.
         */
-        void prepareResourceGroup(std::string_view name);
+        void prepareResourceGroup(StringView name);
 
         /** Loads a resource group.
 
@@ -459,7 +459,7 @@ class ScriptLoader;
             which have been registered to update them on progress. 
         @param name The name of the resource group to load.
         */
-        void loadResourceGroup(std::string_view name);
+        void loadResourceGroup(StringView name);
 
         /** Unloads a resource group.
 
@@ -476,7 +476,7 @@ class ScriptLoader;
             manually later.
             @see Resource::isReloadable for resource is reloadable.
         */
-        void unloadResourceGroup(std::string_view name, bool reloadableOnly = true);
+        void unloadResourceGroup(StringView name, bool reloadableOnly = true);
 
         /** Unload all resources which are not referenced by any other object.
 
@@ -489,7 +489,7 @@ class ScriptLoader;
         @param reloadableOnly If true (the default), only unloads resources
             which can be subsequently automatically reloaded
         */
-        void unloadUnreferencedResourcesInGroup(std::string_view name, 
+        void unloadUnreferencedResourcesInGroup(StringView name, 
             bool reloadableOnly = true);
 
         /** Clears a resource group. 
@@ -501,14 +501,14 @@ class ScriptLoader;
             any more. Resource locations still persist though.
         @param name The name to of the resource group to clear.
         */
-        void clearResourceGroup(std::string_view name);
+        void clearResourceGroup(StringView name);
         
         /** Destroys a resource group, clearing it first, destroying the resources
             which are part of it, and then removing it from
             the list of resource groups. 
         @param name The name of the resource group to destroy.
         */
-        void destroyResourceGroup(std::string_view name);
+        void destroyResourceGroup(StringView name);
 
         /** Checks the status of a resource group.
         @remarks
@@ -517,7 +517,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        [[nodiscard]] auto isResourceGroupInitialised(std::string_view name) const -> bool;
+        [[nodiscard]] auto isResourceGroupInitialised(StringView name) const -> bool;
 
         /** Checks the status of a resource group.
         @remarks
@@ -526,12 +526,12 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        [[nodiscard]] auto isResourceGroupLoaded(std::string_view name) const -> bool;
+        [[nodiscard]] auto isResourceGroupLoaded(StringView name) const -> bool;
 
         /*** Verify if a resource group exists
         @param name The name of the resource group to look for
         */
-        [[nodiscard]] auto resourceGroupExists(std::string_view name) const -> bool;
+        [[nodiscard]] auto resourceGroupExists(StringView name) const -> bool;
 
         /** Adds a location to the list of searchable locations for a
             Resource type.
@@ -557,14 +557,14 @@ class ScriptLoader;
             @param readOnly whether the Archive is read only
             @see @ref Resource-Management
         */
-        void addResourceLocation(std::string_view name, std::string_view locType, 
-            std::string_view resGroup = DEFAULT_RESOURCE_GROUP_NAME, bool recursive = false, bool readOnly = true);
+        void addResourceLocation(StringView name, StringView locType, 
+            StringView resGroup = DEFAULT_RESOURCE_GROUP_NAME, bool recursive = false, bool readOnly = true);
         /** Removes a resource location from the search path. */ 
-        void removeResourceLocation(std::string_view name, 
-            std::string_view resGroup = DEFAULT_RESOURCE_GROUP_NAME);
+        void removeResourceLocation(StringView name, 
+            StringView resGroup = DEFAULT_RESOURCE_GROUP_NAME);
         /** Verify if a resource location exists for the given group. */ 
-        [[nodiscard]] auto resourceLocationExists(std::string_view name, 
-            std::string_view resGroup = DEFAULT_RESOURCE_GROUP_NAME) const -> bool;
+        [[nodiscard]] auto resourceLocationExists(StringView name, 
+            StringView resGroup = DEFAULT_RESOURCE_GROUP_NAME) const -> bool;
 
         /** Declares a resource to be a part of a resource group, allowing you 
             to load and unload it as part of the group.
@@ -588,8 +588,8 @@ class ScriptLoader;
             be loaded. These are specific to the resource type.
         @see @ref Resource-Management
         */
-        void declareResource(std::string_view name, std::string_view resourceType,
-            std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME,
+        void declareResource(StringView name, StringView resourceType,
+            StringView groupName = DEFAULT_RESOURCE_GROUP_NAME,
             const NameValuePairList& loadParameters = NameValuePairList());
         /** @copydoc declareResource
             @param loader Pointer to a ManualResourceLoader implementation which will
@@ -598,8 +598,8 @@ class ScriptLoader;
             @note We don't support declare manually loaded resource without loader
                 here, since it's meaningless.
         */
-        void declareResource(std::string_view name, std::string_view resourceType,
-            std::string_view groupName, ManualResourceLoader* loader,
+        void declareResource(StringView name, StringView resourceType,
+            StringView groupName, ManualResourceLoader* loader,
             const NameValuePairList& loadParameters = NameValuePairList());
         /** Undeclare a resource.
         @remarks
@@ -611,7 +611,7 @@ class ScriptLoader;
         @param name The name of the resource. 
         @param groupName The name of the group this resource was declared in. 
         */
-        void undeclareResource(std::string_view name, std::string_view groupName);
+        void undeclareResource(StringView name, StringView groupName);
 
         /** Open a single resource by name and return a DataStream
             pointing at the source of the data.
@@ -631,8 +631,8 @@ class ScriptLoader;
         @return Shared pointer to data stream containing the data, will be
             destroyed automatically when no longer referenced
         */
-        auto openResource(std::string_view resourceName,
-                                   std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME,
+        auto openResource(StringView resourceName,
+                                   StringView groupName = DEFAULT_RESOURCE_GROUP_NAME,
                                    Resource* resourceBeingLoaded = nullptr,
                                    bool throwOnFailure = true) const -> DataStreamPtr
         {
@@ -651,8 +651,8 @@ class ScriptLoader;
         @return Shared pointer to a data stream list , will be
             destroyed automatically when no longer referenced
         */
-        [[nodiscard]] auto openResources(std::string_view pattern,
-            std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME) const -> DataStreamList;
+        [[nodiscard]] auto openResources(StringView pattern,
+            StringView groupName = DEFAULT_RESOURCE_GROUP_NAME) const -> DataStreamList;
         
         /** List all file or directory names in a resource group.
         @note
@@ -662,7 +662,7 @@ class ScriptLoader;
         @param dirs If true, directory names will be returned instead of file names
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        [[nodiscard]] auto listResourceNames(std::string_view groupName, bool dirs = false) const -> StringVectorPtr;
+        [[nodiscard]] auto listResourceNames(StringView groupName, bool dirs = false) const -> StringVectorPtr;
 
         /** List all files in a resource group with accompanying information.
         @param groupName The name of the group
@@ -670,7 +670,7 @@ class ScriptLoader;
         @return A list of structures detailing quite a lot of information about
         all the files in the archive.
         */
-        [[nodiscard]] auto listResourceFileInfo(std::string_view groupName, bool dirs = false) const -> FileInfoListPtr;
+        [[nodiscard]] auto listResourceFileInfo(StringView groupName, bool dirs = false) const -> FileInfoListPtr;
 
         /** Find all file or directory names matching a given pattern in a
             resource group.
@@ -683,19 +683,19 @@ class ScriptLoader;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        [[nodiscard]] auto findResourceNames(std::string_view groupName, std::string_view pattern,
+        [[nodiscard]] auto findResourceNames(StringView groupName, StringView pattern,
             bool dirs = false) const -> StringVectorPtr;
 
         /** Find out if the named file exists in a group. 
         @param group The name of the resource group
         @param filename Fully qualified name of the file to test for
         */
-        [[nodiscard]] auto resourceExists(std::string_view group, std::string_view filename) const -> bool;
+        [[nodiscard]] auto resourceExists(StringView group, StringView filename) const -> bool;
         
         /** Find out if the named file exists in any group. 
         @param filename Fully qualified name of the file to test for
         */
-        [[nodiscard]] auto resourceExistsInAnyGroup(std::string_view filename) const -> bool;
+        [[nodiscard]] auto resourceExistsInAnyGroup(StringView filename) const -> bool;
 
         /** Find the group in which a resource exists.
         @param filename Fully qualified name of the file the resource should be
@@ -703,7 +703,7 @@ class ScriptLoader;
         @return Name of the resource group the resource was found in. An
             exception is thrown if the group could not be determined.
         */
-        [[nodiscard]] auto findGroupContainingResource(std::string_view filename) const -> std::string_view ;
+        [[nodiscard]] auto findGroupContainingResource(StringView filename) const -> StringView ;
 
         /** Find all files or directories matching a given pattern in a group
             and get some detailed information about them.
@@ -714,16 +714,16 @@ class ScriptLoader;
         @return A list of file information structures for all files matching 
         the criteria.
         */
-        [[nodiscard]] auto findResourceFileInfo(std::string_view group, std::string_view pattern,
+        [[nodiscard]] auto findResourceFileInfo(StringView group, StringView pattern,
             bool dirs = false) const -> FileInfoListPtr;
 
         /** Retrieve the modification time of a given file */
-        [[nodiscard]] auto resourceModifiedTime(std::string_view group, std::string_view filename) const -> time_t;
+        [[nodiscard]] auto resourceModifiedTime(StringView group, StringView filename) const -> time_t;
         /** List all resource locations in a resource group.
         @param groupName The name of the group
         @return A list of resource locations matching the criteria
         */
-        [[nodiscard]] auto listResourceLocations(std::string_view groupName) const -> StringVectorPtr;
+        [[nodiscard]] auto listResourceLocations(StringView groupName) const -> StringVectorPtr;
 
         /** Find all resource location names matching a given pattern in a
             resource group.
@@ -731,7 +731,7 @@ class ScriptLoader;
         @param pattern The pattern to search for; wildcards (*) are allowed
         @return A list of resource locations matching the criteria
         */
-        [[nodiscard]] auto findResourceLocation(std::string_view groupName, std::string_view pattern) const -> StringVectorPtr;
+        [[nodiscard]] auto findResourceLocation(StringView groupName, StringView pattern) const -> StringVectorPtr;
 
         /** Create a new resource file in a given group.
         @remarks
@@ -747,8 +747,8 @@ class ScriptLoader;
             only locations which match that pattern (as determined by StringUtil::match)
             will be considered candidates for creation.
         */
-        auto createResource(std::string_view filename, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            bool overwrite = false, std::string_view locationPattern = BLANKSTRING) -> DataStreamPtr;
+        auto createResource(StringView filename, StringView groupName = DEFAULT_RESOURCE_GROUP_NAME, 
+            bool overwrite = false, StringView locationPattern = BLANKSTRING) -> DataStreamPtr;
 
         /** Delete a single resource file.
         @param filename The name of the file to delete. 
@@ -759,8 +759,8 @@ class ScriptLoader;
             only locations which match that pattern (as determined by StringUtil::match)
             will be considered candidates for deletion.
         */
-        void deleteResource(std::string_view filename, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            std::string_view locationPattern = BLANKSTRING);
+        void deleteResource(StringView filename, StringView groupName = DEFAULT_RESOURCE_GROUP_NAME, 
+            StringView locationPattern = BLANKSTRING);
 
         /** Delete all matching resource files.
         @param filePattern The pattern (see StringUtil::match) of the files to delete. 
@@ -771,8 +771,8 @@ class ScriptLoader;
             only locations which match that pattern (as determined by StringUtil::match)
             will be considered candidates for deletion.
         */
-        void deleteMatchingResources(std::string_view filePattern, std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME, 
-            std::string_view locationPattern = BLANKSTRING);
+        void deleteMatchingResources(StringView filePattern, StringView groupName = DEFAULT_RESOURCE_GROUP_NAME, 
+            StringView locationPattern = BLANKSTRING);
 
         /** Adds a ResourceGroupListener which will be called back during 
             resource loading events. 
@@ -787,10 +787,10 @@ class ScriptLoader;
             world geometry when looking for their resources. Defaults to the 
             DEFAULT_RESOURCE_GROUP_NAME but this can be altered.
         */
-        void setWorldResourceGroupName(std::string_view groupName) {mWorldGroupName = groupName;}
+        void setWorldResourceGroupName(StringView groupName) {mWorldGroupName = groupName;}
 
         /// Gets the resource group that 'world' resources will use.
-        [[nodiscard]] auto getWorldResourceGroupName() const noexcept -> std::string_view { return mWorldGroupName; }
+        [[nodiscard]] auto getWorldResourceGroupName() const noexcept -> StringView { return mWorldGroupName; }
 
         /** Declare the number custom loading stages for a resource group
 
@@ -801,9 +801,9 @@ class ScriptLoader;
         @see #_notifyCustomStageStarted
         @see #_notifyCustomStageEnded
         */
-        void setCustomStagesForResourceGroup(std::string_view group, uint32 stageCount);
+        void setCustomStagesForResourceGroup(StringView group, uint32 stageCount);
 
-        auto getCustomStagesForResourceGroup(std::string_view group) -> uint32;
+        auto getCustomStagesForResourceGroup(StringView group) -> uint32;
 
             /** Checks the status of a resource group.
         @remarks
@@ -812,7 +812,7 @@ class ScriptLoader;
             group return true, otherwise return false.
         @param name The name to of the resource group to access.
         */
-        [[nodiscard]] auto isResourceGroupInGlobalPool(std::string_view name) const -> bool;
+        [[nodiscard]] auto isResourceGroupInGlobalPool(StringView name) const -> bool;
 
         /** Shutdown all ResourceManagers, performed as part of clean-up. */
         void shutdownAll();
@@ -827,7 +827,7 @@ class ScriptLoader;
         @param resourceType String identifying the resource type, must be unique.
         @param rm Pointer to the ResourceManager instance.
         */
-        void _registerResourceManager(std::string_view resourceType, ResourceManager* rm);
+        void _registerResourceManager(StringView resourceType, ResourceManager* rm);
 
         /** Internal method for unregistering a ResourceManager.
         @remarks
@@ -835,7 +835,7 @@ class ScriptLoader;
             _unregisterScriptLoader.
         @param resourceType String identifying the resource type.
         */
-        void _unregisterResourceManager(std::string_view resourceType);
+        void _unregisterResourceManager(StringView resourceType);
 
         /** Get the registered resource managers.
         */
@@ -855,12 +855,12 @@ class ScriptLoader;
         /** Method used to directly query for registered script loaders.
         @param pattern The specific script pattern (e.g. *.material) the script loader handles
         */
-        [[nodiscard]] auto _findScriptLoader(std::string_view pattern) const -> ScriptLoader *;
+        [[nodiscard]] auto _findScriptLoader(StringView pattern) const -> ScriptLoader *;
 
         /** Internal method for getting a registered ResourceManager.
         @param resourceType String identifying the resource type.
         */
-        [[nodiscard]] auto _getResourceManager(std::string_view resourceType) const -> ResourceManager*;
+        [[nodiscard]] auto _getResourceManager(StringView resourceType) const -> ResourceManager*;
 
         /** Internal method called by ResourceManager when a resource is created.
         @param res Weak reference to resource
@@ -874,7 +874,7 @@ class ScriptLoader;
 
         /** Internal method to notify the group manager that a resource has
             changed group (only applicable for autodetect group) */
-        void _notifyResourceGroupChanged(std::string_view oldGroup, Resource* res) const;
+        void _notifyResourceGroupChanged(StringView oldGroup, Resource* res) const;
 
         /** Internal method called by ResourceManager when all resources 
             for that manager are removed.
@@ -887,7 +887,7 @@ class ScriptLoader;
         User code should call this method the number of times equal to the value declared
         in #setCustomStagesForResourceGroup.
         */
-        void _notifyCustomStageStarted(std::string_view description) const;
+        void _notifyCustomStageStarted(StringView description) const;
         /** Notify this manager that one custom loading stage has been completed
 
         User code should call this method the number of times equal to the value declared
@@ -907,13 +907,13 @@ class ScriptLoader;
         @param groupName The name of the group
         @return A copy of list of currently defined resources.
         */
-        [[nodiscard]] auto getResourceDeclarationList(std::string_view groupName) const -> ResourceDeclarationList;
+        [[nodiscard]] auto getResourceDeclarationList(StringView groupName) const -> ResourceDeclarationList;
 
         /** Get the list of resource locations for the specified group name.
         @param groupName The name of the group
         @return The list of resource locations associated with the given group.
         */      
-        [[nodiscard]] auto getResourceLocationList(std::string_view groupName) const -> const LocationList&;
+        [[nodiscard]] auto getResourceLocationList(StringView groupName) const -> const LocationList&;
 
         /// Sets a new loading listener
         void setLoadingListener(ResourceLoadingListener *listener);

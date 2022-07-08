@@ -206,7 +206,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles confirmation dialog responses.
           -----------------------------------------------------------------------------*/
-        void yesNoDialogClosed(const Ogre::DisplayString& question, bool yesHit) override
+        void yesNoDialogClosed(Ogre::StringView question, bool yesHit) override
         {
             if (question.substr(0, 14) == "This will stop" && yesHit)   // confirm unloading of samples
             {
@@ -474,8 +474,8 @@ namespace OgreBites
         void sliderMoved(Slider* slider) override
         {
             // format the caption to be fraction style
-            Ogre::String denom = ::std::format("/{}", mSampleMenu->getNumItems());
-            slider->setValueCaption(slider->getValueCaption() + denom);
+            Ogre::String denom = ::std::format("{}/{}", slider->getValueCaption(), mSampleMenu->getNumItems());
+            slider->setValueCaption(denom);
 
             // tell the sample menu to change if it hasn't already
             if (mSampleMenu->getSelectionIndex() != -1 && mSampleMenu->getSelectionIndex() != slider->getValue() - 1)
@@ -721,7 +721,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Overrides the default window title.
           -----------------------------------------------------------------------------*/
-        auto createWindow(std::string_view name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) -> NativeWindowPair override
+        auto createWindow(StringView name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) -> NativeWindowPair override
         {
             return ApplicationContext::createWindow(name, w, h, miscParams);
         }
@@ -912,7 +912,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends reconfigure to save the view and the index of last sample run.
           -----------------------------------------------------------------------------*/
-        void reconfigure(std::string_view renderer, Ogre::NameValuePairList& options) override
+        void reconfigure(StringView renderer, Ogre::NameValuePairList& options) override
         {
             mLastViewCategory = mCategoryMenu->getSelectionIndex();
             mLastViewTitle = mSampleMenu->getSelectionIndex();

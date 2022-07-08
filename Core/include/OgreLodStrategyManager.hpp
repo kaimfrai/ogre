@@ -72,7 +72,7 @@ class LodStrategy;
             The removed strategy is returned so the user can control
             how it is destroyed.
         */
-        auto removeStrategy(std::string_view name) -> LodStrategy *;
+        auto removeStrategy(StringView name) -> LodStrategy *;
 
         /** Remove and delete all strategies from the manager.
         @remarks
@@ -82,13 +82,13 @@ class LodStrategy;
         void removeAllStrategies();
 
         /** Get the strategy with the specified name. */
-        auto getStrategy(std::string_view name) -> LodStrategy *;
+        auto getStrategy(StringView name) -> LodStrategy *;
 
         /** Set the default strategy. */
         void setDefaultStrategy(LodStrategy *strategy);
 
         /** Set the default strategy by name. */
-        void setDefaultStrategy(std::string_view name);
+        void setDefaultStrategy(StringView name);
 
         /** Get the current default strategy. */
         auto getDefaultStrategy() -> LodStrategy *;

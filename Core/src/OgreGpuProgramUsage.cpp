@@ -60,7 +60,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
 
-    auto GpuProgramUsage::_getProgramByName(std::string_view name, std::string_view group,
+    auto GpuProgramUsage::_getProgramByName(StringView name, StringView group,
                                                      GpuProgramType type) -> GpuProgramPtr
     {
         GpuProgramPtr program =
@@ -75,13 +75,13 @@ namespace Ogre
         {
             String progType = GpuProgram::getProgramTypeName(type);
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                        ::std::format("Unable to locate {} program called ", progType ) + name);
+                        ::std::format("Unable to locate {} program called {}", progType, name));
         }
 
         return program;
     }
 
-    void GpuProgramUsage::setProgramName(std::string_view name, bool resetParams)
+    void GpuProgramUsage::setProgramName(StringView name, bool resetParams)
     {
         setProgram(_getProgramByName(name, mParent->getResourceGroup(), mType), resetParams);
     }

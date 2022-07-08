@@ -224,7 +224,7 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        [[nodiscard]] virtual auto getAnimableDictionaryName() const noexcept -> std::string_view
+        [[nodiscard]] virtual auto getAnimableDictionaryName() const noexcept -> StringView
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.
@@ -253,7 +253,7 @@ namespace Ogre {
             using AnimationTrack. Subclasses must override this if they wish 
             to support animation of their values.
         */
-        virtual auto createAnimableValue(std::string_view valueName) -> AnimableValuePtr
+        virtual auto createAnimableValue(StringView valueName) -> AnimableValuePtr
         {
             OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
                 ::std::format("No animable value named '{}' present.", valueName ), 

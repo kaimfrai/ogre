@@ -131,7 +131,7 @@ class VertexData;
         @param useColours If true, use vertex colours from the chain elements
         @param dynamic If true, buffers are created with the intention of being updated
         */
-        BillboardChain(std::string_view name, size_t maxElements = 20, size_t numberOfChains = 1, 
+        BillboardChain(StringView name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useColours = true, bool dynamic = true);
 
         ~BillboardChain() override;
@@ -272,9 +272,9 @@ class VertexData;
         void setFaceCamera( bool faceCamera, const Vector3 &normalVector=Vector3::UNIT_X );
 
         /// Get the material name in use
-        virtual auto getMaterialName() const noexcept -> std::string_view { return mMaterial->getName(); }
+        virtual auto getMaterialName() const noexcept -> StringView { return mMaterial->getName(); }
         /// Set the material name to use for rendering
-        virtual void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        virtual void setMaterialName( StringView name, StringView groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
 
         // Overridden members follow
@@ -282,7 +282,7 @@ class VertexData;
         auto getBoundingRadius() const -> Real override;
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
         auto getMaterial() const noexcept -> const MaterialPtr& override;
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> StringView override;
         void _updateRenderQueue(RenderQueue *) override;
         void getRenderOperation(RenderOperation &) override;
         auto preRender(SceneManager* sm, RenderSystem* rsys) -> bool override;
@@ -383,14 +383,14 @@ class VertexData;
     class BillboardChainFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( StringView name, const NameValuePairList* params) -> MovableObject* override;
     public:
         BillboardChainFactory() = default;
         ~BillboardChainFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getType() const noexcept -> StringView override;
     };
 
     /** @} */

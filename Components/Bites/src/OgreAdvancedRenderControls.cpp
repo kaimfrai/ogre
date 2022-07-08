@@ -174,7 +174,7 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
     else if (key == SDLK_F2) {
         if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) {
             Ogre::Viewport* mainVP = mCamera->getViewport();
-            std::string_view curMaterialScheme = mainVP->getMaterialScheme();
+            StringView curMaterialScheme = mainVP->getMaterialScheme();
 
             if (curMaterialScheme == Ogre::MaterialManager::DEFAULT_SCHEME_NAME) {
                 mainVP->setMaterialScheme(Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME);

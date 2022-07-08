@@ -74,7 +74,7 @@ class TagPoint;
         /** Gets a single animation by index. */
         auto getAnimation(unsigned short index) const -> Animation* override;
         /// Internal accessor for animations (returns null if animation does not exist)
-        auto _getAnimationImpl(std::string_view name, 
+        auto _getAnimationImpl(StringView name, 
             const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation* override;
 
         /** Creates a new Animation object for animating this skeleton. 
@@ -83,17 +83,17 @@ class TagPoint;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        auto createAnimation(std::string_view name, Real length) -> Animation* override;
+        auto createAnimation(StringView name, Real length) -> Animation* override;
 
         /** Returns the named Animation object. */
-        auto getAnimation(std::string_view name, 
+        auto getAnimation(StringView name, 
             const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation* override;
 
         /** Removes an Animation from this skeleton. 
         @remarks
             This method updates the reference skeleton, not just this instance!
         */
-        void removeAnimation(std::string_view name) override;
+        void removeAnimation(StringView name) override;
 
 
         /** Creates a TagPoint ready to be attached to a bone */
@@ -105,7 +105,7 @@ class TagPoint;
         void freeTagPoint(TagPoint* tagPoint);
 
         /// @copydoc Skeleton::addLinkedSkeletonAnimationSource
-        void addLinkedSkeletonAnimationSource(std::string_view skelName, 
+        void addLinkedSkeletonAnimationSource(StringView skelName, 
             Real scale = 1.0f) override;
         /// @copydoc Skeleton::removeAllLinkedSkeletonAnimationSources
         void removeAllLinkedSkeletonAnimationSources() override;
@@ -119,11 +119,11 @@ class TagPoint;
         void _refreshAnimationState(AnimationStateSet* animSet) override;
 
         /// @copydoc Resource::getName
-        auto getName() const noexcept -> std::string_view ;
+        auto getName() const noexcept -> StringView ;
         /// @copydoc Resource::getHandle
         auto getHandle() const -> ResourceHandle;
         /// @copydoc Resource::getGroup
-        auto getGroup() const noexcept -> std::string_view ;
+        auto getGroup() const noexcept -> StringView ;
 
     private:
         /// Pointer back to master Skeleton

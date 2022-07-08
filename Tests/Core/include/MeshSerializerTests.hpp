@@ -86,7 +86,7 @@ public:
     auto isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool;
 
     void getResourceFullPath(const ResourcePtr& resource, String& outPath);
-    auto copyFile(std::string_view srcPath, std::string_view dstPath) -> bool;
+    auto copyFile(StringView srcPath, StringView dstPath) -> bool;
     auto isLodMixed(const Mesh* pMesh) -> bool;
     auto isEqual(Real a, Real b) -> bool;
     auto isEqual(const Vector3& a, const Vector3& b) -> bool;

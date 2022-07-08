@@ -61,8 +61,8 @@ namespace Ogre {
 
 		using ImageCodec::decode;
         [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
-		auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view override;
-        [[nodiscard]] auto getType() const -> std::string_view override;
+		auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView override;
+        [[nodiscard]] auto getType() const -> StringView override;
 
 		/// Static method to startup and register the ASTC codec
 		static void startup();

@@ -104,7 +104,7 @@ namespace Ogre {
         mResourceGroupMap.clear();
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::createResourceGroup(std::string_view name, bool inGlobalPool)
+    void ResourceGroupManager::createResourceGroup(StringView name, bool inGlobalPool)
     {
         LogManager::getSingleton().logMessage(::std::format("Creating resource group {}", name));
         if (getResourceGroup(name))
@@ -122,7 +122,7 @@ namespace Ogre {
         mResourceGroupMap.emplace(name, grp);
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::initialiseResourceGroup(std::string_view name)
+    void ResourceGroupManager::initialiseResourceGroup(StringView name)
     {
         LogManager::getSingleton().logMessage(::std::format("Initialising resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
@@ -165,7 +165,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::prepareResourceGroup(std::string_view name)
+    void ResourceGroupManager::prepareResourceGroup(StringView name)
     {
         LogManager::getSingleton().stream() << "Preparing resource group '" << name << "'";
         // load all created resources
@@ -227,7 +227,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Finished preparing resource group {}", name));
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::loadResourceGroup(std::string_view name)
+    void ResourceGroupManager::loadResourceGroup(StringView name)
     {
         LogManager::getSingleton().stream() << "Loading resource group '" << name << "'";
         // load all created resources
@@ -292,7 +292,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Finished loading resource group {}", name));
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::unloadResourceGroup(std::string_view name, bool reloadableOnly)
+    void ResourceGroupManager::unloadResourceGroup(StringView name, bool reloadableOnly)
     {
         LogManager::getSingleton().logMessage(::std::format("Unloading resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
@@ -321,7 +321,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::unloadUnreferencedResourcesInGroup(
-        std::string_view name, bool reloadableOnly )
+        StringView name, bool reloadableOnly )
     {
         LogManager::getSingleton().logMessage(
             ::std::format("Unloading unused resources in resource group {}", name));
@@ -355,7 +355,7 @@ namespace Ogre {
             ::std::format("Finished unloading unused resources in resource group {}", name));
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::clearResourceGroup(std::string_view name)
+    void ResourceGroupManager::clearResourceGroup(StringView name)
     {
             LogManager::getSingleton().logMessage(::std::format("Clearing resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
@@ -369,7 +369,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Finished clearing resource group {}", name));
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::destroyResourceGroup(std::string_view name)
+    void ResourceGroupManager::destroyResourceGroup(StringView name)
     {
         LogManager::getSingleton().logMessage(::std::format("Destroying resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
@@ -383,25 +383,25 @@ namespace Ogre {
         mCurrentGroup = nullptr;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupInitialised(std::string_view name) const -> bool
+    auto ResourceGroupManager::isResourceGroupInitialised(StringView name) const -> bool
     {
         ResourceGroup* grp = getResourceGroup(name, true);
         return (grp->groupStatus != ResourceGroup::UNINITIALSED &&
             grp->groupStatus != ResourceGroup::INITIALISING);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupLoaded(std::string_view name) const -> bool
+    auto ResourceGroupManager::isResourceGroupLoaded(StringView name) const -> bool
     {
         return getResourceGroup(name, true)->groupStatus == ResourceGroup::LOADED;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceGroupExists(std::string_view name) const -> bool
+    auto ResourceGroupManager::resourceGroupExists(StringView name) const -> bool
     {
         return getResourceGroup(name) ? true : false;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceLocationExists(std::string_view name, 
-        std::string_view resGroup) const -> bool
+    auto ResourceGroupManager::resourceLocationExists(StringView name, 
+        StringView resGroup) const -> bool
     {
         ResourceGroup* grp = getResourceGroup(resGroup);
         if (!grp)
@@ -417,8 +417,8 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::addResourceLocation(std::string_view name, 
-        std::string_view locType, std::string_view resGroup, bool recursive, bool readOnly)
+    void ResourceGroupManager::addResourceLocation(StringView name, 
+        StringView locType, StringView resGroup, bool recursive, bool readOnly)
     {
         // Get archive
         Archive* pArch = ArchiveManager::getSingleton().load( name, locType, readOnly );
@@ -449,8 +449,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::removeResourceLocation(std::string_view name, 
-        std::string_view resGroup)
+    void ResourceGroupManager::removeResourceLocation(StringView name, 
+        StringView resGroup)
     {
         ResourceGroup* grp = getResourceGroup(resGroup, true);
 
@@ -473,15 +473,15 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::declareResource(std::string_view name, 
-        std::string_view resourceType, std::string_view groupName,
+    void ResourceGroupManager::declareResource(StringView name, 
+        StringView resourceType, StringView groupName,
         const NameValuePairList& loadParameters)
     {
         declareResource(name, resourceType, groupName, nullptr, loadParameters);
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::declareResource(std::string_view name, 
-        std::string_view resourceType, std::string_view groupName,
+    void ResourceGroupManager::declareResource(StringView name, 
+        StringView resourceType, StringView groupName,
         ManualResourceLoader* loader,
         const NameValuePairList& loadParameters)
     {
@@ -495,8 +495,8 @@ namespace Ogre {
         grp->resourceDeclarations.push_back(dcl);
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::undeclareResource(std::string_view name, 
-        std::string_view groupName)
+    void ResourceGroupManager::undeclareResource(StringView name, 
+        StringView groupName)
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
 
@@ -511,8 +511,8 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::openResourceImpl(std::string_view resourceName,
-                                                     std::string_view groupName,
+    auto ResourceGroupManager::openResourceImpl(StringView resourceName,
+                                                     StringView groupName,
                                                      bool searchGroupsIfNotFound,
                                                      Resource* resourceBeingLoaded,
                                                      bool throwOnFailure) const -> DataStreamPtr
@@ -564,7 +564,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto ResourceGroupManager::openResources(
-        std::string_view pattern, std::string_view groupName) const -> DataStreamList
+        StringView pattern, StringView groupName) const -> DataStreamList
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
 
@@ -592,8 +592,8 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto ResourceGroupManager::createResource(std::string_view filename, 
-        std::string_view groupName, bool overwrite, std::string_view locationPattern) -> DataStreamPtr
+    auto ResourceGroupManager::createResource(StringView filename, 
+        StringView groupName, bool overwrite, StringView locationPattern) -> DataStreamPtr
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
         
@@ -625,8 +625,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void ResourceGroupManager::deleteResource(std::string_view filename, std::string_view groupName, 
-        std::string_view locationPattern)
+    void ResourceGroupManager::deleteResource(StringView filename, StringView groupName, 
+        StringView locationPattern)
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
         
@@ -651,8 +651,8 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    void ResourceGroupManager::deleteMatchingResources(std::string_view filePattern, 
-        std::string_view groupName, std::string_view locationPattern)
+    void ResourceGroupManager::deleteMatchingResources(StringView filePattern, 
+        StringView groupName, StringView locationPattern)
     {
         ResourceGroup* grp = getResourceGroup(groupName, true);
         
@@ -696,7 +696,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::_registerResourceManager(
-        std::string_view resourceType, ResourceManager* rm)
+        StringView resourceType, ResourceManager* rm)
     {
         LogManager::getSingleton().logMessage(
             ::std::format("Registering ResourceManager for type {}", resourceType));
@@ -704,7 +704,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     void ResourceGroupManager::_unregisterResourceManager(
-        std::string_view resourceType)
+        StringView resourceType)
     {
         LogManager::getSingleton().logMessage(
             ::std::format("Unregistering ResourceManager for type {}", resourceType));
@@ -740,7 +740,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::_findScriptLoader(std::string_view pattern) const -> ScriptLoader *
+    auto ResourceGroupManager::_findScriptLoader(StringView pattern) const -> ScriptLoader *
     {
         for (auto const& [key, su] : mScriptLoaderOrderMap)
         {
@@ -909,7 +909,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::_notifyResourceGroupChanged(std::string_view oldGroup, 
+    void ResourceGroupManager::_notifyResourceGroupChanged(StringView oldGroup, 
         Resource* res) const
     {
         ResourcePtr resPtr;
@@ -984,7 +984,7 @@ namespace Ogre {
         loadList.push_back(res);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getResourceGroup(std::string_view name,
+    auto ResourceGroupManager::getResourceGroup(StringView name,
                                                                                 bool throwOnFailure) const -> ResourceGroupManager::ResourceGroup*
     {
         auto i = mResourceGroupMap.find(name);
@@ -1000,14 +1000,14 @@ namespace Ogre {
         return i->second;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::_getResourceManager(std::string_view resourceType) const -> ResourceManager*
+    auto ResourceGroupManager::_getResourceManager(StringView resourceType) const -> ResourceManager*
     {
         auto i = mResourceManagerMap.find(resourceType);
         if (i == mResourceManagerMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
-                "Cannot locate resource manager for resource type '" +
-                resourceType + "'", "ResourceGroupManager::_getResourceManager");
+            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                std::format(
+                "Cannot locate resource manager for resource type '{}'", resourceType), "ResourceGroupManager::_getResourceManager");
         }
         return i->second;
 
@@ -1048,7 +1048,7 @@ namespace Ogre {
         delete grp;
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupScriptingStarted(std::string_view groupName, size_t scriptCount) const
+    void ResourceGroupManager::fireResourceGroupScriptingStarted(StringView groupName, size_t scriptCount) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1056,7 +1056,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireScriptStarted(std::string_view scriptName, bool &skipScript) const
+    void ResourceGroupManager::fireScriptStarted(StringView scriptName, bool &skipScript) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1067,7 +1067,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireScriptEnded(std::string_view scriptName, bool skipped) const
+    void ResourceGroupManager::fireScriptEnded(StringView scriptName, bool skipped) const
     {
             for (auto l : mResourceGroupListenerList)
             {
@@ -1075,7 +1075,7 @@ namespace Ogre {
             }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupScriptingEnded(std::string_view groupName) const
+    void ResourceGroupManager::fireResourceGroupScriptingEnded(StringView groupName) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1083,7 +1083,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupLoadStarted(std::string_view groupName, size_t resourceCount) const
+    void ResourceGroupManager::fireResourceGroupLoadStarted(StringView groupName, size_t resourceCount) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1107,7 +1107,7 @@ namespace Ogre {
             }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::_notifyCustomStageStarted(std::string_view desc) const
+    void ResourceGroupManager::_notifyCustomStageStarted(StringView desc) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1123,7 +1123,7 @@ namespace Ogre {
             }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupLoadEnded(std::string_view groupName) const
+    void ResourceGroupManager::fireResourceGroupLoadEnded(StringView groupName) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1131,7 +1131,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupPrepareStarted(std::string_view groupName, size_t resourceCount) const
+    void ResourceGroupManager::fireResourceGroupPrepareStarted(StringView groupName, size_t resourceCount) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1155,7 +1155,7 @@ namespace Ogre {
             }
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::fireResourceGroupPrepareEnded(std::string_view groupName) const
+    void ResourceGroupManager::fireResourceGroupPrepareEnded(StringView groupName) const
     {
         for (auto l : mResourceGroupListenerList)
         {
@@ -1187,7 +1187,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceNames(std::string_view groupName, bool dirs) const -> StringVectorPtr
+    auto ResourceGroupManager::listResourceNames(StringView groupName, bool dirs) const -> StringVectorPtr
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         StringVectorPtr vec(new StringVector());
@@ -1207,7 +1207,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceFileInfo(std::string_view groupName, bool dirs) const -> FileInfoListPtr
+    auto ResourceGroupManager::listResourceFileInfo(StringView groupName, bool dirs) const -> FileInfoListPtr
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         FileInfoListPtr vec(new FileInfoList());
@@ -1226,8 +1226,8 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceNames(std::string_view groupName, 
-        std::string_view pattern, bool dirs) const -> StringVectorPtr
+    auto ResourceGroupManager::findResourceNames(StringView groupName, 
+        StringView pattern, bool dirs) const -> StringVectorPtr
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         StringVectorPtr vec(new StringVector());
@@ -1245,8 +1245,8 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceFileInfo(std::string_view groupName, 
-        std::string_view pattern, bool dirs) const -> FileInfoListPtr
+    auto ResourceGroupManager::findResourceFileInfo(StringView groupName, 
+        StringView pattern, bool dirs) const -> FileInfoListPtr
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
         FileInfoListPtr vec(new FileInfoList());
@@ -1264,14 +1264,14 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExists(std::string_view groupName, std::string_view resourceName) const -> bool
+    auto ResourceGroupManager::resourceExists(StringView groupName, StringView resourceName) const -> bool
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
         return resourceExists(grp, resourceName) != nullptr;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExists(ResourceGroup* grp, std::string_view resourceName) const -> Archive*
+    auto ResourceGroupManager::resourceExists(ResourceGroup* grp, StringView resourceName) const -> Archive*
     {
         // Try indexes first
         auto rit = grp->resourceIndexCaseSensitive.find(resourceName);
@@ -1284,14 +1284,14 @@ namespace Ogre {
         return nullptr;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(std::string_view groupName, std::string_view resourceName) const -> time_t
+    auto ResourceGroupManager::resourceModifiedTime(StringView groupName, StringView resourceName) const -> time_t
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
         return resourceModifiedTime(grp, resourceName);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, std::string_view resourceName) const -> time_t
+    auto ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, StringView resourceName) const -> time_t
     {
         Archive* arch = resourceExists(grp, resourceName);
         if (arch)
@@ -1303,7 +1303,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto
-    ResourceGroupManager::resourceExistsInAnyGroupImpl(std::string_view filename) const -> std::pair<Archive*, ResourceGroupManager::ResourceGroup*>
+    ResourceGroupManager::resourceExistsInAnyGroupImpl(StringView filename) const -> std::pair<Archive*, ResourceGroupManager::ResourceGroup*>
     {
         OgreAssert(!filename.empty(), "resourceName is empty string");
 
@@ -1318,12 +1318,12 @@ namespace Ogre {
         return {};
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceExistsInAnyGroup(std::string_view filename) const -> bool
+    auto ResourceGroupManager::resourceExistsInAnyGroup(StringView filename) const -> bool
     {
         return resourceExistsInAnyGroupImpl(filename).first != 0;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findGroupContainingResource(std::string_view filename) const -> std::string_view
+    auto ResourceGroupManager::findGroupContainingResource(StringView filename) const -> StringView
     {
         ResourceGroup* grp = resourceExistsInAnyGroupImpl(filename).second;
 
@@ -1331,13 +1331,12 @@ namespace Ogre {
             return grp->name;
 
         OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-            "Unable to derive resource group for " +
-            filename + " automatically since the resource was not "
-            "found.",
+            std::format("Unable to derive resource group for {} automatically since the resource was not "
+            "found.", filename),
             "ResourceGroupManager::findGroupContainingResource");
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceLocations(std::string_view groupName) const -> StringVectorPtr
+    auto ResourceGroupManager::listResourceLocations(StringView groupName) const -> StringVectorPtr
     {
         StringVectorPtr vec(new StringVector());
 
@@ -1353,7 +1352,7 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findResourceLocation(std::string_view groupName, std::string_view pattern) const -> StringVectorPtr
+    auto ResourceGroupManager::findResourceLocation(StringView groupName, StringView pattern) const -> StringVectorPtr
     {
         StringVectorPtr vec(new StringVector());
 
@@ -1374,19 +1373,19 @@ namespace Ogre {
         return vec;
     }
     //-----------------------------------------------------------------------
-    void ResourceGroupManager::setCustomStagesForResourceGroup(std::string_view group, uint32 stageCount)
+    void ResourceGroupManager::setCustomStagesForResourceGroup(StringView group, uint32 stageCount)
     {
         ResourceGroup* grp = getResourceGroup(group, true);
         grp->customStageCount = stageCount;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getCustomStagesForResourceGroup(std::string_view group) -> uint32
+    auto ResourceGroupManager::getCustomStagesForResourceGroup(StringView group) -> uint32
     {
         ResourceGroup* grp = getResourceGroup(group, true);
         return grp->customStageCount;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::isResourceGroupInGlobalPool(std::string_view name) const -> bool
+    auto ResourceGroupManager::isResourceGroupInGlobalPool(StringView name) const -> bool
     {
         return getResourceGroup(name, true)->inGlobalPool;
     }
@@ -1402,13 +1401,13 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto 
-    ResourceGroupManager::getResourceDeclarationList(std::string_view group) const -> ResourceGroupManager::ResourceDeclarationList
+    ResourceGroupManager::getResourceDeclarationList(StringView group) const -> ResourceGroupManager::ResourceDeclarationList
     {
         return getResourceGroup(group, true)->resourceDeclarations;
     }
     //---------------------------------------------------------------------
     auto 
-    ResourceGroupManager::getResourceLocationList(std::string_view group) const -> const ResourceGroupManager::LocationList&
+    ResourceGroupManager::getResourceLocationList(StringView group) const -> const ResourceGroupManager::LocationList&
     {
         return getResourceGroup(group, true)->locationList;
     }
@@ -1424,13 +1423,13 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    void ResourceGroupManager::ResourceGroup::addToIndex(std::string_view filename, Archive* arch)
+    void ResourceGroupManager::ResourceGroup::addToIndex(StringView filename, Archive* arch)
     {
         // internal, assumes mutex lock has already been obtained
         this->resourceIndexCaseSensitive.emplace(filename, arch);
     }
     //---------------------------------------------------------------------
-    void ResourceGroupManager::ResourceGroup::removeFromIndex(std::string_view filename, Archive* arch)
+    void ResourceGroupManager::ResourceGroup::removeFromIndex(StringView filename, Archive* arch)
     {
         // internal, assumes mutex lock has already been obtained
         auto i = this->resourceIndexCaseSensitive.find(filename);

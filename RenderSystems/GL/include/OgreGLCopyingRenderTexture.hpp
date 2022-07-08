@@ -46,10 +46,10 @@ class RenderTexture;
     class GLCopyingRenderTexture: public GLRenderTexture
     {
     public:
-        GLCopyingRenderTexture(GLCopyingRTTManager *manager, std::string_view name, const GLSurfaceDesc &target, 
+        GLCopyingRenderTexture(GLCopyingRTTManager *manager, StringView name, const GLSurfaceDesc &target, 
             bool writeGamma, uint fsaa);
         
-        void getCustomAttribute(std::string_view name, void* pData) override;
+        void getCustomAttribute(StringView name, void* pData) override;
 
         [[nodiscard]] auto getContext() const noexcept -> GLContext* override { return nullptr; }
     };
@@ -60,7 +60,7 @@ class RenderTexture;
     class GLCopyingRTTManager: public GLRTTManager
     {
     public:
-        auto createRenderTexture(std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * override {
+        auto createRenderTexture(StringView name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * override {
             return new GLCopyingRenderTexture(this, name, target, writeGamma, fsaa);
         }
 

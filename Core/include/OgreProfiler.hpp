@@ -154,9 +154,9 @@ namespace Ogre {
                 return history.currentClocksPercent < limit;
         }
 
-        auto watchForMax(std::string_view profileName) -> bool;
-        auto watchForMin(std::string_view profileName) -> bool;
-        auto watchForLimit(std::string_view profileName, long double limit, bool greaterThan = true) -> bool;
+        auto watchForMax(StringView profileName) -> bool;
+        auto watchForMin(StringView profileName) -> bool;
+        auto watchForLimit(StringView profileName, long double limit, bool greaterThan = true) -> bool;
                                 
         /// The name of the profile
         String          name;
@@ -246,7 +246,7 @@ namespace Ogre {
             @param profileName Must be unique and must not be an empty string
             @param groupID A profile group identifier, which can allow you to mask profiles
             */
-            void beginProfile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
+            void beginProfile(StringView profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
 
             /** Ends a profile
             @remarks 
@@ -262,22 +262,22 @@ namespace Ogre {
             @param profileName Must be unique and must not be an empty string
             @param groupID A profile group identifier, which can allow you to mask profiles
             */
-            void endProfile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
+            void endProfile(StringView profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
 
             /** Mark the beginning of a GPU event group
              @remarks Can be safely called in the middle of the profile.
              */
-            void beginGPUEvent(std::string_view event);
+            void beginGPUEvent(StringView event);
 
             /** Mark the end of a GPU event group
              @remarks Can be safely called in the middle of the profile.
              */
-            void endGPUEvent(std::string_view event);
+            void endGPUEvent(StringView event);
 
             /** Mark a specific, ungrouped, GPU event
              @remarks Can be safely called in the middle of the profile.
              */
-            void markGPUEvent(std::string_view event);
+            void markGPUEvent(StringView event);
 
             /** Sets whether this profiler is enabled. Only takes effect after the
                 the frame has ended.
@@ -292,12 +292,12 @@ namespace Ogre {
             /** Enables a previously disabled profile 
             @remarks Can be safely called in the middle of the profile.
             */
-            void enableProfile(std::string_view profileName);
+            void enableProfile(StringView profileName);
 
             /** Disables a profile
             @remarks Can be safely called in the middle of the profile.
             */
-            void disableProfile(std::string_view profileName);
+            void disableProfile(StringView profileName);
 
             /** Set the mask which all profiles must pass to be enabled. 
             */
@@ -311,14 +311,14 @@ namespace Ogre {
             from the previous frame. Therefore, it is best to use this after the frame
             has ended.
             */
-            auto watchForMax(std::string_view profileName) -> bool;
+            auto watchForMax(StringView profileName) -> bool;
 
             /** Returns true if the specified profile reaches a new frame time minimum
             @remarks If this is called during a frame, it will be reading the results
             from the previous frame. Therefore, it is best to use this after the frame
             has ended.
             */
-            auto watchForMin(std::string_view profileName) -> bool;
+            auto watchForMin(StringView profileName) -> bool;
 
             /** Returns true if the specified profile goes over or under the given limit
                 frame time
@@ -330,7 +330,7 @@ namespace Ogre {
             @param greaterThan If true, this will return whether the limit is exceeded. Otherwise,
             it will return if the frame time has gone under this limit.
             */
-            auto watchForLimit(std::string_view profileName, long double limit, bool greaterThan = true) -> bool;
+            auto watchForLimit(StringView profileName, long double limit, bool greaterThan = true) -> bool;
 
             /** Outputs current profile statistics to the log */
             void logResults();
@@ -448,7 +448,7 @@ namespace Ogre {
     {
 
     public:
-        Profile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT)
+        Profile(StringView profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT)
             : mName(profileName), mGroupID(groupID)
         {
             Profiler::getSingleton().beginProfile(profileName, groupID);

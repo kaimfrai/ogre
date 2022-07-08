@@ -67,19 +67,19 @@ class ResourceManager;
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, std::string_view shaderNames) override;
+            void doSet(void* target, StringView shaderNames) override;
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, std::string_view val) override;
+            void doSet(void* target, StringView val) override;
         };
 
         GLSLShaderCommon(ResourceManager* creator,
-            std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader);
+            StringView name, ResourceHandle handle,
+            StringView group, bool isManual, ManualResourceLoader* loader);
 
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
@@ -88,7 +88,7 @@ class ResourceManager;
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
-        void attachChildShader(std::string_view name);
+        void attachChildShader(StringView name);
 
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }

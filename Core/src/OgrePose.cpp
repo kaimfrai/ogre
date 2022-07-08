@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    Pose::Pose(ushort target, std::string_view name)
+    Pose::Pose(ushort target, StringView name)
         : mTarget(target), mName(name)
     {
     }

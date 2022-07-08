@@ -65,7 +65,7 @@ namespace Ogre
             virtual ~GLNativeSupport() = default;
 
             /// @copydoc RenderSystem::_createRenderWindow
-            virtual auto newWindow(std::string_view name,
+            virtual auto newWindow(StringView name,
                                             unsigned int width, unsigned int height,
                                             bool fullScreen,
                                             const NameValuePairList *miscParams = nullptr) -> RenderWindow* = 0;
@@ -79,7 +79,7 @@ namespace Ogre
             */
             virtual auto getProcAddress(const char* procname) const -> void * = 0;
 
-            [[nodiscard]] auto checkExtension(std::string_view ext) const -> bool {
+            [[nodiscard]] auto checkExtension(StringView ext) const -> bool {
                 return extensionList.find(ext) != extensionList.end();
             }
 

@@ -208,7 +208,7 @@ namespace Ogre
          @param avail_in Available data length to be uncompressed. With it we can uncompress
             DataStream partly.
         */
-        DeflateStream(const DataStreamPtr& compressedStream, std::string_view tmpFileName = "",
+        DeflateStream(const DataStreamPtr& compressedStream, StringView tmpFileName = "",
             size_t avail_in = 0);
         /** Constructor for creating named stream wrapping another stream.
          @param name The name to give this stream
@@ -218,7 +218,7 @@ namespace Ogre
          @param avail_in Available data length to be uncompressed. With it we can uncompress
             DataStream partly.
          */
-        DeflateStream(std::string_view name, const DataStreamPtr& compressedStream, std::string_view tmpFileName="",
+        DeflateStream(StringView name, const DataStreamPtr& compressedStream, StringView tmpFileName="",
             size_t avail_in = 0);
         /** Constructor for creating named stream wrapping another stream.
          @param name The name to give this stream
@@ -229,7 +229,7 @@ namespace Ogre
          @param avail_in Available data length to be uncompressed. With it we can uncompress
             DataStream partly.
          */
-        DeflateStream(std::string_view name, const DataStreamPtr& compressedStream, StreamType streamType, std::string_view tmpFileName="",
+        DeflateStream(StringView name, const DataStreamPtr& compressedStream, StreamType streamType, StringView tmpFileName="",
             size_t avail_in = 0);
         
         ~DeflateStream() override;

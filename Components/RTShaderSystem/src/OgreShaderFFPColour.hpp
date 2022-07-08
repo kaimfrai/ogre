@@ -79,7 +79,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> std::string_view override;
+    auto getType() const noexcept -> StringView override;
 
     /** 
     @see SubRenderState::getType.
@@ -159,7 +159,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+    [[nodiscard]] auto getType() const noexcept -> StringView override;
 
     /** 
     @see SubRenderStateFactory::createInstance.

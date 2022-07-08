@@ -278,12 +278,12 @@ class RenderTarget;
             involve using different techniques to render your materials.
         @see Technique::setSchemeName
         */
-        void setMaterialScheme(std::string_view schemeName)
+        void setMaterialScheme(StringView schemeName)
         { mMaterialSchemeName = schemeName; }
         
         /** Get the material scheme which the viewport should use.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> StringView
         { return mMaterialSchemeName; }
 
         /** Access to actual dimensions (based on target size).

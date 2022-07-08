@@ -61,7 +61,7 @@ namespace Ogre {
             @warning
                 Do not call directly
         */
-        DynLib( std::string_view name );
+        DynLib( StringView name );
 
         /** Default destructor.
         */
@@ -74,7 +74,7 @@ namespace Ogre {
         */
         void unload();
         /// Get the name of the library
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> StringView { return mName; }
 
         /**
             Returns the address of the given symbol from the loaded library.
@@ -87,7 +87,7 @@ namespace Ogre {
                 If the function fails, the returned value is <b>NULL</b>.
 
         */
-        [[nodiscard]] auto getSymbol( std::string_view strName ) const noexcept -> void*;
+        [[nodiscard]] auto getSymbol( StringView strName ) const noexcept -> void*;
 
     private:
 

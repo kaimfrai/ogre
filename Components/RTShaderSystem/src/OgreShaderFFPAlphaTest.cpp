@@ -57,7 +57,7 @@ namespace Ogre::RTShader {
 
 
 		//-----------------------------------------------------------------------
-		auto FFPAlphaTest::getType() const noexcept -> std::string_view
+		auto FFPAlphaTest::getType() const noexcept -> StringView
 		{
 			return Type;
 		}
@@ -122,7 +122,7 @@ namespace Ogre::RTShader {
 
 		//----------------------Factory Implementation---------------------------
 		//-----------------------------------------------------------------------
-		auto FFPAlphaTestFactory ::getType() const noexcept -> std::string_view
+		auto FFPAlphaTestFactory ::getType() const noexcept -> StringView
 		{
 			return FFPAlphaTest::Type;
 		}

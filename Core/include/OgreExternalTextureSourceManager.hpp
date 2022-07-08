@@ -66,22 +66,22 @@ class ExternalTextureSource;
         ~ExternalTextureSourceManager();
 
         /** Sets active plugin (ie. "video", "effect", "generic", etc..) */
-        void setCurrentPlugIn( std::string_view sTexturePlugInType );
+        void setCurrentPlugIn( StringView sTexturePlugInType );
 
         /** Returns currently selected plugin, may be null if none selected */
         [[nodiscard]] auto getCurrentPlugIn( ) const noexcept -> ExternalTextureSource* { return mCurrExternalTextureSource; }
     
         /** Calls the destroy method of all registered plugins... 
         Only the owner plugin should perform the destroy action. */
-        void destroyAdvancedTexture( std::string_view sTextureName,
-            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+        void destroyAdvancedTexture( StringView sTextureName,
+            StringView groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** Returns the plugin which registered itself with a specific name 
         (eg. "video"), or null if specified plugin not found */
-        auto getExternalTextureSource( std::string_view sTexturePlugInType ) -> ExternalTextureSource*;
+        auto getExternalTextureSource( StringView sTexturePlugInType ) -> ExternalTextureSource*;
 
         /** Called from plugin to register itself */
-        void setExternalTextureSource( std::string_view sTexturePlugInType, ExternalTextureSource* pTextureSystem );
+        void setExternalTextureSource( StringView sTexturePlugInType, ExternalTextureSource* pTextureSystem );
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() noexcept -> ExternalTextureSourceManager&;

@@ -198,22 +198,22 @@ namespace Ogre
         mColourRangeEnd = colourEnd;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getName() const noexcept -> std::string_view
+    auto ParticleEmitter::getName() const noexcept -> StringView
     {
         return mName;
     }
     //-----------------------------------------------------------------------
-    void ParticleEmitter::setName(std::string_view newName)
+    void ParticleEmitter::setName(StringView newName)
     {
         mName = newName;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getEmittedEmitter() const noexcept -> std::string_view
+    auto ParticleEmitter::getEmittedEmitter() const noexcept -> StringView
     {
         return mEmittedEmitter;
     }
     //-----------------------------------------------------------------------
-    void ParticleEmitter::setEmittedEmitter(std::string_view emittedEmitter)
+    void ParticleEmitter::setEmittedEmitter(StringView emittedEmitter)
     {
         mEmittedEmitter = emittedEmitter;
     }

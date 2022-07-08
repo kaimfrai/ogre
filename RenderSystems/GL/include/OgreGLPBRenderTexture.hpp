@@ -50,10 +50,10 @@ class RenderTexture;
     class GLPBRenderTexture: public GLRenderTexture
     {
     public:
-        GLPBRenderTexture(GLPBRTTManager *manager, std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
+        GLPBRenderTexture(GLPBRTTManager *manager, StringView name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
         ~GLPBRenderTexture() override;
         
-        void getCustomAttribute(std::string_view name, void* pData) override;
+        void getCustomAttribute(StringView name, void* pData) override;
 
         [[nodiscard]] auto getContext() const noexcept -> GLContext* override;
     protected:
@@ -71,7 +71,7 @@ class RenderTexture;
         
         /** @copydoc GLRTTManager::createRenderTexture
         */
-        auto createRenderTexture(std::string_view name, 
+        auto createRenderTexture(StringView name, 
             const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> RenderTexture * override;
         
          /** @copydoc GLRTTManager::checkFormat

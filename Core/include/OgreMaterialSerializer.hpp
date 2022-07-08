@@ -122,7 +122,7 @@ class Technique;
             */
             void gpuProgramRefEventRaised(MaterialSerializer* ser, 
                 SerializeEvent event, bool& skip,
-                std::string_view attrib, 
+                StringView attrib, 
                 const GpuProgramPtr& program, 
                 const GpuProgramParametersSharedPtr& params,
                 GpuProgramParameters* defaultParams)
@@ -166,7 +166,7 @@ class Technique;
         ListenerList mListeners;
 
 
-        void writeMaterial(const MaterialPtr& pMat, std::string_view materialName = "");
+        void writeMaterial(const MaterialPtr& pMat, StringView materialName = "");
         void writeTechnique(const Technique* pTech);
         void writePass(const Pass* pPass);
         void writeVertexProgramRef(const Pass* pPass);
@@ -174,7 +174,7 @@ class Technique;
         void writeTesselationDomainProgramRef(const Pass* pPass);
         void writeGeometryProgramRef(const Pass* pPass);
         void writeFragmentProgramRef(const Pass* pPass);
-        void writeGpuProgramRef(std::string_view attrib, const GpuProgramPtr& program, const GpuProgramParametersSharedPtr& params);
+        void writeGpuProgramRef(StringView attrib, const GpuProgramPtr& program, const GpuProgramParametersSharedPtr& params);
         void writeGpuPrograms();
         void writeGPUProgramParameters(const GpuProgramParametersSharedPtr& params, GpuProgramParameters* defaultParams,
                                        const unsigned short level = 4, const bool useMainBuffer = true);
@@ -183,7 +183,7 @@ class Technique;
         void writeLowLevelGpuProgramParameters(const GpuProgramParametersSharedPtr& params, GpuProgramParameters* defaultParams,
                                                const unsigned short level = 4, const bool useMainBuffer = true);
         void writeGpuProgramParameter(
-            std::string_view commandName, std::string_view identifier, 
+            StringView commandName, StringView identifier, 
             const GpuProgramParameters::AutoConstantEntry* autoEntry, 
             const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry, 
             bool isFloat, bool isDouble, bool isInt, bool isUnsignedInt, 
@@ -229,7 +229,7 @@ class Technique;
         @see Listener::gpuProgramRefEventRaised.
         */
         void fireGpuProgramRefEvent(SerializeEvent event, bool& skip,
-            std::string_view attrib, 
+            StringView attrib, 
             const GpuProgramPtr& program, 
             const GpuProgramParametersSharedPtr& params,
             GpuProgramParameters* defaultParams);
@@ -255,7 +255,7 @@ class Technique;
             In case of empty string the original material name will be used.
         */
         void queueForExport(const MaterialPtr& pMat, bool clearQueued = false, 
-            bool exportDefaults = false, std::string_view materialName = "");
+            bool exportDefaults = false, StringView materialName = "");
         /** Exports queued material(s) to a named material script file.
         @param filename the file name of the material script to be exported
         @param includeProgDef If true, vertex program and fragment program 
@@ -265,7 +265,7 @@ class Technique;
             to be exported and includeProgDef is false 
             when calling queueForExport.
         */
-        void exportQueued(std::string_view filename, const bool includeProgDef = false, std::string_view programFilename = "");
+        void exportQueued(StringView filename, const bool includeProgDef = false, StringView programFilename = "");
         /** Exports a single in-memory Material to the named material script file.
         @param pMat Material pointer
         @param filename the file name of the material script to be exported
@@ -279,11 +279,11 @@ class Technique;
         @param materialName Allow exporting the given material under a different name.
             In case of empty string the original material name will be used.
         */
-        void exportMaterial(const MaterialPtr& pMat, std::string_view filename, bool exportDefaults = false,
-            const bool includeProgDef = false, std::string_view programFilename = "", 
-            std::string_view materialName = "");
+        void exportMaterial(const MaterialPtr& pMat, StringView filename, bool exportDefaults = false,
+            const bool includeProgDef = false, StringView programFilename = "", 
+            StringView materialName = "");
         /** Returns a string representing the parsed material(s) */
-        [[nodiscard]] auto getQueuedAsString() const -> std::string_view ;
+        [[nodiscard]] auto getQueuedAsString() const -> StringView ;
         /** Clears the internal buffer */
         void clearQueue();
 
@@ -327,7 +327,7 @@ class Technique;
             buffer += "}";
         }
 
-        void writeAttribute(unsigned short level, std::string_view att, const bool useMainBuffer = true)
+        void writeAttribute(unsigned short level, StringView att, const bool useMainBuffer = true)
         {
             String& buffer = (useMainBuffer ? mBuffer : mGpuProgramBuffer);
             buffer += "\n";
@@ -338,13 +338,13 @@ class Technique;
             buffer += att;
         }
 
-        void writeValue(std::string_view val, const bool useMainBuffer = true)
+        void writeValue(StringView val, const bool useMainBuffer = true)
         {
             String& buffer = (useMainBuffer ? mBuffer : mGpuProgramBuffer);
             buffer += (::std::format(" {}", val));
         }
 
-        auto quoteWord(std::string_view val) -> String
+        auto quoteWord(StringView val) -> String
         {
             if (val.find_first_of("{}$: \t") != String::npos)
                 return (::std::format("\"{}\"", val ));
@@ -352,7 +352,7 @@ class Technique;
         }
 
 
-        void writeComment(unsigned short level, std::string_view comment, const bool useMainBuffer = true)
+        void writeComment(unsigned short level, StringView comment, const bool useMainBuffer = true)
         {
             String& buffer = (useMainBuffer ? mBuffer : mGpuProgramBuffer);
             buffer += "\n";

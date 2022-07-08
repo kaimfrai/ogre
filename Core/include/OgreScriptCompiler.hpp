@@ -118,7 +118,7 @@ class Material;
         /// Returns a new AbstractNode which is a replica of this one.
         [[nodiscard]] virtual auto clone() const -> AbstractNode * = 0;
         /// Returns a string value depending on the type of the AbstractNode.
-        [[nodiscard]] virtual auto getValue() const noexcept -> std::string_view = 0;
+        [[nodiscard]] virtual auto getValue() const noexcept -> StringView = 0;
     };
 
     /** This is an abstract node which cannot be broken down further */
@@ -130,7 +130,7 @@ class Material;
     public:
         AtomAbstractNode(AbstractNode *ptr);
         [[nodiscard]] auto clone() const -> AbstractNode * override;
-        [[nodiscard]] auto getValue() const noexcept -> std::string_view override { return value; }
+        [[nodiscard]] auto getValue() const noexcept -> StringView override { return value; }
     };
 
     /** This specific abstract node represents a script object */
@@ -149,11 +149,11 @@ class Material;
     public:
         ObjectAbstractNode(AbstractNode *ptr);
         [[nodiscard]] auto clone() const -> AbstractNode * override;
-        [[nodiscard]] auto getValue() const noexcept -> std::string_view override { return cls; }
+        [[nodiscard]] auto getValue() const noexcept -> StringView override { return cls; }
 
-        void addVariable(std::string_view name);
-        void setVariable(std::string_view name, std::string_view value);
-        [[nodiscard]] auto getVariable(std::string_view name) const -> std::pair<bool,String>;
+        void addVariable(StringView name);
+        void setVariable(StringView name, StringView value);
+        [[nodiscard]] auto getVariable(StringView name) const -> std::pair<bool,String>;
         [[nodiscard]] auto getVariables() const -> const std::map<String,String> &;
     };
 
@@ -167,7 +167,7 @@ class Material;
     public:
         PropertyAbstractNode(AbstractNode *ptr);
         [[nodiscard]] auto clone() const -> AbstractNode * override;
-        [[nodiscard]] auto getValue() const noexcept -> std::string_view override { return name; }
+        [[nodiscard]] auto getValue() const noexcept -> StringView override { return name; }
     };
 
     /** This abstract node represents an import statement */
@@ -178,7 +178,7 @@ class Material;
     public:
         ImportAbstractNode();
         [[nodiscard]] auto clone() const -> AbstractNode * override;
-        [[nodiscard]] auto getValue() const noexcept -> std::string_view override { return target; }
+        [[nodiscard]] auto getValue() const noexcept -> StringView override { return target; }
     };
 
     /** This abstract node represents a variable assignment */
@@ -189,7 +189,7 @@ class Material;
     public:
         VariableAccessAbstractNode(AbstractNode *ptr);
         [[nodiscard]] auto clone() const -> AbstractNode * override;
-        [[nodiscard]] auto getValue() const noexcept -> std::string_view override { return name; }
+        [[nodiscard]] auto getValue() const noexcept -> StringView override { return name; }
     };
 
     class ScriptCompilerEvent;
@@ -232,26 +232,26 @@ class Material;
          * @param source The source of the script code (e.g. a script file)
          * @param group The resource group to place the compiled resources into
          */
-        auto compile(std::string_view str, std::string_view source, std::string_view group) -> bool;
+        auto compile(StringView str, StringView source, StringView group) -> bool;
         /// Compiles resources from the given concrete node list
-        auto compile(const ConcreteNodeListPtr &nodes, std::string_view group) -> bool;
+        auto compile(const ConcreteNodeListPtr &nodes, StringView group) -> bool;
         /// Adds the given error to the compiler's list of errors
-        void addError(uint32 code, std::string_view file, int line, std::string_view msg = "");
+        void addError(uint32 code, StringView file, int line, StringView msg = "");
         /// Sets the listener used by the compiler
         void setListener(ScriptCompilerListener *listener);
         /// Returns the currently set listener
         auto getListener() -> ScriptCompilerListener *;
         /// Returns the resource group currently set for this compiler
-        [[nodiscard]] auto getResourceGroup() const -> std::string_view ;
+        [[nodiscard]] auto getResourceGroup() const -> StringView ;
         /// Adds a name exclusion to the map
         /**
          * Name exclusions identify object types which cannot accept
          * names. This means that excluded types will always have empty names.
          * All values in the object header are stored as object values.
          */
-        //void addNameExclusion(std::string_view type);
+        //void addNameExclusion(StringView type);
         /// Removes a name exclusion
-        //void removeNameExclusion(std::string_view type);
+        //void removeNameExclusion(StringView type);
         /// Internal method for firing the handleEvent method
         auto _fireEvent(ScriptCompilerEvent *evt, void *retval) -> bool;
 
@@ -266,16 +266,16 @@ class Material;
 		@note
 		If the word is already registered, the already registered id is returned.
 		*/
-		auto registerCustomWordId(std::string_view word) -> uint32;
+		auto registerCustomWordId(StringView word) -> uint32;
 
     private: // Tree processing
         auto convertToAST(const ConcreteNodeList &nodes) -> AbstractNodeListPtr;
         /// This built-in function processes import nodes
         void processImports(AbstractNodeList &nodes);
         /// Loads the requested script and converts it to an AST
-        auto loadImportPath(std::string_view name) -> AbstractNodeListPtr;
+        auto loadImportPath(StringView name) -> AbstractNodeListPtr;
         /// Returns the abstract nodes from the given tree which represent the target
-        auto locateTarget(const AbstractNodeList& nodes, std::string_view target) -> AbstractNodeList;
+        auto locateTarget(const AbstractNodeList& nodes, StringView target) -> AbstractNodeList;
         /// Handles object inheritance and variable expansion
         void processObjects(AbstractNodeList& nodes, const AbstractNodeList &top);
         /// Handles processing the variables
@@ -358,7 +358,7 @@ class Material;
     public:
         String mType;
 
-        ScriptCompilerEvent(std::string_view type):mType(type){}
+        ScriptCompilerEvent(StringView type):mType(type){}
         virtual ~ScriptCompilerEvent()= default;
         ScriptCompilerEvent(const ScriptCompilerEvent&) = delete;
         auto operator = (const ScriptCompilerEvent&) -> ScriptCompilerEvent & = delete;
@@ -375,7 +375,7 @@ class Material;
         virtual ~ScriptCompilerListener() = default;
 
         /// Returns the concrete node list from the given file
-        virtual auto importFile(ScriptCompiler *compiler, std::string_view name) -> ConcreteNodeListPtr;
+        virtual auto importFile(ScriptCompiler *compiler, StringView name) -> ConcreteNodeListPtr;
         /// Allows for responding to and overriding behavior before a CST is translated into an AST
         virtual void preConversion(ScriptCompiler *compiler, ConcreteNodeListPtr nodes);
         /// Allows vetoing of continued compilation after the entire AST conversion process finishes
@@ -387,7 +387,7 @@ class Material;
          */
         virtual auto postConversion(ScriptCompiler *compiler, const AbstractNodeListPtr&) -> bool;
         /// Called when an error occurred
-        virtual void handleError(ScriptCompiler *compiler, uint32 code, std::string_view file, int line, std::string_view msg);
+        virtual void handleError(ScriptCompiler *compiler, uint32 code, StringView file, int line, StringView msg);
         /// Called when an event occurs during translation, return true if handled
         /**
          @remarks   This function is called from the translators when an event occurs that
@@ -449,14 +449,14 @@ class Material;
 		@note
 		If the word is already registered, the already registered id is returned.
 		*/
-		auto registerCustomWordId(std::string_view word) -> uint32;
+		auto registerCustomWordId(StringView word) -> uint32;
 
         /// Adds a script extension that can be handled (e.g. *.material, *.pu, etc.)
-        void addScriptPattern(std::string_view pattern);
+        void addScriptPattern(StringView pattern);
         /// @copydoc ScriptLoader::getScriptPatterns
         [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
+        void parseScript(DataStreamPtr& stream, StringView groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]] auto getLoadingOrder() const -> Real override;
 
@@ -492,7 +492,7 @@ class Material;
         String mName;
         static String eventType;
 
-        ProcessResourceNameScriptCompilerEvent(ResourceType resourceType, std::string_view name)
+        ProcessResourceNameScriptCompilerEvent(ResourceType resourceType, StringView name)
             :ScriptCompilerEvent(eventType), mResourceType(resourceType), mName(name){}
     };
 
@@ -503,7 +503,7 @@ class Material;
         AbstractNode *mParent;
         static String eventType;
 
-        ProcessNameExclusionScriptCompilerEvent(std::string_view cls, AbstractNode *parent)
+        ProcessNameExclusionScriptCompilerEvent(StringView cls, AbstractNode *parent)
             :ScriptCompilerEvent(eventType), mClass(cls), mParent(parent){}
     };
 
@@ -513,7 +513,7 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateMaterialScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
+        CreateMaterialScriptCompilerEvent(StringView file, StringView name, StringView resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
     };
 
@@ -524,8 +524,8 @@ class Material;
         GpuProgramType mProgramType;
         static String eventType;
 
-        CreateGpuProgramScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup, std::string_view source,
-            std::string_view syntax, GpuProgramType programType)
+        CreateGpuProgramScriptCompilerEvent(StringView file, StringView name, StringView resourceGroup, StringView source,
+            StringView syntax, GpuProgramType programType)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup), mSource(source),
              mSyntax(syntax), mProgramType(programType)
         {}  
@@ -537,7 +537,7 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateGpuSharedParametersScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
+        CreateGpuSharedParametersScriptCompilerEvent(StringView file, StringView name, StringView resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
     };
 
@@ -547,7 +547,7 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateParticleSystemScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
+        CreateParticleSystemScriptCompilerEvent(StringView file, StringView name, StringView resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
     };
 
@@ -557,7 +557,7 @@ class Material;
         String mFile, mName, mResourceGroup;
         static String eventType;
 
-        CreateCompositorScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
+        CreateCompositorScriptCompilerEvent(StringView file, StringView name, StringView resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
     };
 

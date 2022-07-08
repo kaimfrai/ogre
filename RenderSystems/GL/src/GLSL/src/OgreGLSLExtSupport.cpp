@@ -39,7 +39,7 @@ namespace Ogre::GLSL
     {
 
     //-----------------------------------------------------------------------------
-    void reportGLSLError(GLenum glErr, std::string_view ogreMethod, std::string_view errorTextPrefix, const uint obj, const bool forceInfoLog, const bool forceException)
+    void reportGLSLError(GLenum glErr, StringView ogreMethod, StringView errorTextPrefix, const uint obj, const bool forceInfoLog, const bool forceException)
     {
         bool errorsFound = false;
         String msg = errorTextPrefix;
@@ -66,7 +66,7 @@ namespace Ogre::GLSL
         }
     }
 
-    auto logObjectInfo(std::string_view msg, GLuint obj) -> String
+    auto logObjectInfo(StringView msg, GLuint obj) -> String
     {
         String logMessage = getObjectInfo(obj);
 

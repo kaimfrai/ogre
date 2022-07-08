@@ -308,7 +308,7 @@ namespace Ogre {
         return newPass;
     }
     //-----------------------------------------------------------------------------
-    auto Technique::getPass(std::string_view name) const -> Pass*
+    auto Technique::getPass(StringView name) const -> Pass*
     {
         Pass* foundPass = nullptr;
 
@@ -664,7 +664,7 @@ namespace Ogre {
     #undef ALL_PASSES
 
     // --------------------------------------------------------------------
-    void Technique::setName(std::string_view name)
+    void Technique::setName(StringView name)
     {
         mName = name;
     }
@@ -686,13 +686,13 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    void Technique::setSchemeName(std::string_view schemeName)
+    void Technique::setSchemeName(StringView schemeName)
     {
         mSchemeIndex = MaterialManager::getSingleton()._getSchemeIndex(schemeName);
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    auto Technique::getSchemeName() const noexcept -> std::string_view
+    auto Technique::getSchemeName() const noexcept -> StringView
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
@@ -986,7 +986,7 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    auto Technique::getResourceGroup() const noexcept -> std::string_view
+    auto Technique::getResourceGroup() const noexcept -> StringView
     {
         return mParent->getGroup();
     }
@@ -1012,7 +1012,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void  Technique::setShadowCasterMaterial(std::string_view name) 
+    void  Technique::setShadowCasterMaterial(StringView name) 
     { 
         setShadowCasterMaterial(MaterialManager::getSingleton().getByName(name));
     }
@@ -1036,7 +1036,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void  Technique::setShadowReceiverMaterial(std::string_view name)  
+    void  Technique::setShadowReceiverMaterial(StringView name)  
     { 
         mShadowReceiverMaterialName = name;
         mShadowReceiverMaterial = MaterialManager::getSingleton().getByName(name);
@@ -1065,7 +1065,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    void Technique::addGPUDeviceNameRule(std::string_view devicePattern, 
+    void Technique::addGPUDeviceNameRule(StringView devicePattern, 
         Technique::IncludeOrExclude includeOrExclude, bool caseSensitive)
     {
         addGPUDeviceNameRule(GPUDeviceNameRule(devicePattern, includeOrExclude, caseSensitive));
@@ -1078,7 +1078,7 @@ namespace Ogre {
         mGPUDeviceNameRules.push_back(rule);
     }
     //---------------------------------------------------------------------
-    void Technique::removeGPUDeviceNameRule(std::string_view devicePattern)
+    void Technique::removeGPUDeviceNameRule(StringView devicePattern)
     {
         for (auto i = mGPUDeviceNameRules.begin(); i != mGPUDeviceNameRules.end(); )
         {

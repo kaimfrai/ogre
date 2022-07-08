@@ -203,7 +203,7 @@ namespace {
     { 
     }
     //---------------------------------------------------------------------
-    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
+    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName,
                                 const CodecDataPtr& pData) const
     {
         // Unwrap codecDataPtr - data is cleaned by calling function
@@ -1057,12 +1057,12 @@ namespace {
 
     }
     //---------------------------------------------------------------------    
-    auto DDSCodec::getType() const -> std::string_view
+    auto DDSCodec::getType() const -> StringView
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
+    auto DDSCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView
     {
         if (maxbytes >= sizeof(uint32))
         {

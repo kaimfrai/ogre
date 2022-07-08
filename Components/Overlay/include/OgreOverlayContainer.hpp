@@ -75,7 +75,7 @@ class RenderQueue;
  
     public:
         /// Constructor: do not call direct, use OverlayManager::createOverlayElement
-        OverlayContainer(std::string_view name);
+        OverlayContainer(StringView name);
         ~OverlayContainer() override;
 
         /** Adds another OverlayElement to this container. */
@@ -85,16 +85,16 @@ class RenderQueue;
         /** Add a nested container to this container. */
         virtual void addChildImpl(OverlayContainer* cont);
         /** Removes a named element from this container. */
-        virtual auto removeChild(std::string_view name) -> ChildMap::iterator;
+        virtual auto removeChild(StringView name) -> ChildMap::iterator;
         /** Gets the named child of this container. */
-        virtual auto getChild(std::string_view name) -> OverlayElement*;
+        virtual auto getChild(StringView name) -> OverlayElement*;
 
         /** @copydoc OverlayElement::initialise */
         void initialise() override;
 
         void _addChild(OverlayElement* elem);
         auto _removeChild(OverlayElement* elem) -> ChildMap::iterator { return _removeChild(elem->getName()); }
-        auto _removeChild(std::string_view name) -> ChildMap::iterator;
+        auto _removeChild(StringView name) -> ChildMap::iterator;
 
         /** Gets all the children of this object. */
         [[nodiscard]] auto getChildren() const noexcept -> const ChildMap& { return mChildren; }
@@ -142,7 +142,7 @@ class RenderQueue;
         auto findElementAt(Real x, Real y) -> OverlayElement* override;      // relative to parent
 
         void copyFromTemplate(OverlayElement* templateOverlay) override;
-        auto clone(std::string_view instanceName) -> OverlayElement* override;
+        auto clone(StringView instanceName) -> OverlayElement* override;
 
     };
 

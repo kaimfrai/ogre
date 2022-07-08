@@ -147,8 +147,8 @@ class VertexData;
         RenderOperation::OperationType operationType{RenderOperation::OT_TRIANGLE_LIST};
 
         /// Sets the name of the Material which this SubMesh will use
-        void setMaterialName(std::string_view matName, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
-        auto getMaterialName() const noexcept -> std::string_view ;
+        void setMaterialName(StringView matName, StringView groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        auto getMaterialName() const noexcept -> StringView ;
 
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
         auto getMaterial() const noexcept -> const MaterialPtr& { return mMaterial; }
@@ -198,7 +198,7 @@ class VertexData;
         /// @deprecated do not use
         auto getAliasTextureIterator() const -> AliasTextureIterator;
         /// @deprecated do not use
-        void addTextureAlias(std::string_view aliasName, std::string_view textureName);
+        void addTextureAlias(StringView aliasName, StringView textureName);
 
         /// @deprecated do not use
         auto hasTextureAliases() const -> bool { return !mTextureAliases.empty(); }
@@ -228,7 +228,7 @@ class VertexData;
          Optional mesh to make the parent of the newly created clone.
          If you leave this blank, the clone will be parented to the same Mesh as the original.
          */
-        auto clone(std::string_view newName, Mesh *parentMesh = nullptr) -> SubMesh *;
+        auto clone(StringView newName, Mesh *parentMesh = nullptr) -> SubMesh *;
 
     private:
 

@@ -57,7 +57,7 @@ namespace Ogre {
     class Codec : public CodecAlloc
     {
     private:
-        using CodecList = std::map<std::string_view, Codec *>;
+        using CodecList = std::map<StringView, Codec *>;
         /** A map that contains all the registered codecs.
         */
         static CodecList msMapCodecs;
@@ -71,7 +71,7 @@ namespace Ogre {
 
         /** Return whether a codec is registered already. 
         */
-        static auto isCodecRegistered(std::string_view codecType ) -> bool
+        static auto isCodecRegistered(StringView codecType ) -> bool
         {
             return msMapCodecs.find(codecType) != msMapCodecs.end();
         }
@@ -84,10 +84,10 @@ namespace Ogre {
         }
 
         /** Gets the file extension list for the registered codecs. */
-        static auto getExtensions() -> std::vector<std::string_view>;
+        static auto getExtensions() -> std::vector<StringView>;
 
         /** Gets the codec registered for the passed in file extension. */
-        static auto getCodec(std::string_view extension) -> Codec*;
+        static auto getCodec(StringView extension) -> Codec*;
 
         /** Gets the codec that can handle the given 'magic' identifier. 
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -108,7 +108,7 @@ namespace Ogre {
         @param input The input data (codec type specific)
         @param outFileName The filename to write to
         */
-        virtual void encodeToFile(::std::any const& input, std::string_view outFileName) const;
+        virtual void encodeToFile(::std::any const& input, StringView outFileName) const;
 
         /** Codes the data from the input chunk into the output chunk.
             @param input Stream containing the encoded data
@@ -118,7 +118,7 @@ namespace Ogre {
 
         /** Returns the type of the codec as a String
         */
-        [[nodiscard]] virtual auto getType() const -> std::string_view = 0;
+        [[nodiscard]] virtual auto getType() const -> StringView = 0;
 
         /** Returns whether a magic number header matches this codec.
         @param magicNumberPtr Pointer to a stream of bytes which should identify the file.
@@ -135,7 +135,7 @@ namespace Ogre {
         @param maxbytes The number of bytes passed
         @return A blank string if the magic number was unknown, or a file extension.
         */
-        virtual auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view = 0;
+        virtual auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView = 0;
     };
     /** @} */
     /** @} */

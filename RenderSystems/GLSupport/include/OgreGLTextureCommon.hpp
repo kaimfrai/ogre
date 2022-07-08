@@ -41,15 +41,15 @@ class ResourceManager;
 class GLTextureCommon  : public Texture
 {
 public:
-    GLTextureCommon(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-                    std::string_view group, bool isManual, ManualResourceLoader* loader)
+    GLTextureCommon(ResourceManager* creator, StringView name, ResourceHandle handle,
+                    StringView group, bool isManual, ManualResourceLoader* loader)
         : Texture(creator, name, handle, group, isManual, loader) 
     {
     }
 
     auto getGLID() const noexcept -> uint { return mTextureID; }
 
-    void getCustomAttribute(std::string_view name, void* pData) override;
+    void getCustomAttribute(StringView name, void* pData) override;
 
 protected:
     /** Returns the maximum number of Mipmaps that can be generated until we reach

@@ -63,7 +63,7 @@ class MovableObject;
 
     public:
         /** Default constructor. */
-        DistanceLodStrategyBase(std::string_view name);
+        DistanceLodStrategyBase(StringView name);
 
         /// @copydoc LodStrategy::getBaseValue
         [[nodiscard]] auto getBaseValue() const -> Real override;

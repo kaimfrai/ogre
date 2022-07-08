@@ -72,7 +72,7 @@ public:
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
-    [[nodiscard]] auto getTargetLanguage() const noexcept -> std::string_view override { return TargetLanguage; }
+    [[nodiscard]] auto getTargetLanguage() const noexcept -> StringView override { return TargetLanguage; }
 
     static String TargetLanguage;
 
@@ -93,7 +93,7 @@ protected:
     /** Write the output params of the function */
     void writeOutParameters(std::ostream& os, Function* function, GpuProgramType gpuType);
 
-    void writeUniformBlock(std::ostream& os, std::string_view name, int binding, const UniformParameterList& uniforms);
+    void writeUniformBlock(std::ostream& os, StringView name, int binding, const UniformParameterList& uniforms);
 
 protected:
     using ParamContentToStringMap = std::map<Parameter::Content, const char *>;

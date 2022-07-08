@@ -75,12 +75,12 @@ class Technique;
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getMaterialName() const noexcept -> std::string_view
+    auto SubEntity::getMaterialName() const noexcept -> StringView
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }
     //-----------------------------------------------------------------------
-    void SubEntity::setMaterialName( std::string_view name, std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void SubEntity::setMaterialName( StringView name, StringView groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         MaterialPtr material = MaterialManager::getSingleton().getByName(name, groupName);
 

@@ -55,7 +55,7 @@ namespace Ogre {
         NameGenerator(const NameGenerator& rhs)
              = default;
         
-        NameGenerator(std::string_view prefix) : mPrefix(prefix) {}
+        NameGenerator(StringView prefix) : mPrefix(prefix) {}
 
         /// Generate a new name
         auto generate() -> String

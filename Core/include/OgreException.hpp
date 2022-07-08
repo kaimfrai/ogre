@@ -93,11 +93,11 @@ namespace Ogre {
 
         /** Default constructor.
         */
-        Exception( int number, std::string_view description, std::string_view source );
+        Exception( int number, StringView description, StringView source );
 
         /** Advanced constructor.
         */
-        Exception( int number, std::string_view description, std::string_view source, const char* type, const char* file, long line );
+        Exception( int number, StringView description, StringView source, const char* type, const char* file, long line );
 
         /** Copy constructor.
         */
@@ -116,11 +116,11 @@ namespace Ogre {
                 the place in which OGRE found the problem, and a text
                 description from the 3D rendering library, if available.
         */
-        [[nodiscard]] auto getFullDescription() const noexcept -> std::string_view { return fullDesc; }
+        [[nodiscard]] auto getFullDescription() const noexcept -> StringView { return fullDesc; }
 
         /** Gets the source function.
         */
-        [[nodiscard]] auto getSource() const noexcept -> std::string_view { return source; }
+        [[nodiscard]] auto getSource() const noexcept -> StringView { return source; }
 
         /** Gets source file name.
         */
@@ -134,7 +134,7 @@ namespace Ogre {
             getFullDescriptionto get a full description of the error including line number,
             error number and what function threw the exception.
         */
-        [[nodiscard]] auto getDescription() const noexcept -> std::string_view { return description; }
+        [[nodiscard]] auto getDescription() const noexcept -> StringView { return description; }
 
         /// Override std::exception::what
         [[nodiscard]] auto what() const noexcept -> const char* override { return fullDesc.c_str(); }
@@ -151,61 +151,61 @@ namespace Ogre {
     class UnimplementedException : public Exception 
     {
     public:
-        UnimplementedException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        UnimplementedException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class FileNotFoundException : public Exception
     {
     public:
-        FileNotFoundException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        FileNotFoundException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class IOException : public Exception
     {
     public:
-        IOException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        IOException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidStateException : public Exception
     {
     public:
-        InvalidStateException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        InvalidStateException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidParametersException : public Exception
     {
     public:
-        InvalidParametersException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        InvalidParametersException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class ItemIdentityException : public Exception
     {
     public:
-        ItemIdentityException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        ItemIdentityException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InternalErrorException : public Exception
     {
     public:
-        InternalErrorException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        InternalErrorException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class RenderingAPIException : public Exception
     {
     public:
-        RenderingAPIException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        RenderingAPIException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class RuntimeAssertionException : public Exception
     {
     public:
-        RuntimeAssertionException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        RuntimeAssertionException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
     class InvalidCallException : public Exception
     {
     public:
-        InvalidCallException(int inNumber, std::string_view inDescription, std::string_view inSource, const char* inFile, long inLine)
+        InvalidCallException(int inNumber, StringView inDescription, StringView inSource, const char* inFile, long inLine)
             : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
     };
 
@@ -226,8 +226,8 @@ namespace Ogre {
         [[noreturn]]
         static void _throwException(
             Exception::ExceptionCodes code, int number,
-            std::string_view desc, 
-            std::string_view src, const char* file, long line)
+            StringView desc, 
+            StringView src, const char* file, long line)
         {
             switch (code)
             {
@@ -248,8 +248,8 @@ namespace Ogre {
         [[noreturn]]
         static void throwException(
             Exception::ExceptionCodes code,
-            std::string_view desc,
-            std::string_view src, const char* file, long line)
+            StringView desc,
+            StringView src, const char* file, long line)
         {
             _throwException(code, code, desc, src, file, line);
         }

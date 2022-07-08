@@ -60,7 +60,7 @@ class Matrix4;
     public:
 
         Rectangle2D(bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
-        Rectangle2D(std::string_view name, bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+        Rectangle2D(StringView name, bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
         ~Rectangle2D() override;
 
         /** Sets the corners of the rectangle, in relative coordinates.
@@ -93,7 +93,7 @@ class Matrix4;
 
         auto getBoundingRadius() const noexcept -> Real override { return 0; }
 
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> StringView override;
     };
     /** @} */
     /** @} */

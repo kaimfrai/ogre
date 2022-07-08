@@ -109,8 +109,8 @@ class ResourceManager;
             On creation, a Skeleton has a no bones, you should create them and link
             them together appropriately. 
         */
-        Skeleton(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Skeleton(ResourceManager* creator, StringView name, ResourceHandle handle,
+            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Skeleton() override;
 
 
@@ -157,7 +157,7 @@ class ResourceManager;
             for your convenience, although it is recommended that you only use the handle to 
             retrieve the bone in performance-critical code.
         */
-        virtual auto createBone(::std::string_view name) -> Bone*;
+        virtual auto createBone(StringView name) -> Bone*;
 
         /** Creates a brand new Bone owned by this Skeleton. 
         @remarks
@@ -169,7 +169,7 @@ class ResourceManager;
         @param name The name to give to this new bone - must be unique within this skeleton. 
         @param handle The handle to give to this new bone - must be unique within this skeleton. 
         */
-        virtual auto createBone(::std::string_view name, unsigned short handle) -> Bone*;
+        virtual auto createBone(StringView name, unsigned short handle) -> Bone*;
 
         /** Returns the number of bones in this skeleton. */
         virtual auto getNumBones() const noexcept -> unsigned short;
@@ -199,10 +199,10 @@ class ResourceManager;
         virtual auto getBone(unsigned short handle) const -> Bone*;
 
         /** Gets a bone by it's name. */
-        virtual auto getBone(std::string_view name) const -> Bone*;
+        virtual auto getBone(StringView name) const -> Bone*;
 
         /** Returns whether this skeleton contains the named bone. */
-        virtual auto hasBone(::std::string_view name) const -> bool;
+        virtual auto hasBone(StringView name) const -> bool;
 
         /** Sets the current position / orientation to be the 'binding pose' i.e. the layout in which 
             bones were originally bound to a mesh.
@@ -224,7 +224,7 @@ class ResourceManager;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        auto createAnimation(std::string_view name, Real length) -> Animation* override;
+        auto createAnimation(StringView name, Real length) -> Animation* override;
 
         /** Returns the named Animation object. 
         @remarks
@@ -234,7 +234,7 @@ class ResourceManager;
         @param linker Optional pointer to a pointer to the linked skeleton animation
             where this is coming from.
         */
-        virtual auto getAnimation(std::string_view name, 
+        virtual auto getAnimation(StringView name, 
             const LinkedSkeletonAnimationSource** linker) const -> Animation*;
 
         /** Returns the named Animation object.
@@ -243,18 +243,18 @@ class ResourceManager;
              (@see addLinkedSkeletonAnimationSource). 
          @param name The name of the animation
          */
-        auto getAnimation(std::string_view name) const -> Animation* override;
+        auto getAnimation(StringView name) const -> Animation* override;
 
         /// Internal accessor for animations (returns null if animation does not exist)
-        virtual auto _getAnimationImpl(std::string_view name, 
+        virtual auto _getAnimationImpl(StringView name, 
             const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation*;
 
 
         /** Returns whether this skeleton contains the named animation. */
-        auto hasAnimation(std::string_view name) const -> bool override;
+        auto hasAnimation(StringView name) const -> bool override;
 
         /** Removes an Animation from this skeleton. */
-        void removeAnimation(std::string_view name) override;
+        void removeAnimation(StringView name) override;
 
         /** Changes the state of the skeleton to reflect the application of the passed in collection of animations.
         @remarks
@@ -348,7 +348,7 @@ class ResourceManager;
             of the keyframes in the other skeleton when applying the animations
             to this one. Compensates for skeleton size differences.
         */
-        virtual void addLinkedSkeletonAnimationSource(std::string_view skelName, 
+        virtual void addLinkedSkeletonAnimationSource(StringView skelName, 
             Real scale = 1.0f);
         /// Remove all links to other skeletons for the purposes of sharing animation
         virtual void removeAllLinkedSkeletonAnimationSources();
@@ -431,7 +431,7 @@ class ResourceManager;
         AnimationList mAnimationsList;
     private:
         /// Lookup by bone name
-        using BoneListByName = std::map<::std::string_view, Bone *>;
+        using BoneListByName = std::map<StringView, Bone *>;
         BoneListByName mBoneListByName;
 
         /// Pointer to root bones (can now have multiple roots)
@@ -459,7 +459,7 @@ class ResourceManager;
         void deriveRootBone() const;
 
         /// Debugging method
-        void _dumpContents(std::string_view filename);
+        void _dumpContents(StringView filename);
 
         void loadImpl() override {}
         void unloadImpl() override { unprepareImpl(); }
@@ -477,9 +477,9 @@ class ResourceManager;
         String skeletonName;
         SkeletonPtr pSkeleton;
         Real scale;
-        LinkedSkeletonAnimationSource(std::string_view skelName, Real scl)
+        LinkedSkeletonAnimationSource(StringView skelName, Real scl)
             : skeletonName(skelName), scale(scl) {}
-            LinkedSkeletonAnimationSource(std::string_view skelName, Real scl, 
+            LinkedSkeletonAnimationSource(StringView skelName, Real scl, 
                 SkeletonPtr skelPtr)
                 : skeletonName(skelName), pSkeleton(skelPtr), scale(scl) {}
     };

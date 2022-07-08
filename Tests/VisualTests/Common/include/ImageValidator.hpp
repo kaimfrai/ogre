@@ -39,6 +39,7 @@ THE SOFTWARE.
 #include <fstream>
 #include <utility>
 
+using Ogre::StringView;
 /** Some functionality for comparing images */
 
 /* Results of comparing two test images */
@@ -67,7 +68,7 @@ class ImageValidator
 public:
 
     /** Constructor, takes paths to each set's directory */
-    ImageValidator(std::string_view directory1, std::string_view directory2)
+    ImageValidator(StringView directory1, StringView directory2)
         :mDirectory1(directory1),mDirectory2(directory2) {}
 
     /** Compare the the two set's versions of the specified image name

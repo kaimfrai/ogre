@@ -61,7 +61,7 @@ class MovableObject;
 
     public:
         /** Constructor accepting name. */
-        LodStrategy(std::string_view name);
+        LodStrategy(StringView name);
 
         /** Virtual destructor. */
         virtual ~LodStrategy();
@@ -100,7 +100,7 @@ class MovableObject;
         void assertSorted(const Mesh::LodValueList& values) const;
 
         /** Get the name of this strategy. */
-        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> StringView { return mName; }
 
     protected:
         /** Implementation of isSorted suitable for ascending values. */

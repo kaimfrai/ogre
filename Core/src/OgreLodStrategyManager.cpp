@@ -82,7 +82,7 @@ namespace Ogre {
         mStrategies.insert(std::make_pair(strategy->getName(), strategy));
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::removeStrategy(std::string_view name) -> LodStrategy *
+    auto LodStrategyManager::removeStrategy(StringView name) -> LodStrategy *
     {
         // Find strategy with specified name
         auto it = mStrategies.find(name);
@@ -110,7 +110,7 @@ namespace Ogre {
         mStrategies.clear();
     }
     //-----------------------------------------------------------------------
-    auto LodStrategyManager::getStrategy(std::string_view name) -> LodStrategy *
+    auto LodStrategyManager::getStrategy(StringView name) -> LodStrategy *
     {
         // If name is "default", return the default strategy instead of performing a lookup
         if (name == "default") {
@@ -136,7 +136,7 @@ namespace Ogre {
         mDefaultStrategy = strategy;
     }
     //-----------------------------------------------------------------------
-    void LodStrategyManager::setDefaultStrategy(std::string_view name)
+    void LodStrategyManager::setDefaultStrategy(StringView name)
     {
         // Lookup by name and set default strategy
         setDefaultStrategy(getStrategy(name));

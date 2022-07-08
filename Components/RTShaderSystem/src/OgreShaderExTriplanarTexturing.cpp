@@ -143,7 +143,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::getType() const noexcept -> std::string_view
+    auto TriplanarTexturing::getType() const noexcept -> StringView
     {
         return type;
     }
@@ -218,7 +218,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    void TriplanarTexturing::setTextureNames(std::string_view textureNameFromX, std::string_view textureNameFromY, std::string_view textureNameFromZ)
+    void TriplanarTexturing::setTextureNames(StringView textureNameFromX, StringView textureNameFromY, StringView textureNameFromZ)
     {
         mTextureNameFromX = textureNameFromX;
         mTextureNameFromY = textureNameFromY;
@@ -226,7 +226,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturingFactory::getType() const noexcept -> std::string_view
+    auto TriplanarTexturingFactory::getType() const noexcept -> StringView
     {
         return TriplanarTexturing::type;
     }

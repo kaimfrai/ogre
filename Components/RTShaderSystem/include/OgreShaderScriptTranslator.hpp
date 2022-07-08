@@ -75,7 +75,7 @@ public:
     *
     * @param typeName The type of the sub-render state to find.
     */
-    virtual auto getGeneratedSubRenderState(std::string_view typeName) -> SubRenderState*;
+    virtual auto getGeneratedSubRenderState(StringView typeName) -> SubRenderState*;
 
 
 protected:
@@ -102,8 +102,8 @@ protected:
     * @param passIndex The index of the pass which the sub render state is associated with
     */
     void addSubRenderState(SubRenderState* newSubRenderState, 
-        std::string_view dstTechniqueSchemeName, std::string_view materialName, 
-        std::string_view groupName, unsigned short passIndex);
+        StringView dstTechniqueSchemeName, StringView materialName, 
+        StringView groupName, unsigned short passIndex);
 
             
 private:

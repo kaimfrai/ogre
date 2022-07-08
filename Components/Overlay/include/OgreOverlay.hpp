@@ -115,14 +115,14 @@ namespace Ogre {
 
     public:
         /// Constructor: do not call direct, use OverlayManager::create
-        Overlay(std::string_view name);
+        Overlay(StringView name);
         virtual ~Overlay();
 
 
-        auto getChild(std::string_view name) -> OverlayContainer*;
+        auto getChild(StringView name) -> OverlayContainer*;
 
         /** Gets the name of this overlay. */
-        auto getName() const noexcept -> std::string_view ;
+        auto getName() const noexcept -> StringView ;
         
         /** Alters the Z-order of this overlay. 
         @remarks
@@ -276,9 +276,9 @@ namespace Ogre {
             this overlay chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> std::string_view { return mOrigin; }
+        auto getOrigin() const noexcept -> StringView { return mOrigin; }
         /// Notify this overlay of it's origin
-        void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
+        void _notifyOrigin(StringView origin) { mOrigin = origin; }
 
 
     };

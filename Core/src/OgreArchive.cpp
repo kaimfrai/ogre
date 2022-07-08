@@ -33,14 +33,14 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    auto Archive::create(std::string_view ) -> DataStreamPtr
+    auto Archive::create(StringView ) -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
                     "This archive does not support creation of files.", 
                     "Archive::create");
     }
     //---------------------------------------------------------------------
-    void Archive::remove(std::string_view )
+    void Archive::remove(StringView )
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
                     "This archive does not support removal of files.", 
