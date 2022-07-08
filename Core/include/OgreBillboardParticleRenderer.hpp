@@ -116,7 +116,7 @@ class RenderQueue;
         [[nodiscard]] auto isPointRenderingEnabled() const noexcept -> bool { return mBillboardSet->isPointRenderingEnabled(); }
 
         /// @copydoc ParticleSystemRenderer::getType
-        [[nodiscard]] auto getType() const noexcept -> const String& override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
         /// @copydoc ParticleSystemRenderer::_updateRenderQueue
         void _updateRenderQueue(RenderQueue* queue, 
             std::vector<Particle*>& currentParticles, bool cullIndividually) override;
@@ -168,9 +168,9 @@ class RenderQueue;
     {
     public:
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] auto getType() const noexcept -> const String& override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
         /// @copydoc FactoryObj::createInstance
-        auto createInstance( const String& name ) -> ParticleSystemRenderer* override;
+        auto createInstance( std::string_view name ) -> ParticleSystemRenderer* override;
     };
     /** @} */
     /** @} */

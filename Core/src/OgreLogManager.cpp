@@ -55,7 +55,7 @@ namespace Ogre {
         mDefaultLog = nullptr;
     }
     //-----------------------------------------------------------------------
-    auto LogManager::createLog( const String& name, bool defaultLog, bool debuggerOutput, 
+    auto LogManager::createLog( std::string_view name, bool defaultLog, bool debuggerOutput, 
         bool suppressFileOutput) -> Log*
     {
         Log* newLog = new Log(name, debuggerOutput, suppressFileOutput);
@@ -82,14 +82,14 @@ namespace Ogre {
         return oldLog;
     }
     //-----------------------------------------------------------------------
-    auto LogManager::getLog( const String& name) -> Log*
+    auto LogManager::getLog( std::string_view name) -> Log*
     {
         auto i = mLogs.find(name);
         OgreAssert(i != mLogs.end(), "Log not found");
         return i->second.get();
     }
     //-----------------------------------------------------------------------
-    void LogManager::destroyLog(const String& name)
+    void LogManager::destroyLog(std::string_view name)
     {
         auto i = mLogs.find(name);
         if (i != mLogs.end())
@@ -114,7 +114,7 @@ namespace Ogre {
         destroyLog(log->getName());
     }
     //-----------------------------------------------------------------------
-    void LogManager::logMessage( const String& message, LogMessageLevel lml, bool maskDebug)
+    void LogManager::logMessage( std::string_view message, LogMessageLevel lml, bool maskDebug)
     {
         if (mDefaultLog)
         {
@@ -122,12 +122,12 @@ namespace Ogre {
         }
     }
 
-    void LogManager::logError(const String& message, bool maskDebug )
+    void LogManager::logError(std::string_view message, bool maskDebug )
     {
         stream(LML_CRITICAL, maskDebug) << "Error: " << message;
     }
 
-    void LogManager::logWarning(const String& message, bool maskDebug )
+    void LogManager::logWarning(std::string_view message, bool maskDebug )
     {
         stream(LML_WARNING, maskDebug) << "Warning: " << message;
     }

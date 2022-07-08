@@ -93,13 +93,13 @@ class Viewport;
          * Create a new compositor
          * @see ResourceManager::createResource
          */
-        auto create (const String& name, const String& group,
+        auto create (std::string_view name, std::string_view group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> CompositorPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> CompositorPtr;
+        auto getByName(std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> CompositorPtr;
 
         /** Get the compositor chain for a Viewport. If there is none yet, a new
             compositor chain is registered.
@@ -123,18 +123,18 @@ class Viewport;
             @param addPosition  At which position to add, defaults to the end (-1).
             @return pointer to instance, or 0 if it failed.
         */
-        auto addCompositor(Viewport *vp, const String &compositor, int addPosition=-1) -> CompositorInstance *;
+        auto addCompositor(Viewport *vp, std::string_view compositor, int addPosition=-1) -> CompositorInstance *;
 
         /** Remove a compositor from a viewport
         */
-        void removeCompositor(Viewport *vp, const String &compositor);
+        void removeCompositor(Viewport *vp, std::string_view compositor);
 
         /** Set the state of a compositor on a viewport to enabled or disabled.
             Disabling a compositor stops it from rendering but does not free any resources.
             This can be more efficient than using removeCompositor and addCompositor in cases
             the filter is switched on and off a lot.
         */
-        void setCompositorEnabled(Viewport *vp, const String &compositor, bool value);
+        void setCompositorEnabled(Viewport *vp, std::string_view compositor, bool value);
 
         /** Get a textured fullscreen 2D rectangle, for internal use.
         */
@@ -155,9 +155,9 @@ class Viewport;
             twice (this is important for example if you request 2 ping-pong textures, 
             you don't want to get the same texture for both requests!
         */
-        auto getPooledTexture(const String& name, const String& localName, 
+        auto getPooledTexture(std::string_view name, std::string_view localName, 
             uint32 w, uint32 h,
-            PixelFormat f, uint aa, const String& aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
+            PixelFormat f, uint aa, std::string_view aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
             CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TEX_TYPE_2D) -> TexturePtr;
 
         /** Free pooled textures from the shared pool (compositor instances still 
@@ -168,33 +168,33 @@ class Viewport;
         /** Register a compositor logic for listening in to expecting composition
             techniques.
         */
-        void registerCompositorLogic(const String& name, CompositorLogic* logic);
+        void registerCompositorLogic(std::string_view name, CompositorLogic* logic);
 
         /** Removes a listener for compositor logic registered with registerCompositorLogic
         */
-        void unregisterCompositorLogic(const String& name);
+        void unregisterCompositorLogic(std::string_view name);
         
         /** Get a compositor logic by its name
         */
-        auto getCompositorLogic(const String& name) -> CompositorLogic*;
+        auto getCompositorLogic(std::string_view name) -> CompositorLogic*;
 
 		/** Check if a compositor logic exists
 		*/
-		auto hasCompositorLogic(const String& name) -> bool;
+		auto hasCompositorLogic(std::string_view name) -> bool;
 		
         /** Register a custom composition pass.
         */
-        void registerCustomCompositionPass(const String& name, CustomCompositionPass* customPass);
+        void registerCustomCompositionPass(std::string_view name, CustomCompositionPass* customPass);
 
-        void unregisterCustomCompositionPass(const String& name);
+        void unregisterCustomCompositionPass(std::string_view name);
 
         /** Get a custom composition pass by its name 
         */
-        auto getCustomCompositionPass(const String& name) -> CustomCompositionPass*;
+        auto getCustomCompositionPass(std::string_view name) -> CustomCompositionPass*;
 
 		/** Check if a compositor pass exists
 		*/
-        auto hasCustomCompositionPass(const String& name) -> bool;
+        auto hasCustomCompositionPass(std::string_view name) -> bool;
 
         /**
         Relocates a compositor chain from one viewport to another
@@ -210,8 +210,8 @@ class Viewport;
         static auto getSingletonPtr() noexcept -> CompositorManager*;
     
     private:
-        auto createImpl(const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader,
+        auto createImpl(std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* params) -> Resource* override;
 
         using Chains = std::map<const Viewport *, CompositorChain *>;
@@ -264,9 +264,9 @@ class Viewport;
         
         ChainTexturesByDef mChainTexturesByDef;
 
-        auto isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
+        auto isInputPreviousTarget(CompositorInstance* inst, std::string_view localName) -> bool;
         auto isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
-        auto isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
+        auto isInputToOutputTarget(CompositorInstance* inst, std::string_view localName) -> bool;
         auto isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
 
     };

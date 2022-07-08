@@ -60,7 +60,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesManager::parseCapabilitiesFromArchive(const String& filename, const String& archiveType, bool recursive)
+    void RenderSystemCapabilitiesManager::parseCapabilitiesFromArchive(std::string_view filename, std::string_view archiveType, bool recursive)
     {
         // get the list of .rendercaps files
         Archive* arch = ArchiveManager::getSingleton().load(filename, archiveType, true);
@@ -75,7 +75,7 @@ namespace Ogre {
         }
     }
 
-    auto RenderSystemCapabilitiesManager::loadParsedCapabilities(const String& name) -> RenderSystemCapabilities*
+    auto RenderSystemCapabilitiesManager::loadParsedCapabilities(std::string_view name) -> RenderSystemCapabilities*
     {
         return mCapabilitiesMap[name].get();
     }
@@ -86,7 +86,7 @@ namespace Ogre {
     }
 
     /** Method used by RenderSystemCapabilitiesSerializer::parseScript */
-    void RenderSystemCapabilitiesManager::_addRenderSystemCapabilities(const String& name, RenderSystemCapabilities* caps)
+    void RenderSystemCapabilitiesManager::_addRenderSystemCapabilities(std::string_view name, RenderSystemCapabilities* caps)
     {
         mCapabilitiesMap.emplace(name, caps);
     }

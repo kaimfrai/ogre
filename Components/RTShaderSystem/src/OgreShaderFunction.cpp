@@ -398,7 +398,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
 }
 
 //-----------------------------------------------------------------------------
-auto Function::resolveLocalParameter(GpuConstantType type, const String& name) -> ParameterPtr
+auto Function::resolveLocalParameter(GpuConstantType type, std::string_view name) -> ParameterPtr
 {
     ParameterPtr param;
 
@@ -529,7 +529,7 @@ void Function::deleteParameter(ShaderParameterList& parameterList, ParameterPtr 
 }
 
 //-----------------------------------------------------------------------------
-auto Function::_getParameterByName( const ShaderParameterList& parameterList, const String& name ) -> ParameterPtr
+auto Function::_getParameterByName( const ShaderParameterList& parameterList, std::string_view name ) -> ParameterPtr
 {
     for (auto const& it : parameterList)
     {

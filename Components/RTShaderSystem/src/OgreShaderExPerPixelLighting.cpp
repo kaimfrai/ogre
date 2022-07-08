@@ -64,12 +64,12 @@ namespace Ogre::RTShader {
 String PerPixelLighting::Type = "SGX_PerPixelLighting";
 
 //-----------------------------------------------------------------------
-auto PerPixelLighting::getType() const noexcept -> const String&
+auto PerPixelLighting::getType() const noexcept -> std::string_view 
 {
     return Type;
 }
 
-auto PerPixelLighting::setParameter(const String& name, const String& value) noexcept -> bool
+auto PerPixelLighting::setParameter(std::string_view name, std::string_view value) noexcept -> bool
 {
 	if(name == "two_sided")
 	{
@@ -341,7 +341,7 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
 }
 
 //-----------------------------------------------------------------------
-auto PerPixelLightingFactory::getType() const noexcept -> const String&
+auto PerPixelLightingFactory::getType() const noexcept -> std::string_view 
 {
     return PerPixelLighting::Type;
 }

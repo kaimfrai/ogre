@@ -52,7 +52,7 @@ namespace Ogre
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
         }
-        void doSet(void* target, const String& val) override
+        void doSet(void* target, std::string_view val) override
         {
             static_cast<HighLevelGpuProgram*>(target)->setPreprocessorDefines(val);
         }
@@ -67,7 +67,7 @@ namespace Ogre
         {
             return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
         }
-        void doSet(void* target, const String& val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
+        void doSet(void* target, std::string_view val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
     };
     static CmdEntryPoint msCmdEntryPoint;
 
@@ -82,7 +82,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------------
     HighLevelGpuProgram::HighLevelGpuProgram(ResourceManager* creator, 
-        const String& name, ResourceHandle handle, const String& group, 
+        std::string_view name, ResourceHandle handle, std::string_view group, 
         bool isManual, ManualResourceLoader* loader)
         : GpuProgram(creator, name, handle, group, isManual, loader), 
          mEntryPoint("main")
@@ -275,7 +275,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename) -> String
+    auto HighLevelGpuProgram::_resolveIncludes(std::string_view inSource, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename) -> String
     {
         String outSource;
         // output will be at least this big

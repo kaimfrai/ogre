@@ -43,7 +43,7 @@ namespace Ogre {
         return str.str();
     }
 
-    void  DriverVersion::fromString(const String& versionString)
+    void  DriverVersion::fromString(std::string_view versionString)
     {
         StringVector tokens = StringUtil::split(versionString, ".");
         if(!tokens.empty())
@@ -73,14 +73,14 @@ namespace Ogre {
         mCategoryRelevant[CAPS_CATEGORY_GL] = false;
     }
 
-    void RenderSystemCapabilities::addShaderProfile(const String& profile) { mSupportedShaderProfiles.insert(profile); }
+    void RenderSystemCapabilities::addShaderProfile(std::string_view profile) { mSupportedShaderProfiles.insert(profile); }
 
-    void RenderSystemCapabilities::removeShaderProfile(const String& profile)
+    void RenderSystemCapabilities::removeShaderProfile(std::string_view profile)
     {
         mSupportedShaderProfiles.erase(profile);
     }
 
-    auto RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const -> bool
+    auto RenderSystemCapabilities::isShaderProfileSupported(std::string_view profile) const -> bool
     {
         return (mSupportedShaderProfiles.end() != mSupportedShaderProfiles.find(profile));
     }
@@ -200,7 +200,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorFromString(const String& vendorString) -> GPUVendor
+    auto RenderSystemCapabilities::vendorFromString(std::string_view vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
@@ -220,7 +220,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> const String&
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> std::string_view 
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

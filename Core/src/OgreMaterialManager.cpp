@@ -94,21 +94,21 @@ class Renderable;
         ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::createImpl(const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader,
+    auto MaterialManager::createImpl(std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
     const NameValuePairList* params) -> Resource*
     {
         return new Material(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::create (const String& name, const String& group,
+    auto MaterialManager::create (std::string_view name, std::string_view group,
                                     bool isManual, ManualResourceLoader* loader,
                                     const NameValuePairList* createParams) -> MaterialPtr
     {
         return static_pointer_cast<Material>(createResource(name,group,isManual,loader,createParams));
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::getByName(const String& name, const String& groupName) const -> MaterialPtr
+    auto MaterialManager::getByName(std::string_view name, std::string_view groupName) const -> MaterialPtr
     {
         return static_pointer_cast<Material>(getResourceByName(name, groupName));
     }
@@ -174,7 +174,7 @@ class Renderable;
         return TextureManager::getSingleton().getDefaultSampler()->getFiltering(ftype);
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::_getSchemeIndex(const String& schemeName) -> unsigned short
+    auto MaterialManager::_getSchemeIndex(std::string_view schemeName) -> unsigned short
     {
         unsigned short ret = 0;
         auto i = mSchemes.find(schemeName);
@@ -192,7 +192,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::_getSchemeName(unsigned short index) -> const String&
+    auto MaterialManager::_getSchemeName(unsigned short index) -> std::string_view 
     {
         for (auto & mScheme : mSchemes)
         {
@@ -202,7 +202,7 @@ class Renderable;
         return DEFAULT_SCHEME_NAME;
     }
     //-----------------------------------------------------------------------
-    void MaterialManager::setActiveScheme(const String& schemeName)
+    void MaterialManager::setActiveScheme(std::string_view schemeName)
     {
         if (mActiveSchemeName != schemeName)
         {   
@@ -213,12 +213,12 @@ class Renderable;
         }
     }
     //-----------------------------------------------------------------------
-    void MaterialManager::addListener(Listener* l, const Ogre::String& schemeName)
+    void MaterialManager::addListener(Listener* l, std::string_view schemeName)
     {
         mListenerMap[schemeName].push_back(l);
     }
     //---------------------------------------------------------------------
-    void MaterialManager::removeListener(Listener* l, const Ogre::String& schemeName)
+    void MaterialManager::removeListener(Listener* l, std::string_view schemeName)
     {
         mListenerMap[schemeName].remove(l);
     }

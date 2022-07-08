@@ -61,7 +61,7 @@ class Camera;
         mName = name.str();
     }
 
-    SimpleRenderable::SimpleRenderable(const String& name)
+    SimpleRenderable::SimpleRenderable(std::string_view name)
     : MovableObject(name)
     , mTransform(Affine3::IDENTITY)
     , mMaterial(MaterialManager::getSingleton().getDefaultMaterial())
@@ -131,7 +131,7 @@ class Camera;
     }
 
     //-----------------------------------------------------------------------
-    auto SimpleRenderable::getMovableType() const noexcept -> const String&
+    auto SimpleRenderable::getMovableType() const noexcept -> std::string_view 
     {
         static String movType = "SimpleRenderable";
         return movType;

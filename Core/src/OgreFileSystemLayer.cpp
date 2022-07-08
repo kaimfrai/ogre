@@ -45,7 +45,7 @@ namespace Ogre
 {
     namespace {
         /** Get actual file pointed to by symlink */
-        auto resolveSymlink(const Ogre::String& symlink) -> const Ogre::String
+        auto resolveSymlink(std::string_view symlink) -> const Ogre::String
         {
             ssize_t bufsize = 256;
             char* resolved = nullptr;
@@ -141,7 +141,7 @@ namespace Ogre
         mConfigPaths.push_back("/etc/OGRE/");
     }
     //---------------------------------------------------------------------
-    void FileSystemLayer::prepareUserHome(const Ogre::String& subdir)
+    void FileSystemLayer::prepareUserHome(std::string_view subdir)
     {
         char* xdg_cache = getenv("XDG_CACHE_HOME");
 
@@ -183,27 +183,27 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::fileExists(const Ogre::String& path) -> bool
+    auto FileSystemLayer::fileExists(std::string_view path) -> bool
     {
         return access(path.c_str(), R_OK) == 0;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::createDirectory(const Ogre::String& path) -> bool
+    auto FileSystemLayer::createDirectory(std::string_view path) -> bool
     {
         return !mkdir(path.c_str(), 0755) || errno == EEXIST;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeDirectory(const Ogre::String& path) -> bool
+    auto FileSystemLayer::removeDirectory(std::string_view path) -> bool
     {
         return !rmdir(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeFile(const Ogre::String& path) -> bool
+    auto FileSystemLayer::removeFile(std::string_view path) -> bool
     {
         return !unlink(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::renameFile(const Ogre::String& oldname, const Ogre::String& newname) -> bool
+    auto FileSystemLayer::renameFile(std::string_view oldname, std::string_view newname) -> bool
     {
         return !rename(oldname.c_str(), newname.c_str());
     }

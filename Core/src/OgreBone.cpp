@@ -66,7 +66,7 @@ namespace Ogre {
         return mCreator->createBone();
     }
     //---------------------------------------------------------------------
-    auto Bone::createChildImpl(const String& name) -> Node*
+    auto Bone::createChildImpl(std::string_view name) -> Node*
     {
         return mCreator->createBone(name);
     }

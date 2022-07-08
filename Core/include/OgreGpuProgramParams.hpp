@@ -329,7 +329,7 @@ template <int dims, typename T> class Vector;
         /** Saves constant definitions to a file
          * compatible with @ref GpuProgram::setManualNamedConstantsFile.
          */
-        void save(const String& filename) const;
+        void save(std::string_view filename) const;
         /** Loads constant definitions from a stream
          * compatible with @ref GpuProgram::setManualNamedConstantsFile.
          */
@@ -344,7 +344,7 @@ template <int dims, typename T> class Vector;
     public:
         GpuNamedConstantsSerializer();
         virtual ~GpuNamedConstantsSerializer();
-        void exportNamedConstants(const GpuNamedConstants* pConsts, const String& filename,
+        void exportNamedConstants(const GpuNamedConstants* pConsts, std::string_view filename,
                                   Endian endianMode = ENDIAN_NATIVE);
         void exportNamedConstants(const GpuNamedConstants* pConsts, DataStreamPtr stream,
                                   Endian endianMode = ENDIAN_NATIVE);
@@ -429,7 +429,7 @@ template <int dims, typename T> class Vector;
         GpuSharedParameters(std::string_view name);
 
         /// Get the name of this shared parameter set.
-        auto getName() noexcept -> const String& { return mName; }
+        auto getName() noexcept -> std::string_view { return mName; }
 
         /** Add a new constant definition to this shared set of parameters.
             @remarks
@@ -438,7 +438,7 @@ template <int dims, typename T> class Vector;
             user. Only parameters which have been predefined here may be later
             updated.
         */
-        void addConstantDefinition(const String& name, GpuConstantType constType, uint32 arraySize = 1);
+        void addConstantDefinition(std::string_view name, GpuConstantType constType, uint32 arraySize = 1);
 
         /** Remove a constant definition from this shared set of parameters.
          */
@@ -478,33 +478,33 @@ template <int dims, typename T> class Vector;
 
         /** Get a specific GpuConstantDefinition for a named parameter.
          */
-        [[nodiscard]] auto getConstantDefinition(const String& name) const -> const GpuConstantDefinition&;
+        [[nodiscard]] auto getConstantDefinition(std::string_view name) const -> const GpuConstantDefinition&;
 
         /** Get the full list of GpuConstantDefinition instances.
          */
         [[nodiscard]] auto getConstantDefinitions() const noexcept -> const GpuNamedConstants&;
 
-        /** @copydoc GpuProgramParameters::setNamedConstant(const String&, Real) */
-        template <typename T> void setNamedConstant(const String& name, T val)
+        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view , Real) */
+        template <typename T> void setNamedConstant(std::string_view name, T val)
         {
             setNamedConstant(name, &val, 1);
         }
         /// @overload
         template <int dims, typename T>
-        void setNamedConstant(const String& name, const Vector<dims, T>& vec)
+        void setNamedConstant(std::string_view name, const Vector<dims, T>& vec)
         {
             setNamedConstant(name, vec.ptr(), dims);
         }
-        /** @copydoc GpuProgramParameters::setNamedConstant(const String& name, const Matrix4& m) */
-        void setNamedConstant(const String& name, const Matrix4& m);
-        /** @copydoc GpuProgramParameters::setNamedConstant(const String& name, const Matrix4* m, size_t numEntries) */
-        void setNamedConstant(const String& name, const Matrix4* m, uint32 numEntries);
-        void setNamedConstant(const String& name, const float *val, uint32 count);
-        void setNamedConstant(const String& name, const double *val, uint32 count);
-        /** @copydoc GpuProgramParameters::setNamedConstant(const String& name, const ColourValue& colour) */
-        void setNamedConstant(const String& name, const ColourValue& colour);
-        void setNamedConstant(const String& name, const int *val, uint32 count);
-        void setNamedConstant(const String& name, const uint *val, uint32 count);
+        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view name, const Matrix4& m) */
+        void setNamedConstant(std::string_view name, const Matrix4& m);
+        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view name, const Matrix4* m, size_t numEntries) */
+        void setNamedConstant(std::string_view name, const Matrix4* m, uint32 numEntries);
+        void setNamedConstant(std::string_view name, const float *val, uint32 count);
+        void setNamedConstant(std::string_view name, const double *val, uint32 count);
+        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view name, const ColourValue& colour) */
+        void setNamedConstant(std::string_view name, const ColourValue& colour);
+        void setNamedConstant(std::string_view name, const int *val, uint32 count);
+        void setNamedConstant(std::string_view name, const uint *val, uint32 count);
         /// Get a pointer to the 'nth' item in the float buffer
         auto getFloatPointer(size_t pos) -> float* { _markDirty(); return (float*)&mConstants[pos]; }
         /// Get a pointer to the 'nth' item in the float buffer
@@ -575,7 +575,7 @@ template <int dims, typename T> class Vector;
         void _copySharedParamsToTargetParams() const;
 
         /// Get the name of the shared parameter set
-        [[nodiscard]] auto getName() const noexcept -> const String& { return mSharedParams->getName(); }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mSharedParams->getName(); }
 
         [[nodiscard]] auto getSharedParams() const noexcept -> GpuSharedParametersPtr { return mSharedParams; }
         [[nodiscard]] auto getTargetParams() const noexcept -> GpuProgramParameters* { return mParams; }
@@ -1482,7 +1482,7 @@ template <int dims, typename T> class Vector;
             @note
             Only available if this parameters object has named parameters.
         */
-        [[nodiscard]] auto getConstantDefinition(const String& name) const -> const GpuConstantDefinition&;
+        [[nodiscard]] auto getConstantDefinition(std::string_view name) const -> const GpuConstantDefinition&;
 
         /** Get the full list of GpuConstantDefinition instances.
             @note
@@ -1595,7 +1595,7 @@ template <int dims, typename T> class Vector;
         /** Finds an auto constant that's affecting a given named parameter index.
             @note Only applicable to high-level programs.
         */
-        [[nodiscard]] auto findAutoConstantEntry(const String& paramName) const -> const AutoConstantEntry*;
+        [[nodiscard]] auto findAutoConstantEntry(std::string_view paramName) const -> const AutoConstantEntry*;
         /** Finds an auto constant that's affecting a given physical position in
             the floating-point buffer
         */
@@ -1614,23 +1614,23 @@ template <int dims, typename T> class Vector;
             @param acType The type of automatic constant to set
             @param extraInfo If the constant type needs more information (like a light index) put it here.
         */
-        void setNamedAutoConstant(const String& name, AutoConstantType acType, uint32 extraInfo = 0);
+        void setNamedAutoConstant(std::string_view name, AutoConstantType acType, uint32 extraInfo = 0);
         /// @overload
-        void setNamedAutoConstantReal(const String& name, AutoConstantType acType, Real rData);
+        void setNamedAutoConstantReal(std::string_view name, AutoConstantType acType, Real rData);
         /// @overload
-        void setNamedAutoConstant(const String& name, AutoConstantType acType, uint16 extraInfo1, uint16 extraInfo2)
+        void setNamedAutoConstant(std::string_view name, AutoConstantType acType, uint16 extraInfo1, uint16 extraInfo2)
         {
             setNamedAutoConstant(name, acType, (uint32)extraInfo1 | ((uint32)extraInfo2) << 16);
         }
 
         /// @deprecated use ACT_TIME directly
-        void setNamedConstantFromTime(const String& name, Real factor)
+        void setNamedConstantFromTime(std::string_view name, Real factor)
         {
             setNamedAutoConstantReal(name, ACT_TIME, factor);
         }
 
         /** Unbind an auto constant so that the constant is manually controlled again. */
-        void clearNamedAutoConstant(const String& name);
+        void clearNamedAutoConstant(std::string_view name);
         /// @}
 
         /** Update automatic parameters.
@@ -1664,21 +1664,21 @@ template <int dims, typename T> class Vector;
             @param name The name of the parameter
             @param val The value to set
         */
-        void setNamedConstant(const String& name, Real val);
+        void setNamedConstant(std::string_view name, Real val);
         /// @overload
-        void setNamedConstant(const String& name, int val);
+        void setNamedConstant(std::string_view name, int val);
         /// @overload
-        void setNamedConstant(const String& name, uint val);
+        void setNamedConstant(std::string_view name, uint val);
         /// @overload
-        void setNamedConstant(const String& name, const Vector4& val);
+        void setNamedConstant(std::string_view name, const Vector4& val);
         /// @overload
-        void setNamedConstant(const String& name, const Vector3& val);
+        void setNamedConstant(std::string_view name, const Vector3& val);
         /// @overload
-        void setNamedConstant(const String& name, const Vector2& val);
+        void setNamedConstant(std::string_view name, const Vector2& val);
         /// @overload
-        void setNamedConstant(const String& name, const Matrix4& val);
+        void setNamedConstant(std::string_view name, const Matrix4& val);
         /// @overload
-        void setNamedConstant(const String& name, const ColourValue& colour);
+        void setNamedConstant(std::string_view name, const ColourValue& colour);
         /** Sets a list of Matrix4 parameters to the program.
             @param name The name of the parameter; this must be the first index of an array,
             for examples 'matrices[0]'
@@ -1686,7 +1686,7 @@ template <int dims, typename T> class Vector;
             @param m Pointer to an array of matrices to set
             @param numEntries Number of Matrix4 entries
         */
-        void setNamedConstant(const String& name, const Matrix4* m, size_t numEntries);
+        void setNamedConstant(std::string_view name, const Matrix4* m, size_t numEntries);
         /** Sets a multiple value constant parameter to the program.
 
             Some systems only allow constants to be set on certain boundaries,
@@ -1703,16 +1703,16 @@ template <int dims, typename T> class Vector;
             @param multiple The number of raw entries in each element to write,
             the default is 4 so count = 1 would write 4 floats.
         */
-        void setNamedConstant(const String& name, const float *val, size_t count,
+        void setNamedConstant(std::string_view name, const float *val, size_t count,
                               size_t multiple = 4);
         /// @overload
-        void setNamedConstant(const String& name, const double *val, size_t count,
+        void setNamedConstant(std::string_view name, const double *val, size_t count,
                               size_t multiple = 4);
         /// @overload
-        void setNamedConstant(const String& name, const int *val, size_t count,
+        void setNamedConstant(std::string_view name, const int *val, size_t count,
                               size_t multiple = 4);
         /// @overload
-        void setNamedConstant(const String& name, const uint *val, size_t count,
+        void setNamedConstant(std::string_view name, const uint *val, size_t count,
                               size_t multiple = 4);
         /// @}
         /** Find a constant definition for a named parameter.
@@ -1725,7 +1725,7 @@ template <int dims, typename T> class Vector;
             will throw an exception.
         */
         [[nodiscard]] auto _findNamedConstantDefinition(
-            const String& name, bool throwExceptionIfMissing = false) const -> const GpuConstantDefinition*;
+            std::string_view name, bool throwExceptionIfMissing = false) const -> const GpuConstantDefinition*;
         /** Gets the physical buffer index associated with a logical float constant index.
             @note Only applicable to low-level programs.
             @param logicalIndex The logical parameter index
@@ -1767,7 +1767,7 @@ template <int dims, typename T> class Vector;
         /** gets the auto constant definition associated with name if found else returns NULL
             @param name The name of the auto constant
         */
-        static auto getAutoConstantDefinition(const String& name) -> const AutoConstantDefinition*;
+        static auto getAutoConstantDefinition(std::string_view name) -> const AutoConstantDefinition*;
         /** gets the auto constant definition using an index into the auto constant definition array.
             If the index is out of bounds then NULL is returned;
             @param idx The auto constant index
@@ -1798,13 +1798,13 @@ template <int dims, typename T> class Vector;
             @param sharedParamsName The name of a shared parameter set as defined in
             GpuProgramManager
         */
-        void addSharedParameters(const String& sharedParamsName);
+        void addSharedParameters(std::string_view sharedParamsName);
 
         /** Returns whether this parameter set is using the named shared parameter set. */
-        [[nodiscard]] auto isUsingSharedParameters(const String& sharedParamsName) const -> bool;
+        [[nodiscard]] auto isUsingSharedParameters(std::string_view sharedParamsName) const -> bool;
 
         /** Stop using the named shared parameter set. */
-        void removeSharedParameters(const String& sharedParamsName);
+        void removeSharedParameters(std::string_view sharedParamsName);
 
         /** Stop using all shared parameter sets. */
         void removeAllSharedParameters();

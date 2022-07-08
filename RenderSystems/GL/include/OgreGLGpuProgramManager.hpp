@@ -36,15 +36,15 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, const String &, ResourceHandle, const String &, bool, ManualResourceLoader *, GpuProgramType, const String &);
+using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, std::string_view , ResourceHandle, std::string_view , bool, ManualResourceLoader *, GpuProgramType, std::string_view );
 
 struct CreateCallbackWrapper : public GpuProgramFactory
 {
     String language;
     CreateGpuProgramCallback callback;
-    [[nodiscard]] auto getLanguage() const noexcept -> const String& override { return language; };
-    auto create(ResourceManager* creator, const String& name, ResourceHandle handle,
-                       const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
+    [[nodiscard]] auto getLanguage() const noexcept -> std::string_view override { return language; };
+    auto create(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+                       std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
     {
         // type and syntax code will be corrected by GpuProgramManager
         return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");
@@ -56,7 +56,7 @@ class GLGpuProgramManager
 {
     std::list<CreateCallbackWrapper> mFactories;
 public:
-    void registerProgramFactory(const String& syntaxCode, CreateGpuProgramCallback createFn)
+    void registerProgramFactory(std::string_view syntaxCode, CreateGpuProgramCallback createFn)
     {
         mFactories.emplace_back(syntaxCode, createFn);
         GpuProgramManager::getSingleton().addFactory(&mFactories.back());

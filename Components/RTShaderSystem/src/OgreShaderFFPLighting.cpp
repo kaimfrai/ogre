@@ -77,7 +77,7 @@ FFPLighting::FFPLighting()
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::getType() const noexcept -> const String&
+auto FFPLighting::getType() const noexcept -> std::string_view 
 {
 	return Type;
 }
@@ -495,7 +495,7 @@ auto FFPLighting::preAddToRenderState(const RenderState* renderState, Pass* srcP
 	return true;
 }
 
-auto FFPLighting::setParameter(const String& name, const String& value) noexcept -> bool
+auto FFPLighting::setParameter(std::string_view name, std::string_view value) noexcept -> bool
 {
 	if(name == "normalise" || name == "normalised") // allow both spelling variations
 	{
@@ -545,7 +545,7 @@ auto FFPLighting::getLightCount() const -> Vector3i
 }
 
 //-----------------------------------------------------------------------
-auto FFPLightingFactory::getType() const noexcept -> const String&
+auto FFPLightingFactory::getType() const noexcept -> std::string_view 
 {
 	return FFPLighting::Type;
 }

@@ -39,7 +39,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getAngle() );
         }
-        void CmdAngle::doSet(void* target, const String& val)
+        void CmdAngle::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setAngle(StringConverter::parseAngle(val));
         }
@@ -49,7 +49,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColour() );
         }
-        void CmdColour::doSet(void* target, const String& val)
+        void CmdColour::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setColour(StringConverter::parseColourValue(val));
         }
@@ -59,7 +59,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColourRangeStart() );
         }
-        void CmdColourRangeStart::doSet(void* target, const String& val)
+        void CmdColourRangeStart::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setColourRangeStart(StringConverter::parseColourValue(val));
         }
@@ -69,7 +69,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getColourRangeEnd() );
         }
-        void CmdColourRangeEnd::doSet(void* target, const String& val)
+        void CmdColourRangeEnd::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setColourRangeEnd(StringConverter::parseColourValue(val));
         }
@@ -79,7 +79,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getDirection() );
         }
-        void CmdDirection::doSet(void* target, const String& val)
+        void CmdDirection::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setDirection(StringConverter::parseVector3(val));
         }
@@ -89,7 +89,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getUp() );
         }
-        void CmdUp::doSet(void* target, const String& val)
+        void CmdUp::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setUp(StringConverter::parseVector3(val));
         }
@@ -100,7 +100,7 @@ namespace Ogre::EmitterCommands {
             val.w = static_cast<const ParticleEmitter*>(target)->getDirPositionReferenceEnabled();
             return StringConverter::toString( val );
         }
-        void CmdDirPositionRef::doSet(void* target, const String& val)
+        void CmdDirPositionRef::doSet(void* target, std::string_view val)
         {
             const Vector4 parsed = StringConverter::parseVector4(val);
             const Vector3 vPos( parsed.x, parsed.y, parsed.z );
@@ -112,7 +112,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getEmissionRate() );
         }
-        void CmdEmissionRate::doSet(void* target, const String& val)
+        void CmdEmissionRate::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setEmissionRate(StringConverter::parseReal(val));
         }
@@ -122,7 +122,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxTimeToLive() );
         }
-        void CmdMaxTTL::doSet(void* target, const String& val)
+        void CmdMaxTTL::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMaxTimeToLive(StringConverter::parseReal(val));
         }
@@ -132,7 +132,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinTimeToLive() );
         }
-        void CmdMinTTL::doSet(void* target, const String& val)
+        void CmdMinTTL::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMinTimeToLive(StringConverter::parseReal(val));
         }
@@ -142,7 +142,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxParticleVelocity() );
         }
-        void CmdMaxVelocity::doSet(void* target, const String& val)
+        void CmdMaxVelocity::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMaxParticleVelocity(StringConverter::parseReal(val));
         }
@@ -152,7 +152,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinParticleVelocity() );
         }
-        void CmdMinVelocity::doSet(void* target, const String& val)
+        void CmdMinVelocity::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMinParticleVelocity(StringConverter::parseReal(val));
         }
@@ -162,7 +162,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getPosition() );
         }
-        void CmdPosition::doSet(void* target, const String& val)
+        void CmdPosition::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setPosition(StringConverter::parseVector3(val));
         }
@@ -172,7 +172,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getTimeToLive() );
         }
-        void CmdTTL::doSet(void* target, const String& val)
+        void CmdTTL::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setTimeToLive(StringConverter::parseReal(val));
         }
@@ -182,7 +182,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getParticleVelocity() );
         }
-        void CmdVelocity::doSet(void* target, const String& val)
+        void CmdVelocity::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setParticleVelocity(StringConverter::parseReal(val));
         }
@@ -192,7 +192,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getDuration() );
         }
-        void CmdDuration::doSet(void* target, const String& val)
+        void CmdDuration::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setDuration(StringConverter::parseReal(val));
         }
@@ -202,7 +202,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinDuration() );
         }
-        void CmdMinDuration::doSet(void* target, const String& val)
+        void CmdMinDuration::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMinDuration(StringConverter::parseReal(val));
         }
@@ -212,7 +212,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxDuration() );
         }
-        void CmdMaxDuration::doSet(void* target, const String& val)
+        void CmdMaxDuration::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMaxDuration(StringConverter::parseReal(val));
         }
@@ -222,7 +222,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getRepeatDelay() );
         }
-        void CmdRepeatDelay::doSet(void* target, const String& val)
+        void CmdRepeatDelay::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setRepeatDelay(StringConverter::parseReal(val));
         }
@@ -232,7 +232,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMinRepeatDelay() );
         }
-        void CmdMinRepeatDelay::doSet(void* target, const String& val)
+        void CmdMinRepeatDelay::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMinRepeatDelay(StringConverter::parseReal(val));
         }
@@ -242,7 +242,7 @@ namespace Ogre::EmitterCommands {
             return StringConverter::toString(
                 static_cast<const ParticleEmitter*>(target)->getMaxRepeatDelay() );
         }
-        void CmdMaxRepeatDelay::doSet(void* target, const String& val)
+        void CmdMaxRepeatDelay::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setMaxRepeatDelay(StringConverter::parseReal(val));
         }
@@ -252,7 +252,7 @@ namespace Ogre::EmitterCommands {
             return 
                 static_cast<const ParticleEmitter*>(target)->getName();
         }
-        void CmdName::doSet(void* target, const String& val)
+        void CmdName::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setName(val);
         }
@@ -262,7 +262,7 @@ namespace Ogre::EmitterCommands {
             return 
                 static_cast<const ParticleEmitter*>(target)->getEmittedEmitter();
         }
-        void CmdEmittedEmitter::doSet(void* target, const String& val)
+        void CmdEmittedEmitter::doSet(void* target, std::string_view val)
         {
             static_cast<ParticleEmitter*>(target)->setEmittedEmitter(val);
         }

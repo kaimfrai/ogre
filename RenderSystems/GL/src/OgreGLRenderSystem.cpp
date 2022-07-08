@@ -112,9 +112,9 @@ namespace Ogre {
 
     // Callback function used when registering GLGpuPrograms
     static auto createGLArbGpuProgram(ResourceManager* creator,
-                                      const String& name, ResourceHandle handle,
-                                      const String& group, bool isManual, ManualResourceLoader* loader,
-                                      GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
+                                      std::string_view name, ResourceHandle handle,
+                                      std::string_view group, bool isManual, ManualResourceLoader* loader,
+                                      GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgram*
     {
         auto* ret = new GLArbGpuProgram(
             creator, name, handle, group, isManual, loader);
@@ -124,9 +124,9 @@ namespace Ogre {
     }
 
     static auto createGLGpuNvparseProgram(ResourceManager* creator,
-                                          const String& name, ResourceHandle handle,
-                                          const String& group, bool isManual, ManualResourceLoader* loader,
-                                          GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
+                                          std::string_view name, ResourceHandle handle,
+                                          std::string_view group, bool isManual, ManualResourceLoader* loader,
+                                          GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgram*
     {
         auto* ret = new GLGpuNvparseProgram(
             creator, name, handle, group, isManual, loader);
@@ -136,9 +136,9 @@ namespace Ogre {
     }
 
     static auto createGL_ATI_FS_GpuProgram(ResourceManager* creator,
-                                           const String& name, ResourceHandle handle,
-                                           const String& group, bool isManual, ManualResourceLoader* loader,
-                                           GpuProgramType gptype, const String& syntaxCode) -> GpuProgram*
+                                           std::string_view name, ResourceHandle handle,
+                                           std::string_view group, bool isManual, ManualResourceLoader* loader,
+                                           GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgram*
     {
 
         auto* ret = new ATI_FS_GLGpuProgram(
@@ -363,7 +363,7 @@ namespace Ogre {
         glPopMatrix();
     }
 
-    auto GLRenderSystem::getName() const noexcept -> const String&
+    auto GLRenderSystem::getName() const noexcept -> std::string_view 
     {
         static String strName("OpenGL Rendering Subsystem");
         return strName;
@@ -1015,7 +1015,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto GLRenderSystem::_createRenderWindow(const String &name,
+    auto GLRenderSystem::_createRenderWindow(std::string_view name,
                                                       unsigned int width, unsigned int height, bool fullScreen,
                                                       const NameValuePairList *miscParams) -> RenderWindow*
     {
@@ -1139,7 +1139,7 @@ namespace Ogre {
 
 
     //-----------------------------------------------------------------------
-    auto GLRenderSystem::createMultiRenderTarget(const String & name) -> MultiRenderTarget *
+    auto GLRenderSystem::createMultiRenderTarget(std::string_view name) -> MultiRenderTarget *
     {
         auto fboMgr = dynamic_cast<GLFBOManager*>(mRTTManager);
         if (!fboMgr)
@@ -1151,7 +1151,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void GLRenderSystem::destroyRenderWindow(const String& name)
+    void GLRenderSystem::destroyRenderWindow(std::string_view name)
     {
         // Find it to remove from list.
         ::std::unique_ptr<RenderTarget> pWin{detachRenderTarget(name) };
@@ -2886,7 +2886,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    void GLRenderSystem::beginProfileEvent( const String &eventName )
+    void GLRenderSystem::beginProfileEvent( std::string_view eventName )
     {
         markProfileEvent(::std::format("Begin Event: {}", eventName));
     }
@@ -2898,7 +2898,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    void GLRenderSystem::markProfileEvent( const String &eventName )
+    void GLRenderSystem::markProfileEvent( std::string_view eventName )
     {
         if( eventName.empty() )
             return;

@@ -343,10 +343,10 @@ public:
     virtual ~Parameter() = default;;
 
     /** Get the name of this parameter. */
-    [[nodiscard]] auto getName() const noexcept -> const String& { return mName; }
+    [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
     /// internal function for aliasing to GLSL builtins e.g. gl_Position
-    void _rename(const String& newName, bool onlyLocal = false)
+    void _rename(std::string_view newName, bool onlyLocal = false)
     {
         if(onlyLocal)
             mBindName = mName;
@@ -424,7 +424,7 @@ public:
     @param variability How this parameter varies (bitwise combination of GpuProgramVariability).
     @param size number of elements in the parameter.    
     */
-    UniformParameter(GpuConstantType type, const String& name, 
+    UniformParameter(GpuConstantType type, std::string_view name, 
         const Semantic& semantic, int index, 
         const Content& content,
         uint16 variability, size_t size);
@@ -702,7 +702,7 @@ public:
     static auto createSampler3D(int index) -> UniformParameterPtr;
     static auto createSamplerCUBE(int index) -> UniformParameterPtr;    
 
-    static auto createUniform(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size) -> UniformParameterPtr;
+    static auto createUniform(GpuConstantType type, int index, uint16 variability, std::string_view suggestedName, size_t size) -> UniformParameterPtr;
 };
 
 

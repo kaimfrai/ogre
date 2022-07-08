@@ -531,7 +531,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
-auto MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath) -> bool
+auto MeshSerializerTests::copyFile(std::string_view srcPath, std::string_view dstPath) -> bool
 {
     std::ifstream src(srcPath.c_str(), std::ios::binary);
     if (!src.is_open()) {

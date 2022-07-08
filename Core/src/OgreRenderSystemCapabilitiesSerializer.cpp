@@ -49,7 +49,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::write(const RenderSystemCapabilities* caps, const String &name, std::ostream &file)
+    void RenderSystemCapabilitiesSerializer::write(const RenderSystemCapabilities* caps, std::string_view name, std::ostream &file)
     {
         using namespace std;
 
@@ -106,7 +106,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, const String &name, String filename)
+    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename)
     {
         using namespace std;
 
@@ -118,7 +118,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name) -> String
+    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, std::string_view name) -> String
     {
         using namespace std;
         
@@ -461,7 +461,7 @@ namespace Ogre
         }
     }
 
-    void RenderSystemCapabilitiesSerializer::logParseError(const String& error) const
+    void RenderSystemCapabilitiesSerializer::logParseError(std::string_view error) const
     {
         // log the line with error in it if the current line is available
         if (mCurrentLine != nullptr && mCurrentStream)

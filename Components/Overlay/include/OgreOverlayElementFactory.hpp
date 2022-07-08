@@ -60,11 +60,11 @@ namespace Ogre {
         virtual ~OverlayElementFactory () = default;
         /** Creates a new OverlayElement instance with the name supplied. */
         [[nodiscard]]
-        virtual auto createOverlayElement(const String& instanceName) -> OverlayElement* = 0;
+        virtual auto createOverlayElement(std::string_view instanceName) -> OverlayElement* = 0;
         /** Destroys a OverlayElement which this factory created previously. */
         virtual void destroyOverlayElement(OverlayElement* pElement) { delete pElement; }
         /** Gets the string uniquely identifying the type of element this factory creates. */
-        [[nodiscard]] virtual auto getTypeName() const noexcept -> const String& = 0;
+        [[nodiscard]] virtual auto getTypeName() const noexcept -> std::string_view = 0;
     };
     /** @} */
     /** @} */

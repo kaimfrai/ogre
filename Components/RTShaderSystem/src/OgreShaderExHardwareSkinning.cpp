@@ -93,7 +93,7 @@ HardwareSkinning::HardwareSkinning()
 = default;
 
 //-----------------------------------------------------------------------
-auto HardwareSkinning::getType() const noexcept -> const String&
+auto HardwareSkinning::getType() const noexcept -> std::string_view 
 {
     return Type;
 }
@@ -270,7 +270,7 @@ HardwareSkinningFactory::HardwareSkinningFactory()
 HardwareSkinningFactory::~HardwareSkinningFactory() = default;
 
 //-----------------------------------------------------------------------
-auto HardwareSkinningFactory::getType() const noexcept -> const String&
+auto HardwareSkinningFactory::getType() const noexcept -> std::string_view 
 {
     return HardwareSkinning::Type;
 }
@@ -569,7 +569,7 @@ auto HardwareSkinningFactory::imprintSkeletonData(const MaterialPtr& pMaterial, 
             {
                 //invalidate the material so it will be recreated with the correct
                 //amount of bones and weights
-                const String& schemeName = ShaderGenerator::getSingleton().getRTShaderScheme(i);
+                std::string_view schemeName = ShaderGenerator::getSingleton().getRTShaderScheme(i);
                 ShaderGenerator::getSingleton().invalidateMaterial(schemeName, *pMaterial);
             }
 

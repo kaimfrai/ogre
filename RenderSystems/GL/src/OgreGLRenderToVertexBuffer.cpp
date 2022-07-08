@@ -94,7 +94,7 @@ namespace Ogre {
     }
 //-----------------------------------------------------------------------------
     static void checkGLError(bool logError, bool throwException,
-        const Ogre::String& sectionName = BLANKSTRING)
+        std::string_view sectionName = BLANKSTRING)
     {
         String msg;
         bool foundError = false;

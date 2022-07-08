@@ -108,7 +108,7 @@ class Archive;
         virtual ~Archive() = default;
 
         /// Get the name of this archive
-        [[nodiscard]] auto getName() const noexcept -> const String& { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
         /// Returns whether this archive is case sensitive in the way it matches files
         [[nodiscard]] virtual auto isCaseSensitive() const noexcept -> bool = 0;
@@ -145,7 +145,7 @@ class Archive;
             read / write the file. If the file is not present, returns a null
             shared pointer.
         */
-        [[nodiscard]] virtual auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr = 0;
+        [[nodiscard]] virtual auto open(std::string_view filename, bool readOnly = true) const -> DataStreamPtr = 0;
 
         /** Create a new file (or overwrite one already there). 
         @note If the archive is read-only then this method will fail.
@@ -153,13 +153,13 @@ class Archive;
         @return A shared pointer to a DataStream which can be used to 
         read / write the file. 
         */
-        virtual auto create(const String& filename) -> DataStreamPtr;
+        virtual auto create(std::string_view filename) -> DataStreamPtr;
 
         /** Delete a named file.
         @remarks Not possible on read-only archives
         @param filename The fully qualified name of the file
         */
-        virtual void remove(const String& filename);
+        virtual void remove(std::string_view filename);
 
         /** List all file names in the archive.
         @note
@@ -195,14 +195,14 @@ class Archive;
             instead of files
         @return A list of filenames matching the criteria, all are fully qualified
         */
-        [[nodiscard]] virtual auto find(const String& pattern, bool recursive = true,
+        [[nodiscard]] virtual auto find(std::string_view pattern, bool recursive = true,
             bool dirs = false) const -> StringVectorPtr = 0;
 
         /** Find out if the named file exists (note: fully qualified filename required) */
-        [[nodiscard]] virtual auto exists(const String& filename) const -> bool = 0;
+        [[nodiscard]] virtual auto exists(std::string_view filename) const -> bool = 0;
 
         /** Retrieve the modification time of a given file */
-        [[nodiscard]] virtual auto getModifiedTime(const String& filename) const -> time_t = 0;
+        [[nodiscard]] virtual auto getModifiedTime(std::string_view filename) const -> time_t = 0;
 
 
         /** Find all files or directories matching a given pattern in this
@@ -215,11 +215,11 @@ class Archive;
         @return A list of file information structures for all files matching 
             the criteria.
         */
-        [[nodiscard]] virtual auto findFileInfo(const String& pattern, 
+        [[nodiscard]] virtual auto findFileInfo(std::string_view pattern, 
             bool recursive = true, bool dirs = false) const -> FileInfoListPtr = 0;
 
         /// Return the type code of this Archive
-        [[nodiscard]] auto getType() const noexcept -> const String& { return mType; }
+        [[nodiscard]] auto getType() const noexcept -> std::string_view { return mType; }
         
     };
     /** @} */

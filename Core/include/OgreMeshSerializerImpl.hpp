@@ -100,7 +100,7 @@ class VertexData;
         virtual void writeSubMeshOperation(const SubMesh* s);
         virtual void writeSubMeshTextureAliases(const SubMesh* s);
         virtual void writeGeometry(const VertexData* pGeom);
-        virtual void writeSkeletonLink(const String& skelName);
+        virtual void writeSkeletonLink(std::string_view skelName);
         virtual void writeMeshBoneAssignment(const VertexBoneAssignment& assign);
         virtual void writeSubMeshBoneAssignment(const VertexBoneAssignment& assign);
 
@@ -125,7 +125,7 @@ class VertexData;
         virtual auto calcMeshSize(const Mesh* pMesh) -> size_t;
         virtual auto calcSubMeshSize(const SubMesh* pSub) -> size_t;
         virtual auto calcGeometrySize(const VertexData* pGeom) -> size_t;
-        virtual auto calcSkeletonLinkSize(const String& skelName) -> size_t;
+        virtual auto calcSkeletonLinkSize(std::string_view skelName) -> size_t;
         virtual auto calcBoneAssignmentSize() -> size_t;
         virtual auto calcSubMeshOperationSize(const SubMesh* pSub) -> size_t;
         virtual auto calcSubMeshNameTableSize(const Mesh* pMesh) -> size_t;

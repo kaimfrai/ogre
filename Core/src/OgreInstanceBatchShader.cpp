@@ -59,7 +59,7 @@ class InstanceManager;
 
     InstanceBatchShader::InstanceBatchShader( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
-                                        const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :
+                                        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName ) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName ),
                 mNumWorldMatrices( instancesPerBatch )

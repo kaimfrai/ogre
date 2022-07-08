@@ -160,7 +160,7 @@ namespace Ogre {
         return DataStreamPtr(new MemoryDataStream(data, len, true));
     }
     //---------------------------------------------------------------------
-    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName,
+    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
                                       const CodecDataPtr& pData) const
     {
         MemoryDataStreamPtr data = static_pointer_cast<MemoryDataStream>(encode(input, pData));
@@ -239,7 +239,7 @@ namespace Ogre {
         return BLANKSTRING;
     }
 
-    auto STBIPlugin::getName() const noexcept -> const String& {
+    auto STBIPlugin::getName() const noexcept -> std::string_view {
         static String name = "STB Image Codec";
         return name;
     }

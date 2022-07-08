@@ -94,7 +94,7 @@ namespace Ogre {
         | Separate Shader Objects | false | Compile shaders individually instad of using monolithic programs. Better introspection. Allows mixing GLSL and SPIRV shaders (GL3+ only)  |
         | Fixed Pipeline Enabled | true | Use fixed function units where possible. Disable to test migration to shader-only pipeline (GL only) |
         */
-        void setConfigOption(const String &name, const String &value) override;
+        void setConfigOption(std::string_view name, std::string_view value) override;
 
         ~GLRenderSystemCommon() override = default;
 
@@ -116,7 +116,7 @@ namespace Ogre {
         /**
         * Check if an extension is available
         */
-        [[nodiscard]] auto checkExtension(const String& ext) const -> bool;
+        [[nodiscard]] auto checkExtension(std::string_view ext) const -> bool;
 
         /** Unregister a render target->context mapping. If the context of target
             is the current context, change the context to the main context so it

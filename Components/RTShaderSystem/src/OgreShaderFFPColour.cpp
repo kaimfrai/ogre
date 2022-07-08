@@ -62,7 +62,7 @@ FFPColour::FFPColour()
 }
 
 //-----------------------------------------------------------------------
-auto FFPColour::getType() const noexcept -> const String&
+auto FFPColour::getType() const noexcept -> std::string_view 
 {
     return Type;
 }
@@ -209,7 +209,7 @@ auto FFPColour::preAddToRenderState(const RenderState* renderState, Pass* srcPas
 }
 
 //-----------------------------------------------------------------------
-auto FFPColourFactory::getType() const noexcept -> const String&
+auto FFPColourFactory::getType() const noexcept -> std::string_view 
 {
     return FFPColour::Type;
 }

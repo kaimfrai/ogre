@@ -118,7 +118,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     struct MovableObjectNameExists {
-        const String& name;
+        std::string_view name;
         auto operator()(const MovableObject* mo) -> bool {
             return mo->getName() == name;
         }
@@ -141,7 +141,7 @@ namespace Ogre {
         needUpdate();
     }
     //-----------------------------------------------------------------------
-    auto SceneNode::getAttachedObject(const String& name) const -> MovableObject*
+    auto SceneNode::getAttachedObject(std::string_view name) const -> MovableObject*
     {
         // Look up 
         MovableObjectNameExists pred = {name};
@@ -175,7 +175,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto SceneNode::detachObject(const String& name) -> MovableObject*
+    auto SceneNode::detachObject(std::string_view name) -> MovableObject*
     {
         MovableObjectNameExists pred = {name};
         auto it = std::ranges::find_if(mObjectsByName, pred);
@@ -296,13 +296,13 @@ namespace Ogre {
         return mCreator->createSceneNode();
     }
     //-----------------------------------------------------------------------
-    auto SceneNode::createChildImpl(const String& name) -> Node*
+    auto SceneNode::createChildImpl(std::string_view name) -> Node*
     {
         assert(mCreator);
         return mCreator->createSceneNode(name);
     }
     //-----------------------------------------------------------------------
-    void SceneNode::removeAndDestroyChild(const String& name)
+    void SceneNode::removeAndDestroyChild(std::string_view name)
     {
         auto* pChild = static_cast<SceneNode*>(getChild(name));
         pChild->removeAndDestroyAllChildren();
@@ -340,7 +340,7 @@ namespace Ogre {
         mChildren.clear();
         needUpdate();
     }
-    void SceneNode::loadChildren(const String& filename)
+    void SceneNode::loadChildren(std::string_view filename)
     {
         String baseName, strExt;
         StringUtil::splitBaseFilename(filename, baseName, strExt);
@@ -352,7 +352,7 @@ namespace Ogre {
             filename, ResourceGroupManager::getSingleton().getWorldResourceGroupName());
         codec->decode(stream, this);
     }
-    void SceneNode::saveChildren(const String& filename)
+    void SceneNode::saveChildren(std::string_view filename)
     {
         String baseName, strExt;
         StringUtil::splitBaseFilename(filename, baseName, strExt);
@@ -366,7 +366,7 @@ namespace Ogre {
         return static_cast<SceneNode*>(this->createChild(inTranslate, inRotate));
     }
     //-----------------------------------------------------------------------
-    auto SceneNode::createChildSceneNode(const String& name, const Vector3& inTranslate, 
+    auto SceneNode::createChildSceneNode(std::string_view name, const Vector3& inTranslate,
         const Quaternion& inRotate) -> SceneNode*
     {
         return static_cast<SceneNode*>(this->createChild(name, inTranslate, inRotate));

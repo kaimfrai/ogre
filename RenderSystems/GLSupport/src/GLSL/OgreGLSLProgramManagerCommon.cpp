@@ -203,7 +203,7 @@ namespace Ogre {
     }
 
     void GLSLProgramManagerCommon::parseGLSLUniform(String line, GpuNamedConstants& defs,
-                                                    const String& filename)
+                                                    std::string_view filename)
     {
         GpuConstantDefinition def;
         String paramName = "";
@@ -316,8 +316,8 @@ namespace Ogre {
         }
     }
 
-    void GLSLProgramManagerCommon::extractUniformsFromGLSL(const String& src,
-        GpuNamedConstants& defs, const String& filename)
+    void GLSLProgramManagerCommon::extractUniformsFromGLSL(std::string_view src,
+        GpuNamedConstants& defs, std::string_view filename)
     {
         // Parse the output string and collect all uniforms
         // NOTE this relies on the source already having been preprocessed

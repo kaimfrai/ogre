@@ -109,8 +109,8 @@ class ResourceManager;
             On creation, a Skeleton has a no bones, you should create them and link
             them together appropriately. 
         */
-        Skeleton(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Skeleton(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Skeleton() override;
 
 
@@ -199,7 +199,7 @@ class ResourceManager;
         virtual auto getBone(unsigned short handle) const -> Bone*;
 
         /** Gets a bone by it's name. */
-        virtual auto getBone(const String& name) const -> Bone*;
+        virtual auto getBone(std::string_view name) const -> Bone*;
 
         /** Returns whether this skeleton contains the named bone. */
         virtual auto hasBone(::std::string_view name) const -> bool;
@@ -224,7 +224,7 @@ class ResourceManager;
         @param name The name of this animation
         @param length The length of the animation in seconds
         */
-        auto createAnimation(const String& name, Real length) -> Animation* override;
+        auto createAnimation(std::string_view name, Real length) -> Animation* override;
 
         /** Returns the named Animation object. 
         @remarks
@@ -234,7 +234,7 @@ class ResourceManager;
         @param linker Optional pointer to a pointer to the linked skeleton animation
             where this is coming from.
         */
-        virtual auto getAnimation(const String& name, 
+        virtual auto getAnimation(std::string_view name, 
             const LinkedSkeletonAnimationSource** linker) const -> Animation*;
 
         /** Returns the named Animation object.
@@ -243,18 +243,18 @@ class ResourceManager;
              (@see addLinkedSkeletonAnimationSource). 
          @param name The name of the animation
          */
-        auto getAnimation(const String& name) const -> Animation* override;
+        auto getAnimation(std::string_view name) const -> Animation* override;
 
         /// Internal accessor for animations (returns null if animation does not exist)
-        virtual auto _getAnimationImpl(const String& name, 
+        virtual auto _getAnimationImpl(std::string_view name, 
             const LinkedSkeletonAnimationSource** linker = nullptr) const -> Animation*;
 
 
         /** Returns whether this skeleton contains the named animation. */
-        auto hasAnimation(const String& name) const -> bool override;
+        auto hasAnimation(std::string_view name) const -> bool override;
 
         /** Removes an Animation from this skeleton. */
-        void removeAnimation(const String& name) override;
+        void removeAnimation(std::string_view name) override;
 
         /** Changes the state of the skeleton to reflect the application of the passed in collection of animations.
         @remarks
@@ -348,7 +348,7 @@ class ResourceManager;
             of the keyframes in the other skeleton when applying the animations
             to this one. Compensates for skeleton size differences.
         */
-        virtual void addLinkedSkeletonAnimationSource(const String& skelName, 
+        virtual void addLinkedSkeletonAnimationSource(std::string_view skelName, 
             Real scale = 1.0f);
         /// Remove all links to other skeletons for the purposes of sharing animation
         virtual void removeAllLinkedSkeletonAnimationSources();
@@ -459,7 +459,7 @@ class ResourceManager;
         void deriveRootBone() const;
 
         /// Debugging method
-        void _dumpContents(const String& filename);
+        void _dumpContents(std::string_view filename);
 
         void loadImpl() override {}
         void unloadImpl() override { unprepareImpl(); }

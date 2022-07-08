@@ -178,7 +178,7 @@ namespace Ogre {
         }
     }
 
-    GLRenderTexture::GLRenderTexture(const String &name,
+    GLRenderTexture::GLRenderTexture(std::string_view name,
                                                const GLSurfaceDesc &target,
                                                bool writeGamma,
                                                uint fsaa)

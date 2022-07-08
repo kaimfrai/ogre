@@ -75,7 +75,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::create(const String& name, uint width, uint height,
+    void GLXWindow::create(std::string_view name, uint width, uint height,
                            bool fullScreen, const NameValuePairList *miscParams)
     {
         Display *xDisplay = mGLSupport->getXDisplay();
@@ -488,7 +488,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::getCustomAttribute( const String& name, void* pData )
+    void GLXWindow::getCustomAttribute( std::string_view name, void* pData )
     {
         if( name == "DISPLAY NAME" )
         {

@@ -156,7 +156,7 @@ namespace Ogre {
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLRenderSystemCommon::setConfigOption(const String &name, const String &value)
+    void GLRenderSystemCommon::setConfigOption(std::string_view name, std::string_view value)
     {
         auto option = mOptions.find(name);
         if (option == mOptions.end()) {
@@ -168,7 +168,7 @@ namespace Ogre {
             refreshConfig();
     }
 
-    auto GLRenderSystemCommon::checkExtension(const String& ext) const -> bool
+    auto GLRenderSystemCommon::checkExtension(std::string_view ext) const -> bool
     {
         return mExtensionList.find(ext) != mExtensionList.end() || mGLSupport->checkExtension(ext);
     }

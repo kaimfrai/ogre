@@ -49,32 +49,32 @@ namespace Ogre {
         mSettingsPtr.clear();
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::load(const String& filename, const String& separators, bool trimWhitespace)
+    void ConfigFile::load(std::string_view filename, std::string_view separators, bool trimWhitespace)
     {
         loadDirect(filename, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::load(const String& filename, const String& resourceGroup, 
-        const String& separators, bool trimWhitespace)
+    void ConfigFile::load(std::string_view filename, std::string_view resourceGroup, 
+        std::string_view separators, bool trimWhitespace)
     {
         loadFromResourceSystem(filename, resourceGroup, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::loadDirect(const String& filename, const String& separators, 
+    void ConfigFile::loadDirect(std::string_view filename, std::string_view separators, 
         bool trimWhitespace)
     {
         load(_openFileStream(filename, std::ios::in | std::ios::binary), separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::loadFromResourceSystem(const String& filename, 
-        const String& resourceGroup, const String& separators, bool trimWhitespace)
+    void ConfigFile::loadFromResourceSystem(std::string_view filename, 
+        std::string_view resourceGroup, std::string_view separators, bool trimWhitespace)
     {
         DataStreamPtr stream = 
             ResourceGroupManager::getSingleton().openResource(filename, resourceGroup);
         load(stream, separators, trimWhitespace);
     }
     //-----------------------------------------------------------------------
-    void ConfigFile::load(const DataStreamPtr& stream, const String& separators, 
+    void ConfigFile::load(const DataStreamPtr& stream, std::string_view separators, 
         bool trimWhitespace)
     {
         /* Clear current settings map */
@@ -124,7 +124,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const -> String
+    auto ConfigFile::getSetting(std::string_view key, std::string_view section, std::string_view defaultValue) const -> String
     {
         
         auto seci = mSettings.find(section);
@@ -147,7 +147,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto ConfigFile::getMultiSetting(const String& key, const String& section) const -> StringVector
+    auto ConfigFile::getMultiSetting(std::string_view key, std::string_view section) const -> StringVector
     {
         StringVector ret;
 
@@ -170,7 +170,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSettings(const String& section) const -> const ConfigFile::SettingsMultiMap&
+    auto ConfigFile::getSettings(std::string_view section) const -> const ConfigFile::SettingsMultiMap&
     {
         auto seci = mSettings.find(section);
         if (seci == mSettings.end())

@@ -66,7 +66,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Overlay::getName() const noexcept -> const String&
+    auto Overlay::getName() const noexcept -> std::string_view 
     {
         return mName;
     }
@@ -185,7 +185,7 @@ namespace Ogre {
         return mScrollY;
     }
       //---------------------------------------------------------------------
-    auto Overlay::getChild(const String& name) -> OverlayContainer*
+    auto Overlay::getChild(std::string_view name) -> OverlayContainer*
     {
         for (auto const& i : m2DElements)
         {

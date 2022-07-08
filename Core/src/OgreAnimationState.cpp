@@ -70,7 +70,7 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    auto AnimationState::getAnimationName() const noexcept -> const String&
+    auto AnimationState::getAnimationName() const noexcept -> std::string_view 
     {
         return mAnimationName;
     }
@@ -250,7 +250,7 @@ namespace Ogre
         removeAllAnimationStates();
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::removeAnimationState(const String& name)
+    void AnimationStateSet::removeAnimationState(std::string_view name)
     {
         auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
@@ -272,7 +272,7 @@ namespace Ogre
         mEnabledAnimationStates.clear();
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::createAnimationState(const String& name,  
+    auto AnimationStateSet::createAnimationState(std::string_view name,  
         Real timePos, Real length, Real weight, bool enabled) -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
@@ -290,7 +290,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::getAnimationState(const String& name) const -> AnimationState*
+    auto AnimationStateSet::getAnimationState(std::string_view name) const -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
@@ -302,7 +302,7 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::hasAnimationState(const String& name) const -> bool
+    auto AnimationStateSet::hasAnimationState(std::string_view name) const -> bool
     {
         return mAnimationStates.find(name) != mAnimationStates.end();
     }

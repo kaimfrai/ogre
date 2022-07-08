@@ -72,7 +72,7 @@ namespace Ogre
 
     //****************************************************************************************
     
-    void ExternalTextureSourceManager::setCurrentPlugIn( const String& sTexturePlugInType )
+    void ExternalTextureSourceManager::setCurrentPlugIn( std::string_view sTexturePlugInType )
     {
         for(auto const& [key, value] : mTextureSystems)
         {
@@ -87,8 +87,8 @@ namespace Ogre
     }
 
     //****************************************************************************************
-    void ExternalTextureSourceManager::destroyAdvancedTexture( const String& sTextureName,
-        const String& groupName )
+    void ExternalTextureSourceManager::destroyAdvancedTexture( std::string_view sTextureName,
+        std::string_view groupName )
     {
         for(auto const& i : mTextureSystems)
         {
@@ -98,7 +98,7 @@ namespace Ogre
     }
 
     //****************************************************************************************
-    void ExternalTextureSourceManager::setExternalTextureSource( const String& sTexturePlugInType, ExternalTextureSource* pTextureSystem )
+    void ExternalTextureSourceManager::setExternalTextureSource( std::string_view sTexturePlugInType, ExternalTextureSource* pTextureSystem )
     {
         LogManager::getSingleton().logMessage(
             ::std::format("Registering Texture Controller: Type = "
@@ -126,7 +126,7 @@ namespace Ogre
     }
 
     //****************************************************************************************
-    auto ExternalTextureSourceManager::getExternalTextureSource( const String& sTexturePlugInType ) -> ExternalTextureSource*
+    auto ExternalTextureSourceManager::getExternalTextureSource( std::string_view sTexturePlugInType ) -> ExternalTextureSource*
     {
         for(auto const& i : mTextureSystems)
         {

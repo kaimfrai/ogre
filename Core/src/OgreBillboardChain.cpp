@@ -79,7 +79,7 @@ class RenderSystem;
     {
     }
     //-----------------------------------------------------------------------
-    BillboardChain::BillboardChain(const String& name, size_t maxElements,
+    BillboardChain::BillboardChain(std::string_view name, size_t maxElements,
         size_t numberOfChains, bool useTextureCoords, bool useColours, bool dynamic)
         :MovableObject(name),
         mMaxElementsPerChain(maxElements),
@@ -657,7 +657,7 @@ class RenderSystem;
         return mMaterial;
     }
     //-----------------------------------------------------------------------
-    void BillboardChain::setMaterialName( const String& name, const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void BillboardChain::setMaterialName( std::string_view name, std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
 
@@ -673,7 +673,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getMovableType() const noexcept -> const String&
+    auto BillboardChain::getMovableType() const noexcept -> std::string_view 
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -735,12 +735,12 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    auto BillboardChainFactory::getType() const noexcept -> const String&
+    auto BillboardChainFactory::getType() const noexcept -> std::string_view 
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto BillboardChainFactory::createInstanceImpl( const String& name,
+    auto BillboardChainFactory::createInstanceImpl( std::string_view name,
         const NameValuePairList* params) -> MovableObject*
     {
         size_t maxElements = 20;

@@ -43,7 +43,7 @@ THE SOFTWARE.
 namespace Ogre
 {
     //---------------------------------------------------------------------
-    DefaultWorkQueue::DefaultWorkQueue(const String& name)
+    DefaultWorkQueue::DefaultWorkQueue(std::string_view name)
     : DefaultWorkQueueBase(name) 
     {
     }

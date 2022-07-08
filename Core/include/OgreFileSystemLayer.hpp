@@ -54,7 +54,7 @@ namespace Ogre
          A subdirectory inside the user's path to distinguish between
          different Ogre applications.
          */
-        FileSystemLayer(const Ogre::String& subdir)
+        FileSystemLayer(std::string_view subdir)
         {
             // determine directories to search for config files
             getConfigPaths();
@@ -82,7 +82,7 @@ namespace Ogre
                 return path;
             
             // 2. in the config file search paths
-            for (const String& cpath : mConfigPaths)
+            for (std::string_view cpath : mConfigPaths)
             {
                 path = cpath + filename;
                 if (fileExists(path))
@@ -108,7 +108,7 @@ namespace Ogre
          @param filename Name of the file.
          @return The full path to a writable location for the given filename.
          */
-        [[nodiscard]] auto getWritablePath(const Ogre::String& filename) const -> Ogre::String
+        [[nodiscard]] auto getWritablePath(std::string_view filename) const -> Ogre::String
         {
             return mHomePath + filename;
         }
@@ -117,7 +117,7 @@ namespace Ogre
             mConfigPaths = paths;
         }
         
-        void setHomePath(const Ogre::String &path){
+        void setHomePath(std::string_view path){
             mHomePath = path;
         }
         
@@ -130,15 +130,15 @@ namespace Ogre
         static auto resolveBundlePath(String path) -> String;
 
         /** Create a directory. */
-        static auto createDirectory(const Ogre::String& name) -> bool;
+        static auto createDirectory(std::string_view name) -> bool;
         /** Delete a directory. Should be empty */
-        static auto removeDirectory(const Ogre::String& name) -> bool;
+        static auto removeDirectory(std::string_view name) -> bool;
         /** Test if the given file exists. */
-        static auto fileExists(const Ogre::String& path) -> bool;
+        static auto fileExists(std::string_view path) -> bool;
         /** Delete a file. */
-        static auto removeFile(const Ogre::String& path) -> bool;
+        static auto removeFile(std::string_view path) -> bool;
         /** Rename a file. */
-        static auto renameFile(const Ogre::String& oldpath, const Ogre::String& newpath) -> bool;
+        static auto renameFile(std::string_view oldpath, std::string_view newpath) -> bool;
 
     private:
         Ogre::StringVector mConfigPaths;
@@ -148,7 +148,7 @@ namespace Ogre
         void getConfigPaths();
         
         /** Create an Ogre directory and the given subdir in the user's home. */
-        void prepareUserHome(const Ogre::String& subdir);
+        void prepareUserHome(std::string_view subdir);
     };
 
 }

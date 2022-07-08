@@ -87,7 +87,7 @@ namespace Ogre {
             You should use the ParticleSystemManager to create particle systems rather than creating
             them directly.
         */
-        ParticleSystem(const String& name, std::string_view resourceGroupName);
+        ParticleSystem(std::string_view name, std::string_view resourceGroupName);
 
         ~ParticleSystem() override;
 
@@ -100,12 +100,12 @@ namespace Ogre {
             instance of this type will be created; a factory must have been registered
             with ParticleSystemManager.
         */
-        void setRenderer(const String& typeName);
+        void setRenderer(std::string_view typeName);
 
         /** Gets the ParticleRenderer to be used to render this particle system. */
         auto getRenderer() const noexcept -> ParticleSystemRenderer*;
         /** Gets the name of the ParticleRenderer to be used to render this particle system. */
-        auto getRendererName() const noexcept -> const String&;
+        auto getRendererName() const noexcept -> std::string_view ;
 
         /** Adds an emitter to this particle system.
         @remarks
@@ -116,7 +116,7 @@ namespace Ogre {
             by registering new factories with the manager - see ParticleEmitterFactory for more details.
             Emitter types can be extended by OGRE, plugin authors or application developers.
         */
-        auto addEmitter(const String& emitterType) -> ParticleEmitter*;
+        auto addEmitter(std::string_view emitterType) -> ParticleEmitter*;
 
         /** Retrieves an emitter by it's index (zero-based).
         @remarks
@@ -162,7 +162,7 @@ namespace Ogre {
             by registering new factories with the manager - see ParticleAffectorFactory for more details.
             Affector types can be extended by OGRE, plugin authors or application developers.
         */
-        auto addAffector(const String& affectorType) -> ParticleAffector*;
+        auto addAffector(std::string_view affectorType) -> ParticleAffector*;
 
         /** Retrieves an affector by it's index (zero-based).
         @remarks
@@ -293,12 +293,12 @@ namespace Ogre {
 
         /** Sets the name of the material to be used for this billboard set.
         */
-        virtual void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        virtual void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
         /** Sets the name of the material to be used for this billboard set.
             @return The name of the material that is used for this set.
         */
-        virtual auto getMaterialName() const noexcept -> const String&;
+        virtual auto getMaterialName() const noexcept -> std::string_view ;
 
         void _notifyCurrentCamera(Camera* cam) override;
         void _notifyAttached(Node* parent, bool isTagPoint = false) override;
@@ -396,7 +396,7 @@ namespace Ogre {
         */
         static auto getDefaultNonVisibleUpdateTimeout() noexcept -> Real { return msDefaultNonvisibleTimeout; }
 
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
 
         /** Sets the default dimensions of the particles in this set.
             @remarks
@@ -442,16 +442,16 @@ namespace Ogre {
         */
         virtual void setCullIndividually(bool cullIndividual);
         /// Return the resource group to be used to load dependent resources
-        virtual auto getResourceGroupName() const noexcept -> const String& { return mResourceGroupName; }
+        virtual auto getResourceGroupName() const noexcept -> std::string_view { return mResourceGroupName; }
         /** Get the origin of this particle system, e.g. a script file name.
         @remarks
             This property will only contain something if the creator of
             this particle system chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> const String& { return mOrigin; }
+        auto getOrigin() const noexcept -> std::string_view { return mOrigin; }
         /// Notify this particle system of it's origin
-        void _notifyOrigin(const String& origin) { mOrigin = origin; }
+        void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
 
         /** @copydoc MovableObject::setRenderQueueGroup */
         void setRenderQueueGroup(uint8 queueID) override;

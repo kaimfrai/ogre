@@ -57,7 +57,7 @@ namespace Ogre
 
     public:
         /** Constructor. */
-        TextAreaOverlayElement(const String& name);
+        TextAreaOverlayElement(std::string_view name);
         ~TextAreaOverlayElement() override;
 
         void initialise() override;
@@ -75,13 +75,13 @@ namespace Ogre
         void setSpaceWidth( Real width );
         [[nodiscard]] auto getSpaceWidth() const -> Real;
 
-        void setFontName( const String& font, const String& group = DEFAULT_RESOURCE_GROUP );
+        void setFontName( std::string_view font, std::string_view group = DEFAULT_RESOURCE_GROUP );
 
         [[nodiscard]] auto getFont() const noexcept -> const FontPtr& {
             return mFont;
         }
 
-        [[nodiscard]] auto getTypeName() const noexcept -> const String& override;
+        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override;
         [[nodiscard]] auto getMaterial() const noexcept -> const MaterialPtr& override;
         void getRenderOperation(RenderOperation& op) override;
 

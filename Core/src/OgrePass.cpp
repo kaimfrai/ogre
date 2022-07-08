@@ -90,7 +90,7 @@ namespace Ogre {
 
             for(int i = 0; i < GPT_COUNT; i++)
             {
-                const String& name = p->getGpuProgramName(GpuProgramType(i));
+                std::string_view name = p->getGpuProgramName(GpuProgramType(i));
                 if(!name.empty()) {
                     hash = FastHash(name.c_str(), name.size(), hash);
                 }
@@ -383,7 +383,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto Pass::createTextureUnitState(
-        const String& textureName, unsigned short texCoordSet) -> TextureUnitState*
+        std::string_view textureName, unsigned short texCoordSet) -> TextureUnitState*
     {
         auto *t = new TextureUnitState(this);
         t->setTextureName(textureName);
@@ -419,7 +419,7 @@ namespace Ogre {
         mContentTypeLookupBuilt = false;
     }
     //-----------------------------------------------------------------------------
-    auto Pass::getTextureUnitState(const String& name) const -> TextureUnitState*
+    auto Pass::getTextureUnitState(std::string_view name) const -> TextureUnitState*
     {
         TextureUnitState* foundTUS = nullptr;
 
@@ -762,7 +762,7 @@ namespace Ogre {
         // TODO Unload programs
     }
     //-----------------------------------------------------------------------
-    void Pass::setVertexProgram(const String& name, bool resetParams)
+    void Pass::setVertexProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_VERTEX_PROGRAM, name, resetParams);
     }
@@ -808,7 +808,7 @@ namespace Ogre {
         }
     }
 
-    void Pass::setGpuProgram(GpuProgramType type, const String& name, bool resetParams)
+    void Pass::setGpuProgram(GpuProgramType type, std::string_view name, bool resetParams)
     {
         if (getGpuProgramName(type) == name)
             return;
@@ -820,7 +820,7 @@ namespace Ogre {
         setGpuProgram(type, program, resetParams);
     }
 
-    void Pass::setFragmentProgram(const String& name, bool resetParams)
+    void Pass::setFragmentProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_FRAGMENT_PROGRAM, name, resetParams);
     }
@@ -830,7 +830,7 @@ namespace Ogre {
         setGpuProgramParameters(GPT_FRAGMENT_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
-    void Pass::setGeometryProgram(const String& name, bool resetParams)
+    void Pass::setGeometryProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_GEOMETRY_PROGRAM, name, resetParams);
     }
@@ -840,7 +840,7 @@ namespace Ogre {
         setGpuProgramParameters(GPT_GEOMETRY_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
-    void Pass::setTessellationHullProgram(const String& name, bool resetParams)
+    void Pass::setTessellationHullProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_HULL_PROGRAM, name, resetParams);
     }
@@ -850,7 +850,7 @@ namespace Ogre {
         setGpuProgramParameters(GPT_HULL_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
-    void Pass::setTessellationDomainProgram(const String& name, bool resetParams)
+    void Pass::setTessellationDomainProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_DOMAIN_PROGRAM, name, resetParams);
     }
@@ -860,7 +860,7 @@ namespace Ogre {
         setGpuProgramParameters(GPT_DOMAIN_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
-    void Pass::setComputeProgram(const String& name, bool resetParams)
+    void Pass::setComputeProgram(std::string_view name, bool resetParams)
     {
         setGpuProgram(GPT_COMPUTE_PROGRAM, name, resetParams);
     }
@@ -904,7 +904,7 @@ namespace Ogre {
         return mProgramUsage[programType]->getProgram();
 	}
     //-----------------------------------------------------------------------
-    auto Pass::getGpuProgramName(GpuProgramType type) const -> const String&
+    auto Pass::getGpuProgramName(GpuProgramType type) const -> std::string_view
     {
         const std::unique_ptr<GpuProgramUsage>& programUsage = getProgramUsage(type);
         if (!programUsage)
@@ -1062,7 +1062,7 @@ namespace Ogre {
              mSpecular == ColourValue::Black));
     }
     //-----------------------------------------------------------------------
-    auto Pass::getResourceGroup() const noexcept -> const String&
+    auto Pass::getResourceGroup() const noexcept -> std::string_view
     {
         return mParent->getResourceGroup();
     }

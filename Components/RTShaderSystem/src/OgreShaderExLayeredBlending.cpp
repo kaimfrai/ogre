@@ -122,7 +122,7 @@ LayeredBlending::LayeredBlending()
 = default;
 
 //-----------------------------------------------------------------------
-auto LayeredBlending::getType() const noexcept -> const Ogre::String&
+auto LayeredBlending::getType() const noexcept -> std::string_view 
 {
     return Type;
 }
@@ -325,7 +325,7 @@ auto LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& mo
 
 //----------------------Factory Implementation---------------------------
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::getType() const noexcept -> const String&
+auto LayeredBlendingFactory::getType() const noexcept -> std::string_view 
 {
     return LayeredBlending::Type;
 }
@@ -467,7 +467,7 @@ auto LayeredBlendingFactory::createInstanceImpl() -> SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode
+auto LayeredBlendingFactory::stringToBlendMode(std::string_view strValue) -> LayeredBlending::BlendMode
 {
     for(const auto & _blendMode : _blendModes)
     {
@@ -493,7 +493,7 @@ auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendM
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier
+auto LayeredBlendingFactory::stringToSourceModifier(std::string_view strValue) -> LayeredBlending::SourceModifier
 {
     for(const auto & _sourceModifier : _sourceModifiers)
     {
