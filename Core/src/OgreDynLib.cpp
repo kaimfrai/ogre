@@ -99,7 +99,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto DynLib::getSymbol( StringView strName ) const noexcept -> void*
     {
-        return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
+        return (void*)DYNLIB_GETSYM( mInst, strName.data() );
     }
     //-----------------------------------------------------------------------
     auto DynLib::dynlibError( ) -> String 

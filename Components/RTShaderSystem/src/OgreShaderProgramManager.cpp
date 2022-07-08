@@ -337,8 +337,8 @@ auto ProgramManager::generateHash(StringView programString, StringView defines) 
 {
     //Different programs must have unique hash values.
     uint32_t hash[4];
-    uint32_t seed = FastHash(defines.c_str(), defines.size());
-    MurmurHash3_128(programString.c_str(), programString.size(), seed, hash);
+    uint32_t seed = FastHash(defines.data(), defines.size());
+    MurmurHash3_128(programString.data(), programString.size(), seed, hash);
 
     //Generate the string
     return std::format("{:#08x}{:#08x}{:#08x}{:#08x}", hash[0], hash[1], hash[2], hash[3]);

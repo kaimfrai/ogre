@@ -622,7 +622,7 @@ auto CompositorInstance::createLocalMaterial(StringView srcName) -> MaterialPtr
 {
     static size_t dummyCounter = 0;
     MaterialPtr mat = MaterialManager::getSingleton().create(
-        std::format("c{}/{}", dummyCounter++, srcName.c_str()),
+        std::format("c{}/{}", dummyCounter++, srcName.data()),
         ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
     /// This is safe, as we hold a private reference
     MaterialManager::getSingleton().remove(mat);
@@ -912,7 +912,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
 //---------------------------------------------------------------------
 auto CompositorInstance::getMRTTexLocalName(StringView baseName, size_t attachment) -> String
 {
-    return std::format("{}/{}", baseName.c_str(), attachment);
+    return std::format("{}/{}", baseName.data(), attachment);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveTextures)

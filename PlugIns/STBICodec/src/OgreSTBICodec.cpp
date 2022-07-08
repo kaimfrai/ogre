@@ -164,7 +164,7 @@ namespace Ogre {
                                       const CodecDataPtr& pData) const
     {
         MemoryDataStreamPtr data = static_pointer_cast<MemoryDataStream>(encode(input, pData));
-        std::ofstream f(outFileName.c_str(), std::ios::out | std::ios::binary);
+        std::ofstream f(outFileName.data(), std::ios::out | std::ios::binary);
 
         if (!f.is_open())
         {

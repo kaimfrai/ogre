@@ -71,7 +71,7 @@ namespace Ogre {
             {
                 const TextureUnitState* tus = nullptr;
                 tus = p->getTextureUnitState(i);
-                hash = FastHash(tus->getTextureName().c_str(), tus->getTextureName().size(), hash);
+                hash = FastHash(tus->getTextureName().data(), tus->getTextureName().size(), hash);
             }
 
             return hash;
@@ -92,7 +92,7 @@ namespace Ogre {
             {
                 StringView name = p->getGpuProgramName(GpuProgramType(i));
                 if(!name.empty()) {
-                    hash = FastHash(name.c_str(), name.size(), hash);
+                    hash = FastHash(name.data(), name.size(), hash);
                 }
             }
 

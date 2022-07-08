@@ -139,7 +139,7 @@ namespace {
     //-----------------------------------------------------------------------
     static auto concatenate_path(StringView base, StringView name) -> String
     {
-        if (base.empty() || is_absolute_path(name.c_str()))
+        if (base.empty() || is_absolute_path(name.data()))
             return name;
         else
             return std::format("{}/{}", base, name);
@@ -278,7 +278,7 @@ namespace {
         // (quicker than streaming to the end and back)
 
         struct stat tagStat;
-        int ret = stat(full_path.c_str(), &tagStat);
+        int ret = stat(full_path.data(), &tagStat);
 
         size_t st_size = ret == 0 ? tagStat.st_size : 0;
 
@@ -290,7 +290,7 @@ namespace {
         {
             rwStream = new std::fstream();
 
-            rwStream->open(full_path.c_str(), mode);
+            rwStream->open(full_path.data(), mode);
 
             baseStream = rwStream;
         }
@@ -298,7 +298,7 @@ namespace {
         {
             roStream = new std::ifstream();
 
-            roStream->open(full_path.c_str(), mode);
+            roStream->open(full_path.data(), mode);
 
             baseStream = roStream;
         }
@@ -422,7 +422,7 @@ namespace {
 
         // stat will return true if the filename is absolute, but we need to check
         // the file is actually in this archive
-        if (ret && is_absolute_path(filename.c_str()))
+        if (ret && is_absolute_path(filename.data()))
         {
             // only valid if full path starts with our base
 

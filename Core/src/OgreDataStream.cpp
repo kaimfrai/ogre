@@ -111,7 +111,7 @@ namespace Ogre {
             tmpBuf[readCount] = '\0';
 
             // Find first delimiter
-            size_t pos = strcspn(tmpBuf, delim.c_str());
+            size_t pos = strcspn(tmpBuf, delim.data());
 
             if (pos < readCount)
             {
@@ -161,7 +161,7 @@ namespace Ogre {
             tmpBuf[readCount] = '\0';
 
             // Find first delimiter
-            size_t pos = strcspn(tmpBuf, delim.c_str());
+            size_t pos = strcspn(tmpBuf, delim.data());
 
             if (pos < readCount)
             {

@@ -244,10 +244,10 @@ namespace Ogre {
 
         if (lowerCase)
         {
-            return strnicmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
+            return strnicmp(str.data(), pattern.data(), pattern.size()) == 0;
         }
 
-        return strncmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
+        return strncmp(str.data(), pattern.data(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
     auto StringUtil::endsWith(StringView str, StringView pattern, bool lowerCase) -> bool
@@ -259,10 +259,10 @@ namespace Ogre {
 
         if (lowerCase)
         {
-            return strnicmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
+            return strnicmp(str.data() + offset, pattern.data(), pattern.size()) == 0;
         }
 
-        return strncmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
+        return strncmp(str.data() + offset, pattern.data(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
     auto StringUtil::standardisePath(StringView init) -> String
@@ -278,7 +278,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto StringUtil::normalizeFilePath(StringView init, bool makeLowerCase) -> String
     {
-        const char* bufferSrc = init.c_str();
+        const char* bufferSrc = init.data();
         int pathLen = (int)init.size();
         int indexSrc = 0;
         int indexDst = 0;

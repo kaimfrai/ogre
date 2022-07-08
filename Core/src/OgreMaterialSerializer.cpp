@@ -94,7 +94,7 @@ namespace Ogre
 
         LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LML_NORMAL);
         FILE *fp;
-        fp = fopen(fileName.c_str(), "w");
+        fp = fopen(fileName.data(), "w");
         if (!fp)
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create material file.",
             "MaterialSerializer::export");
@@ -102,7 +102,7 @@ namespace Ogre
         // output gpu program definitions to material script file if includeProgDef is true
         if (includeProgDef && !mGpuProgramBuffer.empty())
         {
-            fputs(mGpuProgramBuffer.c_str(), fp);
+            fputs(mGpuProgramBuffer.data(), fp);
         }
 
         // output main buffer holding material script
@@ -114,7 +114,7 @@ namespace Ogre
         if (!includeProgDef && !mGpuProgramBuffer.empty() && !programFilename.empty())
         {
             FILE *locFp;
-            locFp = fopen(programFilename.c_str(), "w");
+            locFp = fopen(programFilename.data(), "w");
             if (!locFp)
                 OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create program material file.",
                 "MaterialSerializer::export");

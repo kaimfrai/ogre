@@ -37,7 +37,7 @@ namespace Ogre {
     auto ScriptLexer::tokenize(StringView str, StringView source) -> ScriptTokenList
     {
         String error;
-        ScriptTokenList ret = _tokenize(str, source.c_str(), error);
+        ScriptTokenList ret = _tokenize(str, source.data(), error);
 
         if (!error.empty())
             LogManager::getSingleton().logError(::std::format("ScriptLexer - {}", error));

@@ -533,11 +533,11 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
 //--------------------------------------------------------------------------
 auto MeshSerializerTests::copyFile(StringView srcPath, StringView dstPath) -> bool
 {
-    std::ifstream src(srcPath.c_str(), std::ios::binary);
+    std::ifstream src(srcPath, std::ios::binary);
     if (!src.is_open()) {
         return false;
     }
-    std::ofstream dst(dstPath.c_str(), std::ios::binary);
+    std::ofstream dst(dstPath, std::ios::binary);
     if (!dst.is_open()) {
         return false;
     }

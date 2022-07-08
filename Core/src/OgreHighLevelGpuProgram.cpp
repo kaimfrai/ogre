@@ -284,7 +284,7 @@ namespace Ogre
         size_t startMarker = 0;
         size_t i = inSource.find("#include");
 
-        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.c_str()) : " 0";
+        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.data()) : " 0";
 
         while (i != String::npos)
         {

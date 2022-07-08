@@ -205,7 +205,7 @@ class RenderQueue;
         if(!stream->getName().empty() && !mLoadedScripts.emplace(stream->getName()).second)
         {
             LogManager::getSingleton().logWarning(
-                std::format("Skipping loading '{}' as it is already loaded", stream->getName().c_str()));
+                std::format("Skipping loading '{}' as it is already loaded", stream->getName()));
             return;
         }
 

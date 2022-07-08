@@ -650,7 +650,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::dump(StringView filename) const
     {
-        std::ofstream of(filename.c_str());
+        std::ofstream of(filename.data());
         of << "Static Geometry Report for " << mName << std::endl;
         of << "-------------------------------------------------" << std::endl;
         of << "Number of queued submeshes: " << mQueuedSubMeshes.size() << std::endl;

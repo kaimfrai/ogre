@@ -2904,7 +2904,7 @@ namespace Ogre {
             return;
 
         if(GLAD_GL_GREMEDY_string_marker)
-            glStringMarkerGREMEDY(eventName.length(), eventName.c_str());
+            glStringMarkerGREMEDY(eventName.length(), eventName.data());
     }
 
     //---------------------------------------------------------------------

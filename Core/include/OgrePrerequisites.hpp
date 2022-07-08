@@ -321,11 +321,6 @@ namespace Ogre
         {
             return std::string{*this};
         }
-
-        char const* c_str() const
-        {
-            return data();
-        }
     };
 
     // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string

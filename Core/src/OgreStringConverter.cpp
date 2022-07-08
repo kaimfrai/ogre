@@ -230,48 +230,48 @@ namespace Ogre {
     auto StringConverter::parse(StringView val, float& ret) -> bool
     {
         char* end;
-        auto tmp = (float)strtod_l(val.c_str(), &end, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (float)strtod_l(val.data(), &end, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(StringView val, double& ret) -> bool
     {
         char* end;
-        auto tmp = strtod_l(val.c_str(), &end, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = strtod_l(val.data(), &end, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(StringView val, int32& ret) -> bool
     {
         char* end;
-        auto tmp = (int32)strtol_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (int32)strtol_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(StringView val, int64& ret) -> bool
     {
         char* end;
-        int64 tmp = strtoll_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        int64 tmp = strtoll_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(StringView val, unsigned long& ret) -> bool
     {
         char* end;
-        unsigned long tmp = strtoull_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        unsigned long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(StringView val, unsigned long long& ret) -> bool
     {
         char* end;
-        unsigned long long tmp = strtoull_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        unsigned long long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
     auto StringConverter::parse(StringView val, uint32& ret) -> bool
     {
         char* end;
-        auto tmp = (uint32)strtoul_l(val.c_str(), &end, 0, _numLocale);
-        return assignValid(val.c_str() != end, tmp, ret);
+        auto tmp = (uint32)strtoul_l(val.data(), &end, 0, _numLocale);
+        return assignValid(val.data() != end, tmp, ret);
     }
     auto StringConverter::parse(StringView val, bool& ret) -> bool
     {
@@ -359,8 +359,8 @@ namespace Ogre {
     auto StringConverter::isNumber(StringView val) -> bool
     {
         char* end;
-        strtod(val.c_str(), &end);
-        return end == (val.c_str() + val.size());
+        strtod(val.data(), &end);
+        return end == (val.data() + val.size());
     }
     //-----------------------------------------------------------------------
     auto StringConverter::toString(StereoModeType val) -> String

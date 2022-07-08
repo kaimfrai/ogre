@@ -52,7 +52,7 @@ namespace Ogre
             do
             {
                 char* buf = new char[bufsize];
-                ssize_t retval = readlink(symlink.c_str(), buf, bufsize);
+                ssize_t retval = readlink(symlink.data(), buf, bufsize);
                 if (retval == -1)
                 {
                     delete[] buf;
@@ -185,26 +185,26 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto FileSystemLayer::fileExists(StringView path) -> bool
     {
-        return access(path.c_str(), R_OK) == 0;
+        return access(path.data(), R_OK) == 0;
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::createDirectory(StringView path) -> bool
     {
-        return !mkdir(path.c_str(), 0755) || errno == EEXIST;
+        return !mkdir(path.data(), 0755) || errno == EEXIST;
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::removeDirectory(StringView path) -> bool
     {
-        return !rmdir(path.c_str()) || errno == ENOENT;
+        return !rmdir(path.data()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::removeFile(StringView path) -> bool
     {
-        return !unlink(path.c_str()) || errno == ENOENT;
+        return !unlink(path.data()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::renameFile(StringView oldname, StringView newname) -> bool
     {
-        return !rename(oldname.c_str(), newname.c_str());
+        return !rename(oldname.data(), newname.data());
     }
 }
