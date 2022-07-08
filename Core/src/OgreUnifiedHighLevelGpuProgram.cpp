@@ -139,7 +139,7 @@ class ResourceManager;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getLanguage() const noexcept -> std::string_view 
+    auto UnifiedHighLevelGpuProgram::getLanguage() const noexcept -> std::string_view
     {
         return sLanguage;
     }
@@ -410,7 +410,7 @@ class ResourceManager;
     UnifiedHighLevelGpuProgramFactory::~UnifiedHighLevelGpuProgramFactory()
     = default;
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept -> std::string_view 
+    auto UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept -> std::string_view
     {
         return sLanguage;
     }

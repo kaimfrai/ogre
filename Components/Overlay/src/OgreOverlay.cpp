@@ -66,7 +66,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Overlay::getName() const noexcept -> std::string_view 
+    auto Overlay::getName() const noexcept -> std::string_view
     {
         return mName;
     }

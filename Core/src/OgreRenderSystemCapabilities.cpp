@@ -220,7 +220,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> std::string_view 
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> std::string_view
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

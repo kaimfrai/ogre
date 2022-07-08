@@ -160,7 +160,7 @@ namespace OgreBites
             return mElement;
         }
 
-        auto getName() noexcept -> std::string_view 
+        auto getName() noexcept -> std::string_view
         {
             return mElement->getName();
         }
@@ -218,7 +218,7 @@ namespace OgreBites
 
         ~Button() override = default;
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -262,7 +262,7 @@ namespace OgreBites
             return mPadding;
         }
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mCaptionTextArea->getCaption();
         }
@@ -272,7 +272,7 @@ namespace OgreBites
             mCaptionTextArea->setCaption(caption);
         }
 
-        auto getText() noexcept -> std::string_view 
+        auto getText() noexcept -> std::string_view
         {
             return mText;
         }
@@ -374,7 +374,7 @@ namespace OgreBites
             return mExpanded;
         }
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -480,7 +480,7 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         Label(std::string_view name, std::string_view caption, Ogre::Real width);
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -539,7 +539,7 @@ namespace OgreBites
         */
         void setRange(Ogre::Real minValue, Ogre::Real maxValue, unsigned int snaps, bool notifyListener = true);
 
-        auto getValueCaption() noexcept -> std::string_view 
+        auto getValueCaption() noexcept -> std::string_view
         {
             return mValueTextArea->getCaption();
         }
@@ -559,7 +559,7 @@ namespace OgreBites
             return mValue;
         }
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -658,7 +658,7 @@ namespace OgreBites
         /// Do not instantiate any widgets directly. Use TrayManager.
         CheckBox(std::string_view name, std::string_view caption, Ogre::Real width);
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -723,7 +723,7 @@ namespace OgreBites
             return mProgress;
         }
 
-        auto getCaption() noexcept -> std::string_view 
+        auto getCaption() noexcept -> std::string_view
         {
             return mTextArea->getCaption();
         }
@@ -733,7 +733,7 @@ namespace OgreBites
             mTextArea->setCaption(caption);
         }
 
-        auto getComment() noexcept -> std::string_view 
+        auto getComment() noexcept -> std::string_view
         {
             return mCommentTextArea->getCaption();
         }

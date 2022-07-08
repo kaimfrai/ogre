@@ -433,7 +433,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrail::getMovableType() const noexcept -> std::string_view 
+    auto RibbonTrail::getMovableType() const noexcept -> std::string_view
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -441,7 +441,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    auto RibbonTrailFactory::getType() const noexcept -> std::string_view 
+    auto RibbonTrailFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

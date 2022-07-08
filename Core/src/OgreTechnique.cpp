@@ -692,7 +692,7 @@ namespace Ogre {
         _notifyNeedsRecompile();
     }
     //-----------------------------------------------------------------------
-    auto Technique::getSchemeName() const noexcept -> std::string_view 
+    auto Technique::getSchemeName() const noexcept -> std::string_view
     {
         return MaterialManager::getSingleton()._getSchemeName(mSchemeIndex);
     }
@@ -986,7 +986,7 @@ namespace Ogre {
         return mIlluminationPasses;
     }
     //-----------------------------------------------------------------------
-    auto Technique::getResourceGroup() const noexcept -> std::string_view 
+    auto Technique::getResourceGroup() const noexcept -> std::string_view
     {
         return mParent->getGroup();
     }

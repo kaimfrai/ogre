@@ -191,7 +191,7 @@ namespace Ogre
         mTtfResolution = ttfResolution;
     }
     //---------------------------------------------------------------------
-    auto Font::getSource() const noexcept -> std::string_view 
+    auto Font::getSource() const noexcept -> std::string_view
     {
         return mSource;
     }

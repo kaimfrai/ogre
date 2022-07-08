@@ -591,7 +591,7 @@ auto CompositorInstance::getChain() -> CompositorChain *
 }
 //-----------------------------------------------------------------------
 auto CompositorInstance::getTextureInstanceName(std::string_view name, 
-                                                         size_t mrtIndex) -> std::string_view 
+                                                         size_t mrtIndex) -> std::string_view
 {
     return getSourceForTex(name, mrtIndex)->getName();
 }

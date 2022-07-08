@@ -71,7 +71,7 @@ class HardwareBufferManagerBase;
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
     }
     //-----------------------------------------------------------------------
-    auto SubMesh::getMaterialName() const noexcept -> std::string_view 
+    auto SubMesh::getMaterialName() const noexcept -> std::string_view
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }

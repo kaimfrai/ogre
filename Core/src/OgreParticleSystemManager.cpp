@@ -402,7 +402,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemFactory::getType() const noexcept -> std::string_view 
+    auto ParticleSystemFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

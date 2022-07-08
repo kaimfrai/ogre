@@ -228,7 +228,7 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getName() const noexcept -> std::string_view 
+    auto SkeletonInstance::getName() const noexcept -> std::string_view
     {
         // delegate
         return mSkeleton->getName();
@@ -240,7 +240,7 @@ class AnimationStateSet;
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getGroup() const noexcept -> std::string_view 
+    auto SkeletonInstance::getGroup() const noexcept -> std::string_view
     {
         // delegate
         return mSkeleton->getGroup();

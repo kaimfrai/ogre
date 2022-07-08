@@ -75,7 +75,7 @@ class Technique;
         return mSubMesh;
     }
     //-----------------------------------------------------------------------
-    auto SubEntity::getMaterialName() const noexcept -> std::string_view 
+    auto SubEntity::getMaterialName() const noexcept -> std::string_view
     {
         return mMaterialPtr ? mMaterialPtr->getName() : BLANKSTRING;
     }

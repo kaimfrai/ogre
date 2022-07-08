@@ -191,7 +191,7 @@ class RenderQueue;
         mBillboardSet->_notifyAttached(nullptr);
     }
     //-----------------------------------------------------------------------
-    auto BillboardParticleRenderer::getType() const noexcept -> std::string_view 
+    auto BillboardParticleRenderer::getType() const noexcept -> std::string_view
     {
         return rendererTypeName;
     }
@@ -242,7 +242,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto BillboardParticleRendererFactory::getType() const noexcept -> std::string_view 
+    auto BillboardParticleRendererFactory::getType() const noexcept -> std::string_view
     {
         return rendererTypeName;
     }

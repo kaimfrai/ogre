@@ -530,7 +530,7 @@ ManualObject::ManualObject(std::string_view name)
         mUseIdentityView = useIdentityView;
     }
     //-----------------------------------------------------------------------------
-    auto ManualObject::getMovableType() const noexcept -> std::string_view 
+    auto ManualObject::getMovableType() const noexcept -> std::string_view
     {
         return ManualObjectFactory::FACTORY_TYPE_NAME;
     }
@@ -783,7 +783,7 @@ ManualObject::ManualObject(std::string_view name)
     //-----------------------------------------------------------------------------
     String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
-    auto ManualObjectFactory::getType() const noexcept -> std::string_view 
+    auto ManualObjectFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

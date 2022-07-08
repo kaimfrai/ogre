@@ -603,7 +603,7 @@ namespace Ogre
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        [[nodiscard]] auto getRenderSystemName() const noexcept -> std::string_view 
+        [[nodiscard]] auto getRenderSystemName() const noexcept -> std::string_view
         {
             return mRenderSystemName;
         }

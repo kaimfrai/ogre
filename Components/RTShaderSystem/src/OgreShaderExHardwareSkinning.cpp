@@ -93,7 +93,7 @@ HardwareSkinning::HardwareSkinning()
 = default;
 
 //-----------------------------------------------------------------------
-auto HardwareSkinning::getType() const noexcept -> std::string_view 
+auto HardwareSkinning::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -270,7 +270,7 @@ HardwareSkinningFactory::HardwareSkinningFactory()
 HardwareSkinningFactory::~HardwareSkinningFactory() = default;
 
 //-----------------------------------------------------------------------
-auto HardwareSkinningFactory::getType() const noexcept -> std::string_view 
+auto HardwareSkinningFactory::getType() const noexcept -> std::string_view
 {
     return HardwareSkinning::Type;
 }

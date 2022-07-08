@@ -301,7 +301,7 @@ class VertexData;
         destroyAllVertexTracks();
     }
     //---------------------------------------------------------------------
-    auto Animation::getName() const noexcept -> std::string_view 
+    auto Animation::getName() const noexcept -> std::string_view
     {
         return mName;
     }
@@ -689,7 +689,7 @@ class VertexData;
         return mBaseKeyFrameTime;
     }
     //-----------------------------------------------------------------------
-    auto Animation::getBaseKeyFrameAnimationName() const noexcept -> std::string_view 
+    auto Animation::getBaseKeyFrameAnimationName() const noexcept -> std::string_view
     {
         return mBaseKeyFrameAnimationName;
     }

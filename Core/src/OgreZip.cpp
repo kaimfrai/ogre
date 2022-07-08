@@ -299,7 +299,7 @@ namespace {
         return new ZipArchive(name, getType());
     }
     //-----------------------------------------------------------------------
-    auto ZipArchiveFactory::getType() const noexcept -> std::string_view 
+    auto ZipArchiveFactory::getType() const noexcept -> std::string_view
     {
         static String name = "Zip";
         return name;
@@ -346,7 +346,7 @@ namespace {
         ZipArchiveFactory::destroyInstance(ptr);
     }
     //-----------------------------------------------------------------------
-    auto EmbeddedZipArchiveFactory::getType() const noexcept -> std::string_view 
+    auto EmbeddedZipArchiveFactory::getType() const noexcept -> std::string_view
     {
         static String name = "EmbeddedZip";
         return name;

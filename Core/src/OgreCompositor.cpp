@@ -312,7 +312,7 @@ void Compositor::freeGlobalTextures()
 
 }
 //-----------------------------------------------------------------------
-auto Compositor::getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view 
+auto Compositor::getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view
 {
     return getTextureInstance(name, mrtIndex)->getName();
 }

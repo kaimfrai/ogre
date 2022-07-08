@@ -358,7 +358,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto GLSLProgram::getLanguage() const noexcept -> std::string_view 
+    auto GLSLProgram::getLanguage() const noexcept -> std::string_view
     {
         static const String language = "glsl";
 

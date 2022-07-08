@@ -433,7 +433,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto GpuProgram::getLanguage() const noexcept -> std::string_view 
+    auto GpuProgram::getLanguage() const noexcept -> std::string_view
     {
         static const String language = "asm";
 

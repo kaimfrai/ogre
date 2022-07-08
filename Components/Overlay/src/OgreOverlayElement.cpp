@@ -280,7 +280,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getMaterialName() const noexcept -> std::string_view 
+    auto OverlayElement::getMaterialName() const noexcept -> std::string_view
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }

@@ -745,7 +745,7 @@ class Sphere;
         return mAnimationState;
     }
     //-----------------------------------------------------------------------
-    auto Entity::getMovableType() const noexcept -> std::string_view 
+    auto Entity::getMovableType() const noexcept -> std::string_view
     {
         return EntityFactory::FACTORY_TYPE_NAME;
     }
@@ -2308,7 +2308,7 @@ class Sphere;
     //-----------------------------------------------------------------------
     String EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
-    auto EntityFactory::getType() const noexcept -> std::string_view 
+    auto EntityFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

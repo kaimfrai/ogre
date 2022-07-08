@@ -275,7 +275,7 @@ namespace Ogre {
         rgba[3] = des.ashift;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatName(PixelFormat srcformat) -> std::string_view 
+    auto PixelUtil::getFormatName(PixelFormat srcformat) -> std::string_view
     {
         return getDescriptionFor(srcformat).name;
     }

@@ -1065,7 +1065,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getMovableType() const noexcept -> std::string_view 
+    auto BillboardSet::getMovableType() const noexcept -> std::string_view
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
@@ -1161,7 +1161,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    auto BillboardSetFactory::getType() const noexcept -> std::string_view 
+    auto BillboardSetFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

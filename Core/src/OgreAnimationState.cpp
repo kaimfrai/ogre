@@ -70,7 +70,7 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    auto AnimationState::getAnimationName() const noexcept -> std::string_view 
+    auto AnimationState::getAnimationName() const noexcept -> std::string_view
     {
         return mAnimationName;
     }

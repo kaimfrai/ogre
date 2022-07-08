@@ -80,7 +80,7 @@ FFPTexturing::FFPTexturing()
 = default;
 
 //-----------------------------------------------------------------------
-auto FFPTexturing::getType() const noexcept -> std::string_view 
+auto FFPTexturing::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -709,7 +709,7 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 }
 
 //-----------------------------------------------------------------------
-auto FFPTexturingFactory::getType() const noexcept -> std::string_view 
+auto FFPTexturingFactory::getType() const noexcept -> std::string_view
 {
     return FFPTexturing::Type;
 }

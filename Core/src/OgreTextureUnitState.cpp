@@ -241,7 +241,7 @@ class Frustum;
         return *this;
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::getTextureName() const noexcept -> std::string_view 
+    auto TextureUnitState::getTextureName() const noexcept -> std::string_view
     {
         // Return name of current frame
         if (mCurrentFrame < mFramePtrs.size() && mFramePtrs[mCurrentFrame])
@@ -487,7 +487,7 @@ class Frustum;
         return (unsigned int)mFramePtrs.size();
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> std::string_view 
+    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> std::string_view
     {
         OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 

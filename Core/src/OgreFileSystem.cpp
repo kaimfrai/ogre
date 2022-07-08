@@ -451,7 +451,7 @@ namespace {
 
     }
     //-----------------------------------------------------------------------
-    auto FileSystemArchiveFactory::getType() const noexcept -> std::string_view 
+    auto FileSystemArchiveFactory::getType() const noexcept -> std::string_view
     {
         static String name = "FileSystem";
         return name;

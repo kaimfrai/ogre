@@ -283,7 +283,7 @@ class RenderTarget;
         
         /** Get the material scheme which the viewport should use.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view 
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view
         { return mMaterialSchemeName; }
 
         /** Access to actual dimensions (based on target size).

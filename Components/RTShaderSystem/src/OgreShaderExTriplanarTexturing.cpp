@@ -143,7 +143,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::getType() const noexcept -> std::string_view 
+    auto TriplanarTexturing::getType() const noexcept -> std::string_view
     {
         return type;
     }
@@ -226,7 +226,7 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturingFactory::getType() const noexcept -> std::string_view 
+    auto TriplanarTexturingFactory::getType() const noexcept -> std::string_view
     {
         return TriplanarTexturing::type;
     }

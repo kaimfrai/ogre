@@ -697,7 +697,7 @@ void ShaderGenerator::setShaderProfiles(GpuProgramType type, std::string_view sh
     }
 }
 
-auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> std::string_view 
+auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> std::string_view
 {
     switch(type)
     {
@@ -1345,7 +1345,7 @@ auto ShaderGenerator::getRTShaderSchemeCount() const -> size_t
     return mSchemeEntriesMap.size();
 }
 //-----------------------------------------------------------------------------
-auto ShaderGenerator::getRTShaderScheme(size_t index) const -> std::string_view 
+auto ShaderGenerator::getRTShaderScheme(size_t index) const -> std::string_view
 {
     auto it = mSchemeEntriesMap.begin();
     while ((index != 0) && (it != mSchemeEntriesMap.end()))

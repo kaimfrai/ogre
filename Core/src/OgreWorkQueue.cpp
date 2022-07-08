@@ -74,7 +74,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    auto DefaultWorkQueueBase::getName() const noexcept -> std::string_view 
+    auto DefaultWorkQueueBase::getName() const noexcept -> std::string_view
     {
         return mName;
     }

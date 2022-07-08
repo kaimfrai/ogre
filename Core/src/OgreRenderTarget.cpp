@@ -77,7 +77,7 @@ class Camera;
 
     }
 
-    auto RenderTarget::getName() const noexcept -> std::string_view 
+    auto RenderTarget::getName() const noexcept -> std::string_view
     {
         return mName;
     }

@@ -143,7 +143,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.clear();
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::getQueuedAsString() const -> std::string_view 
+    auto MaterialSerializer::getQueuedAsString() const -> std::string_view
     {
         return mBuffer;
     }

@@ -938,7 +938,7 @@ class RenderQueue;
         return mIsEmitting;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getMovableType() const noexcept -> std::string_view 
+    auto ParticleSystem::getMovableType() const noexcept -> std::string_view
     {
         return ParticleSystemFactory::FACTORY_TYPE_NAME;
     }
@@ -1054,7 +1054,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getMaterialName() const noexcept -> std::string_view 
+    auto ParticleSystem::getMaterialName() const noexcept -> std::string_view
     {
         return mMaterial->getName();
     }
@@ -1145,7 +1145,7 @@ class RenderQueue;
         return mRenderer;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getRendererName() const noexcept -> std::string_view 
+    auto ParticleSystem::getRendererName() const noexcept -> std::string_view
     {
         if (mRenderer)
         {

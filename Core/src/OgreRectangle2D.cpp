@@ -223,7 +223,7 @@ class MovableObject;
         *xform = Matrix4::IDENTITY;
     }
 
-    auto Rectangle2D::getMovableType() const noexcept -> std::string_view 
+    auto Rectangle2D::getMovableType() const noexcept -> std::string_view
     {
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }

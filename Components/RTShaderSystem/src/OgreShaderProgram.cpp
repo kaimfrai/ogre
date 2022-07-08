@@ -345,7 +345,7 @@ auto Program::getDependencyCount() const -> size_t
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getDependency(unsigned int index) const -> std::string_view 
+auto Program::getDependency(unsigned int index) const -> std::string_view
 {
     return mDependencies[index];
 }

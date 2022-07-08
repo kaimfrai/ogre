@@ -192,7 +192,7 @@ class Renderable;
 
     }
     //-----------------------------------------------------------------------
-    auto MaterialManager::_getSchemeName(unsigned short index) -> std::string_view 
+    auto MaterialManager::_getSchemeName(unsigned short index) -> std::string_view
     {
         for (auto & mScheme : mSchemes)
         {

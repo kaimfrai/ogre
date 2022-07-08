@@ -593,7 +593,7 @@ namespace Ogre {
 
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getBorderMaterialName() const noexcept -> std::string_view 
+    auto BorderPanelOverlayElement::getBorderMaterialName() const noexcept -> std::string_view
     {
         return mBorderMaterial ? mBorderMaterial->getName() : BLANKSTRING;
     }
@@ -914,7 +914,7 @@ namespace Ogre {
             );
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getTypeName() const noexcept -> std::string_view 
+    auto BorderPanelOverlayElement::getTypeName() const noexcept -> std::string_view
     {
         return msTypeName;
     }

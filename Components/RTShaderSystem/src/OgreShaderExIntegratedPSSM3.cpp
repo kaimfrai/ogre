@@ -91,7 +91,7 @@ IntegratedPSSM3::IntegratedPSSM3()
 }
 
 //-----------------------------------------------------------------------
-auto IntegratedPSSM3::getType() const noexcept -> std::string_view 
+auto IntegratedPSSM3::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -401,7 +401,7 @@ auto IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder) 
 
 
 //-----------------------------------------------------------------------
-auto IntegratedPSSM3Factory::getType() const noexcept -> std::string_view 
+auto IntegratedPSSM3Factory::getType() const noexcept -> std::string_view
 {
     return IntegratedPSSM3::Type;
 }

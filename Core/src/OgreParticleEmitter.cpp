@@ -198,7 +198,7 @@ namespace Ogre
         mColourRangeEnd = colourEnd;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getName() const noexcept -> std::string_view 
+    auto ParticleEmitter::getName() const noexcept -> std::string_view
     {
         return mName;
     }
@@ -208,7 +208,7 @@ namespace Ogre
         mName = newName;
     }
     //-----------------------------------------------------------------------
-    auto ParticleEmitter::getEmittedEmitter() const noexcept -> std::string_view 
+    auto ParticleEmitter::getEmittedEmitter() const noexcept -> std::string_view
     {
         return mEmittedEmitter;
     }

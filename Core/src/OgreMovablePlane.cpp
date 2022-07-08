@@ -94,7 +94,7 @@ namespace Ogre {
         return mDerivedPlane;
     }
     //-----------------------------------------------------------------------
-    auto MovablePlane::getMovableType() const noexcept -> std::string_view 
+    auto MovablePlane::getMovableType() const noexcept -> std::string_view
     {
         return msMovableType;
     }

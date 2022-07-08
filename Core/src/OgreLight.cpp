@@ -193,7 +193,7 @@ namespace Ogre {
         // nothing to render
     }
     //-----------------------------------------------------------------------
-    auto Light::getMovableType() const noexcept -> std::string_view 
+    auto Light::getMovableType() const noexcept -> std::string_view
     {
         return LightFactory::FACTORY_TYPE_NAME;
     }
@@ -774,7 +774,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
-    auto LightFactory::getType() const noexcept -> std::string_view 
+    auto LightFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

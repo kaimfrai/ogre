@@ -673,7 +673,7 @@ class RenderSystem;
         mMaterial->load();
     }
     //-----------------------------------------------------------------------
-    auto BillboardChain::getMovableType() const noexcept -> std::string_view 
+    auto BillboardChain::getMovableType() const noexcept -> std::string_view
     {
         return BillboardChainFactory::FACTORY_TYPE_NAME;
     }
@@ -735,7 +735,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
-    auto BillboardChainFactory::getType() const noexcept -> std::string_view 
+    auto BillboardChainFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

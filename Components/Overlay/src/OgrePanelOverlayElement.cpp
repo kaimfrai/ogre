@@ -232,7 +232,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    auto PanelOverlayElement::getTypeName() const noexcept -> std::string_view 
+    auto PanelOverlayElement::getTypeName() const noexcept -> std::string_view
     {
         return msTypeName;
     }

@@ -75,7 +75,7 @@ NormalMapLighting::NormalMapLighting()
 }
 
 //-----------------------------------------------------------------------
-auto NormalMapLighting::getType() const noexcept -> std::string_view 
+auto NormalMapLighting::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -231,7 +231,7 @@ auto NormalMapLighting::setParameter(std::string_view name, std::string_view val
 }
 
 //-----------------------------------------------------------------------
-auto NormalMapLightingFactory::getType() const noexcept -> std::string_view 
+auto NormalMapLightingFactory::getType() const noexcept -> std::string_view
 {
     return NormalMapLighting::Type;
 }

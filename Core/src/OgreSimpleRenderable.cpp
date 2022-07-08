@@ -131,7 +131,7 @@ class Camera;
     }
 
     //-----------------------------------------------------------------------
-    auto SimpleRenderable::getMovableType() const noexcept -> std::string_view 
+    auto SimpleRenderable::getMovableType() const noexcept -> std::string_view
     {
         static String movType = "SimpleRenderable";
         return movType;

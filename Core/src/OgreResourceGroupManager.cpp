@@ -1323,7 +1323,7 @@ namespace Ogre {
         return resourceExistsInAnyGroupImpl(filename).first != 0;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::findGroupContainingResource(std::string_view filename) const -> std::string_view 
+    auto ResourceGroupManager::findGroupContainingResource(std::string_view filename) const -> std::string_view
     {
         ResourceGroup* grp = resourceExistsInAnyGroupImpl(filename).second;
 

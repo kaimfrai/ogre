@@ -224,7 +224,7 @@ namespace Ogre {
             Subclasses must override this if they want to support animation of
             their values.
         */
-        [[nodiscard]] virtual auto getAnimableDictionaryName() const noexcept -> std::string_view 
+        [[nodiscard]] virtual auto getAnimableDictionaryName() const noexcept -> std::string_view
         { return BLANKSTRING; }
         /** Internal method for creating a dictionary of animable value names 
             for the class, if it does not already exist.

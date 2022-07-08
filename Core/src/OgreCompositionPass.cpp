@@ -169,7 +169,7 @@ void CompositionPass::setMaterialScheme(std::string_view schemeName)
     mRenderScene.materialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-auto CompositionPass::getMaterialScheme() const noexcept -> std::string_view 
+auto CompositionPass::getMaterialScheme() const noexcept -> std::string_view
 {
     return mRenderScene.materialScheme;
 }
@@ -274,7 +274,7 @@ void CompositionPass::setCustomType(std::string_view customType)
     mCustomType = customType;
 }
 
-auto CompositionPass::getCustomType() const noexcept -> std::string_view 
+auto CompositionPass::getCustomType() const noexcept -> std::string_view
 {
     return mCustomType;
 }

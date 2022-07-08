@@ -77,7 +77,7 @@ FFPLighting::FFPLighting()
 }
 
 //-----------------------------------------------------------------------
-auto FFPLighting::getType() const noexcept -> std::string_view 
+auto FFPLighting::getType() const noexcept -> std::string_view
 {
 	return Type;
 }
@@ -545,7 +545,7 @@ auto FFPLighting::getLightCount() const -> Vector3i
 }
 
 //-----------------------------------------------------------------------
-auto FFPLightingFactory::getType() const noexcept -> std::string_view 
+auto FFPLightingFactory::getType() const noexcept -> std::string_view
 {
 	return FFPLighting::Type;
 }

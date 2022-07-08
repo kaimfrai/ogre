@@ -502,7 +502,7 @@ namespace Ogre {
         delete mRenderOp.vertexData;
     }
     //---------------------------------------------------------------------
-    auto TextAreaOverlayElement::getTypeName() const noexcept -> std::string_view 
+    auto TextAreaOverlayElement::getTypeName() const noexcept -> std::string_view
     {
         return msTypeName;
     }

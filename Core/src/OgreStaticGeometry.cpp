@@ -788,7 +788,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getMovableType() const noexcept -> std::string_view 
+    auto StaticGeometry::Region::getMovableType() const noexcept -> std::string_view
     {
         static String sType = "StaticGeometry";
         return sType;

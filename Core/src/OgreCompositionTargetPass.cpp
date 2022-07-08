@@ -68,7 +68,7 @@ void CompositionTargetPass::setOutputName(std::string_view out)
     mOutputName = out;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getOutputName() const -> std::string_view 
+auto CompositionTargetPass::getOutputName() const -> std::string_view
 {
     return mOutputName;
 }
@@ -108,7 +108,7 @@ void CompositionTargetPass::setMaterialScheme(std::string_view schemeName)
     mMaterialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getMaterialScheme() const noexcept -> std::string_view 
+auto CompositionTargetPass::getMaterialScheme() const noexcept -> std::string_view
 {
     return mMaterialScheme;
 }

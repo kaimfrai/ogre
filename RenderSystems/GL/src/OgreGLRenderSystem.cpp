@@ -363,7 +363,7 @@ namespace Ogre {
         glPopMatrix();
     }
 
-    auto GLRenderSystem::getName() const noexcept -> std::string_view 
+    auto GLRenderSystem::getName() const noexcept -> std::string_view
     {
         static String strName("OpenGL Rendering Subsystem");
         return strName;

@@ -161,7 +161,7 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    auto InstancedEntity::getMovableType() const noexcept -> std::string_view 
+    auto InstancedEntity::getMovableType() const noexcept -> std::string_view
     {
         static String sType = "InstancedEntity";
         return sType;

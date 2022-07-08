@@ -122,7 +122,7 @@ LayeredBlending::LayeredBlending()
 = default;
 
 //-----------------------------------------------------------------------
-auto LayeredBlending::getType() const noexcept -> std::string_view 
+auto LayeredBlending::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -325,7 +325,7 @@ auto LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& mo
 
 //----------------------Factory Implementation---------------------------
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::getType() const noexcept -> std::string_view 
+auto LayeredBlendingFactory::getType() const noexcept -> std::string_view
 {
     return LayeredBlending::Type;
 }

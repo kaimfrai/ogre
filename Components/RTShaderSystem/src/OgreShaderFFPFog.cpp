@@ -67,7 +67,7 @@ FFPFog::FFPFog()
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::getType() const noexcept -> std::string_view 
+auto FFPFog::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -252,7 +252,7 @@ auto FFPFog::setParameter(std::string_view name, std::string_view value) noexcep
 }
 
 //-----------------------------------------------------------------------
-auto FFPFogFactory::getType() const noexcept -> std::string_view 
+auto FFPFogFactory::getType() const noexcept -> std::string_view
 {
     return FFPFog::Type;
 }
