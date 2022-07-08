@@ -104,7 +104,7 @@ namespace Ogre {
 
     // Types.
     private:
-        using UserObjectsMap = std::map<std::string_view, ::std::any>;
+        using UserObjectsMap = std::map<String, ::std::any>;
         using UserObjectsMapIterator = UserObjectsMap::iterator;
         using UserObjectsMapConstIterator = UserObjectsMap::const_iterator;
 

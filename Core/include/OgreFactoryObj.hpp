@@ -50,7 +50,7 @@ namespace Ogre {
         @return
             The factory type.
         */
-        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view = 0;
 
         /** Creates a new object.
         @param name Name of the object to create

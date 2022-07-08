@@ -158,7 +158,7 @@ namespace Ogre {
         */
         virtual void setSchemeName(std::string_view schemeName);
         /** Get the scheme name assigned to this technique. */
-        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view{ return mSchemeName; }
+        [[nodiscard]] auto getSchemeName() const noexcept -> std::string_view { return mSchemeName; }
         
         /** Set the name of the compositor logic assigned to this technique.
             Instances of this technique will be auto-coupled with the matching logic.
@@ -166,7 +166,7 @@ namespace Ogre {
         void setCompositorLogicName(std::string_view compositorLogicName) 
             { mCompositorLogicName = compositorLogicName; }
         /** Get the compositor logic name assigned to this technique */
-        [[nodiscard]] auto getCompositorLogicName() const noexcept -> std::string_view{ return mCompositorLogicName; }
+        [[nodiscard]] auto getCompositorLogicName() const noexcept -> std::string_view { return mCompositorLogicName; }
 
         /** Get parent object */
         auto getParent() -> Compositor *;

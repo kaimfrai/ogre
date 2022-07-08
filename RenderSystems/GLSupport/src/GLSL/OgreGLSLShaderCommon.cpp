@@ -51,7 +51,7 @@ class ResourceManager;
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;
 
-    auto GLSLShaderCommon::getResourceLogName() const -> std::string
+    auto GLSLShaderCommon::getResourceLogName() const -> String
     {
         if(mLoadFromFile)
             return ::std::format("'{}'", mFilename );
@@ -112,15 +112,15 @@ class ResourceManager;
     {
     }
     //-----------------------------------------------------------------------
-    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> std::string
+    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> String
     {
-        return std::string{ (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames() };
+        return (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames();
     }
     //-----------------------------------------------------------------------
     void GLSLShaderCommon::CmdAttach::doSet(void *target, std::string_view shaderNames)
     {
         //get all the shader program names: there could be more than one
-        auto const vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
+        StringVector vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
 
         size_t programNameCount = vecShaderNames.size();
         for ( size_t i = 0; i < programNameCount; ++i )
@@ -154,7 +154,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> std::string
+    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> String
     {
         return StringConverter::toString(static_cast<const GLSLShaderCommon*>(target)->getColumnMajorMatrices());
     }

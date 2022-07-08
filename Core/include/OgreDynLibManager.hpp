@@ -53,7 +53,7 @@ class DynLib;
     class DynLibManager: public Singleton<DynLibManager>, public DynLibAlloc
     {
     private:
-        using DynLibList = std::map<std::string_view, ::std::unique_ptr<DynLib>>;
+        using DynLibList = std::map<String, ::std::unique_ptr<DynLib>>;
         DynLibList mLibList;
     public:
         /** Default constructor.

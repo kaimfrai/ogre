@@ -222,7 +222,7 @@ Function::~Function()
 
 }
 
-static auto getParameterName(const char* prefix, Parameter::Semantic semantic, int index) -> std::string
+static auto getParameterName(const char* prefix, Parameter::Semantic semantic, int index) -> String
 {
     const char* name = "";
     switch (semantic)

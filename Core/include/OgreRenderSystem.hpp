@@ -74,7 +74,7 @@ class VertexDeclaration;
 
     using DepthBufferVec = std::vector<DepthBuffer *>;
     using DepthBufferMap = std::map<uint16, DepthBufferVec>;
-    using RenderTargetMap = std::map<std::string_view, RenderTarget *>;
+    using RenderTargetMap = std::map<String, RenderTarget *>;
     using RenderTargetPriorityMap = std::multimap<uchar, RenderTarget *>;
 
     class TextureManager;
@@ -194,7 +194,7 @@ class VertexDeclaration;
 
         /** Returns the name of the rendering system.
         */
-        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view = 0;
 
         /** Returns the details of this API's configuration options
         @remarks
@@ -270,7 +270,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual auto validateConfigOptions() noexcept -> std::string_view { return BLANKSTRING; }
+        virtual auto validateConfigOptions() noexcept -> String { return BLANKSTRING; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 
@@ -392,14 +392,14 @@ class VertexDeclaration;
         | maxStencilBufferSize | Positive integer (usually 0, 8) | 0 | EGL_STENCIL_SIZE | Android |
         | maxDepthBufferSize | Positive integer (usually 0, 16, 24) | 16 | EGL_DEPTH_SIZE | Android |
         */
-        virtual auto _createRenderWindow(std::string_view name, unsigned int width, unsigned int height,
+        virtual auto _createRenderWindow(std::string_view name, unsigned int width, unsigned int height, 
             bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow*;
         
         /** Create a MultiRenderTarget, which is a render target that renders to multiple RenderTextures
         at once. Surfaces can be bound and unbound at will.
         This fails if mCapabilities->getNumMultiRenderTargets() is smaller than 2.
         */
-        virtual auto createMultiRenderTarget(std::string_view name) -> MultiRenderTarget * = 0;
+        virtual auto createMultiRenderTarget(std::string_view name) -> MultiRenderTarget * = 0; 
 
         /** Destroys a render window */
         virtual void destroyRenderWindow(std::string_view name);
@@ -774,7 +774,7 @@ class VertexDeclaration;
             viewports.  It is a necessary step on these render systems for
             render textures to be rendered into properly.
         */
-        [[nodiscard]] auto _getDefaultViewportMaterialScheme() const -> std::string_view;
+        [[nodiscard]] auto _getDefaultViewportMaterialScheme() const -> std::string_view ;
 
         /** Binds a given GpuProgram (but not the parameters). 
         @remarks Only one GpuProgram of each type can be bound at once, binding another
@@ -939,7 +939,7 @@ class VertexDeclaration;
             @param parameters A list of parameters that may belong to this event,
             may be null if there are no parameters
             */
-            virtual void eventOccurred(std::string_view eventName,
+            virtual void eventOccurred(std::string_view eventName, 
                 const NameValuePairList* parameters = nullptr) = 0;
         };
 

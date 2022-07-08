@@ -210,7 +210,7 @@ class VertexData;
     protected:
         // In the past we could select to use manual or automatic generated Lod levels,
         // but now we can mix them. If it is mixed, we can't export it to older mesh formats.
-        auto compatibleLodStrategyName(std::string_view lodStrategyName) -> std::string_view;
+        auto compatibleLodStrategyName(String lodStrategyName) -> String;
         virtual auto isLodMixed(const Mesh* pMesh) -> bool;
         auto calcLodLevelSize(const Mesh* pMesh) -> size_t override;
         auto calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t override;

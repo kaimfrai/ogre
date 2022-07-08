@@ -57,7 +57,7 @@ public:
     ~HLSLProgramProcessor() override;
 
     /** Return the target language of this processor. */
-    [[nodiscard]] virtual auto getTargetLanguage() const noexcept -> std::string_view{ return TargetLanguage; }
+    [[nodiscard]] virtual auto getTargetLanguage() const noexcept -> std::string_view { return TargetLanguage; }
 
     /** 
     @see ProgramProcessor::preCreateGpuPrograms

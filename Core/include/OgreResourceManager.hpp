@@ -140,7 +140,7 @@ namespace Ogre {
             an indicator specifying whether the resource was newly created.
         */
         auto createOrRetrieve(std::string_view name,
-            std::string_view group, bool isManual = false, 
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* createParams = nullptr) -> ResourceCreateOrRetrieveResult;
         
@@ -366,7 +366,7 @@ namespace Ogre {
             is being run on the background resource loading thread
         */
         auto prepare(std::string_view name,
-            std::string_view group, bool isManual = false, 
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false) -> ResourcePtr;
 
@@ -376,16 +376,16 @@ namespace Ogre {
         @copydetails ResourceManager::prepare()
         */
         auto load(std::string_view name,
-            std::string_view group, bool isManual = false, 
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false) -> ResourcePtr;
 
-        auto getScriptPatterns() const noexcept -> std::span<std::string_view const> override { return mScriptPatterns; }
+        auto getScriptPatterns() const noexcept -> const StringVector& override { return mScriptPatterns; }
         void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         auto getLoadingOrder() const noexcept -> Real override { return mLoadOrder; }
 
         /** Gets a string identifying the type of resource this manager handles. */
-        auto getResourceType() const noexcept -> std::string_view{ return mResourceType; }
+        auto getResourceType() const noexcept -> std::string_view { return mResourceType; }
 
         /** Sets whether this manager and its resources habitually produce log output */
         void setVerbose(bool v) { mVerbose = v; }
@@ -406,7 +406,7 @@ namespace Ogre {
             ResourcePool(std::string_view name);
             ~ResourcePool() override;
             /// Get the name of the pool
-            [[nodiscard]] auto getName() const noexcept -> std::string_view;
+            [[nodiscard]] auto getName() const noexcept -> std::string_view ;
             void clear() override;
         };
         
@@ -449,8 +449,8 @@ namespace Ogre {
             to differentiate which concrete class is created.
 
         */
-        virtual auto createImpl(std::string_view name, ResourceHandle handle, 
-            std::string_view group, bool isManual, ManualResourceLoader* loader, 
+        virtual auto createImpl(std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams) -> Resource* = 0;
         /** Add a newly created resource to the manager (note weak reference) */
         virtual void addImpl( ResourcePtr& res );
@@ -462,8 +462,8 @@ namespace Ogre {
 
 
     public:
-        using ResourceMap = std::unordered_map<std::string_view, ResourcePtr>;
-        using ResourceWithGroupMap = std::unordered_map<std::string_view, ResourceMap>;
+        using ResourceMap = std::unordered_map<String, ResourcePtr>;
+        using ResourceWithGroupMap = std::unordered_map<String, ResourceMap>;
         using ResourceHandleMap = std::map<ResourceHandle, ResourcePtr>;
     protected:
         ResourceHandleMap mResourcesByHandle;
@@ -478,7 +478,7 @@ namespace Ogre {
         // IMPORTANT - all subclasses must populate the fields below
 
         /// Patterns to use to look for scripts if supported (e.g. *.overlay)
-        std::vector<std::string_view> mScriptPatterns;
+        StringVector mScriptPatterns; 
         /// Loading order relative to other managers, higher is later
         Real mLoadOrder{0}; 
         /// String identifying the resource type this manager handles
@@ -496,7 +496,7 @@ namespace Ogre {
         }
 
     protected:
-        using ResourcePoolMap = std::map<std::string_view, ResourcePool *>;
+        using ResourcePoolMap = std::map<String, ResourcePool *>;
         ResourcePoolMap mResourcePoolMap;
     };
 

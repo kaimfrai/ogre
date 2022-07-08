@@ -480,7 +480,7 @@ auto LayeredBlendingFactory::stringToBlendMode(std::string_view strValue) -> Lay
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> std::string_view
+auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> String
 {
     for(const auto & _blendMode : _blendModes)
     {
@@ -506,7 +506,7 @@ auto LayeredBlendingFactory::stringToSourceModifier(std::string_view strValue) -
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> std::string_view
+auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String
 {
     for(const auto & _sourceModifier : _sourceModifiers)
     {

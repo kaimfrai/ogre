@@ -97,7 +97,7 @@ class RenderQueue;
             mElement.second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getScriptPatterns() const noexcept -> std::span<std::string_view const>
+    auto OverlayManager::getScriptPatterns() const noexcept -> const StringVector&
     {
         return mScriptPatterns;
     }
@@ -205,7 +205,7 @@ class RenderQueue;
         if(!stream->getName().empty() && !mLoadedScripts.emplace(stream->getName()).second)
         {
             LogManager::getSingleton().logWarning(
-                std::format("Skipping loading '{}' as it is already loaded", stream->getName()));
+                std::format("Skipping loading '{}' as it is already loaded", stream->getName().c_str()));
             return;
         }
 

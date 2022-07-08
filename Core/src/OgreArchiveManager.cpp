@@ -40,7 +40,7 @@ THE SOFTWARE.
 #include "OgreSingleton.hpp"
 
 namespace Ogre {
-    using createFunc = void (*)(Archive **, std::string_view);
+    using createFunc = void (*)(Archive **, std::string_view );
 
     //-----------------------------------------------------------------------
     template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = nullptr;

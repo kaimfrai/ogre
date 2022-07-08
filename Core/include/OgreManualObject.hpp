@@ -607,9 +607,9 @@ class SubMesh;
             /// Retrieve render operation for manipulation
             auto getRenderOperation() noexcept -> RenderOperation*;
             /// Retrieve the material name in use
-            auto getMaterialName() const noexcept -> std::string_view{ return mMaterialName; }
+            auto getMaterialName() const noexcept -> std::string_view { return mMaterialName; }
             /// Retrieve the material group in use
-            auto getMaterialGroup() const noexcept -> std::string_view{ return mGroupName; }
+            auto getMaterialGroup() const noexcept -> std::string_view { return mGroupName; }
             /// update the material name in use
             void setMaterialName(std::string_view name,
                 std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);

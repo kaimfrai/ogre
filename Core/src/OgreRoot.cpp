@@ -345,7 +345,7 @@ namespace Ogre {
             return false;
         }
 
-        auto const err = rs->validateConfigOptions();
+        String err = rs->validateConfigOptions();
         if (err.length() > 0)
             return false;
 
@@ -466,13 +466,13 @@ namespace Ogre {
                 rscManager.parseCapabilitiesFromArchive(filename, archType, true);
             }
 
-            auto const capsName = cfg.getSetting("Custom Capabilities");
+            String capsName = cfg.getSetting("Custom Capabilities");
             // The custom capabilities have been parsed, let's retrieve them
             RenderSystemCapabilities* rsc = rscManager.loadParsedCapabilities(capsName);
             if(rsc == nullptr)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    std::format("Cannot load a RenderSystemCapability named {}", capsName),
+                    String("Cannot load a RenderSystemCapability named ") + capsName,
                     "Root::initialise");
             }
 
@@ -1157,8 +1157,8 @@ namespace Ogre {
         // Save
         mMovableObjectFactoryMap[fact->getType()] = fact;
 
-        LogManager::getSingleton().logMessage(std::format("MovableObjectFactory for type '{}' registered.",
-            fact->getType()));
+        LogManager::getSingleton().logMessage("MovableObjectFactory for type '" +
+            fact->getType() + "' registered.");
 
     }
     //---------------------------------------------------------------------

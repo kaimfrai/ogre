@@ -95,7 +95,7 @@ class RenderSystem;
     {
     public:
         /// Scene manager instances, indexed by instance name
-        using Instances = std::map<std::string_view, SceneManager *>;
+        using Instances = std::map<String, SceneManager *>;
         /// List of available scene manager types as meta data
         using MetaDataList = std::vector<const SceneManagerMetaData *>;
     private:
@@ -158,7 +158,7 @@ class RenderSystem;
             created. If you leave this blank, an auto name will be assigned.
         */
         auto createSceneManager(std::string_view typeName, 
-            std::string_view instanceName = "") -> SceneManager*;
+            std::string_view instanceName = BLANKSTRING) -> SceneManager*;
 
         /** Destroy an instance of a SceneManager. */
         void destroySceneManager(SceneManager* sm);

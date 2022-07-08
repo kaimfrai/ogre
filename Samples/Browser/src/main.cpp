@@ -100,7 +100,7 @@ auto main(int argc, char *argv[]) -> int {
     }
     catch (Ogre::Exception& e)
     {
-        std::cerr << "An exception has occurred: " << e.getFullDescription() << std::endl;
+        std::cerr << "An exception has occurred: " << e.getFullDescription().c_str() << std::endl;
     }
     return 0;
 }

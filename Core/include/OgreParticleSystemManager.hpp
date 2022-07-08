@@ -88,10 +88,10 @@ class ParticleSystemRenderer;
     {
         friend class ParticleSystemFactory;
     public:
-        using ParticleTemplateMap = std::map<std::string_view, ParticleSystem *>;
-        using ParticleAffectorFactoryMap = std::map<std::string_view, ParticleAffectorFactory *>;
-        using ParticleEmitterFactoryMap = std::map<std::string_view, ParticleEmitterFactory *>;
-        using ParticleSystemRendererFactoryMap = std::map<std::string_view, ParticleSystemRendererFactory *>;
+        using ParticleTemplateMap = std::map<String, ParticleSystem *>;
+        using ParticleAffectorFactoryMap = std::map<String, ParticleAffectorFactory *>;
+        using ParticleEmitterFactoryMap = std::map<String, ParticleEmitterFactory *>;
+        using ParticleSystemRendererFactoryMap = std::map<String, ParticleSystemRendererFactory *>;
     private:
         /// Templates based on scripts
         ParticleTemplateMap mSystemTemplates;
@@ -105,7 +105,7 @@ class ParticleSystemRenderer;
         /// Map of renderer types to factories
         ParticleSystemRendererFactoryMap mRendererFactories;
 
-        std::vector<std::string_view> mScriptPatterns;
+        StringVector mScriptPatterns;
 
         // Factory instance
         ::std::unique_ptr<ParticleSystemFactory> mFactory;
@@ -309,7 +309,7 @@ class ParticleSystemRenderer;
         void _initialise();
 
         /// @copydoc ScriptLoader::getScriptPatterns
-        [[nodiscard]] auto getScriptPatterns() const noexcept -> std::span<std::string_view const> override;
+        [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
         void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder

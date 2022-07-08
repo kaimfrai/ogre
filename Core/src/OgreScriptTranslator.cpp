@@ -129,7 +129,7 @@ class LodStrategy;
         }
     }
 
-    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view
+    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String
     {
         for(auto& kv : compiler->mIds)
             if(kv.second == id)

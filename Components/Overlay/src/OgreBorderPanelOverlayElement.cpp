@@ -53,70 +53,70 @@ namespace Ogre {
         class CmdBorderSize : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying the Material for the border (see ParamCommand).*/
         class CmdBorderMaterial : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomLeftUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderBottomRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         /** Command object for specifying texture coordinates for the border (see ParamCommand).*/
         class CmdBorderTopRightUV : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
         // Command objects
@@ -449,7 +449,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const -> std::string
+    auto BorderPanelOverlayElement::getCellUVString(BorderCellIndex idx) const -> String
     {
         return
         ::std::format
@@ -534,42 +534,42 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getLeftBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_LEFT);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getRightBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_RIGHT);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getTopBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getTopBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getBottomBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getBottomBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getTopLeftBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getTopLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP_LEFT);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getTopRightBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getTopRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_TOP_RIGHT);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getBottomLeftBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getBottomLeftBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM_LEFT);
     }
     //---------------------------------------------------------------------
-    auto BorderPanelOverlayElement::getBottomRightBorderUVString() const -> std::string
+    auto BorderPanelOverlayElement::getBottomRightBorderUVString() const -> String
     {
         return getCellUVString(BCELL_BOTTOM_RIGHT);
     }
@@ -742,7 +742,7 @@ namespace Ogre {
     // Command objects
     //---------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdBorderSize::doGet(const void* target) const -> std::string
+    auto CmdBorderSize::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const BorderPanelOverlayElement*>(target);
         return
@@ -756,7 +756,7 @@ namespace Ogre {
     }
     void CmdBorderSize::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBorderSize(
             StringConverter::parseReal(vec[0]),
@@ -766,26 +766,26 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderMaterial::doGet(const void* target) const -> std::string
+    auto CmdBorderMaterial::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getBorderMaterialName() };
+        return static_cast<const BorderPanelOverlayElement*>(target)->getBorderMaterialName();
     }
     void CmdBorderMaterial::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBorderMaterialName(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderBottomLeftUV::doGet(const void* target) const -> std::string
+    auto CmdBorderBottomLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getBottomLeftBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomLeftBorderUVString();
     }
     void CmdBorderBottomLeftUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -795,14 +795,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderBottomRightUV::doGet(const void* target) const -> std::string
+    auto CmdBorderBottomRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getBottomRightBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomRightBorderUVString();
     }
     void CmdBorderBottomRightUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -812,14 +812,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderTopLeftUV::doGet(const void* target) const -> std::string
+    auto CmdBorderTopLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getTopLeftBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getTopLeftBorderUVString();
     }
     void CmdBorderTopLeftUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -829,14 +829,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderTopRightUV::doGet(const void* target) const -> std::string
+    auto CmdBorderTopRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getTopRightBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getTopRightBorderUVString();
     }
     void CmdBorderTopRightUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -846,14 +846,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderLeftUV::doGet(const void* target) const -> std::string
+    auto CmdBorderLeftUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getLeftBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getLeftBorderUVString();
     }
     void CmdBorderLeftUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -863,14 +863,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderRightUV::doGet(const void* target) const -> std::string
+    auto CmdBorderRightUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getRightBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getRightBorderUVString();
     }
     void CmdBorderRightUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -880,14 +880,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderTopUV::doGet(const void* target) const -> std::string
+    auto CmdBorderTopUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getTopBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getTopBorderUVString();
     }
     void CmdBorderTopUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -897,14 +897,14 @@ namespace Ogre {
             );
     }
     //-----------------------------------------------------------------------
-    auto CmdBorderBottomUV::doGet(const void* target) const -> std::string
+    auto CmdBorderBottomUV::doGet(const void* target) const -> String
     {
         // No need right now..
-        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getBottomBorderUVString() };
+        return  static_cast<const BorderPanelOverlayElement*>(target)->getBottomBorderUVString();
     }
     void CmdBorderBottomUV::doSet(void* target, std::string_view val)
     {
-        auto const vec = StringUtil::split(val);
+        std::vector<String> vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomBorderUV(
             StringConverter::parseReal(vec[0]),

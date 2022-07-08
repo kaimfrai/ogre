@@ -530,7 +530,7 @@ class VertexData;
         /** Sets the name of the material to be used for this billboard set.
         @return The name of the material that is used for this set.
         */
-        auto getMaterialName() const noexcept -> std::string_view{ return mMaterial->getName(); }
+        auto getMaterialName() const noexcept -> std::string_view { return mMaterial->getName(); }
 
         void _notifyCurrentCamera(Camera* cam) override;
 

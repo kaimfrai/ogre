@@ -92,7 +92,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::getScriptPatterns() const noexcept -> std::span<std::string_view const>
+    auto ParticleSystemManager::getScriptPatterns() const noexcept -> const StringVector&
     {
         return mScriptPatterns;
     }
@@ -110,21 +110,21 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addEmitterFactory(ParticleEmitterFactory* factory)
     {
-        auto const name = factory->getName();
+        String name = factory->getName();
         mEmitterFactories[name] = factory;
         LogManager::getSingleton().logMessage(::std::format("Particle Emitter Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addAffectorFactory(ParticleAffectorFactory* factory)
     {
-        auto const name = factory->getName();
+        String name = factory->getName();
         mAffectorFactories[name] = factory;
         LogManager::getSingleton().logMessage(::std::format("Particle Affector Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addRendererFactory(ParticleSystemRendererFactory* factory)
     {
-        auto const name = factory->getType();
+        String name = factory->getType();
         mRendererFactories[name] = factory;
         LogManager::getSingleton().logMessage(::std::format("Particle Renderer Type '{}' registered", name ));
     }

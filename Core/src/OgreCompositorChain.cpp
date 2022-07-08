@@ -490,7 +490,7 @@ void CompositorChain::_compile()
 
     // force default scheme so materials for compositor quads will determined correctly
     MaterialManager& matMgr = MaterialManager::getSingleton();
-    auto const prevMaterialScheme = matMgr.getActiveScheme();
+    String prevMaterialScheme = matMgr.getActiveScheme();
     matMgr.setActiveScheme(Root::getSingleton().getRenderSystem()->_getDefaultViewportMaterialScheme());
     
     /// Set previous CompositorInstance for each compositor in the list

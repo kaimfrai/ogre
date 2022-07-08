@@ -316,7 +316,7 @@ namespace {
         return mCacheDirty;     
     }
     //---------------------------------------------------------------------
-    auto GpuProgramManager::addRenderSystemToName( std::string_view name ) -> std::string
+    auto GpuProgramManager::addRenderSystemToName( std::string_view name ) -> String
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -413,8 +413,8 @@ namespace {
         }
         catch (const InvalidStateException& e)
         {
-            LogManager::getSingleton().logWarning(std::format("Could not load Microcode Cache: {}",
-                                                  e.getDescription()));
+            LogManager::getSingleton().logWarning("Could not load Microcode Cache: " +
+                                                  e.getDescription());
             return;
         }
 

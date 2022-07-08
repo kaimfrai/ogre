@@ -55,25 +55,25 @@ namespace Ogre
     class CmdInputFileName : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdFPS : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdPlayMode : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdTecPassState : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     static CmdInputFileName msCmdInputFile;     /// Command for setting input file name
@@ -127,9 +127,9 @@ namespace Ogre
 
     //---------------------------------------------------------------------------------------//
     //*** String Interface Command Class Definitions *****************************************/
-    auto CmdInputFileName::doGet(const void* target) const -> std::string
+    auto CmdInputFileName::doGet(const void* target) const -> String
     {
-        return std::string{ static_cast<const ExternalTextureSource*>(target)->getInputName() };
+        return static_cast<const ExternalTextureSource*>(target)->getInputName();
     }
     void CmdInputFileName::doSet(void* target, std::string_view val)
     {
@@ -137,7 +137,7 @@ namespace Ogre
     }
     
     //------------------------------------------------------------------------------//
-    auto CmdFPS::doGet(const void* target) const -> std::string
+    auto CmdFPS::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const ExternalTextureSource*>(target)->getFPS() );
@@ -147,7 +147,7 @@ namespace Ogre
         static_cast<ExternalTextureSource*>(target)->setFPS(StringConverter::parseInt(val));
     }
     //------------------------------------------------------------------------------//
-    auto CmdPlayMode::doGet(const void* target) const -> std::string
+    auto CmdPlayMode::doGet(const void* target) const -> String
     {
         eTexturePlayMode eMode = static_cast<const ExternalTextureSource*>(target)->getPlayMode();
         String val;
@@ -185,7 +185,7 @@ namespace Ogre
     }
 
     //------------------------------------------------------------------------------//
-    auto CmdTecPassState::doGet(const void* target) const -> std::string
+    auto CmdTecPassState::doGet(const void* target) const -> String
     {
         int t = 0, p = 0, s = 0;
 
@@ -198,7 +198,7 @@ namespace Ogre
     {
         int t = 0, p = 0, s = 0;
 
-        auto const vecparams = StringUtil::split(val, " \t");
+        StringVector vecparams = StringUtil::split(val, " \t");
 
         if( vecparams.size() == 3 )
         {

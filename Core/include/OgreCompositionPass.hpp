@@ -125,7 +125,7 @@ class CompositionTargetPass;
             Only applicable to passes that render the scene.
             @see Technique::setScheme.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view;
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view ;
 
         /** Would be nice to have for RENDERSCENE:
             flags to:
@@ -260,7 +260,7 @@ class CompositionTargetPass;
             @param mrtIndex Which surface of an MRT to retrieve
             @note applies when PassType is RENDERQUAD 
         */
-        void setInput(size_t id, std::string_view input = "", size_t mrtIndex=0);
+        void setInput(size_t id, std::string_view input=BLANKSTRING, size_t mrtIndex=0);
         
         /** Get the value of an input.
             @param id    Input to get. Must be in 0..OGRE_MAX_TEXTURE_LAYERS-1.
@@ -322,13 +322,13 @@ class CompositionTargetPass;
             @note applies when PassType is RENDERCUSTOM
             @see CompositorManager::registerCustomCompositionPass
         */
-        [[nodiscard]] auto getCustomType() const noexcept -> std::string_view;
+        [[nodiscard]] auto getCustomType() const noexcept -> std::string_view ;
 
         void setThreadGroups(const Vector3i& g) { mThreadGroups = g; }
         [[nodiscard]] auto getThreadGroups() const noexcept -> const Vector3i& { return mThreadGroups; }
 
         void setCameraName(std::string_view name) { mRenderScene.cameraName = name; }
-        [[nodiscard]] auto getCameraName() const noexcept -> std::string_view{ return mRenderScene.cameraName; }
+        [[nodiscard]] auto getCameraName() const noexcept -> std::string_view { return mRenderScene.cameraName; }
 
         void setAlignCameraToFace(bool val) { mRenderScene.alignCameraToFace = val; }
         [[nodiscard]] auto getAlignCameraToFace() const noexcept -> bool { return mRenderScene.alignCameraToFace; }

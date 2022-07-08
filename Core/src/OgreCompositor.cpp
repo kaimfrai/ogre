@@ -234,7 +234,7 @@ void Compositor::createGlobalTextures()
                     mrt->bindSurface(atch, rt);
 
                     // Also add to local textures so we can look up
-                    auto const mrtLocalName = CompositorInstance::getMRTTexLocalName(def->name, atch);
+                    String mrtLocalName = CompositorInstance::getMRTTexLocalName(def->name, atch);
                     mGlobalTextures[mrtLocalName] = tex;
                     
                 }
@@ -326,7 +326,7 @@ auto Compositor::getTextureInstance(std::string_view name, size_t mrtIndex) -> c
         return i->second;
     }
     //Try MRT
-    auto const mrtName = CompositorInstance::getMRTTexLocalName(name, mrtIndex);
+    String mrtName = CompositorInstance::getMRTTexLocalName(name, mrtIndex);
     i = mGlobalTextures.find(mrtName);
     if(i != mGlobalTextures.end())
     {

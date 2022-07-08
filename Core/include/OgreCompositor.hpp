@@ -123,14 +123,14 @@ class ResourceManager;
         @param schemeName The scheme name you are looking for. Blank means to 
             look for techniques with no scheme associated
         */
-        auto getSupportedTechnique(std::string_view schemeName = "") -> CompositionTechnique *;
+        auto getSupportedTechnique(std::string_view schemeName = BLANKSTRING) -> CompositionTechnique *;
 
         /** Get the instance name for a global texture.
         @param name The name of the texture in the original compositor definition
         @param mrtIndex If name identifies a MRT, which texture attachment to retrieve
         @return The instance name for the texture, corresponds to a real texture
         */
-        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view;
+        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view ;
 
         /** Get the instance of a global texture.
         @param name The name of the texture in the original compositor definition
@@ -178,10 +178,10 @@ class ResourceManager;
 
         //TODO GSOC : These typedefs are duplicated from CompositorInstance. Solve?
         /// Map from name->local texture
-        using GlobalTextureMap = std::map<std::string_view, TexturePtr>;
+        using GlobalTextureMap = std::map<String, TexturePtr>;
         GlobalTextureMap mGlobalTextures;
         /// Store a list of MRTs we've created
-        using GlobalMRTMap = std::map<std::string_view, MultiRenderTarget *>;
+        using GlobalMRTMap = std::map<String, MultiRenderTarget *>;
         GlobalMRTMap mGlobalMRTs;
     };
     /** @} */

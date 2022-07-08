@@ -47,10 +47,10 @@ namespace Ogre::GLSL {
     @param msg the info log message string is appended to this string
     @param obj the GL object that is used to retrieve the info log
     */
-    auto logObjectInfo(std::string_view msg, uint obj) -> std::string;
+    auto logObjectInfo(std::string_view msg, uint obj) -> String;
 
     /// just return the info without logging it
-    auto getObjectInfo(GLuint obj) -> std::string;
+    auto getObjectInfo(GLuint obj) -> String;
 
     } // namespace Ogre
 

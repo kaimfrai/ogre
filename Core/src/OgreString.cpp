@@ -30,7 +30,6 @@ THE SOFTWARE.
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
-#include <format>
 #include <string>
 #include <strings.h>
 #include <vector>
@@ -72,7 +71,7 @@ namespace Ogre {
 
         *this = substr(lspaces, len-lspaces-rspaces);
         */
-        static const std::string_view delims = " \t\r\n";
+        static const String delims = " \t\r\n";
         if(right)
             str.erase(str.find_last_not_of(delims)+1); // trim right
         if(left)
@@ -80,18 +79,18 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto StringUtil::split( std::string_view str, std::string_view delims, unsigned int maxSplits, bool preserveDelims) -> std::vector<std::string_view>
+    auto StringUtil::split( std::string_view str, std::string_view delims, unsigned int maxSplits, bool preserveDelims) -> StringVector
     {
-        std::vector<std::string_view> ret;
+        StringVector ret;
         // Pre-allocate some space for performance
         ret.reserve(maxSplits ? maxSplits+1 : 10);    // 10 is guessed capacity for most case
 
         unsigned int numSplits = 0;
 
-        // Use STL methods
+        // Use STL methods 
         size_t start, pos;
         start = 0;
-        do
+        do 
         {
             pos = str.find_first_of(delims, start);
             if (pos == start)
@@ -140,14 +139,14 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::tokenise( std::string_view str, std::string_view singleDelims, std::string_view doubleDelims, unsigned int maxSplits) -> std::vector<std::string_view>
+    auto StringUtil::tokenise( std::string_view str, std::string_view singleDelims, std::string_view doubleDelims, unsigned int maxSplits) -> StringVector
     {
-        std::vector<std::string_view> ret;
+        StringVector ret;
         // Pre-allocate some space for performance
         ret.reserve(maxSplits ? maxSplits+1 : 10);    // 10 is guessed capacity for most case
 
         unsigned int numSplits = 0;
-        auto const delims = std::format("{}{}", singleDelims, doubleDelims);
+        String delims = singleDelims + doubleDelims;
 
         // Use STL methods 
         size_t start, pos;
@@ -245,11 +244,10 @@ namespace Ogre {
 
         if (lowerCase)
         {
-            auto const shortView = str.substr(0, pattern.size());
-            return LowerView(shortView) == LowerView(pattern);
+            return strnicmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
         }
 
-        return str.starts_with(pattern);
+        return strncmp(str.c_str(), pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
     auto StringUtil::endsWith(std::string_view str, std::string_view pattern, bool lowerCase) -> bool
@@ -257,19 +255,19 @@ namespace Ogre {
         if (pattern.empty())
             return false;
 
+        size_t offset = str.size() - pattern.size();
+
         if (lowerCase)
         {
-            size_t const offset = str.size() - pattern.size();
-            auto const shortView = str.substr(offset);
-            return LowerView(shortView) == LowerView(pattern);
+            return strnicmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
         }
 
-        return str.ends_with(pattern);
+        return strncmp(str.c_str() + offset, pattern.c_str(), pattern.size()) == 0;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::standardisePath(std::string_view init) -> std::string
+    auto StringUtil::standardisePath(std::string_view init) -> String
     {
-        std::string path{init};
+        String path = init;
 
         std::ranges::replace(path, '\\', '/' );
         if( path[path.length() - 1] != '/' )
@@ -278,9 +276,10 @@ namespace Ogre {
         return path;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::normalizeFilePath(std::string_view bufferSrc, bool makeLowerCase) -> std::string
+    auto StringUtil::normalizeFilePath(std::string_view init, bool makeLowerCase) -> String
     {
-        int pathLen = (int)bufferSrc.size();
+        const char* bufferSrc = init.c_str();
+        int pathLen = (int)init.size();
         int indexSrc = 0;
         int indexDst = 0;
         int metaPathArea = 0;
@@ -365,7 +364,7 @@ namespace Ogre {
     void StringUtil::splitFilename(std::string_view qualifiedName, 
         String& outBasename, String& outPath)
     {
-        std::string path{ qualifiedName };
+        String path = qualifiedName;
         // Replace \ with / first
         std::ranges::replace(path, '\\', '/' );
         // split based on final /
@@ -410,47 +409,46 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto StringUtil::match(std::string_view str, std::string_view pattern, bool caseSensitive) -> bool
     {
-        using Iterator = std::string_view::iterator;
-
-        auto const
-            deref
-        =   caseSensitive
-        ?   +[] (Iterator it) -> char { return *it; }
-        :   +[] (Iterator it) -> char { return static_cast<char>(std::tolower(*it)); }
-        ;
-
-        auto strIt = str.begin();
-        auto patIt = pattern.begin();
-        auto lastWildCardIt = pattern.end();
-        while (strIt != str.end() && patIt != pattern.end())
+        String tmpStr = str;
+        String tmpPattern = pattern;
+        if (!caseSensitive)
         {
-            if (deref(patIt) == '*')
+            StringUtil::toLowerCase(tmpStr);
+            StringUtil::toLowerCase(tmpPattern);
+        }
+
+        String::const_iterator strIt = tmpStr.begin();
+        String::const_iterator patIt = tmpPattern.begin();
+        String::const_iterator lastWildCardIt = tmpPattern.end();
+        while (strIt != tmpStr.end() && patIt != tmpPattern.end())
+        {
+            if (*patIt == '*')
             {
                 lastWildCardIt = patIt;
                 // Skip over looking for next character
                 ++patIt;
-                if (patIt == pattern.end())
+                if (patIt == tmpPattern.end())
                 {
                     // Skip right to the end since * matches the entire rest of the string
-                    strIt = str.end();
+                    strIt = tmpStr.end();
                 }
                 else
                 {
                     // scan until we find next pattern character
-                    while(strIt != str.end() && deref(strIt) != deref(patIt))
+                    while(strIt != tmpStr.end() && *strIt != *patIt)
                         ++strIt;
                 }
             }
             else
             {
-                if (deref(patIt) != deref(strIt))
+                if (*patIt != *strIt)
                 {
-                    if (lastWildCardIt != pattern.end())
+                    if (lastWildCardIt != tmpPattern.end())
                     {
                         // The last wildcard can match this incorrect sequence
                         // rewind pattern to wildcard and keep searching
                         patIt = lastWildCardIt;
-                        lastWildCardIt = pattern.end();
+                        lastWildCardIt = tmpPattern.end();
                     }
                     else
                     {
@@ -467,7 +465,7 @@ namespace Ogre {
 
         }
         // If we reached the end of both the pattern and the string, we succeeded
-        if ((patIt == pattern.end() || (deref(patIt) == '*' && patIt + 1 == pattern.end())) && strIt == str.end())
+        if ((patIt == tmpPattern.end() || (*patIt == '*' && patIt + 1 == tmpPattern.end())) && strIt == tmpStr.end())
         {
             return true;
         }
@@ -478,9 +476,9 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> std::string
+    auto StringUtil::replaceAll(std::string_view source, std::string_view replaceWhat, std::string_view replaceWithWhat) -> const String
     {
-        std::string result{source};
+        String result = source;
         String::size_type pos = 0;
         for(;;)
         {

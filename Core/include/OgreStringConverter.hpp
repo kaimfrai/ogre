@@ -74,38 +74,38 @@ namespace Ogre {
     class StringConverter
     {
     public:
-        static auto toString(int32 val) -> std::string { return std::to_string(val); };
-        static auto toString(uint32 val) -> std::string{ return std::to_string(val); };
-        static auto toString(unsigned long val) -> std::string { return std::to_string(val); };
-        static auto toString(unsigned long long val) -> std::string { return std::to_string(val); };
-        static auto toString(long val) -> std::string { return std::to_string(val); };
+        static auto toString(int32 val) -> String { return std::to_string(val); };
+        static auto toString(uint32 val) -> String { return std::to_string(val); };
+        static auto toString(unsigned long val) -> String { return std::to_string(val); };
+        static auto toString(unsigned long long val) -> String { return std::to_string(val); };
+        static auto toString(long val) -> String { return std::to_string(val); };
 
         /** Converts a float to a String. */
         static auto toString(float val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a double to a String. */
         static auto toString(double val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a long double to a String. */
         static auto toString(long double val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a Radian to a String. */
         static auto toString(Radian val, unsigned short precision = 6, 
             unsigned short width = 0, char fill = ' ', 
-            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string
+            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String
         {
             return toString(val.valueAngleUnits(), precision, width, fill, flags);
         }
         /** Converts a Degree to a String. */
         static auto toString(Degree val, unsigned short precision = 6, 
             unsigned short width = 0, char fill = ' ', 
-            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string
+            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String
         {
             return toString(val.valueAngleUnits(), precision, width, fill, flags);
         }
@@ -114,49 +114,49 @@ namespace Ogre {
         @param val
         @param yesNo If set to true, result is 'yes' or 'no' instead of 'true' or 'false'
         */
-        static auto toString(bool val, bool yesNo = false) -> std::string;
+        static auto toString(bool val, bool yesNo = false) -> String;
         /** Converts a Vector2 to a String. 
         @remarks
             Format is "x y" (i.e. 2x Real values, space delimited)
         */
-        static auto toString(const Vector2& val) -> std::string;
+        static auto toString(const Vector2& val) -> String;
         /** Converts a Vector3 to a String. 
         @remarks
             Format is "x y z" (i.e. 3x Real values, space delimited)
         */
-        static auto toString(const Vector3& val) -> std::string;
+        static auto toString(const Vector3& val) -> String;
         /** Converts a Vector4 to a String. 
         @remarks
             Format is "x y z w" (i.e. 4x Real values, space delimited)
         */
-        static auto toString(const Vector4& val) -> std::string;
+        static auto toString(const Vector4& val) -> String;
         /** Converts a Matrix3 to a String. 
         @remarks
             Format is "00 01 02 10 11 12 20 21 22" where '01' means row 0 column 1 etc.
         */
-        static auto toString(const Matrix3& val) -> std::string;
+        static auto toString(const Matrix3& val) -> String;
         /** Converts a Matrix4 to a String. 
         @remarks
             Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33" where 
             '01' means row 0 column 1 etc.
         */
-        static auto toString(const Matrix4& val) -> std::string;
+        static auto toString(const Matrix4& val) -> String;
         /** Converts a Quaternion to a String. 
         @remarks
             Format is "w x y z" (i.e. 4x Real values, space delimited)
         */
-        static auto toString(const Quaternion& val) -> std::string;
+        static auto toString(const Quaternion& val) -> String;
         /** Converts a ColourValue to a String. 
         @remarks
             Format is "r g b a" (i.e. 4x Real values, space delimited). 
         */
-        static auto toString(const ColourValue& val) -> std::string;
+        static auto toString(const ColourValue& val) -> String;
         /** Converts a StringVector to a string.
         @remarks
             Strings must not contain spaces since space is used as a delimiter in
             the output.
         */
-        static auto toString(const StringVector& val) -> std::string;
+        static auto toString(const StringVector& val) -> String;
 
         /** Converts a String to a basic value type
             @return whether the conversion was successful
@@ -311,7 +311,7 @@ namespace Ogre {
 		@remarks
 			String output format is "None", "Frame Sequential", etc.
 		*/
-		static auto toString(StereoModeType val) -> std::string;
+		static auto toString(StereoModeType val) -> String;
 
 		/** Converts a String to a StereoModeType
 		@remarks
@@ -322,16 +322,16 @@ namespace Ogre {
 		static locale_t _numLocale;
     private:
         template<typename T>
-        static auto _toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> std::string;
+        static auto _toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> String;
     };
 
-    inline auto to_string(const Quaternion& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const ColourValue& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector2& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector3& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector4& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Matrix3& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Matrix4& v) -> std::string { return StringConverter::toString(v); }
+    inline auto to_string(const Quaternion& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const ColourValue& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector2& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector3& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector4& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Matrix3& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Matrix4& v) -> String { return StringConverter::toString(v); }
     /** @} */
     /** @} */
 }
@@ -425,29 +425,6 @@ struct std::formatter<std::vector<std::string_view>, CharT>
 
             fc.advance_to(out);
             out = stringFormatter.format(*i, fc);
-        }
-        return out;
-    }
-};
-
-
-template<typename Transform, typename CharT>
-struct std::formatter<Ogre::StringTransformView<Transform>, CharT>
-{
-    std::formatter<char, CharT> stringFormatter;
-
-    auto constexpr parse(auto& pc)
-    {
-        return stringFormatter.parse(pc);
-    }
-
-    auto constexpr format(Ogre::StringTransformView<Transform> val, auto& fc)
-    {
-        auto out = fc.out();
-        for (auto c : val)
-        {
-            fc.advance_to(out);
-            out = stringFormatter.format(c, fc);
         }
         return out;
     }

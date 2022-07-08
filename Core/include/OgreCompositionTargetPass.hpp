@@ -74,7 +74,7 @@ class CompositionTechnique;
         /** Set output local texture name */
         void setOutputName(std::string_view out);
         /** Get output local texture name */
-        [[nodiscard]] auto getOutputName() const -> std::string_view;
+        [[nodiscard]] auto getOutputName() const -> std::string_view ;
 
         /// sets the slice of output texture
         void setOutputSlice(int slice) { mOutputSlice = slice; }
@@ -108,7 +108,7 @@ class CompositionTechnique;
             one of their passes.
             @see Technique::setScheme.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view;
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view ;
         
         /** Set whether shadows are enabled in this target pass.
         @remarks

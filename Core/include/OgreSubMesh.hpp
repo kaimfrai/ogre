@@ -148,7 +148,7 @@ class VertexData;
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(std::string_view matName, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
-        auto getMaterialName() const noexcept -> std::string_view;
+        auto getMaterialName() const noexcept -> std::string_view ;
 
         void setMaterial(const MaterialPtr& mat) { mMaterial = mat; }
         auto getMaterial() const noexcept -> const MaterialPtr& { return mMaterial; }

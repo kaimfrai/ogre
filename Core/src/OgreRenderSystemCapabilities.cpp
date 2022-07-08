@@ -36,7 +36,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    auto DriverVersion::toString() const -> std::string
+    auto DriverVersion::toString() const -> String
     {
         StringStream str;
         str << major << "." << minor << "." << release << "." << build;
@@ -45,7 +45,7 @@ namespace Ogre {
 
     void  DriverVersion::fromString(std::string_view versionString)
     {
-        auto const tokens = StringUtil::split(versionString, ".");
+        StringVector tokens = StringUtil::split(versionString, ".");
         if(!tokens.empty())
         {
             major = StringConverter::parseInt(tokens[0]);
@@ -198,16 +198,18 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    std::string_view RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
+    String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
     auto RenderSystemCapabilities::vendorFromString(std::string_view vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
+        String cmpString = vendorString;
+        StringUtil::toLowerCase(cmpString);
         for (int i = 0; i < GPU_VENDOR_COUNT; ++i)
         {
             // case insensitive (lower case)
-            if (std::ranges::equal(msGPUVendorStrings[i], StringUtil::LowerView(vendorString)))
+            if (msGPUVendorStrings[i] == cmpString)
             {
                 ret = static_cast<GPUVendor>(i);
                 break;

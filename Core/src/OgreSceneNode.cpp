@@ -366,7 +366,7 @@ namespace Ogre {
         return static_cast<SceneNode*>(this->createChild(inTranslate, inRotate));
     }
     //-----------------------------------------------------------------------
-    auto SceneNode::createChildSceneNode(std::string_view name, const Vector3& inTranslate, 
+    auto SceneNode::createChildSceneNode(std::string_view name, const Vector3& inTranslate,
         const Quaternion& inRotate) -> SceneNode*
     {
         return static_cast<SceneNode*>(this->createChild(name, inTranslate, inRotate));

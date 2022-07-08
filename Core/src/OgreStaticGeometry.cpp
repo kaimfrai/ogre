@@ -297,9 +297,9 @@ namespace Ogre {
         // Validate
         if (msh->hasManualLodLevel())
         {
-            LogManager::getSingleton().logWarning(std::format("(StaticGeometry): Manual LOD is not supported. "
-                                                  "Using only highest LOD level for mesh {}",
-                                                  msh->getName()));
+            LogManager::getSingleton().logWarning("(StaticGeometry): Manual LOD is not supported. "
+                                                  "Using only highest LOD level for mesh " +
+                                                  msh->getName());
         }
 
         AxisAlignedBox sharedWorldBounds;
@@ -650,7 +650,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     void StaticGeometry::dump(std::string_view filename) const
     {
-        std::ofstream of(std::filesystem::path{filename});
+        std::ofstream of(filename.c_str());
         of << "Static Geometry Report for " << mName << std::endl;
         of << "-------------------------------------------------" << std::endl;
         of << "Number of queued submeshes: " << mQueuedSubMeshes.size() << std::endl;

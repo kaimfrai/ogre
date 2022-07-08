@@ -310,7 +310,7 @@ template <int dims, typename T> class Vector;
         : physicalIndex((std::numeric_limits<size_t>::max)())
              {}
     };
-    using GpuConstantDefinitionMap = std::map<std::string_view, GpuConstantDefinition>;
+    using GpuConstantDefinitionMap = std::map<String, GpuConstantDefinition>;
     using GpuConstantDefinitionIterator = ConstMapIterator<GpuConstantDefinitionMap>;
 
     /// Struct collecting together the information for named constants.
@@ -429,7 +429,7 @@ template <int dims, typename T> class Vector;
         GpuSharedParameters(std::string_view name);
 
         /// Get the name of this shared parameter set.
-        auto getName() noexcept -> std::string_view{ return mName; }
+        auto getName() noexcept -> std::string_view { return mName; }
 
         /** Add a new constant definition to this shared set of parameters.
             @remarks
@@ -484,7 +484,7 @@ template <int dims, typename T> class Vector;
          */
         [[nodiscard]] auto getConstantDefinitions() const noexcept -> const GpuNamedConstants&;
 
-        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view, Real) */
+        /** @copydoc GpuProgramParameters::setNamedConstant(std::string_view , Real) */
         template <typename T> void setNamedConstant(std::string_view name, T val)
         {
             setNamedConstant(name, &val, 1);
@@ -575,7 +575,7 @@ template <int dims, typename T> class Vector;
         void _copySharedParamsToTargetParams() const;
 
         /// Get the name of the shared parameter set
-        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mSharedParams->getName(); }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mSharedParams->getName(); }
 
         [[nodiscard]] auto getSharedParams() const noexcept -> GpuSharedParametersPtr { return mSharedParams; }
         [[nodiscard]] auto getTargetParams() const noexcept -> GpuProgramParameters* { return mParams; }

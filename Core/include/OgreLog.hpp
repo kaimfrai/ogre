@@ -126,7 +126,7 @@ namespace Ogre {
         ~Log();
 
         /// Return the name of the log
-        auto getName() const noexcept -> std::string_view{ return mLogName; }
+        auto getName() const noexcept -> std::string_view { return mLogName; }
         /// Get whether debug output is enabled for this log
         auto isDebugOutputEnabled() const noexcept -> bool { return mDebugOut; }
         /// Get whether file output is suppressed for this log
@@ -234,7 +234,7 @@ namespace Ogre {
             {
                                 (void)v;
                 mTarget->logMessage(mCache.str(), mLevel, mMaskDebug);
-                mCache.str("");
+                mCache.str(BLANKSTRING);
                 return *this;
             }
 

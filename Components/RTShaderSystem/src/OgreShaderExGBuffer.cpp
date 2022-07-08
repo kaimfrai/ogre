@@ -65,7 +65,7 @@ namespace Ogre::RTShader
 String GBuffer::Type = "GBuffer";
 
 //-----------------------------------------------------------------------
-auto GBuffer::getType() const noexcept -> std::string_view{ return Type; }
+auto GBuffer::getType() const noexcept -> std::string_view { return Type; }
 
 //-----------------------------------------------------------------------
 auto GBuffer::getExecutionOrder() const noexcept -> int { return FFP_LIGHTING; }
@@ -220,7 +220,7 @@ void GBuffer::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto GBufferFactory::getType() const noexcept -> std::string_view{ return GBuffer::Type; }
+auto GBufferFactory::getType() const noexcept -> std::string_view { return GBuffer::Type; }
 
 static auto translate(std::string_view val) -> GBuffer::TargetLayout
 {

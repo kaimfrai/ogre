@@ -93,7 +93,7 @@ namespace Ogre {
          *
          * @returns              Display name.
          */
-        auto getDisplayName () -> std::string_view;
+        auto getDisplayName () -> String;
 
         /**
          * Get the Display connection used for rendering

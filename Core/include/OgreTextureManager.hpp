@@ -76,7 +76,7 @@ class Image;
         ~TextureManager() override = default;
 
         /// create a new sampler
-        auto createSampler(std::string_view name = "") -> SamplerPtr;
+        auto createSampler(std::string_view name = BLANKSTRING) -> SamplerPtr;
 
         /// retrieve an named sampler
         auto getSampler(std::string_view name) const -> const SamplerPtr&;
@@ -267,14 +267,14 @@ class Image;
         virtual auto createManual(std::string_view name, std::string_view group,
             TextureType texType, uint width, uint height, uint depth, 
             int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
-            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = "") -> TexturePtr;
+            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr;
             
         /** @overload
         */
         auto createManual(std::string_view name, std::string_view group,
             TextureType texType, uint width, uint height, int numMipmaps,
             PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
-            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = "") -> TexturePtr
+            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr
         {
             return createManual(name, group, texType, width, height, 1, 
                 numMipmaps, format, usage, loader, hwGammaCorrection, fsaa, fsaaHint);
@@ -426,7 +426,7 @@ class Image;
         uint32 mDefaultNumMipmaps{MIP_UNLIMITED};
         TexturePtr mWarningTexture;
         SamplerPtr mDefaultSampler;
-        std::map<std::string_view, SamplerPtr> mNamedSamplers;
+        std::map<String, SamplerPtr> mNamedSamplers;
     };
 
     /// Specialisation of TextureManager for offline processing. Cannot be used with an active RenderSystem.

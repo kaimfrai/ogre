@@ -84,7 +84,7 @@ public:
     @remarks
     The type string should be unique among all registered sub render states.    
     */
-    virtual auto getType() const noexcept -> std::string_view= 0;
+    virtual auto getType() const noexcept -> std::string_view = 0;
 
 
     /** Get the execution order of this sub render state.
@@ -258,7 +258,7 @@ public:
     The type string should be the same as the type of the SubRenderState sub class it is going to create.   
     @see SubRenderState::getType.
     */
-    [[nodiscard]] virtual auto getType() const noexcept -> std::string_view= 0;
+    [[nodiscard]] virtual auto getType() const noexcept -> std::string_view = 0;
     
     /** Create an instance of the SubRenderState sub class it suppose to create.    
     */

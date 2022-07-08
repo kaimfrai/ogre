@@ -99,12 +99,10 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto DynLib::getSymbol( std::string_view strName ) const noexcept -> void*
     {
-        if  (*strName.end() != '\0')
-            std::unreachable();
-        return (void*)DYNLIB_GETSYM( mInst, strName.data() );
+        return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
     }
     //-----------------------------------------------------------------------
-    auto DynLib::dynlibError( ) -> std::string_view 
+    auto DynLib::dynlibError( ) -> String 
     {
         return {dlerror()};
     }

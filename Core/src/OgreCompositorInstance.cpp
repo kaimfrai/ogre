@@ -271,7 +271,7 @@ public:
         sm->setLateMaterialResolving(true);
     }
 
-    [[nodiscard]] auto getPreviousScheme() const noexcept -> std::string_view{ return mPreviousScheme; }
+    [[nodiscard]] auto getPreviousScheme() const noexcept -> std::string_view { return mPreviousScheme; }
     [[nodiscard]] auto getPreviousLateResolving() const noexcept -> bool { return mPreviousLateResolving; }
 };
 
@@ -622,7 +622,7 @@ auto CompositorInstance::createLocalMaterial(std::string_view srcName) -> Materi
 {
     static size_t dummyCounter = 0;
     MaterialPtr mat = MaterialManager::getSingleton().create(
-        std::format("c{}/{}", dummyCounter++, srcName),
+        std::format("c{}/{}", dummyCounter++, srcName.c_str()),
         ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
     /// This is safe, as we hold a private reference
     MaterialManager::getSingleton().remove(mat);
@@ -910,9 +910,9 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
 
 }
 //---------------------------------------------------------------------
-auto CompositorInstance::getMRTTexLocalName(std::string_view baseName, size_t attachment) -> std::string
+auto CompositorInstance::getMRTTexLocalName(std::string_view baseName, size_t attachment) -> String
 {
-    return std::format("{}/{}", baseName, attachment);
+    return std::format("{}/{}", baseName.c_str(), attachment);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveTextures)
@@ -944,7 +944,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
             // Potentially many surfaces
             for (size_t s = 0; s < subSurf; ++s)
             {
-                auto const texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
+                String texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
                     : def->name;
 
                 auto i = mLocalTextures.find(texName);

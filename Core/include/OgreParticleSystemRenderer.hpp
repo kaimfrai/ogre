@@ -55,7 +55,7 @@ namespace Ogre {
         ~ParticleSystemRenderer() override = default;
 
         /** Gets the type of this renderer - must be implemented by subclasses */
-        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view = 0;
 
         /** Delegated to by ParticleSystem::_updateRenderQueue
         @remarks

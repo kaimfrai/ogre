@@ -66,14 +66,14 @@ class ResourceManager;
         class CmdAttach : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view shaderNames) override;
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
+            auto doGet(const void* target) const -> String override;
             void doSet(void* target, std::string_view val) override;
         };
 
@@ -84,7 +84,7 @@ class ResourceManager;
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
 
-        auto getAttachedShaderNames() const noexcept -> std::string_view { return mAttachedShaderNames; }
+        auto getAttachedShaderNames() const noexcept -> String { return mAttachedShaderNames; }
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
@@ -119,7 +119,7 @@ class ResourceManager;
         static CmdAttach msCmdAttach;
         static CmdColumnMajorMatrices msCmdColumnMajorMatrices;
 
-        auto getResourceLogName() const -> std::string;
+        auto getResourceLogName() const -> String;
 
         void prepareImpl() override;
 

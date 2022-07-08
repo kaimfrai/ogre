@@ -45,14 +45,14 @@ THE SOFTWARE.
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
-    static void removeDuplicates(std::vector<std::string_view>& c)
+    static void removeDuplicates(std::vector<String>& c)
     {
         std::ranges::sort(c);
         auto p = std::unique(c.begin(), c.end());
         c.erase(p, c.end());
     }
 
-    auto VideoMode::getDescription() const -> std::string
+    auto VideoMode::getDescription() const -> String
     {
         return std::format("{:4} x {:4}", width, height);
     }

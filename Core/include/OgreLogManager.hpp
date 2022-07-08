@@ -67,7 +67,7 @@ namespace Ogre
     class LogManager : public Singleton<LogManager>, public LogAlloc
     {
     private:
-        using LogList = std::map<std::string_view, ::std::unique_ptr<Log>>;
+        using LogList = std::map<String, ::std::unique_ptr<Log>>;
 
         /// A list of all the logs the manager can access
         LogList mLogs;

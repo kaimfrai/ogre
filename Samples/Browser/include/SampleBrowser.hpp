@@ -206,7 +206,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles confirmation dialog responses.
           -----------------------------------------------------------------------------*/
-        void yesNoDialogClosed(std::string_view question, bool yesHit) override
+        void yesNoDialogClosed(const Ogre::DisplayString& question, bool yesHit) override
         {
             if (question.substr(0, 14) == "This will stop" && yesHit)   // confirm unloading of samples
             {
@@ -383,7 +383,7 @@ namespace OgreBites
                 }
 
                 bool all = selectedCategory == "All";
-                std::vector<std::string_view> sampleTitles;
+                Ogre::StringVector sampleTitles;
                 Ogre::MaterialPtr templateMat = Ogre::MaterialManager::getSingleton().getByName("SdkTrays/SampleThumbnail");
 
                 // populate the sample menu and carousel with filtered samples
@@ -474,8 +474,8 @@ namespace OgreBites
         void sliderMoved(Slider* slider) override
         {
             // format the caption to be fraction style
-            auto const denom = ::std::format("{}/{}", slider->getValueCaption(), mSampleMenu->getNumItems());
-            slider->setValueCaption(denom);
+            Ogre::String denom = ::std::format("/{}", mSampleMenu->getNumItems());
+            slider->setValueCaption(slider->getValueCaption() + denom);
 
             // tell the sample menu to change if it hasn't already
             if (mSampleMenu->getSelectionIndex() != -1 && mSampleMenu->getSelectionIndex() != slider->getValue() - 1)
@@ -848,7 +848,7 @@ namespace OgreBites
             mTrayMgr->createSeparator(TL_NONE, "ConfigSeparator");
 
             // populate render system names
-            std::vector<std::string_view> rsNames;
+            Ogre::StringVector rsNames;
             Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
             for (auto & i : rsList)
             {
@@ -864,7 +864,7 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         virtual void populateSampleMenus()
         {
-            std::vector<std::string_view> categories;
+            Ogre::StringVector categories;
             for (const auto & mSampleCategorie : mSampleCategories)
                 categories.push_back(mSampleCategorie);
 

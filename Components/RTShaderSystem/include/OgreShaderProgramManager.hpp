@@ -101,18 +101,18 @@ public:
 private:
 
     //-----------------------------------------------------------------------------
-    using GpuProgramsMap = std::map<std::string_view, GpuProgramPtr>;
+    using GpuProgramsMap = std::map<String, GpuProgramPtr>;
     using GpuProgramsMapIterator = GpuProgramsMap::iterator;
     using GpuProgramsMapConstIterator = GpuProgramsMap::const_iterator;
 
     //-----------------------------------------------------------------------------
     using ProgramList = std::set<Program *>;
     using ProgramListIterator = ProgramList::iterator;
-    using ProgramWriterMap = std::map<std::string_view, ProgramWriter *>;
+    using ProgramWriterMap = std::map<String, ProgramWriter *>;
     using ProgramWriterIterator = ProgramWriterMap::iterator;
     
     //-----------------------------------------------------------------------------
-    using ProgramProcessorMap = std::map<std::string_view, ProgramProcessor *>;
+    using ProgramProcessorMap = std::map<String, ProgramProcessor *>;
     using ProgramProcessorIterator = ProgramProcessorMap::iterator;
     using ProgramProcessorConstIterator = ProgramProcessorMap::const_iterator;
     using ProgramProcessorList = std::vector< ::std::unique_ptr<ProgramProcessor>>;
@@ -145,7 +145,7 @@ private:
     @param defines defines for the final source code
     @return A string representing a 128 bit hash value of the original string
     */
-    static auto generateHash(std::string_view programString, std::string_view defines) -> std::string;
+    static auto generateHash(std::string_view programString, std::string_view defines) -> String;
 
     /** Create GPU program based on the give CPU program.
     @param shaderProgram The CPU program instance.

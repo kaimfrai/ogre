@@ -161,15 +161,15 @@ struct GpuNamedConstants;
     void setSource(std::string_view source);
 
     /** Gets the syntax code for this program e.g. arbvp1, fp20, vs_1_1 etc */
-    auto getSyntaxCode() const noexcept -> std::string_view{ return mSyntaxCode; }
+    auto getSyntaxCode() const noexcept -> std::string_view { return mSyntaxCode; }
 
     /** Sets the syntax code for this program e.g. arbvp1, fp20, vs_1_1 etc */
     void setSyntaxCode(std::string_view syntax);
 
     /** Gets the name of the file used as source for this program. */
-    auto getSourceFile() const noexcept -> std::string_view{ return mFilename; }
+    auto getSourceFile() const noexcept -> std::string_view { return mFilename; }
     /** Gets the assembler source for this program. */
-    virtual auto getSource() const noexcept -> std::string_view{ return mSource; }
+    virtual auto getSource() const noexcept -> std::string_view { return mSource; }
     /// Set the program type (only valid before load)
     void setType(GpuProgramType t);
     /// Get the program type
@@ -307,7 +307,7 @@ struct GpuNamedConstants;
     /** Returns a string that specifies the language of the gpu programs as specified
         in a material script. ie: asm, cg, hlsl, glsl
     */
-    virtual auto getLanguage() const noexcept -> std::string_view;
+    virtual auto getLanguage() const noexcept -> std::string_view ;
 
     /** Did this program encounter a compile error when loading?
      */
@@ -342,7 +342,7 @@ struct GpuNamedConstants;
     /** Gets the name of a file from which to load named parameters mapping
         for a program which would not be able to derive named parameters itself.
     */
-    auto getManualNamedConstantsFile() const noexcept -> std::string_view{ return mManualNamedConstantsFile; }
+    auto getManualNamedConstantsFile() const noexcept -> std::string_view { return mManualNamedConstantsFile; }
     /** Get the full list of named constants.
         @note
         Only available if this parameters object has named parameters, which means either
@@ -362,7 +362,7 @@ struct GpuNamedConstants;
 
     };
 
-    inline auto to_string(const GpuProgramType& v) -> std::string { return GpuProgram::getProgramTypeName(v); }
+    inline auto to_string(const GpuProgramType& v) -> String { return GpuProgram::getProgramTypeName(v); }
     /** @} */
     /** @} */
 }

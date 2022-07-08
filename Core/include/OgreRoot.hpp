@@ -110,7 +110,7 @@ struct SceneManagerMetaData;
         // RenderSystem::initialise is used directly
         friend class RenderSystem;
     public:
-        using MovableObjectFactoryMap = std::map<std::string_view, MovableObjectFactory *>;
+        using MovableObjectFactoryMap = std::map<String, MovableObjectFactory *>;
         using PluginLibList = std::vector<DynLib *>;
         using PluginInstanceList = std::vector<Plugin *>;
     private:
@@ -369,7 +369,7 @@ struct SceneManagerMetaData;
                 requested, otherwise <b>NULL</b>.
         */
         auto initialise(bool autoCreateWindow, std::string_view windowTitle = "OGRE Render Window",
-                                    std::string_view customCapabilitiesConfig = "") -> RenderWindow*;
+                                    std::string_view customCapabilitiesConfig = BLANKSTRING) -> RenderWindow*;
 
         /** Returns whether the system is initialised or not. */
         [[nodiscard]] auto isInitialised() const noexcept -> bool { return mIsInitialised; }
@@ -401,7 +401,7 @@ struct SceneManagerMetaData;
         /// @copydoc SceneManagerEnumerator::addFactory
         void removeSceneManagerFactory(SceneManagerFactory* fact);
 
-        /// @copydoc SceneManagerEnumerator::getMetaData(std::string_view)const
+        /// @copydoc SceneManagerEnumerator::getMetaData(std::string_view )const
         [[nodiscard]] auto getSceneManagerMetaData(std::string_view typeName) const -> const SceneManagerMetaData*;
 
         /// @copydoc SceneManagerEnumerator::getMetaData()const
@@ -413,9 +413,9 @@ struct SceneManagerMetaData;
             return createSceneManager(DefaultSceneManagerFactory::FACTORY_TYPE_NAME);
         }
 
-        /// @copydoc SceneManagerEnumerator::createSceneManager(std::string_view, std::string_view)
+        /// @copydoc SceneManagerEnumerator::createSceneManager(std::string_view , std::string_view )
         auto createSceneManager(std::string_view typeName, 
-            std::string_view instanceName = "") -> SceneManager*;
+            std::string_view instanceName = BLANKSTRING) -> SceneManager*;
 
         /// @copydoc SceneManagerEnumerator::destroySceneManager
         void destroySceneManager(SceneManager* sm);
@@ -573,7 +573,7 @@ struct SceneManagerMetaData;
         */
         static auto createFileStream(std::string_view filename,
                 std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-                bool overwrite = false, std::string_view locationPattern = "") -> DataStreamPtr;
+                bool overwrite = false, std::string_view locationPattern = BLANKSTRING) -> DataStreamPtr;
 
         /** Helper method to assist you in accessing readable file streams.
         @remarks

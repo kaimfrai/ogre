@@ -77,7 +77,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void OverlayContainer::addChildImpl(OverlayElement* elem)
     {
-        auto const name = elem->getName();
+        String name = elem->getName();
         auto i = mChildren.find(name);
         if (i != mChildren.end())
         {

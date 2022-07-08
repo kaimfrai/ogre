@@ -57,7 +57,7 @@ namespace Ogre {
     class Codec : public CodecAlloc
     {
     private:
-        using CodecList = std::map<std::string_view, Codec *, std::less<>>;
+        using CodecList = std::map<std::string_view, Codec *>;
         /** A map that contains all the registered codecs.
         */
         static CodecList msMapCodecs;

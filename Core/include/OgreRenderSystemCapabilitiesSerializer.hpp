@@ -62,7 +62,7 @@ namespace Ogre {
         void writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename);
         
         /** Writes a RenderSystemCapabilities object to a string */
-        auto writeString(const RenderSystemCapabilities* caps, std::string_view name) -> std::string;
+        auto writeString(const RenderSystemCapabilities* caps, std::string_view name) -> String;
 
         /** Parses a RenderSystemCapabilities script file passed as a stream.
             Adds it to RenderSystemCapabilitiesManager::_addRenderSystemCapabilities
@@ -78,30 +78,30 @@ namespace Ogre {
         // "automipmap" and "pbuffer" are both activated with setCapability (passing RSC_AUTOMIPMAP and RSC_PBUFFER respectivelly)
         // while "max_num_multi_render_targets" is an integer and has it's own method: setMaxMultiNumRenderTargets
         // we need to know these types to automatically parse each capability
-        using KeywordTypeMap = std::map<std::string_view, CapabilityKeywordType>;
+        using KeywordTypeMap = std::map<String, CapabilityKeywordType>;
         KeywordTypeMap mKeywordTypeMap;
 
-        using SetStringMethod = void (RenderSystemCapabilities::*)(std::string_view);
+        using SetStringMethod = void (RenderSystemCapabilities::*)(std::string_view );
         // maps capability keywords to setCapability(String& cap) style methods
-        using SetStringMethodDispatchTable = std::map<std::string_view, SetStringMethod>;
+        using SetStringMethodDispatchTable = std::map<String, SetStringMethod>;
         SetStringMethodDispatchTable mSetStringMethodDispatchTable;
 
         // SET_INT_METHOD parsing tables
         using SetIntMethod = void (RenderSystemCapabilities::*)(ushort);
-        using SetIntMethodDispatchTable = std::map<std::string_view, SetIntMethod>;
+        using SetIntMethodDispatchTable = std::map<String, SetIntMethod>;
         SetIntMethodDispatchTable mSetIntMethodDispatchTable;
 
         // SET_BOOL_METHOD parsing tables
         using SetBoolMethod = void (RenderSystemCapabilities::*)(bool);
-        using SetBoolMethodDispatchTable = std::map<std::string_view, SetBoolMethod>;
+        using SetBoolMethodDispatchTable = std::map<String, SetBoolMethod>;
         SetBoolMethodDispatchTable mSetBoolMethodDispatchTable;
 
         // SET_REAL_METHOD parsing tables
         using SetRealMethod = void (RenderSystemCapabilities::*)(Real);
-        using SetRealMethodDispatchTable = std::map<std::string_view, SetRealMethod>;
+        using SetRealMethodDispatchTable = std::map<String, SetRealMethod>;
         SetRealMethodDispatchTable mSetRealMethodDispatchTable;
 
-        using CapabilitiesMap = std::map<std::string_view, Capabilities>;
+        using CapabilitiesMap = std::map<String, Capabilities>;
         CapabilitiesMap mCapabilitiesMap;
 
         inline void addCapabilitiesMapping(String name, Capabilities cap)
@@ -121,7 +121,7 @@ namespace Ogre {
 
         RenderSystemCapabilities* mCurrentCapabilities{nullptr};
 
-        inline void addKeywordType(std::string_view keyword, CapabilityKeywordType type)
+        inline void addKeywordType(String keyword, CapabilityKeywordType type)
         {
             mKeywordTypeMap.emplace(keyword, type);
         }
@@ -136,12 +136,12 @@ namespace Ogre {
             return SET_CAPABILITY_ENUM_BOOL;
         }
 
-        inline void addSetStringMethod(std::string_view keyword, SetStringMethod method)
+        inline void addSetStringMethod(String keyword, SetStringMethod method)
         {
             mSetStringMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetStringMethod(std::string_view keyword, String& val)
+        inline void callSetStringMethod(String& keyword, String& val)
         {
             auto methodIter = mSetStringMethodDispatchTable.find(keyword);
             if (methodIter != mSetStringMethodDispatchTable.end())
@@ -156,12 +156,12 @@ namespace Ogre {
         }
 
 
-        inline void addSetIntMethod(std::string_view keyword, SetIntMethod method)
+        inline void addSetIntMethod(String keyword, SetIntMethod method)
         {
             mSetIntMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetIntMethod(std::string_view keyword, ushort val)
+        inline void callSetIntMethod(String& keyword, ushort val)
         {
             auto methodIter = mSetIntMethodDispatchTable.find(keyword);
             if (methodIter != mSetIntMethodDispatchTable.end())
@@ -176,12 +176,12 @@ namespace Ogre {
         }
 
 
-        inline void addSetBoolMethod(std::string_view keyword, SetBoolMethod method)
+        inline void addSetBoolMethod(String keyword, SetBoolMethod method)
         {
             mSetBoolMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetBoolMethod(std::string_view keyword, bool val)
+        inline void callSetBoolMethod(String& keyword, bool val)
         {
             auto methodIter = mSetBoolMethodDispatchTable.find(keyword);
             if (methodIter != mSetBoolMethodDispatchTable.end())
@@ -196,12 +196,12 @@ namespace Ogre {
         }
 
 
-        inline void addSetRealMethod(std::string_view keyword, SetRealMethod method)
+        inline void addSetRealMethod(String keyword, SetRealMethod method)
         {
             mSetRealMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetRealMethod(std::string_view keyword, Real val)
+        inline void callSetRealMethod(String& keyword, Real val)
         {
             auto methodIter = mSetRealMethodDispatchTable.find(keyword);
             if (methodIter != mSetRealMethodDispatchTable.end())
@@ -215,12 +215,12 @@ namespace Ogre {
                         }
         }
 
-        inline void addShaderProfile(std::string_view val)
+        inline void addShaderProfile(String& val)
         {
             mCurrentCapabilities->addShaderProfile(val);
         }
 
-        inline void setCapabilityEnumBool(std::string_view name, bool val)
+        inline void setCapabilityEnumBool(String& name, bool val)
         {
             // check for errors
             if(mCapabilitiesMap.find(name) == mCapabilitiesMap.end())

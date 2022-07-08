@@ -87,7 +87,7 @@ class AnimationStateSet;
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);
         
         /// Gets the name of the animation to which this state applies
-        [[nodiscard]] auto getAnimationName() const noexcept -> std::string_view;
+        [[nodiscard]] auto getAnimationName() const noexcept -> std::string_view ;
         /// Gets the time position for this animation
         [[nodiscard]] auto getTimePosition() const -> Real;
         /// Sets the time position for this animation
@@ -190,7 +190,7 @@ class AnimationStateSet;
     };
 
     // A map of animation states
-    using AnimationStateMap = std::map<std::string_view, AnimationState *>;
+    using AnimationStateMap = std::map<String, AnimationState *>;
     using AnimationStateIterator = MapIterator<AnimationStateMap>;
     using ConstAnimationStateIterator = ConstMapIterator<AnimationStateMap>;
     // A list of enabled animation states

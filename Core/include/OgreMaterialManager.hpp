@@ -115,7 +115,7 @@ class Technique;
                 use the default technique for this material
             */
             virtual auto handleSchemeNotFound(unsigned short schemeIndex, 
-                std::string_view schemeName, Material* originalMaterial, unsigned short lodIndex,
+                std::string_view schemeName, Material* originalMaterial, unsigned short lodIndex, 
                 const Renderable* rend) -> Technique* = 0;
 
 			/** Called right after illuminated passes were created,
@@ -135,12 +135,12 @@ class Technique;
         /// Default settings
         MaterialPtr mDefaultSettings;
 
-        auto createImpl(std::string_view name, ResourceHandle handle,
+        auto createImpl(std::string_view name, ResourceHandle handle, 
             std::string_view group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* params) -> Resource* override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
-        using SchemeMap = std::map<std::string_view, unsigned short>;
+        using SchemeMap = std::map<String, unsigned short>;
         /// List of material schemes
         SchemeMap mSchemes;
         /// Current material scheme
@@ -150,7 +150,7 @@ class Technique;
 
         /// The list of per-scheme (and general) material listeners
         using ListenerList = std::list<Listener *>;
-        using ListenerMap = std::map<std::string_view, ListenerList>;
+        using ListenerMap = std::map<String, ListenerList>;
         ListenerMap mListenerMap;
 
     public:
@@ -245,7 +245,7 @@ class Technique;
         /** Internal method - returns name for a given material scheme index.
         @see Technique::setSchemeName
         */
-        virtual auto _getSchemeName(unsigned short index) -> std::string_view;
+        virtual auto _getSchemeName(unsigned short index) -> std::string_view ;
         /** Internal method - returns the active scheme index.
         @see Technique::setSchemeName
         */
@@ -254,7 +254,7 @@ class Technique;
         /** Returns the name of the active material scheme. 
         @see Technique::setSchemeName
         */
-        auto getActiveScheme() const noexcept -> std::string_view{ return mActiveSchemeName; }
+        auto getActiveScheme() const noexcept -> std::string_view { return mActiveSchemeName; }
         
         /** Sets the name of the active material scheme. 
         @see Technique::setSchemeName
@@ -265,13 +265,13 @@ class Technique;
         Add a listener to handle material events. 
         If schemeName is supplied, the listener will only receive events for that certain scheme.
         */
-        virtual void addListener(Listener* l, std::string_view schemeName = "");
+        virtual void addListener(Listener* l, std::string_view schemeName = BLANKSTRING);
 
         /** 
         Remove a listener handling material events. 
         If the listener was added with a custom scheme name, it needs to be supplied here as well.
         */
-        virtual void removeListener(Listener* l, std::string_view schemeName = "");
+        virtual void removeListener(Listener* l, std::string_view schemeName = BLANKSTRING);
 
         /// Internal method for sorting out missing technique for a scheme
         virtual auto _arbitrateMissingTechniqueForActiveScheme(

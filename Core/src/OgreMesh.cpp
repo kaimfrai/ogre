@@ -324,7 +324,7 @@ namespace Ogre {
         //  the MeshManager
 
         // New Mesh is assumed to be manually defined rather than loaded since you're cloning it for a reason
-        auto const theGroup = newGroup.empty() ? this->getGroup() : newGroup;
+        String theGroup = newGroup.empty() ? this->getGroup() : newGroup;
         MeshPtr newMesh = MeshManager::getSingleton().createManual(newName, theGroup);
 
         if(!newMesh) // interception by collision handler

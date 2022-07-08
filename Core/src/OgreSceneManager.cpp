@@ -890,8 +890,10 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
     else if (!mDestRenderSystem->getCapabilities()->hasCapability(RSC_FIXED_FUNCTION))
     {
         OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                    std::format("RenderSystem does not support FixedFunction, "
-                    "but technique of '{}' has no Vertex Shader. Use the RTSS or write custom shaders.", pass->getParent()->getParent()->getName()),
+                    "RenderSystem does not support FixedFunction, "
+                    "but technique of '" +
+                        pass->getParent()->getParent()->getName() +
+                        "' has no Vertex Shader. Use the RTSS or write custom shaders.",
                     "SceneManager::_setPass");
     }
     else
@@ -974,8 +976,10 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
              !pass->hasGeometryProgram())
     {
         OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
-                    std::format("RenderSystem does not support FixedFunction, "
-                    "but technique of '{}' has no Fragment Shader. Use the RTSS or write custom shaders.", pass->getParent()->getParent()->getName()),
+                    "RenderSystem does not support FixedFunction, "
+                    "but technique of '" +
+                        pass->getParent()->getParent()->getName() +
+                        "' has no Fragment Shader. Use the RTSS or write custom shaders.",
                     "SceneManager::_setPass");
     }
     else
@@ -1086,7 +1090,7 @@ auto SceneManager::_setPass(const Pass* pass, bool evenIfSuppressed,
 
             if (!refTex)
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                            ::std::format("Compositor {} does not declare texture {}", compName, texName));
+                            ::std::format("Compositor {} does not declare texture ", compName ) + texName);
             pTex->_setTexturePtr(refTex);
         }
         mDestRenderSystem->_setTextureUnitSettings(unit, *pTex);
@@ -1163,7 +1167,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // preserve the previous scheme, in case this is a RTT update with an outer _renderScene pending
     MaterialManager& matMgr = MaterialManager::getSingleton();
-    std::string const prevMaterialScheme{ matMgr.getActiveScheme() };
+    String prevMaterialScheme = matMgr.getActiveScheme();
 
     // Also set the internal viewport pointer at this point, for calls that need it
     // However don't call setViewport just yet (see below)
@@ -3311,7 +3315,7 @@ SceneManager::getMovableObjectCollection(std::string_view typeName) const -> con
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::createMovableObject(std::string_view name, 
+auto SceneManager::createMovableObject(std::string_view name,
     std::string_view typeName, const NameValuePairList* params) -> MovableObject*
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs

@@ -158,7 +158,7 @@ public:
     /** 
     Return the target shader language currently in use.     
     */
-    [[nodiscard]] auto getTargetLanguage() const noexcept -> std::string_view{ return mShaderLanguage; }
+    [[nodiscard]] auto getTargetLanguage() const noexcept -> std::string_view { return mShaderLanguage; }
 
     /** 
     Set the output shader target profiles.
@@ -170,7 +170,7 @@ public:
     /** 
     Get the output shader target profiles.
     */
-    [[nodiscard]] auto getShaderProfiles(GpuProgramType type) const -> std::string_view;
+    [[nodiscard]] auto getShaderProfiles(GpuProgramType type) const -> std::string_view ;
 
     /** 
     Set the output shader cache path. Generated shader code will be written to this path.
@@ -183,7 +183,7 @@ public:
     /** 
     Get the output shader cache path.
     */
-    [[nodiscard]] auto getShaderCachePath() const noexcept -> std::string_view{ return mShaderCachePath; }
+    [[nodiscard]] auto getShaderCachePath() const noexcept -> std::string_view { return mShaderCachePath; }
 
     /** 
     Flush the shader cache. This operation will cause all active schemes to be invalidated and will
@@ -464,7 +464,7 @@ public:
 
     /** Returns the scheme name used in the for RT shader generation by index
     */
-    [[nodiscard]] auto getRTShaderScheme(size_t index) const -> std::string_view;
+    [[nodiscard]] auto getRTShaderScheme(size_t index) const -> std::string_view ;
 
     /// Default material scheme of the shader generator.
     static String DEFAULT_SCHEME_NAME;
@@ -501,7 +501,7 @@ private:
     using SGMaterialIterator = SGMaterialMap::iterator;
     using SGMaterialConstIterator = SGMaterialMap::const_iterator;
 
-    using SGSchemeMap = std::map<std::string_view, SGScheme *>;
+    using SGSchemeMap = std::map<String, SGScheme *>;
     using SGSchemeIterator = SGSchemeMap::iterator;
     using SGSchemeConstIterator = SGSchemeMap::const_iterator;
 
@@ -572,7 +572,7 @@ private:
         auto getDestinationTechnique() noexcept -> Technique* { return mDstTechnique; }
 
         /** Get the destination technique scheme name. */
-        [[nodiscard]] auto getDestinationTechniqueSchemeName() const noexcept -> std::string_view{ return mDstTechniqueSchemeName; }
+        [[nodiscard]] auto getDestinationTechniqueSchemeName() const noexcept -> std::string_view { return mDstTechniqueSchemeName; }
         
         /** Build the render state. */
         void buildTargetRenderState();
@@ -648,10 +648,10 @@ private:
         {}
 
         /** Get the material name. */
-        [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view{ return mName; }
+        [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view { return mName; }
         
         /** Get the group name. */
-        [[nodiscard]] auto getGroupName() const noexcept -> std::string_view{ return mGroup; }
+        [[nodiscard]] auto getGroupName() const noexcept -> std::string_view { return mGroup; }
 
         /** Get the const techniques list of this material. */
         [[nodiscard]] auto getTechniqueList() const noexcept -> const SGTechniqueList& { return mTechniqueEntries; }
@@ -750,7 +750,7 @@ private:
     };
 
     //-----------------------------------------------------------------------------
-    using SubRenderStateFactoryMap = std::map<std::string_view, SubRenderStateFactory *>;
+    using SubRenderStateFactoryMap = std::map<String, SubRenderStateFactory *>;
     using SubRenderStateFactoryIterator = SubRenderStateFactoryMap::iterator;
     using SubRenderStateFactoryConstIterator = SubRenderStateFactoryMap::const_iterator;
 

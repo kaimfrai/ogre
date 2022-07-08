@@ -105,9 +105,9 @@ namespace Ogre
         };
 
         using InstanceBatchVec = std::vector<InstanceBatch *>;   //vec[batchN] = Batch
-        using InstanceBatchMap = std::map<std::string_view, ::std::vector<::std::unique_ptr<InstanceBatch>>>;   //map[materialName] = Vec
+        using InstanceBatchMap = std::map<String, ::std::vector<::std::unique_ptr<InstanceBatch>>>;   //map[materialName] = Vec
 
-        using BatchSettingsMap = std::map<std::string_view, BatchSettings>;
+        using BatchSettingsMap = std::map<String, BatchSettings>;
 
         const String            mName;                  //Not the name of the mesh
         MeshPtr                 mMeshReference;
@@ -162,12 +162,12 @@ namespace Ogre
         static void unshareVertices(const Ogre::MeshPtr &mesh);
 
     public:
-        InstanceManager(std::string_view customName, SceneManager *sceneManager,
+        InstanceManager( String customName, SceneManager *sceneManager,
                          std::string_view meshName, std::string_view groupName,
                          InstancingTechnique instancingTechnique, uint16 instancingFlags,
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
 
-        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
         [[nodiscard]] auto getSceneManager() const noexcept -> SceneManager* { return mSceneManager; }
 
@@ -279,7 +279,7 @@ namespace Ogre
         @param enabled Boolean value. It's meaning depends on the id.
         @param materialName When Blank, the setting is applied to all existing materials
         */
-        void setSetting( BatchSettingId id, bool enabled, std::string_view materialName = "");
+        void setSetting( BatchSettingId id, bool enabled, std::string_view materialName = BLANKSTRING );
 
         /// If settings for the given material didn't exist, default value is returned
         [[nodiscard]] auto getSetting( BatchSettingId id, std::string_view materialName ) const -> bool;

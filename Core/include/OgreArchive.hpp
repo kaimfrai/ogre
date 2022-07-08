@@ -108,7 +108,7 @@ class Archive;
         virtual ~Archive() = default;
 
         /// Get the name of this archive
-        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
         /// Returns whether this archive is case sensitive in the way it matches files
         [[nodiscard]] virtual auto isCaseSensitive() const noexcept -> bool = 0;
@@ -219,7 +219,7 @@ class Archive;
             bool recursive = true, bool dirs = false) const -> FileInfoListPtr = 0;
 
         /// Return the type code of this Archive
-        [[nodiscard]] auto getType() const noexcept -> std::string_view{ return mType; }
+        [[nodiscard]] auto getType() const noexcept -> std::string_view { return mType; }
         
     };
     /** @} */

@@ -51,7 +51,7 @@ public:
     /**
     Return the metallic-roughness map texture name.
     */
-    auto getMetalRoughnessMapName() const noexcept -> std::string_view{ return mMetalRoughnessMapName; }
+    auto getMetalRoughnessMapName() const noexcept -> std::string_view { return mMetalRoughnessMapName; }
 
     auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 

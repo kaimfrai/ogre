@@ -55,11 +55,11 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    InstanceManager::InstanceManager(std::string_view customName, SceneManager *sceneManager,
+    InstanceManager::InstanceManager( String customName, SceneManager *sceneManager,
                                         std::string_view meshName, std::string_view groupName,
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,
                                         size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup ) :
-                mName(customName),
+                mName(std::move( customName )),
                 
                 mInstancesPerBatch( instancesPerBatch ),
                 mInstancingTechnique( instancingTechnique ),

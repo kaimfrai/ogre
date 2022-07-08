@@ -184,9 +184,9 @@ void FunctionInvocation::writeSourceCode(std::ostream& os, std::string_view targ
 }
 
 //-----------------------------------------------------------------------
-static auto parameterNullMsg(std::string_view name, size_t pos) -> std::string
+static auto parameterNullMsg(std::string_view name, size_t pos) -> String
 {
-    return std::format("{}: parameter #{} is NULL", name, pos);
+    return std::format("{}: parameter #{} is NULL", name.c_str(), pos);
 }
 
 void FunctionAtom::pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask, int indirectionLevel)

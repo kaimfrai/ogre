@@ -119,11 +119,11 @@ class TagPoint;
         void _refreshAnimationState(AnimationStateSet* animSet) override;
 
         /// @copydoc Resource::getName
-        auto getName() const noexcept -> std::string_view;
+        auto getName() const noexcept -> std::string_view ;
         /// @copydoc Resource::getHandle
         auto getHandle() const -> ResourceHandle;
         /// @copydoc Resource::getGroup
-        auto getGroup() const noexcept -> std::string_view;
+        auto getGroup() const noexcept -> std::string_view ;
 
     private:
         /// Pointer back to master Skeleton

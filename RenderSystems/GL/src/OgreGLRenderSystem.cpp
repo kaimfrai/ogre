@@ -1033,7 +1033,7 @@ namespace Ogre {
             initialiseContext(win);
 
             const char* shadingLangVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-            auto const tokens = StringUtil::split(shadingLangVersion, ". ");
+            StringVector tokens = StringUtil::split(shadingLangVersion, ". ");
             mNativeShadingLanguageVersion = (StringConverter::parseUnsignedInt(tokens[0]) * 100) + StringConverter::parseUnsignedInt(tokens[1]);
 
             auto it = mOptions.find("Fixed Pipeline Enabled");
@@ -2904,7 +2904,7 @@ namespace Ogre {
             return;
 
         if(GLAD_GL_GREMEDY_string_marker)
-            glStringMarkerGREMEDY(eventName.length(), eventName.data());
+            glStringMarkerGREMEDY(eventName.length(), eventName.c_str());
     }
 
     //---------------------------------------------------------------------

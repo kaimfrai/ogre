@@ -177,7 +177,7 @@ class ResourceManager;
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        auto getSource() const noexcept -> std::string_view;
+        auto getSource() const noexcept -> std::string_view ;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the

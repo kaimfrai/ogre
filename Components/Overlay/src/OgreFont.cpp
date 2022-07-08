@@ -65,37 +65,37 @@ namespace Ogre
     class CmdType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdSource : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdCharSpacer : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdSize : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdResolution : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
     class CmdCodePoints : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
+        auto doGet(const void* target) const -> String override;
         void doSet(void* target, std::string_view val) override;
     };
 
@@ -519,7 +519,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdType::doGet(const void* target) const -> std::string
+    auto CmdType::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         if (f->getType() == FT_TRUETYPE)
@@ -544,10 +544,10 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto CmdSource::doGet(const void* target) const -> std::string
+    auto CmdSource::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
-        return std::string{ f->getSource() };
+        return f->getSource();
     }
     void CmdSource::doSet(void* target, std::string_view val)
     {
@@ -555,13 +555,13 @@ namespace Ogre
         f->setSource(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdCharSpacer::doGet(const void* target) const -> std::string
+    auto CmdCharSpacer::doGet(const void* target) const -> String
     {
         return "1";
     }
     void CmdCharSpacer::doSet(void* target, std::string_view val) {}
     //-----------------------------------------------------------------------
-    auto CmdSize::doGet(const void* target) const -> std::string
+    auto CmdSize::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeSize());
@@ -572,7 +572,7 @@ namespace Ogre
         f->setTrueTypeSize(StringConverter::parseReal(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdResolution::doGet(const void* target) const -> std::string
+    auto CmdResolution::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         return StringConverter::toString(f->getTrueTypeResolution());
@@ -583,7 +583,7 @@ namespace Ogre
         f->setTrueTypeResolution(StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdCodePoints::doGet(const void* target) const -> std::string
+    auto CmdCodePoints::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
         StringStream str;
@@ -598,10 +598,10 @@ namespace Ogre
         // Format is "code_points start1-end1 start2-end2"
         Font* f = static_cast<Font*>(target);
 
-        auto const vec = StringUtil::split(val, " \t");
+        StringVector vec = StringUtil::split(val, " \t");
         for (auto & item : vec)
         {
-            auto const itemVec = StringUtil::split(item, "-");
+            StringVector itemVec = StringUtil::split(item, "-");
             if (itemVec.size() == 2)
             {
                 f->addCodePointRange({StringConverter::parseUnsignedInt(itemVec[0]),

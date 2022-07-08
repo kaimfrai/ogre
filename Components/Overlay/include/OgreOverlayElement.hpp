@@ -197,7 +197,7 @@ class RenderQueue;
         virtual void _restoreManualHardwareResources() {}
 
         /** Gets the name of this overlay. */
-        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
 
         /** Shows this element if it was hidden. */
@@ -264,7 +264,7 @@ class RenderQueue;
         void _setDimensions(Real width, Real height);
 
         /** Gets the name of the material this element uses. */
-        [[nodiscard]] virtual auto getMaterialName() const noexcept -> std::string_view;
+        [[nodiscard]] virtual auto getMaterialName() const noexcept -> std::string_view ;
 
         /** Sets the the material this element will use.
         @remarks
@@ -349,7 +349,7 @@ class RenderQueue;
             bool debugRenderables = false);
 
         /** Gets the type name of the element. All concrete subclasses must implement this. */
-        [[nodiscard]] virtual auto getTypeName() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getTypeName() const noexcept -> std::string_view = 0;
 
         /** Sets the caption on elements that support it. 
         @remarks

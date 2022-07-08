@@ -26,7 +26,6 @@ THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
 #include <algorithm>
-#include <ranges>
 #include <span>
 #include <string>
 
@@ -49,9 +48,9 @@ namespace Ogre
     {
     public:
         //-----------------------------------------------------------------------
-        auto doGet(const void* target) const -> std::string override
+        auto doGet(const void* target) const -> String override
         {
-            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines() };
+            return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
         }
         void doSet(void* target, std::string_view val) override
         {
@@ -64,9 +63,9 @@ namespace Ogre
     class CmdEntryPoint : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override
+        auto doGet(const void* target) const -> String override
         {
-            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint() };
+            return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
         }
         void doSet(void* target, std::string_view val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
     };
@@ -210,18 +209,22 @@ namespace Ogre
         return ret;
     }
 
-    auto HighLevelGpuProgram::appendBuiltinDefines(String defines) -> std::string
+    auto HighLevelGpuProgram::appendBuiltinDefines(String defines) -> String
     {
         if(!defines.empty()) defines += ",";
 
         auto renderSystem = Root::getSingleton().getRenderSystem();
 
         // OGRE_HLSL, OGRE_GLSL etc.
+        String tmp = getLanguage();
+        StringUtil::toUpperCase(tmp);
         auto ver = renderSystem ? renderSystem->getNativeShadingLanguageVersion() : 0;
-        defines += std::format("OGRE_{}={}", StringUtil::UpperView(getLanguage()), ver);
+        defines += std::format("OGRE_{}={}", tmp.c_str(), ver);
 
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
-        defines += ::std::format(",OGRE_{}_SHADER", StringUtil::UpperView(GpuProgram::getProgramTypeName(getType())));
+        tmp = GpuProgram::getProgramTypeName(getType());
+        StringUtil::toUpperCase(tmp);
+        defines += ::std::format(",OGRE_{}_SHADER", tmp);
 
         if(renderSystem && renderSystem->isReverseDepthBufferEnabled())
             defines += ",OGRE_REVERSED_Z";
@@ -272,16 +275,16 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto HighLevelGpuProgram::_resolveIncludes(std::string_view inSource, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename) -> std::string
+    auto HighLevelGpuProgram::_resolveIncludes(std::string_view inSource, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename) -> String
     {
-        std::string outSource;
+        String outSource;
         // output will be at least this big
         outSource.reserve(inSource.length());
 
         size_t startMarker = 0;
         size_t i = inSource.find("#include");
 
-        auto const lineFilename = supportsFilename ? std::format(" \"{}\"", fileName) : " 0";
+        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.c_str()) : " 0";
 
         while (i != String::npos)
         {
@@ -371,7 +374,7 @@ namespace Ogre
 
             // Add #line to the end of the included file to correct the line count.
             // +1 as #line specifies the number of the following line
-            outSource.append(::std::format("\n#line {}{}", lineCount + 1, lineFilename));
+            outSource.append(::std::format("\n#line {}", std::to_string(lineCount + 1) + lineFilename));
 
             startMarker = newLineAfter;
 

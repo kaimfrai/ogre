@@ -201,7 +201,7 @@ class Sphere;
     public:
 
         /// Named constructor
-        Frustum(std::string_view name = "");
+        Frustum(std::string_view name = BLANKSTRING);
 
         ~Frustum() override = default;
         /** Sets the Y-dimension Field Of View (FOV) of the frustum.

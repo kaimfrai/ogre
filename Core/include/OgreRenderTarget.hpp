@@ -103,7 +103,7 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
-        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view;
+        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view ;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
@@ -332,7 +332,7 @@ struct Box;
 
         /** Writes the current contents of the render target to the (PREFIX)(time-stamp)(SUFFIX) file.
             @return the name of the file used.*/
-        virtual auto writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> std::string;
+        virtual auto writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> String;
 
         [[nodiscard]] virtual auto requiresTextureFlipping() const -> bool = 0;
 
@@ -366,7 +366,7 @@ struct Box;
         [[nodiscard]] virtual auto getFSAA() const noexcept -> uint { return mFSAA; }
 
         /// RenderSystem specific FSAA option. See @ref RenderSystem::_createRenderWindow for details.
-        [[nodiscard]] virtual auto getFSAAHint() const noexcept -> std::string_view{ return mFSAAHint; }
+        [[nodiscard]] virtual auto getFSAAHint() const noexcept -> std::string_view { return mFSAAHint; }
 
         /** Set the level of multisample AA to be used if hardware support it.
             This option will be ignored if the hardware does not support it 

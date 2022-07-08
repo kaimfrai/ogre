@@ -245,7 +245,7 @@ protected:
     /** 
     @Converts Enum to string
     */
-    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> std::string_view;
+    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> String;
 
     /** 
     @Converts string to Enum
@@ -255,7 +255,7 @@ protected:
     /** 
     @Converts Enum to string
     */
-    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> std::string_view;
+    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String;
 
     /** 
     Returns the LayeredBlending sub-rener state previously created for this material/pass.

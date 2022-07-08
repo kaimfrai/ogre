@@ -213,10 +213,10 @@ class SceneNode;
         virtual void _restoreManualHardwareResources() {}
 
         /** Returns the name of this object. */
-        auto getName() const noexcept -> std::string_view{ return mName; }
+        auto getName() const noexcept -> std::string_view { return mName; }
 
         /** Returns the type name of this object. */
-        virtual auto getMovableType() const noexcept -> std::string_view= 0;
+        virtual auto getMovableType() const noexcept -> std::string_view = 0;
 
         /** Returns the node to which this object is attached.
         @remarks
@@ -597,7 +597,7 @@ class SceneNode;
         MovableObjectFactory()  = default;
         virtual ~MovableObjectFactory() = default;
         /// Get the type of the object to be created
-        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getType() const noexcept -> std::string_view = 0;
 
         /** Create a new instance of the object.
         @param name The name of the new object
