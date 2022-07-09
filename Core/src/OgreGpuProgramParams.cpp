@@ -1348,14 +1348,13 @@ namespace Ogre
 
         // strip array extension
         size_t arrStart = name.back() == ']' ? name.find('[') : String::npos;
-        auto i = mNamedConstants->map.find(std::string{arrStart == String::npos ? name : name.substr(0, arrStart)});
+        auto i = mNamedConstants->map.find(arrStart == String::npos ? name : name.substr(0, arrStart));
         if (i == mNamedConstants->map.end() || (i->second.arraySize == 1 && arrStart != String::npos))
         {
             if (throwExceptionIfNotFound)
 			{
-				String knownNames;
                 OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-				::std::format("Parameter called {} does not exist. ", name ) + knownNames,
+				::std::format("Parameter called {} does not exist. ", name),
                             "GpuProgramParameters::_findNamedConstantDefinition");
 			}
             return nullptr;

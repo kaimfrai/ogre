@@ -86,7 +86,7 @@ namespace Ogre {
         
         // Register codecs
         String exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
-        StringVector extsVector = StringUtil::split(exts, ",");
+        auto const extsVector = StringUtil::split(exts, ",");
         for (auto & v : extsVector)
         {
             ImageCodec* codec = new STBIImageCodec(v);

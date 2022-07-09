@@ -181,7 +181,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
 
     bool hasError = false;
     bool logProgramNames = !ShaderGenerator::getSingleton().getShaderCachePath().empty();
-    const char* matName = pass->getParent()->getParent()->getName().data();
+    StringView matName = pass->getParent()->getParent()->getName();
 
     for(auto type : {GPT_VERTEX_PROGRAM, GPT_FRAGMENT_PROGRAM})
     {

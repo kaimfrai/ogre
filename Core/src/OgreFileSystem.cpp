@@ -127,19 +127,19 @@ namespace {
         return true;
     }
     //-----------------------------------------------------------------------
-    static auto is_reserved_dir (const char *fn) -> bool
+    static auto is_reserved_dir (std::string_view fn) -> bool
     {
         return (fn [0] == '.' && (fn [1] == 0 || (fn [1] == '.' && fn [2] == 0)));
     }
     //-----------------------------------------------------------------------
-    static auto is_absolute_path(const char* path) -> bool
+    static auto is_absolute_path(std::string_view path) -> bool
     {
         return path[0] == '/' || path[0] == '\\';
     }
     //-----------------------------------------------------------------------
     static auto concatenate_path(StringView base, StringView name) -> String
     {
-        if (base.empty() || is_absolute_path(name.data()))
+        if (base.empty() || is_absolute_path(name))
             return name;
         else
             return std::format("{}/{}", base, name);
@@ -290,7 +290,7 @@ namespace {
         {
             rwStream = new std::fstream();
 
-            rwStream->open(full_path.data(), mode);
+            rwStream->open(std::filesystem::path{full_path}, mode);
 
             baseStream = rwStream;
         }
@@ -298,7 +298,7 @@ namespace {
         {
             roStream = new std::ifstream();
 
-            roStream->open(full_path.data(), mode);
+            roStream->open(std::filesystem::path{full_path}, mode);
 
             baseStream = roStream;
         }
@@ -422,7 +422,7 @@ namespace {
 
         // stat will return true if the filename is absolute, but we need to check
         // the file is actually in this archive
-        if (ret && is_absolute_path(filename.data()))
+        if (ret && is_absolute_path(filename))
         {
             // only valid if full path starts with our base
 

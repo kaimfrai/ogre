@@ -45,7 +45,7 @@ namespace Ogre {
 
     void  DriverVersion::fromString(StringView versionString)
     {
-        StringVector tokens = StringUtil::split(versionString, ".");
+        auto const tokens = StringUtil::split(versionString, ".");
         if(!tokens.empty())
         {
             major = StringConverter::parseInt(tokens[0]);

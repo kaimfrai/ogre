@@ -120,7 +120,7 @@ class ResourceManager;
     void GLSLShaderCommon::CmdAttach::doSet(void *target, StringView shaderNames)
     {
         //get all the shader program names: there could be more than one
-        StringVector vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
+        auto const vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
 
         size_t programNameCount = vecShaderNames.size();
         for ( size_t i = 0; i < programNameCount; ++i )

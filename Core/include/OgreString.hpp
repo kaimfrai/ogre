@@ -70,6 +70,17 @@ namespace Ogre {
         */
         static void trim( String& str, bool left = true, bool right = true );
 
+        static void trim(std::string_view& str, bool left = true, bool right = true)
+        {
+            static const std::string_view delims = " \t\r\n";
+            if(right)
+                if(auto pos = str.find_last_not_of(delims); pos <= str.size())
+                    str.remove_suffix(str.size() - pos); // trim right
+            if(left)
+                if(auto pos = str.find_first_not_of(delims); pos <= str.size())
+                    str.remove_prefix(pos); // trim left
+        }
+
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument.
             @param str
@@ -81,7 +92,7 @@ namespace Ogre {
             @param
             preserveDelims Flag to determine if delimiters should be saved as substrings
         */
-        static auto split( StringView str, StringView delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<String>;
+        static auto split( StringView str, StringView delims = "\t\n ", unsigned int maxSplits = 0, bool preserveDelims = false) -> std::vector<StringView>;
 
         /** Returns a StringVector that contains all the substrings delimited
             by the characters in the passed <code>delims</code> argument,
@@ -96,7 +107,7 @@ namespace Ogre {
             maxSplits The maximum number of splits to perform (0 for unlimited splits). If this
             parameters is > 0, the splitting process will stop after this many splits, left to right.
         */
-        static auto tokenise( StringView str, StringView delims = "\t\n ", StringView doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<String>;
+        static auto tokenise( StringView str, StringView delims = "\t\n ", StringView doubleDelims = "\"", unsigned int maxSplits = 0) -> std::vector<StringView>;
 
         /** Lower-cases all the characters in the string.
          */

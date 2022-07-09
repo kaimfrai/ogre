@@ -71,7 +71,7 @@ namespace Ogre {
 
         *this = substr(lspaces, len-lspaces-rspaces);
         */
-        static const String delims = " \t\r\n";
+        static const std::string_view delims = " \t\r\n";
         if(right)
             str.erase(str.find_last_not_of(delims)+1); // trim right
         if(left)
@@ -79,9 +79,9 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto StringUtil::split( StringView str, StringView delims, unsigned int maxSplits, bool preserveDelims) -> StringVector
+    auto StringUtil::split( StringView str, StringView delims, unsigned int maxSplits, bool preserveDelims) -> std::vector<StringView>
     {
-        StringVector ret;
+        std::vector<StringView> ret;
         // Pre-allocate some space for performance
         ret.reserve(maxSplits ? maxSplits+1 : 10);    // 10 is guessed capacity for most case
 
@@ -101,13 +101,13 @@ namespace Ogre {
             else if (pos == String::npos || (maxSplits && numSplits == maxSplits))
             {
                 // Copy the rest of the string
-                ret.push_back( std::string{str.substr(start)} );
+                ret.push_back( str.substr(start) );
                 break;
             }
             else
             {
                 // Copy up to delimiter
-                ret.push_back( std::string{str.substr(start, pos - start)} );
+                ret.push_back( str.substr(start, pos - start) );
 
                 if(preserveDelims)
                 {
@@ -118,11 +118,11 @@ namespace Ogre {
                     if (delimPos == String::npos)
                     {
                         // Copy the rest of the string
-                        ret.push_back(std::string{str.substr(delimStart)});
+                        ret.push_back(str.substr(delimStart));
                     }
                     else
                     {
-                        ret.push_back( std::string{str.substr(delimStart, delimPos - delimStart)} );
+                        ret.push_back(str.substr(delimStart, delimPos - delimStart));
                     }
                 }
 
@@ -139,9 +139,9 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto StringUtil::tokenise( StringView str, StringView singleDelims, StringView doubleDelims, unsigned int maxSplits) -> StringVector
+    auto StringUtil::tokenise( StringView str, StringView singleDelims, StringView doubleDelims, unsigned int maxSplits) -> std::vector<StringView>
     {
-        StringVector ret;
+        std::vector<StringView> ret;
         // Pre-allocate some space for performance
         ret.reserve(maxSplits ? maxSplits+1 : 10);    // 10 is guessed capacity for most case
 
@@ -180,7 +180,7 @@ namespace Ogre {
                     //Missing closer. Warn or throw exception?
                 }
                 // Copy the rest of the string
-                ret.push_back( std::string{str.substr(start)} );
+                ret.push_back(str.substr(start));
                 break;
             }
             else
@@ -191,7 +191,7 @@ namespace Ogre {
                 }
 
                 // Copy up to delimiter
-                ret.push_back( std::string{str.substr(start, pos - start)} );
+                ret.push_back(str.substr(start, pos - start));
                 start = pos + 1;
             }
             if (curDoubleDelim == 0)

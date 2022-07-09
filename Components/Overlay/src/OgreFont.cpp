@@ -598,10 +598,10 @@ namespace Ogre
         // Format is "code_points start1-end1 start2-end2"
         Font* f = static_cast<Font*>(target);
 
-        StringVector vec = StringUtil::split(val, " \t");
+        auto const vec = StringUtil::split(val, " \t");
         for (auto & item : vec)
         {
-            StringVector itemVec = StringUtil::split(item, "-");
+            auto const itemVec = StringUtil::split(item, "-");
             if (itemVec.size() == 2)
             {
                 f->addCodePointRange({StringConverter::parseUnsignedInt(itemVec[0]),

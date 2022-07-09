@@ -143,7 +143,6 @@ namespace Ogre
         // parser operating data
         String line;
         ParseAction parseAction = PARSE_HEADER;
-        StringVector tokens;
         bool parsedAtLeastOneRSC = false;
 
         // collect capabilities lines (i.e. everything that is not header, "{", "}",
@@ -166,7 +165,7 @@ namespace Ogre
             mCurrentLine = &line;
             mCurrentLineNumber++;
 
-            tokens = StringUtil::split(line);
+            auto const tokens = StringUtil::split(line);
 
             // skip empty and comment lines
             // TODO: handle end of line comments
@@ -392,15 +391,13 @@ namespace Ogre
 
     void RenderSystemCapabilitiesSerializer::parseCapabilitiesLines(CapabilitiesLinesList& lines)
     {
-        StringVector tokens;
-
         for (auto & [key, number] : lines)
         {
             // restore the current line information for debugging
             mCurrentLine = &key;
             mCurrentLineNumber = number;
 
-            tokens = StringUtil::split(key);
+            auto const tokens = StringUtil::split(key);
             // check for incomplete lines
             if(tokens.size() < 2)
             {
@@ -416,7 +413,7 @@ namespace Ogre
             {
                everythingElse = ::std::format("{}{} ", everythingElse , tokens[i]);
             }
-            everythingElse = everythingElse + tokens[tokens.size() - 1];
+            everythingElse = std::format("{}{}", everythingElse, tokens[tokens.size() - 1]);
 
             CapabilityKeywordType keywordType = getKeywordType(keyword);
 

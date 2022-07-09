@@ -215,12 +215,12 @@ namespace Ogre {
                         }
         }
 
-        inline void addShaderProfile(String& val)
+        inline void addShaderProfile(std::string_view val)
         {
             mCurrentCapabilities->addShaderProfile(val);
         }
 
-        inline void setCapabilityEnumBool(String& name, bool val)
+        inline void setCapabilityEnumBool(std::string_view name, bool val)
         {
             // check for errors
             if(mCapabilitiesMap.find(name) == mCapabilitiesMap.end())

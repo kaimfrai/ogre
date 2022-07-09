@@ -294,7 +294,7 @@ namespace Ogre {
     static auto parseReals(StringView val, T* dst, size_t n) -> bool
     {
         // Split on space
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
         if(vec.size() != n)
             return false;
 
@@ -338,7 +338,7 @@ namespace Ogre {
     auto StringConverter::parse(StringView val, ColourValue& ret) -> bool
     {
         // Split on space
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         if (vec.size() == 4)
         {

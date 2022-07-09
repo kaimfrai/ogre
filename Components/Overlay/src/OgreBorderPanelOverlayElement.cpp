@@ -756,7 +756,7 @@ namespace Ogre {
     }
     void CmdBorderSize::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBorderSize(
             StringConverter::parseReal(vec[0]),
@@ -773,7 +773,7 @@ namespace Ogre {
     }
     void CmdBorderMaterial::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBorderMaterialName(val);
     }
@@ -785,7 +785,7 @@ namespace Ogre {
     }
     void CmdBorderBottomLeftUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -802,7 +802,7 @@ namespace Ogre {
     }
     void CmdBorderBottomRightUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -819,7 +819,7 @@ namespace Ogre {
     }
     void CmdBorderTopLeftUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -836,7 +836,7 @@ namespace Ogre {
     }
     void CmdBorderTopRightUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -853,7 +853,7 @@ namespace Ogre {
     }
     void CmdBorderLeftUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setLeftBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -870,7 +870,7 @@ namespace Ogre {
     }
     void CmdBorderRightUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setRightBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -887,7 +887,7 @@ namespace Ogre {
     }
     void CmdBorderTopUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setTopBorderUV(
             StringConverter::parseReal(vec[0]),
@@ -904,7 +904,7 @@ namespace Ogre {
     }
     void CmdBorderBottomUV::doSet(void* target, StringView val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<BorderPanelOverlayElement*>(target)->setBottomBorderUV(
             StringConverter::parseReal(vec[0]),

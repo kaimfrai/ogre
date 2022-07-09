@@ -334,8 +334,10 @@ void Program::addDependency(StringView libFileName)
 
 void Program::addPreprocessorDefines(StringView defines)
 {
-    mPreprocessorDefines +=
-        mPreprocessorDefines.empty() ? std::string{defines} : std::format(",{}", defines);
+    if (not mPreprocessorDefines.empty())
+        mPreprocessorDefines += ',';
+
+    mPreprocessorDefines += defines;
 }
 
 //-----------------------------------------------------------------------------
