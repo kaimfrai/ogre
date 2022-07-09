@@ -94,7 +94,7 @@ namespace Ogre {
 
     public:
 
-        using SyntaxCodes = std::set<String>;
+        using SyntaxCodes = std::set<std::string, std::less<>>;
         using SharedParametersMap = std::map<std::string, GpuSharedParametersPtr, std::less<>>;
 
         using Microcode = MemoryDataStreamPtr;

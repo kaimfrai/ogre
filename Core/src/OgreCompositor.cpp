@@ -180,7 +180,7 @@ void Compositor::createGlobalTextures()
     //To make sure that we are consistent, it is demanded that all composition
     //techniques define the same set of global textures.
 
-    using StringSet = std::set<String>;
+    using StringSet = std::set<StringView>;
     StringSet globalTextureNames;
 
     //Initialize global textures from first supported technique

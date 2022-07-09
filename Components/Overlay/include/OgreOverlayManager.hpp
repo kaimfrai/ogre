@@ -84,7 +84,7 @@ namespace Ogre {
 
         ElementMap mElements;
 
-        using LoadedScripts = std::set<String>;
+        using LoadedScripts = std::set<StringView>;
         LoadedScripts mLoadedScripts;
 
         std::unique_ptr<ScriptTranslatorManager> mTranslatorManager;

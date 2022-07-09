@@ -300,7 +300,7 @@ class Technique;
     private:
         String mBuffer;
         String mGpuProgramBuffer;
-        using GpuProgramDefinitionContainer = std::set<String>;
+        using GpuProgramDefinitionContainer = std::set<StringView>;
         using GpuProgramDefIterator = GpuProgramDefinitionContainer::iterator;
         GpuProgramDefinitionContainer mGpuProgramDefinitionContainer;
         bool mDefaults;

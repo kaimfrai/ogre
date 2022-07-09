@@ -100,7 +100,7 @@ protected:
 
     // Attributes.
 protected:
-    std::set<String> mLocalRenames;
+    std::set<std::string, std::less<>> mLocalRenames;
 
     // Map parameter content to vertex attributes 
     ParamContentToStringMap mContentToPerVertexAttributes;

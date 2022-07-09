@@ -53,7 +53,7 @@ namespace Ogre
     class GLNativeSupport
     {
         public:
-            using ExtensionList = std::set<String>;
+            using ExtensionList = std::set<StringView>;
 
             enum ContextProfile {
                 CONTEXT_CORE = 1,
