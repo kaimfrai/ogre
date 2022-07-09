@@ -65,7 +65,7 @@ public:
         scheme name we will try to create shader generated technique for it.
     */
     auto handleSchemeNotFound(unsigned short schemeIndex,
-                                          const Ogre::String& schemeName,
+                                          std::string_view schemeName,
                                           Ogre::Material* originalMaterial, unsigned short lodIndex,
                                           const Ogre::Renderable* rend) -> Ogre::Technique* override;
 

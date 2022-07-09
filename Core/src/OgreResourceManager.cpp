@@ -49,12 +49,12 @@ namespace Ogre {
         destroyAllResourcePools();
         removeAll();
     }
-    void ResourceManager::parseScript(DataStreamPtr& stream, const String& groupName)
+    void ResourceManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
     {
         ScriptCompilerManager::getSingleton().parseScript(stream, groupName);
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::createResource(const String& name, const String& group,
+    auto ResourceManager::createResource(std::string_view name, std::string_view group,
         bool isManual, ManualResourceLoader* loader, const NameValuePairList* params) -> ResourcePtr
     {
         OgreAssert(!name.empty(), "resource name must not be empty");
@@ -75,7 +75,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto 
     ResourceManager::createOrRetrieve(
-        const String& name, const String& group, 
+        std::string_view name, std::string_view group,
         bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* params) -> ResourceManager::ResourceCreateOrRetrieveResult
     {
@@ -90,8 +90,8 @@ namespace Ogre {
         return { res, created };
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::prepare(const String& name, 
-        const String& group, bool isManual, ManualResourceLoader* loader, 
+    auto ResourceManager::prepare(std::string_view name,
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -100,8 +100,8 @@ namespace Ogre {
         return r;
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::load(const String& name, 
-        const String& group, bool isManual, ManualResourceLoader* loader, 
+    auto ResourceManager::load(std::string_view name,
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -216,13 +216,13 @@ namespace Ogre {
         return mMemoryBudget;
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::unload(const String& name, const String& group)
+    void ResourceManager::unload(std::string_view name, std::string_view group)
     {
         ResourcePtr res = getResourceByName(name, group);
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to unload unknown resource: {} in group ", name ) + group);
+                        ::std::format("attempting to unload unknown resource: {} in group {}", name, group));
 
         if (res)
         {
@@ -285,13 +285,13 @@ namespace Ogre {
         removeImpl(res);
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::remove(const String& name, const String& group)
+    void ResourceManager::remove(std::string_view name, std::string_view group)
     {
         ResourcePtr res = getResourceByName(name, group);
 
         if (!res)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
-                        ::std::format("attempting to remove unknown resource: {} in group ", name ) + group);
+                        ::std::format("attempting to remove unknown resource: {} in group {}", name, group));
 
         if (res)
         {
@@ -341,7 +341,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::getResourceByName(const String& name, const String& groupName) const -> ResourcePtr
+    auto ResourceManager::getResourceByName(std::string_view name, std::string_view groupName) const -> ResourcePtr
     {
         // resource should be in global pool
         bool isGlobal = ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(groupName);
@@ -437,7 +437,7 @@ namespace Ogre {
         mMemoryUsage -= res->getSize();
     }
     //---------------------------------------------------------------------
-    auto ResourceManager::getResourcePool(const String& name) -> ResourceManager::ResourcePool*
+    auto ResourceManager::getResourcePool(std::string_view name) -> ResourceManager::ResourcePool*
     {
         auto i = mResourcePoolMap.find(name);
         if (i == mResourcePoolMap.end())
@@ -461,7 +461,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    void ResourceManager::destroyResourcePool(const String& name)
+    void ResourceManager::destroyResourcePool(std::string_view name)
     {
         auto i = mResourcePoolMap.find(name);
         if (i != mResourcePoolMap.end())
@@ -492,7 +492,7 @@ namespace Ogre {
         clear();
     }
     //---------------------------------------------------------------------
-    auto ResourceManager::ResourcePool::getName() const noexcept -> const String&
+    auto ResourceManager::ResourcePool::getName() const noexcept -> std::string_view
     {
         return mName;
     }

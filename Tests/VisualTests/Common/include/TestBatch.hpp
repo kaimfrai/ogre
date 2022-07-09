@@ -65,7 +65,7 @@ public:
     TestBatch(Ogre::ConfigFile& info, std::string_view directory):mDirectory(directory)
     {
         // fill out basic info
-        Ogre::String res = info.getSetting("Resolution","Info");
+        std::string const res{ info.getSetting("Resolution","Info") };
         resolutionX = atoi(res.c_str());
         resolutionY = atoi(res.substr(res.find('x')+1).c_str());
         version = info.getSetting("Version","Info");
@@ -167,7 +167,7 @@ public:
     }
 
     /** Greater than operator, so they can be sorted chronologically */
-    [[nodiscard]] auto operator<=>(const TestBatch& other) const noexcept -> ::std::strong_ordering
+    [[nodiscard]] auto operator<=>(const TestBatch& other) const noexcept -> ::std::weak_ordering
     {
         using namespace Ogre;
         // due to the way timestamps are formatted, lexicographical ordering will also be chronological

@@ -83,7 +83,7 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> const String& override;
+    auto getType() const noexcept -> std::string_view override;
 
     /**
     @see SubRenderState::getExecutionOrder.
@@ -116,7 +116,7 @@ static String Type;
 	/**
 	@see SubRenderStateFactory::getType.
 	*/
-	[[nodiscard]] auto getType() const noexcept -> const String& override;
+	[[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
 protected:
 

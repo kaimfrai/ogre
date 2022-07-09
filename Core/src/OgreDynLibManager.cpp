@@ -48,7 +48,7 @@ namespace Ogre
     DynLibManager::DynLibManager()
     = default;
     //-----------------------------------------------------------------------
-    auto DynLibManager::load( const String& filename) -> DynLib*
+    auto DynLibManager::load( std::string_view filename) -> DynLib*
     {
         auto i = mLibList.find(filename);
         if (i != mLibList.end())

@@ -81,8 +81,8 @@ class ResourceManager;
         void unloadImpl() override { resetCompileError(); }
     public:
         /** Constructor, should be used only by factory classes. */
-        UnifiedHighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        UnifiedHighLevelGpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~UnifiedHighLevelGpuProgram() override;
 
         auto calculateSize() const -> size_t override;
@@ -91,7 +91,7 @@ class ResourceManager;
         @remarks
             Delegates are tested in order so earlier ones are preferred.
         */
-        void addDelegateProgram(const String& name);
+        void addDelegateProgram(std::string_view name);
 
         /// Remove all delegate programs
         void clearDelegatePrograms();
@@ -100,7 +100,7 @@ class ResourceManager;
         auto _getDelegate() const -> const GpuProgramPtr&;
 
         /** @copydoc GpuProgram::getLanguage */
-        auto getLanguage() const noexcept -> const String& override;
+        auto getLanguage() const noexcept -> std::string_view override;
 
         /** Creates a new parameters object compatible with this program definition. 
         @remarks
@@ -118,7 +118,7 @@ class ResourceManager;
         /** @copydoc GpuProgram::isSupported */
         auto isSupported() const noexcept -> bool override;
 
-        auto getSource() const noexcept -> const String& override
+        auto getSource() const noexcept -> std::string_view override
         {
             return _getDelegate() ? _getDelegate()->getSource() : BLANKSTRING;
         }
@@ -164,10 +164,10 @@ class ResourceManager;
         UnifiedHighLevelGpuProgramFactory();
         ~UnifiedHighLevelGpuProgramFactory() override;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] auto getLanguage() const noexcept -> const String& override;
+        [[nodiscard]] auto getLanguage() const noexcept -> std::string_view override;
         auto create(ResourceManager* creator,
-            const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
+            std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override;
     };
 
     /** @} */

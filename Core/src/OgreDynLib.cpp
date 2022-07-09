@@ -45,7 +45,7 @@ extern "C" {
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    DynLib::DynLib( const String& name )
+    DynLib::DynLib( std::string_view name )
     {
         mName = name;
         mInst = nullptr;
@@ -97,9 +97,9 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto DynLib::getSymbol( const String& strName ) const noexcept -> void*
+    auto DynLib::getSymbol( std::string_view strName ) const noexcept -> void*
     {
-        return (void*)DYNLIB_GETSYM( mInst, strName.c_str() );
+        return (void*)DYNLIB_GETSYM( mInst, strName.data() );
     }
     //-----------------------------------------------------------------------
     auto DynLib::dynlibError( ) -> String 

@@ -179,7 +179,7 @@ Parameter::Parameter() : mName(""), mType(GCT_UNKNOWN), mSemantic(SPS_UNKNOWN), 
 }
 
 //-----------------------------------------------------------------------
-Parameter::Parameter(GpuConstantType type, std::string_view name, 
+Parameter::Parameter(GpuConstantType type, std::string_view name,
             const Semantic& semantic, int index, 
             const Content& content, size_t size) :
     mName(name), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
@@ -187,7 +187,7 @@ Parameter::Parameter(GpuConstantType type, std::string_view name,
 }
 
 //-----------------------------------------------------------------------
-UniformParameter::UniformParameter(GpuConstantType type, const String& name, 
+UniformParameter::UniformParameter(GpuConstantType type, std::string_view name,
                  const Semantic& semantic, int index, 
                  const Content& content,
                  uint16 variability, size_t size) : Parameter(type, name, semantic, index, content, size)
@@ -641,12 +641,12 @@ auto ParameterFactory::createConstParam(float val) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createUniform(GpuConstantType type, 
                                              int index, uint16 variability,
-                                             const String& suggestedName,
+                                             std::string_view suggestedName,
                                              size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;
     
-    param = std::make_shared<UniformParameter>(type, suggestedName + StringConverter::toString(index), 
+    param = std::make_shared<UniformParameter>(type, std::format("{}{}", suggestedName, index),
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN, variability, size);
         

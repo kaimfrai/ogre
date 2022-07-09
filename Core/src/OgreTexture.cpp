@@ -49,8 +49,8 @@ THE SOFTWARE.
 namespace Ogre {
     const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
     //--------------------------------------------------------------------------
-    Texture::Texture(ResourceManager* creator, const String& name, 
-        ResourceHandle handle, const String& group, bool isManual, 
+    Texture::Texture(ResourceManager* creator, std::string_view name, 
+        ResourceHandle handle, std::string_view group, bool isManual, 
         ManualResourceLoader* loader)
         : Resource(creator, name, handle, group, isManual, loader)
             
@@ -366,7 +366,7 @@ namespace Ogre {
     auto Texture::getSourceFileType() const -> String
     {
         if (mName.empty())
-            return BLANKSTRING;
+            return "";
 
         String::size_type pos = mName.find_last_of('.');
         if (pos != String::npos && pos < (mName.length() - 1))
@@ -415,11 +415,11 @@ namespace Ogre {
     }
 
     //--------------------------------------------------------------------------
-    void Texture::getCustomAttribute(const String&, void*)
+    void Texture::getCustomAttribute(std::string_view , void*)
     {
     }
 
-    void Texture::readImage(LoadedImages& imgs, const String& name, const String& ext, bool haveNPOT)
+    void Texture::readImage(LoadedImages& imgs, std::string_view name, std::string_view ext, bool haveNPOT)
     {
         DataStreamPtr dstream = ResourceGroupManager::getSingleton().openResource(name, mGroup, this);
 
@@ -448,7 +448,7 @@ namespace Ogre {
         bool haveNPOT = renderCaps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES) ||
                         (renderCaps->getNonPOW2TexturesLimited() && mNumMipmaps == 0);
 
-        String baseName, ext;
+        std::string_view baseName, ext;
         StringUtil::splitBaseFilename(mName, baseName, ext);
 
         LoadedImages loadedImages;
@@ -474,7 +474,7 @@ namespace Ogre {
             {
                 mLayerNames.resize(6);
                 for (size_t i = 0; i < 6; i++)
-                    mLayerNames[i] = std::format("{}{}.{}", baseName.c_str(), CUBEMAP_SUFFIXES[i], ext.c_str());
+                    mLayerNames[i] = std::format("{}{}.{}", baseName, CUBEMAP_SUFFIXES[i], ext);
             }
             else if (mTextureType == TEX_TYPE_2D_ARRAY)
             { // ignore
@@ -484,7 +484,7 @@ namespace Ogre {
         }
 
         // read sub-images
-        for(const String& name : mLayerNames)
+        for(std::string_view name : mLayerNames)
         {
             StringUtil::splitBaseFilename(name, baseName, ext);
             readImage(loadedImages, name, ext, haveNPOT);

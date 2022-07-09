@@ -66,7 +66,7 @@ namespace Ogre {
         ConfigOption optDisplayFrequency;
         optDisplayFrequency.name = "Display Frequency";
         optDisplayFrequency.immutable = false;
-        mOptions[optDisplayFrequency.name] = optDisplayFrequency;
+        mOptions["Display Frequency"] = optDisplayFrequency;
 
         ConfigOption optVideoMode;
         optVideoMode.name = "Video Mode";
@@ -77,7 +77,7 @@ namespace Ogre {
         }
         removeDuplicates(optVideoMode.possibleValues); // also sorts
         optVideoMode.currentValue = optVideoMode.possibleValues[0];
-        mOptions[optVideoMode.name] = optVideoMode;
+        mOptions["Video Mode"] = optVideoMode;
 
         ConfigOption optFSAA;
         optFSAA.name = "FSAA";
@@ -91,7 +91,7 @@ namespace Ogre {
             removeDuplicates(optFSAA.possibleValues);
             optFSAA.currentValue = optFSAA.possibleValues[0];
         }
-        mOptions[optFSAA.name] = optFSAA;
+        mOptions["FSAA"] = optFSAA;
 
         refreshConfig();
     }
@@ -156,7 +156,7 @@ namespace Ogre {
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLRenderSystemCommon::setConfigOption(const String &name, const String &value)
+    void GLRenderSystemCommon::setConfigOption(std::string_view name, std::string_view value)
     {
         auto option = mOptions.find(name);
         if (option == mOptions.end()) {
@@ -168,7 +168,7 @@ namespace Ogre {
             refreshConfig();
     }
 
-    auto GLRenderSystemCommon::checkExtension(const String& ext) const -> bool
+    auto GLRenderSystemCommon::checkExtension(std::string_view ext) const -> bool
     {
         return mExtensionList.find(ext) != mExtensionList.end() || mGLSupport->checkExtension(ext);
     }

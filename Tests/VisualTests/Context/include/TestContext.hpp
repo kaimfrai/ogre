@@ -91,7 +91,7 @@ class TestContext : public OgreBites::SampleContext
     auto oneTimeConfig() -> bool override;
 
     /** Set up directories for the tests to output to */
-    virtual void setupDirectories(String batchName);
+    virtual void setupDirectories(std::string_view batchName);
 
     /** Called after tests successfully complete, generates output */
     virtual void finishedTests();
@@ -111,7 +111,7 @@ class TestContext : public OgreBites::SampleContext
     }
 
  private:
-    using PluginMap = std::map<String, ::std::unique_ptr<OgreBites::SamplePlugin>>;
+    using PluginMap = std::map<std::string_view, ::std::unique_ptr<OgreBites::SamplePlugin>>;
     bool mSuccess{true};
 
     /// The timestep

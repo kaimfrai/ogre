@@ -114,17 +114,17 @@ namespace Ogre
         return node;
     }
 
-    void ObjectAbstractNode::addVariable(const Ogre::String &inName)
+    void ObjectAbstractNode::addVariable(std::string_view inName)
     {
         mEnv.insert(std::make_pair(inName, ""));
     }
 
-    void ObjectAbstractNode::setVariable(const Ogre::String &inName, const Ogre::String &value)
+    void ObjectAbstractNode::setVariable(std::string_view inName, std::string_view value)
     {
-        mEnv[inName] = value;
+        mEnv[std::string{inName}] = value;
     }
 
-    auto ObjectAbstractNode::getVariable(const String &inName) const -> std::pair<bool,String>
+    auto ObjectAbstractNode::getVariable(std::string_view inName) const -> std::pair<bool,String>
     {
         auto i = mEnv.find(inName);
         if(i != mEnv.end())
@@ -141,7 +141,7 @@ namespace Ogre
         return std::make_pair(false, "");
     }
 
-    auto ObjectAbstractNode::getVariables() const -> const std::map<String,String> &
+    auto ObjectAbstractNode::getVariables() const -> const decltype(mEnv) &
     {
         return mEnv;
     }
@@ -209,7 +209,7 @@ namespace Ogre
     ScriptCompilerListener::ScriptCompilerListener()
     = default;
 
-    auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, const String &name) -> ConcreteNodeListPtr
+    auto ScriptCompilerListener::importFile(ScriptCompiler *compiler, std::string_view name) -> ConcreteNodeListPtr
     {
         return {};
     }
@@ -224,7 +224,7 @@ namespace Ogre
         return true;
     }
 
-    void ScriptCompilerListener::handleError(ScriptCompiler *compiler, uint32 code, const String &file, int line, const String &msg)
+    void ScriptCompilerListener::handleError(ScriptCompiler *compiler, uint32 code, std::string_view file, int line, std::string_view msg)
     {
         StringStream ss;
         ss << "ScriptCompiler - " << ScriptCompiler::formatErrorCode(code) << " in " << file << "(" << line << ")";
@@ -284,13 +284,13 @@ namespace Ogre
         initWordMap();
     }
 
-    auto ScriptCompiler::compile(const String &str, const String &source, const String &group) -> bool
+    auto ScriptCompiler::compile(std::string_view str, std::string_view source, std::string_view group) -> bool
     {
         ConcreteNodeListPtr nodes = ScriptParser::parse(ScriptLexer::tokenize(str, source), source);
         return compile(nodes, group);
     }
 
-    auto ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, const String &group) -> bool
+    auto ScriptCompiler::compile(const ConcreteNodeListPtr &nodes, std::string_view group) -> bool
     {
         // Set up the compilation context
         mGroup = group;
@@ -335,7 +335,7 @@ namespace Ogre
         return mErrors.empty();
     }
 
-    void ScriptCompiler::addError(uint32 code, const Ogre::String &file, int line, const String &msg)
+    void ScriptCompiler::addError(uint32 code, std::string_view file, int line, std::string_view msg)
     {
         if(mListener)
         {
@@ -360,7 +360,7 @@ namespace Ogre
         return mListener;
     }
 
-    auto ScriptCompiler::getResourceGroup() const -> const String &
+    auto ScriptCompiler::getResourceGroup() const -> std::string_view
     {
         return mGroup;
     }
@@ -466,7 +466,7 @@ namespace Ogre
         }
     }
 
-    auto ScriptCompiler::loadImportPath(const Ogre::String &name) -> AbstractNodeListPtr
+    auto ScriptCompiler::loadImportPath(std::string_view name) -> AbstractNodeListPtr
     {
         AbstractNodeListPtr retval;
         ConcreteNodeListPtr nodes;
@@ -490,7 +490,7 @@ namespace Ogre
         return retval;
     }
 
-    auto ScriptCompiler::locateTarget(const AbstractNodeList& nodes, const Ogre::String &target) -> AbstractNodeList
+    auto ScriptCompiler::locateTarget(const AbstractNodeList& nodes, std::string_view target) -> AbstractNodeList
     {
         auto iter = nodes.end();
     
@@ -524,7 +524,7 @@ namespace Ogre
                 bool isOverlayElement = obj->cls == "overlay_element";
 
                 // Overlay base classes in order.
-                for (String& base : obj->bases)
+                for (auto& base : obj->bases)
                 {
                     // Check the top level first, then check the import table
                     AbstractNodeList newNodes = locateTarget(top, base);
@@ -1169,7 +1169,7 @@ namespace Ogre
 		mLargestRegisteredWordId = ID_END_BUILTIN_IDS;
 	}
 
-	auto ScriptCompiler::registerCustomWordId(const String &word) -> uint32
+	auto ScriptCompiler::registerCustomWordId(std::string_view word) -> uint32
 	{
 		// if the word is already registered, just return the right id
 		auto iter = mIds.find(word);
@@ -1245,10 +1245,10 @@ namespace Ogre
             }
 
             auto i = node->children.begin();
-            String name = (*i)->token;
+            auto const name = (*i)->token;
 
             ++i;
-            String value = (*i)->token;
+            auto const value = (*i)->token;
 
             if(mCurrent && mCurrent->type == ANT_OBJECT)
             {
@@ -1533,14 +1533,14 @@ namespace Ogre
         return translator;
 	}
 	//-----------------------------------------------------------------------
-	auto ScriptCompilerManager::registerCustomWordId(const String &word) -> uint32
+	auto ScriptCompilerManager::registerCustomWordId(std::string_view word) -> uint32
 	{
 		return mScriptCompiler.registerCustomWordId(word);
     }
     //-----------------------------------------------------------------------
-    void ScriptCompilerManager::addScriptPattern(const String &pattern)
+    void ScriptCompilerManager::addScriptPattern(std::string_view pattern)
     {
-        mScriptPatterns.push_back(pattern);
+        mScriptPatterns.emplace_back(pattern);
     }
     //-----------------------------------------------------------------------
     auto ScriptCompilerManager::getScriptPatterns() const noexcept -> const StringVector&
@@ -1554,7 +1554,7 @@ namespace Ogre
         return 90.0f;
     }
     //-----------------------------------------------------------------------
-    void ScriptCompilerManager::parseScript(DataStreamPtr& stream, const String& groupName)
+    void ScriptCompilerManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
     {
         ConcreteNodeListPtr nodes =
             ScriptParser::parse(ScriptLexer::tokenize(stream->getAsString(), stream->getName()), stream->getName());

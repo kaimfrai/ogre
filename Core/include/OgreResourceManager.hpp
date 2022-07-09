@@ -122,7 +122,7 @@ namespace Ogre {
         @param createParams If any parameters are required to create an instance,
             they should be supplied here as name / value pairs
         */
-        auto createResource(const String& name, const String& group,
+        auto createResource(std::string_view name, std::string_view group,
             bool isManual = false, ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* createParams = nullptr) -> ResourcePtr;
 
@@ -139,8 +139,8 @@ namespace Ogre {
         @return A pair, the first element being the pointer, and the second being 
             an indicator specifying whether the resource was newly created.
         */
-        auto createOrRetrieve(const String& name,
-            const String& group, bool isManual = false, 
+        auto createOrRetrieve(std::string_view name,
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* createParams = nullptr) -> ResourceCreateOrRetrieveResult;
         
@@ -166,7 +166,7 @@ namespace Ogre {
             as much as they can and wait to be reloaded.
             @see ResourceGroupManager for unloading of resource groups.
         */
-        void  unload(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT);
+        void  unload(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT);
         
         /** Unloads a single resource by handle.
         @remarks
@@ -280,7 +280,7 @@ namespace Ogre {
         void remove(const ResourcePtr& r);
 
         /// @overload
-        void remove(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT);
+        void remove(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT);
         
         /// @overload
         void remove(ResourceHandle handle);
@@ -318,14 +318,14 @@ namespace Ogre {
 
         /** Retrieves a pointer to a resource by name, or null if the resource does not exist.
         */
-        virtual auto getResourceByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> ResourcePtr;
+        virtual auto getResourceByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> ResourcePtr;
 
         /** Retrieves a pointer to a resource by handle, or null if the resource does not exist.
         */
         virtual auto getByHandle(ResourceHandle handle) const -> ResourcePtr;
         
         /// Returns whether the named resource exists in this manager
-        auto resourceExists(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const -> bool
+        auto resourceExists(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT) const -> bool
         {
             return getResourceByName(name, group).get() != nullptr;
         }
@@ -365,8 +365,8 @@ namespace Ogre {
         @param backgroundThread Optional boolean which lets the load routine know if it
             is being run on the background resource loading thread
         */
-        auto prepare(const String& name,
-            const String& group, bool isManual = false, 
+        auto prepare(std::string_view name,
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false) -> ResourcePtr;
 
@@ -375,17 +375,17 @@ namespace Ogre {
             (containing per-Resource-type parameters).
         @copydetails ResourceManager::prepare()
         */
-        auto load(const String& name,
-            const String& group, bool isManual = false, 
+        auto load(std::string_view name,
+            std::string_view group, bool isManual = false,
             ManualResourceLoader* loader = nullptr, const NameValuePairList* loadParams = nullptr,
             bool backgroundThread = false) -> ResourcePtr;
 
         auto getScriptPatterns() const noexcept -> const StringVector& override { return mScriptPatterns; }
-        void parseScript(DataStreamPtr& stream, const String& groupName) override;
+        void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         auto getLoadingOrder() const noexcept -> Real override { return mLoadOrder; }
 
         /** Gets a string identifying the type of resource this manager handles. */
-        auto getResourceType() const noexcept -> const String& { return mResourceType; }
+        auto getResourceType() const noexcept -> std::string_view { return mResourceType; }
 
         /** Sets whether this manager and its resources habitually produce log output */
         void setVerbose(bool v) { mVerbose = v; }
@@ -406,16 +406,16 @@ namespace Ogre {
             ResourcePool(std::string_view name);
             ~ResourcePool() override;
             /// Get the name of the pool
-            [[nodiscard]] auto getName() const noexcept -> const String&;
+            [[nodiscard]] auto getName() const noexcept -> std::string_view ;
             void clear() override;
         };
         
         /// Create a resource pool, or reuse one that already exists
-        auto getResourcePool(const String& name) -> ResourcePool*;
+        auto getResourcePool(std::string_view name) -> ResourcePool*;
         /// Destroy a resource pool
         void destroyResourcePool(ResourcePool* pool);
         /// Destroy a resource pool
-        void destroyResourcePool(const String& name);
+        void destroyResourcePool(std::string_view name);
         /// destroy all pools
         void destroyAllResourcePools();
 
@@ -449,8 +449,8 @@ namespace Ogre {
             to differentiate which concrete class is created.
 
         */
-        virtual auto createImpl(const String& name, ResourceHandle handle, 
-            const String& group, bool isManual, ManualResourceLoader* loader, 
+        virtual auto createImpl(std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams) -> Resource* = 0;
         /** Add a newly created resource to the manager (note weak reference) */
         virtual void addImpl( ResourcePtr& res );
@@ -462,8 +462,8 @@ namespace Ogre {
 
 
     public:
-        using ResourceMap = std::unordered_map<String, ResourcePtr>;
-        using ResourceWithGroupMap = std::unordered_map<String, ResourceMap>;
+        using ResourceMap = std::unordered_map<std::string, ResourcePtr, StringHash, std::equal_to<>>;
+        using ResourceWithGroupMap = std::unordered_map<std::string_view, ResourceMap>;
         using ResourceHandleMap = std::map<ResourceHandle, ResourcePtr>;
     protected:
         ResourceHandleMap mResourcesByHandle;
@@ -496,7 +496,7 @@ namespace Ogre {
         }
 
     protected:
-        using ResourcePoolMap = std::map<String, ResourcePool *>;
+        using ResourcePoolMap = std::map<std::string_view, ResourcePool *>;
         ResourcePoolMap mResourcePoolMap;
     };
 

@@ -47,7 +47,7 @@ namespace Ogre {
         return {};
     }
 
-    void Codec::encodeToFile(::std::any const& input, const String& outFileName) const
+    void Codec::encodeToFile(::std::any const& input, std::string_view outFileName) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }

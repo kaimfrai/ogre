@@ -56,7 +56,7 @@ namespace Ogre {
         /// Whether an error occurred
         bool error{false};
         /// Any messages from the process
-        String message;
+        std::string_view message;
 
         BackgroundProcessResult()  = default;
     };
@@ -142,7 +142,7 @@ namespace Ogre {
             determine if completed if not using listener
         */
         virtual auto initialiseResourceGroup(
-            const String& name, Listener* listener = nullptr) -> BackgroundProcessTicket;
+            std::string_view name, Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Initialise all resource groups which are yet to be initialised in 
             the background.
@@ -162,7 +162,7 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto prepareResourceGroup(const String& name, 
+        virtual auto prepareResourceGroup(std::string_view name, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Loads a resource group in the background.
@@ -173,7 +173,7 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto loadResourceGroup(const String& name, 
+        virtual auto loadResourceGroup(std::string_view name, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
 
 
@@ -186,7 +186,7 @@ namespace Ogre {
             the header and only use if you understand them.
         */
         virtual auto unload(
-            const String& resType, const String& name, 
+            std::string_view resType, std::string_view name, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Unload a single resource in the background. 
@@ -198,7 +198,7 @@ namespace Ogre {
             the header and only use if you understand them.
         */
         virtual auto unload(
-            const String& resType, ResourceHandle handle, 
+            std::string_view resType, ResourceHandle handle, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
 
         /** Unloads a resource group in the background.
@@ -209,7 +209,7 @@ namespace Ogre {
         @return Ticket identifying the request, use isProcessComplete() to 
             determine if completed if not using listener
         */
-        virtual auto unloadResourceGroup(const String& name, 
+        virtual auto unloadResourceGroup(std::string_view name, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
 
 
@@ -231,8 +231,8 @@ namespace Ogre {
             the header and only use if you understand them.
         */
         virtual auto prepare(
-            const String& resType, const String& name, 
-            const String& group, bool isManual = false, 
+            std::string_view resType, std::string_view name, 
+            std::string_view group, bool isManual = false, 
             ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* loadParams = nullptr, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;
@@ -255,8 +255,8 @@ namespace Ogre {
             the header and only use if you understand them.
         */
         virtual auto load(
-            const String& resType, const String& name, 
-            const String& group, bool isManual = false, 
+            std::string_view resType, std::string_view name, 
+            std::string_view group, bool isManual = false, 
             ManualResourceLoader* loader = nullptr, 
             const NameValuePairList* loadParams = nullptr, 
             Listener* listener = nullptr) -> BackgroundProcessTicket;

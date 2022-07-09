@@ -439,8 +439,8 @@ auto MeshSerializerTests::isContainerClone(T& a, T& b) -> bool
     return a.size() == b.size() && std::ranges::equal(a, b);
 }
 //--------------------------------------------------------------------------
-template<typename K, typename V>
-auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool
+template<typename K, typename V, typename H, typename E>
+auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V, H, E>& a, const std::unordered_map<K, V, H, E>& b) -> bool
 {
     // if you recreate a HashMap with same elements, then iteration order may differ!
     // So isContainerClone is not always working on HashMap.
@@ -504,8 +504,8 @@ void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshL
 void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, String& outPath)
 {
     ResourceGroupManager& resourceGroupMgr = ResourceGroupManager::getSingleton();
-    String group = resource->getGroup();
-    String name = resource->getName();
+    auto const group = resource->getGroup();
+    auto const name = resource->getName();
     FileInfo const* info = nullptr;
     FileInfoListPtr locPtr = resourceGroupMgr.listResourceFileInfo(group);
     for (auto const& it : *locPtr) {
@@ -531,13 +531,13 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
-auto MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath) -> bool
+auto MeshSerializerTests::copyFile(std::string_view srcPath, std::string_view dstPath) -> bool
 {
-    std::ifstream src(srcPath.c_str(), std::ios::binary);
+    std::ifstream src(std::filesystem::path{srcPath}, std::ios::binary);
     if (!src.is_open()) {
         return false;
     }
-    std::ofstream dst(dstPath.c_str(), std::ios::binary);
+    std::ofstream dst(std::filesystem::path{dstPath}, std::ios::binary);
     if (!dst.is_open()) {
         return false;
     }

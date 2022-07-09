@@ -125,7 +125,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType                 () const noexcept -> const Ogre::String& override;
+    auto getType                 () const noexcept -> std::string_view override;
 
 
     /** 
@@ -218,7 +218,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> const String& override;
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
@@ -241,7 +241,7 @@ protected:
     /** 
     @Converts string to Enum
     */
-    auto stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode;
+    auto stringToBlendMode(std::string_view strValue) -> LayeredBlending::BlendMode;
     /** 
     @Converts Enum to string
     */
@@ -250,7 +250,7 @@ protected:
     /** 
     @Converts string to Enum
     */
-    auto stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier;
+    auto stringToSourceModifier(std::string_view strValue) -> LayeredBlending::SourceModifier;
     
     /** 
     @Converts Enum to string

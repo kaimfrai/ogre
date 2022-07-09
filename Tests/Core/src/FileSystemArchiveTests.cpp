@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-[[nodiscard]] static auto operator<=> (const FileInfo& a, const FileInfo& b) noexcept -> ::std::strong_ordering
+[[nodiscard]] static auto operator<=> (const FileInfo& a, const FileInfo& b) noexcept -> ::std::weak_ordering
 {
     return a.basename <=> b.basename;
 }
@@ -74,7 +74,7 @@ void FileSystemArchiveTests::TearDown()
 //--------------------------------------------------------------------------
 TEST_F(FileSystemArchiveTests,ListNonRecursive)
 {
-    StringVectorPtr vec = mArch->list(false);
+    auto const vec = mArch->list(false);
 
     EXPECT_EQ((unsigned int)2, (unsigned int)vec->size());
     sort(vec->begin(), vec->end());
@@ -90,7 +90,7 @@ TEST_F(FileSystemArchiveTests,Exists)
 //--------------------------------------------------------------------------
 TEST_F(FileSystemArchiveTests,ListRecursive)
 {
-    StringVectorPtr vec = mArch->list(true);
+    auto const vec = mArch->list(true);
 
     EXPECT_EQ((size_t)6, vec->size());
     sort(vec->begin(), vec->end());

@@ -214,7 +214,7 @@ namespace Ogre {
         mStream->write(buf, size * count);
     }
     //---------------------------------------------------------------------
-    void Serializer::writeString(::std::string_view string)
+    void Serializer::writeString(std::string_view string)
     {
         // Old, backwards compatible way - \n terminated
         mStream->write(string.data(), string.length());
@@ -367,7 +367,7 @@ namespace Ogre {
         return sizeof(uint16) + sizeof(uint32);
     }
 
-    auto Serializer::calcStringSize( const String& string ) -> size_t
+    auto Serializer::calcStringSize( std::string_view string ) -> size_t
     {
         // string + terminating \n character
         return string.length() + 1;

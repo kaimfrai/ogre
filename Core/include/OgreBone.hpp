@@ -59,7 +59,7 @@ class Skeleton;
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */
         Bone(unsigned short handle, Skeleton* creator);
         /** Constructor, not to be used directly (use Bone::createChild or Skeleton::createBone) */
-        Bone(::std::string_view name, unsigned short handle, Skeleton* creator);
+        Bone(std::string_view name, unsigned short handle, Skeleton* creator);
         ~Bone() override;
 
     private:
@@ -136,7 +136,7 @@ class Skeleton;
         /** See Node. */
         auto createChildImpl() -> Node* override;
         /** See Node. */
-        auto createChildImpl(const String& name) -> Node* override;
+        auto createChildImpl(std::string_view name) -> Node* override;
 
         /// Pointer back to creator, for child creation (not smart ptr so child does not preserve parent)
         Skeleton* mCreator;

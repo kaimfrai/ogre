@@ -82,11 +82,11 @@ public:
 
     template<typename T>
     auto isContainerClone(T& a, T& b) -> bool;
-    template<typename K, typename V>
-    auto isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool;
+    template<typename K, typename V, typename H, typename E>
+    auto isHashMapClone(const std::unordered_map<K, V, H, E>& a, const std::unordered_map<K, V, H, E>& b) -> bool;
 
     void getResourceFullPath(const ResourcePtr& resource, String& outPath);
-    auto copyFile(const String& srcPath, const String& dstPath) -> bool;
+    auto copyFile(std::string_view srcPath, std::string_view dstPath) -> bool;
     auto isLodMixed(const Mesh* pMesh) -> bool;
     auto isEqual(Real a, Real b) -> bool;
     auto isEqual(const Vector3& a, const Vector3& b) -> bool;

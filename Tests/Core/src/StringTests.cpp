@@ -60,7 +60,7 @@ void StringTests::TearDown()
 //--------------------------------------------------------------------------
 TEST_F(StringTests,SplitBaseFilename)
 {
-    String base, ext;
+    std::string_view base, ext;
 
     StringUtil::splitBaseFilename("basename.ext", base, ext);
     EXPECT_EQ("basename", base);
@@ -72,7 +72,7 @@ TEST_F(StringTests,SplitBaseFilename)
 }
 TEST_F(StringTests,SplitFileNameNoPath)
 {
-    String basename, path;
+    std::string_view basename, path;
     StringUtil::splitFilename(testFileNoPath, basename, path);
 
     EXPECT_EQ(testFileNoPath, basename);
@@ -81,7 +81,7 @@ TEST_F(StringTests,SplitFileNameNoPath)
 //--------------------------------------------------------------------------
 TEST_F(StringTests,SplitFileNameRelativePath)
 {
-    String basename, path;
+    std::string_view basename, path;
 
     // Unix
     StringUtil::splitFilename(testFileRelativePathUnix, basename, path);
@@ -91,12 +91,12 @@ TEST_F(StringTests,SplitFileNameRelativePath)
     // Windows
     StringUtil::splitFilename(testFileRelativePathWindows, basename, path);
     EXPECT_EQ(String("testfile.txt"), basename);
-    EXPECT_EQ(String("this/is/relative/"), path);
+    EXPECT_EQ(String("this\\is\\relative\\"), path);
 }
 //--------------------------------------------------------------------------
 TEST_F(StringTests,SplitFileNameAbsolutePath)
 {
-    String basename, path;
+    std::string_view  basename, path;
 
     // Unix
     StringUtil::splitFilename(testFileAbsolutePathUnix, basename, path);
@@ -106,7 +106,7 @@ TEST_F(StringTests,SplitFileNameAbsolutePath)
     // Windows
     StringUtil::splitFilename(testFileAbsolutePathWindows, basename, path);
     EXPECT_EQ(String("testfile.txt"), basename);
-    EXPECT_EQ(String("c:/this/is/absolute/"), path);
+    EXPECT_EQ(String("c:\\this\\is\\absolute\\"), path);
 }
 //--------------------------------------------------------------------------
 TEST_F(StringTests,MatchCaseSensitive)

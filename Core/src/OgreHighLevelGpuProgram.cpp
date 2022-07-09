@@ -50,9 +50,9 @@ namespace Ogre
         //-----------------------------------------------------------------------
         auto doGet(const void* target) const -> String override
         {
-            return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
+            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines() };
         }
-        void doSet(void* target, const String& val) override
+        void doSet(void* target, std::string_view val) override
         {
             static_cast<HighLevelGpuProgram*>(target)->setPreprocessorDefines(val);
         }
@@ -65,9 +65,9 @@ namespace Ogre
     public:
         auto doGet(const void* target) const -> String override
         {
-            return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
+            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint() };
         }
-        void doSet(void* target, const String& val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
+        void doSet(void* target, std::string_view val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
     };
     static CmdEntryPoint msCmdEntryPoint;
 
@@ -82,7 +82,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------------
     HighLevelGpuProgram::HighLevelGpuProgram(ResourceManager* creator, 
-        const String& name, ResourceHandle handle, const String& group, 
+        std::string_view name, ResourceHandle handle, std::string_view group,
         bool isManual, ManualResourceLoader* loader)
         : GpuProgram(creator, name, handle, group, isManual, loader), 
          mEntryPoint("main")
@@ -216,10 +216,10 @@ namespace Ogre
         auto renderSystem = Root::getSingleton().getRenderSystem();
 
         // OGRE_HLSL, OGRE_GLSL etc.
-        String tmp = getLanguage();
+        std::string tmp{ getLanguage() };
         StringUtil::toUpperCase(tmp);
         auto ver = renderSystem ? renderSystem->getNativeShadingLanguageVersion() : 0;
-        defines += std::format("OGRE_{}={}", tmp.c_str(), ver);
+        defines += std::format("OGRE_{}={}", tmp, ver);
 
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
         tmp = GpuProgram::getProgramTypeName(getType());
@@ -275,7 +275,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto HighLevelGpuProgram::_resolveIncludes(const String& inSource, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename) -> String
+    auto HighLevelGpuProgram::_resolveIncludes(std::string_view inSource, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename) -> String
     {
         String outSource;
         // output will be at least this big
@@ -284,7 +284,7 @@ namespace Ogre
         size_t startMarker = 0;
         size_t i = inSource.find("#include");
 
-        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.c_str()) : " 0";
+        String lineFilename = supportsFilename ? std::format(" \"{}\"", fileName.data()) : " 0";
 
         while (i != String::npos)
         {

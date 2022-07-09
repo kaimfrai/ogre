@@ -38,7 +38,7 @@ namespace OgreBites {
 
 static const char* SHADER_CACHE_FILENAME = "cache.bin";
 
-ApplicationContextBase::ApplicationContextBase(const Ogre::String& appName)
+ApplicationContextBase::ApplicationContextBase(std::string_view appName)
 {
     mAppName = appName;
     mFSLayer = ::std::make_unique<Ogre::FileSystemLayer>(mAppName);
@@ -235,7 +235,7 @@ auto ApplicationContextBase::frameRenderingQueued(const Ogre::FrameEvent& evt) -
     return true;
 }
 
-auto ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
+auto ApplicationContextBase::createWindow(std::string_view name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
     NativeWindowPair ret = {nullptr, nullptr};
 
@@ -265,7 +265,7 @@ auto ApplicationContextBase::createWindow(const Ogre::String& name, Ogre::uint32
     return ret;
 }
 
-void ApplicationContextBase::destroyWindow(const Ogre::String& name)
+void ApplicationContextBase::destroyWindow(std::string_view name)
 {
     for (auto it = mWindows.begin(); it != mWindows.end(); ++it)
     {
@@ -374,14 +374,14 @@ void ApplicationContextBase::locateResources()
         // go through all resource paths
         for (auto const& [type, value] : settings)
         {
-            auto arch = value;
+            std::string arch{ value };
             Ogre::StringUtil::trim(arch);
             if (arch.empty() || arch[0] == '.')
             {
                 // resolve relative path with regards to configfile
-                Ogre::String baseDir, filename;
+                std::string_view baseDir, filename;
                 Ogre::StringUtil::splitFilename(resourcesPath, filename, baseDir);
-                arch = baseDir + arch;
+                arch = std::format("{}{}", baseDir, arch);
             }
 
             arch = Ogre::FileSystemLayer::resolveBundlePath(arch);
@@ -412,7 +412,7 @@ void ApplicationContextBase::loadResources()
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void ApplicationContextBase::reconfigure(const Ogre::String &renderer, Ogre::NameValuePairList &options)
+void ApplicationContextBase::reconfigure(std::string_view renderer, Ogre::NameValuePairList &options)
 {
     mNextRenderer = renderer;
     Ogre::RenderSystem* rs = mRoot->getRenderSystemByName(renderer);

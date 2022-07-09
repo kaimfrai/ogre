@@ -74,8 +74,8 @@ class Affine3;
     {
     }
     //---------------------------------------------------------------------
-    Skeleton::Skeleton(ResourceManager* creator, const String& name, ResourceHandle handle,
-        const String& group, bool isManual, ManualResourceLoader* loader) 
+    Skeleton::Skeleton(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader) 
         : Resource(creator, name, handle, group, isManual, loader), 
         mNextAutoHandle(0), mBlendState(ANIMBLEND_AVERAGE)
         // set animation blending to weighted, not cumulative
@@ -142,7 +142,7 @@ class Affine3;
         return createBone(mNextAutoHandle++);
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createBone(::std::string_view name) -> Bone*
+    auto Skeleton::createBone(std::string_view name) -> Bone*
     {
         return createBone(name, mNextAutoHandle++);
     }
@@ -170,7 +170,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createBone(::std::string_view name, unsigned short handle) -> Bone*
+    auto Skeleton::createBone(std::string_view name, unsigned short handle) -> Bone*
     {
         OgreAssert(handle < OGRE_MAX_NUM_BONES, "Exceeded the maximum number of bones per skeleton");
         // Check handle not used
@@ -287,7 +287,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createAnimation(const String& name, Real length) -> Animation*
+    auto Skeleton::createAnimation(std::string_view name, Real length) -> Animation*
     {
         // Check name not used
         if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -302,13 +302,13 @@ class Affine3;
         ret->_notifyContainer(this);
 
         // Add to list
-        mAnimationsList[name] = ret;
+        mAnimationsList[std::string{ name }] = ret;
 
         return ret;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getAnimation(const String& name, 
+    auto Skeleton::getAnimation(std::string_view name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = _getAnimationImpl(name, linker);
@@ -321,17 +321,17 @@ class Affine3;
         return ret;
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getAnimation(const String& name) const -> Animation*
+    auto Skeleton::getAnimation(std::string_view name) const -> Animation*
     {
         return getAnimation(name, nullptr);
     }
     //---------------------------------------------------------------------
-    auto Skeleton::hasAnimation(const String& name) const -> bool
+    auto Skeleton::hasAnimation(std::string_view name) const -> bool
     {
         return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
-    auto Skeleton::_getAnimationImpl(const String& name, 
+    auto Skeleton::_getAnimationImpl(std::string_view name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = nullptr;
@@ -365,7 +365,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    void Skeleton::removeAnimation(const String& name)
+    void Skeleton::removeAnimation(std::string_view name)
     {
         auto i = mAnimationsList.find(name);
 
@@ -388,7 +388,7 @@ class Affine3;
         for (auto const& [key, anim] : mAnimationsList)
         {
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
-            const String& animName = anim->getName();
+            std::string_view animName = anim->getName();
             animSet->createAnimationState(animName, 0.0, anim->getLength());
         }
 
@@ -409,7 +409,7 @@ class Affine3;
         for (auto const& [key, anim] : mAnimationsList)
         {
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
-            const String& animName = anim->getName();
+            std::string_view animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
             {
                 animSet->createAnimationState(animName, 0.0, anim->getLength());
@@ -497,7 +497,7 @@ class Affine3;
         return mBoneList[handle];
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getBone(const String& name) const -> Bone*
+    auto Skeleton::getBone(std::string_view name) const -> Bone*
     {
         auto i = mBoneListByName.find(name);
 
@@ -511,7 +511,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::hasBone(::std::string_view name) const -> bool
+    auto Skeleton::hasBone(std::string_view name) const -> bool
     {   
         return mBoneListByName.find(name) != mBoneListByName.end();
     }
@@ -533,14 +533,14 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    void Skeleton::_dumpContents(const String& filename)
+    void Skeleton::_dumpContents(std::string_view filename)
     {
         std::ofstream of;
 
         Quaternion q;
         Radian angle;
         Vector3 axis;
-        of.open(filename.c_str());
+        of.open(filename.data());
 
         of << "-= Debug output of skeleton " << mName << " =-" << std::endl << std::endl;
         of << "== Bones ==" << std::endl;
@@ -644,7 +644,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    void Skeleton::addLinkedSkeletonAnimationSource(const String& skelName, 
+    void Skeleton::addLinkedSkeletonAnimationSource(std::string_view skelName, 
         Real scale)
     {
         // Check not already linked

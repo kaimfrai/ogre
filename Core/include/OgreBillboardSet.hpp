@@ -345,7 +345,7 @@ class VertexData;
         @see
             BillboardSet::setAutoextend
         */
-        BillboardSet( const String& name, unsigned int poolSize = 20, 
+        BillboardSet( std::string_view name, unsigned int poolSize = 20, 
             bool externalDataSource = false);
 
         ~BillboardSet() override;
@@ -525,12 +525,12 @@ class VertexData;
 
         /** Sets the name of the material to be used for this billboard set.
         */
-        virtual void setMaterialName( const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
+        virtual void setMaterialName( std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
 
         /** Sets the name of the material to be used for this billboard set.
         @return The name of the material that is used for this set.
         */
-        auto getMaterialName() const noexcept -> const String& { return mMaterial->getName(); }
+        auto getMaterialName() const noexcept -> std::string_view { return mMaterial->getName(); }
 
         void _notifyCurrentCamera(Camera* cam) override;
 
@@ -675,7 +675,7 @@ class VertexData;
         auto getUseAccurateFacing() const noexcept -> bool { return mAccurateFacing; }
         /// @}
 
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
         auto getSquaredViewDepth(const Camera* cam) const -> Real override;
 
         /** Update the bounds of the billboardset */
@@ -825,14 +825,14 @@ class VertexData;
     class BillboardSetFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
     public:
         BillboardSetFactory() = default;
         ~BillboardSetFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> const String& override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };
     /** @} */
     /** @} */

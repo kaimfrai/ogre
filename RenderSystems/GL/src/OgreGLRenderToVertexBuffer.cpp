@@ -94,7 +94,7 @@ namespace Ogre {
     }
 //-----------------------------------------------------------------------------
     static void checkGLError(bool logError, bool throwException,
-        const Ogre::String& sectionName = BLANKSTRING)
+        std::string_view sectionName = BLANKSTRING)
     {
         String msg;
         bool foundError = false;
@@ -110,7 +110,7 @@ namespace Ogre {
 
         if (foundError && (logError || throwException))
         {
-            String fullErrorMessage = ::std::format("GL Error : {} in ", msg ) + sectionName;
+            String fullErrorMessage = ::std::format("GL Error : {} in {}", msg, sectionName);
             if (logError)
             {
                 LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LML_CRITICAL);

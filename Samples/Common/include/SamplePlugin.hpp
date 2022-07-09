@@ -47,7 +47,7 @@ namespace OgreBites
         {
         }
 
-        [[nodiscard]] auto getName() const noexcept -> const Ogre::String& override
+        [[nodiscard]] auto getName() const noexcept -> std::string_view override
         {
             return mName;
         }

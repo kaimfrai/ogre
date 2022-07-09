@@ -33,7 +33,7 @@
 namespace OgreBites {
 struct InputListener;
 
-ApplicationContextSDL::ApplicationContextSDL(const Ogre::String& appName) : ApplicationContextBase(appName)
+ApplicationContextSDL::ApplicationContextSDL(std::string_view appName) : ApplicationContextBase(appName)
 {
 }
 
@@ -48,7 +48,7 @@ void ApplicationContextSDL::removeInputListener(NativeWindowType* win, InputList
     mInputListeners.erase(std::make_pair(SDL_GetWindowID(win), lis));
 }
 
-auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
+auto ApplicationContextSDL::createWindow(std::string_view name, Ogre::uint32 w, Ogre::uint32 h, Ogre::NameValuePairList miscParams) -> NativeWindowPair
 {
     NativeWindowPair ret = {nullptr, nullptr};
 
@@ -71,7 +71,7 @@ auto ApplicationContextSDL::createWindow(const Ogre::String& name, Ogre::uint32 
     int flags = p.useFullScreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE;
     int d = Ogre::StringConverter::parseInt(miscParams["monitorIndex"], 1) - 1;
     ret.native =
-        SDL_CreateWindow(p.name.c_str(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(d),
+        SDL_CreateWindow(p.name.data(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(d),
                          SDL_WINDOWPOS_UNDEFINED_DISPLAY(d), p.width, p.height, flags);
 
     SDL_SysWMinfo wmInfo;

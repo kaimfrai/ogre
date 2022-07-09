@@ -40,9 +40,9 @@ namespace Ogre::OverlayElementCommands {
         //-----------------------------------------------------------------------
         auto CmdMaterial::doGet(const void* target) const -> String
         {
-            return static_cast<const OverlayElement*>(target)->getMaterialName();
+            return std::string{ static_cast<const OverlayElement*>(target)->getMaterialName() };
         }
-        void CmdMaterial::doSet(void* target, const String& val)
+        void CmdMaterial::doSet(void* target, std::string_view val)
         {
             if (val != "")
             {
@@ -53,9 +53,9 @@ namespace Ogre::OverlayElementCommands {
         //-----------------------------------------------------------------------
         auto CmdCaption::doGet(const void* target) const -> String
         {
-            return static_cast<const OverlayElement*>(target)->getCaption();
+            return std::string{ static_cast<const OverlayElement*>(target)->getCaption() };
         }
-        void CmdCaption::doSet(void* target, const String& val)
+        void CmdCaption::doSet(void* target, std::string_view val)
         {
             static_cast<OverlayElement*>(target)->setCaption(val);
         }
@@ -79,7 +79,7 @@ namespace Ogre::OverlayElementCommands {
                 return "relative";
             }
         }
-        void CmdMetricsMode::doSet(void* target, const String& val)
+        void CmdMetricsMode::doSet(void* target, std::string_view val)
         {
             if (val == "pixels")
             {
@@ -113,7 +113,7 @@ namespace Ogre::OverlayElementCommands {
             // To keep compiler happy
             return "center";
         }
-        void CmdHorizontalAlign::doSet(void* target, const String& val)
+        void CmdHorizontalAlign::doSet(void* target, std::string_view val)
         {
             if (val == "left")
             {
@@ -147,7 +147,7 @@ namespace Ogre::OverlayElementCommands {
             // To keep compiler happy
             return "center";
         }
-        void CmdVerticalAlign::doSet(void* target, const String& val)
+        void CmdVerticalAlign::doSet(void* target, std::string_view val)
         {
             if (val == "top")
             {
@@ -170,7 +170,7 @@ namespace Ogre::OverlayElementCommands {
         {
             return StringConverter::toString(static_cast<const OverlayElement*>(target)->isVisible());
         }
-        void CmdVisible::doSet(void* target, const String& val)
+        void CmdVisible::doSet(void* target, std::string_view val)
         {
             if (val == "true")
             {

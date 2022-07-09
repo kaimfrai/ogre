@@ -51,8 +51,8 @@ namespace Ogre {
 class ResourceManager;
 
 //-----------------------------------------------------------------------
-Compositor::Compositor(ResourceManager* creator, const String& name, ResourceHandle handle,
-            const String& group, bool isManual, ManualResourceLoader* loader):
+Compositor::Compositor(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader):
     Resource(creator, name, handle, group, isManual, loader)
     
 {
@@ -148,7 +148,7 @@ void Compositor::compile()
     mCompilationRequired = false;
 }
 //---------------------------------------------------------------------
-auto Compositor::getSupportedTechnique(const String& schemeName) -> CompositionTechnique*
+auto Compositor::getSupportedTechnique(std::string_view schemeName) -> CompositionTechnique*
 {
     for(auto & mSupportedTechnique : mSupportedTechniques)
     {
@@ -180,7 +180,7 @@ void Compositor::createGlobalTextures()
     //To make sure that we are consistent, it is demanded that all composition
     //techniques define the same set of global textures.
 
-    using StringSet = std::set<String>;
+    using StringSet = std::set<std::string_view>;
     StringSet globalTextureNames;
 
     //Initialize global textures from first supported technique
@@ -312,12 +312,12 @@ void Compositor::freeGlobalTextures()
 
 }
 //-----------------------------------------------------------------------
-auto Compositor::getTextureInstanceName(const String& name, size_t mrtIndex) -> const String&
+auto Compositor::getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view
 {
     return getTextureInstance(name, mrtIndex)->getName();
 }
 //-----------------------------------------------------------------------       
-auto Compositor::getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&
+auto Compositor::getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&
 {
     //Try simple texture
     auto i = mGlobalTextures.find(name);
@@ -338,7 +338,7 @@ auto Compositor::getTextureInstance(const String& name, size_t mrtIndex) -> cons
         
 }
 //---------------------------------------------------------------------
-auto Compositor::getRenderTarget(const String& name, int slice) -> RenderTarget*
+auto Compositor::getRenderTarget(std::string_view name, int slice) -> RenderTarget*
 {
     // try simple texture
     auto i = mGlobalTextures.find(name);

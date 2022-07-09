@@ -87,7 +87,7 @@ class AnimationStateSet;
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);
         
         /// Gets the name of the animation to which this state applies
-        [[nodiscard]] auto getAnimationName() const noexcept -> const String&;
+        [[nodiscard]] auto getAnimationName() const noexcept -> std::string_view ;
         /// Gets the time position for this animation
         [[nodiscard]] auto getTimePosition() const -> Real;
         /// Sets the time position for this animation
@@ -190,7 +190,7 @@ class AnimationStateSet;
     };
 
     // A map of animation states
-    using AnimationStateMap = std::map<String, AnimationState *>;
+    using AnimationStateMap = std::map<std::string_view, AnimationState *>;
     using AnimationStateIterator = MapIterator<AnimationStateMap>;
     using ConstAnimationStateIterator = ConstMapIterator<AnimationStateMap>;
     // A list of enabled animation states
@@ -216,14 +216,14 @@ class AnimationStateSet;
         @param weight Weight to apply the animation with 
         @param enabled Whether the animation is enabled
         */
-        auto createAnimationState(const String& animName,  
+        auto createAnimationState(std::string_view animName,  
             Real timePos, Real length, Real weight = 1.0, bool enabled = false) -> AnimationState*;
         /// Get an animation state by the name of the animation
-        [[nodiscard]] auto getAnimationState(const String& name) const -> AnimationState*;
+        [[nodiscard]] auto getAnimationState(std::string_view name) const -> AnimationState*;
         /// Tests if state for the named animation is present
-        [[nodiscard]] auto hasAnimationState(const String& name) const -> bool;
+        [[nodiscard]] auto hasAnimationState(std::string_view name) const -> bool;
         /// Remove animation state with the given name
-        void removeAnimationState(const String& name);
+        void removeAnimationState(std::string_view name);
         /// Remove all animation states
         void removeAllAnimationStates();
 

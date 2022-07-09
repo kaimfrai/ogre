@@ -304,7 +304,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::_createRenderWindow(const String& name, unsigned int width,
+    auto RenderSystem::_createRenderWindow(std::string_view name, unsigned int width,
                                                     unsigned int height, bool fullScreen,
                                                     const NameValuePairList* miscParams) -> RenderWindow*
     {
@@ -336,17 +336,17 @@ namespace Ogre {
         return nullptr;
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderWindow(const String& name)
+    void RenderSystem::destroyRenderWindow(std::string_view name)
     {
         destroyRenderTarget(name);
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderTexture(const String& name)
+    void RenderSystem::destroyRenderTexture(std::string_view name)
     {
         destroyRenderTarget(name);
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderTarget(const String& name)
+    void RenderSystem::destroyRenderTarget(std::string_view name)
     {
         RenderTarget* rt = detachRenderTarget(name);
         delete rt;
@@ -361,7 +361,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::getRenderTarget( const String &name ) -> RenderTarget *
+    auto RenderSystem::getRenderTarget( std::string_view name ) -> RenderTarget *
     {
         auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
@@ -375,7 +375,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::detachRenderTarget( const String &name ) -> RenderTarget *
+    auto RenderSystem::detachRenderTarget( std::string_view name ) -> RenderTarget *
     {
         auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
@@ -777,7 +777,7 @@ namespace Ogre {
         mEventListeners.remove(l);
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::fireEvent(const String& name, const NameValuePairList* params)
+    void RenderSystem::fireEvent(std::string_view name, const NameValuePairList* params)
     {
         for(auto & mEventListener : mEventListeners)
         {
@@ -896,7 +896,7 @@ namespace Ogre {
         delete context;
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> const String&
+    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> std::string_view
     {
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {
@@ -946,7 +946,7 @@ namespace Ogre {
         mGlobalInstanceVertexBufferVertexDeclaration = val;
     }
     //---------------------------------------------------------------------
-    void RenderSystem::getCustomAttribute(const String& name, void* pData)
+    void RenderSystem::getCustomAttribute(std::string_view name, void* pData)
     {
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Attribute not found.", "RenderSystem::getCustomAttribute");
     }
@@ -960,7 +960,7 @@ namespace Ogre {
         optFullScreen.possibleValues.push_back( "Yes" );
         optFullScreen.currentValue = optFullScreen.possibleValues[0];
         optFullScreen.immutable = false;
-        mOptions[optFullScreen.name] = optFullScreen;
+        mOptions["Full Screen"] = optFullScreen;
 
         ConfigOption optVSync;
         optVSync.name = "VSync";
@@ -968,7 +968,7 @@ namespace Ogre {
         optVSync.possibleValues.push_back("No");
         optVSync.possibleValues.push_back("Yes");
         optVSync.currentValue = optVSync.possibleValues[1];
-        mOptions[optVSync.name] = optVSync;
+        mOptions["VSync"] = optVSync;
 
         ConfigOption optVSyncInterval;
         optVSyncInterval.name = "VSync Interval";
@@ -978,7 +978,7 @@ namespace Ogre {
         optVSyncInterval.possibleValues.push_back("3");
         optVSyncInterval.possibleValues.push_back("4");
         optVSyncInterval.currentValue = optVSyncInterval.possibleValues[0];
-        mOptions[optVSyncInterval.name] = optVSyncInterval;
+        mOptions["VSync Interval"] = optVSyncInterval;
 
         ConfigOption optSRGB;
         optSRGB.name = "sRGB Gamma Conversion";
@@ -986,7 +986,7 @@ namespace Ogre {
         optSRGB.possibleValues.push_back("No");
         optSRGB.possibleValues.push_back("Yes");
         optSRGB.currentValue = optSRGB.possibleValues[0];
-        mOptions[optSRGB.name] = optSRGB;
+        mOptions["sRGB Gamma Conversion"] = optSRGB;
     }
 
     auto RenderSystem::reverseCompareFunction(CompareFunction func) -> CompareFunction

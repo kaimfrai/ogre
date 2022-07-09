@@ -216,7 +216,7 @@ public:
     void setOperands(const OperandVector& ops);
 
     /** Abstract method that writes a source code to the given output stream in the target shader language. */
-    virtual void writeSourceCode(std::ostream& os, const String& targetLanguage) const = 0;
+    virtual void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const = 0;
 
 // Attributes.
 protected:
@@ -242,7 +242,7 @@ public:
     @param groupOrder The group order of this invocation.
     @param returnType The return type of the used function.
     */
-    FunctionInvocation(const String& functionName, int groupOrder, std::string_view returnType = "void");
+    FunctionInvocation(std::string_view functionName, int groupOrder, std::string_view returnType = "void");
 
     /** Copy constructor */
     FunctionInvocation(const FunctionInvocation& rhs);
@@ -250,22 +250,22 @@ public:
     /** 
     @see FunctionAtom::writeSourceCode
     */
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
+    void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const override;
 
     /** Return the function name */
-    [[nodiscard]] auto getFunctionName() const noexcept -> const String& { return mFunctionName; }
+    [[nodiscard]] auto getFunctionName() const noexcept -> std::string_view { return mFunctionName; }
 
     /** Return the return type */
-    [[nodiscard]] auto getReturnType() const noexcept -> const String& { return mReturnType; }
+    [[nodiscard]] auto getReturnType() const noexcept -> std::string_view { return mReturnType; }
 
     /** Determines if the current object is equal to the compared one. */
     [[nodiscard]] auto operator == ( const FunctionInvocation& rhs ) const noexcept -> bool
     {
-        return (*this <=> rhs) == ::std::strong_ordering::equal;
+        return (*this <=> rhs) == ::std::weak_ordering::equivalent;
     }
 
     /** Determines if the current object is less than the compared one. */
-    [[nodiscard]] auto operator <=> ( const FunctionInvocation& rhs ) const noexcept -> ::std::strong_ordering;
+    [[nodiscard]] auto operator <=> ( const FunctionInvocation& rhs ) const noexcept -> ::std::weak_ordering;
 
 private:
     FunctionInvocation() = default;
@@ -280,7 +280,7 @@ public:
     explicit AssignmentAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
     /// @note the argument order is reversed comered to all other function invocations
     AssignmentAtom(const Out& lhs, const In& rhs, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
+    void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const override;
 };
 
 /// shorthand for "dst = texture(sampler, uv);" instead of using FFP_SampleTexture
@@ -289,7 +289,7 @@ class SampleTextureAtom : public FunctionAtom
 public:
     explicit SampleTextureAtom(int groupOrder) { mGroupExecutionOrder = groupOrder; }
     SampleTextureAtom(const In& sampler, const In& texcoord, const Out& dst, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
+    void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const override;
 };
 
 /// shorthand for "dst = a OP b;"
@@ -299,7 +299,7 @@ class BinaryOpAtom : public FunctionAtom
 public:
     explicit BinaryOpAtom(char op, int groupOrder) : mOp(op) { mGroupExecutionOrder = groupOrder; }
     BinaryOpAtom(char op, const In& a, const In& b, const Out& dst, int groupOrder);
-    void writeSourceCode(std::ostream& os, const String& targetLanguage) const override;
+    void writeSourceCode(std::ostream& os, std::string_view targetLanguage) const override;
 };
 
 using FunctionAtomInstanceList = std::vector<FunctionAtom *>;

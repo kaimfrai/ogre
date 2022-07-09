@@ -100,7 +100,7 @@ class VertexData;
         virtual void writeSubMeshOperation(const SubMesh* s);
         virtual void writeSubMeshTextureAliases(const SubMesh* s);
         virtual void writeGeometry(const VertexData* pGeom);
-        virtual void writeSkeletonLink(const String& skelName);
+        virtual void writeSkeletonLink(std::string_view skelName);
         virtual void writeMeshBoneAssignment(const VertexBoneAssignment& assign);
         virtual void writeSubMeshBoneAssignment(const VertexBoneAssignment& assign);
 
@@ -125,7 +125,7 @@ class VertexData;
         virtual auto calcMeshSize(const Mesh* pMesh) -> size_t;
         virtual auto calcSubMeshSize(const SubMesh* pSub) -> size_t;
         virtual auto calcGeometrySize(const VertexData* pGeom) -> size_t;
-        virtual auto calcSkeletonLinkSize(const String& skelName) -> size_t;
+        virtual auto calcSkeletonLinkSize(std::string_view skelName) -> size_t;
         virtual auto calcBoneAssignmentSize() -> size_t;
         virtual auto calcSubMeshOperationSize(const SubMesh* pSub) -> size_t;
         virtual auto calcSubMeshNameTableSize(const Mesh* pMesh) -> size_t;
@@ -210,7 +210,7 @@ class VertexData;
     protected:
         // In the past we could select to use manual or automatic generated Lod levels,
         // but now we can mix them. If it is mixed, we can't export it to older mesh formats.
-        auto compatibleLodStrategyName(String lodStrategyName) -> String;
+        auto compatibleLodStrategyName(std::string_view lodStrategyName) -> std::string_view;
         virtual auto isLodMixed(const Mesh* pMesh) -> bool;
         auto calcLodLevelSize(const Mesh* pMesh) -> size_t override;
         auto calcLodUsageManualSize(const MeshLodUsage& usage) -> size_t override;

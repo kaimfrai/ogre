@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    Exception::Exception(int num, const String& desc, const String& src) :
+    Exception::Exception(int num, std::string_view desc, std::string_view src) :
         Exception(num, desc, src, "", "", 0)
     {
     }

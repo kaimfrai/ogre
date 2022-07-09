@@ -193,7 +193,7 @@ class Viewport;
     public:
         /** Standard constructor.
         */
-        Camera( const String& name, SceneManager* sm);
+        Camera( std::string_view name, SceneManager* sm);
 
         /** Standard destructor.
         */
@@ -278,7 +278,7 @@ class Viewport;
             rotation inherited from a node attachment. */
         auto getRealRight() const -> Vector3;
 
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
 
         /** Sets the level-of-detail factor for this Camera.
         @remarks

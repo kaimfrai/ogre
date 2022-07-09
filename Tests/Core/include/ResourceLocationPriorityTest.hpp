@@ -48,14 +48,14 @@ THE SOFTWARE.
 class DummyArchive : public Ogre::Archive
 {
 public:
-    DummyArchive(const Ogre::String& name, const Ogre::String& archType)
+    DummyArchive(std::string_view name, std::string_view archType)
         : Ogre::Archive(name, archType), mContents(DummyArchive::makeContents()) {}
 
     ~DummyArchive() override = default;
 
-    [[nodiscard]] auto exists(const Ogre::String& name) const -> bool override { return name == "dummyArchiveTest"; }
+    [[nodiscard]] auto exists(std::string_view name) const -> bool override { return name == "dummyArchiveTest"; }
 
-    [[nodiscard]] auto find(const Ogre::String& pattern, bool recursive = true, bool dirs = false) const -> Ogre::StringVectorPtr override
+    [[nodiscard]] auto find(std::string_view pattern, bool recursive = true, bool dirs = false) const -> Ogre::StringVectorPtr override
     {
         Ogre::StringVectorPtr results = std::make_shared<Ogre::StringVector>();
         if (dirs) return results;
@@ -66,7 +66,7 @@ public:
         return results;
     }
 
-    [[nodiscard]] auto findFileInfo(const Ogre::String& pattern, bool recursive = true,
+    [[nodiscard]] auto findFileInfo(std::string_view pattern, bool recursive = true,
                                                bool dirs = false) const -> Ogre::FileInfoListPtr override
     {
         Ogre::FileInfoListPtr results = std::make_shared<Ogre::FileInfoList>();
@@ -78,7 +78,7 @@ public:
         return results;
     }
 
-    [[nodiscard]] auto getModifiedTime(const Ogre::String& filename) const noexcept -> time_t override { return 0; }
+    [[nodiscard]] auto getModifiedTime(std::string_view filename) const noexcept -> time_t override { return 0; }
 
     [[nodiscard]] auto isCaseSensitive() const noexcept -> bool override { return true; }
 
@@ -102,7 +102,7 @@ public:
 
     void unload() override {}
 
-    [[nodiscard]] auto open(const Ogre::String& filename, bool readOnly = true) const -> Ogre::DataStreamPtr override
+    [[nodiscard]] auto open(std::string_view filename, bool readOnly = true) const -> Ogre::DataStreamPtr override
     {
         if (filename == "dummyArchiveTest")
         {
@@ -129,14 +129,14 @@ class DummyArchiveFactory : public Ogre::ArchiveFactory
 public:
     ~DummyArchiveFactory() override = default;
 
-    auto createInstance(const Ogre::String& name, bool) -> Ogre::Archive* override
+    auto createInstance(std::string_view name, bool) -> Ogre::Archive* override
     {
         return new DummyArchive(name, "DummyArchive");
     }
 
     void destroyInstance(Ogre::Archive* ptr) override { delete ptr; }
 
-    [[nodiscard]] auto getType() const noexcept -> const Ogre::String& override
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override
     {
         static Ogre::String type = "DummyArchive";
         return type;

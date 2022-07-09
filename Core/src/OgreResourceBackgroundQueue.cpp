@@ -68,10 +68,10 @@ namespace Ogre {
     struct ResourceRequest
     {
         RequestType type;
-        String resourceName;
+        std::string_view resourceName;
         ResourceHandle resourceHandle;
-        String resourceType;
-        String groupName;
+        std::string_view resourceType;
+        std::string_view groupName;
         bool isManual;
         ManualResourceLoader* loader;
         NameValuePairList* loadParams;
@@ -114,7 +114,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::initialiseResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -136,7 +136,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::prepareResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -147,7 +147,7 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::loadResourceGroup(
-        const String& name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
+        std::string_view name, ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -158,8 +158,8 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::prepare(
-        const String& resType, const String& name, 
-        const String& group, bool isManual, 
+        std::string_view resType, std::string_view name, 
+        std::string_view group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
@@ -179,8 +179,8 @@ namespace Ogre {
     }
     //------------------------------------------------------------------------
     auto ResourceBackgroundQueue::load(
-        const String& resType, const String& name, 
-        const String& group, bool isManual, 
+        std::string_view resType, std::string_view name, 
+        std::string_view group, bool isManual, 
         ManualResourceLoader* loader, 
         const NameValuePairList* loadParams, 
         ResourceBackgroundQueue::Listener* listener) -> BackgroundProcessTicket
@@ -200,7 +200,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unload(
-        const String& resType, const String& name, Listener* listener) -> BackgroundProcessTicket
+        std::string_view resType, std::string_view name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -212,7 +212,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unload(
-        const String& resType, ResourceHandle handle, Listener* listener) -> BackgroundProcessTicket
+        std::string_view resType, ResourceHandle handle, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;
@@ -224,7 +224,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto ResourceBackgroundQueue::unloadResourceGroup(
-        const String& name, Listener* listener) -> BackgroundProcessTicket
+        std::string_view name, Listener* listener) -> BackgroundProcessTicket
     {
         // queue a request
         ResourceRequest req;

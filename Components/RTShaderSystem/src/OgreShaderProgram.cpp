@@ -238,7 +238,7 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
 //-----------------------------------------------------------------------------
 auto Program::resolveParameter(GpuConstantType type, 
                                     int index, uint16 variability,
-                                    const String& suggestedName,
+                                    std::string_view suggestedName,
                                     size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;
@@ -277,7 +277,7 @@ auto Program::resolveParameter(GpuConstantType type,
 
 
 //-----------------------------------------------------------------------------
-auto Program::getParameterByName(const String& name) -> UniformParameterPtr
+auto Program::getParameterByName(std::string_view name) -> UniformParameterPtr
 {
     for (auto const& it : mParameters)
     {
@@ -320,7 +320,7 @@ auto Program::getParameterByAutoType(GpuProgramParameters::AutoConstantType auto
 }
 
 //-----------------------------------------------------------------------------
-void Program::addDependency(const String& libFileName)
+void Program::addDependency(std::string_view libFileName)
 {
     for (auto & mDependencie : mDependencies)
     {
@@ -329,13 +329,15 @@ void Program::addDependency(const String& libFileName)
             return;
         }
     }
-    mDependencies.push_back(libFileName);
+    mDependencies.emplace_back(libFileName);
 }
 
-void Program::addPreprocessorDefines(const String& defines)
+void Program::addPreprocessorDefines(std::string_view defines)
 {
-    mPreprocessorDefines +=
-        mPreprocessorDefines.empty() ? defines : ("," + defines);
+    if (not mPreprocessorDefines.empty())
+        mPreprocessorDefines += ',';
+
+    mPreprocessorDefines += defines;
 }
 
 //-----------------------------------------------------------------------------
@@ -345,7 +347,7 @@ auto Program::getDependencyCount() const -> size_t
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getDependency(unsigned int index) const -> const String&
+auto Program::getDependency(unsigned int index) const -> std::string_view
 {
     return mDependencies[index];
 }

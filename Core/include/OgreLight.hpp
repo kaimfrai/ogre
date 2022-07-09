@@ -128,7 +128,7 @@ class Sphere;
 
         /** Normal constructor. Should not be called directly, but rather the SceneManager::createLight method should be used.
         */
-        Light(const String& name);
+        Light(std::string_view name);
 
         /** Standard destructor.
         */
@@ -293,7 +293,7 @@ class Sphere;
         void _updateRenderQueue(RenderQueue* queue) override {} // No rendering
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const noexcept -> const String& override;
+        auto getMovableType() const noexcept -> std::string_view override;
 
         /** Retrieves the position of the light including any transform from nodes it is attached to. 
         @param cameraRelativeIfSet If set to true, returns data in camera-relative units if that's been set up (render use)
@@ -358,7 +358,7 @@ class Sphere;
         auto getTypeFlags() const noexcept -> uint32 override;
 
         /// @copydoc AnimableObject::createAnimableValue
-        auto createAnimableValue(const String& valueName) -> AnimableValuePtr override;
+        auto createAnimableValue(std::string_view valueName) -> AnimableValuePtr override;
 
         /** Set this light to use a custom shadow camera when rendering texture shadows.
         @remarks
@@ -563,14 +563,14 @@ class Sphere;
     class LightFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
     public:
         LightFactory() = default;
         ~LightFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> const String& override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };
     /** @} */
     /** @} */

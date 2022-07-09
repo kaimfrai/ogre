@@ -35,7 +35,7 @@ namespace Ogre {
      */
     struct PixelFormatDescription {
         /* Name of the format, as in the enum */
-        const String name;
+        const std::string_view name;
         /* Number of bytes one element (colour value) takes. */
         unsigned char elemBytes;
         /* Pixel format flags, see enum PixelFormatFlags for the bit field

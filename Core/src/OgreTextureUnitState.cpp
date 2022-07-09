@@ -162,7 +162,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    TextureUnitState::TextureUnitState( Pass* parent, const String& texName, unsigned int texCoordSet)
+    TextureUnitState::TextureUnitState( Pass* parent, std::string_view texName, unsigned int texCoordSet)
         : mCurrentFrame(0)
         , mAnimDuration(0)
         , mTextureCoordSetIndex(0)
@@ -241,7 +241,7 @@ class Frustum;
         return *this;
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::getTextureName() const noexcept -> const String&
+    auto TextureUnitState::getTextureName() const noexcept -> std::string_view
     {
         // Return name of current frame
         if (mCurrentFrame < mFramePtrs.size() && mFramePtrs[mCurrentFrame])
@@ -250,13 +250,13 @@ class Frustum;
             return BLANKSTRING;
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::setTextureName( const String& name)
+    void TextureUnitState::setTextureName( std::string_view name)
     {
         if(TexturePtr tex = retrieveTexture(name))
             setTexture(tex);
     }
 
-    void TextureUnitState::setTextureName( const String& name, TextureType texType)
+    void TextureUnitState::setTextureName( std::string_view name, TextureType texType)
     {
         TexturePtr tex = retrieveTexture(name);
 
@@ -325,7 +325,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    void TextureUnitState::setFrameTextureName(const String& name, unsigned int frameNumber)
+    void TextureUnitState::setFrameTextureName(std::string_view name, unsigned int frameNumber)
     {
         mTextureLoadFailed = false;
         OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
@@ -344,7 +344,7 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    void TextureUnitState::addFrameTextureName(const String& name)
+    void TextureUnitState::addFrameTextureName(std::string_view name)
     {
         setContentType(CONTENT_NAMED);
         mTextureLoadFailed = false;
@@ -382,15 +382,15 @@ class Frustum;
     }
 
     //-----------------------------------------------------------------------
-    void TextureUnitState::setAnimatedTextureName( const String& name, size_t numFrames, Real duration)
+    void TextureUnitState::setAnimatedTextureName( std::string_view name, size_t numFrames, Real duration)
     {
-        String baseName, ext;
+        std::string_view baseName, ext;
         StringUtil::splitBaseFilename(name, baseName, ext);
 
         std::vector<String> names(numFrames);
         for (uint32 i = 0; i < names.size(); ++i)
         {
-            names[i] = std::format("{}_{}.{}", baseName.c_str(), i, ext.c_str());
+            names[i] = std::format("{}_{}.{}", baseName, i, ext);
         }
 
         setAnimatedTextureName(names, duration);
@@ -445,7 +445,7 @@ class Frustum;
 
         // use hash to auto-name the texture
         uint32 hash = 0;
-        for(const String& name : names)
+        for(std::string_view name : names)
             hash = FastHash(name.data(), name.size(), hash);
 
         auto tex = retrieveTexture(std::format("{}Tex_{}", typeName, hash));
@@ -487,7 +487,7 @@ class Frustum;
         return (unsigned int)mFramePtrs.size();
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> const String&
+    auto TextureUnitState::getFrameTextureName(unsigned int frameNumber) const -> std::string_view
     {
         OgreAssert(frameNumber < mFramePtrs.size(), "out of range");
 
@@ -1013,7 +1013,7 @@ class Frustum;
         mFramePtrs[frame] = texptr;
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::retrieveTexture(const String& name) -> TexturePtr {
+    auto TextureUnitState::retrieveTexture(std::string_view name) -> TexturePtr {
         TextureManager::ResourceCreateOrRetrieveResult res;
         res = TextureManager::getSingleton().createOrRetrieve(name, mParent->getResourceGroup());
         return static_pointer_cast<Texture>(res.first);
@@ -1228,7 +1228,7 @@ class Frustum;
 
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::setName(const String& name)
+    void TextureUnitState::setName(std::string_view name)
     {
         mName = name;
     }
@@ -1238,7 +1238,7 @@ class Frustum;
         mParent = parent;
     }
     //-----------------------------------------------------------------------------
-    void TextureUnitState::setCompositorReference(const String& compositorName, const String& textureName, size_t mrtIndex)
+    void TextureUnitState::setCompositorReference(std::string_view compositorName, std::string_view textureName, size_t mrtIndex)
     {  
         mCompositorRefName = compositorName; 
         mCompositorRefTexName = textureName; 

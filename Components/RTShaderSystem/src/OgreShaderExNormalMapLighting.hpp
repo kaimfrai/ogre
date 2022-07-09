@@ -67,7 +67,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> const String& override;
+    auto getType() const noexcept -> std::string_view override;
 
     auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING - 1; }
 
@@ -114,9 +114,9 @@ public:
     /** 
     Return the normal map texture name.
     */
-    auto getNormalMapTextureName() const noexcept -> const String& { return mNormalMapTextureName; }
+    auto getNormalMapTextureName() const noexcept -> std::string_view { return mNormalMapTextureName; }
 
-    auto setParameter(const String& name, const String& value) noexcept -> bool override;
+    auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 
 // Protected methods
 protected:
@@ -148,7 +148,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> const String& override;
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderStateFactory::createInstance.

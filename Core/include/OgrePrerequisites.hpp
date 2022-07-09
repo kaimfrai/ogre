@@ -30,6 +30,7 @@ THE SOFTWARE
 #include "OgrePlatform.hpp"
 
 #include <compare>
+#include <format>
 #include <memory>
 #include <string>
 
@@ -304,13 +305,19 @@ namespace Ogre
 {
     using String = std::string;
 
-    // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
-    [[nodiscard]] auto inline operator <=> (String const& left, String const& right) noexcept -> ::std::strong_ordering
+    // FIXME: as of 2022 Juli 08 libc++ does not provide operator<=> for std::string_view
+    [[nodiscard]] auto inline operator <=> (std::string_view left, std::string_view right) noexcept -> ::std::weak_ordering
     {
         auto const cmp = left.compare(right);
         if (cmp < 0) return ::std::strong_ordering::less;
         if (cmp > 0) return ::std::strong_ordering::greater;
         return ::std::strong_ordering::equal;
+    }
+
+    // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
+    [[nodiscard]] auto inline operator <=> (String const& left, String const& right) noexcept -> ::std::weak_ordering
+    {
+        return std::string_view{left} <=> std::string_view{right};
     }
 
     using StringStream = std::stringstream;

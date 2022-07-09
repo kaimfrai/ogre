@@ -45,14 +45,14 @@ namespace Ogre
 {
     namespace {
         /** Get actual file pointed to by symlink */
-        auto resolveSymlink(const Ogre::String& symlink) -> const Ogre::String
+        auto resolveSymlink(std::string_view symlink) -> const Ogre::String
         {
             ssize_t bufsize = 256;
             char* resolved = nullptr;
             do
             {
                 char* buf = new char[bufsize];
-                ssize_t retval = readlink(symlink.c_str(), buf, bufsize);
+                ssize_t retval = readlink(symlink.data(), buf, bufsize);
                 if (retval == -1)
                 {
                     delete[] buf;
@@ -85,15 +85,15 @@ namespace Ogre
         }
     }
 
-    auto FileSystemLayer::resolveBundlePath(String path) -> String
+    auto FileSystemLayer::resolveBundlePath(std::string_view path) -> String
     {
         // With Ubuntu snaps absolute paths are relative to the snap package.
         char* env_SNAP = getenv("SNAP");
         if (env_SNAP && !path.empty() && path[0] == '/' && // only adjust absolute dirs
-            !StringUtil::startsWith(path, "/snap")) // not a snap path already
-            path = env_SNAP + path;
+            !path.starts_with("/snap")) // not a snap path already
+            return std::format("{}{}", env_SNAP, path);
 
-        return path;
+        return std::string{ path };
     }
     //---------------------------------------------------------------------
     void FileSystemLayer::getConfigPaths()
@@ -141,7 +141,7 @@ namespace Ogre
         mConfigPaths.push_back("/etc/OGRE/");
     }
     //---------------------------------------------------------------------
-    void FileSystemLayer::prepareUserHome(const Ogre::String& subdir)
+    void FileSystemLayer::prepareUserHome(std::string_view subdir)
     {
         char* xdg_cache = getenv("XDG_CACHE_HOME");
 
@@ -168,7 +168,7 @@ namespace Ogre
         if (!mHomePath.empty())
         {
             // create the given subdir
-            mHomePath.append(subdir + '/');
+            mHomePath.append(std::format("{}/", subdir));
             if (mkdir(mHomePath.c_str(), 0755) != 0 && errno != EEXIST)
             {
                 // can't create dir
@@ -183,28 +183,28 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::fileExists(const Ogre::String& path) -> bool
+    auto FileSystemLayer::fileExists(std::string_view path) -> bool
     {
-        return access(path.c_str(), R_OK) == 0;
+        return access(path.data(), R_OK) == 0;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::createDirectory(const Ogre::String& path) -> bool
+    auto FileSystemLayer::createDirectory(std::string_view path) -> bool
     {
-        return !mkdir(path.c_str(), 0755) || errno == EEXIST;
+        return !mkdir(path.data(), 0755) || errno == EEXIST;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeDirectory(const Ogre::String& path) -> bool
+    auto FileSystemLayer::removeDirectory(std::string_view path) -> bool
     {
-        return !rmdir(path.c_str()) || errno == ENOENT;
+        return !rmdir(path.data()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeFile(const Ogre::String& path) -> bool
+    auto FileSystemLayer::removeFile(std::string_view path) -> bool
     {
-        return !unlink(path.c_str()) || errno == ENOENT;
+        return !unlink(path.data()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::renameFile(const Ogre::String& oldname, const Ogre::String& newname) -> bool
+    auto FileSystemLayer::renameFile(std::string_view oldname, std::string_view newname) -> bool
     {
-        return !rename(oldname.c_str(), newname.c_str());
+        return !rename(oldname.data(), newname.data());
     }
 }

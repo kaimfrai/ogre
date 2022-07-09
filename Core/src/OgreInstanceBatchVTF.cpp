@@ -71,7 +71,7 @@ class RenderQueue;
 
     BaseInstanceBatchVTF::BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
-                                        const Mesh::IndexMap *indexToBoneMap, const String &batchName) :
+                                        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName ),
                 
@@ -122,7 +122,7 @@ class RenderQueue;
     void BaseInstanceBatchVTF::cloneMaterial( const MaterialPtr &material )
     {
         //Used to track down shadow casters, so the same material caster doesn't get cloned twice
-        using MatMap = std::map<String, MaterialPtr>;
+        using MatMap = std::map<std::string_view, MaterialPtr>;
         MatMap clonedMaterials;
 
         //We need to clone the material so we can have different textures for each batch.
@@ -134,7 +134,7 @@ class RenderQueue;
             if( technique->getShadowCasterMaterial() )
             {
                 const MaterialPtr &casterMat    = technique->getShadowCasterMaterial();
-                const String &casterName        = casterMat->getName();
+                std::string_view casterName        = casterMat->getName();
 
                 //Was this material already cloned?
                 auto itor = clonedMaterials.find(casterName);
@@ -449,7 +449,7 @@ class RenderQueue;
     InstanceBatchVTF::InstanceBatchVTF( 
         InstanceManager *creator, MeshPtr &meshReference, 
         const MaterialPtr &material, size_t instancesPerBatch, 
-        const Mesh::IndexMap *indexToBoneMap, const String &batchName )
+        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName )
             : BaseInstanceBatchVTF (creator, meshReference, material, 
                                     instancesPerBatch, indexToBoneMap, batchName)
     {

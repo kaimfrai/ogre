@@ -62,7 +62,7 @@ namespace Ogre {
         mMinPixelSize = 0;
     }
     //-----------------------------------------------------------------------
-    Light::Light(const String& name) : MovableObject(name),
+    Light::Light(std::string_view name) : MovableObject(name),
         mDiffuse(ColourValue::White),
         mSpecular(ColourValue::Black),
         mSpotOuter(Degree(40.0f)),
@@ -193,7 +193,7 @@ namespace Ogre {
         // nothing to render
     }
     //-----------------------------------------------------------------------
-    auto Light::getMovableType() const noexcept -> const String&
+    auto Light::getMovableType() const noexcept -> std::string_view
     {
         return LightFactory::FACTORY_TYPE_NAME;
     }
@@ -557,7 +557,7 @@ namespace Ogre {
 
     };
     //-----------------------------------------------------------------------
-    auto Light::createAnimableValue(const String& valueName) -> AnimableValuePtr
+    auto Light::createAnimableValue(std::string_view valueName) -> AnimableValuePtr
     {
         if (valueName == "diffuseColour")
         {
@@ -774,12 +774,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
-    auto LightFactory::getType() const noexcept -> const String&
+    auto LightFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto LightFactory::createInstanceImpl( const String& name, 
+    auto LightFactory::createInstanceImpl( std::string_view name, 
         const NameValuePairList* params) -> MovableObject*
     {
 

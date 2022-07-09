@@ -129,7 +129,7 @@ class LodStrategy;
         }
     }
 
-    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String
+    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view
     {
         for(auto& kv : compiler->mIds)
             if(kv.second == id)
@@ -3512,7 +3512,7 @@ class LodStrategy;
         translateGpuProgram(compiler, obj, language);
     }
     //-------------------------------------------------------------------------
-    void GpuProgramTranslator::translateGpuProgram(ScriptCompiler *compiler, ObjectAbstractNode *obj, String language)
+    void GpuProgramTranslator::translateGpuProgram(ScriptCompiler *compiler, ObjectAbstractNode *obj, std::string_view language)
     {
         String syntax;
         std::vector<String> delegates;
@@ -3656,7 +3656,7 @@ class LodStrategy;
         }
     }
     //-------------------------------------------------------------------------
-    static auto parseProgramParameterDimensions(String& declarator, BaseConstantType& type) -> int
+    static auto parseProgramParameterDimensions(std::string_view declarator, BaseConstantType& type) -> int
     {
         // Assume 1 unless otherwise specified
         int dimensions = 1;

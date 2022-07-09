@@ -82,7 +82,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> const String& override;
+    auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderState::getType.
@@ -217,7 +217,7 @@ protected:
     */
     auto needsTextureMatrix(TextureUnitState* textureUnitState) -> bool;
 
-    auto setParameter(const String& name, const String& value) noexcept -> bool override;
+    auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 
 // Attributes.
 protected:
@@ -256,7 +256,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> const String& override;
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderStateFactory::createInstance.

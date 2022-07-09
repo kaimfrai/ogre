@@ -59,21 +59,21 @@ class RenderQueue;
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for specifying transparency (see ParamCommand).*/
     class CmdTransparent : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        void doSet(void* target, std::string_view val) override;
     };
     /** Command object for specifying UV coordinates (see ParamCommand).*/
     class CmdUVCoords : public ParamCommand
     {
     public:
         auto doGet(const void* target) const -> String override;
-        void doSet(void* target, const String& val) override;
+        void doSet(void* target, std::string_view val) override;
     };
     // Command objects
     static CmdTiling msCmdTiling;
@@ -85,7 +85,7 @@ class RenderQueue;
     #define TEXCOORD_BINDING 1
 
     //---------------------------------------------------------------------
-    PanelOverlayElement::PanelOverlayElement(const String& name)
+    PanelOverlayElement::PanelOverlayElement(std::string_view name)
         : OverlayContainer(name)
          
 
@@ -232,7 +232,7 @@ class RenderQueue;
         v2 = mV2;
     }
     //---------------------------------------------------------------------
-    auto PanelOverlayElement::getTypeName() const noexcept -> const String&
+    auto PanelOverlayElement::getTypeName() const noexcept -> std::string_view
     {
         return msTypeName;
     }
@@ -433,11 +433,11 @@ class RenderQueue;
             static_cast<const PanelOverlayElement*>(target)->getTileY() );
         return ret;
     }
-    void CmdTiling::doSet(void* target, const String& val)
+    void CmdTiling::doSet(void* target, std::string_view val)
     {
         // 3 params: <layer> <x_tile> <y_tile>
         // Param count is validated higher up
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
         auto layer = (ushort)StringConverter::parseUnsignedInt(vec[0]);
         Real x_tile = StringConverter::parseReal(vec[1]);
         Real y_tile = StringConverter::parseReal(vec[2]);
@@ -450,7 +450,7 @@ class RenderQueue;
         return StringConverter::toString(
             static_cast<const PanelOverlayElement*>(target)->isTransparent() );
     }
-    void CmdTransparent::doSet(void* target, const String& val)
+    void CmdTransparent::doSet(void* target, std::string_view val)
     {
         static_cast<PanelOverlayElement*>(target)->setTransparent(
             StringConverter::parseBool(val));
@@ -469,9 +469,9 @@ class RenderQueue;
 
         return ret;
     }
-    void CmdUVCoords::doSet(void* target, const String& val)
+    void CmdUVCoords::doSet(void* target, std::string_view val)
     {
-        std::vector<String> vec = StringUtil::split(val);
+        auto const vec = StringUtil::split(val);
 
         static_cast<PanelOverlayElement*>(target)->setUV(
             StringConverter::parseReal(vec[0]),

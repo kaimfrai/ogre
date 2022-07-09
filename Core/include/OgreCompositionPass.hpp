@@ -92,7 +92,7 @@ class CompositionTargetPass;
         /** Set the material used by this pass 
             @note applies when PassType is RENDERQUAD 
         */
-        void setMaterialName(const String &name);
+        void setMaterialName(std::string_view name);
         /** Get the material used by this pass 
             @note applies when PassType is RENDERQUAD 
         */
@@ -119,13 +119,13 @@ class CompositionTargetPass;
             Only applicable to passes that render the scene.
             @see Technique::setScheme.
         */
-        void setMaterialScheme(const String& schemeName);
+        void setMaterialScheme(std::string_view schemeName);
         /** Get the material scheme used by this pass.
         @remarks
             Only applicable to passes that render the scene.
             @see Technique::setScheme.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> const String&;
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view ;
 
         /** Would be nice to have for RENDERSCENE:
             flags to:
@@ -246,7 +246,7 @@ class CompositionTargetPass;
         struct InputTex
         {
             /// Name (local) of the input texture (empty == no input)
-            String name;
+            std::string_view name;
             /// MRT surface index if applicable
             size_t mrtIndex;
             InputTex() : mrtIndex(0) {}
@@ -260,7 +260,7 @@ class CompositionTargetPass;
             @param mrtIndex Which surface of an MRT to retrieve
             @note applies when PassType is RENDERQUAD 
         */
-        void setInput(size_t id, const String &input=BLANKSTRING, size_t mrtIndex=0);
+        void setInput(size_t id, std::string_view input=BLANKSTRING, size_t mrtIndex=0);
         
         /** Get the value of an input.
             @param id    Input to get. Must be in 0..OGRE_MAX_TEXTURE_LAYERS-1.
@@ -316,19 +316,19 @@ class CompositionTargetPass;
             @note applies when PassType is RENDERCUSTOM
             @see CompositorManager::registerCustomCompositionPass
         */
-        void setCustomType(const String& customType);
+        void setCustomType(std::string_view customType);
 
         /** Get the type name of this custom composition pass.
             @note applies when PassType is RENDERCUSTOM
             @see CompositorManager::registerCustomCompositionPass
         */
-        [[nodiscard]] auto getCustomType() const noexcept -> const String&;
+        [[nodiscard]] auto getCustomType() const noexcept -> std::string_view ;
 
         void setThreadGroups(const Vector3i& g) { mThreadGroups = g; }
         [[nodiscard]] auto getThreadGroups() const noexcept -> const Vector3i& { return mThreadGroups; }
 
-        void setCameraName(const String& name) { mRenderScene.cameraName = name; }
-        [[nodiscard]] auto getCameraName() const noexcept -> const String& { return mRenderScene.cameraName; }
+        void setCameraName(std::string_view name) { mRenderScene.cameraName = name; }
+        [[nodiscard]] auto getCameraName() const noexcept -> std::string_view { return mRenderScene.cameraName; }
 
         void setAlignCameraToFace(bool val) { mRenderScene.alignCameraToFace = val; }
         [[nodiscard]] auto getAlignCameraToFace() const noexcept -> bool { return mRenderScene.alignCameraToFace; }
@@ -360,10 +360,10 @@ class CompositionTargetPass;
             uint8 lastRenderQueue{RENDER_QUEUE_SKIES_LATE};
 
             /// Material scheme name
-            String materialScheme;
+            std::string_view materialScheme;
 
             /// name of camera to use instead of default
-            String cameraName;
+            std::string_view cameraName;
             bool alignCameraToFace{false};
 
             RenderSceneData()
