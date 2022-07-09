@@ -140,7 +140,7 @@ class VertexData;
         /** A hashmap used to store optional SubMesh names.
             Translates a name into SubMesh index.
         */
-        using SubMeshNameMap = std::unordered_map<String, ushort> ;
+        using SubMeshNameMap = std::unordered_map<std::string, ushort, StringHash, std::equal_to<>> ;
 
         
     private:

@@ -202,8 +202,7 @@ class Material;
     class ScriptCompiler : public ScriptCompilerAlloc
     {
     public: // Externally accessible types
-        //typedef std::map<std::string_view,uint32> IdMap;
-        using IdMap = std::unordered_map<String, uint32>;
+        using IdMap = std::unordered_map<std::string_view, uint32>;
 
         // These are the built-in error codes
         enum{
@@ -287,7 +286,7 @@ class Material;
         /// This function sets up the initial values in word id map
         void initWordMap();
     private:
-        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String;
+        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> StringView;
         // Resource group
         String mGroup;
         // The word -> id conversion table

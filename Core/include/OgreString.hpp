@@ -185,7 +185,11 @@ namespace Ogre {
         static auto replaceAll(StringView source, StringView replaceWhat, StringView replaceWithWhat) -> const String;
     };
 
-    using _StringHash = ::std::hash<String>;
+    struct StringHash : std::hash<std::string_view>
+    {
+        using std::hash<std::string_view>::operator();
+        using is_transparent = void;
+    };
     /** @} */
     /** @} */
 

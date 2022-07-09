@@ -129,7 +129,7 @@ class LodStrategy;
         }
     }
 
-    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> String
+    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> StringView
     {
         for(auto& kv : compiler->mIds)
             if(kv.second == id)

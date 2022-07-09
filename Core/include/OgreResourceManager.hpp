@@ -462,8 +462,8 @@ namespace Ogre {
 
 
     public:
-        using ResourceMap = std::unordered_map<String, ResourcePtr>;
-        using ResourceWithGroupMap = std::unordered_map<String, ResourceMap>;
+        using ResourceMap = std::unordered_map<std::string, ResourcePtr, StringHash, std::equal_to<>>;
+        using ResourceWithGroupMap = std::unordered_map<std::string_view, ResourceMap>;
         using ResourceHandleMap = std::map<ResourceHandle, ResourcePtr>;
     protected:
         ResourceHandleMap mResourcesByHandle;
