@@ -179,7 +179,7 @@ class RenderSystem;
         if (mCurrentRenderSystem)
             inst->_setDestinationRenderSystem(mCurrentRenderSystem);
 
-        mInstances[inst->getName()] = inst;
+        mInstances[std::string{inst->getName()}] = inst;
         
         return inst;
         
@@ -191,7 +191,7 @@ class RenderSystem;
         OgreAssert(sm, "Cannot destroy a null SceneManager");
 
         // Erase instance from map
-        mInstances.erase(sm->getName());
+        mInstances.erase(mInstances.find(sm->getName()));
 
         // Find factory to destroy
         for(auto & mFactorie : mFactories)

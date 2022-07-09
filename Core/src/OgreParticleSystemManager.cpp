@@ -124,7 +124,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ParticleSystemManager::addRendererFactory(ParticleSystemRendererFactory* factory)
     {
-        String name = factory->getType();
+        auto const name = factory->getType();
         mRendererFactories[name] = factory;
         LogManager::getSingleton().logMessage(::std::format("Particle Renderer Type '{}' registered", name ));
     }

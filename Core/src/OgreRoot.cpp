@@ -466,13 +466,13 @@ namespace Ogre {
                 rscManager.parseCapabilitiesFromArchive(filename, archType, true);
             }
 
-            String capsName = cfg.getSetting("Custom Capabilities");
+            auto const capsName = cfg.getSetting("Custom Capabilities");
             // The custom capabilities have been parsed, let's retrieve them
             RenderSystemCapabilities* rsc = rscManager.loadParsedCapabilities(capsName);
             if(rsc == nullptr)
             {
                 OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
-                    String("Cannot load a RenderSystemCapability named ") + capsName,
+                    std::format("Cannot load a RenderSystemCapability named {}", capsName),
                     "Root::initialise");
             }
 

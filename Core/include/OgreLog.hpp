@@ -234,7 +234,7 @@ namespace Ogre {
             {
                                 (void)v;
                 mTarget->logMessage(mCache.str(), mLevel, mMaskDebug);
-                mCache.str(BLANKSTRING);
+                mCache.str("");
                 return *this;
             }
 

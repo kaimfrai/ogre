@@ -547,7 +547,7 @@ namespace Ogre
     auto CmdSource::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
-        return f->getSource();
+        return std::string{ f->getSource() };
     }
     void CmdSource::doSet(void* target, StringView val)
     {

@@ -66,7 +66,7 @@ public:
     TestBatch(Ogre::ConfigFile& info, StringView directory):mDirectory(directory)
     {
         // fill out basic info
-        Ogre::String res = info.getSetting("Resolution","Info");
+        std::string const res{ info.getSetting("Resolution","Info") };
         resolutionX = atoi(res.c_str());
         resolutionY = atoi(res.substr(res.find('x')+1).c_str());
         version = info.getSetting("Version","Info");

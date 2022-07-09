@@ -250,7 +250,7 @@ namespace Ogre::EmitterCommands {
         auto CmdName::doGet(const void* target) const -> String
         {
             return 
-                static_cast<const ParticleEmitter*>(target)->getName();
+                std::string{ static_cast<const ParticleEmitter*>(target)->getName() };
         }
         void CmdName::doSet(void* target, StringView val)
         {
@@ -260,7 +260,7 @@ namespace Ogre::EmitterCommands {
         auto CmdEmittedEmitter::doGet(const void* target) const -> String
         {
             return 
-                static_cast<const ParticleEmitter*>(target)->getEmittedEmitter();
+                std::string{ static_cast<const ParticleEmitter*>(target)->getEmittedEmitter() };
         }
         void CmdEmittedEmitter::doSet(void* target, StringView val)
         {

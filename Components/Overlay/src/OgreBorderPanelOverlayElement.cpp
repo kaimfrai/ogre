@@ -769,7 +769,7 @@ namespace Ogre {
     auto CmdBorderMaterial::doGet(const void* target) const -> String
     {
         // No need right now..
-        return static_cast<const BorderPanelOverlayElement*>(target)->getBorderMaterialName();
+        return std::string{ static_cast<const BorderPanelOverlayElement*>(target)->getBorderMaterialName() };
     }
     void CmdBorderMaterial::doSet(void* target, StringView val)
     {

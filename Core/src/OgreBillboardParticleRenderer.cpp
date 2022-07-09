@@ -334,7 +334,7 @@ class RenderQueue;
             return "bottom_right";
         }
         // Compiler nicety
-        return BLANKSTRING;
+        return "";
     }
     void CmdBillboardOrigin::doSet(void* target, StringView val)
     {
@@ -378,7 +378,7 @@ class RenderQueue;
             return "texcoord";
         }
         // Compiler nicety
-        return BLANKSTRING;
+        return "";
     }
     void CmdBillboardRotationType::doSet(void* target, StringView val)
     {

@@ -80,7 +80,7 @@ namespace Ogre {
         /* Clear current settings map */
         clear();
 
-        String currentSection = BLANKSTRING;
+        String currentSection = "";
         SettingsMultiMap* currentSettings = &mSettings[currentSection];
         mSettingsPtr[currentSection] = currentSettings;
 
@@ -124,7 +124,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ConfigFile::getSetting(StringView key, StringView section, StringView defaultValue) const -> String
+    auto ConfigFile::getSetting(StringView key, StringView section, StringView defaultValue) const -> StringView
     {
         
         auto seci = mSettings.find(section);

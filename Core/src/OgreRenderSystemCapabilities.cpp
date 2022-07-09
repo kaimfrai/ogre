@@ -73,11 +73,11 @@ namespace Ogre {
         mCategoryRelevant[CAPS_CATEGORY_GL] = false;
     }
 
-    void RenderSystemCapabilities::addShaderProfile(StringView profile) { mSupportedShaderProfiles.insert(profile); }
+    void RenderSystemCapabilities::addShaderProfile(StringView profile) { mSupportedShaderProfiles.emplace(profile); }
 
     void RenderSystemCapabilities::removeShaderProfile(StringView profile)
     {
-        mSupportedShaderProfiles.erase(profile);
+        mSupportedShaderProfiles.erase(mSupportedShaderProfiles.find(profile));
     }
 
     auto RenderSystemCapabilities::isShaderProfileSupported(StringView profile) const -> bool
@@ -198,13 +198,13 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
+    StringView RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
     auto RenderSystemCapabilities::vendorFromString(StringView vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
-        String cmpString = vendorString;
+        String cmpString{ vendorString };
         StringUtil::toLowerCase(cmpString);
         for (int i = 0; i < GPU_VENDOR_COUNT; ++i)
         {

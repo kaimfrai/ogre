@@ -731,7 +731,7 @@ namespace Ogre {
     //
     auto CmdFontName::doGet( const void* target ) const -> String
     {
-        return static_cast< const TextAreaOverlayElement* >( target )->getFont()->getName();
+        return std::string{ static_cast< const TextAreaOverlayElement* >( target )->getFont()->getName() };
     }
     void CmdFontName::doSet( void* target, StringView val )
     {

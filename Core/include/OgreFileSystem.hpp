@@ -46,7 +46,7 @@ class Archive;
     */
 
     /// internal method to open a FileStreamDataStream
-    auto _openFileStream(StringView path, std::ios::openmode mode, StringView name = "") -> DataStreamPtr;
+    auto _openFileStream(std::string_view path, std::ios::openmode mode, StringView name = "") -> DataStreamPtr;
 
     /** Specialisation of the ArchiveFactory to allow reading of files from
         filesystem folders / directories.

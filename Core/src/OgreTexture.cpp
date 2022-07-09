@@ -366,7 +366,7 @@ namespace Ogre {
     auto Texture::getSourceFileType() const -> String
     {
         if (mName.empty())
-            return BLANKSTRING;
+            return "";
 
         String::size_type pos = mName.find_last_of('.');
         if (pos != String::npos && pos < (mName.length() - 1))

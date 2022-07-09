@@ -478,7 +478,7 @@ class ResourceManager;
     auto CmdSyntax::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
-        return t->getSyntaxCode();
+        return std::string{ t->getSyntaxCode() };
     }
     void CmdSyntax::doSet(void* target, StringView val)
     {
@@ -533,7 +533,7 @@ class ResourceManager;
     auto CmdManualNamedConstsFile::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
-        return t->getManualNamedConstantsFile();
+        return std::string{ t->getManualNamedConstantsFile() };
     }
     void CmdManualNamedConstsFile::doSet(void* target, StringView val)
     {

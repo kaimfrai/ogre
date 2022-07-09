@@ -81,7 +81,7 @@ namespace Ogre {
         @param section The name of the section it must be in (if any)
         @param defaultValue The value to return if the setting is not found
         */
-        [[nodiscard]] auto getSetting(StringView key, StringView section = BLANKSTRING, StringView defaultValue = BLANKSTRING) const -> String;
+        [[nodiscard]] auto getSetting(StringView key, StringView section = BLANKSTRING, StringView defaultValue = BLANKSTRING) const -> StringView;
         /** Gets all settings from the file with the named key. */
         [[nodiscard]] auto getMultiSetting(StringView key, StringView section = BLANKSTRING) const -> StringVector;
 

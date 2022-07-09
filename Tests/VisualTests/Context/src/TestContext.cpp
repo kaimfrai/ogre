@@ -146,7 +146,7 @@ void TestContext::setup()
     mPluginNameMap.emplace("VTests", new VTestPlugin());
     mPluginNameMap.emplace("PlayPenTests", new PlaypenTestPlugin());
 
-    Ogre::String batchName = BLANKSTRING;
+    Ogre::String batchName = "";
     time_t raw = time(nullptr);
 
     // timestamp for the filename
@@ -323,9 +323,8 @@ void TestContext::createRoot(ulong frameCount)
 {
     // note that we use a separate config file here
 
-    Ogre::String pluginsPath = Ogre::BLANKSTRING;
     // we use separate config and log files for the tests
-    mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogretests.cfg"),
+    mRoot = new Ogre::Root("", mFSLayer->getWritablePath("ogretests.cfg"),
                                 mFSLayer->getWritablePath("ogretests.log"), frameCount);
 
     mStaticPluginLoader.load();
@@ -425,7 +424,7 @@ void TestContext::setupDirectories(Ogre::String batchName)
         static_cast<Ogre::FileSystemLayer*>(mFSLayer.get())->createDirectory(mOutputDir);
 
         // add a directory for the render system
-        Ogre::String rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
+        auto const rsysName = Ogre::Root::getSingleton().getRenderSystem()->getName();
         // strip spaces from render system name
         for (char i : rsysName)
             if (i != ' ')

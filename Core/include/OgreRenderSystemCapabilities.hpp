@@ -266,7 +266,7 @@ namespace Ogre
         /// GPU Vendor
         GPUVendor mVendor{GPU_UNKNOWN};
 
-        static String msGPUVendorStrings[GPU_VENDOR_COUNT];
+        static StringView msGPUVendorStrings[GPU_VENDOR_COUNT];
         static void initVendorStrings();
 
         /// The number of texture units available
@@ -662,7 +662,7 @@ namespace Ogre
         }
     };
 
-    inline auto to_string(GPUVendor v) -> String { return RenderSystemCapabilities::vendorToString(v); }
+    inline auto to_string(GPUVendor v) -> String { return std::string{RenderSystemCapabilities::vendorToString(v) }; }
     inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }
 
     /** @} */

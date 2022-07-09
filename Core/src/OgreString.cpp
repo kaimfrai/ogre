@@ -267,7 +267,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto StringUtil::standardisePath(StringView init) -> String
     {
-        String path = init;
+        String path{ init };
 
         std::ranges::replace(path, '\\', '/' );
         if( path[path.length() - 1] != '/' )
@@ -364,7 +364,7 @@ namespace Ogre {
     void StringUtil::splitFilename(StringView qualifiedName, 
         String& outBasename, String& outPath)
     {
-        String path = qualifiedName;
+        String path{ qualifiedName };
         // Replace \ with / first
         std::ranges::replace(path, '\\', '/' );
         // split based on final /
@@ -409,8 +409,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto StringUtil::match(StringView str, StringView pattern, bool caseSensitive) -> bool
     {
-        String tmpStr = str;
-        String tmpPattern = pattern;
+        String tmpStr{ str };
+        String tmpPattern{ pattern };
         if (!caseSensitive)
         {
             StringUtil::toLowerCase(tmpStr);
@@ -478,7 +478,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto StringUtil::replaceAll(StringView source, StringView replaceWhat, StringView replaceWithWhat) -> const String
     {
-        String result = source;
+        String result{ source };
         String::size_type pos = 0;
         for(;;)
         {

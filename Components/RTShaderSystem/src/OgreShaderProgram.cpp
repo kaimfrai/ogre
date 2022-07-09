@@ -329,7 +329,7 @@ void Program::addDependency(StringView libFileName)
             return;
         }
     }
-    mDependencies.push_back(libFileName);
+    mDependencies.emplace_back(libFileName);
 }
 
 void Program::addPreprocessorDefines(StringView defines)

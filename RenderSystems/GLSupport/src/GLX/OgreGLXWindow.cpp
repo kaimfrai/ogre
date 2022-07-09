@@ -79,7 +79,7 @@ namespace Ogre
                            bool fullScreen, const NameValuePairList *miscParams)
     {
         Display *xDisplay = mGLSupport->getXDisplay();
-        String title = name;
+        String title{ name };
         uint samples = 0;
         short frequency = 0;
         bool vsync = false;

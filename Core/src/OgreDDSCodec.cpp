@@ -203,7 +203,7 @@ namespace {
     { 
     }
     //---------------------------------------------------------------------
-    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName,
+    void DDSCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
                                 const CodecDataPtr& pData) const
     {
         // Unwrap codecDataPtr - data is cleaned by calling function

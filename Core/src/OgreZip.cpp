@@ -173,7 +173,7 @@ namespace {
     auto ZipArchive::open(StringView filename, bool readOnly) const -> DataStreamPtr
     {
         // zip is not threadsafe
-        String lookUpFileName = filename;
+        String lookUpFileName{ filename };
 
         bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), true) == 0;
 
@@ -262,10 +262,8 @@ namespace {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto ZipArchive::exists(StringView filename) const -> bool
+    auto ZipArchive::exists(StringView cleanName) const -> bool
     {       
-        String cleanName = filename;
-
         return std::ranges::find_if(mFileList, [&cleanName](const Ogre::FileInfo& fi) {
                    return fi.filename == cleanName;
                }) != mFileList.end();

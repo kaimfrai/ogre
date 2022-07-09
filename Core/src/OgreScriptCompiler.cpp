@@ -121,7 +121,7 @@ namespace Ogre
 
     void ObjectAbstractNode::setVariable(StringView inName, StringView value)
     {
-        mEnv[inName] = value;
+        mEnv[std::string{inName}] = value;
     }
 
     auto ObjectAbstractNode::getVariable(StringView inName) const -> std::pair<bool,String>
@@ -1540,7 +1540,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void ScriptCompilerManager::addScriptPattern(StringView pattern)
     {
-        mScriptPatterns.push_back(pattern);
+        mScriptPatterns.emplace_back(pattern);
     }
     //-----------------------------------------------------------------------
     auto ScriptCompilerManager::getScriptPatterns() const noexcept -> const StringVector&

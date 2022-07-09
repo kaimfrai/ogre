@@ -42,7 +42,7 @@ namespace Ogre::GLSL
     void reportGLSLError(GLenum glErr, StringView ogreMethod, StringView errorTextPrefix, const uint obj, const bool forceInfoLog, const bool forceException)
     {
         bool errorsFound = false;
-        String msg = errorTextPrefix;
+        std::string msg{ errorTextPrefix};
 
         // get all the GL errors
         while (glErr != GL_NO_ERROR)
@@ -71,9 +71,9 @@ namespace Ogre::GLSL
         String logMessage = getObjectInfo(obj);
 
         if (logMessage.empty())
-            return msg;
+            return std::string{msg};
 
-        ::std::format("{}\n{}", logMessage = msg , logMessage);
+        logMessage = ::std::format("{}\n{}", msg , logMessage);
 
         LogManager::getSingleton().logMessage(LML_CRITICAL, logMessage);
 

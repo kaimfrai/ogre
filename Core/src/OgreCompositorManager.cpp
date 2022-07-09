@@ -239,7 +239,7 @@ auto CompositorManager::getPooledTexture(StringView name,
 
     if (scope == CompositionTechnique::TS_CHAIN)
     {
-        StringPair pair = std::make_pair(inst->getCompositor()->getName(), localName);
+        StringPair pair = std::make_pair(std::string{inst->getCompositor()->getName()}, std::string{localName});
         TextureDefMap& defMap = mChainTexturesByDef[pair];
         auto it = defMap.find(def);
         if (it != defMap.end())

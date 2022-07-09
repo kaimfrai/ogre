@@ -74,7 +74,7 @@ namespace Ogre {
 
             pArch = it->second->createInstance(filename, readOnly);
             pArch->load();
-            mArchives[filename] = pArch;
+            mArchives[std::string{filename}] = pArch;
 
         }
         else

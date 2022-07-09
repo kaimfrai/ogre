@@ -408,7 +408,7 @@ namespace Ogre
                         "GpuSharedParameters::addConstantDefinition");
         }
 
-        mNamedConstants.map[name] = def;
+        mNamedConstants.map[std::string{ name }] = def;
 
         ++mVersion;
     }

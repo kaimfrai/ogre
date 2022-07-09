@@ -396,13 +396,13 @@ namespace OgreBites
 
         void addItem(StringView item)
         {
-            mItems.push_back(item);
+            mItems.emplace_back(item);
             setItems(mItems);
         }
 
         void insertItem(size_t index, StringView item)
         {
-            mItems.insert(mItems.begin() + index, item);
+            mItems.emplace(mItems.begin() + index, item);
             setItems(mItems);
         }
 

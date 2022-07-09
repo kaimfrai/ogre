@@ -40,7 +40,7 @@ namespace Ogre::OverlayElementCommands {
         //-----------------------------------------------------------------------
         auto CmdMaterial::doGet(const void* target) const -> String
         {
-            return static_cast<const OverlayElement*>(target)->getMaterialName();
+            return std::string{ static_cast<const OverlayElement*>(target)->getMaterialName() };
         }
         void CmdMaterial::doSet(void* target, StringView val)
         {
@@ -53,7 +53,7 @@ namespace Ogre::OverlayElementCommands {
         //-----------------------------------------------------------------------
         auto CmdCaption::doGet(const void* target) const -> String
         {
-            return static_cast<const OverlayElement*>(target)->getCaption();
+            return std::string{ static_cast<const OverlayElement*>(target)->getCaption() };
         }
         void CmdCaption::doSet(void* target, StringView val)
         {

@@ -119,7 +119,7 @@ void Widget::fitCaptionToArea(StringView caption, Ogre::TextAreaOverlayElement *
 {
     Ogre::FontPtr f = area->getFont();
     f->load();
-    Ogre::String s = caption;
+    auto s = caption;
 
     size_t nl = s.find('\n');
     if (nl != Ogre::String::npos) s = s.substr(0, nl);
@@ -254,7 +254,7 @@ void TextBox::setText(StringView text)
     Ogre::FontPtr font = mTextArea->getFont();
     font->load(); // ensure glyph info is there
 
-    Ogre::String current = text;
+    Ogre::String current{ text };
     bool firstWord = true;
     unsigned int lastSpace = 0;
     unsigned int lineBegin = 0;

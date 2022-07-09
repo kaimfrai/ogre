@@ -162,7 +162,7 @@ namespace Ogre
         static void unshareVertices(const Ogre::MeshPtr &mesh);
 
     public:
-        InstanceManager( String customName, SceneManager *sceneManager,
+        InstanceManager(std::string_view customName, SceneManager *sceneManager,
                          StringView meshName, StringView groupName,
                          InstancingTechnique instancingTechnique, uint16 instancingFlags,
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);

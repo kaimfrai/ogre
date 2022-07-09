@@ -1336,22 +1336,6 @@ namespace Ogre {
             "ResourceGroupManager::findGroupContainingResource");
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceLocations(StringView groupName) const -> StringVectorPtr
-    {
-        StringVectorPtr vec(new StringVector());
-
-        // Try to find in resource index first
-        ResourceGroup* grp = getResourceGroup(groupName, true);
-
-        // Iterate over the archives
-        for (auto & i : grp->locationList)
-        {
-            vec->push_back(i.archive->getName());
-        }
-
-        return vec;
-    }
-    //-----------------------------------------------------------------------
     auto ResourceGroupManager::findResourceLocation(StringView groupName, StringView pattern) const -> StringVectorPtr
     {
         StringVectorPtr vec(new StringVector());
@@ -1362,11 +1346,11 @@ namespace Ogre {
         // Iterate over the archives
         for (auto & i : grp->locationList)
         {
-            String location = i.archive->getName();
+            auto const location = i.archive->getName();
             // Search for the pattern
             if(StringUtil::match(location, pattern))
             {
-                vec->push_back(location);
+                vec->emplace_back(location);
             }
         }
 

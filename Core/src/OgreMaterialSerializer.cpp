@@ -1653,7 +1653,7 @@ namespace Ogre
 
         if (!defaultParams || different)
         {
-            String label = commandName;
+            std::string label{ commandName };
 
             // is it auto
             if (autoEntry)
@@ -1777,7 +1777,7 @@ namespace Ogre
             // write program name
             writeValue( quoteWord(program->getName()), false);
             // write program language
-            const String language = program->getLanguage();
+            auto const language = program->getLanguage();
             writeValue( language, false );
             // write opening braces
             beginSection(0, false);

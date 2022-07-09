@@ -129,7 +129,7 @@ namespace Ogre
     //*** String Interface Command Class Definitions *****************************************/
     auto CmdInputFileName::doGet(const void* target) const -> String
     {
-        return static_cast<const ExternalTextureSource*>(target)->getInputName();
+        return std::string{ static_cast<const ExternalTextureSource*>(target)->getInputName() };
     }
     void CmdInputFileName::doSet(void* target, StringView val)
     {

@@ -299,7 +299,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto PixelUtil::getFormatFromName(StringView name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
     {
-        String tmp = name;
+        String tmp{ name };
         if (!caseSensitive)
         {
             // We are stored upper-case format names.

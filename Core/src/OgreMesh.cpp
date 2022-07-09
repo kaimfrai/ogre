@@ -181,7 +181,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Mesh::nameSubMesh(StringView name, ushort index)
     {
-        mSubMeshNameMap[name] = index ;
+        mSubMeshNameMap[std::string{name}] = index ;
     }
 
     //---------------------------------------------------------------------
@@ -324,7 +324,7 @@ namespace Ogre {
         //  the MeshManager
 
         // New Mesh is assumed to be manually defined rather than loaded since you're cloning it for a reason
-        String theGroup = newGroup.empty() ? this->getGroup() : newGroup;
+        auto const theGroup = newGroup.empty() ? this->getGroup() : newGroup;
         MeshPtr newMesh = MeshManager::getSingleton().createManual(newName, theGroup);
 
         if(!newMesh) // interception by collision handler
@@ -390,7 +390,7 @@ namespace Ogre {
         for (auto const& [key, value] : mAnimationsList)
         {
             Animation *newAnim = value->clone(value->getName());
-            newMesh->mAnimationsList[value->getName()] = newAnim;
+            newMesh->mAnimationsList[std::string{value->getName()}] = newAnim;
         }
         // Clone pose list
         for (auto & i : mPoseList)
@@ -2192,7 +2192,7 @@ namespace Ogre {
         ret->_notifyContainer(this);
 
         // Add to list
-        mAnimationsList[name] = ret;
+        mAnimationsList[std::string{name}] = ret;
 
         // Mark animation types dirty
         mAnimationTypesDirty = true;

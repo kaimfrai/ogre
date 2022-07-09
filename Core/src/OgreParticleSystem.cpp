@@ -1487,7 +1487,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     auto CmdMaterial::doGet(const void* target) const -> String
     {
-        return static_cast<const ParticleSystem*>(target)->getMaterialName();
+        return std::string{ static_cast<const ParticleSystem*>(target)->getMaterialName() };
     }
     void CmdMaterial::doSet(void* target, StringView val)
     {
@@ -1518,7 +1518,7 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     auto CmdRenderer::doGet(const void* target) const -> String
     {
-        return static_cast<const ParticleSystem*>(target)->getRendererName();
+        return std::string{ static_cast<const ParticleSystem*>(target)->getRendererName() };
     }
     void CmdRenderer::doSet(void* target, StringView val)
     {

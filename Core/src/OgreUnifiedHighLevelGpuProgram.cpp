@@ -114,7 +114,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::addDelegateProgram(StringView name)
     {
-        mDelegateNames.push_back(name);
+        mDelegateNames.emplace_back(name);
 
         // reset chosen delegate
         mChosenDelegate.reset();
@@ -395,7 +395,7 @@ class ResourceManager;
     auto CmdDelegate::doGet(const void* target) const -> String
     {
         // Can't do this (not one delegate), shouldn't matter
-        return BLANKSTRING;
+        return "";
     }
     //-----------------------------------------------------------------------
     void CmdDelegate::doSet(void* target, StringView val)

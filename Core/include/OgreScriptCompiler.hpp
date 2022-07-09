@@ -311,7 +311,7 @@ class Material;
         // The container for errors
         struct Error
         {
-            String file, message;
+            std::string_view file, message;
             int line;
             uint32 code;
         };

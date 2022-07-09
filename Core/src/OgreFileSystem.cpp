@@ -140,7 +140,7 @@ namespace {
     static auto concatenate_path(StringView base, StringView name) -> String
     {
         if (base.empty() || is_absolute_path(name))
-            return name;
+            return std::string{ name };
         else
             return std::format("{}/{}", base, name);
     }
@@ -272,7 +272,7 @@ namespace {
 
         return _openFileStream(concatenate_path(mName, filename), mode, filename);
     }
-    auto _openFileStream(StringView full_path, std::ios::openmode mode, StringView name) -> DataStreamPtr
+    auto _openFileStream(std::string_view full_path, std::ios::openmode mode, StringView name) -> DataStreamPtr
     {
         // Use filesystem to determine size 
         // (quicker than streaming to the end and back)

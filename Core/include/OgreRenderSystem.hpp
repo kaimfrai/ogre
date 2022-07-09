@@ -270,7 +270,7 @@ class VertexDeclaration;
         @note
         If the returned string is empty, there are no problems.
         */
-        virtual auto validateConfigOptions() noexcept -> String { return BLANKSTRING; }
+        virtual auto validateConfigOptions() noexcept -> String { return ""; }
 
         /** Start up the renderer using the settings selected (Or the defaults if none have been selected).
 

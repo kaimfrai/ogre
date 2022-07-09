@@ -77,7 +77,7 @@ namespace Ogre {
 
     auto RenderSystemCapabilitiesManager::loadParsedCapabilities(StringView name) -> RenderSystemCapabilities*
     {
-        return mCapabilitiesMap[name].get();
+        return mCapabilitiesMap.find(name)->second.get();
     }
 
     auto RenderSystemCapabilitiesManager::getCapabilities() const -> const CapabilitiesMap&

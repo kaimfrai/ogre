@@ -265,7 +265,7 @@ namespace Ogre {
         }
 
         // now check device names
-        includeRules.str(BLANKSTRING);
+        includeRules.str("");
         includeRulesPresent = false;
         includeRuleMatched = false;
 

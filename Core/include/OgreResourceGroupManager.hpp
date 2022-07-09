@@ -719,11 +719,6 @@ class ScriptLoader;
 
         /** Retrieve the modification time of a given file */
         [[nodiscard]] auto resourceModifiedTime(StringView group, StringView filename) const -> time_t;
-        /** List all resource locations in a resource group.
-        @param groupName The name of the group
-        @return A list of resource locations matching the criteria
-        */
-        [[nodiscard]] auto listResourceLocations(StringView groupName) const -> StringVectorPtr;
 
         /** Find all resource location names matching a given pattern in a
             resource group.

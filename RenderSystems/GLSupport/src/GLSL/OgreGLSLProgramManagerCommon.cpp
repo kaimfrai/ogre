@@ -379,9 +379,6 @@ namespace Ogre {
                 auto typei = mTypeEnumMap.find(typeString);
                 if (typei == mTypeEnumMap.end())
                 {
-                    // Gobble up the external name
-                    String externalName = parts.front();
-
                     // Now there should be an opening brace
                     String::size_type openBracePos = src.find('{', currPos);
                     if (openBracePos != String::npos)

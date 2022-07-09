@@ -348,7 +348,7 @@ class Technique;
         {
             if (val.find_first_of("{}$: \t") != String::npos)
                 return (::std::format("\"{}\"", val ));
-            else return val;
+            else return std::string{val};
         }
 
 

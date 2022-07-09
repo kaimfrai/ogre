@@ -70,8 +70,8 @@ namespace Ogre {
 
     void ParamDictionary::addParameter(StringView name, ParamCommand* paramCmd)
     {
-        mParamDefs.push_back(name);
-        mParamCommands[name] = paramCmd;
+        mParamDefs.emplace_back(name);
+        mParamCommands[std::string{name}] = paramCmd;
     }
 
     auto StringInterface::createParamDictionary(StringView className) -> bool

@@ -407,7 +407,7 @@ namespace Ogre
 
             // the first token must the the keyword identifying the capability
             // the remaining tokens are the parameters
-            String keyword = tokens[0];
+            auto const keyword = tokens[0];
             String everythingElse = "";
             for(unsigned int i = 1; i < tokens.size() - 1; i ++)
             {

@@ -1163,7 +1163,7 @@ void SceneManager::_renderScene(Camera* camera, Viewport* vp, bool includeOverla
 
     // preserve the previous scheme, in case this is a RTT update with an outer _renderScene pending
     MaterialManager& matMgr = MaterialManager::getSingleton();
-    String prevMaterialScheme = matMgr.getActiveScheme();
+    auto const prevMaterialScheme = matMgr.getActiveScheme();
 
     // Also set the internal viewport pointer at this point, for calls that need it
     // However don't call setViewport just yet (see below)
@@ -3332,7 +3332,7 @@ auto SceneManager::createMovableObject(StringView name,
     }
 
     MovableObject* newObj = factory->createInstance(name, this, params);
-    objectMap->map[name] = newObj;
+    objectMap->map[std::string{name}] = newObj;
     return newObj;
 }
 //---------------------------------------------------------------------
@@ -3464,7 +3464,7 @@ void SceneManager::destroyMovableObject(MovableObject* m)
 void SceneManager::injectMovableObject(MovableObject* m)
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(m->getMovableType());
-    objectMap->map[m->getName()] = m;
+    objectMap->map[std::string{ m->getName() }] = m;
 }
 //---------------------------------------------------------------------
 void SceneManager::extractMovableObject(StringView name, StringView typeName)

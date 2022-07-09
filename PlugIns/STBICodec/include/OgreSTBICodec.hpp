@@ -53,7 +53,7 @@ namespace Ogre {
         static RegisteredCodecList msCodecList;
 
     public:
-        STBIImageCodec(String type);
+        STBIImageCodec(std::string_view type);
         ~STBIImageCodec() override = default;
 
         using ImageCodec::decode;
@@ -61,7 +61,7 @@ namespace Ogre {
         using ImageCodec::encodeToFile;
 
         [[nodiscard]] auto encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const -> DataStreamPtr override;
-        void encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName, const CodecDataPtr& pData) const  override;
+        void encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName, const CodecDataPtr& pData) const override;
         [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult  override;
 
         [[nodiscard]] auto getType() const -> StringView override;

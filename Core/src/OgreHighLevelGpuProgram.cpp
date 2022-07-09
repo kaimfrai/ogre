@@ -50,7 +50,7 @@ namespace Ogre
         //-----------------------------------------------------------------------
         auto doGet(const void* target) const -> String override
         {
-            return static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines();
+            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getPreprocessorDefines() };
         }
         void doSet(void* target, StringView val) override
         {
@@ -65,7 +65,7 @@ namespace Ogre
     public:
         auto doGet(const void* target) const -> String override
         {
-            return static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint();
+            return std::string{ static_cast<const HighLevelGpuProgram*>(target)->getEntryPoint() };
         }
         void doSet(void* target, StringView val) override { static_cast<HighLevelGpuProgram*>(target)->setEntryPoint(val); }
     };
@@ -216,10 +216,10 @@ namespace Ogre
         auto renderSystem = Root::getSingleton().getRenderSystem();
 
         // OGRE_HLSL, OGRE_GLSL etc.
-        String tmp = getLanguage();
+        std::string tmp{ getLanguage() };
         StringUtil::toUpperCase(tmp);
         auto ver = renderSystem ? renderSystem->getNativeShadingLanguageVersion() : 0;
-        defines += std::format("OGRE_{}={}", tmp.c_str(), ver);
+        defines += std::format("OGRE_{}={}", tmp, ver);
 
         // OGRE_VERTEX_SHADER, OGRE_FRAGMENT_SHADER
         tmp = GpuProgram::getProgramTypeName(getType());

@@ -107,7 +107,7 @@ namespace Ogre {
         msCodecList.clear();
     }
     //---------------------------------------------------------------------
-    STBIImageCodec::STBIImageCodec(String type):
+    STBIImageCodec::STBIImageCodec(std::string_view type):
         mType(type)
     { 
     }
@@ -160,7 +160,7 @@ namespace Ogre {
         return DataStreamPtr(new MemoryDataStream(data, len, true));
     }
     //---------------------------------------------------------------------
-    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName,
+    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
                                       const CodecDataPtr& pData) const
     {
         MemoryDataStreamPtr data = static_pointer_cast<MemoryDataStream>(encode(input, pData));

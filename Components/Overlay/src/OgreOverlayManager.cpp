@@ -117,7 +117,7 @@ class RenderQueue;
         {
             ret = new Overlay(name);
             assert(ret && "Overlay creation failed");
-            mOverlayMap[name] = ret;
+            mOverlayMap[std::string{ name }] = ret;
         }
         else
         {

@@ -89,7 +89,7 @@ namespace Ogre {
         /// @deprecated
         [[nodiscard]] virtual auto encode(const MemoryDataStreamPtr& input, const CodecDataPtr& pData) const -> DataStreamPtr { return encode(::std::any{}); }
         /// @deprecated
-        virtual void encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName, const CodecDataPtr& pData) const
+        virtual void encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName, const CodecDataPtr& pData) const
         { encodeToFile(::std::any{}, ""); }
         /// Result of a decoding; both a decoded data stream and CodecData metadata
         using DecodeResult = std::pair<MemoryDataStreamPtr, CodecDataPtr>;

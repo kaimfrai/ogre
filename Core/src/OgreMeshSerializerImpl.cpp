@@ -2608,7 +2608,7 @@ namespace Ogre {
     MeshSerializerImpl_v1_8::~MeshSerializerImpl_v1_8()
     = default;
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName) -> String
+    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(std::string_view strategyName) -> StringView
     {
         if(strategyName == "distance_box" || strategyName == "distance_sphere")
             strategyName = "Distance";

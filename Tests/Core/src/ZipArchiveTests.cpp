@@ -46,7 +46,7 @@ THE SOFTWARE.
 
 using namespace Ogre;
 
-static auto fileId(StringView path) -> String {
+static auto fileId(StringView path) -> StringView {
     return path;
 }
 

@@ -852,7 +852,7 @@ namespace OgreBites
             Ogre::RenderSystemList rsList = mRoot->getAvailableRenderers();
             for (auto & i : rsList)
             {
-                rsNames.push_back(i->getName());
+                rsNames.emplace_back(i->getName());
             }
             mRendererMenu->setItems(rsNames);
 

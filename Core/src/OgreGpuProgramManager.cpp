@@ -266,7 +266,7 @@ namespace {
                 "GpuProgramManager::createSharedParameters");
         }
         GpuSharedParametersPtr ret(new GpuSharedParameters(name));
-        mSharedParametersMap[name] = ret;
+        mSharedParametersMap[std::string{ name }] = ret;
         return ret;
     }
     //---------------------------------------------------------------------

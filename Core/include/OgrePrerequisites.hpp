@@ -326,11 +326,6 @@ namespace Ogre
         : std::string_view{static_cast<std::string_view>(s)}
         {}
 
-        constexpr operator std::string() const
-        {
-            return std::string{*this};
-        }
-
         friend auto constexpr operator<=> (StringView left, StringView right) -> std::weak_ordering
         {
             return std::string_view{left} <=> std::string_view{right};

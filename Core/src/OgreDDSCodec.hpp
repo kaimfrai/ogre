@@ -81,7 +81,7 @@ class ColourValue;
         using ImageCodec::encode;
         using ImageCodec::encodeToFile;
 
-        void encodeToFile(const MemoryDataStreamPtr& input, StringView outFileName, const CodecDataPtr& pData) const override;
+        void encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName, const CodecDataPtr& pData) const override;
         [[nodiscard]] auto decode(const DataStreamPtr& input) const -> DecodeResult override;
         auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView override;
         [[nodiscard]] auto getType() const -> StringView override;

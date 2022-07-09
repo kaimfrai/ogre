@@ -141,7 +141,7 @@ namespace Ogre {
             mSetStringMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetStringMethod(String& keyword, String& val)
+        inline void callSetStringMethod(std::string_view keyword, String& val)
         {
             auto methodIter = mSetStringMethodDispatchTable.find(keyword);
             if (methodIter != mSetStringMethodDispatchTable.end())
@@ -161,7 +161,7 @@ namespace Ogre {
             mSetIntMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetIntMethod(String& keyword, ushort val)
+        inline void callSetIntMethod(StringView keyword, ushort val)
         {
             auto methodIter = mSetIntMethodDispatchTable.find(keyword);
             if (methodIter != mSetIntMethodDispatchTable.end())
@@ -181,7 +181,7 @@ namespace Ogre {
             mSetBoolMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetBoolMethod(String& keyword, bool val)
+        inline void callSetBoolMethod(StringView keyword, bool val)
         {
             auto methodIter = mSetBoolMethodDispatchTable.find(keyword);
             if (methodIter != mSetBoolMethodDispatchTable.end())
@@ -201,7 +201,7 @@ namespace Ogre {
             mSetRealMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetRealMethod(String& keyword, Real val)
+        inline void callSetRealMethod(StringView keyword, Real val)
         {
             auto methodIter = mSetRealMethodDispatchTable.find(keyword);
             if (methodIter != mSetRealMethodDispatchTable.end())
