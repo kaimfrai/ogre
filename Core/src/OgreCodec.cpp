@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    Codec::CodecList Codec::msMapCodecs;
+    std::map<std::string_view, Codec * > Codec::msMapCodecs;
 
     Codec::~Codec() = default;
 
@@ -47,7 +47,7 @@ namespace Ogre {
         return {};
     }
 
-    void Codec::encodeToFile(::std::any const& input, std::string_view outFileName) const
+    void Codec::encodeToFile(::std::any const& input, const String& outFileName) const
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }
@@ -72,7 +72,9 @@ namespace Ogre {
 
     auto Codec::getCodec(std::string_view extension) -> Codec*
     {
-        auto i = msMapCodecs.find(StringUtil::LowerView(extension));
+        String lwrcase{extension};
+        StringUtil::toLowerCase(lwrcase);
+        auto i = msMapCodecs.find(lwrcase);
         if (i == msMapCodecs.end())
         {
             String formats_str;

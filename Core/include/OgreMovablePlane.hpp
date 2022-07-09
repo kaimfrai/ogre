@@ -65,7 +65,7 @@ class RenderQueue;
         static String msMovableType;
     public:
 
-        MovablePlane(std::string_view name);
+        MovablePlane(const String& name);
         MovablePlane (const Plane& rhs);
         /** Construct a plane through a normal, and a distance to move the plane along the normal.*/
         MovablePlane (const Vector3& rkNormal, Real fConstant);
@@ -82,7 +82,7 @@ class RenderQueue;
         /// Overridden from MovableObject
         void _updateRenderQueue(RenderQueue*) override { /* do nothing */}
         /// Overridden from MovableObject
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> const String& override;
         /// Get the derived plane as transformed by its parent node. 
         auto _getDerivedPlane() const -> const Plane&;
         /// @copydoc MovableObject::visitRenderables

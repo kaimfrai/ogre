@@ -92,10 +92,10 @@ public:
     @return parameter instance in case of that resolve operation succeeded.
     @remarks Pass -1 as index parameter to create a new parameter with the desired type and index.
     */
-    auto resolveParameter(GpuConstantType type, int index, uint16 variability, std::string_view suggestedName, size_t size = 0) -> UniformParameterPtr;
+    auto resolveParameter(GpuConstantType type, int index, uint16 variability, const String& suggestedName, size_t size = 0) -> UniformParameterPtr;
     
     /// @overload
-    auto resolveParameter(GpuConstantType type, std::string_view name, int index = -1) -> UniformParameterPtr
+    auto resolveParameter(GpuConstantType type, const String& name, int index = -1) -> UniformParameterPtr
     {
         return resolveParameter(type, index, GPV_GLOBAL, name);
     }
@@ -111,7 +111,7 @@ public:
     @param name The name of the parameter to search for.
     @remarks Return NULL if no matching parameter found.
     */
-    auto getParameterByName(std::string_view name) -> UniformParameterPtr;
+    auto getParameterByName(const String& name) -> UniformParameterPtr;
 
     /** Get parameter by a given auto constant type.    
     @param autoType The auto type of the parameter to search for.
@@ -140,7 +140,7 @@ public:
     One should verify that the given library file he provides can be reached by the resource manager.
     This step can be achieved using the ResourceGroupManager::addResourceLocation method.
     */
-    void addDependency(std::string_view libFileName);
+    void addDependency(const String& libFileName);
 
     /** Get the number of external libs this program depends on */
     [[nodiscard]] auto getDependencyCount() const -> size_t;
@@ -148,7 +148,7 @@ public:
     /** Get the library name of the given index dependency.
     @param index The index of the dependecy.
     */
-    [[nodiscard]] auto getDependency(unsigned int index) const -> std::string_view;
+    [[nodiscard]] auto getDependency(unsigned int index) const -> const String&;
     
 
     /** Sets whether a vertex program includes the required instructions
@@ -180,9 +180,9 @@ public:
     */
     [[nodiscard]] auto getUseColumnMajorMatrices() const noexcept -> bool { return mColumnMajorMatrices; }
 
-    void addPreprocessorDefines(std::string_view defines);
+    void addPreprocessorDefines(const String& defines);
 
-    [[nodiscard]] auto getPreprocessorDefines() const noexcept -> std::string_view{ return mPreprocessorDefines; }
+    [[nodiscard]] auto getPreprocessorDefines() const noexcept -> const String& { return mPreprocessorDefines; }
 
     /** Class destructor */
     ~Program();
@@ -210,7 +210,7 @@ private:
     // Entry point function for this program.   
     ::std::unique_ptr<Function> mEntryPointFunction;
     // Program dependencies.
-    std::vector<std::string_view> mDependencies;
+    StringVector mDependencies;
     /// preprocessor definitions
     String mPreprocessorDefines;
     // Skeletal animation calculation

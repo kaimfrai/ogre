@@ -450,9 +450,9 @@ namespace Ogre {
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
 
-        using CameraList = std::map<std::string_view, Camera *>;
-        using AnimationList = std::map<std::string_view, Animation *>;
-        using MovableObjectMap = std::map<std::string_view, MovableObject *>;
+        using CameraList = std::map<String, Camera *>;
+        using AnimationList = std::map<String, Animation *>;
+        using MovableObjectMap = std::map<String, MovableObject *>;
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.
@@ -473,12 +473,12 @@ namespace Ogre {
         */
         CameraList mCameras;
 
-        using StaticGeometryList = std::map<std::string_view, StaticGeometry *>;
+        using StaticGeometryList = std::map<String, StaticGeometry *>;
         StaticGeometryList mStaticGeometryList;
-        using InstancedGeometryList = std::map<std::string_view, InstancedGeometry *>;
+        using InstancedGeometryList = std::map<String, InstancedGeometry *>;
         InstancedGeometryList mInstancedGeometryList;
 
-        using InstanceManagerMap = std::map<std::string_view, InstanceManager *>;
+        using InstanceManagerMap = std::map<String, InstanceManager *>;
         InstanceManagerMap  mInstanceManagerMap;
 
         using SceneNodeList = std::vector<SceneNode *>;
@@ -541,9 +541,9 @@ namespace Ogre {
         public:
             SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyPlaneGenParameters mSkyPlaneGenParameters;
-            void setSkyPlane(bool enable, const Plane& plane, std::string_view materialName,
+            void setSkyPlane(bool enable, const Plane& plane, const String& materialName,
                              Real scale, Real tiling, uint8 renderQueue, Real bow, int xsegments,
-                             int ysegments, std::string_view groupName);
+                             int ysegments, const String& groupName);
         } mSkyPlane;
 
         class SkyBoxRenderer : public SkyRenderer
@@ -555,9 +555,9 @@ namespace Ogre {
         public:
             SkyBoxRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyBoxGenParameters mSkyBoxGenParameters;
-            void setSkyBox(bool enable, std::string_view materialName, Real distance,
+            void setSkyBox(bool enable, const String& materialName, Real distance,
                            uint8 renderQueue, const Quaternion& orientation,
-                           std::string_view groupName);
+                           const String& groupName);
         } mSkyBox;
 
         class SkyDomeRenderer : public SkyRenderer
@@ -570,15 +570,15 @@ namespace Ogre {
                 Real curvature, Real tiling, Real distance,
                 const Quaternion& orientation,
                 int xsegments, int ysegments, int ySegmentsToKeep,
-                std::string_view groupName) -> MeshPtr;
+                const String& groupName) -> MeshPtr;
             void _updateRenderQueue(RenderQueue* queue) override;
         public:
             SkyDomeRenderer(SceneManager* owner)  : SkyRenderer(owner) {}
             SkyDomeGenParameters mSkyDomeGenParameters;
-            void setSkyDome(bool enable, std::string_view materialName, Real curvature, Real tiling,
+            void setSkyDome(bool enable, const String& materialName, Real curvature, Real tiling,
                             Real distance, uint8 renderQueue, const Quaternion& orientation,
                             int xsegments, int ysegments, int ysegments_keep,
-                            std::string_view groupName);
+                            const String& groupName);
         } mSkyDome;
 
         // Fog
@@ -637,19 +637,19 @@ namespace Ogre {
         {
                     MovableObjectMap map;
         };
-        using MovableObjectCollectionMap = std::map<std::string_view, ::std::unique_ptr<MovableObjectCollection>>;
+        using MovableObjectCollectionMap = std::map<String, ::std::unique_ptr<MovableObjectCollection>>;
         MovableObjectCollectionMap mMovableObjectCollectionMap;
         NameGenerator mMovableNameGenerator;
         /** Gets the movable object collection for the given type name.
         @remarks
             This method create new collection if the collection does not exist.
         */
-        auto getMovableObjectCollection(std::string_view typeName) -> MovableObjectCollection*;
+        auto getMovableObjectCollection(const String& typeName) -> MovableObjectCollection*;
         /** Gets the movable object collection for the given type name.
         @remarks
             This method throw exception if the collection does not exist.
         */
-        auto getMovableObjectCollection(std::string_view typeName) const -> const MovableObjectCollection*;
+        auto getMovableObjectCollection(const String& typeName) const -> const MovableObjectCollection*;
 
         /** Internal method for initialising the render queue.
         @remarks
@@ -923,9 +923,9 @@ namespace Ogre {
         /// Internal method for firing the queue end event
         void firePostRenderQueues();
         /// Internal method for firing the queue start event, returns true if queue is to be skipped
-        virtual auto fireRenderQueueStarted(uint8 id, std::string_view invocation) -> bool;
+        virtual auto fireRenderQueueStarted(uint8 id, const String& invocation) -> bool;
         /// Internal method for firing the queue end event, returns true if queue is to be repeated
-        virtual auto fireRenderQueueEnded(uint8 id, std::string_view invocation) -> bool;
+        virtual auto fireRenderQueueEnded(uint8 id, const String& invocation) -> bool;
         /// Internal method for firing when rendering a single object.
         void fireRenderSingleObject(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
             const LightList* pLightList, bool suppressRenderStateChanges);
@@ -1124,7 +1124,7 @@ namespace Ogre {
         virtual ~SceneManager();
 
         /** Return the instance name of this SceneManager. */
-        auto getName() const noexcept -> std::string_view{ return mName; }
+        auto getName() const noexcept -> const String& { return mName; }
 
         /** Retrieve the type name of this scene manager.
         @remarks
@@ -1132,7 +1132,7 @@ namespace Ogre {
             return the type name of this SceneManager which agrees with 
             the type name of the SceneManagerFactory which created it.
         */
-        virtual auto getTypeName() const noexcept -> std::string_view= 0;
+        virtual auto getTypeName() const noexcept -> const String& = 0;
 
         using CameraIterator = MapIterator<CameraList>;
         /// @name Cameras
@@ -1144,16 +1144,16 @@ namespace Ogre {
             @param
                 name Name to give the new camera.
         */
-        virtual auto createCamera(std::string_view name) -> Camera*;
+        virtual auto createCamera(const String& name) -> Camera*;
 
         /** Retrieves a pointer to the named camera.
         @note Throws an exception if the named instance does not exist
         */
-        auto getCamera(std::string_view name) const -> Camera*;
+        auto getCamera(const String& name) const -> Camera*;
 
         /** Returns whether a camera with the given name exists.
         */
-        auto hasCamera(std::string_view name) const -> bool;
+        auto hasCamera(const String& name) const -> bool;
 
         /** Removes a camera from the scene.
             @remarks
@@ -1170,7 +1170,7 @@ namespace Ogre {
                 This method removes an camera from the scene based on the
                 camera's name rather than a pointer.
         */
-        virtual void destroyCamera(std::string_view name);
+        virtual void destroyCamera(const String& name);
 
         /** Removes (and destroys) all cameras from the scene.
             @remarks
@@ -1220,10 +1220,10 @@ namespace Ogre {
             @param
                 name The name of the new light, to identify it later.
         */
-        virtual auto createLight(std::string_view name) -> Light*;
+        virtual auto createLight(const String& name) -> Light*;
 
         /// @overload
-        auto createLight(std::string_view name, Light::LightTypes type) -> Light*
+        auto createLight(const String& name, Light::LightTypes type) -> Light*
         {
             auto l = createLight(name);
             l->setType(type);
@@ -1242,10 +1242,10 @@ namespace Ogre {
         }
 
         /// @copydoc getMovableObject()
-        virtual auto getLight(std::string_view name) const -> Light*;
+        virtual auto getLight(const String& name) const -> Light*;
 
         /// @copydoc hasMovableObject()
-        virtual auto hasLight(std::string_view name) const -> bool;
+        virtual auto hasLight(const String& name) const -> bool;
 
         /** Retrieve a set of clipping planes for a given light. 
         */
@@ -1265,7 +1265,7 @@ namespace Ogre {
             @remarks
                 Any pointers held to this light after calling this method will be invalid.
         */
-        virtual void destroyLight(std::string_view name);
+        virtual void destroyLight(const String& name);
 
         /// @overload
         void destroyLight(Light* light) { destroyMovableObject(light); }
@@ -1426,7 +1426,7 @@ namespace Ogre {
                 mesh will be loaded if it is not already.
             @param groupName The resource name where the mesh lives
         */
-        auto createEntity(std::string_view entityName, std::string_view meshName, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME ) -> Entity*;
+        auto createEntity(const String& entityName, const String& meshName, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME ) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh).
             @param
@@ -1434,14 +1434,14 @@ namespace Ogre {
             @param
                 pMesh The pointer to the Mesh it is to be based on.
         */
-        auto createEntity(std::string_view entityName, const MeshPtr& pMesh ) -> Entity*;
+        auto createEntity(const String& entityName, const MeshPtr& pMesh ) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) with an autogenerated name.
             @param
                 meshName The name of the Mesh it is to be based on (e.g. 'knot.oof'). The
                 mesh will be loaded if it is not already.
         */
-        auto createEntity(std::string_view meshName) -> Entity*;
+        auto createEntity(const String& meshName) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) with an autogenerated name.
             @param
@@ -1455,16 +1455,16 @@ namespace Ogre {
             @param
                 ptype The prefab type.
         */
-        auto createEntity(std::string_view entityName, PrefabType ptype) -> Entity*;
+        auto createEntity(const String& entityName, PrefabType ptype) -> Entity*;
 
         /** Create an Entity (instance of a discrete mesh) from a range of prefab shapes, generating the name.
             @param ptype The prefab type.
         */
         auto createEntity(PrefabType ptype) -> Entity*;
         /// @copydoc getMovableObject()
-        auto getEntity(std::string_view name) const -> Entity*;
+        auto getEntity(const String& name) const -> Entity*;
         /// @copydoc hasMovableObject()
-        auto hasEntity(std::string_view name) const -> bool;
+        auto hasEntity(const String& name) const -> bool;
 
         /** Removes & destroys an Entity from the SceneManager.
             @warning
@@ -1477,7 +1477,7 @@ namespace Ogre {
         void destroyEntity(MovableObject* ent) { destroyMovableObject(ent); }
 
         /// @overload
-        void destroyEntity(std::string_view name);
+        void destroyEntity(const String& name);
 
         /** Removes & destroys all Entities.
             @warning
@@ -1498,21 +1498,21 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        auto createManualObject(std::string_view name) -> ManualObject*;
+        auto createManualObject(const String& name) -> ManualObject*;
         /** Create a ManualObject, an object which you populate with geometry
         manually through a GL immediate-mode style interface, generating the name.
         */
         auto createManualObject() -> ManualObject*;
         /// @copydoc getMovableObject()
-        auto getManualObject(std::string_view name) const -> ManualObject*;
+        auto getManualObject(const String& name) const -> ManualObject*;
         /// @copydoc hasMovableObject()
-        auto hasManualObject(std::string_view name) const -> bool;
+        auto hasManualObject(const String& name) const -> bool;
 
         /** Removes & destroys a ManualObject from the SceneManager.
         */
         void destroyManualObject(MovableObject* obj) {  destroyMovableObject(obj); }
         /// @overload
-        void destroyManualObject(std::string_view name);
+        void destroyManualObject(const String& name);
         /** Removes & destroys all ManualObjects from the SceneManager.
         */
         void destroyAllManualObjects();
@@ -1525,13 +1525,13 @@ namespace Ogre {
         @param name The name to be given to the object (must be unique).
         @param includeTextureCoords whether to create texture coordinates
         */
-        auto createScreenSpaceRect(std::string_view name, bool includeTextureCoords = false) -> Rectangle2D*;
+        auto createScreenSpaceRect(const String& name, bool includeTextureCoords = false) -> Rectangle2D*;
         /// @overload
         auto createScreenSpaceRect(bool includeTextureCoords = false) -> Rectangle2D*;
         /// @copydoc hasMovableObject()
-        auto hasScreenSpaceRect(std::string_view name) const -> bool;
+        auto hasScreenSpaceRect(const String& name) const -> bool;
         /// @copydoc getMovableObject()
-        auto getScreenSpaceRect(std::string_view name) const -> Rectangle2D*;
+        auto getScreenSpaceRect(const String& name) const -> Rectangle2D*;
         /// @}
 
         /// @name Billboard Chains
@@ -1541,21 +1541,21 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        auto createBillboardChain(std::string_view name) -> BillboardChain*;
+        auto createBillboardChain(const String& name) -> BillboardChain*;
         /** Create a BillboardChain, an object which you can use to render
         a linked chain of billboards, with a generated name.
         */
         auto createBillboardChain() -> BillboardChain*;
         /// @copydoc getMovableObject()
-        auto getBillboardChain(std::string_view name) const -> BillboardChain*;
+        auto getBillboardChain(const String& name) const -> BillboardChain*;
         /// @copydoc hasMovableObject()
-        auto hasBillboardChain(std::string_view name) const -> bool;
+        auto hasBillboardChain(const String& name) const -> bool;
 
         /** Removes & destroys a BillboardChain from the SceneManager.
         */
         void destroyBillboardChain(MovableObject* obj) { destroyMovableObject(obj); }
         /// @overload
-        void destroyBillboardChain(std::string_view name);
+        void destroyBillboardChain(const String& name);
         /** Removes & destroys all BillboardChains from the SceneManager.
         */
         void destroyAllBillboardChains();
@@ -1564,21 +1564,21 @@ namespace Ogre {
         @param
             name The name to be given to the object (must be unique).
         */
-        auto createRibbonTrail(std::string_view name) -> RibbonTrail*;
+        auto createRibbonTrail(const String& name) -> RibbonTrail*;
         /** Create a RibbonTrail, an object which you can use to render
         a linked chain of billboards which follows one or more nodes, generating the name.
         */
         auto createRibbonTrail() -> RibbonTrail*;
         /// @copydoc getMovableObject()
-        auto getRibbonTrail(std::string_view name) const -> RibbonTrail*;
+        auto getRibbonTrail(const String& name) const -> RibbonTrail*;
         /// @copydoc hasMovableObject()
-        auto hasRibbonTrail(std::string_view name) const -> bool;
+        auto hasRibbonTrail(const String& name) const -> bool;
 
         /** Removes & destroys a RibbonTrail from the SceneManager.
         */
         void destroyRibbonTrail(MovableObject* obj) { destroyMovableObject(obj); }
         /// @overload
-        void destroyRibbonTrail(std::string_view name);
+        void destroyRibbonTrail(const String& name);
         /** Removes & destroys all RibbonTrails from the SceneManager.
         */
         void destroyAllRibbonTrails();
@@ -1606,8 +1606,8 @@ namespace Ogre {
         @param 
             templateName The name of the template to base the new instance on.
         */
-        auto createParticleSystem(std::string_view name,
-            std::string_view templateName) -> ParticleSystem*;
+        auto createParticleSystem(const String& name,
+            const String& templateName) -> ParticleSystem*;
         /** Create a blank particle system.
         @remarks
             This method creates a new, blank ParticleSystem instance and returns a pointer to it.
@@ -1627,23 +1627,23 @@ namespace Ogre {
         @param
             resourceGroup The resource group which will be used to load dependent resources
         */
-        auto createParticleSystem(std::string_view name,
+        auto createParticleSystem(const String& name,
             size_t quota = 500, 
-            std::string_view resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
+            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
 
         /// @overload
         auto createParticleSystem(size_t quota = 500,
-            std::string_view resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
+            const String& resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> ParticleSystem*;
         /// @copydoc getMovableObject()
-        auto getParticleSystem(std::string_view name) const -> ParticleSystem*;
+        auto getParticleSystem(const String& name) const -> ParticleSystem*;
         /// @copydoc hasMovableObject()
-        auto hasParticleSystem(std::string_view name) const -> bool;
+        auto hasParticleSystem(const String& name) const -> bool;
 
         /** Removes & destroys a ParticleSystem from the SceneManager.
         */
         void destroyParticleSystem(MovableObject* obj) { destroyMovableObject(obj); }
         /// @overload
-        void destroyParticleSystem(std::string_view name);
+        void destroyParticleSystem(const String& name);
         /** Removes & destroys all ParticleSystems from the SceneManager.
         */
         void destroyAllParticleSystems();
@@ -1688,7 +1688,7 @@ namespace Ogre {
                 throw an exception. However subclasses like BspSceneManager can load
                 particular types of world geometry e.g. "q3dm1.bsp".
         */
-        virtual void setWorldGeometry(std::string_view filename);
+        virtual void setWorldGeometry(const String& filename);
 
         /** @overload
             @param stream Data stream containing data to load
@@ -1697,7 +1697,7 @@ namespace Ogre {
                 supports one type of world geometry.
         */
         virtual void setWorldGeometry(DataStreamPtr& stream, 
-            std::string_view typeName = "");
+            const String& typeName = BLANKSTRING);
 
         /** Estimate the number of loading stages required to load the named
             world geometry. 
@@ -1711,7 +1711,7 @@ namespace Ogre {
         @note 
             The default is to return 0, ie to not report progress. 
         */
-        virtual auto estimateWorldGeometry(std::string_view filename) -> size_t
+        virtual auto estimateWorldGeometry(const String& filename) -> size_t
         { (void)filename; return 0; }
 
         /** @overload
@@ -1721,7 +1721,7 @@ namespace Ogre {
             supports one type of world geometry.
         */      
         virtual auto estimateWorldGeometry(DataStreamPtr& stream, 
-            std::string_view typeName = "") -> size_t
+            const String& typeName = BLANKSTRING) -> size_t
         { (void)stream; (void)typeName; return 0; }
         /// @}
 
@@ -1754,7 +1754,7 @@ namespace Ogre {
             @par
                 On failure, false is returned.
         */
-        virtual auto setOption( std::string_view strKey, const void* pValue ) -> bool
+        virtual auto setOption( const String& strKey, const void* pValue ) -> bool
         { (void)strKey; (void)pValue; return false; }
 
         /** Method for getting the value of an implementation-specific Scene Manager option.
@@ -1770,7 +1770,7 @@ namespace Ogre {
             @par
                 On failure, false is returned and pDestValue is set to NULL.
         */
-        virtual auto getOption( std::string_view strKey, void* pDestValue ) -> bool
+        virtual auto getOption( const String& strKey, void* pDestValue ) -> bool
         { (void)strKey; (void)pDestValue; return false; }
 
         /** Method for verifying whether the scene manager has an implementation-specific
@@ -1782,7 +1782,7 @@ namespace Ogre {
             @remarks
                 If it does not, false is returned.
         */
-        virtual auto hasOption( std::string_view strKey ) const -> bool
+        virtual auto hasOption( const String& strKey ) const -> bool
         { (void)strKey; return false; }
 
         /** Method for getting all possible values for a specific option. When this list is too large
@@ -1799,7 +1799,7 @@ namespace Ogre {
             @par
                 On failure, false is returned.
         */
-        virtual auto getOptionValues( std::string_view strKey, StringVector& refValueList ) -> bool
+        virtual auto getOptionValues( const String& strKey, StringVector& refValueList ) -> bool
         { (void)strKey; (void)refValueList; return false; }
 
         /** Method for getting all the implementation-specific options of the scene manager.
@@ -1941,17 +1941,17 @@ namespace Ogre {
 
         void setSkyPlane(
             bool enable,
-            const Plane& plane, std::string_view materialName, Real scale = 1000,
+            const Plane& plane, const String& materialName, Real scale = 1000,
             Real tiling = 10, bool drawFirst = true, Real bow = 0, 
             int xsegments = 1, int ysegments = 1, 
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
         /// @overload
         void _setSkyPlane(
             bool enable,
-            const Plane& plane, std::string_view materialName, Real scale = 1000,
+            const Plane& plane, const String& materialName, Real scale = 1000,
             Real tiling = 10, uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY, Real bow = 0, 
             int xsegments = 1, int ysegments = 1, 
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /** Enables / disables a 'sky plane' */
         void setSkyPlaneEnabled(bool enable) { mSkyPlane.setEnabled(enable); }
@@ -2007,15 +2007,15 @@ namespace Ogre {
                 The name of the resource group to which to assign the plane mesh.
         */
         void setSkyBox(
-            bool enable, std::string_view materialName, Real distance = 5000,
+            bool enable, const String& materialName, Real distance = 5000,
             bool drawFirst = true, const Quaternion& orientation = Quaternion::IDENTITY,
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /// @overload
         void _setSkyBox(
-            bool enable, std::string_view materialName, Real distance = 5000,
+            bool enable, const String& materialName, Real distance = 5000,
             uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY, const Quaternion& orientation = Quaternion::IDENTITY,
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /** Enables / disables a 'sky box' */
         void setSkyBoxEnabled(bool enable) { mSkyBox.setEnabled(enable); }
@@ -2086,19 +2086,19 @@ namespace Ogre {
             @param xsegments, ysegments, ysegments_keep see @ref MeshManager::createCurvedIllusionPlane
                 */
         void setSkyDome(
-            bool enable, std::string_view materialName, Real curvature = 10,
+            bool enable, const String& materialName, Real curvature = 10,
             Real tiling = 8, Real distance = 4000, bool drawFirst = true,
             const Quaternion& orientation = Quaternion::IDENTITY,
             int xsegments = 16, int ysegments = 16, int ysegments_keep = -1,
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /// @overload
         void _setSkyDome(
-            bool enable, std::string_view materialName, Real curvature = 10,
+            bool enable, const String& materialName, Real curvature = 10,
             Real tiling = 8, Real distance = 4000, uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY,
             const Quaternion& orientation = Quaternion::IDENTITY,
             int xsegments = 16, int ysegments = 16, int ysegments_keep = -1,
-            std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /** Enables / disables a 'sky dome' */
         void setSkyDomeEnabled(bool enable) { mSkyDome.setEnabled(enable); }
@@ -2188,15 +2188,15 @@ namespace Ogre {
             @param
                 name The name to give to this billboard set. Must be unique.
         */
-        auto createBillboardSet(std::string_view name, unsigned int poolSize = 20) -> BillboardSet*;
+        auto createBillboardSet(const String& name, unsigned int poolSize = 20) -> BillboardSet*;
 
         /** Retrieves a pointer to the named BillboardSet.
         @note Throws an exception if the named instance does not exist
         */
-        auto getBillboardSet(std::string_view name) const -> BillboardSet*;
+        auto getBillboardSet(const String& name) const -> BillboardSet*;
         /** Returns whether a billboardset with the given name exists.
         */
-        auto hasBillboardSet(std::string_view name) const -> bool;
+        auto hasBillboardSet(const String& name) const -> bool;
 
         /** Removes & destroys an BillboardSet from the SceneManager.
             @warning
@@ -2207,7 +2207,7 @@ namespace Ogre {
         void destroyBillboardSet(MovableObject* set) { destroyMovableObject(set); }
 
         /// @overload
-        void destroyBillboardSet(std::string_view name);
+        void destroyBillboardSet(const String& name);
 
         /** Removes & destroys all BillboardSets.
         @warning
@@ -2250,22 +2250,22 @@ namespace Ogre {
         @param name The name of the animation, must be unique within this SceneManager.
         @param length The total length of the animation.
         */
-        auto createAnimation(std::string_view name, Real length) -> Animation*;
+        auto createAnimation(const String& name, Real length) -> Animation*;
 
         /** Looks up an Animation object previously created with createAnimation. 
         @note Throws an exception if the named instance does not exist
         */
-        auto getAnimation(std::string_view name) const -> Animation*;
+        auto getAnimation(const String& name) const -> Animation*;
         /** Returns whether an animation with the given name exists.
         */
-        auto hasAnimation(std::string_view name) const -> bool;
+        auto hasAnimation(const String& name) const -> bool;
 
         /** Destroys an Animation. 
         @remarks
             You should ensure that none of your code is referencing this animation objects since the 
             memory will be freed.
         */
-        void destroyAnimation(std::string_view name);
+        void destroyAnimation(const String& name);
 
         /** Removes all animations created using this SceneManager. */
         void destroyAllAnimations();
@@ -2297,22 +2297,22 @@ namespace Ogre {
             default). @see AnimableValue::setAsBaseValue.
         @param animName The name of an animation created already with createAnimation.
         */
-        auto createAnimationState(std::string_view animName) -> AnimationState*;
+        auto createAnimationState(const String& animName) -> AnimationState*;
 
         /** Retrieves animation state as previously created using createAnimationState. 
         @note Throws an exception if the named instance does not exist
         */
-        auto getAnimationState(std::string_view animName) const -> AnimationState*;
+        auto getAnimationState(const String& animName) const -> AnimationState*;
         /** Returns whether an animation state with the given name exists.
         */
-        auto hasAnimationState(std::string_view name) const -> bool;
+        auto hasAnimationState(const String& name) const -> bool;
 
         /** Destroys an AnimationState. 
         @remarks
             You should ensure that none of your code is referencing this animation 
             state object since the memory will be freed.
         */
-        void destroyAnimationState(std::string_view name);
+        void destroyAnimationState(const String& name);
 
         /** Removes all animation states created using this SceneManager. */
         void destroyAllAnimationStates();
@@ -3037,17 +3037,17 @@ namespace Ogre {
         @param name The name to give the new object
         @return The new StaticGeometry instance
         */
-        auto createStaticGeometry(std::string_view name) -> StaticGeometry*;
+        auto createStaticGeometry(const String& name) -> StaticGeometry*;
         /** Retrieve a previously created StaticGeometry instance. 
         @note Throws an exception if the named instance does not exist
         */
-        auto getStaticGeometry(std::string_view name) const -> StaticGeometry*;
+        auto getStaticGeometry(const String& name) const -> StaticGeometry*;
         /** Returns whether a static geometry instance with the given name exists. */
-        auto hasStaticGeometry(std::string_view name) const -> bool;
+        auto hasStaticGeometry(const String& name) const -> bool;
         /** Remove & destroy a StaticGeometry instance. */
         void destroyStaticGeometry(StaticGeometry* geom);
         /** Remove & destroy a StaticGeometry instance. */
-        void destroyStaticGeometry(std::string_view name);
+        void destroyStaticGeometry(const String& name);
         /** Remove & destroy all StaticGeometry instances. */
         void destroyAllStaticGeometry();
         /// @}
@@ -3072,8 +3072,8 @@ namespace Ogre {
         says which submesh to pick (must be <= Mesh::getNumSubMeshes())
         @return The new InstanceManager instance
         */
-        auto createInstanceManager( std::string_view customName, std::string_view meshName,
-                                                        std::string_view groupName,
+        auto createInstanceManager( const String &customName, const String &meshName,
+                                                        const String &groupName,
                                                         InstanceManager::InstancingTechnique technique,
                                                         size_t numInstancesPerBatch, uint16 flags=0,
                                                         unsigned short subMeshIdx=0 ) -> InstanceManager*;
@@ -3081,10 +3081,10 @@ namespace Ogre {
         /** Retrieves an existing InstanceManager by it's name.
         @note Throws an exception if the named InstanceManager does not exist
         */
-        auto getInstanceManager( std::string_view managerName ) const -> InstanceManager*;
+        auto getInstanceManager( const String &managerName ) const -> InstanceManager*;
 
         /** Returns whether an InstanceManager with the given name exists. */
-        auto hasInstanceManager( std::string_view managerName ) const -> bool;
+        auto hasInstanceManager( const String &managerName ) const -> bool;
 
         /** Destroys an InstanceManager <b>if</b> it was created with createInstanceManager()
         @remarks
@@ -3092,7 +3092,7 @@ namespace Ogre {
             this manager, since it will become a dangling pointer.
         @param name Name of the manager to remove
         */
-        void destroyInstanceManager( std::string_view name );
+        void destroyInstanceManager( const String &name );
         void destroyInstanceManager( InstanceManager *instanceManager );
 
         void destroyAllInstanceManagers();
@@ -3109,8 +3109,8 @@ namespace Ogre {
             The ideal (or maximum, depending on flags) number of instances per batch for
             the given technique. Zero if technique is unsupported or errors were spotted
         */
-        auto getNumInstancesPerBatch( std::string_view meshName, std::string_view groupName,
-                                                std::string_view materialName,
+        auto getNumInstancesPerBatch( const String &meshName, const String &groupName,
+                                                const String &materialName,
                                                 InstanceManager::InstancingTechnique technique,
                                                 size_t numInstancesPerBatch, uint16 flags=0,
                                                 unsigned short subMeshIdx=0 ) -> size_t;
@@ -3127,8 +3127,8 @@ namespace Ogre {
         @param managerName Name of the instance manager
         @return An InstancedEntity ready to be attached to a SceneNode
         */
-        auto createInstancedEntity( std::string_view materialName,
-                                                        std::string_view managerName ) -> InstancedEntity*;
+        auto createInstancedEntity( const String &materialName,
+                                                        const String &managerName ) -> InstancedEntity*;
 
         /** Removes an InstancedEntity, @see SceneManager::createInstancedEntity &
             @see InstanceBatch::removeInstancedEntity
@@ -3156,16 +3156,16 @@ namespace Ogre {
         @param params Optional name/value pair list to give extra parameters to
             the created object.
         */
-        auto createMovableObject(std::string_view name,
-            std::string_view typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
+        auto createMovableObject(const String& name,
+            const String& typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
         /// @overload
-        auto createMovableObject(std::string_view typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
+        auto createMovableObject(const String& typeName, const NameValuePairList* params = nullptr) -> MovableObject*;
         /** Destroys a MovableObject with the name specified, of the type specified.
         @remarks
             The MovableObject will automatically detach itself from any nodes
             on destruction.
         */
-        void destroyMovableObject(std::string_view name, std::string_view typeName);
+        void destroyMovableObject(const String& name, const String& typeName);
         /** Destroys a MovableObject.
         @remarks
             The MovableObject will automatically detach itself from any nodes
@@ -3173,21 +3173,21 @@ namespace Ogre {
         */
         void destroyMovableObject(MovableObject* m);
         /** Destroy all MovableObjects of a given type. */
-        void destroyAllMovableObjectsByType(std::string_view typeName);
+        void destroyAllMovableObjectsByType(const String& typeName);
         /** Destroy all MovableObjects. */
         void destroyAllMovableObjects();
         /** Get a reference to a previously created object instance
         @note Throws an exception if the named instance does not exist
         */
-        auto getMovableObject(std::string_view name, std::string_view typeName) const -> MovableObject*;
+        auto getMovableObject(const String& name, const String& typeName) const -> MovableObject*;
         /** Returns whether a object instance with the given name exists. */
-        auto hasMovableObject(std::string_view name, std::string_view typeName) const -> bool;
+        auto hasMovableObject(const String& name, const String& typeName) const -> bool;
         /** Get all MovableObect instances of a given type.
         @note
             The iterator returned from this method is not thread safe, do not use this
             if you are creating or deleting objects of this type in another thread.
         */
-        auto getMovableObjects(std::string_view typeName) -> const MovableObjectMap&;
+        auto getMovableObjects(const String& typeName) -> const MovableObjectMap&;
 
         /** Inject a MovableObject instance created externally.
         @remarks
@@ -3207,7 +3207,7 @@ namespace Ogre {
             removes the instance from the internal lists, it does not attempt
             to destroy it.
         */
-        void extractMovableObject(std::string_view name, std::string_view typeName);
+        void extractMovableObject(const String& name, const String& typeName);
         /// @overload
         void extractMovableObject(MovableObject* m);
         /** Extract all injected MovableObjects of a given type.
@@ -3216,7 +3216,7 @@ namespace Ogre {
             but only removes the instances from the internal lists, it does not 
             attempt to destroy them.
         */
-        void extractAllMovableObjectsByType(std::string_view typeName);
+        void extractAllMovableObjectsByType(const String& typeName);
         /// @}
 
         /** Sets a mask which is bitwise 'and'ed with objects own visibility masks
@@ -3480,7 +3480,7 @@ namespace Ogre {
         @remarks
         Don't call directly, use SceneManagerEnumerator::createSceneManager.
         */
-        virtual auto createInstance(std::string_view instanceName) -> SceneManager* = 0;
+        virtual auto createInstance(const String& instanceName) -> SceneManager* = 0;
         /** Destroy an instance of a SceneManager. */
         virtual void destroyInstance(SceneManager* instance) { delete instance; }
 

@@ -967,7 +967,7 @@ namespace Ogre {
         SubMesh* sm = pMesh->createSubMesh();
 
         // char* materialName
-        String materialName{ readString(stream) };
+        String materialName = readString(stream);
         if(listener)
             listener->processMaterialName(pMesh, &materialName);
         if (auto material = MaterialManager::getSingleton().getByName(materialName, pMesh->getGroup()))
@@ -1069,8 +1069,8 @@ namespace Ogre {
             }
 
             if (seenTexAlias)
-                LogManager::getSingleton().logWarning(std::format("texture aliases for SubMeshes are deprecated - {}",
-                                                      stream->getName()));
+                LogManager::getSingleton().logWarning("texture aliases for SubMeshes are deprecated - " +
+                                                      stream->getName());
 
             if (!stream->eof())
             {
@@ -1094,12 +1094,12 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void MeshSerializerImpl::readSubMeshTextureAlias(const DataStreamPtr& stream, Mesh* pMesh, SubMesh* sub)
     {
-        auto const aliasName = readString(stream);
-        auto const textureName = readString(stream);
+        String aliasName = readString(stream);
+        String textureName = readString(stream);
         sub->addTextureAlias(aliasName, textureName);
     }
     //---------------------------------------------------------------------
-    void MeshSerializerImpl::writeSkeletonLink(std::string_view skelName)
+    void MeshSerializerImpl::writeSkeletonLink(const String& skelName)
     {
         writeChunkHeader(M_MESH_SKELETON_LINK, calcSkeletonLinkSize(skelName));
 
@@ -1123,7 +1123,7 @@ namespace Ogre {
         // Material definition section phased out of 1.1
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSkeletonLinkSize(std::string_view skelName) -> size_t
+    auto MeshSerializerImpl::calcSkeletonLinkSize(const String& skelName) -> size_t
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -2608,12 +2608,12 @@ namespace Ogre {
     MeshSerializerImpl_v1_8::~MeshSerializerImpl_v1_8()
     = default;
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(std::string_view strategyName) -> std::string_view
+    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(String strategyName) -> String
     {
         if(strategyName == "distance_box" || strategyName == "distance_sphere")
-            return "Distance";
+            strategyName = "Distance";
         else if(strategyName == "pixel_count" || strategyName == "screen_ratio_pixel_count")
-            return "PixelCount";
+            strategyName = "PixelCount";
         return strategyName;
     }
     //--------------------------------------------------------------------

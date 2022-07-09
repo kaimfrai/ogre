@@ -46,8 +46,8 @@ class ResourceManager;
     class CmdDelegate : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     static CmdDelegate msCmdDelegate;
     static const String sLanguage = "unified";
@@ -55,8 +55,8 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     UnifiedHighLevelGpuProgram::UnifiedHighLevelGpuProgram(
-        ResourceManager* creator, std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader)
+        ResourceManager* creator, const String& name, ResourceHandle handle,
+        const String& group, bool isManual, ManualResourceLoader* loader)
         :GpuProgram(creator, name, handle, group, isManual, loader)
     {
         if (createParamDictionary("UnifiedHighLevelGpuProgram"))
@@ -79,7 +79,7 @@ class ResourceManager;
     {
         mChosenDelegate.reset();
 
-        for (std::string_view dn : mDelegateNames)
+        for (const String& dn : mDelegateNames)
         {
             GpuProgramPtr deleg = GpuProgramManager::getSingleton().getByName(dn, mGroup);
 
@@ -112,7 +112,7 @@ class ResourceManager;
         return mChosenDelegate;
     }
     //-----------------------------------------------------------------------
-    void UnifiedHighLevelGpuProgram::addDelegateProgram(std::string_view name)
+    void UnifiedHighLevelGpuProgram::addDelegateProgram(const String& name)
     {
         mDelegateNames.push_back(name);
 
@@ -133,13 +133,13 @@ class ResourceManager;
         memSize += GpuProgram::calculateSize();
 
         // Delegate Names
-        for (std::string_view mDelegateName : mDelegateNames)
+        for (const auto & mDelegateName : mDelegateNames)
             memSize += mDelegateName.size() * sizeof(char);
 
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgram::getLanguage() const noexcept -> std::string_view
+    auto UnifiedHighLevelGpuProgram::getLanguage() const noexcept -> const String&
     {
         return sLanguage;
     }
@@ -392,13 +392,13 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdDelegate::doGet(const void* target) const -> std::string
+    auto CmdDelegate::doGet(const void* target) const -> String
     {
         // Can't do this (not one delegate), shouldn't matter
-        return "";
+        return BLANKSTRING;
     }
     //-----------------------------------------------------------------------
-    void CmdDelegate::doSet(void* target, std::string_view val)
+    void CmdDelegate::doSet(void* target, const String& val)
     {
         static_cast<UnifiedHighLevelGpuProgram*>(target)->addDelegateProgram(val);
     }
@@ -410,14 +410,14 @@ class ResourceManager;
     UnifiedHighLevelGpuProgramFactory::~UnifiedHighLevelGpuProgramFactory()
     = default;
     //-----------------------------------------------------------------------
-    auto UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept -> std::string_view
+    auto UnifiedHighLevelGpuProgramFactory::getLanguage() const noexcept -> const String&
     {
         return sLanguage;
     }
     //-----------------------------------------------------------------------
     auto UnifiedHighLevelGpuProgramFactory::create(ResourceManager* creator,
-        std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
+        const String& name, ResourceHandle handle,
+        const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram*
     {
         return new UnifiedHighLevelGpuProgram(creator, name, handle, group, isManual, loader);
     }

@@ -86,7 +86,7 @@ template <typename T> class Controller;
         @param useVertexColours If true, use vertex colours from the chain elements (must
             be true if you intend to use fading)
         */
-        RibbonTrail(std::string_view name, size_t maxElements = 20, size_t numberOfChains = 1, 
+        RibbonTrail(const String& name, size_t maxElements = 20, size_t numberOfChains = 1, 
             bool useTextureCoords = true, bool useVertexColours = true);
         /// destructor
         ~RibbonTrail() override;
@@ -178,7 +178,7 @@ template <typename T> class Controller;
         /// Perform any fading / width delta required; internal method
         virtual void _timeUpdate(Real time);
 
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> const String& override;
 
     private:
         /// List of nodes being trailed
@@ -232,14 +232,14 @@ template <typename T> class Controller;
     class RibbonTrailFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         RibbonTrailFactory() = default;
         ~RibbonTrailFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
     };
     /** @} */
     /** @} */

@@ -192,7 +192,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     }
 
     // Grab the matching writer.
-    std::string_view language = ShaderGenerator::getSingleton().getTargetLanguage();
+    const String& language = ShaderGenerator::getSingleton().getTargetLanguage();
 
     auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
@@ -233,18 +233,18 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------------
 auto ProgramManager::createGpuProgram(Program* shaderProgram, 
                                                ProgramWriter* programWriter,
-                                               std::string_view language,
-                                               std::string_view profiles,
-                                               std::string_view cachePath) -> GpuProgramPtr
+                                               const String& language,
+                                               const String& profiles,
+                                               const String& cachePath) -> GpuProgramPtr
 {
     std::stringstream sourceCodeStringStream;
 
     // Generate source code.
     programWriter->writeSourceCode(sourceCodeStringStream, shaderProgram);
-    std::string source = sourceCodeStringStream.str();
+    String source = sourceCodeStringStream.str();
 
     // Generate program name.
-    std::string programName { generateHash(source, shaderProgram->getPreprocessorDefines()) };
+    String programName = generateHash(source, shaderProgram->getPreprocessorDefines());
 
     if (shaderProgram->getType() == GPT_VERTEX_PROGRAM)
     {
@@ -273,7 +273,7 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
     if (!cachePath.empty())
     {
         auto const programFullName = ::std::format("{}.{}", programName , programWriter->getTargetLanguage());
-        auto const programFileName = std::format("{}{}", cachePath, programFullName);
+        auto const programFileName = cachePath + programFullName;
         std::ifstream programFile;
 
         // Check if program file already exist.
@@ -333,12 +333,12 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
 
 
 //-----------------------------------------------------------------------------
-auto ProgramManager::generateHash(std::string_view programString, std::string_view defines) -> std::string
+auto ProgramManager::generateHash(const String& programString, const String& defines) -> String
 {
     //Different programs must have unique hash values.
     uint32_t hash[4];
-    uint32_t seed = FastHash(defines.data(), defines.size());
-    MurmurHash3_128(programString.data(), programString.size(), seed, hash);
+    uint32_t seed = FastHash(defines.c_str(), defines.size());
+    MurmurHash3_128(programString.c_str(), programString.size(), seed, hash);
 
     //Generate the string
     return std::format("{:#08x}{:#08x}{:#08x}{:#08x}", hash[0], hash[1], hash[2], hash[3]);
@@ -346,7 +346,7 @@ auto ProgramManager::generateHash(std::string_view programString, std::string_vi
 
 
 //-----------------------------------------------------------------------------
-void ProgramManager::addProgramProcessor(std::string_view lang, ProgramProcessor* processor)
+void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* processor)
 {
     
     auto itFind = mProgramProcessorsMap.find(lang);
@@ -360,7 +360,7 @@ void ProgramManager::addProgramProcessor(std::string_view lang, ProgramProcessor
 }
 
 //-----------------------------------------------------------------------------
-void ProgramManager::removeProgramProcessor(std::string_view lang)
+void ProgramManager::removeProgramProcessor(const String& lang)
 {
     auto itFind = mProgramProcessorsMap.find(lang);
 

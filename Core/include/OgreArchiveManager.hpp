@@ -51,11 +51,11 @@ class ArchiveFactory;
     class ArchiveManager : public Singleton<ArchiveManager>, public ArchiveAlloc
     {
     private:
-        using ArchiveFactoryMap = std::map<std::string_view, ArchiveFactory *>;
+        using ArchiveFactoryMap = std::map<String, ArchiveFactory *>;
         /// Factories available to create archives, indexed by archive type (String identifier e.g. 'Zip')
         ArchiveFactoryMap mArchFactories;
         /// Currently loaded archives
-        using ArchiveMap = std::map<std::string_view, Archive *>;
+        using ArchiveMap = std::map<String, Archive *>;
         ArchiveMap mArchives;
 
     public:
@@ -82,7 +82,7 @@ class ArchiveFactory;
             @par
                 If the function fails, an exception is thrown.
         */
-        auto load( std::string_view filename, std::string_view archiveType, bool readOnly) -> Archive*;
+        auto load( const String& filename, const String& archiveType, bool readOnly) -> Archive*;
 
         /** Unloads an archive.
         @remarks
@@ -93,7 +93,7 @@ class ArchiveFactory;
         @remarks
             You must ensure that this archive is not being used before removing it.
         */
-        void unload(std::string_view filename);
+        void unload(const String& filename);
         using ArchiveMapIterator = MapIterator<ArchiveMap>;
         /** Get an iterator over the Archives in this Manager. */
         auto getArchiveIterator() -> ArchiveMapIterator;

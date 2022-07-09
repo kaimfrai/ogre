@@ -161,18 +161,18 @@ namespace Ogre {
         mEnabled = mNewEnableState;
     }
     //-----------------------------------------------------------------------
-    void Profiler::disableProfile(std::string_view profileName)
+    void Profiler::disableProfile(const String& profileName)
     {
         // even if we are in the middle of this profile, endProfile() will still end it.
         mDisabledProfiles.insert(profileName);
     }
     //-----------------------------------------------------------------------
-    void Profiler::enableProfile(std::string_view profileName) 
+    void Profiler::enableProfile(const String& profileName) 
     {
         mDisabledProfiles.erase(profileName);
     }
     //-----------------------------------------------------------------------
-    void Profiler::beginProfile(std::string_view profileName, uint32 groupID)
+    void Profiler::beginProfile(const String& profileName, uint32 groupID)
     {
         // if the profiler is enabled
         if (!mEnabled)
@@ -231,7 +231,7 @@ namespace Ogre {
         mCurrent->currentClock = mTimer->getCPUClocks();
     }
     //-----------------------------------------------------------------------
-    void Profiler::endProfile(std::string_view profileName, uint32 groupID) 
+    void Profiler::endProfile(const String& profileName, uint32 groupID) 
     {
         if(!mEnabled) 
         {
@@ -330,17 +330,17 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Profiler::beginGPUEvent(std::string_view event)
+    void Profiler::beginGPUEvent(const String& event)
     {
         Root::getSingleton().getRenderSystem()->beginProfileEvent(event);
     }
     //-----------------------------------------------------------------------
-    void Profiler::endGPUEvent(std::string_view event)
+    void Profiler::endGPUEvent(const String& event)
     {
         Root::getSingleton().getRenderSystem()->endProfileEvent();
     }
     //-----------------------------------------------------------------------
-    void Profiler::markGPUEvent(std::string_view event)
+    void Profiler::markGPUEvent(const String& event)
     {
         Root::getSingleton().getRenderSystem()->markProfileEvent(event);
     }
@@ -446,14 +446,14 @@ namespace Ogre {
         ++mCurrentFrame;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForMax(std::string_view profileName) -> bool 
+    auto Profiler::watchForMax(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
 
         return mRoot.watchForMax(profileName);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForMax(std::string_view profileName) -> bool 
+    auto ProfileInstance::watchForMax(const String& profileName) -> bool 
     {
         for(auto const& [key, child] : children)
         {
@@ -463,13 +463,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForMin(std::string_view profileName) -> bool 
+    auto Profiler::watchForMin(const String& profileName) -> bool 
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForMin(profileName);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForMin(std::string_view profileName) -> bool 
+    auto ProfileInstance::watchForMin(const String& profileName) -> bool 
     {
         for(auto const& [key, child] : children)
         {
@@ -479,13 +479,13 @@ namespace Ogre {
         return false;
     }
     //-----------------------------------------------------------------------
-    auto Profiler::watchForLimit(std::string_view profileName, long double limit, bool greaterThan) -> bool
+    auto Profiler::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
         assert ((profileName != "") && ("Profile name can't be an empty string"));
         return mRoot.watchForLimit(profileName, limit, greaterThan);
     }
     //-----------------------------------------------------------------------
-    auto ProfileInstance::watchForLimit(std::string_view profileName, long double limit, bool greaterThan) -> bool
+    auto ProfileInstance::watchForLimit(const String& profileName, long double limit, bool greaterThan) -> bool
     {
         for(auto const& [key, child] : children)
         {

@@ -61,9 +61,9 @@ namespace Ogre {
     public:
         virtual ~GpuProgramFactory() = default;
         /// Get the name of the language this factory creates programs for
-        [[nodiscard]] virtual auto getLanguage() const noexcept -> std::string_view= 0;
-        virtual auto create(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-                                   std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* = 0;
+        [[nodiscard]] virtual auto getLanguage() const noexcept -> const String& = 0;
+        virtual auto create(ResourceManager* creator, const String& name, ResourceHandle handle,
+                                   const String& group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* = 0;
         virtual void destroy(GpuProgram* prog) { delete prog; }
     };
 
@@ -82,7 +82,7 @@ namespace Ogre {
         using ResourceManager::load;
 
         /// Factories capable of creating GpuProgram instances
-        using FactoryMap = std::map<std::string_view, GpuProgramFactory *>;
+        using FactoryMap = std::map<String, GpuProgramFactory *>;
         FactoryMap mFactories;
 
         /// Factory for dealing with programs for languages we can't create
@@ -90,12 +90,12 @@ namespace Ogre {
         /// Factory for unified high-level programs
         std::unique_ptr<GpuProgramFactory> mUnifiedFactory;
 
-        auto getFactory(std::string_view language) -> GpuProgramFactory*;
+        auto getFactory(const String& language) -> GpuProgramFactory*;
 
     public:
 
-        using SyntaxCodes = std::set<std::string_view>;
-        using SharedParametersMap = std::map<std::string_view, GpuSharedParametersPtr>;
+        using SyntaxCodes = std::set<String>;
+        using SharedParametersMap = std::map<String, GpuSharedParametersPtr>;
 
         using Microcode = MemoryDataStreamPtr;
 
@@ -106,11 +106,11 @@ namespace Ogre {
         bool mSaveMicrocodesToCache;
         bool mCacheDirty;           // When this is true the cache is 'dirty' and should be resaved to disk.
             
-        static auto addRenderSystemToName( std::string_view name ) -> std::string;
+        static auto addRenderSystemToName( const String &  name ) -> String;
 
         /// Generic create method
-        auto createImpl(std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader,
+        auto createImpl(const String& name, ResourceHandle handle,
+            const String& group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams) -> Resource* override;
     public:
         GpuProgramManager();
@@ -118,7 +118,7 @@ namespace Ogre {
 
         /// Get a resource by name
         /// @see GpuProgramManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view group OGRE_RESOURCE_GROUP_INIT) const -> GpuProgramPtr;
+        auto getByName(const String& name, const String& group OGRE_RESOURCE_GROUP_INIT) const -> GpuProgramPtr;
 
         /** Loads a GPU program from a file
         @remarks
@@ -131,9 +131,9 @@ namespace Ogre {
         @param gptype The type of program to create
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto load(std::string_view name, std::string_view groupName, 
-            std::string_view filename, GpuProgramType gptype, 
-            std::string_view syntaxCode) -> GpuProgramPtr;
+        virtual auto load(const String& name, const String& groupName, 
+            const String& filename, GpuProgramType gptype, 
+            const String& syntaxCode) -> GpuProgramPtr;
 
         /** Loads a GPU program from a string
         @remarks
@@ -146,18 +146,18 @@ namespace Ogre {
         @param gptype The type of program to create.
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto loadFromString(std::string_view name, std::string_view groupName,
-            std::string_view code, GpuProgramType gptype,
-            std::string_view syntaxCode) -> GpuProgramPtr;
+        virtual auto loadFromString(const String& name, const String& groupName,
+            const String& code, GpuProgramType gptype,
+            const String& syntaxCode) -> GpuProgramPtr;
 
         /** Returns the syntaxes that the RenderSystem supports. */
         static auto getSupportedSyntax() noexcept -> const SyntaxCodes&;
 
         /** Returns whether a given syntax code (e.g. "glsl330", "vs_4_0", "arbvp1") is supported. */
-        static auto isSyntaxSupported(std::string_view syntaxCode) -> bool;
+        static auto isSyntaxSupported(const String& syntaxCode) -> bool;
 
         /** Returns whether a given high-level language (e.g. "glsl", "hlsl") is supported. */
-        auto isLanguageSupported(std::string_view lang) const -> bool;
+        auto isLanguageSupported(const String& lang) const -> bool;
 
         /** Creates a new GpuProgramParameters instance which can be used to bind
             parameters to your programs.
@@ -180,9 +180,9 @@ namespace Ogre {
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         @param gptype The type of program to create
         */
-        virtual auto createProgram(std::string_view name, 
-            std::string_view groupName, std::string_view filename, 
-            GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgramPtr;
+        virtual auto createProgram(const String& name, 
+            const String& groupName, const String& filename, 
+            GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr;
 
         /** Create a GPU program from a string of assembly code.
         @remarks    
@@ -198,15 +198,15 @@ namespace Ogre {
         @param gptype The type of program to create.
         @param syntaxCode The name of the syntax to be used for this program e.g. arbvp1, vs_1_1
         */
-        virtual auto createProgramFromString(std::string_view name, 
-            std::string_view groupName, std::string_view code, 
-            GpuProgramType gptype, std::string_view syntaxCode) -> GpuProgramPtr;
+        virtual auto createProgramFromString(const String& name, 
+            const String& groupName, const String& code, 
+            GpuProgramType gptype, const String& syntaxCode) -> GpuProgramPtr;
 
         /** General create method, using specific create parameters
             instead of name / value pairs. 
         */
-        auto create(std::string_view name, std::string_view group,
-            GpuProgramType gptype, std::string_view language, bool isManual = false,
+        auto create(const String& name, const String& group,
+            GpuProgramType gptype, const String& language, bool isManual = false,
             ManualResourceLoader* loader = nullptr) -> GpuProgramPtr;
 
         /** Create a new, unloaded GpuProgram.
@@ -220,7 +220,7 @@ namespace Ogre {
         @param language Code of the language to use (e.g. "cg")
         @param gptype The type of program to create
         */
-        auto createProgram(std::string_view name, std::string_view groupName, std::string_view language,
+        auto createProgram(const String& name, const String& groupName, const String& language,
                                     GpuProgramType gptype) -> GpuProgramPtr
         {
             return create(name, groupName, gptype, language);
@@ -231,12 +231,12 @@ namespace Ogre {
         @param name The name to give the shared parameters so you can refer to them
             later.
         */
-        virtual auto createSharedParameters(std::string_view name) -> GpuSharedParametersPtr;
+        virtual auto createSharedParameters(const String& name) -> GpuSharedParametersPtr;
 
         /** Retrieve a set of shared parameters, which can be used across many 
         GpuProgramParameters objects of different structures.
         */
-        virtual auto getSharedParameters(std::string_view name) const -> GpuSharedParametersPtr;
+        virtual auto getSharedParameters(const String& name) const -> GpuSharedParametersPtr;
 
         /** Get (const) access to the available shared parameter sets. 
         */

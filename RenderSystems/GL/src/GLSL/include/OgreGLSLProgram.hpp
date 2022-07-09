@@ -45,15 +45,15 @@ class ResourceManager;
     {
     public:
         GLSLProgram(ResourceManager* creator, 
-            std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader);
+            const String& name, ResourceHandle handle,
+            const String& group, bool isManual, ManualResourceLoader* loader);
         ~GLSLProgram() override;
 
         void attachToProgramObject( const uint programObject ) override;
         void detachFromProgramObject( const uint programObject ) override;
 
         /// Overridden from GpuProgram
-        auto getLanguage() const noexcept -> std::string_view override;
+        auto getLanguage() const noexcept -> const String& override;
 
         auto getPassTransformStates() const noexcept -> bool override {
             return mPassFFPStates;

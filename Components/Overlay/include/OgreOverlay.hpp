@@ -119,10 +119,10 @@ namespace Ogre {
         virtual ~Overlay();
 
 
-        auto getChild(std::string_view name) -> OverlayContainer*;
+        auto getChild(const String& name) -> OverlayContainer*;
 
         /** Gets the name of this overlay. */
-        auto getName() const noexcept -> std::string_view;
+        auto getName() const noexcept -> const String&;
         
         /** Alters the Z-order of this overlay. 
         @remarks
@@ -276,9 +276,9 @@ namespace Ogre {
             this overlay chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> std::string_view{ return mOrigin; }
+        auto getOrigin() const noexcept -> const String& { return mOrigin; }
         /// Notify this overlay of it's origin
-        void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
+        void _notifyOrigin(const String& origin) { mOrigin = origin; }
 
 
     };

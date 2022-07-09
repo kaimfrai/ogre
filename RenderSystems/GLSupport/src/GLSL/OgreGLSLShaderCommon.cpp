@@ -51,7 +51,7 @@ class ResourceManager;
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;
 
-    auto GLSLShaderCommon::getResourceLogName() const -> std::string
+    auto GLSLShaderCommon::getResourceLogName() const -> String
     {
         if(mLoadFromFile)
             return ::std::format("'{}'", mFilename );
@@ -103,8 +103,8 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     GLSLShaderCommon::GLSLShaderCommon(ResourceManager* creator, 
-        std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader)
+        const String& name, ResourceHandle handle,
+        const String& group, bool isManual, ManualResourceLoader* loader)
         : HighLevelGpuProgram(creator, name, handle, group, isManual, loader)
         , 
          mShaderID(++mShaderCount) // Increase shader counter and use as ID
@@ -112,15 +112,15 @@ class ResourceManager;
     {
     }
     //-----------------------------------------------------------------------
-    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> std::string
+    auto GLSLShaderCommon::CmdAttach::doGet(const void *target) const -> String
     {
-        return std::string{ (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames() };
+        return (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames();
     }
     //-----------------------------------------------------------------------
-    void GLSLShaderCommon::CmdAttach::doSet(void *target, std::string_view shaderNames)
+    void GLSLShaderCommon::CmdAttach::doSet(void *target, const String& shaderNames)
     {
         //get all the shader program names: there could be more than one
-        auto const vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
+        StringVector vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
 
         size_t programNameCount = vecShaderNames.size();
         for ( size_t i = 0; i < programNameCount; ++i )
@@ -129,7 +129,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    void GLSLShaderCommon::attachChildShader(std::string_view name)
+    void GLSLShaderCommon::attachChildShader(const String& name)
     {
         // is the name valid and already loaded?
         // check with the high level program manager to see if it was loaded
@@ -154,11 +154,11 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> std::string
+    auto GLSLShaderCommon::CmdColumnMajorMatrices::doGet(const void *target) const -> String
     {
         return StringConverter::toString(static_cast<const GLSLShaderCommon*>(target)->getColumnMajorMatrices());
     }
-    void GLSLShaderCommon::CmdColumnMajorMatrices::doSet(void *target, std::string_view val)
+    void GLSLShaderCommon::CmdColumnMajorMatrices::doSet(void *target, const String& val)
     {
         static_cast<GLSLShaderCommon*>(target)->setColumnMajorMatrices(StringConverter::parseBool(val));
     }

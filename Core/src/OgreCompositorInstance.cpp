@@ -73,7 +73,7 @@ CompositorInstance::CompositorInstance(CompositionTechnique *technique,
 {
     OgreAssert(mChain, "Undefined compositor chain");
     mEnabled = false;
-    std::string_view logicName = mTechnique->getCompositorLogicName();
+    const String& logicName = mTechnique->getCompositorLogicName();
     if (!logicName.empty())
     {
         CompositorManager::getSingleton().
@@ -83,7 +83,7 @@ CompositorInstance::CompositorInstance(CompositionTechnique *technique,
 //-----------------------------------------------------------------------
 CompositorInstance::~CompositorInstance()
 {
-    std::string_view logicName = mTechnique->getCompositorLogicName();
+    const String& logicName = mTechnique->getCompositorLogicName();
     if (!logicName.empty())
     {
         CompositorManager::getSingleton().
@@ -271,7 +271,7 @@ public:
         sm->setLateMaterialResolving(true);
     }
 
-    [[nodiscard]] auto getPreviousScheme() const noexcept -> std::string_view{ return mPreviousScheme; }
+    [[nodiscard]] auto getPreviousScheme() const noexcept -> const String& { return mPreviousScheme; }
     [[nodiscard]] auto getPreviousLateResolving() const noexcept -> bool { return mPreviousLateResolving; }
 };
 
@@ -576,7 +576,7 @@ void CompositorInstance::setTechnique(CompositionTechnique* tech, bool reuseText
     }
 }
 //---------------------------------------------------------------------
-void CompositorInstance::setScheme(std::string_view schemeName, bool reuseTextures)
+void CompositorInstance::setScheme(const String& schemeName, bool reuseTextures)
 {
     CompositionTechnique* tech = mCompositor->getSupportedTechnique(schemeName);
     if (tech)
@@ -590,13 +590,13 @@ auto CompositorInstance::getChain() -> CompositorChain *
     return mChain;
 }
 //-----------------------------------------------------------------------
-auto CompositorInstance::getTextureInstanceName(std::string_view name, 
-                                                         size_t mrtIndex) -> std::string_view
+auto CompositorInstance::getTextureInstanceName(const String& name, 
+                                                         size_t mrtIndex) -> const String&
 {
     return getSourceForTex(name, mrtIndex)->getName();
 }
 //---------------------------------------------------------------------
-auto CompositorInstance::getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&
+auto CompositorInstance::getTextureInstance(const String& name, size_t mrtIndex) -> const TexturePtr&
 {
     // try simple textures first
     auto i = mLocalTextures.find(name);
@@ -618,11 +618,11 @@ auto CompositorInstance::getTextureInstance(std::string_view name, size_t mrtInd
 
 }
 //-----------------------------------------------------------------------
-auto CompositorInstance::createLocalMaterial(std::string_view srcName) -> MaterialPtr
+auto CompositorInstance::createLocalMaterial(const String& srcName) -> MaterialPtr
 {
     static size_t dummyCounter = 0;
     MaterialPtr mat = MaterialManager::getSingleton().create(
-        std::format("c{}/{}", dummyCounter++, srcName),
+        std::format("c{}/{}", dummyCounter++, srcName.c_str()),
         ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
     /// This is safe, as we hold a private reference
     MaterialManager::getSingleton().remove(mat);
@@ -846,7 +846,7 @@ void CompositorInstance::setupRenderTarget(RenderTarget* rendTarget, uint16 dept
 
 //---------------------------------------------------------------------
 void CompositorInstance::deriveTextureRenderTargetOptions(
-    std::string_view texname, bool *hwGammaWrite, uint *fsaa, String* fsaaHint)
+    const String& texname, bool *hwGammaWrite, uint *fsaa, String* fsaaHint)
 {
     // search for passes on this texture def that either include a render_scene
     // or use input previous
@@ -910,9 +910,9 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
 
 }
 //---------------------------------------------------------------------
-auto CompositorInstance::getMRTTexLocalName(std::string_view baseName, size_t attachment) -> std::string
+auto CompositorInstance::getMRTTexLocalName(const String& baseName, size_t attachment) -> String
 {
-    return std::format("{}/{}", baseName, attachment);
+    return std::format("{}/{}", baseName.c_str(), attachment);
 }
 //-----------------------------------------------------------------------
 void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveTextures)
@@ -944,7 +944,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
             // Potentially many surfaces
             for (size_t s = 0; s < subSurf; ++s)
             {
-                auto const texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
+                String texName = subSurf > 1 ? getMRTTexLocalName(def->name, s)
                     : def->name;
 
                 auto i = mLocalTextures.find(texName);
@@ -1012,7 +1012,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
     CompositorManager::getSingleton().freePooledTextures(true);
 }
 //---------------------------------------------------------------------
-auto CompositorInstance::getRenderTarget(std::string_view name, int slice) -> RenderTarget*
+auto CompositorInstance::getRenderTarget(const String& name, int slice) -> RenderTarget*
 {
     return getTargetForTex(name, slice);
 }
@@ -1057,7 +1057,7 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
 }
 
 //-----------------------------------------------------------------------
-auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> RenderTarget *
+auto CompositorInstance::getTargetForTex(const String &name, int slice) -> RenderTarget *
 {
     // try simple texture
     auto i = mLocalTextures.find(name);
@@ -1118,7 +1118,7 @@ auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> Re
 
 }
 //-----------------------------------------------------------------------
-auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex) -> const TexturePtr &
+auto CompositorInstance::getSourceForTex(const String &name, size_t mrtIndex) -> const TexturePtr &
 {
     CompositionTechnique::TextureDefinition* texDef = mTechnique->getTextureDefinition(name);
     OgreAssert(texDef, "Referencing non-existent TextureDefinition");

@@ -297,9 +297,9 @@ namespace Ogre {
         // Validate
         if (msh->hasManualLodLevel())
         {
-            LogManager::getSingleton().logWarning(std::format("(StaticGeometry): Manual LOD is not supported. "
-                                                  "Using only highest LOD level for mesh {}",
-                                                  msh->getName()));
+            LogManager::getSingleton().logWarning("(StaticGeometry): Manual LOD is not supported. "
+                                                  "Using only highest LOD level for mesh " +
+                                                  msh->getName());
         }
 
         AxisAlignedBox sharedWorldBounds;
@@ -648,9 +648,9 @@ namespace Ogre {
         return ri->second->getVisibilityFlags();
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::dump(std::string_view filename) const
+    void StaticGeometry::dump(const String& filename) const
     {
-        std::ofstream of(std::filesystem::path{filename});
+        std::ofstream of(filename.c_str());
         of << "Static Geometry Report for " << mName << std::endl;
         of << "-------------------------------------------------" << std::endl;
         of << "Number of queued submeshes: " << mQueuedSubMeshes.size() << std::endl;
@@ -679,7 +679,7 @@ namespace Ogre {
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    StaticGeometry::Region::Region(StaticGeometry* parent, std::string_view name,
+    StaticGeometry::Region::Region(StaticGeometry* parent, const String& name,
         SceneManager* mgr, uint32 regionID, const Vector3& centre)
         : MovableObject(name), mParent(parent),
         mRegionID(regionID), mCentre(centre) 
@@ -788,7 +788,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getMovableType() const noexcept -> std::string_view
+    auto StaticGeometry::Region::getMovableType() const noexcept -> const String&
     {
         static String sType = "StaticGeometry";
         return sType;

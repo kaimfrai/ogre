@@ -35,7 +35,7 @@ namespace Ogre::RTShader
 class WBOIT : public SubRenderState
 {
 public:
-    auto getType() const noexcept -> std::string_view override;
+    auto getType() const noexcept -> const String& override;
     auto getExecutionOrder() const noexcept -> int override;
     auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
     auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
@@ -51,7 +51,7 @@ A factory that enables creation of GBuffer instances.
 class WBOITFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
                                            SGScriptTranslator* translator) noexcept -> SubRenderState* override;

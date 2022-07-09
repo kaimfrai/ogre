@@ -66,29 +66,29 @@ class ResourceManager;
         class CmdAttach : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
-            void doSet(void* target, std::string_view shaderNames) override;
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& shaderNames) override;
         };
         /// Command object for setting matrix packing in column-major order
         class CmdColumnMajorMatrices : public ParamCommand
         {
         public:
-            auto doGet(const void* target) const -> std::string override;
-            void doSet(void* target, std::string_view val) override;
+            auto doGet(const void* target) const -> String override;
+            void doSet(void* target, const String& val) override;
         };
 
         GLSLShaderCommon(ResourceManager* creator,
-            std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader);
+            const String& name, ResourceHandle handle,
+            const String& group, bool isManual, ManualResourceLoader* loader);
 
         virtual void attachToProgramObject(const uint programObject) = 0;
         virtual void detachFromProgramObject(const uint programObject) = 0;
 
-        auto getAttachedShaderNames() const noexcept -> std::string_view { return mAttachedShaderNames; }
+        auto getAttachedShaderNames() const noexcept -> String { return mAttachedShaderNames; }
 
         /// Overridden
         /** Attach another GLSL Shader to this one. */
-        void attachChildShader(std::string_view name);
+        void attachChildShader(const String& name);
 
         /** Sets whether matrix packing in column-major order. */ 
         void setColumnMajorMatrices(bool columnMajor) { mColumnMajorMatrices = columnMajor; }
@@ -119,7 +119,7 @@ class ResourceManager;
         static CmdAttach msCmdAttach;
         static CmdColumnMajorMatrices msCmdColumnMajorMatrices;
 
-        auto getResourceLogName() const -> std::string;
+        auto getResourceLogName() const -> String;
 
         void prepareImpl() override;
 

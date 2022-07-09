@@ -482,7 +482,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     auto MovableObjectFactory::createInstance(
-        std::string_view name, SceneManager* manager, 
+        const String& name, SceneManager* manager, 
         const NameValuePairList* params) -> MovableObject*
     {
         MovableObject* m = createInstanceImpl(name, params);

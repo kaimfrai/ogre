@@ -81,11 +81,11 @@ class SubMesh;
         void _initialise();
 
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> MeshPtr;
+        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> MeshPtr;
 
         /// Create a new mesh
         /// @copydetails ResourceManager::createResource
-        auto create (std::string_view name, std::string_view group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> MeshPtr;
 
@@ -104,8 +104,8 @@ class SubMesh;
                 copies for faster read access
         */
         auto createOrRetrieve(
-            std::string_view name,
-            std::string_view group,
+            const String& name,
+            const String& group,
             bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams,
             HardwareBuffer::Usage vertexBufferUsage,
@@ -127,7 +127,7 @@ class SubMesh;
             @param indexBufferShadowed If true, the index buffers will be shadowed by system memory 
                 copies for faster read access
         */
-        auto prepare( std::string_view filename, std::string_view groupName,
+        auto prepare( const String& filename, const String& groupName,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
@@ -135,7 +135,7 @@ class SubMesh;
         /** Loads a mesh from a file, making it immediately available for use.
             @copydetails MeshManager::prepare
         */
-        auto load( std::string_view filename, std::string_view groupName,
+        auto load( const String& filename, const String& groupName,
             HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
             bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
@@ -154,7 +154,7 @@ class SubMesh;
             when the time comes. It is recommended that you populate this field
             in order that the mesh can be rebuilt should the need arise
         */
-        auto createManual( std::string_view name, std::string_view groupName, 
+        auto createManual( const String& name, const String& groupName, 
             ManualResourceLoader* loader = nullptr) -> MeshPtr;
 
         /** Creates a basic plane, by default majoring on the x/y axes facing positive Z.
@@ -197,7 +197,7 @@ class SubMesh;
                 allowing you to read it back more efficiently than if it is in hardware
         */
         auto createPlane(
-            std::string_view name, std::string_view groupName, const Plane& plane,
+            const String& name, const String& groupName, const Plane& plane,
             Real width, Real height,
             int xsegments = 1, int ysegments = 1,
             bool normals = true, unsigned short numTexCoordSets = 1,
@@ -258,7 +258,7 @@ class SubMesh;
                 you cannot see much of the sky lower down.
         */
         auto createCurvedIllusionPlane(
-            std::string_view name, std::string_view groupName, const Plane& plane,
+            const String& name, const String& groupName, const Plane& plane,
             Real width, Real height, Real curvature,
             int xsegments = 1, int ysegments = 1,
             bool normals = true, unsigned short numTexCoordSets = 1,
@@ -311,7 +311,7 @@ class SubMesh;
                 allowing you to read it back more efficiently than if it is in hardware
         */
         auto createCurvedPlane( 
-            std::string_view name, std::string_view groupName, const Plane& plane, 
+            const String& name, const String& groupName, const Plane& plane, 
             Real width, Real height, Real bow = 0.5f, 
             int xsegments = 1, int ysegments = 1,
             bool normals = false, unsigned short numTexCoordSets = 1, 
@@ -357,7 +357,7 @@ class SubMesh;
                 HardwareBuffer for full details.
         */
         auto createBezierPatch(
-            std::string_view name, std::string_view groupName, void* controlPointBuffer, 
+            const String& name, const String& groupName, void* controlPointBuffer, 
             VertexDeclaration *declaration, size_t width, size_t height,
             size_t uMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL, 
             size_t vMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL,
@@ -414,8 +414,8 @@ class SubMesh;
     private:
 
         /// @copydoc ResourceManager::createImpl
-        auto createImpl(std::string_view name, ResourceHandle handle, 
-            std::string_view group, bool isManual, ManualResourceLoader* loader, 
+        auto createImpl(const String& name, ResourceHandle handle, 
+            const String& group, bool isManual, ManualResourceLoader* loader, 
             const NameValuePairList* createParams) -> Resource* override;
     
         /** Enum identifying the types of manual mesh built by this manager */

@@ -85,8 +85,8 @@ namespace Ogre {
         LogManager::getSingleton().logMessage("stb_image - v2.27 - public domain image loader");
         
         // Register codecs
-        std::string_view const exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
-        auto const extsVector = StringUtil::split(exts, ",");
+        String exts = "jpeg,jpg,png,bmp,psd,tga,gif,pic,ppm,pgm,hdr";
+        StringVector extsVector = StringUtil::split(exts, ",");
         for (auto & v : extsVector)
         {
             ImageCodec* codec = new STBIImageCodec(v);
@@ -107,7 +107,7 @@ namespace Ogre {
         msCodecList.clear();
     }
     //---------------------------------------------------------------------
-    STBIImageCodec::STBIImageCodec(std::string_view type):
+    STBIImageCodec::STBIImageCodec(String type):
         mType(type)
     { 
     }
@@ -160,11 +160,11 @@ namespace Ogre {
         return DataStreamPtr(new MemoryDataStream(data, len, true));
     }
     //---------------------------------------------------------------------
-    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, std::string_view outFileName,
+    void STBIImageCodec::encodeToFile(const MemoryDataStreamPtr& input, const String& outFileName,
                                       const CodecDataPtr& pData) const
     {
         MemoryDataStreamPtr data = static_pointer_cast<MemoryDataStream>(encode(input, pData));
-        std::ofstream f(std::filesystem::path{outFileName}, std::ios::out | std::ios::binary);
+        std::ofstream f(outFileName.c_str(), std::ios::out | std::ios::binary);
 
         if (!f.is_open())
         {
@@ -239,7 +239,7 @@ namespace Ogre {
         return BLANKSTRING;
     }
 
-    auto STBIPlugin::getName() const noexcept -> std::string_view{
+    auto STBIPlugin::getName() const noexcept -> const String& {
         static String name = "STB Image Codec";
         return name;
     }

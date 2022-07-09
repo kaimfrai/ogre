@@ -81,7 +81,7 @@ namespace Ogre {
         auto wrapper = std::make_shared<MemoryDataStream>(src->getData(), src->getSize(), false);
         return encode(wrapper, imgData);
     }
-    void ImageCodec::encodeToFile(::std::any const& input, std::string_view outFileName) const
+    void ImageCodec::encodeToFile(::std::any const& input, const String& outFileName) const
     {
         auto* src = any_cast<Image*>(input);
 
@@ -301,7 +301,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(std::string_view strFileName, std::string_view group) -> Image &
+    auto Image::load(const String& strFileName, const String& group) -> Image &
     {
 
         String strExt;
@@ -317,7 +317,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------------
-    void Image::save(std::string_view filename)
+    void Image::save(const String& filename)
     {
         OgreAssert(mBuffer, "No image data loaded");
 
@@ -328,14 +328,14 @@ namespace Ogre {
         Codec::getCodec(ext)->encodeToFile(this, filename);
     }
     //---------------------------------------------------------------------
-    auto Image::encode(std::string_view formatextension) -> DataStreamPtr
+    auto Image::encode(const String& formatextension) -> DataStreamPtr
     {
         OgreAssert(mBuffer, "No image data loaded");
         // getCodec throws when no codec is found
         return Codec::getCodec(formatextension)->encode(this);
     }
     //-----------------------------------------------------------------------------
-    auto Image::load(const DataStreamPtr& stream, std::string_view type ) -> Image &
+    auto Image::load(const DataStreamPtr& stream, const String& type ) -> Image &
     {
         freeMemory();
 
@@ -659,8 +659,8 @@ namespace Ogre {
         return size;
     }
     //---------------------------------------------------------------------
-    auto Image::loadTwoImagesAsRGBA(std::string_view rgbFilename, std::string_view alphaFilename,
-        std::string_view groupName, PixelFormat fmt) -> Image &
+    auto Image::loadTwoImagesAsRGBA(const String& rgbFilename, const String& alphaFilename,
+        const String& groupName, PixelFormat fmt) -> Image &
     {
         Image rgb, alpha;
 
@@ -673,7 +673,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto Image::loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream,
                                       const DataStreamPtr& alphaStream, PixelFormat fmt,
-                                      std::string_view rgbType, std::string_view alphaType) -> Image&
+                                      const String& rgbType, const String& alphaType) -> Image&
     {
         Image rgb, alpha;
 

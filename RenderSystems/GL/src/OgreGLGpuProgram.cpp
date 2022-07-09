@@ -57,8 +57,8 @@ auto GLArbGpuProgram::getProgramType() const -> GLenum
     }
 }
 
-GLGpuProgram::GLGpuProgram(ResourceManager* creator, std::string_view name,
-    ResourceHandle handle, std::string_view group, bool isManual, 
+GLGpuProgram::GLGpuProgram(ResourceManager* creator, const String& name,
+    ResourceHandle handle, const String& group, bool isManual, 
     ManualResourceLoader* loader) 
     : GpuProgram(creator, name, handle, group, isManual, loader)
 {
@@ -96,8 +96,8 @@ auto GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint ind
     return false;
 }
 
-GLArbGpuProgram::GLArbGpuProgram(ResourceManager* creator, std::string_view name, 
-    ResourceHandle handle, std::string_view group, bool isManual, 
+GLArbGpuProgram::GLArbGpuProgram(ResourceManager* creator, const String& name, 
+    ResourceHandle handle, const String& group, bool isManual, 
     ManualResourceLoader* loader) 
     : GLGpuProgram(creator, name, handle, group, isManual, loader)
 {

@@ -93,13 +93,13 @@ class Viewport;
          * Create a new compositor
          * @see ResourceManager::createResource
          */
-        auto create (std::string_view name, std::string_view group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> CompositorPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> CompositorPtr;
+        auto getByName(const String& name, const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME) const -> CompositorPtr;
 
         /** Get the compositor chain for a Viewport. If there is none yet, a new
             compositor chain is registered.
@@ -123,18 +123,18 @@ class Viewport;
             @param addPosition  At which position to add, defaults to the end (-1).
             @return pointer to instance, or 0 if it failed.
         */
-        auto addCompositor(Viewport *vp, std::string_view compositor, int addPosition=-1) -> CompositorInstance *;
+        auto addCompositor(Viewport *vp, const String &compositor, int addPosition=-1) -> CompositorInstance *;
 
         /** Remove a compositor from a viewport
         */
-        void removeCompositor(Viewport *vp, std::string_view compositor);
+        void removeCompositor(Viewport *vp, const String &compositor);
 
         /** Set the state of a compositor on a viewport to enabled or disabled.
             Disabling a compositor stops it from rendering but does not free any resources.
             This can be more efficient than using removeCompositor and addCompositor in cases
             the filter is switched on and off a lot.
         */
-        void setCompositorEnabled(Viewport *vp, std::string_view compositor, bool value);
+        void setCompositorEnabled(Viewport *vp, const String &compositor, bool value);
 
         /** Get a textured fullscreen 2D rectangle, for internal use.
         */
@@ -155,9 +155,9 @@ class Viewport;
             twice (this is important for example if you request 2 ping-pong textures, 
             you don't want to get the same texture for both requests!
         */
-        auto getPooledTexture(std::string_view name, std::string_view localName, 
+        auto getPooledTexture(const String& name, const String& localName, 
             uint32 w, uint32 h,
-            PixelFormat f, uint aa, std::string_view aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
+            PixelFormat f, uint aa, const String& aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
             CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TEX_TYPE_2D) -> TexturePtr;
 
         /** Free pooled textures from the shared pool (compositor instances still 
@@ -168,33 +168,33 @@ class Viewport;
         /** Register a compositor logic for listening in to expecting composition
             techniques.
         */
-        void registerCompositorLogic(std::string_view name, CompositorLogic* logic);
+        void registerCompositorLogic(const String& name, CompositorLogic* logic);
 
         /** Removes a listener for compositor logic registered with registerCompositorLogic
         */
-        void unregisterCompositorLogic(std::string_view name);
+        void unregisterCompositorLogic(const String& name);
         
         /** Get a compositor logic by its name
         */
-        auto getCompositorLogic(std::string_view name) -> CompositorLogic*;
+        auto getCompositorLogic(const String& name) -> CompositorLogic*;
 
 		/** Check if a compositor logic exists
 		*/
-		auto hasCompositorLogic(std::string_view name) -> bool;
+		auto hasCompositorLogic(const String& name) -> bool;
 		
         /** Register a custom composition pass.
         */
-        void registerCustomCompositionPass(std::string_view name, CustomCompositionPass* customPass);
+        void registerCustomCompositionPass(const String& name, CustomCompositionPass* customPass);
 
-        void unregisterCustomCompositionPass(std::string_view name);
+        void unregisterCustomCompositionPass(const String& name);
 
         /** Get a custom composition pass by its name 
         */
-        auto getCustomCompositionPass(std::string_view name) -> CustomCompositionPass*;
+        auto getCustomCompositionPass(const String& name) -> CustomCompositionPass*;
 
 		/** Check if a compositor pass exists
 		*/
-        auto hasCustomCompositionPass(std::string_view name) -> bool;
+        auto hasCustomCompositionPass(const String& name) -> bool;
 
         /**
         Relocates a compositor chain from one viewport to another
@@ -210,8 +210,8 @@ class Viewport;
         static auto getSingletonPtr() noexcept -> CompositorManager*;
     
     private:
-        auto createImpl(std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual, ManualResourceLoader* loader,
+        auto createImpl(const String& name, ResourceHandle handle,
+            const String& group, bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* params) -> Resource* override;
 
         using Chains = std::map<const Viewport *, CompositorChain *>;
@@ -228,11 +228,11 @@ class Viewport;
         Instances mInstances;
 
         /// Map of registered compositor logics
-        using CompositorLogicMap = std::map<std::string_view, CompositorLogic *>;
+        using CompositorLogicMap = std::map<String, CompositorLogic *>;
         CompositorLogicMap mCompositorLogics;
 
         /// Map of registered custom composition passes
-        using CustomCompositionPassMap = std::map<std::string_view, CustomCompositionPass *>;
+        using CustomCompositionPassMap = std::map<String, CustomCompositionPass *>;
         CustomCompositionPassMap mCustomCompositionPasses;
 
         using TextureList = std::vector<TexturePtr>;
@@ -258,15 +258,15 @@ class Viewport;
         using TexturesByDef = std::map<TextureDef, TextureList>;
         TexturesByDef mTexturesByDef;
 
-        using StringPair = std::pair<std::string_view, std::string_view>;
+        using StringPair = std::pair<String, String>;
         using TextureDefMap = std::map<TextureDef, TexturePtr>;
         using ChainTexturesByDef = std::map<StringPair, TextureDefMap>;
         
         ChainTexturesByDef mChainTexturesByDef;
 
-        auto isInputPreviousTarget(CompositorInstance* inst, std::string_view localName) -> bool;
+        auto isInputPreviousTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
         auto isInputPreviousTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
-        auto isInputToOutputTarget(CompositorInstance* inst, std::string_view localName) -> bool;
+        auto isInputToOutputTarget(CompositorInstance* inst, const Ogre::String& localName) -> bool;
         auto isInputToOutputTarget(CompositorInstance* inst, TexturePtr tex) -> bool;
 
     };

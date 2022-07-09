@@ -67,14 +67,14 @@ namespace Ogre {
         @return
             A list of file patterns, in the order they should be searched in.
         */
-        [[nodiscard]] virtual auto getScriptPatterns() const noexcept -> std::span<std::string_view const> = 0;
+        [[nodiscard]] virtual auto getScriptPatterns() const noexcept -> const StringVector& = 0;
 
         /** Parse a script file.
         @param stream Weak reference to a data stream which is the source of the script
         @param groupName The name of a resource group which should be used if any resources
             are created during the parse of this script.
         */
-        virtual void parseScript(DataStreamPtr& stream, std::string_view groupName) = 0;
+        virtual void parseScript(DataStreamPtr& stream, const String& groupName) = 0;
 
         /** Gets the loading order for scripts of this type.
 

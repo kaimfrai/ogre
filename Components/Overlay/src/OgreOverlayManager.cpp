@@ -97,7 +97,7 @@ class RenderQueue;
             mElement.second->_restoreManualHardwareResources();
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getScriptPatterns() const noexcept -> std::span<std::string_view const>
+    auto OverlayManager::getScriptPatterns() const noexcept -> const StringVector&
     {
         return mScriptPatterns;
     }
@@ -108,7 +108,7 @@ class RenderQueue;
         return 1100.0f;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::create(std::string_view name) -> Overlay*
+    auto OverlayManager::create(const String& name) -> Overlay*
     {
         Overlay* ret = nullptr;
         auto i = mOverlayMap.find(name);
@@ -130,7 +130,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getByName(std::string_view name) -> Overlay*
+    auto OverlayManager::getByName(const String& name) -> Overlay*
     {
         auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
@@ -152,7 +152,7 @@ class RenderQueue;
                     ::std::format("Overlay with name '{}' already exists!", overlay->getName() ));
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroy(std::string_view name)
+    void OverlayManager::destroy(const String& name)
     {
         auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
@@ -199,13 +199,13 @@ class RenderQueue;
     {
         return {mOverlayMap.begin(), mOverlayMap.end()};
     }
-    void OverlayManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
+    void OverlayManager::parseScript(DataStreamPtr& stream, const String& groupName)
     {
         // skip scripts that were already loaded as we lack proper re-loading support
         if(!stream->getName().empty() && !mLoadedScripts.emplace(stream->getName()).second)
         {
             LogManager::getSingleton().logWarning(
-                std::format("Skipping loading '{}' as it is already loaded", stream->getName()));
+                std::format("Skipping loading '{}' as it is already loaded", stream->getName().c_str()));
             return;
         }
 
@@ -262,7 +262,7 @@ class RenderQueue;
         mPixelRatio = ratio;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElementFromTemplate(std::string_view templateName, std::string_view typeName, std::string_view instanceName, bool) -> OverlayElement*
+    auto OverlayManager::createOverlayElementFromTemplate(const String& templateName, const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
 
         OverlayElement* newObj  = nullptr;
@@ -296,14 +296,14 @@ class RenderQueue;
 
 
     //---------------------------------------------------------------------
-    auto OverlayManager::cloneOverlayElementFromTemplate(std::string_view templateName, std::string_view instanceName) -> OverlayElement*
+    auto OverlayManager::cloneOverlayElementFromTemplate(const String& templateName, const String& instanceName) -> OverlayElement*
     {
         OverlayElement* templateGui = getOverlayElement(templateName, true);
         return templateGui->clone(instanceName);
     }
 
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElement(std::string_view typeName, std::string_view instanceName, bool) -> OverlayElement*
+    auto OverlayManager::createOverlayElement(const String& typeName, const String& instanceName, bool) -> OverlayElement*
     {
         // Check not duplicated
         auto ii = mElements.find(instanceName);
@@ -323,7 +323,7 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElementFromFactory(std::string_view typeName, std::string_view instanceName) -> OverlayElement*
+    auto OverlayManager::createOverlayElementFromFactory(const String& typeName, const String& instanceName) -> OverlayElement*
     {
         // Look up factory
         auto fi = mFactories.find(typeName);
@@ -337,7 +337,7 @@ class RenderQueue;
         return fi->second->createOverlayElement(instanceName);
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getOverlayElement(std::string_view name,bool) -> OverlayElement*
+    auto OverlayManager::getOverlayElement(const String& name,bool) -> OverlayElement*
     {
         // Locate instance
         auto ii = mElements.find(name);
@@ -349,7 +349,7 @@ class RenderQueue;
         return ii->second;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::hasOverlayElement(std::string_view name,bool) -> bool
+    auto OverlayManager::hasOverlayElement(const String& name,bool) -> bool
     {
         auto ii = mElements.find(name);
         return ii != mElements.end();
@@ -361,7 +361,7 @@ class RenderQueue;
         destroyOverlayElement(pInstance->getName());
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroyOverlayElement(std::string_view instanceName,bool)
+    void OverlayManager::destroyOverlayElement(const String& instanceName,bool)
     {
         // Locate instance
         auto ii = mElements.find(instanceName);
@@ -371,7 +371,7 @@ class RenderQueue;
                 " not found.", instanceName), "OverlayManager::destroyOverlayElement" );
         }
         // Look up factory
-        std::string_view typeName = ii->second->getTypeName();
+        const String& typeName = ii->second->getTypeName();
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {

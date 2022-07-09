@@ -69,12 +69,12 @@ ProgramWriterManager::ProgramWriterManager()
     addProgramWriter("glsles", ::std::make_unique<GLSLESProgramWriter>());
 }
 //-----------------------------------------------------------------------
-void ProgramWriterManager::addProgramWriter(std::string_view lang, ::std::unique_ptr<ProgramWriter> writer)
+void ProgramWriterManager::addProgramWriter(const String& lang, ::std::unique_ptr<ProgramWriter> writer)
 {
     mProgramWriters[lang] = ::std::move(writer);
 }
 //-----------------------------------------------------------------------
-auto ProgramWriterManager::isLanguageSupported(std::string_view lang) -> bool
+auto ProgramWriterManager::isLanguageSupported(const String& lang) -> bool
 {
     return mProgramWriters.find(lang) != mProgramWriters.end();
 }

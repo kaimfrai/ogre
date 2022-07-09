@@ -75,8 +75,8 @@ namespace Ogre
         mBuffer.clear();
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::exportMaterial(const MaterialPtr& pMat, std::string_view fileName, bool exportDefaults,
-        const bool includeProgDef, std::string_view programFilename, std::string_view materialName)
+    void MaterialSerializer::exportMaterial(const MaterialPtr& pMat, const String &fileName, bool exportDefaults,
+        const bool includeProgDef, const String& programFilename, const String& materialName)
     {
         clearQueue();
         mDefaults = exportDefaults;
@@ -84,7 +84,7 @@ namespace Ogre
         exportQueued(fileName, includeProgDef, programFilename);
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::exportQueued(std::string_view fileName, const bool includeProgDef, std::string_view programFilename)
+    void MaterialSerializer::exportQueued(const String &fileName, const bool includeProgDef, const String& programFilename)
     {
         // write out gpu program definitions to the buffer
         writeGpuPrograms();
@@ -93,11 +93,8 @@ namespace Ogre
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Queue is empty !", "MaterialSerializer::exportQueued");
 
         LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LML_NORMAL);
-
-        if (*fileName.end() != '\0')
-            std::unreachable();
-
-        FILE *fp = fopen(fileName.data(), "w");
+        FILE *fp;
+        fp = fopen(fileName.c_str(), "w");
         if (!fp)
             OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create material file.",
             "MaterialSerializer::export");
@@ -116,10 +113,8 @@ namespace Ogre
         // were not included in material script
         if (!includeProgDef && !mGpuProgramBuffer.empty() && !programFilename.empty())
         {
-            if (*programFilename.end() != '\0')
-                std::unreachable();
-
-            FILE *locFp = fopen(programFilename.data(), "w");
+            FILE *locFp;
+            locFp = fopen(programFilename.c_str(), "w");
             if (!locFp)
                 OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create program material file.",
                 "MaterialSerializer::export");
@@ -132,7 +127,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::queueForExport(const MaterialPtr& pMat,
-        bool clearQueued, bool exportDefaults, std::string_view materialName)
+        bool clearQueued, bool exportDefaults, const String& materialName)
     {
         if (clearQueued)
             clearQueue();
@@ -148,12 +143,12 @@ namespace Ogre
         mGpuProgramDefinitionContainer.clear();
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::getQueuedAsString() const -> std::string_view
+    auto MaterialSerializer::getQueuedAsString() const -> const String &
     {
         return mBuffer;
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::writeMaterial(const MaterialPtr& pMat, std::string_view materialName)
+    void MaterialSerializer::writeMaterial(const MaterialPtr& pMat, const String& materialName)
     {
         String outMaterialName;
 
@@ -822,7 +817,7 @@ namespace Ogre
         LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
     }
     //-----------------------------------------------------------------------
-    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> std::string_view
+    auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
     {
         switch (fo)
         {
@@ -839,7 +834,7 @@ namespace Ogre
         return "point";
     }
     //-----------------------------------------------------------------------
-    static auto convertTexAddressMode(TextureAddressingMode tam) -> std::string_view
+    static auto convertTexAddressMode(TextureAddressingMode tam) -> String
     {
         switch (tam)
         {
@@ -1463,7 +1458,7 @@ namespace Ogre
             pPass->getFragmentProgram(), pPass->getFragmentProgramParameters());
     }
     //-----------------------------------------------------------------------
-    void MaterialSerializer::writeGpuProgramRef(std::string_view attrib,
+    void MaterialSerializer::writeGpuProgramRef(const String& attrib,
                                                 const GpuProgramPtr& program, const GpuProgramParametersSharedPtr& params)
     {       
         bool skipWriting = false;
@@ -1576,7 +1571,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeGpuProgramParameter(
-        std::string_view commandName, std::string_view identifier, 
+        const String& commandName, const String& identifier, 
         const GpuProgramParameters::AutoConstantEntry* autoEntry, 
         const GpuProgramParameters::AutoConstantEntry* defaultAutoEntry, 
         bool isFloat, bool isDouble, bool isInt, bool isUnsignedInt,
@@ -1658,7 +1653,7 @@ namespace Ogre
 
         if (!defaultParams || different)
         {
-            std::string label{ commandName };
+            String label = commandName;
 
             // is it auto
             if (autoEntry)
@@ -1782,7 +1777,7 @@ namespace Ogre
             // write program name
             writeValue( quoteWord(program->getName()), false);
             // write program language
-            auto const language = program->getLanguage();
+            const String language = program->getLanguage();
             writeValue( language, false );
             // write opening braces
             beginSection(0, false);
@@ -1798,18 +1793,18 @@ namespace Ogre
                         name != "micro_code" &&
                         name != "external_micro_code")
                     {
-                        auto paramstr = program->getParameter(name);
+                        String paramstr = program->getParameter(name);
                         if ((name == "includes_skeletal_animation") && (paramstr == "false"))
-                            paramstr = "";
+                            paramstr.clear();
                         if ((name == "includes_morph_animation") && (paramstr == "false"))
-                            paramstr = "";
+                            paramstr.clear();
                         if ((name == "includes_pose_animation") && (paramstr == "0"))
-                            paramstr = "";
+                            paramstr.clear();
                         if ((name == "uses_vertex_texture_fetch") && (paramstr == "false"))
-                            paramstr = "";
+                            paramstr.clear();
 
                         if ((language != "asm") && (name == "syntax"))
-                            paramstr = "";
+                            paramstr.clear();
 
                         if (!paramstr.empty())
                         {
@@ -1886,7 +1881,7 @@ namespace Ogre
 
     //---------------------------------------------------------------------
     void MaterialSerializer::fireGpuProgramRefEvent(SerializeEvent event, bool& skip,
-        std::string_view attrib, 
+        const String& attrib, 
         const GpuProgramPtr& program, 
         const GpuProgramParametersSharedPtr& params,
         GpuProgramParameters* defaultParams)

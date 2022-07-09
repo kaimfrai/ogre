@@ -98,7 +98,7 @@ protected:
         for (unsigned int i = 0; i < mResults.size(); ++i)
         {
             ++numTests;
-            std::string_view testName = mResults[i].testName;
+            const Ogre::String& testName = mResults[i].testName;
             bool passed = true;
             unsigned int j = i;
 
@@ -135,7 +135,7 @@ protected:
         {
             
             // since a test can have multiple images, we find all images with this tets name
-            std::string_view testName = mResults[i].testName;
+            const Ogre::String& testName = mResults[i].testName;
             bool passed = true;
             unsigned int j = i;
             std::vector<const ComparisonResult*> results;

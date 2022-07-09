@@ -103,7 +103,7 @@ struct Box;
         virtual ~RenderTarget();
 
         /// Retrieve target's name.
-        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view;
+        [[nodiscard]] virtual auto getName() const noexcept -> const String&;
 
         /// Retrieve information about the render target.
         void getMetrics(unsigned int& width, unsigned int& height);
@@ -250,13 +250,13 @@ struct Box;
             @param name The name of the attribute.
             @param pData Pointer to memory of the right kind of structure to receive the info.
         */
-        virtual void getCustomAttribute(std::string_view name, void* pData);
+        virtual void getCustomAttribute(const String& name, void* pData);
 
         /** simplified API for bindings
          * 
          * @overload
          */
-        auto getCustomAttribute(std::string_view name) -> uint
+        auto getCustomAttribute(const String& name) -> uint
         {
             uint ret = 0;
             getCustomAttribute(name, &ret);
@@ -328,11 +328,11 @@ struct Box;
         [[nodiscard]] virtual auto suggestPixelFormat() const noexcept -> PixelFormat { return PF_BYTE_RGBA; }
         
         /** Writes the current contents of the render target to the named file. */
-        void writeContentsToFile(std::string_view filename);
+        void writeContentsToFile(const String& filename);
 
         /** Writes the current contents of the render target to the (PREFIX)(time-stamp)(SUFFIX) file.
             @return the name of the file used.*/
-        virtual auto writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> std::string;
+        virtual auto writeContentsToTimestampedFile(const String& filenamePrefix, const String& filenameSuffix) -> String;
 
         [[nodiscard]] virtual auto requiresTextureFlipping() const -> bool = 0;
 
@@ -366,7 +366,7 @@ struct Box;
         [[nodiscard]] virtual auto getFSAA() const noexcept -> uint { return mFSAA; }
 
         /// RenderSystem specific FSAA option. See @ref RenderSystem::_createRenderWindow for details.
-        [[nodiscard]] virtual auto getFSAAHint() const noexcept -> std::string_view{ return mFSAAHint; }
+        [[nodiscard]] virtual auto getFSAAHint() const noexcept -> const String& { return mFSAAHint; }
 
         /** Set the level of multisample AA to be used if hardware support it.
             This option will be ignored if the hardware does not support it 
@@ -374,7 +374,7 @@ struct Box;
             @param fsaa The number of samples
             @param fsaaHint @copybrief getFSAAHint
         */
-        virtual void setFSAA(uint fsaa, std::string_view fsaaHint) { }
+        virtual void setFSAA(uint fsaa, const String& fsaaHint) { }
 
         /** Method for manual management of rendering : fires 'preRenderTargetUpdate'
             and initialises statistics etc.

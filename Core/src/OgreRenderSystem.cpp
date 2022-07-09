@@ -304,7 +304,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::_createRenderWindow(std::string_view name, unsigned int width,
+    auto RenderSystem::_createRenderWindow(const String& name, unsigned int width,
                                                     unsigned int height, bool fullScreen,
                                                     const NameValuePairList* miscParams) -> RenderWindow*
     {
@@ -336,17 +336,17 @@ namespace Ogre {
         return nullptr;
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderWindow(std::string_view name)
+    void RenderSystem::destroyRenderWindow(const String& name)
     {
         destroyRenderTarget(name);
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderTexture(std::string_view name)
+    void RenderSystem::destroyRenderTexture(const String& name)
     {
         destroyRenderTarget(name);
     }
     //---------------------------------------------------------------------------------------------
-    void RenderSystem::destroyRenderTarget(std::string_view name)
+    void RenderSystem::destroyRenderTarget(const String& name)
     {
         RenderTarget* rt = detachRenderTarget(name);
         delete rt;
@@ -361,7 +361,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::getRenderTarget( std::string_view name ) -> RenderTarget *
+    auto RenderSystem::getRenderTarget( const String &name ) -> RenderTarget *
     {
         auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
@@ -375,7 +375,7 @@ namespace Ogre {
     }
 
     //---------------------------------------------------------------------------------------------
-    auto RenderSystem::detachRenderTarget( std::string_view name ) -> RenderTarget *
+    auto RenderSystem::detachRenderTarget( const String &name ) -> RenderTarget *
     {
         auto it = mRenderTargets.find( name );
         RenderTarget *ret = nullptr;
@@ -777,7 +777,7 @@ namespace Ogre {
         mEventListeners.remove(l);
     }
     //-----------------------------------------------------------------------
-    void RenderSystem::fireEvent(std::string_view name, const NameValuePairList* params)
+    void RenderSystem::fireEvent(const String& name, const NameValuePairList* params)
     {
         for(auto & mEventListener : mEventListeners)
         {
@@ -896,7 +896,7 @@ namespace Ogre {
         delete context;
     }
     //---------------------------------------------------------------------
-    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> std::string_view
+    auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> const String&
     {
         if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
         {
@@ -946,7 +946,7 @@ namespace Ogre {
         mGlobalInstanceVertexBufferVertexDeclaration = val;
     }
     //---------------------------------------------------------------------
-    void RenderSystem::getCustomAttribute(std::string_view name, void* pData)
+    void RenderSystem::getCustomAttribute(const String& name, void* pData)
     {
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Attribute not found.", "RenderSystem::getCustomAttribute");
     }

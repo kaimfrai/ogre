@@ -504,12 +504,12 @@ void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshL
 void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, String& outPath)
 {
     ResourceGroupManager& resourceGroupMgr = ResourceGroupManager::getSingleton();
-    auto const group = resource->getGroup();
-    auto const name = resource->getName();
+    String group = resource->getGroup();
+    String name = resource->getName();
     FileInfo const* info = nullptr;
     FileInfoListPtr locPtr = resourceGroupMgr.listResourceFileInfo(group);
     for (auto const& it : *locPtr) {
-        if (name.starts_with(it.filename)) {
+        if (StringUtil::startsWith(name, it.filename)) {
             info = &it;
             break;
         }
@@ -531,13 +531,13 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
 //--------------------------------------------------------------------------
-auto MeshSerializerTests::copyFile(std::string_view srcPath, std::string_view dstPath) -> bool
+auto MeshSerializerTests::copyFile(const String& srcPath, const String& dstPath) -> bool
 {
-    std::ifstream src(std::filesystem::path{srcPath}, std::ios::binary);
+    std::ifstream src(srcPath.c_str(), std::ios::binary);
     if (!src.is_open()) {
         return false;
     }
-    std::ofstream dst(std::filesystem::path{dstPath}, std::ios::binary);
+    std::ofstream dst(dstPath.c_str(), std::ios::binary);
     if (!dst.is_open()) {
         return false;
     }

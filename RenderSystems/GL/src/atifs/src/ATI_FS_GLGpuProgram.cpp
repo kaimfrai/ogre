@@ -44,8 +44,8 @@ namespace Ogre {
 class ResourceManager;
 
 ATI_FS_GLGpuProgram::ATI_FS_GLGpuProgram(ResourceManager* creator, 
-        std::string_view name, ResourceHandle handle, 
-        std::string_view group, bool isManual, ManualResourceLoader* loader) :
+        const String& name, ResourceHandle handle, 
+        const String& group, bool isManual, ManualResourceLoader* loader) :
     GLGpuProgram(creator, name, handle, group, isManual, loader)
 {
     mProgramType = GL_FRAGMENT_SHADER_ATI;

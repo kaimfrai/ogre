@@ -119,7 +119,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     auto GLSLLinkProgramManager::completeParamSource(
-        std::string_view paramName,
+        const String& paramName,
         const GpuConstantDefinitionMap* vertexConstantDefs, 
         const GpuConstantDefinitionMap* geometryConstantDefs,
         const GpuConstantDefinitionMap* fragmentConstantDefs,

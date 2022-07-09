@@ -60,7 +60,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    RibbonTrail::RibbonTrail(std::string_view name, size_t maxElements, 
+    RibbonTrail::RibbonTrail(const String& name, size_t maxElements, 
         size_t numberOfChains, bool useTextureCoords, bool useColours)
         :BillboardChain(name, maxElements, 0, useTextureCoords, useColours, true)
         
@@ -433,7 +433,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrail::getMovableType() const noexcept -> std::string_view
+    auto RibbonTrail::getMovableType() const noexcept -> const String&
     {
         return RibbonTrailFactory::FACTORY_TYPE_NAME;
     }
@@ -441,12 +441,12 @@ namespace Ogre
     //-----------------------------------------------------------------------
     String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
-    auto RibbonTrailFactory::getType() const noexcept -> std::string_view
+    auto RibbonTrailFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto RibbonTrailFactory::createInstanceImpl( std::string_view name,
+    auto RibbonTrailFactory::createInstanceImpl( const String& name,
         const NameValuePairList* params) -> MovableObject*
     {
         size_t maxElements = 20;

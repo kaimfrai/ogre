@@ -67,7 +67,7 @@ namespace Ogre
     class LogManager : public Singleton<LogManager>, public LogAlloc
     {
     private:
-        using LogList = std::map<std::string_view, ::std::unique_ptr<Log>>;
+        using LogList = std::map<String, ::std::unique_ptr<Log>>;
 
         /// A list of all the logs the manager can access
         LogList mLogs;
@@ -94,19 +94,19 @@ namespace Ogre
                 log and no file output will be written. If you do this you should
                 register a LogListener so log output is not lost.
         */
-        auto createLog( std::string_view name, bool defaultLog = false, bool debuggerOutput = true, 
+        auto createLog( const String& name, bool defaultLog = false, bool debuggerOutput = true, 
             bool suppressFileOutput = false) -> Log*;
 
         /** Retrieves a log managed by this class.
         */
-        auto getLog( std::string_view name) -> Log*;
+        auto getLog( const String& name) -> Log*;
 
         /** Returns a pointer to the default log.
         */
         auto getDefaultLog() noexcept -> Log*;
 
         /** Closes and removes a named log. */
-        void destroyLog(std::string_view name);
+        void destroyLog(const String& name);
         /** Closes and removes a log. */
         void destroyLog(Log* log);
 
@@ -117,17 +117,17 @@ namespace Ogre
 
         /** Log a message to the default log.
         */
-        void logMessage( std::string_view message, LogMessageLevel lml = LML_NORMAL, 
+        void logMessage( const String& message, LogMessageLevel lml = LML_NORMAL, 
             bool maskDebug = false);
 
         /// @overload
-        void logError(std::string_view message, bool maskDebug = false );
+        void logError(const String& message, bool maskDebug = false );
         /// @overload
-        void logWarning(std::string_view message, bool maskDebug = false );
+        void logWarning(const String& message, bool maskDebug = false );
 
         /** Log a message to the default log (signature for backward compatibility).
         */
-        void logMessage( LogMessageLevel lml, std::string_view message,  
+        void logMessage( LogMessageLevel lml, const String& message,  
             bool maskDebug = false) { logMessage(message, lml, maskDebug); }
 
         /** Get a stream on the default log. */

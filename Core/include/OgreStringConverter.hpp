@@ -74,38 +74,38 @@ namespace Ogre {
     class StringConverter
     {
     public:
-        static auto toString(int32 val) -> std::string { return std::to_string(val); };
-        static auto toString(uint32 val) -> std::string{ return std::to_string(val); };
-        static auto toString(unsigned long val) -> std::string { return std::to_string(val); };
-        static auto toString(unsigned long long val) -> std::string { return std::to_string(val); };
-        static auto toString(long val) -> std::string { return std::to_string(val); };
+        static auto toString(int32 val) -> String { return std::to_string(val); };
+        static auto toString(uint32 val) -> String { return std::to_string(val); };
+        static auto toString(unsigned long val) -> String { return std::to_string(val); };
+        static auto toString(unsigned long long val) -> String { return std::to_string(val); };
+        static auto toString(long val) -> String { return std::to_string(val); };
 
         /** Converts a float to a String. */
         static auto toString(float val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a double to a String. */
         static auto toString(double val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a long double to a String. */
         static auto toString(long double val, unsigned short precision = 6,
                                unsigned short width = 0, char fill = ' ',
-                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string;
+                               std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String;
 
         /** Converts a Radian to a String. */
         static auto toString(Radian val, unsigned short precision = 6, 
             unsigned short width = 0, char fill = ' ', 
-            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string
+            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String
         {
             return toString(val.valueAngleUnits(), precision, width, fill, flags);
         }
         /** Converts a Degree to a String. */
         static auto toString(Degree val, unsigned short precision = 6, 
             unsigned short width = 0, char fill = ' ', 
-            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> std::string
+            std::ios::fmtflags flags = std::ios::fmtflags(0)) -> String
         {
             return toString(val.valueAngleUnits(), precision, width, fill, flags);
         }
@@ -114,75 +114,75 @@ namespace Ogre {
         @param val
         @param yesNo If set to true, result is 'yes' or 'no' instead of 'true' or 'false'
         */
-        static auto toString(bool val, bool yesNo = false) -> std::string;
+        static auto toString(bool val, bool yesNo = false) -> String;
         /** Converts a Vector2 to a String. 
         @remarks
             Format is "x y" (i.e. 2x Real values, space delimited)
         */
-        static auto toString(const Vector2& val) -> std::string;
+        static auto toString(const Vector2& val) -> String;
         /** Converts a Vector3 to a String. 
         @remarks
             Format is "x y z" (i.e. 3x Real values, space delimited)
         */
-        static auto toString(const Vector3& val) -> std::string;
+        static auto toString(const Vector3& val) -> String;
         /** Converts a Vector4 to a String. 
         @remarks
             Format is "x y z w" (i.e. 4x Real values, space delimited)
         */
-        static auto toString(const Vector4& val) -> std::string;
+        static auto toString(const Vector4& val) -> String;
         /** Converts a Matrix3 to a String. 
         @remarks
             Format is "00 01 02 10 11 12 20 21 22" where '01' means row 0 column 1 etc.
         */
-        static auto toString(const Matrix3& val) -> std::string;
+        static auto toString(const Matrix3& val) -> String;
         /** Converts a Matrix4 to a String. 
         @remarks
             Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33" where 
             '01' means row 0 column 1 etc.
         */
-        static auto toString(const Matrix4& val) -> std::string;
+        static auto toString(const Matrix4& val) -> String;
         /** Converts a Quaternion to a String. 
         @remarks
             Format is "w x y z" (i.e. 4x Real values, space delimited)
         */
-        static auto toString(const Quaternion& val) -> std::string;
+        static auto toString(const Quaternion& val) -> String;
         /** Converts a ColourValue to a String. 
         @remarks
             Format is "r g b a" (i.e. 4x Real values, space delimited). 
         */
-        static auto toString(const ColourValue& val) -> std::string;
+        static auto toString(const ColourValue& val) -> String;
         /** Converts a StringVector to a string.
         @remarks
             Strings must not contain spaces since space is used as a delimiter in
             the output.
         */
-        static auto toString(const StringVector& val) -> std::string;
+        static auto toString(const StringVector& val) -> String;
 
         /** Converts a String to a basic value type
             @return whether the conversion was successful
         */
-        static auto parse(std::string_view str, ColourValue& v) -> bool;
-        static auto parse(std::string_view str, Quaternion& v) -> bool;
-        static auto parse(std::string_view str, Matrix4& v) -> bool;
-        static auto parse(std::string_view str, Matrix3& v) -> bool;
-        static auto parse(std::string_view str, Vector4& v) -> bool;
-        static auto parse(std::string_view str, Vector3& v) -> bool;
-        static auto parse(std::string_view str, Vector2& v) -> bool;
-        static auto parse(std::string_view str, int32& v) -> bool;
-        static auto parse(std::string_view str, uint32& v) -> bool;
-        static auto parse(std::string_view str, int64& v) -> bool;
+        static auto parse(const String& str, ColourValue& v) -> bool;
+        static auto parse(const String& str, Quaternion& v) -> bool;
+        static auto parse(const String& str, Matrix4& v) -> bool;
+        static auto parse(const String& str, Matrix3& v) -> bool;
+        static auto parse(const String& str, Vector4& v) -> bool;
+        static auto parse(const String& str, Vector3& v) -> bool;
+        static auto parse(const String& str, Vector2& v) -> bool;
+        static auto parse(const String& str, int32& v) -> bool;
+        static auto parse(const String& str, uint32& v) -> bool;
+        static auto parse(const String& str, int64& v) -> bool;
         // provide both long long and long to catch size_t on all platforms
-        static auto parse(std::string_view str, unsigned long& v) -> bool;
-        static auto parse(std::string_view str, unsigned long long& v) -> bool;
-        static auto parse(std::string_view str, bool& v) -> bool;
-        static auto parse(std::string_view str, double& v) -> bool;
-        static auto parse(std::string_view str, float& v) -> bool;
+        static auto parse(const String& str, unsigned long& v) -> bool;
+        static auto parse(const String& str, unsigned long long& v) -> bool;
+        static auto parse(const String& str, bool& v) -> bool;
+        static auto parse(const String& str, double& v) -> bool;
+        static auto parse(const String& str, float& v) -> bool;
 
         /** Converts a String to a Real. 
         @return
             0.0 if the value could not be parsed, otherwise the Real version of the String.
         */
-        static auto parseReal(std::string_view val, Real defaultValue = 0) -> Real
+        static auto parseReal(const String& val, Real defaultValue = 0) -> Real
         {
             Real ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -191,14 +191,14 @@ namespace Ogre {
         @return
             0.0 if the value could not be parsed, otherwise the Angle version of the String.
         */
-        static auto parseAngle(std::string_view val, Radian defaultValue = Radian(0)) -> Radian {
+        static auto parseAngle(const String& val, Radian defaultValue = Radian(0)) -> Radian {
             return Angle(parseReal(val, defaultValue.valueRadians()));
         }
         /** Converts a String to a whole number. 
         @return
             0.0 if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseInt(std::string_view val, int32 defaultValue = 0) -> int32
+        static auto parseInt(const String& val, int32 defaultValue = 0) -> int32
         {
             int32 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -207,7 +207,7 @@ namespace Ogre {
         @return
             0.0 if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseUnsignedInt(std::string_view val, uint32 defaultValue = 0) -> uint32
+        static auto parseUnsignedInt(const String& val, uint32 defaultValue = 0) -> uint32
         {
             uint32 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -217,7 +217,7 @@ namespace Ogre {
         @return
             defaultValue if the value could not be parsed, otherwise the numeric version of the String.
         */
-        static auto parseSizeT(std::string_view val, size_t defaultValue = 0) -> size_t
+        static auto parseSizeT(const String& val, size_t defaultValue = 0) -> size_t
         {
             size_t ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -228,7 +228,7 @@ namespace Ogre {
             matches "true", "yes", "1", or "on", false if "false", "no", "0" 
             or "off".
         */
-        static auto parseBool(std::string_view val, bool defaultValue = false) -> bool
+        static auto parseBool(const String& val, bool defaultValue = false) -> bool
         {
             bool ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -238,7 +238,7 @@ namespace Ogre {
             Format is "x y" ie. 2 Real components, space delimited. Failure to parse returns
             Vector2::ZERO.
         */
-        static auto parseVector2(std::string_view val, const Vector2& defaultValue = Vector2::ZERO) -> Vector2
+        static auto parseVector2(const String& val, const Vector2& defaultValue = Vector2::ZERO) -> Vector2
         {
             Vector2 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -248,7 +248,7 @@ namespace Ogre {
             Format is "x y z" ie. 3 Real components, space delimited. Failure to parse returns
             Vector3::ZERO.
         */
-        static auto parseVector3(std::string_view val, const Vector3& defaultValue = Vector3::ZERO) -> Vector3
+        static auto parseVector3(const String& val, const Vector3& defaultValue = Vector3::ZERO) -> Vector3
         {
             Vector3 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -258,7 +258,7 @@ namespace Ogre {
             Format is "x y z w" ie. 4 Real components, space delimited. Failure to parse returns
             Vector4::ZERO.
         */
-        static auto parseVector4(std::string_view val, const Vector4& defaultValue = Vector4::ZERO) -> Vector4
+        static auto parseVector4(const String& val, const Vector4& defaultValue = Vector4::ZERO) -> Vector4
         {
             Vector4 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -268,7 +268,7 @@ namespace Ogre {
             Format is "00 01 02 10 11 12 20 21 22" where '01' means row 0 column 1 etc.
             Failure to parse returns Matrix3::IDENTITY.
         */
-        static auto parseMatrix3(std::string_view val, const Matrix3& defaultValue = Matrix3::IDENTITY) -> Matrix3
+        static auto parseMatrix3(const String& val, const Matrix3& defaultValue = Matrix3::IDENTITY) -> Matrix3
         {
             Matrix3 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -278,7 +278,7 @@ namespace Ogre {
             Format is "00 01 02 03 10 11 12 13 20 21 22 23 30 31 32 33" where 
             '01' means row 0 column 1 etc. Failure to parse returns Matrix4::IDENTITY.
         */
-        static auto parseMatrix4(std::string_view val, const Matrix4& defaultValue = Matrix4::IDENTITY) -> Matrix4
+        static auto parseMatrix4(const String& val, const Matrix4& defaultValue = Matrix4::IDENTITY) -> Matrix4
         {
             Matrix4 ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -288,7 +288,7 @@ namespace Ogre {
             Format is "w x y z" (i.e. 4x Real values, space delimited). 
             Failure to parse returns Quaternion::IDENTITY.
         */
-        static auto parseQuaternion(std::string_view val, const Quaternion& defaultValue = Quaternion::IDENTITY) -> Quaternion
+        static auto parseQuaternion(const String& val, const Quaternion& defaultValue = Quaternion::IDENTITY) -> Quaternion
         {
             Quaternion ret;
             return parse(val, ret) ? ret : defaultValue;
@@ -298,40 +298,40 @@ namespace Ogre {
             Format is "r g b a" (i.e. 4x Real values, space delimited), or "r g b" which implies
             an alpha value of 1.0 (opaque). Failure to parse returns ColourValue::Black.
         */
-        static auto parseColourValue(std::string_view val, const ColourValue& defaultValue = ColourValue::Black) -> ColourValue
+        static auto parseColourValue(const String& val, const ColourValue& defaultValue = ColourValue::Black) -> ColourValue
         {
             ColourValue ret;
             return parse(val, ret) ? ret : defaultValue;
         }
 
         /** Checks the String is a valid number value. */
-        static auto isNumber(std::string_view val) -> bool;
+        static auto isNumber(const String& val) -> bool;
 
 		/** Converts a StereoModeType to a String
 		@remarks
 			String output format is "None", "Frame Sequential", etc.
 		*/
-		static auto toString(StereoModeType val) -> std::string;
+		static auto toString(StereoModeType val) -> String;
 
 		/** Converts a String to a StereoModeType
 		@remarks
 			String input format should be "None", "Frame Sequential", etc.
 		*/
-		static auto parseStereoMode(std::string_view val, StereoModeType defaultValue = SMT_NONE) -> StereoModeType;
+		static auto parseStereoMode(const String& val, StereoModeType defaultValue = SMT_NONE) -> StereoModeType;
 
 		static locale_t _numLocale;
     private:
         template<typename T>
-        static auto _toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> std::string;
+        static auto _toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> String;
     };
 
-    inline auto to_string(const Quaternion& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const ColourValue& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector2& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector3& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Vector4& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Matrix3& v) -> std::string { return StringConverter::toString(v); }
-    inline auto to_string(const Matrix4& v) -> std::string { return StringConverter::toString(v); }
+    inline auto to_string(const Quaternion& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const ColourValue& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector2& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector3& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Vector4& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Matrix3& v) -> String { return StringConverter::toString(v); }
+    inline auto to_string(const Matrix4& v) -> String { return StringConverter::toString(v); }
     /** @} */
     /** @} */
 }
@@ -425,29 +425,6 @@ struct std::formatter<std::vector<std::string_view>, CharT>
 
             fc.advance_to(out);
             out = stringFormatter.format(*i, fc);
-        }
-        return out;
-    }
-};
-
-
-template<typename Transform, typename CharT>
-struct std::formatter<Ogre::StringTransformView<Transform>, CharT>
-{
-    std::formatter<char, CharT> stringFormatter;
-
-    auto constexpr parse(auto& pc)
-    {
-        return stringFormatter.parse(pc);
-    }
-
-    auto constexpr format(Ogre::StringTransformView<Transform> val, auto& fc)
-    {
-        auto out = fc.out();
-        for (auto c : val)
-        {
-            fc.advance_to(out);
-            out = stringFormatter.format(c, fc);
         }
         return out;
     }

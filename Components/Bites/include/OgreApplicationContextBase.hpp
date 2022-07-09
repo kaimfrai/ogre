@@ -87,7 +87,7 @@ namespace OgreBites
     class ApplicationContextBase : public Ogre::FrameListener
     {
     public:
-        explicit ApplicationContextBase(std::string_view appName = "Ogre3D");
+        explicit ApplicationContextBase(const Ogre::String& appName = "Ogre3D");
 
         ~ApplicationContextBase() override = default;
 
@@ -204,7 +204,7 @@ namespace OgreBites
         /**
         Reconfigures the context. Attempts to preserve the current sample state.
         */
-        virtual void reconfigure(std::string_view renderer, Ogre::NameValuePairList& options);
+        virtual void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options);
 
 
         /**
@@ -262,11 +262,11 @@ namespace OgreBites
          * By default the values from ogre.cfg are used for w, h and miscParams.
          */
         virtual auto
-        createWindow(std::string_view name, uint32_t w = 0, uint32_t h = 0,
+        createWindow(const Ogre::String& name, uint32_t w = 0, uint32_t h = 0,
                      Ogre::NameValuePairList miscParams = Ogre::NameValuePairList()) -> NativeWindowPair;
 
         /// destroy and erase an NativeWindowPair by name
-        void destroyWindow(std::string_view name);
+        void destroyWindow(const Ogre::String& name);
 
         /**
          * get the FileSystemLayer instace pointing to an application specific directory

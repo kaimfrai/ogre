@@ -122,7 +122,7 @@ LayeredBlending::LayeredBlending()
 = default;
 
 //-----------------------------------------------------------------------
-auto LayeredBlending::getType() const noexcept -> std::string_view
+auto LayeredBlending::getType() const noexcept -> const Ogre::String&
 {
     return Type;
 }
@@ -325,7 +325,7 @@ auto LayeredBlending::getSourceModifier(unsigned short index, SourceModifier& mo
 
 //----------------------Factory Implementation---------------------------
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::getType() const noexcept -> std::string_view
+auto LayeredBlendingFactory::getType() const noexcept -> const String&
 {
     return LayeredBlending::Type;
 }
@@ -467,7 +467,7 @@ auto LayeredBlendingFactory::createInstanceImpl() -> SubRenderState*
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::stringToBlendMode(std::string_view strValue) -> LayeredBlending::BlendMode
+auto LayeredBlendingFactory::stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode
 {
     for(const auto & _blendMode : _blendModes)
     {
@@ -480,7 +480,7 @@ auto LayeredBlendingFactory::stringToBlendMode(std::string_view strValue) -> Lay
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> std::string_view
+auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendMode) -> String
 {
     for(const auto & _blendMode : _blendModes)
     {
@@ -493,7 +493,7 @@ auto LayeredBlendingFactory::blendModeToString(LayeredBlending::BlendMode blendM
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::stringToSourceModifier(std::string_view strValue) -> LayeredBlending::SourceModifier
+auto LayeredBlendingFactory::stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier
 {
     for(const auto & _sourceModifier : _sourceModifiers)
     {
@@ -506,7 +506,7 @@ auto LayeredBlendingFactory::stringToSourceModifier(std::string_view strValue) -
 }
 
 //-----------------------------------------------------------------------
-auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> std::string_view
+auto LayeredBlendingFactory::sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String
 {
     for(const auto & _sourceModifier : _sourceModifiers)
     {

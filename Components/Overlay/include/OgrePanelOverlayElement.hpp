@@ -64,7 +64,7 @@ class RenderQueue;
     {
     public:
         /** Constructor. */
-        PanelOverlayElement(std::string_view name);
+        PanelOverlayElement(const String& name);
         ~PanelOverlayElement() override;
 
         /** Initialise */
@@ -104,7 +104,7 @@ class RenderQueue;
         /** Returns whether this panel is transparent. */
         [[nodiscard]] auto isTransparent() const noexcept -> bool;
 
-        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getTypeName() const noexcept -> const String& override;
         void getRenderOperation(RenderOperation& op) override;
         /** Overridden from OverlayContainer */
         void _updateRenderQueue(RenderQueue* queue) override;

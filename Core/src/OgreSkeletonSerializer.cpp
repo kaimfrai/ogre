@@ -64,7 +64,7 @@ namespace Ogre {
 
     //---------------------------------------------------------------------
     void SkeletonSerializer::exportSkeleton(const Skeleton* pSkeleton, 
-        std::string_view filename, SkeletonVersion ver, Endian endianMode)
+        const String& filename, SkeletonVersion ver, Endian endianMode)
     {
         DataStreamPtr stream = _openFileStream(filename, std::ios::binary | std::ios::out);
         exportSkeleton(pSkeleton, stream, ver, endianMode);

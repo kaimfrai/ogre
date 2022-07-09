@@ -209,7 +209,7 @@ class SkeletonInstance;
 
         auto _getOwner() const noexcept -> InstanceBatch* { return mBatchOwner; }
 
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> const String& override;
 
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
         auto getBoundingRadius() const -> Real override;
@@ -232,7 +232,7 @@ class SkeletonInstance;
         auto getSkeleton() const noexcept -> SkeletonInstance* { return mSkeletonInstance; }
 
         /** @see Entity::getAnimationState */
-        auto getAnimationState(std::string_view name) const -> AnimationState*;
+        auto getAnimationState(const String& name) const -> AnimationState*;
         /** @see Entity::getAllAnimationStates */
         auto getAllAnimationStates() const noexcept -> AnimationStateSet*;
 

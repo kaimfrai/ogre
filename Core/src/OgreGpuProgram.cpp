@@ -55,50 +55,50 @@ class ResourceManager;
     class CmdType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSyntax : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdSkeletal : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdMorph : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdPose : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdVTF : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdManualNamedConstsFile : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     class CmdAdjacency : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     // Command object for setting / getting parameters
     static CmdType msTypeCmd;
@@ -112,7 +112,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------------
-    GpuProgram::GpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle, std::string_view group,
+    GpuProgram::GpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle, const String& group,
                            bool isManual, ManualResourceLoader* loader)
         : Resource(creator, name, handle, group, isManual, loader) 
     {
@@ -124,12 +124,12 @@ class ResourceManager;
         mType = t;
     }
     //-----------------------------------------------------------------------------
-    void GpuProgram::setSyntaxCode(std::string_view syntax)
+    void GpuProgram::setSyntaxCode(const String& syntax)
     {
         mSyntaxCode = syntax;
     }
     //-----------------------------------------------------------------------------
-    void GpuProgram::setSourceFile(std::string_view filename)
+    void GpuProgram::setSourceFile(const String& filename)
     {
         OgreAssert(!filename.empty(), "invalid filename");
 
@@ -139,7 +139,7 @@ class ResourceManager;
         mCompileError = false;
     }
     //-----------------------------------------------------------------------------
-    void GpuProgram::setSource(std::string_view source)
+    void GpuProgram::setSource(const String& source)
     {
         mSource = source;
         mFilename.clear();
@@ -291,7 +291,7 @@ class ResourceManager;
             mConstantDefs = GpuNamedConstantsPtr(new GpuNamedConstants());
     }
     //---------------------------------------------------------------------
-    void GpuProgram::setManualNamedConstantsFile(std::string_view paramDefFile)
+    void GpuProgram::setManualNamedConstantsFile(const String& paramDefFile)
     {
         mManualNamedConstantsFile = paramDefFile;
         mLoadedManualNamedConstants = false;
@@ -433,7 +433,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto GpuProgram::getLanguage() const noexcept -> std::string_view
+    auto GpuProgram::getLanguage() const noexcept -> const String&
     {
         static const String language = "asm";
 
@@ -441,12 +441,12 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdType::doGet(const void* target) const -> std::string
+    auto CmdType::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return ::std::format("{}_program", GpuProgram::getProgramTypeName(t->getType()));
     }
-    void CmdType::doSet(void* target, std::string_view val)
+    void CmdType::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         if (val == "vertex_program")
@@ -475,78 +475,78 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    auto CmdSyntax::doGet(const void* target) const -> std::string
+    auto CmdSyntax::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
-        return std::string{ t->getSyntaxCode() };
+        return t->getSyntaxCode();
     }
-    void CmdSyntax::doSet(void* target, std::string_view val)
+    void CmdSyntax::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setSyntaxCode(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdSkeletal::doGet(const void* target) const -> std::string
+    auto CmdSkeletal::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isSkeletalAnimationIncluded());
     }
-    void CmdSkeletal::doSet(void* target, std::string_view val)
+    void CmdSkeletal::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setSkeletalAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdMorph::doGet(const void* target) const -> std::string
+    auto CmdMorph::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isMorphAnimationIncluded());
     }
-    void CmdMorph::doSet(void* target, std::string_view val)
+    void CmdMorph::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setMorphAnimationIncluded(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdPose::doGet(const void* target) const -> std::string
+    auto CmdPose::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->getNumberOfPosesIncluded());
     }
-    void CmdPose::doSet(void* target, std::string_view val)
+    void CmdPose::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setPoseAnimationIncluded((ushort)StringConverter::parseUnsignedInt(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdVTF::doGet(const void* target) const -> std::string
+    auto CmdVTF::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isVertexTextureFetchRequired());
     }
-    void CmdVTF::doSet(void* target, std::string_view val)
+    void CmdVTF::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setVertexTextureFetchRequired(StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdManualNamedConstsFile::doGet(const void* target) const -> std::string
+    auto CmdManualNamedConstsFile::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
-        return std::string{ t->getManualNamedConstantsFile() };
+        return t->getManualNamedConstantsFile();
     }
-    void CmdManualNamedConstsFile::doSet(void* target, std::string_view val)
+    void CmdManualNamedConstsFile::doSet(void* target, const String& val)
     {
         auto* t = static_cast<GpuProgram*>(target);
         t->setManualNamedConstantsFile(val);
     }
     //-----------------------------------------------------------------------
-    auto CmdAdjacency::doGet(const void* target) const -> std::string
+    auto CmdAdjacency::doGet(const void* target) const -> String
     {
         const auto* t = static_cast<const GpuProgram*>(target);
         return StringConverter::toString(t->isAdjacencyInfoRequired());
     }
-    void CmdAdjacency::doSet(void* target, std::string_view val)
+    void CmdAdjacency::doSet(void* target, const String& val)
     {
         LogManager::getSingleton().logWarning("'uses_adjacency_information' is deprecated. "
         "Set the respective RenderOperation::OpertionType instead.");

@@ -120,7 +120,7 @@ class RenderSystem;
         mFactories.remove(fact);
     }
     //-----------------------------------------------------------------------
-    auto SceneManagerEnumerator::getMetaData(std::string_view typeName) const -> const SceneManagerMetaData*
+    auto SceneManagerEnumerator::getMetaData(const String& typeName) const -> const SceneManagerMetaData*
     {
         for (auto i : mMetaDataList)
         {
@@ -138,7 +138,7 @@ class RenderSystem;
 
     //-----------------------------------------------------------------------
     auto SceneManagerEnumerator::createSceneManager(
-        std::string_view typeName, std::string_view instanceName) -> SceneManager*
+        const String& typeName, const String& instanceName) -> SceneManager*
     {
         if (mInstances.find(instanceName) != mInstances.end())
         {
@@ -205,7 +205,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    auto SceneManagerEnumerator::getSceneManager(std::string_view instanceName) const -> SceneManager*
+    auto SceneManagerEnumerator::getSceneManager(const String& instanceName) const -> SceneManager*
     {
         auto i = mInstances.find(instanceName);
         if(i != mInstances.end())
@@ -221,7 +221,7 @@ class RenderSystem;
 
     }
     //---------------------------------------------------------------------
-    auto SceneManagerEnumerator::hasSceneManager(std::string_view instanceName) const -> bool
+    auto SceneManagerEnumerator::hasSceneManager(const String& instanceName) const -> bool
     {
         return mInstances.find(instanceName) != mInstances.end();
     }
@@ -262,13 +262,13 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     auto DefaultSceneManagerFactory::createInstance(
-        std::string_view instanceName) -> SceneManager*
+        const String& instanceName) -> SceneManager*
     {
         return new DefaultSceneManager(instanceName);
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    DefaultSceneManager::DefaultSceneManager(std::string_view name)
+    DefaultSceneManager::DefaultSceneManager(const String& name)
         : SceneManager(name)
     {
     }
@@ -276,7 +276,7 @@ class RenderSystem;
     DefaultSceneManager::~DefaultSceneManager()
     = default;
     //-----------------------------------------------------------------------
-    auto DefaultSceneManager::getTypeName() const noexcept -> std::string_view
+    auto DefaultSceneManager::getTypeName() const noexcept -> const String&
     {
         return DefaultSceneManagerFactory::FACTORY_TYPE_NAME;
     }

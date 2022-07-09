@@ -101,7 +101,7 @@ class VertexData;
     public:
         InstanceBatchHW_VTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                            std::string_view batchName );
+                            const String &batchName );
         ~InstanceBatchHW_VTF() override;
         /** @see InstanceBatch::calculateMaxNumInstances */
         auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;

@@ -59,7 +59,7 @@ class InstanceManager;
 
     InstanceBatchShader::InstanceBatchShader( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,
-                                        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName ) :
+                                        const Mesh::IndexMap *indexToBoneMap, const String &batchName ) :
                 InstanceBatch( creator, meshReference, material, instancesPerBatch,
                                 indexToBoneMap, batchName ),
                 mNumWorldMatrices( instancesPerBatch )
@@ -115,10 +115,11 @@ class InstanceManager;
                         if((retVal < 3 && entry->paramType == GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4) ||
                             (retVal < 2 && entry->paramType == GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4))
                         {
-                            LogManager::getSingleton().logWarning(
-                                std::format("InstanceBatchShader: Mesh '{}' using material '{}'. The amount of possible "
+                            LogManager::getSingleton().logWarning( "InstanceBatchShader: Mesh '" +
+                                        mMeshReference->getName() + "' using material '" +
+                                        mMaterial->getName() + "'. The amount of possible "
                                         "instances per batch is very low. Performance benefits will "
-                                        "be minimal, if any. It might be even slower!", mMeshReference->getName(), mMaterial->getName() ));
+                                        "be minimal, if any. It might be even slower!");
                         }
 
                         return retVal;

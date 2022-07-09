@@ -49,7 +49,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::write(const RenderSystemCapabilities* caps, std::string_view name, std::ostream &file)
+    void RenderSystemCapabilitiesSerializer::write(const RenderSystemCapabilities* caps, const String &name, std::ostream &file)
     {
         using namespace std;
 
@@ -106,7 +106,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename)
+    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, const String &name, String filename)
     {
         using namespace std;
 
@@ -118,7 +118,7 @@ namespace Ogre
     }
     
     //-----------------------------------------------------------------------
-    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, std::string_view name) -> std::string
+    auto RenderSystemCapabilitiesSerializer::writeString(const RenderSystemCapabilities* caps, const String &name) -> String
     {
         using namespace std;
         
@@ -143,7 +143,7 @@ namespace Ogre
         // parser operating data
         String line;
         ParseAction parseAction = PARSE_HEADER;
-        std::vector<std::string_view> tokens;
+        StringVector tokens;
         bool parsedAtLeastOneRSC = false;
 
         // collect capabilities lines (i.e. everything that is not header, "{", "}",
@@ -392,13 +392,15 @@ namespace Ogre
 
     void RenderSystemCapabilitiesSerializer::parseCapabilitiesLines(CapabilitiesLinesList& lines)
     {
+        StringVector tokens;
+
         for (auto & [key, number] : lines)
         {
             // restore the current line information for debugging
             mCurrentLine = &key;
             mCurrentLineNumber = number;
 
-            auto const tokens = StringUtil::split(key);
+            tokens = StringUtil::split(key);
             // check for incomplete lines
             if(tokens.size() < 2)
             {
@@ -408,13 +410,13 @@ namespace Ogre
 
             // the first token must the the keyword identifying the capability
             // the remaining tokens are the parameters
-            auto const keyword = tokens[0];
-            std::string everythingElse = "";
+            String keyword = tokens[0];
+            String everythingElse = "";
             for(unsigned int i = 1; i < tokens.size() - 1; i ++)
             {
                everythingElse = ::std::format("{}{} ", everythingElse , tokens[i]);
             }
-            everythingElse = ::std::format("{}{}", everythingElse, tokens[tokens.size() - 1]);
+            everythingElse = everythingElse + tokens[tokens.size() - 1];
 
             CapabilityKeywordType keywordType = getKeywordType(keyword);
 
@@ -459,7 +461,7 @@ namespace Ogre
         }
     }
 
-    void RenderSystemCapabilitiesSerializer::logParseError(std::string_view error) const
+    void RenderSystemCapabilitiesSerializer::logParseError(const String& error) const
     {
         // log the line with error in it if the current line is available
         if (mCurrentLine != nullptr && mCurrentStream)

@@ -58,7 +58,7 @@ public:
     /** 
     @see ProgramWriter::getTargetLanguage.
     */
-    [[nodiscard]] auto getTargetLanguage() const noexcept -> std::string_view override { return TargetLanguage; }
+    [[nodiscard]] auto getTargetLanguage() const noexcept -> const String& override { return TargetLanguage; }
 
     static String TargetLanguage;
 };

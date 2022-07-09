@@ -59,13 +59,13 @@ namespace Ogre {
 
         /// Create a new skeleton
         /// @see ResourceManager::createResource
-        auto create (std::string_view name, std::string_view group,
+        auto create (const String& name, const String& group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> SkeletonPtr;
 
         /// Get a resource by name
         /// @see ResourceManager::getResourceByName
-        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> SkeletonPtr;
+        auto getByName(const String& name, const String& groupName OGRE_RESOURCE_GROUP_INIT) const -> SkeletonPtr;
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() noexcept -> SkeletonManager&;
@@ -74,8 +74,8 @@ namespace Ogre {
     private:
 
         /// @copydoc ResourceManager::createImpl
-        auto createImpl(std::string_view name, ResourceHandle handle, 
-            std::string_view group, bool isManual, ManualResourceLoader* loader, 
+        auto createImpl(const String& name, ResourceHandle handle, 
+            const String& group, bool isManual, ManualResourceLoader* loader, 
             const NameValuePairList* createParams) -> Resource* override;
 
     };

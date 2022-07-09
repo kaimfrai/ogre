@@ -62,7 +62,7 @@ namespace Ogre {
     static OverlayElementCommands::CmdVerticalAlign msVerticalAlignCmd;
     static OverlayElementCommands::CmdVisible msVisibleCmd;
 
-    std::string_view OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
+    const String& OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
     //---------------------------------------------------------------------
     OverlayElement::OverlayElement(std::string_view name)
       : mName(name)
@@ -280,7 +280,7 @@ namespace Ogre {
         _positionsOutOfDate();
     }
     //---------------------------------------------------------------------
-    auto OverlayElement::getMaterialName() const noexcept -> std::string_view
+    auto OverlayElement::getMaterialName() const noexcept -> const String&
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -308,7 +308,7 @@ namespace Ogre {
         mMaterial->setDepthCheckEnabled(false);
     }
 
-    void OverlayElement::setMaterialName(std::string_view matName, std::string_view group)
+    void OverlayElement::setMaterialName(const String& matName, const String& group)
     {
         if (!matName.empty())
         {
@@ -665,7 +665,7 @@ namespace Ogre {
             &msVisibleCmd);
     }
     //-----------------------------------------------------------------------
-    void OverlayElement::setCaption( std::string_view caption )
+    void OverlayElement::setCaption( const DisplayString& caption )
     {
         mCaption = caption;
         _positionsOutOfDate();
@@ -777,7 +777,7 @@ namespace Ogre {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto OverlayElement::clone(std::string_view instanceName) -> OverlayElement*
+    auto OverlayElement::clone(const String& instanceName) -> OverlayElement*
     {
         OverlayElement* newElement;
 

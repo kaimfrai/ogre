@@ -224,8 +224,8 @@ namespace Ogre
             major = minor = release = build = 0;
         }
 
-        [[nodiscard]] auto toString() const -> std::string;
-        void fromString(std::string_view versionString);
+        [[nodiscard]] auto toString() const -> String;
+        void fromString(const String& versionString);
     };
 
     /** Enumeration of GPU vendors. */
@@ -257,7 +257,7 @@ namespace Ogre
 
     public:
 
-        using ShaderProfiles = std::set<std::string_view>;
+        using ShaderProfiles = std::set<String>;
     private:
         /// This is used to build a database of RSC's
         /// if a RSC with same name, but newer version is introduced, the older one 
@@ -266,7 +266,7 @@ namespace Ogre
         /// GPU Vendor
         GPUVendor mVendor{GPU_UNKNOWN};
 
-        static std::string_view msGPUVendorStrings[GPU_VENDOR_COUNT];
+        static String msGPUVendorStrings[GPU_VENDOR_COUNT];
         static void initVendorStrings();
 
         /// The number of texture units available
@@ -325,7 +325,7 @@ namespace Ogre
             mDriverVersion = version;
         }
 
-        void parseDriverVersionFromString(std::string_view versionString)
+        void parseDriverVersionFromString(const String& versionString)
         {
             DriverVersion version;
             version.fromString(versionString);
@@ -349,15 +349,15 @@ namespace Ogre
         }
 
         /// Parse and set vendor
-        void parseVendorFromString(std::string_view vendorString)
+        void parseVendorFromString(const String& vendorString)
         {
             setVendor(vendorFromString(vendorString));
         }
 
         /// Convert a vendor string to an enum
-        static auto vendorFromString(std::string_view vendorString) -> GPUVendor;
+        static auto vendorFromString(const String& vendorString) -> GPUVendor;
         /// Convert a vendor enum to a string
-        static auto vendorToString(GPUVendor v) -> std::string_view;
+        static auto vendorToString(GPUVendor v) -> const String&;
 
         [[nodiscard]] auto isDriverOlderThanVersion(const DriverVersion &v) const -> bool
         {
@@ -480,15 +480,15 @@ namespace Ogre
 
         /** Adds the profile to the list of supported profiles
         */
-        void addShaderProfile(std::string_view profile);
+        void addShaderProfile(const String& profile);
 
         /** Remove a given shader profile, if present.
         */
-        void removeShaderProfile(std::string_view profile);
+        void removeShaderProfile(const String& profile);
 
         /** Returns true if profile is in the list of supported profiles
         */
-        [[nodiscard]] auto isShaderProfileSupported(std::string_view profile) const -> bool;
+        [[nodiscard]] auto isShaderProfileSupported(const String& profile) const -> bool;
 
         /** Returns a set of all supported shader profiles
         * */
@@ -515,13 +515,13 @@ namespace Ogre
         }
 
         /// sets the device name for Render system
-        void setDeviceName(std::string_view name)
+        void setDeviceName(const String& name)
         {
             mDeviceName = name;
         }
 
         /// gets the device name for render system
-        [[nodiscard]] auto getDeviceName() const -> std::string_view
+        [[nodiscard]] auto getDeviceName() const -> String
         {
             return mDeviceName;
         }
@@ -603,12 +603,12 @@ namespace Ogre
         }
 
         /// Get the identifier of the rendersystem from which these capabilities were generated
-        [[nodiscard]] auto getRenderSystemName() const noexcept -> std::string_view
+        [[nodiscard]] auto getRenderSystemName() const noexcept -> const String&
         {
             return mRenderSystemName;
         }
         ///  Set the identifier of the rendersystem from which these capabilities were generated
-        void setRenderSystemName(std::string_view rs)
+        void setRenderSystemName(const String& rs)
         {
             mRenderSystemName = rs;
         }
@@ -662,8 +662,8 @@ namespace Ogre
         }
     };
 
-    inline auto to_string(GPUVendor v) -> std::string { return std::string{ RenderSystemCapabilities::vendorToString(v) }; }
-    inline auto to_string(const DriverVersion& v) -> std::string { return v.toString(); }
+    inline auto to_string(GPUVendor v) -> String { return RenderSystemCapabilities::vendorToString(v); }
+    inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }
 
     /** @} */
     /** @} */

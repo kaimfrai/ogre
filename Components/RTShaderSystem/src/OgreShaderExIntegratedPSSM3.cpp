@@ -91,7 +91,7 @@ IntegratedPSSM3::IntegratedPSSM3()
 }
 
 //-----------------------------------------------------------------------
-auto IntegratedPSSM3::getType() const noexcept -> std::string_view
+auto IntegratedPSSM3::getType() const noexcept -> const String&
 {
     return Type;
 }
@@ -199,7 +199,7 @@ void IntegratedPSSM3::setSplitPoints(const SplitPointList& newSplitPoints)
     }
 }
 
-auto IntegratedPSSM3::setParameter(std::string_view name, std::string_view value) noexcept -> bool
+auto IntegratedPSSM3::setParameter(const String& name, const String& value) noexcept -> bool
 {
     if(name == "debug")
     {
@@ -401,7 +401,7 @@ auto IntegratedPSSM3::addPSInvocation(Program* psProgram, const int groupOrder) 
 
 
 //-----------------------------------------------------------------------
-auto IntegratedPSSM3Factory::getType() const noexcept -> std::string_view
+auto IntegratedPSSM3Factory::getType() const noexcept -> const String&
 {
     return IntegratedPSSM3::Type;
 }

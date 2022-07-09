@@ -50,11 +50,11 @@ namespace Ogre {
     {
         String name;
         String currentValue;
-        std::vector<std::string_view> possibleValues;
+        StringVector possibleValues;
         bool immutable;
     };
 
-    using ConfigOptionMap = std::map<std::string_view, ConfigOption>;
+    using ConfigOptionMap = std::map<String, ConfigOption>;
     /** @} */
     /** @} */
 }

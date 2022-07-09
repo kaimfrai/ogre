@@ -45,14 +45,14 @@ THE SOFTWARE.
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
-    static void removeDuplicates(std::vector<std::string_view>& c)
+    static void removeDuplicates(std::vector<String>& c)
     {
         std::ranges::sort(c);
         auto p = std::unique(c.begin(), c.end());
         c.erase(p, c.end());
     }
 
-    auto VideoMode::getDescription() const -> std::string
+    auto VideoMode::getDescription() const -> String
     {
         return std::format("{:4} x {:4}", width, height);
     }
@@ -156,7 +156,7 @@ namespace Ogre {
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLRenderSystemCommon::setConfigOption(std::string_view name, std::string_view value)
+    void GLRenderSystemCommon::setConfigOption(const String &name, const String &value)
     {
         auto option = mOptions.find(name);
         if (option == mOptions.end()) {
@@ -168,7 +168,7 @@ namespace Ogre {
             refreshConfig();
     }
 
-    auto GLRenderSystemCommon::checkExtension(std::string_view ext) const -> bool
+    auto GLRenderSystemCommon::checkExtension(const String& ext) const -> bool
     {
         return mExtensionList.find(ext) != mExtensionList.end() || mGLSupport->checkExtension(ext);
     }

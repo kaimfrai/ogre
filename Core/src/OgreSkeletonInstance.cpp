@@ -67,29 +67,29 @@ class AnimationStateSet;
         return mSkeleton->getAnimation(index);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::createAnimation(std::string_view name, Real length) -> Animation*
+    auto SkeletonInstance::createAnimation(const String& name, Real length) -> Animation*
     {
         return mSkeleton->createAnimation(name, length);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getAnimation(std::string_view name, 
+    auto SkeletonInstance::getAnimation(const String& name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         return mSkeleton->getAnimation(name, linker);
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::_getAnimationImpl(std::string_view name, 
+    auto SkeletonInstance::_getAnimationImpl(const String& name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         return mSkeleton->_getAnimationImpl(name, linker);
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::removeAnimation(std::string_view name)
+    void SkeletonInstance::removeAnimation(const String& name)
     {
         mSkeleton->removeAnimation(name);
     }
     //-------------------------------------------------------------------------
-    void SkeletonInstance::addLinkedSkeletonAnimationSource(std::string_view skelName, 
+    void SkeletonInstance::addLinkedSkeletonAnimationSource(const String& skelName, 
         Real scale)
     {
         mSkeleton->addLinkedSkeletonAnimationSource(skelName, scale);
@@ -228,7 +228,7 @@ class AnimationStateSet;
         }
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getName() const noexcept -> std::string_view
+    auto SkeletonInstance::getName() const noexcept -> const String&
     {
         // delegate
         return mSkeleton->getName();
@@ -240,7 +240,7 @@ class AnimationStateSet;
         return mSkeleton->getHandle();
     }
     //-------------------------------------------------------------------------
-    auto SkeletonInstance::getGroup() const noexcept -> std::string_view
+    auto SkeletonInstance::getGroup() const noexcept -> const String&
     {
         // delegate
         return mSkeleton->getGroup();

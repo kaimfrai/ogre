@@ -119,7 +119,7 @@ namespace Ogre {
         @param filename The destination filename
         @param endianMode The endian mode of the written file
         */
-        void exportMesh(const Mesh* pMesh, std::string_view filename,
+        void exportMesh(const Mesh* pMesh, const String& filename,
             Endian endianMode = ENDIAN_NATIVE);
 
         /** Exports a mesh to the file specified, in a specific version format. 
@@ -133,7 +133,7 @@ namespace Ogre {
          @param version Mesh version to write
          @param endianMode The endian mode of the written file
          */
-        void exportMesh(const Mesh* pMesh, std::string_view filename,
+        void exportMesh(const Mesh* pMesh, const String& filename,
                         MeshVersion version,
                         Endian endianMode = ENDIAN_NATIVE);
 

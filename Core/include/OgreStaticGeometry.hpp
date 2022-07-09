@@ -280,7 +280,7 @@ class Technique;
             virtual ~MaterialBucket() = default;
             auto getParent() noexcept -> LODBucket* { return mParent; }
             /// Get the material name
-            [[nodiscard]] auto getMaterialName() const noexcept -> std::string_view{ return mMaterial->getName(); }
+            [[nodiscard]] auto getMaterialName() const noexcept -> const String& { return mMaterial->getName(); }
             /// Assign geometry to this bucket
             void assign(QueuedGeometry* qsm);
             /// Build
@@ -312,7 +312,7 @@ class Technique;
         {
         public:
             /// Lookup of Material Buckets in this region
-            using MaterialBucketMap = std::map<std::string_view, ::std::unique_ptr<MaterialBucket>>;
+            using MaterialBucketMap = std::map<String, ::std::unique_ptr<MaterialBucket>>;
         private:
             /// Pointer to parent region
             Region* mParent;
@@ -405,7 +405,7 @@ class Technique;
             Real mSquaredViewDepth{0};
 
         public:
-            Region(StaticGeometry* parent, std::string_view name, SceneManager* mgr, 
+            Region(StaticGeometry* parent, const String& name, SceneManager* mgr, 
                 uint32 regionID, const Vector3& centre);
             ~Region() override;
             // more fields can be added in subclasses
@@ -418,7 +418,7 @@ class Technique;
             auto getID() const noexcept -> uint32 { return mRegionID; }
             /// Get the centre point of the region
             auto getCentre() const noexcept -> const Vector3& { return mCentre; }
-            auto getMovableType() const noexcept -> std::string_view override;
+            auto getMovableType() const noexcept -> const String& override;
             void _notifyCurrentCamera(Camera* cam) override;
             auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
             auto getBoundingRadius() const -> Real override;
@@ -562,7 +562,7 @@ class Technique;
         virtual ~StaticGeometry();
 
         /// Get the name of this object
-        [[nodiscard]] auto getName() const noexcept -> std::string_view{ return mName; }
+        [[nodiscard]] auto getName() const noexcept -> const String& { return mName; }
         /** Adds an Entity to the static geometry.
         @remarks
             This method takes an existing Entity and adds its details to the 
@@ -740,7 +740,7 @@ class Technique;
         /** Dump the contents of this StaticGeometry to a file for diagnostic
             purposes.
         */
-        virtual void dump(std::string_view filename) const;
+        virtual void dump(const String& filename) const;
 
 
     };
@@ -748,14 +748,14 @@ class Technique;
     /** Dummy factory to let Regions adhere to MovableObject protocol */
     class StaticGeometryFactory : public MovableObjectFactory
     {
-        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) noexcept -> MovableObject* override { return nullptr; }
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) noexcept -> MovableObject* override { return nullptr; }
     public:
         StaticGeometryFactory() = default;
         ~StaticGeometryFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> std::string_view override { return FACTORY_TYPE_NAME; }
+        [[nodiscard]] auto getType() const noexcept -> const String& override { return FACTORY_TYPE_NAME; }
     };
     /** @} */
     /** @} */

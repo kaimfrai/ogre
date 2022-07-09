@@ -155,7 +155,7 @@ void CompositorChain::destroyOriginalScene()
 }
 
 //-----------------------------------------------------------------------
-auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, std::string_view scheme) -> CompositorInstance*
+auto CompositorChain::addCompositor(CompositorPtr filter, size_t addPosition, const String& scheme) -> CompositorInstance*
 {
 
 
@@ -220,7 +220,7 @@ void CompositorChain::_queuedOperation(CompositorInstance::RenderSystemOperation
 
 }
 //-----------------------------------------------------------------------
-auto CompositorChain::getCompositorPosition(std::string_view name) const -> size_t
+auto CompositorChain::getCompositorPosition(const String& name) const -> size_t
 {
     for (auto it = mInstances.begin(); it != mInstances.end(); ++it)
     {
@@ -231,7 +231,7 @@ auto CompositorChain::getCompositorPosition(std::string_view name) const -> size
     }
     return NPOS;
 }
-auto CompositorChain::getCompositor(std::string_view name) const -> CompositorInstance *
+auto CompositorChain::getCompositor(const String& name) const -> CompositorInstance *
 {
     size_t idx = getCompositorPosition(name);
     return idx == NPOS ? nullptr : mInstances[idx];
@@ -490,7 +490,7 @@ void CompositorChain::_compile()
 
     // force default scheme so materials for compositor quads will determined correctly
     MaterialManager& matMgr = MaterialManager::getSingleton();
-    auto const prevMaterialScheme = matMgr.getActiveScheme();
+    String prevMaterialScheme = matMgr.getActiveScheme();
     matMgr.setActiveScheme(Root::getSingleton().getRenderSystem()->_getDefaultViewportMaterialScheme());
     
     /// Set previous CompositorInstance for each compositor in the list
@@ -574,7 +574,7 @@ void CompositorChain::_notifyViewport(Viewport* vp)
 }
 //-----------------------------------------------------------------------
 void CompositorChain::RQListener::renderQueueStarted(uint8 id, 
-    std::string_view invocation, bool& skipThisQueue)
+    const String& invocation, bool& skipThisQueue)
 {
     // Skip when not matching viewport
     // shadows update is nested within main viewport update
@@ -591,7 +591,7 @@ void CompositorChain::RQListener::renderQueueStarted(uint8 id,
 }
 //-----------------------------------------------------------------------
 void CompositorChain::RQListener::renderQueueEnded(uint8 id, 
-    std::string_view invocation, bool& repeatThisQueue)
+    const String& invocation, bool& repeatThisQueue)
 {
 }
 //-----------------------------------------------------------------------

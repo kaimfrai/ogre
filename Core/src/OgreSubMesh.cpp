@@ -66,12 +66,12 @@ class HardwareBufferManagerBase;
     }
 
     //-----------------------------------------------------------------------
-    void SubMesh::setMaterialName( std::string_view name, std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void SubMesh::setMaterialName( const String& name, const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
     }
     //-----------------------------------------------------------------------
-    auto SubMesh::getMaterialName() const noexcept -> std::string_view
+    auto SubMesh::getMaterialName() const noexcept -> const String&
     {
         return mMaterial ? mMaterial->getName() : BLANKSTRING;
     }
@@ -128,7 +128,7 @@ class HardwareBufferManagerBase;
             mTextureAliases.end()};
     }
     //---------------------------------------------------------------------
-    void SubMesh::addTextureAlias(std::string_view aliasName, std::string_view textureName)
+    void SubMesh::addTextureAlias(const String& aliasName, const String& textureName)
     {
         mTextureAliases[aliasName] = textureName;
     }
@@ -375,7 +375,7 @@ class HardwareBufferManagerBase;
         }
     }
     //---------------------------------------------------------------------
-    auto SubMesh::clone(std::string_view newName, Mesh *parentMesh) -> SubMesh *
+    auto SubMesh::clone(const String& newName, Mesh *parentMesh) -> SubMesh *
     {
         // This is a bit like a copy constructor, but with the additional aspect of registering the clone with
         //  the MeshManager

@@ -130,7 +130,7 @@ class SubMesh;
     class ManualObject : public MovableObject
     {
     public:
-        ManualObject(std::string_view name);
+        ManualObject(const String& name);
         ~ManualObject() override;
 
         /** @copydoc MovableObject::_releaseManualHardwareResources */
@@ -179,9 +179,9 @@ class SubMesh;
         @param groupName The resource group of the material to render this part
             of the object with.
         */
-        virtual void begin(std::string_view materialName,
+        virtual void begin(const String& materialName,
             RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST,
-            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** @overload
         @param mat The material to render this part of the object with.
@@ -459,8 +459,8 @@ class SubMesh;
         @param name The name of the new material to use
         @param group The resource group of the new material to use
         */
-        void setMaterialName(size_t subIndex, std::string_view name,
-            std::string_view group = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)
+        void setMaterialName(size_t subIndex, const String& name,
+            const String & group = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)
         {
             mSectionList.at(subIndex)->setMaterialName(name, group);
         }
@@ -485,8 +485,8 @@ class SubMesh;
         @param meshName The name to give the mesh
         @param groupName The resource group to create the mesh in
         */
-        virtual auto convertToMesh(std::string_view meshName, 
-            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
+        virtual auto convertToMesh(const String& meshName, 
+            const String& groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -569,7 +569,7 @@ class SubMesh;
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> const String& override;
         /** @copydoc MovableObject::getBoundingBox */
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
@@ -607,12 +607,12 @@ class SubMesh;
             /// Retrieve render operation for manipulation
             auto getRenderOperation() noexcept -> RenderOperation*;
             /// Retrieve the material name in use
-            auto getMaterialName() const noexcept -> std::string_view{ return mMaterialName; }
+            auto getMaterialName() const noexcept -> const String& { return mMaterialName; }
             /// Retrieve the material group in use
-            auto getMaterialGroup() const noexcept -> std::string_view{ return mGroupName; }
+            auto getMaterialGroup() const noexcept -> const String& { return mGroupName; }
             /// update the material name in use
-            void setMaterialName(std::string_view name,
-                std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            void setMaterialName(const String& name,
+                const String& groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
             /// Update the material in use
             /// @remark mat should not be null.
             void setMaterial(const MaterialPtr& mat);
@@ -724,14 +724,14 @@ class SubMesh;
     class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( const String& name, const NameValuePairList* params) -> MovableObject* override;
     public:
         ManualObjectFactory() = default;
         ~ManualObjectFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getType() const noexcept -> const String& override;
     };
     /** @} */
     /** @} */

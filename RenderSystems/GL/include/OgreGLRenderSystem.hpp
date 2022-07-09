@@ -166,7 +166,7 @@ struct GLGpuProgramBase;
 
         void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
 
-        [[nodiscard]] auto getName() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getName() const noexcept -> const String& override;
 
         void _initialise() override;
 
@@ -183,17 +183,17 @@ struct GLGpuProgramBase;
         void setLightingEnabled(bool enabled) override;
         
         /// @copydoc RenderSystem::_createRenderWindow
-        auto _createRenderWindow(std::string_view name, unsigned int width, unsigned int height, 
+        auto _createRenderWindow(const String &name, unsigned int width, unsigned int height, 
                                           bool fullScreen, const NameValuePairList *miscParams = nullptr) -> RenderWindow* override;
 
         /// @copydoc RenderSystem::_createDepthBufferFor
         auto _createDepthBufferFor( RenderTarget *renderTarget ) -> DepthBuffer* override;
         
         /// @copydoc RenderSystem::createMultiRenderTarget
-        auto createMultiRenderTarget(std::string_view name) -> MultiRenderTarget * override; 
+        auto createMultiRenderTarget(const String & name) -> MultiRenderTarget * override; 
         
 
-        void destroyRenderWindow(std::string_view name) override;
+        void destroyRenderWindow(const String& name) override;
 
         void setNormaliseNormals(bool normalise) override;
 
@@ -302,13 +302,13 @@ struct GLGpuProgramBase;
         auto _getStateCacheManager() noexcept -> GLStateCacheManager * { return mStateCacheManager; }
         
         /// @copydoc RenderSystem::beginProfileEvent
-        void beginProfileEvent( std::string_view eventName ) override;
+        void beginProfileEvent( const String &eventName ) override;
 
         /// @copydoc RenderSystem::endProfileEvent
         void endProfileEvent( ) override;
 
         /// @copydoc RenderSystem::markProfileEvent
-        void markProfileEvent( std::string_view eventName ) override;
+        void markProfileEvent( const String &eventName ) override;
 
         /** @copydoc RenderTarget::copyContentsToMemory */
         void _copyContentsToMemory(Viewport* vp, const Box& src, const PixelBox &dst, RenderWindow::FrameBuffer buffer) override;

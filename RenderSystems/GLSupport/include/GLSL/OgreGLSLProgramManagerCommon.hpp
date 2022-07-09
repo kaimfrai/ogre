@@ -54,12 +54,12 @@ namespace Ogre {
     class GLSLProgramManagerCommon
     {
     protected:
-        using StringToEnumMap = std::map<std::string_view, GpuConstantType>;
+        using StringToEnumMap = std::map<String, GpuConstantType>;
         StringToEnumMap mTypeEnumMap;
 
         /** Parse an individual uniform from a GLSL source file and
             store it in a GpuNamedConstant. */
-        void parseGLSLUniform(std::string_view line, GpuNamedConstants& defs, std::string_view filename);
+        void parseGLSLUniform(String line, GpuNamedConstants& defs, const String& filename);
 
         using ProgramMap = std::map<uint32, ::std::unique_ptr<GLSLProgramCommon>>;
         using ProgramIterator = ProgramMap::iterator;
@@ -82,7 +82,7 @@ namespace Ogre {
             @param filename The file name this came from, for logging errors.
         */
         void extractUniformsFromGLSL(
-            std::string_view src, GpuNamedConstants& constantDefs, std::string_view filename);
+            const String& src, GpuNamedConstants& constantDefs, const String& filename);
 
         /// Destroy all programs which referencing this shader
         void destroyAllByShader(GLSLShaderCommon* shader);

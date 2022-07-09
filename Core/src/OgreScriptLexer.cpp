@@ -34,10 +34,10 @@ THE SOFTWARE.
 #include "OgreString.hpp"
 
 namespace Ogre {
-    auto ScriptLexer::tokenize(std::string_view str, std::string_view source) -> ScriptTokenList
+    auto ScriptLexer::tokenize(const String &str, const String& source) -> ScriptTokenList
     {
         String error;
-        ScriptTokenList ret = _tokenize(str, source, error);
+        ScriptTokenList ret = _tokenize(str, source.c_str(), error);
 
         if (!error.empty())
             LogManager::getSingleton().logError(::std::format("ScriptLexer - {}", error));
@@ -45,7 +45,7 @@ namespace Ogre {
         return ret;
     }
 
-    auto ScriptLexer::_tokenize(std::string_view str, std::string_view source, String& error) -> ScriptTokenList
+    auto ScriptLexer::_tokenize(const String &str, const char* source, String& error) -> ScriptTokenList
     {
         // State enums
         enum{ READY = 0, COMMENT, MULTICOMMENT, WORD, QUOTE, VAR, POSSIBLECOMMENT };
@@ -272,7 +272,7 @@ namespace Ogre {
         return tokens;
     }
 
-    void ScriptLexer::setToken(std::string_view lexeme, Ogre::uint32 line, ScriptTokenList& tokens)
+    void ScriptLexer::setToken(const Ogre::String &lexeme, Ogre::uint32 line, ScriptTokenList& tokens)
     {
         const char openBracket = '{', closeBracket = '}', colon = ':',
             quote = '\"', var = '$';

@@ -68,7 +68,7 @@ namespace Ogre::RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] auto toString () const noexcept -> std::string override
+        [[nodiscard]] auto toString () const noexcept -> String override
         {
             StringStream str;
             str << "vec2(" << std::showpoint << mValue.x << "," << mValue.y << ")";
@@ -93,7 +93,7 @@ namespace Ogre::RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] auto toString () const noexcept -> std::string override
+        [[nodiscard]] auto toString () const noexcept -> String override
         {
             StringStream str;
             str << "vec3(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << ")";
@@ -118,7 +118,7 @@ namespace Ogre::RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] auto toString () const noexcept -> std::string override
+        [[nodiscard]] auto toString () const noexcept -> String override
         {
             StringStream str;
             str << "vec4(" << std::showpoint << mValue.x << "," << mValue.y << "," << mValue.z << "," << mValue.w << ")";
@@ -144,7 +144,7 @@ namespace Ogre::RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] auto toString () const noexcept -> std::string override
+        [[nodiscard]] auto toString () const noexcept -> String override
         {
             return StringConverter::toString(mValue, 6, 0, ' ', std::ios::showpoint);
         }
@@ -167,7 +167,7 @@ namespace Ogre::RTShader {
         /** 
         @see Parameter::toString.
         */
-        [[nodiscard]] auto toString () const noexcept -> std::string override
+        [[nodiscard]] auto toString () const noexcept -> String override
         {
             return Ogre::StringConverter::toString(mValue);
         }
@@ -187,7 +187,7 @@ Parameter::Parameter(GpuConstantType type, std::string_view name,
 }
 
 //-----------------------------------------------------------------------
-UniformParameter::UniformParameter(GpuConstantType type, std::string_view name, 
+UniformParameter::UniformParameter(GpuConstantType type, const String& name, 
                  const Semantic& semantic, int index, 
                  const Content& content,
                  uint16 variability, size_t size) : Parameter(type, name, semantic, index, content, size)
@@ -641,12 +641,12 @@ auto ParameterFactory::createConstParam(float val) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createUniform(GpuConstantType type, 
                                              int index, uint16 variability,
-                                             std::string_view suggestedName,
+                                             const String& suggestedName,
                                              size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;
     
-    param = std::make_shared<UniformParameter>(type, std::format("{}{}", suggestedName, index),
+    param = std::make_shared<UniformParameter>(type, suggestedName + StringConverter::toString(index), 
         Parameter::SPS_UNKNOWN, index, 
         Parameter::SPC_UNKNOWN, variability, size);
         

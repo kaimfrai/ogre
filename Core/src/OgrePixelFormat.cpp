@@ -29,7 +29,6 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstring>
 #include <format>
-#include <ranges>
 #include <string>
 
 #include "OgreAlignedAllocator.hpp"
@@ -276,7 +275,7 @@ namespace Ogre {
         rgba[3] = des.ashift;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatName(PixelFormat srcformat) -> std::string_view
+    auto PixelUtil::getFormatName(PixelFormat srcformat) -> const String&
     {
         return getDescriptionFor(srcformat).name;
     }
@@ -298,38 +297,33 @@ namespace Ogre {
         return des.componentCount;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatFromName(std::string_view name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
+    auto PixelUtil::getFormatFromName(const String& name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
     {
-        auto const
-            equals
-        =   caseSensitive
-        ?   +[] (std::string_view left, std::string_view right)
-            {   return std::ranges::equal(left, right);
-            }
-        :   +[] (std::string_view left, std::string_view right)
-            {
-                return std::ranges::equal(StringUtil::UpperView(left), right);
-            }
-        ;
+        String tmp = name;
+        if (!caseSensitive)
+        {
+            // We are stored upper-case format names.
+            StringUtil::toUpperCase(tmp);
+        }
 
         for (int i = 0; i < PF_COUNT; ++i)
         {
             auto pf = static_cast<PixelFormat>(i);
             if (!accessibleOnly || isAccessible(pf))
             {
-                if (equals(name,  getFormatName(pf)))
+                if (tmp == getFormatName(pf))
                     return pf;
             }
         }
 
         // allow look-up by alias name
-        if(equals(name, "PF_BYTE_RGB"))
+        if(tmp == "PF_BYTE_RGB")
             return PF_BYTE_RGB;
-        if(equals(name, "PF_BYTE_RGBA"))
+        if(tmp == "PF_BYTE_RGBA")
             return PF_BYTE_RGBA;
-        if(equals(name, "PF_BYTE_BGR"))
+        if(tmp == "PF_BYTE_BGR")
             return PF_BYTE_BGR;
-        if(equals(name, "PF_BYTE_BGRA"))
+        if(tmp == "PF_BYTE_BGRA")
             return PF_BYTE_BGRA;
 
         return PF_UNKNOWN;

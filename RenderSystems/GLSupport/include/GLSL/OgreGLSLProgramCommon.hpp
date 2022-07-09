@@ -105,7 +105,7 @@ protected:
     virtual void compileAndLink() = 0;
 
     auto getCombinedHash() noexcept -> uint32;
-    auto getCombinedName() -> std::string;
+    auto getCombinedName() -> String;
 
     /// Name / attribute list
     struct CustomAttribute

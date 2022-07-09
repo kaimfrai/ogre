@@ -37,7 +37,7 @@ class CookTorranceLighting : public SubRenderState
 public:
     CookTorranceLighting();
 
-    auto getType() const noexcept -> std::string_view override;
+    auto getType() const noexcept -> const String& override;
 
     auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING; }
 
@@ -51,9 +51,9 @@ public:
     /**
     Return the metallic-roughness map texture name.
     */
-    auto getMetalRoughnessMapName() const noexcept -> std::string_view{ return mMetalRoughnessMapName; }
+    auto getMetalRoughnessMapName() const noexcept -> const String& { return mMetalRoughnessMapName; }
 
-    auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
     auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
 
@@ -66,7 +66,7 @@ private:
 class CookTorranceLightingFactory : public SubRenderStateFactory
 {
 public:
-    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     auto createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,
                                    SGScriptTranslator* translator) noexcept -> SubRenderState* override;

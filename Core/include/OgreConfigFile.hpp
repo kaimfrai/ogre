@@ -66,30 +66,30 @@ namespace Ogre {
 
         ConfigFile();
         /// load from a filename (not using resource group locations)
-        void load(std::string_view filename, std::string_view separators = "\t:=", bool trimWhitespace = true);
+        void load(const String& filename, const String& separators = "\t:=", bool trimWhitespace = true);
         /// load from a filename (using resource group locations)
-        void load(std::string_view filename, std::string_view resourceGroup, std::string_view separators = "\t:=", bool trimWhitespace = true);
+        void load(const String& filename, const String& resourceGroup, const String& separators = "\t:=", bool trimWhitespace = true);
         /// load from a data stream
-        void load(const DataStreamPtr& stream, std::string_view separators = "\t:=", bool trimWhitespace = true);
+        void load(const DataStreamPtr& stream, const String& separators = "\t:=", bool trimWhitespace = true);
         /// load from a filename (not using resource group locations)
-        void loadDirect(std::string_view filename, std::string_view separators = "\t:=", bool trimWhitespace = true);
+        void loadDirect(const String& filename, const String& separators = "\t:=", bool trimWhitespace = true);
         /// load from a filename (using resource group locations)
-        void loadFromResourceSystem(std::string_view filename, std::string_view resourceGroup, std::string_view separators = "\t:=", bool trimWhitespace = true);
+        void loadFromResourceSystem(const String& filename, const String& resourceGroup, const String& separators = "\t:=", bool trimWhitespace = true);
 
         /** Gets the first setting from the file with the named key. 
         @param key The name of the setting
         @param section The name of the section it must be in (if any)
         @param defaultValue The value to return if the setting is not found
         */
-        [[nodiscard]] auto getSetting(std::string_view key, std::string_view section = "", std::string_view defaultValue = "") const -> std::string_view;
+        [[nodiscard]] auto getSetting(const String& key, const String& section = BLANKSTRING, const String& defaultValue = BLANKSTRING) const -> String;
         /** Gets all settings from the file with the named key. */
-        [[nodiscard]] auto getMultiSetting(std::string_view key, std::string_view section = "") const -> StringVector;
+        [[nodiscard]] auto getMultiSetting(const String& key, const String& section = BLANKSTRING) const -> StringVector;
 
-        using SettingsMultiMap = std::multimap<std::string_view, String>;
+        using SettingsMultiMap = std::multimap<String, String>;
         using SettingsIterator = MapIterator<SettingsMultiMap>;
         /** Gets an iterator for stepping through all the keys / values in the file. */
-        using SettingsBySection = std::map<std::string_view, SettingsMultiMap *>;
-        using SettingsBySection_ = std::map<std::string_view, SettingsMultiMap>;
+        using SettingsBySection = std::map<String, SettingsMultiMap *>;
+        using SettingsBySection_ = std::map<String, SettingsMultiMap>;
         using SectionIterator = MapIterator<SettingsBySection>;
 
         /** Get all the available settings grouped by sections */
@@ -98,7 +98,7 @@ namespace Ogre {
         }
 
         /** Get all the available settings in a section */
-        [[nodiscard]] auto getSettings(std::string_view section = "") const -> const SettingsMultiMap&;
+        [[nodiscard]] auto getSettings(const String& section = BLANKSTRING) const -> const SettingsMultiMap&;
         
         /** Clear the settings */
         void clear();

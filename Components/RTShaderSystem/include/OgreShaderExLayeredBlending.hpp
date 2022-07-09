@@ -125,7 +125,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType                 () const noexcept -> std::string_view override;
+    auto getType                 () const noexcept -> const Ogre::String& override;
 
 
     /** 
@@ -218,7 +218,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.
@@ -241,21 +241,21 @@ protected:
     /** 
     @Converts string to Enum
     */
-    auto stringToBlendMode(std::string_view strValue) -> LayeredBlending::BlendMode;
+    auto stringToBlendMode(const String &strValue) -> LayeredBlending::BlendMode;
     /** 
     @Converts Enum to string
     */
-    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> std::string_view;
+    auto blendModeToString(LayeredBlending::BlendMode blendMode) -> String;
 
     /** 
     @Converts string to Enum
     */
-    auto stringToSourceModifier(std::string_view strValue) -> LayeredBlending::SourceModifier;
+    auto stringToSourceModifier(const String &strValue) -> LayeredBlending::SourceModifier;
     
     /** 
     @Converts Enum to string
     */
-    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> std::string_view;
+    auto sourceModifierToString(LayeredBlending::SourceModifier modifier) -> String;
 
     /** 
     Returns the LayeredBlending sub-rener state previously created for this material/pass.

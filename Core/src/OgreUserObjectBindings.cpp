@@ -76,7 +76,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void UserObjectBindings::setUserAny(std::string_view key, ::std::any const& anything)
+    void UserObjectBindings::setUserAny(const String& key, ::std::any const& anything)
     {
         // Allocate attributes on demand.
         if (!mAttributes)
@@ -90,7 +90,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto UserObjectBindings::getUserAny(std::string_view key) const -> ::std::any const&
+    auto UserObjectBindings::getUserAny(const String& key) const -> ::std::any const&
     {
         if (!mAttributes)
             return emptyAny;
@@ -111,7 +111,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    void UserObjectBindings::eraseUserAny(std::string_view key)
+    void UserObjectBindings::eraseUserAny(const String& key)
     {
         // Case attributes and map allocated.
         if (mAttributes && mAttributes->mUserObjectsMap)

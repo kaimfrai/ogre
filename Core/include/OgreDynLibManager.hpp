@@ -53,7 +53,7 @@ class DynLib;
     class DynLibManager: public Singleton<DynLibManager>, public DynLibAlloc
     {
     private:
-        using DynLibList = std::map<std::string_view, ::std::unique_ptr<DynLib>>;
+        using DynLibList = std::map<String, ::std::unique_ptr<DynLib>>;
         DynLibList mLibList;
     public:
         /** Default constructor.
@@ -75,7 +75,7 @@ class DynLib;
         @param filename
             The name of the library. The extension can be omitted.
         */
-        auto load(std::string_view filename) -> DynLib*;
+        auto load(const String& filename) -> DynLib*;
 
         /** Unloads the passed library.
         @param lib

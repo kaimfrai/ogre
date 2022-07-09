@@ -201,7 +201,7 @@ class Sphere;
     public:
 
         /// Named constructor
-        Frustum(std::string_view name = "");
+        Frustum(const String& name = BLANKSTRING);
 
         ~Frustum() override = default;
         /** Sets the Y-dimension Field Of View (FOV) of the frustum.
@@ -458,7 +458,7 @@ class Sphere;
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
         auto getBoundingRadius() const -> Real override;
         void _updateRenderQueue(RenderQueue* queue) override;
-        auto getMovableType() const noexcept -> std::string_view override;
+        auto getMovableType() const noexcept -> const String& override;
         void _notifyCurrentCamera(Camera* cam) override;
 
         void setDebugColour(const ColourValue& col) { mDebugColour = col; }

@@ -47,8 +47,8 @@ namespace Ogre {
 class Renderable;
 
     //-----------------------------------------------------------------------
-    Material::Material(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader)
+    Material::Material(ResourceManager* creator, const String& name, ResourceHandle handle,
+        const String& group, bool isManual, ManualResourceLoader* loader)
         :Resource(creator, name, handle, group, false, nullptr)
          
     {
@@ -173,7 +173,7 @@ class Renderable;
         return memSize;
     }
     //-----------------------------------------------------------------------
-    auto Material::clone(std::string_view newName, std::string_view newGroup) const -> MaterialPtr
+    auto Material::clone(const String& newName, const String& newGroup) const -> MaterialPtr
     {
         MaterialPtr newMat =
             MaterialManager::getSingleton().create(newName, newGroup.empty() ? mGroup : newGroup);
@@ -248,7 +248,7 @@ class Renderable;
         return t;
     }
     //-----------------------------------------------------------------------
-    auto Material::getTechnique(std::string_view name) const -> Technique*
+    auto Material::getTechnique(const String& name) const -> Technique*
     {
         Technique* foundTechnique = nullptr;
 
@@ -283,7 +283,7 @@ class Renderable;
         return static_cast<unsigned short>(i->second.size());
     }
     //-----------------------------------------------------------------------
-    auto Material::getNumLodLevels(std::string_view schemeName) const -> unsigned short
+    auto Material::getNumLodLevels(const String& schemeName) const -> unsigned short
     {
         return getNumLodLevels(
             MaterialManager::getSingleton()._getSchemeIndex(schemeName));
@@ -403,7 +403,7 @@ class Renderable;
         size_t techNo = 0;
         for (auto & mTechnique : mTechniques)
         {
-            auto const compileMessages = mTechnique->_compile(autoManageTextureUnits);
+            String compileMessages = mTechnique->_compile(autoManageTextureUnits);
             if ( mTechnique->isSupported() )
             {
                 insertSupportedTechnique(mTechnique);

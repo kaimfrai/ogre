@@ -62,18 +62,18 @@ namespace Ogre {
 
         /** @see ScriptLoader::parseScript
         */
-        void parseCapabilitiesFromArchive(std::string_view filename, std::string_view archiveType, bool recursive = true);
+        void parseCapabilitiesFromArchive(const String& filename, const String& archiveType, bool recursive = true);
         
         /** Returns a capability loaded with RenderSystemCapabilitiesManager::parseCapabilitiesFromArchive method
         * @return NULL if the name is invalid, a parsed RenderSystemCapabilities otherwise.
         */
-        auto loadParsedCapabilities(std::string_view name) -> RenderSystemCapabilities*;
+        auto loadParsedCapabilities(const String& name) -> RenderSystemCapabilities*;
 
         /** Access to the internal map of loaded capabilities */
-        [[nodiscard]] auto getCapabilities() const -> const std::map<std::string_view, ::std::unique_ptr<RenderSystemCapabilities>> &;
+        [[nodiscard]] auto getCapabilities() const -> const std::map<String, ::std::unique_ptr<RenderSystemCapabilities>> &;
 
         /** Method used by RenderSystemCapabilitiesSerializer::parseScript */
-        void _addRenderSystemCapabilities(std::string_view name, RenderSystemCapabilities* caps);
+        void _addRenderSystemCapabilities(const String& name, RenderSystemCapabilities* caps);
 
         /// @copydoc Singleton::getSingleton()
         static auto getSingleton() noexcept -> RenderSystemCapabilitiesManager&;
@@ -84,7 +84,7 @@ namespace Ogre {
 
         ::std::unique_ptr<RenderSystemCapabilitiesSerializer> mSerializer{nullptr};
 
-        using CapabilitiesMap = std::map<std::string_view, ::std::unique_ptr<RenderSystemCapabilities>>;
+        using CapabilitiesMap = std::map<String, ::std::unique_ptr<RenderSystemCapabilities>>;
         CapabilitiesMap mCapabilitiesMap;
 
         const String mScriptPattern;

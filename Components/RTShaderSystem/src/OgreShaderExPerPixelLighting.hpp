@@ -64,9 +64,9 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> std::string_view override;
+    auto getType() const noexcept -> const String& override;
 
-    auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
+    auto setParameter(const String& name, const String& value) noexcept -> bool override;
 
     static String Type;
 
@@ -127,7 +127,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
+    [[nodiscard]] auto getType() const noexcept -> const String& override;
 
     /** 
     @see SubRenderStateFactory::createInstance.

@@ -52,18 +52,18 @@ namespace Ogre::RTShader {
 class ProgramWriterManager 
     : public Singleton<ProgramWriterManager>, public RTShaderSystemAlloc
 {
-    std::map<std::string_view, ::std::unique_ptr<ProgramWriter>> mProgramWriters;
+    std::map<String, ::std::unique_ptr<ProgramWriter>> mProgramWriters;
 
 public:
     ProgramWriterManager();
 
     /// register and transfer ownership of writer
-    void addProgramWriter(std::string_view lang, ::std::unique_ptr<ProgramWriter> writer);
+    void addProgramWriter(const String& lang, ::std::unique_ptr<ProgramWriter> writer);
 
     /** Returns whether a given high-level language is supported. */
-    auto isLanguageSupported(std::string_view lang) -> bool;
+    auto isLanguageSupported(const String& lang) -> bool;
 
-    [[nodiscard]] auto getProgramWriter(std::string_view language) const -> ProgramWriter*
+    [[nodiscard]] auto getProgramWriter(const String& language) const -> ProgramWriter*
     {
         auto it = mProgramWriters.find(language);
         if (it != mProgramWriters.end())

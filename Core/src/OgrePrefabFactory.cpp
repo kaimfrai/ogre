@@ -49,7 +49,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto PrefabFactory::createPrefab(Mesh* mesh) -> bool
     {
-        std::string_view resourceName = mesh->getName();
+        const String& resourceName = mesh->getName();
 
         if(resourceName == "Prefab_Plane")
         {

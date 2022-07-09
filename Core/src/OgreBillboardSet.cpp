@@ -91,7 +91,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     BillboardSet::BillboardSet(
-        std::string_view name,
+        const String& name,
         unsigned int poolSize,
         bool externalData) :
         MovableObject(name),
@@ -197,7 +197,7 @@ namespace Ogre {
         removeBillboard(std::distance(mBillboardPool.begin(), it));
     }
     //-----------------------------------------------------------------------
-    void BillboardSet::setMaterialName( std::string_view name , std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */ )
+    void BillboardSet::setMaterialName( const String& name , const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */ )
     {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
 
@@ -1065,7 +1065,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getMovableType() const noexcept -> std::string_view
+    auto BillboardSet::getMovableType() const noexcept -> const String&
     {
         return BillboardSetFactory::FACTORY_TYPE_NAME;
     }
@@ -1161,12 +1161,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
-    auto BillboardSetFactory::getType() const noexcept -> std::string_view
+    auto BillboardSetFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------
-    auto BillboardSetFactory::createInstanceImpl( std::string_view name,
+    auto BillboardSetFactory::createInstanceImpl( const String& name,
         const NameValuePairList* params) -> MovableObject*
     {
         // may have parameters

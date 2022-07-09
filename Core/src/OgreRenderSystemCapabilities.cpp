@@ -36,16 +36,16 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    auto DriverVersion::toString() const -> std::string
+    auto DriverVersion::toString() const -> String
     {
         StringStream str;
         str << major << "." << minor << "." << release << "." << build;
         return str.str();
     }
 
-    void  DriverVersion::fromString(std::string_view versionString)
+    void  DriverVersion::fromString(const String& versionString)
     {
-        auto const tokens = StringUtil::split(versionString, ".");
+        StringVector tokens = StringUtil::split(versionString, ".");
         if(!tokens.empty())
         {
             major = StringConverter::parseInt(tokens[0]);
@@ -73,14 +73,14 @@ namespace Ogre {
         mCategoryRelevant[CAPS_CATEGORY_GL] = false;
     }
 
-    void RenderSystemCapabilities::addShaderProfile(std::string_view profile) { mSupportedShaderProfiles.insert(profile); }
+    void RenderSystemCapabilities::addShaderProfile(const String& profile) { mSupportedShaderProfiles.insert(profile); }
 
-    void RenderSystemCapabilities::removeShaderProfile(std::string_view profile)
+    void RenderSystemCapabilities::removeShaderProfile(const String& profile)
     {
         mSupportedShaderProfiles.erase(profile);
     }
 
-    auto RenderSystemCapabilities::isShaderProfileSupported(std::string_view profile) const -> bool
+    auto RenderSystemCapabilities::isShaderProfileSupported(const String& profile) const -> bool
     {
         return (mSupportedShaderProfiles.end() != mSupportedShaderProfiles.find(profile));
     }
@@ -198,16 +198,18 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    std::string_view RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
+    String RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorFromString(std::string_view vendorString) -> GPUVendor
+    auto RenderSystemCapabilities::vendorFromString(const String& vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
+        String cmpString = vendorString;
+        StringUtil::toLowerCase(cmpString);
         for (int i = 0; i < GPU_VENDOR_COUNT; ++i)
         {
             // case insensitive (lower case)
-            if (std::ranges::equal(msGPUVendorStrings[i], StringUtil::LowerView(vendorString)))
+            if (msGPUVendorStrings[i] == cmpString)
             {
                 ret = static_cast<GPUVendor>(i);
                 break;
@@ -218,7 +220,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> std::string_view
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> const String&
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

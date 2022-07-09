@@ -15,8 +15,6 @@ add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++>)
 add_link_options($<$<COMPILE_LANGUAGE:CXX>:-lc++abi>)
 add_link_options(-fuse-ld=lld)
 
-add_compile_options(-Werror)
-
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_compile_options(-O1)
 endif ()

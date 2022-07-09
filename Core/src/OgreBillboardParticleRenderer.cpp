@@ -44,50 +44,50 @@ class RenderQueue;
     class CmdBillboardType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string  override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for billboard origin (see ParamCommand).*/
     class CmdBillboardOrigin : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string  override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for billboard rotation type (see ParamCommand).*/
     class CmdBillboardRotationType : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string  override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for common direction (see ParamCommand).*/
     class CmdCommonDirection : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for common up-vector (see ParamCommand).*/
     class CmdCommonUpVector : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for point rendering (see ParamCommand).*/
     class CmdPointRendering : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     /** Command object for accurate facing(see ParamCommand).*/
     class CmdAccurateFacing : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override;
-        void doSet(void* target, std::string_view val) override;
+        auto doGet(const void* target) const -> String override;
+        void doSet(void* target, const String& val) override;
     };
     static CmdBillboardType msBillboardTypeCmd;
     static CmdBillboardOrigin msBillboardOriginCmd;
@@ -100,12 +100,12 @@ class RenderQueue;
     static class CmdStacksAndSlices : public ParamCommand
     {
     public:
-        auto doGet(const void* target) const -> std::string override
+        auto doGet(const void* target) const -> String override
         {
             return StringConverter::toString(
                 static_cast<const BillboardParticleRenderer*>(target)->getTextureStacksAndSlices());
         }
-        void doSet(void* target, std::string_view val) override
+        void doSet(void* target, const String& val) override
         {
             Vector2 tmp = StringConverter::parseVector2(val);
             static_cast<BillboardParticleRenderer*>(target)->setTextureStacksAndSlices(tmp.x, tmp.y);
@@ -191,7 +191,7 @@ class RenderQueue;
         mBillboardSet->_notifyAttached(nullptr);
     }
     //-----------------------------------------------------------------------
-    auto BillboardParticleRenderer::getType() const noexcept -> std::string_view
+    auto BillboardParticleRenderer::getType() const noexcept -> const String&
     {
         return rendererTypeName;
     }
@@ -242,19 +242,19 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto BillboardParticleRendererFactory::getType() const noexcept -> std::string_view
+    auto BillboardParticleRendererFactory::getType() const noexcept -> const String&
     {
         return rendererTypeName;
     }
     //-----------------------------------------------------------------------
     auto BillboardParticleRendererFactory::createInstance( 
-        std::string_view name ) -> ParticleSystemRenderer*
+        const String& name ) -> ParticleSystemRenderer*
     {
         return new BillboardParticleRenderer();
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    auto CmdBillboardType::doGet(const void* target) const -> std::string
+    auto CmdBillboardType::doGet(const void* target) const -> String
     {
         BillboardType t = static_cast<const BillboardParticleRenderer*>(target)->getBillboardType();
         switch(t)
@@ -276,7 +276,7 @@ class RenderQueue;
         // Compiler nicety
         return "";
     }
-    void CmdBillboardType::doSet(void* target, std::string_view val)
+    void CmdBillboardType::doSet(void* target, const String& val)
     {
         BillboardType t;
         if (val == "point")
@@ -309,7 +309,7 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardType(t);
     }
     //-----------------------------------------------------------------------
-    auto CmdBillboardOrigin::doGet(const void* target) const -> std::string
+    auto CmdBillboardOrigin::doGet(const void* target) const -> String
     {
         BillboardOrigin o = static_cast<const BillboardParticleRenderer*>(target)->getBillboardOrigin();
         switch (o)
@@ -334,9 +334,9 @@ class RenderQueue;
             return "bottom_right";
         }
         // Compiler nicety
-        return "";
+        return BLANKSTRING;
     }
-    void CmdBillboardOrigin::doSet(void* target, std::string_view val)
+    void CmdBillboardOrigin::doSet(void* target, const String& val)
     {
         BillboardOrigin o;
         if (val == "top_left")
@@ -367,7 +367,7 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardOrigin(o);
     }
     //-----------------------------------------------------------------------
-    auto CmdBillboardRotationType::doGet(const void* target) const -> std::string
+    auto CmdBillboardRotationType::doGet(const void* target) const -> String
     {
         BillboardRotationType r = static_cast<const BillboardParticleRenderer*>(target)->getBillboardRotationType();
         switch(r)
@@ -378,9 +378,9 @@ class RenderQueue;
             return "texcoord";
         }
         // Compiler nicety
-        return "";
+        return BLANKSTRING;
     }
-    void CmdBillboardRotationType::doSet(void* target, std::string_view val)
+    void CmdBillboardRotationType::doSet(void* target, const String& val)
     {
         BillboardRotationType r;
         if (val == "vertex")
@@ -397,45 +397,45 @@ class RenderQueue;
         static_cast<BillboardParticleRenderer*>(target)->setBillboardRotationType(r);
     }
     //-----------------------------------------------------------------------
-    auto CmdCommonDirection::doGet(const void* target) const -> std::string
+    auto CmdCommonDirection::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getCommonDirection() );
     }
-    void CmdCommonDirection::doSet(void* target, std::string_view val)
+    void CmdCommonDirection::doSet(void* target, const String& val)
     {
         static_cast<BillboardParticleRenderer*>(target)->setCommonDirection(
             StringConverter::parseVector3(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdCommonUpVector::doGet(const void* target) const -> std::string
+    auto CmdCommonUpVector::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getCommonUpVector() );
     }
-    void CmdCommonUpVector::doSet(void* target, std::string_view val)
+    void CmdCommonUpVector::doSet(void* target, const String& val)
     {
         static_cast<BillboardParticleRenderer*>(target)->setCommonUpVector(
             StringConverter::parseVector3(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdPointRendering::doGet(const void* target) const -> std::string
+    auto CmdPointRendering::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->isPointRenderingEnabled() );
     }
-    void CmdPointRendering::doSet(void* target, std::string_view val)
+    void CmdPointRendering::doSet(void* target, const String& val)
     {
         static_cast<BillboardParticleRenderer*>(target)->setPointRenderingEnabled(
             StringConverter::parseBool(val));
     }
     //-----------------------------------------------------------------------
-    auto CmdAccurateFacing::doGet(const void* target) const -> std::string
+    auto CmdAccurateFacing::doGet(const void* target) const -> String
     {
         return StringConverter::toString(
             static_cast<const BillboardParticleRenderer*>(target)->getUseAccurateFacing() );
     }
-    void CmdAccurateFacing::doSet(void* target, std::string_view val)
+    void CmdAccurateFacing::doSet(void* target, const String& val)
     {
         static_cast<BillboardParticleRenderer*>(target)->setUseAccurateFacing(
             StringConverter::parseBool(val));

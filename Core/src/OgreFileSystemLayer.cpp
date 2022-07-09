@@ -45,17 +45,14 @@ namespace Ogre
 {
     namespace {
         /** Get actual file pointed to by symlink */
-        auto resolveSymlink(std::string_view symlink) -> const Ogre::String
+        auto resolveSymlink(const Ogre::String& symlink) -> const Ogre::String
         {
-            if (*symlink.end() != '\0')
-                std::unreachable();
-
             ssize_t bufsize = 256;
             char* resolved = nullptr;
             do
             {
                 char* buf = new char[bufsize];
-                ssize_t retval = readlink(symlink.data(), buf, bufsize);
+                ssize_t retval = readlink(symlink.c_str(), buf, bufsize);
                 if (retval == -1)
                 {
                     delete[] buf;
@@ -88,7 +85,7 @@ namespace Ogre
         }
     }
 
-    auto FileSystemLayer::resolveBundlePath(String path) -> std::string
+    auto FileSystemLayer::resolveBundlePath(String path) -> String
     {
         // With Ubuntu snaps absolute paths are relative to the snap package.
         char* env_SNAP = getenv("SNAP");
@@ -144,7 +141,7 @@ namespace Ogre
         mConfigPaths.push_back("/etc/OGRE/");
     }
     //---------------------------------------------------------------------
-    void FileSystemLayer::prepareUserHome(std::string_view subdir)
+    void FileSystemLayer::prepareUserHome(const Ogre::String& subdir)
     {
         char* xdg_cache = getenv("XDG_CACHE_HOME");
 
@@ -171,8 +168,7 @@ namespace Ogre
         if (!mHomePath.empty())
         {
             // create the given subdir
-            mHomePath.append(subdir);
-            mHomePath.append("/");
+            mHomePath.append(subdir + '/');
             if (mkdir(mHomePath.c_str(), 0755) != 0 && errno != EEXIST)
             {
                 // can't create dir
@@ -187,43 +183,28 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::fileExists(std::string_view path) -> bool
+    auto FileSystemLayer::fileExists(const Ogre::String& path) -> bool
     {
-        if (*path.end() != '\0')
-            std::unreachable();
-
-        return access(path.data(), R_OK) == 0;
+        return access(path.c_str(), R_OK) == 0;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::createDirectory(std::string_view path) -> bool
+    auto FileSystemLayer::createDirectory(const Ogre::String& path) -> bool
     {
-        if (*path.end() != '\0')
-            std::unreachable();
-
-        return !mkdir(path.data(), 0755) || errno == EEXIST;
+        return !mkdir(path.c_str(), 0755) || errno == EEXIST;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeDirectory(std::string_view path) -> bool
+    auto FileSystemLayer::removeDirectory(const Ogre::String& path) -> bool
     {
-        if (*path.end() != '\0')
-            std::unreachable();
-
-        return !rmdir(path.data()) || errno == ENOENT;
+        return !rmdir(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::removeFile(std::string_view path) -> bool
+    auto FileSystemLayer::removeFile(const Ogre::String& path) -> bool
     {
-        if (*path.end() != '\0')
-            std::unreachable();
-
-        return !unlink(path.data()) || errno == ENOENT;
+        return !unlink(path.c_str()) || errno == ENOENT;
     }
     //---------------------------------------------------------------------
-    auto FileSystemLayer::renameFile(std::string_view oldname, std::string_view newname) -> bool
+    auto FileSystemLayer::renameFile(const Ogre::String& oldname, const Ogre::String& newname) -> bool
     {
-        if (*oldname.end() != '\0' or *newname.end() != '\0')
-            std::unreachable();
-
-        return !rename(oldname.data(), newname.data());
+        return !rename(oldname.c_str(), newname.c_str());
     }
 }

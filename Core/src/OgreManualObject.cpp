@@ -77,7 +77,7 @@ class Camera;
 #define TEMP_INITIAL_VERTEX_SIZE TEMP_VERTEXSIZE_GUESS * TEMP_INITIAL_SIZE
 #define TEMP_INITIAL_INDEX_SIZE sizeof(uint32) * TEMP_INITIAL_SIZE
     //-----------------------------------------------------------------------------
-ManualObject::ManualObject(std::string_view name)
+ManualObject::ManualObject(const String& name)
     : MovableObject(name), 
       mTempVertexSize(TEMP_INITIAL_VERTEX_SIZE), 
       mTempIndexSize(TEMP_INITIAL_INDEX_SIZE) 
@@ -175,8 +175,8 @@ ManualObject::ManualObject(std::string_view name)
         mEstIndexCount = icount;
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::begin(std::string_view materialName,
-        RenderOperation::OperationType opType, std::string_view groupName)
+    void ManualObject::begin(const String& materialName,
+        RenderOperation::OperationType opType, const String& groupName)
     {
         OgreAssert(!mCurrentSection, "You cannot call begin() again until after you call end()");
 
@@ -483,7 +483,7 @@ ManualObject::ManualObject(std::string_view name)
         return result;
     }
     //-----------------------------------------------------------------------------
-    auto ManualObject::convertToMesh(std::string_view meshName, std::string_view groupName) -> MeshPtr
+    auto ManualObject::convertToMesh(const String& meshName, const String& groupName) -> MeshPtr
     {
         OgreAssert(!mCurrentSection, "You cannot call convertToMesh() whilst you are in the middle of "
                                      "defining the object; call end() first.");
@@ -530,7 +530,7 @@ ManualObject::ManualObject(std::string_view name)
         mUseIdentityView = useIdentityView;
     }
     //-----------------------------------------------------------------------------
-    auto ManualObject::getMovableType() const noexcept -> std::string_view
+    auto ManualObject::getMovableType() const noexcept -> const String&
     {
         return ManualObjectFactory::FACTORY_TYPE_NAME;
     }
@@ -722,8 +722,8 @@ ManualObject::ManualObject(std::string_view name)
         return mMaterial;
     }
     //-----------------------------------------------------------------------------
-    void ManualObject::ManualObjectSection::setMaterialName(std::string_view name,
-        std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
+    void ManualObject::ManualObjectSection::setMaterialName(const String& name,
+        const String& groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */)
     {
         if (mMaterialName != name || mGroupName != groupName)
         {
@@ -783,13 +783,13 @@ ManualObject::ManualObject(std::string_view name)
     //-----------------------------------------------------------------------------
     String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
-    auto ManualObjectFactory::getType() const noexcept -> std::string_view
+    auto ManualObjectFactory::getType() const noexcept -> const String&
     {
         return FACTORY_TYPE_NAME;
     }
     //-----------------------------------------------------------------------------
     auto ManualObjectFactory::createInstanceImpl(
-        std::string_view name, const NameValuePairList* params) -> MovableObject*
+        const String& name, const NameValuePairList* params) -> MovableObject*
     {
         return new ManualObject(name);
     }

@@ -49,13 +49,13 @@ namespace {
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    Log::Log( std::string_view name, bool debuggerOutput, bool suppressFile ) : 
+    Log::Log( const String& name, bool debuggerOutput, bool suppressFile ) : 
          mDebugOut(debuggerOutput),
         mSuppressFile(suppressFile),  mLogName(name) 
     {
         if (!mSuppressFile)
         {
-            mLog.open(std::filesystem::path{name});
+            mLog.open(name.c_str());
         }
 
         char* val = getenv("OGRE_MIN_LOGLEVEL");
@@ -79,7 +79,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    void Log::logMessage( std::string_view message, LogMessageLevel lml, bool maskDebug )
+    void Log::logMessage( const String& message, LogMessageLevel lml, bool maskDebug )
     {
         if (lml >= mLogLevel)
         {

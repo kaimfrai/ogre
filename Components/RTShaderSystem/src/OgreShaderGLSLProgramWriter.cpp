@@ -139,7 +139,7 @@ void GLSLProgramWriter::writeSourceCode(std::ostream& os, Program* program)
     writeMainSourceCode(os, program);
 }
 
-void GLSLProgramWriter::writeUniformBlock(std::ostream& os, std::string_view name, int binding,
+void GLSLProgramWriter::writeUniformBlock(std::ostream& os, const String& name, int binding,
                                           const UniformParameterList& uniforms)
 {
     os << "layout(binding = " << binding << ", row_major) uniform " << name << " {";
@@ -306,7 +306,7 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
          ParameterPtr pParam : inParams)
     {       
         Parameter::Content paramContent = pParam->getContent();
-        std::string_view paramName = pParam->getName();
+        const String& paramName = pParam->getName();
 
         if (gpuType == GPT_FRAGMENT_PROGRAM)
         {
@@ -403,7 +403,7 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
                 // In the vertex and fragment program the variable names must match.
                 // Unfortunately now the input params are prefixed with an 'i' and output params with 'o'.
                 // Thats why we rename the params which are used in function atoms
-                std::string paramName{ pParam->getName() };
+                String paramName = pParam->getName();
                 paramName[0] = 'i';
                 pParam->_rename(paramName);
 

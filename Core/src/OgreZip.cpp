@@ -65,7 +65,7 @@ namespace {
         /// File list (since zziplib seems to only allow scanning of dir tree once)
         FileInfoList mFileList;
     public:
-        ZipArchive(std::string_view name, std::string_view archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
+        ZipArchive(const String& name, const String& archType, const uint8* externBuf = nullptr, size_t externBufSz = 0);
         ~ZipArchive() override;
         /// @copydoc Archive::isCaseSensitive
         [[nodiscard]] auto isCaseSensitive() const noexcept -> bool override { return true; }
@@ -76,13 +76,13 @@ namespace {
         void unload() override;
 
         /// @copydoc Archive::open
-        [[nodiscard]] auto open(std::string_view filename, bool readOnly = true) const -> DataStreamPtr override;
+        [[nodiscard]] auto open(const String& filename, bool readOnly = true) const -> DataStreamPtr override;
 
         /// @copydoc Archive::create
-        auto create(std::string_view filename) -> DataStreamPtr override;
+        auto create(const String& filename) -> DataStreamPtr override;
 
         /// @copydoc Archive::remove
-        void remove(std::string_view filename) override;
+        void remove(const String& filename) override;
 
         /// @copydoc Archive::list
         [[nodiscard]] auto list(bool recursive = true, bool dirs = false) const -> StringVectorPtr override;
@@ -91,22 +91,22 @@ namespace {
         [[nodiscard]] auto listFileInfo(bool recursive = true, bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::find
-        [[nodiscard]] auto find(std::string_view pattern, bool recursive = true,
+        [[nodiscard]] auto find(const String& pattern, bool recursive = true,
             bool dirs = false) const -> StringVectorPtr override;
 
         /// @copydoc Archive::findFileInfo
-        [[nodiscard]] auto findFileInfo(std::string_view pattern, bool recursive = true,
+        [[nodiscard]] auto findFileInfo(const String& pattern, bool recursive = true,
             bool dirs = false) const -> FileInfoListPtr override;
 
         /// @copydoc Archive::exists
-        [[nodiscard]] auto exists(std::string_view filename) const -> bool override;
+        [[nodiscard]] auto exists(const String& filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
-        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> time_t override;
+        [[nodiscard]] auto getModifiedTime(const String& filename) const -> time_t override;
     };
 }
     //-----------------------------------------------------------------------
-    ZipArchive::ZipArchive(std::string_view name, std::string_view archType, const uint8* externBuf, size_t externBufSz)
+    ZipArchive::ZipArchive(const String& name, const String& archType, const uint8* externBuf, size_t externBufSz)
         : Archive(name, archType) 
     {
         if(externBuf)
@@ -170,10 +170,10 @@ namespace {
     
     }
     //-----------------------------------------------------------------------
-    auto ZipArchive::open(std::string_view filename, bool readOnly) const -> DataStreamPtr
+    auto ZipArchive::open(const String& filename, bool readOnly) const -> DataStreamPtr
     {
         // zip is not threadsafe
-        std::string const lookUpFileName{filename};
+        String lookUpFileName = filename;
 
         bool open = zip_entry_open(mZipFile, lookUpFileName.c_str(), true) == 0;
 
@@ -192,12 +192,12 @@ namespace {
         return ret;
     }
     //---------------------------------------------------------------------
-    auto ZipArchive::create(std::string_view filename) -> DataStreamPtr
+    auto ZipArchive::create(const String& filename) -> DataStreamPtr
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "Modification of zipped archives is not implemented");
     }
     //---------------------------------------------------------------------
-    void ZipArchive::remove(std::string_view filename)
+    void ZipArchive::remove(const String& filename)
     {
         OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "Modification of zipped archives is not implemented");
     }
@@ -225,7 +225,7 @@ namespace {
         return FileInfoListPtr(fil);
     }
     //-----------------------------------------------------------------------
-    auto ZipArchive::find(std::string_view pattern, bool recursive, bool dirs) const -> StringVectorPtr
+    auto ZipArchive::find(const String& pattern, bool recursive, bool dirs) const -> StringVectorPtr
     {
         StringVectorPtr ret = StringVectorPtr(new StringVector());
         // If pattern contains a directory name, do a full match
@@ -243,7 +243,7 @@ namespace {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto ZipArchive::findFileInfo(std::string_view pattern, 
+    auto ZipArchive::findFileInfo(const String& pattern, 
         bool recursive, bool dirs) const -> FileInfoListPtr
     {
         FileInfoListPtr ret = FileInfoListPtr(new FileInfoList());
@@ -262,14 +262,16 @@ namespace {
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto ZipArchive::exists(std::string_view filename) const -> bool
+    auto ZipArchive::exists(const String& filename) const -> bool
     {       
-        return std::ranges::find_if(mFileList, [cleanName = filename](const Ogre::FileInfo& fi) {
+        String cleanName = filename;
+
+        return std::ranges::find_if(mFileList, [&cleanName](const Ogre::FileInfo& fi) {
                    return fi.filename == cleanName;
                }) != mFileList.end();
     }
     //---------------------------------------------------------------------
-    auto ZipArchive::getModifiedTime(std::string_view filename) const -> time_t
+    auto ZipArchive::getModifiedTime(const String& filename) const -> time_t
     {
         // Zziplib doesn't yet support getting the modification time of individual files
         // so just check the mod time of the zip itself
@@ -289,7 +291,7 @@ namespace {
     //-----------------------------------------------------------------------
     //  ZipArchiveFactory
     //-----------------------------------------------------------------------
-    auto ZipArchiveFactory::createInstance( std::string_view name, bool readOnly ) -> Archive *
+    auto ZipArchiveFactory::createInstance( const String& name, bool readOnly ) -> Archive *
     {
         if(!readOnly)
             return nullptr;
@@ -297,7 +299,7 @@ namespace {
         return new ZipArchive(name, getType());
     }
     //-----------------------------------------------------------------------
-    auto ZipArchiveFactory::getType() const noexcept -> std::string_view
+    auto ZipArchiveFactory::getType() const noexcept -> const String&
     {
         static String name = "Zip";
         return name;
@@ -318,7 +320,7 @@ namespace {
     };
     //-----------------------------------------------------------------------
     /// A type for a map between the file names to file index
-    using EmbbedFileDataList = std::map<std::string_view, EmbeddedFileData>;
+    using EmbbedFileDataList = std::map<String, EmbeddedFileData>;
 
     namespace {
     /// A static list to store the embedded files data
@@ -328,7 +330,7 @@ namespace {
     EmbeddedZipArchiveFactory::EmbeddedZipArchiveFactory() = default;
     EmbeddedZipArchiveFactory::~EmbeddedZipArchiveFactory() = default;
     //-----------------------------------------------------------------------
-    auto EmbeddedZipArchiveFactory::createInstance( std::string_view name, bool readOnly ) -> Archive *
+    auto EmbeddedZipArchiveFactory::createInstance( const String& name, bool readOnly ) -> Archive *
     {
         auto it = gEmbeddedFileDataList->find(name);
         if(it == gEmbeddedFileDataList->end())
@@ -344,13 +346,13 @@ namespace {
         ZipArchiveFactory::destroyInstance(ptr);
     }
     //-----------------------------------------------------------------------
-    auto EmbeddedZipArchiveFactory::getType() const noexcept -> std::string_view
+    auto EmbeddedZipArchiveFactory::getType() const noexcept -> const String&
     {
         static String name = "EmbeddedZip";
         return name;
     }
     //-----------------------------------------------------------------------
-    void EmbeddedZipArchiveFactory::addEmbbeddedFile(std::string_view name, const uint8 * fileData, 
+    void EmbeddedZipArchiveFactory::addEmbbeddedFile(const String& name, const uint8 * fileData, 
                                         size_t fileSize, DecryptEmbeddedZipFileFunc decryptFunc)
     {
         static bool needToInit = true;
@@ -377,7 +379,7 @@ namespace {
         gEmbeddedFileDataList->emplace(name, newEmbeddedFileData);
     }
     //-----------------------------------------------------------------------
-    void EmbeddedZipArchiveFactory::removeEmbbeddedFile( std::string_view name )
+    void EmbeddedZipArchiveFactory::removeEmbbeddedFile( const String& name )
     {
         gEmbeddedFileDataList->erase(name);
     }

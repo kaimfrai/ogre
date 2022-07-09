@@ -47,7 +47,7 @@ namespace Ogre
     {
     public:
 
-        DefaultWorkQueue(std::string_view name = "");
+        DefaultWorkQueue(const String& name = BLANKSTRING);
         ~DefaultWorkQueue() override; 
 
         /// Main function for each thread spawned.

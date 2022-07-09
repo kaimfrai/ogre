@@ -406,7 +406,7 @@ namespace Ogre {
             This property is useful for determining the type of emitter procedurally so another
             can be created.
         */
-        [[nodiscard]] auto getType() const noexcept -> std::string_view{ return mType; }
+        [[nodiscard]] auto getType() const noexcept -> const String & { return mType; }
 
         /** Sets whether or not the emitter is enabled.
         @remarks
@@ -501,16 +501,16 @@ namespace Ogre {
         [[nodiscard]] virtual auto getMaxRepeatDelay() const -> Real;
 
         /** Returns the name of the emitter */
-        [[nodiscard]] auto getName() const noexcept -> std::string_view;
+        [[nodiscard]] auto getName() const noexcept -> const String&;
 
         /** Sets the name of the emitter */
-        virtual void setName(std::string_view newName);
+        virtual void setName(const String& newName);
 
         /** Returns the name of the emitter to be emitted */
-        [[nodiscard]] auto getEmittedEmitter() const noexcept -> std::string_view;
+        [[nodiscard]] auto getEmittedEmitter() const noexcept -> const String&;
 
         /** Sets the name of the emitter to be emitted*/
-        virtual void setEmittedEmitter(std::string_view emittedEmitter);
+        virtual void setEmittedEmitter(const String& emittedEmitter);
 
         /** Return true if the emitter is emitted by another emitter */
         [[nodiscard]] virtual auto isEmitted() const noexcept -> bool;

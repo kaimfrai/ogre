@@ -72,9 +72,9 @@ class CompositionTechnique;
         [[nodiscard]] auto getInputMode() const -> InputMode;
         
         /** Set output local texture name */
-        void setOutputName(std::string_view out);
+        void setOutputName(const String &out);
         /** Get output local texture name */
-        [[nodiscard]] auto getOutputName() const -> std::string_view;
+        [[nodiscard]] auto getOutputName() const -> const String &;
 
         /// sets the slice of output texture
         void setOutputSlice(int slice) { mOutputSlice = slice; }
@@ -101,14 +101,14 @@ class CompositionTechnique;
             one of their passes.
             @see Technique::setScheme.
         */
-        void setMaterialScheme(std::string_view schemeName);
+        void setMaterialScheme(const String& schemeName);
         /** Get the material scheme used by this target pass.
         @remarks
             Only applicable to targets that render the scene as
             one of their passes.
             @see Technique::setScheme.
         */
-        [[nodiscard]] auto getMaterialScheme() const noexcept -> std::string_view;
+        [[nodiscard]] auto getMaterialScheme() const noexcept -> const String&;
         
         /** Set whether shadows are enabled in this target pass.
         @remarks

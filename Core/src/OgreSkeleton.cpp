@@ -74,8 +74,8 @@ class Affine3;
     {
     }
     //---------------------------------------------------------------------
-    Skeleton::Skeleton(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-        std::string_view group, bool isManual, ManualResourceLoader* loader) 
+    Skeleton::Skeleton(ResourceManager* creator, const String& name, ResourceHandle handle,
+        const String& group, bool isManual, ManualResourceLoader* loader) 
         : Resource(creator, name, handle, group, isManual, loader), 
         mNextAutoHandle(0), mBlendState(ANIMBLEND_AVERAGE)
         // set animation blending to weighted, not cumulative
@@ -287,7 +287,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    auto Skeleton::createAnimation(std::string_view name, Real length) -> Animation*
+    auto Skeleton::createAnimation(const String& name, Real length) -> Animation*
     {
         // Check name not used
         if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -308,7 +308,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getAnimation(std::string_view name, 
+    auto Skeleton::getAnimation(const String& name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = _getAnimationImpl(name, linker);
@@ -321,17 +321,17 @@ class Affine3;
         return ret;
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getAnimation(std::string_view name) const -> Animation*
+    auto Skeleton::getAnimation(const String& name) const -> Animation*
     {
         return getAnimation(name, nullptr);
     }
     //---------------------------------------------------------------------
-    auto Skeleton::hasAnimation(std::string_view name) const -> bool
+    auto Skeleton::hasAnimation(const String& name) const -> bool
     {
         return _getAnimationImpl(name) != nullptr;
     }
     //---------------------------------------------------------------------
-    auto Skeleton::_getAnimationImpl(std::string_view name, 
+    auto Skeleton::_getAnimationImpl(const String& name, 
         const LinkedSkeletonAnimationSource** linker) const -> Animation*
     {
         Animation* ret = nullptr;
@@ -365,7 +365,7 @@ class Affine3;
 
     }
     //---------------------------------------------------------------------
-    void Skeleton::removeAnimation(std::string_view name)
+    void Skeleton::removeAnimation(const String& name)
     {
         auto i = mAnimationsList.find(name);
 
@@ -388,7 +388,7 @@ class Affine3;
         for (auto const& [key, anim] : mAnimationsList)
         {
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
-            std::string_view animName = anim->getName();
+            const String& animName = anim->getName();
             animSet->createAnimationState(animName, 0.0, anim->getLength());
         }
 
@@ -409,7 +409,7 @@ class Affine3;
         for (auto const& [key, anim] : mAnimationsList)
         {
             // Create animation at time index 0, default params mean this has weight 1 and is disabled
-            std::string_view animName = anim->getName();
+            const String& animName = anim->getName();
             if (!animSet->hasAnimationState(animName))
             {
                 animSet->createAnimationState(animName, 0.0, anim->getLength());
@@ -497,7 +497,7 @@ class Affine3;
         return mBoneList[handle];
     }
     //---------------------------------------------------------------------
-    auto Skeleton::getBone(std::string_view name) const -> Bone*
+    auto Skeleton::getBone(const String& name) const -> Bone*
     {
         auto i = mBoneListByName.find(name);
 
@@ -533,14 +533,14 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    void Skeleton::_dumpContents(std::string_view filename)
+    void Skeleton::_dumpContents(const String& filename)
     {
         std::ofstream of;
 
         Quaternion q;
         Radian angle;
         Vector3 axis;
-        of.open(std::filesystem::path{filename});
+        of.open(filename.c_str());
 
         of << "-= Debug output of skeleton " << mName << " =-" << std::endl << std::endl;
         of << "== Bones ==" << std::endl;
@@ -644,7 +644,7 @@ class Affine3;
         }
     }
     //---------------------------------------------------------------------
-    void Skeleton::addLinkedSkeletonAnimationSource(std::string_view skelName, 
+    void Skeleton::addLinkedSkeletonAnimationSource(const String& skelName, 
         Real scale)
     {
         // Check not already linked

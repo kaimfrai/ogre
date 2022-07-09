@@ -84,7 +84,7 @@ class SubMesh;
     public:
         InstanceBatchHW( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                            std::string_view batchName );
+                            const String &batchName );
         ~InstanceBatchHW() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */

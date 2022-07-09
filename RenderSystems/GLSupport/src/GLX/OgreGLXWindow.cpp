@@ -75,11 +75,11 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::create(std::string_view name, uint width, uint height,
+    void GLXWindow::create(const String& name, uint width, uint height,
                            bool fullScreen, const NameValuePairList *miscParams)
     {
         Display *xDisplay = mGLSupport->getXDisplay();
-        std::string title{ name };
+        String title = name;
         uint samples = 0;
         short frequency = 0;
         bool vsync = false;
@@ -158,7 +158,7 @@ namespace Ogre
             if ((opt = miscParams->find("parentWindowHandle")) != end ||
                 (opt = miscParams->find("externalWindowHandle")) != end)
             {
-                auto const tokens = StringUtil::split(opt->second, " :");
+                std::vector<String> tokens = StringUtil::split(opt->second, " :");
 
                 if (tokens.size() >= 3)
                 {
@@ -488,7 +488,7 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------------------------------//
-    void GLXWindow::getCustomAttribute( std::string_view name, void* pData )
+    void GLXWindow::getCustomAttribute( const String& name, void* pData )
     {
         if( name == "DISPLAY NAME" )
         {

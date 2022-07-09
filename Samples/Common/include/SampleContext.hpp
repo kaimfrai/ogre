@@ -47,7 +47,7 @@ namespace OgreBites
     public:
         Ogre::RenderWindow* mWindow{nullptr};
 
-        SampleContext(std::string_view appName = /*OGRE_VERSION_NAME*/"Tsathoggua")
+        SampleContext(const Ogre::String& appName = /*OGRE_VERSION_NAME*/"Tsathoggua")
         : ApplicationContext(appName) 
         {
             mCurrentSample = nullptr;
@@ -310,7 +310,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
         | Reconfigures the context. Attempts to preserve the current sample state.
         -----------------------------------------------------------------------------*/
-        void reconfigure(std::string_view renderer, Ogre::NameValuePairList& options) override
+        void reconfigure(const Ogre::String& renderer, Ogre::NameValuePairList& options) override
         {
             // save current sample state
             mLastSample = mCurrentSample;

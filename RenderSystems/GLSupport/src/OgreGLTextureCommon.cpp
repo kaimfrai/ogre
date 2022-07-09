@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-void GLTextureCommon::getCustomAttribute(std::string_view name, void* pData)
+void GLTextureCommon::getCustomAttribute(const String& name, void* pData)
 {
     if (name == "GLID")
         *static_cast<uint*>(pData) = mTextureID;

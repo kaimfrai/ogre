@@ -65,9 +65,9 @@ public:
     TestBatch(Ogre::ConfigFile& info, std::string_view directory):mDirectory(directory)
     {
         // fill out basic info
-        auto const res = info.getSetting("Resolution","Info");
-        resolutionX = atoi(res.data());
-        resolutionY = atoi(res.substr(res.find('x')+1).data());
+        Ogre::String res = info.getSetting("Resolution","Info");
+        resolutionX = atoi(res.c_str());
+        resolutionY = atoi(res.substr(res.find('x')+1).c_str());
         version = info.getSetting("Version","Info");
         timestamp = info.getSetting("Time","Info");
         comment = info.getSetting("Comment","Info");

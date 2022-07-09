@@ -39,7 +39,7 @@ String CookTorranceLighting::Type = "CookTorranceLighting";
 CookTorranceLighting::CookTorranceLighting()  = default;
 
 //-----------------------------------------------------------------------
-auto CookTorranceLighting::getType() const noexcept -> std::string_view{ return Type; }
+auto CookTorranceLighting::getType() const noexcept -> const String& { return Type; }
 //-----------------------------------------------------------------------
 auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
@@ -167,7 +167,7 @@ auto CookTorranceLighting::preAddToRenderState(const RenderState* renderState, P
     return true;
 }
 
-auto CookTorranceLighting::setParameter(std::string_view name, std::string_view value) noexcept -> bool
+auto CookTorranceLighting::setParameter(const String& name, const String& value) noexcept -> bool
 {
     if (name == "texture")
     {
@@ -179,7 +179,7 @@ auto CookTorranceLighting::setParameter(std::string_view name, std::string_view 
 }
 
 //-----------------------------------------------------------------------
-auto CookTorranceLightingFactory::getType() const noexcept -> std::string_view{ return CookTorranceLighting::Type; }
+auto CookTorranceLightingFactory::getType() const noexcept -> const String& { return CookTorranceLighting::Type; }
 
 //-----------------------------------------------------------------------
 auto CookTorranceLightingFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop,

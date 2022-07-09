@@ -59,8 +59,8 @@ class VertexDeclaration;
         VertexDeclaration* mDeclaration{nullptr};
     public:
         /// Constructor
-        PatchMesh(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group);
+        PatchMesh(ResourceManager* creator, const String& name, ResourceHandle handle,
+            const String& group);
         /// Update the mesh with new control points positions.
         void update(void* controlPointBuffer, size_t width, size_t height, 
                     size_t uMaxSubdivisionLevel, size_t vMaxSubdivisionLevel, 

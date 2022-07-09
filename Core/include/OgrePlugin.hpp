@@ -86,7 +86,7 @@ namespace Ogre
         @remarks An implementation must be supplied for this method to uniquely
             identify the plugin.
         */
-        [[nodiscard]] virtual auto getName() const noexcept -> std::string_view= 0;
+        [[nodiscard]] virtual auto getName() const noexcept -> const String& = 0;
 
         /** Perform the plugin initial installation sequence. 
         @remarks An implementation must be supplied for this method. It must perform

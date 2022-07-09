@@ -42,8 +42,8 @@ class GLGpuNvparseProgram : public GLGpuProgram
 {
 public:
     GLGpuNvparseProgram(ResourceManager* creator, 
-        std::string_view name, ResourceHandle handle, 
-        std::string_view group, bool isManual, ManualResourceLoader* loader);
+        const String& name, ResourceHandle handle, 
+        const String& group, bool isManual, ManualResourceLoader* loader);
     ~GLGpuNvparseProgram() override;
 
 

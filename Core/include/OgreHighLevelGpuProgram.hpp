@@ -85,7 +85,7 @@ struct GpuNamedConstants;
         /// in-situ parsing of defines
         static auto parseDefines(String& defines) -> std::vector<std::pair<const char*, const char*>>;
 
-        auto appendBuiltinDefines(String defines) -> std::string;
+        auto appendBuiltinDefines(String defines) -> String;
 
         /// Internal load high-level portion if not loaded
         virtual void loadHighLevel();
@@ -114,8 +114,8 @@ struct GpuNamedConstants;
         void setupBaseParamDictionary() override;
     public:
         /** Constructor, should be used only by factory classes. */
-        HighLevelGpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle,
-            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        HighLevelGpuProgram(ResourceManager* creator, const String& name, ResourceHandle handle,
+            const String& group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~HighLevelGpuProgram() override = default;
 
 
@@ -139,17 +139,17 @@ struct GpuNamedConstants;
         auto calculateSize() const -> size_t override;
 
         /** Sets the preprocessor defines used to compile the program. */
-        void setPreprocessorDefines(std::string_view defines) { mPreprocessorDefines = defines; }
+        void setPreprocessorDefines(const String& defines) { mPreprocessorDefines = defines; }
         /** Gets the preprocessor defines used to compile the program. */
-        auto getPreprocessorDefines() const noexcept -> std::string_view{ return mPreprocessorDefines; }
+        auto getPreprocessorDefines() const noexcept -> const String& { return mPreprocessorDefines; }
 
         /** Sets the entry point for this program i.e, the first method called. */
-        void setEntryPoint(std::string_view entryPoint) { mEntryPoint = entryPoint; }
+        void setEntryPoint(const String& entryPoint) { mEntryPoint = entryPoint; }
         /** Gets the entry point defined for this program. */
-        auto getEntryPoint() const noexcept -> std::string_view{ return mEntryPoint; }
+        auto getEntryPoint() const noexcept -> const String& { return mEntryPoint; }
 
         /// Scan the source for \#include and replace with contents from OGRE resources
-        static auto _resolveIncludes(std::string_view source, Resource* resourceBeingLoaded, std::string_view fileName, bool supportsFilename = false) -> std::string;
+        static auto _resolveIncludes(const String& source, Resource* resourceBeingLoaded, const String& fileName, bool supportsFilename = false) -> String;
     };
     /** @} */
     /** @} */

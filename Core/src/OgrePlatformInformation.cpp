@@ -248,7 +248,7 @@ namespace Ogre {
         return features;
     }
     //---------------------------------------------------------------------
-    static auto _detectCpuIdentifier() -> std::string
+    static auto _detectCpuIdentifier() -> String
     {
         // Supports CPUID instruction ?
         if (_isSupportCpuid())
@@ -324,7 +324,7 @@ namespace Ogre {
     // Platform-independent routines, but the returns value are platform-dependent
     //---------------------------------------------------------------------
 
-    auto PlatformInformation::getCpuIdentifier() noexcept -> std::string_view
+    auto PlatformInformation::getCpuIdentifier() noexcept -> const String&
     {
         static const String sIdentifier = _detectCpuIdentifier();
         return sIdentifier;

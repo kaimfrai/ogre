@@ -94,7 +94,7 @@ namespace Ogre {
     }
 //-----------------------------------------------------------------------------
     static void checkGLError(bool logError, bool throwException,
-        std::string_view sectionName = "")
+        const Ogre::String& sectionName = BLANKSTRING)
     {
         String msg;
         bool foundError = false;
@@ -110,7 +110,7 @@ namespace Ogre {
 
         if (foundError && (logError || throwException))
         {
-            auto const fullErrorMessage = ::std::format("GL Error : {} in {}", msg, sectionName);
+            String fullErrorMessage = ::std::format("GL Error : {} in ", msg ) + sectionName;
             if (logError)
             {
                 LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LML_CRITICAL);
@@ -257,7 +257,7 @@ namespace Ogre {
             );
     }
 //-----------------------------------------------------------------------------
-    auto GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> std::string
+    auto GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> String
     {
         switch (semantic)
         {
@@ -329,7 +329,7 @@ namespace Ogre {
             for (unsigned short e=0; e < declaration->getElementCount(); e++)
             {
                 const VertexElement* element =declaration->getElement(e);
-                auto const varyingName = getSemanticVaryingName(element->getSemantic(), element->getIndex());
+                String varyingName = getSemanticVaryingName(element->getSemantic(), element->getIndex());
                 GLint location = glGetVaryingLocationNV(linkProgramId, varyingName.c_str());
                 if (location < 0)
                 {

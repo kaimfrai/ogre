@@ -69,7 +69,7 @@ class RenderQueue;
         friend class BorderRenderable;
     public:
         /** Constructor */
-        BorderPanelOverlayElement(std::string_view name);
+        BorderPanelOverlayElement(const String& name);
         ~BorderPanelOverlayElement() override;
 
         void initialise() override;
@@ -79,7 +79,7 @@ class RenderQueue;
         /** @copydoc OverlayElement::_restoreManualHardwareResources */
         void _restoreManualHardwareResources() override;
 
-        [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override;
+        [[nodiscard]] auto getTypeName() const noexcept -> const String& override;
         /** @name Border Size
             Remember that the dimensions specified here are in relation to the size of
             the screen, so 0.1 is 1/10th of the screen width or height. Also note that because
@@ -160,20 +160,20 @@ class RenderQueue;
         */
         void setBottomRightBorderUV(Real u1, Real v1, Real u2, Real v2);
 
-        [[nodiscard]] auto getLeftBorderUVString() const -> std::string;
-        [[nodiscard]] auto getRightBorderUVString() const -> std::string;
-        [[nodiscard]] auto getTopBorderUVString() const -> std::string;
-        [[nodiscard]] auto getBottomBorderUVString() const -> std::string;
-        [[nodiscard]] auto getTopLeftBorderUVString() const -> std::string;
-        [[nodiscard]] auto getTopRightBorderUVString() const -> std::string;
-        [[nodiscard]] auto getBottomLeftBorderUVString() const -> std::string;
-        [[nodiscard]] auto getBottomRightBorderUVString() const -> std::string;
+        [[nodiscard]] auto getLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getRightBorderUVString() const -> String;
+        [[nodiscard]] auto getTopBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomBorderUVString() const -> String;
+        [[nodiscard]] auto getTopLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getTopRightBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomLeftBorderUVString() const -> String;
+        [[nodiscard]] auto getBottomRightBorderUVString() const -> String;
         /// @}
 
         /** Sets the name of the material to use for the borders. */
-        void setBorderMaterialName(std::string_view name, std::string_view group = DEFAULT_RESOURCE_GROUP );
+        void setBorderMaterialName(const String& name, const String& group = DEFAULT_RESOURCE_GROUP );
         /** Gets the name of the material to use for the borders. */
-        [[nodiscard]] auto getBorderMaterialName() const noexcept -> std::string_view;
+        [[nodiscard]] auto getBorderMaterialName() const noexcept -> const String&;
 
         /** @copydoc OverlayContainer::_updateRenderQueue */
         void _updateRenderQueue(RenderQueue* queue) override;
@@ -225,7 +225,7 @@ class RenderQueue;
             BCELL_BOTTOM = 6,
             BCELL_BOTTOM_RIGHT = 7
         };
-        [[nodiscard]] auto getCellUVString(BorderCellIndex idx) const -> std::string;
+        [[nodiscard]] auto getCellUVString(BorderCellIndex idx) const -> String;
 
         ::std::unique_ptr<BorderRenderable> mBorderRenderable{nullptr};
     };

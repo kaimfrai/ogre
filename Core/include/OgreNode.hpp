@@ -204,7 +204,7 @@ class Camera;
         virtual auto createChildImpl() -> Node* = 0;
 
         /** Internal method for creating a new child node - must be overridden per subclass. */
-        virtual auto createChildImpl(std::string_view name) -> Node* = 0;
+        virtual auto createChildImpl(const String& name) -> Node* = 0;
     public:
         /// Constructor, should only be called by parent, not directly.
         Node();
@@ -456,7 +456,7 @@ class Camera;
         @param rotate
             Initial rotation relative to parent
         */
-        virtual auto createChild(std::string_view name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> Node*;
+        virtual auto createChild(const String& name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> Node*;
 
         /** Adds a (precreated) child scene node to this node. If it is attached to another node,
             it must be detached first.
@@ -478,7 +478,7 @@ class Camera;
 
         /** Gets a pointer to a named child node.
         */
-        auto getChild(std::string_view name) const -> Node*;
+        auto getChild(const String& name) const -> Node*;
 
         /// List of sub-nodes of this Node
         auto getChildren() const noexcept -> const ChildNodeMap& { return mChildren; }
@@ -499,7 +499,7 @@ class Camera;
             Does not delete the node, just detaches it from
             this parent, potentially to be reattached elsewhere.
         */
-        virtual auto removeChild(std::string_view name) -> Node*;
+        virtual auto removeChild(const String& name) -> Node*;
         /** Removes all child Nodes attached to this node. Does not delete the nodes, just detaches them from
             this parent, potentially to be reattached elsewhere.
         */

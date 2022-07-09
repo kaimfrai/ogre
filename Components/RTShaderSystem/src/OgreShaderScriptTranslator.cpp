@@ -70,7 +70,7 @@ void SGScriptTranslator::translate(ScriptCompiler* compiler, const AbstractNodeP
 }
 
 //-----------------------------------------------------------------------------
-auto SGScriptTranslator::getGeneratedSubRenderState(std::string_view typeName) -> SubRenderState*
+auto SGScriptTranslator::getGeneratedSubRenderState(const String& typeName) -> SubRenderState*
 {
     //check if we are in the middle of parsing
     if (mGeneratedRenderState)
@@ -242,7 +242,7 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
 
 //-----------------------------------------------------------------------------
 void SGScriptTranslator::addSubRenderState(SubRenderState* newSubRenderState, 
-        std::string_view dstTechniqueSchemeName, std::string_view materialName, std::string_view groupName, unsigned short passIndex)
+        const String& dstTechniqueSchemeName, const String& materialName, const String& groupName, unsigned short passIndex)
 {
     assert(newSubRenderState);
 
