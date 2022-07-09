@@ -411,7 +411,7 @@ auto TestContext::oneTimeConfig() -> bool
 }
 //-----------------------------------------------------------------------
 
-void TestContext::setupDirectories(Ogre::String batchName)
+void TestContext::setupDirectories(std::string_view batchName)
 {
     // ensure there's a root directory for visual tests
     if(mOutputDir.empty())

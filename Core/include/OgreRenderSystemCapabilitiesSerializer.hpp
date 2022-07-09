@@ -59,7 +59,7 @@ namespace Ogre {
         RenderSystemCapabilitiesSerializer();
 
         /** Writes a RenderSystemCapabilities object to a data stream */
-        void writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename);
+        void writeScript(const RenderSystemCapabilities* caps, std::string_view name, std::string_view filename);
         
         /** Writes a RenderSystemCapabilities object to a string */
         auto writeString(const RenderSystemCapabilities* caps, std::string_view name) -> String;
@@ -141,7 +141,7 @@ namespace Ogre {
             mSetStringMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetStringMethod(std::string_view keyword, String& val)
+        inline void callSetStringMethod(std::string_view keyword, std::string_view val)
         {
             auto methodIter = mSetStringMethodDispatchTable.find(keyword);
             if (methodIter != mSetStringMethodDispatchTable.end())

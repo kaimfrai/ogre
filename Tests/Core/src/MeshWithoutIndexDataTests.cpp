@@ -288,7 +288,7 @@ TEST_F(MeshWithoutIndexDataTests,CreateLineWithMaterial)
     mMeshMgr->remove(fileName, "General");
 }
 //--------------------------------------------------------------------------
-static void createMeshWithMaterial(String fileName)
+static void createMeshWithMaterial(std::string_view fileName)
 {
     String matFileNameSuffix = ".material";
     String matName1 = "red";

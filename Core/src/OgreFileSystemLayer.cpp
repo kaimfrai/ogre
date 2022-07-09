@@ -85,15 +85,15 @@ namespace Ogre
         }
     }
 
-    auto FileSystemLayer::resolveBundlePath(String path) -> String
+    auto FileSystemLayer::resolveBundlePath(std::string_view path) -> String
     {
         // With Ubuntu snaps absolute paths are relative to the snap package.
         char* env_SNAP = getenv("SNAP");
         if (env_SNAP && !path.empty() && path[0] == '/' && // only adjust absolute dirs
-            !StringUtil::startsWith(path, "/snap")) // not a snap path already
-            path = env_SNAP + path;
+            !path.starts_with("/snap")) // not a snap path already
+            return std::format("{}{}", env_SNAP, path);
 
-        return path;
+        return std::string{ path };
     }
     //---------------------------------------------------------------------
     void FileSystemLayer::getConfigPaths()

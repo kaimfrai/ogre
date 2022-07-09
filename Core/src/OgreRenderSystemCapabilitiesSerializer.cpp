@@ -106,11 +106,11 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename)
+    void RenderSystemCapabilitiesSerializer::writeScript(const RenderSystemCapabilities* caps, std::string_view name, std::string_view filename)
     {
         using namespace std;
 
-        ofstream file(filename.c_str());
+        ofstream file(std::filesystem::path{ filename });
 
         write(caps, name, file);
 

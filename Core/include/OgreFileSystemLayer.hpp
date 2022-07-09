@@ -127,7 +127,7 @@ namespace Ogre
          * @param path
          * @return path inside the bundle
          */
-        static auto resolveBundlePath(String path) -> String;
+        static auto resolveBundlePath(std::string_view path) -> String;
 
         /** Create a directory. */
         static auto createDirectory(std::string_view name) -> bool;
