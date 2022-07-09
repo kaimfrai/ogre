@@ -1187,26 +1187,6 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::listResourceNames(std::string_view groupName, bool dirs) const -> StringVectorPtr
-    {
-        // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
-        StringVectorPtr vec(new StringVector());
-
-        // Try to find in resource index first
-        ResourceGroup* grp = getResourceGroup(groupName, true);
-
-        // Iterate over the archives
-        for (auto & i : grp->locationList)
-        {
-            StringVectorPtr lst = i.archive->list(i.recursive, dirs);
-            vec->insert(vec->end(), lst->begin(), lst->end());
-        }
-
-        return vec;
-
-
-    }
-    //-----------------------------------------------------------------------
     auto ResourceGroupManager::listResourceFileInfo(std::string_view groupName, bool dirs) const -> FileInfoListPtr
     {
         // MEMCATEGORY_GENERAL is the only category supported for SharedPtr
@@ -1374,9 +1354,9 @@ namespace Ogre {
         return getResourceGroup(name, true)->inGlobalPool;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::getResourceGroups() const -> StringVector
+    auto ResourceGroupManager::getResourceGroups() const -> std::vector<std::string_view>
     {
-        StringVector vec;
+        std::vector<std::string_view> vec;
         for (const auto & i : mResourceGroupMap)
         {
             vec.push_back(i.second->name);

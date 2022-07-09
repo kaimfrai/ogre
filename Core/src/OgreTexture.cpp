@@ -448,7 +448,7 @@ namespace Ogre {
         bool haveNPOT = renderCaps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES) ||
                         (renderCaps->getNonPOW2TexturesLimited() && mNumMipmaps == 0);
 
-        String baseName, ext;
+        std::string_view baseName, ext;
         StringUtil::splitBaseFilename(mName, baseName, ext);
 
         LoadedImages loadedImages;
@@ -474,7 +474,7 @@ namespace Ogre {
             {
                 mLayerNames.resize(6);
                 for (size_t i = 0; i < 6; i++)
-                    mLayerNames[i] = std::format("{}{}.{}", baseName.c_str(), CUBEMAP_SUFFIXES[i], ext.c_str());
+                    mLayerNames[i] = std::format("{}{}.{}", baseName, CUBEMAP_SUFFIXES[i], ext);
             }
             else if (mTextureType == TEX_TYPE_2D_ARRAY)
             { // ignore

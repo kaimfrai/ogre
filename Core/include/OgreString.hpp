@@ -161,7 +161,7 @@ namespace Ogre {
             Path is standardised as in standardisePath
         */
         static void splitFilename(std::string_view qualifiedName,
-                                  String& outBasename, String& outPath);
+                                  std::string_view& outBasename, std::string_view& outPath);
 
         /** Method for splitting a fully qualified filename into the base name,
             extension and path.
@@ -169,14 +169,14 @@ namespace Ogre {
             Path is standardised as in standardisePath
         */
         static void splitFullFilename(std::string_view qualifiedName,
-                                      Ogre::String& outBasename, Ogre::String& outExtention,
-                                      Ogre::String& outPath);
+                                      std::string_view& outBasename, std::string_view& outExtention,
+                                      std::string_view& outPath);
 
         /** Method for splitting a filename into the base name
             and extension.
         */
         static void splitBaseFilename(std::string_view fullName,
-                                      Ogre::String& outBasename, Ogre::String& outExtention);
+                                      std::string_view& outBasename, std::string_view& outExtention);
 
 
         /** Simple pattern-matching routine allowing a wildcard pattern.

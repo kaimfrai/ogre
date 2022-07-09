@@ -71,7 +71,7 @@ auto ApplicationContextSDL::createWindow(std::string_view name, Ogre::uint32 w, 
     int flags = p.useFullScreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE;
     int d = Ogre::StringConverter::parseInt(miscParams["monitorIndex"], 1) - 1;
     ret.native =
-        SDL_CreateWindow(p.name.c_str(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(d),
+        SDL_CreateWindow(p.name.data(), SDL_WINDOWPOS_UNDEFINED_DISPLAY(d),
                          SDL_WINDOWPOS_UNDEFINED_DISPLAY(d), p.width, p.height, flags);
 
     SDL_SysWMinfo wmInfo;

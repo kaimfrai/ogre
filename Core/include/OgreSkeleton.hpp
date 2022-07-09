@@ -474,7 +474,7 @@ class ResourceManager;
     /// Link to another skeleton to share animations
     struct LinkedSkeletonAnimationSource
     {
-        String skeletonName;
+        std::string_view skeletonName;
         SkeletonPtr pSkeleton;
         Real scale;
         LinkedSkeletonAnimationSource(std::string_view skelName, Real scl)

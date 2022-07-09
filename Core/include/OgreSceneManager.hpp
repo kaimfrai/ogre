@@ -3448,7 +3448,7 @@ namespace Ogre {
     struct SceneManagerMetaData
     {
         /// A globally unique string identifying the scene manager type
-        String typeName;
+        std::string_view typeName;
         /// Flag indicating whether world geometry is supported
         bool worldGeometrySupported;
     };

@@ -123,7 +123,7 @@ void TestContext::setup()
 
     size_t w, h;
 
-    std::istringstream mode(ropts["Video Mode"].currentValue);
+    std::istringstream mode(std::string{ ropts["Video Mode"].currentValue });
     Ogre::String token;
     mode >> w; // width
     mode >> token; // 'x' as seperator between width and height

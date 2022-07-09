@@ -250,8 +250,8 @@ class ScriptLoader;
         /// Nested struct defining a resource declaration
         struct ResourceDeclaration
         {
-            String resourceName;
-            String resourceType;
+            std::string_view resourceName;
+            std::string_view resourceType;
             ManualResourceLoader* loader;
             NameValuePairList parameters;
         };
@@ -300,7 +300,7 @@ class ScriptLoader;
                 LOADED = 4
             };
             /// Group name
-            String name;
+            std::string name;
             /// Group status
             Status groupStatus;
             /// List of possible locations to search
@@ -654,16 +654,6 @@ class ScriptLoader;
         [[nodiscard]] auto openResources(std::string_view pattern,
             std::string_view groupName = DEFAULT_RESOURCE_GROUP_NAME) const -> DataStreamList;
         
-        /** List all file or directory names in a resource group.
-        @note
-        This method only returns filenames, you can also retrieve other
-        information using listFileInfo.
-        @param groupName The name of the group
-        @param dirs If true, directory names will be returned instead of file names
-        @return A list of filenames matching the criteria, all are fully qualified
-        */
-        [[nodiscard]] auto listResourceNames(std::string_view groupName, bool dirs = false) const -> StringVectorPtr;
-
         /** List all files in a resource group with accompanying information.
         @param groupName The name of the group
         @param dirs If true, directory names will be returned instead of file names
@@ -895,7 +885,7 @@ class ScriptLoader;
             order to avoid any contention issues in multithreaded applications.
         @return A copy of list of currently defined groups.
         */
-        [[nodiscard]] auto getResourceGroups() const -> StringVector;
+        [[nodiscard]] auto getResourceGroups() const -> std::vector<std::string_view>;
         /** Get the list of resource declarations for the specified group name. 
         @note This method intentionally returns a copy rather than a reference in
             order to avoid any contention issues in multithreaded applications.

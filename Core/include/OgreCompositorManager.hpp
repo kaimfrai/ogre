@@ -244,7 +244,7 @@ class Viewport;
             TextureType type;
             PixelFormat format;
             uint fsaa;
-            String fsaaHint;
+            std::string_view fsaaHint;
             bool sRGBwrite;
 
             TextureDef(size_t w, size_t h, TextureType t, PixelFormat f, uint aa, std::string_view aaHint,

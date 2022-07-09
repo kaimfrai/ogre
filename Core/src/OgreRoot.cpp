@@ -849,9 +849,9 @@ namespace Ogre {
         if(pluginDir.empty() || pluginDir[0] == '.')
         {
             // resolve relative path with regards to configfile
-            String baseDir, filename;
+            std::string_view baseDir, filename;
             StringUtil::splitFilename(pluginsfile, filename, baseDir);
-            pluginDir = baseDir + pluginDir;
+            pluginDir = std::format("{}{}", baseDir, pluginDir);
         }
 
         if(char* val = getenv("OGRE_PLUGIN_DIR"))
@@ -924,7 +924,7 @@ namespace Ogre {
         bool overwrite, std::string_view locationPattern) -> DataStreamPtr
     {
         // Does this file include path specifiers?
-        String path, basename;
+        std::string_view path, basename;
         StringUtil::splitFilename(filename, basename, path);
 
         // no path elements, try the resource system first

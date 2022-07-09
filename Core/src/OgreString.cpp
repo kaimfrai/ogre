@@ -362,7 +362,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     void StringUtil::splitFilename(std::string_view qualifiedName,
-        String& outBasename, String& outPath)
+        std::string_view& outBasename, std::string_view& outPath)
     {
         String path{ qualifiedName };
         // Replace \ with / first
@@ -372,24 +372,24 @@ namespace Ogre {
 
         if (i == String::npos)
         {
-            outPath.clear();
+            outPath = "";
             outBasename = qualifiedName;
         }
         else
         {
-            outBasename = path.substr(i+1, path.size() - i - 1);
-            outPath = path.substr(0, i+1);
+            outBasename = qualifiedName.substr(i+1, qualifiedName.size() - i - 1);
+            outPath = qualifiedName.substr(0, i+1);
         }
 
     }
     //-----------------------------------------------------------------------
     void StringUtil::splitBaseFilename(std::string_view fullName,
-        Ogre::String& outBasename, Ogre::String& outExtention)
+        std::string_view& outBasename, std::string_view& outExtention)
     {
         size_t i = fullName.find_last_of('.');
         if (i == Ogre::String::npos)
         {
-            outExtention.clear();
+            outExtention = "";
             outBasename = fullName;
         }
         else
@@ -400,9 +400,9 @@ namespace Ogre {
     }
     // ----------------------------------------------------------------------------------------------------------------------------------------------
     void StringUtil::splitFullFilename( std::string_view qualifiedName,
-        Ogre::String& outBasename, Ogre::String& outExtention, Ogre::String& outPath )
+        std::string_view& outBasename, std::string_view& outExtention, std::string_view& outPath )
     {
-        Ogre::String fullName;
+        std::string_view fullName;
         splitFilename( qualifiedName, fullName, outPath );
         splitBaseFilename( fullName, outBasename, outExtention );
     }

@@ -145,7 +145,7 @@ class Material;
         /// Rule controlling whether technique is deemed supported based on GPU device name
         struct GPUDeviceNameRule
         {
-            String devicePattern;
+            std::string devicePattern;
             IncludeOrExclude includeOrExclude;
             bool caseSensitive;
             GPUDeviceNameRule()

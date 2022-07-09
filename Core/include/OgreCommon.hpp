@@ -834,7 +834,7 @@ class RenderWindow;
     /// Render window creation parameters.
     struct RenderWindowDescription
     {
-        String              name;
+        std::string_view    name;
         unsigned int        width;
         unsigned int        height;
         bool                useFullScreen;

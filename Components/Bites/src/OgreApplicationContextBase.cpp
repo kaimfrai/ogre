@@ -379,9 +379,9 @@ void ApplicationContextBase::locateResources()
             if (arch.empty() || arch[0] == '.')
             {
                 // resolve relative path with regards to configfile
-                Ogre::String baseDir, filename;
+                std::string_view baseDir, filename;
                 Ogre::StringUtil::splitFilename(resourcesPath, filename, baseDir);
-                arch = baseDir + arch;
+                arch = std::format("{}{}", baseDir, arch);
             }
 
             arch = Ogre::FileSystemLayer::resolveBundlePath(arch);

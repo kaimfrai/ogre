@@ -321,7 +321,7 @@ namespace Ogre {
     {
         OgreAssert(mBuffer, "No image data loaded");
 
-        String base, ext;
+        std::string_view base, ext;
         StringUtil::splitBaseFilename(filename, base, ext);
 
         // getCodec throws when no codec is found

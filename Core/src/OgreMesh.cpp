@@ -255,7 +255,7 @@ namespace Ogre {
                         "Mesh::loadImpl()");
         }
 
-        String baseName, strExt;
+        std::string_view baseName, strExt;
         StringUtil::splitBaseFilename(mName, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)

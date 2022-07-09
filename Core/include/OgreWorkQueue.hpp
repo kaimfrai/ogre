@@ -135,7 +135,7 @@ namespace Ogre
             /// Whether the work item succeeded or not
             bool mSuccess;
             /// Any diagnostic messages
-            String mMessages;
+            std::string_view mMessages;
             /// Data associated with the result of the process
             ::std::any mData;
 

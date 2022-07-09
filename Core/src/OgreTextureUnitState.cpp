@@ -384,13 +384,13 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::setAnimatedTextureName( std::string_view name, size_t numFrames, Real duration)
     {
-        String baseName, ext;
+        std::string_view baseName, ext;
         StringUtil::splitBaseFilename(name, baseName, ext);
 
         std::vector<String> names(numFrames);
         for (uint32 i = 0; i < names.size(); ++i)
         {
-            names[i] = std::format("{}_{}.{}", baseName.c_str(), i, ext.c_str());
+            names[i] = std::format("{}_{}.{}", baseName, i, ext);
         }
 
         setAnimatedTextureName(names, duration);

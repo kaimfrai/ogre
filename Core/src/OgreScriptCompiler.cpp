@@ -524,7 +524,7 @@ namespace Ogre
                 bool isOverlayElement = obj->cls == "overlay_element";
 
                 // Overlay base classes in order.
-                for (String& base : obj->bases)
+                for (auto& base : obj->bases)
                 {
                     // Check the top level first, then check the import table
                     AbstractNodeList newNodes = locateTarget(top, base);
@@ -1245,10 +1245,10 @@ namespace Ogre
             }
 
             auto i = node->children.begin();
-            String name = (*i)->token;
+            auto const name = (*i)->token;
 
             ++i;
-            String value = (*i)->token;
+            auto const value = (*i)->token;
 
             if(mCurrent && mCurrent->type == ANT_OBJECT)
             {

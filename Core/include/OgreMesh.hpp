@@ -989,7 +989,7 @@ class VertexData;
         
 
         /// Only relevant if mIsLodManual is true, the name of the alternative mesh to use.
-        String manualName;
+        std::string_view manualName;
         /// Hard link to mesh to avoid looking up each time.
         mutable MeshPtr manualMesh;
         /// Edge list for this LOD level (may be derived from manual mesh).

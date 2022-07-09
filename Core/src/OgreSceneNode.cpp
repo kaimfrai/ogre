@@ -342,7 +342,7 @@ namespace Ogre {
     }
     void SceneNode::loadChildren(std::string_view filename)
     {
-        String baseName, strExt;
+        std::string_view baseName, strExt;
         StringUtil::splitBaseFilename(filename, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
@@ -354,7 +354,7 @@ namespace Ogre {
     }
     void SceneNode::saveChildren(std::string_view filename)
     {
-        String baseName, strExt;
+        std::string_view baseName, strExt;
         StringUtil::splitBaseFilename(filename, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         codec->encodeToFile(this, filename);

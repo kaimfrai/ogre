@@ -137,7 +137,10 @@ namespace {
 
                 info.filename = zip_entry_name(mZipFile);
                 // Get basename / path
-                StringUtil::splitFilename(info.filename, info.basename, info.path);
+                std::string_view basename, path;
+                StringUtil::splitFilename(info.filename, basename, path);
+                info.basename = basename;
+                info.path = path;
 
                 // Get sizes
                 info.uncompressedSize = zip_entry_size(mZipFile);
@@ -146,7 +149,9 @@ namespace {
                 if (zip_entry_isdir(mZipFile))
                 {
                     info.filename = info.filename.substr(0, info.filename.length() - 1);
-                    StringUtil::splitFilename(info.filename, info.basename, info.path);
+                    StringUtil::splitFilename(info.filename, basename, path);
+                    info.basename = basename;
+                    info.path = path;
                     // Set compressed size to -1 for folders; anyway nobody will check
                     // the compressed size of a folder, and if he does, its useless anyway
                     info.compressedSize = size_t(-1);
@@ -209,7 +214,7 @@ namespace {
         for (const auto & i : mFileList)
             if ((dirs == (i.compressedSize == size_t (-1))) &&
                 (recursive || i.path.empty()))
-                ret->push_back(i.filename);
+                ret->emplace_back(i.filename);
 
         return ret;
     }
@@ -238,7 +243,7 @@ namespace {
                 (recursive || full_match || wildCard))
                 // Check basename matches pattern (zip is case insensitive)
                 if (StringUtil::match(full_match ? i.filename : i.basename, pattern, false))
-                    ret->push_back(i.filename);
+                    ret->emplace_back(i.filename);
 
         return ret;
     }

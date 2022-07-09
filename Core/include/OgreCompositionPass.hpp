@@ -246,7 +246,7 @@ class CompositionTargetPass;
         struct InputTex
         {
             /// Name (local) of the input texture (empty == no input)
-            String name;
+            std::string_view name;
             /// MRT surface index if applicable
             size_t mrtIndex;
             InputTex() : mrtIndex(0) {}
@@ -360,10 +360,10 @@ class CompositionTargetPass;
             uint8 lastRenderQueue{RENDER_QUEUE_SKIES_LATE};
 
             /// Material scheme name
-            String materialScheme;
+            std::string_view materialScheme;
 
             /// name of camera to use instead of default
-            String cameraName;
+            std::string_view cameraName;
             bool alignCameraToFace{false};
 
             RenderSceneData()

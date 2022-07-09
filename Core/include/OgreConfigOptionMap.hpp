@@ -49,7 +49,7 @@ namespace Ogre {
     struct ConfigOption
     {
         std::string_view name;
-        String currentValue;
+        std::string currentValue;
         StringVector possibleValues;
         bool immutable;
     };

@@ -135,7 +135,7 @@ void CompositionPass::clearAllInputs()
 {
     for(auto & input : mMaterial.inputs)
     {
-        input.name.clear();
+        input.name = "";
     }
 }
 //-----------------------------------------------------------------------

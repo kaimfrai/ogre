@@ -56,11 +56,11 @@ class Archive;
         /// multi-Archive searches, note you should still open through ResourceGroupManager)
         const Archive* archive;
         /// The file's fully qualified name
-        String filename;
+        std::string filename;
         /// Path name; separated by '/' and ending with '/'
-        String path;
+        std::string path;
         /// Base filename
-        String basename;
+        std::string basename;
         /// Compressed size
         size_t compressedSize;
         /// Uncompressed size

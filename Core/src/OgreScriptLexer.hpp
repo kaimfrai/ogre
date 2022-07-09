@@ -66,7 +66,7 @@ namespace Ogre {
     struct ScriptToken
     {
         /// This is the lexeme for this token
-        String lexeme;
+        std::string lexeme;
         /// This is the id associated with the lexeme, which comes from a lexeme-token id mapping
         uint32 type;
         /// This holds the line number of the input stream where the token was found.

@@ -81,7 +81,8 @@ class Material;
     using ConcreteNodeListPtr = SharedPtr<ConcreteNodeList>;
     struct ConcreteNode : public ScriptCompilerAlloc
     {
-        String token, file;
+        std::string token;
+        std::string_view file;
         unsigned int line;
         ConcreteNodeType type;
         ConcreteNodeList children;
@@ -140,7 +141,7 @@ class Material;
         std::map<std::string, String, std::less<>> mEnv;
     public:
         String name, cls;
-        std::vector<String> bases;
+        std::vector<std::string_view> bases;
         uint32 id{0};
         bool abstract{false};
         AbstractNodeList children;

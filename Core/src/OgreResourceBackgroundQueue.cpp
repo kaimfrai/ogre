@@ -68,10 +68,10 @@ namespace Ogre {
     struct ResourceRequest
     {
         RequestType type;
-        String resourceName;
+        std::string_view resourceName;
         ResourceHandle resourceHandle;
-        String resourceType;
-        String groupName;
+        std::string_view resourceType;
+        std::string_view groupName;
         bool isManual;
         ManualResourceLoader* loader;
         NameValuePairList* loadParams;
