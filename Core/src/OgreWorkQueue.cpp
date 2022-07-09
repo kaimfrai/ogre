@@ -39,7 +39,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    auto WorkQueue::getChannel(StringView channelName) -> uint16
+    auto WorkQueue::getChannel(std::string_view channelName) -> uint16
     {
         std::unique_lock<std::recursive_mutex> ogrenameLock(mChannelMapMutex);
 
@@ -61,20 +61,20 @@ namespace Ogre {
     = default;
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    WorkQueue::Response::Response(const Request* rq, bool success, ::std::any  data, StringView msg)
+    WorkQueue::Response::Response(const Request* rq, bool success, ::std::any  data, std::string_view msg)
         : mRequest(rq), mSuccess(success), mMessages(msg), mData(std::move(data))
     {
         
     }
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
-    DefaultWorkQueueBase::DefaultWorkQueueBase(StringView name)
+    DefaultWorkQueueBase::DefaultWorkQueueBase(std::string_view name)
         : mName(name)
          
     {
     }
     //---------------------------------------------------------------------
-    auto DefaultWorkQueueBase::getName() const noexcept -> StringView
+    auto DefaultWorkQueueBase::getName() const noexcept -> std::string_view
     {
         return mName;
     }

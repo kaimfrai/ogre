@@ -43,7 +43,7 @@ namespace Ogre
 
 
         /// @copydoc Plugin::getName
-        [[nodiscard]] auto getName() const noexcept -> StringView override;
+        [[nodiscard]] auto getName() const noexcept -> std::string_view override;
 
         /// @copydoc Plugin::install
         void install() override;

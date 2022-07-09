@@ -227,53 +227,53 @@ namespace Ogre {
         return valid;
     }
 
-    auto StringConverter::parse(StringView val, float& ret) -> bool
+    auto StringConverter::parse(std::string_view val, float& ret) -> bool
     {
         char* end;
         auto tmp = (float)strtod_l(val.data(), &end, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
-    auto StringConverter::parse(StringView val, double& ret) -> bool
+    auto StringConverter::parse(std::string_view val, double& ret) -> bool
     {
         char* end;
         auto tmp = strtod_l(val.data(), &end, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, int32& ret) -> bool
+    auto StringConverter::parse(std::string_view val, int32& ret) -> bool
     {
         char* end;
         auto tmp = (int32)strtol_l(val.data(), &end, 0, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, int64& ret) -> bool
+    auto StringConverter::parse(std::string_view val, int64& ret) -> bool
     {
         char* end;
         int64 tmp = strtoll_l(val.data(), &end, 0, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, unsigned long& ret) -> bool
+    auto StringConverter::parse(std::string_view val, unsigned long& ret) -> bool
     {
         char* end;
         unsigned long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
-    auto StringConverter::parse(StringView val, unsigned long long& ret) -> bool
+    auto StringConverter::parse(std::string_view val, unsigned long long& ret) -> bool
     {
         char* end;
         unsigned long long tmp = strtoull_l(val.data(), &end, 0, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, uint32& ret) -> bool
+    auto StringConverter::parse(std::string_view val, uint32& ret) -> bool
     {
         char* end;
         auto tmp = (uint32)strtoul_l(val.data(), &end, 0, _numLocale);
         return assignValid(val.data() != end, tmp, ret);
     }
-    auto StringConverter::parse(StringView val, bool& ret) -> bool
+    auto StringConverter::parse(std::string_view val, bool& ret) -> bool
     {
         //FIXME Returns both parsed value and error in same value - ambiguous.
         // Suggested alternatives: implement exception handling or make either
@@ -291,7 +291,7 @@ namespace Ogre {
     }
 
     template<typename T>
-    static auto parseReals(StringView val, T* dst, size_t n) -> bool
+    static auto parseReals(std::string_view val, T* dst, size_t n) -> bool
     {
         // Split on space
         auto const vec = StringUtil::split(val);
@@ -305,37 +305,37 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Vector2& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Vector2& ret) -> bool
     {
         return parseReals(val, ret.ptr(), 2);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Vector3& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Vector3& ret) -> bool
     {
         return parseReals(val, ret.ptr(), 3);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Vector4& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Vector4& ret) -> bool
     {
         return parseReals(val, ret.ptr(), 4);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Matrix3& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Matrix3& ret) -> bool
     {
         return parseReals(val, &ret[0][0], 9);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Matrix4& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Matrix4& ret) -> bool
     {
         return parseReals(val, &ret[0][0], 16);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, Quaternion& ret) -> bool
+    auto StringConverter::parse(std::string_view val, Quaternion& ret) -> bool
     {
         return parseReals(val, ret.ptr(), 4);
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parse(StringView val, ColourValue& ret) -> bool
+    auto StringConverter::parse(std::string_view val, ColourValue& ret) -> bool
     {
         // Split on space
         auto const vec = StringUtil::split(val);
@@ -356,7 +356,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::isNumber(StringView val) -> bool
+    auto StringConverter::isNumber(std::string_view val) -> bool
     {
         char* end;
         strtod(val.data(), &end);
@@ -381,7 +381,7 @@ namespace Ogre {
 		return stream.str();
     }
     //-----------------------------------------------------------------------
-    auto StringConverter::parseStereoMode(StringView val, StereoModeType defaultValue) -> StereoModeType
+    auto StringConverter::parseStereoMode(std::string_view val, StereoModeType defaultValue) -> StereoModeType
     {
 		StereoModeType result = defaultValue;
 		if (val.compare("None") == 0)

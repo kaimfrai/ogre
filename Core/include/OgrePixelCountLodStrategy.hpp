@@ -58,7 +58,7 @@ class MovableObject;
 
     public:
         /** Default constructor. */
-        PixelCountLodStrategyBase(StringView name);
+        PixelCountLodStrategyBase(std::string_view name);
 
         /// @copydoc LodStrategy::getBaseValue
         [[nodiscard]] auto getBaseValue() const -> Real override;

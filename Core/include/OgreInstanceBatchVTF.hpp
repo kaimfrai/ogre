@@ -161,7 +161,7 @@ class VertexData;
     public:
         BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                            StringView batchName);
+                            std::string_view batchName);
         ~BaseInstanceBatchVTF() override;
 
         /** @see InstanceBatch::buildFrom */
@@ -231,7 +231,7 @@ class VertexData;
     public:
         InstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference, const MaterialPtr &material,
                             size_t instancesPerBatch, const Mesh::IndexMap *indexToBoneMap,
-                            StringView batchName);
+                            std::string_view batchName);
         ~InstanceBatchVTF() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */

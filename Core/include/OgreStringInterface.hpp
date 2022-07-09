@@ -73,7 +73,7 @@ namespace Ogre {
     {
     public:
         String name;
-        ParameterDef(StringView newName, StringView = "", ParameterType = PT_INT)
+        ParameterDef(std::string_view newName, std::string_view = "", ParameterType = PT_INT)
             : name(newName) {}
     };
     using ParameterList = std::vector<String>;
@@ -83,7 +83,7 @@ namespace Ogre {
     {
     public:
         virtual auto doGet(const void* target) const -> String = 0;
-        virtual void doSet(void* target, StringView val) = 0;
+        virtual void doSet(void* target, std::string_view val) = 0;
 
         virtual ~ParamCommand() = default;
     };
@@ -98,7 +98,7 @@ namespace Ogre {
             return StringConverter::toString((static_cast<const _Class*>(target)->*getter)());
         }
 
-        void doSet(void* target, StringView val) override {
+        void doSet(void* target, std::string_view val) override {
             typename std::decay<Param>::type tmp;
             StringConverter::parse(val, tmp);
             (static_cast<_Class*>(target)->*setter)(tmp);
@@ -106,14 +106,14 @@ namespace Ogre {
     };
 
     /// specialization for strings
-    template <typename _Class, StringView (_Class::*getter)() const, void (_Class::*setter)(StringView )>
-    class SimpleParamCommand<_Class, StringView , getter, setter> : public ParamCommand {
+    template <typename _Class, std::string_view (_Class::*getter)() const, void (_Class::*setter)(std::string_view )>
+    class SimpleParamCommand<_Class, std::string_view , getter, setter> : public ParamCommand {
     public:
         auto doGet(const void* target) const -> String override {
             return (static_cast<const _Class*>(target)->*getter)();
         }
 
-        void doSet(void* target, StringView val) override {
+        void doSet(void* target, std::string_view val) override {
             (static_cast<_Class*>(target)->*setter)(val);
         }
     };
@@ -129,8 +129,8 @@ namespace Ogre {
         ParamCommandMap mParamCommands;
 
         /** Retrieves the parameter command object for a named parameter. */
-        auto getParamCommand(StringView name) -> ParamCommand*;
-        [[nodiscard]] auto getParamCommand(StringView name) const -> const ParamCommand*;
+        auto getParamCommand(std::string_view name) -> ParamCommand*;
+        [[nodiscard]] auto getParamCommand(std::string_view name) const -> const ParamCommand*;
     public:
         ParamDictionary();
         ~ParamDictionary();
@@ -140,7 +140,7 @@ namespace Ogre {
             NB this class will not destroy this on shutdown, please ensure you do
 
         */
-        void addParameter(StringView name, ParamCommand* paramCmd);
+        void addParameter(std::string_view name, ParamCommand* paramCmd);
 
         /// @deprecated do not use
         void addParameter(const ParameterDef& def, ParamCommand* paramCmd)
@@ -186,7 +186,7 @@ namespace Ogre {
         @return
             true if a new dictionary was created, false if it was already there
         */
-        auto createParamDictionary(StringView className) -> bool;
+        auto createParamDictionary(std::string_view className) -> bool;
 
     public:
         StringInterface()  = default;
@@ -232,7 +232,7 @@ namespace Ogre {
         @return
             true if set was successful, false otherwise (NB no exceptions thrown - tolerant method)
         */
-        auto setParameter(StringView name, StringView value) -> bool;
+        auto setParameter(std::string_view name, std::string_view value) -> bool;
         /** Generic multiple parameter setting method.
         @remarks
             Call this method with a list of name / value pairs
@@ -254,7 +254,7 @@ namespace Ogre {
         @return
             String value of parameter, blank if not found
         */
-        [[nodiscard]] auto getParameter(StringView name) const -> String;
+        [[nodiscard]] auto getParameter(std::string_view name) const -> String;
         /** Method for copying this object's parameters to another object.
         @remarks
             This method takes the values of all the object's parameters and tries to set the

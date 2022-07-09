@@ -33,7 +33,7 @@ namespace Ogre {
     String MovablePlane::msMovableType = "MovablePlane";
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    MovablePlane::MovablePlane(StringView name) : Plane(), MovableObject(name),
+    MovablePlane::MovablePlane(std::string_view name) : Plane(), MovableObject(name),
         mLastTranslate(Vector3::ZERO), 
         mLastRotate(Quaternion::IDENTITY),
         mDirty(true)
@@ -94,7 +94,7 @@ namespace Ogre {
         return mDerivedPlane;
     }
     //-----------------------------------------------------------------------
-    auto MovablePlane::getMovableType() const noexcept -> StringView
+    auto MovablePlane::getMovableType() const noexcept -> std::string_view
     {
         return msMovableType;
     }

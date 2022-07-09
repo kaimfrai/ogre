@@ -56,8 +56,8 @@ class ResourceManager;
     class GLGpuProgram : public GpuProgram, public GLGpuProgramBase
     {
     public:
-        GLGpuProgram(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        GLGpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~GLGpuProgram() override;
     protected:
 
@@ -68,8 +68,8 @@ class ResourceManager;
     class GLArbGpuProgram : public GLGpuProgram
     {
     public:
-        GLArbGpuProgram(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        GLArbGpuProgram(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~GLArbGpuProgram() override;
 
         /// Execute the binding functions for this program

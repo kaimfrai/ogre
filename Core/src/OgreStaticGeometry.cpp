@@ -66,7 +66,7 @@ namespace Ogre {
     #define REGION_MIN_INDEX -512
 
     //--------------------------------------------------------------------------
-    StaticGeometry::StaticGeometry(SceneManager* owner, StringView name):
+    StaticGeometry::StaticGeometry(SceneManager* owner, std::string_view name):
         mOwner(owner),
         mName(name),
         
@@ -648,7 +648,7 @@ namespace Ogre {
         return ri->second->getVisibilityFlags();
     }
     //--------------------------------------------------------------------------
-    void StaticGeometry::dump(StringView filename) const
+    void StaticGeometry::dump(std::string_view filename) const
     {
         std::ofstream of(filename.data());
         of << "Static Geometry Report for " << mName << std::endl;
@@ -679,7 +679,7 @@ namespace Ogre {
 
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
-    StaticGeometry::Region::Region(StaticGeometry* parent, StringView name,
+    StaticGeometry::Region::Region(StaticGeometry* parent, std::string_view name,
         SceneManager* mgr, uint32 regionID, const Vector3& centre)
         : MovableObject(name), mParent(parent),
         mRegionID(regionID), mCentre(centre) 
@@ -788,7 +788,7 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    auto StaticGeometry::Region::getMovableType() const noexcept -> StringView
+    auto StaticGeometry::Region::getMovableType() const noexcept -> std::string_view
     {
         static String sType = "StaticGeometry";
         return sType;

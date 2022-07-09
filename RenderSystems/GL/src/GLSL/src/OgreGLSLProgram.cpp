@@ -50,7 +50,7 @@ class ResourceManager;
 
     namespace GLSL {
     //-----------------------------------------------------------------------
-    static auto parseOperationType(StringView val) -> RenderOperation::OperationType
+    static auto parseOperationType(std::string_view val) -> RenderOperation::OperationType
     {
         if (val == "point_list")
         {
@@ -141,7 +141,7 @@ class ResourceManager;
             const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getInputOperationType());
         }
-        void doSet(void* target, StringView val) override
+        void doSet(void* target, std::string_view val) override
         {
             auto* t = static_cast<GLSLProgram*>(target);
             t->setInputOperationType(parseOperationType(val));
@@ -156,7 +156,7 @@ class ResourceManager;
             const auto* t = static_cast<const GLSLProgram*>(target);
             return operationTypeToString(t->getOutputOperationType());
         }
-        void doSet(void* target, StringView val) override
+        void doSet(void* target, std::string_view val) override
         {
             auto* t = static_cast<GLSLProgram*>(target);
             t->setOutputOperationType(parseOperationType(val));
@@ -171,7 +171,7 @@ class ResourceManager;
             const auto* t = static_cast<const GLSLProgram*>(target);
             return StringConverter::toString(t->getMaxOutputVertices());
         }
-        void doSet(void* target, StringView val) override
+        void doSet(void* target, std::string_view val) override
         {
             auto* t = static_cast<GLSLProgram*>(target);
             t->setMaxOutputVertices(StringConverter::parseInt(val));
@@ -279,8 +279,8 @@ class ResourceManager;
 
     //-----------------------------------------------------------------------
     GLSLProgram::GLSLProgram(ResourceManager* creator, 
-        StringView name, ResourceHandle handle,
-        StringView group, bool isManual, ManualResourceLoader* loader)
+        std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
         : GLSLShaderCommon(creator, name, handle, group, isManual, loader)
          
     {
@@ -358,7 +358,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto GLSLProgram::getLanguage() const noexcept -> StringView
+    auto GLSLProgram::getLanguage() const noexcept -> std::string_view
     {
         static const String language = "glsl";
 

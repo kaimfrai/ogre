@@ -47,10 +47,10 @@ class GLFrameBufferObjectCommon;
     class GLFBOMultiRenderTarget : public MultiRenderTarget, public GLRenderTarget
     {
     public:
-        GLFBOMultiRenderTarget(GLFBOManager *manager, StringView name);
+        GLFBOMultiRenderTarget(GLFBOManager *manager, std::string_view name);
         ~GLFBOMultiRenderTarget() override;
 
-        void getCustomAttribute( StringView name, void *pData ) override;
+        void getCustomAttribute( std::string_view name, void *pData ) override;
         [[nodiscard]] auto getContext() const noexcept -> GLContext* override { return fbo.getContext(); }
         auto getFBO() noexcept -> GLFrameBufferObjectCommon* override { return &fbo; }
 

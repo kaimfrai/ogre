@@ -122,7 +122,7 @@ class SceneManager;
         auto createChildImpl() -> Node* override;
 
         /** See Node. */
-        auto createChildImpl(StringView name) -> Node* override;
+        auto createChildImpl(std::string_view name) -> Node* override;
     public:
         /** Constructor, only to be called by the creator SceneManager.
         @remarks
@@ -133,7 +133,7 @@ class SceneManager;
         @remarks
             Creates a node with a specified name.
         */
-        SceneNode(SceneManager* creator, StringView name);
+        SceneNode(SceneManager* creator, std::string_view name);
         ~SceneNode() override;
 
         /** Adds an instance of a scene object to this node.
@@ -154,7 +154,7 @@ class SceneManager;
 
         /** Retrieves a pointer to an attached object by name
         */
-        auto getAttachedObject(StringView name) const -> MovableObject*;
+        auto getAttachedObject(std::string_view name) const -> MovableObject*;
 
         /** Detaches the indexed object from this scene node.
         @remarks
@@ -166,7 +166,7 @@ class SceneManager;
         virtual void detachObject(MovableObject* obj);
 
         /** Detaches the named object from this node and returns a pointer to it. */
-        virtual auto detachObject(StringView name) -> MovableObject*;
+        virtual auto detachObject(std::string_view name) -> MovableObject*;
 
         /** Detaches all objects attached to this node.
         */
@@ -258,7 +258,7 @@ class SceneManager;
             detaching it from it's parent. Note that any objects attached to
             the nodes will be detached but will not themselves be destroyed.
         */
-        void removeAndDestroyChild(StringView name);
+        void removeAndDestroyChild(std::string_view name);
 
         /// @overload
         void removeAndDestroyChild(unsigned short index);
@@ -282,14 +282,14 @@ class SceneManager;
          * Depending on the type of SceneManager you can load different scene file-formats.
          * @param filename source file containing the scene structure
          */
-        void loadChildren(StringView filename);
+        void loadChildren(std::string_view filename);
 
         /**
          * Save the scene hierarchy starting at this node to file
          *
          * @param filename destination file
          */
-        void saveChildren(StringView filename);
+        void saveChildren(std::string_view filename);
 
         /** Allows the showing of the node's bounding box.
         @remarks
@@ -326,7 +326,7 @@ class SceneManager;
             @param
                 rotate Initial rotation relative to parent
         */
-        virtual auto createChildSceneNode(StringView name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> SceneNode*;
+        virtual auto createChildSceneNode(std::string_view name, const Vector3& translate = Vector3::ZERO, const Quaternion& rotate = Quaternion::IDENTITY) -> SceneNode*;
 
         /** Allows retrieval of the nearest lights to the centre of this SceneNode.
         @remarks

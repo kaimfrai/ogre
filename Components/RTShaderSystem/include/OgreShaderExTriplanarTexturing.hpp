@@ -163,12 +163,12 @@ public:
     @param textureNameFromZ
         The texture mapping from z.
     */
-    virtual void setTextureNames(StringView textureNameFromX, StringView textureNameFromY, StringView textureNameFromZ);
+    virtual void setTextureNames(std::string_view textureNameFromX, std::string_view textureNameFromY, std::string_view textureNameFromZ);
     
     /** 
     @see SubRenderState::getType.
     */
-    auto getType() const noexcept -> StringView override;
+    auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderState::getExecutionOrder.
@@ -204,7 +204,7 @@ public:
     /** 
     @see SubRenderStateFactory::getType.
     */
-    [[nodiscard]] auto getType() const noexcept -> StringView override;
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
     /** 
     @see SubRenderStateFactory::createInstance.

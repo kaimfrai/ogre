@@ -1099,7 +1099,7 @@ namespace Ogre {
         sub->addTextureAlias(aliasName, textureName);
     }
     //---------------------------------------------------------------------
-    void MeshSerializerImpl::writeSkeletonLink(StringView skelName)
+    void MeshSerializerImpl::writeSkeletonLink(std::string_view skelName)
     {
         writeChunkHeader(M_MESH_SKELETON_LINK, calcSkeletonLinkSize(skelName));
 
@@ -1123,7 +1123,7 @@ namespace Ogre {
         // Material definition section phased out of 1.1
     }
     //---------------------------------------------------------------------
-    auto MeshSerializerImpl::calcSkeletonLinkSize(StringView skelName) -> size_t
+    auto MeshSerializerImpl::calcSkeletonLinkSize(std::string_view skelName) -> size_t
     {
         size_t size = MSTREAM_OVERHEAD_SIZE;
 
@@ -2608,7 +2608,7 @@ namespace Ogre {
     MeshSerializerImpl_v1_8::~MeshSerializerImpl_v1_8()
     = default;
     //--------------------------------------------------------------------
-    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(std::string_view strategyName) -> StringView
+    auto MeshSerializerImpl_v1_8::compatibleLodStrategyName(std::string_view strategyName) -> std::string_view
     {
         if(strategyName == "distance_box" || strategyName == "distance_sphere")
             strategyName = "Distance";

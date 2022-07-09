@@ -52,7 +52,7 @@ class Sphere;
 
     String Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------
-    Camera::Camera( StringView name, SceneManager* sm)
+    Camera::Camera( std::string_view name, SceneManager* sm)
         : Frustum(name)
         
     {
@@ -306,7 +306,7 @@ class Sphere;
         return mLastParentOrientation.xAxis();
     }
     //-----------------------------------------------------------------------
-    auto Camera::getMovableType() const noexcept -> StringView
+    auto Camera::getMovableType() const noexcept -> std::string_view
     {
         return msMovableType;
     }

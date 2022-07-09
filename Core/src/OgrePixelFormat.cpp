@@ -275,7 +275,7 @@ namespace Ogre {
         rgba[3] = des.ashift;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatName(PixelFormat srcformat) -> StringView
+    auto PixelUtil::getFormatName(PixelFormat srcformat) -> std::string_view
     {
         return getDescriptionFor(srcformat).name;
     }
@@ -297,7 +297,7 @@ namespace Ogre {
         return des.componentCount;
     }
     //-----------------------------------------------------------------------
-    auto PixelUtil::getFormatFromName(StringView name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
+    auto PixelUtil::getFormatFromName(std::string_view name, bool accessibleOnly, bool caseSensitive) -> PixelFormat
     {
         String tmp{ name };
         if (!caseSensitive)

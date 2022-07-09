@@ -81,13 +81,13 @@ class AnimationStateSet;
             @param
                 enabled Whether the animation state is enabled.
         */
-        AnimationState(StringView animName, AnimationStateSet *parent, 
+        AnimationState(std::string_view animName, AnimationStateSet *parent, 
             Real timePos, Real length, Real weight = 1.0, bool enabled = false);
         /// Constructor to copy from an existing state with new parent
         AnimationState(AnimationStateSet* parent, const AnimationState &rhs);
         
         /// Gets the name of the animation to which this state applies
-        [[nodiscard]] auto getAnimationName() const noexcept -> StringView ;
+        [[nodiscard]] auto getAnimationName() const noexcept -> std::string_view ;
         /// Gets the time position for this animation
         [[nodiscard]] auto getTimePosition() const -> Real;
         /// Sets the time position for this animation
@@ -216,14 +216,14 @@ class AnimationStateSet;
         @param weight Weight to apply the animation with 
         @param enabled Whether the animation is enabled
         */
-        auto createAnimationState(StringView animName,  
+        auto createAnimationState(std::string_view animName,  
             Real timePos, Real length, Real weight = 1.0, bool enabled = false) -> AnimationState*;
         /// Get an animation state by the name of the animation
-        [[nodiscard]] auto getAnimationState(StringView name) const -> AnimationState*;
+        [[nodiscard]] auto getAnimationState(std::string_view name) const -> AnimationState*;
         /// Tests if state for the named animation is present
-        [[nodiscard]] auto hasAnimationState(StringView name) const -> bool;
+        [[nodiscard]] auto hasAnimationState(std::string_view name) const -> bool;
         /// Remove animation state with the given name
-        void removeAnimationState(StringView name);
+        void removeAnimationState(std::string_view name);
         /// Remove all animation states
         void removeAllAnimationStates();
 

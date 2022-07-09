@@ -57,8 +57,8 @@ class GLRenderSystem;
         friend class GLRenderSystem;
 
         /// @copydoc ResourceManager::createImpl
-        auto createImpl(StringView name, ResourceHandle handle, 
-            StringView group, bool isManual, ManualResourceLoader* loader, 
+        auto createImpl(std::string_view name, ResourceHandle handle, 
+            std::string_view group, bool isManual, ManualResourceLoader* loader, 
             const NameValuePairList* createParams) -> Resource* override;
 
         GLRenderSystem* mRenderSystem;

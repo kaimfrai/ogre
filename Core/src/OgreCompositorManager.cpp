@@ -85,21 +85,21 @@ CompositorManager::~CompositorManager()
     ResourceGroupManager::getSingleton()._unregisterScriptLoader(this);
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::createImpl(StringView name, ResourceHandle handle,
-    StringView group, bool isManual, ManualResourceLoader* loader,
+auto CompositorManager::createImpl(std::string_view name, ResourceHandle handle,
+    std::string_view group, bool isManual, ManualResourceLoader* loader,
     const NameValuePairList* params) -> Resource*
 {
     return new Compositor(this, name, handle, group, isManual, loader);
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::create (StringView name, StringView group,
+auto CompositorManager::create (std::string_view name, std::string_view group,
                                 bool isManual, ManualResourceLoader* loader,
                                 const NameValuePairList* createParams) -> CompositorPtr
 {
     return static_pointer_cast<Compositor>(createResource(name,group,isManual,loader,createParams));
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::getByName(StringView name, StringView groupName) const -> CompositorPtr
+auto CompositorManager::getByName(std::string_view name, std::string_view groupName) const -> CompositorPtr
 {
     return static_pointer_cast<Compositor>(getResourceByName(name, groupName));
 }
@@ -168,7 +168,7 @@ auto CompositorManager::_getTexturedRectangle2D() -> Renderable *
     return mRectangle.get();
 }
 //-----------------------------------------------------------------------
-auto CompositorManager::addCompositor(Viewport *vp, StringView compositor, int addPosition) -> CompositorInstance *
+auto CompositorManager::addCompositor(Viewport *vp, std::string_view compositor, int addPosition) -> CompositorInstance *
 {
     CompositorPtr comp = getByName(compositor);
     if(!comp)
@@ -177,7 +177,7 @@ auto CompositorManager::addCompositor(Viewport *vp, StringView compositor, int a
     return chain->addCompositor(comp, addPosition==-1 ? CompositorChain::LAST : (size_t)addPosition);
 }
 //-----------------------------------------------------------------------
-void CompositorManager::removeCompositor(Viewport *vp, StringView compositor)
+void CompositorManager::removeCompositor(Viewport *vp, std::string_view compositor)
 {
     CompositorChain *chain = getCompositorChain(vp);
     size_t pos = chain->getCompositorPosition(compositor);
@@ -188,7 +188,7 @@ void CompositorManager::removeCompositor(Viewport *vp, StringView compositor)
     chain->removeCompositor(pos);
 }
 //-----------------------------------------------------------------------
-void CompositorManager::setCompositorEnabled(Viewport *vp, StringView compositor, bool value)
+void CompositorManager::setCompositorEnabled(Viewport *vp, std::string_view compositor, bool value)
 {
     CompositorChain *chain = getCompositorChain(vp);
     size_t pos = chain->getCompositorPosition(compositor);
@@ -227,9 +227,9 @@ void CompositorManager::_reconstructAllCompositorResources()
     }
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getPooledTexture(StringView name,
-    StringView localName,
-    uint32 w, uint32 h, PixelFormat f, uint aa, StringView aaHint, bool srgb,
+auto CompositorManager::getPooledTexture(std::string_view name,
+    std::string_view localName,
+    uint32 w, uint32 h, PixelFormat f, uint aa, std::string_view aaHint, bool srgb,
     CompositorManager::UniqueTextureSet& texturesAssigned, 
     CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type) -> TexturePtr
 {
@@ -321,7 +321,7 @@ auto CompositorManager::getPooledTexture(StringView name,
     return ret;
 }
 //---------------------------------------------------------------------
-auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, StringView localName) -> bool
+auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, std::string_view localName) -> bool
 {
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     for (auto tp : passes)
@@ -357,7 +357,7 @@ auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TextureP
 
 }
 //---------------------------------------------------------------------
-auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, StringView localName) -> bool
+auto CompositorManager::isInputToOutputTarget(CompositorInstance* inst, std::string_view localName) -> bool
 {
     for (CompositionTargetPass* tp = inst->getTechnique()->getOutputTargetPass();
         CompositionPass* p : tp->getPasses())
@@ -434,7 +434,7 @@ void CompositorManager::freePooledTextures(bool onlyIfUnreferenced)
 
 }
 //---------------------------------------------------------------------
-void CompositorManager::registerCompositorLogic(StringView name, CompositorLogic* logic)
+void CompositorManager::registerCompositorLogic(std::string_view name, CompositorLogic* logic)
 {   
     OgreAssert(!name.empty(), "Compositor logic name must not be empty");
     if (mCompositorLogics.find(name) != mCompositorLogics.end())
@@ -446,7 +446,7 @@ void CompositorManager::registerCompositorLogic(StringView name, CompositorLogic
     mCompositorLogics[name] = logic;
 }
 //---------------------------------------------------------------------
-void CompositorManager::unregisterCompositorLogic(StringView name)
+void CompositorManager::unregisterCompositorLogic(std::string_view name)
 {
     auto itor = mCompositorLogics.find(name);
     if( itor == mCompositorLogics.end() )
@@ -459,7 +459,7 @@ void CompositorManager::unregisterCompositorLogic(StringView name)
     mCompositorLogics.erase( itor );
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getCompositorLogic(StringView name) -> CompositorLogic*
+auto CompositorManager::getCompositorLogic(std::string_view name) -> CompositorLogic*
 {
     auto it = mCompositorLogics.find(name);
     if (it == mCompositorLogics.end())
@@ -471,12 +471,12 @@ auto CompositorManager::getCompositorLogic(StringView name) -> CompositorLogic*
     return it->second;
 }
 //---------------------------------------------------------------------
-auto CompositorManager::hasCompositorLogic(StringView name) -> bool
+auto CompositorManager::hasCompositorLogic(std::string_view name) -> bool
 {
 	return mCompositorLogics.find(name) != mCompositorLogics.end();
 }
 //---------------------------------------------------------------------
-void CompositorManager::registerCustomCompositionPass(StringView name, CustomCompositionPass* logic)
+void CompositorManager::registerCustomCompositionPass(std::string_view name, CustomCompositionPass* logic)
 {   
     OgreAssert(!name.empty(), "Compositor pass name must not be empty");
     if (mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end())
@@ -488,7 +488,7 @@ void CompositorManager::registerCustomCompositionPass(StringView name, CustomCom
     mCustomCompositionPasses[name] = logic;
 }
 //---------------------------------------------------------------------
-void CompositorManager::unregisterCustomCompositionPass(StringView name)
+void CompositorManager::unregisterCustomCompositionPass(std::string_view name)
 {	
 	auto itor = mCustomCompositionPasses.find(name);
 	if( itor == mCustomCompositionPasses.end() )
@@ -500,12 +500,12 @@ void CompositorManager::unregisterCustomCompositionPass(StringView name)
 	mCustomCompositionPasses.erase( itor );
 }
 //---------------------------------------------------------------------
-auto CompositorManager::hasCustomCompositionPass(StringView name) -> bool
+auto CompositorManager::hasCustomCompositionPass(std::string_view name) -> bool
 {
 	return mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end();
 }
 //---------------------------------------------------------------------
-auto CompositorManager::getCustomCompositionPass(StringView name) -> CustomCompositionPass*
+auto CompositorManager::getCustomCompositionPass(std::string_view name) -> CustomCompositionPass*
 {
     auto it = mCustomCompositionPasses.find(name);
     if (it == mCustomCompositionPasses.end())

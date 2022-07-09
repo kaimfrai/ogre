@@ -103,8 +103,8 @@ class ResourceManager;
     }
     //-----------------------------------------------------------------------
     GLSLShaderCommon::GLSLShaderCommon(ResourceManager* creator, 
-        StringView name, ResourceHandle handle,
-        StringView group, bool isManual, ManualResourceLoader* loader)
+        std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
         : HighLevelGpuProgram(creator, name, handle, group, isManual, loader)
         , 
          mShaderID(++mShaderCount) // Increase shader counter and use as ID
@@ -117,7 +117,7 @@ class ResourceManager;
         return (static_cast<const GLSLShaderCommon*>(target))->getAttachedShaderNames();
     }
     //-----------------------------------------------------------------------
-    void GLSLShaderCommon::CmdAttach::doSet(void *target, StringView shaderNames)
+    void GLSLShaderCommon::CmdAttach::doSet(void *target, std::string_view shaderNames)
     {
         //get all the shader program names: there could be more than one
         auto const vecShaderNames = StringUtil::split(shaderNames, " \t", 0);
@@ -129,7 +129,7 @@ class ResourceManager;
         }
     }
     //-----------------------------------------------------------------------
-    void GLSLShaderCommon::attachChildShader(StringView name)
+    void GLSLShaderCommon::attachChildShader(std::string_view name)
     {
         // is the name valid and already loaded?
         // check with the high level program manager to see if it was loaded
@@ -158,7 +158,7 @@ class ResourceManager;
     {
         return StringConverter::toString(static_cast<const GLSLShaderCommon*>(target)->getColumnMajorMatrices());
     }
-    void GLSLShaderCommon::CmdColumnMajorMatrices::doSet(void *target, StringView val)
+    void GLSLShaderCommon::CmdColumnMajorMatrices::doSet(void *target, std::string_view val)
     {
         static_cast<GLSLShaderCommon*>(target)->setColumnMajorMatrices(StringConverter::parseBool(val));
     }

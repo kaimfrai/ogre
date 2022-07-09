@@ -314,34 +314,6 @@ namespace Ogre
         return ::std::strong_ordering::equal;
     }
 
-    struct StringView : std::string_view
-    {
-        using std::string_view::string_view;
-
-        constexpr StringView(std::string_view s)
-        : std::string_view{s}
-        {}
-
-        constexpr StringView(std::string const& s)
-        : std::string_view{static_cast<std::string_view>(s)}
-        {}
-
-        friend auto constexpr operator<=> (StringView left, StringView right) -> std::weak_ordering
-        {
-            return std::string_view{left} <=> std::string_view{right};
-        }
-
-        friend auto constexpr operator<=> (StringView left, std::string_view right) -> std::weak_ordering
-        {
-            return std::string_view{left} <=> right;
-        }
-
-        friend auto constexpr operator<=> (StringView left, std::string const& right) -> std::weak_ordering
-        {
-            return std::string_view{left} <=> std::string_view{right};
-        }
-    };
-
     // FIXME: as of 2022 June 08 libc++ does not provide operator<=> for std::string
     [[nodiscard]] auto inline operator <=> (String const& left, String const& right) noexcept -> ::std::weak_ordering
     {
@@ -353,22 +325,6 @@ namespace Ogre
     template <typename T, size_t Alignment = OGRE_SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;
 }
-
-template<typename CharT>
-struct std::formatter<Ogre::StringView, CharT>
-{
-    std::formatter<std::string_view, CharT> stringFormatter;
-
-    auto constexpr parse(auto& pc)
-    {
-        return stringFormatter.parse(pc);
-    }
-
-    auto constexpr format(Ogre::StringView val, auto& fc)
-    {
-        return stringFormatter.format(val, fc);
-    }
-};
 
 #endif // OGRE_CORE_PREREQUISITES_H
 

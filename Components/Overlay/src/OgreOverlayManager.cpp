@@ -108,7 +108,7 @@ class RenderQueue;
         return 1100.0f;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::create(StringView name) -> Overlay*
+    auto OverlayManager::create(std::string_view name) -> Overlay*
     {
         Overlay* ret = nullptr;
         auto i = mOverlayMap.find(name);
@@ -130,7 +130,7 @@ class RenderQueue;
 
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getByName(StringView name) -> Overlay*
+    auto OverlayManager::getByName(std::string_view name) -> Overlay*
     {
         auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
@@ -152,7 +152,7 @@ class RenderQueue;
                     ::std::format("Overlay with name '{}' already exists!", overlay->getName() ));
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroy(StringView name)
+    void OverlayManager::destroy(std::string_view name)
     {
         auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
@@ -199,7 +199,7 @@ class RenderQueue;
     {
         return {mOverlayMap.begin(), mOverlayMap.end()};
     }
-    void OverlayManager::parseScript(DataStreamPtr& stream, StringView groupName)
+    void OverlayManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
     {
         // skip scripts that were already loaded as we lack proper re-loading support
         if(!stream->getName().empty() && !mLoadedScripts.emplace(stream->getName()).second)
@@ -262,7 +262,7 @@ class RenderQueue;
         mPixelRatio = ratio;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElementFromTemplate(StringView templateName, StringView typeName, StringView instanceName, bool) -> OverlayElement*
+    auto OverlayManager::createOverlayElementFromTemplate(std::string_view templateName, std::string_view typeName, std::string_view instanceName, bool) -> OverlayElement*
     {
 
         OverlayElement* newObj  = nullptr;
@@ -296,14 +296,14 @@ class RenderQueue;
 
 
     //---------------------------------------------------------------------
-    auto OverlayManager::cloneOverlayElementFromTemplate(StringView templateName, StringView instanceName) -> OverlayElement*
+    auto OverlayManager::cloneOverlayElementFromTemplate(std::string_view templateName, std::string_view instanceName) -> OverlayElement*
     {
         OverlayElement* templateGui = getOverlayElement(templateName, true);
         return templateGui->clone(instanceName);
     }
 
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElement(StringView typeName, StringView instanceName, bool) -> OverlayElement*
+    auto OverlayManager::createOverlayElement(std::string_view typeName, std::string_view instanceName, bool) -> OverlayElement*
     {
         // Check not duplicated
         auto ii = mElements.find(instanceName);
@@ -323,7 +323,7 @@ class RenderQueue;
     }
 
     //---------------------------------------------------------------------
-    auto OverlayManager::createOverlayElementFromFactory(StringView typeName, StringView instanceName) -> OverlayElement*
+    auto OverlayManager::createOverlayElementFromFactory(std::string_view typeName, std::string_view instanceName) -> OverlayElement*
     {
         // Look up factory
         auto fi = mFactories.find(typeName);
@@ -337,7 +337,7 @@ class RenderQueue;
         return fi->second->createOverlayElement(instanceName);
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::getOverlayElement(StringView name,bool) -> OverlayElement*
+    auto OverlayManager::getOverlayElement(std::string_view name,bool) -> OverlayElement*
     {
         // Locate instance
         auto ii = mElements.find(name);
@@ -349,7 +349,7 @@ class RenderQueue;
         return ii->second;
     }
     //---------------------------------------------------------------------
-    auto OverlayManager::hasOverlayElement(StringView name,bool) -> bool
+    auto OverlayManager::hasOverlayElement(std::string_view name,bool) -> bool
     {
         auto ii = mElements.find(name);
         return ii != mElements.end();
@@ -361,7 +361,7 @@ class RenderQueue;
         destroyOverlayElement(pInstance->getName());
     }
     //---------------------------------------------------------------------
-    void OverlayManager::destroyOverlayElement(StringView instanceName,bool)
+    void OverlayManager::destroyOverlayElement(std::string_view instanceName,bool)
     {
         // Locate instance
         auto ii = mElements.find(instanceName);
@@ -371,7 +371,7 @@ class RenderQueue;
                 " not found.", instanceName), "OverlayManager::destroyOverlayElement" );
         }
         // Look up factory
-        StringView typeName = ii->second->getTypeName();
+        std::string_view typeName = ii->second->getTypeName();
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {

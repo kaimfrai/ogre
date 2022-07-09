@@ -215,7 +215,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     //  GpuNamedConstants methods
     //---------------------------------------------------------------------
-    void GpuNamedConstants::save(StringView filename) const
+    void GpuNamedConstants::save(std::string_view filename) const
     {
         GpuNamedConstantsSerializer ser;
         ser.exportNamedConstants(this, filename);
@@ -247,7 +247,7 @@ namespace Ogre
     = default;
     //---------------------------------------------------------------------
     void GpuNamedConstantsSerializer::exportNamedConstants(
-        const GpuNamedConstants* pConsts, StringView filename, Endian endianMode)
+        const GpuNamedConstants* pConsts, std::string_view filename, Endian endianMode)
     {
         DataStreamPtr stream = _openFileStream(filename, std::ios::binary | std::ios::out);
         exportNamedConstants(pConsts, stream, endianMode);
@@ -332,7 +332,7 @@ namespace Ogre
     //-----------------------------------------------------------------------------
     //      GpuSharedParameters Methods
     //-----------------------------------------------------------------------------
-    GpuSharedParameters::GpuSharedParameters(StringView name)
+    GpuSharedParameters::GpuSharedParameters(std::string_view name)
         :mName(name)
          
     {
@@ -349,7 +349,7 @@ namespace Ogre
         return memSize;
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::addConstantDefinition(StringView name, GpuConstantType constType, uint32 arraySize)
+    void GpuSharedParameters::addConstantDefinition(std::string_view name, GpuConstantType constType, uint32 arraySize)
     {
         if (mNamedConstants.map.find(name) != mNamedConstants.map.end())
         {
@@ -438,7 +438,7 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------
-    auto GpuSharedParameters::getConstantDefinition(StringView name) const -> const GpuConstantDefinition&
+    auto GpuSharedParameters::getConstantDefinition(std::string_view name) const -> const GpuConstantDefinition&
     {
         auto i = mNamedConstants.map.find(name);
         if (i == mNamedConstants.map.end())
@@ -455,22 +455,22 @@ namespace Ogre
         return mNamedConstants;
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const Matrix4& m)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const Matrix4& m)
     {
         setNamedConstant(name, m[0], 16);
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const Matrix4* m, uint32 numEntries)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const Matrix4* m, uint32 numEntries)
     {
         setNamedConstant(name, m[0][0], 16 * numEntries);
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const ColourValue& colour)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const ColourValue& colour)
     {
         setNamedConstant(name, colour.ptr(), 4);
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const float *val, uint32 count)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const float *val, uint32 count)
     {
         auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
@@ -483,7 +483,7 @@ namespace Ogre
         _markDirty();
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const double *val, uint32 count)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const double *val, uint32 count)
     {
         auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
@@ -502,7 +502,7 @@ namespace Ogre
         _markDirty();
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const int *val, uint32 count)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const int *val, uint32 count)
     {
         auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
@@ -515,7 +515,7 @@ namespace Ogre
         _markDirty();
     }
     //---------------------------------------------------------------------
-    void GpuSharedParameters::setNamedConstant(StringView name, const uint *val, uint32 count)
+    void GpuSharedParameters::setNamedConstant(std::string_view name, const uint *val, uint32 count)
     {
         auto i = mNamedConstants.map.find(name);
         if (i != mNamedConstants.map.end())
@@ -1319,7 +1319,7 @@ namespace Ogre
         return *mNamedConstants;
     }
     //-----------------------------------------------------------------------------
-    auto GpuProgramParameters::getConstantDefinition(StringView name) const -> const GpuConstantDefinition&
+    auto GpuProgramParameters::getConstantDefinition(std::string_view name) const -> const GpuConstantDefinition&
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -1335,7 +1335,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
     auto
-    GpuProgramParameters::_findNamedConstantDefinition(StringView name,
+    GpuProgramParameters::_findNamedConstantDefinition(std::string_view name,
                                                        bool throwExceptionIfNotFound) const -> const GpuConstantDefinition*
     {
         if (!mNamedConstants)
@@ -1457,7 +1457,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------------
-    void GpuProgramParameters::clearNamedAutoConstant(StringView name)
+    void GpuProgramParameters::clearNamedAutoConstant(std::string_view name)
     {
         const GpuConstantDefinition* def = _findNamedConstantDefinition(name);
         if (def)
@@ -2169,7 +2169,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------------
-    static auto withArrayOffset(const GpuConstantDefinition* def, StringView name) -> size_t
+    static auto withArrayOffset(const GpuConstantDefinition* def, std::string_view name) -> size_t
     {
         uint32 offset = 0;
         if(name.back() == ']')
@@ -2184,7 +2184,7 @@ namespace Ogre
         return def->physicalIndex + offset * def->elementSize;
     }
 
-    void GpuProgramParameters::setNamedConstant(StringView name, Real val)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, Real val)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2193,7 +2193,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), val);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, int val)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, int val)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def = _findNamedConstantDefinition(name, !mIgnoreMissingParams);
@@ -2207,7 +2207,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), val);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, uint val)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, uint val)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2216,7 +2216,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), val);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const Vector4& vec)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const Vector4& vec)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2225,7 +2225,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), vec, def->elementSize);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const Vector3& vec)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const Vector3& vec)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2234,7 +2234,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), vec);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const Vector2& vec)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const Vector2& vec)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2243,7 +2243,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), vec);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const Matrix4& m)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const Matrix4& m)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2252,7 +2252,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), m, def->elementSize);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const Matrix4* m,
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const Matrix4* m,
                                                 size_t numEntries)
     {
         // look up, and throw an exception if we're not ignoring missing
@@ -2262,7 +2262,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), m, numEntries);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name, const ColourValue& colour)
+    void GpuProgramParameters::setNamedConstant(std::string_view name, const ColourValue& colour)
     {
         // look up, and throw an exception if we're not ignoring missing
         const GpuConstantDefinition* def =
@@ -2271,7 +2271,7 @@ namespace Ogre
             _writeRawConstant(withArrayOffset(def, name), colour, def->elementSize);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name,
+    void GpuProgramParameters::setNamedConstant(std::string_view name,
                                                 const float *val, size_t count, size_t multiple)
     {
         size_t rawCount = count * multiple;
@@ -2282,7 +2282,7 @@ namespace Ogre
             _writeRawConstants(withArrayOffset(def, name), val, rawCount);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name,
+    void GpuProgramParameters::setNamedConstant(std::string_view name,
                                                 const double *val, size_t count, size_t multiple)
     {
         size_t rawCount = count * multiple;
@@ -2293,7 +2293,7 @@ namespace Ogre
             _writeRawConstants(withArrayOffset(def, name), val, rawCount);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name,
+    void GpuProgramParameters::setNamedConstant(std::string_view name,
                                                 const int *val, size_t count, size_t multiple)
     {
         size_t rawCount = count * multiple;
@@ -2309,7 +2309,7 @@ namespace Ogre
             _writeRawConstants(withArrayOffset(def, name), val, rawCount);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedConstant(StringView name,
+    void GpuProgramParameters::setNamedConstant(std::string_view name,
                                                 const uint *val, size_t count, size_t multiple)
     {
         size_t rawCount = count * multiple;
@@ -2320,7 +2320,7 @@ namespace Ogre
             _writeRawConstants(withArrayOffset(def, name), val, rawCount);
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedAutoConstant(StringView name,
+    void GpuProgramParameters::setNamedAutoConstant(std::string_view name,
                                                     AutoConstantType acType, uint32 extraInfo)
     {
         // look up, and throw an exception if we're not ignoring missing
@@ -2336,7 +2336,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------------
-    void GpuProgramParameters::setNamedAutoConstantReal(StringView name,
+    void GpuProgramParameters::setNamedAutoConstantReal(std::string_view name,
                                                         AutoConstantType acType, Real rData)
     {
         // look up, and throw an exception if we're not ignoring missing
@@ -2377,7 +2377,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------------
     auto
-    GpuProgramParameters::findAutoConstantEntry(StringView paramName) const -> const GpuProgramParameters::AutoConstantEntry*
+    GpuProgramParameters::findAutoConstantEntry(std::string_view paramName) const -> const GpuProgramParameters::AutoConstantEntry*
     {
         if (!mNamedConstants)
             OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -2424,7 +2424,7 @@ namespace Ogre
             for (auto i = source.mNamedConstants->map.begin();
                  i != source.mNamedConstants->map.end(); ++i)
             {
-                StringView paramName = i->first;
+                std::string_view paramName = i->first;
                 const GpuConstantDefinition& olddef = i->second;
                 const GpuConstantDefinition* newdef = _findNamedConstantDefinition(paramName, false);
                 if (newdef)
@@ -2492,7 +2492,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     auto
-    GpuProgramParameters::getAutoConstantDefinition(StringView name) -> const GpuProgramParameters::AutoConstantDefinition*
+    GpuProgramParameters::getAutoConstantDefinition(std::string_view name) -> const GpuProgramParameters::AutoConstantDefinition*
     {
         // find a constant definition that matches name by iterating through the
         // constant definition array
@@ -2552,12 +2552,12 @@ namespace Ogre
         }
     }
     //---------------------------------------------------------------------
-    void GpuProgramParameters::addSharedParameters(StringView sharedParamsName)
+    void GpuProgramParameters::addSharedParameters(std::string_view sharedParamsName)
     {
         addSharedParameters(GpuProgramManager::getSingleton().getSharedParameters(sharedParamsName));
     }
     //---------------------------------------------------------------------
-    auto GpuProgramParameters::isUsingSharedParameters(StringView sharedParamsName) const -> bool
+    auto GpuProgramParameters::isUsingSharedParameters(std::string_view sharedParamsName) const -> bool
     {
         for (const auto & mSharedParamSet : mSharedParamSets)
         {
@@ -2567,7 +2567,7 @@ namespace Ogre
         return false;
     }
     //---------------------------------------------------------------------
-    void GpuProgramParameters::removeSharedParameters(StringView sharedParamsName)
+    void GpuProgramParameters::removeSharedParameters(std::string_view sharedParamsName)
     {
         for (auto i = mSharedParamSets.begin();
              i != mSharedParamSets.end(); ++i)

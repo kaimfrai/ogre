@@ -42,8 +42,8 @@ class ResourceManager;
     {
     public:
         // Constructor
-        GLTexture(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual, ManualResourceLoader* loader, 
+        GLTexture(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual, ManualResourceLoader* loader, 
             GLRenderSystem* renderSystem);
 
         ~GLTexture() override;      

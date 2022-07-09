@@ -42,7 +42,7 @@ namespace Ogre::OverlayElementCommands {
         {
             return std::string{ static_cast<const OverlayElement*>(target)->getMaterialName() };
         }
-        void CmdMaterial::doSet(void* target, StringView val)
+        void CmdMaterial::doSet(void* target, std::string_view val)
         {
             if (val != "")
             {
@@ -55,7 +55,7 @@ namespace Ogre::OverlayElementCommands {
         {
             return std::string{ static_cast<const OverlayElement*>(target)->getCaption() };
         }
-        void CmdCaption::doSet(void* target, StringView val)
+        void CmdCaption::doSet(void* target, std::string_view val)
         {
             static_cast<OverlayElement*>(target)->setCaption(val);
         }
@@ -79,7 +79,7 @@ namespace Ogre::OverlayElementCommands {
                 return "relative";
             }
         }
-        void CmdMetricsMode::doSet(void* target, StringView val)
+        void CmdMetricsMode::doSet(void* target, std::string_view val)
         {
             if (val == "pixels")
             {
@@ -113,7 +113,7 @@ namespace Ogre::OverlayElementCommands {
             // To keep compiler happy
             return "center";
         }
-        void CmdHorizontalAlign::doSet(void* target, StringView val)
+        void CmdHorizontalAlign::doSet(void* target, std::string_view val)
         {
             if (val == "left")
             {
@@ -147,7 +147,7 @@ namespace Ogre::OverlayElementCommands {
             // To keep compiler happy
             return "center";
         }
-        void CmdVerticalAlign::doSet(void* target, StringView val)
+        void CmdVerticalAlign::doSet(void* target, std::string_view val)
         {
             if (val == "top")
             {
@@ -170,7 +170,7 @@ namespace Ogre::OverlayElementCommands {
         {
             return StringConverter::toString(static_cast<const OverlayElement*>(target)->isVisible());
         }
-        void CmdVisible::doSet(void* target, StringView val)
+        void CmdVisible::doSet(void* target, std::string_view val)
         {
             if (val == "true")
             {

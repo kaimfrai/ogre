@@ -109,7 +109,7 @@ namespace OgreBites
         -----------------------------------------------------------------------------*/
         virtual void testCapabilities(const Ogre::RenderSystemCapabilities* caps) {}
 
-        void requireMaterial(StringView name)
+        void requireMaterial(std::string_view name)
         {
             Ogre::StringStream err;
             err << "Material: " << name << " ";

@@ -206,7 +206,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Handles confirmation dialog responses.
           -----------------------------------------------------------------------------*/
-        void yesNoDialogClosed(Ogre::StringView question, bool yesHit) override
+        void yesNoDialogClosed(std::string_view question, bool yesHit) override
         {
             if (question.substr(0, 14) == "This will stop" && yesHit)   // confirm unloading of samples
             {
@@ -721,7 +721,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Overrides the default window title.
           -----------------------------------------------------------------------------*/
-        auto createWindow(StringView name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) -> NativeWindowPair override
+        auto createWindow(std::string_view name, uint32_t w, uint32_t h, Ogre::NameValuePairList miscParams) -> NativeWindowPair override
         {
             return ApplicationContext::createWindow(name, w, h, miscParams);
         }
@@ -912,7 +912,7 @@ namespace OgreBites
         /*-----------------------------------------------------------------------------
           | Extends reconfigure to save the view and the index of last sample run.
           -----------------------------------------------------------------------------*/
-        void reconfigure(StringView renderer, Ogre::NameValuePairList& options) override
+        void reconfigure(std::string_view renderer, Ogre::NameValuePairList& options) override
         {
             mLastViewCategory = mCategoryMenu->getSelectionIndex();
             mLastViewTitle = mSampleMenu->getSelectionIndex();

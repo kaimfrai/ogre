@@ -139,7 +139,7 @@ void GLSLProgramWriter::writeSourceCode(std::ostream& os, Program* program)
     writeMainSourceCode(os, program);
 }
 
-void GLSLProgramWriter::writeUniformBlock(std::ostream& os, StringView name, int binding,
+void GLSLProgramWriter::writeUniformBlock(std::ostream& os, std::string_view name, int binding,
                                           const UniformParameterList& uniforms)
 {
     os << "layout(binding = " << binding << ", row_major) uniform " << name << " {";
@@ -306,7 +306,7 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
          ParameterPtr pParam : inParams)
     {       
         Parameter::Content paramContent = pParam->getContent();
-        StringView paramName = pParam->getName();
+        std::string_view paramName = pParam->getName();
 
         if (gpuType == GPT_FRAGMENT_PROGRAM)
         {

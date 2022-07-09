@@ -234,7 +234,7 @@ namespace Ogre {
                 The memory associated with this buffer is destroyed with the
                 Image object.
         */
-        auto load( StringView filename, StringView groupName ) -> Image &;
+        auto load( std::string_view filename, std::string_view groupName ) -> Image &;
 
         /** Loads an image file from a stream.
             @remarks
@@ -254,9 +254,9 @@ namespace Ogre {
                 codec to use. Can be left blank if the stream data includes
                 a header to identify the data.
             @see
-                Image::load( StringView filename )
+                Image::load( std::string_view filename )
         */
-        auto load(const DataStreamPtr& stream, StringView type = BLANKSTRING ) -> Image &;
+        auto load(const DataStreamPtr& stream, std::string_view type = BLANKSTRING ) -> Image &;
 
         /** Utility method to combine 2 separate images into this one, with the first
         image source supplying the RGB channels, and the second image supplying the 
@@ -268,8 +268,8 @@ namespace Ogre {
         @param groupName The resource group from which to load the images
         @param format The destination format
         */
-        auto loadTwoImagesAsRGBA(StringView rgbFilename, StringView alphaFilename,
-            StringView groupName, PixelFormat format = PF_BYTE_RGBA) -> Image &;
+        auto loadTwoImagesAsRGBA(std::string_view rgbFilename, std::string_view alphaFilename,
+            std::string_view groupName, PixelFormat format = PF_BYTE_RGBA) -> Image &;
 
         /** Utility method to combine 2 separate images into this one, with the first
         image source supplying the RGB channels, and the second image supplying the 
@@ -288,8 +288,8 @@ namespace Ogre {
         */
         auto loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream, const DataStreamPtr& alphaStream,
                                    PixelFormat format = PF_BYTE_RGBA,
-                                   StringView rgbType = BLANKSTRING,
-                                   StringView alphaType = BLANKSTRING) -> Image&;
+                                   std::string_view rgbType = BLANKSTRING,
+                                   std::string_view alphaType = BLANKSTRING) -> Image&;
 
         /** Utility method to combine 2 separate images into this one, with the first
             image source supplying the RGB channels, and the second image supplying the 
@@ -312,13 +312,13 @@ namespace Ogre {
             square, power of two textures with no mipmaps.  Volumetric support
             is currently limited to DDS files.
         */
-        void save(StringView filename);
+        void save(std::string_view filename);
 
         /** Encode the image and return a stream to the data. 
             @param formatextension An extension to identify the image format
                 to encode into, e.g. "jpg" or "png"
         */
-        auto encode(StringView formatextension) -> DataStreamPtr;
+        auto encode(std::string_view formatextension) -> DataStreamPtr;
 
         /** Returns a pointer to the internal image buffer at the specified pixel location.
 
@@ -448,7 +448,7 @@ namespace Ogre {
         static auto calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
 
         /// Static function to get an image type string from a stream via magic numbers
-        static auto getFileExtFromMagic(DataStreamPtr stream) -> StringView;
+        static auto getFileExtFromMagic(DataStreamPtr stream) -> std::string_view;
 
     private:
         /// The width of the image in pixels

@@ -43,7 +43,7 @@ namespace Ogre {
     {
     }
     //---------------------------------------------------------------------
-    Bone::Bone(StringView name, unsigned short handle, Skeleton* creator)
+    Bone::Bone(std::string_view name, unsigned short handle, Skeleton* creator)
         : Node(name), mCreator(creator), mHandle(handle), mManuallyControlled(false)
     {
     }
@@ -66,7 +66,7 @@ namespace Ogre {
         return mCreator->createBone();
     }
     //---------------------------------------------------------------------
-    auto Bone::createChildImpl(StringView name) -> Node*
+    auto Bone::createChildImpl(std::string_view name) -> Node*
     {
         return mCreator->createBone(name);
     }

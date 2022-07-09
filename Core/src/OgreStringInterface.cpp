@@ -42,7 +42,7 @@ namespace Ogre {
     ParamDictionary::ParamDictionary() = default;
     ParamDictionary::~ParamDictionary() = default;
 
-    auto ParamDictionary::getParamCommand(StringView name) -> ParamCommand*
+    auto ParamDictionary::getParamCommand(std::string_view name) -> ParamCommand*
     {
         auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -55,7 +55,7 @@ namespace Ogre {
         }
     }
 
-    auto ParamDictionary::getParamCommand(StringView name) const -> const ParamCommand*
+    auto ParamDictionary::getParamCommand(std::string_view name) const -> const ParamCommand*
     {
         auto i = mParamCommands.find(name);
         if (i != mParamCommands.end())
@@ -68,13 +68,13 @@ namespace Ogre {
         }
     }
 
-    void ParamDictionary::addParameter(StringView name, ParamCommand* paramCmd)
+    void ParamDictionary::addParameter(std::string_view name, ParamCommand* paramCmd)
     {
         mParamDefs.emplace_back(name);
         mParamCommands[std::string{name}] = paramCmd;
     }
 
-    auto StringInterface::createParamDictionary(StringView className) -> bool
+    auto StringInterface::createParamDictionary(std::string_view className) -> bool
     {
         auto it = msDictionary.find(className);
 
@@ -104,7 +104,7 @@ namespace Ogre {
 
     }
 
-    auto StringInterface::getParameter(StringView name) const -> String
+    auto StringInterface::getParameter(std::string_view name) const -> String
     {
         // Get dictionary
         const ParamDictionary* dict = getParamDictionary();
@@ -124,7 +124,7 @@ namespace Ogre {
         return "";
     }
 
-    auto StringInterface::setParameter(StringView name, StringView value) -> bool
+    auto StringInterface::setParameter(std::string_view name, std::string_view value) -> bool
     {
         // Get dictionary
         ParamDictionary* dict = getParamDictionary();

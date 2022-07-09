@@ -68,9 +68,9 @@ class VertexData;
                 dedicated at the submesh index + 1)
             @param name Optional name
         */
-        Pose(ushort target, StringView name = BLANKSTRING);
+        Pose(ushort target, std::string_view name = BLANKSTRING);
         /// Return the name of the pose (may be blank)
-        auto getName() const noexcept -> StringView { return mName; }
+        auto getName() const noexcept -> std::string_view { return mName; }
         /// Return the target geometry index of the pose
         auto getTarget() const noexcept -> ushort { return mTarget; }
         /// A collection of vertex offsets based on the vertex index

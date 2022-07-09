@@ -59,10 +59,10 @@ namespace Ogre {
         RenderSystemCapabilitiesSerializer();
 
         /** Writes a RenderSystemCapabilities object to a data stream */
-        void writeScript(const RenderSystemCapabilities* caps, StringView name, String filename);
+        void writeScript(const RenderSystemCapabilities* caps, std::string_view name, String filename);
         
         /** Writes a RenderSystemCapabilities object to a string */
-        auto writeString(const RenderSystemCapabilities* caps, StringView name) -> String;
+        auto writeString(const RenderSystemCapabilities* caps, std::string_view name) -> String;
 
         /** Parses a RenderSystemCapabilities script file passed as a stream.
             Adds it to RenderSystemCapabilitiesManager::_addRenderSystemCapabilities
@@ -70,7 +70,7 @@ namespace Ogre {
         void parseScript(DataStreamPtr& stream);
 
     private:
-        void write(const RenderSystemCapabilities* caps, StringView name, std::ostream &file);
+        void write(const RenderSystemCapabilities* caps, std::string_view name, std::ostream &file);
 
         enum CapabilityKeywordType {UNDEFINED_CAPABILITY_TYPE = 0, SET_STRING_METHOD, SET_INT_METHOD, SET_BOOL_METHOD, SET_REAL_METHOD,
                                 SET_CAPABILITY_ENUM_BOOL, ADD_SHADER_PROFILE_STRING};
@@ -81,7 +81,7 @@ namespace Ogre {
         using KeywordTypeMap = std::map<std::string_view, CapabilityKeywordType>;
         KeywordTypeMap mKeywordTypeMap;
 
-        using SetStringMethod = void (RenderSystemCapabilities::*)(StringView );
+        using SetStringMethod = void (RenderSystemCapabilities::*)(std::string_view );
         // maps capability keywords to setCapability(String& cap) style methods
         using SetStringMethodDispatchTable = std::map<std::string_view, SetStringMethod>;
         SetStringMethodDispatchTable mSetStringMethodDispatchTable;
@@ -126,7 +126,7 @@ namespace Ogre {
             mKeywordTypeMap.emplace(keyword, type);
         }
 
-        [[nodiscard]] auto getKeywordType(StringView keyword) const -> CapabilityKeywordType
+        [[nodiscard]] auto getKeywordType(std::string_view keyword) const -> CapabilityKeywordType
         {
             auto it = mKeywordTypeMap.find(keyword);
             if (it != mKeywordTypeMap.end())
@@ -161,7 +161,7 @@ namespace Ogre {
             mSetIntMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetIntMethod(StringView keyword, ushort val)
+        inline void callSetIntMethod(std::string_view keyword, ushort val)
         {
             auto methodIter = mSetIntMethodDispatchTable.find(keyword);
             if (methodIter != mSetIntMethodDispatchTable.end())
@@ -181,7 +181,7 @@ namespace Ogre {
             mSetBoolMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetBoolMethod(StringView keyword, bool val)
+        inline void callSetBoolMethod(std::string_view keyword, bool val)
         {
             auto methodIter = mSetBoolMethodDispatchTable.find(keyword);
             if (methodIter != mSetBoolMethodDispatchTable.end())
@@ -201,7 +201,7 @@ namespace Ogre {
             mSetRealMethodDispatchTable.emplace(keyword, method);
         }
 
-        inline void callSetRealMethod(StringView keyword, Real val)
+        inline void callSetRealMethod(std::string_view keyword, Real val)
         {
             auto methodIter = mSetRealMethodDispatchTable.find(keyword);
             if (methodIter != mSetRealMethodDispatchTable.end())
@@ -240,7 +240,7 @@ namespace Ogre {
 
         void parseCapabilitiesLines(CapabilitiesLinesList& linesList);
 
-        void logParseError(StringView error) const;
+        void logParseError(std::string_view error) const;
 
     };
     /** @} */

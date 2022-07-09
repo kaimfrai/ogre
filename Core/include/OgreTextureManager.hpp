@@ -76,10 +76,10 @@ class Image;
         ~TextureManager() override = default;
 
         /// create a new sampler
-        auto createSampler(StringView name = BLANKSTRING) -> SamplerPtr;
+        auto createSampler(std::string_view name = BLANKSTRING) -> SamplerPtr;
 
         /// retrieve an named sampler
-        auto getSampler(StringView name) const -> const SamplerPtr&;
+        auto getSampler(std::string_view name) const -> const SamplerPtr&;
 
         /// clear the list of named samplers
         /// @copydetails removeAll()
@@ -87,11 +87,11 @@ class Image;
 
         /// Create a new texture
         /// @copydetails ResourceManager::createResource
-        auto create (StringView name, StringView group,
+        auto create (std::string_view name, std::string_view group,
                             bool isManual = false, ManualResourceLoader* loader = nullptr,
                             const NameValuePairList* createParams = nullptr) -> TexturePtr;
         /// @copydoc ResourceManager::getResourceByName
-        auto getByName(StringView name, StringView groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
+        auto getByName(std::string_view name, std::string_view groupName OGRE_RESOURCE_GROUP_INIT) const -> TexturePtr;
 
         using ResourceManager::createOrRetrieve;
 
@@ -120,7 +120,7 @@ class Image;
                 over pre-applied gamma that the texture precision is maintained.
         */
         auto createOrRetrieve(
-            StringView name, StringView group, bool isManual,
+            std::string_view name, std::string_view group, bool isManual,
             ManualResourceLoader* loader, const NameValuePairList* createParams,
             TextureType texType, int numMipmaps = MIP_DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
@@ -131,7 +131,7 @@ class Image;
             @param isAlpha deprecated: same as specifying #PF_A8 for @c desiredFormat
         */
         auto prepare(
-            StringView name, StringView group,
+            std::string_view name, std::string_view group,
             TextureType texType = TEX_TYPE_2D, int numMipmaps = MIP_DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
             PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
@@ -162,7 +162,7 @@ class Image;
                 8-bits per channel textures, will be ignored for other types. Has the advantage
                 over pre-applied gamma that the texture precision is maintained.
         */
-        auto load(StringView name, StringView group, TextureType texType = TEX_TYPE_2D,
+        auto load(std::string_view name, std::string_view group, TextureType texType = TEX_TYPE_2D,
                         int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f,
                         PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
 
@@ -174,7 +174,7 @@ class Image;
                 img The Image object which contains the data to load
         */
         virtual auto loadImage( 
-            StringView name, StringView group, const Image &img, 
+            std::string_view name, std::string_view group, const Image &img, 
             TextureType texType = TEX_TYPE_2D,
             int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool isAlpha = false,
             PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
@@ -212,7 +212,7 @@ class Image;
                  8-bits per channel textures, will be ignored for other types. Has the advantage
                  over pre-applied gamma that the texture precision is maintained.
         */
-        virtual auto loadRawData(StringView name, StringView group,
+        virtual auto loadRawData(std::string_view name, std::string_view group,
             DataStreamPtr& stream, ushort width, ushort height, 
             PixelFormat format, TextureType texType = TEX_TYPE_2D, 
             int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool hwGammaCorrection = false) -> TexturePtr;
@@ -264,17 +264,17 @@ class Image;
                 not support it.
             @param fsaaHint @copybrief RenderTarget::getFSAAHint
         */
-        virtual auto createManual(StringView name, StringView group,
+        virtual auto createManual(std::string_view name, std::string_view group,
             TextureType texType, uint width, uint height, uint depth, 
             int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
-            bool hwGammaCorrection = false, uint fsaa = 0, StringView fsaaHint = BLANKSTRING) -> TexturePtr;
+            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr;
             
         /** @overload
         */
-        auto createManual(StringView name, StringView group,
+        auto createManual(std::string_view name, std::string_view group,
             TextureType texType, uint width, uint height, int numMipmaps,
             PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
-            bool hwGammaCorrection = false, uint fsaa = 0, StringView fsaaHint = BLANKSTRING) -> TexturePtr
+            bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr
         {
             return createManual(name, group, texType, width, height, 1, 
                 numMipmaps, format, usage, loader, hwGammaCorrection, fsaa, fsaaHint);
@@ -436,8 +436,8 @@ class Image;
         class NullTexture : public Texture
         {
         public:
-            NullTexture(ResourceManager* creator, StringView name, ResourceHandle handle,
-                        StringView group)
+            NullTexture(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+                        std::string_view group)
                 : Texture(creator, name, handle, group)
             {
             }
@@ -453,7 +453,7 @@ class Image;
             void loadImpl() override {}
         };
 
-        auto createImpl(StringView name, ResourceHandle handle, StringView group, bool,
+        auto createImpl(std::string_view name, ResourceHandle handle, std::string_view group, bool,
                              ManualResourceLoader*, const NameValuePairList*) -> Resource* override
         {
             return new NullTexture(this, name, handle, group);

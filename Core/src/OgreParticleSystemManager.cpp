@@ -103,7 +103,7 @@ namespace Ogre {
         return 1000.0f;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystemManager::parseScript(DataStreamPtr& stream, StringView groupName)
+    void ParticleSystemManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
     {
         ScriptCompilerManager::getSingleton().parseScript(stream, groupName);
     }
@@ -129,7 +129,7 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Particle Renderer Type '{}' registered", name ));
     }
     //-----------------------------------------------------------------------
-    void ParticleSystemManager::addTemplate(StringView name, ParticleSystem* sysTemplate)
+    void ParticleSystemManager::addTemplate(std::string_view name, ParticleSystem* sysTemplate)
     {
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
@@ -142,7 +142,7 @@ namespace Ogre {
         mSystemTemplates[name] = sysTemplate;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystemManager::removeTemplate(StringView name, bool deleteTemplate)
+    void ParticleSystemManager::removeTemplate(std::string_view name, bool deleteTemplate)
     {
         auto itr = mSystemTemplates.find(name);
         if (itr == mSystemTemplates.end())
@@ -167,7 +167,7 @@ namespace Ogre {
         mSystemTemplates.clear();
     }
     //-----------------------------------------------------------------------
-    void ParticleSystemManager::removeTemplatesByResourceGroup(StringView resourceGroup)
+    void ParticleSystemManager::removeTemplatesByResourceGroup(std::string_view resourceGroup)
     {
         auto i = mSystemTemplates.begin();
         while (i != mSystemTemplates.end())
@@ -182,8 +182,8 @@ namespace Ogre {
         }    
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createTemplate(StringView name, 
-        StringView resourceGroup) -> ParticleSystem*
+    auto ParticleSystemManager::createTemplate(std::string_view name, 
+        std::string_view resourceGroup) -> ParticleSystem*
     {
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
@@ -199,7 +199,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::getTemplate(StringView name) -> ParticleSystem*
+    auto ParticleSystemManager::getTemplate(std::string_view name) -> ParticleSystem*
     {
         auto i = mSystemTemplates.find(name);
         if (i != mSystemTemplates.end())
@@ -212,16 +212,16 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createSystemImpl(StringView name,
-        size_t quota, StringView resourceGroup) -> ParticleSystem*
+    auto ParticleSystemManager::createSystemImpl(std::string_view name,
+        size_t quota, std::string_view resourceGroup) -> ParticleSystem*
     {
         auto* sys = new ParticleSystem(name, resourceGroup);
         sys->setParticleQuota(quota);
         return sys;
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::createSystemImpl(StringView name, 
-        StringView templateName) -> ParticleSystem*
+    auto ParticleSystemManager::createSystemImpl(std::string_view name, 
+        std::string_view templateName) -> ParticleSystem*
     {
         // Look up template
         ParticleSystem* pTemplate = getTemplate(templateName);
@@ -239,7 +239,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto ParticleSystemManager::_createEmitter(
-        StringView emitterType, ParticleSystem* psys) -> ParticleEmitter*
+        std::string_view emitterType, ParticleSystem* psys) -> ParticleEmitter*
     {
         // Locate emitter type
         auto pFact = mEmitterFactories.find(emitterType);
@@ -270,7 +270,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto ParticleSystemManager::_createAffector(
-        StringView affectorType, ParticleSystem* psys) -> ParticleAffector*
+        std::string_view affectorType, ParticleSystem* psys) -> ParticleAffector*
     {
         // Locate affector type
         auto pFact = mAffectorFactories.find(affectorType);
@@ -301,7 +301,7 @@ namespace Ogre {
         pFact->second->destroyAffector(affector);
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemManager::_createRenderer(StringView rendererType) -> ParticleSystemRenderer*
+    auto ParticleSystemManager::_createRenderer(std::string_view rendererType) -> ParticleSystemRenderer*
     {
         // Locate affector type
         auto pFact = mRendererFactories.find(rendererType);
@@ -365,7 +365,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     String ParticleSystemFactory::FACTORY_TYPE_NAME = "ParticleSystem";
     //-----------------------------------------------------------------------
-    auto ParticleSystemFactory::createInstanceImpl( StringView name, 
+    auto ParticleSystemFactory::createInstanceImpl( std::string_view name, 
             const NameValuePairList* params) -> MovableObject*
     {
         if (params != nullptr)
@@ -402,7 +402,7 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystemFactory::getType() const noexcept -> StringView
+    auto ParticleSystemFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;
     }

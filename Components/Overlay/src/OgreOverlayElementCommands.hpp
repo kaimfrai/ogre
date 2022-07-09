@@ -46,42 +46,42 @@ namespace Ogre::OverlayElementCommands {
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdCaption : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdMetricsMode : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdHorizontalAlign : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdVerticalAlign : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
         /// Command object for OverlayElement  - see ParamCommand 
         class CmdVisible : public ParamCommand
         {
         public:
             auto doGet(const void* target) const -> String override;
-            void doSet(void* target, StringView val) override;
+            void doSet(void* target, std::string_view val) override;
         };
 
     }

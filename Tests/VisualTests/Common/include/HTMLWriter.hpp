@@ -98,7 +98,7 @@ protected:
         for (unsigned int i = 0; i < mResults.size(); ++i)
         {
             ++numTests;
-            StringView testName = mResults[i].testName;
+            std::string_view testName = mResults[i].testName;
             bool passed = true;
             unsigned int j = i;
 
@@ -135,7 +135,7 @@ protected:
         {
             
             // since a test can have multiple images, we find all images with this tets name
-            StringView testName = mResults[i].testName;
+            std::string_view testName = mResults[i].testName;
             bool passed = true;
             unsigned int j = i;
             std::vector<const ComparisonResult*> results;

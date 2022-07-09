@@ -43,8 +43,8 @@ THE SOFTWARE.
 namespace Ogre 
 {
     //-----------------------------------------------------------------------
-    Resource::Resource(ResourceManager* creator, StringView name, ResourceHandle handle,
-        StringView group, bool isManual, ManualResourceLoader* loader)
+    Resource::Resource(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group, bool isManual, ManualResourceLoader* loader)
         : mCreator(creator), mName(name), mGroup(group), mHandle(handle),
         mLoadingState(LOADSTATE_UNLOADED), mIsBackgroundLoaded(false),
         mIsManual(isManual), mSize(0),  mLoader(loader), mStateCount(0)
@@ -302,7 +302,7 @@ namespace Ogre
         ++mStateCount;  
     }
     //-----------------------------------------------------------------------
-    void Resource::changeGroupOwnership(StringView newGroup)
+    void Resource::changeGroupOwnership(std::string_view newGroup)
     {
         if (mGroup != newGroup)
         {

@@ -148,8 +148,8 @@ class ResourceManager;
         /** Constructor.
         @see Resource
         */
-        Font(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Font(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Font() override;
 
         /** Sets the type of font. Must be set before loading. */
@@ -173,11 +173,11 @@ class ResourceManager;
             available.
         @param source An image file or a truetype font, depending on the type of this font
         */
-        void setSource(StringView source);
+        void setSource(std::string_view source);
 
         /** Gets the source this font (either an image or a truetype font).
         */
-        auto getSource() const noexcept -> StringView ;
+        auto getSource() const noexcept -> std::string_view ;
 
         /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
         @param ttfSize The size of the font in points. Note that the

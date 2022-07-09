@@ -238,7 +238,7 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
 //-----------------------------------------------------------------------------
 auto Program::resolveParameter(GpuConstantType type, 
                                     int index, uint16 variability,
-                                    StringView suggestedName,
+                                    std::string_view suggestedName,
                                     size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;
@@ -277,7 +277,7 @@ auto Program::resolveParameter(GpuConstantType type,
 
 
 //-----------------------------------------------------------------------------
-auto Program::getParameterByName(StringView name) -> UniformParameterPtr
+auto Program::getParameterByName(std::string_view name) -> UniformParameterPtr
 {
     for (auto const& it : mParameters)
     {
@@ -320,7 +320,7 @@ auto Program::getParameterByAutoType(GpuProgramParameters::AutoConstantType auto
 }
 
 //-----------------------------------------------------------------------------
-void Program::addDependency(StringView libFileName)
+void Program::addDependency(std::string_view libFileName)
 {
     for (auto & mDependencie : mDependencies)
     {
@@ -332,7 +332,7 @@ void Program::addDependency(StringView libFileName)
     mDependencies.emplace_back(libFileName);
 }
 
-void Program::addPreprocessorDefines(StringView defines)
+void Program::addPreprocessorDefines(std::string_view defines)
 {
     if (not mPreprocessorDefines.empty())
         mPreprocessorDefines += ',';
@@ -347,7 +347,7 @@ auto Program::getDependencyCount() const -> size_t
 }
 
 //-----------------------------------------------------------------------------
-auto Program::getDependency(unsigned int index) const -> StringView
+auto Program::getDependency(unsigned int index) const -> std::string_view
 {
     return mDependencies[index];
 }

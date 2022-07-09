@@ -39,7 +39,7 @@ namespace Ogre::RTShader
 String WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
-auto WBOIT::getType() const noexcept -> StringView { return Type; }
+auto WBOIT::getType() const noexcept -> std::string_view { return Type; }
 
 //-----------------------------------------------------------------------
 auto WBOIT::getExecutionOrder() const noexcept -> int { return FFP_POST_PROCESS; }
@@ -90,7 +90,7 @@ auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
 }
 
 //-----------------------------------------------------------------------
-auto WBOITFactory::getType() const noexcept -> StringView { return WBOIT::Type; }
+auto WBOITFactory::getType() const noexcept -> std::string_view { return WBOIT::Type; }
 
 //-----------------------------------------------------------------------
 auto WBOITFactory::createInstance(ScriptCompiler* compiler, PropertyAbstractNode* prop, Pass* pass,

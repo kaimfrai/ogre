@@ -76,19 +76,19 @@ namespace Ogre {
         @param key The key that this data is associate with.
         @param anything The data to associate with the given key.
         */
-        void setUserAny(StringView key, ::std::any const& anything);
+        void setUserAny(std::string_view key, ::std::any const& anything);
 
         /** Retrieves the custom user object associated with this class and key.
         @param key The key that the requested user object is associated with.
         @remarks
         In case no object associated with this key the returned Any object will be empty.
         */
-        [[nodiscard]] auto getUserAny(StringView key) const -> ::std::any const&;
+        [[nodiscard]] auto getUserAny(std::string_view key) const -> ::std::any const&;
 
         /** Erase the custom user object associated with this class and key from this binding.
         @param key The key that the requested user object is associated with.
         */
-        void eraseUserAny(StringView key);
+        void eraseUserAny(std::string_view key);
 
         /** Clear all user objects from this binding.   */
         void clear();

@@ -221,7 +221,7 @@ class SceneManager;
         @return
             The instance name for the texture, corresponds to a real texture.
         */
-        auto getTextureInstanceName(StringView name, size_t mrtIndex) -> StringView ;
+        auto getTextureInstanceName(std::string_view name, size_t mrtIndex) -> std::string_view ;
 
         /** Get the instance of a local texture.
         @note Textures are only valid when local textures have been loaded, 
@@ -236,7 +236,7 @@ class SceneManager;
         @return
             The texture pointer, corresponds to a real texture.
         */
-        auto getTextureInstance(StringView name, size_t mrtIndex) -> const TexturePtr&;
+        auto getTextureInstance(std::string_view name, size_t mrtIndex) -> const TexturePtr&;
 
         /** Get the render target for a given render texture name. 
         @remarks
@@ -244,7 +244,7 @@ class SceneManager;
             targets manually or any other modifications, the compositor instance 
             is in charge of this.
         */
-        auto getRenderTarget(StringView name, int slice = 0) -> RenderTarget*;
+        auto getRenderTarget(std::string_view name, int slice = 0) -> RenderTarget*;
 
        
         /** Recursively collect target states (except for final Pass).
@@ -288,10 +288,10 @@ class SceneManager;
             Note that for this feature to be of benefit, the textures must have been created
             with the 'pooled' option enabled.
         */
-        void setScheme(StringView schemeName, bool reuseTextures = true);
+        void setScheme(std::string_view schemeName, bool reuseTextures = true);
 
         /// Returns the name of the scheme this compositor is using.
-        [[nodiscard]] auto getScheme() const noexcept -> StringView { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
+        [[nodiscard]] auto getScheme() const noexcept -> std::string_view { return mTechnique ? mTechnique->getSchemeName() : BLANKSTRING; }
 
         /** Notify this instance that the primary surface has been resized. 
         @remarks
@@ -371,7 +371,7 @@ class SceneManager;
             The material is detached from the Material Manager to make sure it is destroyed
             when going out of scope.
         */
-        auto createLocalMaterial(StringView srcName) -> MaterialPtr;
+        auto createLocalMaterial(std::string_view srcName) -> MaterialPtr;
         
         /** Create local rendertextures and other resources. Builds mLocalTextures.
         */
@@ -388,7 +388,7 @@ class SceneManager;
 
         /** Get RenderTarget for a named local texture.
         */
-        auto getTargetForTex(StringView name, int slice) -> RenderTarget *;
+        auto getTargetForTex(std::string_view name, int slice) -> RenderTarget *;
         
         /** Get source texture name for a named local texture.
         @param name
@@ -396,19 +396,19 @@ class SceneManager;
         @param mrtIndex
             For MRTs, which attached surface to retrieve.
         */
-        auto getSourceForTex(StringView name, size_t mrtIndex = 0) -> const TexturePtr &;
+        auto getSourceForTex(std::string_view name, size_t mrtIndex = 0) -> const TexturePtr &;
 
         /** Queue a render system operation.
         */
         void queueRenderSystemOp(TargetOperation &finalState, RenderSystemOperation *op);
 
         /// Util method for assigning a local texture name to a MRT attachment
-        static auto getMRTTexLocalName(StringView baseName, size_t attachment) -> String;
+        static auto getMRTTexLocalName(std::string_view baseName, size_t attachment) -> String;
 
         /** Search for options like AA and hardware gamma which we may want to 
             inherit from the main render target to which we're attached. 
         */
-        void deriveTextureRenderTargetOptions(StringView texname, 
+        void deriveTextureRenderTargetOptions(std::string_view texname, 
             bool *hwGammaWrite, uint *fsaa, String* fsaaHint);
 
         /// Notify this instance that the primary viewport's camera has changed.

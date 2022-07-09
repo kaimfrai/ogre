@@ -47,7 +47,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     //---------------------------------------------------------------------
-    Overlay::Overlay(StringView name) :
+    Overlay::Overlay(std::string_view name) :
         mName(name),
         mRotate(0.0f) 
 
@@ -66,7 +66,7 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    auto Overlay::getName() const noexcept -> StringView
+    auto Overlay::getName() const noexcept -> std::string_view
     {
         return mName;
     }
@@ -185,7 +185,7 @@ namespace Ogre {
         return mScrollY;
     }
       //---------------------------------------------------------------------
-    auto Overlay::getChild(StringView name) -> OverlayContainer*
+    auto Overlay::getChild(std::string_view name) -> OverlayContainer*
     {
         for (auto const& i : m2DElements)
         {

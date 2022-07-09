@@ -113,7 +113,7 @@ namespace Ogre {
             This property is useful for determining the type of affector procedurally so another
             can be created.
         */
-        [[nodiscard]] auto getType() const noexcept -> StringView { return mType; }
+        [[nodiscard]] auto getType() const noexcept -> std::string_view { return mType; }
 
     };
     /** @} */

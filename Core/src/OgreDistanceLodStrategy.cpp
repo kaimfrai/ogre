@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include "OgreViewport.hpp"
 
 namespace Ogre {
-    DistanceLodStrategyBase::DistanceLodStrategyBase(StringView name)
+    DistanceLodStrategyBase::DistanceLodStrategyBase(std::string_view name)
         : LodStrategy(name)
          
     { }

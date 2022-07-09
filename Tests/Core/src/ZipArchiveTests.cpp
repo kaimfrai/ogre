@@ -46,7 +46,7 @@ THE SOFTWARE.
 
 using namespace Ogre;
 
-static auto fileId(StringView path) -> StringView {
+static auto fileId(std::string_view path) -> std::string_view {
     return path;
 }
 

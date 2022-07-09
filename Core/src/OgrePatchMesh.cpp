@@ -38,8 +38,8 @@ namespace Ogre {
 class ResourceManager;
 
     //-----------------------------------------------------------------------
-    PatchMesh::PatchMesh(ResourceManager* creator, StringView name, ResourceHandle handle,
-        StringView group)
+    PatchMesh::PatchMesh(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+        std::string_view group)
         : Mesh(creator, name, handle, group, false, nullptr) 
     {
     }

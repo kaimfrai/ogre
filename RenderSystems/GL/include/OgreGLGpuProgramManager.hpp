@@ -36,27 +36,27 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, StringView , ResourceHandle, StringView , bool, ManualResourceLoader *, GpuProgramType, StringView );
+using CreateGpuProgramCallback = GpuProgram *(*)(ResourceManager *, std::string_view , ResourceHandle, std::string_view , bool, ManualResourceLoader *, GpuProgramType, std::string_view );
 
 struct CreateCallbackWrapper : public GpuProgramFactory
 {
     String language;
     CreateGpuProgramCallback callback;
-    [[nodiscard]] auto getLanguage() const noexcept -> StringView override { return language; };
-    auto create(ResourceManager* creator, StringView name, ResourceHandle handle,
-                       StringView group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
+    [[nodiscard]] auto getLanguage() const noexcept -> std::string_view override { return language; };
+    auto create(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+                       std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
     {
         // type and syntax code will be corrected by GpuProgramManager
         return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");
     }
-    CreateCallbackWrapper(StringView lang, CreateGpuProgramCallback cb) : language(lang), callback(cb) {}
+    CreateCallbackWrapper(std::string_view lang, CreateGpuProgramCallback cb) : language(lang), callback(cb) {}
 };
 
 class GLGpuProgramManager
 {
     std::list<CreateCallbackWrapper> mFactories;
 public:
-    void registerProgramFactory(StringView syntaxCode, CreateGpuProgramCallback createFn)
+    void registerProgramFactory(std::string_view syntaxCode, CreateGpuProgramCallback createFn)
     {
         mFactories.emplace_back(syntaxCode, createFn);
         GpuProgramManager::getSingleton().addFactory(&mFactories.back());

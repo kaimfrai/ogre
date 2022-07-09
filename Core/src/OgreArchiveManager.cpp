@@ -40,7 +40,7 @@ THE SOFTWARE.
 #include "OgreSingleton.hpp"
 
 namespace Ogre {
-    using createFunc = void (*)(Archive **, StringView );
+    using createFunc = void (*)(Archive **, std::string_view );
 
     //-----------------------------------------------------------------------
     template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = nullptr;
@@ -56,7 +56,7 @@ namespace Ogre {
     ArchiveManager::ArchiveManager()
     = default;
     //-----------------------------------------------------------------------
-    auto ArchiveManager::load( StringView filename, StringView archiveType, bool readOnly) -> Archive*
+    auto ArchiveManager::load( std::string_view filename, std::string_view archiveType, bool readOnly) -> Archive*
     {
         auto i = mArchives.find(filename);
         Archive* pArch = nullptr;
@@ -91,7 +91,7 @@ namespace Ogre {
         unload(arch->getName());
     }
     //-----------------------------------------------------------------------
-    void ArchiveManager::unload(StringView filename)
+    void ArchiveManager::unload(std::string_view filename)
     {
         auto i = mArchives.find(filename);
 

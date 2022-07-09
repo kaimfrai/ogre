@@ -53,9 +53,9 @@ namespace Ogre {
     class GLFBORenderTexture: public GLRenderTexture
     {
     public:
-        GLFBORenderTexture(GLFBOManager *manager, StringView name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
+        GLFBORenderTexture(GLFBOManager *manager, std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
 
-        void getCustomAttribute(StringView name, void* pData) override;
+        void getCustomAttribute(std::string_view name, void* pData) override;
 
         /// Override needed to deal with multisample buffers
         void swapBuffers() override;
@@ -94,7 +94,7 @@ namespace Ogre {
         
         /** Create a texture rendertarget object
         */
-        auto createRenderTexture(StringView name, 
+        auto createRenderTexture(std::string_view name, 
             const GLSurfaceDesc &target, bool writeGamma, uint fsaa) -> GLFBORenderTexture * override;
         
         /** Request a render buffer. If format is GL_NONE, return a zero buffer.

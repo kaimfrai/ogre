@@ -60,7 +60,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
 
-    auto GpuProgramUsage::_getProgramByName(StringView name, StringView group,
+    auto GpuProgramUsage::_getProgramByName(std::string_view name, std::string_view group,
                                                      GpuProgramType type) -> GpuProgramPtr
     {
         GpuProgramPtr program =
@@ -81,7 +81,7 @@ namespace Ogre
         return program;
     }
 
-    void GpuProgramUsage::setProgramName(StringView name, bool resetParams)
+    void GpuProgramUsage::setProgramName(std::string_view name, bool resetParams)
     {
         setProgram(_getProgramByName(name, mParent->getResourceGroup(), mType), resetParams);
     }

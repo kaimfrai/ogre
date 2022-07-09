@@ -80,7 +80,7 @@ namespace Ogre {
         void writeFileHeader();
         void writeChunkHeader(uint16 id, size_t size);
         auto calcChunkHeaderSize() -> size_t;
-        auto calcStringSize(StringView string) -> size_t;
+        auto calcStringSize(std::string_view string) -> size_t;
 
         void writeFloats(const float* const pfloat, size_t count);
         void writeFloats(const double* const pfloat, size_t count);
@@ -90,7 +90,7 @@ namespace Ogre {
         void writeObject(const Vector3& vec);
         void writeObject(const Quaternion& q);
         
-        void writeString(StringView string);
+        void writeString(std::string_view string);
         void writeData(const void* const buf, size_t size, size_t count);
         
         void readFileHeader(const DataStreamPtr& stream);

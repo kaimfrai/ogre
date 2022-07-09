@@ -43,8 +43,8 @@ class ResourceManager;
     {
     public:
         ATI_FS_GLGpuProgram(ResourceManager* creator, 
-            StringView name, ResourceHandle handle, 
-            StringView group, bool isManual, ManualResourceLoader* loader);
+            std::string_view name, ResourceHandle handle, 
+            std::string_view group, bool isManual, ManualResourceLoader* loader);
         ~ATI_FS_GLGpuProgram() override;
 
 

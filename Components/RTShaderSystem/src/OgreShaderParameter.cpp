@@ -179,7 +179,7 @@ Parameter::Parameter() : mName(""), mType(GCT_UNKNOWN), mSemantic(SPS_UNKNOWN), 
 }
 
 //-----------------------------------------------------------------------
-Parameter::Parameter(GpuConstantType type, StringView name, 
+Parameter::Parameter(GpuConstantType type, std::string_view name,
             const Semantic& semantic, int index, 
             const Content& content, size_t size) :
     mName(name), mType(type), mSemantic(semantic), mIndex(index), mContent(content), mSize(size), mUsed(false)
@@ -187,7 +187,7 @@ Parameter::Parameter(GpuConstantType type, StringView name,
 }
 
 //-----------------------------------------------------------------------
-UniformParameter::UniformParameter(GpuConstantType type, StringView name, 
+UniformParameter::UniformParameter(GpuConstantType type, std::string_view name,
                  const Semantic& semantic, int index, 
                  const Content& content,
                  uint16 variability, size_t size) : Parameter(type, name, semantic, index, content, size)
@@ -641,7 +641,7 @@ auto ParameterFactory::createConstParam(float val) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createUniform(GpuConstantType type, 
                                              int index, uint16 variability,
-                                             StringView suggestedName,
+                                             std::string_view suggestedName,
                                              size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;

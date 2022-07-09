@@ -130,7 +130,7 @@ class SubMesh;
     class ManualObject : public MovableObject
     {
     public:
-        ManualObject(StringView name);
+        ManualObject(std::string_view name);
         ~ManualObject() override;
 
         /** @copydoc MovableObject::_releaseManualHardwareResources */
@@ -179,9 +179,9 @@ class SubMesh;
         @param groupName The resource group of the material to render this part
             of the object with.
         */
-        virtual void begin(StringView materialName,
+        virtual void begin(std::string_view materialName,
             RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST,
-            StringView groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** @overload
         @param mat The material to render this part of the object with.
@@ -459,8 +459,8 @@ class SubMesh;
         @param name The name of the new material to use
         @param group The resource group of the new material to use
         */
-        void setMaterialName(size_t subIndex, StringView name,
-            StringView group = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)
+        void setMaterialName(size_t subIndex, std::string_view name,
+            std::string_view group = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME)
         {
             mSectionList.at(subIndex)->setMaterialName(name, group);
         }
@@ -485,8 +485,8 @@ class SubMesh;
         @param meshName The name to give the mesh
         @param groupName The resource group to create the mesh in
         */
-        virtual auto convertToMesh(StringView meshName, 
-            StringView groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
+        virtual auto convertToMesh(std::string_view meshName, 
+            std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME) -> MeshPtr;
 
         /** Sets whether or not to use an 'identity' projection.
         @remarks
@@ -569,7 +569,7 @@ class SubMesh;
         // MovableObject overrides
 
         /** @copydoc MovableObject::getMovableType */
-        auto getMovableType() const noexcept -> StringView override;
+        auto getMovableType() const noexcept -> std::string_view override;
         /** @copydoc MovableObject::getBoundingBox */
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override { return mAABB; }
         /** @copydoc MovableObject::getBoundingRadius */
@@ -596,9 +596,9 @@ class SubMesh;
 
 
         public:
-            ManualObjectSection(ManualObject* parent, StringView materialName,
+            ManualObjectSection(ManualObject* parent, std::string_view materialName,
                 RenderOperation::OperationType opType,
-                StringView groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+                std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
             /// @remark mat should not be null.
             ManualObjectSection(ManualObject* parent, const MaterialPtr& mat,
                 RenderOperation::OperationType opType);
@@ -607,12 +607,12 @@ class SubMesh;
             /// Retrieve render operation for manipulation
             auto getRenderOperation() noexcept -> RenderOperation*;
             /// Retrieve the material name in use
-            auto getMaterialName() const noexcept -> StringView { return mMaterialName; }
+            auto getMaterialName() const noexcept -> std::string_view { return mMaterialName; }
             /// Retrieve the material group in use
-            auto getMaterialGroup() const noexcept -> StringView { return mGroupName; }
+            auto getMaterialGroup() const noexcept -> std::string_view { return mGroupName; }
             /// update the material name in use
-            void setMaterialName(StringView name,
-                StringView groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+            void setMaterialName(std::string_view name,
+                std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
             /// Update the material in use
             /// @remark mat should not be null.
             void setMaterial(const MaterialPtr& mat);
@@ -724,14 +724,14 @@ class SubMesh;
     class ManualObjectFactory : public MovableObjectFactory
     {
     protected:
-        auto createInstanceImpl( StringView name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl( std::string_view name, const NameValuePairList* params) -> MovableObject* override;
     public:
         ManualObjectFactory() = default;
         ~ManualObjectFactory() override = default;
 
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> StringView override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };
     /** @} */
     /** @} */

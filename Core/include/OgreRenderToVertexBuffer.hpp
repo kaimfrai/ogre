@@ -137,7 +137,7 @@ namespace Ogre {
            Set the material name which is used to render the geometry into
            the vertex buffer
         */
-        void setRenderToBufferMaterialName(StringView materialName);
+        void setRenderToBufferMaterialName(std::string_view materialName);
 
     protected:
         RenderOperation::OperationType mOperationType{RenderOperation::OT_TRIANGLE_LIST};

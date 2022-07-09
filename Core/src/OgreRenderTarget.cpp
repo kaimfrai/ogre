@@ -77,7 +77,7 @@ class Camera;
 
     }
 
-    auto RenderTarget::getName() const noexcept -> StringView
+    auto RenderTarget::getName() const noexcept -> std::string_view
     {
         return mName;
     }
@@ -309,7 +309,7 @@ class Camera;
 
     }
 
-    void RenderTarget::getCustomAttribute(StringView name, void* pData)
+    void RenderTarget::getCustomAttribute(std::string_view name, void* pData)
     {
         OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Attribute not found. {}", name), " RenderTarget::getCustomAttribute");
     }
@@ -454,7 +454,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    auto RenderTarget::writeContentsToTimestampedFile(StringView filenamePrefix, StringView filenameSuffix) -> String
+    auto RenderTarget::writeContentsToTimestampedFile(std::string_view filenamePrefix, std::string_view filenameSuffix) -> String
     {
         struct tm *pTime;
         time_t ctTime; time(&ctTime);
@@ -471,7 +471,7 @@ class Camera;
 
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::writeContentsToFile(StringView filename)
+    void RenderTarget::writeContentsToFile(std::string_view filename)
     {
         Image img(suggestPixelFormat(), mWidth, mHeight);
 

@@ -75,16 +75,16 @@ class VertexData;
         [[nodiscard]] virtual auto getAnimation(unsigned short index) const -> Animation* = 0;
         
         /** Retrieve an animation by name. */
-        [[nodiscard]] virtual auto getAnimation(StringView name) const -> Animation* = 0;
+        [[nodiscard]] virtual auto getAnimation(std::string_view name) const -> Animation* = 0;
         
         /** Create a new animation with a given length owned by this container. */
-        virtual auto createAnimation(StringView name, Real length) -> Animation* = 0;
+        virtual auto createAnimation(std::string_view name, Real length) -> Animation* = 0;
         
         /** Returns whether this object contains the named animation. */
-        [[nodiscard]] virtual auto hasAnimation(StringView name) const -> bool = 0;
+        [[nodiscard]] virtual auto hasAnimation(std::string_view name) const -> bool = 0;
         
         /** Removes an Animation from this container. */
-        virtual void removeAnimation(StringView name) = 0;
+        virtual void removeAnimation(std::string_view name) = 0;
         
     };
     /** An animation sequence. 
@@ -126,11 +126,11 @@ class VertexData;
         @param name The name of the animation, should be unique within it's parent (e.g. Skeleton)
         @param length The length of the animation in seconds.
         */
-        Animation(StringView name, Real length);
+        Animation(std::string_view name, Real length);
         virtual ~Animation();
 
         /** Gets the name of this animation. */
-        auto getName() const noexcept -> StringView ;
+        auto getName() const noexcept -> std::string_view ;
 
         /** Gets the total length of the animation. */
         auto getLength() const -> Real;
@@ -444,7 +444,7 @@ class VertexData;
             object.
         */
         [[nodiscard]]
-        auto clone(StringView newName) const -> Animation*;
+        auto clone(std::string_view newName) const -> Animation*;
         
         /** Internal method used to tell the animation that keyframe list has been
             changed, which may cause it to rebuild some internal data */
@@ -489,13 +489,13 @@ class VertexData;
         @param keyframeTime The time corresponding to the base keyframe, if any
         @param baseAnimName Optionally a different base animation (must contain the same tracks)
         */
-        void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, StringView baseAnimName = BLANKSTRING);
+        void setUseBaseKeyFrame(bool useBaseKeyFrame, Real keyframeTime = 0.0f, std::string_view baseAnimName = BLANKSTRING);
         /** Whether a base keyframe is being used for this Animation. */
         auto getUseBaseKeyFrame() const noexcept -> bool;
         /** If a base keyframe is being used, the time of that keyframe. */
         auto getBaseKeyFrameTime() const -> Real;
         /** If a base keyframe is being used, the Animation that provides that keyframe. */
-        auto getBaseKeyFrameAnimationName() const noexcept -> StringView ;
+        auto getBaseKeyFrameAnimationName() const noexcept -> std::string_view ;
         
         /// Internal method to adjust keyframes relative to a base keyframe (@see setUseBaseKeyFrame) */
         void _applyBaseKeyFrame();

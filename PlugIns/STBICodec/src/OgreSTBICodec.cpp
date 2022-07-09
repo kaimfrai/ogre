@@ -229,17 +229,17 @@ namespace Ogre {
         return ret;
     }
     //---------------------------------------------------------------------    
-    auto STBIImageCodec::getType() const -> StringView
+    auto STBIImageCodec::getType() const -> std::string_view
     {
         return mType;
     }
     //---------------------------------------------------------------------
-    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> StringView
+    auto STBIImageCodec::magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view
     {
         return BLANKSTRING;
     }
 
-    auto STBIPlugin::getName() const noexcept -> StringView {
+    auto STBIPlugin::getName() const noexcept -> std::string_view {
         static String name = "STB Image Codec";
         return name;
     }

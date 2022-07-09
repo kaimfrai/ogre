@@ -111,10 +111,10 @@ class ParticleSystemRenderer;
         ::std::unique_ptr<ParticleSystemFactory> mFactory;
 
         /// Internal implementation of createSystem
-        auto createSystemImpl(StringView name, size_t quota, 
-            StringView resourceGroup) -> ParticleSystem*;
+        auto createSystemImpl(std::string_view name, size_t quota, 
+            std::string_view resourceGroup) -> ParticleSystem*;
         /// Internal implementation of createSystem
-        auto createSystemImpl(StringView name, StringView templateName) -> ParticleSystem*;
+        auto createSystemImpl(std::string_view name, std::string_view templateName) -> ParticleSystem*;
         
     public:
 
@@ -185,7 +185,7 @@ class ParticleSystemRenderer;
             will take over ownership of this pointer.
             
         */
-        void addTemplate(StringView name, ParticleSystem* sysTemplate);
+        void addTemplate(std::string_view name, ParticleSystem* sysTemplate);
 
         /** Removes a specified template from the ParticleSystemManager.
         @remarks
@@ -197,7 +197,7 @@ class ParticleSystemRenderer;
         @param deleteTemplate
             Whether or not to delete the template before removing it.
         */
-        void removeTemplate(StringView name, bool deleteTemplate = true);
+        void removeTemplate(std::string_view name, bool deleteTemplate = true);
 
         /** Removes a specified template from the ParticleSystemManager.
         @remarks
@@ -214,7 +214,7 @@ class ParticleSystemRenderer;
         @param resourceGroup
             Resource group to delete templates for
         */
-        void removeTemplatesByResourceGroup(StringView resourceGroup);
+        void removeTemplatesByResourceGroup(std::string_view resourceGroup);
 
         /** Create a new particle system template. 
         @remarks
@@ -228,14 +228,14 @@ class ParticleSystemRenderer;
             load any dependent resources.
             
         */
-        auto createTemplate(StringView name, StringView resourceGroup) -> ParticleSystem*;
+        auto createTemplate(std::string_view name, std::string_view resourceGroup) -> ParticleSystem*;
 
         /** Retrieves a particle system template for possible modification. 
         @remarks
             Modifying a template does not affect the settings on any ParticleSystems already created
             from this template.
         */
-        auto getTemplate(StringView name) -> ParticleSystem*;
+        auto getTemplate(std::string_view name) -> ParticleSystem*;
 
         /** Internal method for creating a new emitter from a factory.
         @remarks
@@ -247,7 +247,7 @@ class ParticleSystemRenderer;
         @param psys
             The particle system this is being created for
         */
-        auto _createEmitter(StringView emitterType, ParticleSystem* psys) -> ParticleEmitter*;
+        auto _createEmitter(std::string_view emitterType, ParticleSystem* psys) -> ParticleEmitter*;
 
         /** Internal method for destroying an emitter.
         @remarks
@@ -269,7 +269,7 @@ class ParticleSystemRenderer;
         @param psys
             The particle system it is being created for
         */
-        auto _createAffector(StringView affectorType, ParticleSystem* psys) -> ParticleAffector*;
+        auto _createAffector(std::string_view affectorType, ParticleSystem* psys) -> ParticleAffector*;
 
         /** Internal method for destroying an affector.
         @remarks
@@ -289,7 +289,7 @@ class ParticleSystemRenderer;
         @param rendererType
             String name of the renderer type to be created. A factory of this type must have been registered.
         */
-        auto _createRenderer(StringView rendererType) -> ParticleSystemRenderer*;
+        auto _createRenderer(std::string_view rendererType) -> ParticleSystemRenderer*;
 
         /** Internal method for destroying a renderer.
         @remarks
@@ -311,7 +311,7 @@ class ParticleSystemRenderer;
         /// @copydoc ScriptLoader::getScriptPatterns
         [[nodiscard]] auto getScriptPatterns() const noexcept -> const StringVector& override;
         /// @copydoc ScriptLoader::parseScript
-        void parseScript(DataStreamPtr& stream, StringView groupName) override;
+        void parseScript(DataStreamPtr& stream, std::string_view groupName) override;
         /// @copydoc ScriptLoader::getLoadingOrder
         [[nodiscard]] auto getLoadingOrder() const -> Real override;
 
@@ -348,14 +348,14 @@ class ParticleSystemRenderer;
     class ParticleSystemFactory : public MovableObjectFactory
     {
     private:
-        auto createInstanceImpl(StringView name, const NameValuePairList* params) -> MovableObject* override;
+        auto createInstanceImpl(std::string_view name, const NameValuePairList* params) -> MovableObject* override;
     public:
         ParticleSystemFactory() = default;
         ~ParticleSystemFactory() override = default;
         
         static String FACTORY_TYPE_NAME;
 
-        [[nodiscard]] auto getType() const noexcept -> StringView override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };
     /** @} */
     /** @} */

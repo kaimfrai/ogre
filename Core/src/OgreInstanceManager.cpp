@@ -56,7 +56,7 @@ THE SOFTWARE.
 namespace Ogre
 {
     InstanceManager::InstanceManager( std::string_view customName, SceneManager *sceneManager,
-                                        StringView meshName, StringView groupName,
+                                        std::string_view meshName, std::string_view groupName,
                                         InstancingTechnique instancingTechnique, uint16 instancingFlags,
                                         size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup ) :
                 mName(customName),
@@ -96,7 +96,7 @@ namespace Ogre
         mNumCustomParams = numCustomParams;
     }
     //----------------------------------------------------------------------
-    auto InstanceManager::getMaxOrBestNumInstancesPerBatch( StringView materialName, size_t suggestedSize,
+    auto InstanceManager::getMaxOrBestNumInstancesPerBatch( std::string_view materialName, size_t suggestedSize,
                                                                 uint16 flags ) -> size_t
     {
         //Get the material
@@ -147,7 +147,7 @@ namespace Ogre
         return retVal;
     }
     //----------------------------------------------------------------------
-    auto InstanceManager::createInstancedEntity( StringView materialName ) -> InstancedEntity*
+    auto InstanceManager::createInstancedEntity( std::string_view materialName ) -> InstancedEntity*
     {
         InstanceBatch *instanceBatch;
 
@@ -160,7 +160,7 @@ namespace Ogre
         return instanceBatch->createInstancedEntity();
     }
     //-----------------------------------------------------------------------
-    inline auto InstanceManager::getFreeBatch( StringView materialName ) -> InstanceBatch*
+    inline auto InstanceManager::getFreeBatch( std::string_view materialName ) -> InstanceBatch*
     {
         auto& batchVec = mInstanceBatches[materialName];
 
@@ -174,7 +174,7 @@ namespace Ogre
         return buildNewBatch( materialName, false );
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::buildNewBatch( StringView materialName, bool firstTime ) -> InstanceBatch*
+    auto InstanceManager::buildNewBatch( std::string_view materialName, bool firstTime ) -> InstanceBatch*
     {
         //Get the bone to index map for the batches
         Mesh::IndexMap &idxMap = mMeshReference->getSubMesh(mSubMeshIdx)->blendIndexToBoneIndexMap;
@@ -366,7 +366,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    void InstanceManager::setSetting( BatchSettingId id, bool value, StringView materialName )
+    void InstanceManager::setSetting( BatchSettingId id, bool value, std::string_view materialName )
     {
         assert( id < NUM_SETTINGS );
 
@@ -391,7 +391,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::getSetting( BatchSettingId id, StringView materialName ) const -> bool
+    auto InstanceManager::getSetting( BatchSettingId id, std::string_view materialName ) const -> bool
     {
         assert( id < NUM_SETTINGS );
 
@@ -402,7 +402,7 @@ namespace Ogre
         //Return default
         return BatchSettings().setting[id];
     }
-    auto InstanceManager::hasSettings(StringView materialName) const -> bool
+    auto InstanceManager::hasSettings(std::string_view materialName) const -> bool
     {
         return mBatchSettings.find(materialName) != mBatchSettings.end();
     }
@@ -627,7 +627,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto InstanceManager::getInstanceBatchIterator( StringView materialName ) const -> InstanceManager::InstanceBatchIterator
+    auto InstanceManager::getInstanceBatchIterator( std::string_view materialName ) const -> InstanceManager::InstanceBatchIterator
     {
         auto it = mInstanceBatches.find( materialName );
         if(it != mInstanceBatches.end())

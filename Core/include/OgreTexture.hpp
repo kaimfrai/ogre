@@ -136,8 +136,8 @@ class ResourceManager;
     class Texture : public Resource
     {
     public:
-        Texture(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Texture(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         ~Texture() override = default;
         
@@ -216,7 +216,7 @@ class ResourceManager;
         @param fsaa The number of samples
         @param fsaaHint Any hinting text (see Root::createRenderWindow)
         */
-        void setFSAA(uint fsaa, StringView fsaaHint) { mFSAA = fsaa; mFSAAHint = fsaaHint; }
+        void setFSAA(uint fsaa, std::string_view fsaaHint) { mFSAA = fsaa; mFSAAHint = fsaaHint; }
 
         /** Get the level of multisample AA to be used if this texture is a 
         rendertarget.
@@ -225,7 +225,7 @@ class ResourceManager;
 
         /** Get the multisample AA hint if this texture is a rendertarget.
         */
-        auto getFSAAHint() const noexcept -> StringView { return mFSAAHint; }
+        auto getFSAAHint() const noexcept -> std::string_view { return mFSAAHint; }
 
         /** Returns the height of the texture.
         */
@@ -419,13 +419,13 @@ class ResourceManager;
             @param name The name of the attribute to retrieve.
             @param pData Pointer to memory matching the type of data you want to retrieve.
         */
-        virtual void getCustomAttribute(StringView name, void* pData);
+        virtual void getCustomAttribute(std::string_view name, void* pData);
         
         /** simplified API for bindings
          * 
          * @overload
          */
-        auto getCustomAttribute(StringView name) -> uint
+        auto getCustomAttribute(std::string_view name) -> uint
         {
             uint ret = 0;
             getCustomAttribute(name, &ret);
@@ -492,7 +492,7 @@ class ResourceManager;
 
         TextureType mTextureType{TEX_TYPE_2D};
 
-        void readImage(LoadedImages& imgs, StringView name, StringView ext, bool haveNPOT);
+        void readImage(LoadedImages& imgs, std::string_view name, std::string_view ext, bool haveNPOT);
 
         void prepareImpl() override;
         void unprepareImpl() override;

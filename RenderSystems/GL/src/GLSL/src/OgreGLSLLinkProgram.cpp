@@ -378,7 +378,7 @@ namespace Ogre::GLSL {
             // until it is linked (chicken and egg!) we have to parse the source
 
             size_t numAttribs = sizeof(msCustomAttributes)/sizeof(CustomAttribute);
-            StringView vpSource = mShaders[GPT_VERTEX_PROGRAM]->getSource();
+            std::string_view vpSource = mShaders[GPT_VERTEX_PROGRAM]->getSource();
             
             hash = mShaders[GPT_VERTEX_PROGRAM]->_getHash(hash);
             for (size_t i = 0; i < numAttribs; ++i)

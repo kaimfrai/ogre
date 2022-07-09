@@ -59,16 +59,16 @@ class RenderSystem;
         ~DefaultSceneManagerFactory() override = default;
         /// Factory type name
         static const String FACTORY_TYPE_NAME;
-        auto createInstance(StringView instanceName) -> SceneManager* override;
+        auto createInstance(std::string_view instanceName) -> SceneManager* override;
     };
 
     /// Default scene manager
     class DefaultSceneManager : public SceneManager
     {
     public:
-        DefaultSceneManager(StringView name);
+        DefaultSceneManager(std::string_view name);
         ~DefaultSceneManager() override;
-        auto getTypeName() const noexcept -> StringView override;
+        auto getTypeName() const noexcept -> std::string_view override;
     };
 
     /** Enumerates the SceneManager classes available to applications.
@@ -136,7 +136,7 @@ class RenderSystem;
             If you don't know the typeName already, you can iterate over the 
             metadata for all types using getMetaDataIterator.
         */
-        auto getMetaData(StringView typeName) const -> const SceneManagerMetaData*;
+        auto getMetaData(std::string_view typeName) const -> const SceneManagerMetaData*;
 
         /** get all types of SceneManager available for construction
 
@@ -157,8 +157,8 @@ class RenderSystem;
         @param instanceName Optional name to given the new instance that is
             created. If you leave this blank, an auto name will be assigned.
         */
-        auto createSceneManager(StringView typeName, 
-            StringView instanceName = BLANKSTRING) -> SceneManager*;
+        auto createSceneManager(std::string_view typeName, 
+            std::string_view instanceName = BLANKSTRING) -> SceneManager*;
 
         /** Destroy an instance of a SceneManager. */
         void destroySceneManager(SceneManager* sm);
@@ -167,12 +167,12 @@ class RenderSystem;
             identified by the instance name.
         @param instanceName The name of the instance to retrieve.
         */
-        auto getSceneManager(StringView instanceName) const -> SceneManager*;
+        auto getSceneManager(std::string_view instanceName) const -> SceneManager*;
 
         /** Identify if a SceneManager instance already exists.
         @param instanceName The name of the instance to retrieve.
         */
-        auto hasSceneManager(StringView instanceName) const -> bool;
+        auto hasSceneManager(std::string_view instanceName) const -> bool;
 
         using SceneManagerIterator = MapIterator<Instances>;
 

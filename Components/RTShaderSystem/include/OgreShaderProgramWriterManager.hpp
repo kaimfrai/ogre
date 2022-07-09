@@ -58,12 +58,12 @@ public:
     ProgramWriterManager();
 
     /// register and transfer ownership of writer
-    void addProgramWriter(StringView lang, ::std::unique_ptr<ProgramWriter> writer);
+    void addProgramWriter(std::string_view lang, ::std::unique_ptr<ProgramWriter> writer);
 
     /** Returns whether a given high-level language is supported. */
-    auto isLanguageSupported(StringView lang) -> bool;
+    auto isLanguageSupported(std::string_view lang) -> bool;
 
-    [[nodiscard]] auto getProgramWriter(StringView language) const -> ProgramWriter*
+    [[nodiscard]] auto getProgramWriter(std::string_view language) const -> ProgramWriter*
     {
         auto it = mProgramWriters.find(language);
         if (it != mProgramWriters.end())

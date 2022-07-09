@@ -64,7 +64,7 @@ namespace Ogre {
 
         void decode(const DataStreamPtr& input, ::std::any const& output) const override;
         [[nodiscard]] auto encode(::std::any const& input) const -> DataStreamPtr override;
-        void encodeToFile(::std::any const& input, StringView outFileName) const override;
+        void encodeToFile(::std::any const& input, std::string_view outFileName) const override;
 
         ~ImageCodec() override;
         /** Codec return class for images. Has information about the size and the

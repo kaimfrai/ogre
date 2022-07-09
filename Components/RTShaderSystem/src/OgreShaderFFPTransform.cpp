@@ -59,7 +59,7 @@ namespace Ogre::RTShader {
 String FFPTransform::Type = "FFP_Transform";
 
 //-----------------------------------------------------------------------
-auto FFPTransform::getType() const noexcept -> StringView
+auto FFPTransform::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -152,7 +152,7 @@ void FFPTransform::copyFrom(const SubRenderState& rhs)
 }
 
 //-----------------------------------------------------------------------
-auto FFPTransformFactory::getType() const noexcept -> StringView
+auto FFPTransformFactory::getType() const noexcept -> std::string_view
 {
     return FFPTransform::Type;
 }

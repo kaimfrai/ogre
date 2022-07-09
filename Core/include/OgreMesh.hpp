@@ -231,8 +231,8 @@ class VertexData;
         @warning
             Do not call this method directly.
         */
-        Mesh(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Mesh(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
         ~Mesh() override;
 
         // NB All methods below are non-virtual since they will be
@@ -248,22 +248,22 @@ class VertexData;
 
         /** Creates a new SubMesh and gives it a name
         */
-        auto createSubMesh(StringView name) -> SubMesh*;
+        auto createSubMesh(std::string_view name) -> SubMesh*;
         
         /** Gives a name to a SubMesh
         */
-        void nameSubMesh(StringView name, ushort index);
+        void nameSubMesh(std::string_view name, ushort index);
 
         /** Removes a name from a SubMesh
         */
-        void unnameSubMesh(StringView name);
+        void unnameSubMesh(std::string_view name);
         
         /** Gets the index of a submesh with a given name.
         @remarks
             Useful if you identify the SubMeshes by name (using nameSubMesh)
             but wish to have faster repeat access.
         */
-        auto _getSubMeshIndex(StringView name) const -> ushort;
+        auto _getSubMeshIndex(std::string_view name) const -> ushort;
 
         /** Gets the number of sub meshes which comprise this mesh.
         *  @deprecated use getSubMeshes() instead
@@ -281,7 +281,7 @@ class VertexData;
 
         /** Gets a SubMesh by name
         */
-        auto getSubMesh(StringView name) const -> SubMesh* ;
+        auto getSubMesh(std::string_view name) const -> SubMesh* ;
         
         /** Destroy a SubMesh with the given index. 
         @note
@@ -297,7 +297,7 @@ class VertexData;
             any other object that is referring to the SubMesh list. Entity will
             detect this and reinitialise, but it is still a disruptive action.
         */
-        void destroySubMesh(StringView name);
+        void destroySubMesh(std::string_view name);
         
         using SubMeshIterator = VectorIterator<SubMeshList>;
       
@@ -349,7 +349,7 @@ class VertexData;
             if you leave this blank, the clone will be assigned to the same
             group as this Mesh.
         */
-        auto clone(StringView newName, StringView newGroup = BLANKSTRING) -> MeshPtr;
+        auto clone(std::string_view newName, std::string_view newGroup = BLANKSTRING) -> MeshPtr;
 
         /** @copydoc Resource::reload */
         void reload(LoadingFlags flags = LF_DEFAULT) override;
@@ -424,7 +424,7 @@ class VertexData;
             The name of the .skeleton file to use, or an empty string to use
             no skeleton
         */
-        void setSkeletonName(StringView skelName);
+        void setSkeletonName(std::string_view skelName);
 
         /** Returns true if this Mesh has a linked Skeleton. */
         auto hasSkeleton() const -> bool { return mSkeleton != nullptr; }
@@ -440,7 +440,7 @@ class VertexData;
         auto getSkeleton() const noexcept -> const SkeletonPtr& { return mSkeleton; }
 
         /** Gets the name of any linked Skeleton */
-        auto getSkeletonName() const noexcept -> StringView ;
+        auto getSkeletonName() const noexcept -> std::string_view ;
         /** Initialise an animation set suitable for use with this mesh. 
         @remarks
             Only recommended for use inside the engine, not by applications.
@@ -517,7 +517,7 @@ class VertexData;
         @param meshName
             The name of the mesh which will be the lower level detail version.
         */
-        void updateManualLodLevel(ushort index, StringView meshName);
+        void updateManualLodLevel(ushort index, std::string_view meshName);
 
         /** Internal methods for loading LOD, do not use. */
         void _setLodInfo(unsigned short numLevels);
@@ -884,26 +884,26 @@ class VertexData;
         @param length
             The length of the animation in seconds.
         */
-        auto createAnimation(StringView name, Real length) -> Animation* override;
+        auto createAnimation(std::string_view name, Real length) -> Animation* override;
 
         /** Returns the named vertex Animation object. 
         @param name
             The name of the animation.
         */
-        auto getAnimation(StringView name) const -> Animation* override;
+        auto getAnimation(std::string_view name) const -> Animation* override;
 
         /** Internal access to the named vertex Animation object - returns null 
             if it does not exist. 
         @param name
             The name of the animation.
         */
-        virtual auto _getAnimationImpl(StringView name) const -> Animation*;
+        virtual auto _getAnimationImpl(std::string_view name) const -> Animation*;
 
         /** Returns whether this mesh contains the named vertex animation. */
-        auto hasAnimation(StringView name) const -> bool override;
+        auto hasAnimation(std::string_view name) const -> bool override;
 
         /** Removes vertex Animation from this mesh. */
-        void removeAnimation(StringView name) override;
+        void removeAnimation(std::string_view name) override;
 
         /** Gets the number of morph animations in this mesh. */
         auto getNumAnimations() const noexcept -> unsigned short override;
@@ -938,13 +938,13 @@ class VertexData;
         @return
             A new Pose ready for population.
         */
-        auto createPose(ushort target, StringView name = BLANKSTRING) -> Pose*;
+        auto createPose(ushort target, std::string_view name = BLANKSTRING) -> Pose*;
         /** Get the number of poses */
         auto getPoseCount() const -> size_t { return mPoseList.size(); }
         /** Retrieve an existing Pose by index */
         auto getPose(size_t index) const -> Pose* { return mPoseList.at(index); }
         /** Retrieve an existing Pose by name.*/
-        auto getPose(StringView name) const -> Pose*;
+        auto getPose(std::string_view name) const -> Pose*;
         /** Destroy a pose by index.
         @note
             This will invalidate any animation tracks referring to this pose or those after it.
@@ -954,7 +954,7 @@ class VertexData;
         @note
             This will invalidate any animation tracks referring to this pose or those after it.
         */
-        void removePose(StringView name);
+        void removePose(std::string_view name);
         /** Destroy all poses. */
         void removeAllPoses();
 

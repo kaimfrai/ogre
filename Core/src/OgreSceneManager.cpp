@@ -119,9 +119,9 @@ THE SOFTWARE.
 namespace Ogre {
 class Ray;
 
-static const StringView INVOCATION_SHADOWS = "SHADOWS";
+static const std::string_view INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
-SceneManager::SceneManager(StringView name) :
+SceneManager::SceneManager(std::string_view name) :
 mName(name),
 
 mSkyPlane(this),
@@ -222,7 +222,7 @@ auto SceneManager::getWorldGeometryRenderQueue() noexcept -> uint8
     return mWorldGeometryRenderQueue;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createCamera(StringView name) -> Camera*
+auto SceneManager::createCamera(std::string_view name) -> Camera*
 {
     // Check name not used
     if (mCameras.find(name) != mCameras.end())
@@ -243,7 +243,7 @@ auto SceneManager::createCamera(StringView name) -> Camera*
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::getCamera(StringView name) const -> Camera*
+auto SceneManager::getCamera(std::string_view name) const -> Camera*
 {
     auto i = mCameras.find(name);
     if (i == mCameras.end())
@@ -258,7 +258,7 @@ auto SceneManager::getCamera(StringView name) const -> Camera*
     }
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasCamera(StringView name) const -> bool
+auto SceneManager::hasCamera(std::string_view name) const -> bool
 {
     return (mCameras.find(name) != mCameras.end());
 }
@@ -271,7 +271,7 @@ void SceneManager::destroyCamera(Camera *cam)
 }
 
 //-----------------------------------------------------------------------
-void SceneManager::destroyCamera(StringView name)
+void SceneManager::destroyCamera(std::string_view name)
 {
     // Find in list
     auto i = mCameras.find(name);
@@ -324,7 +324,7 @@ void SceneManager::destroyAllCameras()
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createLight(StringView name) -> Light*
+auto SceneManager::createLight(std::string_view name) -> Light*
 {
     return static_cast<Light*>(
         createMovableObject(name, LightFactory::FACTORY_TYPE_NAME));
@@ -336,18 +336,18 @@ auto SceneManager::createLight() -> Light*
     return createLight(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getLight(StringView name) const -> Light*
+auto SceneManager::getLight(std::string_view name) const -> Light*
 {
     return static_cast<Light*>(
         getMovableObject(name, LightFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasLight(StringView name) const -> bool
+auto SceneManager::hasLight(std::string_view name) const -> bool
 {
     return hasMovableObject(name, LightFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyLight(StringView name)
+void SceneManager::destroyLight(std::string_view name)
 {
     destroyMovableObject(name, LightFactory::FACTORY_TYPE_NAME);
 }
@@ -423,7 +423,7 @@ void SceneManager::_populateLightList(const SceneNode* sn, Real radius, LightLis
     _populateLightList(sn->_getDerivedPosition(), radius, destList, lightMask);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createEntity(StringView entityName, PrefabType ptype) -> Entity*
+auto SceneManager::createEntity(std::string_view entityName, PrefabType ptype) -> Entity*
 {
     switch (ptype)
     {
@@ -450,9 +450,9 @@ auto SceneManager::createEntity(PrefabType ptype) -> Entity*
 
 //-----------------------------------------------------------------------
 auto SceneManager::createEntity(
-                                   StringView entityName,
-                                   StringView meshName,
-                                   StringView groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */) -> Entity*
+                                   std::string_view entityName,
+                                   std::string_view meshName,
+                                   std::string_view groupName /* = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME */) -> Entity*
 {
     // delegate to factory implementation
     NameValuePairList params;
@@ -464,12 +464,12 @@ auto SceneManager::createEntity(
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(StringView entityName, const MeshPtr& pMesh) -> Entity*
+auto SceneManager::createEntity(std::string_view entityName, const MeshPtr& pMesh) -> Entity*
 {
     return createEntity(entityName, pMesh->getName(), pMesh->getGroup());
 }
 //---------------------------------------------------------------------
-auto SceneManager::createEntity(StringView meshName) -> Entity*
+auto SceneManager::createEntity(std::string_view meshName) -> Entity*
 {
     String name = mMovableNameGenerator.generate();
     // note, we can't allow groupName to be passes, it would be ambiguous (2 string params)
@@ -482,19 +482,19 @@ auto SceneManager::createEntity(const MeshPtr& pMesh) -> Entity*
     return createEntity(name, pMesh);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getEntity(StringView name) const -> Entity*
+auto SceneManager::getEntity(std::string_view name) const -> Entity*
 {
     return static_cast<Entity*>(
         getMovableObject(name, EntityFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasEntity(StringView name) const -> bool
+auto SceneManager::hasEntity(std::string_view name) const -> bool
 {
     return hasMovableObject(name, EntityFactory::FACTORY_TYPE_NAME);
 }
 
 //-----------------------------------------------------------------------
-void SceneManager::destroyEntity(StringView name)
+void SceneManager::destroyEntity(std::string_view name)
 {
     destroyMovableObject(name, EntityFactory::FACTORY_TYPE_NAME);
 
@@ -513,7 +513,7 @@ void SceneManager::destroyAllBillboardSets()
     destroyAllMovableObjectsByType(BillboardSetFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createManualObject(StringView name) -> ManualObject*
+auto SceneManager::createManualObject(std::string_view name) -> ManualObject*
 {
     return static_cast<ManualObject*>(
         createMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME));
@@ -525,20 +525,20 @@ auto SceneManager::createManualObject() -> ManualObject*
     return createManualObject(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getManualObject(StringView name) const -> ManualObject*
+auto SceneManager::getManualObject(std::string_view name) const -> ManualObject*
 {
     return static_cast<ManualObject*>(
         getMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasManualObject(StringView name) const -> bool
+auto SceneManager::hasManualObject(std::string_view name) const -> bool
 {
     return hasMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME);
 
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyManualObject(StringView name)
+void SceneManager::destroyManualObject(std::string_view name)
 {
     destroyMovableObject(name, ManualObjectFactory::FACTORY_TYPE_NAME);
 }
@@ -547,7 +547,7 @@ void SceneManager::destroyAllManualObjects()
 {
     destroyAllMovableObjectsByType(ManualObjectFactory::FACTORY_TYPE_NAME);
 }
-auto SceneManager::createScreenSpaceRect(StringView name, bool includeTextureCoords) -> Rectangle2D*
+auto SceneManager::createScreenSpaceRect(std::string_view name, bool includeTextureCoords) -> Rectangle2D*
 {
     NameValuePairList params;
     if(includeTextureCoords)
@@ -559,16 +559,16 @@ auto SceneManager::createScreenSpaceRect(bool includeTextureCoords) -> Rectangle
     return createScreenSpaceRect(mMovableNameGenerator.generate(), includeTextureCoords);
 }
 
-auto SceneManager::hasScreenSpaceRect(StringView name) const -> bool
+auto SceneManager::hasScreenSpaceRect(std::string_view name) const -> bool
 {
     return hasMovableObject(name, Rectangle2DFactory::FACTORY_TYPE_NAME);
 }
-auto SceneManager::getScreenSpaceRect(StringView name) const -> Rectangle2D*
+auto SceneManager::getScreenSpaceRect(std::string_view name) const -> Rectangle2D*
 {
     return static_cast<Rectangle2D*>(getMovableObject(name, Rectangle2DFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardChain(StringView name) -> BillboardChain*
+auto SceneManager::createBillboardChain(std::string_view name) -> BillboardChain*
 {
     return static_cast<BillboardChain*>(
         createMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME));
@@ -580,19 +580,19 @@ auto SceneManager::createBillboardChain() -> BillboardChain*
     return createBillboardChain(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getBillboardChain(StringView name) const -> BillboardChain*
+auto SceneManager::getBillboardChain(std::string_view name) const -> BillboardChain*
 {
     return static_cast<BillboardChain*>(
         getMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasBillboardChain(StringView name) const -> bool
+auto SceneManager::hasBillboardChain(std::string_view name) const -> bool
 {
     return hasMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyBillboardChain(StringView name)
+void SceneManager::destroyBillboardChain(std::string_view name)
 {
     destroyMovableObject(name, BillboardChainFactory::FACTORY_TYPE_NAME);
 }
@@ -602,7 +602,7 @@ void SceneManager::destroyAllBillboardChains()
     destroyAllMovableObjectsByType(BillboardChainFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createRibbonTrail(StringView name) -> RibbonTrail*
+auto SceneManager::createRibbonTrail(std::string_view name) -> RibbonTrail*
 {
     return static_cast<RibbonTrail*>(
         createMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME));
@@ -614,19 +614,19 @@ auto SceneManager::createRibbonTrail() -> RibbonTrail*
     return createRibbonTrail(name);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getRibbonTrail(StringView name) const -> RibbonTrail*
+auto SceneManager::getRibbonTrail(std::string_view name) const -> RibbonTrail*
 {
     return static_cast<RibbonTrail*>(
         getMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasRibbonTrail(StringView name) const -> bool
+auto SceneManager::hasRibbonTrail(std::string_view name) const -> bool
 {
     return hasMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyRibbonTrail(StringView name)
+void SceneManager::destroyRibbonTrail(std::string_view name)
 {
     destroyMovableObject(name, RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
@@ -636,8 +636,8 @@ void SceneManager::destroyAllRibbonTrails()
     destroyAllMovableObjectsByType(RibbonTrailFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(StringView name,
-    StringView templateName) -> ParticleSystem*
+auto SceneManager::createParticleSystem(std::string_view name,
+    std::string_view templateName) -> ParticleSystem*
 {
     NameValuePairList params;
     params["templateName"] = templateName;
@@ -647,8 +647,8 @@ auto SceneManager::createParticleSystem(StringView name,
             &params));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(StringView name,
-    size_t quota, StringView group) -> ParticleSystem*
+auto SceneManager::createParticleSystem(std::string_view name,
+    size_t quota, std::string_view group) -> ParticleSystem*
 {
     NameValuePairList params;
     params["quota"] = StringConverter::toString(quota);
@@ -659,26 +659,26 @@ auto SceneManager::createParticleSystem(StringView name,
             &params));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createParticleSystem(size_t quota, StringView group) -> ParticleSystem*
+auto SceneManager::createParticleSystem(size_t quota, std::string_view group) -> ParticleSystem*
 {
     String name = mMovableNameGenerator.generate();
     return createParticleSystem(name, quota, group);
 }
 
 //-----------------------------------------------------------------------
-auto SceneManager::getParticleSystem(StringView name) const -> ParticleSystem*
+auto SceneManager::getParticleSystem(std::string_view name) const -> ParticleSystem*
 {
     return static_cast<ParticleSystem*>(
         getMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME));
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasParticleSystem(StringView name) const -> bool
+auto SceneManager::hasParticleSystem(std::string_view name) const -> bool
 {
     return hasMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyParticleSystem(StringView name)
+void SceneManager::destroyParticleSystem(std::string_view name)
 {
     destroyMovableObject(name, ParticleSystemFactory::FACTORY_TYPE_NAME);
 }
@@ -726,7 +726,7 @@ auto SceneManager::createSceneNodeImpl() -> SceneNode*
     return new SceneNode(this);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNodeImpl(StringView name) -> SceneNode*
+auto SceneManager::createSceneNodeImpl(std::string_view name) -> SceneNode*
 {
     return new SceneNode(this, name);
 }//-----------------------------------------------------------------------
@@ -738,7 +738,7 @@ auto SceneManager::createSceneNode() -> SceneNode*
     return sn;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createSceneNode(StringView name) -> SceneNode*
+auto SceneManager::createSceneNode(std::string_view name) -> SceneNode*
 {
     // Check name not used
     if (hasSceneNode(name))
@@ -756,7 +756,7 @@ auto SceneManager::createSceneNode(StringView name) -> SceneNode*
     return sn;
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroySceneNode(StringView name)
+void SceneManager::destroySceneNode(std::string_view name)
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -833,7 +833,7 @@ auto SceneManager::getRootSceneNode() noexcept -> SceneNode*
     return mSceneRoot.get();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getSceneNode(StringView name, bool throwExceptionIfNotFound) const -> SceneNode*
+auto SceneManager::getSceneNode(std::string_view name, bool throwExceptionIfNotFound) const -> SceneNode*
 {
     OgreAssert(!name.empty(), "name must not be empty");
     auto i = mNamedNodes.find(name);
@@ -1363,7 +1363,7 @@ void SceneManager::_restoreManualHardwareResources()
     }
 }
 //-----------------------------------------------------------------------
-void SceneManager::setWorldGeometry(StringView filename)
+void SceneManager::setWorldGeometry(std::string_view filename)
 {
     // This default implementation cannot handle world geometry
     OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -1372,7 +1372,7 @@ void SceneManager::setWorldGeometry(StringView filename)
 }
 //-----------------------------------------------------------------------
 void SceneManager::setWorldGeometry(DataStreamPtr& stream, 
-    StringView typeName)
+    std::string_view typeName)
 {
     // This default implementation cannot handle world geometry
     OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
@@ -1405,22 +1405,22 @@ auto SceneManager::materialLess::operator() (const Material* x, const Material* 
 void SceneManager::setSkyPlane(
                                bool enable,
                                const Plane& plane,
-                               StringView materialName,
+                               std::string_view materialName,
                                Real gscale,
                                Real tiling,
                                bool drawFirst,
                                Real bow,
                                int xsegments, int ysegments,
-                               StringView groupName)
+                               std::string_view groupName)
 {
     _setSkyPlane(enable, plane, materialName, gscale, tiling,
                  drawFirst ? RENDER_QUEUE_SKIES_EARLY : RENDER_QUEUE_SKIES_LATE, bow, xsegments, ysegments,
                  groupName);
 }
 
-void SceneManager::_setSkyPlane(bool enable, const Plane& plane, StringView materialName,
+void SceneManager::_setSkyPlane(bool enable, const Plane& plane, std::string_view materialName,
                                 Real gscale, Real tiling, uint8 renderQueue, Real bow,
-                                int xsegments, int ysegments, StringView groupName)
+                                int xsegments, int ysegments, std::string_view groupName)
 {
     mSkyPlane.setSkyPlane(enable, plane, materialName, gscale, tiling, renderQueue, bow,
                              xsegments, ysegments, groupName);
@@ -1429,19 +1429,19 @@ void SceneManager::_setSkyPlane(bool enable, const Plane& plane, StringView mate
 //-----------------------------------------------------------------------
 void SceneManager::setSkyBox(
                              bool enable,
-                             StringView materialName,
+                             std::string_view materialName,
                              Real distance,
                              bool drawFirst,
                              const Quaternion& orientation,
-                             StringView groupName)
+                             std::string_view groupName)
 {
     _setSkyBox(enable, materialName, distance,
                drawFirst ? RENDER_QUEUE_SKIES_EARLY : RENDER_QUEUE_SKIES_LATE, orientation, groupName);
 }
 
-void SceneManager::_setSkyBox(bool enable, StringView materialName, Real distance,
+void SceneManager::_setSkyBox(bool enable, std::string_view materialName, Real distance,
                               uint8 renderQueue, const Quaternion& orientation,
-                              StringView groupName)
+                              std::string_view groupName)
 {
     mSkyBox.setSkyBox(enable, materialName, distance, renderQueue, orientation, groupName);
 }
@@ -1449,24 +1449,24 @@ void SceneManager::_setSkyBox(bool enable, StringView materialName, Real distanc
 //-----------------------------------------------------------------------
 void SceneManager::setSkyDome(
                               bool enable,
-                              StringView materialName,
+                              std::string_view materialName,
                               Real curvature,
                               Real tiling,
                               Real distance,
                               bool drawFirst,
                               const Quaternion& orientation,
                               int xsegments, int ysegments, int ySegmentsToKeep,
-                              StringView groupName)
+                              std::string_view groupName)
 {
     _setSkyDome(enable, materialName, curvature, tiling, distance,
                 drawFirst ? RENDER_QUEUE_SKIES_EARLY : RENDER_QUEUE_SKIES_LATE, orientation, xsegments,
                 ysegments, ySegmentsToKeep, groupName);
 }
 
-void SceneManager::_setSkyDome(bool enable, StringView materialName, Real curvature, Real tiling,
+void SceneManager::_setSkyDome(bool enable, std::string_view materialName, Real curvature, Real tiling,
                                Real distance, uint8 renderQueue, const Quaternion& orientation,
                                int xsegments, int ysegments, int ysegments_keep,
-                               StringView groupName)
+                               std::string_view groupName)
 {
     mSkyDome.setSkyDome(enable, materialName, curvature, tiling, distance, renderQueue,
                             orientation, xsegments, ysegments, ysegments_keep, groupName);
@@ -2067,7 +2067,7 @@ auto SceneManager::getFogDensity() const -> Real
     return mFogDensity;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createBillboardSet(StringView name, unsigned int poolSize) -> BillboardSet*
+auto SceneManager::createBillboardSet(std::string_view name, unsigned int poolSize) -> BillboardSet*
 {
     NameValuePairList params;
     params["poolSize"] = StringConverter::toString(poolSize);
@@ -2081,18 +2081,18 @@ auto SceneManager::createBillboardSet(unsigned int poolSize) -> BillboardSet*
     return createBillboardSet(name, poolSize);
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getBillboardSet(StringView name) const -> BillboardSet*
+auto SceneManager::getBillboardSet(std::string_view name) const -> BillboardSet*
 {
     return static_cast<BillboardSet*>(
         getMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME));
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasBillboardSet(StringView name) const -> bool
+auto SceneManager::hasBillboardSet(std::string_view name) const -> bool
 {
     return hasMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyBillboardSet(StringView name)
+void SceneManager::destroyBillboardSet(std::string_view name)
 {
     destroyMovableObject(name, BillboardSetFactory::FACTORY_TYPE_NAME);
 }
@@ -2102,7 +2102,7 @@ void SceneManager::setDisplaySceneNodes(bool display)
     mDisplayNodes = display;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createAnimation(StringView name, Real length) -> Animation*
+auto SceneManager::createAnimation(std::string_view name, Real length) -> Animation*
 {
     // Check name not used
     if (mAnimationsList.find(name) != mAnimationsList.end())
@@ -2118,7 +2118,7 @@ auto SceneManager::createAnimation(StringView name, Real length) -> Animation*
     return pAnim;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getAnimation(StringView name) const -> Animation*
+auto SceneManager::getAnimation(std::string_view name) const -> Animation*
 {
     auto i = mAnimationsList.find(name);
     if (i == mAnimationsList.end())
@@ -2130,12 +2130,12 @@ auto SceneManager::getAnimation(StringView name) const -> Animation*
     return i->second;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasAnimation(StringView name) const -> bool
+auto SceneManager::hasAnimation(std::string_view name) const -> bool
 {
     return (mAnimationsList.find(name) != mAnimationsList.end());
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAnimation(StringView name)
+void SceneManager::destroyAnimation(std::string_view name)
 {
     // Also destroy any animation states referencing this animation
     mAnimationStates.removeAnimationState(name);
@@ -2168,7 +2168,7 @@ void SceneManager::destroyAllAnimations()
     mAnimationsList.clear();
 }
 //-----------------------------------------------------------------------
-auto SceneManager::createAnimationState(StringView animName) -> AnimationState*
+auto SceneManager::createAnimationState(std::string_view animName) -> AnimationState*
 {
     // Get animation, this will throw an exception if not found
     Animation* anim = getAnimation(animName);
@@ -2178,18 +2178,18 @@ auto SceneManager::createAnimationState(StringView animName) -> AnimationState*
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::getAnimationState(StringView animName) const -> AnimationState*
+auto SceneManager::getAnimationState(std::string_view animName) const -> AnimationState*
 {
     return mAnimationStates.getAnimationState(animName);
 
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasAnimationState(StringView name) const -> bool
+auto SceneManager::hasAnimationState(std::string_view name) const -> bool
 {
     return mAnimationStates.hasAnimationState(name);
 }
 //-----------------------------------------------------------------------
-void SceneManager::destroyAnimationState(StringView name)
+void SceneManager::destroyAnimationState(std::string_view name)
 {
     mAnimationStates.removeAnimationState(name);
 }
@@ -2392,7 +2392,7 @@ void SceneManager::firePostRenderQueues()
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::fireRenderQueueStarted(uint8 id, StringView invocation) -> bool
+auto SceneManager::fireRenderQueueStarted(uint8 id, std::string_view invocation) -> bool
 {
     bool skip = false;
 
@@ -2403,7 +2403,7 @@ auto SceneManager::fireRenderQueueStarted(uint8 id, StringView invocation) -> bo
     return skip;
 }
 //---------------------------------------------------------------------
-auto SceneManager::fireRenderQueueEnded(uint8 id, StringView invocation) -> bool
+auto SceneManager::fireRenderQueueEnded(uint8 id, std::string_view invocation) -> bool
 {
     bool repeat = false;
 
@@ -3034,7 +3034,7 @@ void SceneManager::_resumeRendering(SceneManager::RenderContext* context)
     delete context;
 }
 //---------------------------------------------------------------------
-auto SceneManager::createStaticGeometry(StringView name) -> StaticGeometry*
+auto SceneManager::createStaticGeometry(std::string_view name) -> StaticGeometry*
 {
     // Check not existing
     if (mStaticGeometryList.find(name) != mStaticGeometryList.end())
@@ -3048,7 +3048,7 @@ auto SceneManager::createStaticGeometry(StringView name) -> StaticGeometry*
     return ret;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getStaticGeometry(StringView name) const -> StaticGeometry*
+auto SceneManager::getStaticGeometry(std::string_view name) const -> StaticGeometry*
 {
     auto i = mStaticGeometryList.find(name);
     if (i == mStaticGeometryList.end())
@@ -3060,7 +3060,7 @@ auto SceneManager::getStaticGeometry(StringView name) const -> StaticGeometry*
     return i->second;
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasStaticGeometry(StringView name) const -> bool
+auto SceneManager::hasStaticGeometry(std::string_view name) const -> bool
 {
     return (mStaticGeometryList.find(name) != mStaticGeometryList.end());
 }
@@ -3071,7 +3071,7 @@ void SceneManager::destroyStaticGeometry(StaticGeometry* geom)
     destroyStaticGeometry(geom->getName());
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyStaticGeometry(StringView name)
+void SceneManager::destroyStaticGeometry(std::string_view name)
 {
     auto i = mStaticGeometryList.find(name);
     if (i != mStaticGeometryList.end())
@@ -3091,8 +3091,8 @@ void SceneManager::destroyAllStaticGeometry()
     mStaticGeometryList.clear();
 }
 //---------------------------------------------------------------------
-auto SceneManager::createInstanceManager( StringView customName, StringView meshName,
-                                                      StringView groupName,
+auto SceneManager::createInstanceManager( std::string_view customName, std::string_view meshName,
+                                                      std::string_view groupName,
                                                       InstanceManager::InstancingTechnique technique,
                                                       size_t numInstancesPerBatch, uint16 flags,
                                                       unsigned short subMeshIdx ) -> InstanceManager*
@@ -3111,7 +3111,7 @@ auto SceneManager::createInstanceManager( StringView customName, StringView mesh
     return retVal;
 }
 //---------------------------------------------------------------------
-auto SceneManager::getInstanceManager( StringView managerName ) const -> InstanceManager*
+auto SceneManager::getInstanceManager( std::string_view managerName ) const -> InstanceManager*
 {
     auto itor = mInstanceManagerMap.find(managerName);
 
@@ -3125,13 +3125,13 @@ auto SceneManager::getInstanceManager( StringView managerName ) const -> Instanc
     return itor->second;
 }
 //---------------------------------------------------------------------
-auto SceneManager::hasInstanceManager( StringView managerName ) const -> bool
+auto SceneManager::hasInstanceManager( std::string_view managerName ) const -> bool
 {
     auto itor = mInstanceManagerMap.find(managerName);
     return itor != mInstanceManagerMap.end();
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyInstanceManager( StringView name )
+void SceneManager::destroyInstanceManager( std::string_view name )
 {
     //The manager we're trying to destroy might have been scheduled for updating
     //while we haven't yet rendered a frame. Update now to avoid a dangling ptr
@@ -3161,8 +3161,8 @@ void SceneManager::destroyAllInstanceManagers()
     mDirtyInstanceManagers.clear();
 }
 //---------------------------------------------------------------------
-auto SceneManager::getNumInstancesPerBatch( StringView meshName, StringView groupName,
-                                              StringView materialName,
+auto SceneManager::getNumInstancesPerBatch( std::string_view meshName, std::string_view groupName,
+                                              std::string_view materialName,
                                               InstanceManager::InstancingTechnique technique,
                                               size_t numInstancesPerBatch, uint16 flags,
                                               unsigned short subMeshIdx ) -> size_t
@@ -3173,7 +3173,7 @@ auto SceneManager::getNumInstancesPerBatch( StringView meshName, StringView grou
     return tmpMgr.getMaxOrBestNumInstancesPerBatch( materialName, numInstancesPerBatch, flags );
 }
 //---------------------------------------------------------------------
-auto SceneManager::createInstancedEntity( StringView materialName, StringView managerName ) -> InstancedEntity*
+auto SceneManager::createInstancedEntity( std::string_view materialName, std::string_view managerName ) -> InstancedEntity*
 {
     auto itor = mInstanceManagerMap.find(managerName);
 
@@ -3279,7 +3279,7 @@ void SceneManager::destroyQuery(SceneQuery* query)
 }
 //---------------------------------------------------------------------
 auto 
-SceneManager::getMovableObjectCollection(StringView typeName) -> SceneManager::MovableObjectCollection*
+SceneManager::getMovableObjectCollection(std::string_view typeName) -> SceneManager::MovableObjectCollection*
 {
     auto i = 
         mMovableObjectCollectionMap.find(typeName);
@@ -3295,7 +3295,7 @@ SceneManager::getMovableObjectCollection(StringView typeName) -> SceneManager::M
 }
 //---------------------------------------------------------------------
 auto 
-SceneManager::getMovableObjectCollection(StringView typeName) const -> const SceneManager::MovableObjectCollection*
+SceneManager::getMovableObjectCollection(std::string_view typeName) const -> const SceneManager::MovableObjectCollection*
 {
     auto i = 
         mMovableObjectCollectionMap.find(typeName);
@@ -3311,8 +3311,8 @@ SceneManager::getMovableObjectCollection(StringView typeName) const -> const Sce
     }
 }
 //---------------------------------------------------------------------
-auto SceneManager::createMovableObject(StringView name,
-    StringView typeName, const NameValuePairList* params) -> MovableObject*
+auto SceneManager::createMovableObject(std::string_view name,
+    std::string_view typeName, const NameValuePairList* params) -> MovableObject*
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3336,13 +3336,13 @@ auto SceneManager::createMovableObject(StringView name,
     return newObj;
 }
 //---------------------------------------------------------------------
-auto SceneManager::createMovableObject(StringView typeName, const NameValuePairList* params /* = 0 */) -> MovableObject*
+auto SceneManager::createMovableObject(std::string_view typeName, const NameValuePairList* params /* = 0 */) -> MovableObject*
 {
     String name = mMovableNameGenerator.generate();
     return createMovableObject(name, typeName, params);
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyMovableObject(StringView name, StringView typeName)
+void SceneManager::destroyMovableObject(std::string_view name, std::string_view typeName)
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3362,7 +3362,7 @@ void SceneManager::destroyMovableObject(StringView name, StringView typeName)
     }
 }
 //---------------------------------------------------------------------
-void SceneManager::destroyAllMovableObjectsByType(StringView typeName)
+void SceneManager::destroyAllMovableObjectsByType(std::string_view typeName)
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3407,7 +3407,7 @@ void SceneManager::destroyAllMovableObjects()
 
 }
 //---------------------------------------------------------------------
-auto SceneManager::getMovableObject(StringView name, StringView typeName) const -> MovableObject*
+auto SceneManager::getMovableObject(std::string_view name, std::string_view typeName) const -> MovableObject*
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3430,7 +3430,7 @@ auto SceneManager::getMovableObject(StringView name, StringView typeName) const 
     
 }
 //-----------------------------------------------------------------------
-auto SceneManager::hasMovableObject(StringView name, StringView typeName) const -> bool
+auto SceneManager::hasMovableObject(std::string_view name, std::string_view typeName) const -> bool
 {
     // Nasty hack to make generalised Camera functions work without breaking add-on SMs
     if (typeName == "Camera")
@@ -3448,7 +3448,7 @@ auto SceneManager::hasMovableObject(StringView name, StringView typeName) const 
 
 //---------------------------------------------------------------------
 auto
-SceneManager::getMovableObjects(StringView typeName) -> const SceneManager::MovableObjectMap&
+SceneManager::getMovableObjects(std::string_view typeName) -> const SceneManager::MovableObjectMap&
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
     return objectMap->map;
@@ -3467,7 +3467,7 @@ void SceneManager::injectMovableObject(MovableObject* m)
     objectMap->map[std::string{ m->getName() }] = m;
 }
 //---------------------------------------------------------------------
-void SceneManager::extractMovableObject(StringView name, StringView typeName)
+void SceneManager::extractMovableObject(std::string_view name, std::string_view typeName)
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
     auto mi = objectMap->map.find(name);
@@ -3483,7 +3483,7 @@ void SceneManager::extractMovableObject(MovableObject* m)
     extractMovableObject(m->getName(), m->getMovableType());
 }
 //---------------------------------------------------------------------
-void SceneManager::extractAllMovableObjectsByType(StringView typeName)
+void SceneManager::extractAllMovableObjectsByType(std::string_view typeName)
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(typeName);
     // no deletion

@@ -55,7 +55,7 @@ class Technique;
 
     InstanceBatch::InstanceBatch( InstanceManager *creator, MeshPtr &meshReference,
                                     const MaterialPtr &material, size_t instancesPerBatch,
-                                    const Mesh::IndexMap *indexToBoneMap, StringView batchName ) :
+                                    const Mesh::IndexMap *indexToBoneMap, std::string_view batchName ) :
                 Renderable(),
                 MovableObject(),
                 mInstancesPerBatch( instancesPerBatch ),
@@ -427,7 +427,7 @@ class Technique;
         mBoundsDirty = true;
     }
     //-----------------------------------------------------------------------
-    auto InstanceBatch::getMovableType() const noexcept -> StringView
+    auto InstanceBatch::getMovableType() const noexcept -> std::string_view
     {
         static String sType = "InstanceBatch";
         return sType;

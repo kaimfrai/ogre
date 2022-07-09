@@ -53,7 +53,7 @@ class VertexDeclaration;
         return mVertexData->vertexDeclaration;
     }
     //-----------------------------------------------------------------------
-    void RenderToVertexBuffer::setRenderToBufferMaterialName(StringView materialName)
+    void RenderToVertexBuffer::setRenderToBufferMaterialName(std::string_view materialName)
     {
         mMaterial = MaterialManager::getSingleton().getByName(materialName);
 

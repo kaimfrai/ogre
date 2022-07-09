@@ -88,7 +88,7 @@ class TransformKeyFrame;
         @param ver @copydoc SkeletonVersion
         @param endianMode The endian mode to write in
         */
-        void exportSkeleton(const Skeleton* pSkeleton, StringView filename,
+        void exportSkeleton(const Skeleton* pSkeleton, std::string_view filename,
             SkeletonVersion ver = SKELETON_VERSION_LATEST, Endian endianMode = ENDIAN_NATIVE);
 
         /** Exports a skeleton to the stream specified. 

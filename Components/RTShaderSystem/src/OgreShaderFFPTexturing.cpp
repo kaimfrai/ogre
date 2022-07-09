@@ -80,7 +80,7 @@ FFPTexturing::FFPTexturing()
 = default;
 
 //-----------------------------------------------------------------------
-auto FFPTexturing::getType() const noexcept -> StringView
+auto FFPTexturing::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -586,7 +586,7 @@ auto FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState) -> boo
 }
 
 
-auto FFPTexturing::setParameter(StringView name, StringView value) noexcept -> bool
+auto FFPTexturing::setParameter(std::string_view name, std::string_view value) noexcept -> bool
 {
     if(name == "late_add_blend")
     {
@@ -709,7 +709,7 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 }
 
 //-----------------------------------------------------------------------
-auto FFPTexturingFactory::getType() const noexcept -> StringView
+auto FFPTexturingFactory::getType() const noexcept -> std::string_view
 {
     return FFPTexturing::Type;
 }

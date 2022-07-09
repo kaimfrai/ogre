@@ -46,7 +46,7 @@ namespace Ogre
         GLXWindow(GLXGLSupport* glsupport);
         ~GLXWindow() override;
         
-        void create(StringView name, unsigned int width, unsigned int height,
+        void create(std::string_view name, unsigned int width, unsigned int height,
                     bool fullScreen, const NameValuePairList *miscParams) override;
         
         /** @copydoc see RenderWindow::setFullscreen */
@@ -82,7 +82,7 @@ namespace Ogre
            * DISPLAYNAME    The X Server name for the connected display.
            * ATOM          The X Atom used in client delete events.
            */
-        void getCustomAttribute(StringView name, void* pData) override;
+        void getCustomAttribute(std::string_view name, void* pData) override;
         
         [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override;
 

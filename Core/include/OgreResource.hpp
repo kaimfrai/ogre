@@ -232,8 +232,8 @@ class ResourceManager;
             anything ever causes it to unload. Therefore provision of a proper
             ManualResourceLoader instance is strongly recommended.
         */
-        Resource(ResourceManager* creator, StringView name, ResourceHandle handle,
-            StringView group, bool isManual = false, ManualResourceLoader* loader = nullptr);
+        Resource(ResourceManager* creator, std::string_view name, ResourceHandle handle,
+            std::string_view group, bool isManual = false, ManualResourceLoader* loader = nullptr);
 
         /** Virtual destructor. Shouldn't need to be overloaded, as the resource
             deallocation code should reside in unload()
@@ -307,7 +307,7 @@ class ResourceManager;
 
         /** Gets resource name.
         */
-        auto getName() const noexcept -> StringView { return mName; }
+        auto getName() const noexcept -> std::string_view { return mName; }
 
         auto getHandle() const noexcept -> ResourceHandle { return mHandle; }
 
@@ -387,7 +387,7 @@ class ResourceManager;
         virtual void removeListener(Listener* lis);
 
         /// Gets the group which this resource is a member of
-        auto getGroup() const noexcept -> StringView { return mGroup; }
+        auto getGroup() const noexcept -> std::string_view { return mGroup; }
 
         /** Change the resource group ownership of a Resource.
         @remarks
@@ -396,7 +396,7 @@ class ResourceManager;
             this resource from one group to another.
         @param newGroup Name of the new group
         */
-        virtual void changeGroupOwnership(StringView newGroup);
+        virtual void changeGroupOwnership(std::string_view newGroup);
 
         /// Gets the manager which created this resource
         auto getCreator() noexcept -> ResourceManager* { return mCreator; }
@@ -406,9 +406,9 @@ class ResourceManager;
             this resource chose to populate it. Script loaders are advised
             to populate it.
         */
-        auto getOrigin() const noexcept -> StringView { return mOrigin; }
+        auto getOrigin() const noexcept -> std::string_view { return mOrigin; }
         /// Notify this resource of it's origin
-        void _notifyOrigin(StringView origin) { mOrigin = origin; }
+        void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
 
         /** Returns the number of times this resource has changed state, which 
             generally means the number of times it has been loaded. Objects that 

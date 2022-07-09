@@ -51,7 +51,7 @@ CompositionTechnique::~CompositionTechnique()
     removeAllTargetPasses();
 }
 //-----------------------------------------------------------------------
-auto CompositionTechnique::createTextureDefinition(StringView name) -> CompositionTechnique::TextureDefinition *
+auto CompositionTechnique::createTextureDefinition(std::string_view name) -> CompositionTechnique::TextureDefinition *
 {
     if(getTextureDefinition(name))
         OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("Texture '{}' already exists", name));
@@ -71,7 +71,7 @@ void CompositionTechnique::removeTextureDefinition(size_t index)
     mTextureDefinitions.erase(i);
 }
 //---------------------------------------------------------------------
-auto CompositionTechnique::getTextureDefinition(StringView name) const -> CompositionTechnique::TextureDefinition *
+auto CompositionTechnique::getTextureDefinition(std::string_view name) const -> CompositionTechnique::TextureDefinition *
 {
     for (auto const& i : mTextureDefinitions)
     {
@@ -197,7 +197,7 @@ auto CompositionTechnique::getParent() -> Compositor *
     return mParent;
 }
 //---------------------------------------------------------------------
-void CompositionTechnique::setSchemeName(StringView schemeName)
+void CompositionTechnique::setSchemeName(std::string_view schemeName)
 {
     mSchemeName = schemeName;
 }

@@ -63,12 +63,12 @@ auto CompositionTargetPass::getInputMode() const -> CompositionTargetPass::Input
     return mInputMode;
 }
 //-----------------------------------------------------------------------
-void CompositionTargetPass::setOutputName(StringView out)
+void CompositionTargetPass::setOutputName(std::string_view out)
 {
     mOutputName = out;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getOutputName() const -> StringView
+auto CompositionTargetPass::getOutputName() const -> std::string_view
 {
     return mOutputName;
 }
@@ -103,12 +103,12 @@ auto CompositionTargetPass::getLodBias() noexcept -> float
     return mLodBias;
 }
 //-----------------------------------------------------------------------
-void CompositionTargetPass::setMaterialScheme(StringView schemeName)
+void CompositionTargetPass::setMaterialScheme(std::string_view schemeName)
 {
     mMaterialScheme = schemeName;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getMaterialScheme() const noexcept -> StringView
+auto CompositionTargetPass::getMaterialScheme() const noexcept -> std::string_view
 {
     return mMaterialScheme;
 }

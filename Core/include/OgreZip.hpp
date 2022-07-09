@@ -55,11 +55,11 @@ class Archive;
     public:
         ~ZipArchiveFactory() override = default;
         /// @copydoc FactoryObj::getType
-        [[nodiscard]] auto getType() const noexcept -> StringView override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
         using ArchiveFactory::createInstance;
 
-        auto createInstance( StringView name, bool readOnly ) -> Archive * override;
+        auto createInstance( std::string_view name, bool readOnly ) -> Archive * override;
     };
 
     /** Specialisation of ZipArchiveFactory for embedded Zip files. */
@@ -69,11 +69,11 @@ class Archive;
         EmbeddedZipArchiveFactory();
         ~EmbeddedZipArchiveFactory() override;
 
-        [[nodiscard]] auto getType() const noexcept -> StringView override;
+        [[nodiscard]] auto getType() const noexcept -> std::string_view override;
 
         using ArchiveFactory::createInstance;
 
-        auto createInstance( StringView name, bool readOnly ) -> Archive * override;
+        auto createInstance( std::string_view name, bool readOnly ) -> Archive * override;
         void destroyInstance( Archive* ptr) override;
         
         /** a function type to decrypt embedded zip file
@@ -85,11 +85,11 @@ class Archive;
         using DecryptEmbeddedZipFileFunc = bool (*)(size_t, void *, size_t);
 
         /// Add an embedded file to the embedded file list
-        static void addEmbbeddedFile(StringView name, const uint8 * fileData, 
+        static void addEmbbeddedFile(std::string_view name, const uint8 * fileData, 
                         size_t fileSize, DecryptEmbeddedZipFileFunc decryptFunc);
 
         /// Remove an embedded file to the embedded file list
-        static void removeEmbbeddedFile(StringView name);
+        static void removeEmbbeddedFile(std::string_view name);
 
     };
 

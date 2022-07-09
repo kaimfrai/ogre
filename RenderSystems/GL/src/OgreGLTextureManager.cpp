@@ -53,8 +53,8 @@ namespace Ogre {
         ResourceGroupManager::getSingleton()._unregisterResourceManager(mResourceType);
     }
     //-----------------------------------------------------------------------------
-    auto GLTextureManager::createImpl(StringView name, ResourceHandle handle, 
-        StringView group, bool isManual, ManualResourceLoader* loader, 
+    auto GLTextureManager::createImpl(std::string_view name, ResourceHandle handle, 
+        std::string_view group, bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* createParams) -> Resource*
     {
         return new GLTexture(this, name, handle, group, isManual, loader, mRenderSystem);

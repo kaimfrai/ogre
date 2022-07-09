@@ -85,7 +85,7 @@ namespace Ogre {
         @param skipThisMessage
             If set to true by the messageLogged() implementation message will not be logged
         */
-        virtual void messageLogged( StringView message, LogMessageLevel lml, bool maskDebug, StringView logName, bool& skipThisMessage ) = 0;
+        virtual void messageLogged( std::string_view message, LogMessageLevel lml, bool maskDebug, std::string_view logName, bool& skipThisMessage ) = 0;
     };
 
 
@@ -117,7 +117,7 @@ namespace Ogre {
         @remarks
             Usual constructor - called by LogManager.
         */
-        Log( StringView name, bool debugOutput = true, bool suppressFileOutput = false);
+        Log( std::string_view name, bool debugOutput = true, bool suppressFileOutput = false);
 
         /**
         @remarks
@@ -126,7 +126,7 @@ namespace Ogre {
         ~Log();
 
         /// Return the name of the log
-        auto getName() const noexcept -> StringView { return mLogName; }
+        auto getName() const noexcept -> std::string_view { return mLogName; }
         /// Get whether debug output is enabled for this log
         auto isDebugOutputEnabled() const noexcept -> bool { return mDebugOut; }
         /// Get whether file output is suppressed for this log
@@ -137,7 +137,7 @@ namespace Ogre {
         /** Log a message to the debugger and to log file (the default is
             "<code>OGRE.log</code>"),
         */
-        void logMessage( StringView message, LogMessageLevel lml = LML_NORMAL, bool maskDebug = false );
+        void logMessage( std::string_view message, LogMessageLevel lml = LML_NORMAL, bool maskDebug = false );
 
         /** Get a stream object targeting this log. */
         auto stream(LogMessageLevel lml = LML_NORMAL, bool maskDebug = false) -> Stream;

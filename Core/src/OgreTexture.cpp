@@ -49,8 +49,8 @@ THE SOFTWARE.
 namespace Ogre {
     const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
     //--------------------------------------------------------------------------
-    Texture::Texture(ResourceManager* creator, StringView name, 
-        ResourceHandle handle, StringView group, bool isManual, 
+    Texture::Texture(ResourceManager* creator, std::string_view name, 
+        ResourceHandle handle, std::string_view group, bool isManual, 
         ManualResourceLoader* loader)
         : Resource(creator, name, handle, group, isManual, loader)
             
@@ -415,11 +415,11 @@ namespace Ogre {
     }
 
     //--------------------------------------------------------------------------
-    void Texture::getCustomAttribute(StringView , void*)
+    void Texture::getCustomAttribute(std::string_view , void*)
     {
     }
 
-    void Texture::readImage(LoadedImages& imgs, StringView name, StringView ext, bool haveNPOT)
+    void Texture::readImage(LoadedImages& imgs, std::string_view name, std::string_view ext, bool haveNPOT)
     {
         DataStreamPtr dstream = ResourceGroupManager::getSingleton().openResource(name, mGroup, this);
 
@@ -484,7 +484,7 @@ namespace Ogre {
         }
 
         // read sub-images
-        for(StringView name : mLayerNames)
+        for(std::string_view name : mLayerNames)
         {
             StringUtil::splitBaseFilename(name, baseName, ext);
             readImage(loadedImages, name, ext, haveNPOT);

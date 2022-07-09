@@ -71,19 +71,19 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto FontManager::createImpl(StringView name, ResourceHandle handle, 
-        StringView group, bool isManual, ManualResourceLoader* loader,
+    auto FontManager::createImpl(std::string_view name, ResourceHandle handle, 
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* params) -> Resource*
     {
         return new Font(this, name, handle, group, isManual, loader);
     }
     //-----------------------------------------------------------------------
-    auto FontManager::getByName(StringView name, StringView groupName) const -> FontPtr
+    auto FontManager::getByName(std::string_view name, std::string_view groupName) const -> FontPtr
     {
         return static_pointer_cast<Font>(getResourceByName(name, groupName));
     }
     //---------------------------------------------------------------------
-    auto FontManager::create (StringView name, StringView group,
+    auto FontManager::create (std::string_view name, std::string_view group,
                                     bool isManual, ManualResourceLoader* loader,
                                     const NameValuePairList* createParams) -> FontPtr
     {

@@ -75,7 +75,7 @@ class DynLib;
         @param filename
             The name of the library. The extension can be omitted.
         */
-        auto load(StringView filename) -> DynLib*;
+        auto load(std::string_view filename) -> DynLib*;
 
         /** Unloads the passed library.
         @param lib

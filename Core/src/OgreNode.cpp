@@ -53,7 +53,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     Node::Node() : Node(BLANKSTRING) {}
     //-----------------------------------------------------------------------
-    Node::Node(StringView name)
+    Node::Node(std::string_view name)
         :mParent(nullptr),
         mName(SmallString<16uz>::Create(name)),
         mNeedParentUpdate(false),
@@ -251,7 +251,7 @@ namespace Ogre {
         return newNode;
     }
     //-----------------------------------------------------------------------
-    auto Node::createChild(StringView name, const Vector3& inTranslate, const Quaternion& inRotate) -> Node*
+    auto Node::createChild(std::string_view name, const Vector3& inTranslate, const Quaternion& inRotate) -> Node*
     {
         OgreAssert(!name.empty(), "");
         Node* newNode = createChildImpl(name);
@@ -575,12 +575,12 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     struct NodeNameExists {
-        StringView name;
+        std::string_view name;
         auto operator()(const Node* mo) -> bool {
             return mo->getName() == name;
         }
     };
-    auto Node::getChild(StringView name) const -> Node*
+    auto Node::getChild(std::string_view name) const -> Node*
     {
         NodeNameExists pred = {name};
         auto i = std::ranges::find_if(mChildren, pred);
@@ -594,7 +594,7 @@ namespace Ogre {
         return *i;
     }
     //-----------------------------------------------------------------------
-    auto Node::removeChild(StringView name) -> Node*
+    auto Node::removeChild(std::string_view name) -> Node*
     {
         OgreAssert(!name.empty(), "");
         NodeNameExists pred = {name};

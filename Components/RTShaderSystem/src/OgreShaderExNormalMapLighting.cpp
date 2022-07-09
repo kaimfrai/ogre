@@ -75,7 +75,7 @@ NormalMapLighting::NormalMapLighting()
 }
 
 //-----------------------------------------------------------------------
-auto NormalMapLighting::getType() const noexcept -> StringView
+auto NormalMapLighting::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -182,7 +182,7 @@ auto NormalMapLighting::preAddToRenderState(const RenderState* renderState, Pass
     return true;
 }
 
-auto NormalMapLighting::setParameter(StringView name, StringView value) noexcept -> bool
+auto NormalMapLighting::setParameter(std::string_view name, std::string_view value) noexcept -> bool
 {
 	if(name == "normalmap_space")
 	{
@@ -231,7 +231,7 @@ auto NormalMapLighting::setParameter(StringView name, StringView value) noexcept
 }
 
 //-----------------------------------------------------------------------
-auto NormalMapLightingFactory::getType() const noexcept -> StringView
+auto NormalMapLightingFactory::getType() const noexcept -> std::string_view
 {
     return NormalMapLighting::Type;
 }

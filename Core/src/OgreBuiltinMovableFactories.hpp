@@ -13,11 +13,11 @@ namespace Ogre
 {
 class Rectangle2DFactory : public MovableObjectFactory
 {
-    auto createInstanceImpl(StringView name, const NameValuePairList* params) -> MovableObject* override;
+    auto createInstanceImpl(std::string_view name, const NameValuePairList* params) -> MovableObject* override;
 
 public:
     static const String FACTORY_TYPE_NAME;
-    [[nodiscard]] auto getType() const noexcept -> StringView override { return FACTORY_TYPE_NAME; }
+    [[nodiscard]] auto getType() const noexcept -> std::string_view override { return FACTORY_TYPE_NAME; }
 };
 } // namespace Ogre
 

@@ -64,7 +64,7 @@ struct Box;
         return mBuffer->getFormat();
     }
     //-----------------------------------------------------------------------------
-    MultiRenderTarget::MultiRenderTarget(StringView name)
+    MultiRenderTarget::MultiRenderTarget(std::string_view name)
     {
         mPriority = OGRE_REND_TO_TEX_RT_GROUP;
         mName = name;

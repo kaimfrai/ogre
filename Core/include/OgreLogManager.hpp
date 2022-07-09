@@ -94,19 +94,19 @@ namespace Ogre
                 log and no file output will be written. If you do this you should
                 register a LogListener so log output is not lost.
         */
-        auto createLog( StringView name, bool defaultLog = false, bool debuggerOutput = true, 
+        auto createLog( std::string_view name, bool defaultLog = false, bool debuggerOutput = true, 
             bool suppressFileOutput = false) -> Log*;
 
         /** Retrieves a log managed by this class.
         */
-        auto getLog( StringView name) -> Log*;
+        auto getLog( std::string_view name) -> Log*;
 
         /** Returns a pointer to the default log.
         */
         auto getDefaultLog() noexcept -> Log*;
 
         /** Closes and removes a named log. */
-        void destroyLog(StringView name);
+        void destroyLog(std::string_view name);
         /** Closes and removes a log. */
         void destroyLog(Log* log);
 
@@ -117,17 +117,17 @@ namespace Ogre
 
         /** Log a message to the default log.
         */
-        void logMessage( StringView message, LogMessageLevel lml = LML_NORMAL, 
+        void logMessage( std::string_view message, LogMessageLevel lml = LML_NORMAL, 
             bool maskDebug = false);
 
         /// @overload
-        void logError(StringView message, bool maskDebug = false );
+        void logError(std::string_view message, bool maskDebug = false );
         /// @overload
-        void logWarning(StringView message, bool maskDebug = false );
+        void logWarning(std::string_view message, bool maskDebug = false );
 
         /** Log a message to the default log (signature for backward compatibility).
         */
-        void logMessage( LogMessageLevel lml, StringView message,  
+        void logMessage( LogMessageLevel lml, std::string_view message,  
             bool maskDebug = false) { logMessage(message, lml, maskDebug); }
 
         /** Get a stream on the default log. */

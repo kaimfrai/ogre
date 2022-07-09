@@ -65,7 +65,7 @@ namespace Ogre
     InstanceBatchHW_VTF::InstanceBatchHW_VTF( 
         InstanceManager *creator, MeshPtr &meshReference, 
         const MaterialPtr &material, size_t instancesPerBatch, 
-        const Mesh::IndexMap *indexToBoneMap, StringView batchName )
+        const Mesh::IndexMap *indexToBoneMap, std::string_view batchName )
             : BaseInstanceBatchVTF( creator, meshReference, material, 
                                     instancesPerBatch, indexToBoneMap, batchName)
               

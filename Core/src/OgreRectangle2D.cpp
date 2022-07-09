@@ -61,7 +61,7 @@ class MovableObject;
         _initRectangle2D(includeTextureCoords, vBufUsage);
     }
 
-    Rectangle2D::Rectangle2D(StringView name, bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
+    Rectangle2D::Rectangle2D(std::string_view name, bool includeTextureCoords, Ogre::HardwareBuffer::Usage vBufUsage)
     : SimpleRenderable(name)
     {
         _initRectangle2D(includeTextureCoords, vBufUsage);
@@ -223,14 +223,14 @@ class MovableObject;
         *xform = Matrix4::IDENTITY;
     }
 
-    auto Rectangle2D::getMovableType() const noexcept -> StringView
+    auto Rectangle2D::getMovableType() const noexcept -> std::string_view
     {
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }
 
     const String Rectangle2DFactory::FACTORY_TYPE_NAME = "Rectangle2D";
 
-    auto Rectangle2DFactory::createInstanceImpl(StringView name, const NameValuePairList* params) -> MovableObject*
+    auto Rectangle2DFactory::createInstanceImpl(std::string_view name, const NameValuePairList* params) -> MovableObject*
     {
         bool includeTextureCoords = false;
         if (params)

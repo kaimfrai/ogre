@@ -43,7 +43,7 @@ namespace Ogre {
         return str.str();
     }
 
-    void  DriverVersion::fromString(StringView versionString)
+    void  DriverVersion::fromString(std::string_view versionString)
     {
         auto const tokens = StringUtil::split(versionString, ".");
         if(!tokens.empty())
@@ -73,14 +73,14 @@ namespace Ogre {
         mCategoryRelevant[CAPS_CATEGORY_GL] = false;
     }
 
-    void RenderSystemCapabilities::addShaderProfile(StringView profile) { mSupportedShaderProfiles.emplace(profile); }
+    void RenderSystemCapabilities::addShaderProfile(std::string_view profile) { mSupportedShaderProfiles.emplace(profile); }
 
-    void RenderSystemCapabilities::removeShaderProfile(StringView profile)
+    void RenderSystemCapabilities::removeShaderProfile(std::string_view profile)
     {
         mSupportedShaderProfiles.erase(mSupportedShaderProfiles.find(profile));
     }
 
-    auto RenderSystemCapabilities::isShaderProfileSupported(StringView profile) const -> bool
+    auto RenderSystemCapabilities::isShaderProfileSupported(std::string_view profile) const -> bool
     {
         return (mSupportedShaderProfiles.end() != mSupportedShaderProfiles.find(profile));
     }
@@ -198,9 +198,9 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    StringView RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
+    std::string_view RenderSystemCapabilities::msGPUVendorStrings[GPU_VENDOR_COUNT];
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorFromString(StringView vendorString) -> GPUVendor
+    auto RenderSystemCapabilities::vendorFromString(std::string_view vendorString) -> GPUVendor
     {
         initVendorStrings();
         GPUVendor ret = GPU_UNKNOWN;
@@ -220,7 +220,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> StringView
+    auto RenderSystemCapabilities::vendorToString(GPUVendor v) -> std::string_view
     {
         initVendorStrings();
         return msGPUVendorStrings[v];

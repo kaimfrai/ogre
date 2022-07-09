@@ -55,7 +55,7 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    AnimationState::AnimationState(StringView animName,
+    AnimationState::AnimationState(std::string_view animName,
         AnimationStateSet *parent, Real timePos, Real length, Real weight, 
         bool enabled)
         : mBlendMask(nullptr)
@@ -70,7 +70,7 @@ namespace Ogre
         mParent->_notifyDirty();
     }
     //---------------------------------------------------------------------
-    auto AnimationState::getAnimationName() const noexcept -> StringView
+    auto AnimationState::getAnimationName() const noexcept -> std::string_view
     {
         return mAnimationName;
     }
@@ -250,7 +250,7 @@ namespace Ogre
         removeAllAnimationStates();
     }
     //---------------------------------------------------------------------
-    void AnimationStateSet::removeAnimationState(StringView name)
+    void AnimationStateSet::removeAnimationState(std::string_view name)
     {
         auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
@@ -272,7 +272,7 @@ namespace Ogre
         mEnabledAnimationStates.clear();
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::createAnimationState(StringView name,
+    auto AnimationStateSet::createAnimationState(std::string_view name,
         Real timePos, Real length, Real weight, bool enabled) -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
@@ -290,7 +290,7 @@ namespace Ogre
 
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::getAnimationState(StringView name) const -> AnimationState*
+    auto AnimationStateSet::getAnimationState(std::string_view name) const -> AnimationState*
     {
         auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
@@ -302,7 +302,7 @@ namespace Ogre
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto AnimationStateSet::hasAnimationState(StringView name) const -> bool
+    auto AnimationStateSet::hasAnimationState(std::string_view name) const -> bool
     {
         return mAnimationStates.find(name) != mAnimationStates.end();
     }

@@ -67,7 +67,7 @@ FFPFog::FFPFog()
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::getType() const noexcept -> StringView
+auto FFPFog::getType() const noexcept -> std::string_view
 {
     return Type;
 }
@@ -239,7 +239,7 @@ auto FFPFog::preAddToRenderState(const RenderState* renderState, Pass* srcPass, 
 }
 
 //-----------------------------------------------------------------------
-auto FFPFog::setParameter(StringView name, StringView value) noexcept -> bool
+auto FFPFog::setParameter(std::string_view name, std::string_view value) noexcept -> bool
 {
 	if(name == "calc_mode")
 	{
@@ -252,7 +252,7 @@ auto FFPFog::setParameter(StringView name, StringView value) noexcept -> bool
 }
 
 //-----------------------------------------------------------------------
-auto FFPFogFactory::getType() const noexcept -> StringView
+auto FFPFogFactory::getType() const noexcept -> std::string_view
 {
     return FFPFog::Type;
 }

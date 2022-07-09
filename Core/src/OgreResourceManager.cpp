@@ -49,12 +49,12 @@ namespace Ogre {
         destroyAllResourcePools();
         removeAll();
     }
-    void ResourceManager::parseScript(DataStreamPtr& stream, StringView groupName)
+    void ResourceManager::parseScript(DataStreamPtr& stream, std::string_view groupName)
     {
         ScriptCompilerManager::getSingleton().parseScript(stream, groupName);
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::createResource(StringView name, StringView group,
+    auto ResourceManager::createResource(std::string_view name, std::string_view group,
         bool isManual, ManualResourceLoader* loader, const NameValuePairList* params) -> ResourcePtr
     {
         OgreAssert(!name.empty(), "resource name must not be empty");
@@ -75,7 +75,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto 
     ResourceManager::createOrRetrieve(
-        StringView name, StringView group,
+        std::string_view name, std::string_view group,
         bool isManual, ManualResourceLoader* loader, 
         const NameValuePairList* params) -> ResourceManager::ResourceCreateOrRetrieveResult
     {
@@ -90,8 +90,8 @@ namespace Ogre {
         return { res, created };
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::prepare(StringView name,
-        StringView group, bool isManual, ManualResourceLoader* loader,
+    auto ResourceManager::prepare(std::string_view name,
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -100,8 +100,8 @@ namespace Ogre {
         return r;
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::load(StringView name,
-        StringView group, bool isManual, ManualResourceLoader* loader,
+    auto ResourceManager::load(std::string_view name,
+        std::string_view group, bool isManual, ManualResourceLoader* loader,
         const NameValuePairList* loadParams, bool backgroundThread) -> ResourcePtr
     {
         ResourcePtr r = createOrRetrieve(name,group,isManual,loader,loadParams).first;
@@ -216,7 +216,7 @@ namespace Ogre {
         return mMemoryBudget;
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::unload(StringView name, StringView group)
+    void ResourceManager::unload(std::string_view name, std::string_view group)
     {
         ResourcePtr res = getResourceByName(name, group);
 
@@ -285,7 +285,7 @@ namespace Ogre {
         removeImpl(res);
     }
     //-----------------------------------------------------------------------
-    void ResourceManager::remove(StringView name, StringView group)
+    void ResourceManager::remove(std::string_view name, std::string_view group)
     {
         ResourcePtr res = getResourceByName(name, group);
 
@@ -341,7 +341,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto ResourceManager::getResourceByName(StringView name, StringView groupName) const -> ResourcePtr
+    auto ResourceManager::getResourceByName(std::string_view name, std::string_view groupName) const -> ResourcePtr
     {
         // resource should be in global pool
         bool isGlobal = ResourceGroupManager::getSingleton().isResourceGroupInGlobalPool(groupName);
@@ -437,7 +437,7 @@ namespace Ogre {
         mMemoryUsage -= res->getSize();
     }
     //---------------------------------------------------------------------
-    auto ResourceManager::getResourcePool(StringView name) -> ResourceManager::ResourcePool*
+    auto ResourceManager::getResourcePool(std::string_view name) -> ResourceManager::ResourcePool*
     {
         auto i = mResourcePoolMap.find(name);
         if (i == mResourcePoolMap.end())
@@ -461,7 +461,7 @@ namespace Ogre {
         
     }
     //---------------------------------------------------------------------
-    void ResourceManager::destroyResourcePool(StringView name)
+    void ResourceManager::destroyResourcePool(std::string_view name)
     {
         auto i = mResourcePoolMap.find(name);
         if (i != mResourcePoolMap.end())
@@ -481,7 +481,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     //---------------------------------------------------------------------
-    ResourceManager::ResourcePool::ResourcePool(StringView name)
+    ResourceManager::ResourcePool::ResourcePool(std::string_view name)
         : mName(name)
     {
 
@@ -492,7 +492,7 @@ namespace Ogre {
         clear();
     }
     //---------------------------------------------------------------------
-    auto ResourceManager::ResourcePool::getName() const noexcept -> StringView
+    auto ResourceManager::ResourcePool::getName() const noexcept -> std::string_view
     {
         return mName;
     }

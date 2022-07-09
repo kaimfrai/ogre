@@ -161,7 +161,7 @@ class AxisAlignedBox;
         }
     }
     //-----------------------------------------------------------------------
-    auto InstancedEntity::getMovableType() const noexcept -> StringView
+    auto InstancedEntity::getMovableType() const noexcept -> std::string_view
     {
         static String sType = "InstancedEntity";
         return sType;
@@ -379,7 +379,7 @@ class AxisAlignedBox;
         updateTransforms();
     }
     //-----------------------------------------------------------------------
-    auto InstancedEntity::getAnimationState(StringView name) const -> AnimationState*
+    auto InstancedEntity::getAnimationState(std::string_view name) const -> AnimationState*
     {
         if (!mAnimationState)
         {

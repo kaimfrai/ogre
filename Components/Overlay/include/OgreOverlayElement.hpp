@@ -108,7 +108,7 @@ class RenderQueue;
     class OverlayElement : public StringInterface, public Renderable, public OverlayAlloc
     {
     public:
-        static StringView DEFAULT_RESOURCE_GROUP;
+        static std::string_view DEFAULT_RESOURCE_GROUP;
     protected:
         String mName;
         bool mVisible{true};
@@ -185,7 +185,7 @@ class RenderQueue;
 
     public:
         /// Constructor: do not call direct, use OverlayManager::createElement
-        OverlayElement(StringView name);
+        OverlayElement(std::string_view name);
         ~OverlayElement() override;
 
         /** Initialise gui element */
@@ -197,7 +197,7 @@ class RenderQueue;
         virtual void _restoreManualHardwareResources() {}
 
         /** Gets the name of this overlay. */
-        [[nodiscard]] auto getName() const noexcept -> StringView { return mName; }
+        [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
 
 
         /** Shows this element if it was hidden. */
@@ -264,7 +264,7 @@ class RenderQueue;
         void _setDimensions(Real width, Real height);
 
         /** Gets the name of the material this element uses. */
-        [[nodiscard]] virtual auto getMaterialName() const noexcept -> StringView ;
+        [[nodiscard]] virtual auto getMaterialName() const noexcept -> std::string_view ;
 
         /** Sets the the material this element will use.
         @remarks
@@ -280,7 +280,7 @@ class RenderQueue;
         void setMaterial(const MaterialPtr& mat);
 
         /// @overload
-        void setMaterialName(StringView matName, StringView group = DEFAULT_RESOURCE_GROUP );
+        void setMaterialName(std::string_view matName, std::string_view group = DEFAULT_RESOURCE_GROUP );
 
 
         // --- Renderable Overrides ---
@@ -349,7 +349,7 @@ class RenderQueue;
             bool debugRenderables = false);
 
         /** Gets the type name of the element. All concrete subclasses must implement this. */
-        [[nodiscard]] virtual auto getTypeName() const noexcept -> StringView = 0;
+        [[nodiscard]] virtual auto getTypeName() const noexcept -> std::string_view = 0;
 
         /** Sets the caption on elements that support it. 
         @remarks
@@ -357,9 +357,9 @@ class RenderQueue;
         However, being a common requirement it is in the top-level interface to avoid
         having to set it via the StringInterface all the time.
         */
-        virtual void setCaption(StringView text);
+        virtual void setCaption(std::string_view text);
         /** Gets the caption for this element. */
-        [[nodiscard]] auto getCaption() const noexcept -> StringView { return mCaption; }
+        [[nodiscard]] auto getCaption() const noexcept -> std::string_view { return mCaption; }
         /** Sets the colour on elements that support it. 
         @remarks
         This property doesn't do something on all elements, just those that support it.
@@ -465,7 +465,7 @@ class RenderQueue;
         }
 
         virtual void copyFromTemplate(OverlayElement* templateOverlay) { templateOverlay->copyParametersTo(this); }
-        virtual auto clone(StringView instanceName) -> OverlayElement*;
+        virtual auto clone(std::string_view instanceName) -> OverlayElement*;
     };
 
 

@@ -70,7 +70,7 @@ namespace Ogre {
         String versionString;
         ::std::unique_ptr<MeshSerializerImpl> impl;
 
-        MeshVersionData(MeshVersion _ver, StringView _string, ::std::unique_ptr<MeshSerializerImpl> _impl)
+        MeshVersionData(MeshVersion _ver, std::string_view _string, ::std::unique_ptr<MeshSerializerImpl> _impl)
         : version(_ver), versionString(_string), impl(::std::move(_impl)) {}
 
     };
@@ -119,7 +119,7 @@ namespace Ogre {
         @param filename The destination filename
         @param endianMode The endian mode of the written file
         */
-        void exportMesh(const Mesh* pMesh, StringView filename,
+        void exportMesh(const Mesh* pMesh, std::string_view filename,
             Endian endianMode = ENDIAN_NATIVE);
 
         /** Exports a mesh to the file specified, in a specific version format. 
@@ -133,7 +133,7 @@ namespace Ogre {
          @param version Mesh version to write
          @param endianMode The endian mode of the written file
          */
-        void exportMesh(const Mesh* pMesh, StringView filename,
+        void exportMesh(const Mesh* pMesh, std::string_view filename,
                         MeshVersion version,
                         Endian endianMode = ENDIAN_NATIVE);
 

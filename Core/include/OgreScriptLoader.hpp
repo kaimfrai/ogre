@@ -74,7 +74,7 @@ namespace Ogre {
         @param groupName The name of a resource group which should be used if any resources
             are created during the parse of this script.
         */
-        virtual void parseScript(DataStreamPtr& stream, StringView groupName) = 0;
+        virtual void parseScript(DataStreamPtr& stream, std::string_view groupName) = 0;
 
         /** Gets the loading order for scripts of this type.
 
