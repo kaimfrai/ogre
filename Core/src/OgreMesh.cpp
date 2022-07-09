@@ -181,7 +181,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Mesh::nameSubMesh(std::string_view name, ushort index)
     {
-        mSubMeshNameMap[std::string{name}] = index ;
+        mSubMeshNameMap[name] = index ;
     }
 
     //---------------------------------------------------------------------
@@ -390,7 +390,7 @@ namespace Ogre {
         for (auto const& [key, value] : mAnimationsList)
         {
             Animation *newAnim = value->clone(value->getName());
-            newMesh->mAnimationsList[std::string{value->getName()}] = newAnim;
+            newMesh->mAnimationsList[value->getName()] = newAnim;
         }
         // Clone pose list
         for (auto & i : mPoseList)
@@ -2192,7 +2192,7 @@ namespace Ogre {
         ret->_notifyContainer(this);
 
         // Add to list
-        mAnimationsList[std::string{name}] = ret;
+        mAnimationsList[name] = ret;
 
         // Mark animation types dirty
         mAnimationTypesDirty = true;

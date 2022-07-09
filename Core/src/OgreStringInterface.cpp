@@ -70,8 +70,8 @@ namespace Ogre {
 
     void ParamDictionary::addParameter(std::string_view name, ParamCommand* paramCmd)
     {
-        mParamDefs.emplace_back(name);
-        mParamCommands[std::string{name}] = paramCmd;
+        mParamDefs.push_back(name);
+        mParamCommands[name] = paramCmd;
     }
 
     auto StringInterface::createParamDictionary(std::string_view className) -> bool
@@ -92,7 +92,7 @@ namespace Ogre {
         }
     }
 
-    auto StringInterface::getParameters() const noexcept -> std::span<std::string const>
+    auto StringInterface::getParameters() const noexcept -> std::span<std::string_view const>
     {
         static ParameterList emptyList;
 

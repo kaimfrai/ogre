@@ -45,8 +45,7 @@ THE SOFTWARE.
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
-    template<typename T>
-    static void removeDuplicates(std::vector<T>& c)
+    static void removeDuplicates(std::vector<std::string_view>& c)
     {
         std::ranges::sort(c);
         auto p = std::unique(c.begin(), c.end());

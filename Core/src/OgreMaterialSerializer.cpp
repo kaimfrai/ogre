@@ -220,12 +220,12 @@ namespace Ogre
             }
 
             // Iterate over techniques
-            for(auto const& t : pMat->getTechniques())
+            for(auto t : pMat->getTechniques())
             {
                 // skip RTSS generated techniques
                 if(!mDefaults && t->getSchemeName() == "ShaderGeneratorDefaultScheme")
                     continue;
-                writeTechnique(t.get());
+                writeTechnique(t);
                 mBuffer += "\n";
             }
 

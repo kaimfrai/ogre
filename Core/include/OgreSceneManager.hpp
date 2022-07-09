@@ -450,9 +450,9 @@ namespace Ogre {
         /// Allow visitor helper to access protected methods
         friend class SceneMgrQueuedRenderableVisitor;
 
-        using CameraList = std::map<std::string, Camera*, std::less<>>;
+        using CameraList = std::map<std::string_view, Camera *>;
         using AnimationList = std::map<std::string_view, Animation *>;
-        using MovableObjectMap = std::map<std::string, MovableObject*, std::less<>>;
+        using MovableObjectMap = std::map<std::string_view, MovableObject *>;
     protected:
 
         /// Subclasses can override this to ensure their specialised SceneNode is used.

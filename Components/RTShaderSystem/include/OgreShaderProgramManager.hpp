@@ -101,7 +101,7 @@ public:
 private:
 
     //-----------------------------------------------------------------------------
-    using GpuProgramsMap = std::map<std::string, GpuProgramPtr, std::less<>>;
+    using GpuProgramsMap = std::map<std::string_view, GpuProgramPtr>;
     using GpuProgramsMapIterator = GpuProgramsMap::iterator;
     using GpuProgramsMapConstIterator = GpuProgramsMap::const_iterator;
 

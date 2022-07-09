@@ -140,7 +140,7 @@ class VertexData;
         /** A hashmap used to store optional SubMesh names.
             Translates a name into SubMesh index.
         */
-        using SubMeshNameMap = std::unordered_map<std::string, ushort, StringHash, std::equal_to<>>;
+        using SubMeshNameMap = std::unordered_map<std::string_view, ushort> ;
 
         
     private:
@@ -190,7 +190,7 @@ class VertexData;
         bool mAutoBuildEdgeLists{true};
 
         /// Storage of morph animations, lookup by name
-        using AnimationList = std::map<std::string, Animation*, std::less<>>;
+        using AnimationList = std::map<std::string_view, Animation *>;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
         mutable VertexAnimationType mSharedVertexDataAnimationType{VAT_NONE};

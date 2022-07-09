@@ -302,7 +302,7 @@ class Affine3;
         ret->_notifyContainer(this);
 
         // Add to list
-        mAnimationsList[std::string{name}] = ret;
+        mAnimationsList[name] = ret;
 
         return ret;
 

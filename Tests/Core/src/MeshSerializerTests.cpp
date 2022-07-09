@@ -439,8 +439,8 @@ auto MeshSerializerTests::isContainerClone(T& a, T& b) -> bool
     return a.size() == b.size() && std::ranges::equal(a, b);
 }
 //--------------------------------------------------------------------------
-template<typename K, typename V, typename H, typename E>
-auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V, H, E>& a, const std::unordered_map<K, V, H, E>& b) -> bool
+template<typename K, typename V>
+auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V>& a, const std::unordered_map<K, V>& b) -> bool
 {
     // if you recreate a HashMap with same elements, then iteration order may differ!
     // So isContainerClone is not always working on HashMap.

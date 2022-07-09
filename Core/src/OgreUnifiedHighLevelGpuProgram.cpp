@@ -114,7 +114,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::addDelegateProgram(std::string_view name)
     {
-        mDelegateNames.emplace_back(name);
+        mDelegateNames.push_back(name);
 
         // reset chosen delegate
         mChosenDelegate.reset();

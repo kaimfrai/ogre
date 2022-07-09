@@ -85,11 +85,11 @@ namespace Ogre {
         /** Gets all settings from the file with the named key. */
         [[nodiscard]] auto getMultiSetting(std::string_view key, std::string_view section = "") const -> StringVector;
 
-        using SettingsMultiMap = std::multimap<std::string, String, std::less<>>;
+        using SettingsMultiMap = std::multimap<std::string_view, String>;
         using SettingsIterator = MapIterator<SettingsMultiMap>;
         /** Gets an iterator for stepping through all the keys / values in the file. */
-        using SettingsBySection = std::map<std::string, SettingsMultiMap*, std::less<>>;
-        using SettingsBySection_ = std::map<std::string, SettingsMultiMap, std::less<>>;
+        using SettingsBySection = std::map<std::string_view, SettingsMultiMap *>;
+        using SettingsBySection_ = std::map<std::string_view, SettingsMultiMap>;
         using SectionIterator = MapIterator<SettingsBySection>;
 
         /** Get all the available settings grouped by sections */

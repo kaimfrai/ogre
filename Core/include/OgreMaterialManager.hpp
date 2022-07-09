@@ -140,7 +140,7 @@ class Technique;
             const NameValuePairList* params) -> Resource* override;
 
         /// Scheme name -> index. Never shrinks! Should be pretty static anyway
-        using SchemeMap = std::map<std::string, unsigned short, std::less<>>;
+        using SchemeMap = std::map<std::string_view, unsigned short>;
         /// List of material schemes
         SchemeMap mSchemes;
         /// Current material scheme

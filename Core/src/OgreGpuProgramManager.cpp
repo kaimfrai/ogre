@@ -233,7 +233,7 @@ namespace {
         return prg;
     }
     //---------------------------------------------------------------------------
-    auto GpuProgramManager::getSupportedSyntax() noexcept -> const RenderSystemCapabilities::ShaderProfiles&
+    auto GpuProgramManager::getSupportedSyntax() noexcept -> const GpuProgramManager::SyntaxCodes&
     {
         // Use the current render system
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
@@ -266,7 +266,7 @@ namespace {
                 "GpuProgramManager::createSharedParameters");
         }
         GpuSharedParametersPtr ret(new GpuSharedParameters(name));
-        mSharedParametersMap[std::string{name}] = ret;
+        mSharedParametersMap[name] = ret;
         return ret;
     }
     //---------------------------------------------------------------------

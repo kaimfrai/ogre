@@ -501,7 +501,7 @@ private:
     using SGMaterialIterator = SGMaterialMap::iterator;
     using SGMaterialConstIterator = SGMaterialMap::const_iterator;
 
-    using SGSchemeMap = std::map<std::string, SGScheme*, std::less<>>;
+    using SGSchemeMap = std::map<std::string_view, SGScheme *>;
     using SGSchemeIterator = SGSchemeMap::iterator;
     using SGSchemeConstIterator = SGSchemeMap::const_iterator;
 

@@ -186,7 +186,7 @@ class Renderable;
         {
             // Create new
             ret = static_cast<unsigned short>(mSchemes.size());
-            mSchemes[std::string{schemeName}] = ret;
+            mSchemes[schemeName] = ret;
         }
         return ret;
 

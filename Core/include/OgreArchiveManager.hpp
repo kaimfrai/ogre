@@ -55,7 +55,7 @@ class ArchiveFactory;
         /// Factories available to create archives, indexed by archive type (String identifier e.g. 'Zip')
         ArchiveFactoryMap mArchFactories;
         /// Currently loaded archives
-        using ArchiveMap = std::map<std::string, Archive*, std::less<>>;
+        using ArchiveMap = std::map<std::string_view, Archive *>;
         ArchiveMap mArchives;
 
     public:

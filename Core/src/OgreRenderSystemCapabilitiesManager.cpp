@@ -77,10 +77,10 @@ namespace Ogre {
 
     auto RenderSystemCapabilitiesManager::loadParsedCapabilities(std::string_view name) -> RenderSystemCapabilities*
     {
-        return mCapabilitiesMap.find(name)->second.get();
+        return mCapabilitiesMap[name].get();
     }
 
-    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const CapabilitiesMap&
+    auto RenderSystemCapabilitiesManager::getCapabilities() const -> const std::map<std::string_view, ::std::unique_ptr<RenderSystemCapabilities>> &
     {
         return mCapabilitiesMap;
     }

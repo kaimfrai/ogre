@@ -3332,7 +3332,7 @@ auto SceneManager::createMovableObject(std::string_view name,
     }
 
     MovableObject* newObj = factory->createInstance(name, this, params);
-    objectMap->map[std::string{name}] = newObj;
+    objectMap->map[name] = newObj;
     return newObj;
 }
 //---------------------------------------------------------------------
@@ -3464,7 +3464,7 @@ void SceneManager::destroyMovableObject(MovableObject* m)
 void SceneManager::injectMovableObject(MovableObject* m)
 {
     MovableObjectCollection* objectMap = getMovableObjectCollection(m->getMovableType());
-    objectMap->map[std::string{m->getName()}] = m;
+    objectMap->map[m->getName()] = m;
 }
 //---------------------------------------------------------------------
 void SceneManager::extractMovableObject(std::string_view name, std::string_view typeName)
