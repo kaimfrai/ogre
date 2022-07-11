@@ -253,26 +253,22 @@ namespace Ogre {
     [[noreturn]]
     auto inline OGRE_EXCEPT(Exception::ExceptionCodes code,
                             ::std::string_view desc,
-                            // TODO cannot yet use consteval function source_location::current as a default argument
                             ::std::string_view src =
-                                //::std::source_location::current().function_name(),
-                                __builtin_source_location()->_M_function_name,
+                                ::std::source_location::current().function_name(),
                             char const* file =
-                                //::std::source_location::current().file_name(),
-                                __builtin_source_location()->_M_file_name,
+                                ::std::source_location::current().file_name(),
                             ::std::uint_least32_t line =
-                                //::std::source_location::current().line()
-                                __builtin_source_location()->_M_line
+                               ::std::source_location::current().line()
                             )
     {
-        Ogre::ExceptionFactory::throwException(code, {desc.begin(), desc.end()}, { src.begin(), src.end() }, file, line);
+        Ogre::ExceptionFactory::throwException(code, desc, src, file, line);
     }
 
     // Check for OGRE assert mode
-    auto inline OgreAssert(auto&& a, ::std::string_view b ) -> void
+    auto inline OgreAssert(auto&& a, ::std::string_view b, std::source_location location = std::source_location::current() ) -> void
     {   if( !static_cast<decltype(a)>(a) )
             // TODO condition string is lost by conversion from macro to inline function
-            OGRE_EXCEPT(Ogre::Exception::ERR_RT_ASSERTION_FAILED, b);
+            OGRE_EXCEPT(Ogre::Exception::ERR_RT_ASSERTION_FAILED, b, location.function_name(), location.file_name(), location.line());
     }
 
     /// replaced with OgreAssert(expr, mesg) in Debug configuration
