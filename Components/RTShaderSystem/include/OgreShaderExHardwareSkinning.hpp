@@ -49,7 +49,9 @@ class SGScriptTranslator;
 
 #include "OgreShaderSubRenderState.hpp"
 
-#define HS_MAX_WEIGHT_COUNT 4
+enum {
+HS_MAX_WEIGHT_COUNT = 4
+};
 
 namespace Ogre::RTShader {
 

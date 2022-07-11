@@ -66,7 +66,9 @@ THE SOFTWARE.
 //-------------------------------------------------------------------------
 
 // Use unrolled SSE version when vertices exceeds this limit
-#define OGRE_SSE_SKINNING_UNROLL_VERTICES  16
+enum {
+OGRE_SSE_SKINNING_UNROLL_VERTICES =  16
+};
 
 namespace Ogre {
 

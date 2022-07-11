@@ -46,7 +46,9 @@ class Log;
 
 // Identifies how many bits are reserved for categories
 // NOTE: Although 4 bits (currently) are enough
-#define CAPS_CATEGORY_SIZE 4
+enum {
+CAPS_CATEGORY_SIZE = 4
+};
 #define OGRE_CAPS_BITSHIFT (32 - CAPS_CATEGORY_SIZE)
 #define CAPS_CATEGORY_MASK (((1 << CAPS_CATEGORY_SIZE) - 1) << OGRE_CAPS_BITSHIFT)
 #define OGRE_CAPS_VALUE(cat, val) ((cat << OGRE_CAPS_BITSHIFT) | (1 << val))

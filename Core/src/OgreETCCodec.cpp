@@ -42,8 +42,10 @@ THE SOFTWARE.
 #include "OgreSharedPtr.hpp"
 #include "OgreStableHeaders.hpp"
 
-#define KTX_ENDIAN_REF      (0x04030201)
-#define KTX_ENDIAN_REF_REV  (0x01020304)
+enum {
+KTX_ENDIAN_REF =      (0x04030201),
+KTX_ENDIAN_REF_REV =  (0x01020304)
+};
 
 // In a PKM-file, the codecs are stored using the following identifiers
 //
