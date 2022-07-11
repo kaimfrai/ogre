@@ -89,7 +89,7 @@ namespace Ogre {
         OptimisedUtilSSE();
 
         /// @copydoc OptimisedUtil::softwareVertexSkinning
-        virtual void softwareVertexSkinning(
+        void softwareVertexSkinning(
             const float *srcPosPtr, float *destPosPtr,
             const float *srcNormPtr, float *destNormPtr,
             const float *blendWeightPtr, const unsigned char* blendIndexPtr,
@@ -101,7 +101,7 @@ namespace Ogre {
             size_t numVertices) override;
 
         /// @copydoc OptimisedUtil::softwareVertexMorph
-        virtual void softwareVertexMorph(
+        void softwareVertexMorph(
             Real t,
             const float *srcPos1, const float *srcPos2,
             float *dstPos,
@@ -110,28 +110,28 @@ namespace Ogre {
             bool morphNormals) override;
 
         /// @copydoc OptimisedUtil::concatenateAffineMatrices
-        virtual void concatenateAffineMatrices(
+        void concatenateAffineMatrices(
             const Affine3& baseMatrix,
             const Affine3* srcMatrices,
             Affine3* dstMatrices,
             size_t numMatrices) override;
 
         /// @copydoc OptimisedUtil::calculateFaceNormals
-        virtual void calculateFaceNormals(
+        void calculateFaceNormals(
             const float *positions,
             const EdgeData::Triangle *triangles,
             Vector4 *faceNormals,
             size_t numTriangles) override;
 
         /// @copydoc OptimisedUtil::calculateLightFacing
-        virtual void calculateLightFacing(
+        void calculateLightFacing(
             const Vector4& lightPos,
             const Vector4* faceNormals,
             char* lightFacings,
             size_t numFaces) override;
 
         /// @copydoc OptimisedUtil::extrudeVertices
-        virtual void extrudeVertices(
+        void extrudeVertices(
             const Vector4& lightPos,
             Real extrudeDist,
             const float* srcPositions,
