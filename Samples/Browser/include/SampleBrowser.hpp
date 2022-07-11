@@ -36,16 +36,12 @@
 #include "SamplePlugin.hpp"
 #include "SdkSample.hpp"
 
-enum {
-ENABLE_SHADERS_CACHE = 1
-};
-
 #include "DefaultSamplesPlugin.hpp"
 
 #include <map>
 #include <memory>
 
-#define CAROUSEL_REDRAW_EPS 0.001
+auto constexpr inline CAROUSEL_REDRAW_EPS = 0.001;
 
 namespace OgreBites
 {

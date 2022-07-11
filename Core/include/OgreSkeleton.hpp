@@ -66,7 +66,7 @@ class ResourceManager;
         ANIMBLEND_CUMULATIVE = 1
     };
 
-#define OGRE_MAX_NUM_BONES 256
+auto constexpr inline OGRE_MAX_NUM_BONES = 256;
 
     
     struct LinkedSkeletonAnimationSource;
