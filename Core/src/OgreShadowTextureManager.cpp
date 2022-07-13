@@ -114,8 +114,8 @@ namespace Ogre
                 TexturePtr shadowTex = TextureManager::getSingleton().createManual(
                     targName, 
                     ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, 
-                    TEX_TYPE_2D, config.width, config.height, 0, config.format, 
-                    TU_RENDERTARGET, nullptr, false, config.fsaa);
+                    TextureType::_2D, config.width, config.height, TextureMipmap{}, config.format,
+                    TextureUsage::RENDERTARGET, nullptr, false, config.fsaa);
                 // Ensure texture loaded
                 shadowTex->load();
 
@@ -147,14 +147,14 @@ namespace Ogre
         TexturePtr shadowTex = TextureManager::getSingleton().createManual(
             targName, 
             ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, 
-            TEX_TYPE_2D, 1, 1, 0, format, TU_STATIC_WRITE_ONLY);
+            TextureType::_2D, 1, 1, TextureMipmap{}, format, TextureUsage::STATIC_WRITE_ONLY);
         mNullTextureList.push_back(shadowTex);
 
         // lock & populate the texture based on format
         if(PixelUtil::isDepth(format))
             return shadowTex;
 
-        HardwareBufferLockGuard shadowTexLock(shadowTex->getBuffer(), HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard shadowTexLock(shadowTex->getBuffer(), HardwareBuffer::LockOptions::DISCARD);
         const PixelBox& box = shadowTex->getBuffer()->getCurrentLock();
 
         // set high-values across all bytes of the format 

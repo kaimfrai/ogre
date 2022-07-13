@@ -117,7 +117,7 @@ namespace Ogre
 
         /** Log a message to the default log.
         */
-        void logMessage( std::string_view message, LogMessageLevel lml = LML_NORMAL, 
+        void logMessage( std::string_view message, LogMessageLevel lml = LogMessageLevel::Normal, 
             bool maskDebug = false);
 
         /// @overload
@@ -131,7 +131,7 @@ namespace Ogre
             bool maskDebug = false) { logMessage(message, lml, maskDebug); }
 
         /** Get a stream on the default log. */
-        auto stream(LogMessageLevel lml = LML_NORMAL, 
+        auto stream(LogMessageLevel lml = LogMessageLevel::Normal, 
             bool maskDebug = false) -> Log::Stream;
 
         /// sets the minimal #LogMessageLevel for the default log

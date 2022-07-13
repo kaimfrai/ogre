@@ -78,12 +78,12 @@ auto CompositionPass::getMaterial() const noexcept -> const MaterialPtr&
     return mMaterial.material;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setClearBuffers(uint32 val)
+void CompositionPass::setClearBuffers(FrameBufferType val)
 {
     mClear.buffers = val;
 }
 //-----------------------------------------------------------------------
-auto CompositionPass::getClearBuffers() const noexcept -> uint32
+auto CompositionPass::getClearBuffers() const noexcept -> FrameBufferType
 {
     return mClear.buffers;
 }
@@ -144,22 +144,22 @@ auto CompositionPass::getParent() -> CompositionTargetPass *
     return mParent;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setFirstRenderQueue(uint8 id)
+void CompositionPass::setFirstRenderQueue(RenderQueueGroupID id)
 {
     mRenderScene.firstRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-auto CompositionPass::getFirstRenderQueue() const noexcept -> uint8
+auto CompositionPass::getFirstRenderQueue() const noexcept -> RenderQueueGroupID
 {
     return mRenderScene.firstRenderQueue;
 }
 //-----------------------------------------------------------------------
-void CompositionPass::setLastRenderQueue(uint8 id)
+void CompositionPass::setLastRenderQueue(RenderQueueGroupID id)
 {
     mRenderScene.lastRenderQueue = id;
 }
 //-----------------------------------------------------------------------
-auto CompositionPass::getLastRenderQueue() const noexcept -> uint8
+auto CompositionPass::getLastRenderQueue() const noexcept -> RenderQueueGroupID
 {
     return mRenderScene.lastRenderQueue ;
 }
@@ -283,7 +283,7 @@ auto CompositionPass::_isSupported() -> bool
 {
     // A pass is supported if material referenced have a supported technique
 
-    if (mType == PT_RENDERQUAD)
+    if (mType == PassType::RENDERQUAD)
     {
         if (!mMaterial.material)
         {

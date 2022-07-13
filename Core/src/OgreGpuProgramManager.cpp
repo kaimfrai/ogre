@@ -105,7 +105,7 @@ namespace {
 
         if (!params || langIt == params->end() || typeIt == params->end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "You must supply 'language' or 'syntax' and 'type' parameters");
         }
 
@@ -113,15 +113,15 @@ namespace {
 
         if (typeIt->second == "vertex_program")
         {
-            ret->setType(GPT_VERTEX_PROGRAM);
+            ret->setType(GpuProgramType::VERTEX_PROGRAM);
         }
         else if (typeIt->second == "geometry_program")
         {
-            ret->setType(GPT_GEOMETRY_PROGRAM);
+            ret->setType(GpuProgramType::GEOMETRY_PROGRAM);
         }
         else
         {
-            ret->setType(GPT_FRAGMENT_PROGRAM);
+            ret->setType(GpuProgramType::FRAGMENT_PROGRAM);
         }
 
         return ret;
@@ -261,7 +261,7 @@ namespace {
     {
         if (mSharedParametersMap.find(name) != mSharedParametersMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("The shared parameter set '{}' already exists!", name ), 
                 "GpuProgramManager::createSharedParameters");
         }
@@ -275,7 +275,7 @@ namespace {
         auto i = mSharedParametersMap.find(name);
         if (i == mSharedParametersMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("No shared parameter set with name '{}'!", name ), 
                 "GpuProgramManager::getSharedParameters");
         }
@@ -299,7 +299,7 @@ namespace {
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
 
         // Check if the supported  
-        return rs->getCapabilities()->hasCapability(RSC_CAN_GET_COMPILED_SHADER_BUFFER);
+        return rs->getCapabilities()->hasCapability(Capabilities::CAN_GET_COMPILED_SHADER_BUFFER);
     }
     //---------------------------------------------------------------------
     void GpuProgramManager::setSaveMicrocodesToCache( const bool val )
@@ -373,7 +373,7 @@ namespace {
 
         if (!stream->isWriteable())
         {
-            OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
+            OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE,
                 ::std::format("Unable to write to stream {}", stream->getName()),
                 "GpuProgramManager::saveMicrocodeCache");
         }

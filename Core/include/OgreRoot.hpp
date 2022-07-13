@@ -180,7 +180,7 @@ struct SceneManagerMetaData;
         /// List of Plugin instances registered
         PluginInstanceList mPlugins;
 
-        uint32 mNextMovableObjectTypeFlag{1};
+        QueryTypeMask mNextMovableObjectTypeFlag{1};
 
         /// Are we initialised yet?
         bool mIsInitialised{false};
@@ -220,17 +220,17 @@ struct SceneManagerMetaData;
         void _syncAddedRemovedFrameListeners();
 
         /** Indicates the type of event to be considered by calculateEventTime(). */
-        enum FrameEventTimeType {
-            FETT_ANY = 0, 
-            FETT_STARTED = 1, 
-            FETT_QUEUED = 2, 
-            FETT_ENDED = 3, 
-            FETT_COUNT = 4
+        enum class FrameEventTimeType {
+            ANY = 0,
+            STARTED = 1,
+            QUEUED = 2,
+            ENDED = 3,
+            COUNT = 4
         };
 
         /// Contains the times of recently fired events
         using EventTimesQueue = std::deque<unsigned long>;
-        EventTimesQueue mEventTimes[FETT_COUNT];
+        EventTimesQueue mEventTimes[std::to_underlying(FrameEventTimeType::COUNT)];
 
         /** Internal method for calculating the average time between recently fired events.
         @param now The current time in ms.
@@ -890,7 +890,7 @@ struct SceneManagerMetaData;
             This is done automatically if MovableObjectFactory::requestTypeFlags
             returns true; don't call this manually unless you're sure you need to.
         */
-        auto _allocateNextMovableObjectTypeFlag() -> uint32;
+        auto _allocateNextMovableObjectTypeFlag() -> QueryTypeMask;
 
         using MovableObjectFactoryIterator = ConstMapIterator<MovableObjectFactoryMap>;
         /** Return an iterator over all the MovableObjectFactory instances currently

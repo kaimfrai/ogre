@@ -82,23 +82,23 @@ class Sphere;
     {
     public:
         /// The endianness of files
-        enum Endian
+        enum class Endian
         {
             /// Automatically determine endianness
-            ENDIAN_AUTO,
+            AUTO,
             /// Use big endian (0x1000 is serialised as 0x10 0x00)
-            ENDIAN_BIG,
+            BIG,
             /// Use little endian (0x1000 is serialised as 0x00 0x10)
-            ENDIAN_LITTLE
+            LITTLE
         };
 
         /// The storage format of Real values
-        enum RealStorageFormat
+        enum class RealStorageFormat
         {
             /// Real is stored as float, reducing precision if you're using OGRE_DOUBLE_PRECISION
-            REAL_FLOAT,
+            FLOAT,
             /// Real as stored as double, not useful unless you're using OGRE_DOUBLE_PRECISION
-            REAL_DOUBLE
+            DOUBLE
         };
 
 
@@ -125,7 +125,7 @@ class Sphere;
             the header chunk, which will determine the endian mode.
         @param autoHeader If true, the first write or read to this stream will 
             automatically read / write the header too. This is required if you
-            set endianMode to ENDIAN_AUTO, but if you manually set the endian mode, 
+            set endianMode to Endian::AUTO, but if you manually set the endian mode,
             then you can skip writing / reading the header if you wish, if for example
             this stream is midway through a file which has already included header
             information.
@@ -134,15 +134,15 @@ class Sphere;
             and can only be changed if autoHeader is true, since real format is stored in the header. 
             Defaults to float unless you're using OGRE_DOUBLE_PRECISION.
         */
-        StreamSerialiser(const DataStreamPtr& stream, Endian endianMode = ENDIAN_AUTO, 
+        StreamSerialiser(const DataStreamPtr& stream, Endian endianMode = Endian::AUTO,
             bool autoHeader = true, 
-            RealStorageFormat realFormat = REAL_FLOAT
+            RealStorageFormat realFormat = RealStorageFormat::FLOAT
             );
         virtual ~StreamSerialiser();
 
         /** Get the endian mode.
         @remarks
-            If the result is ENDIAN_AUTO, this mode will change when the first piece of
+            If the result is Endian::AUTO, this mode will change when the first piece of
             data is read / written. 
         */
         [[nodiscard]] virtual auto getEndian() const noexcept -> Endian { return mEndian; }

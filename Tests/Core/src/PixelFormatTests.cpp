@@ -68,15 +68,15 @@ TEST_F(PixelFormatTests,FloatPackUnpack)
     // Float32
     float data[4] = {1.0f, 2.0f, 3.0f, 4.0f};
     float r,g,b,a;
-    PixelUtil::unpackColour(&r, &g, &b, &a, PF_FLOAT32_RGBA, data);
+    PixelUtil::unpackColour(&r, &g, &b, &a, PixelFormat::FLOAT32_RGBA, data);
     EXPECT_EQ(r, 1.0f);
     EXPECT_EQ(g, 2.0f);
     EXPECT_EQ(b, 3.0f);
     EXPECT_EQ(a, 4.0f);
 
     // Float16
-    setupBoxes(PF_A8B8G8R8, PF_FLOAT16_RGBA);
-    mDst2.format = PF_A8B8G8R8;
+    setupBoxes(PixelFormat::A8B8G8R8, PixelFormat::FLOAT16_RGBA);
+    mDst2.format = PixelFormat::A8B8G8R8;
     unsigned int eob = mSrc.getWidth()*4;
 
     PixelUtil::bulkPixelConversion(mSrc, mDst1);
@@ -183,57 +183,57 @@ void PixelFormatTests::testCase(PixelFormat srcFormat, PixelFormat dstFormat)
 TEST_F(PixelFormatTests,BulkConversion)
 {
     // Self match
-    testCase(PF_A8R8G8B8, PF_A8R8G8B8);
+    testCase(PixelFormat::A8R8G8B8, PixelFormat::A8R8G8B8);
 
     // Optimized
-    testCase(PF_A8R8G8B8,PF_A8B8G8R8);
-    testCase(PF_A8R8G8B8,PF_B8G8R8A8);
-    testCase(PF_A8R8G8B8,PF_R8G8B8A8);
-    testCase(PF_A8B8G8R8,PF_A8R8G8B8);
-    testCase(PF_A8B8G8R8,PF_B8G8R8A8);
-    testCase(PF_A8B8G8R8,PF_R8G8B8A8);
-    testCase(PF_B8G8R8A8,PF_A8R8G8B8);
-    testCase(PF_B8G8R8A8,PF_A8B8G8R8);
-    testCase(PF_B8G8R8A8,PF_R8G8B8A8);
-    testCase(PF_R8G8B8A8,PF_A8R8G8B8);
-    testCase(PF_R8G8B8A8,PF_A8B8G8R8);
-    testCase(PF_R8G8B8A8,PF_B8G8R8A8);
+    testCase(PixelFormat::A8R8G8B8,PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::A8R8G8B8,PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::A8R8G8B8,PixelFormat::R8G8B8A8);
+    testCase(PixelFormat::A8B8G8R8,PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::A8B8G8R8,PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::A8B8G8R8,PixelFormat::R8G8B8A8);
+    testCase(PixelFormat::B8G8R8A8,PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::B8G8R8A8,PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::B8G8R8A8,PixelFormat::R8G8B8A8);
+    testCase(PixelFormat::R8G8B8A8,PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::R8G8B8A8,PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::R8G8B8A8,PixelFormat::B8G8R8A8);
 
-    testCase(PF_A8B8G8R8, PF_R8);
-    testCase(PF_R8, PF_A8B8G8R8);
-    testCase(PF_A8R8G8B8, PF_R8);
-    testCase(PF_R8, PF_A8R8G8B8);
-    testCase(PF_B8G8R8A8, PF_R8);
-    testCase(PF_R8, PF_B8G8R8A8);
+    testCase(PixelFormat::A8B8G8R8, PixelFormat::R8);
+    testCase(PixelFormat::R8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::A8R8G8B8, PixelFormat::R8);
+    testCase(PixelFormat::R8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::B8G8R8A8, PixelFormat::R8);
+    testCase(PixelFormat::R8, PixelFormat::B8G8R8A8);
 
-    testCase(PF_A8B8G8R8, PF_L8);
-    testCase(PF_L8, PF_A8B8G8R8);
-    testCase(PF_A8R8G8B8, PF_L8);
-    testCase(PF_L8, PF_A8R8G8B8);
-    testCase(PF_B8G8R8A8, PF_L8);
-    testCase(PF_L8, PF_B8G8R8A8);
-    testCase(PF_L8, PF_L16);
-    testCase(PF_L16, PF_L8);
-    testCase(PF_R8G8B8, PF_B8G8R8);
-    testCase(PF_B8G8R8, PF_R8G8B8);
-    testCase(PF_B8G8R8, PF_R8G8B8);
-    testCase(PF_R8G8B8, PF_B8G8R8);
-    testCase(PF_R8G8B8, PF_A8R8G8B8);
-    testCase(PF_B8G8R8, PF_A8R8G8B8);
-    testCase(PF_R8G8B8, PF_A8B8G8R8);
-    testCase(PF_B8G8R8, PF_A8B8G8R8);
-    testCase(PF_R8G8B8, PF_B8G8R8A8);
-    testCase(PF_B8G8R8, PF_B8G8R8A8);
-    testCase(PF_A8R8G8B8, PF_R8G8B8);
-    testCase(PF_A8R8G8B8, PF_B8G8R8);
-    testCase(PF_X8R8G8B8, PF_A8R8G8B8);
-    testCase(PF_X8R8G8B8, PF_A8B8G8R8);
-    testCase(PF_X8R8G8B8, PF_B8G8R8A8);
-    testCase(PF_X8R8G8B8, PF_R8G8B8A8);
-    testCase(PF_X8B8G8R8, PF_A8R8G8B8);
-    testCase(PF_X8B8G8R8, PF_A8B8G8R8);
-    testCase(PF_X8B8G8R8, PF_B8G8R8A8);
-    testCase(PF_X8B8G8R8, PF_R8G8B8A8);
+    testCase(PixelFormat::A8B8G8R8, PixelFormat::L8);
+    testCase(PixelFormat::L8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::A8R8G8B8, PixelFormat::L8);
+    testCase(PixelFormat::L8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::B8G8R8A8, PixelFormat::L8);
+    testCase(PixelFormat::L8, PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::L8, PixelFormat::L16);
+    testCase(PixelFormat::L16, PixelFormat::L8);
+    testCase(PixelFormat::R8G8B8, PixelFormat::B8G8R8);
+    testCase(PixelFormat::B8G8R8, PixelFormat::R8G8B8);
+    testCase(PixelFormat::B8G8R8, PixelFormat::R8G8B8);
+    testCase(PixelFormat::R8G8B8, PixelFormat::B8G8R8);
+    testCase(PixelFormat::R8G8B8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::B8G8R8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::R8G8B8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::B8G8R8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::R8G8B8, PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::B8G8R8, PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::A8R8G8B8, PixelFormat::R8G8B8);
+    testCase(PixelFormat::A8R8G8B8, PixelFormat::B8G8R8);
+    testCase(PixelFormat::X8R8G8B8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::X8R8G8B8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::X8R8G8B8, PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::X8R8G8B8, PixelFormat::R8G8B8A8);
+    testCase(PixelFormat::X8B8G8R8, PixelFormat::A8R8G8B8);
+    testCase(PixelFormat::X8B8G8R8, PixelFormat::A8B8G8R8);
+    testCase(PixelFormat::X8B8G8R8, PixelFormat::B8G8R8A8);
+    testCase(PixelFormat::X8B8G8R8, PixelFormat::R8G8B8A8);
 }
 //--------------------------------------------------------------------------
 

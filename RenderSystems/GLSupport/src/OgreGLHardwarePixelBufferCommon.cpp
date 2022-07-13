@@ -61,7 +61,7 @@ void GLHardwarePixelBufferCommon::allocateBuffer()
 void GLHardwarePixelBufferCommon::freeBuffer()
 {
     // Free buffer if we're STATIC to save memory
-    if (mUsage & HBU_STATIC)
+    if (!!(mUsage & HardwareBuffer::STATIC))
     {
         delete[] mBuffer.data;
         mBuffer.data = nullptr;
@@ -71,7 +71,7 @@ void GLHardwarePixelBufferCommon::freeBuffer()
 auto GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions options) -> PixelBox
 {
     allocateBuffer();
-    if (!((mUsage & HBU_DETAIL_WRITE_ONLY) || (options == HBL_DISCARD) || (options == HBL_WRITE_ONLY)))
+    if (!(!!(mUsage & HardwareBufferUsage::DETAIL_WRITE_ONLY) || (options == LockOptions::DISCARD) || (options == LockOptions::WRITE_ONLY)))
     {
         // Download the old contents of the texture
         download(mBuffer);
@@ -81,7 +81,7 @@ auto GLHardwarePixelBufferCommon::lockImpl(const Box& lockBox, LockOptions optio
 
 void GLHardwarePixelBufferCommon::unlockImpl()
 {
-    if (mCurrentLockOptions != HBL_READ_ONLY)
+    if (mCurrentLockOptions != LockOptions::READ_ONLY)
     {
         // From buffer to card, only upload if was locked for writing.
         upload(mCurrentLock, mLockedBox);
@@ -91,21 +91,21 @@ void GLHardwarePixelBufferCommon::unlockImpl()
 
 void GLHardwarePixelBufferCommon::upload(const PixelBox &data, const Box &dest)
 {
-    OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR,
+    OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR,
                 "Upload not possible for this pixelbuffer type",
                 "GLHardwarePixelBufferCommon::upload");
 }
 
 void GLHardwarePixelBufferCommon::download(const PixelBox &data)
 {
-    OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR,
+    OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR,
                 "Download not possible for this pixelbuffer type",
                 "GLHardwarePixelBufferCommon::download");
 }
 
 void GLHardwarePixelBufferCommon::bindToFramebuffer(uint32 attachment, uint32 zoffset)
 {
-    OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR,
+    OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR,
                 "Framebuffer bind not possible for this pixelbuffer type",
                 "GLHardwarePixelBufferCommon::bindToFramebuffer");
 }

@@ -59,16 +59,16 @@ template <int dims, typename T> class Vector;
      *  @{
      */
 
-    enum BaseConstantType
+    enum class BaseConstantType
     {
-        BCT_FLOAT = 0,
-        BCT_INT = 0x10,
-        BCT_DOUBLE = 0x20,
-        BCT_UINT = 0x30,
-        BCT_BOOL = 0x40,
-        BCT_SAMPLER = 0x50,
-        BCT_SPECIALIZATION = 0x60, //!< shader specialisation constant
-        BCT_UNKNOWN = 0x70
+        FLOAT = 0,
+        INT = 0x10,
+        DOUBLE = 0x20,
+        UINT = 0x30,
+        BOOL = 0x40,
+        SAMPLER = 0x50,
+        SPECIALIZATION = 0x60, //!< shader specialisation constant
+        UNKNOWN = 0x70
     };
 
     /** Enumeration of the types of constant we may encounter in programs.
@@ -76,76 +76,142 @@ template <int dims, typename T> class Vector;
         float4 or int4 constant types since that is the fundamental underlying
         type in assembler.
     */
-    enum GpuConstantType
+    enum class GpuConstantType
     {
-        GCT_FLOAT1 = BCT_FLOAT + 1,
-        GCT_FLOAT2 = BCT_FLOAT + 2,
-        GCT_FLOAT3 = BCT_FLOAT + 3,
-        GCT_FLOAT4 = BCT_FLOAT + 4,
-        GCT_SAMPLER1D = BCT_SAMPLER + 1,
-        GCT_SAMPLER2D = BCT_SAMPLER + 2,
-        GCT_SAMPLER3D = BCT_SAMPLER + 3,
-        GCT_SAMPLERCUBE = BCT_SAMPLER + 4,
-        GCT_SAMPLER1DSHADOW = BCT_SAMPLER + 6,
-        GCT_SAMPLER2DSHADOW = BCT_SAMPLER + 7,
-        GCT_SAMPLER2DARRAY = BCT_SAMPLER + 8,
-        GCT_SAMPLER_EXTERNAL_OES = BCT_SAMPLER + 9,
-        GCT_MATRIX_2X2 = BCT_FLOAT + 5,
-        GCT_MATRIX_2X3 = BCT_FLOAT + 6,
-        GCT_MATRIX_2X4 = BCT_FLOAT + 7,
-        GCT_MATRIX_3X2 = BCT_FLOAT + 8,
-        GCT_MATRIX_3X3 = BCT_FLOAT + 9,
-        GCT_MATRIX_3X4 = BCT_FLOAT + 10,
-        GCT_MATRIX_4X2 = BCT_FLOAT + 11,
-        GCT_MATRIX_4X3 = BCT_FLOAT + 12,
-        GCT_MATRIX_4X4 = BCT_FLOAT + 13,
-        GCT_INT1 = BCT_INT + 1,
-        GCT_INT2 = BCT_INT + 2,
-        GCT_INT3 = BCT_INT + 3,
-        GCT_INT4 = BCT_INT + 4,
-        GCT_SPECIALIZATION = BCT_SPECIALIZATION,
-        GCT_DOUBLE1 = BCT_DOUBLE + 1,
-        GCT_DOUBLE2 = BCT_DOUBLE + 2,
-        GCT_DOUBLE3 = BCT_DOUBLE + 3,
-        GCT_DOUBLE4 = BCT_DOUBLE + 4,
-        GCT_MATRIX_DOUBLE_2X2 = BCT_DOUBLE + 5,
-        GCT_MATRIX_DOUBLE_2X3 = BCT_DOUBLE + 6,
-        GCT_MATRIX_DOUBLE_2X4 = BCT_DOUBLE + 7,
-        GCT_MATRIX_DOUBLE_3X2 = BCT_DOUBLE + 8,
-        GCT_MATRIX_DOUBLE_3X3 = BCT_DOUBLE + 9,
-        GCT_MATRIX_DOUBLE_3X4 = BCT_DOUBLE + 10,
-        GCT_MATRIX_DOUBLE_4X2 = BCT_DOUBLE + 11,
-        GCT_MATRIX_DOUBLE_4X3 = BCT_DOUBLE + 12,
-        GCT_MATRIX_DOUBLE_4X4 = BCT_DOUBLE + 13,
-        GCT_UINT1 = BCT_UINT + 1,
-        GCT_UINT2 = BCT_UINT + 2,
-        GCT_UINT3 = BCT_UINT + 3,
-        GCT_UINT4 = BCT_UINT + 4,
-        GCT_BOOL1 = BCT_BOOL + 1,
-        GCT_BOOL2 = BCT_BOOL + 2,
-        GCT_BOOL3 = BCT_BOOL + 3,
-        GCT_BOOL4 = BCT_BOOL + 4,
-        GCT_UNKNOWN = BCT_UNKNOWN
+        FLOAT1 = std::to_underlying(BaseConstantType::FLOAT) + 1,
+        FLOAT2 = std::to_underlying(BaseConstantType::FLOAT) + 2,
+        FLOAT3 = std::to_underlying(BaseConstantType::FLOAT) + 3,
+        FLOAT4 = std::to_underlying(BaseConstantType::FLOAT) + 4,
+        SAMPLER1D = std::to_underlying(BaseConstantType::SAMPLER) + 1,
+        SAMPLER2D = std::to_underlying(BaseConstantType::SAMPLER) + 2,
+        SAMPLER3D = std::to_underlying(BaseConstantType::SAMPLER) + 3,
+        SAMPLERCUBE = std::to_underlying(BaseConstantType::SAMPLER) + 4,
+        SAMPLER1DSHADOW = std::to_underlying(BaseConstantType::SAMPLER) + 6,
+        SAMPLER2DSHADOW = std::to_underlying(BaseConstantType::SAMPLER) + 7,
+        SAMPLER2DARRAY = std::to_underlying(BaseConstantType::SAMPLER) + 8,
+        SAMPLER_EXTERNAL_OES = std::to_underlying(BaseConstantType::SAMPLER) + 9,
+        MATRIX_2X2 = std::to_underlying(BaseConstantType::FLOAT) + 5,
+        MATRIX_2X3 = std::to_underlying(BaseConstantType::FLOAT) + 6,
+        MATRIX_2X4 = std::to_underlying(BaseConstantType::FLOAT) + 7,
+        MATRIX_3X2 = std::to_underlying(BaseConstantType::FLOAT) + 8,
+        MATRIX_3X3 = std::to_underlying(BaseConstantType::FLOAT) + 9,
+        MATRIX_3X4 = std::to_underlying(BaseConstantType::FLOAT) + 10,
+        MATRIX_4X2 = std::to_underlying(BaseConstantType::FLOAT) + 11,
+        MATRIX_4X3 = std::to_underlying(BaseConstantType::FLOAT) + 12,
+        MATRIX_4X4 = std::to_underlying(BaseConstantType::FLOAT) + 13,
+        INT1 = std::to_underlying(BaseConstantType::INT) + 1,
+        INT2 = std::to_underlying(BaseConstantType::INT) + 2,
+        INT3 = std::to_underlying(BaseConstantType::INT) + 3,
+        INT4 = std::to_underlying(BaseConstantType::INT) + 4,
+        SPECIALIZATION = std::to_underlying(BaseConstantType::SPECIALIZATION),
+        DOUBLE1 = std::to_underlying(BaseConstantType::DOUBLE) + 1,
+        DOUBLE2 = std::to_underlying(BaseConstantType::DOUBLE) + 2,
+        DOUBLE3 = std::to_underlying(BaseConstantType::DOUBLE) + 3,
+        DOUBLE4 = std::to_underlying(BaseConstantType::DOUBLE) + 4,
+        MATRIX_DOUBLE_2X2 = std::to_underlying(BaseConstantType::DOUBLE) + 5,
+        MATRIX_DOUBLE_2X3 = std::to_underlying(BaseConstantType::DOUBLE) + 6,
+        MATRIX_DOUBLE_2X4 = std::to_underlying(BaseConstantType::DOUBLE) + 7,
+        MATRIX_DOUBLE_3X2 = std::to_underlying(BaseConstantType::DOUBLE) + 8,
+        MATRIX_DOUBLE_3X3 = std::to_underlying(BaseConstantType::DOUBLE) + 9,
+        MATRIX_DOUBLE_3X4 = std::to_underlying(BaseConstantType::DOUBLE) + 10,
+        MATRIX_DOUBLE_4X2 = std::to_underlying(BaseConstantType::DOUBLE) + 11,
+        MATRIX_DOUBLE_4X3 = std::to_underlying(BaseConstantType::DOUBLE) + 12,
+        MATRIX_DOUBLE_4X4 = std::to_underlying(BaseConstantType::DOUBLE) + 13,
+        UINT1 = std::to_underlying(BaseConstantType::UINT) + 1,
+        UINT2 = std::to_underlying(BaseConstantType::UINT) + 2,
+        UINT3 = std::to_underlying(BaseConstantType::UINT) + 3,
+        UINT4 = std::to_underlying(BaseConstantType::UINT) + 4,
+        BOOL1 = std::to_underlying(BaseConstantType::BOOL) + 1,
+        BOOL2 = std::to_underlying(BaseConstantType::BOOL) + 2,
+        BOOL3 = std::to_underlying(BaseConstantType::BOOL) + 3,
+        BOOL4 = std::to_underlying(BaseConstantType::BOOL) + 4,
+        UNKNOWN = std::to_underlying(BaseConstantType::UNKNOWN)
     };
+
+    auto constexpr operator + (GpuConstantType type, std::size_t offset) -> GpuConstantType
+    {
+        return static_cast<GpuConstantType>
+        (   std::to_underlying(type)
+        +   offset
+        );
+    }
+
+    auto constexpr operator - (GpuConstantType type, std::size_t offset) -> GpuConstantType
+    {
+        return static_cast<GpuConstantType>
+        (   std::to_underlying(type)
+        -   offset
+        );
+    }
+
+    auto constexpr operator compl (GpuConstantType type) -> GpuConstantType
+    {
+        return static_cast<GpuConstantType>
+        (   compl
+            std::to_underlying(type)
+        );
+    }
+
+    auto constexpr operator not(GpuConstantType value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    auto constexpr operator bitand (GpuConstantType left, GpuConstantType right) -> GpuConstantType
+    {
+        return static_cast<GpuConstantType>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** The variability of a GPU parameter, as derived from auto-params targeting it.
         These values must be powers of two since they are used in masks.
     */
-    enum GpuParamVariability : uint16
+    enum class GpuParamVariability : uint16
     {
         /// No variation except by manual setting - the default
-        GPV_GLOBAL = 1,
+        GLOBAL = 1,
         /// Varies per object (based on an auto param usually), but not per light setup
-        GPV_PER_OBJECT = 2,
+        PER_OBJECT = 2,
         /// Varies with light setup
-        GPV_LIGHTS = 4,
+        LIGHTS = 4,
         /// Varies with pass iteration number
-        GPV_PASS_ITERATION_NUMBER = 8,
+        PASS_ITERATION_NUMBER = 8,
 
 
         /// Full mask (16-bit)
-        GPV_ALL = 0xFFFF
+        ALL = 0xFFFF
     };
+
+    auto constexpr operator not (GpuParamVariability mask) -> bool
+    {
+        return not std::to_underlying(mask);
+    }
+
+    auto constexpr operator bitor(GpuParamVariability left, GpuParamVariability right) -> GpuParamVariability
+    {
+        return static_cast<GpuParamVariability>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |=(GpuParamVariability& left, GpuParamVariability right) -> GpuParamVariability&
+    {
+        return left = left bitor right;
+    }
+
+    auto constexpr operator bitand(GpuParamVariability left, GpuParamVariability right) -> GpuParamVariability
+    {
+        return static_cast<GpuParamVariability>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** Information about predefined program constants.
         @note Only available for high-level programs but is referenced generically
@@ -163,9 +229,9 @@ template <int dims, typename T> class Vector;
         /// Length of array
         uint32 arraySize{1};
         /// Data type
-        GpuConstantType constType{GCT_UNKNOWN};
+        GpuConstantType constType{GpuConstantType::UNKNOWN};
         /// How this parameter varies (bitwise combination of GpuProgramVariability)
-        mutable uint16 variability{GPV_GLOBAL};
+        mutable GpuParamVariability variability{GpuParamVariability::GLOBAL};
 
         //TODO Should offset be added to list?
         // For instance, for GLSL atomic counters:
@@ -174,29 +240,29 @@ template <int dims, typename T> class Vector;
         //size_t offset;
 
         auto isFloat() const noexcept -> bool { return isFloat(constType); }
-        static auto isFloat(GpuConstantType c) -> bool { return getBaseType(c) == BCT_FLOAT; }
+        static auto isFloat(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::FLOAT; }
 
         auto isDouble() const noexcept -> bool { return isDouble(constType); }
-        static auto isDouble(GpuConstantType c) -> bool { return getBaseType(c) == BCT_DOUBLE; }
+        static auto isDouble(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::DOUBLE; }
 
         auto isInt() const noexcept -> bool { return isInt(constType); }
-        static auto isInt(GpuConstantType c) -> bool { return getBaseType(c) == BCT_INT; }
+        static auto isInt(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::INT; }
 
         auto isUnsignedInt() const noexcept -> bool { return isUnsignedInt(constType); }
-        static auto isUnsignedInt(GpuConstantType c) -> bool { return getBaseType(c) == BCT_UINT; }
+        static auto isUnsignedInt(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::UINT; }
 
         auto isBool() const noexcept -> bool { return isBool(constType); }
-        static auto isBool(GpuConstantType c) -> bool { return getBaseType(c) == BCT_BOOL; }
+        static auto isBool(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::BOOL; }
 
         auto isSampler() const noexcept -> bool { return isSampler(constType); }
-        static auto isSampler(GpuConstantType c) -> bool { return getBaseType(c) == BCT_SAMPLER; }
+        static auto isSampler(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::SAMPLER; }
 
         auto isSpecialization() const noexcept -> bool { return isSpecialization(constType); }
-        static auto isSpecialization(GpuConstantType c) -> bool { return getBaseType(c) == BCT_SPECIALIZATION; }
+        static auto isSpecialization(GpuConstantType c) -> bool { return getBaseType(c) == BaseConstantType::SPECIALIZATION; }
 
         static auto getBaseType(GpuConstantType ctype) -> BaseConstantType
         {
-            return BaseConstantType(ctype / 0x10 * 0x10);
+            return BaseConstantType(std::to_underlying(ctype) / 0x10 * 0x10);
         }
 
         /** Get the number of elements of a given type, including whether to pad the
@@ -208,56 +274,56 @@ template <int dims, typename T> class Vector;
             {
                 switch(ctype)
                 {
-                case GCT_FLOAT1:
-                case GCT_INT1:
-                case GCT_UINT1:
-                case GCT_BOOL1:
-                case GCT_SAMPLER1D:
-                case GCT_SAMPLER2D:
-                case GCT_SAMPLER2DARRAY:
-                case GCT_SAMPLER3D:
-                case GCT_SAMPLERCUBE:
-                case GCT_SAMPLER1DSHADOW:
-                case GCT_SAMPLER2DSHADOW:
-                case GCT_FLOAT2:
-                case GCT_INT2:
-                case GCT_UINT2:
-                case GCT_BOOL2:
-                case GCT_FLOAT3:
-                case GCT_INT3:
-                case GCT_UINT3:
-                case GCT_BOOL3:
-                case GCT_FLOAT4:
-                case GCT_INT4:
-                case GCT_UINT4:
-                case GCT_BOOL4:
+                case GpuConstantType::FLOAT1:
+                case GpuConstantType::INT1:
+                case GpuConstantType::UINT1:
+                case GpuConstantType::BOOL1:
+                case GpuConstantType::SAMPLER1D:
+                case GpuConstantType::SAMPLER2D:
+                case GpuConstantType::SAMPLER2DARRAY:
+                case GpuConstantType::SAMPLER3D:
+                case GpuConstantType::SAMPLERCUBE:
+                case GpuConstantType::SAMPLER1DSHADOW:
+                case GpuConstantType::SAMPLER2DSHADOW:
+                case GpuConstantType::FLOAT2:
+                case GpuConstantType::INT2:
+                case GpuConstantType::UINT2:
+                case GpuConstantType::BOOL2:
+                case GpuConstantType::FLOAT3:
+                case GpuConstantType::INT3:
+                case GpuConstantType::UINT3:
+                case GpuConstantType::BOOL3:
+                case GpuConstantType::FLOAT4:
+                case GpuConstantType::INT4:
+                case GpuConstantType::UINT4:
+                case GpuConstantType::BOOL4:
                     return 4;
-                case GCT_MATRIX_2X2:
-                case GCT_MATRIX_2X3:
-                case GCT_MATRIX_2X4:
-                case GCT_DOUBLE1:
-                case GCT_DOUBLE2:
-                case GCT_DOUBLE3:
-                case GCT_DOUBLE4:
+                case GpuConstantType::MATRIX_2X2:
+                case GpuConstantType::MATRIX_2X3:
+                case GpuConstantType::MATRIX_2X4:
+                case GpuConstantType::DOUBLE1:
+                case GpuConstantType::DOUBLE2:
+                case GpuConstantType::DOUBLE3:
+                case GpuConstantType::DOUBLE4:
                     return 8; // 2 float4s
-                case GCT_MATRIX_3X2:
-                case GCT_MATRIX_3X3:
-                case GCT_MATRIX_3X4:
+                case GpuConstantType::MATRIX_3X2:
+                case GpuConstantType::MATRIX_3X3:
+                case GpuConstantType::MATRIX_3X4:
                     return 12; // 3 float4s
-                case GCT_MATRIX_4X2:
-                case GCT_MATRIX_4X3:
-                case GCT_MATRIX_4X4:
-                case GCT_MATRIX_DOUBLE_2X2:
-                case GCT_MATRIX_DOUBLE_2X3:
-                case GCT_MATRIX_DOUBLE_2X4:
+                case GpuConstantType::MATRIX_4X2:
+                case GpuConstantType::MATRIX_4X3:
+                case GpuConstantType::MATRIX_4X4:
+                case GpuConstantType::MATRIX_DOUBLE_2X2:
+                case GpuConstantType::MATRIX_DOUBLE_2X3:
+                case GpuConstantType::MATRIX_DOUBLE_2X4:
                     return 16; // 4 float4s
-                case GCT_MATRIX_DOUBLE_3X2:
-                case GCT_MATRIX_DOUBLE_3X3:
-                case GCT_MATRIX_DOUBLE_3X4:
+                case GpuConstantType::MATRIX_DOUBLE_3X2:
+                case GpuConstantType::MATRIX_DOUBLE_3X3:
+                case GpuConstantType::MATRIX_DOUBLE_3X4:
                     return 24;
-                case GCT_MATRIX_DOUBLE_4X2:
-                case GCT_MATRIX_DOUBLE_4X3:
-                case GCT_MATRIX_DOUBLE_4X4:
+                case GpuConstantType::MATRIX_DOUBLE_4X2:
+                case GpuConstantType::MATRIX_DOUBLE_4X3:
+                case GpuConstantType::MATRIX_DOUBLE_4X4:
                     return 32;
                 default:
                     return 4;
@@ -267,40 +333,40 @@ template <int dims, typename T> class Vector;
             {
                 switch(ctype)
                 {
-                case GCT_SAMPLER1D:
-                case GCT_SAMPLER2D:
-                case GCT_SAMPLER2DARRAY:
-                case GCT_SAMPLER3D:
-                case GCT_SAMPLERCUBE:
-                case GCT_SAMPLER1DSHADOW:
-                case GCT_SAMPLER2DSHADOW:
+                case GpuConstantType::SAMPLER1D:
+                case GpuConstantType::SAMPLER2D:
+                case GpuConstantType::SAMPLER2DARRAY:
+                case GpuConstantType::SAMPLER3D:
+                case GpuConstantType::SAMPLERCUBE:
+                case GpuConstantType::SAMPLER1DSHADOW:
+                case GpuConstantType::SAMPLER2DSHADOW:
                     return 1;
-                case GCT_MATRIX_2X2:
-                case GCT_MATRIX_DOUBLE_2X2:
+                case GpuConstantType::MATRIX_2X2:
+                case GpuConstantType::MATRIX_DOUBLE_2X2:
                     return 4;
-                case GCT_MATRIX_2X3:
-                case GCT_MATRIX_3X2:
-                case GCT_MATRIX_DOUBLE_2X3:
-                case GCT_MATRIX_DOUBLE_3X2:
+                case GpuConstantType::MATRIX_2X3:
+                case GpuConstantType::MATRIX_3X2:
+                case GpuConstantType::MATRIX_DOUBLE_2X3:
+                case GpuConstantType::MATRIX_DOUBLE_3X2:
                     return 6;
-                case GCT_MATRIX_2X4:
-                case GCT_MATRIX_4X2:
-                case GCT_MATRIX_DOUBLE_2X4:
-                case GCT_MATRIX_DOUBLE_4X2:
+                case GpuConstantType::MATRIX_2X4:
+                case GpuConstantType::MATRIX_4X2:
+                case GpuConstantType::MATRIX_DOUBLE_2X4:
+                case GpuConstantType::MATRIX_DOUBLE_4X2:
                     return 8;
-                case GCT_MATRIX_3X3:
-                case GCT_MATRIX_DOUBLE_3X3:
+                case GpuConstantType::MATRIX_3X3:
+                case GpuConstantType::MATRIX_DOUBLE_3X3:
                     return 9;
-                case GCT_MATRIX_3X4:
-                case GCT_MATRIX_4X3:
-                case GCT_MATRIX_DOUBLE_3X4:
-                case GCT_MATRIX_DOUBLE_4X3:
+                case GpuConstantType::MATRIX_3X4:
+                case GpuConstantType::MATRIX_4X3:
+                case GpuConstantType::MATRIX_DOUBLE_3X4:
+                case GpuConstantType::MATRIX_DOUBLE_4X3:
                     return 12;
-                case GCT_MATRIX_4X4:
-                case GCT_MATRIX_DOUBLE_4X4:
+                case GpuConstantType::MATRIX_4X4:
+                case GpuConstantType::MATRIX_DOUBLE_4X4:
                     return 16;
                 default:
-                    return ctype % 0x10;
+                    return std::to_underlying(ctype) % 0x10;
                 };
 
             }
@@ -345,9 +411,9 @@ template <int dims, typename T> class Vector;
         GpuNamedConstantsSerializer();
         virtual ~GpuNamedConstantsSerializer();
         void exportNamedConstants(const GpuNamedConstants* pConsts, std::string_view filename,
-                                  Endian endianMode = ENDIAN_NATIVE);
+                                  std::endian endianMode = std::endian::native);
         void exportNamedConstants(const GpuNamedConstants* pConsts, DataStreamPtr stream,
-                                  Endian endianMode = ENDIAN_NATIVE);
+                                  std::endian endianMode = std::endian::native);
         void importNamedConstants(DataStreamPtr& stream, GpuNamedConstants* pDest);
     };
 
@@ -361,13 +427,13 @@ template <int dims, typename T> class Vector;
         /// Current physical size allocation
         size_t currentSize;
         /// How the contents of this slot vary
-        mutable uint16 variability;
+        mutable GpuParamVariability variability;
         /// Data type
         BaseConstantType baseType;
 
     GpuLogicalIndexUse()
-        : physicalIndex(99999), currentSize(0), variability(GPV_GLOBAL), baseType(BCT_UNKNOWN) {}
-    GpuLogicalIndexUse(size_t bufIdx, size_t curSz, uint16 v, BaseConstantType t)
+        : physicalIndex(99999), currentSize(0), variability(GpuParamVariability::GLOBAL), baseType(BaseConstantType::UNKNOWN) {}
+    GpuLogicalIndexUse(size_t bufIdx, size_t curSz, GpuParamVariability v, BaseConstantType t)
         : physicalIndex(bufIdx), currentSize(curSz), variability(v), baseType(t) {}
     };
     using GpuLogicalIndexUseMap = std::map<size_t, GpuLogicalIndexUse>;
@@ -617,144 +683,144 @@ template <int dims, typename T> class Vector;
         /** Defines the types of automatically updated values that may be bound to GpuProgram
             parameters, or used to modify parameters on a per-object basis.
 
-            For use in @ref Program-Parameter-Specification, drop the `ACT_` prefix. 
-            E.g. `ACT_WORLD_MATRIX` becomes `world_matrix`.
+            For use in @ref Program-Parameter-Specification, drop the `AutoConstantType::` prefix.
+            E.g. `AutoConstantType::WORLD_MATRIX` becomes `world_matrix`.
         */
-        enum AutoConstantType
+        enum class AutoConstantType : unsigned int
         {
             /// The current world matrix
-            ACT_WORLD_MATRIX,
+            WORLD_MATRIX,
             /// The current world matrix, inverted
-            ACT_INVERSE_WORLD_MATRIX,
+            INVERSE_WORLD_MATRIX,
             /** Provides transpose of world matrix.
                 Equivalent to RenderMonkey's "WorldTranspose".
             */
-            ACT_TRANSPOSE_WORLD_MATRIX,
+            TRANSPOSE_WORLD_MATRIX,
             /// The current world matrix, inverted & transposed
-            ACT_INVERSE_TRANSPOSE_WORLD_MATRIX,
+            INVERSE_TRANSPOSE_WORLD_MATRIX,
 
             /// An array of world matrices, each represented as only a 3x4 matrix (3 rows of
             /// 4columns) usually for doing hardware skinning.
             /// You should make enough entries available in your vertex program for the number of
             /// bones in use, i.e. an array of numBones*3 float4’s.
-            ACT_WORLD_MATRIX_ARRAY_3x4,
+            WORLD_MATRIX_ARRAY_3x4,
             /// The current array of world matrices, used for blending
-            ACT_WORLD_MATRIX_ARRAY,
+            WORLD_MATRIX_ARRAY,
             /// The current array of world matrices transformed to an array of dual quaternions,
             /// represented as a 2x4 matrix
-            ACT_WORLD_DUALQUATERNION_ARRAY_2x4,
+            WORLD_DUALQUATERNION_ARRAY_2x4,
             /// The scale and shear components of the current array of world matrices
-            ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4,
+            WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4,
 
             /// The current view matrix
-            ACT_VIEW_MATRIX,
+            VIEW_MATRIX,
             /// The current view matrix, inverted
-            ACT_INVERSE_VIEW_MATRIX,
+            INVERSE_VIEW_MATRIX,
             /** Provides transpose of view matrix.
                 Equivalent to RenderMonkey's "ViewTranspose".
             */
-            ACT_TRANSPOSE_VIEW_MATRIX,
+            TRANSPOSE_VIEW_MATRIX,
             /** Provides inverse transpose of view matrix.
                 Equivalent to RenderMonkey's "ViewInverseTranspose".
             */
-            ACT_INVERSE_TRANSPOSE_VIEW_MATRIX,
+            INVERSE_TRANSPOSE_VIEW_MATRIX,
 
             /// The current projection matrix
-            ACT_PROJECTION_MATRIX,
+            PROJECTION_MATRIX,
             /** Provides inverse of projection matrix.
                 Equivalent to RenderMonkey's "ProjectionInverse".
             */
-            ACT_INVERSE_PROJECTION_MATRIX,
+            INVERSE_PROJECTION_MATRIX,
             /** Provides transpose of projection matrix.
                 Equivalent to RenderMonkey's "ProjectionTranspose".
             */
-            ACT_TRANSPOSE_PROJECTION_MATRIX,
+            TRANSPOSE_PROJECTION_MATRIX,
             /** Provides inverse transpose of projection matrix.
                 Equivalent to RenderMonkey's "ProjectionInverseTranspose".
             */
-            ACT_INVERSE_TRANSPOSE_PROJECTION_MATRIX,
+            INVERSE_TRANSPOSE_PROJECTION_MATRIX,
 
             /// The current view & projection matrices concatenated
-            ACT_VIEWPROJ_MATRIX,
+            VIEWPROJ_MATRIX,
             /** Provides inverse of concatenated view and projection matrices.
                 Equivalent to RenderMonkey's "ViewProjectionInverse".
             */
-            ACT_INVERSE_VIEWPROJ_MATRIX,
+            INVERSE_VIEWPROJ_MATRIX,
             /** Provides transpose of concatenated view and projection matrices.
                 Equivalent to RenderMonkey's "ViewProjectionTranspose".
             */
-            ACT_TRANSPOSE_VIEWPROJ_MATRIX,
+            TRANSPOSE_VIEWPROJ_MATRIX,
             /** Provides inverse transpose of concatenated view and projection matrices.
                 Equivalent to RenderMonkey's "ViewProjectionInverseTranspose".
             */
-            ACT_INVERSE_TRANSPOSE_VIEWPROJ_MATRIX,
+            INVERSE_TRANSPOSE_VIEWPROJ_MATRIX,
 
             /// The current world & view matrices concatenated
-            ACT_WORLDVIEW_MATRIX,
+            WORLDVIEW_MATRIX,
             /// The current world & view matrices concatenated, then inverted
-            ACT_INVERSE_WORLDVIEW_MATRIX,
+            INVERSE_WORLDVIEW_MATRIX,
             /** Provides transpose of concatenated world and view matrices.
                 Equivalent to RenderMonkey's "WorldViewTranspose".
             */
-            ACT_TRANSPOSE_WORLDVIEW_MATRIX,
+            TRANSPOSE_WORLDVIEW_MATRIX,
             /// The current world & view matrices concatenated, then inverted & transposed
-            ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX,
+            INVERSE_TRANSPOSE_WORLDVIEW_MATRIX,
             /** Provides inverse transpose of the upper 3x3 of the worldview matrix.
                 Equivalent to "gl_NormalMatrix".
             */
-            ACT_NORMAL_MATRIX,
+            NORMAL_MATRIX,
 
             /// The current world, view & projection matrices concatenated
-            ACT_WORLDVIEWPROJ_MATRIX,
+            WORLDVIEWPROJ_MATRIX,
             /** Provides inverse of concatenated world, view and projection matrices.
                 Equivalent to RenderMonkey's "WorldViewProjectionInverse".
             */
-            ACT_INVERSE_WORLDVIEWPROJ_MATRIX,
+            INVERSE_WORLDVIEWPROJ_MATRIX,
             /** Provides transpose of concatenated world, view and projection matrices.
                 Equivalent to RenderMonkey's "WorldViewProjectionTranspose".
             */
-            ACT_TRANSPOSE_WORLDVIEWPROJ_MATRIX,
+            TRANSPOSE_WORLDVIEWPROJ_MATRIX,
             /** Provides inverse transpose of concatenated world, view and projection
                 matrices. Equivalent to RenderMonkey's "WorldViewProjectionInverseTranspose".
             */
-            ACT_INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX,
+            INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX,
 
             // render target related values
             /** -1 if requires texture flipping, +1 otherwise. It's useful when you bypassed
                 projection matrix transform, still able use this value to adjust transformed y
                position.
             */
-            ACT_RENDER_TARGET_FLIPPING,
+            RENDER_TARGET_FLIPPING,
 
             /** -1 if the winding has been inverted (e.g. for reflections), +1 otherwise.
              */
-            ACT_VERTEX_WINDING,
+            VERTEX_WINDING,
 
             /// Fog colour
-            ACT_FOG_COLOUR,
+            FOG_COLOUR,
             /// Fog params: density, linear start, linear end, 1/(end-start)
-            ACT_FOG_PARAMS,
+            FOG_PARAMS,
 
             /// Surface ambient colour, as set in Pass::setAmbient
-            ACT_SURFACE_AMBIENT_COLOUR,
+            SURFACE_AMBIENT_COLOUR,
             /// Surface diffuse colour, as set in Pass::setDiffuse
-            ACT_SURFACE_DIFFUSE_COLOUR,
+            SURFACE_DIFFUSE_COLOUR,
             /// Surface specular colour, as set in Pass::setSpecular
-            ACT_SURFACE_SPECULAR_COLOUR,
+            SURFACE_SPECULAR_COLOUR,
             /// Surface emissive colour, as set in Pass::setSelfIllumination
-            ACT_SURFACE_EMISSIVE_COLOUR,
+            SURFACE_EMISSIVE_COLOUR,
             /// Surface shininess, as set in Pass::setShininess
-            ACT_SURFACE_SHININESS,
+            SURFACE_SHININESS,
             /// Surface alpha rejection value, not as set in @ref Pass::setAlphaRejectValue, but a
             /// floating number between 0.0f and 1.0f instead (255.0f /
             /// @ref Pass::getAlphaRejectValue())
-            ACT_SURFACE_ALPHA_REJECTION_VALUE,
+            SURFACE_ALPHA_REJECTION_VALUE,
 
             /// The number of active light sources (better than gl_MaxLights)
-            ACT_LIGHT_COUNT,
+            LIGHT_COUNT,
 
             /// The ambient light colour set in the scene
-            ACT_AMBIENT_LIGHT_COLOUR,
+            AMBIENT_LIGHT_COLOUR,
 
             /// Light diffuse colour (index determined by setAutoConstant call)
             ///
@@ -763,17 +829,17 @@ template <int dims, typename T> class Vector;
             /// (i.e. 0 refers to the closest light - note that directional lights are always first
             /// in the list and always present).
             /// NB if there are no lights this close, then the parameter will be set to black.
-            ACT_LIGHT_DIFFUSE_COLOUR,
+            LIGHT_DIFFUSE_COLOUR,
             /// Light specular colour (index determined by setAutoConstant call)
-            ACT_LIGHT_SPECULAR_COLOUR,
+            LIGHT_SPECULAR_COLOUR,
             /// Light attenuation parameters, Vector4(range, constant, linear, quadric)
-            ACT_LIGHT_ATTENUATION,
+            LIGHT_ATTENUATION,
             /** Spotlight parameters, Vector4(innerFactor, outerFactor, falloff, isSpot)
                 innerFactor and outerFactor are cos(angle/2)
                 The isSpot parameter is 0.0f for non-spotlights, 1.0f for spotlights.
                 Also for non-spotlights the inner and outer factors are 1 and nearly 1 respectively
             */
-            ACT_SPOTLIGHT_PARAMS,
+            SPOTLIGHT_PARAMS,
             /** A light position in world space (index determined by setAutoConstant call)
 
              This requires an index in the ’extra_params’ field, and relates to the ’nth’ closest
@@ -785,83 +851,83 @@ template <int dims, typename T> class Vector;
              (-dir.x, -dir.y, -dir.z, 0.0f).
              Operations like dot products will work consistently on both.
              */
-            ACT_LIGHT_POSITION,
+            LIGHT_POSITION,
             /// A light position in object space (index determined by setAutoConstant call)
-            ACT_LIGHT_POSITION_OBJECT_SPACE,
+            LIGHT_POSITION_OBJECT_SPACE,
             /// A light position in view space (index determined by setAutoConstant call)
-            ACT_LIGHT_POSITION_VIEW_SPACE,
+            LIGHT_POSITION_VIEW_SPACE,
             /// A light direction in world space (index determined by setAutoConstant call)
             /// @deprecated this property only works on directional lights, and we recommend that
             /// you use light_position instead since that returns a generic 4D vector.
-            ACT_LIGHT_DIRECTION,
+            LIGHT_DIRECTION,
             /// A light direction in object space (index determined by setAutoConstant call)
-            ACT_LIGHT_DIRECTION_OBJECT_SPACE,
+            LIGHT_DIRECTION_OBJECT_SPACE,
             /// A light direction in view space (index determined by setAutoConstant call)
-            ACT_LIGHT_DIRECTION_VIEW_SPACE,
+            LIGHT_DIRECTION_VIEW_SPACE,
             /** The distance of the light from the center of the object
                 a useful approximation as an alternative to per-vertex distance
                 calculations.
             */
-            ACT_LIGHT_DISTANCE_OBJECT_SPACE,
+            LIGHT_DISTANCE_OBJECT_SPACE,
             /** Light power level, a single scalar as set in Light::setPowerScale  (index determined
                by setAutoConstant call) */
-            ACT_LIGHT_POWER_SCALE,
+            LIGHT_POWER_SCALE,
             /// Light diffuse colour pre-scaled by Light::setPowerScale (index determined by
             /// setAutoConstant call)
-            ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED,
+            LIGHT_DIFFUSE_COLOUR_POWER_SCALED,
             /// Light specular colour pre-scaled by Light::setPowerScale (index determined by
             /// setAutoConstant call)
-            ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED,
+            LIGHT_SPECULAR_COLOUR_POWER_SCALED,
             /// Array of light diffuse colours (count set by extra param)
-            ACT_LIGHT_DIFFUSE_COLOUR_ARRAY,
+            LIGHT_DIFFUSE_COLOUR_ARRAY,
             /// Array of light specular colours (count set by extra param)
-            ACT_LIGHT_SPECULAR_COLOUR_ARRAY,
+            LIGHT_SPECULAR_COLOUR_ARRAY,
             /// Array of light diffuse colours scaled by light power (count set by extra param)
-            ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY,
+            LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY,
             /// Array of light specular colours scaled by light power (count set by extra param)
-            ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY,
+            LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY,
             /// Array of light attenuation parameters, Vector4(range, constant, linear, quadric)
             /// (count set by extra param)
-            ACT_LIGHT_ATTENUATION_ARRAY,
+            LIGHT_ATTENUATION_ARRAY,
             /// Array of light positions in world space (count set by extra param)
-            ACT_LIGHT_POSITION_ARRAY,
+            LIGHT_POSITION_ARRAY,
             /// Array of light positions in object space (count set by extra param)
-            ACT_LIGHT_POSITION_OBJECT_SPACE_ARRAY,
+            LIGHT_POSITION_OBJECT_SPACE_ARRAY,
             /// Array of light positions in view space (count set by extra param)
-            ACT_LIGHT_POSITION_VIEW_SPACE_ARRAY,
+            LIGHT_POSITION_VIEW_SPACE_ARRAY,
             /// Array of light directions in world space (count set by extra param)
-            ACT_LIGHT_DIRECTION_ARRAY,
+            LIGHT_DIRECTION_ARRAY,
             /// Array of light directions in object space (count set by extra param)
-            ACT_LIGHT_DIRECTION_OBJECT_SPACE_ARRAY,
+            LIGHT_DIRECTION_OBJECT_SPACE_ARRAY,
             /// Array of light directions in view space (count set by extra param)
-            ACT_LIGHT_DIRECTION_VIEW_SPACE_ARRAY,
+            LIGHT_DIRECTION_VIEW_SPACE_ARRAY,
             /** Array of distances of the lights from the center of the object
                 a useful approximation as an alternative to per-vertex distance
                 calculations. (count set by extra param)
             */
-            ACT_LIGHT_DISTANCE_OBJECT_SPACE_ARRAY,
+            LIGHT_DISTANCE_OBJECT_SPACE_ARRAY,
             /** Array of light power levels, a single scalar as set in Light::setPowerScale
                 (count set by extra param)
             */
-            ACT_LIGHT_POWER_SCALE_ARRAY,
+            LIGHT_POWER_SCALE_ARRAY,
             /** Spotlight parameters array of Vector4(innerFactor, outerFactor, falloff, isSpot)
                 innerFactor and outerFactor are cos(angle/2)
                 The isSpot parameter is 0.0f for non-spotlights, 1.0f for spotlights.
                 Also for non-spotlights the inner and outer factors are 1 and nearly 1 respectively.
                 (count set by extra param)
             */
-            ACT_SPOTLIGHT_PARAMS_ARRAY,
+            SPOTLIGHT_PARAMS_ARRAY,
 
             /** The derived ambient light colour, with 'r', 'g', 'b' components filled with
                 product of surface ambient colour and ambient light colour, respectively,
                 and 'a' component filled with surface ambient alpha component.
             */
-            ACT_DERIVED_AMBIENT_LIGHT_COLOUR,
+            DERIVED_AMBIENT_LIGHT_COLOUR,
             /** The derived scene colour, with 'r', 'g' and 'b' components filled with sum
                 of derived ambient light colour and surface emissive colour, respectively,
                 and 'a' component filled with surface diffuse alpha component.
             */
-            ACT_DERIVED_SCENE_COLOUR,
+            DERIVED_SCENE_COLOUR,
 
             /** The derived light diffuse colour (index determined by setAutoConstant call),
                 with 'r', 'g' and 'b' components filled with product of surface diffuse colour,
@@ -869,42 +935,42 @@ template <int dims, typename T> class Vector;
                with surface
                 diffuse alpha component.
             */
-            ACT_DERIVED_LIGHT_DIFFUSE_COLOUR,
+            DERIVED_LIGHT_DIFFUSE_COLOUR,
             /** The derived light specular colour (index determined by setAutoConstant call),
                 with 'r', 'g' and 'b' components filled with product of surface specular colour
                 and light specular colour, respectively, and 'a' component filled with surface
                 specular alpha component.
             */
-            ACT_DERIVED_LIGHT_SPECULAR_COLOUR,
+            DERIVED_LIGHT_SPECULAR_COLOUR,
 
             /// Array of derived light diffuse colours (count set by extra param)
-            ACT_DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY,
+            DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY,
             /// Array of derived light specular colours (count set by extra param)
-            ACT_DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY,
+            DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY,
             /** The absolute light number of a local light index. Each pass may have
                 a number of lights passed to it, and each of these lights will have
                 an index in the overall light list, which will differ from the local
                 light index due to factors like setStartLight and setIteratePerLight.
                 This binding provides the global light index for a local index.
             */
-            ACT_LIGHT_NUMBER,
+            LIGHT_NUMBER,
             /// Returns (int) 1 if the  given light casts shadows, 0 otherwise (index set in extra
             /// param)
-            ACT_LIGHT_CASTS_SHADOWS,
+            LIGHT_CASTS_SHADOWS,
             /// Returns (int) 1 if the  given light casts shadows, 0 otherwise (index set in extra
             /// param)
-            ACT_LIGHT_CASTS_SHADOWS_ARRAY,
+            LIGHT_CASTS_SHADOWS_ARRAY,
 
             /** The distance a shadow volume should be extruded when using
                 finite extrusion programs.
             */
-            ACT_SHADOW_EXTRUSION_DISTANCE,
+            SHADOW_EXTRUSION_DISTANCE,
             /// The current camera's position in world space
-            ACT_CAMERA_POSITION,
+            CAMERA_POSITION,
             /// The current camera's position in object space
-            ACT_CAMERA_POSITION_OBJECT_SPACE,
+            CAMERA_POSITION_OBJECT_SPACE,
             /// The current camera's position in world space even when camera relative rendering is enabled
-            ACT_CAMERA_RELATIVE_POSITION,
+            CAMERA_RELATIVE_POSITION,
 
             /** The view/projection matrix of the assigned texture projection frustum
 
@@ -916,27 +982,27 @@ template <int dims, typename T> class Vector;
              single pass), where 0 is the default and refers to the first light referenced in this
              pass.
              */
-            ACT_TEXTURE_VIEWPROJ_MATRIX,
+            TEXTURE_VIEWPROJ_MATRIX,
             /// Array of view/projection matrices of the first n texture projection frustums
-            ACT_TEXTURE_VIEWPROJ_MATRIX_ARRAY,
+            TEXTURE_VIEWPROJ_MATRIX_ARRAY,
             /** The view/projection matrix of the assigned texture projection frustum,
                 combined with the current world matrix
             */
-            ACT_TEXTURE_WORLDVIEWPROJ_MATRIX,
+            TEXTURE_WORLDVIEWPROJ_MATRIX,
             /// Array of world/view/projection matrices of the first n texture projection frustums
-            ACT_TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY,
+            TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY,
             /// The view/projection matrix of a given spotlight
-            ACT_SPOTLIGHT_VIEWPROJ_MATRIX,
+            SPOTLIGHT_VIEWPROJ_MATRIX,
             /// Array of view/projection matrix of a given spotlight
-            ACT_SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY,
+            SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY,
             /** The view/projection matrix of a given spotlight projection frustum,
                 combined with the current world matrix
             */
-            ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX,
+            SPOTLIGHT_WORLDVIEWPROJ_MATRIX,
             /** An array of the view/projection matrix of a given spotlight projection frustum,
                 combined with the current world matrix
             */
-            ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY,
+            SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY,
             /** A custom parameter which will come from the renderable, using 'data' as the
              identifier
 
@@ -948,116 +1014,116 @@ template <int dims, typename T> class Vector;
              parameter has been defined on all Renderables that are assigned the material that
              contains this automatic mapping, otherwise the process will fail.
              */
-            ACT_CUSTOM,
+            CUSTOM,
             /** provides current elapsed time
              */
-            ACT_TIME,
+            TIME,
             /** Single float value, which repeats itself based on given as
                 parameter "cycle time". Equivalent to RenderMonkey's "Time0_X".
             */
-            ACT_TIME_0_X,
+            TIME_0_X,
             /// Cosine of "Time0_X". Equivalent to RenderMonkey's "CosTime0_X".
-            ACT_COSTIME_0_X,
+            COSTIME_0_X,
             /// Sine of "Time0_X". Equivalent to RenderMonkey's "SinTime0_X".
-            ACT_SINTIME_0_X,
+            SINTIME_0_X,
             /// Tangent of "Time0_X". Equivalent to RenderMonkey's "TanTime0_X".
-            ACT_TANTIME_0_X,
+            TANTIME_0_X,
             /** Vector of "Time0_X", "SinTime0_X", "CosTime0_X",
                 "TanTime0_X". Equivalent to RenderMonkey's "Time0_X_Packed".
             */
-            ACT_TIME_0_X_PACKED,
+            TIME_0_X_PACKED,
             /** Single float value, which represents scaled time value [0..1],
                 which repeats itself based on given as parameter "cycle time".
                 Equivalent to RenderMonkey's "Time0_1".
             */
-            ACT_TIME_0_1,
+            TIME_0_1,
             /// Cosine of "Time0_1". Equivalent to RenderMonkey's "CosTime0_1".
-            ACT_COSTIME_0_1,
+            COSTIME_0_1,
             /// Sine of "Time0_1". Equivalent to RenderMonkey's "SinTime0_1".
-            ACT_SINTIME_0_1,
+            SINTIME_0_1,
             /// Tangent of "Time0_1". Equivalent to RenderMonkey's "TanTime0_1".
-            ACT_TANTIME_0_1,
+            TANTIME_0_1,
             /** Vector of "Time0_1", "SinTime0_1", "CosTime0_1",
                 "TanTime0_1". Equivalent to RenderMonkey's "Time0_1_Packed".
             */
-            ACT_TIME_0_1_PACKED,
+            TIME_0_1_PACKED,
             /** Single float value, which represents scaled time value [0..2*Pi],
                 which repeats itself based on given as parameter "cycle time".
                 Equivalent to RenderMonkey's "Time0_2PI".
             */
-            ACT_TIME_0_2PI,
+            TIME_0_2PI,
             /// Cosine of "Time0_2PI". Equivalent to RenderMonkey's "CosTime0_2PI".
-            ACT_COSTIME_0_2PI,
+            COSTIME_0_2PI,
             /// Sine of "Time0_2PI". Equivalent to RenderMonkey's "SinTime0_2PI".
-            ACT_SINTIME_0_2PI,
+            SINTIME_0_2PI,
             /// Tangent of "Time0_2PI". Equivalent to RenderMonkey's "TanTime0_2PI".
-            ACT_TANTIME_0_2PI,
+            TANTIME_0_2PI,
             /** Vector of "Time0_2PI", "SinTime0_2PI", "CosTime0_2PI",
                 "TanTime0_2PI". Equivalent to RenderMonkey's "Time0_2PI_Packed".
             */
-            ACT_TIME_0_2PI_PACKED,
+            TIME_0_2PI_PACKED,
             /// provides the scaled frame time, returned as a floating point value.
-            ACT_FRAME_TIME,
+            FRAME_TIME,
             /// provides the calculated frames per second, returned as a floating point value.
-            ACT_FPS,
+            FPS,
             // viewport-related values
             /** Current viewport width (in pixels) as floating point value.
                 Equivalent to RenderMonkey's "ViewportWidth".
             */
-            ACT_VIEWPORT_WIDTH,
+            VIEWPORT_WIDTH,
             /** Current viewport height (in pixels) as floating point value.
                 Equivalent to RenderMonkey's "ViewportHeight".
             */
-            ACT_VIEWPORT_HEIGHT,
+            VIEWPORT_HEIGHT,
             /** This variable represents 1.0/ViewportWidth.
                 Equivalent to RenderMonkey's "ViewportWidthInverse".
             */
-            ACT_INVERSE_VIEWPORT_WIDTH,
+            INVERSE_VIEWPORT_WIDTH,
             /** This variable represents 1.0/ViewportHeight.
                 Equivalent to RenderMonkey's "ViewportHeightInverse".
             */
-            ACT_INVERSE_VIEWPORT_HEIGHT,
+            INVERSE_VIEWPORT_HEIGHT,
             /** Packed of "ViewportWidth", "ViewportHeight", "ViewportWidthInverse",
                 "ViewportHeightInverse".
             */
-            ACT_VIEWPORT_SIZE,
+            VIEWPORT_SIZE,
 
             // view parameters
             /** This variable provides the view direction vector (world space).
                 Equivalent to RenderMonkey's "ViewDirection".
             */
-            ACT_VIEW_DIRECTION,
+            VIEW_DIRECTION,
             /** This variable provides the view side vector (world space).
                 Equivalent to RenderMonkey's "ViewSideVector".
             */
-            ACT_VIEW_SIDE_VECTOR,
+            VIEW_SIDE_VECTOR,
             /** This variable provides the view up vector (world space).
                 Equivalent to RenderMonkey's "ViewUpVector".
             */
-            ACT_VIEW_UP_VECTOR,
+            VIEW_UP_VECTOR,
             /** This variable provides the field of view as a floating point value.
                 Equivalent to RenderMonkey's "FOV".
             */
-            ACT_FOV,
+            FOV,
             /** This variable provides the near clip distance as a floating point value.
                 Equivalent to RenderMonkey's "NearClipPlane".
             */
-            ACT_NEAR_CLIP_DISTANCE,
+            NEAR_CLIP_DISTANCE,
             /** This variable provides the far clip distance as a floating point value.
                 Equivalent to RenderMonkey's "FarClipPlane".
             */
-            ACT_FAR_CLIP_DISTANCE,
+            FAR_CLIP_DISTANCE,
 
             /** provides the pass index number within the technique
                 of the active materil.
             */
-            ACT_PASS_NUMBER,
+            PASS_NUMBER,
 
             /** provides the current iteration number of the pass. The iteration
                 number is the number of times the current render operation has
                 been drawn for the active pass.
             */
-            ACT_PASS_ITERATION_NUMBER,
+            PASS_ITERATION_NUMBER,
 
             /** Provides a parametric animation value [0..1], only available
                 where the renderable specifically implements it.
@@ -1077,53 +1143,53 @@ template <int dims, typename T> class Vector;
                second one will contain the parametrics for poses 5-8, the third for poses 9-12, and
                so on.
             */
-            ACT_ANIMATION_PARAMETRIC,
+            ANIMATION_PARAMETRIC,
 
             /** Provides the texel offsets required by this rendersystem to map
                 texels to pixels. Packed as
                 float4(absoluteHorizontalOffset, absoluteVerticalOffset,
                 horizontalOffset / viewportWidth, verticalOffset / viewportHeight)
             */
-            ACT_TEXEL_OFFSETS,
+            TEXEL_OFFSETS,
 
             /** Provides information about the depth range of the scene as viewed
                 from the current camera.
                 Passed as float4(minDepth, maxDepth, depthRange, 1 / depthRange)
             */
-            ACT_SCENE_DEPTH_RANGE,
+            SCENE_DEPTH_RANGE,
 
             /** Provides information about the depth range of the scene as viewed
                 from a given shadow camera. Requires an index parameter which maps
                 to a light index relative to the current light list.
                 Passed as float4(minDepth, maxDepth, depthRange, 1 / depthRange)
             */
-            ACT_SHADOW_SCENE_DEPTH_RANGE,
+            SHADOW_SCENE_DEPTH_RANGE,
 
             /** Provides an array of information about the depth range of the scene as viewed
                 from a given shadow camera. Requires an index parameter which maps
                 to a light index relative to the current light list.
                 Passed as float4(minDepth, maxDepth, depthRange, 1 / depthRange)
             */
-            ACT_SHADOW_SCENE_DEPTH_RANGE_ARRAY,
+            SHADOW_SCENE_DEPTH_RANGE_ARRAY,
 
             /** Provides the fixed shadow colour as configured via SceneManager::setShadowColour;
                 useful for integrated modulative shadows.
             */
-            ACT_SHADOW_COLOUR,
+            SHADOW_COLOUR,
             /** Provides texture size of the texture unit (index determined by setAutoConstant
                 call). Packed as float4(width, height, depth, 1)
             */
-            ACT_TEXTURE_SIZE,
+            TEXTURE_SIZE,
             /** Provides inverse texture size of the texture unit (index determined by
                setAutoConstant
                 call). Packed as float4(1 / width, 1 / height, 1 / depth, 1)
             */
-            ACT_INVERSE_TEXTURE_SIZE,
+            INVERSE_TEXTURE_SIZE,
             /** Provides packed texture size of the texture unit (index determined by
                setAutoConstant
                 call). Packed as float4(width, height, 1 / width, 1 / height)
             */
-            ACT_PACKED_TEXTURE_SIZE,
+            PACKED_TEXTURE_SIZE,
 
             /** Provides the current transform matrix of the texture unit (index determined by
                setAutoConstant
@@ -1134,46 +1200,46 @@ template <int dims, typename T> class Vector;
                 NB if the given index exceeds the number of texture units available for this pass,
                then the parameter will be set to Matrix4::IDENTITY.
             */
-            ACT_TEXTURE_MATRIX,
+            TEXTURE_MATRIX,
 
             /** Provides the position of the LOD camera in world space, allowing you
                 to perform separate LOD calculations in shaders independent of the rendering
                 camera. If there is no separate LOD camera then this is the real camera
                 position. See Camera::setLodCamera.
             */
-            ACT_LOD_CAMERA_POSITION,
+            LOD_CAMERA_POSITION,
             /** Provides the position of the LOD camera in object space, allowing you
                 to perform separate LOD calculations in shaders independent of the rendering
                 camera. If there is no separate LOD camera then this is the real camera
                 position. See Camera::setLodCamera.
             */
-            ACT_LOD_CAMERA_POSITION_OBJECT_SPACE,
+            LOD_CAMERA_POSITION_OBJECT_SPACE,
             /** Binds custom per-light constants to the shaders. */
-            ACT_LIGHT_CUSTOM,
+            LIGHT_CUSTOM,
             /// Point params: size; constant, linear, quadratic attenuation
-            ACT_POINT_PARAMS,
+            POINT_PARAMS,
 
-            ACT_UNKNOWN = 999
+            UNKNOWN = 999
         };
 
         /** Defines the type of the extra data item used by the auto constant.
 
          */
-        enum ACDataType {
+        enum class ACDataType {
             /// no data is required
-            ACDT_NONE,
+            NONE,
             /// the auto constant requires data of type int
-            ACDT_INT,
+            INT,
             /// the auto constant requires data of type float
-            ACDT_REAL
+            REAL
         };
 
         /** Defines the base element type of the auto constant
          */
-        enum ElementType {
-            ET_INT = BCT_INT,
+        enum class ElementType {
+            INT = std::to_underlying(BaseConstantType::INT),
             // float
-            ET_REAL = BCT_FLOAT
+            REAL = std::to_underlying(BaseConstantType::FLOAT)
         };
 
         /** Structure defining an auto constant that's available for use in
@@ -1213,19 +1279,19 @@ template <int dims, typename T> class Vector;
                 float fData;
             };
             /// The variability of this parameter (see GpuParamVariability)
-            uint16 variability;
+            GpuParamVariability variability;
             /** The number of elements per individual entry in this constant
                 Used in case people used packed elements smaller than 4 (e.g. GLSL)
                 and bind an auto which is 4-element packed to it */
             uint8 elementCount;
 
         AutoConstantEntry(AutoConstantType theType, size_t theIndex, uint32 theData,
-                          uint16 theVariability, uint8 theElemCount = 4)
+                          GpuParamVariability theVariability, uint8 theElemCount = 4)
             : physicalIndex(theIndex), paramType(theType),
                 data(theData), variability(theVariability), elementCount(theElemCount) {}
 
         AutoConstantEntry(AutoConstantType theType, size_t theIndex, float theData,
-                          uint16 theVariability, uint8 theElemCount = 4)
+                          GpuParamVariability theVariability, uint8 theElemCount = 4)
             : physicalIndex(theIndex), paramType(theType),
                 fData(theData), variability(theVariability), elementCount(theElemCount) {}
 
@@ -1250,14 +1316,14 @@ template <int dims, typename T> class Vector;
         /** Gets the physical buffer index associated with a logical int constant index.
          */
         auto getConstantLogicalIndexUse(size_t logicalIndex, size_t requestedSize,
-                                                       uint16 variability, BaseConstantType type) -> GpuLogicalIndexUse*;
+                                                       GpuParamVariability variability, BaseConstantType type) -> GpuLogicalIndexUse*;
 
         /// Mapping from parameter names to def - high-level programs are expected to populate this
         GpuNamedConstantsPtr mNamedConstants;
         /// List of automatically updated parameters
         AutoConstantList mAutoConstants;
         /// The combined variability masks of all parameters
-        uint16 mCombinedVariability{GPV_GLOBAL};
+        GpuParamVariability mCombinedVariability{GpuParamVariability::GLOBAL};
         /// Do we need to transpose matrices?
         bool mTransposeMatrices{false};
         /// flag to indicate if names not found will be ignored
@@ -1266,7 +1332,7 @@ template <int dims, typename T> class Vector;
         size_t mActivePassIterationIndex;
 
         /// Return the variability for an auto constant
-        static auto deriveVariability(AutoConstantType act) -> uint16;
+        static auto deriveVariability(AutoConstantType act) -> GpuParamVariability;
 
         void copySharedParamSetUsage(const GpuSharedParamUsageList& srcList);
 
@@ -1559,12 +1625,12 @@ template <int dims, typename T> class Vector;
             physical buffer index.
         */
         void _setRawAutoConstant(size_t physicalIndex, AutoConstantType acType, uint32 extraInfo,
-                                 uint16 variability, uint8 elementSize = 4);
+                                 GpuParamVariability variability, uint8 elementSize = 4);
         /** As setAutoConstantReal, but sets up the auto constant directly against a
             physical buffer index.
         */
         void _setRawAutoConstantReal(size_t physicalIndex, AutoConstantType acType, float rData,
-                                     uint16 variability, uint8 elementSize = 4);
+                                     GpuParamVariability variability, uint8 elementSize = 4);
 
 
         /** Unbind an auto constant so that the constant is manually controlled again. */
@@ -1623,10 +1689,10 @@ template <int dims, typename T> class Vector;
             setNamedAutoConstant(name, acType, (uint32)extraInfo1 | ((uint32)extraInfo2) << 16);
         }
 
-        /// @deprecated use ACT_TIME directly
+        /// @deprecated use AutoConstantType::TIME directly
         void setNamedConstantFromTime(std::string_view name, Real factor)
         {
-            setNamedAutoConstantReal(name, ACT_TIME, factor);
+            setNamedAutoConstantReal(name, AutoConstantType::TIME, factor);
         }
 
         /** Unbind an auto constant so that the constant is manually controlled again. */
@@ -1637,7 +1703,7 @@ template <int dims, typename T> class Vector;
             @param source The source of the parameters
             @param variabilityMask A mask of GpuParamVariability which identifies which autos will need updating
         */
-        void _updateAutoParams(const AutoParamDataSource* source, uint16 variabilityMask);
+        void _updateAutoParams(const AutoParamDataSource* source, GpuParamVariability variabilityMask);
 
         /** Tells the program whether to ignore missing parameters or not.
          */
@@ -1734,7 +1800,7 @@ template <int dims, typename T> class Vector;
             @param variability
             @param type
         */
-        auto _getConstantPhysicalIndex(size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> size_t;
+        auto _getConstantPhysicalIndex(size_t logicalIndex, size_t requestedSize, GpuParamVariability variability, BaseConstantType type) -> size_t;
         /** Sets whether or not we need to transpose the matrices passed in from the rest of OGRE.
             @remarks
             D3D uses transposed matrices compared to GL and OGRE; this is not important when you
@@ -1772,7 +1838,7 @@ template <int dims, typename T> class Vector;
             If the index is out of bounds then NULL is returned;
             @param idx The auto constant index
         */
-        static auto getAutoConstantDefinition(const size_t idx) -> const AutoConstantDefinition*;
+        static auto getAutoConstantDefinition(GpuProgramParameters::AutoConstantType idx) -> const AutoConstantDefinition*;
         /** Returns the number of auto constant definitions
          */
         static auto getNumAutoConstantDefinitions() -> size_t;

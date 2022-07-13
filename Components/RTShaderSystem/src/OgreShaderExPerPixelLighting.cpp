@@ -94,73 +94,73 @@ auto PerPixelLighting::resolveParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
     Function* psMain = psProgram->getEntryPointFunction();
 
     // Resolve world view IT matrix.
-    mWorldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_NORMAL_MATRIX);
+    mWorldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::NORMAL_MATRIX);
 
     // Get surface ambient colour if need to.
-    if ((mTrackVertexColourType & TVC_AMBIENT) == 0)
+    if ((mTrackVertexColourType & TrackVertexColourEnum::AMBIENT) == TrackVertexColourEnum{})
     {       
-        mDerivedAmbientLightColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_AMBIENT_LIGHT_COLOUR);
+        mDerivedAmbientLightColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR);
     }
     else
     {
-        mLightAmbientColour = psProgram->resolveParameter(GpuProgramParameters::ACT_AMBIENT_LIGHT_COLOUR);
+        mLightAmbientColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::AMBIENT_LIGHT_COLOUR);
     }
 
     // Get surface emissive colour if need to.
-    if ((mTrackVertexColourType & TVC_EMISSIVE) == 0)
+    if ((mTrackVertexColourType & TrackVertexColourEnum::EMISSIVE) == TrackVertexColourEnum{})
     {
-        mSurfaceEmissiveColour = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_EMISSIVE_COLOUR);
+        mSurfaceEmissiveColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_EMISSIVE_COLOUR);
     }
 
     // Get derived scene colour.
-    mDerivedSceneColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_SCENE_COLOUR);
+    mDerivedSceneColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::DERIVED_SCENE_COLOUR);
 
     // Get surface shininess.
-    mSurfaceShininess = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_SHININESS);
+    mSurfaceShininess = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_SHININESS);
 
-    mViewNormal = psMain->getLocalParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+    mViewNormal = psMain->getLocalParameter(Parameter::Content::NORMAL_VIEW_SPACE);
 
     if(!mViewNormal)
     {
         // Resolve input vertex shader normal.
-        mVSInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+        mVSInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
 
         // Resolve output vertex shader normal.
-        mVSOutNormal = vsMain->resolveOutputParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+        mVSOutNormal = vsMain->resolveOutputParameter(Parameter::Content::NORMAL_VIEW_SPACE);
 
         // Resolve input pixel shader normal.
         mViewNormal = psMain->resolveInputParameter(mVSOutNormal);
     }
 
-    mInDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
+    mInDiffuse = psMain->getInputParameter(Parameter::Content::COLOR_DIFFUSE);
     if (mInDiffuse.get() == nullptr)
     {
-        mInDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
+        mInDiffuse = psMain->getLocalParameter(Parameter::Content::COLOR_DIFFUSE);
     }
 
     OgreAssert(mInDiffuse, "mInDiffuse is NULL");
 
-    mOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
+    mOutDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
 
     if (mSpecularEnable)
     {
-        mOutSpecular = psMain->resolveLocalParameter(Parameter::SPC_COLOR_SPECULAR);
+        mOutSpecular = psMain->resolveLocalParameter(Parameter::Content::COLOR_SPECULAR);
 
-        mVSInPosition = vsMain->getLocalParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+        mVSInPosition = vsMain->getLocalParameter(Parameter::Content::POSITION_OBJECT_SPACE);
         if(!mVSInPosition)
-            mVSInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+            mVSInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
 
-        mVSOutViewPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_VIEW_SPACE);
+        mVSOutViewPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_VIEW_SPACE);
 
         mViewPos = psMain->resolveInputParameter(mVSOutViewPos);
 
-        mWorldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEW_MATRIX);
+        mWorldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEW_MATRIX);
     }
 
     return true;
@@ -169,8 +169,8 @@ auto PerPixelLighting::resolveGlobalParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
     Function* psMain = psProgram->getEntryPointFunction();
 
@@ -181,68 +181,68 @@ auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
     {       
         switch (mLightParamsList[i].mType)
         {
-        case Light::LT_DIRECTIONAL:
-            mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_DIRECTION_VIEW_SPACE, i);
+        case Light::LightTypes::DIRECTIONAL:
+            mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
             mLightParamsList[i].mPSInDirection = mLightParamsList[i].mDirection;
             needViewPos = mSpecularEnable || needViewPos;
             break;
 
-        case Light::LT_POINT:
-            mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_POSITION_VIEW_SPACE, i);
-            mLightParamsList[i].mAttenuatParams = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_ATTENUATION, i);
+        case Light::LightTypes::POINT:
+            mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
+            mLightParamsList[i].mAttenuatParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, i);
             
             needViewPos = true;
             break;
 
-        case Light::LT_SPOTLIGHT:
-            mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_POSITION_VIEW_SPACE, i);
-            mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_DIRECTION_VIEW_SPACE, i);
+        case Light::LightTypes::SPOTLIGHT:
+            mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
+            mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
             mLightParamsList[i].mPSInDirection = mLightParamsList[i].mDirection;
-            mLightParamsList[i].mAttenuatParams = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_ATTENUATION, i);
-            mLightParamsList[i].mSpotParams = psProgram->resolveParameter(GpuProgramParameters::ACT_SPOTLIGHT_PARAMS, i);
+            mLightParamsList[i].mAttenuatParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, i);
+            mLightParamsList[i].mSpotParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SPOTLIGHT_PARAMS, i);
 
             needViewPos = true;
             break;
         }
 
         // Resolve diffuse colour.
-        if ((mTrackVertexColourType & TVC_DIFFUSE) == 0)
+        if ((mTrackVertexColourType & TrackVertexColourEnum::DIFFUSE) == TrackVertexColourEnum{})
         {
-            mLightParamsList[i].mDiffuseColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_LIGHT_DIFFUSE_COLOUR, i);
+            mLightParamsList[i].mDiffuseColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR, i);
         }
         else
         {
-            mLightParamsList[i].mDiffuseColour = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED, i);
+            mLightParamsList[i].mDiffuseColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED, i);
         }   
 
         if (mSpecularEnable)
         {
             // Resolve specular colour.
-            if ((mTrackVertexColourType & TVC_SPECULAR) == 0)
+            if ((mTrackVertexColourType & TrackVertexColourEnum::SPECULAR) == TrackVertexColourEnum{})
             {
-                mLightParamsList[i].mSpecularColour = psProgram->resolveParameter(GpuProgramParameters::ACT_DERIVED_LIGHT_SPECULAR_COLOUR, i);
+                mLightParamsList[i].mSpecularColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR, i);
             }
             else
             {
-                mLightParamsList[i].mSpecularColour = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED, i);
+                mLightParamsList[i].mSpecularColour = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED, i);
             }   
         }       
     }
 
     if (needViewPos)
     {
-        mWorldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEW_MATRIX);
+        mWorldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEW_MATRIX);
         if(!mVSInPosition)
-            mVSInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
-        mVSOutViewPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_VIEW_SPACE);
+            mVSInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
+        mVSOutViewPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_VIEW_SPACE);
 
         mViewPos = psMain->resolveInputParameter(mVSOutViewPos);
     }
 
     if(mTwoSidedLighting)
     {
-        mFrontFacing = psMain->resolveInputParameter(Parameter::SPC_FRONT_FACING);
-        mTargetFlipped = psProgram->resolveParameter(GpuProgramParameters::ACT_RENDER_TARGET_FLIPPING);
+        mFrontFacing = psMain->resolveInputParameter(Parameter::Content::FRONT_FACING);
+        mTargetFlipped = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::RENDER_TARGET_FLIPPING);
     }
 
     return true;
@@ -251,8 +251,8 @@ auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 
     vsProgram->addDependency(FFP_LIB_TRANSFORM);
     vsProgram->addDependency(SGX_LIB_PERPIXELLIGHTING);
@@ -268,15 +268,15 @@ auto PerPixelLighting::resolveDependencies(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto PerPixelLighting::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM); 
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM); 
     Function* vsMain = vsProgram->getEntryPointFunction();  
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* psMain = psProgram->getEntryPointFunction();  
 
     // Add the global illumination functions.
-    addVSInvocation(vsMain->getStage(FFP_VS_LIGHTING));
+    addVSInvocation(vsMain->getStage(std::to_underlying(FFPVertexShaderStage::LIGHTING)));
 
-    auto stage = psMain->getStage(FFP_PS_COLOUR_BEGIN + 1);
+    auto stage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_BEGIN) + 1);
     // Add the global illumination functions.
     addPSGlobalIlluminationInvocation(stage);
 
@@ -313,14 +313,14 @@ void PerPixelLighting::addVSInvocation(const FunctionStageRef& stage)
 //-----------------------------------------------------------------------
 void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef& stage)
 {
-    if ((mTrackVertexColourType & TVC_AMBIENT) == 0 && 
-        (mTrackVertexColourType & TVC_EMISSIVE) == 0)
+    if ((mTrackVertexColourType & TrackVertexColourEnum::AMBIENT) == TrackVertexColourEnum{} &&
+        (mTrackVertexColourType & TrackVertexColourEnum::EMISSIVE) == TrackVertexColourEnum{})
     {
         stage.assign(mDerivedSceneColour, mOutDiffuse);
     }
     else
     {
-        if (mTrackVertexColourType & TVC_AMBIENT)
+        if (!!(mTrackVertexColourType & TrackVertexColourEnum::AMBIENT))
         {
             stage.mul(mLightAmbientColour, mInDiffuse, mOutDiffuse);
         }
@@ -329,7 +329,7 @@ void PerPixelLighting::addPSGlobalIlluminationInvocation(const FunctionStageRef&
             stage.assign(In(mDerivedAmbientLightColour).xyz(), Out(mOutDiffuse).xyz());
         }
 
-        if (mTrackVertexColourType & TVC_EMISSIVE)
+        if (!!(mTrackVertexColourType & TrackVertexColourEnum::EMISSIVE))
         {
             stage.add(mInDiffuse, mOutDiffuse, mOutDiffuse);
         }

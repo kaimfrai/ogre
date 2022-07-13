@@ -80,7 +80,7 @@ class VertexData;
         @param endianMode The endian mode for the written file
         */
         void exportMesh(const Mesh* pMesh, const DataStreamPtr stream,
-            Endian endianMode = ENDIAN_NATIVE);
+            std::endian endianMode = std::endian::native);
 
         /** Imports Mesh and (optionally) Material data from a .mesh file DataStream.
         @remarks

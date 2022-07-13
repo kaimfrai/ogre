@@ -70,7 +70,7 @@ namespace Ogre::RTShader {
 
             for(const auto& p : program->getParameters())
             {
-                if(p->getType() != GCT_SAMPLER_EXTERNAL_OES)
+                if(p->getType() != GpuConstantType::SAMPLER_EXTERNAL_OES)
                     continue;
                 if(mGLSLVersion > 100)
                     os << "#extension GL_OES_EGL_image_external_essl3 : require\n";
@@ -80,7 +80,7 @@ namespace Ogre::RTShader {
                 break;
             }
 
-            if(program->getType() == GPT_FRAGMENT_PROGRAM && mGLSLVersion > 100)
+            if(program->getType() == GpuProgramType::FRAGMENT_PROGRAM && mGLSLVersion > 100)
             {
                 // sampler3D has no default precision
                 os << "precision lowp sampler3D;" << std::endl;

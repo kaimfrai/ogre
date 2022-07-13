@@ -66,7 +66,7 @@ namespace Ogre {
     class DefaultHardwareVertexBuffer : public HardwareVertexBuffer
     {
     public:
-        DefaultHardwareVertexBuffer(size_t vertexSize, size_t numVertices, Usage = HBU_CPU_ONLY)
+        DefaultHardwareVertexBuffer(size_t vertexSize, size_t numVertices, Usage = HardwareBufferUsage::CPU_ONLY)
             : HardwareVertexBuffer(nullptr, vertexSize, numVertices,
                                    new DefaultHardwareBuffer(vertexSize * numVertices))
         {
@@ -76,7 +76,7 @@ namespace Ogre {
     class DefaultHardwareIndexBuffer : public HardwareIndexBuffer
     {
     public:
-        DefaultHardwareIndexBuffer(IndexType idxType, size_t numIndexes, Usage = HBU_CPU_ONLY)
+        DefaultHardwareIndexBuffer(IndexType idxType, size_t numIndexes, Usage = HardwareBufferUsage::CPU_ONLY)
             : HardwareIndexBuffer(nullptr, idxType, numIndexes,
                                   new DefaultHardwareBuffer(indexSize(idxType) * numIndexes))
         {
@@ -104,7 +104,7 @@ namespace Ogre {
             createIndexBuffer(HardwareIndexBuffer::IndexType itype, size_t numIndexes, 
                 HardwareBuffer::Usage usage, bool useShadowBuffer = false) -> HardwareIndexBufferSharedPtr override;
         /// Create a hardware uniform buffer
-        auto createUniformBuffer(size_t sizeBytes, HardwareBufferUsage = HBU_CPU_ONLY,
+        auto createUniformBuffer(size_t sizeBytes, HardwareBufferUsage = HardwareBufferUsage::CPU_ONLY,
                                               bool = false) -> HardwareBufferPtr override
         {
             return std::make_shared<DefaultHardwareBuffer>(sizeBytes);

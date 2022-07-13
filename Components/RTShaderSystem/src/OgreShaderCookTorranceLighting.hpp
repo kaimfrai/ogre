@@ -39,7 +39,7 @@ public:
 
     auto getType() const noexcept -> std::string_view override;
 
-    auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING; }
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override { return FFPShaderStage::LIGHTING; }
 
     void copyFrom(const SubRenderState& rhs) override;
 

@@ -69,7 +69,7 @@ NormalMapLighting::NormalMapLighting()
 {
     mNormalMapSamplerIndex          = 0;
     mVSTexCoordSetIndex             = 0;
-    mNormalMapSpace                 = NMS_TANGENT;
+    mNormalMapSpace                 = NormalMapSpace::TANGENT;
     mNormalMapSampler = TextureManager::getSingleton().createSampler();
     mNormalMapSampler->setMipmapBias(-1.0);
 }
@@ -82,9 +82,9 @@ auto NormalMapLighting::getType() const noexcept -> std::string_view
 //-----------------------------------------------------------------------
 auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* psMain = psProgram->getEntryPointFunction();
 
     vsProgram->addDependency(FFP_LIB_TRANSFORM);
@@ -95,56 +95,56 @@ auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 
     // Resolve texture coordinates.
     auto vsInTexcoord = vsMain->resolveInputParameter(
-        Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 + mVSTexCoordSetIndex), GCT_FLOAT2);
+        Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + mVSTexCoordSetIndex), GpuConstantType::FLOAT2);
     auto vsOutTexcoord = vsMain->resolveOutputParameter(
-        Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 + mVSTexCoordSetIndex), GCT_FLOAT2);
+        Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + mVSTexCoordSetIndex), GpuConstantType::FLOAT2);
     auto psInTexcoord = psMain->resolveInputParameter(vsOutTexcoord);
 
     // Resolve normal.
-    auto vsInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
-    auto vsOutNormal = vsMain->resolveOutputParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+    auto vsInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
+    auto vsOutNormal = vsMain->resolveOutputParameter(Parameter::Content::NORMAL_VIEW_SPACE);
     auto viewNormal = psMain->resolveInputParameter(vsOutNormal);
-    auto newViewNormal = psMain->resolveLocalParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+    auto newViewNormal = psMain->resolveLocalParameter(Parameter::Content::NORMAL_VIEW_SPACE);
 
     // insert before lighting stage
-    auto vstage = vsMain->getStage(FFP_PS_COLOUR_BEGIN + 1);
-    auto fstage = psMain->getStage(FFP_PS_COLOUR_BEGIN + 1);
+    auto vstage = vsMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_BEGIN) + 1);
+    auto fstage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_BEGIN) + 1);
 
     // Output texture coordinates.
     vstage.assign(vsInTexcoord, vsOutTexcoord);
 
     // Add the normal fetch function invocation
-    auto normalMapSampler = psProgram->resolveParameter(GCT_SAMPLER2D, "gNormalMapSampler", mNormalMapSamplerIndex);
+    auto normalMapSampler = psProgram->resolveParameter(GpuConstantType::SAMPLER2D, "gNormalMapSampler", mNormalMapSamplerIndex);
     fstage.callFunction(SGX_FUNC_FETCHNORMAL, normalMapSampler, psInTexcoord, newViewNormal);
 
-    if (mNormalMapSpace & NMS_TANGENT)
+    if (!!(mNormalMapSpace & NormalMapSpace::TANGENT))
     {
-        auto vsInTangent = vsMain->resolveInputParameter(Parameter::SPC_TANGENT_OBJECT_SPACE);
-        auto vsOutTangent = vsMain->resolveOutputParameter(Parameter::SPC_TANGENT_OBJECT_SPACE);
+        auto vsInTangent = vsMain->resolveInputParameter(Parameter::Content::TANGENT_OBJECT_SPACE);
+        auto vsOutTangent = vsMain->resolveOutputParameter(Parameter::Content::TANGENT_OBJECT_SPACE);
         auto psInTangent = psMain->resolveInputParameter(vsOutTangent);
 
         // transform normal & tangent
-        auto normalMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_NORMAL_MATRIX);
+        auto normalMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::NORMAL_MATRIX);
         vstage.callFunction(FFP_FUNC_TRANSFORM, normalMatrix, vsInNormal, vsOutNormal);
         vstage.callFunction(FFP_FUNC_TRANSFORM, normalMatrix, vsInTangent, vsOutTangent);
 
         // Construct TBN matrix.
-        auto TBNMatrix = psMain->resolveLocalParameter(GCT_MATRIX_3X3, "lMatTBN");
+        auto TBNMatrix = psMain->resolveLocalParameter(GpuConstantType::MATRIX_3X3, "lMatTBN");
         fstage.callFunction(SGX_FUNC_CONSTRUCT_TBNMATRIX, viewNormal, psInTangent, TBNMatrix);
         // transform normal
         fstage.callFunction(FFP_FUNC_TRANSFORM, TBNMatrix, newViewNormal, newViewNormal);
     }
-    else if (mNormalMapSpace & NMS_OBJECT)
+    else if (!!(mNormalMapSpace & NormalMapSpace::OBJECT))
     {
         // transform normal in FS
-        auto normalMatrix = psProgram->resolveParameter(GpuProgramParameters::ACT_NORMAL_MATRIX);
+        auto normalMatrix = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::NORMAL_MATRIX);
         fstage.callFunction(FFP_FUNC_TRANSFORM, normalMatrix, newViewNormal, newViewNormal);
     }
 
-    if (mNormalMapSpace == NMS_PARALLAX)
+    if (mNormalMapSpace == NormalMapSpace::PARALLAX)
     {
         // assuming: lighting stage computed this
-        auto vsOutViewPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_VIEW_SPACE);
+        auto vsOutViewPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_VIEW_SPACE);
         auto viewPos = psMain->resolveInputParameter(vsOutViewPos);
 
         // TODO: user specificed scale and bias
@@ -152,8 +152,8 @@ auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
                                                               In(Vector2(0.04, -0.02)), Out(psInTexcoord)});
 
         // overwrite texcoord0 unconditionally, only one texcoord set is supported with parallax mapping
-        // we are before FFP_PS_TEXTURING, so the new value will be used
-        auto texcoord0 = psMain->resolveInputParameter(Parameter::SPC_TEXTURE_COORDINATE0, GCT_FLOAT2);
+        // we are before FFPFragmentShaderStage::TEXTURING, so the new value will be used
+        auto texcoord0 = psMain->resolveInputParameter(Parameter::Content::TEXTURE_COORDINATE0, GpuConstantType::FLOAT2);
         fstage.assign(psInTexcoord, texcoord0);
     }
 
@@ -189,18 +189,18 @@ auto NormalMapLighting::setParameter(std::string_view name, std::string_view val
         // Normal map defines normals in tangent space.
         if (value == "tangent_space")
         {
-            setNormalMapSpace(NMS_TANGENT);
+            setNormalMapSpace(NormalMapSpace::TANGENT);
             return true;
         }
         // Normal map defines normals in object space.
         if (value == "object_space")
         {
-            setNormalMapSpace(NMS_OBJECT);
+            setNormalMapSpace(NormalMapSpace::OBJECT);
             return true;
         }
         if (value == "parallax")
         {
-            setNormalMapSpace(NMS_PARALLAX);
+            setNormalMapSpace(NormalMapSpace::PARALLAX);
             return true;
         }
 		return false;
@@ -337,11 +337,11 @@ void NormalMapLightingFactory::writeInstance(MaterialSerializer* ser,
     ser->writeValue("normal_map");
     ser->writeValue(normalMapSubRenderState->getNormalMapTextureName());    
     
-    if (normalMapSubRenderState->getNormalMapSpace() == NormalMapLighting::NMS_TANGENT)
+    if (normalMapSubRenderState->getNormalMapSpace() == NormalMapLighting::NormalMapSpace::TANGENT)
     {
         ser->writeValue("tangent_space");
     }
-    else if (normalMapSubRenderState->getNormalMapSpace() == NormalMapLighting::NMS_OBJECT)
+    else if (normalMapSubRenderState->getNormalMapSpace() == NormalMapLighting::NormalMapSpace::OBJECT)
     {
         ser->writeValue("object_space");
     }

@@ -63,14 +63,14 @@ class CompositionTargetPass;
         
         /** Enumeration that enumerates the various composition pass types.
         */
-        enum PassType
+        enum class PassType
         {
-            PT_CLEAR,           //!< Clear target to one colour
-            PT_STENCIL,         //!< Set stencil operation
-            PT_RENDERSCENE,     //!< Render the scene or part of it
-            PT_RENDERQUAD,      //!< Render a full screen quad
-            PT_RENDERCUSTOM,    //!< Render a custom sequence
-            PT_COMPUTE          //!< dispatch a compute shader
+            CLEAR,           //!< Clear target to one colour
+            STENCIL,         //!< Set stencil operation
+            RENDERSCENE,     //!< Render the scene or part of it
+            RENDERQUAD,      //!< Render a full screen quad
+            RENDERCUSTOM,    //!< Render a custom sequence
+            COMPUTE          //!< dispatch a compute shader
         };
         
         /** Set the type of composition pass */
@@ -100,19 +100,19 @@ class CompositionTargetPass;
         /** Set the first render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        void setFirstRenderQueue(uint8 id);
+        void setFirstRenderQueue(RenderQueueGroupID id);
         /** Get the first render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        [[nodiscard]] auto getFirstRenderQueue() const noexcept -> uint8;
+        [[nodiscard]] auto getFirstRenderQueue() const noexcept -> RenderQueueGroupID;
         /** Set the last render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        void setLastRenderQueue(uint8 id);
+        void setLastRenderQueue(RenderQueueGroupID id);
         /** Get the last render queue to be rendered in this pass (inclusive) 
             @note applies when PassType is RENDERSCENE
         */
-        [[nodiscard]] auto getLastRenderQueue() const noexcept -> uint8;
+        [[nodiscard]] auto getLastRenderQueue() const noexcept -> RenderQueueGroupID;
 
         /** Set the material scheme used by this pass.
         @remarks
@@ -133,15 +133,15 @@ class CompositionTargetPass;
                 override material (at least -- color)
         */
 
-        /** Set the viewport clear buffers  (defaults to FBT_COLOUR|FBT_DEPTH)
-            @param val is a combination of FBT_COLOUR, FBT_DEPTH, FBT_STENCIL.
+        /** Set the viewport clear buffers  (defaults to FrameBufferType::COLOUR|FrameBufferType::DEPTH)
+            @param val is a combination of FrameBufferType::COLOUR, FrameBufferType::DEPTH, FrameBufferType::STENCIL.
             @note applies when PassType is CLEAR
         */
-        void setClearBuffers(uint32 val);
+        void setClearBuffers(FrameBufferType val);
         /** Get the viewport clear buffers.
             @note applies when PassType is CLEAR
         */
-        [[nodiscard]] auto getClearBuffers() const noexcept -> uint32;
+        [[nodiscard]] auto getClearBuffers() const noexcept -> FrameBufferType;
         /** Set the viewport clear colour (defaults to 0,0,0,0) 
             @note applies when PassType is CLEAR
          */
@@ -336,9 +336,9 @@ class CompositionTargetPass;
         /// Parent technique
         CompositionTargetPass *mParent;
         /// Type of composition pass
-        PassType mType{PT_RENDERQUAD};
+        PassType mType{PassType::RENDERQUAD};
 
-        // in case of PT_RENDERQUAD, PT_COMPUTE, PT_CUSTOM
+        // in case of PassType::RENDERQUAD, PassType::COMPUTE, PassType::CUSTOM
         struct MaterialData
         {
             /// Identifier for this pass
@@ -352,12 +352,12 @@ class CompositionTargetPass;
             MaterialData()  = default;
         } mMaterial;
 
-        // in case of PT_RENDERSCENE
+        // in case of PassType::RENDERSCENE
         struct RenderSceneData
         {
-            /// [first,last] render queue to render this pass (in case of PT_RENDERSCENE)
-            uint8 firstRenderQueue{RENDER_QUEUE_BACKGROUND};
-            uint8 lastRenderQueue{RENDER_QUEUE_SKIES_LATE};
+            /// [first,last] render queue to render this pass (in case of PassType::RENDERSCENE)
+            RenderQueueGroupID firstRenderQueue{RenderQueueGroupID::BACKGROUND};
+            RenderQueueGroupID lastRenderQueue{RenderQueueGroupID::SKIES_LATE};
 
             /// Material scheme name
             std::string_view materialScheme;
@@ -372,11 +372,11 @@ class CompositionTargetPass;
             = default;
         } mRenderScene;
 
-        // in case of PT_CLEAR
+        // in case of PassType::CLEAR
         struct ClearData
         {
             /// Clear buffers
-            uint32 buffers;
+            FrameBufferType buffers;
             /// Clear colour
             ColourValue colour;
             /// Clear colour with the colour of the original viewport. Overrides mClearColour
@@ -387,18 +387,18 @@ class CompositionTargetPass;
             uint16 stencil{0};
 
             ClearData()
-                : buffers(FBT_COLOUR | FBT_DEPTH), colour(ColourValue::ZERO) 
+                : buffers(FrameBufferType::COLOUR | FrameBufferType::DEPTH), colour(ColourValue::ZERO) 
             {
             }
         } mClear;
 
-        /// in case of PT_COMPUTE
+        /// in case of PassType::COMPUTE
         Vector3i mThreadGroups;
 
-        /// in case of PT_STENCIL
+        /// in case of PassType::STENCIL
         StencilState mStencilState;
 
-        // in case of PT_RENDERQUAD
+        // in case of PassType::RENDERQUAD
         struct QuadData
         {
             /// True if quad should not cover whole screen
@@ -413,7 +413,7 @@ class CompositionTargetPass;
             }
         } mQuad;
 
-        /// in case of PT_RENDERCUSTOM
+        /// in case of PassType::RENDERCUSTOM
         String mCustomType;
     };
     /** @} */

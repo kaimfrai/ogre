@@ -57,36 +57,36 @@ class Sphere;
     */
     /** Specifies orientation mode.
     */
-    enum OrientationMode : uint8
+    enum class OrientationMode : uint8
     {
-        OR_DEGREE_0       = 0,
-        OR_DEGREE_90      = 1,
-        OR_DEGREE_180     = 2,
-        OR_DEGREE_270     = 3,
+        DEGREE_0       = 0,
+        DEGREE_90      = 1,
+        DEGREE_180     = 2,
+        DEGREE_270     = 3,
 
-        OR_PORTRAIT       = OR_DEGREE_0,
-        OR_LANDSCAPERIGHT = OR_DEGREE_90,
-        OR_LANDSCAPELEFT  = OR_DEGREE_270
+        PORTRAIT       = DEGREE_0,
+        LANDSCAPERIGHT = DEGREE_90,
+        LANDSCAPELEFT  = DEGREE_270
     };
 
     /** Specifies perspective (realistic) or orthographic (architectural) projection.
     */
-    enum ProjectionType : uint8
+    enum class ProjectionType : uint8
     {
-        PT_ORTHOGRAPHIC,
-        PT_PERSPECTIVE
+        ORTHOGRAPHIC,
+        PERSPECTIVE
     };
 
     /** Worldspace clipping planes.
     */
-    enum FrustumPlane : uint8
+    enum class FrustumPlane : uint8
     {
-        FRUSTUM_PLANE_NEAR   = 0,
-        FRUSTUM_PLANE_FAR    = 1,
-        FRUSTUM_PLANE_LEFT   = 2,
-        FRUSTUM_PLANE_RIGHT  = 3,
-        FRUSTUM_PLANE_TOP    = 4,
-        FRUSTUM_PLANE_BOTTOM = 5
+        NEAR   = 0,
+        FAR    = 1,
+        LEFT   = 2,
+        RIGHT  = 3,
+        TOP    = 4,
+        BOTTOM = 5
     };
 
     /** A frustum represents a pyramid, capped at the near and far end which is
@@ -141,7 +141,7 @@ class Sphere;
         /// Have the frustum extents been manually set?
         bool mFrustumExtentsManuallySet{false};
         /// Orthographic or perspective?
-        ProjectionType mProjType{PT_PERSPECTIVE};
+        ProjectionType mProjType{ProjectionType::PERSPECTIVE};
         /// Frustum extents
         mutable RealRect mExtents;
         
@@ -196,7 +196,7 @@ class Sphere;
         /// Is this frustum using an oblique depth projection?
         bool mObliqueDepthProjection{false};
         /// Frustum orientation mode
-        mutable OrientationMode mOrientationMode{OR_DEGREE_0};
+        mutable OrientationMode mOrientationMode{OrientationMode::DEGREE_0};
 
     public:
 
@@ -454,7 +454,7 @@ class Sphere;
         */
         virtual auto isVisible(const Vector3& vert, FrustumPlane* culledBy = nullptr) const -> bool;
 
-        auto getTypeFlags() const noexcept -> uint32 override;
+        auto getTypeFlags() const noexcept -> QueryTypeMask override;
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
         auto getBoundingRadius() const -> Real override;
         void _updateRenderQueue(RenderQueue* queue) override;
@@ -630,7 +630,7 @@ class Sphere;
         /** Gets a world-space list of planes enclosing the frustum.
         */
         auto getPlaneBoundedVolume() -> PlaneBoundedVolume;
-        /** Set the orientation mode of the frustum. Default is OR_DEGREE_0
+        /** Set the orientation mode of the frustum. Default is OrientationMode::DEGREE_0
         @remarks
             Setting the orientation of a frustum is only supported on
             iOS at this time.  An exception is thrown on other platforms.

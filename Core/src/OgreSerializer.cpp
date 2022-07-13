@@ -60,7 +60,7 @@ namespace Ogre {
     {
         if (stream->tell() != 0)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Can only determine the endianness of the input stream if it "
                 "is at the start", "Serializer::determineEndianness");
         }
@@ -73,7 +73,7 @@ namespace Ogre {
         if (actually_read != sizeof(uint16))
         {
             // end of file?
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Couldn't read 16 bit header value from input stream.",
                         "Serializer::determineEndianness");
         }
@@ -87,23 +87,21 @@ namespace Ogre {
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Header chunk didn't match either endian: Corrupted stream?",
                 "Serializer::determineEndianness");
         }
     }
     //---------------------------------------------------------------------
-    void Serializer::determineEndianness(Endian requestedEndian)
+    void Serializer::determineEndianness(std::endian requestedEndian)
     {
+        using enum std::endian;
         switch(requestedEndian)
         {
-        case ENDIAN_NATIVE:
-            mFlipEndian = false;
-            break;
-        case ENDIAN_BIG:
+        case big:
             mFlipEndian = true;
             break;
-        case ENDIAN_LITTLE:
+        case little:
             mFlipEndian = false;
             break;
         }
@@ -236,7 +234,7 @@ namespace Ogre {
             String ver = readString(stream);
             if (ver != mVersion)
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, 
                     "Invalid file: version incompatible, file reports " + String(ver) +
                     ::std::format(" Serializer is version {}", mVersion),
                     "Serializer::readFileHeader");
@@ -244,7 +242,7 @@ namespace Ogre {
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Invalid file: no header", 
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Invalid file: no header", 
                 "Serializer::readFileHeader");
         }
 

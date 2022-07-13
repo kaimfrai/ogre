@@ -71,35 +71,35 @@ static void checkCaps(const Ogre::RenderSystemCapabilities* caps)
 {
     using namespace Ogre;
 
-    EXPECT_EQ(caps->hasCapability(RSC_ANISOTROPY), true);
-    EXPECT_EQ(caps->hasCapability(RSC_HWSTENCIL), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::ANISOTROPY), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::HWSTENCIL), true);
 
-    EXPECT_EQ(caps->hasCapability(RSC_TWO_SIDED_STENCIL), true);
-    EXPECT_EQ(caps->hasCapability(RSC_STENCIL_WRAP), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TWO_SIDED_STENCIL), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::STENCIL_WRAP), true);
 
-    EXPECT_EQ(caps->hasCapability(RSC_HWOCCLUSION), true);
-    EXPECT_EQ(caps->hasCapability(RSC_USER_CLIP_PLANES), true);
-    EXPECT_EQ(caps->hasCapability(RSC_HWRENDER_TO_TEXTURE), true);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_FLOAT), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::HWOCCLUSION), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::USER_CLIP_PLANES), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::HWRENDER_TO_TEXTURE), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_FLOAT), true);
 
-    EXPECT_EQ(caps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES), false);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_3D), true);
-    EXPECT_EQ(caps->hasCapability(RSC_POINT_SPRITES), true);
-    EXPECT_EQ(caps->hasCapability(RSC_POINT_EXTENDED_PARAMETERS), true);
-    EXPECT_EQ(caps->hasCapability(RSC_VERTEX_TEXTURE_FETCH), false);
-    EXPECT_EQ(caps->hasCapability(RSC_MIPMAP_LOD_BIAS), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::NON_POWER_OF_2_TEXTURES), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_3D), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::POINT_SPRITES), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::VERTEX_TEXTURE_FETCH), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::MIPMAP_LOD_BIAS), true);
 
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION), true);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION_DXT), true);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION_VTC), false);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION_PVRTC), false);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5), false);
-    EXPECT_EQ(caps->hasCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION_DXT), true);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION_VTC), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION_PVRTC), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION_BC4_BC5), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::TEXTURE_COMPRESSION_BC6H_BC7), false);
 
-    EXPECT_EQ(caps->hasCapability(RSC_PBUFFER), false);
-    EXPECT_EQ(caps->hasCapability(RSC_PERSTAGECONSTANT), false);
-    EXPECT_EQ(caps->hasCapability(RSC_VAO), false);
-    EXPECT_EQ(caps->hasCapability(RSC_SEPARATE_SHADER_OBJECTS), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::PBUFFER), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::PERSTAGECONSTANT), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::VAO), false);
+    EXPECT_EQ(caps->hasCapability(Capabilities::SEPARATE_SHADER_OBJECTS), false);
 
     EXPECT_TRUE(caps->isShaderProfileSupported("arbfp1"));
     EXPECT_TRUE(caps->isShaderProfileSupported("arbvp1"));

@@ -39,6 +39,7 @@ THE SOFTWARE.
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreRenderable.hpp"
+#include "OgreRenderQueue.hpp"
 #include "OgreShadowCaster.hpp"
 #include "OgreSphere.hpp"
 #include "OgreUserObjectBindings.hpp"
@@ -47,14 +48,85 @@ namespace Ogre {
 
     // Forward declaration
     class MovableObjectFactory;
-class Affine3;
-class Camera;
-class EdgeData;
-class Light;
-class Node;
-class RenderQueue;
-class SceneManager;
-class SceneNode;
+    class Affine3;
+    class Camera;
+    class EdgeData;
+    class Light;
+    class Node;
+    class RenderQueue;
+    class SceneManager;
+    class SceneNode;
+
+    enum class QueryTypeMask : uint32
+    {
+        /// Query type mask which will be used for world geometry @see SceneQuery
+        WORLD_GEOMETRY = 0x80000000,
+        /// Query type mask which will be used for entities @see SceneQuery
+        ENTITY = 0x40000000,
+        /// Query type mask which will be used for effects like billboardsets / particle systems @see SceneQuery
+        FX = 0x20000000,
+        /// Query type mask which will be used for StaticGeometry  @see SceneQuery
+        STATICGEOMETRY = 0x10000000,
+        /// Query type mask which will be used for lights  @see SceneQuery
+        LIGHT = 0x08000000,
+        /// Query type mask which will be used for frusta and cameras @see SceneQuery
+        FRUSTUM = 0x04000000,
+        /// User type mask limit
+        USER_LIMIT = FRUSTUM
+    };
+
+    auto constexpr operator compl (QueryTypeMask mask) -> QueryTypeMask
+    {
+        return static_cast<QueryTypeMask>
+        (   compl
+            std::to_underlying(mask)
+        );
+    }
+
+    auto constexpr operator not (QueryTypeMask mask) -> bool
+    {
+        return not std::to_underlying(mask);
+    }
+
+    auto constexpr operator bitor (QueryTypeMask left, QueryTypeMask right) -> QueryTypeMask
+    {
+        return static_cast<QueryTypeMask>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |= (QueryTypeMask& left, QueryTypeMask right) -> QueryTypeMask&
+    {
+        return left = left bitor right;
+    }
+
+    auto constexpr operator bitand (QueryTypeMask left, QueryTypeMask right) -> QueryTypeMask
+    {
+        return static_cast<QueryTypeMask>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator &= (QueryTypeMask& left, QueryTypeMask right) -> QueryTypeMask&
+    {
+        return left = left bitand right;
+    }
+
+    auto constexpr operator << (QueryTypeMask mask, std::size_t shift) -> QueryTypeMask
+    {
+        return static_cast<QueryTypeMask>
+        (   std::to_underlying(mask)
+        <<  shift
+        );
+    }
+    auto constexpr operator <<= (QueryTypeMask& mask, std::size_t shift) -> QueryTypeMask&
+    {
+        return mask = mask << shift;
+    }
 
     /** \addtogroup Core
     *  @{
@@ -142,7 +214,7 @@ class SceneNode;
         /// Does rendering this object disabled by listener?
         bool mRenderingDisabled : 1;
         /// The render queue to use when rendering this object
-        uint8 mRenderQueueID;
+        RenderQueueGroupID mRenderQueueID;
         /// The render queue group to use when rendering this object
         ushort mRenderQueuePriority;
         /// Upper distance to still render
@@ -153,9 +225,9 @@ class SceneNode;
         /// User objects binding.
         UserObjectBindings mUserObjectBindings;
         /// Flags determining whether this object is included / excluded from scene queries
-        uint32 mQueryFlags;
+        QueryTypeMask mQueryFlags;
         /// Flags determining whether this object is visible (compared to SceneManager mask)
-        uint32 mVisibilityFlags;
+        QueryTypeMask mVisibilityFlags;
         /// Cached world AABB of this object
         mutable AxisAlignedBox mWorldAABB;
         // Cached world bounding sphere
@@ -167,13 +239,13 @@ class SceneNode;
         /// The last frame that this light list was updated in
         mutable ulong mLightListUpdated;
         /// the light mask defined for this movable. This will be taken into consideration when deciding which light should affect this movable
-        uint32 mLightMask;
+        QueryTypeMask mLightMask;
 
         // Static members
         /// Default query flags
-        static uint32 msDefaultQueryFlags;
+        static QueryTypeMask msDefaultQueryFlags;
         /// Default visibility flags
-        static uint32 msDefaultVisibilityFlags;
+        static QueryTypeMask msDefaultVisibilityFlags;
 
 
 
@@ -367,9 +439,9 @@ class SceneNode;
         @par
             See RenderQueue for more details.
         @param queueID Enumerated value of the queue group to use. See the
-            enum RenderQueueGroupID for what kind of values can be used here.
+            enum class RenderQueueGroupID for what kind of values can be used here.
         */
-        virtual void setRenderQueueGroup(uint8 queueID);
+        virtual void setRenderQueueGroup(RenderQueueGroupID queueID);
 
         /** Sets the render queue group and group priority this entity will be rendered through.
         @remarks
@@ -383,15 +455,15 @@ class SceneNode;
         @par
             See RenderQueue for more details.
         @param queueID Enumerated value of the queue group to use. See the
-            enum RenderQueueGroupID for what kind of values can be used here.
+            enum class RenderQueueGroupID for what kind of values can be used here.
         @param priority The priority within a group to use.
         */
-        virtual void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
+        virtual void setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority);
 
         /** Gets the queue group for this entity
         @see setRenderQueueGroup
         */
-        auto getRenderQueueGroup() const noexcept -> uint8 { return mRenderQueueID; }
+        auto getRenderQueueGroup() const noexcept -> RenderQueueGroupID { return mRenderQueueID; }
 
         /// Return the full transformation of the parent sceneNode or the attachingPoint node
         virtual auto _getParentNodeFullTransform() const -> const Affine3&;
@@ -403,26 +475,26 @@ class SceneNode;
             a bit on these flags is set, will it be included in a query asking for that flag. The
             meaning of the bits is application-specific.
         */
-        void setQueryFlags(uint32 flags) { mQueryFlags = flags; }
+        void setQueryFlags(QueryTypeMask flags) { mQueryFlags = flags; }
 
         /** As setQueryFlags, except the flags passed as parameters are appended to the
         existing flags on this object. */
-        void addQueryFlags(uint32 flags) { mQueryFlags |= flags; }
+        void addQueryFlags(QueryTypeMask flags) { mQueryFlags |= flags; }
             
         /** As setQueryFlags, except the flags passed as parameters are removed from the
         existing flags on this object. */
-        void removeQueryFlags(uint32 flags) { mQueryFlags &= ~flags; }
+        void removeQueryFlags(QueryTypeMask flags) { mQueryFlags &= ~flags; }
         
         /// Returns the query flags relevant for this object
-        virtual auto getQueryFlags() const noexcept -> uint32 { return mQueryFlags; }
+        virtual auto getQueryFlags() const noexcept -> QueryTypeMask { return mQueryFlags; }
 
         /** Set the default query flags for all future MovableObject instances.
         */
-        static void setDefaultQueryFlags(uint32 flags) { msDefaultQueryFlags = flags; }
+        static void setDefaultQueryFlags(QueryTypeMask flags) { msDefaultQueryFlags = flags; }
 
         /** Get the default query flags for all future MovableObject instances.
         */
-        static auto getDefaultQueryFlags() noexcept -> uint32 { return msDefaultQueryFlags; }
+        static auto getDefaultQueryFlags() noexcept -> QueryTypeMask { return msDefaultQueryFlags; }
 
         
         /** Sets the visibility flags for this object.
@@ -431,26 +503,26 @@ class SceneNode;
             you can also set visibility flags which when 'and'ed with the SceneManager's
             visibility mask can also make an object invisible.
         */
-        void setVisibilityFlags(uint32 flags) { mVisibilityFlags = flags; }
+        void setVisibilityFlags(QueryTypeMask flags) { mVisibilityFlags = flags; }
 
         /** As setVisibilityFlags, except the flags passed as parameters are appended to the
         existing flags on this object. */
-        void addVisibilityFlags(uint32 flags) { mVisibilityFlags |= flags; }
+        void addVisibilityFlags(QueryTypeMask flags) { mVisibilityFlags |= flags; }
             
         /** As setVisibilityFlags, except the flags passed as parameters are removed from the
         existing flags on this object. */
-        void removeVisibilityFlags(uint32 flags) { mVisibilityFlags &= ~flags; }
+        void removeVisibilityFlags(QueryTypeMask flags) { mVisibilityFlags &= ~flags; }
         
         /// Returns the visibility flags relevant for this object
-        virtual auto getVisibilityFlags() const noexcept -> uint32 { return mVisibilityFlags; }
+        virtual auto getVisibilityFlags() const noexcept -> QueryTypeMask { return mVisibilityFlags; }
 
         /** Set the default visibility flags for all future MovableObject instances.
         */
-        static void setDefaultVisibilityFlags(uint32 flags) { msDefaultVisibilityFlags = flags; }
+        static void setDefaultVisibilityFlags(QueryTypeMask flags) { msDefaultVisibilityFlags = flags; }
         
         /** Get the default visibility flags for all future MovableObject instances.
         */
-        static auto getDefaultVisibilityFlags() noexcept -> uint32 { return msDefaultVisibilityFlags; }
+        static auto getDefaultVisibilityFlags() noexcept -> QueryTypeMask { return msDefaultVisibilityFlags; }
 
         /** Sets a listener for this object.
         @remarks
@@ -487,14 +559,14 @@ class SceneNode;
         @remarks
         By default, this mask is fully set meaning all lights will affect this object
         */
-        auto getLightMask() const noexcept -> uint32 { return mLightMask; }
+        auto getLightMask() const noexcept -> QueryTypeMask { return mLightMask; }
         /** Set a bitwise mask which will filter the lights affecting this object
         @remarks
         This mask will be compared against the mask held against Light to determine
         if a light should affect a given object. 
         By default, this mask is fully set meaning all lights will affect this object
         */
-        void setLightMask(uint32 lightMask);
+        void setLightMask(QueryTypeMask lightMask);
 
         /** Returns a pointer to the current list of lights for this object.
         @remarks
@@ -509,7 +581,7 @@ class SceneNode;
         /// Define a default implementation of method from ShadowCaster which implements no shadows
         auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDist, ShadowRenderableFlags flags = {}) -> const ShadowRenderableList& override;
 
         auto getLightCapBounds() const noexcept -> const AxisAlignedBox& override;
         auto getDarkCapBounds(const Light& light, Real dirLightExtrusionDist) const -> const AxisAlignedBox& override;
@@ -545,7 +617,7 @@ class SceneNode;
             Custom objects which don't use MovableObjectFactory will need to 
             override this if they want to be included in queries.
         */
-        virtual auto getTypeFlags() const noexcept -> uint32;
+        virtual auto getTypeFlags() const noexcept -> QueryTypeMask;
 
         /** Method to allow a caller to abstractly iterate over the Renderable
             instances that this MovableObject will add to the render queue when
@@ -588,7 +660,7 @@ class SceneNode;
     {
     private:
         /// Type flag, allocated if requested
-        uint32 mTypeFlag{0xFFFFFFFF};
+        QueryTypeMask mTypeFlag{0xFFFFFFFF};
 
         /// Internal implementation of create method - must be overridden
         virtual auto createInstanceImpl(
@@ -634,14 +706,14 @@ class SceneNode;
             to a number of different types of object, should you always wish them
             to be treated the same in queries.
         */
-        void _notifyTypeFlags(uint32 flag) { mTypeFlag = flag; }
+        void _notifyTypeFlags(QueryTypeMask flag) { mTypeFlag = flag; }
 
         /** Gets the type flag for this factory.
         @remarks
             A type flag is like a query flag, except that it applies to all instances
             of a certain type of object.
         */
-        [[nodiscard]] auto getTypeFlags() const noexcept -> uint32 { return mTypeFlag; }
+        [[nodiscard]] auto getTypeFlags() const noexcept -> QueryTypeMask { return mTypeFlag; }
 
     };
     /** @} */

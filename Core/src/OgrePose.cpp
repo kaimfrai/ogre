@@ -102,15 +102,15 @@ namespace Ogre {
         if (!mBuffer)
         {
             // Create buffer
-            size_t vertexSize = VertexElement::getTypeSize(VET_FLOAT3);
+            size_t vertexSize = VertexElement::getTypeSize(VertexElementType::FLOAT3);
             bool normals = getIncludesNormals();
             if (normals)
-                vertexSize += VertexElement::getTypeSize(VET_FLOAT3);
+                vertexSize += VertexElement::getTypeSize(VertexElementType::FLOAT3);
                 
             mBuffer = HardwareBufferManager::getSingleton().createVertexBuffer(
-                vertexSize, numVertices, HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+                vertexSize, numVertices, HardwareBuffer::STATIC_WRITE_ONLY);
 
-            HardwareBufferLockGuard bufLock(mBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard bufLock(mBuffer, HardwareBuffer::LockOptions::DISCARD);
             auto* pFloat = static_cast<float*>(bufLock.pData);
             // initialise - these will be the values used where no pose vertex is included
             memset(pFloat, 0, mBuffer->getSizeInBytes()); 
@@ -120,12 +120,12 @@ namespace Ogre {
                 // mesh normals, since delta normals don't work (re-normalisation would
                 // always result in a blended normal even with full pose applied)
                 const VertexElement* origNormElem = 
-                    origData->vertexDeclaration->findElementBySemantic(VES_NORMAL, 0);
+                    origData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL, 0);
                 assert(origNormElem);
                 
                 const HardwareVertexBufferSharedPtr& origBuffer = 
                     origData->vertexBufferBinding->getBuffer(origNormElem->getSource());
-                HardwareBufferLockGuard origBufLock(origBuffer, HardwareBuffer::HBL_READ_ONLY);
+                HardwareBufferLockGuard origBufLock(origBuffer, HardwareBuffer::LockOptions::READ_ONLY);
                 float* pDst = pFloat + 3;
                 float* pSrc;
                 origNormElem->baseVertexPointerToElement(origBufLock.pData, &pSrc);

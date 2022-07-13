@@ -117,13 +117,13 @@ namespace OgreBites
             if(!mat)
             {
                 err << "not found";
-                OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, err.str());
+                OGRE_EXCEPT(Ogre::ExceptionCodes::NOT_IMPLEMENTED, err.str());
             }
             mat->load();
             if (mat->getSupportedTechniques().empty())
             {
                 err << mat->getUnsupportedTechniquesExplanation();
-                OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, err.str());
+                OGRE_EXCEPT(Ogre::ExceptionCodes::NOT_IMPLEMENTED, err.str());
             }
         }
 
@@ -165,8 +165,8 @@ namespace OgreBites
         {
             mTrayMgr = std::make_unique<TrayManager>("SampleControls", window, this);  // create a tray interface
             // show stats and logo and hide the cursor
-            mTrayMgr->showFrameStats(TL_BOTTOMLEFT);
-            mTrayMgr->showLogo(TL_BOTTOMRIGHT);
+            mTrayMgr->showFrameStats(TrayLocation::BOTTOMLEFT);
+            mTrayMgr->showLogo(TrayLocation::BOTTOMRIGHT);
             mTrayMgr->hideCursor();
         }
 

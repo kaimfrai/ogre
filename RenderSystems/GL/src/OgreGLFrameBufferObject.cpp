@@ -94,7 +94,7 @@ class DepthBuffer;
         // First buffer must be bound
         if(!mColour[0].buffer)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
             "Attachment 0 must have surface attached",
             "GLFrameBufferObject::initialise");
         }
@@ -128,13 +128,13 @@ class DepthBuffer;
                     ss << ". It must be of the same as the size of surface 0, ";
                     ss << width << "x" << height;
                     ss << ".";
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ss.str(), "GLFrameBufferObject::initialise");
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ss.str(), "GLFrameBufferObject::initialise");
                 }
-                if (!rsc->hasCapability(RSC_MRT_DIFFERENT_BIT_DEPTHS) && mColour[x].buffer->getGLFormat() != format)
+                if (!rsc->hasCapability(Capabilities::MRT_DIFFERENT_BIT_DEPTHS) && mColour[x].buffer->getGLFormat() != format)
                 {
                     StringStream ss;
                     ss << "Attachment " << x << " has incompatible format.";
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ss.str(), "GLFrameBufferObject::initialise");
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ss.str(), "GLFrameBufferObject::initialise");
                 }
 
                 bool isDepth = PixelUtil::isDepth(mColour[x].buffer->getFormat());
@@ -212,11 +212,11 @@ class DepthBuffer;
             // All is good
             break;
         case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
             "All framebuffer formats with this texture internal format unsupported",
             "GLFrameBufferObject::initialise");
         default:
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
             "Framebuffer incomplete or other FBO status error",
             "GLFrameBufferObject::initialise");
         }

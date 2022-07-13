@@ -141,7 +141,7 @@ class ResourceManager;
         void resetCompileError() override;
 
         void load(bool backgroundThread = false) override;
-        void reload(LoadingFlags flags = LF_DEFAULT) override;
+        void reload(LoadingFlags flags = LoadingFlags::DEFAULT) override;
         auto isReloadable() const noexcept -> bool;
         auto isLoaded() const noexcept -> bool;
         auto isLoading() const noexcept -> bool;

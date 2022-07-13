@@ -37,12 +37,12 @@ DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes("") {}
 void DefaultDebugDrawer::preFindVisibleObjects(SceneManager* source,
                                                SceneManager::IlluminationRenderStage irs, Viewport* v)
 {
-    mDrawType = 0;
+    mDrawType = static_cast<DrawType>(0);
 
     if (source->getDisplaySceneNodes())
-        mDrawType |= DT_AXES;
+        mDrawType |= DrawType::AXES;
     if (source->getShowBoundingBoxes())
-        mDrawType |= DT_WIREBOX;
+        mDrawType |= DrawType::WIREBOX;
 }
 void DefaultDebugDrawer::beginLines()
 {
@@ -55,10 +55,10 @@ void DefaultDebugDrawer::beginLines()
             mat = MaterialManager::getSingleton().create(matName, RGN_INTERNAL);
             Pass* p = mat->getTechnique(0)->getPass(0);
             p->setLightingEnabled(false);
-            p->setVertexColourTracking(TVC_AMBIENT);
+            p->setVertexColourTracking(TrackVertexColourEnum::AMBIENT);
         }
-        mLines.setBufferUsage(HBU_CPU_TO_GPU);
-        mLines.begin(mat, RenderOperation::OT_LINE_LIST);
+        mLines.setBufferUsage(HardwareBufferUsage::CPU_TO_GPU);
+        mLines.begin(mat, RenderOperation::OperationType::LINE_LIST);
     }
     else if (mLines.getCurrentVertexCount() == 0)
         mLines.beginUpdate(0);
@@ -105,14 +105,14 @@ void DefaultDebugDrawer::drawAxes(const Affine3& pose, float size)
             Pass* p = mat->getTechnique(0)->getPass(0);
             p->setLightingEnabled(false);
             p->setPolygonModeOverrideable(false);
-            p->setVertexColourTracking(TVC_AMBIENT);
-            p->setSceneBlending(SBT_TRANSPARENT_ALPHA);
-            p->setCullingMode(CULL_NONE);
+            p->setVertexColourTracking(TrackVertexColourEnum::AMBIENT);
+            p->setSceneBlending(SceneBlendType::TRANSPARENT_ALPHA);
+            p->setCullingMode(CullingMode::NONE);
             p->setDepthWriteEnabled(false);
             p->setDepthCheckEnabled(false);
         }
 
-        mAxes.setBufferUsage(HBU_CPU_TO_GPU);
+        mAxes.setBufferUsage(HardwareBufferUsage::CPU_TO_GPU);
         mAxes.begin(mat);
     }
     else if (mAxes.getCurrentVertexCount() == 0)
@@ -176,7 +176,7 @@ void DefaultDebugDrawer::drawSceneNode(const SceneNode* node)
     if (aabb.isInfinite()) {
         return;
     }
-    if (mDrawType & DT_AXES)
+    if (!!(mDrawType & DrawType::AXES))
     {
         Vector3f hs(aabb.getHalfSize());
         float sz = std::min(hs[0], hs[1]);
@@ -185,7 +185,7 @@ void DefaultDebugDrawer::drawSceneNode(const SceneNode* node)
         drawAxes(node->_getFullTransform(), sz);
     }
 
-    if (node->getShowBoundingBox() || (mDrawType & DT_WIREBOX))
+    if (node->getShowBoundingBox() || !!(mDrawType & DrawType::WIREBOX))
     {
         drawWireBox(aabb);
     }

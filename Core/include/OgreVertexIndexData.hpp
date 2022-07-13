@@ -230,12 +230,12 @@ class HardwareBufferManagerBase;
         */
         void removeUnusedBuffers();
 
-        /** Convert all packed colour values (VET_COLOUR_*) in buffers used to
+        /** Convert all packed colour values (VertexElementType::COLOUR_*) in buffers used to
             another type.
-        @param srcType The source colour type to assume if the ambiguous VET_COLOUR
+        @param srcType The source colour type to assume if the ambiguous VertexElementType::COLOUR
             is encountered.
-        @param destType The destination colour type, must be VET_COLOUR_ABGR or
-            VET_COLOUR_ARGB.
+        @param destType The destination colour type, must be VertexElementType::COLOUR_ABGR or
+            VertexElementType::COLOUR_ARGB.
         */
         void convertPackedColour(VertexElementType srcType, VertexElementType destType);
 

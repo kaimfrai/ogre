@@ -125,9 +125,9 @@ namespace Ogre
          mReadWriteHeader(autoHeader)
         , mRealFormat(realFormat)
     {
-        if (mEndian != ENDIAN_AUTO)
+        if (mEndian != Endian::AUTO)
         {
-            if (mEndian == ENDIAN_BIG)
+            if (mEndian == Endian::BIG)
                 mFlipEndian = true;
         }
 
@@ -139,7 +139,7 @@ namespace Ogre
         // really this should be empty if read/write was complete, but be tidy
         if (!mChunkStack.empty())
         {
-            LogManager::getSingleton().stream(LML_WARNING) <<
+            LogManager::getSingleton().stream(LogMessageLevel::Warning) <<
                 "Warning: stream " << mStream->getName() << " was not fully read / written; " <<
                 mChunkStack.size() << " chunks remain unterminated.";
         }
@@ -170,7 +170,7 @@ namespace Ogre
         if (mReadWriteHeader)
             readHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        OgreAssert(mEndian != Endian::AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         Chunk* chunk = readChunkImpl();
@@ -192,7 +192,7 @@ namespace Ogre
         }
         else if (c->version > maxVersion)
         {
-            LogManager::getSingleton().stream(LML_CRITICAL) << "Error: " << msg
+            LogManager::getSingleton().stream(LogMessageLevel::Critical) << "Error: " << msg
                 << " : Data version is " << c->version << " but this software can only read "
                 << "up to version " << maxVersion;
             // skip
@@ -227,7 +227,7 @@ namespace Ogre
         if (mReadWriteHeader)
             readHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        OgreAssert(mEndian != Endian::AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         size_t homePos = mStream->tell();
@@ -278,7 +278,7 @@ namespace Ogre
         else
         {
             // no good
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                 "Cannot determine endian mode because header is missing", 
                 "StreamSerialiser::readHeader");
         }
@@ -294,7 +294,7 @@ namespace Ogre
         // read real storage format
         bool realIsDouble;
         read(&realIsDouble);
-        mRealFormat = realIsDouble? REAL_DOUBLE : REAL_FLOAT;
+        mRealFormat = realIsDouble? RealStorageFormat::DOUBLE : RealStorageFormat::FLOAT;
 
         readChunkEnd(HEADER_ID);
 
@@ -303,9 +303,9 @@ namespace Ogre
     void StreamSerialiser::determineEndianness()
     {
         if (mFlipEndian)
-            mEndian = ENDIAN_BIG;
+            mEndian = Endian::BIG;
         else
-            mEndian = ENDIAN_LITTLE;
+            mEndian = Endian::LITTLE;
     }
     //---------------------------------------------------------------------
     auto StreamSerialiser::getCurrentChunk() const noexcept -> const StreamSerialiser::Chunk*
@@ -327,25 +327,25 @@ namespace Ogre
         OgreAssert(mStream, "Stream is null");
 
         if (failOnEof && mStream->eof())
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Invalid operation, end of file on stream");
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "Invalid operation, end of file on stream");
 
         if (validateReadable && !mStream->isReadable())
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Invalid operation, file is not readable");
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "Invalid operation, file is not readable");
 
         if (validateWriteable && !mStream->isWriteable())
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Invalid operation, file is not writeable");
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "Invalid operation, file is not writeable");
     }
     //---------------------------------------------------------------------
     void StreamSerialiser::writeHeader()
     {
-        if (mEndian == ENDIAN_AUTO)
+        if (mEndian == Endian::AUTO)
             determineEndianness();
 
         // Header chunk has zero data size
         writeChunkImpl(HEADER_ID, 1);
 
         // real format
-        bool realIsDouble = (mRealFormat == REAL_DOUBLE);
+        bool realIsDouble = (mRealFormat == RealStorageFormat::DOUBLE);
         write(&realIsDouble);
 
         writeChunkEnd(HEADER_ID);
@@ -360,7 +360,7 @@ namespace Ogre
         if (mReadWriteHeader)
             writeHeader();
 
-        OgreAssert(mEndian != ENDIAN_AUTO,
+        OgreAssert(mEndian != Endian::AUTO,
                    "Endian mode has not been determined, did you disable header without setting?");
 
         writeChunkImpl(id, version);
@@ -429,7 +429,7 @@ namespace Ogre
             // no good, this is an invalid chunk
             uint32 off = chunk->offset;
             delete chunk;
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                 ::std::format("Corrupt chunk detected in stream {} at byte {}", mStream->getName(), off),
                 "StreamSerialiser::readChunkImpl");
         }
@@ -595,7 +595,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::write(const Real* val, size_t count)
     {
-        if (mRealFormat == REAL_FLOAT)
+        if (mRealFormat == RealStorageFormat::FLOAT)
             writeData(val, sizeof(float), count);
         else
             writeFloatsAsDoubles(val, count);
@@ -673,7 +673,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void StreamSerialiser::read(Real* val, size_t count)
     {
-        if (mRealFormat == REAL_FLOAT)
+        if (mRealFormat == RealStorageFormat::FLOAT)
             readData(val, sizeof(float), count);
         else
             readDoublesAsFloats(val, count);

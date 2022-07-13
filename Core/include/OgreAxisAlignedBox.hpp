@@ -60,11 +60,11 @@ class Sphere;
     class AxisAlignedBox
     {
     public:
-        enum Extent
+        enum class Extent
         {
-            EXTENT_NULL,
-            EXTENT_FINITE,
-            EXTENT_INFINITE
+            Null,
+            Finite,
+            Infinite
         };
     private:
 
@@ -83,7 +83,7 @@ class Sphere;
         |/      |/
         6-------7
         */
-        enum CornerEnum {
+        enum class CornerEnum {
             FAR_LEFT_BOTTOM = 0,
             FAR_LEFT_TOP = 1,
             FAR_RIGHT_TOP = 2,
@@ -100,7 +100,7 @@ class Sphere;
             // Default to a null box 
             setMinimum( -0.5, -0.5, -0.5 );
             setMaximum( 0.5, 0.5, 0.5 );
-            mExtent = EXTENT_NULL;
+            mExtent = Extent::Null;
         }
         AxisAlignedBox(Extent e)
         {
@@ -154,13 +154,13 @@ class Sphere;
         */
         inline void setMinimum( const Vector3& vec )
         {
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
             mMinimum = vec;
         }
 
         inline void setMinimum( Real x, Real y, Real z )
         {
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
             mMinimum.x = x;
             mMinimum.y = y;
             mMinimum.z = z;
@@ -188,13 +188,13 @@ class Sphere;
         */
         inline void setMaximum( const Vector3& vec )
         {
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
             mMaximum = vec;
         }
 
         inline void setMaximum( Real x, Real y, Real z )
         {
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
             mMaximum.x = x;
             mMaximum.y = y;
             mMaximum.z = z;
@@ -225,7 +225,7 @@ class Sphere;
             assert( (min.x <= max.x && min.y <= max.y && min.z <= max.z) &&
                 "The minimum corner of the box must be less than or equal to maximum corner" );
 
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
             mMinimum = min;
             mMaximum = max;
         }
@@ -237,7 +237,7 @@ class Sphere;
             assert( (mx <= Mx && my <= My && mz <= Mz) &&
                 "The minimum corner of the box must be less than or equal to maximum corner" );
 
-            mExtent = EXTENT_FINITE;
+            mExtent = Extent::Finite;
 
             mMinimum.x = mx;
             mMinimum.y = my;
@@ -274,7 +274,7 @@ class Sphere;
         */
         [[nodiscard]] inline auto getAllCorners() const -> Corners
         {
-            assert( (mExtent == EXTENT_FINITE) && "Can't get corners of a null or infinite AAB" );
+            assert( (mExtent == Extent::Finite) && "Can't get corners of a null or infinite AAB" );
 
             // The order of these items is, using right-handed co-ordinates:
             // Minimum Z face, starting with Min(all), then anticlockwise
@@ -283,7 +283,7 @@ class Sphere;
             //   around face (looking onto the face)
             // Only for optimization/compatibility.
             Corners corners;
-
+            using enum CornerEnum;
             corners[0] = getCorner(FAR_LEFT_BOTTOM);
             corners[1] = getCorner(FAR_LEFT_TOP);
             corners[2] = getCorner(FAR_RIGHT_TOP);
@@ -301,6 +301,7 @@ class Sphere;
         */
         [[nodiscard]] auto getCorner(CornerEnum cornerToGet) const -> Vector3
         {
+            using enum CornerEnum;
             switch(cornerToGet)
             {
             case FAR_LEFT_BOTTOM:
@@ -326,17 +327,18 @@ class Sphere;
 
         friend auto operator<<( std::ostream& o, const AxisAlignedBox &aab ) -> std::ostream&
         {
+            using enum Extent;
             switch (aab.mExtent)
             {
-            case EXTENT_NULL:
+            case Null:
                 o << "AxisAlignedBox(null)";
                 return o;
 
-            case EXTENT_FINITE:
+            case Finite:
                 o << "AxisAlignedBox(min=" << aab.mMinimum << ", max=" << aab.mMaximum << ")";
                 return o;
 
-            case EXTENT_INFINITE:
+            case Infinite:
                 o << "AxisAlignedBox(infinite)";
                 return o;
 
@@ -351,18 +353,19 @@ class Sphere;
         */
         void merge( const AxisAlignedBox& rhs )
         {
+            using enum Extent;
             // Do nothing if rhs null, or this is infinite
-            if ((rhs.mExtent == EXTENT_NULL) || (mExtent == EXTENT_INFINITE))
+            if ((rhs.mExtent == Null) || (mExtent == Infinite))
             {
                 return;
             }
             // Otherwise if rhs is infinite, make this infinite, too
-            else if (rhs.mExtent == EXTENT_INFINITE)
+            else if (rhs.mExtent == Infinite)
             {
-                mExtent = EXTENT_INFINITE;
+                mExtent = Infinite;
             }
             // Otherwise if current null, just take rhs
-            else if (mExtent == EXTENT_NULL)
+            else if (mExtent == Null)
             {
                 setExtents(rhs.mMinimum, rhs.mMaximum);
             }
@@ -383,18 +386,19 @@ class Sphere;
         */
         inline void merge( const Vector3& point )
         {
+            using enum Extent;
             switch (mExtent)
             {
-            case EXTENT_NULL: // if null, use this point
+            case Null: // if null, use this point
                 setExtents(point, point);
                 return;
 
-            case EXTENT_FINITE:
+            case Finite:
                 mMaximum.makeCeil(point);
                 mMinimum.makeFloor(point);
                 return;
 
-            case EXTENT_INFINITE: // if infinite, makes no difference
+            case Infinite: // if infinite, makes no difference
                 return;
             }
 
@@ -413,7 +417,7 @@ class Sphere;
         inline void transform( const Matrix4& matrix )
         {
             // Do nothing if current null or infinite
-            if( mExtent != EXTENT_FINITE )
+            if( mExtent != Extent::Finite )
                 return;
 
             Vector3 oldMin, oldMax, currentCorner;
@@ -478,7 +482,7 @@ class Sphere;
         void transform(const Affine3& m)
         {
             // Do nothing if current null or infinite
-            if ( mExtent != EXTENT_FINITE )
+            if ( mExtent != Extent::Finite )
                 return;
 
             Vector3 centre = getCenter();
@@ -497,35 +501,35 @@ class Sphere;
         */
         inline void setNull()
         {
-            mExtent = EXTENT_NULL;
+            mExtent = Extent::Null;
         }
 
         /** Returns true if the box is null i.e. empty.
         */
         [[nodiscard]] inline auto isNull() const noexcept -> bool
         {
-            return (mExtent == EXTENT_NULL);
+            return (mExtent == Extent::Null);
         }
 
         /** Returns true if the box is finite.
         */
         [[nodiscard]] auto isFinite() const noexcept -> bool
         {
-            return (mExtent == EXTENT_FINITE);
+            return (mExtent == Extent::Finite);
         }
 
         /** Sets the box to 'infinite'
         */
         inline void setInfinite()
         {
-            mExtent = EXTENT_INFINITE;
+            mExtent = Extent::Infinite;
         }
 
         /** Returns true if the box is infinite.
         */
         [[nodiscard]] auto isInfinite() const noexcept -> bool
         {
-            return (mExtent == EXTENT_INFINITE);
+            return (mExtent == Extent::Infinite);
         }
 
         /** Returns whether or not this box intersects another. */
@@ -595,18 +599,19 @@ class Sphere;
         /// Calculate the volume of this box
         [[nodiscard]] auto volume() const -> Real
         {
+            using enum Extent;
             switch (mExtent)
             {
-            case EXTENT_NULL:
+            case Null:
                 return 0.0f;
 
-            case EXTENT_FINITE:
+            case Finite:
                 {
                     Vector3 diff = mMaximum - mMinimum;
                     return diff.x * diff.y * diff.z;
                 }
 
-            case EXTENT_INFINITE:
+            case Infinite:
                 return Math::POS_INFINITY;
 
             default: // shut up compiler
@@ -619,7 +624,7 @@ class Sphere;
         inline void scale(const Vector3& s)
         {
             // Do nothing if current null or infinite
-            if (mExtent != EXTENT_FINITE)
+            if (mExtent != Extent::Finite)
                 return;
 
             // NB assumes centered on origin
@@ -641,17 +646,18 @@ class Sphere;
         /** Tests whether the vector point is within this box. */
         [[nodiscard]] auto intersects(const Vector3& v) const -> bool
         {
+            using enum Extent;
             switch (mExtent)
             {
-            case EXTENT_NULL:
+            case Null:
                 return false;
 
-            case EXTENT_FINITE:
+            case Finite:
                 return(v.x >= mMinimum.x  &&  v.x <= mMaximum.x  && 
                     v.y >= mMinimum.y  &&  v.y <= mMaximum.y  && 
                     v.z >= mMinimum.z  &&  v.z <= mMaximum.z);
 
-            case EXTENT_INFINITE:
+            case Infinite:
                 return true;
 
             default: // shut up compiler
@@ -662,7 +668,7 @@ class Sphere;
         /// Gets the centre of the box
         [[nodiscard]] auto getCenter() const -> Vector3
         {
-            assert( (mExtent == EXTENT_FINITE) && "Can't get center of a null or infinite AAB" );
+            assert( (mExtent == Extent::Finite) && "Can't get center of a null or infinite AAB" );
 
             return {
                 (mMaximum.x + mMinimum.x) * 0.5f,
@@ -672,15 +678,16 @@ class Sphere;
         /// Gets the size of the box
         [[nodiscard]] auto getSize() const -> Vector3
         {
+            using enum Extent;
             switch (mExtent)
             {
-            case EXTENT_NULL:
+            case Null:
                 return Vector3::ZERO;
 
-            case EXTENT_FINITE:
+            case Finite:
                 return mMaximum - mMinimum;
 
-            case EXTENT_INFINITE:
+            case Infinite:
                 return {
                     Math::POS_INFINITY,
                     Math::POS_INFINITY,
@@ -694,15 +701,16 @@ class Sphere;
         /// Gets the half-size of the box
         [[nodiscard]] auto getHalfSize() const -> Vector3
         {
-            switch (mExtent)
+            using enum Extent;
+            switch ( mExtent)
             {
-            case EXTENT_NULL:
+            case Null:
                 return Vector3::ZERO;
 
-            case EXTENT_FINITE:
+            case Finite:
                 return (mMaximum - mMinimum) * 0.5;
 
-            case EXTENT_INFINITE:
+            case Infinite:
                 return {
                     Math::POS_INFINITY,
                     Math::POS_INFINITY,

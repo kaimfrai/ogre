@@ -105,7 +105,7 @@ class AxisAlignedBox;
 
         if( this->mSharedTransformEntity  )
         {
-            OGRE_EXCEPT( Exception::ERR_INVALID_STATE,
+            OGRE_EXCEPT( ExceptionCodes::INVALID_STATE,
                          ::std::format("Attempted to share '{}' transforms "
                             "with slave '{}' but '{}' is "
                             "already sharing. Hierarchical sharing not allowed.",
@@ -119,7 +119,7 @@ class AxisAlignedBox;
         if( this->mBatchOwner->_getMeshRef()->getSkeleton() !=
             slave->mBatchOwner->_getMeshRef()->getSkeleton() )
         {
-            OGRE_EXCEPT( Exception::ERR_INVALID_STATE, "Sharing transforms requires both instanced"
+            OGRE_EXCEPT( ExceptionCodes::INVALID_STATE, "Sharing transforms requires both instanced"
                                             " entities to have the same skeleton",
                                             "InstancedEntity::shareTransformWith" );
             return false;
@@ -383,7 +383,7 @@ class AxisAlignedBox;
     {
         if (!mAnimationState)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Entity is not animated",
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, "Entity is not animated",
                 "InstancedEntity::getAnimationState");
         }
 

@@ -74,7 +74,7 @@ namespace Ogre {
         StringVector mScriptPatterns;
 
         int mLastViewportWidth{0}, mLastViewportHeight{0};
-        OrientationMode mLastViewportOrientationMode{OR_DEGREE_0};
+        OrientationMode mLastViewportOrientationMode{OrientationMode::DEGREE_0};
         float mPixelRatio{1};
 
         auto parseChildren( DataStreamPtr& chunk, std::string_view line, int& l,

@@ -53,7 +53,7 @@ namespace Ogre {
         PlaneList planes;
         Plane::Side outside;
 
-        PlaneBoundedVolume() :outside(Plane::NEGATIVE_SIDE) {}
+        PlaneBoundedVolume() :outside(Plane::Side::Negative) {}
         /** Constructor, determines which side is deemed to be 'outside' */
         PlaneBoundedVolume(Plane::Side theOutside) 
             : outside(theOutside) {}
@@ -95,7 +95,7 @@ namespace Ogre {
                 // Test which side of the plane the sphere is
                 Real d = plane.getDistance(sphere.getCenter());
                 // Negate d if planes point inwards
-                if (outside == Plane::NEGATIVE_SIDE) d = -d;
+                if (outside == Plane::Side::Negative) d = -d;
 
                 if ( (d - sphere.getRadius()) > 0)
                     return false;
@@ -111,7 +111,7 @@ namespace Ogre {
         */
         inline auto intersects(const Ray& ray) -> std::pair<bool, Real>
         {
-            return Math::intersects(ray, planes, outside == Plane::POSITIVE_SIDE);
+            return Math::intersects(ray, planes, outside == Plane::Side::Positive);
         }
 
     };

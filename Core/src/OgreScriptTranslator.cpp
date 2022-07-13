@@ -115,17 +115,17 @@ class LodStrategy;
         {
         case ID_VERTEX_PROGRAM:
         default:
-            return GPT_VERTEX_PROGRAM;
+            return GpuProgramType::VERTEX_PROGRAM;
         case ID_GEOMETRY_PROGRAM:
-            return GPT_GEOMETRY_PROGRAM;
+            return GpuProgramType::GEOMETRY_PROGRAM;
         case ID_FRAGMENT_PROGRAM:
-            return GPT_FRAGMENT_PROGRAM;
+            return GpuProgramType::FRAGMENT_PROGRAM;
             case ID_TESSELLATION_HULL_PROGRAM:
-            return GPT_HULL_PROGRAM;
+            return GpuProgramType::HULL_PROGRAM;
             case ID_TESSELLATION_DOMAIN_PROGRAM:
-            return GPT_DOMAIN_PROGRAM;
+            return GpuProgramType::DOMAIN_PROGRAM;
         case ID_COMPUTE_PROGRAM:
-            return GPT_COMPUTE_PROGRAM;
+            return GpuProgramType::COMPUTE_PROGRAM;
         }
     }
 
@@ -177,19 +177,19 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, IlluminationStage& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_AMBIENT:
-            result = IS_AMBIENT;
+            result = IlluminationStage::AMBIENT;
             return true;
         case ID_PER_LIGHT:
-            result = IS_PER_LIGHT;
+            result = IlluminationStage::PER_LIGHT;
             return true;
         case ID_DECAL:
-            result = IS_DECAL;
+            result = IlluminationStage::DECAL;
             return true;
         default:
             return false;
@@ -198,22 +198,22 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, SceneBlendType& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_ADD:
-            result = SBT_ADD;
+            result = SceneBlendType::ADD;
             break;
         case ID_MODULATE:
-            result = SBT_MODULATE;
+            result = SceneBlendType::MODULATE;
             break;
         case ID_COLOUR_BLEND:
-            result = SBT_TRANSPARENT_COLOUR;
+            result = SceneBlendType::TRANSPARENT_COLOUR;
             break;
         case ID_ALPHA_BLEND:
-            result = SBT_TRANSPARENT_ALPHA;
+            result = SceneBlendType::TRANSPARENT_ALPHA;
             break;
         default:
             return false;
@@ -223,25 +223,25 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, SceneBlendOperation& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_ADD:
-            result = SBO_ADD;
+            result = SceneBlendOperation::ADD;
             break;
         case ID_SUBTRACT:
-            result = SBO_SUBTRACT;
+            result = SceneBlendOperation::SUBTRACT;
             break;
         case ID_REVERSE_SUBTRACT:
-            result = SBO_REVERSE_SUBTRACT;
+            result = SceneBlendOperation::REVERSE_SUBTRACT;
             break;
         case ID_MIN:
-            result = SBO_MIN;
+            result = SceneBlendOperation::MIN;
             break;
         case ID_MAX:
-            result = SBO_MAX;
+            result = SceneBlendOperation::MAX;
             break;
         default:
             return false;
@@ -251,19 +251,19 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, CullingMode& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_CLOCKWISE:
-            result = CULL_CLOCKWISE;
+            result = CullingMode::CLOCKWISE;
             break;
         case ID_ANTICLOCKWISE:
-            result = CULL_ANTICLOCKWISE;
+            result = CullingMode::ANTICLOCKWISE;
             break;
         case ID_NONE:
-            result = CULL_NONE;
+            result = CullingMode::NONE;
             break;
         default:
             return false;
@@ -273,19 +273,19 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, ManualCullingMode& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_FRONT:
-            result = MANUAL_CULL_FRONT;
+            result = ManualCullingMode::FRONT;
             break;
         case ID_BACK:
-            result = MANUAL_CULL_BACK;
+            result = ManualCullingMode::BACK;
             break;
         case ID_NONE:
-            result = MANUAL_CULL_NONE;
+            result = ManualCullingMode::NONE;
             break;
         default:
             return false;
@@ -295,19 +295,19 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, ShadeOptions& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_FLAT:
-            result = SO_FLAT;
+            result = ShadeOptions::FLAT;
             break;
         case ID_GOURAUD:
-            result = SO_GOURAUD;
+            result = ShadeOptions::GOURAUD;
             break;
         case ID_PHONG:
-            result = SO_PHONG;
+            result = ShadeOptions::PHONG;
             break;
         default:
             return false;
@@ -317,19 +317,19 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, PolygonMode& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_SOLID:
-            result = PM_SOLID;
+            result = PolygonMode::SOLID;
             break;
         case ID_POINTS:
-            result = PM_POINTS;
+            result = PolygonMode::POINTS;
             break;
         case ID_WIREFRAME:
-            result = PM_WIREFRAME;
+            result = PolygonMode::WIREFRAME;
             break;
         default:
             return false;
@@ -339,22 +339,22 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperation& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_REPLACE:
-            result = LBO_REPLACE;
+            result = LayerBlendOperation::REPLACE;
             break;
         case ID_ADD:
-            result = LBO_ADD;
+            result = LayerBlendOperation::ADD;
             break;
         case ID_MODULATE:
-            result = LBO_MODULATE;
+            result = LayerBlendOperation::MODULATE;
             break;
         case ID_ALPHA_BLEND:
-            result = LBO_ALPHA_BLEND;
+            result = LayerBlendOperation::ALPHA_BLEND;
             break;
         default:
             return false;
@@ -364,55 +364,55 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_SOURCE1:
-            op = LBX_SOURCE1;
+            op = LayerBlendOperationEx::SOURCE1;
             break;
         case ID_SOURCE2:
-            op = LBX_SOURCE2;
+            op = LayerBlendOperationEx::SOURCE2;
             break;
         case ID_MODULATE:
-            op = LBX_MODULATE;
+            op = LayerBlendOperationEx::MODULATE;
             break;
         case ID_MODULATE_X2:
-            op = LBX_MODULATE_X2;
+            op = LayerBlendOperationEx::MODULATE_X2;
             break;
         case ID_MODULATE_X4:
-            op = LBX_MODULATE_X4;
+            op = LayerBlendOperationEx::MODULATE_X4;
             break;
         case ID_ADD:
-            op = LBX_ADD;
+            op = LayerBlendOperationEx::ADD;
             break;
         case ID_ADD_SIGNED:
-            op = LBX_ADD_SIGNED;
+            op = LayerBlendOperationEx::ADD_SIGNED;
             break;
         case ID_ADD_SMOOTH:
-            op = LBX_ADD_SMOOTH;
+            op = LayerBlendOperationEx::ADD_SMOOTH;
             break;
         case ID_SUBTRACT:
-            op = LBX_SUBTRACT;
+            op = LayerBlendOperationEx::SUBTRACT;
             break;
         case ID_BLEND_DIFFUSE_ALPHA:
-            op = LBX_BLEND_DIFFUSE_ALPHA;
+            op = LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA;
             break;
         case ID_BLEND_TEXTURE_ALPHA:
-            op = LBX_BLEND_TEXTURE_ALPHA;
+            op = LayerBlendOperationEx::BLEND_TEXTURE_ALPHA;
             break;
         case ID_BLEND_CURRENT_ALPHA:
-            op = LBX_BLEND_CURRENT_ALPHA;
+            op = LayerBlendOperationEx::BLEND_CURRENT_ALPHA;
             break;
         case ID_BLEND_MANUAL:
-            op = LBX_BLEND_MANUAL;
+            op = LayerBlendOperationEx::BLEND_MANUAL;
             break;
         case ID_DOT_PRODUCT:
-            op = LBX_DOTPRODUCT;
+            op = LayerBlendOperationEx::DOTPRODUCT;
             break;
         case ID_BLEND_DIFFUSE_COLOUR:
-            op = LBX_BLEND_DIFFUSE_COLOUR;
+            op = LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR;
             break;
         default:
             return false;
@@ -422,25 +422,25 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, LayerBlendSource& source1) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_SRC_CURRENT:
-            source1 = LBS_CURRENT;
+            source1 = LayerBlendSource::CURRENT;
             break;
         case ID_SRC_TEXTURE:
-            source1 = LBS_TEXTURE;
+            source1 = LayerBlendSource::TEXTURE;
             break;
         case ID_SRC_DIFFUSE:
-            source1 = LBS_DIFFUSE;
+            source1 = LayerBlendSource::DIFFUSE;
             break;
         case ID_SRC_SPECULAR:
-            source1 = LBS_SPECULAR;
+            source1 = LayerBlendSource::SPECULAR;
             break;
         case ID_SRC_MANUAL:
-            source1 = LBS_MANUAL;
+            source1 = LayerBlendSource::MANUAL;
             break;
         default:
             return false;
@@ -450,16 +450,16 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_VERTEX:
-            result = TextureUnitState::BT_VERTEX;
+            result = TextureUnitState::BindingType::VERTEX;
             break;
         case ID_FRAGMENT:
-            result = TextureUnitState::BT_FRAGMENT;
+            result = TextureUnitState::BindingType::FRAGMENT;
             break;
         default:
             return false;
@@ -470,16 +470,16 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_NONE:
-            result = CompositionTargetPass::IM_NONE;
+            result = CompositionTargetPass::InputMode::NONE;
             break;
         case ID_PREVIOUS:
-            result = CompositionTargetPass::IM_PREVIOUS;
+            result = CompositionTargetPass::InputMode::PREVIOUS;
             break;
         default:
             return false;
@@ -489,22 +489,22 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, FilterOptions& tmip) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_NONE:
-            tmip = FO_NONE;
+            tmip = FilterOptions::NONE;
             break;
         case ID_POINT:
-            tmip = FO_POINT;
+            tmip = FilterOptions::POINT;
             break;
         case ID_LINEAR:
-            tmip = FO_LINEAR;
+            tmip = FilterOptions::LINEAR;
             break;
         case ID_ANISOTROPIC:
-            tmip = FO_ANISOTROPIC;
+            tmip = FilterOptions::ANISOTROPIC;
             break;
         default:
             return false;
@@ -514,22 +514,22 @@ class LodStrategy;
 
     template<> auto getValue(const AbstractNodePtr& node, TextureAddressingMode& result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         switch (static_cast<AtomAbstractNode*>(node.get())->id)
         {
         case ID_WRAP:
-            result = TextureUnitState::TAM_WRAP;
+            result = TextureAddressingMode::WRAP;
             break;
         case ID_CLAMP:
-            result = TextureUnitState::TAM_CLAMP;
+            result = TextureAddressingMode::CLAMP;
             break;
         case ID_MIRROR:
-            result = TextureUnitState::TAM_MIRROR;
+            result = TextureAddressingMode::MIRROR;
             break;
         case ID_BORDER:
-            result = TextureUnitState::TAM_BORDER;
+            result = TextureAddressingMode::BORDER;
             break;
         default:
             return false;
@@ -592,28 +592,28 @@ class LodStrategy;
             [[fallthrough]];
         case ID_VERTEX_PROGRAM:
         case ID_VERTEX_PROGRAM_REF:
-            return GPT_VERTEX_PROGRAM;
+            return GpuProgramType::VERTEX_PROGRAM;
         case ID_FRAGMENT_PROGRAM:
         case ID_FRAGMENT_PROGRAM_REF:
-            return GPT_FRAGMENT_PROGRAM;
+            return GpuProgramType::FRAGMENT_PROGRAM;
         case ID_GEOMETRY_PROGRAM:
         case ID_GEOMETRY_PROGRAM_REF:
-            return GPT_GEOMETRY_PROGRAM;
+            return GpuProgramType::GEOMETRY_PROGRAM;
         case ID_TESSELLATION_DOMAIN_PROGRAM:
         case ID_TESSELLATION_DOMAIN_PROGRAM_REF:
-            return GPT_DOMAIN_PROGRAM;
+            return GpuProgramType::DOMAIN_PROGRAM;
         case ID_TESSELLATION_HULL_PROGRAM:
         case ID_TESSELLATION_HULL_PROGRAM_REF:
-            return GPT_HULL_PROGRAM;
+            return GpuProgramType::HULL_PROGRAM;
         case ID_COMPUTE_PROGRAM:
         case ID_COMPUTE_PROGRAM_REF:
-            return GPT_COMPUTE_PROGRAM;
+            return GpuProgramType::COMPUTE_PROGRAM;
         }
     }
 
     void ScriptTranslator::processNode(ScriptCompiler *compiler, const AbstractNodePtr &node)
     {
-        if(node->type != ANT_OBJECT)
+        if(node->type != AbstractNodeType::OBJECT)
             return;
 
         // Abstract objects are completely skipped
@@ -641,7 +641,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getBoolean(const AbstractNodePtr &node, bool *result) -> bool
     {
-        if (node->type != ANT_ATOM)
+        if (node->type != AbstractNodeType::ATOM)
             return false;
         auto *atom = (AtomAbstractNode*)node.get();
 		 if (atom->id == 1 || atom->id == 2)
@@ -655,7 +655,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getString(const AbstractNodePtr &node, String *result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
         auto *atom = (AtomAbstractNode*)node.get();
         *result = atom->value;
@@ -664,7 +664,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getFloat(const Ogre::AbstractNodePtr &node, float *result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         auto *atom = (AtomAbstractNode*)node.get();
@@ -673,7 +673,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getDouble(const Ogre::AbstractNodePtr &node, double *result) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
 
         auto *atom = (AtomAbstractNode*)node.get();
@@ -682,7 +682,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getInt(const Ogre::AbstractNodePtr &node, int *result) -> bool
     {
-        if (node->type != ANT_ATOM)
+        if (node->type != AbstractNodeType::ATOM)
             return false;
 
         auto *atom = (AtomAbstractNode*)node.get();
@@ -691,7 +691,7 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getUInt(const Ogre::AbstractNodePtr &node, uint *result) -> bool
     {
-        if (node->type != ANT_ATOM)
+        if (node->type != AbstractNodeType::ATOM)
             return false;
 
         auto *atom = (AtomAbstractNode*)node.get();
@@ -735,40 +735,40 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getSceneBlendFactor(const Ogre::AbstractNodePtr &node, Ogre::SceneBlendFactor *sbf) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
         auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_ONE:
-            *sbf = SBF_ONE;
+            *sbf = SceneBlendFactor::ONE;
             break;
         case ID_ZERO:
-            *sbf = SBF_ZERO;
+            *sbf = SceneBlendFactor::ZERO;
             break;
         case ID_DEST_COLOUR:
-            *sbf = SBF_DEST_COLOUR;
+            *sbf = SceneBlendFactor::DEST_COLOUR;
             break;
         case ID_DEST_ALPHA:
-            *sbf = SBF_DEST_ALPHA;
+            *sbf = SceneBlendFactor::DEST_ALPHA;
             break;
         case ID_SRC_ALPHA:
-            *sbf = SBF_SOURCE_ALPHA;
+            *sbf = SceneBlendFactor::SOURCE_ALPHA;
             break;
         case ID_SRC_COLOUR:
-            *sbf = SBF_SOURCE_COLOUR;
+            *sbf = SceneBlendFactor::SOURCE_COLOUR;
             break;
         case ID_ONE_MINUS_DEST_COLOUR:
-            *sbf = SBF_ONE_MINUS_DEST_COLOUR;
+            *sbf = SceneBlendFactor::ONE_MINUS_DEST_COLOUR;
             break;
         case ID_ONE_MINUS_SRC_COLOUR:
-            *sbf = SBF_ONE_MINUS_SOURCE_COLOUR;
+            *sbf = SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR;
             break;
         case ID_ONE_MINUS_DEST_ALPHA:
-            *sbf = SBF_ONE_MINUS_DEST_ALPHA;
+            *sbf = SceneBlendFactor::ONE_MINUS_DEST_ALPHA;
             break;
         case ID_ONE_MINUS_SRC_ALPHA:
-            *sbf = SBF_ONE_MINUS_SOURCE_ALPHA;
+            *sbf = SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA;
             break;
         default:
             return false;
@@ -778,34 +778,34 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getCompareFunction(const AbstractNodePtr &node, CompareFunction *func) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
         auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_ALWAYS_FAIL:
-            *func = CMPF_ALWAYS_FAIL;
+            *func = CompareFunction::ALWAYS_FAIL;
             break;
         case ID_ALWAYS_PASS:
-            *func = CMPF_ALWAYS_PASS;
+            *func = CompareFunction::ALWAYS_PASS;
             break;
         case ID_LESS:
-            *func = CMPF_LESS;
+            *func = CompareFunction::LESS;
             break;
         case ID_LESS_EQUAL:
-            *func = CMPF_LESS_EQUAL;
+            *func = CompareFunction::LESS_EQUAL;
             break;
         case ID_EQUAL:
-            *func = CMPF_EQUAL;
+            *func = CompareFunction::EQUAL;
             break;
         case ID_NOT_EQUAL:
-            *func = CMPF_NOT_EQUAL;
+            *func = CompareFunction::NOT_EQUAL;
             break;
         case ID_GREATER_EQUAL:
-            *func = CMPF_GREATER_EQUAL;
+            *func = CompareFunction::GREATER_EQUAL;
             break;
         case ID_GREATER:
-            *func = CMPF_GREATER;
+            *func = CompareFunction::GREATER;
             break;
         default:
             return false;
@@ -849,34 +849,34 @@ class LodStrategy;
     //-------------------------------------------------------------------------
     auto ScriptTranslator::getStencilOp(const Ogre::AbstractNodePtr &node, Ogre::StencilOperation *op) -> bool
     {
-        if(node->type != ANT_ATOM)
+        if(node->type != AbstractNodeType::ATOM)
             return false;
         auto *atom = (AtomAbstractNode*)node.get();
         switch(atom->id)
         {
         case ID_KEEP:
-            *op = SOP_KEEP;
+            *op = StencilOperation::KEEP;
             break;
         case ID_ZERO:
-            *op = SOP_ZERO;
+            *op = StencilOperation::ZERO;
             break;
         case ID_REPLACE:
-            *op = SOP_REPLACE;
+            *op = StencilOperation::REPLACE;
             break;
         case ID_INCREMENT:
-            *op = SOP_INCREMENT;
+            *op = StencilOperation::INCREMENT;
             break;
         case ID_DECREMENT:
-            *op = SOP_DECREMENT;
+            *op = StencilOperation::DECREMENT;
             break;
         case ID_INCREMENT_WRAP:
-            *op = SOP_INCREMENT_WRAP;
+            *op = StencilOperation::INCREMENT_WRAP;
             break;
         case ID_DECREMENT_WRAP:
-            *op = SOP_DECREMENT_WRAP;
+            *op = StencilOperation::DECREMENT_WRAP;
             break;
         case ID_INVERT:
-            *op = SOP_INVERT;
+            *op = StencilOperation::INVERT;
             break;
         default:
             return false;
@@ -902,7 +902,7 @@ class LodStrategy;
             if (count > 4 || count == 0)
                 return false;
 
-            *op = (GpuConstantType)(GCT_FLOAT1 + count - 1);
+            *op = (GpuConstantType)(GpuConstantType::FLOAT1 + count - 1);
         }
         else if (val.find("double") != String::npos)
         {
@@ -915,7 +915,7 @@ class LodStrategy;
             if (count > 4 || count == 0)
                 return false;
 
-            *op = (GpuConstantType)(GCT_DOUBLE1 + count - 1);
+            *op = (GpuConstantType)(GpuConstantType::DOUBLE1 + count - 1);
         }
         else if (val.find("uint") != String::npos)
         {
@@ -928,7 +928,7 @@ class LodStrategy;
             if (count > 4 || count == 0)
                 return false;
 
-            *op = (GpuConstantType)(GCT_UINT1 + count - 1);
+            *op = (GpuConstantType)(GpuConstantType::UINT1 + count - 1);
         }
         else if (val.find("int") != String::npos)
         {
@@ -941,7 +941,7 @@ class LodStrategy;
             if (count > 4 || count == 0)
                 return false;
 
-            *op = (GpuConstantType)(GCT_INT1 + count - 1);
+            *op = (GpuConstantType)(GpuConstantType::INT1 + count - 1);
         }
         else if (val.find("bool") != String::npos)
         {
@@ -954,7 +954,7 @@ class LodStrategy;
             if (count > 4 || count == 0)
                 return false;
 
-            *op = (GpuConstantType)(GCT_BOOL1 + count - 1);
+            *op = (GpuConstantType)(GpuConstantType::BOOL1 + count - 1);
         }
         else if(val.find("matrix") != String::npos)
         {
@@ -974,13 +974,13 @@ class LodStrategy;
             switch(count1)
             {
             case 2:
-                *op = (GpuConstantType)(GCT_MATRIX_2X2 + count2 - 2);
+                *op = (GpuConstantType)(GpuConstantType::MATRIX_2X2 + count2 - 2);
                 break;
             case 3:
-                *op = (GpuConstantType)(GCT_MATRIX_3X2 + count2 - 2);
+                *op = (GpuConstantType)(GpuConstantType::MATRIX_3X2 + count2 - 2);
                 break;
             case 4:
-                *op = (GpuConstantType)(GCT_MATRIX_4X2 + count2 - 2);
+                *op = (GpuConstantType)(GpuConstantType::MATRIX_4X2 + count2 - 2);
                 break;
             }
 
@@ -1029,7 +1029,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -1137,7 +1137,7 @@ class LodStrategy;
                                        ::std::format("token \"{}\" is not recognized", prop->name));
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -1179,7 +1179,7 @@ class LodStrategy;
         // Set the properties for the material
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -1195,7 +1195,7 @@ class LodStrategy;
                 case ID_SHADOW_CASTER_MATERIAL:
                     if(getValue(prop, compiler, sval))
                     {
-                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
+                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::MATERIAL, sval);
                         compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowCasterMaterial(evt.mName); // Use the processed name
                     }
@@ -1203,7 +1203,7 @@ class LodStrategy;
                 case ID_SHADOW_RECEIVER_MATERIAL:
                     if(getValue(prop, compiler, sval))
                     {
-                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
+                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::MATERIAL, sval);
                         compiler->_fireEvent(&evt, nullptr);
                         mTechnique->setShadowReceiverMaterial(evt.mName); // Use the processed name
                     }
@@ -1225,7 +1225,7 @@ class LodStrategy;
                         auto i1 = getNodeAt(prop->values, 1);
 
                         Technique::GPUVendorRule rule;
-                        if ((*i0)->type == ANT_ATOM)
+                        if ((*i0)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom0 = (AtomAbstractNode*)(*i0).get();
                             if (atom0->id == ID_INCLUDE)
@@ -1249,7 +1249,7 @@ class LodStrategy;
 
                             rule.vendor = RenderSystemCapabilities::vendorFromString(vendor);
 
-                            if (rule.vendor != GPU_UNKNOWN)
+                            if (rule.vendor != GPUVendor::UNKNOWN)
                             {
                                 mTechnique->addGPUVendorRule(rule);
                             }
@@ -1279,7 +1279,7 @@ class LodStrategy;
                         auto i1 = getNodeAt(prop->values, 1);
 
                         Technique::GPUDeviceNameRule rule;
-                        if ((*i0)->type == ANT_ATOM)
+                        if ((*i0)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom0 = (AtomAbstractNode*)(*i0).get();
                             if (atom0->id == ID_INCLUDE)
@@ -1325,7 +1325,7 @@ class LodStrategy;
                                        ::std::format("token \"{}\" is not recognized", prop->name));
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -1358,7 +1358,7 @@ class LodStrategy;
         // Set the properties for the material
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -1375,10 +1375,10 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM &&
+                        if(prop->values.front()->type == AbstractNodeType::ATOM &&
                            ((AtomAbstractNode*)prop->values.front().get())->id == ID_VERTEXCOLOUR)
                         {
-                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TVC_AMBIENT);
+                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TrackVertexColourEnum::AMBIENT);
                         }
                         else
                         {
@@ -1403,10 +1403,10 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM &&
+                        if(prop->values.front()->type == AbstractNodeType::ATOM &&
                            ((AtomAbstractNode*)prop->values.front().get())->id == ID_VERTEXCOLOUR)
                         {
-                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TVC_DIFFUSE);
+                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TrackVertexColourEnum::DIFFUSE);
                         }
                         else
                         {
@@ -1431,10 +1431,10 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM &&
+                        if(prop->values.front()->type == AbstractNodeType::ATOM &&
                            ((AtomAbstractNode*)prop->values.front().get())->id == ID_VERTEXCOLOUR)
                         {
-                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TVC_SPECULAR);
+                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TrackVertexColourEnum::SPECULAR);
 
                             if(prop->values.size() >= 2)
                             {
@@ -1498,10 +1498,10 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM &&
+                        if(prop->values.front()->type == AbstractNodeType::ATOM &&
                            ((AtomAbstractNode*)prop->values.front().get())->id == ID_VERTEXCOLOUR)
                         {
-                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TVC_EMISSIVE);
+                            mPass->setVertexColourTracking(mPass->getVertexColourTracking() | TrackVertexColourEnum::EMISSIVE);
                         }
                         else
                         {
@@ -1587,7 +1587,7 @@ class LodStrategy;
                     {
                         auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3);
-                        if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM && (*i3)->type == ANT_ATOM)
+                        if((*i0)->type == AbstractNodeType::ATOM && (*i1)->type == AbstractNodeType::ATOM && (*i2)->type == AbstractNodeType::ATOM && (*i3)->type == AbstractNodeType::ATOM)
                         {
                             SceneBlendFactor sbf0, sbf1, sbf2, sbf3;
                             if(getSceneBlendFactor(*i0, &sbf0) && getSceneBlendFactor(*i1, &sbf1) && getSceneBlendFactor(*i2, &sbf2) &&
@@ -1819,28 +1819,28 @@ class LodStrategy;
                         bool val = false;
                         if(getBoolean(prop->values.front(), &val))
                         {
-                            FogMode mode = FOG_NONE;
+                            FogMode mode = FogMode::NONE;
                             ColourValue clr = ColourValue::White;
                             Real dens = 0.001, start = 0.0f, end = 1.0f;
 
                             if(i1 != prop->values.end())
                             {
-                                if((*i1)->type == ANT_ATOM)
+                                if((*i1)->type == AbstractNodeType::ATOM)
                                 {
                                     auto *atom = (AtomAbstractNode*)(*i1).get();
                                     switch(atom->id)
                                     {
                                     case ID_NONE:
-                                        mode = FOG_NONE;
+                                        mode = FogMode::NONE;
                                         break;
                                     case ID_LINEAR:
-                                        mode = FOG_LINEAR;
+                                        mode = FogMode::LINEAR;
                                         break;
                                     case ID_EXP:
-                                        mode = FOG_EXP;
+                                        mode = FogMode::EXP;
                                         break;
                                     case ID_EXP2:
-                                        mode = FOG_EXP2;
+                                        mode = FogMode::EXP2;
                                         break;
                                     default:
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -1947,11 +1947,11 @@ class LodStrategy;
                     break;
                 case ID_START_LIGHT:
                     if(getValue(prop, compiler, uival))
-                        mPass->setStartLight(static_cast<uint16>(uival));
+                        mPass->setStartLight(uival);
                     break;
                 case ID_LIGHT_MASK:
                     if(getValue(prop, compiler, uival))
-                        mPass->setLightMask(static_cast<uint16>(uival));
+                        mPass->setLightMask(static_cast<QueryTypeMask>(uival));
                     break;
                 case ID_ITERATION:
                     if(prop->values.empty())
@@ -1961,7 +1961,7 @@ class LodStrategy;
                     else
                     {
                         auto i0 = getNodeAt(prop->values, 0);
-                        if((*i0)->type == ANT_ATOM)
+                        if((*i0)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom = (AtomAbstractNode*)(*i0).get();
                             if(atom->id == ID_ONCE)
@@ -1971,7 +1971,7 @@ class LodStrategy;
                             else if(atom->id == ID_ONCE_PER_LIGHT)
                             {
                                 auto i1 = getNodeAt(prop->values, 1);
-                                if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
+                                if(i1 != prop->values.end() && (*i1)->type == AbstractNodeType::ATOM)
                                 {
                                     atom = (AtomAbstractNode*)(*i1).get();
                                     switch(atom->id)
@@ -1980,10 +1980,10 @@ class LodStrategy;
                                         mPass->setIteratePerLight(true);
                                         break;
                                     case ID_DIRECTIONAL:
-                                        mPass->setIteratePerLight(true, true, Light::LT_DIRECTIONAL);
+                                        mPass->setIteratePerLight(true, true, Light::LightTypes::DIRECTIONAL);
                                         break;
                                     case ID_SPOT:
-                                        mPass->setIteratePerLight(true, true, Light::LT_SPOTLIGHT);
+                                        mPass->setIteratePerLight(true, true, Light::LightTypes::SPOTLIGHT);
                                         break;
                                     default:
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -2001,13 +2001,13 @@ class LodStrategy;
                                 mPass->setPassIterationCount(Ogre::StringConverter::parseInt(atom->value));
 
                                 auto i1 = getNodeAt(prop->values, 1);
-                                if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
+                                if(i1 != prop->values.end() && (*i1)->type == AbstractNodeType::ATOM)
                                 {
                                     atom = (AtomAbstractNode*)(*i1).get();
                                     if(atom->id == ID_PER_LIGHT)
                                     {
                                         auto i2 = getNodeAt(prop->values, 2);
-                                        if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
+                                        if(i2 != prop->values.end() && (*i2)->type == AbstractNodeType::ATOM)
                                         {
                                             atom = (AtomAbstractNode*)(*i2).get();
                                             switch(atom->id)
@@ -2016,10 +2016,10 @@ class LodStrategy;
                                                 mPass->setIteratePerLight(true);
                                                 break;
                                             case ID_DIRECTIONAL:
-                                                mPass->setIteratePerLight(true, true, Light::LT_DIRECTIONAL);
+                                                mPass->setIteratePerLight(true, true, Light::LightTypes::DIRECTIONAL);
                                                 break;
                                             case ID_SPOT:
-                                                mPass->setIteratePerLight(true, true, Light::LT_SPOTLIGHT);
+                                                mPass->setIteratePerLight(true, true, Light::LightTypes::SPOTLIGHT);
                                                 break;
                                             default:
                                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -2034,7 +2034,7 @@ class LodStrategy;
                                     else if(atom->id == ID_PER_N_LIGHTS)
                                     {
                                         auto i2 = getNodeAt(prop->values, 2);
-                                        if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
+                                        if(i2 != prop->values.end() && (*i2)->type == AbstractNodeType::ATOM)
                                         {
                                             atom = (AtomAbstractNode*)(*i2).get();
                                             if(StringConverter::isNumber(atom->value))
@@ -2043,7 +2043,7 @@ class LodStrategy;
                                                     static_cast<unsigned short>(StringConverter::parseInt(atom->value)));
 
                                                 auto i3 = getNodeAt(prop->values, 3);
-                                                if(i3 != prop->values.end() && (*i3)->type == ANT_ATOM)
+                                                if(i3 != prop->values.end() && (*i3)->type == AbstractNodeType::ATOM)
                                                 {
                                                     atom = (AtomAbstractNode*)(*i3).get();
                                                     switch(atom->id)
@@ -2052,10 +2052,10 @@ class LodStrategy;
                                                         mPass->setIteratePerLight(true);
                                                         break;
                                                     case ID_DIRECTIONAL:
-                                                        mPass->setIteratePerLight(true, true, Light::LT_DIRECTIONAL);
+                                                        mPass->setIteratePerLight(true, true, Light::LightTypes::DIRECTIONAL);
                                                         break;
                                                     case ID_SPOT:
-                                                        mPass->setIteratePerLight(true, true, Light::LT_SPOTLIGHT);
+                                                        mPass->setIteratePerLight(true, true, Light::LightTypes::SPOTLIGHT);
                                                         break;
                                                     default:
                                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -2129,7 +2129,7 @@ class LodStrategy;
 
                                     Real constant = 0.0f, linear = 1.0f, quadratic = 0.0f;
 
-                                    if(i1 != prop->values.end() && (*i1)->type == ANT_ATOM)
+                                    if(i1 != prop->values.end() && (*i1)->type == AbstractNodeType::ATOM)
                                     {
                                         auto *atom = (AtomAbstractNode*)(*i1).get();
                                         if(StringConverter::isNumber(atom->value))
@@ -2143,7 +2143,7 @@ class LodStrategy;
                                                            ::std::format("{} is not a valid number", (*i1)->getValue()));
                                     }
 
-                                    if(i2 != prop->values.end() && (*i2)->type == ANT_ATOM)
+                                    if(i2 != prop->values.end() && (*i2)->type == AbstractNodeType::ATOM)
                                     {
                                         auto *atom = (AtomAbstractNode*)(*i2).get();
                                         if(StringConverter::isNumber(atom->value))
@@ -2157,7 +2157,7 @@ class LodStrategy;
                                                            ::std::format("{} is not a valid number", (*i2)->getValue()));
                                     }
 
-                                    if(i3 != prop->values.end() && (*i3)->type == ANT_ATOM)
+                                    if(i3 != prop->values.end() && (*i3)->type == AbstractNodeType::ATOM)
                                     {
                                         auto *atom = (AtomAbstractNode*)(*i3).get();
                                         if(StringConverter::isNumber(atom->value))
@@ -2201,7 +2201,7 @@ class LodStrategy;
                                        ::std::format("token \"{}\" is not recognized", prop->name));
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 auto *child = static_cast<ObjectAbstractNode*>(i.get());
                 switch(child->id)
@@ -2215,16 +2215,16 @@ class LodStrategy;
                     translateProgramRef(getProgramType(child->id), compiler, child);
                     break;
                 case ID_SHADOW_CASTER_VERTEX_PROGRAM_REF:
-                    translateShadowCasterProgramRef(GPT_VERTEX_PROGRAM, compiler, child);
+                    translateShadowCasterProgramRef(GpuProgramType::VERTEX_PROGRAM, compiler, child);
                     break;
                 case ID_SHADOW_CASTER_FRAGMENT_PROGRAM_REF:
-                    translateShadowCasterProgramRef(GPT_FRAGMENT_PROGRAM, compiler, child);
+                    translateShadowCasterProgramRef(GpuProgramType::FRAGMENT_PROGRAM, compiler, child);
                     break;
                 case ID_SHADOW_RECEIVER_VERTEX_PROGRAM_REF:
-                    translateShadowReceiverProgramRef(GPT_VERTEX_PROGRAM, compiler, child);
+                    translateShadowReceiverProgramRef(GpuProgramType::VERTEX_PROGRAM, compiler, child);
                     break;
                 case ID_SHADOW_RECEIVER_FRAGMENT_PROGRAM_REF:
-                    translateShadowReceiverProgramRef(GPT_FRAGMENT_PROGRAM, compiler, child);
+                    translateShadowReceiverProgramRef(GpuProgramType::FRAGMENT_PROGRAM, compiler, child);
                     break;
                 default:
                     processNode(compiler, i);
@@ -2254,7 +2254,7 @@ class LodStrategy;
             return nullptr;
         }
 
-        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, node->name);
+        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::GPU_PROGRAM, node->name);
         compiler->_fireEvent(&evt, nullptr);
 
         auto& mgr = GpuProgramManager::getSingleton();
@@ -2425,22 +2425,22 @@ class LodStrategy;
             }
             else if(prop->values.size() == 1)
             {
-                if(prop->values.front()->type == ANT_ATOM)
+                if(prop->values.front()->type == AbstractNodeType::ATOM)
                 {
                     auto *atom = (AtomAbstractNode*)prop->values.front().get();
                     switch(atom->id)
                     {
                     case ID_NONE:
-                        sampler->setFiltering(TFO_NONE);
+                        sampler->setFiltering(TextureFilterOptions::NONE);
                         break;
                     case ID_BILINEAR:
-                        sampler->setFiltering(TFO_BILINEAR);
+                        sampler->setFiltering(TextureFilterOptions::BILINEAR);
                         break;
                     case ID_TRILINEAR:
-                        sampler->setFiltering(TFO_TRILINEAR);
+                        sampler->setFiltering(TextureFilterOptions::TRILINEAR);
                         break;
                     case ID_ANISOTROPIC:
-                        sampler->setFiltering(TFO_ANISOTROPIC);
+                        sampler->setFiltering(TextureFilterOptions::ANISOTROPIC);
                         break;
                     default:
                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
@@ -2517,7 +2517,7 @@ class LodStrategy;
         // Set the properties for the material
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -2536,7 +2536,7 @@ class LodStrategy;
                                        ::std::format("token \"{}\" is not recognized", prop->name));
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -2562,7 +2562,7 @@ class LodStrategy;
         // Set the properties for the material
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -2610,37 +2610,37 @@ class LodStrategy;
                         String val;
                         if(getString(*j, &val))
                         {
-                            TextureType texType = TEX_TYPE_2D;
+                            TextureType texType = TextureType::_2D;
                             bool isAlpha = false;
                             bool sRGBRead = false;
-                            PixelFormat format = PF_UNKNOWN;
-                            int mipmaps = MIP_DEFAULT;
+                            PixelFormat format = PixelFormat::UNKNOWN;
+                            auto mipmaps = TextureMipmap::DEFAULT;
 
                             ++j;
                             while(j != prop->values.end())
                             {
-                                if((*j)->type == ANT_ATOM)
+                                if((*j)->type == AbstractNodeType::ATOM)
                                 {
                                     auto *atom = (AtomAbstractNode*)(*j).get();
                                     switch(atom->id)
                                     {
                                     case ID_1D:
-                                        texType = TEX_TYPE_1D;
+                                        texType = TextureType::_1D;
                                         break;
                                     case ID_2D:
-                                        texType = TEX_TYPE_2D;
+                                        texType = TextureType::_2D;
                                         break;
                                     case ID_3D:
-                                        texType = TEX_TYPE_3D;
+                                        texType = TextureType::_3D;
                                         break;
                                     case ID_CUBIC:
-                                        texType = TEX_TYPE_CUBE_MAP;
+                                        texType = TextureType::CUBE_MAP;
                                         break;
                                     case ID_2DARRAY:
-                                        texType = TEX_TYPE_2D_ARRAY;
+                                        texType = TextureType::_2D_ARRAY;
                                         break;
                                     case ID_UNLIMITED:
-                                        mipmaps = MIP_UNLIMITED;
+                                        mipmaps = TextureMipmap::UNLIMITED;
                                         break;
                                     case ID_ALPHA:
                                         isAlpha = true;
@@ -2653,7 +2653,7 @@ class LodStrategy;
                                         {
                                             format = PixelUtil::getFormatFromName(atom->value, true);
 
-                                            if (format == PF_UNKNOWN)
+                                            if (format == PixelFormat::UNKNOWN)
                                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
                                                                    prop->file, prop->line, atom->value);
                                         }
@@ -2667,14 +2667,14 @@ class LodStrategy;
                                 ++j;
                             }
 
-                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val);
+                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::TEXTURE, val);
                             compiler->_fireEvent(&evt, nullptr);
 
                             if(isAlpha)
                             {
-                                // format = PF_A8; should only be done, if src is luminance, which we dont know here
+                                // format = PixelFormat::A8; should only be done, if src is luminance, which we dont know here
                                 compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file,
-                                                   prop->line, "alpha. Use PF_A8 instead");
+                                                   prop->line, "alpha. Use PixelFormat::A8 instead");
                             }
 
                             mUnit->setTextureName(evt.mName, texType);
@@ -2696,18 +2696,18 @@ class LodStrategy;
                     else
                     {
                         auto i1 = getNodeAt(prop->values, 1);
-                        if((*i1)->type == ANT_ATOM && StringConverter::isNumber(((AtomAbstractNode*)(*i1).get())->value))
+                        if((*i1)->type == AbstractNodeType::ATOM && StringConverter::isNumber(((AtomAbstractNode*)(*i1).get())->value))
                         {
                             // Short form
                             auto i0 = getNodeAt(prop->values, 0), i2 = getNodeAt(prop->values, 2);
-                            if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM)
+                            if((*i0)->type == AbstractNodeType::ATOM && (*i1)->type == AbstractNodeType::ATOM)
                             {
                                 String val0;
                                 uint32 val1;
                                 Real val2;
                                 if(getString(*i0, &val0) && getUInt(*i1, &val1) && getReal(*i2, &val2))
                                 {
-                                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, val0);
+                                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::TEXTURE, val0);
                                     compiler->_fireEvent(&evt, nullptr);
 
                                     mUnit->setAnimatedTextureName(evt.mName, val1, val2);
@@ -2736,13 +2736,13 @@ class LodStrategy;
                                 auto j = prop->values.begin();
                                 while(j != in)
                                 {
-                                    if((*j)->type == ANT_ATOM)
+                                    if((*j)->type == AbstractNodeType::ATOM)
                                     {
                                         String name = ((AtomAbstractNode*)(*j).get())->value;
                                         // Run the name through the listener
                                         if(compiler->getListener())
                                         {
-                                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, name);
+                                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::TEXTURE, name);
                                             compiler->_fireEvent(&evt, nullptr);
                                             names.push_back(evt.mName);
                                         }
@@ -2776,14 +2776,14 @@ class LodStrategy;
                     {
                         auto i0 = getNodeAt(prop->values, 0),
                             i1 = getNodeAt(prop->values, 1);
-                        if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM)
+                        if((*i0)->type == AbstractNodeType::ATOM && (*i1)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom0 = (AtomAbstractNode*)(*i0).get();
 
-                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, atom0->value);
+                            ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::TEXTURE, atom0->value);
                             compiler->_fireEvent(&evt, nullptr);
 
-                            mUnit->setTextureName(evt.mName, TEX_TYPE_CUBE_MAP);
+                            mUnit->setTextureName(evt.mName, TextureType::CUBE_MAP);
 
                             compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
                                                    "'cubic_texture ..'. Use 'texture .. cubic' instead.");
@@ -2802,8 +2802,8 @@ class LodStrategy;
                             i4 = getNodeAt(prop->values, 4),
                             i5 = getNodeAt(prop->values, 5),
                             i6 = getNodeAt(prop->values, 6);
-                        if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM && (*i3)->type == ANT_ATOM &&
-                           (*i4)->type == ANT_ATOM && (*i5)->type == ANT_ATOM && (*i6)->type == ANT_ATOM)
+                        if((*i0)->type == AbstractNodeType::ATOM && (*i1)->type == AbstractNodeType::ATOM && (*i2)->type == AbstractNodeType::ATOM && (*i3)->type == AbstractNodeType::ATOM &&
+                           (*i4)->type == AbstractNodeType::ATOM && (*i5)->type == AbstractNodeType::ATOM && (*i6)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get(),
                                 *atom2 = (AtomAbstractNode*)(*i2).get(), *atom3 = (AtomAbstractNode*)(*i3).get(),
@@ -2823,7 +2823,7 @@ class LodStrategy;
                                 // Run each name through the listener
                                 for(int j = 0; j < 6; ++j)
                                 {
-                                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::TEXTURE, names[j]);
+                                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::TEXTURE, names[j]);
                                     compiler->_fireEvent(&evt, nullptr);
                                     names[j] = evt.mName;
                                 }
@@ -2834,7 +2834,7 @@ class LodStrategy;
                                 compiler->addError(ScriptCompiler::CE_DEPRECATEDSYMBOL, prop->file, prop->line,
                                                    "separateUV is no longer supported.");
                             }
-                            mUnit->setLayerArrayNames(TEX_TYPE_CUBE_MAP, names);
+                            mUnit->setLayerArrayNames(TextureType::CUBE_MAP, names);
                         }
 
                     }
@@ -2877,7 +2877,7 @@ class LodStrategy;
                             ColourValue arg1 = ColourValue::White, arg2 = ColourValue::White;
                             Real manualBlend = 0.0f;
 
-                            if(op == LBX_BLEND_MANUAL)
+                            if(op == LayerBlendOperationEx::BLEND_MANUAL)
                             {
                                 auto i3 = getNodeAt(prop->values, 3);
                                 if(i3 != prop->values.end())
@@ -2894,9 +2894,9 @@ class LodStrategy;
                             }
 
                             auto j = getNodeAt(prop->values, 3);
-                            if(op == LBX_BLEND_MANUAL)
+                            if(op == LayerBlendOperationEx::BLEND_MANUAL)
                                 ++j;
-                            if(source1 == LBS_MANUAL)
+                            if(source1 == LayerBlendSource::MANUAL)
                             {
                                 if(j != prop->values.end())
                                 {
@@ -2910,7 +2910,7 @@ class LodStrategy;
                                                        "valid colour expected when src_manual is used");
                                 }
                             }
-                            if(source2 == LBS_MANUAL)
+                            if(source2 == LayerBlendSource::MANUAL)
                             {
                                 if(j != prop->values.end())
                                 {
@@ -2945,25 +2945,25 @@ class LodStrategy;
                     }
                     else if(prop->values.size() == 1)
                     {
-                        if(prop->values.front()->type == ANT_ATOM)
+                        if(prop->values.front()->type == AbstractNodeType::ATOM)
                         {
                             auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
                             {
                             case ID_ADD:
-                                mUnit->setColourOpMultipassFallback(SBF_ONE, SBF_ONE);
+                                mUnit->setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ONE);
                                 break;
                             case ID_MODULATE:
-                                mUnit->setColourOpMultipassFallback(SBF_DEST_COLOUR, SBF_ZERO);
+                                mUnit->setColourOpMultipassFallback(SceneBlendFactor::DEST_COLOUR, SceneBlendFactor::ZERO);
                                 break;
                             case ID_COLOUR_BLEND:
-                                mUnit->setColourOpMultipassFallback(SBF_SOURCE_COLOUR, SBF_ONE_MINUS_SOURCE_COLOUR);
+                                mUnit->setColourOpMultipassFallback(SceneBlendFactor::SOURCE_COLOUR, SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR);
                                 break;
                             case ID_ALPHA_BLEND:
-                                mUnit->setColourOpMultipassFallback(SBF_SOURCE_ALPHA, SBF_ONE_MINUS_SOURCE_ALPHA);
+                                mUnit->setColourOpMultipassFallback(SceneBlendFactor::SOURCE_ALPHA, SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA);
                                 break;
                             case ID_REPLACE:
-                                mUnit->setColourOpMultipassFallback(SBF_ONE, SBF_ZERO);
+                                mUnit->setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ZERO);
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -3010,7 +3010,7 @@ class LodStrategy;
                             Real arg1 = 0.0f, arg2 = 0.0f;
                             Real manualBlend = 0.0f;
 
-                            if(op == LBX_BLEND_MANUAL)
+                            if(op == LayerBlendOperationEx::BLEND_MANUAL)
                             {
                                 auto i3 = getNodeAt(prop->values, 3);
                                 if(i3 != prop->values.end())
@@ -3027,9 +3027,9 @@ class LodStrategy;
                             }
 
                             auto j = getNodeAt(prop->values, 3);
-                            if(op == LBX_BLEND_MANUAL)
+                            if(op == LayerBlendOperationEx::BLEND_MANUAL)
                                 ++j;
-                            if(source1 == LBS_MANUAL)
+                            if(source1 == LayerBlendSource::MANUAL)
                             {
                                 if(j != prop->values.end())
                                 {
@@ -3045,7 +3045,7 @@ class LodStrategy;
                                                        "valid colour expected when src_manual is used");
                                 }
                             }
-                            if(source2 == LBS_MANUAL)
+                            if(source2 == LayerBlendSource::MANUAL)
                             {
                                 if(j != prop->values.end())
                                 {
@@ -3080,7 +3080,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM)
+                        if(prop->values.front()->type == AbstractNodeType::ATOM)
                         {
                             auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
@@ -3089,16 +3089,16 @@ class LodStrategy;
                                 mUnit->setEnvironmentMap(false);
                                 break;
                             case ID_SPHERICAL:
-                                mUnit->setEnvironmentMap(true, TextureUnitState::ENV_CURVED);
+                                mUnit->setEnvironmentMap(true, TextureUnitState::EnvMapType::CURVED);
                                 break;
                             case ID_PLANAR:
-                                mUnit->setEnvironmentMap(true, TextureUnitState::ENV_PLANAR);
+                                mUnit->setEnvironmentMap(true, TextureUnitState::EnvMapType::PLANAR);
                                 break;
                             case ID_CUBIC_REFLECTION:
-                                mUnit->setEnvironmentMap(true, TextureUnitState::ENV_REFLECTION);
+                                mUnit->setEnvironmentMap(true, TextureUnitState::EnvMapType::REFLECTION);
                                 break;
                             case ID_CUBIC_NORMAL:
-                                mUnit->setEnvironmentMap(true, TextureUnitState::ENV_NORMAL);
+                                mUnit->setEnvironmentMap(true, TextureUnitState::EnvMapType::NORMAL);
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
@@ -3210,30 +3210,30 @@ class LodStrategy;
                         auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                             i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3),
                             i4 = getNodeAt(prop->values, 4), i5 = getNodeAt(prop->values, 5);
-                        if((*i0)->type == ANT_ATOM && (*i1)->type == ANT_ATOM && (*i2)->type == ANT_ATOM &&
-                           (*i3)->type == ANT_ATOM && (*i4)->type == ANT_ATOM && (*i5)->type == ANT_ATOM)
+                        if((*i0)->type == AbstractNodeType::ATOM && (*i1)->type == AbstractNodeType::ATOM && (*i2)->type == AbstractNodeType::ATOM &&
+                           (*i3)->type == AbstractNodeType::ATOM && (*i4)->type == AbstractNodeType::ATOM && (*i5)->type == AbstractNodeType::ATOM)
                         {
                             auto *atom0 = (AtomAbstractNode*)(*i0).get(), *atom1 = (AtomAbstractNode*)(*i1).get();
-                            TextureUnitState::TextureTransformType type = TextureUnitState::TT_ROTATE;
-                            WaveformType wave = WFT_SINE;
+                            TextureUnitState::TextureTransformType type = TextureUnitState::TextureTransformType::ROTATE;
+                            WaveformType wave = WaveformType::SINE;
                             Real base = 0.0f, freq = 0.0f, phase = 0.0f, amp = 0.0f;
 
                             switch(atom0->id)
                             {
                             case ID_SCROLL_X:
-                                type = TextureUnitState::TT_TRANSLATE_U;
+                                type = TextureUnitState::TextureTransformType::TRANSLATE_U;
                                 break;
                             case ID_SCROLL_Y:
-                                type = TextureUnitState::TT_TRANSLATE_V;
+                                type = TextureUnitState::TextureTransformType::TRANSLATE_V;
                                 break;
                             case ID_SCALE_X:
-                                type = TextureUnitState::TT_SCALE_U;
+                                type = TextureUnitState::TextureTransformType::SCALE_U;
                                 break;
                             case ID_SCALE_Y:
-                                type = TextureUnitState::TT_SCALE_V;
+                                type = TextureUnitState::TextureTransformType::SCALE_V;
                                 break;
                             case ID_ROTATE:
-                                type = TextureUnitState::TT_ROTATE;
+                                type = TextureUnitState::TextureTransformType::ROTATE;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
@@ -3243,19 +3243,19 @@ class LodStrategy;
                             switch(atom1->id)
                             {
                             case ID_SINE:
-                                wave = WFT_SINE;
+                                wave = WaveformType::SINE;
                                 break;
                             case ID_TRIANGLE:
-                                wave = WFT_TRIANGLE;
+                                wave = WaveformType::TRIANGLE;
                                 break;
                             case ID_SQUARE:
-                                wave = WFT_SQUARE;
+                                wave = WaveformType::SQUARE;
                                 break;
                             case ID_SAWTOOTH:
-                                wave = WFT_SAWTOOTH;
+                                wave = WaveformType::SAWTOOTH;
                                 break;
                             case ID_INVERSE_SAWTOOTH:
-                                wave = WFT_INVERSE_SAWTOOTH;
+                                wave = WaveformType::INVERSE_SAWTOOTH;
                                 break;
                             default:
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS,
@@ -3312,19 +3312,19 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM)
+                        if(prop->values.front()->type == AbstractNodeType::ATOM)
                         {
                             auto *atom = (AtomAbstractNode*)prop->values.front().get();
                             switch(atom->id)
                             {
                             case ID_NAMED:
-                                mUnit->setContentType(TextureUnitState::CONTENT_NAMED);
+                                mUnit->setContentType(TextureUnitState::ContentType::NAMED);
                                 break;
                             case ID_SHADOW:
-                                mUnit->setContentType(TextureUnitState::CONTENT_SHADOW);
+                                mUnit->setContentType(TextureUnitState::ContentType::SHADOW);
                                 break;
                             case ID_COMPOSITOR:
-                                mUnit->setContentType(TextureUnitState::CONTENT_COMPOSITOR);
+                                mUnit->setContentType(TextureUnitState::ContentType::COMPOSITOR);
                                 if (prop->values.size() >= 3)
                                 {
                                     String compositorName;
@@ -3369,7 +3369,7 @@ class LodStrategy;
                                        ::std::format("token \"{}\" is not recognized", prop->name));
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -3442,7 +3442,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = (PropertyAbstractNode*)i.get();
                 // Glob the property values all together
@@ -3455,7 +3455,7 @@ class LodStrategy;
                 }
                 ExternalTextureSourceManager::getSingleton().getCurrentPlugIn()->setParameter(prop->name, str);
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -3521,7 +3521,7 @@ class LodStrategy;
         AbstractNodePtr params;
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = (PropertyAbstractNode*)i.get();
                 if(prop->id == ID_SOURCE)
@@ -3535,7 +3535,7 @@ class LodStrategy;
                     if(!getValue(prop, compiler, value))
                         return;
 
-                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, value);
+                    ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::GPU_PROGRAM, value);
                     compiler->_fireEvent(&evt, nullptr);
                     delegates.push_back(evt.mName);
                 }
@@ -3545,7 +3545,7 @@ class LodStrategy;
                     bool first = true;
                     for(auto const& it : prop->values)
                     {
-                        if(it->type == ANT_ATOM)
+                        if(it->type == AbstractNodeType::ATOM)
                         {
                             if(!first)
                                 value += " ";
@@ -3554,7 +3554,7 @@ class LodStrategy;
 
                             if(prop->name == "attach")
                             {
-                                ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::GPU_PROGRAM, ((AtomAbstractNode*)it.get())->value);
+                                ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::GPU_PROGRAM, ((AtomAbstractNode*)it.get())->value);
                                 compiler->_fireEvent(&evt, nullptr);
                                 value += evt.mName;
 
@@ -3579,7 +3579,7 @@ class LodStrategy;
                         customParameters.emplace_back(prop, value);
                 }
             }
-            else if(i->type == ANT_OBJECT)
+            else if(i->type == AbstractNodeType::OBJECT)
             {
                 if(((ObjectAbstractNode*)i.get())->id == ID_DEFAULT_PARAMS)
                     params = i;
@@ -3660,11 +3660,11 @@ class LodStrategy;
     {
         // Assume 1 unless otherwise specified
         int dimensions = 1;
-        type = BCT_UNKNOWN;
+        type = BaseConstantType::UNKNOWN;
 
         // get the type
         const char* typeStrings[] = {"float", "int", "uint", "double", "bool"};
-        BaseConstantType baseTypes[] = {BCT_FLOAT, BCT_INT, BCT_UINT, BCT_DOUBLE, BCT_BOOL};
+        BaseConstantType baseTypes[] = {BaseConstantType::FLOAT, BaseConstantType::INT, BaseConstantType::UINT, BaseConstantType::DOUBLE, BaseConstantType::BOOL};
 
         const char* typeStr = "";
 
@@ -3678,7 +3678,7 @@ class LodStrategy;
             }
         }
 
-        if(type == BCT_UNKNOWN)
+        if(type == BaseConstantType::UNKNOWN)
             return dimensions;
 
         size_t start = declarator.find_first_not_of(typeStr);
@@ -3715,7 +3715,7 @@ class LodStrategy;
         String value;
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -3744,7 +3744,7 @@ class LodStrategy;
                             auto i0 = getNodeAt(prop->values, 0), i1 = getNodeAt(prop->values, 1),
                                 k = getNodeAt(prop->values, 2);
 
-                            if((*i0)->type != ANT_ATOM || (*i1)->type != ANT_ATOM)
+                            if((*i0)->type != AbstractNodeType::ATOM || (*i1)->type != AbstractNodeType::ATOM)
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
                                                    "name or index and parameter type expected");
@@ -3807,7 +3807,7 @@ class LodStrategy;
                                 int roundedCount = (count + 3) / 4; // integer ceil
                                 roundedCount *= 4;
 
-                                if (type == BCT_FLOAT)
+                                if (type == BaseConstantType::FLOAT)
                                 {
                                     std::vector<float> vals;
                                     if (_getVector(k, prop->values.end(), vals, roundedCount))
@@ -3831,7 +3831,7 @@ class LodStrategy;
                                                            "incorrect float constant declaration");
                                     }
                                 }
-                                else if (type == BCT_UINT)
+                                else if (type == BaseConstantType::UINT)
                                 {
                                     std::vector<uint> vals;
                                     if (_getVector(k, prop->values.end(), vals, roundedCount))
@@ -3855,7 +3855,7 @@ class LodStrategy;
                                                            "incorrect unsigned integer constant declaration");
                                     }
                                 }
-                                else if (type == BCT_INT)
+                                else if (type == BaseConstantType::INT)
                                 {
                                     std::vector<int> vals;
                                     if (_getVector(k, prop->values.end(), vals, roundedCount))
@@ -3879,7 +3879,7 @@ class LodStrategy;
                                                            "incorrect integer constant declaration");
                                     }
                                 }
-                                else if (type == BCT_DOUBLE)
+                                else if (type == BaseConstantType::DOUBLE)
                                 {
                                     std::vector<double> vals;
                                     if (_getVector(k, prop->values.end(), vals, roundedCount))
@@ -3903,7 +3903,7 @@ class LodStrategy;
                                                            "incorrect double constant declaration");
                                     }
                                 }                                
-                                else if (type == BCT_BOOL)
+                                else if (type == BaseConstantType::BOOL)
                                 {
                                     std::vector<bool> tmp;
                                     if (_getVector(k, prop->values.end(), tmp, roundedCount))
@@ -3953,7 +3953,7 @@ class LodStrategy;
                             size_t index = 0;
                             auto i0 = getNodeAt(prop->values, 0),
                                 i1 = getNodeAt(prop->values, 1), i2 = getNodeAt(prop->values, 2), i3 = getNodeAt(prop->values, 3);
-                            if((*i0)->type != ANT_ATOM || (*i1)->type != ANT_ATOM)
+                            if((*i0)->type != AbstractNodeType::ATOM || (*i1)->type != AbstractNodeType::ATOM)
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line,
                                                    "name or index and auto constant type expected");
@@ -3980,7 +3980,7 @@ class LodStrategy;
                             {
                                 switch(def->dataType)
                                 {
-                                case GpuProgramParameters::ACDT_NONE:
+                                case GpuProgramParameters::ACDataType::NONE:
                                     if (i2 != prop->values.end())
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file,
@@ -4001,8 +4001,8 @@ class LodStrategy;
                                                            e.getDescription());
                                     }
                                     break;
-                                case GpuProgramParameters::ACDT_INT:
-                                    if(def->acType == GpuProgramParameters::ACT_ANIMATION_PARAMETRIC)
+                                case GpuProgramParameters::ACDataType::INT:
+                                    if(def->acType == GpuProgramParameters::AutoConstantType::ANIMATION_PARAMETRIC)
                                     {
                                         try
                                         {
@@ -4023,10 +4023,10 @@ class LodStrategy;
                                         // Otherwise we will expect that 3rd parameter
                                         if(i2 == prop->values.end())
                                         {
-                                            if(def->acType == GpuProgramParameters::ACT_TEXTURE_VIEWPROJ_MATRIX ||
-                                               def->acType == GpuProgramParameters::ACT_TEXTURE_WORLDVIEWPROJ_MATRIX ||
-                                               def->acType == GpuProgramParameters::ACT_SPOTLIGHT_VIEWPROJ_MATRIX ||
-                                               def->acType == GpuProgramParameters::ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX
+                                            if(def->acType == GpuProgramParameters::AutoConstantType::TEXTURE_VIEWPROJ_MATRIX ||
+                                               def->acType == GpuProgramParameters::AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX ||
+                                               def->acType == GpuProgramParameters::AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX ||
+                                               def->acType == GpuProgramParameters::AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX
                                             )
                                             {
                                                 try
@@ -4092,9 +4092,9 @@ class LodStrategy;
                                         }
                                     }
                                     break;
-                                case GpuProgramParameters::ACDT_REAL:
-                                    if(def->acType == GpuProgramParameters::ACT_TIME ||
-                                       def->acType == GpuProgramParameters::ACT_FRAME_TIME)
+                                case GpuProgramParameters::ACDataType::REAL:
+                                    if(def->acType == GpuProgramParameters::AutoConstantType::TIME ||
+                                       def->acType == GpuProgramParameters::AutoConstantType::FRAME_TIME)
                                     {
                                         Real f = 1.0f;
                                         if(i2 != prop->values.end())
@@ -4202,7 +4202,7 @@ class LodStrategy;
 
         for (auto & i : obj->children)
         {
-            if (i->type != ANT_PROPERTY)
+            if (i->type != AbstractNodeType::PROPERTY)
                 continue;
 
             auto *prop = static_cast<PropertyAbstractNode*>(i.get());
@@ -4271,7 +4271,7 @@ class LodStrategy;
 
             switch (GpuConstantDefinition::getBaseType(constType))
             {
-            case BCT_FLOAT:
+            case BaseConstantType::FLOAT:
             {
                 std::vector<float> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4280,7 +4280,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BCT_INT:
+            case BaseConstantType::INT:
             {
                 std::vector<int> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4289,7 +4289,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BCT_DOUBLE:
+            case BaseConstantType::DOUBLE:
             {
                 std::vector<double> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4298,7 +4298,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BCT_UINT:
+            case BaseConstantType::UINT:
             {
                 std::vector<uint> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4309,7 +4309,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BCT_BOOL:
+            case BaseConstantType::BOOL:
             {
                 std::vector<bool> tmp;
                 if(_getVector(arrayStart, arrayEnd, tmp, arraySz))
@@ -4370,7 +4370,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -4383,11 +4383,11 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM)
+                        if(prop->values.front()->type == AbstractNodeType::ATOM)
                         {
                             String name = ((AtomAbstractNode*)prop->values.front().get())->value;
 
-                            ProcessResourceNameScriptCompilerEvent locEvt(ProcessResourceNameScriptCompilerEvent::MATERIAL, name);
+                            ProcessResourceNameScriptCompilerEvent locEvt(ProcessResourceNameScriptCompilerEvent::ResourceType::MATERIAL, name);
                             compiler->_fireEvent(&locEvt, nullptr);
 
                             if(!mSystem->setParameter("material", locEvt.mName))
@@ -4415,7 +4415,7 @@ class LodStrategy;
                         // Glob the values together
                         for(auto const& it : prop->values)
                         {
-                            if(it->type == ANT_ATOM)
+                            if(it->type == AbstractNodeType::ATOM)
                             {
                                 if(value.empty())
                                     value = ((AtomAbstractNode*)it.get())->value;
@@ -4486,7 +4486,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
@@ -4494,7 +4494,7 @@ class LodStrategy;
                 // Glob the values together
                 for(auto const& it : prop->values)
                 {
-                    if(it->type == ANT_ATOM)
+                    if(it->type == AbstractNodeType::ATOM)
                     {
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
@@ -4558,7 +4558,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 String value;
@@ -4566,7 +4566,7 @@ class LodStrategy;
                 // Glob the values together
                 for(auto const& it : prop->values)
                 {
-                    if(it->type == ANT_ATOM)
+                    if(it->type == AbstractNodeType::ATOM)
                     {
                         if(value.empty())
                             value = ((AtomAbstractNode*)it.get())->value;
@@ -4630,7 +4630,7 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_OBJECT)
+            if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
@@ -4661,11 +4661,11 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_OBJECT)
+            if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
-            else if(i->type == ANT_PROPERTY)
+            else if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -4676,7 +4676,7 @@ class LodStrategy;
 
                         auto it = getNodeAt(prop->values, 0);
 
-                        if((*it)->type != ANT_ATOM)
+                        if((*it)->type != AbstractNodeType::ATOM)
                         {
                             compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                             return;
@@ -4690,15 +4690,15 @@ class LodStrategy;
                         bool pooled = false;
                         bool hwGammaWrite = false;
                         bool fsaa = true;
-                        auto type = TEX_TYPE_2D;
-                        uint16 depthBufferId = DepthBuffer::POOL_DEFAULT;
-                        CompositionTechnique::TextureScope scope = CompositionTechnique::TS_LOCAL;
+                        auto type = TextureType::_2D;
+                        auto depthBufferId = DepthBuffer::PoolId::DEFAULT;
+                        CompositionTechnique::TextureScope scope = CompositionTechnique::TextureScope::LOCAL;
                         Ogre::PixelFormatList formats;
 
                         while (atomIndex < prop->values.size())
                         {
                             it = getNodeAt(prop->values, static_cast<int>(atomIndex++));
-                            if((*it)->type != ANT_ATOM)
+                            if((*it)->type != AbstractNodeType::ATOM)
                             {
                                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                                 return;
@@ -4736,7 +4736,7 @@ class LodStrategy;
                                     }
                                     // advance to next to get scaling
                                     it = getNodeAt(prop->values, static_cast<int>(atomIndex++));
-                                    if(prop->values.end() == it || (*it)->type != ANT_ATOM)
+                                    if(prop->values.end() == it || (*it)->type != AbstractNodeType::ATOM)
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                                         return;
@@ -4757,16 +4757,16 @@ class LodStrategy;
                                 pooled = true;
                                 break;
                             case ID_CUBIC:
-                                type = TEX_TYPE_CUBE_MAP;
+                                type = TextureType::CUBE_MAP;
                                 break;
                             case ID_SCOPE_LOCAL:
-                                scope = CompositionTechnique::TS_LOCAL;
+                                scope = CompositionTechnique::TextureScope::LOCAL;
                                 break;
                             case ID_SCOPE_CHAIN:
-                                scope = CompositionTechnique::TS_CHAIN;
+                                scope = CompositionTechnique::TextureScope::CHAIN;
                                 break;
                             case ID_SCOPE_GLOBAL:
-                                scope = CompositionTechnique::TS_GLOBAL;
+                                scope = CompositionTechnique::TextureScope::GLOBAL;
                                 break;
                             case ID_GAMMA:
                                 hwGammaWrite = true;
@@ -4778,7 +4778,7 @@ class LodStrategy;
                                 {
                                     // advance to next to get the ID
                                     it = getNodeAt(prop->values, static_cast<int>(atomIndex++));
-                                    if(prop->values.end() == it || (*it)->type != ANT_ATOM)
+                                    if(prop->values.end() == it || (*it)->type != AbstractNodeType::ATOM)
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                                         return;
@@ -4790,7 +4790,7 @@ class LodStrategy;
                                         return;
                                     }
 
-                                    depthBufferId = Math::uint16Cast(StringConverter::parseInt(atom->value));
+                                    depthBufferId = static_cast<DepthBuffer::PoolId>(Math::uint16Cast(StringConverter::parseInt(atom->value)));
                                 }
                                 break;
                             default:
@@ -4816,7 +4816,7 @@ class LodStrategy;
                                 {
                                     // pixel format?
                                     PixelFormat format = PixelUtil::getFormatFromName(atom->value, true);
-                                    if (format == PF_UNKNOWN)
+                                    if (format == PixelFormat::UNKNOWN)
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line, atom->value);
                                         return;
@@ -4943,11 +4943,11 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_OBJECT)
+            if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
-            else if(i->type == ANT_PROPERTY)
+            else if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -4963,7 +4963,7 @@ class LodStrategy;
                     break;
                 case ID_VISIBILITY_MASK:
                     if(getValue(prop, compiler, uival))
-                        mTarget->setVisibilityMask(uival);
+                        mTarget->setVisibilityMask(static_cast<QueryTypeMask>(uival));
                     break;
                 case ID_LOD_BIAS:
                     if(getValue(prop, compiler, fval))
@@ -4997,7 +4997,7 @@ class LodStrategy;
         auto *obj = static_cast<ObjectAbstractNode*>(node.get());
 
         // The name is the type of the pass
-        if(obj->values.empty() || obj->values.front()->type != ANT_ATOM)
+        if(obj->values.empty() || obj->values.front()->type != AbstractNodeType::ATOM)
         {
             compiler->addError(ScriptCompiler::CE_STRINGEXPECTED, obj->file, obj->line, "pass type missing");
             return;
@@ -5009,22 +5009,22 @@ class LodStrategy;
         switch(atom->id)
         {
             case ID_CLEAR:
-                ptype = CompositionPass::PT_CLEAR;
+                ptype = CompositionPass::PassType::CLEAR;
                 break;
             case ID_STENCIL:
-                ptype = CompositionPass::PT_STENCIL;
+                ptype = CompositionPass::PassType::STENCIL;
                 break;
             case ID_RENDER_QUAD:
-                ptype = CompositionPass::PT_RENDERQUAD;
+                ptype = CompositionPass::PassType::RENDERQUAD;
                 break;
             case ID_RENDER_SCENE:
-                ptype = CompositionPass::PT_RENDERSCENE;
+                ptype = CompositionPass::PassType::RENDERSCENE;
                 break;
             case ID_COMPUTE:
-                ptype = CompositionPass::PT_COMPUTE;
+                ptype = CompositionPass::PassType::COMPUTE;
                 break;
             case ID_RENDER_CUSTOM:
-                ptype = CompositionPass::PT_RENDERCUSTOM;
+                ptype = CompositionPass::PassType::RENDERCUSTOM;
                 break;
             default:
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, obj->file, obj->line, atom->value);
@@ -5035,7 +5035,7 @@ class LodStrategy;
         mPass = target->createPass(ptype);
         obj->context = mPass;
 
-        if(mPass->getType() == CompositionPass::PT_RENDERCUSTOM) 
+        if(mPass->getType() == CompositionPass::PassType::RENDERCUSTOM) 
         {
             String customType;
             //This is the ugly one liner for safe access to the second parameter.
@@ -5055,11 +5055,11 @@ class LodStrategy;
 
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_OBJECT)
+            if(i->type == AbstractNodeType::OBJECT)
             {
                 processNode(compiler, i);
             }
-            else if(i->type == ANT_PROPERTY)
+            else if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 switch(prop->id)
@@ -5099,21 +5099,21 @@ class LodStrategy;
                     break;
                 case ID_BUFFERS:
                     {
-                        uint32 buffers = 0;
+                        FrameBufferType buffers{};
                         for(auto const& k : prop->values)
                         {
-                            if(k->type == ANT_ATOM)
+                            if(k->type == AbstractNodeType::ATOM)
                             {
                                 switch(((AtomAbstractNode*)k.get())->id)
                                 {
                                 case ID_COLOUR:
-                                    buffers |= FBT_COLOUR;
+                                    buffers |= FrameBufferType::COLOUR;
                                     break;
                                 case ID_DEPTH:
-                                    buffers |= FBT_DEPTH;
+                                    buffers |= FrameBufferType::DEPTH;
                                     break;
                                 case ID_STENCIL:
-                                    buffers |= FBT_STENCIL;
+                                    buffers |= FrameBufferType::STENCIL;
                                     break;
                                 default:
                                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
@@ -5133,7 +5133,7 @@ class LodStrategy;
                             return;
                         }
                         ColourValue val;
-                        if (prop->values.front()->type == ANT_ATOM &&
+                        if (prop->values.front()->type == AbstractNodeType::ATOM &&
                             ((AtomAbstractNode*)prop->values.front().get())->id == ID_AUTO)
                             mPass->setAutomaticColour(true);
                         else if(getColour(prop->values.begin(), prop->values.end(), &val))
@@ -5153,7 +5153,7 @@ class LodStrategy;
                 case ID_MATERIAL:
                     if(getValue(prop, compiler, sval))
                     {
-                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::MATERIAL, sval);
+                        ProcessResourceNameScriptCompilerEvent evt(ProcessResourceNameScriptCompilerEvent::ResourceType::MATERIAL, sval);
                         compiler->_fireEvent(&evt, nullptr);
                         auto mat = MaterialManager::getSingleton().getByName(evt.mName, compiler->getResourceGroup());
                         if (mat)
@@ -5205,11 +5205,11 @@ class LodStrategy;
                     break;
                 case ID_FIRST_RENDER_QUEUE:
                     if(getValue(prop, compiler, uival))
-                        mPass->setFirstRenderQueue(static_cast<uint8>(uival));
+                        mPass->setFirstRenderQueue(static_cast<RenderQueueGroupID>(uival));
                     break;
                 case ID_LAST_RENDER_QUEUE:
                     if(getValue(prop, compiler, uival))
-                        mPass->setLastRenderQueue(static_cast<uint8>(uival));
+                        mPass->setLastRenderQueue(static_cast<RenderQueueGroupID>(uival));
                     break;
                 case ID_MATERIAL_SCHEME:
                     if(getValue(prop, compiler, sval))
@@ -5235,7 +5235,7 @@ class LodStrategy;
                     }
                     else
                     {
-                        if(prop->values.front()->type == ANT_ATOM)
+                        if(prop->values.front()->type == AbstractNodeType::ATOM)
                         {
                             atom = static_cast<AtomAbstractNode*>(prop->values.front().get());
                             if(atom->id == ID_CAMERA_FAR_CORNERS_VIEW_SPACE)
@@ -5267,7 +5267,7 @@ class LodStrategy;
                         if (!getValue(prop->values.front(), sval))
                             return;
                         mPass->setCameraName(sval);
-                        if (prop->values.back()->type == ANT_ATOM &&
+                        if (prop->values.back()->type == AbstractNodeType::ATOM &&
                             static_cast<AtomAbstractNode*>(prop->values.back().get())->id ==
                                 ID_ALIGN_TO_FACE)
                         {
@@ -5293,7 +5293,7 @@ class LodStrategy;
     {
         ScriptTranslator *translator = nullptr;
 
-        if(node->type == ANT_OBJECT)
+        if(node->type == AbstractNodeType::OBJECT)
         {
             auto *obj = static_cast<ObjectAbstractNode*>(node.get());
             ObjectAbstractNode *parent = obj->parent ? static_cast<ObjectAbstractNode*>(obj->parent) : nullptr;

@@ -261,7 +261,7 @@ namespace {
     {
         if (!readOnly && isReadOnly())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot open a file in read-write mode in a read-only archive");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot open a file in read-write mode in a read-only archive");
         }
 
         // Always open in binary mode
@@ -309,7 +309,7 @@ namespace {
         {
             delete roStream;
             delete rwStream;
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot open file: {}", full_path));
+            OGRE_EXCEPT(ExceptionCodes::FILE_NOT_FOUND, ::std::format("Cannot open file: {}", full_path));
         }
 
         /// Construct return stream, tell it to delete on destroy
@@ -333,7 +333,7 @@ namespace {
     {
         if (isReadOnly())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot create a file in a read-only archive");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot create a file in a read-only archive");
         }
 
         String full_path = concatenate_path(mName, filename);
@@ -349,7 +349,7 @@ namespace {
         if (rwStream->fail())
         {
             delete rwStream;
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot open file: {}", filename));
+            OGRE_EXCEPT(ExceptionCodes::FILE_NOT_FOUND, ::std::format("Cannot open file: {}", filename));
         }
 
         /// Construct return stream, tell it to delete on destroy
@@ -363,7 +363,7 @@ namespace {
     {
         if (isReadOnly())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot remove a file from a read-only archive");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot remove a file from a read-only archive");
         }
         String full_path = concatenate_path(mName, filename);
 

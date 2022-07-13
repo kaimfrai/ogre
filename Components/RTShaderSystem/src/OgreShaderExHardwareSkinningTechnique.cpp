@@ -91,11 +91,11 @@ auto HardwareSkinningTechnique::indexToMask(int index) -> Operand::OpMask
 {
     switch(index)
     {
-    case 0: return Operand::OPM_X;
-    case 1: return Operand::OPM_Y;
-    case 2: return Operand::OPM_Z;
-    case 3: return Operand::OPM_W;
-    default: OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Illegal value", "HardwareSkinningTechnique::indexToMask");
+    case 0: return Operand::OpMask::X;
+    case 1: return Operand::OpMask::Y;
+    case 2: return Operand::OpMask::Z;
+    case 3: return Operand::OpMask::W;
+    default: OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Illegal value", "HardwareSkinningTechnique::indexToMask");
     }
 }
 

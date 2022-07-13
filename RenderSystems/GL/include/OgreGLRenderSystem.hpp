@@ -164,7 +164,7 @@ struct GLGpuProgramBase;
 
         auto getFixedFunctionParams(TrackVertexColourType tracking, FogMode fog) -> const GpuProgramParametersPtr& override;
 
-        void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
+        void applyFixedFunctionParams(const GpuProgramParametersPtr& params, GpuParamVariability variabilityMask) override;
 
         [[nodiscard]] auto getName() const noexcept -> std::string_view override;
 
@@ -240,13 +240,13 @@ struct GLGpuProgramBase;
 
         void _setCullingMode(CullingMode mode) override;
 
-        void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL) override;
+        void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CompareFunction::LESS_EQUAL) override;
 
         void _setDepthBufferCheckEnabled(bool enabled = true);
 
         void _setDepthBufferWriteEnabled(bool enabled = true);
 
-        void _setDepthBufferFunction(CompareFunction func = CMPF_LESS_EQUAL);
+        void _setDepthBufferFunction(CompareFunction func = CompareFunction::LESS_EQUAL);
 
         void _setDepthBias(float constantBias, float slopeScaleBias) override;
 
@@ -271,10 +271,10 @@ struct GLGpuProgramBase;
         void unbindGpuProgram(GpuProgramType gptype) override;
 
         void bindGpuProgramParameters(GpuProgramType gptype, 
-                                      const GpuProgramParametersPtr& params, uint16 variabilityMask) override;
+                                      const GpuProgramParametersPtr& params, GpuParamVariability variabilityMask) override;
 
         void setScissorTest(bool enabled, const Rect& rect = Rect()) override ;
-        void clearFrameBuffer(unsigned int buffers, 
+        void clearFrameBuffer(FrameBufferType buffers,
                               const ColourValue& colour = ColourValue::Black, 
                               float depth = 1.0f, unsigned short stencil = 0) override;
         auto createHardwareOcclusionQuery() -> HardwareOcclusionQuery* override;

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <map>
 #include <vector>
 
+#include "OgreHardwareBuffer.hpp"
 #include "OgreGpuProgram.hpp"
 #include "OgreGpuProgramParams.hpp"
 #include "OgrePrerequisites.hpp"
@@ -115,12 +116,12 @@ protected:
         auto getUsedFloatCount() noexcept -> int;
         
         /** Return the destination parameter. */
-        auto getDestinationParameter(int usage, int index) -> ParameterPtr;
+        auto getDestinationParameter(Operand::OpSemantic usage, int index) -> ParameterPtr;
 
     protected:
     
         /** Creates the destination parameter by a given class and index. */
-        void createDestinationParameter(int usage, int index);
+        void createDestinationParameter(Operand::OpSemantic usage, int index);
 
 
     protected:
@@ -128,9 +129,9 @@ protected:
         ParameterPtr mDstParameter;
         // Source parameters - 4 source at max 1,1,1,1 -> 4.
         ParameterPtr mSrcParameter[4];
-        // Source parameters mask. OPM_ALL means all fields used, otherwise it is split source parameter.
+        // Source parameters mask. OpMask::ALL means all fields used, otherwise it is split source parameter.
         Operand::OpMask mSrcParameterMask[4];
-        // Destination parameters mask. OPM_ALL means all fields used, otherwise it is split source parameter.
+        // Destination parameters mask. OpMask::ALL means all fields used, otherwise it is split source parameter.
         Operand::OpMask mDstParameterMask[4];
         // The actual source parameters count.
         size_t mSrcParameterCount;
@@ -146,7 +147,7 @@ protected:
     {       
         // The count of each source type. I.E (1 FLOAT1, 0 FLOAT2, 1 FLOAT3, 0 FLOAT4).
         size_t srcParameterTypeCount[4];
-        // Source parameters mask. OPM_ALL means all fields used, otherwise it is split source parameter.
+        // Source parameters mask. OpMask::ALL means all fields used, otherwise it is split source parameter.
         Operand::OpMask srcParameterMask[4];
 
         MergeCombination(
@@ -233,7 +234,7 @@ protected:
     
     /** Rebuild the given parameters list using the merged parameters.  
     */
-    void rebuildParameterList(Function* func, int paramsUsage, MergeParameterList& mergedParams);
+    void rebuildParameterList(Function* func, Operand::OpSemantic paramsUsage, MergeParameterList& mergedParams);
 
     /** Rebuild function invocations by replacing references to old source parameters with the matching merged parameters components. */
     void rebuildFunctionInvocations(const FunctionAtomInstanceList& funcAtomList, MergeParameterList& mergedParams, LocalParameterMap& localParamsMap);

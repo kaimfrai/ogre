@@ -109,7 +109,7 @@ class SubMesh;
             bool isManual, ManualResourceLoader* loader,
             const NameValuePairList* createParams,
             HardwareBuffer::Usage vertexBufferUsage,
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> ResourceCreateOrRetrieveResult;
 
         /** Prepares a mesh for loading from a file.  This does the IO in advance of the call to load().
@@ -128,16 +128,16 @@ class SubMesh;
                 copies for faster read access
         */
         auto prepare( std::string_view filename, std::string_view groupName,
-            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
+            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
 
         /** Loads a mesh from a file, making it immediately available for use.
             @copydetails MeshManager::prepare
         */
         auto load( std::string_view filename, std::string_view groupName,
-            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
+            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexBufferShadowed = false, bool indexBufferShadowed = false) -> MeshPtr;
 
 
@@ -202,8 +202,8 @@ class SubMesh;
             int xsegments = 1, int ysegments = 1,
             bool normals = true, unsigned short numTexCoordSets = 1,
             Real uTile = 1.0f, Real vTile = 1.0f, const Vector3& upVector = Vector3::UNIT_Y,
-            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexShadowBuffer = false, bool indexShadowBuffer = false) -> MeshPtr;
 
         
@@ -264,8 +264,8 @@ class SubMesh;
             bool normals = true, unsigned short numTexCoordSets = 1,
             Real uTile = 1.0f, Real vTile = 1.0f, const Vector3& upVector = Vector3::UNIT_Y,
             const Quaternion& orientation = Quaternion::IDENTITY,
-            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexShadowBuffer = false, bool indexShadowBuffer = false, 
             int ySegmentsToKeep = -1) -> MeshPtr;
 
@@ -316,8 +316,8 @@ class SubMesh;
             int xsegments = 1, int ysegments = 1,
             bool normals = false, unsigned short numTexCoordSets = 1, 
             Real uTile = 1.0f, Real vTile = 1.0f, const Vector3& upVector = Vector3::UNIT_Y,
-            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage vertexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
             bool vertexShadowBuffer = false, bool indexShadowBuffer = false) -> MeshPtr;
 
         /** Creates a Bezier patch based on an array of control vertices.
@@ -361,9 +361,9 @@ class SubMesh;
             VertexDeclaration *declaration, size_t width, size_t height,
             size_t uMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL, 
             size_t vMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL,
-            PatchSurface::VisibleSide visibleSide = PatchSurface::VS_FRONT,
-            HardwareBuffer::Usage vbUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage ibUsage = HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+            PatchSurface::VisibleSide visibleSide = PatchSurface::VisibleSide::FRONT,
+            HardwareBuffer::Usage vbUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage ibUsage = HardwareBuffer::DYNAMIC_WRITE_ONLY,
             bool vbUseShadow = true, bool ibUseShadow = true) -> PatchMeshPtr;
         
         /** Tells the mesh manager that all future meshes should prepare themselves for
@@ -386,11 +386,11 @@ class SubMesh;
 
         /** sets the base element type used for blend weights in vertex buffers.
         @remarks
-        This takes effect when meshes are loaded.  Default is VET_FLOAT1.
+        This takes effect when meshes are loaded.  Default is VertexElementType::FLOAT1.
         Valid values are:
-        VET_UBYTE4_NORM:   8-bit blend weights.  Lowest memory cost but may have precision issues.  Requires SM2.0+ vertex shader.  No software skinning.
-        VET_USHORT2_NORM:  16-bit blend weights.  Requires SM2.0+ vertex shader.  No software skinning.
-        VET_FLOAT1:        32-bit blend weights.  Highest memory cost.  Supports hardware and software skinning.
+        VertexElementType::UBYTE4_NORM:   8-bit blend weights.  Lowest memory cost but may have precision issues.  Requires SM2.0+ vertex shader.  No software skinning.
+        VertexElementType::USHORT2_NORM:  16-bit blend weights.  Requires SM2.0+ vertex shader.  No software skinning.
+        VertexElementType::FLOAT1:        32-bit blend weights.  Highest memory cost.  Supports hardware and software skinning.
         */
         void setBlendWeightsBaseElementType( VertexElementType vet );
 
@@ -419,11 +419,11 @@ class SubMesh;
             const NameValuePairList* createParams) -> Resource* override;
     
         /** Enum identifying the types of manual mesh built by this manager */
-        enum MeshBuildType
+        enum class MeshBuildType
         {
-            MBT_PLANE,
-            MBT_CURVED_ILLUSION_PLANE,
-            MBT_CURVED_PLANE
+            PLANE,
+            CURVED_ILLUSION_PLANE,
+            CURVED_PLANE
         };
         /** Saved parameters used to (re)build a manual mesh built by this class */
         struct MeshBuildParams
@@ -458,7 +458,7 @@ class SubMesh;
             */
             static void tesselate2DMesh(SubMesh* pSub, unsigned short meshWidth, unsigned short meshHeight,
                 bool doubleSided = false,
-                HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+                HardwareBuffer::Usage indexBufferUsage = HardwareBuffer::STATIC_WRITE_ONLY,
                 bool indexSysMem = false);
             /** Utility method for manual loading a plane */
             static void loadManualPlane(Mesh* pMesh, MeshBuildParams& params);
@@ -470,7 +470,7 @@ class SubMesh;
             void loadResource(Resource* res) override;
         } mPrefabLoader;
 
-        // element type for blend weights in vertex buffer (VET_UBYTE4, VET_USHORT1, or VET_FLOAT1)
+        // element type for blend weights in vertex buffer (VertexElementType::UBYTE4, VertexElementType::USHORT1, or VertexElementType::FLOAT1)
         VertexElementType mBlendWeightsBaseElementType;
 
         bool mPrepAllMeshesForShadowVolumes;

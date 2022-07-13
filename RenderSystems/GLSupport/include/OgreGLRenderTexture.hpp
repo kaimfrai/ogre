@@ -144,7 +144,7 @@ class RenderTarget;
 
         /** Check if a certain format is usable as FBO rendertarget format
         */
-        auto checkFormat(PixelFormat format) -> bool { return mProps[format].valid; }
+        auto checkFormat(PixelFormat format) -> bool { return mProps[std::to_underlying(format)].valid; }
 
         /** Bind a certain render target.
             @note only needed for FBO RTTs
@@ -191,7 +191,7 @@ class RenderTarget;
         };
         /** Properties for all internal formats defined by OGRE
          */
-        FormatProperties mProps[PF_COUNT];
+        FormatProperties mProps[std::to_underlying(PixelFormat::COUNT)];
 
         /** Stencil and depth renderbuffers of the same format are re-used between surfaces of the
             same size and format. This can save a lot of memory when a large amount of rendertargets

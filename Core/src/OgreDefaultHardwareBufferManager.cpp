@@ -34,7 +34,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     DefaultHardwareBuffer::DefaultHardwareBuffer(size_t sizeInBytes)
-    : HardwareBuffer(HBU_CPU_ONLY, true, false) // always software, never shadowed
+    : HardwareBuffer(HardwareBufferUsage::CPU_ONLY, true, false) // always software, never shadowed
     {
         mSizeInBytes = sizeInBytes;
         // Allocate aligned memory for better SIMD processing friendly.

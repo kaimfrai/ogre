@@ -67,14 +67,14 @@ class Camera;
     = default;
 
     //-----------------------------------------------------------------------
-    auto InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
+    auto InstanceBatchHW::calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t
     {
         size_t retVal = 0;
 
         RenderSystem *renderSystem = Root::getSingleton().getRenderSystem();
         const RenderSystemCapabilities *capabilities = renderSystem->getCapabilities();
 
-        if( capabilities->hasCapability( RSC_VERTEX_BUFFER_INSTANCE_DATA ) )
+        if( capabilities->hasCapability( Capabilities::VERTEX_BUFFER_INSTANCE_DATA ) )
         {
             //This value is arbitrary (theorical max is 2^30 for D3D9) but is big enough and safe
             retVal = 65535;
@@ -97,7 +97,7 @@ class Camera;
                                         HardwareBufferManager::getSingleton().createVertexBuffer(
                                         thisVertexData->vertexDeclaration->getVertexSize(lastSource),
                                         mInstancesPerBatch,
-                                        HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                        HardwareBuffer::STATIC_WRITE_ONLY );
         thisVertexData->vertexBufferBinding->setBinding( lastSource, vertexBuffer );
         vertexBuffer->setIsInstanceData( true );
         vertexBuffer->setInstanceDataStepRate( 1 );
@@ -119,8 +119,8 @@ class Camera;
         const unsigned short newSource = thisVertexData->vertexDeclaration->getMaxSource() + 1;
         for( unsigned char i=0; i<3 + mCreator->getNumCustomParams(); ++i )
         {
-            thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4,
-                                                            VES_TEXTURE_COORDINATES, nextTexCoord++ );
+            thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4,
+                                                            VertexElementSemantic::TEXTURE_COORDINATES, nextTexCoord++ );
             offset = thisVertexData->vertexDeclaration->getVertexSize( newSource );
         }
 
@@ -129,7 +129,7 @@ class Camera;
                                         HardwareBufferManager::getSingleton().createVertexBuffer(
                                         thisVertexData->vertexDeclaration->getVertexSize(newSource),
                                         mInstancesPerBatch,
-                                        HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                        HardwareBuffer::STATIC_WRITE_ONLY );
         thisVertexData->vertexBufferBinding->setBinding( newSource, vertexBuffer );
         vertexBuffer->setIsInstanceData( true );
         vertexBuffer->setInstanceDataStepRate( 1 );
@@ -149,7 +149,7 @@ class Camera;
 
         unsigned short safeSource = 0xFFFF;
         const VertexElement* blendIndexElem = thisVertexData->vertexDeclaration->findElementBySemantic(
-                                                                                VES_BLEND_INDICES );
+                                                                                VertexElementSemantic::BLEND_INDICES );
         if( blendIndexElem )
         {
             //save the source in order to prevent the next stage from unbinding it.
@@ -159,15 +159,15 @@ class Camera;
         }
         // Remove blend weights
         const VertexElement* blendWeightElem = thisVertexData->vertexDeclaration->findElementBySemantic(
-                                                                                VES_BLEND_WEIGHTS );
+                                                                                VertexElementSemantic::BLEND_WEIGHTS );
         if( blendWeightElem && blendWeightElem->getSource() != safeSource )
         {
             // Remove buffer reference
             thisVertexData->vertexBufferBinding->unsetBinding( blendWeightElem->getSource() );
         }
 
-        thisVertexData->vertexDeclaration->removeElement(VES_BLEND_INDICES);
-        thisVertexData->vertexDeclaration->removeElement(VES_BLEND_WEIGHTS);
+        thisVertexData->vertexDeclaration->removeElement(VertexElementSemantic::BLEND_INDICES);
+        thisVertexData->vertexDeclaration->removeElement(VertexElementSemantic::BLEND_WEIGHTS);
         thisVertexData->closeGapsInBindings();
     }
     //-----------------------------------------------------------------------
@@ -176,7 +176,7 @@ class Camera;
         //Max number of texture coordinates is _usually_ 8, we need at least 3 available
         if( baseSubMesh->vertexData->vertexDeclaration->getNextFreeTextureCoordinate() > 8-2 )
         {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "Given mesh must have at "
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "Given mesh must have at "
                                                         "least 3 free TEXCOORDs",
                         "InstanceBatchHW::checkSubMeshCompatibility");
         }
@@ -184,7 +184,7 @@ class Camera;
             8-2-mCreator->getNumCustomParams() ||
             3 + mCreator->getNumCustomParams() >= 8 )
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, std::format("There are not enough free TEXCOORDs to hold the "
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, std::format("There are not enough free TEXCOORDs to hold the "
                                                         "custom parameters (required: {}). See InstanceManager"
                                                         "::setNumCustomParams documentation", 3 + mCreator->
                                                         getNumCustomParams()),
@@ -201,7 +201,7 @@ class Camera;
         //Now lock the vertex buffer and copy the 4x3 matrices, only those who need it!
         VertexBufferBinding* binding = mRenderOperation.vertexData->vertexBufferBinding; 
         const auto bufferIdx = ushort(binding->getBufferCount()-1);
-        HardwareBufferLockGuard vertexLock(binding->getBuffer(bufferIdx), HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vertexLock(binding->getBuffer(bufferIdx), HardwareBuffer::LockOptions::DISCARD);
         auto *pDest = static_cast<float*>(vertexLock.pData);
 
         unsigned char numCustomParams           = mCreator->getNumCustomParams();

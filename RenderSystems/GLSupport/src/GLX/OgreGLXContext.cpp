@@ -61,7 +61,7 @@ namespace Ogre
 
         if (! mContext)
         {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Unable to create a suitable GLXContext", "GLXContext::GLXContext");
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "Unable to create a suitable GLXContext", "GLXContext::GLXContext");
         }
     }
 

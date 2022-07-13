@@ -306,7 +306,7 @@ static const uchar depthBits[] =
         glGetIntegerv (GL_DRAW_BUFFER, &old_drawbuffer);
         glGetIntegerv (GL_READ_BUFFER, &old_readbuffer);
 
-        for(size_t x=0; x<PF_COUNT; ++x)
+        for(size_t x=0; x<std::to_underlying(PixelFormat::COUNT); ++x)
         {
             mProps[x].valid = false;
 
@@ -435,7 +435,7 @@ static const uchar depthBits[] =
         glReadBuffer(old_readbuffer);
 
         String fmtstring = "";
-        for(size_t x=0; x<PF_COUNT; ++x)
+        for(size_t x=0; x<std::to_underlying(PixelFormat::COUNT); ++x)
         {
             if(mProps[x].valid)
                 fmtstring = ::std::format("{}{} ", fmtstring, PixelUtil::getFormatName((PixelFormat)x));
@@ -444,7 +444,7 @@ static const uchar depthBits[] =
     }
     void GLFBOManager::getBestDepthStencil(PixelFormat internalFormat, GLenum *depthFormat, GLenum *stencilFormat)
     {
-        const FormatProperties &props = mProps[internalFormat];
+        const FormatProperties &props = mProps[std::to_underlying(internalFormat)];
         /// Decide what stencil and depth formats to use
         /// [best supported for internal format]
         size_t bestmode=0;

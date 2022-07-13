@@ -192,7 +192,7 @@ class ResourceManager;
         catch (const Exception& e)
         {
             // will already have been logged
-            LogManager::getSingleton().stream(LML_CRITICAL)
+            LogManager::getSingleton().stream(LogMessageLevel::Critical)
                 << "Program '" << mName << "' is not supported: " << e.getDescription();
 
             mCompileError = true;
@@ -216,7 +216,7 @@ class ResourceManager;
         catch (const Exception& e)
         {
             // will already have been logged
-            LogManager::getSingleton().stream(LML_CRITICAL)
+            LogManager::getSingleton().stream(LogMessageLevel::Critical)
                 << "Program '" << mName << "' is not supported: " << e.getDescription();
 
             mCompileError = true;
@@ -247,17 +247,17 @@ class ResourceManager;
             Root::getSingleton().getRenderSystem()->getCapabilities();
 
         // Basic support check
-        if ((getType() == GPT_GEOMETRY_PROGRAM && !caps->hasCapability(RSC_GEOMETRY_PROGRAM)) ||
-            (getType() == GPT_DOMAIN_PROGRAM && !caps->hasCapability(RSC_TESSELLATION_DOMAIN_PROGRAM)) ||
-            (getType() == GPT_HULL_PROGRAM && !caps->hasCapability(RSC_TESSELLATION_HULL_PROGRAM)) ||
-            (getType() == GPT_COMPUTE_PROGRAM && !caps->hasCapability(RSC_COMPUTE_PROGRAM)))
+        if ((getType() == GpuProgramType::GEOMETRY_PROGRAM && !caps->hasCapability(Capabilities::GEOMETRY_PROGRAM)) ||
+            (getType() == GpuProgramType::DOMAIN_PROGRAM && !caps->hasCapability(Capabilities::TESSELLATION_DOMAIN_PROGRAM)) ||
+            (getType() == GpuProgramType::HULL_PROGRAM && !caps->hasCapability(Capabilities::TESSELLATION_HULL_PROGRAM)) ||
+            (getType() == GpuProgramType::COMPUTE_PROGRAM && !caps->hasCapability(Capabilities::COMPUTE_PROGRAM)))
         {
             return false;
         }
 
         // Vertex texture fetch required?
         if (isVertexTextureFetchRequired() && 
-            !caps->hasCapability(RSC_VERTEX_TEXTURE_FETCH))
+            !caps->hasCapability(Capabilities::VERTEX_TEXTURE_FETCH))
         {
             return false;
         }
@@ -378,20 +378,20 @@ class ResourceManager;
     {
         switch (programType)
         {
-        case GPT_VERTEX_PROGRAM:
+        case GpuProgramType::VERTEX_PROGRAM:
             return "vertex";
-        case GPT_GEOMETRY_PROGRAM:
+        case GpuProgramType::GEOMETRY_PROGRAM:
             return "geometry";
-        case GPT_FRAGMENT_PROGRAM:
+        case GpuProgramType::FRAGMENT_PROGRAM:
             return "fragment";
-        case GPT_DOMAIN_PROGRAM:
+        case GpuProgramType::DOMAIN_PROGRAM:
             return "domain";
-        case GPT_HULL_PROGRAM:
+        case GpuProgramType::HULL_PROGRAM:
             return "hull";
-        case GPT_COMPUTE_PROGRAM:
+        case GpuProgramType::COMPUTE_PROGRAM:
             return "compute";
         default:
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Unexpected GPU program type",
                 "GpuProgram::GetName");
         }
@@ -403,32 +403,32 @@ class ResourceManager;
 
         dict->addParameter(
             ParameterDef("type", "'vertex_program', 'geometry_program', 'fragment_program', 'hull_program', 'domain_program', 'compute_program'",
-                         PT_STRING), &msTypeCmd);
+                         ParameterType::STRING), &msTypeCmd);
         dict->addParameter(
-            ParameterDef("syntax", "Syntax code, e.g. vs_1_1", PT_STRING), &msSyntaxCmd);
+            ParameterDef("syntax", "Syntax code, e.g. vs_1_1", ParameterType::STRING), &msSyntaxCmd);
         dict->addParameter(
             ParameterDef("includes_skeletal_animation", 
-                         "Whether this vertex program includes skeletal animation", PT_BOOL), 
+                         "Whether this vertex program includes skeletal animation", ParameterType::BOOL), 
             &msSkeletalCmd);
         dict->addParameter(
             ParameterDef("includes_morph_animation", 
-                         "Whether this vertex program includes morph animation", PT_BOOL), 
+                         "Whether this vertex program includes morph animation", ParameterType::BOOL), 
             &msMorphCmd);
         dict->addParameter(
             ParameterDef("includes_pose_animation", 
-                         "The number of poses this vertex program supports for pose animation", PT_INT),
+                         "The number of poses this vertex program supports for pose animation", ParameterType::INT),
             &msPoseCmd);
         dict->addParameter(
             ParameterDef("uses_vertex_texture_fetch", 
-                         "Whether this vertex program requires vertex texture fetch support.", PT_BOOL), 
+                         "Whether this vertex program requires vertex texture fetch support.", ParameterType::BOOL), 
             &msVTFCmd);
         dict->addParameter(
             ParameterDef("manual_named_constants", 
-                         "File containing named parameter mappings for low-level programs.", PT_BOOL), 
+                         "File containing named parameter mappings for low-level programs.", ParameterType::BOOL), 
             &msManNamedConstsFileCmd);
         dict->addParameter(
             ParameterDef("uses_adjacency_information",
-                         "Whether this geometry program requires adjacency information from the input primitives.", PT_BOOL),
+                         "Whether this geometry program requires adjacency information from the input primitives.", ParameterType::BOOL),
             &msAdjacencyCmd);
     }
 
@@ -451,27 +451,27 @@ class ResourceManager;
         auto* t = static_cast<GpuProgram*>(target);
         if (val == "vertex_program")
         {
-            t->setType(GPT_VERTEX_PROGRAM);
+            t->setType(GpuProgramType::VERTEX_PROGRAM);
         }
         else if (val == "geometry_program")
         {
-            t->setType(GPT_GEOMETRY_PROGRAM);
+            t->setType(GpuProgramType::GEOMETRY_PROGRAM);
         }
         else if (val == "domain_program")
         {
-            t->setType(GPT_DOMAIN_PROGRAM);
+            t->setType(GpuProgramType::DOMAIN_PROGRAM);
         }
         else if (val == "hull_program")
         {
-            t->setType(GPT_HULL_PROGRAM);
+            t->setType(GpuProgramType::HULL_PROGRAM);
         }
         else if (val == "compute_program")
         {
-            t->setType(GPT_COMPUTE_PROGRAM);
+            t->setType(GpuProgramType::COMPUTE_PROGRAM);
         }
         else
         {
-            t->setType(GPT_FRAGMENT_PROGRAM);
+            t->setType(GpuProgramType::FRAGMENT_PROGRAM);
         }
     }
     //-----------------------------------------------------------------------

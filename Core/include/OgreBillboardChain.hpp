@@ -166,16 +166,16 @@ class VertexData;
         /** The direction in which texture coordinates from elements of the
             chain are used.
         */
-        enum TexCoordDirection
+        enum class TexCoordDirection
         {
             /// Tex coord in elements is treated as the 'u' texture coordinate
-            TCD_U,
+            U,
             /// Tex coord in elements is treated as the 'v' texture coordinate
-            TCD_V
+            V
         };
         /** Sets the direction in which texture coords specified on each element
             are deemed to run along the length of the chain.
-        @param dir The direction, default is TCD_U.
+        @param dir The direction, default is TexCoordDirection::U.
         */
         virtual void setTextureCoordDirection(TexCoordDirection dir);
         /** Gets the direction in which texture coords specified on each element
@@ -327,7 +327,7 @@ class VertexData;
         /// Material 
         MaterialPtr mMaterial;
         /// Texture coord direction
-        TexCoordDirection mTexCoordDir{TCD_U};
+        TexCoordDirection mTexCoordDir{TexCoordDirection::U};
         /// Other texture coord range
         Real mOtherTexCoordRange[2];
         /// Camera last used to build the vertex buffer

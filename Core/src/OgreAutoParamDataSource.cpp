@@ -213,7 +213,7 @@ namespace Ogre {
     {
         // inner, outer, fallof, isSpot
         const Light& l = getLight(index);
-        if (l.getType() == Light::LT_SPOTLIGHT)
+        if (l.getType() == Light::LightTypes::SPOTLIGHT)
         {
             return {Math::Cos(l.getSpotlightInnerAngle().valueRadians() * 0.5f),
                            Math::Cos(l.getSpotlightOuterAngle().valueRadians() * 0.5f),
@@ -700,14 +700,14 @@ namespace Ogre {
             const Light& l = getLight(index);
 
             if (&l != &mBlankLight && 
-                l.getType() == Light::LT_SPOTLIGHT &&
+                l.getType() == Light::LightTypes::SPOTLIGHT &&
                 mSpotlightViewProjMatrixDirty[index])
             {
                 Frustum frust;
                 SceneNode dummyNode(nullptr);
                 dummyNode.attachObject(&frust);
 
-                frust.setProjectionType(PT_PERSPECTIVE);
+                frust.setProjectionType(ProjectionType::PERSPECTIVE);
                 frust.setFOVy(l.getSpotlightOuterAngle());
                 frust.setAspectRatio(1.0f);
                 // set near clip the same as main camera, since they are likely
@@ -757,7 +757,7 @@ namespace Ogre {
             const Light& l = getLight(index);
 
             if (&l != &mBlankLight && 
-                l.getType() == Light::LT_SPOTLIGHT &&
+                l.getType() == Light::LightTypes::SPOTLIGHT &&
                 mSpotlightWorldViewProjMatrixDirty[index])
             {
                 mSpotlightWorldViewProjMatrix[index] = 
@@ -815,7 +815,7 @@ namespace Ogre {
     auto AutoParamDataSource::getShadowExtrusionDistance() const -> Real
     {
         const Light& l = getLight(0); // only ever applies to one light at once
-        return (l.getType() == Light::LT_DIRECTIONAL) ?
+        return (l.getType() == Light::LightTypes::DIRECTIONAL) ?
             mDirLightExtrusionDistance : mPointLightExtrusionDistance;
     }
     //-----------------------------------------------------------------------------

@@ -140,7 +140,7 @@ void TestContext::setup()
     initialiseRTShaderSystem();
 
     loadResources();
-    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+    Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(Ogre::TextureMipmap{5});
     mRoot->addFrameListener(this);
 
     mPluginNameMap.emplace("VTests", new VTestPlugin());

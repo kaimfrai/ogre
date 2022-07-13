@@ -36,7 +36,7 @@ class WBOIT : public SubRenderState
 {
 public:
     auto getType() const noexcept -> std::string_view override;
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
     auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
     auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
     void copyFrom(const SubRenderState& rhs) override {}

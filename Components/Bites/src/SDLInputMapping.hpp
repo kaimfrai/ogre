@@ -37,7 +37,7 @@ namespace {
             MouseButtonEvent const button
             {   .x = in.button.x
             ,   .y = in.button.y
-            ,   .button = in.button.button
+            ,   .button = static_cast<ButtonType>(in.button.button)
             ,   .clicks = in.button.clicks
             };
             return in.type == SDL_MOUSEBUTTONUP

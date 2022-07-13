@@ -52,7 +52,7 @@ namespace Ogre {
         if (mReferenceViewEnabled)
         {
             // Reference view only applicable to perspective projection
-            assert(camera->getProjectionType() == PT_PERSPECTIVE && "Camera projection type must be perspective!");
+            assert(camera->getProjectionType() == ProjectionType::PERSPECTIVE && "Camera projection type must be perspective!");
 
             // Get camera viewport
             Viewport *viewport = camera->getViewport();

@@ -73,43 +73,43 @@ void Operand::setMaskToParamType()
 {
     switch (mParameter->getType())
     {
-    case GCT_FLOAT1:
-        mMask = OPM_X;
+    case GpuConstantType::FLOAT1:
+        mMask = OpMask::X;
         break;
-    case GCT_FLOAT2:
-        mMask = OPM_XY;
+    case GpuConstantType::FLOAT2:
+        mMask = OpMask::XY;
         break;
-    case GCT_FLOAT3:
-        mMask = OPM_XYZ;
+    case GpuConstantType::FLOAT3:
+        mMask = OpMask::XYZ;
         break;
     default:
-        mMask = OPM_ALL;
+        mMask = OpMask::ALL;
         break;
     }
 }
 
 //-----------------------------------------------------------------------------
-static void writeMask(std::ostream& os, int mask)
+static void writeMask(std::ostream& os, Operand::OpMask mask)
 {
-    if (mask != Operand::OPM_ALL)
+    if (mask != Operand::OpMask::ALL)
     {
         os << '.';
-        if (mask & Operand::OPM_X)
+        if (!!(mask & Operand::OpMask::X))
         {
             os << 'x';
         }
 
-        if (mask & Operand::OPM_Y)
+        if (!!(mask & Operand::OpMask::Y))
         {
             os << 'y';
         }
 
-        if (mask & Operand::OPM_Z)
+        if (!!(mask & Operand::OpMask::Z))
         {
             os << 'z';
         }
 
-        if (mask & Operand::OPM_W)
+        if (!!(mask & Operand::OpMask::W))
         {
             os << 'w';
         }
@@ -117,13 +117,13 @@ static void writeMask(std::ostream& os, int mask)
 }
 
 //-----------------------------------------------------------------------------
-auto Operand::getFloatCount(int mask) -> int
+auto Operand::getFloatCount(Operand::OpMask mask) -> int
 {
     int floatCount = 0;
 
-    while (mask != 0)
+    while (mask != Operand::OpMask{})
     {
-        if ((mask & Operand::OPM_X) != 0)
+        if ((mask & Operand::OpMask::X) != Operand::OpMask{})
         {
             floatCount++;
 
@@ -192,7 +192,7 @@ static auto parameterNullMsg(std::string_view name, size_t pos) -> String
 void FunctionAtom::pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask, int indirectionLevel)
 {
     if (!parameter)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, parameterNullMsg(mFunctionName, mOperands.size()));
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, parameterNullMsg(mFunctionName, mOperands.size()));
     mOperands.push_back(Operand(parameter, opSemantic, opMask, indirectionLevel));
 }
 
@@ -200,7 +200,7 @@ void FunctionAtom::setOperands(const OperandVector& ops)
 {
     for (size_t i = 0; i < ops.size(); i++)
         if(!ops[i].getParameter())
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, parameterNullMsg(mFunctionName, i));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, parameterNullMsg(mFunctionName, i));
 
     mOperands = ops;
 }
@@ -259,7 +259,7 @@ void FunctionAtom::writeOperands(std::ostream& os, OperandVector::const_iterator
 static auto getSwizzledSize(const Operand& op) -> uchar
 {
     auto gct = op.getParameter()->getType();
-    if (op.getMask() == Operand::OPM_ALL)
+    if (op.getMask() == Operand::OpMask::ALL)
         return GpuConstantDefinition::getElementSize(gct, false);
 
     return Operand::getFloatCount(op.getMask());
@@ -345,7 +345,7 @@ void AssignmentAtom::writeSourceCode(std::ostream& os, std::string_view targetLa
 {
     auto outOp = mOperands.begin();
     // find the output operand
-    while(outOp->getSemantic() != Operand::OPS_OUT)
+    while(outOp->getSemantic() != Operand::OpSemantic::OUT)
         outOp++;
     writeOperands(os, outOp, mOperands.end());
     os << "\t=\t";
@@ -364,7 +364,7 @@ void SampleTextureAtom::writeSourceCode(std::ostream& os, std::string_view targe
 {
     auto outOp = mOperands.begin();
     // find the output operand
-    while(outOp->getSemantic() != Operand::OPS_OUT)
+    while(outOp->getSemantic() != Operand::OpSemantic::OUT)
         outOp++;
     writeOperands(os, outOp, mOperands.end());
     os << "\t=\t";
@@ -373,21 +373,21 @@ void SampleTextureAtom::writeSourceCode(std::ostream& os, std::string_view targe
     const auto& sampler = mOperands.front().getParameter();
     switch(sampler->getType())
     {
-    case GCT_SAMPLER1D:
+    case GpuConstantType::SAMPLER1D:
         os << "1D";
         break;
-    case GCT_SAMPLER_EXTERNAL_OES:
-    case GCT_SAMPLER2D:
+    case GpuConstantType::SAMPLER_EXTERNAL_OES:
+    case GpuConstantType::SAMPLER2D:
         os << "2D";
         break;
-    case GCT_SAMPLER3D:
+    case GpuConstantType::SAMPLER3D:
         os << "3D";
         break;
-    case GCT_SAMPLERCUBE:
+    case GpuConstantType::SAMPLERCUBE:
         os << "Cube";
         break;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "unknown sampler");
+        OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "unknown sampler");
         break;
     }
 
@@ -408,7 +408,7 @@ void BinaryOpAtom::writeSourceCode(std::ostream& os, std::string_view targetLang
 {
     // find the output operand
     auto outOp = mOperands.begin();
-    while(outOp->getSemantic() != Operand::OPS_OUT)
+    while(outOp->getSemantic() != Operand::OpSemantic::OUT)
         outOp++;
 
     // find the second operand

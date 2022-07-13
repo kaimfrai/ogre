@@ -74,7 +74,7 @@ namespace Ogre
         if (!program)
         {
             String progType = GpuProgram::getProgramTypeName(type);
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                         ::std::format("Unable to locate {} program called {}", progType, name));
         }
 
@@ -95,7 +95,7 @@ namespace Ogre
     {
         if (!mParameters)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "You must specify a program before "
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "You must specify a program before "
                 "you can retrieve parameters.", "GpuProgramUsage::getParameters");
         }
 
@@ -146,7 +146,7 @@ namespace Ogre
             String myType = GpuProgram::getProgramTypeName(mType);
             String yourType = GpuProgram::getProgramTypeName(mProgram->getType());
 
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("{} is a {} program, but you are assigning it to a "
                 "{} program slot. This is invalid", mProgram->getName(), yourType, myType));
 

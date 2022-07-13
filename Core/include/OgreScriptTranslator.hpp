@@ -96,9 +96,9 @@ class Matrix4;
         static auto getUInt(const AbstractNodePtr &node, uint32 *result) -> bool; 
         /// Converts the range of nodes to a ColourValue and returns true if successful
         static auto getColour(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, ColourValue *result, int maxEntries = 4) -> bool;
-        /// Converts the node to a SceneBlendFactor enum and returns true if successful
+        /// Converts the node to a SceneBlendFactor enum class and returns true if successful
         static auto getSceneBlendFactor(const AbstractNodePtr &node, SceneBlendFactor *sbf) -> bool;
-        /// Converts the node to a CompareFunction enum and returns true if successful
+        /// Converts the node to a CompareFunction enum class and returns true if successful
         static auto getCompareFunction(const AbstractNodePtr &node, CompareFunction *func) -> bool;
         /// Converts the range of nodes to a Matrix4 and returns true if successful
         static auto getMatrix4(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, Matrix4 *m) -> bool;
@@ -107,9 +107,9 @@ class Matrix4;
         static auto getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<int>& vals, size_t count) -> bool;
         /// @overload
         static auto getVector(AbstractNodeList::const_iterator i, AbstractNodeList::const_iterator end, std::vector<float>& vals, size_t count) -> bool;
-        /// Converts the node to a StencilOperation enum and returns true if successful
+        /// Converts the node to a StencilOperation enum class and returns true if successful
         static auto getStencilOp(const AbstractNodePtr &node, StencilOperation *op) -> bool; 
-        /// Converts the node to a GpuConstantType enum and returns true if successful
+        /// Converts the node to a GpuConstantType enum class and returns true if successful
         static auto getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op) -> bool; 
 
         template<typename T>

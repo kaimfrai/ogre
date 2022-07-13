@@ -121,7 +121,7 @@ class RenderQueue;
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("Overlay with name '{}' already exists!", name ),
                 "OverlayManager::create");
         }
@@ -148,7 +148,7 @@ class RenderQueue;
     {
         bool succ = mOverlayMap.emplace(overlay->getName(), overlay).second;
         if(succ) return;
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                     ::std::format("Overlay with name '{}' already exists!", overlay->getName() ));
     }
     //---------------------------------------------------------------------
@@ -157,7 +157,7 @@ class RenderQueue;
         auto i = mOverlayMap.find(name);
         if (i == mOverlayMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("Overlay with name '{}' not found.", name ),
                 "OverlayManager::destroy");
         }
@@ -181,7 +181,7 @@ class RenderQueue;
             }
         }
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
             "Overlay not found.",
             "OverlayManager::destroy");
     }
@@ -248,7 +248,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     auto OverlayManager::getViewportOrientationMode() const -> OrientationMode
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Getting ViewPort orientation mode is not supported");
     }
     //---------------------------------------------------------------------
@@ -309,7 +309,7 @@ class RenderQueue;
         auto ii = mElements.find(instanceName);
         if (ii != mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("OverlayElement with name {}"
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, ::std::format("OverlayElement with name {}"
                 " already exists.", instanceName), "OverlayManager::createOverlayElement" );
         }
         OverlayElement* newElem = createOverlayElementFromFactory(typeName, instanceName);
@@ -329,7 +329,7 @@ class RenderQueue;
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::createOverlayElement");
         }
 
@@ -343,7 +343,7 @@ class RenderQueue;
         auto ii = mElements.find(name);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {} not found.", name ));
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("OverlayElement with name {} not found.", name ));
         }
 
         return ii->second;
@@ -367,7 +367,7 @@ class RenderQueue;
         auto ii = mElements.find(instanceName);
         if (ii == mElements.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("OverlayElement with name {}"
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("OverlayElement with name {}"
                 " not found.", instanceName), "OverlayManager::destroyOverlayElement" );
         }
         // Look up factory
@@ -375,7 +375,7 @@ class RenderQueue;
         auto fi = mFactories.find(typeName);
         if (fi == mFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Cannot locate factory for element type {}", typeName),
                 "OverlayManager::destroyOverlayElement");
         }
 
@@ -395,7 +395,7 @@ class RenderQueue;
             auto fi = mFactories.find(element->getTypeName());
             if (fi == mFactories.end())
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     ::std::format("Cannot locate factory for element {}",
                         element->getName()),
                     "OverlayManager::destroyAllOverlayElements");

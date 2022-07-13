@@ -108,9 +108,9 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void GLSLLinkProgramManager::setActiveShader(GpuProgramType type, GLSLProgram* gpuProgram)
     {
-        if (gpuProgram != mActiveShader[type])
+        if (gpuProgram != mActiveShader[std::to_underlying(type)])
         {
-            mActiveShader[type] = gpuProgram;
+            mActiveShader[std::to_underlying(type)] = gpuProgram;
             // ActiveLinkProgram is no longer valid
             mActiveLinkProgram = nullptr;
             // change back to fixed pipeline
@@ -131,7 +131,7 @@ namespace Ogre {
                 vertexConstantDefs->find(paramName);
             if (parami != vertexConstantDefs->end())
             {
-                refToUpdate.mSourceProgType = GPT_VERTEX_PROGRAM;
+                refToUpdate.mSourceProgType = GpuProgramType::VERTEX_PROGRAM;
                 refToUpdate.mConstantDef = &(parami->second);
                 return true;
             }
@@ -143,7 +143,7 @@ namespace Ogre {
                 geometryConstantDefs->find(paramName);
             if (parami != geometryConstantDefs->end())
             {
-                refToUpdate.mSourceProgType = GPT_GEOMETRY_PROGRAM;
+                refToUpdate.mSourceProgType = GpuProgramType::GEOMETRY_PROGRAM;
                 refToUpdate.mConstantDef = &(parami->second);
                 return true;
             }
@@ -155,7 +155,7 @@ namespace Ogre {
                 fragmentConstantDefs->find(paramName);
             if (parami != fragmentConstantDefs->end())
             {
-                refToUpdate.mSourceProgType = GPT_FRAGMENT_PROGRAM;
+                refToUpdate.mSourceProgType = GpuProgramType::FRAGMENT_PROGRAM;
                 refToUpdate.mConstantDef = &(parami->second);
                 return true;
             }
@@ -174,7 +174,7 @@ namespace Ogre {
         // scan through the active uniforms and add them to the reference list
         GLint uniformCount = 0;
 
-        #define BUFFERSIZE 200
+        auto constexpr BUFFERSIZE = 200;
         char   uniformName[BUFFERSIZE] = "";
         //GLint location;
         GLUniformReference newGLUniformReference;

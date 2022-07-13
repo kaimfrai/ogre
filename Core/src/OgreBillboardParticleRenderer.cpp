@@ -124,21 +124,21 @@ class RenderQueue;
                 "'oriented_self' means particles are oriented around their own direction, "
                 "'perpendicular_common' means all particles are perpendicular to common_direction, "
                 "and 'perpendicular_self' means particles are perpendicular to their own direction.",
-                PT_STRING),
+                ParameterType::STRING),
                 &msBillboardTypeCmd);
 
             dict->addParameter(ParameterDef("billboard_origin", 
                 "This setting controls the fine tuning of where a billboard appears in relation to it's position. "
                 "Possible value are: 'top_left', 'top_center', 'top_right', 'center_left', 'center', 'center_right', "
                 "'bottom_left', 'bottom_center' and 'bottom_right'. Default value is 'center'.",
-                PT_STRING),
+                ParameterType::STRING),
                 &msBillboardOriginCmd);
 
             dict->addParameter(ParameterDef("billboard_rotation_type", 
                 "This setting controls the billboard rotation type. "
                 "'vertex' means rotate the billboard's vertices around their facing direction."
                 "'texcoord' means rotate the billboard's texture coordinates. Default value is 'texcoord'.",
-                PT_STRING),
+                ParameterType::STRING),
                 &msBillboardRotationTypeCmd);
 
             dict->addParameter(ParameterDef("common_direction", 
@@ -147,14 +147,14 @@ class RenderQueue;
                 "all particles in the set (e.g. raindrops may all be oriented downwards). "
                 "When billboard_type is perpendicular_common, this parameter sets the perpendicular vector for "
                 "all particles in the set (e.g. an aureola around the player and parallel to the ground).",
-                PT_VECTOR3),
+                ParameterType::VECTOR3),
                 &msCommonDirectionCmd);
 
             dict->addParameter(ParameterDef("common_up_vector",
                 "Only useful when billboard_type is perpendicular_self or perpendicular_common. This "
                 "parameter sets the common up-vector for all particles in the set (e.g. an aureola around "
                 "the player and parallel to the ground).",
-                PT_VECTOR3),
+                ParameterType::VECTOR3),
                 &msCommonUpVectorCmd);
             dict->addParameter(ParameterDef("point_rendering",
                 "Set whether or not particles will use point rendering "
@@ -162,18 +162,18 @@ class RenderQueue;
                 "rendering of point-oriented particles although introduces some "
                 "limitations too such as requiring a common particle size."
                 "Possible values are 'true' or 'false'.",
-                PT_BOOL),
+                ParameterType::BOOL),
                 &msPointRenderingCmd);
             dict->addParameter(ParameterDef("accurate_facing",
                 "Set whether or not particles will be oriented to the camera "
                 "based on the relative position to the camera rather than just "
                 "the camera direction. This is more accurate but less optimal. "
                 "Cannot be combined with point rendering.",
-                PT_BOOL),
+                ParameterType::BOOL),
                 &msAccurateFacingCmd);
 
             dict->addParameter(ParameterDef("texture_sheet_size", "",
-                PT_UNSIGNED_INT),
+                ParameterType::UNSIGNED_INT),
                 &msStacksAndSlicesCmd);
         }
 
@@ -209,8 +209,8 @@ class RenderQueue;
         {
             bb.mPosition = p->mPosition;
 
-            if (mBillboardSet->getBillboardType() == BBT_ORIENTED_SELF ||
-                mBillboardSet->getBillboardType() == BBT_PERPENDICULAR_SELF)
+            if (mBillboardSet->getBillboardType() == BillboardType::ORIENTED_SELF ||
+                mBillboardSet->getBillboardType() == BillboardType::PERPENDICULAR_SELF)
             {
                 // Normalise direction vector
                 bb.mDirection = p->mDirection;
@@ -259,18 +259,18 @@ class RenderQueue;
         BillboardType t = static_cast<const BillboardParticleRenderer*>(target)->getBillboardType();
         switch(t)
         {
-        case BBT_POINT:
+        case BillboardType::POINT:
             return "point";
             break;
-        case BBT_ORIENTED_COMMON:
+        case BillboardType::ORIENTED_COMMON:
             return "oriented_common";
             break;
-        case BBT_ORIENTED_SELF:
+        case BillboardType::ORIENTED_SELF:
             return "oriented_self";
             break;
-        case BBT_PERPENDICULAR_COMMON:
+        case BillboardType::PERPENDICULAR_COMMON:
             return "perpendicular_common";
-        case BBT_PERPENDICULAR_SELF:
+        case BillboardType::PERPENDICULAR_SELF:
             return "perpendicular_self";
         }
         // Compiler nicety
@@ -281,27 +281,27 @@ class RenderQueue;
         BillboardType t;
         if (val == "point")
         {
-            t = BBT_POINT;
+            t = BillboardType::POINT;
         }
         else if (val == "oriented_common")
         {
-            t = BBT_ORIENTED_COMMON;
+            t = BillboardType::ORIENTED_COMMON;
         }
         else if (val == "oriented_self")
         {
-            t = BBT_ORIENTED_SELF;
+            t = BillboardType::ORIENTED_SELF;
         }
         else if (val == "perpendicular_common")
         {
-            t = BBT_PERPENDICULAR_COMMON;
+            t = BillboardType::PERPENDICULAR_COMMON;
         }
         else if (val == "perpendicular_self")
         {
-            t = BBT_PERPENDICULAR_SELF;
+            t = BillboardType::PERPENDICULAR_SELF;
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("Invalid billboard_type '{}'", val ), 
                 "ParticleSystem::CmdBillboardType::doSet");
         }
@@ -314,23 +314,23 @@ class RenderQueue;
         BillboardOrigin o = static_cast<const BillboardParticleRenderer*>(target)->getBillboardOrigin();
         switch (o)
         {
-        case BBO_TOP_LEFT:
+        case BillboardOrigin::TOP_LEFT:
             return "top_left";
-        case BBO_TOP_CENTER:
+        case BillboardOrigin::TOP_CENTER:
             return "top_center";
-        case BBO_TOP_RIGHT:
+        case BillboardOrigin::TOP_RIGHT:
             return "top_right";
-        case BBO_CENTER_LEFT:
+        case BillboardOrigin::CENTER_LEFT:
             return "center_left";
-        case BBO_CENTER:
+        case BillboardOrigin::CENTER:
             return "center";
-        case BBO_CENTER_RIGHT:
+        case BillboardOrigin::CENTER_RIGHT:
             return "center_right";
-        case BBO_BOTTOM_LEFT:
+        case BillboardOrigin::BOTTOM_LEFT:
             return "bottom_left";
-        case BBO_BOTTOM_CENTER:
+        case BillboardOrigin::BOTTOM_CENTER:
             return "bottom_center";
-        case BBO_BOTTOM_RIGHT:
+        case BillboardOrigin::BOTTOM_RIGHT:
             return "bottom_right";
         }
         // Compiler nicety
@@ -340,26 +340,26 @@ class RenderQueue;
     {
         BillboardOrigin o;
         if (val == "top_left")
-            o = BBO_TOP_LEFT;
+            o = BillboardOrigin::TOP_LEFT;
         else if (val =="top_center")
-            o = BBO_TOP_CENTER;
+            o = BillboardOrigin::TOP_CENTER;
         else if (val =="top_right")
-            o = BBO_TOP_RIGHT;
+            o = BillboardOrigin::TOP_RIGHT;
         else if (val =="center_left")
-            o = BBO_CENTER_LEFT;
+            o = BillboardOrigin::CENTER_LEFT;
         else if (val =="center")
-            o = BBO_CENTER;
+            o = BillboardOrigin::CENTER;
         else if (val =="center_right")
-            o = BBO_CENTER_RIGHT;
+            o = BillboardOrigin::CENTER_RIGHT;
         else if (val =="bottom_left")
-            o = BBO_BOTTOM_LEFT;
+            o = BillboardOrigin::BOTTOM_LEFT;
         else if (val =="bottom_center")
-            o = BBO_BOTTOM_CENTER;
+            o = BillboardOrigin::BOTTOM_CENTER;
         else if (val =="bottom_right")
-            o = BBO_BOTTOM_RIGHT;
+            o = BillboardOrigin::BOTTOM_RIGHT;
         else
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("Invalid billboard_origin '{}'", val ), 
                 "ParticleSystem::CmdBillboardOrigin::doSet");
         }
@@ -372,9 +372,9 @@ class RenderQueue;
         BillboardRotationType r = static_cast<const BillboardParticleRenderer*>(target)->getBillboardRotationType();
         switch(r)
         {
-        case BBR_VERTEX:
+        case BillboardRotationType::VERTEX:
             return "vertex";
-        case BBR_TEXCOORD:
+        case BillboardRotationType::TEXCOORD:
             return "texcoord";
         }
         // Compiler nicety
@@ -384,12 +384,12 @@ class RenderQueue;
     {
         BillboardRotationType r;
         if (val == "vertex")
-            r = BBR_VERTEX;
+            r = BillboardRotationType::VERTEX;
         else if (val == "texcoord")
-            r = BBR_TEXCOORD;
+            r = BillboardRotationType::TEXCOORD;
         else
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("Invalid billboard_rotation_type '{}'", val ), 
                 "ParticleSystem::CmdBillboardRotationType::doSet");
         }

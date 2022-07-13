@@ -80,8 +80,8 @@ TEST_F(RTShaderSystem, createShaderBasedTechnique)
     auto newTech = mat->getTechniques()[1];
 
     EXPECT_EQ(newTech->getSchemeName(), "MyScheme");
-    EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GPT_VERTEX_PROGRAM));
-    EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GPT_FRAGMENT_PROGRAM));
+    EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GpuProgramType::VERTEX_PROGRAM));
+    EXPECT_TRUE(newTech->getPasses()[0]->hasGpuProgram(GpuProgramType::FRAGMENT_PROGRAM));
 
     EXPECT_TRUE(shaderGen.removeShaderBasedTechnique(mat->getTechniques()[0], "MyScheme"));
 }
@@ -115,8 +115,8 @@ TEST_F(RTShaderSystem, TargetRenderState)
     targetRenderState.link({"FFP_Transform", "FFP_Colour"}, pass, pass);
     targetRenderState.acquirePrograms(pass);
 
-    EXPECT_TRUE(pass->hasGpuProgram(GPT_VERTEX_PROGRAM));
-    EXPECT_TRUE(pass->hasGpuProgram(GPT_FRAGMENT_PROGRAM));
+    EXPECT_TRUE(pass->hasGpuProgram(GpuProgramType::VERTEX_PROGRAM));
+    EXPECT_TRUE(pass->hasGpuProgram(GpuProgramType::FRAGMENT_PROGRAM));
 }
 
 TEST_F(RTShaderSystem, FunctionInvocationOrder)
@@ -127,9 +127,9 @@ TEST_F(RTShaderSystem, FunctionInvocationOrder)
     FunctionInvocation b("name", 0);
     FunctionInvocation c("name", 0);
 
-    a.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OPS_IN);
-    b.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OPS_IN, Operand::OPM_XY);
-    c.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OPS_IN, Operand::OPM_XYZ);
+    a.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN);
+    b.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN, Operand::OpMask::XY);
+    c.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN, Operand::OpMask::XYZ);
 
     EXPECT_FALSE(b == a);
     EXPECT_TRUE(b < a);

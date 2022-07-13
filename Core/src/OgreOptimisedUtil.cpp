@@ -88,7 +88,7 @@ namespace Ogre {
         {
             mOptimisedUtils.push_back(_getOptimisedUtilGeneral());
 
-            //if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
+            //if (PlatformInformation::getCpuFeatures() & PlatformInformation::CpuFeatures::SSE)
             {
                 mOptimisedUtils.push_back(_getOptimisedUtilSSE());
             }
@@ -362,7 +362,7 @@ namespace Ogre {
 
 #else   // !__DO_PROFILE__
 
-        if (PlatformInformation::getCpuFeatures() & PlatformInformation::CPU_FEATURE_SSE)
+        if ((PlatformInformation::getCpuFeatures() & PlatformInformation::CpuFeatures::SSE) != PlatformInformation::CpuFeatures{})
         {
             return _getOptimisedUtilSSE();
         }

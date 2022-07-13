@@ -215,7 +215,7 @@ ManualObject::ManualObject(std::string_view name)
       }
       else
       {
-          LogManager::getSingleton().logMessage("Can't assign null material", LML_CRITICAL);
+          LogManager::getSingleton().logMessage("Can't assign null material", LogMessageLevel::Critical);
           const MaterialPtr defaultMat = MaterialManager::getSingleton().getDefaultMaterial();
           mCurrentSection = new ManualObjectSection(this, defaultMat, opType);
       }
@@ -248,7 +248,7 @@ ManualObject::ManualObject(std::string_view name)
     void ManualObject::declareElement(VertexElementType t, VertexElementSemantic s)
     {
         // defining declaration
-        ushort idx = s == VES_TEXTURE_COORDINATES ? mTexCoordIndex : 0;
+        ushort idx = s == VertexElementSemantic::TEXTURE_COORDINATES ? mTexCoordIndex : 0;
         mDeclSize += mCurrentSection->getRenderOperation()
                          ->vertexData->vertexDeclaration->addElement(0, mDeclSize, t, s, idx)
                          .getSize();
@@ -306,15 +306,15 @@ ManualObject::ManualObject(std::string_view name)
             RGBA* pRGBA = nullptr;
             switch(elem.getType())
             {
-            case VET_FLOAT1:
-            case VET_FLOAT2:
-            case VET_FLOAT3:
-            case VET_FLOAT4:
-                OgreAssert(elem.getSemantic() != VES_DIFFUSE, "must use VET_COLOUR");
+            case VertexElementType::FLOAT1:
+            case VertexElementType::FLOAT2:
+            case VertexElementType::FLOAT3:
+            case VertexElementType::FLOAT4:
+                OgreAssert(elem.getSemantic() != VertexElementSemantic::DIFFUSE, "must use VertexElementType::COLOUR");
                 elem.baseVertexPointerToElement(pBase, &pFloat);
                 break;
-            case VET_UBYTE4_NORM:
-                OgreAssert(elem.getSemantic() == VES_DIFFUSE, "must use VES_DIFFUSE");
+            case VertexElementType::UBYTE4_NORM:
+                OgreAssert(elem.getSemantic() == VertexElementSemantic::DIFFUSE, "must use VertexElementSemantic::DIFFUSE");
                 elem.baseVertexPointerToElement(pBase, &pRGBA);
                 break;
             default:
@@ -325,27 +325,27 @@ ManualObject::ManualObject(std::string_view name)
             unsigned short dims;
             switch(elem.getSemantic())
             {
-            case VES_POSITION:
+            case VertexElementSemantic::POSITION:
                 *pFloat++ = mTempVertex.position.x;
                 *pFloat++ = mTempVertex.position.y;
                 *pFloat++ = mTempVertex.position.z;
                 break;
-            case VES_NORMAL:
+            case VertexElementSemantic::NORMAL:
                 *pFloat++ = mTempVertex.normal.x;
                 *pFloat++ = mTempVertex.normal.y;
                 *pFloat++ = mTempVertex.normal.z;
                 break;
-            case VES_TANGENT:
+            case VertexElementSemantic::TANGENT:
                 *pFloat++ = mTempVertex.tangent.x;
                 *pFloat++ = mTempVertex.tangent.y;
                 *pFloat++ = mTempVertex.tangent.z;
                 break;
-            case VES_TEXTURE_COORDINATES:
+            case VertexElementSemantic::TEXTURE_COORDINATES:
                 dims = VertexElement::getTypeCount(elem.getType());
                 for (ushort t = 0; t < dims; ++t)
                     *pFloat++ = mTempVertex.texCoord[elem.getIndex()][t];
                 break;
-            case VES_DIFFUSE:
+            case VertexElementSemantic::DIFFUSE:
                 *pRGBA++ = mTempVertex.colour.getAsABGR();
                 break;
             default:
@@ -402,7 +402,7 @@ ManualObject::ManualObject(std::string_view name)
             bool ibufNeedsCreating = rop->useIndexes;
             // Work out if we require 16 or 32-bit index buffers
             HardwareIndexBuffer::IndexType indexType = mCurrentSection->get32BitIndices()?  
-                HardwareIndexBuffer::IT_32BIT : HardwareIndexBuffer::IT_16BIT;
+                HardwareIndexBuffer::IndexType::_32BIT : HardwareIndexBuffer::IndexType::_16BIT;
             if (mCurrentUpdating)
             {
                 // May be able to reuse buffers, check sizes
@@ -443,7 +443,7 @@ ManualObject::ManualObject(std::string_view name)
             // Write index data
             if(rop->useIndexes)
             {
-                if (HardwareIndexBuffer::IT_32BIT == indexType)
+                if (HardwareIndexBuffer::IndexType::_32BIT == indexType)
                 {
                     // direct copy from the mTempIndexBuffer
                     rop->indexData->indexBuffer->writeData(
@@ -452,9 +452,9 @@ ManualObject::ManualObject(std::string_view name)
                             * rop->indexData->indexBuffer->getIndexSize(),
                         mTempIndexBuffer, true);
                 }
-                else //(HardwareIndexBuffer::IT_16BIT == indexType)
+                else //(HardwareIndexBuffer::IndexType::_16BIT == indexType)
                 {
-                    HardwareBufferLockGuard indexLock(rop->indexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
+                    HardwareBufferLockGuard indexLock(rop->indexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
                     auto* pIdx = static_cast<uint16*>(indexLock.pData);
                     uint32* pSrc = mTempIndexBuffer;
                     for (size_t i = 0; i < rop->indexData->indexCount; i++)
@@ -583,9 +583,9 @@ ManualObject::ManualObject(std::string_view name)
                 RenderOperation* rop = i->getRenderOperation();
                 // Only indexed triangle geometry supported for stencil shadows
                 if (rop->useIndexes && rop->indexData->indexCount != 0 && 
-                    (rop->operationType == RenderOperation::OT_TRIANGLE_FAN ||
-                     rop->operationType == RenderOperation::OT_TRIANGLE_LIST ||
-                     rop->operationType == RenderOperation::OT_TRIANGLE_STRIP))
+                    (rop->operationType == RenderOperation::OperationType::TRIANGLE_FAN ||
+                     rop->operationType == RenderOperation::OperationType::TRIANGLE_LIST ||
+                     rop->operationType == RenderOperation::OperationType::TRIANGLE_STRIP))
                 {
                     eb.addVertexData(rop->vertexData);
                     eb.addIndexData(rop->indexData, vertexSet++);
@@ -602,7 +602,7 @@ ManualObject::ManualObject(std::string_view name)
     //-----------------------------------------------------------------------------
     auto ManualObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDistance, int flags) -> const ShadowRenderableList&
+        float extrusionDistance, ShadowRenderableFlags flags) -> const ShadowRenderableList&
     {
         EdgeData* edgeList = getEdgeList();
         if (!edgeList)
@@ -619,7 +619,7 @@ ManualObject::ManualObject(std::string_view name)
 
         // Init shadow renderable list if required (only allow indexed)
         bool init = mShadowRenderables.empty() && mAnyIndexed;
-        bool extrude = flags & SRF_EXTRUDE_IN_SOFTWARE;
+        bool extrude = !!(flags & ShadowRenderableFlags::EXTRUDE_IN_SOFTWARE);
 
         if (init)
             mShadowRenderables.resize(edgeList->edgeGroups.size());

@@ -115,7 +115,7 @@ namespace Ogre
 
                 if (!glxContext)
                 {
-                    OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "currentGLContext was specified with no current GL context", "GLXWindow::create");
+                    OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "currentGLContext was specified with no current GL context", "GLXWindow::create");
                 }
 
                 glxDrawable = glXGetCurrentDrawable();
@@ -233,7 +233,7 @@ namespace Ogre
 
         // This should never happen.
         if(!fbConfig)
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Unexpected failure to determine a GLXFBConfig");
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "Unexpected failure to determine a GLXFBConfig");
 
 
         // Now check the actual fsaa and gamma value
@@ -525,7 +525,7 @@ namespace Ogre
     //-------------------------------------------------------------------------------------------------//
     auto GLXWindow::suggestPixelFormat() const noexcept -> PixelFormat
     {
-        return mGLSupport->getContextProfile() == GLNativeSupport::CONTEXT_ES ? PF_BYTE_RGBA : PF_BYTE_RGB;
+        return mGLSupport->getContextProfile() == GLNativeSupport::ContextProfile::ES ? PixelFormat::BYTE_RGBA : PixelFormat::BYTE_RGB;
     }
 
     //-------------------------------------------------------------------------------------------------//

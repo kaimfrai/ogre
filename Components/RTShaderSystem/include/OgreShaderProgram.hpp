@@ -92,12 +92,12 @@ public:
     @return parameter instance in case of that resolve operation succeeded.
     @remarks Pass -1 as index parameter to create a new parameter with the desired type and index.
     */
-    auto resolveParameter(GpuConstantType type, int index, uint16 variability, std::string_view suggestedName, size_t size = 0) -> UniformParameterPtr;
+    auto resolveParameter(GpuConstantType type, int index, GpuParamVariability variability, std::string_view suggestedName, size_t size = 0) -> UniformParameterPtr;
     
     /// @overload
     auto resolveParameter(GpuConstantType type, std::string_view name, int index = -1) -> UniformParameterPtr
     {
-        return resolveParameter(type, index, GPV_GLOBAL, name);
+        return resolveParameter(type, index, GpuParamVariability::GLOBAL, name);
     }
 
     /** Resolve uniform auto constant parameter

@@ -64,12 +64,12 @@ void GLWindow::copyContentsToMemory(const Box& src, const PixelBox& dst, FrameBu
     if (src.right > mWidth || src.bottom > mHeight || src.front != 0 || src.back != 1 ||
         dst.getWidth() != src.getWidth() || dst.getHeight() != src.getHeight() || dst.getDepth() != 1)
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Invalid box");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid box");
     }
 
-    if (buffer == FB_AUTO)
+    if (buffer == FrameBuffer::AUTO)
     {
-        buffer = mIsFullScreen ? FB_FRONT : FB_BACK;
+        buffer = mIsFullScreen ? FrameBuffer::FRONT : FrameBuffer::BACK;
     }
 
     static_cast<GLRenderSystemCommon*>(Root::getSingleton().getRenderSystem())

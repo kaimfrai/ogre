@@ -49,24 +49,24 @@ Compiler2Pass::Compiler2Pass()
 
 void Compiler2Pass::InitSymbolTypeLib()
 {
-    uint token_ID;
     // find a default text for all Symbol Types in library
 
     // scan through all the rules and initialize TypeLib with index to text and index to rules for non-terminal tokens
     for(int i = 0; i < mRulePathLibCnt; i++) {
-        token_ID = mRootRulePath[i].mTokenID;
+        auto token_ID = mRootRulePath[i].mTokenID;
         // make sure SymbolTypeLib holds valid token
-        assert(mSymbolTypeLib[token_ID].mID == token_ID);
+        assert(mSymbolTypeLib[std::to_underlying(token_ID)].mID == token_ID);
+        using enum OperationType;
         switch(mRootRulePath[i].mOperation) {
             case otRULE:
                 // if operation is a rule then update typelib
-                mSymbolTypeLib[token_ID].mRuleID = i;
+                mSymbolTypeLib[std::to_underlying(token_ID)].mRuleID = i;
 
             case otAND:
             case otOR:
             case otOPTIONAL:
                 // update text index in typelib
-                if (mRootRulePath[i].mSymbol != nullptr) mSymbolTypeLib[token_ID].mDefTextID = i;
+                if (mRootRulePath[i].mSymbol != nullptr) mSymbolTypeLib[std::to_underlying(token_ID)].mDefTextID = i;
                 break;
             case otREPEAT:
             case otEND:
@@ -133,7 +133,7 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
     uint OldConstantsSize = mConstants.size();
 
     // keep track of what non-terminal token activated the rule
-    uint ActiveNTTRule = mRootRulePath[rulepathIDX].mTokenID;
+    auto ActiveNTTRule = mRootRulePath[rulepathIDX].mTokenID;
     // start rule path at next position for definition
     rulepathIDX++;
 
@@ -143,6 +143,7 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 
     // keep following rulepath until the end is reached
     while (EndFound == false) {
+        using enum OperationType;
         switch (mRootRulePath[rulepathIDX].mOperation) {
 
             case otAND:
@@ -216,17 +217,17 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 }
 
 
-auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleID) -> bool
+auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const Compiler2Pass::SymbolID activeRuleID) -> bool
 {
     int tokenlength = 0;
     // assume the test is going to fail
     bool Passed = false;
-    uint TokenID = mRootRulePath[rulepathIDX].mTokenID;
+    auto TokenID = mRootRulePath[rulepathIDX].mTokenID;
     // only validate token if context is correct
-    if (mSymbolTypeLib[TokenID].mContextKey & mActiveContexts) {
+    if (mSymbolTypeLib[std::to_underlying(TokenID)].mContextKey & mActiveContexts) {
     
         // if terminal token then compare text of symbol with what is in source
-        if ( mSymbolTypeLib[TokenID].mRuleID == 0){
+        if ( mSymbolTypeLib[std::to_underlying(TokenID)].mRuleID == 0){
 
             if (positionToNextSymbol()) {
                 // if Token is supposed to be a number then check if its a numerical constant
@@ -254,9 +255,9 @@ auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleI
 
                     // allow token instruction to change the ActiveContexts
                     // use token contexts pattern to clear ActiveContexts pattern bits
-                    mActiveContexts &= ~mSymbolTypeLib[TokenID].mContextPatternClear;
+                    mActiveContexts &= ~mSymbolTypeLib[std::to_underlying(TokenID)].mContextPatternClear;
                     // use token contexts pattern to set ActiveContexts pattern bits
-                    mActiveContexts |= mSymbolTypeLib[TokenID].mContextPatternSet;
+                    mActiveContexts |= mSymbolTypeLib[std::to_underlying(TokenID)].mContextPatternSet;
                 }
             }
 
@@ -266,7 +267,7 @@ auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const uint activeRuleI
 
             // execute rule for non-terminal
             // get rule_ID for index into  rulepath to be called
-            Passed = processRulePath(mSymbolTypeLib[TokenID].mRuleID);
+            Passed = processRulePath(mSymbolTypeLib[std::to_underlying(TokenID)].mRuleID);
         }
     }
 

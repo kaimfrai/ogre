@@ -102,25 +102,25 @@ class VertexData;
 
     public:
         /** The types of animation interpolation available. */
-        enum InterpolationMode : uint8
+        enum class InterpolationMode : uint8
         {
             /** Values are interpolated along straight lines. */
-            IM_LINEAR,
+            LINEAR,
             /** Values are interpolated along a spline, resulting in smoother changes in direction. */
-            IM_SPLINE
+            SPLINE
         };
 
         /** The types of rotational interpolation available. */
-        enum RotationInterpolationMode : uint8
+        enum class RotationInterpolationMode : uint8
         {
             /** Values are interpolated linearly. This is faster but does not 
                 necessarily give a completely accurate result.
             */
-            RIM_LINEAR,
+            LINEAR,
             /** Values are interpolated spherically. This is more accurate but
                 has a higher cost.
             */
-            RIM_SPHERICAL
+            SPHERICAL
         };
         /** You should not use this constructor directly, use the parent object such as Skeleton instead.
         @param name The name of the animation, should be unique within it's parent (e.g. Skeleton)
@@ -472,7 +472,7 @@ class VertexData;
             pose, because that's more convenient, and the animation is designed to
             simply be added to the existing animation state and not globally averaged
             with other animations (this is always the case with pose animations, but
-            is activated for skeletal animations via ANIMBLEND_CUMULATIVE).
+            is activated for skeletal animations via SkeletonAnimationBlendMode::CUMULATIVE).
         @par
             In order for this to work, the keyframes need to be 're-based' against
             this new starting state, for example by treating the first keyframe as

@@ -70,15 +70,15 @@ namespace Ogre {
         // Create vertex data which just references position component (and 2 component)
         mRenderOp.vertexData = new VertexData();
         // Map in position data
-        mRenderOp.vertexData->vertexDeclaration->addElement(0,0,VET_FLOAT3, VES_POSITION);
+        mRenderOp.vertexData->vertexDeclaration->addElement(0,0,VertexElementType::FLOAT3, VertexElementSemantic::POSITION);
         ushort origPosBind =
-            vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION)->getSource();
+            vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION)->getSource();
         mPositionBuffer = vertexData->vertexBufferBinding->getBuffer(origPosBind);
         mRenderOp.vertexData->vertexBufferBinding->setBinding(0, mPositionBuffer);
         // Map in w-coord buffer (if present)
         if(vertexData->hardwareShadowVolWBuffer)
         {
-            mRenderOp.vertexData->vertexDeclaration->addElement(1,0,VET_FLOAT1, VES_TEXTURE_COORDINATES, 0);
+            mRenderOp.vertexData->vertexDeclaration->addElement(1,0,VertexElementType::FLOAT1, VertexElementSemantic::TEXTURE_COORDINATES, 0);
             mWBuffer = vertexData->hardwareShadowVolWBuffer;
             mRenderOp.vertexData->vertexBufferBinding->setBinding(1, mWBuffer);
         }
@@ -142,6 +142,7 @@ namespace Ogre {
     // ------------------------------------------------------------------------
     static auto isBoundOkForMcGuire(const AxisAlignedBox& lightCapBounds, const Ogre::Vector3& lightPosition) -> bool
     {
+        using enum AxisAlignedBox::CornerEnum;
         // If light position is inside light cap bound then extrusion could be in opposite directions
         // and McGuire cap could intersect near clip plane of camera frustum without being noticed
         if(lightCapBounds.contains(lightPosition))
@@ -169,10 +170,10 @@ namespace Ogre {
             Ogre::Vector3 edgeCorners[8]; 
             unsigned edgeCornersCount = 0;
             std::pair<unsigned, AxisAlignedBox::CornerEnum> cornerMap[8] = {
-                { F|L|B, AxisAlignedBox::FAR_LEFT_BOTTOM }, { F|R|B, AxisAlignedBox::FAR_RIGHT_BOTTOM },
-                { F|L|T, AxisAlignedBox::FAR_LEFT_TOP },    { F|R|T, AxisAlignedBox::FAR_RIGHT_TOP },
-                { N|L|B, AxisAlignedBox::NEAR_LEFT_BOTTOM },{ N|R|B, AxisAlignedBox::NEAR_RIGHT_BOTTOM },
-                { N|L|T, AxisAlignedBox::NEAR_LEFT_TOP },   { N|R|T, AxisAlignedBox::NEAR_RIGHT_TOP }};
+                { F|L|B, FAR_LEFT_BOTTOM }, { F|R|B, FAR_RIGHT_BOTTOM },
+                { F|L|T, FAR_LEFT_TOP },    { F|R|T, FAR_RIGHT_TOP },
+                { N|L|B, NEAR_LEFT_BOTTOM },{ N|R|B, NEAR_RIGHT_BOTTOM },
+                { N|L|T, NEAR_LEFT_TOP },   { N|R|T, NEAR_RIGHT_TOP }};
             for(auto const& [key, value] : cornerMap)
                 if((lightSidesMask & key) != 0 && (lightSidesMask & key) != key) // if adjacent sides not all lit or all unlit
                     edgeCorners[edgeCornersCount++] = lightCapBounds.getCorner(value);
@@ -199,7 +200,7 @@ namespace Ogre {
     // ------------------------------------------------------------------------
     void ShadowCaster::generateShadowVolume(EdgeData* edgeData, 
         const HardwareIndexBufferSharedPtr& indexBuffer, size_t& indexBufferUsedSize, 
-        const Light* light, ShadowRenderableList& shadowRenderables, unsigned long flags)
+        const Light* light, ShadowRenderableList& shadowRenderables, ShadowRenderableFlags flags)
     {
         // Edge groups should be 1:1 with shadow renderables
         assert(edgeData->edgeGroups.size() == shadowRenderables.size());
@@ -210,7 +211,7 @@ namespace Ogre {
         // This won't work properly with multiple separate edge groups (should be one fan per group, not implemented)
         // or when light position is too close to light cap bound.
         bool useMcGuire = edgeData->edgeGroups.size() <= 1 && 
-            (lightType == Light::LT_DIRECTIONAL || isBoundOkForMcGuire(getLightCapBounds(), light->getDerivedPosition()));
+            (lightType == Light::LightTypes::DIRECTIONAL || isBoundOkForMcGuire(getLightCapBounds(), light->getDerivedPosition()));
 
         // pre-count the size of index data we need since it makes a big perf difference
         // to GL in particular if we lock a smaller area of the index buffer
@@ -233,8 +234,8 @@ namespace Ogre {
                     preCountIndexes += 3;
 
                     // Are we extruding to infinity?
-                    if (!(lightType == Light::LT_DIRECTIONAL &&
-                        flags & SRF_EXTRUDE_TO_INFINITY))
+                    if (!(lightType == Light::LightTypes::DIRECTIONAL &&
+                        !!(flags & ShadowRenderableFlags::EXTRUDE_TO_INFINITY)))
                     {
                         preCountIndexes += 3;
                     }
@@ -244,7 +245,7 @@ namespace Ogre {
                         // Do dark cap tri
                         // Use McGuire et al method, a triangle fan covering all silhouette
                         // edges and one point (taken from the initial tri)
-                        if (flags & SRF_INCLUDE_DARK_CAP)
+                        if (!!(flags & ShadowRenderableFlags::INCLUDE_DARK_CAP))
                         {
                             if (firstDarkCapTri)
                             {
@@ -263,7 +264,7 @@ namespace Ogre {
             if(useMcGuire)
             {
                 // Do light cap
-                if (flags & SRF_INCLUDE_LIGHT_CAP) 
+                if (!!(flags & ShadowRenderableFlags::INCLUDE_LIGHT_CAP))
                 {
                     // Iterate over the triangles which are using this vertex set
                     for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
@@ -283,7 +284,7 @@ namespace Ogre {
             else
             {
                 // Do both caps
-                int increment = ((flags & SRF_INCLUDE_DARK_CAP) ? 3 : 0) + ((flags & SRF_INCLUDE_LIGHT_CAP) ? 3 : 0);
+                int increment = (!!(flags & ShadowRenderableFlags::INCLUDE_DARK_CAP) ? 3 : 0) + (!!(flags & ShadowRenderableFlags::INCLUDE_LIGHT_CAP) ? 3 : 0);
                 if(increment != 0)
                 {
                     // Iterate over the triangles which are using this vertex set
@@ -319,7 +320,7 @@ namespace Ogre {
             if (preCountIndexes > indexBuffer->getNumIndexes())
             {
                 //increasing index buffer size has failed
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                     "Lock request out of bounds.",
                     "ShadowCaster::generateShadowVolume");
             }
@@ -332,7 +333,7 @@ namespace Ogre {
         // Lock index buffer for writing, just enough length as we need
         HardwareBufferLockGuard indexLock(indexBuffer,
             sizeof(unsigned short) * indexBufferUsedSize, sizeof(unsigned short) * preCountIndexes,
-            indexBufferUsedSize == 0 ? HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NO_OVERWRITE);
+            indexBufferUsedSize == 0 ? HardwareBuffer::LockOptions::DISCARD : HardwareBuffer::LockOptions::NO_OVERWRITE);
         auto* pIdx = static_cast<unsigned short*>(indexLock.pData);
         size_t numIndices = indexBufferUsedSize;
         
@@ -395,8 +396,8 @@ namespace Ogre {
                     numIndices += 3;
 
                     // Are we extruding to infinity?
-                    if (!(lightType == Light::LT_DIRECTIONAL &&
-                        flags & SRF_EXTRUDE_TO_INFINITY))
+                    if (!(lightType == Light::LightTypes::DIRECTIONAL &&
+                        !!(flags & ShadowRenderableFlags::EXTRUDE_TO_INFINITY)))
                     {
                         // additional tri to make quad
                         *pIdx++ = static_cast<unsigned short>(v0 + originalVertexCount);
@@ -410,7 +411,7 @@ namespace Ogre {
                         // Do dark cap tri
                         // Use McGuire et al method, a triangle fan covering all silhouette
                         // edges and one point (taken from the initial tri)
-                        if (flags & SRF_INCLUDE_DARK_CAP)
+                        if (!!(flags & ShadowRenderableFlags::INCLUDE_DARK_CAP))
                         {
                             if (firstDarkCapTri)
                             {
@@ -434,7 +435,7 @@ namespace Ogre {
             if(!useMcGuire)
             {
                 // Do dark cap
-                if (flags & SRF_INCLUDE_DARK_CAP) 
+                if (!!(flags & ShadowRenderableFlags::INCLUDE_DARK_CAP))
                 {
                     // Iterate over the triangles which are using this vertex set
                     for (auto lfi = edgeData->triangleLightFacings.begin() + eg.triStart;
@@ -459,7 +460,7 @@ namespace Ogre {
             }
 
             // Do light cap
-            if (flags & SRF_INCLUDE_LIGHT_CAP) 
+            if (!!(flags & ShadowRenderableFlags::INCLUDE_LIGHT_CAP))
             {
                 // separate light cap?
                 if ((*si)->isLightCapSeparate())
@@ -519,7 +520,7 @@ namespace Ogre {
         // Lock the entire buffer for writing, even though we'll only be
         // updating the latter because you can't have 2 locks on the same
         // buffer
-        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_NORMAL);
+        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::LockOptions::NORMAL);
         auto* pSrc = static_cast<float*>(vertexLock.pData);
 
         // TODO: We should add extra (ununsed) vertices ensure source and

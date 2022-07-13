@@ -39,7 +39,7 @@ static unsigned FRAME_UPDATE_DELAY = 250; // ms
 
 Widget::Widget()
 {
-    mTrayLoc = TL_NONE;
+    mTrayLoc = TrayLocation::NONE;
     mElement = nullptr;
     mListener = nullptr;
 }
@@ -156,7 +156,7 @@ Button::Button(std::string_view name, std::string_view caption, Ogre::Real width
     else mFitToContents = true;
 
     setCaption(caption);
-    mState = BS_UP;
+    mState = ButtonState::UP;
 }
 
 void Button::setCaption(std::string_view caption)
@@ -167,14 +167,14 @@ void Button::setCaption(std::string_view caption)
 
 void Button::_cursorPressed(const Ogre::Vector2 &cursorPos)
 {
-    if (isCursorOver(mElement, cursorPos, 4)) setState(BS_DOWN);
+    if (isCursorOver(mElement, cursorPos, 4)) setState(ButtonState::DOWN);
 }
 
 void Button::_cursorReleased(const Ogre::Vector2 &cursorPos)
 {
-    if (mState == BS_DOWN)
+    if (mState == ButtonState::DOWN)
     {
-        setState(BS_OVER);
+        setState(ButtonState::OVER);
         if (mListener) mListener->buttonHit(this);
     }
 }
@@ -183,27 +183,27 @@ void Button::_cursorMoved(const Ogre::Vector2 &cursorPos, float wheelDelta)
 {
     if (isCursorOver(mElement, cursorPos, 4))
     {
-        if (mState == BS_UP) setState(BS_OVER);
+        if (mState == ButtonState::UP) setState(ButtonState::OVER);
     }
     else
     {
-        if (mState != BS_UP) setState(BS_UP);
+        if (mState != ButtonState::UP) setState(ButtonState::UP);
     }
 }
 
 void Button::_focusLost()
 {
-    setState(BS_UP);   // reset button if cursor was lost
+    setState(ButtonState::UP);   // reset button if cursor was lost
 }
 
 void Button::setState(const ButtonState &bs)
 {
-    if (bs == BS_OVER)
+    if (bs == ButtonState::OVER)
     {
         mBP->setBorderMaterialName("SdkTrays/Button/Over");
         mBP->setMaterialName("SdkTrays/Button/Over");
     }
-    else if (bs == BS_UP)
+    else if (bs == ButtonState::UP)
     {
         mBP->setBorderMaterialName("SdkTrays/Button/Up");
         mBP->setMaterialName("SdkTrays/Button/Up");
@@ -317,9 +317,9 @@ void TextBox::setText(std::string_view text)
 
 void TextBox::setTextAlignment(Ogre::TextAreaOverlayElement::Alignment ta)
 {
-    if (ta == Ogre::TextAreaOverlayElement::Left) mTextArea->setHorizontalAlignment(Ogre::GHA_LEFT);
-    else if (ta == Ogre::TextAreaOverlayElement::Center) mTextArea->setHorizontalAlignment(Ogre::GHA_CENTER);
-    else mTextArea->setHorizontalAlignment(Ogre::GHA_RIGHT);
+    if (ta == Ogre::TextAreaOverlayElement::Alignment::Left) mTextArea->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::LEFT);
+    else if (ta == Ogre::TextAreaOverlayElement::Alignment::Center) mTextArea->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::CENTER);
+    else mTextArea->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::RIGHT);
     refitContents();
 }
 
@@ -329,8 +329,8 @@ void TextBox::refitContents()
     mScrollTrack->setTop(mCaptionBar->getHeight() + 10);
 
     mTextArea->setTop(mCaptionBar->getHeight() + mPadding - 5);
-    if (mTextArea->getHorizontalAlignment() == Ogre::GHA_RIGHT) mTextArea->setLeft(-mPadding + mScrollTrack->getLeft());
-    else if (mTextArea->getHorizontalAlignment() == Ogre::GHA_LEFT) mTextArea->setLeft(mPadding);
+    if (mTextArea->getHorizontalAlignment() == Ogre::GuiHorizontalAlignment::RIGHT) mTextArea->setLeft(-mPadding + mScrollTrack->getLeft());
+    else if (mTextArea->getHorizontalAlignment() == Ogre::GuiHorizontalAlignment::LEFT) mTextArea->setLeft(mPadding);
     else mTextArea->setLeft(mScrollTrack->getLeft() / 2);
 
     setText(getText());
@@ -422,8 +422,8 @@ SelectMenu::SelectMenu(std::string_view name, std::string_view caption, Ogre::Re
         mSmallBox->setTop(2);
         mSmallBox->setLeft(width - boxWidth - 5);
         mElement->setHeight(mSmallBox->getHeight() + 4);
-        mTextArea->setHorizontalAlignment(Ogre::GHA_LEFT);
-        mTextArea->setAlignment(Ogre::TextAreaOverlayElement::Left);
+        mTextArea->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::LEFT);
+        mTextArea->setAlignment(Ogre::TextAreaOverlayElement::Alignment::Left);
         mTextArea->setLeft(12);
         mTextArea->setTop(10);
     }
@@ -500,7 +500,7 @@ void SelectMenu::removeItem(size_t index)
 {
     if(index >= mItems.size()){
         Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName(), index );
-        OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::removeItem");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "SelectMenu::removeItem");
     }
     mItems.erase(mItems.begin() + index);
 
@@ -536,7 +536,7 @@ void SelectMenu::selectItem(size_t index, bool notifyListener)
     if (index >= mItems.size())
     {
         Ogre::String desc = ::std::format("Menu \"{}\" contains no item at position {}.", getName() , index);
-        OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
     }
 
     mSelectionIndex = (int)index;
@@ -572,7 +572,7 @@ void SelectMenu::selectItem(std::string_view item, bool notifyListener)
     }
 
     Ogre::String desc = ::std::format(R"(Menu "{}" contains no item "{}".)", getName() , item );
-    OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
+    OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "SelectMenu::selectItem");
 }
 
 auto SelectMenu::getSelectedItem() -> Ogre::DisplayString
@@ -580,7 +580,7 @@ auto SelectMenu::getSelectedItem() -> Ogre::DisplayString
     if (mSelectionIndex == -1)
     {
         Ogre::String desc = ::std::format("Menu \"{}\" has no item selected.", getName());
-        OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "SelectMenu::getSelectedItem");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "SelectMenu::getSelectedItem");
         return "";
     }
     else return mItems[mSelectionIndex];
@@ -651,7 +651,7 @@ void SelectMenu::_cursorPressed(const Ogre::Vector2 &cursorPos)
             {
                 mExpandedBox->setTop(mSmallBox->getTop() + mSmallBox->getHeight() - idealHeight + 3);
                 // if we're in thick style, hide the caption because it will interfere with the expanded menu
-                if (mTextArea->getHorizontalAlignment() == Ogre::GHA_CENTER) mTextArea->hide();
+                if (mTextArea->getHorizontalAlignment() == Ogre::GuiHorizontalAlignment::CENTER) mTextArea->hide();
             }
             else mExpandedBox->setTop(mSmallBox->getTop() + 3);
 
@@ -827,7 +827,7 @@ Slider::Slider(std::string_view name, std::string_view caption, Ogre::Real width
         valueBox->setTop(2);
         mTrack->setTop(-23);
         mTrack->setWidth(trackWidth);
-        mTrack->setHorizontalAlignment(Ogre::GHA_RIGHT);
+        mTrack->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::RIGHT);
         mTrack->setLeft(-(trackWidth + valueBoxWidth + 5));
     }
 
@@ -967,7 +967,7 @@ void ParamsPanel::setParamValue(std::string_view paramName, std::string_view par
     }
 
     Ogre::String desc = ::std::format(R"(ParamsPanel "{}" has no parameter "{}".)", getName(), paramName );
-    OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
+    OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
 }
 
 void ParamsPanel::setParamValue(unsigned int index, std::string_view paramValue)
@@ -975,7 +975,7 @@ void ParamsPanel::setParamValue(unsigned int index, std::string_view paramValue)
     if (index >= mNames.size())
     {
         Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName() , index);
-        OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "ParamsPanel::setParamValue");
     }
 
     mValues[index] = paramValue;
@@ -990,7 +990,7 @@ auto ParamsPanel::getParamValue(std::string_view paramName) -> Ogre::DisplayStri
     }
 
     Ogre::String desc = ::std::format(R"(ParamsPanel "{}" has no parameter "{}".)", getName() , paramName);
-    OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
+    OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
     return "";
 }
 
@@ -999,7 +999,7 @@ auto ParamsPanel::getParamValue(unsigned int index) -> Ogre::DisplayString
     if (index >= mNames.size())
     {
         Ogre::String desc = ::std::format("ParamsPanel \"{}\" has no parameter at position {}.", getName(),index);
-        OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, desc, "ParamsPanel::getParamValue");
     }
 
     return mValues[index];
@@ -1157,18 +1157,19 @@ TrayManager::TrayManager(std::string_view name, Ogre::RenderWindow *window, Tray
                 ("SdkTrays/Tray", "BorderPanel", ::std::format("{}{}Tray", nameBase , trayNames[i]));
         mTraysLayer->add2D(mTrays[i]);
 
-        mTrayWidgetAlign[i] = Ogre::GHA_CENTER;
+        mTrayWidgetAlign[i] = Ogre::GuiHorizontalAlignment::CENTER;
 
+        auto const tl = static_cast<TrayLocation>(i);
         // align trays based on location
-        if (i == TL_TOP || i == TL_CENTER || i == TL_BOTTOM) mTrays[i]->setHorizontalAlignment(Ogre::GHA_CENTER);
-        if (i == TL_LEFT || i == TL_CENTER || i == TL_RIGHT) mTrays[i]->setVerticalAlignment(Ogre::GVA_CENTER);
-        if (i == TL_TOPRIGHT || i == TL_RIGHT || i == TL_BOTTOMRIGHT) mTrays[i]->setHorizontalAlignment(Ogre::GHA_RIGHT);
-        if (i == TL_BOTTOMLEFT || i == TL_BOTTOM || i == TL_BOTTOMRIGHT) mTrays[i]->setVerticalAlignment(Ogre::GVA_BOTTOM);
+        if (tl == TrayLocation::TOP || tl == TrayLocation::CENTER || tl == TrayLocation::BOTTOM) mTrays[i]->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::CENTER);
+        if (tl == TrayLocation::LEFT || tl == TrayLocation::CENTER || tl == TrayLocation::RIGHT) mTrays[i]->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
+        if (tl == TrayLocation::TOPRIGHT || tl == TrayLocation::RIGHT || tl == TrayLocation::BOTTOMRIGHT) mTrays[i]->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::RIGHT);
+        if (tl == TrayLocation::BOTTOMLEFT || tl == TrayLocation::BOTTOM || tl == TrayLocation::BOTTOMRIGHT) mTrays[i]->setVerticalAlignment(Ogre::GuiVerticalAlignment::BOTTOM);
     }
 
     // create the null tray for free-floating widgets
     mTrays[9] = (Ogre::OverlayContainer*)om.createOverlayElement("Panel", ::std::format("{}NullTray", nameBase));
-    mTrayWidgetAlign[9] = Ogre::GHA_LEFT;
+    mTrayWidgetAlign[9] = Ogre::GuiHorizontalAlignment::LEFT;
     mTraysLayer->add2D(mTrays[9]);
     adjustTrays();
 
@@ -1289,9 +1290,9 @@ void TrayManager::hideTrays()
 
 void TrayManager::setTrayWidgetAlignment(TrayLocation trayLoc, Ogre::GuiHorizontalAlignment gha)
 {
-    mTrayWidgetAlign[trayLoc] = gha;
+    mTrayWidgetAlign[std::to_underlying(trayLoc)] = gha;
 
-    for (auto & i : mWidgets[trayLoc])
+    for (auto & i : mWidgets[std::to_underlying(trayLoc)])
     {
         i->getOverlayElement()->setHorizontalAlignment(gha);
     }
@@ -1337,15 +1338,15 @@ void TrayManager::adjustTrays()
 
             if (j != 0) trayHeight += mWidgetSpacing;   // don't space first widget
 
-            e->setVerticalAlignment(Ogre::GVA_TOP);
+            e->setVerticalAlignment(Ogre::GuiVerticalAlignment::TOP);
             e->setTop(trayHeight);
 
             switch (e->getHorizontalAlignment())
             {
-            case Ogre::GHA_LEFT:
+            case Ogre::GuiHorizontalAlignment::LEFT:
                 e->setLeft(mWidgetPadding);
                 break;
-            case Ogre::GHA_RIGHT:
+            case Ogre::GuiHorizontalAlignment::RIGHT:
                 e->setLeft(-(e->getWidth() + mWidgetPadding));
                 break;
             default:
@@ -1387,18 +1388,19 @@ void TrayManager::adjustTrays()
 
     for (unsigned int i = 0; i < 9; i++)    // snap trays to anchors
     {
-        if (i == TL_TOPLEFT || i == TL_LEFT || i == TL_BOTTOMLEFT)
+        auto const tl = static_cast<TrayLocation>(i);
+        if (tl == TrayLocation::TOPLEFT || tl == TrayLocation::LEFT || tl == TrayLocation::BOTTOMLEFT)
             mTrays[i]->setLeft(mTrayPadding);
-        if (i == TL_TOP || i == TL_CENTER || i == TL_BOTTOM)
+        if (tl == TrayLocation::TOP || tl == TrayLocation::CENTER || tl == TrayLocation::BOTTOM)
             mTrays[i]->setLeft(-mTrays[i]->getWidth() / 2);
-        if (i == TL_TOPRIGHT || i == TL_RIGHT || i == TL_BOTTOMRIGHT)
+        if (tl == TrayLocation::TOPRIGHT || tl == TrayLocation::RIGHT || tl == TrayLocation::BOTTOMRIGHT)
             mTrays[i]->setLeft(-(mTrays[i]->getWidth() + mTrayPadding));
 
-        if (i == TL_TOPLEFT || i == TL_TOP || i == TL_TOPRIGHT)
+        if (tl == TrayLocation::TOPLEFT || tl == TrayLocation::TOP || tl == TrayLocation::TOPRIGHT)
             mTrays[i]->setTop(mTrayPadding);
-        if (i == TL_LEFT || i == TL_CENTER || i == TL_RIGHT)
+        if (tl == TrayLocation::LEFT || tl == TrayLocation::CENTER || tl == TrayLocation::RIGHT)
             mTrays[i]->setTop(-mTrays[i]->getHeight() / 2);
-        if (i == TL_BOTTOMLEFT || i == TL_BOTTOM || i == TL_BOTTOMRIGHT)
+        if (tl == TrayLocation::BOTTOMLEFT || tl == TrayLocation::BOTTOM || tl == TrayLocation::BOTTOMRIGHT)
             mTrays[i]->setTop(-mTrays[i]->getHeight() - mTrayPadding);
 
         // prevents some weird texture filtering problems (just some)
@@ -1536,9 +1538,9 @@ void TrayManager::showFrameStats(TrayLocation trayLoc, size_t place)
         stats.push_back("Triangles");
         stats.push_back("Batches");
 
-        mFpsLabel = createLabel(TL_NONE, ::std::format("{}/FpsLabel", mName), "FPS:", 180);
+        mFpsLabel = createLabel(TrayLocation::NONE, ::std::format("{}/FpsLabel", mName), "FPS:", 180);
         mFpsLabel->_assignListener(this);
-        mStatsPanel = createParamsPanel(TL_NONE, ::std::format("{}/StatsPanel", mName), 180, stats);
+        mStatsPanel = createParamsPanel(TrayLocation::NONE, ::std::format("{}/StatsPanel", mName), 180, stats);
     }
 
     moveWidgetToTray(mFpsLabel, trayLoc, place);
@@ -1558,7 +1560,7 @@ void TrayManager::hideFrameStats()
 
 void TrayManager::showLogo(TrayLocation trayLoc, size_t place)
 {
-    if (!isLogoVisible()) mLogo = createDecorWidget(TL_NONE, ::std::format("{}/Logo", mName), "SdkTrays/Logo");
+    if (!isLogoVisible()) mLogo = createDecorWidget(TrayLocation::NONE, ::std::format("{}/Logo", mName), "SdkTrays/Logo");
     moveWidgetToTray(mLogo, trayLoc, place);
 }
 
@@ -1608,7 +1610,7 @@ void TrayManager::showOkDialog(std::string_view caption, std::string_view messag
         mDialog->setText(message);
         e = mDialog->getOverlayElement();
         mDialogShade->addChild(e);
-        e->setVerticalAlignment(Ogre::GVA_CENTER);
+        e->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
         e->setLeft(-(e->getWidth() / 2));
         e->setTop(-(e->getHeight() / 2));
 
@@ -1620,7 +1622,7 @@ void TrayManager::showOkDialog(std::string_view caption, std::string_view messag
     mOk->_assignListener(this);
     e = mOk->getOverlayElement();
     mDialogShade->addChild(e);
-    e->setVerticalAlignment(Ogre::GVA_CENTER);
+    e->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
     e->setLeft(-(e->getWidth() / 2));
     e->setTop(mDialog->getOverlayElement()->getTop() + mDialog->getOverlayElement()->getHeight() + 5);
 }
@@ -1659,7 +1661,7 @@ void TrayManager::showYesNoDialog(std::string_view caption, std::string_view que
         mDialog->setText(question);
         e = mDialog->getOverlayElement();
         mDialogShade->addChild(e);
-        e->setVerticalAlignment(Ogre::GVA_CENTER);
+        e->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
         e->setLeft(-(e->getWidth() / 2));
         e->setTop(-(e->getHeight() / 2));
 
@@ -1671,7 +1673,7 @@ void TrayManager::showYesNoDialog(std::string_view caption, std::string_view que
     mYes->_assignListener(this);
     e = mYes->getOverlayElement();
     mDialogShade->addChild(e);
-    e->setVerticalAlignment(Ogre::GVA_CENTER);
+    e->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
     e->setLeft(-(e->getWidth() + 2));
     e->setTop(mDialog->getOverlayElement()->getTop() + mDialog->getOverlayElement()->getHeight() + 5);
 
@@ -1679,7 +1681,7 @@ void TrayManager::showYesNoDialog(std::string_view caption, std::string_view que
     mNo->_assignListener(this);
     e = mNo->getOverlayElement();
     mDialogShade->addChild(e);
-    e->setVerticalAlignment(Ogre::GVA_CENTER);
+    e->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
     e->setLeft(3);
     e->setTop(mDialog->getOverlayElement()->getTop() + mDialog->getOverlayElement()->getHeight() + 5);
 }
@@ -1720,7 +1722,7 @@ auto TrayManager::isDialogVisible() noexcept -> bool
 
 auto TrayManager::getWidget(TrayLocation trayLoc, std::string_view name) -> Widget *
 {
-    for (auto & i : mWidgets[trayLoc])
+    for (auto & i : mWidgets[std::to_underlying(trayLoc)])
     {
         if (i->getName() == name) return i;
     }
@@ -1753,25 +1755,25 @@ auto TrayManager::getNumWidgets() noexcept -> unsigned int
 
 auto TrayManager::locateWidgetInTray(Widget *widget) -> int
 {
-    for (unsigned int i = 0; i < mWidgets[widget->getTrayLocation()].size(); i++)
+    for (unsigned int i = 0; i < mWidgets[std::to_underlying(widget->getTrayLocation())].size(); i++)
     {
-        if (mWidgets[widget->getTrayLocation()][i] == widget) return i;
+        if (mWidgets[std::to_underlying(widget->getTrayLocation())][i] == widget) return i;
     }
     return -1;
 }
 
 void TrayManager::destroyWidget(Widget *widget)
 {
-    if (!widget) OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::destroyWidget");
+    if (!widget) OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::destroyWidget");
 
     // in case special widgets are destroyed manually, set them to 0
     if (widget == mLogo) mLogo = nullptr;
     else if (widget == mStatsPanel) mStatsPanel = nullptr;
     else if (widget == mFpsLabel) mFpsLabel = nullptr;
 
-    mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
+    mTrays[std::to_underlying(widget->getTrayLocation())]->removeChild(widget->getName());
 
-    WidgetList& wList = mWidgets[widget->getTrayLocation()];
+    WidgetList& wList = mWidgets[std::to_underlying(widget->getTrayLocation())];
     auto it = std::ranges::find(wList, widget);
     if(it != wList.end())
         wList.erase(it);
@@ -1787,7 +1789,7 @@ void TrayManager::destroyWidget(Widget *widget)
 
 void TrayManager::destroyAllWidgetsInTray(TrayLocation trayLoc)
 {
-    while (!mWidgets[trayLoc].empty()) destroyWidget(mWidgets[trayLoc][0]);
+    while (!mWidgets[std::to_underlying(trayLoc)].empty()) destroyWidget(mWidgets[std::to_underlying(trayLoc)][0]);
 }
 
 void TrayManager::destroyAllWidgets()
@@ -1800,37 +1802,37 @@ void TrayManager::destroyAllWidgets()
 
 void TrayManager::moveWidgetToTray(Widget *widget, TrayLocation trayLoc, size_t place)
 {
-    if (!widget) OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::moveWidgetToTray");
+    if (!widget) OGRE_EXCEPT(Ogre::ExceptionCodes::ITEM_NOT_FOUND, "Widget does not exist.", "TrayManager::moveWidgetToTray");
 
     // remove widget from old tray
-    WidgetList& wList = mWidgets[widget->getTrayLocation()];
+    WidgetList& wList = mWidgets[std::to_underlying(widget->getTrayLocation())];
     auto it = std::ranges::find(wList, widget);
     if (it != wList.end())
     {
         wList.erase(it);
-        mTrays[widget->getTrayLocation()]->removeChild(widget->getName());
+        mTrays[std::to_underlying(widget->getTrayLocation())]->removeChild(widget->getName());
     }
 
     // insert widget into new tray at given position, or at the end if unspecified or invalid
-    if (place > mWidgets[trayLoc].size()) place = mWidgets[trayLoc].size();
-    mWidgets[trayLoc].insert(mWidgets[trayLoc].begin() + place, widget);
-    mTrays[trayLoc]->addChild(widget->getOverlayElement());
+    if (place > mWidgets[std::to_underlying(trayLoc)].size()) place = mWidgets[std::to_underlying(trayLoc)].size();
+    mWidgets[std::to_underlying(trayLoc)].insert(mWidgets[std::to_underlying(trayLoc)].begin() + place, widget);
+    mTrays[std::to_underlying(trayLoc)]->addChild(widget->getOverlayElement());
 
-    widget->getOverlayElement()->setHorizontalAlignment(mTrayWidgetAlign[trayLoc]);
+    widget->getOverlayElement()->setHorizontalAlignment(mTrayWidgetAlign[std::to_underlying(trayLoc)]);
 
     // adjust trays if necessary
-    if (widget->getTrayLocation() != TL_NONE || trayLoc != TL_NONE) adjustTrays();
+    if (widget->getTrayLocation() != TrayLocation::NONE || trayLoc != TrayLocation::NONE) adjustTrays();
 
     widget->_assignToTray(trayLoc);
 }
 
 void TrayManager::clearTray(TrayLocation trayLoc)
 {
-    if (trayLoc == TL_NONE) return;      // can't clear the null tray
+    if (trayLoc == TrayLocation::NONE) return;      // can't clear the null tray
 
-    while (!mWidgets[trayLoc].empty())   // remove every widget from given tray
+    while (!mWidgets[std::to_underlying(trayLoc)].empty())   // remove every widget from given tray
     {
-        removeWidgetFromTray(mWidgets[trayLoc][0]);
+        removeWidgetFromTray(mWidgets[std::to_underlying(trayLoc)][0]);
     }
 }
 
@@ -1928,7 +1930,7 @@ void TrayManager::buttonHit(Button *button)
 
 auto TrayManager::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 {
-    if (evt.button != BUTTON_LEFT) return false;
+    if (evt.button != ButtonType::LEFT) return false;
 
     Ogre::Vector2 cursorPos(mCursor->getLeft(), mCursor->getTop());
 
@@ -2001,7 +2003,7 @@ auto TrayManager::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 
 auto TrayManager::mouseReleased(const MouseButtonUpEvent &evt) noexcept -> bool
 {
-    if (evt.button != BUTTON_LEFT) return false;
+    if (evt.button != ButtonType::LEFT) return false;
 
     Ogre::Vector2 cursorPos(mCursor->getLeft(), mCursor->getTop());
 

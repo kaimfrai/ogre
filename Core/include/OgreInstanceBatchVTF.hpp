@@ -76,7 +76,7 @@ class VertexData;
         Mobility Radeon HD 4650, but went 0.75x slower on an AthlonX2 5000+ integrated nForce 6150 SE
         Each BaseInstanceBatchVTF has it's own texture, which occupies memory in VRAM.
         Approx VRAM usage can be computed by doing 12 bytes * 3 * numInstances * numBones
-        Use flag IM_VTFBESTFIT to avoid wasting VRAM (but may reduce amount of instances per batch).
+        Use flag InstanceManagerFlags::VTFBESTFIT to avoid wasting VRAM (but may reduce amount of instances per batch).
         @par
         The material requires at least a texture unit stage named "InstancingVTF"
 
@@ -235,7 +235,7 @@ class VertexData;
         ~InstanceBatchVTF() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t override;
     };
 }
 

@@ -55,33 +55,33 @@ class RenderQueue;
 
     /** Enum describing how the position / size of an element is to be recorded. 
     */
-    enum GuiMetricsMode
+    enum class GuiMetricsMode
     {
         /// 'left', 'top', 'height' and 'width' are parametrics from 0.0 to 1.0
-        GMM_RELATIVE,
+        RELATIVE,
         /// Positions & sizes are in absolute pixels
-        GMM_PIXELS,
+        PIXELS,
         /// Positions & sizes are in virtual pixels
-        GMM_RELATIVE_ASPECT_ADJUSTED
+        RELATIVE_ASPECT_ADJUSTED
     };
 
     /** Enum describing where '0' is in relation to the parent in the horizontal dimension.
     @remarks Affects how 'left' is interpreted.
     */
-    enum GuiHorizontalAlignment
+    enum class GuiHorizontalAlignment
     {
-        GHA_LEFT,
-        GHA_CENTER,
-        GHA_RIGHT
+        LEFT,
+        CENTER,
+        RIGHT
     };
     /** Enum describing where '0' is in relation to the parent in the vertical dimension.
     @remarks Affects how 'top' is interpreted.
     */
-    enum GuiVerticalAlignment
+    enum class GuiVerticalAlignment
     {
-        GVA_TOP,
-        GVA_CENTER,
-        GVA_BOTTOM
+        TOP,
+        CENTER,
+        BOTTOM
     };
 
     /** Abstract definition of a 2D element to be displayed in an Overlay.
@@ -122,11 +122,11 @@ class RenderQueue;
         ColourValue mColour;
         RealRect mClippingRegion;
 
-        GuiMetricsMode mMetricsMode{GMM_RELATIVE};
-        GuiHorizontalAlignment mHorzAlign{GHA_LEFT};
-        GuiVerticalAlignment mVertAlign{GVA_TOP};
+        GuiMetricsMode mMetricsMode{GuiMetricsMode::RELATIVE};
+        GuiHorizontalAlignment mHorzAlign{GuiHorizontalAlignment::LEFT};
+        GuiVerticalAlignment mVertAlign{GuiVerticalAlignment::TOP};
 
-        // metric-mode positions, used in GMM_PIXELS & GMM_RELATIVE_ASPECT_ADJUSTED mode.
+        // metric-mode positions, used in GuiMetricsMode::PIXELS & GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED mode.
         Real mPixelTop{0.0};
         Real mPixelLeft{0.0};
         Real mPixelWidth{1.0};
@@ -377,7 +377,7 @@ class RenderQueue;
         of the screen. This is to ensure portability between different resolutions when you
         want things to be positioned and sized the same way across all resolutions. However, 
         sometimes you want things to be sized according to fixed pixels. In order to do this,
-        you can call this method with the parameter GMM_PIXELS. Note that if you then want
+        you can call this method with the parameter GuiMetricsMode::PIXELS. Note that if you then want
         to place your element relative to the center, right or bottom of it's parent, you will
         need to use the setHorizontalAlignment and setVerticalAlignment methods.
         */
@@ -391,10 +391,10 @@ class RenderQueue;
         especially useful when you want to use pixel-based metrics (see setMetricsMode) since in this
         mode you can't use relative positioning.
         @par
-        For example, if you were using GMM_PIXELS metrics mode, and you wanted to place a 30x30 pixel
-        crosshair in the center of the screen, you would use GHA_CENTER with a 'left' property of -15.
+        For example, if you were using GuiMetricsMode::PIXELS metrics mode, and you wanted to place a 30x30 pixel
+        crosshair in the center of the screen, you would use GuiHorizontalAlignment::CENTER with a 'left' property of -15.
         @par
-        Note that neither GHA_CENTER or GHA_RIGHT alter the position of the element based
+        Note that neither GuiHorizontalAlignment::CENTER or GuiHorizontalAlignment::RIGHT alter the position of the element based
         on it's width, you have to alter the 'left' to a negative number to do that; all this
         does is establish the origin. This is because this way you can align multiple things
         in the center and right with different 'left' offsets for maximum flexibility.
@@ -409,10 +409,10 @@ class RenderQueue;
         especially useful when you want to use pixel-based metrics (see setMetricsMode) since in this
         mode you can't use relative positioning.
         @par
-        For example, if you were using GMM_PIXELS metrics mode, and you wanted to place a 30x30 pixel
-        crosshair in the center of the screen, you would use GHA_CENTER with a 'top' property of -15.
+        For example, if you were using GuiMetricsMode::PIXELS metrics mode, and you wanted to place a 30x30 pixel
+        crosshair in the center of the screen, you would use GuiHorizontalAlignment::CENTER with a 'top' property of -15.
         @par
-        Note that neither GVA_CENTER or GVA_BOTTOM alter the position of the element based
+        Note that neither GuiVerticalAlignment::CENTER or GuiVerticalAlignment::BOTTOM alter the position of the element based
         on it's height, you have to alter the 'top' to a negative number to do that; all this
         does is establish the origin. This is because this way you can align multiple things
         in the center and bottom with different 'top' offsets for maximum flexibility.

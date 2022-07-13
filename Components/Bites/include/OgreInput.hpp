@@ -26,10 +26,10 @@ namespace OgreBites {
  * SDL2 inspired input abstraction layer providing basic events
  * @{
  */
-enum ButtonType {
-    BUTTON_LEFT = 1,
-    BUTTON_MIDDLE,
-    BUTTON_RIGHT,
+enum class ButtonType {
+    LEFT = 1,
+    MIDDLE,
+    RIGHT,
 };
 
 using Keycode = int;
@@ -54,7 +54,7 @@ struct MouseMotionEvent {
 
 struct MouseButtonEvent {
     int x, y;
-    unsigned char button;
+    ButtonType button;
     unsigned char clicks;
 };
 struct MouseButtonUpEvent : MouseButtonEvent {};

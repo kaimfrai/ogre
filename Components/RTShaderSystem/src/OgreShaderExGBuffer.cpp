@@ -68,7 +68,7 @@ String GBuffer::Type = "GBuffer";
 auto GBuffer::getType() const noexcept -> std::string_view { return Type; }
 
 //-----------------------------------------------------------------------
-auto GBuffer::getExecutionOrder() const noexcept -> int { return FFP_LIGHTING; }
+auto GBuffer::getExecutionOrder() const noexcept -> FFPShaderStage { return FFPShaderStage::LIGHTING; }
 
 auto GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
@@ -79,32 +79,32 @@ auto GBuffer::preAddToRenderState(const RenderState* renderState, Pass* srcPass,
 //-----------------------------------------------------------------------
 auto GBuffer::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
-    Function* psMain = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM)->getMain();
+    Function* psMain = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM)->getMain();
 
     for(size_t i = 0; i < mOutBuffers.size(); i++)
     {
         auto out =
-            psMain->resolveOutputParameter(i == 0 ? Parameter::SPC_COLOR_DIFFUSE : Parameter::SPC_COLOR_SPECULAR);
+            psMain->resolveOutputParameter(i == 0 ? Parameter::Content::COLOR_DIFFUSE : Parameter::Content::COLOR_SPECULAR);
 
         switch(mOutBuffers[i])
         {
-        case TL_DEPTH:
+        case TargetLayout::DEPTH:
             addDepthInvocations(programSet, out);
             break;
-        case TL_NORMAL_VIEWDEPTH:
+        case TargetLayout::NORMAL_VIEWDEPTH:
             addViewPosInvocations(programSet, out, true);
             [[fallthrough]];
-        case TL_NORMAL:
+        case TargetLayout::NORMAL:
             addNormalInvocations(programSet, out);
             break;
-        case TL_VIEWPOS:
+        case TargetLayout::VIEWPOS:
             addViewPosInvocations(programSet, out, false);
             break;
-        case TL_DIFFUSE_SPECULAR:
+        case TargetLayout::DIFFUSE_SPECULAR:
             addDiffuseSpecularInvocations(programSet, out);
             break;
         default:
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "unsupported TargetLayout");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "unsupported TargetLayout");
         }
     }
 
@@ -113,25 +113,25 @@ auto GBuffer::createCpuSubPrograms(ProgramSet* programSet) -> bool
 
 void GBuffer::addViewPosInvocations(ProgramSet* programSet, const ParameterPtr& out, bool depthOnly)
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain = vsProgram->getMain();
     Function* psMain = psProgram->getMain();
 
     // vertex shader
-    auto vstage = vsMain->getStage(FFP_VS_POST_PROCESS);
-    auto vsInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
-    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_VIEW_SPACE);
-    auto worldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEW_MATRIX);
+    auto vstage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::POST_PROCESS));
+    auto vsInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
+    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_VIEW_SPACE);
+    auto worldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEW_MATRIX);
     vstage.callFunction(FFP_FUNC_TRANSFORM, worldViewMatrix, vsInPosition, vsOutPos);
 
     // fragment shader
-    auto fstage = psMain->getStage(FFP_PS_COLOUR_END);
+    auto fstage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_END));
     auto viewPos = psMain->resolveInputParameter(vsOutPos);
 
     if(depthOnly)
     {
-        auto far = psProgram->resolveParameter(GpuProgramParameters::ACT_FAR_CLIP_DISTANCE);
+        auto far = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::FAR_CLIP_DISTANCE);
         fstage.callFunction("FFP_Length", viewPos, Out(out).w());
         fstage.div(In(out).w(), far, Out(out).w());
         return;
@@ -143,27 +143,27 @@ void GBuffer::addViewPosInvocations(ProgramSet* programSet, const ParameterPtr& 
 
 void GBuffer::addDepthInvocations(ProgramSet* programSet, const ParameterPtr& out)
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain = vsProgram->getMain();
     Function* psMain = psProgram->getMain();
 
     // vertex shader
-    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_PROJECTIVE_SPACE);
 
     bool isD3D9 = ShaderGenerator::getSingleton().getTargetLanguage() == "hlsl" &&
                   !GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0_level_9_1");
 
     if (isD3D9)
     {
-        auto vstage = vsMain->getStage(FFP_VS_POST_PROCESS);
-        auto vsPos = vsMain->resolveOutputParameter(Parameter::SPC_UNKNOWN, GCT_FLOAT4);
+        auto vstage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::POST_PROCESS));
+        auto vsPos = vsMain->resolveOutputParameter(Parameter::Content::UNKNOWN, GpuConstantType::FLOAT4);
         vstage.assign(vsOutPos, vsPos);
         std::swap(vsOutPos, vsPos);
     }
 
     // fragment shader
-    auto fstage = psMain->getStage(FFP_PS_COLOUR_END);
+    auto fstage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_END));
     auto viewPos = psMain->resolveInputParameter(vsOutPos);
 
     fstage.assign(In(viewPos).z(), Out(out).x());
@@ -176,19 +176,19 @@ void GBuffer::addDepthInvocations(ProgramSet* programSet, const ParameterPtr& ou
 
 void GBuffer::addNormalInvocations(ProgramSet* programSet, const ParameterPtr& out)
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getMain();
-    Function* psMain = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM)->getMain();
+    Function* psMain = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM)->getMain();
 
-    auto fstage = psMain->getStage(FFP_PS_COLOUR_END);
-    auto viewNormal = psMain->getLocalParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+    auto fstage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_END));
+    auto viewNormal = psMain->getLocalParameter(Parameter::Content::NORMAL_VIEW_SPACE);
     if(!viewNormal)
     {
         // compute vertex shader normal
-        auto vstage = vsMain->getStage(FFP_VS_LIGHTING);
-        auto vsInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
-        auto vsOutNormal = vsMain->resolveOutputParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
-        auto worldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_NORMAL_MATRIX);
+        auto vstage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::LIGHTING));
+        auto vsInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
+        auto vsOutNormal = vsMain->resolveOutputParameter(Parameter::Content::NORMAL_VIEW_SPACE);
+        auto worldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::NORMAL_MATRIX);
         vstage.callFunction(FFP_FUNC_TRANSFORM, worldViewITMatrix, vsInNormal, vsOutNormal);
         vstage.callFunction(FFP_FUNC_NORMALIZE, vsOutNormal);
 
@@ -200,16 +200,16 @@ void GBuffer::addNormalInvocations(ProgramSet* programSet, const ParameterPtr& o
 
 void GBuffer::addDiffuseSpecularInvocations(ProgramSet* programSet, const ParameterPtr& out)
 {
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* psMain = psProgram->getMain();
 
     // set diffuse - TODO vertex color tracking
-    auto diffuse = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_DIFFUSE_COLOUR);
-    psMain->getStage(FFP_PS_COLOUR_BEGIN + 1).assign(diffuse, out);
+    auto diffuse = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_DIFFUSE_COLOUR);
+    psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_BEGIN) + 1).assign(diffuse, out);
 
     // set shininess
-    auto surfaceShininess = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_SHININESS);
-    psMain->getStage(FFP_PS_COLOUR_END).assign(surfaceShininess, Out(out).w());
+    auto surfaceShininess = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_SHININESS);
+    psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_END)).assign(surfaceShininess, Out(out).w());
 }
 
 //-----------------------------------------------------------------------
@@ -225,14 +225,14 @@ auto GBufferFactory::getType() const noexcept -> std::string_view { return GBuff
 static auto translate(std::string_view val) -> GBuffer::TargetLayout
 {
     if(val == "depth")
-        return GBuffer::TL_DEPTH;
+        return GBuffer::TargetLayout::DEPTH;
     if(val == "normal")
-        return GBuffer::TL_NORMAL;
+        return GBuffer::TargetLayout::NORMAL;
     if(val == "viewpos")
-        return GBuffer::TL_VIEWPOS;
+        return GBuffer::TargetLayout::VIEWPOS;
     if(val == "normal_viewdepth")
-        return GBuffer::TL_NORMAL_VIEWDEPTH;
-    return GBuffer::TL_DIFFUSE_SPECULAR;
+        return GBuffer::TargetLayout::NORMAL_VIEWDEPTH;
+    return GBuffer::TargetLayout::DIFFUSE_SPECULAR;
 }
 
 //-----------------------------------------------------------------------

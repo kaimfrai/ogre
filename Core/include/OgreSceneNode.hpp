@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "OgreAxisAlignedBox.hpp"
 #include "OgreCommon.hpp"
 #include "OgreMath.hpp"
+#include "OgreMovableObject.hpp"
 #include "OgreNode.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
@@ -344,12 +345,12 @@ class SceneManager;
             this SceneNode's centre.
         @param lightMask The mask with which to include / exclude lights
         */
-        void findLights(LightList& destList, Real radius, uint32 lightMask = 0xFFFFFFFF) const;
+        void findLights(LightList& destList, Real radius, QueryTypeMask lightMask = QueryTypeMask{0xFFFFFFFF}) const;
 
         /** Tells the node whether to yaw around it's own local Y axis or a fixed axis of choice.
         @remarks
         This method allows you to change the yaw behaviour of the node - by default, it
-        yaws around it's own local Y axis when told to yaw with TS_LOCAL, this makes it
+        yaws around it's own local Y axis when told to yaw with TransformSpace::LOCAL, this makes it
         yaw around a fixed axis. 
         You only really need this when you're using auto tracking (see setAutoTracking,
         because when you're manually rotating a node you can specify the TransformSpace
@@ -364,7 +365,7 @@ class SceneManager;
 
         /** Rotate the node around the Y-axis.
         */
-        void yaw(const Radian& angle, TransformSpace relativeTo = TS_LOCAL) override;
+        void yaw(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL) override;
         /** Sets the node's direction vector ie it's local -z.
         @remarks
         Note that the 'up' vector for the orientation will automatically be 
@@ -376,11 +377,11 @@ class SceneManager;
         direction of the node, usually -Z
         */
         void setDirection(Real x, Real y, Real z,
-            TransformSpace relativeTo = TS_PARENT,
+            TransformSpace relativeTo = TransformSpace::PARENT,
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z);
 
         /// @overload
-        void setDirection(const Vector3& vec, TransformSpace relativeTo = TS_PARENT,
+        void setDirection(const Vector3& vec, TransformSpace relativeTo = TransformSpace::PARENT,
             const Vector3& localDirectionVector = Vector3::NEGATIVE_UNIT_Z);
         /** Points the local -Z direction of this node at a point in space.
         @param targetPoint A vector specifying the look at point.

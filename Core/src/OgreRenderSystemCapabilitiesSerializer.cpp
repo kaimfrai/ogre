@@ -142,6 +142,7 @@ namespace Ogre
 
         // parser operating data
         String line;
+        using enum ParseAction;
         ParseAction parseAction = PARSE_HEADER;
         bool parsedAtLeastOneRSC = false;
 
@@ -269,6 +270,7 @@ namespace Ogre
 
     void RenderSystemCapabilitiesSerializer::initialiaseDispatchTables()
     {
+        using enum RenderSystemCapabilitiesSerializer::CapabilityKeywordType;
         // set up driver version parsing
         addKeywordType("driver_version", SET_STRING_METHOD);
         // set up the setters for driver versions
@@ -342,51 +344,51 @@ namespace Ogre
         // there is no dispatch table for shader profiles, just the type
         addKeywordType("shader_profile", ADD_SHADER_PROFILE_STRING);
 
-        addCapabilitiesMapping("fixed_function", RSC_FIXED_FUNCTION);
-        addCapabilitiesMapping("anisotropy", RSC_ANISOTROPY);
-        addCapabilitiesMapping("hwstencil", RSC_HWSTENCIL);
-        addCapabilitiesMapping("32bit_index", RSC_32BIT_INDEX);
-        addCapabilitiesMapping("vertex_program", RSC_VERTEX_PROGRAM);
-        addCapabilitiesMapping("geometry_program", RSC_GEOMETRY_PROGRAM);
-        addCapabilitiesMapping("tessellation_hull_program", RSC_TESSELLATION_HULL_PROGRAM);
-        addCapabilitiesMapping("tessellation_domain_program", RSC_TESSELLATION_DOMAIN_PROGRAM);
-        addCapabilitiesMapping("compute_program", RSC_COMPUTE_PROGRAM);
-        addCapabilitiesMapping("two_sided_stencil", RSC_TWO_SIDED_STENCIL);
-        addCapabilitiesMapping("stencil_wrap", RSC_STENCIL_WRAP);
-        addCapabilitiesMapping("hwocclusion", RSC_HWOCCLUSION);
-        addCapabilitiesMapping("user_clip_planes", RSC_USER_CLIP_PLANES);
-        addCapabilitiesMapping("hwrender_to_texture", RSC_HWRENDER_TO_TEXTURE);
-        addCapabilitiesMapping("texture_float", RSC_TEXTURE_FLOAT);
-        addCapabilitiesMapping("non_power_of_2_textures", RSC_NON_POWER_OF_2_TEXTURES);
-        addCapabilitiesMapping("texture_3d", RSC_TEXTURE_3D);
-        addCapabilitiesMapping("texture_2d_array", RSC_TEXTURE_3D);
-        addCapabilitiesMapping("texture_1d", RSC_TEXTURE_1D);
-        addCapabilitiesMapping("point_sprites", RSC_POINT_SPRITES);
-        addCapabilitiesMapping("wide_lines", RSC_WIDE_LINES);
-        addCapabilitiesMapping("point_extended_parameters", RSC_POINT_EXTENDED_PARAMETERS);
-        addCapabilitiesMapping("vertex_texture_fetch", RSC_VERTEX_TEXTURE_FETCH);
-        addCapabilitiesMapping("mipmap_lod_bias", RSC_MIPMAP_LOD_BIAS);
-        addCapabilitiesMapping("atomic_counters", RSC_READ_WRITE_BUFFERS);
-        addCapabilitiesMapping("texture_compression", RSC_TEXTURE_COMPRESSION);
-        addCapabilitiesMapping("texture_compression_dxt", RSC_TEXTURE_COMPRESSION_DXT);
-        addCapabilitiesMapping("texture_compression_vtc", RSC_TEXTURE_COMPRESSION_VTC);
-        addCapabilitiesMapping("texture_compression_pvrtc", RSC_TEXTURE_COMPRESSION_PVRTC);
-        addCapabilitiesMapping("texture_compression_atc", RSC_TEXTURE_COMPRESSION_ATC);
-        addCapabilitiesMapping("texture_compression_etc1", RSC_TEXTURE_COMPRESSION_ETC1);
-        addCapabilitiesMapping("texture_compression_etc2", RSC_TEXTURE_COMPRESSION_ETC2);
-        addCapabilitiesMapping("texture_compression_bc4_bc5", RSC_TEXTURE_COMPRESSION_BC4_BC5);
-        addCapabilitiesMapping("texture_compression_bc6h_bc7", RSC_TEXTURE_COMPRESSION_BC6H_BC7);
-        addCapabilitiesMapping("texture_compression_astc", RSC_TEXTURE_COMPRESSION_ASTC);
-        addCapabilitiesMapping("hwrender_to_vertex_buffer", RSC_HWRENDER_TO_VERTEX_BUFFER);
+        addCapabilitiesMapping("fixed_function", Capabilities::FIXED_FUNCTION);
+        addCapabilitiesMapping("anisotropy", Capabilities::ANISOTROPY);
+        addCapabilitiesMapping("hwstencil", Capabilities::HWSTENCIL);
+        addCapabilitiesMapping("32bit_index", Capabilities::_32BIT_INDEX);
+        addCapabilitiesMapping("vertex_program", Capabilities::VERTEX_PROGRAM);
+        addCapabilitiesMapping("geometry_program", Capabilities::GEOMETRY_PROGRAM);
+        addCapabilitiesMapping("tessellation_hull_program", Capabilities::TESSELLATION_HULL_PROGRAM);
+        addCapabilitiesMapping("tessellation_domain_program", Capabilities::TESSELLATION_DOMAIN_PROGRAM);
+        addCapabilitiesMapping("compute_program", Capabilities::COMPUTE_PROGRAM);
+        addCapabilitiesMapping("two_sided_stencil", Capabilities::TWO_SIDED_STENCIL);
+        addCapabilitiesMapping("stencil_wrap", Capabilities::STENCIL_WRAP);
+        addCapabilitiesMapping("hwocclusion", Capabilities::HWOCCLUSION);
+        addCapabilitiesMapping("user_clip_planes", Capabilities::USER_CLIP_PLANES);
+        addCapabilitiesMapping("hwrender_to_texture", Capabilities::HWRENDER_TO_TEXTURE);
+        addCapabilitiesMapping("texture_float", Capabilities::TEXTURE_FLOAT);
+        addCapabilitiesMapping("non_power_of_2_textures", Capabilities::NON_POWER_OF_2_TEXTURES);
+        addCapabilitiesMapping("texture_3d", Capabilities::TEXTURE_3D);
+        addCapabilitiesMapping("texture_2d_array", Capabilities::TEXTURE_3D);
+        addCapabilitiesMapping("texture_1d", Capabilities::TEXTURE_1D);
+        addCapabilitiesMapping("point_sprites", Capabilities::POINT_SPRITES);
+        addCapabilitiesMapping("wide_lines", Capabilities::WIDE_LINES);
+        addCapabilitiesMapping("point_extended_parameters", Capabilities::POINT_EXTENDED_PARAMETERS);
+        addCapabilitiesMapping("vertex_texture_fetch", Capabilities::VERTEX_TEXTURE_FETCH);
+        addCapabilitiesMapping("mipmap_lod_bias", Capabilities::MIPMAP_LOD_BIAS);
+        addCapabilitiesMapping("atomic_counters", Capabilities::READ_WRITE_BUFFERS);
+        addCapabilitiesMapping("texture_compression", Capabilities::TEXTURE_COMPRESSION);
+        addCapabilitiesMapping("texture_compression_dxt", Capabilities::TEXTURE_COMPRESSION_DXT);
+        addCapabilitiesMapping("texture_compression_vtc", Capabilities::TEXTURE_COMPRESSION_VTC);
+        addCapabilitiesMapping("texture_compression_pvrtc", Capabilities::TEXTURE_COMPRESSION_PVRTC);
+        addCapabilitiesMapping("texture_compression_atc", Capabilities::TEXTURE_COMPRESSION_ATC);
+        addCapabilitiesMapping("texture_compression_etc1", Capabilities::TEXTURE_COMPRESSION_ETC1);
+        addCapabilitiesMapping("texture_compression_etc2", Capabilities::TEXTURE_COMPRESSION_ETC2);
+        addCapabilitiesMapping("texture_compression_bc4_bc5", Capabilities::TEXTURE_COMPRESSION_BC4_BC5);
+        addCapabilitiesMapping("texture_compression_bc6h_bc7", Capabilities::TEXTURE_COMPRESSION_BC6H_BC7);
+        addCapabilitiesMapping("texture_compression_astc", Capabilities::TEXTURE_COMPRESSION_ASTC);
+        addCapabilitiesMapping("hwrender_to_vertex_buffer", Capabilities::HWRENDER_TO_VERTEX_BUFFER);
 
-        addCapabilitiesMapping("pbuffer", RSC_PBUFFER);
-        addCapabilitiesMapping("perstageconstant", RSC_PERSTAGECONSTANT);
-        addCapabilitiesMapping("vao", RSC_VAO);
-        addCapabilitiesMapping("separate_shader_objects", RSC_SEPARATE_SHADER_OBJECTS);
-        addCapabilitiesMapping("glsl_sso_redeclare", RSC_GLSL_SSO_REDECLARE);
-        addCapabilitiesMapping("debug", RSC_DEBUG);
-        addCapabilitiesMapping("mapbuffer", RSC_MAPBUFFER);
-        addCapabilitiesMapping("automipmap_compressed", RSC_AUTOMIPMAP_COMPRESSED);
+        addCapabilitiesMapping("pbuffer", Capabilities::PBUFFER);
+        addCapabilitiesMapping("perstageconstant", Capabilities::PERSTAGECONSTANT);
+        addCapabilitiesMapping("vao", Capabilities::VAO);
+        addCapabilitiesMapping("separate_shader_objects", Capabilities::SEPARATE_SHADER_OBJECTS);
+        addCapabilitiesMapping("glsl_sso_redeclare", Capabilities::GLSL_SSO_REDECLARE);
+        addCapabilitiesMapping("debug", Capabilities::DEBUG);
+        addCapabilitiesMapping("mapbuffer", Capabilities::MAPBUFFER);
+        addCapabilitiesMapping("automipmap_compressed", Capabilities::AUTOMIPMAP_COMPRESSED);
     }
 
     void RenderSystemCapabilitiesSerializer::parseCapabilitiesLines(CapabilitiesLinesList& lines)
@@ -416,7 +418,7 @@ namespace Ogre
             everythingElse = std::format("{}{}", everythingElse, tokens[tokens.size() - 1]);
 
             CapabilityKeywordType keywordType = getKeywordType(keyword);
-
+            using enum CapabilityKeywordType;
             switch(keywordType)
             {
                 case UNDEFINED_CAPABILITY_TYPE:

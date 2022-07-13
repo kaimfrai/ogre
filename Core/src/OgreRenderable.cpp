@@ -31,7 +31,7 @@ auto Renderable::getCustomParameter(size_t index) const -> const Vector4&
     }
     else
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Parameter at the given index was not found.");
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, "Parameter at the given index was not found.");
     }
 }
 

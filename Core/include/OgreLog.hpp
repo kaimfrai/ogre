@@ -48,7 +48,7 @@ namespace Ogre {
     */
 
     /// @deprecated use LogMessageLevel instead
-    enum LoggingLevel
+    enum class LoggingLevel
     {
         LL_LOW = 1,
         LL_NORMAL = 2,
@@ -57,12 +57,12 @@ namespace Ogre {
 
     /** The importance of a logged message.
     */
-    enum LogMessageLevel
+    enum class LogMessageLevel
     {
-        LML_TRIVIAL = 1,
-        LML_NORMAL = 2,
-        LML_WARNING = 3,
-        LML_CRITICAL = 4
+        Trivial = 1,
+        Normal = 2,
+        Warning = 3,
+        Critical = 4
     };
 
     /** @remarks Pure Abstract class, derive this class and register to the Log to listen to log messages */
@@ -93,14 +93,14 @@ namespace Ogre {
         Log class for writing debug/log data to files.
 
         You can control the default log level through the `OGRE_MIN_LOGLEVEL` environment variable.
-        Here, the value 1 corresponds to #LML_TRIVIAL etc.
+        Here, the value 1 corresponds to #LogMessageLevel::Trivial etc.
         @note Should not be used directly, but trough the LogManager class.
     */
     class Log : public LogAlloc
     {
     private:
         std::ofstream   mLog;
-        LogMessageLevel mLogLevel{LML_NORMAL};
+        LogMessageLevel mLogLevel{LogMessageLevel::Normal};
         bool            mDebugOut;
         bool            mSuppressFile;
         bool            mTimeStamp{true};
@@ -137,10 +137,10 @@ namespace Ogre {
         /** Log a message to the debugger and to log file (the default is
             "<code>OGRE.log</code>"),
         */
-        void logMessage( std::string_view message, LogMessageLevel lml = LML_NORMAL, bool maskDebug = false );
+        void logMessage( std::string_view message, LogMessageLevel lml = LogMessageLevel::Normal, bool maskDebug = false );
 
         /** Get a stream object targeting this log. */
-        auto stream(LogMessageLevel lml = LML_NORMAL, bool maskDebug = false) -> Stream;
+        auto stream(LogMessageLevel lml = LogMessageLevel::Normal, bool maskDebug = false) -> Stream;
 
         /**
         @remarks
@@ -226,7 +226,10 @@ namespace Ogre {
             template <typename T>
             auto operator<< (const T& v) -> Stream&
             {
-                mCache << v;
+                if constexpr(std::is_enum_v<T>)
+                    mCache << std::to_underlying(v);
+                else
+                    mCache << v;
                 return *this;
             }
 

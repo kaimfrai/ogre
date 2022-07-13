@@ -48,7 +48,7 @@ THE SOFTWARE.
 
 // If X11/Xlib.h gets included before this header (for example it happens when
 // including wxWidgets and FLTK), Status is defined as an int which we don't
-// want as we have an enum named Status.
+// want as we have an enum class named Status.
 #ifdef Status
 #undef Status
 #endif
@@ -290,7 +290,7 @@ namespace Ogre {
         /// Resource group entry
         struct ResourceGroup
         {
-            enum Status
+            enum class Status
             {
                 UNINITIALSED = 0,
                 INITIALISING = 1,

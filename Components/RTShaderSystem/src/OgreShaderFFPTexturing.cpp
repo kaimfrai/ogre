@@ -86,9 +86,9 @@ auto FFPTexturing::getType() const noexcept -> std::string_view
 }
 
 //-----------------------------------------------------------------------
-auto FFPTexturing::getExecutionOrder() const noexcept -> int
+auto FFPTexturing::getExecutionOrder() const noexcept -> FFPShaderStage
 {       
-    return FFP_TEXTURING;
+    return FFPShaderStage::TEXTURING;
 }
 
 //-----------------------------------------------------------------------
@@ -113,8 +113,8 @@ auto FFPTexturing::resolveParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     
     // Resolve texture sampler parameter.       
     textureUnitParams->mTextureSampler = psProgram->resolveParameter(textureUnitParams->mTextureSamplerType, "gTextureSampler", textureUnitParams->mTextureSamplerIndex);
@@ -122,34 +122,34 @@ auto FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, Pr
     // Resolve texture matrix parameter.
     if (needsTextureMatrix(textureUnitParams->mTextureUnitState))
     {               
-        textureUnitParams->mTextureMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_TEXTURE_MATRIX, textureUnitParams->mTextureSamplerIndex);
+        textureUnitParams->mTextureMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::TEXTURE_MATRIX, textureUnitParams->mTextureSamplerIndex);
     }
 
     switch (textureUnitParams->mTexCoordCalcMethod)
     {
-    case TEXCALC_NONE:                              
+    case TexCoordCalcMethod::NONE:                              
         break;
 
     // Resolve World + View matrices.
-    case TEXCALC_ENVIRONMENT_MAP:
-    case TEXCALC_ENVIRONMENT_MAP_PLANAR:    
-    case TEXCALC_ENVIRONMENT_MAP_NORMAL:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR:    
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL:
         //TODO: change the following 'mWorldITMatrix' member to 'mWorldViewITMatrix'
-        mWorldITMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX);
-        mViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_VIEW_MATRIX);
-        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX);
+        mWorldITMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX);
+        mViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::VIEW_MATRIX);
+        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
         break;
 
-    case TEXCALC_ENVIRONMENT_MAP_REFLECTION:
-        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX);
-        mWorldITMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_TRANSPOSE_WORLD_MATRIX);
-        mViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_VIEW_MATRIX);
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION:
+        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
+        mWorldITMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX);
+        mViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::VIEW_MATRIX);
         break;
 
-    case TEXCALC_PROJECTIVE_TEXTURE:
-        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX);
+    case TexCoordCalcMethod::PROJECTIVE_TEXTURE:
+        mWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
         textureUnitParams->mTextureViewProjImageMatrix = vsProgram->resolveParameter(
-            GpuProgramParameters::ACT_TEXTURE_VIEWPROJ_MATRIX, textureUnitParams->mTextureSamplerIndex);
+            GpuProgramParameters::AutoConstantType::TEXTURE_VIEWPROJ_MATRIX, textureUnitParams->mTextureSamplerIndex);
         break;
     }
 
@@ -161,58 +161,58 @@ auto FFPTexturing::resolveUniformParams(TextureUnitParams* textureUnitParams, Pr
 //-----------------------------------------------------------------------
 auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain   = vsProgram->getEntryPointFunction();
     Function* psMain   = psProgram->getEntryPointFunction();
-    Parameter::Content texCoordContent = Parameter::SPC_UNKNOWN;
+    Parameter::Content texCoordContent = Parameter::Content::UNKNOWN;
 
     switch (textureUnitParams->mTexCoordCalcMethod)
     {
-        case TEXCALC_NONE:                  
+        case TexCoordCalcMethod::NONE:                  
             // Resolve explicit vs input texture coordinates.
             
             if(mIsPointSprite)
                 break;
 
             if (textureUnitParams->mTextureMatrix.get() == nullptr)
-                texCoordContent = Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 + textureUnitParams->mTextureUnitState->getTextureCoordSet());
+                texCoordContent = Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + textureUnitParams->mTextureUnitState->getTextureCoordSet());
 
             // assume already resolved
             if(vsMain->getOutputParameter(texCoordContent, textureUnitParams->mVSInTextureCoordinateType))
                 break;
 
             textureUnitParams->mVSInputTexCoord = vsMain->resolveInputParameter(
-                Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 +
+                Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) +
                                    textureUnitParams->mTextureUnitState->getTextureCoordSet()),
                 textureUnitParams->mVSInTextureCoordinateType);
             break;
 
-        case TEXCALC_ENVIRONMENT_MAP:
-        case TEXCALC_ENVIRONMENT_MAP_PLANAR:        
-        case TEXCALC_ENVIRONMENT_MAP_NORMAL:
+        case TexCoordCalcMethod::ENVIRONMENT_MAP:
+        case TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR:        
+        case TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL:
             // Resolve vertex normal.
-            mVSInputPos = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
-            mVSInputNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+            mVSInputPos = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
+            mVSInputNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
             break;  
 
-        case TEXCALC_ENVIRONMENT_MAP_REFLECTION:
+        case TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION:
 
             // Resolve vertex normal.
-            mVSInputNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+            mVSInputNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
             // Resolve vertex position.
-            mVSInputPos = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+            mVSInputPos = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
             break;
 
-        case TEXCALC_PROJECTIVE_TEXTURE:
+        case TexCoordCalcMethod::PROJECTIVE_TEXTURE:
             // Resolve vertex position.
-            mVSInputPos = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+            mVSInputPos = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
             break;
     }
 
     if(mIsPointSprite)
     {
-        textureUnitParams->mPSInputTexCoord = psMain->resolveInputParameter(Parameter::SPC_POINTSPRITE_COORDINATE);
+        textureUnitParams->mPSInputTexCoord = psMain->resolveInputParameter(Parameter::Content::POINTSPRITE_COORDINATE);
     }
     else
     {
@@ -224,23 +224,23 @@ auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, 
         textureUnitParams->mPSInputTexCoord = psMain->resolveInputParameter(textureUnitParams->mVSOutputTexCoord);
     }
 
-    mPSDiffuse = psMain->getInputParameter(Parameter::SPC_COLOR_DIFFUSE);
+    mPSDiffuse = psMain->getInputParameter(Parameter::Content::COLOR_DIFFUSE);
     if (mPSDiffuse.get() == nullptr)
     {
-        mPSDiffuse = psMain->getLocalParameter(Parameter::SPC_COLOR_DIFFUSE);
+        mPSDiffuse = psMain->getLocalParameter(Parameter::Content::COLOR_DIFFUSE);
     }
 
-    mPSSpecular = psMain->getInputParameter(Parameter::SPC_COLOR_SPECULAR);
+    mPSSpecular = psMain->getInputParameter(Parameter::Content::COLOR_SPECULAR);
     if (mPSSpecular.get() == nullptr)
     {
-        mPSSpecular = psMain->getLocalParameter(Parameter::SPC_COLOR_SPECULAR);
+        mPSSpecular = psMain->getLocalParameter(Parameter::Content::COLOR_SPECULAR);
     }
 
-    mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
+    mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
 
     if (!mPSDiffuse || !mPSSpecular)
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                     "Not all parameters could be constructed for the sub-render state.");
     }
     return true;
@@ -250,8 +250,8 @@ auto FFPTexturing::resolveFunctionsParams(TextureUnitParams* textureUnitParams, 
 auto FFPTexturing::resolveDependencies(ProgramSet* programSet) -> bool
 {
     //! [deps_resolve]
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 
     vsProgram->addDependency(FFP_LIB_COMMON);
     vsProgram->addDependency(FFP_LIB_TEXTURING);    
@@ -264,8 +264,8 @@ auto FFPTexturing::resolveDependencies(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto FFPTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* vsMain   = vsProgram->getEntryPointFunction();
     Function* psMain   = psProgram->getEntryPointFunction();
 
@@ -289,31 +289,31 @@ auto FFPTexturing::addVSFunctionInvocations(TextureUnitParams* textureUnitParams
     if(mIsPointSprite)
         return true;
     
-    auto stage = vsMain->getStage(FFP_VS_TEXTURING);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TEXTURING));
 
     switch (textureUnitParams->mTexCoordCalcMethod)
     {
-    case TEXCALC_NONE:
+    case TexCoordCalcMethod::NONE:
         if(textureUnitParams->mVSInputTexCoord)
         stage.assign(textureUnitParams->mVSInputTexCoord, textureUnitParams->mVSOutputTexCoord);
         break;
-    case TEXCALC_ENVIRONMENT_MAP:
-    case TEXCALC_ENVIRONMENT_MAP_PLANAR:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR:
         stage.callFunction(FFP_FUNC_GENERATE_TEXCOORD_ENV_SPHERE,
                            {In(mWorldMatrix), In(mViewMatrix), In(mWorldITMatrix), In(mVSInputPos), In(mVSInputNormal),
                             Out(textureUnitParams->mVSOutputTexCoord)});
         break;
-    case TEXCALC_ENVIRONMENT_MAP_REFLECTION:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION:
         stage.callFunction(FFP_FUNC_GENERATE_TEXCOORD_ENV_REFLECT,
                            {In(mWorldMatrix), In(mWorldITMatrix), In(mViewMatrix), In(mVSInputNormal), In(mVSInputPos),
                             Out(textureUnitParams->mVSOutputTexCoord)});
         break;
-    case TEXCALC_ENVIRONMENT_MAP_NORMAL:
+    case TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL:
         stage.callFunction(
             FFP_FUNC_GENERATE_TEXCOORD_ENV_NORMAL,
             {In(mWorldITMatrix), In(mViewMatrix), In(mVSInputNormal), Out(textureUnitParams->mVSOutputTexCoord)});
         break;
-    case TEXCALC_PROJECTIVE_TEXTURE:
+    case TexCoordCalcMethod::PROJECTIVE_TEXTURE:
         stage.callFunction(FFP_FUNC_GENERATE_TEXCOORD_PROJECTION,
                            {In(mWorldMatrix), In(textureUnitParams->mTextureViewProjImageMatrix), In(mVSInputPos),
                             Out(textureUnitParams->mVSOutputTexCoord)});
@@ -337,11 +337,11 @@ auto FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams
     const LayerBlendModeEx& alphaBlend  = textureUnitParams->mTextureUnitState->getAlphaBlendMode();
     ParameterPtr source1;
     ParameterPtr source2;
-    int groupOrder = FFP_PS_TEXTURING;
+    int groupOrder = std::to_underlying(FFPFragmentShaderStage::TEXTURING);
     
             
     // Add texture sampling code.
-    ParameterPtr texel = psMain->resolveLocalParameter(GCT_FLOAT4, ::std::format("{}{}", c_ParamTexelEx, textureUnitParams->mTextureSamplerIndex));
+    ParameterPtr texel = psMain->resolveLocalParameter(GpuConstantType::FLOAT4, ::std::format("{}{}", c_ParamTexelEx, textureUnitParams->mTextureSamplerIndex));
 
     // Build colour argument for source1.
     source1 = getPSArgument(texel, colourBlend.source1, colourBlend.colourArg1, colourBlend.alphaArg1, false);
@@ -349,29 +349,29 @@ auto FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams
     // Build colour argument for source2.
     source2 = getPSArgument(texel, colourBlend.source2, colourBlend.colourArg2, colourBlend.alphaArg2, false);
 
-    if(source1 == texel || source2 == texel || colourBlend.operation == LBX_BLEND_TEXTURE_ALPHA)
-        addPSSampleTexelInvocation(textureUnitParams, psMain, texel, FFP_PS_SAMPLING);
+    if(source1 == texel || source2 == texel || colourBlend.operation == LayerBlendOperationEx::BLEND_TEXTURE_ALPHA)
+        addPSSampleTexelInvocation(textureUnitParams, psMain, texel, std::to_underlying(FFPFragmentShaderStage::SAMPLING));
 
     bool needDifferentAlphaBlend = false;
     if (alphaBlend.operation != colourBlend.operation ||
         alphaBlend.source1 != colourBlend.source1 ||
         alphaBlend.source2 != colourBlend.source2 ||
-        colourBlend.source1 == LBS_MANUAL ||
-        colourBlend.source2 == LBS_MANUAL ||
-        alphaBlend.source1 == LBS_MANUAL ||
-        alphaBlend.source2 == LBS_MANUAL)
+        colourBlend.source1 == LayerBlendSource::MANUAL ||
+        colourBlend.source2 == LayerBlendSource::MANUAL ||
+        alphaBlend.source1 == LayerBlendSource::MANUAL ||
+        alphaBlend.source2 == LayerBlendSource::MANUAL)
         needDifferentAlphaBlend = true;
 
-    if(mLateAddBlend && colourBlend.operation == LBX_ADD)
+    if(mLateAddBlend && colourBlend.operation == LayerBlendOperationEx::ADD)
     {
-        groupOrder = FFP_PS_COLOUR_END + 50 + 1; // after PBR lighting
+        groupOrder = std::to_underlying(FFPFragmentShaderStage::COLOUR_END) + 50 + 1; // after PBR lighting
     }
 
     // Build colours blend
     addPSBlendInvocations(psMain, source1, source2, texel, 
         textureUnitParams->mTextureSamplerIndex,
         colourBlend, groupOrder,
-        needDifferentAlphaBlend ? Operand::OPM_XYZ : Operand::OPM_ALL);
+        needDifferentAlphaBlend ? Operand::OpMask::XYZ : Operand::OpMask::ALL);
 
     // Case we need different alpha channel code.
     if (needDifferentAlphaBlend)
@@ -382,13 +382,13 @@ auto FFPTexturing::addPSFunctionInvocations(TextureUnitParams* textureUnitParams
         // Build alpha argument for source2.
         source2 = getPSArgument(texel, alphaBlend.source2, alphaBlend.colourArg2, alphaBlend.alphaArg2, true);
 
-        if(source1 == texel || source2 == texel || alphaBlend.operation == LBX_BLEND_TEXTURE_ALPHA)
-            addPSSampleTexelInvocation(textureUnitParams, psMain, texel, FFP_PS_SAMPLING);
+        if(source1 == texel || source2 == texel || alphaBlend.operation == LayerBlendOperationEx::BLEND_TEXTURE_ALPHA)
+            addPSSampleTexelInvocation(textureUnitParams, psMain, texel, std::to_underlying(FFPFragmentShaderStage::SAMPLING));
 
         // Build alpha blend
         addPSBlendInvocations(psMain, source1, source2, texel,
                               textureUnitParams->mTextureSamplerIndex, alphaBlend, groupOrder,
-                              Operand::OPM_W);
+                              Operand::OpMask::W);
     }
     
     
@@ -402,7 +402,7 @@ void FFPTexturing::addPSSampleTexelInvocation(TextureUnitParams* textureUnitPara
 {
     auto stage = psMain->getStage(groupOrder);
 
-    if (textureUnitParams->mTexCoordCalcMethod != TEXCALC_PROJECTIVE_TEXTURE)
+    if (textureUnitParams->mTexCoordCalcMethod != TexCoordCalcMethod::PROJECTIVE_TEXTURE)
     {
         stage.sampleTexture(textureUnitParams->mTextureSampler, textureUnitParams->mPSInputTexCoord, texel);
         return;
@@ -418,15 +418,15 @@ auto FFPTexturing::getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, 
 {
     switch(blendSrc)
     {
-    case LBS_CURRENT:
+    case LayerBlendSource::CURRENT:
         return mPSOutDiffuse;
-    case LBS_TEXTURE:
+    case LayerBlendSource::TEXTURE:
         return texel;
-    case LBS_DIFFUSE:
+    case LayerBlendSource::DIFFUSE:
         return mPSDiffuse;
-    case LBS_SPECULAR:
+    case LayerBlendSource::SPECULAR:
         return mPSSpecular;
-    case LBS_MANUAL:
+    case LayerBlendSource::MANUAL:
         if (isAlphaArgument)
         {
             return ParameterFactory::createConstParam(Vector4(alphaValue));
@@ -452,60 +452,60 @@ void FFPTexturing::addPSBlendInvocations(Function* psMain,
     auto stage = psMain->getStage(groupOrder);
     switch(blendMode.operation)
     {
-    case LBX_SOURCE1:
+    case LayerBlendOperationEx::SOURCE1:
         stage.assign(In(arg1).mask(mask), Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_SOURCE2:
+    case LayerBlendOperationEx::SOURCE2:
         stage.assign(In(arg2).mask(mask), Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_MODULATE:
+    case LayerBlendOperationEx::MODULATE:
         stage.mul(In(arg1).mask(mask), In(arg2).mask(mask), Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_MODULATE_X2:
+    case LayerBlendOperationEx::MODULATE_X2:
         stage.callFunction(FFP_FUNC_MODULATEX2, In(arg1).mask(mask), In(arg2).mask(mask),
                            Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_MODULATE_X4:
+    case LayerBlendOperationEx::MODULATE_X4:
         stage.callFunction(FFP_FUNC_MODULATEX4, In(arg1).mask(mask), In(arg2).mask(mask),
                            Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_ADD:
+    case LayerBlendOperationEx::ADD:
         stage.add(In(arg1).mask(mask), In(arg2).mask(mask), Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_ADD_SIGNED:
+    case LayerBlendOperationEx::ADD_SIGNED:
         stage.callFunction(FFP_FUNC_ADDSIGNED, In(arg1).mask(mask), In(arg2).mask(mask),
                            Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_ADD_SMOOTH:
+    case LayerBlendOperationEx::ADD_SMOOTH:
         stage.callFunction(FFP_FUNC_ADDSMOOTH, In(arg1).mask(mask), In(arg2).mask(mask),
                            Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_SUBTRACT:
+    case LayerBlendOperationEx::SUBTRACT:
         stage.sub(In(arg1).mask(mask), In(arg2).mask(mask), Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_BLEND_DIFFUSE_ALPHA:
+    case LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA:
         stage.callFunction(FFP_FUNC_LERP, {In(arg2).mask(mask), In(arg1).mask(mask), In(mPSDiffuse).w(),
                                            Out(mPSOutDiffuse).mask(mask)});
         break;
-    case LBX_BLEND_TEXTURE_ALPHA:
+    case LayerBlendOperationEx::BLEND_TEXTURE_ALPHA:
         stage.callFunction(FFP_FUNC_LERP, {In(arg2).mask(mask), In(arg1).mask(mask), In(texel).w(),
                                            Out(mPSOutDiffuse).mask(mask)});
         break;
-    case LBX_BLEND_CURRENT_ALPHA:
+    case LayerBlendOperationEx::BLEND_CURRENT_ALPHA:
         stage.callFunction(FFP_FUNC_LERP, {In(arg2).mask(mask), In(arg1).mask(mask),
                                            In(mPSOutDiffuse).w(),
                                            Out(mPSOutDiffuse).mask(mask)});
         break;
-    case LBX_BLEND_MANUAL:
+    case LayerBlendOperationEx::BLEND_MANUAL:
         stage.callFunction(FFP_FUNC_LERP, {In(arg2).mask(mask), In(arg1).mask(mask),
                                            In(ParameterFactory::createConstParam(blendMode.factor)),
                                            Out(mPSOutDiffuse).mask(mask)});
         break;
-    case LBX_DOTPRODUCT:
+    case LayerBlendOperationEx::DOTPRODUCT:
         stage.callFunction(FFP_FUNC_DOTPRODUCT, In(arg2).mask(mask), In(arg1).mask(mask),
                            Out(mPSOutDiffuse).mask(mask));
         break;
-    case LBX_BLEND_DIFFUSE_COLOUR:
+    case LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR:
         stage.callFunction(FFP_FUNC_LERP, {In(arg2).mask(mask), In(arg1).mask(mask),
                                            In(mPSDiffuse).mask(mask), Out(mPSOutDiffuse).mask(mask)});
         break;
@@ -515,39 +515,42 @@ void FFPTexturing::addPSBlendInvocations(Function* psMain,
 //-----------------------------------------------------------------------
 auto FFPTexturing::getTexCalcMethod(TextureUnitState* textureUnitState) -> TexCoordCalcMethod
 {
-    TexCoordCalcMethod                      texCoordCalcMethod = TEXCALC_NONE;  
+    TexCoordCalcMethod                      texCoordCalcMethod = TexCoordCalcMethod::NONE;  
     const TextureUnitState::EffectMap&      effectMap = textureUnitState->getEffects(); 
     
     for (auto const& effi : effectMap)
     {
         switch (effi.second.type)
         {
-        case TextureUnitState::ET_ENVIRONMENT_MAP:
-            if (effi.second.subtype == TextureUnitState::ENV_CURVED)
+        case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP:
+        {
+            auto subtype = static_cast<TextureUnitState::EnvMapType>(effi.second.subtype);
+            if (subtype == TextureUnitState::EnvMapType::CURVED)
             {
-                texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP;               
+                texCoordCalcMethod = TexCoordCalcMethod::ENVIRONMENT_MAP;               
             }
-            else if (effi.second.subtype == TextureUnitState::ENV_PLANAR)
+            else if (subtype == TextureUnitState::EnvMapType::PLANAR)
             {
-                texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_PLANAR;                
+                texCoordCalcMethod = TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR;                
             }
-            else if (effi.second.subtype == TextureUnitState::ENV_REFLECTION)
+            else if (subtype == TextureUnitState::EnvMapType::REFLECTION)
             {
-                texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_REFLECTION;                
+                texCoordCalcMethod = TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION;                
             }
-            else if (effi.second.subtype == TextureUnitState::ENV_NORMAL)
+            else if (subtype == TextureUnitState::EnvMapType::NORMAL)
             {
-                texCoordCalcMethod = TEXCALC_ENVIRONMENT_MAP_NORMAL;                
+                texCoordCalcMethod = TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL;                
             }
             break;
-        case TextureUnitState::ET_UVSCROLL:
-        case TextureUnitState::ET_USCROLL:
-        case TextureUnitState::ET_VSCROLL:
-        case TextureUnitState::ET_ROTATE:
-        case TextureUnitState::ET_TRANSFORM:
+        }
+        case TextureUnitState::TextureEffectType::UVSCROLL:
+        case TextureUnitState::TextureEffectType::USCROLL:
+        case TextureUnitState::TextureEffectType::VSCROLL:
+        case TextureUnitState::TextureEffectType::ROTATE:
+        case TextureUnitState::TextureEffectType::TRANSFORM:
             break;
-        case TextureUnitState::ET_PROJECTIVE_TEXTURE:
-            texCoordCalcMethod = TEXCALC_PROJECTIVE_TEXTURE;
+        case TextureUnitState::TextureEffectType::PROJECTIVE_TEXTURE:
+            texCoordCalcMethod = TexCoordCalcMethod::PROJECTIVE_TEXTURE;
             break;
         }
     }
@@ -565,13 +568,13 @@ auto FFPTexturing::needsTextureMatrix(TextureUnitState* textureUnitState) -> boo
         switch (effi.second.type)
         {
     
-        case TextureUnitState::ET_UVSCROLL:
-        case TextureUnitState::ET_USCROLL:
-        case TextureUnitState::ET_VSCROLL:
-        case TextureUnitState::ET_ROTATE:
-        case TextureUnitState::ET_TRANSFORM:
-        case TextureUnitState::ET_ENVIRONMENT_MAP:
-        case TextureUnitState::ET_PROJECTIVE_TEXTURE:
+        case TextureUnitState::TextureEffectType::UVSCROLL:
+        case TextureUnitState::TextureEffectType::USCROLL:
+        case TextureUnitState::TextureEffectType::VSCROLL:
+        case TextureUnitState::TextureEffectType::ROTATE:
+        case TextureUnitState::TextureEffectType::TRANSFORM:
+        case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP:
+        case TextureUnitState::TextureEffectType::PROJECTIVE_TEXTURE:
             return true;        
         }
     }
@@ -617,7 +620,7 @@ auto FFPTexturing::preAddToRenderState(const RenderState* renderState, Pass* src
 
     if (auto rs = Root::getSingleton().getRenderSystem())
     {
-        if (mIsPointSprite && !rs->getCapabilities()->hasCapability(RSC_POINT_SPRITES))
+        if (mIsPointSprite && !rs->getCapabilities()->hasCapability(Capabilities::POINT_SPRITES))
             return false;
     }
 
@@ -644,9 +647,9 @@ void FFPTexturing::setTextureUnitCount(size_t count)
 
         curParams.mTextureUnitState             = nullptr;
         curParams.mTextureSamplerIndex          = 0;              
-        curParams.mTextureSamplerType           = GCT_SAMPLER2D;        
-        curParams.mVSInTextureCoordinateType    = GCT_FLOAT2;   
-        curParams.mVSOutTextureCoordinateType   = GCT_FLOAT2;       
+        curParams.mTextureSamplerType           = GpuConstantType::SAMPLER2D;        
+        curParams.mVSInTextureCoordinateType    = GpuConstantType::FLOAT2;   
+        curParams.mVSOutTextureCoordinateType   = GpuConstantType::FLOAT2;       
     }
 }
 
@@ -665,31 +668,31 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 
     switch (curParams.mTextureUnitState->getTextureType())
     {
-    case TEX_TYPE_1D:
-        curParams.mTextureSamplerType = GCT_SAMPLER1D;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT1;
+    case TextureType::_1D:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLER1D;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT1;
         if(!isGLES2) // no 1D texture support
             break;
         [[fallthrough]];
-    case TEX_TYPE_2D:
-        curParams.mTextureSamplerType = GCT_SAMPLER2D;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT2;
+    case TextureType::_2D:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLER2D;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT2;
         break;
-    case TEX_TYPE_EXTERNAL_OES:
-        curParams.mTextureSamplerType = GCT_SAMPLER_EXTERNAL_OES;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT2;
+    case TextureType::EXTERNAL_OES:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLER_EXTERNAL_OES;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT2;
         break;
-    case TEX_TYPE_2D_ARRAY:
-        curParams.mTextureSamplerType = GCT_SAMPLER2DARRAY;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT3;
+    case TextureType::_2D_ARRAY:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLER2DARRAY;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT3;
         break;
-    case TEX_TYPE_3D:
-        curParams.mTextureSamplerType = GCT_SAMPLER3D;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT3;
+    case TextureType::_3D:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLER3D;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT3;
         break;
-    case TEX_TYPE_CUBE_MAP:
-        curParams.mTextureSamplerType = GCT_SAMPLERCUBE;
-        curParams.mVSInTextureCoordinateType = GCT_FLOAT3;
+    case TextureType::CUBE_MAP:
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLERCUBE;
+        curParams.mVSInTextureCoordinateType = GpuConstantType::FLOAT3;
         break;
     }   
 
@@ -698,14 +701,14 @@ void FFPTexturing::setTextureUnit(unsigned short index, TextureUnitState* textur
 
     // let TexCalcMethod override texture type, as it might be wrong for
     // content_type shadow & content_type compositor
-    if (curParams.mTexCoordCalcMethod == TEXCALC_ENVIRONMENT_MAP_REFLECTION)
+    if (curParams.mTexCoordCalcMethod == TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION)
     {
-        curParams.mVSOutTextureCoordinateType = GCT_FLOAT3;
-        curParams.mTextureSamplerType = GCT_SAMPLERCUBE;
+        curParams.mVSOutTextureCoordinateType = GpuConstantType::FLOAT3;
+        curParams.mTextureSamplerType = GpuConstantType::SAMPLERCUBE;
     }
 
-     if (curParams.mTexCoordCalcMethod == TEXCALC_PROJECTIVE_TEXTURE)
-         curParams.mVSOutTextureCoordinateType = GCT_FLOAT3;    
+     if (curParams.mTexCoordCalcMethod == TexCoordCalcMethod::PROJECTIVE_TEXTURE)
+         curParams.mVSOutTextureCoordinateType = GpuConstantType::FLOAT3;    
 }
 
 //-----------------------------------------------------------------------

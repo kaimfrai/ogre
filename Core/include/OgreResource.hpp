@@ -102,36 +102,50 @@ class ResourceManager;
         };
         
         /// Enum identifying the loading state of the resource
-        enum LoadingState
+        enum class LoadingState
         {
             /// Not loaded
-            LOADSTATE_UNLOADED,
+            UNLOADED,
             /// Loading is in progress
-            LOADSTATE_LOADING,
+            LOADING,
             /// Fully loaded
-            LOADSTATE_LOADED,
+            LOADED,
             /// Currently unloading
-            LOADSTATE_UNLOADING,
+            UNLOADING,
             /// Fully prepared
-            LOADSTATE_PREPARED,
+            PREPARED,
             /// Preparing is in progress
-            LOADSTATE_PREPARING
+            PREPARING
         };
 
         /// Enum that allow to choose subset of unloaded/reloaded resources and to adjust reloading behavior
-        enum LoadingFlags
+        enum class LoadingFlags
         {
             /// Only reloadable resources are processed, reload restores initial state.
-            LF_DEFAULT = 0,
+            DEFAULT = 0,
             /// Process non-reloadable resources too.
-            LF_INCLUDE_NON_RELOADABLE = 1,
+            INCLUDE_NON_RELOADABLE = 1,
             /// Process only resources which are not referenced by any other object. Usefull to reduce resource consumption.
-            LF_ONLY_UNREFERENCED = 2,
-            /// Combination of LF_ONLY_UNREFERENCED and LF_INCLUDE_NON_RELOADABLE
-            LF_ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE = 3,
+            ONLY_UNREFERENCED = 2,
+            /// Combination of ONLY_UNREFERENCED and INCLUDE_NON_RELOADABLE
+            ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE = 3,
             /// Preserve some states during reloading, for example stencil shadows prepareness for Meshes
-            LF_PRESERVE_STATE = 4,
+            PRESERVE_STATE = 4,
         };
+
+        friend auto constexpr operator not(LoadingFlags value) -> bool
+        {
+            return not std::to_underlying(value);
+        }
+
+        friend auto constexpr operator bitand(LoadingFlags left, LoadingFlags right) -> LoadingFlags
+        {
+            return static_cast<LoadingFlags>
+            (    std::to_underlying(left)
+            bitand
+                std::to_underlying(right)
+            );
+        }
 
     protected:
         /// Creator
@@ -164,7 +178,7 @@ class ResourceManager;
         /** Protected unnamed constructor to prevent default construction. 
         */
         Resource() 
-            : mCreator(nullptr), mHandle(0), mLoadingState(LOADSTATE_UNLOADED), 
+            : mCreator(nullptr), mHandle(0), mLoadingState(LoadingState::UNLOADED),
               mIsBackgroundLoaded(false), mIsManual(false), mSize(0), mLoader(nullptr), mStateCount(0)
         { 
         }
@@ -273,7 +287,7 @@ class ResourceManager;
             Calls unload() and then load() again, if the resource is already
             loaded. If it is not loaded already, then nothing happens.
         */
-        virtual void reload(LoadingFlags flags = LF_DEFAULT);
+        virtual void reload(LoadingFlags flags = LoadingFlags::DEFAULT);
 
         /** Returns true if the Resource is reloadable, false otherwise.
         */
@@ -316,7 +330,7 @@ class ResourceManager;
         auto isPrepared() const noexcept -> bool
         { 
             // No lock required to read this state since no modify
-            return (mLoadingState.load() == LOADSTATE_PREPARED);
+            return (mLoadingState.load() == LoadingState::PREPARED);
         }
 
         /** Returns true if the Resource has been loaded, false otherwise.
@@ -324,7 +338,7 @@ class ResourceManager;
         auto isLoaded() const noexcept -> bool
         { 
             // No lock required to read this state since no modify
-            return (mLoadingState.load() == LOADSTATE_LOADED);
+            return (mLoadingState.load() == LoadingState::LOADED);
         }
 
         /** Returns whether the resource is currently in the process of
@@ -332,7 +346,7 @@ class ResourceManager;
         */
         auto isLoading() const noexcept -> bool
         {
-            return (mLoadingState.load() == LOADSTATE_LOADING);
+            return (mLoadingState.load() == LoadingState::LOADING);
         }
 
         /** Returns the current loading state.

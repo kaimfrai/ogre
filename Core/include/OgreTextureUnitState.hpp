@@ -93,13 +93,13 @@ template <typename T> class Controller;
         /** Set a the detailed filtering options on this texture unit.
         @param minFilter
             The filtering to use when reducing the size of the texture.
-            Can be Ogre::FO_POINT, Ogre::FO_LINEAR or Ogre::FO_ANISOTROPIC.
+            Can be Ogre::FilterOptions::POINT, Ogre::FilterOptions::LINEAR or Ogre::FilterOptions::ANISOTROPIC.
         @param magFilter
             The filtering to use when increasing the size of the texture.
-            Can be Ogre::FO_POINT, Ogre::FO_LINEAR or Ogre::FO_ANISOTROPIC.
+            Can be Ogre::FilterOptions::POINT, Ogre::FilterOptions::LINEAR or Ogre::FilterOptions::ANISOTROPIC.
         @param mipFilter
             The filtering to use between mip levels.
-            Can be Ogre::FO_NONE (turns off mipmapping), Ogre::FO_POINT or Ogre::FO_LINEAR (trilinear filtering).
+            Can be Ogre::FilterOptions::NONE (turns off mipmapping), Ogre::FilterOptions::POINT or Ogre::FilterOptions::LINEAR (trilinear filtering).
         */
         void setFiltering(FilterOptions minFilter, FilterOptions magFilter, FilterOptions mipFilter);
         /// Get the texture filtering for the given type.
@@ -108,13 +108,13 @@ template <typename T> class Controller;
         /** Gets the texture addressing mode for a given coordinate,
             i.e. what happens at uv values above 1.0.
         @note
-            The default is TAM_WRAP i.e. the texture repeats over values of 1.0.
+            The default is TextureAddressingMode::WRAP i.e. the texture repeats over values of 1.0.
         */
         [[nodiscard]] auto getAddressingMode() const noexcept -> const UVWAddressingMode& { return mAddressMode; }
 
         /** Sets the texture addressing mode, i.e. what happens at uv values above 1.0.
 
-            The default is TAM_WRAP i.e. the texture repeats over values of 1.0.
+            The default is TextureAddressingMode::WRAP i.e. the texture repeats over values of 1.0.
             This is a shortcut method which sets the addressing mode for all
             coordinates at once; you can also call the more specific method
             to set the addressing mode per coordinate.
@@ -127,7 +127,7 @@ template <typename T> class Controller;
 
         /** Sets the texture addressing mode, i.e. what happens at uv values above 1.0.
 
-            The default is #TAM_WRAP i.e. the texture repeats over values of 1.0.
+            The default is #TextureAddressingMode::WRAP i.e. the texture repeats over values of 1.0.
         */
         void setAddressingMode(TextureAddressingMode u, TextureAddressingMode v,
                                TextureAddressingMode w)
@@ -147,7 +147,7 @@ template <typename T> class Controller;
         is determined by the hardware, but it is usually 8 or 16.
 
         In order for this to be used, you have to set the minification and/or the magnification
-        option on this texture to Ogre::FO_ANISOTROPIC.
+        option on this texture to Ogre::FilterOptions::ANISOTROPIC.
         @param maxAniso
             The maximal anisotropy level, should be between 2 and the maximum
             supported by hardware (1 is the default, ie. no anisotrophy).
@@ -172,7 +172,7 @@ template <typename T> class Controller;
             default calculation.
 
             In order for this option to be used, your hardware has to support mipmap biasing
-            (exposed through Ogre::RSC_MIPMAP_LOD_BIAS), and your minification filtering has to be
+            (exposed through Ogre::Capabilities::MIPMAP_LOD_BIAS), and your minification filtering has to be
             set to point or linear.
         */
         void setMipmapBias(float bias)
@@ -208,7 +208,7 @@ template <typename T> class Controller;
         /** Sets the texture border colour.
 
             The default is ColourValue::Black, and this value only used when addressing mode
-            is TAM_BORDER.
+            is TextureAddressingMode::BORDER.
         */
         void setBorderColour(const ColourValue& colour)
         {
@@ -225,12 +225,12 @@ template <typename T> class Controller;
         float mMipmapBias{0};
         UVWAddressingMode mAddressMode;
         /// Texture filtering - minification.
-        FilterOptions mMinFilter{FO_LINEAR};
+        FilterOptions mMinFilter{FilterOptions::LINEAR};
         /// Texture filtering - magnification.
-        FilterOptions mMagFilter{FO_LINEAR};
+        FilterOptions mMagFilter{FilterOptions::LINEAR};
         /// Texture filtering - mipmapping.
-        FilterOptions mMipFilter{FO_POINT};
-        CompareFunction mCompareFunc{CMPF_GREATER_EQUAL};
+        FilterOptions mMipFilter{FilterOptions::POINT};
+        CompareFunction mCompareFunc{CompareFunction::GREATER_EQUAL};
         bool mCompareEnabled : 1{false};
         bool mDirty : 1{true}; // flag for derived classes to sync with implementation
     };
@@ -257,67 +257,61 @@ template <typename T> class Controller;
     public:
         /** Definition of the broad types of texture effect you can apply to a texture unit.
         */
-        enum TextureEffectType
+        enum class TextureEffectType
         {
             /// Generate all texture coords based on angle between camera and vertex.
-            ET_ENVIRONMENT_MAP,
+            ENVIRONMENT_MAP,
             /// Generate texture coords based on a frustum.
-            ET_PROJECTIVE_TEXTURE,
+            PROJECTIVE_TEXTURE,
             /// Constant u/v scrolling effect.
-            ET_UVSCROLL,
+            UVSCROLL,
             /// Constant u scrolling effect.
-            ET_USCROLL,
+            USCROLL,
             /// Constant u/v scrolling effect.
-            ET_VSCROLL,
+            VSCROLL,
             /// Constant rotation.
-            ET_ROTATE,
+            ROTATE,
             /// More complex transform.
-            ET_TRANSFORM
+            TRANSFORM
 
         };
 
         /** Enumeration to specify type of envmap.
         */
-        enum EnvMapType
+        enum class EnvMapType
         {
             /// Envmap based on vector from camera to vertex position, good for planar geometry.
-            ENV_PLANAR,
+            PLANAR,
             /// Envmap based on dot of vector from camera to vertex and vertex normal, good for curves.
-            ENV_CURVED,
+            CURVED,
             /// Envmap intended to supply reflection vectors for cube mapping.
-            ENV_REFLECTION,
+            REFLECTION,
             /// Envmap intended to supply normal vectors for cube mapping.
-            ENV_NORMAL
+            NORMAL
         };
 
         /** Useful enumeration when dealing with procedural transforms.
         */
-        enum TextureTransformType
+        enum class TextureTransformType
         {
-            TT_TRANSLATE_U,
-            TT_TRANSLATE_V,
-            TT_SCALE_U,
-            TT_SCALE_V,
-            TT_ROTATE
+            TRANSLATE_U,
+            TRANSLATE_V,
+            SCALE_U,
+            SCALE_V,
+            ROTATE
         };
 
 
-        static const Ogre::TextureAddressingMode TAM_WRAP = Ogre::TAM_WRAP;
-        static const Ogre::TextureAddressingMode TAM_MIRROR = Ogre::TAM_MIRROR;
-        static const Ogre::TextureAddressingMode TAM_CLAMP = Ogre::TAM_CLAMP;
-        static const Ogre::TextureAddressingMode TAM_BORDER = Ogre::TAM_BORDER;
-        static const Ogre::TextureAddressingMode TAM_UNKNOWN = Ogre::TAM_UNKNOWN;
-
         /** Enum identifying the frame indexes for faces of a cube map (not the composite 3D type.
         */
-        enum TextureCubeFace
+        enum class TextureCubeFace
         {
-            CUBE_FRONT = 0,
-            CUBE_BACK = 1,
-            CUBE_LEFT = 2,
-            CUBE_RIGHT = 3,
-            CUBE_UP = 4,
-            CUBE_DOWN = 5
+            FRONT = 0,
+            BACK = 1,
+            LEFT = 2,
+            RIGHT = 3,
+            UP = 4,
+            DOWN = 5
         };
 
         /** Internal structure defining a texture effect.
@@ -465,27 +459,27 @@ template <typename T> class Controller;
         /** The type of unit to bind the texture settings to.
             @deprecated only D3D9 has separate sampler bindings. All other RenderSystems use unified pipelines.
          */
-        enum BindingType : uint8
+        enum class BindingType : uint8
         {
             /** Regular fragment processing unit - the default. */
-            BT_FRAGMENT = 0,
+            FRAGMENT = 0,
             /** Vertex processing unit - indicates this unit will be used for 
                 a vertex texture fetch.
             */
-            BT_VERTEX = 1
+            VERTEX = 1
         };
         /** Enum identifying the type of content this texture unit contains.
         */
-        enum ContentType : uint8
+        enum class ContentType : uint8
         {
             /// The default option, this derives texture content from a texture name, loaded by
             /// ordinary means from a file or having been manually created with a given name.
-            CONTENT_NAMED = 0,
+            NAMED = 0,
             /// A shadow texture, automatically bound by engine
-            CONTENT_SHADOW = 1,
+            SHADOW = 1,
             /// This option allows you to reference a texture from a compositor, and is only valid
             /// when the pass is rendered within a compositor sequence.
-            CONTENT_COMPOSITOR = 2
+            COMPOSITOR = 2
         };
 
         /// @deprecated obsolete
@@ -511,13 +505,13 @@ template <typename T> class Controller;
         auto getDesiredFormat() const -> PixelFormat;
 
         /// @copydoc Texture::setNumMipmaps
-        void setNumMipmaps(int numMipmaps);
+        void setNumMipmaps(TextureMipmap numMipmaps);
 
         /** Gets how many mipmaps have been requested for the texture.
         */
-        auto getNumMipmaps() const noexcept -> int;
+        auto getNumMipmaps() const noexcept -> TextureMipmap;
 
-        /// @deprecated use setDesiredFormat(PF_A8)
+        /// @deprecated use setDesiredFormat(PixelFormat::A8)
         void setIsAlpha(bool isAlpha);
 
         /// @copydoc Texture::getGamma
@@ -703,22 +697,22 @@ template <typename T> class Controller;
             a fixed value or a value from a previous calculation.
 
             The defaults for each layer are:
-            - op = Ogre::LBX_MODULATE
-            - source1 = Ogre::LBS_TEXTURE
-            - source2 = Ogre::LBS_CURRENT
+            - op = Ogre::LayerBlendOperationEx::MODULATE
+            - source1 = Ogre::LayerBlendSource::TEXTURE
+            - source2 = Ogre::LayerBlendSource::CURRENT
 
             ie. each layer takes the colour results of the previous layer, and multiplies them
             with the new texture being applied. Bear in mind that colours are RGB values from
             0.0 - 1.0 so multiplying them together will result in values in the same range,
             'tinted' by the multiply. Note however that a straight multiply normally has the
             effect of darkening the textures - for this reason there are brightening operations
-            like Ogre::LBX_MODULATE_X2. See the Ogre::LayerBlendOperation and Ogre::LayerBlendSource enumerated
+            like Ogre::LayerBlendOperationEx::MODULATE_X2. See the Ogre::LayerBlendOperation and Ogre::LayerBlendSource enumerated
             types for full details.
 
             The final 3 parameters are only required if you decide to pass values manually
             into the operation, i.e. you want one or more of the inputs to the colour calculation
             to come from a fixed value that you supply. Hence you only need to fill these in if
-            you supply Ogre::LBS_MANUAL to the corresponding source, or use the Ogre::LBX_BLEND_MANUAL
+            you supply Ogre::LayerBlendSource::MANUAL to the corresponding source, or use the Ogre::LayerBlendOperationEx::BLEND_MANUAL
             operation.
         @warning
             Ogre tries to use multitexturing hardware to blend texture layers
@@ -739,17 +733,17 @@ template <typename T> class Controller;
         @param source2
             The source of the second colour to the operation e.g. current surface colour.
         @param arg1
-            Manually supplied colour value (only required if source1 = LBS_MANUAL).
+            Manually supplied colour value (only required if source1 = LayerBlendSource::MANUAL).
         @param arg2
-            Manually supplied colour value (only required if source2 = LBS_MANUAL).
+            Manually supplied colour value (only required if source2 = LayerBlendSource::MANUAL).
         @param manualBlend
             Manually supplied 'blend' value - only required for operations
-            which require manual blend e.g. LBX_BLEND_MANUAL.
+            which require manual blend e.g. LayerBlendOperationEx::BLEND_MANUAL.
         */
         void setColourOperationEx(
             LayerBlendOperationEx op,
-            LayerBlendSource source1 = LBS_TEXTURE,
-            LayerBlendSource source2 = LBS_CURRENT,
+            LayerBlendSource source1 = LayerBlendSource::TEXTURE,
+            LayerBlendSource source2 = LayerBlendSource::CURRENT,
 
             const ColourValue& arg1 = ColourValue::White,
             const ColourValue& arg2 = ColourValue::White,
@@ -768,7 +762,7 @@ template <typename T> class Controller;
             but you'll either have to be sure that enough multitexturing units will be available, or you should
             explicitly set a fallback using Ogre::TextureUnitState::setColourOpMultipassFallback.
         @note
-            The default method is Ogre::LBO_MODULATE for all layers.
+            The default method is Ogre::LayerBlendOperation::MODULATE for all layers.
         @param op
             One of the Ogre::LayerBlendOperation enumerated blending types.
         */
@@ -825,16 +819,16 @@ template <typename T> class Controller;
         @param source2
             The source of the second alpha value to the operation e.g. current surface alpha
         @param arg1
-            Manually supplied alpha value (only required if source1 = Ogre::LBS_MANUAL)
+            Manually supplied alpha value (only required if source1 = Ogre::LayerBlendSource::MANUAL)
         @param arg2
-            Manually supplied alpha value (only required if source2 = Ogre::LBS_MANUAL)
+            Manually supplied alpha value (only required if source2 = Ogre::LayerBlendSource::MANUAL)
         @param manualBlend
             Manually supplied 'blend' value - only required for operations
-            which require manual blend e.g. Ogre::LBX_BLEND_MANUAL
+            which require manual blend e.g. Ogre::LayerBlendOperationEx::BLEND_MANUAL
         */
         void setAlphaOperation(LayerBlendOperationEx op,
-            LayerBlendSource source1 = LBS_TEXTURE,
-            LayerBlendSource source2 = LBS_CURRENT,
+            LayerBlendSource source1 = LayerBlendSource::TEXTURE,
+            LayerBlendSource source2 = LayerBlendSource::CURRENT,
             Real arg1 = 1.0,
             Real arg2 = 1.0,
             Real manualBlend = 0.0);
@@ -874,7 +868,7 @@ template <typename T> class Controller;
         @param envMapType
             The type of environment mapping to perform. Planar, curved, reflection or normal. @see EnvMapType
         */
-        void setEnvironmentMap(bool enable, EnvMapType envMapType = ENV_CURVED);
+        void setEnvironmentMap(bool enable, EnvMapType envMapType = EnvMapType::CURVED);
 
         /** Sets up an animated scroll for the texture layer.
 
@@ -901,7 +895,7 @@ template <typename T> class Controller;
         @param ttype
             The type of transform, either translate (scroll), scale (stretch) or rotate (spin).
         @param waveType
-            The shape of the wave, see Ogre::WaveformType enum for details.
+            The shape of the wave, see Ogre::WaveformType enum class for details.
         @param base
             The base value for the function (range of output = {base, base + amplitude}).
         @param frequency

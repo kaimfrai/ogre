@@ -70,17 +70,17 @@ class VertexData;
         it could mean the center of the bottom edge (e.g. a tree which is positioned on the ground),
         the top-left corner (e.g. a cursor).
     */
-    enum BillboardOrigin
+    enum class BillboardOrigin
     {
-        BBO_TOP_LEFT,
-        BBO_TOP_CENTER,
-        BBO_TOP_RIGHT,
-        BBO_CENTER_LEFT,
-        BBO_CENTER,
-        BBO_CENTER_RIGHT,
-        BBO_BOTTOM_LEFT,
-        BBO_BOTTOM_CENTER,
-        BBO_BOTTOM_RIGHT
+        TOP_LEFT,
+        TOP_CENTER,
+        TOP_RIGHT,
+        CENTER_LEFT,
+        CENTER,
+        CENTER_RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_CENTER,
+        BOTTOM_RIGHT
     };
     /** The rotation type of billboard.
      *
@@ -89,26 +89,26 @@ class VertexData;
      * lost after rotate, and the corners of the billboard will fill with unwanted texture area when using
      * wrap address mode or sub-texture sampling. This settings allow you specifying other rotation type.
      */
-    enum BillboardRotationType
+    enum class BillboardRotationType
     {
         /// Rotate the billboard's vertices around their facing direction
-        BBR_VERTEX,
+        VERTEX,
         /// Rotate the billboard's texture coordinates
-        BBR_TEXCOORD
+        TEXCOORD
     };
     /** The type of billboard to use. */
-    enum BillboardType
+    enum class BillboardType
     {
         /// Standard point billboard (default), always faces the camera completely and is always upright
-        BBT_POINT,
+        POINT,
         /// Billboards are oriented around a shared direction vector (used as Y axis) and only rotate around this to face the camera
-        BBT_ORIENTED_COMMON,
+        ORIENTED_COMMON,
         /// Billboards are oriented around their own direction vector (their own Y axis) and only rotate around this to face the camera
-        BBT_ORIENTED_SELF,
+        ORIENTED_SELF,
         /// Billboards are perpendicular to a shared direction vector (used as Z axis, the facing direction) and X, Y axis are determined by a shared up-vertor
-        BBT_PERPENDICULAR_COMMON,
+        PERPENDICULAR_COMMON,
         /// Billboards are perpendicular to their own direction vector (their own Z axis, the facing direction) and X, Y axis are determined by a shared up-vertor
-        BBT_PERPENDICULAR_SELF
+        PERPENDICULAR_SELF
     };
 
     /** A collection of billboards (faces which are always facing the given direction) with the same (default) dimensions, material
@@ -221,9 +221,9 @@ class VertexData;
         /// The type of billboard to render
         BillboardType mBillboardType;
 
-        /// Common direction for billboards of type BBT_ORIENTED_COMMON and BBT_PERPENDICULAR_COMMON
+        /// Common direction for billboards of type BillboardType::ORIENTED_COMMON and BillboardType::PERPENDICULAR_COMMON
         Vector3 mCommonDirection;
-        /// Common up-vector for billboards of type BBT_PERPENDICULAR_SELF and BBT_PERPENDICULAR_COMMON
+        /// Common up-vector for billboards of type BillboardType::PERPENDICULAR_SELF and BillboardType::PERPENDICULAR_COMMON
         Vector3 mCommonUpVector;
 
         /// Internal method for culling individual billboards
@@ -244,7 +244,7 @@ class VertexData;
         //-----------------------------------------------------------------------
         /** Internal method for generating billboard corners. 
         @remarks
-            Optional parameter pBill is only present for type BBT_ORIENTED_SELF and BBT_PERPENDICULAR_SELF
+            Optional parameter pBill is only present for type BillboardType::ORIENTED_SELF and BillboardType::PERPENDICULAR_SELF
         */
         void genBillboardAxes(Vector3* pX, Vector3 *pY, const Billboard* pBill = nullptr);
 
@@ -468,15 +468,15 @@ class VertexData;
             it could mean the center of the bottom edge (e.g. a tree which is positioned on the ground),
             the top-left corner (e.g. a cursor).
 
-            The default setting is #BBO_CENTER.
+            The default setting is #BillboardOrigin::CENTER.
         @param origin
-            A member of the BillboardOrigin enum specifying the origin for all the billboards in this set.
+            A member of the BillboardOrigin enum class specifying the origin for all the billboards in this set.
         */
         void setBillboardOrigin(BillboardOrigin origin) { mOriginType = origin; }
 
         /** Gets the point which acts as the origin point for all billboards in this set.
         @return
-            A member of the BillboardOrigin enum specifying the origin for all the billboards in this set.
+            A member of the BillboardOrigin enum class specifying the origin for all the billboards in this set.
         */
         auto getBillboardOrigin() const noexcept -> BillboardOrigin { return mOriginType; }
 
@@ -485,15 +485,15 @@ class VertexData;
             This setting controls the billboard rotation type, you can deciding rotate the billboard's vertices
             around their facing direction or rotate the billboard's texture coordinates.
 
-            The default settings is #BBR_TEXCOORD.
+            The default settings is #BillboardRotationType::TEXCOORD.
         @param rotationType
-            A member of the BillboardRotationType enum specifying the rotation type for all the billboards in this set.
+            A member of the BillboardRotationType enum class specifying the rotation type for all the billboards in this set.
         */
         void setBillboardRotationType(BillboardRotationType rotationType) { mRotationType = rotationType; }
 
         /** Sets billboard rotation type.
         @return
-            A member of the BillboardRotationType enum specifying the rotation type for all the billboards in this set.
+            A member of the BillboardRotationType enum class specifying the rotation type for all the billboards in this set.
         */
         auto getBillboardRotationType() const noexcept -> BillboardRotationType { return mRotationType; }
 
@@ -594,22 +594,22 @@ class VertexData;
         /// @{
         /** Sets the orientation behaviour of the billboards to render.
 
-            The default sort of billboard (#BBT_POINT), always has both x and y axes parallel to
+            The default sort of billboard (#BillboardType::POINT), always has both x and y axes parallel to
             the camera's local axes. This is fine for 'point' style billboards (e.g. flares,
             smoke, anything which is symmetrical about a central point) but does not look good for
             billboards which have an orientation (e.g. an elongated raindrop). In this case, the
-            oriented billboards are more suitable (#BBT_ORIENTED_COMMON or #BBT_ORIENTED_SELF) since
+            oriented billboards are more suitable (#BillboardType::ORIENTED_COMMON or #BillboardType::ORIENTED_SELF) since
             they retain an independent Y axis and only the X axis is generated, perpendicular to both
             the local Y and the camera Z.
 
             In some case you might want the billboard has fixed Z axis and doesn't need to face to
             camera (e.g. an aureola around the player and parallel to the ground). You can use
-            #BBT_PERPENDICULAR_SELF which the billboard plane perpendicular to the billboard own
-            direction. Or #BBT_PERPENDICULAR_COMMON which the billboard plane perpendicular to the
+            #BillboardType::PERPENDICULAR_SELF which the billboard plane perpendicular to the billboard own
+            direction. Or #BillboardType::PERPENDICULAR_COMMON which the billboard plane perpendicular to the
             common direction.
         @note
-            #BBT_PERPENDICULAR_SELF and #BBT_PERPENDICULAR_COMMON can't guarantee counterclockwise, you might
-            use double-side material (#CULL_NONE) to ensure no billboard are culled.
+            #BillboardType::PERPENDICULAR_SELF and #BillboardType::PERPENDICULAR_COMMON can't guarantee counterclockwise, you might
+            use double-side material (#CullingMode::NONE) to ensure no billboard are culled.
         @param bbt The type of billboard to render
         */
         void setBillboardType(BillboardType bbt) { mBillboardType = bbt; }
@@ -619,11 +619,11 @@ class VertexData;
 
         /** Use this to specify the common direction given to billboards
 
-            Use #BBT_ORIENTED_COMMON when you want oriented billboards but you know they are always going to
+            Use #BillboardType::ORIENTED_COMMON when you want oriented billboards but you know they are always going to
             be oriented the same way (e.g. rain in calm weather). It is faster for the system to calculate
             the billboard vertices if they have a common direction.
 
-            The common direction also use in #BBT_PERPENDICULAR_COMMON, in this case the common direction
+            The common direction also use in #BillboardType::PERPENDICULAR_COMMON, in this case the common direction
             treat as Z axis, and an additional common up-vector was use to determine billboard X and Y
             axis.
 
@@ -633,18 +633,18 @@ class VertexData;
         */
         void setCommonDirection(const Vector3& vec) { mCommonDirection = vec; }
 
-        /** Gets the common direction for all billboards (BBT_ORIENTED_COMMON) */
+        /** Gets the common direction for all billboards (BillboardType::ORIENTED_COMMON) */
         auto getCommonDirection() const noexcept -> const Vector3& { return mCommonDirection; }
 
         /** Use this to specify the common up-vector given to billboards
 
-            Use #BBT_PERPENDICULAR_SELF or #BBT_PERPENDICULAR_COMMON when you want oriented billboards
+            Use #BillboardType::PERPENDICULAR_SELF or #BillboardType::PERPENDICULAR_COMMON when you want oriented billboards
             perpendicular to specify direction vector (or, Z axis), and doesn't face to camera.
             In this case, we need an additional up-vector to determine the billboard X and Y axis.
             The generated billboard plane and X-axis guarantee perpendicular to specify direction.
 
-            The specify direction is billboard own direction when billboard type is #BBT_PERPENDICULAR_SELF,
-            and it's shared common direction when billboard type is #BBT_PERPENDICULAR_COMMON.
+            The specify direction is billboard own direction when billboard type is #BillboardType::PERPENDICULAR_SELF,
+            and it's shared common direction when billboard type is #BillboardType::PERPENDICULAR_COMMON.
 
             @param vec The up-vector for all billboards. The vector is expected to be unit-length (normalised)
 
@@ -652,7 +652,7 @@ class VertexData;
         */
         void setCommonUpVector(const Vector3& vec) { mCommonUpVector = vec; }
 
-        /** Gets the common up-vector for all billboards (BBT_PERPENDICULAR_SELF and BBT_PERPENDICULAR_COMMON) */
+        /** Gets the common up-vector for all billboards (BillboardType::PERPENDICULAR_SELF and BillboardType::PERPENDICULAR_COMMON) */
         auto getCommonUpVector() const noexcept -> const Vector3& { return mCommonUpVector; }
 
         /** Sets whether or not billboards should use an 'accurate' facing model
@@ -774,7 +774,7 @@ class VertexData;
 
             Using point rendering is faster than generating quads manually, but
             is more restrictive. The following restrictions apply:
-            - Only the Ogre::BBT_POINT type is supported
+            - Only the Ogre::BillboardType::POINT type is supported
             - Size and appearance of each billboard is controlled by the material
               - Ogre::Pass::setPointSize
               - Ogre::Pass::setPointAttenuation
@@ -782,7 +782,7 @@ class VertexData;
             - Per-billboard size is not supported (stems from the above)
             - Per-billboard rotation is not supported, this can only be
                 controlled through texture unit rotation
-            - Only Ogre::BBO_CENTER origin is supported
+            - Only Ogre::BillboardOrigin::CENTER origin is supported
             - Per-billboard texture coordinates are not supported
 
             You will almost certainly want to enable in your material pass
@@ -794,7 +794,7 @@ class VertexData;
         auto isPointRenderingEnabled() const noexcept -> bool { return mPointRendering; }
 
         /// Override to return specific type flag
-        auto getTypeFlags() const noexcept -> uint32 override;
+        auto getTypeFlags() const noexcept -> QueryTypeMask override;
 
         /** Set the auto update state of this billboard set.
         @remarks

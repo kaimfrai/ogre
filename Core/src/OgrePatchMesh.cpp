@@ -59,7 +59,7 @@ class ResourceManager;
         // NB clone the declaration to make it independent
         mDeclaration = declaration->clone();
         mSurface.defineSurface(controlPointBuffer, mDeclaration, width, height, 
-            PatchSurface::PST_BEZIER, uMaxSubdivisionLevel, vMaxSubdivisionLevel, 
+            PatchSurface::PatchSurfaceType::BEZIER, uMaxSubdivisionLevel, vMaxSubdivisionLevel, 
             visibleSide);
 
     }
@@ -68,10 +68,10 @@ class ResourceManager;
                            size_t uMaxSubdivisionLevel, size_t vMaxSubdivisionLevel,
                            PatchSurface::VisibleSide visibleSide)
     {
-        mSurface.defineSurface(controlPointBuffer, mDeclaration, width, height, PatchSurface::PST_BEZIER, uMaxSubdivisionLevel, vMaxSubdivisionLevel, visibleSide);
+        mSurface.defineSurface(controlPointBuffer, mDeclaration, width, height, PatchSurface::PatchSurfaceType::BEZIER, uMaxSubdivisionLevel, vMaxSubdivisionLevel, visibleSide);
         Ogre::SubMesh* sm = this->getSubMesh(0);
         Ogre::VertexData* vertex_data = sm->useSharedVertices ? this->sharedVertexData : sm->vertexData.get();
-        const Ogre::VertexElement* posElem = vertex_data->vertexDeclaration->findElementBySemantic(Ogre::VES_POSITION);
+        const Ogre::VertexElement* posElem = vertex_data->vertexDeclaration->findElementBySemantic(Ogre::VertexElementSemantic::POSITION);
         Ogre::HardwareVertexBufferSharedPtr vbuf = vertex_data->vertexBufferBinding->getBuffer(posElem->getSource());
 
         // Build patch with new control points
@@ -109,7 +109,7 @@ class ResourceManager;
         sm->indexData->indexCount = mSurface.getRequiredIndexCount();
         sm->indexData->indexBuffer = getHardwareBufferManager()->
             createIndexBuffer(
-                HardwareIndexBuffer::IT_16BIT, // only 16-bit indexes supported, patches shouldn't be bigger than that
+                HardwareIndexBuffer::IndexType::_16BIT, // only 16-bit indexes supported, patches shouldn't be bigger than that
                 sm->indexData->indexCount,
                 getIndexBufferUsage(),
                 isIndexBufferShadowed());

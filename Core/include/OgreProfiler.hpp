@@ -63,19 +63,33 @@ namespace Ogre {
     */
     /** List of reserved profiling masks
     */
-    enum ProfileGroupMask
+    enum class ProfileGroupMask : uint32
     {
         /// User default profile
-        OGREPROF_USER_DEFAULT = 0x00000001,
+        USER_DEFAULT = 0x00000001,
         /// All in-built Ogre profiling will match this mask
-        OGREPROF_ALL = 0xFF000000,
+        ALL = 0xFF000000,
         /// General processing
-        OGREPROF_GENERAL = 0x80000000,
+        GENERAL = 0x80000000,
         /// Culling
-        OGREPROF_CULLING = 0x40000000,
+        CULLING = 0x40000000,
         /// Rendering
-        OGREPROF_RENDERING = 0x20000000
+        RENDERING = 0x20000000
     };
+
+    auto constexpr operator not(ProfileGroupMask value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    auto constexpr operator bitand(ProfileGroupMask left, ProfileGroupMask right) -> ProfileGroupMask
+    {
+        return static_cast<ProfileGroupMask>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** Represents the total timing information of a profile
         since profiles can be called more than once each frame
@@ -246,7 +260,7 @@ namespace Ogre {
             @param profileName Must be unique and must not be an empty string
             @param groupID A profile group identifier, which can allow you to mask profiles
             */
-            void beginProfile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
+            void beginProfile(std::string_view profileName, ProfileGroupMask groupID = ProfileGroupMask::USER_DEFAULT);
 
             /** Ends a profile
             @remarks 
@@ -262,7 +276,7 @@ namespace Ogre {
             @param profileName Must be unique and must not be an empty string
             @param groupID A profile group identifier, which can allow you to mask profiles
             */
-            void endProfile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT);
+            void endProfile(std::string_view profileName, ProfileGroupMask groupID = ProfileGroupMask::USER_DEFAULT);
 
             /** Mark the beginning of a GPU event group
              @remarks Can be safely called in the middle of the profile.
@@ -301,10 +315,10 @@ namespace Ogre {
 
             /** Set the mask which all profiles must pass to be enabled. 
             */
-            void setProfileGroupMask(uint32 mask) { mProfileMask = mask; }
+            void setProfileGroupMask(ProfileGroupMask mask) { mProfileMask = mask; }
             /** Get the mask which all profiles must pass to be enabled. 
             */
-            [[nodiscard]] auto getProfileGroupMask() const noexcept -> uint32 { return mProfileMask; }
+            [[nodiscard]] auto getProfileGroupMask() const noexcept -> ProfileGroupMask { return mProfileMask; }
 
             /** Returns true if the specified profile reaches a new frame time maximum
             @remarks If this is called during a frame, it will be reading the results
@@ -423,7 +437,7 @@ namespace Ogre {
             bool mNewEnableState{true};
 
             /// Mask to decide whether a type of profile is enabled or not
-            uint32 mProfileMask{0xFFFFFFFF};
+            ProfileGroupMask mProfileMask{0xFFFFFFFF};
 
             /// The max frame time recorded
             ulong mMaxTotalFrameClocks{0};
@@ -448,7 +462,7 @@ namespace Ogre {
     {
 
     public:
-        Profile(std::string_view profileName, uint32 groupID = (uint32)OGREPROF_USER_DEFAULT)
+        Profile(std::string_view profileName, ProfileGroupMask groupID = ProfileGroupMask::USER_DEFAULT)
             : mName(profileName), mGroupID(groupID)
         {
             Profiler::getSingleton().beginProfile(profileName, groupID);
@@ -459,7 +473,7 @@ namespace Ogre {
         /// The name of this profile
         String mName;
         /// The group ID
-        uint32 mGroupID;
+        ProfileGroupMask mGroupID;
     };
     /** @} */
     /** @} */

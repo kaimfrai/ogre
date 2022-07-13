@@ -60,7 +60,7 @@ namespace Ogre {
 
     void CPreprocessor::Token::Append (const char *iString, size_t iLength)
     {
-        Token t (Token::TK_TEXT, iString, iLength);
+        Token t (Token::Kind::TEXT, iString, iLength);
         Append (t);
     }
 
@@ -160,7 +160,7 @@ namespace Ogre {
         int len = snprintf (tmp, sizeof (tmp), "%ld", iValue);
         Length = 0;
         Append (tmp, len);
-        Type = TK_NUMBER;
+        Type = Kind::NUMBER;
     }
 
 
@@ -181,7 +181,7 @@ namespace Ogre {
 
     auto CPreprocessor::Token::CountNL () -> int
     {
-        if (Type == TK_EOS || Type == TK_ERROR)
+        if (Type == Kind::EOS || Type == Kind::ERROR)
             return 0;
 
         const char *s = String;
@@ -219,7 +219,7 @@ namespace Ogre {
 
         Token xt;
         // make sure that no one down the line sets Value.Allocated = 0
-        Token new_xt = Token(Token::TK_TEXT, Value.String, Value.Length);
+        Token new_xt = Token(Token::Kind::TEXT, Value.String, Value.Length);
         bool first = true;
         do {
             xt = new_xt;
@@ -248,7 +248,7 @@ namespace Ogre {
             msg = std::format("line {0}: {1}: `{3:.{2}}'\n", iLine, iError, int(iToken->Length), iToken->String);
         else
             msg = std::format("line {}: {}\n", iLine, iError);
-        LogManager::getSingleton().logMessage(msg, LML_CRITICAL);
+        LogManager::getSingleton().logMessage(msg, LogMessageLevel::Critical);
     }
 
     CPreprocessor::CPreprocessor (const Token &iToken, int iLine)
@@ -277,7 +277,7 @@ namespace Ogre {
     auto CPreprocessor::GetToken (bool iExpand) -> CPreprocessor::Token
     {
         if (Source >= SourceEnd)
-            return {Token::TK_EOS};
+            return {Token::Kind::EOS};
 
         const char *begin = Source;
         char c = *Source++;
@@ -289,7 +289,7 @@ namespace Ogre {
             BOL = true;
             if (c == '\r')
                 Source++;
-            return {Token::TK_NEWLINE, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::NEWLINE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (isspace (c))
         {
@@ -299,7 +299,7 @@ namespace Ogre {
                    isspace (*Source))
                 Source++;
 
-            return {Token::TK_WHITESPACE, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::WHITESPACE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (isdigit (c))
         {
@@ -313,14 +313,14 @@ namespace Ogre {
             else
                 while (Source < SourceEnd && isdigit (*Source))
                     Source++;
-            return {Token::TK_NUMBER, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::NUMBER, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '_' || isalnum (c))
         {
             BOL = false;
             while (Source < SourceEnd && (*Source == '_' || isalnum (*Source)))
                 Source++;
-            Token t (Token::TK_KEYWORD, begin, static_cast<size_t>(Source - begin));
+            Token t (Token::Kind::KEYWORD, begin, static_cast<size_t>(Source - begin));
             if (iExpand)
                 t = ExpandMacro (t);
             return t;
@@ -342,7 +342,7 @@ namespace Ogre {
             }
             if (Source < SourceEnd)
                 Source++;
-            return {Token::TK_STRING, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::STRING, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '/' && *Source == '/')
         {
@@ -350,7 +350,7 @@ namespace Ogre {
             Source++;
             while (Source < SourceEnd && *Source != '\r' && *Source != '\n')
                 Source++;
-            return {Token::TK_LINECOMMENT, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::LINECOMMENT, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '/' && *Source == '*')
         {
@@ -366,7 +366,7 @@ namespace Ogre {
                 Source++;
             if (Source < SourceEnd && *Source == '/')
                 Source++;
-            return {Token::TK_COMMENT, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::COMMENT, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '#' && BOL)
         {
@@ -375,7 +375,7 @@ namespace Ogre {
                 Source++;
             while (Source < SourceEnd && !isspace (*Source))
                 Source++;
-            return {Token::TK_DIRECTIVE, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::DIRECTIVE, begin, static_cast<size_t>(Source - begin)};
         }
         else if (c == '\\' && Source < SourceEnd && (*Source == '\r' || *Source == '\n'))
         {
@@ -386,7 +386,7 @@ namespace Ogre {
                 Source++;
             Line++;
             BOL = true;
-            return {Token::TK_LINECONT, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::LINECONT, begin, static_cast<size_t>(Source - begin)};
         }
         else
         {
@@ -402,7 +402,7 @@ namespace Ogre {
                 Source++;
             else if ((c == '|' || c == '&' || c == '^') && *Source == c)
                 Source++;
-            return {Token::TK_PUNCTUATION, begin, static_cast<size_t>(Source - begin)};
+            return {Token::Kind::PUNCTUATION, begin, static_cast<size_t>(Source - begin)};
         }
     }
 
@@ -428,7 +428,7 @@ namespace Ogre {
             if (!cur->Args.empty())
             {
                 Token t = GetArguments (args, cur->ExpandFunc ? false : true, false);
-                if (t.Type == Token::TK_ERROR)
+                if (t.Type == Token::Kind::ERROR)
                 {
                     return t;
                 }
@@ -442,7 +442,7 @@ namespace Ogre {
                     Line -= t.CountNL ();
                 }
                 // If a macro is defined with arguments but gets not "called" it should behave like normal text
-                if (args.size() == 0 && (t.Type != Token::TK_PUNCTUATION || t.String [0] != '('))
+                if (args.size() == 0 && (t.Type != Token::Kind::PUNCTUATION || t.String [0] != '('))
                 {
                     return iToken;
                 }
@@ -455,7 +455,7 @@ namespace Ogre {
                           int (cur->Name.Length), cur->Name.String,
                           args.size(), cur->Args.size());
                 Error (old_line, tmp);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
 
             Token t = cur->ExpandFunc ?
@@ -494,16 +494,16 @@ namespace Ogre {
         do
         {
             oResult = GetToken (true);
-        } while (oResult.Type == Token::TK_WHITESPACE ||
-                 oResult.Type == Token::TK_NEWLINE ||
-                 oResult.Type == Token::TK_COMMENT ||
-                 oResult.Type == Token::TK_LINECOMMENT ||
-                 oResult.Type == Token::TK_LINECONT);
+        } while (oResult.Type == Token::Kind::WHITESPACE ||
+                 oResult.Type == Token::Kind::NEWLINE ||
+                 oResult.Type == Token::Kind::COMMENT ||
+                 oResult.Type == Token::Kind::LINECOMMENT ||
+                 oResult.Type == Token::Kind::LINECONT);
 
-        Token op (Token::TK_WHITESPACE, "", 0);
+        Token op (Token::Kind::WHITESPACE, "", 0);
 
         // Handle unary operators here
-        if (oResult.Type == Token::TK_PUNCTUATION && oResult.Length == 1)
+        if (oResult.Type == Token::Kind::PUNCTUATION && oResult.Length == 1)
         {
             if (strchr ("+-!~", oResult.String [0]))
             {
@@ -514,7 +514,7 @@ namespace Ogre {
                 {
                     snprintf (tmp, sizeof (tmp), "Unary '%c' not applicable", uop);
                     Error (iLine, tmp, &oResult);
-                    return {Token::TK_ERROR};
+                    return {Token::Kind::ERROR};
                 }
 
                 if (uop == '-')
@@ -527,31 +527,31 @@ namespace Ogre {
             else if (oResult.String [0] == '(')
             {
                 op = GetExpression (oResult, iLine, 1);
-                if (op.Type == Token::TK_ERROR)
+                if (op.Type == Token::Kind::ERROR)
                     return op;
-                if (op.Type == Token::TK_EOS)
+                if (op.Type == Token::Kind::EOS)
                 {
                     Error (iLine, "Unclosed parenthesis in #if expression");
-                    return {Token::TK_ERROR};
+                    return {Token::Kind::ERROR};
                 }
 
-                assert (op.Type == Token::TK_PUNCTUATION &&
+                assert (op.Type == Token::Kind::PUNCTUATION &&
                         op.Length == 1 &&
                         op.String [0] == ')');
                 op = GetToken (true);
             }
         }
 
-        while (op.Type == Token::TK_WHITESPACE ||
-               op.Type == Token::TK_NEWLINE ||
-               op.Type == Token::TK_COMMENT ||
-               op.Type == Token::TK_LINECOMMENT ||
-               op.Type == Token::TK_LINECONT)
+        while (op.Type == Token::Kind::WHITESPACE ||
+               op.Type == Token::Kind::NEWLINE ||
+               op.Type == Token::Kind::COMMENT ||
+               op.Type == Token::Kind::LINECOMMENT ||
+               op.Type == Token::Kind::LINECONT)
             op = GetToken (true);
 
         for(;;)
         {
-            if (op.Type != Token::TK_PUNCTUATION)
+            if (op.Type != Token::Kind::PUNCTUATION)
                 return op;
 
             int prio = 0;
@@ -594,7 +594,7 @@ namespace Ogre {
             if (!prio)
             {
                 Error (iLine, "Expecting operator, got", &op);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
 
             if (iOpPriority >= prio)
@@ -608,14 +608,14 @@ namespace Ogre {
                 snprintf (tmp, sizeof (tmp), "Left operand of '%.*s' is not a number",
                           int (op.Length), op.String);
                 Error (iLine, tmp, &oResult);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
             if (!GetValue (rop, vrop, iLine))
             {
                 snprintf (tmp, sizeof (tmp), "Right operand of '%.*s' is not a number",
                           int (op.Length), op.String);
                 Error (iLine, tmp, &rop);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
 
             switch (op.String [0])
@@ -659,7 +659,7 @@ namespace Ogre {
                 if (vrop == 0)
                 {
                     Error (iLine, "Division by zero");
-                    return {Token::TK_ERROR};
+                    return {Token::Kind::ERROR};
                 }
                 if (op.String [0] == '/')
                     oResult.SetValue (vlop / vrop);
@@ -678,16 +678,16 @@ namespace Ogre {
         Token r;
         const Token *vt = &iToken;
 
-        if ((vt->Type == Token::TK_KEYWORD ||
-             vt->Type == Token::TK_TEXT ||
-             vt->Type == Token::TK_NUMBER) &&
+        if ((vt->Type == Token::Kind::KEYWORD ||
+             vt->Type == Token::Kind::TEXT ||
+             vt->Type == Token::Kind::NUMBER) &&
             !vt->String)
         {
             Error (iLine, "Trying to evaluate an empty expression");
             return false;
         }
 
-        if (vt->Type == Token::TK_TEXT)
+        if (vt->Type == Token::Kind::TEXT)
         {
             CPreprocessor cpp (iToken, iLine);
             std::swap(cpp.MacroList, MacroList);
@@ -697,10 +697,10 @@ namespace Ogre {
 
             std::swap(cpp.MacroList, MacroList);
 
-            if (t.Type == Token::TK_ERROR)
+            if (t.Type == Token::Kind::ERROR)
                 return false;
 
-            if (t.Type != Token::TK_EOS)
+            if (t.Type != Token::Kind::EOS)
             {
                 Error (iLine, "Garbage after expression", &t);
                 return false;
@@ -712,11 +712,11 @@ namespace Ogre {
         Macro *m;
         switch (vt->Type)
         {
-        case Token::TK_EOS:
-        case Token::TK_ERROR:
+        case Token::Kind::EOS:
+        case Token::Kind::ERROR:
             return false;
 
-        case Token::TK_KEYWORD:
+        case Token::Kind::KEYWORD:
             // Try to expand the macro
             if ((m = IsDefined (*vt)) && !m->Expanding)
             {
@@ -731,8 +731,8 @@ namespace Ogre {
             oValue = 0;
             break;
 
-        case Token::TK_TEXT:
-        case Token::TK_NUMBER:
+        case Token::Kind::TEXT:
+        case Token::Kind::NUMBER:
             if (!vt->GetValue (oValue))
             {
                 Error (iLine, "Not a numeric expression", vt);
@@ -755,34 +755,34 @@ namespace Ogre {
         do
         {
             oArg = GetToken (iExpand);
-        } while (oArg.Type == Token::TK_WHITESPACE ||
-                 oArg.Type == Token::TK_NEWLINE ||
-                 oArg.Type == Token::TK_COMMENT ||
-                 oArg.Type == Token::TK_LINECOMMENT ||
-                 oArg.Type == Token::TK_LINECONT);
+        } while (oArg.Type == Token::Kind::WHITESPACE ||
+                 oArg.Type == Token::Kind::NEWLINE ||
+                 oArg.Type == Token::Kind::COMMENT ||
+                 oArg.Type == Token::Kind::LINECOMMENT ||
+                 oArg.Type == Token::Kind::LINECONT);
 
         if (!iExpand)
         {
-            if (oArg.Type == Token::TK_EOS)
+            if (oArg.Type == Token::Kind::EOS)
                 return oArg;
-            else if (oArg.Type == Token::TK_PUNCTUATION &&
+            else if (oArg.Type == Token::Kind::PUNCTUATION &&
                      (oArg.String [0] == ',' ||
                       oArg.String [0] == ')'))
             {
                 Token t = oArg;
-                oArg = Token (Token::TK_TEXT, "", 0);
+                oArg = Token (Token::Kind::TEXT, "", 0);
                 return t;
             }
-            else if (oArg.Type != Token::TK_KEYWORD)
+            else if (oArg.Type != Token::Kind::KEYWORD)
             {
                 Error (Line, "Unexpected token", &oArg);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
         }
 
         size_t braceCount = 0;
 
-        if( oArg.Type == Token::TK_PUNCTUATION && oArg.String[0] == '(' )
+        if( oArg.Type == Token::Kind::PUNCTUATION && oArg.String[0] == '(' )
             ++braceCount;
 
         size_t len = oArg.Length;
@@ -791,12 +791,12 @@ namespace Ogre {
             Token t = GetToken (iExpand);
             switch (t.Type)
             {
-            case Token::TK_EOS:
+            case Token::Kind::EOS:
                 Error (Line, "Unfinished list of arguments");
                 [[fallthrough]];
-            case Token::TK_ERROR:
-                return {Token::TK_ERROR};
-            case Token::TK_PUNCTUATION:
+            case Token::Kind::ERROR:
+                return {Token::Kind::ERROR};
+            case Token::Kind::PUNCTUATION:
                 if( t.String [0] == '(' )
                 {
                     ++braceCount;
@@ -829,25 +829,25 @@ namespace Ogre {
                         --braceCount;
                 }
                 break;
-            case Token::TK_LINECONT:
-            case Token::TK_COMMENT:
-            case Token::TK_LINECOMMENT:
-            case Token::TK_NEWLINE:
+            case Token::Kind::LINECONT:
+            case Token::Kind::COMMENT:
+            case Token::Kind::LINECOMMENT:
+            case Token::Kind::NEWLINE:
                 // ignore these tokens
                 continue;
             default:
                 break;
             }
 
-            if (!iExpand && t.Type != Token::TK_WHITESPACE)
+            if (!iExpand && t.Type != Token::Kind::WHITESPACE)
             {
                 Error (Line, "Unexpected token", &oArg);
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
 
             oArg.Append (t);
 
-            if (t.Type != Token::TK_WHITESPACE)
+            if (t.Type != Token::Kind::WHITESPACE)
                 len = oArg.Length;
         }
     }
@@ -871,14 +871,14 @@ namespace Ogre {
             t = GetToken (iExpand);
 
             if( !isFirstTokenParsed &&
-                (t.Type != Token::TK_PUNCTUATION || t.String [0] != '(') )
+                (t.Type != Token::Kind::PUNCTUATION || t.String [0] != '(') )
             {
                 isFirstTokenNotAnOpenBrace = true;
             }
             isFirstTokenParsed = true;
-        } while (t.Type == Token::TK_WHITESPACE ||
-                 t.Type == Token::TK_COMMENT ||
-                 t.Type == Token::TK_LINECOMMENT);
+        } while (t.Type == Token::Kind::WHITESPACE ||
+                 t.Type == Token::Kind::COMMENT ||
+                 t.Type == Token::Kind::LINECOMMENT);
 
         if( isFirstTokenNotAnOpenBrace )
         {
@@ -891,20 +891,20 @@ namespace Ogre {
             if (nargs == MAX_MACRO_ARGS)
             {
                 Error (Line, "Too many arguments to macro");
-                return {Token::TK_ERROR};
+                return {Token::Kind::ERROR};
             }
 
             t = GetArgument (args [nargs++], iExpand, shouldAppendArg);
 
             switch (t.Type)
             {
-            case Token::TK_EOS:
+            case Token::Kind::EOS:
                 Error (Line, "Unfinished list of arguments");
                 [[fallthrough]];
-            case Token::TK_ERROR:
-                return {Token::TK_ERROR};
+            case Token::Kind::ERROR:
+                return {Token::Kind::ERROR};
 
-            case Token::TK_PUNCTUATION:
+            case Token::Kind::PUNCTUATION:
                 if (t.String [0] == ')')
                 {
                     t = GetToken (iExpand);
@@ -930,7 +930,7 @@ namespace Ogre {
         CPreprocessor cpp (iBody, iLine);
 
         Token t = cpp.GetToken (false);
-        if (t.Type != Token::TK_KEYWORD)
+        if (t.Type != Token::Kind::KEYWORD)
         {
             Error (iLine, "Macro name expected after #define");
             return false;
@@ -939,22 +939,22 @@ namespace Ogre {
         Macro m(t);
         m.Body = iBody;
         t = cpp.GetArguments (m.Args, false, true);
-        while (t.Type == Token::TK_WHITESPACE)
+        while (t.Type == Token::Kind::WHITESPACE)
             t = cpp.GetToken (false);
 
         switch (t.Type)
         {
-        case Token::TK_NEWLINE:
-        case Token::TK_EOS:
+        case Token::Kind::NEWLINE:
+        case Token::Kind::EOS:
             // Assign "" to token
-            t = Token (Token::TK_TEXT, "", 0);
+            t = Token (Token::Kind::TEXT, "", 0);
             break;
 
-        case Token::TK_ERROR:
+        case Token::Kind::ERROR:
             return false;
 
         default:
-            t.Type = Token::TK_TEXT;
+            t.Type = Token::Kind::TEXT;
             assert (t.String + t.Length == cpp.Source);
             t.Length = cpp.SourceEnd - t.String;
             break;
@@ -990,7 +990,7 @@ namespace Ogre {
 
         Token t = cpp.GetToken (false);
 
-        if (t.Type != Token::TK_KEYWORD)
+        if (t.Type != Token::Kind::KEYWORD)
         {
             Error (iLine, "Expecting a macro name after #undef, got", &t);
             return false;
@@ -1002,11 +1002,11 @@ namespace Ogre {
         do
         {
             t = cpp.GetToken (false);
-        } while (t.Type == Token::TK_WHITESPACE ||
-                 t.Type == Token::TK_COMMENT ||
-                 t.Type == Token::TK_LINECOMMENT);
+        } while (t.Type == Token::Kind::WHITESPACE ||
+                 t.Type == Token::Kind::COMMENT ||
+                 t.Type == Token::Kind::LINECOMMENT);
 
-        if (t.Type != Token::TK_EOS)
+        if (t.Type != Token::Kind::EOS)
             Error (iLine, "Warning: Ignoring garbage after directive", &t);
 
         return true;
@@ -1036,7 +1036,7 @@ namespace Ogre {
 
         Token t = cpp.GetToken (false);
 
-        if (t.Type != Token::TK_KEYWORD)
+        if (t.Type != Token::Kind::KEYWORD)
         {
             Error (iLine, "Expecting a macro name after #ifdef, got", &t);
             return false;
@@ -1048,11 +1048,11 @@ namespace Ogre {
         do
         {
             t = cpp.GetToken (false);
-        } while (t.Type == Token::TK_WHITESPACE ||
-                 t.Type == Token::TK_COMMENT ||
-                 t.Type == Token::TK_LINECOMMENT);
+        } while (t.Type == Token::Kind::WHITESPACE ||
+                 t.Type == Token::Kind::COMMENT ||
+                 t.Type == Token::Kind::LINECOMMENT);
 
-        if (t.Type != Token::TK_EOS)
+        if (t.Type != Token::Kind::EOS)
             Error (iLine, "Warning: Ignoring garbage after directive", &t);
 
         return true;
@@ -1064,17 +1064,17 @@ namespace Ogre {
         if (iArgs.size() != 1)
         {
             iParent->Error (iParent->Line, "The defined() function takes exactly one argument");
-            return {Token::TK_ERROR};
+            return {Token::Kind::ERROR};
         }
 
         const char *v = iParent->IsDefined (iArgs [0]) ? "1" : "0";
-        return {Token::TK_NUMBER, v, 1};
+        return {Token::Kind::NUMBER, v, 1};
     }
 
     auto CPreprocessor::GetValueDef(const Token &iToken, long &oValue, int iLine) -> bool
     {
         // Temporary add the defined() function to the macro list
-        MacroList.emplace_front(Token(Token::TK_KEYWORD, "defined", 7));
+        MacroList.emplace_front(Token(Token::Kind::KEYWORD, "defined", 7));
         MacroList.front().ExpandFunc = ExpandDefined;
         MacroList.front().Args.resize(1);
 
@@ -1167,39 +1167,39 @@ namespace Ogre {
         do
         {
             t = GetToken (false);
-            if (t.Type == Token::TK_NEWLINE)
+            if (t.Type == Token::Kind::NEWLINE)
             {
                 // No directive arguments
                 last = t;
                 t.Length = 0;
                 goto Done;
             }
-        } while (t.Type == Token::TK_WHITESPACE ||
-                 t.Type == Token::TK_LINECONT ||
-                 t.Type == Token::TK_COMMENT ||
-                 t.Type == Token::TK_LINECOMMENT);
+        } while (t.Type == Token::Kind::WHITESPACE ||
+                 t.Type == Token::Kind::LINECONT ||
+                 t.Type == Token::Kind::COMMENT ||
+                 t.Type == Token::Kind::LINECOMMENT);
 
         for (;;)
         {
             last = GetToken (false);
             switch (last.Type)
             {
-            case Token::TK_EOS:
+            case Token::Kind::EOS:
                 // Can happen and is not an error
                 goto Done;
 
-            case Token::TK_LINECOMMENT:
-            case Token::TK_COMMENT:
+            case Token::Kind::LINECOMMENT:
+            case Token::Kind::COMMENT:
                 // Skip comments in macros
                 continue;
 
-            case Token::TK_ERROR:
+            case Token::Kind::ERROR:
                 return last;
 
-            case Token::TK_LINECONT:
+            case Token::Kind::LINECONT:
                 continue;
 
-            case Token::TK_NEWLINE:
+            case Token::Kind::NEWLINE:
                 goto Done;
 
             default:
@@ -1207,7 +1207,7 @@ namespace Ogre {
             }
 
             t.Append (last);
-            t.Type = Token::TK_TEXT;
+            t.Type = Token::Kind::TEXT;
         }
     Done:
 
@@ -1244,19 +1244,19 @@ namespace Ogre {
         else
         {
             //Error (iLine, "Unknown preprocessor directive", &iToken);
-            //return Token (Token::TK_ERROR);
+            //return Token (Token::Kind::ERROR);
 
             // Unknown preprocessor directive, roll back and pass through
             Line = old_line;
             Source = iToken.String + iToken.Length;
-            iToken.Type = Token::TK_TEXT;
+            iToken.Type = Token::Kind::TEXT;
             return iToken;
         }
 
 #undef IS_DIRECTIVE
 
         if (!rc)
-            return {Token::TK_ERROR};
+            return {Token::Kind::ERROR};
         return last;
     }
 
@@ -1264,20 +1264,20 @@ namespace Ogre {
     void CPreprocessor::Define (const char *iMacroName, size_t iMacroNameLen,
                                 const char *iMacroValue, size_t iMacroValueLen)
     {
-        MacroList.emplace_front(Token(Token::TK_KEYWORD, iMacroName, iMacroNameLen));
-        MacroList.front().Value = Token(Token::TK_TEXT, iMacroValue, iMacroValueLen);
+        MacroList.emplace_front(Token(Token::Kind::KEYWORD, iMacroName, iMacroNameLen));
+        MacroList.front().Value = Token(Token::Kind::TEXT, iMacroValue, iMacroValueLen);
     }
 
 
     void CPreprocessor::Define (const char *iMacroName, size_t iMacroNameLen)
     {
-        MacroList.emplace_front(Token(Token::TK_KEYWORD, iMacroName, iMacroNameLen));
+        MacroList.emplace_front(Token(Token::Kind::KEYWORD, iMacroName, iMacroNameLen));
     }
 
 
     auto CPreprocessor::Undef (const char *iMacroName, size_t iMacroNameLen) -> bool
     {
-        Token name (Token::TK_KEYWORD, iMacroName, iMacroNameLen);
+        Token name (Token::Kind::KEYWORD, iMacroName, iMacroNameLen);
 
         for (auto it = MacroList.before_begin();; ++it)
         {
@@ -1305,7 +1305,7 @@ namespace Ogre {
         EnableElif = 0;
 
         // Accumulate output into this token
-        Token output (Token::TK_TEXT);
+        Token output (Token::Kind::TEXT);
         int empty_lines = 0;
 
         // Enable output only if all embedded #if's were true
@@ -1321,13 +1321,13 @@ namespace Ogre {
         NextToken:
             switch (t.Type)
             {
-            case Token::TK_ERROR:
+            case Token::Kind::ERROR:
                 return t;
 
-            case Token::TK_EOS:
+            case Token::Kind::EOS:
                 return output; // Force termination
 
-            case Token::TK_COMMENT:
+            case Token::Kind::COMMENT:
                 // C comments are replaced with single spaces.
                 if (output_enabled)
                 {
@@ -1336,11 +1336,11 @@ namespace Ogre {
                 }
                 break;
 
-            case Token::TK_LINECOMMENT:
+            case Token::Kind::LINECOMMENT:
                 // C++ comments are ignored
                 continue;
 
-            case Token::TK_DIRECTIVE:
+            case Token::Kind::DIRECTIVE:
                 // Handle preprocessor directives
                 t = HandleDirective (t, old_line);
 
@@ -1358,17 +1358,17 @@ namespace Ogre {
                     output.AppendNL (Line - old_line - t.CountNL ());
                 goto NextToken;
 
-            case Token::TK_LINECONT:
+            case Token::Kind::LINECONT:
                 // Backslash-Newline sequences are deleted, no matter where.
                 empty_lines++;
                 break;
 
-            case Token::TK_PUNCTUATION:
+            case Token::Kind::PUNCTUATION:
                 if (output_enabled && (!SupplimentaryExpand || t.String[0] != '#'))
                     output.Append (t);
                 break;
 
-            case Token::TK_NEWLINE:
+            case Token::Kind::NEWLINE:
                 if (empty_lines)
                 {
                     // Compensate for the backslash-newline combinations
@@ -1378,7 +1378,7 @@ namespace Ogre {
                     empty_lines = 0;
                 }
                 [[fallthrough]]; // to default
-            case Token::TK_WHITESPACE:
+            case Token::Kind::WHITESPACE:
                 // Fallthrough to default
             default:
                 // Passthrough all other tokens
@@ -1391,7 +1391,7 @@ namespace Ogre {
         if (EnableOutput != 1)
         {
             Error (Line, "Unclosed #if at end of source");
-            return {Token::TK_ERROR};
+            return {Token::Kind::ERROR};
         }
 
         return output;
@@ -1400,8 +1400,8 @@ namespace Ogre {
 
     auto CPreprocessor::Parse (const char *iSource, size_t iLength, size_t &oLength) -> char *
     {
-        Token retval = Parse (Token (Token::TK_TEXT, iSource, iLength));
-        if (retval.Type == Token::TK_ERROR)
+        Token retval = Parse (Token (Token::Kind::TEXT, iSource, iLength));
+        if (retval.Type == Token::Kind::ERROR)
             return nullptr;
 
         oLength = retval.Length;

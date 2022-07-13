@@ -215,8 +215,8 @@ class SceneManager;
         public:
             RQListener()  = default;
 
-            void renderQueueStarted(uint8 queueGroupId, std::string_view invocation, bool& skipThisInvocation) override;
-            void renderQueueEnded(uint8 queueGroupId, std::string_view invocation, bool& repeatThisInvocation) override;
+            void renderQueueStarted(Ogre::RenderQueueGroupID queueGroupId, std::string_view invocation, bool& skipThisInvocation) override;
+            void renderQueueEnded(Ogre::RenderQueueGroupID queueGroupId, std::string_view invocation, bool& repeatThisInvocation) override;
 
             /** Set current operation and target. */
             void setOperation(CompositorInstance::TargetOperation *op,SceneManager *sm,RenderSystem *rs);
@@ -225,7 +225,7 @@ class SceneManager;
             void notifyViewport(Viewport* vp) { mViewport = vp; }
 
             /** Flush remaining render system operations. */
-            void flushUpTo(uint8 id);
+            void flushUpTo(Ogre::RenderQueueGroupID id);
         private:
             CompositorInstance::TargetOperation *mOperation{nullptr};
             SceneManager *mSceneManager{nullptr};
@@ -235,9 +235,9 @@ class SceneManager;
         };
         RQListener mOurListener;
         /// Old viewport settings
-        unsigned int mOldClearEveryFrameBuffers;
+        FrameBufferType mOldClearEveryFrameBuffers;
         /// Store old scene visibility mask
-        uint32 mOldVisibilityMask;
+        QueryTypeMask mOldVisibilityMask;
         /// Store old find visible objects
         bool mOldFindVisibleObjects;
         /// Store old camera LOD bias

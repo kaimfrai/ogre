@@ -140,7 +140,7 @@ namespace Ogre {
         void setRenderToBufferMaterialName(std::string_view materialName);
 
     protected:
-        RenderOperation::OperationType mOperationType{RenderOperation::OT_TRIANGLE_LIST};
+        RenderOperation::OperationType mOperationType{RenderOperation::OperationType::TRIANGLE_LIST};
         bool mResetsEveryUpdate{false};
         bool mResetRequested{true};
         MaterialPtr mMaterial;

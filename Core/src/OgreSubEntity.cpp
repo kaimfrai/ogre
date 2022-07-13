@@ -58,7 +58,7 @@ class Technique;
         mSubMesh(subMeshBasis) 
     {
         mVisible = true;
-        mRenderQueueID = 0;
+        mRenderQueueID = {};
         mRenderQueueIDSet = false;
         mRenderQueuePrioritySet = false;
         mSkelAnimVertexData = nullptr;
@@ -177,16 +177,16 @@ class Technique;
         {
             Entity::VertexDataBindChoice c = 
                 mParentEntity->chooseVertexDataForBinding(
-                    mSubMesh->getVertexAnimationType() != VAT_NONE);
+                    mSubMesh->getVertexAnimationType() != VertexAnimationType::NONE);
             switch(c)
             {
-            case Entity::BIND_ORIGINAL:
+            case Entity::VertexDataBindChoice::ORIGINAL:
                 return mSubMesh->vertexData.get();
-            case Entity::BIND_HARDWARE_MORPH:
+            case Entity::VertexDataBindChoice::HARDWARE_MORPH:
                 return mHardwareVertexAnimVertexData.get();
-            case Entity::BIND_SOFTWARE_MORPH:
+            case Entity::VertexDataBindChoice::SOFTWARE_MORPH:
                 return mSoftwareVertexAnimVertexData.get();
-            case Entity::BIND_SOFTWARE_SKELETAL:
+            case Entity::VertexDataBindChoice::SOFTWARE_SKELETAL:
                 return mSkelAnimVertexData.get();
             };
             // keep compiler happy
@@ -261,7 +261,7 @@ class Technique;
         Real dist;
         if (!mSubMesh->extremityPoints.empty())
         {
-            bool euclidean = cam->getSortMode() == SM_DISTANCE;
+            bool euclidean = cam->getSortMode() == SortMode::Distance;
             Vector3 zAxis = cam->getDerivedDirection();
             const Vector3 &cp = cam->getDerivedPosition();
             const Affine3 &l2w = mParentEntity->_getParentNodeFullTransform();
@@ -304,7 +304,7 @@ class Technique;
 
         if (!mSubMesh->useSharedVertices)
         {
-            if (mSubMesh->getVertexAnimationType() != VAT_NONE)
+            if (mSubMesh->getVertexAnimationType() != VertexAnimationType::NONE)
             {
                 // Create temporary vertex blend info
                 // Prepare temp vertex data if needed
@@ -369,7 +369,7 @@ class Technique;
         const GpuProgramParameters::AutoConstantEntry& constantEntry,
         GpuProgramParameters* params) const
     {
-        if (constantEntry.paramType == GpuProgramParameters::ACT_ANIMATION_PARAMETRIC)
+        if (constantEntry.paramType == GpuProgramParameters::AutoConstantType::ANIMATION_PARAMETRIC)
         {
             // Set up to 4 values, or up to limit of hardware animation entries
             // Pack into 4-element constants offset based on constant data index
@@ -411,22 +411,22 @@ class Technique;
         //  We didn't apply any animation and 
         //    We're morph animated (hardware binds keyframe, software is missing)
         //    or we're pose animated and software (hardware is fine, still bound)
-        if (mSubMesh->getVertexAnimationType() != VAT_NONE && 
+        if (mSubMesh->getVertexAnimationType() != VertexAnimationType::NONE && 
             !mSubMesh->useSharedVertices && 
             !mVertexAnimationAppliedThisFrame &&
-            (!hardwareAnimation || mSubMesh->getVertexAnimationType() == VAT_MORPH))
+            (!hardwareAnimation || mSubMesh->getVertexAnimationType() == VertexAnimationType::MORPH))
         {
-            // Note, VES_POSITION is specified here but if normals are included in animation
+            // Note, VertexElementSemantic::POSITION is specified here but if normals are included in animation
             // then these will be re-bound too (buffers must be shared)
             const VertexElement* srcPosElem = 
-                mSubMesh->vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                mSubMesh->vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             HardwareVertexBufferSharedPtr srcBuf = 
                 mSubMesh->vertexData->vertexBufferBinding->getBuffer(
                 srcPosElem->getSource());
 
             // Bind to software
             const VertexElement* destPosElem = 
-                mSoftwareVertexAnimVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                mSoftwareVertexAnimVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             mSoftwareVertexAnimVertexData->vertexBufferBinding->setBinding(
                 destPosElem->getSource(), srcBuf);
             
@@ -436,7 +436,7 @@ class Technique;
         // Caused by not having any animations enabled, or keyframes which reference
         // no poses
         if (!mSubMesh->useSharedVertices && hardwareAnimation 
-            && mSubMesh->getVertexAnimationType() == VAT_POSE)
+            && mSubMesh->getVertexAnimationType() == VertexAnimationType::POSE)
         {
             mParentEntity->bindMissingHardwarePoseBuffers(
                 mSubMesh->vertexData.get(), mHardwareVertexAnimVertexData.get());
@@ -444,13 +444,13 @@ class Technique;
 
     }
     //-----------------------------------------------------------------------
-    void SubEntity::setRenderQueueGroup(uint8 queueID)
+    void SubEntity::setRenderQueueGroup(RenderQueueGroupID queueID)
     {
         mRenderQueueIDSet = true;
         mRenderQueueID = queueID;
     }
     //-----------------------------------------------------------------------
-    void SubEntity::setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
+    void SubEntity::setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority)
     {
         setRenderQueueGroup(queueID);
         mRenderQueuePrioritySet = true;

@@ -178,7 +178,7 @@ namespace {
         {
 
             LogManager::getSingleton().logMessage(
-                LML_NORMAL,
+                LogMessageLevel::Normal,
                 "DDS codec registering");
 
             msInstance = new DDSCodec();
@@ -217,10 +217,10 @@ namespace {
 
         // Establish texture attributes
         bool isVolume = (imgData->depth > 1);       
-        bool isFloat32r = (imgData->format == PF_FLOAT32_R);
-        bool isFloat16 = (imgData->format == PF_FLOAT16_RGBA);
-        bool isFloat16r = (imgData->format == PF_FLOAT16_R);
-        bool isFloat32 = (imgData->format == PF_FLOAT32_RGBA);
+        bool isFloat32r = (imgData->format == PixelFormat::FLOAT32_R);
+        bool isFloat16 = (imgData->format == PixelFormat::FLOAT16_RGBA);
+        bool isFloat16r = (imgData->format == PixelFormat::FLOAT16_R);
+        bool isFloat32 = (imgData->format == PixelFormat::FLOAT32_RGBA);
         bool notImplemented = false;
         String notImplementedString = "";
 
@@ -246,16 +246,16 @@ namespace {
 
         switch(imgData->format)
         {
-        case PF_A8R8G8B8:
-        case PF_X8R8G8B8:
-        case PF_R8G8B8:
-        case PF_A8B8G8R8:
-        case PF_X8B8G8R8:
-        case PF_B8G8R8:
-        case PF_FLOAT32_R:
-        case PF_FLOAT16_R:
-        case PF_FLOAT16_RGBA:
-        case PF_FLOAT32_RGBA:
+        case PixelFormat::A8R8G8B8:
+        case PixelFormat::X8R8G8B8:
+        case PixelFormat::R8G8B8:
+        case PixelFormat::A8B8G8R8:
+        case PixelFormat::X8B8G8R8:
+        case PixelFormat::B8G8R8:
+        case PixelFormat::FLOAT32_R:
+        case PixelFormat::FLOAT16_R:
+        case PixelFormat::FLOAT16_RGBA:
+        case PixelFormat::FLOAT32_RGBA:
             break;
         default:
             // No crazy FOURCC or 565 et al. file formats at this stage
@@ -269,7 +269,7 @@ namespace {
         // Except if any 'not implemented' conditions were met
         if (notImplemented)
         {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                         ::std::format("DDS encoding for {} not supported", notImplementedString ));
         }
         else
@@ -294,34 +294,34 @@ namespace {
             // Initalise the rgbBits flags
             switch(imgData->format)
             {
-            case PF_A8B8G8R8:
+            case PixelFormat::A8B8G8R8:
                 flipRgbMasks = true;
                 [[fallthrough]];
-            case PF_A8R8G8B8:
+            case PixelFormat::A8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 hasAlpha = true;
                 break;
-            case PF_X8B8G8R8:
+            case PixelFormat::X8B8G8R8:
                 flipRgbMasks = true;
                 [[fallthrough]];
-            case PF_X8R8G8B8:
+            case PixelFormat::X8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 break;
-            case PF_B8G8R8:
-            case PF_R8G8B8:
+            case PixelFormat::B8G8R8:
+            case PixelFormat::R8G8B8:
                 ddsHeaderRgbBits = 8 * 3;
                 break;
-            case PF_FLOAT32_R:
+            case PixelFormat::FLOAT32_R:
                 ddsHeaderRgbBits = 32;
                 break;
-            case PF_FLOAT16_R:
+            case PixelFormat::FLOAT16_R:
                 ddsHeaderRgbBits = 16;
                 break;
-            case PF_FLOAT16_RGBA:
+            case PixelFormat::FLOAT16_RGBA:
                 ddsHeaderRgbBits = 16 * 4;
                 hasAlpha = true;
                 break;
-            case PF_FLOAT32_RGBA:
+            case PixelFormat::FLOAT32_RGBA:
                 ddsHeaderRgbBits = 32 * 4;
                 hasAlpha = true;
                 break;
@@ -347,7 +347,7 @@ namespace {
                     DDSCAPS2_CUBEMAP_POSITIVEZ|DDSCAPS2_CUBEMAP_NEGATIVEZ;
             }
 
-            if( imgData->num_mipmaps > 0 )
+            if( imgData->num_mipmaps > TextureMipmap{} )
                 ddsHeaderCaps1 |= DDSCAPS_MIPMAP;
 
             // Populate the DDS header information
@@ -358,7 +358,7 @@ namespace {
             ddsHeader.height = (uint32)imgData->height;
             ddsHeader.depth = (uint32)(isVolume ? imgData->depth : 0);
             ddsHeader.depth = (uint32)(isCubeMap ? 6 : ddsHeader.depth);
-            ddsHeader.mipMapCount = imgData->num_mipmaps + 1;
+            ddsHeader.mipMapCount = std::to_underlying(imgData->num_mipmaps) + 1;
             ddsHeader.sizeOrPitch = ddsHeaderSizeOrPitch;
             for (unsigned int & reserved1 : ddsHeader.reserved1) // XXX nasty constant 11
             {
@@ -407,11 +407,11 @@ namespace {
             char *tmpData = nullptr;
             char const *dataPtr = (char const *)input->getPtr();
 
-            if( imgData->format == PF_B8G8R8 )
+            if( imgData->format == PixelFormat::B8G8R8 )
             {
-                PixelBox src( imgData->size / 3, 1, 1, PF_B8G8R8, input->getPtr() );
+                PixelBox src( imgData->size / 3, 1, 1, PixelFormat::B8G8R8, input->getPtr() );
                 tmpData = new char[imgData->size];
-                PixelBox dst( imgData->size / 3, 1, 1, PF_R8G8B8, tmpData );
+                PixelBox dst( imgData->size / 3, 1, 1, PixelFormat::R8G8B8, tmpData );
 
                 PixelUtil::bulkPixelConversion( src, dst );
 
@@ -440,109 +440,109 @@ namespace {
     {
         switch (dxfmt) {
 			case 2: // DXGI_FORMAT_R32G32B32A32_FLOAT
-				return PF_FLOAT32_RGBA;
+				return PixelFormat::FLOAT32_RGBA;
 			case 3: // DXGI_FORMAT_R32G32B32A32_UINT
-				return PF_R32G32B32A32_UINT;
+				return PixelFormat::R32G32B32A32_UINT;
 			case 4: //DXGI_FORMAT_R32G32B32A32_SINT
-				return PF_R32G32B32A32_SINT;
+				return PixelFormat::R32G32B32A32_SINT;
 			case 6: // DXGI_FORMAT_R32G32B32_FLOAT
-				return PF_FLOAT32_RGB;
+				return PixelFormat::FLOAT32_RGB;
 			case 7: // DXGI_FORMAT_R32G32B32_UINT
-				return PF_R32G32B32_UINT;
+				return PixelFormat::R32G32B32_UINT;
 			case 8: // DXGI_FORMAT_R32G32B32_SINT
-				return PF_R32G32B32_SINT;
+				return PixelFormat::R32G32B32_SINT;
 			case 10: // DXGI_FORMAT_R16G16B16A16_FLOAT
-				return PF_FLOAT16_RGBA;
+				return PixelFormat::FLOAT16_RGBA;
 			case 12: // DXGI_FORMAT_R16G16B16A16_UINT
-				return PF_R16G16B16A16_UINT;
+				return PixelFormat::R16G16B16A16_UINT;
 			case 13: // DXGI_FORMAT_R16G16B16A16_SNORM
-				return PF_R16G16B16A16_SNORM;
+				return PixelFormat::R16G16B16A16_SNORM;
 			case 14: // DXGI_FORMAT_R16G16B16A16_SINT
-				return PF_R16G16B16A16_SINT;
+				return PixelFormat::R16G16B16A16_SINT;
 			case 16: // DXGI_FORMAT_R32G32_FLOAT
-				return PF_FLOAT32_GR;
+				return PixelFormat::FLOAT32_GR;
 			case 17: // DXGI_FORMAT_R32G32_UINT
-				return PF_R32G32_UINT;
+				return PixelFormat::R32G32_UINT;
 			case 18: // DXGI_FORMAT_R32G32_SINT
-				return PF_R32G32_SINT;
+				return PixelFormat::R32G32_SINT;
 			case 24: // DXGI_FORMAT_R10G10B10A2_UNORM
 			case 25: // DXGI_FORMAT_R10G10B10A2_UINT
-				return PF_A2B10G10R10;
+				return PixelFormat::A2B10G10R10;
 			case 26: // DXGI_FORMAT_R11G11B10_FLOAT
-				return PF_R11G11B10_FLOAT;
+				return PixelFormat::R11G11B10_FLOAT;
 			case 28: // DXGI_FORMAT_R8G8B8A8_UNORM
 			case 29: // DXGI_FORMAT_R8G8B8A8_UNORM_SRGB
-				return PF_A8B8G8R8;
+				return PixelFormat::A8B8G8R8;
 			case 30: // DXGI_FORMAT_R8G8B8A8_UINT
-				return PF_R8G8B8A8_UINT;
+				return PixelFormat::R8G8B8A8_UINT;
 			case 31: // DXGI_FORMAT_R8G8B8A8_SNORM
-				return PF_R8G8B8A8_SNORM;
+				return PixelFormat::R8G8B8A8_SNORM;
 			case 32: // DXGI_FORMAT_R8G8B8A8_SINT
-				return PF_R8G8B8A8_SINT;
+				return PixelFormat::R8G8B8A8_SINT;
 			case 34: // DXGI_FORMAT_R16G16_FLOAT
-				return PF_FLOAT16_GR;
+				return PixelFormat::FLOAT16_GR;
 			case 35: // DXGI_FORMAT_R16G16_UNORM
-				return PF_SHORT_GR;
+				return PixelFormat::SHORT_GR;
 			case 36: // DXGI_FORMAT_R16G16_UINT
-				return PF_R16G16_UINT;
+				return PixelFormat::R16G16_UINT;
 			case 37: // DXGI_FORMAT_R16G16_SNORM
-				return PF_R16G16_SNORM;
+				return PixelFormat::R16G16_SNORM;
 			case 38: // DXGI_FORMAT_R16G16_SINT
-				return PF_R16G16_SINT;
+				return PixelFormat::R16G16_SINT;
 			case 41: // DXGI_FORMAT_R32_FLOAT
-				return PF_FLOAT32_R;
+				return PixelFormat::FLOAT32_R;
 			case 42: // DXGI_FORMAT_R32_UINT
-				return PF_R32_UINT;
+				return PixelFormat::R32_UINT;
 			case 43: // DXGI_FORMAT_R32_SINT
-				return PF_R32_SINT;
+				return PixelFormat::R32_SINT;
 			case 49: // DXGI_FORMAT_R8G8_UNORM
 			case 50: // DXGI_FORMAT_R8G8_UINT
-				return PF_R8G8_UINT;
+				return PixelFormat::R8G8_UINT;
 			case 52: // DXGI_FORMAT_R8G8_SINT
-				return PF_R8G8_SINT;
+				return PixelFormat::R8G8_SINT;
 			case 54: // DXGI_FORMAT_R16_FLOAT
-				return PF_FLOAT16_R;
+				return PixelFormat::FLOAT16_R;
 			case 56: // DXGI_FORMAT_R16_UNORM
-				return PF_L16;
+				return PixelFormat::L16;
 			case 57: // DXGI_FORMAT_R16_UINT
-				return PF_R16_UINT;
+				return PixelFormat::R16_UINT;
 			case 58: // DXGI_FORMAT_R16_SNORM
-				return PF_R16_SNORM;
+				return PixelFormat::R16_SNORM;
 			case 59: // DXGI_FORMAT_R16_SINT
-				return PF_R16_SINT;
+				return PixelFormat::R16_SINT;
 			case 61: // DXGI_FORMAT_R8_UNORM
-				return PF_R8;
+				return PixelFormat::R8;
 			case 62: // DXGI_FORMAT_R8_UINT
-				return PF_R8_UINT;
+				return PixelFormat::R8_UINT;
 			case 63: // DXGI_FORMAT_R8_SNORM
-				return PF_R8_SNORM;
+				return PixelFormat::R8_SNORM;
 			case 64: // DXGI_FORMAT_R8_SINT
-				return PF_R8_SINT;
+				return PixelFormat::R8_SINT;
 			case 65: // DXGI_FORMAT_A8_UNORM
-				return PF_A8;
+				return PixelFormat::A8;
             case 80: // DXGI_FORMAT_BC4_UNORM
-                return PF_BC4_UNORM;
+                return PixelFormat::BC4_UNORM;
             case 81: // DXGI_FORMAT_BC4_SNORM
-                return PF_BC4_SNORM;
+                return PixelFormat::BC4_SNORM;
             case 83: // DXGI_FORMAT_BC5_UNORM
-                return PF_BC5_UNORM;
+                return PixelFormat::BC5_UNORM;
             case 84: // DXGI_FORMAT_BC5_SNORM
-                return PF_BC5_SNORM;
+                return PixelFormat::BC5_SNORM;
 			case 85: // DXGI_FORMAT_B5G6R5_UNORM
-				return PF_R5G6B5;
+				return PixelFormat::R5G6B5;
 			case 86: // DXGI_FORMAT_B5G5R5A1_UNORM
-				return PF_A1R5G5B5;
+				return PixelFormat::A1R5G5B5;
 			case 87: // DXGI_FORMAT_B8G8R8A8_UNORM
-				return PF_A8R8G8B8;
+				return PixelFormat::A8R8G8B8;
 			case 88: // DXGI_FORMAT_B8G8R8X8_UNORM
-				return PF_X8R8G8B8;
+				return PixelFormat::X8R8G8B8;
             case 95: // DXGI_FORMAT_BC6H_UF16
-                return PF_BC6H_UF16;
+                return PixelFormat::BC6H_UF16;
             case 96: // DXGI_FORMAT_BC6H_SF16
-                return PF_BC6H_SF16;
+                return PixelFormat::BC6H_SF16;
             case 98: // DXGI_FORMAT_BC7_UNORM
             case 99: // DXGI_FORMAT_BC7_UNORM_SRGB
-                return PF_BC7_UNORM;
+                return PixelFormat::BC7_UNORM;
             case 20: // DXGI_FORMAT_D32_FLOAT_S8X24_UINT
             case 22: // DXGI_FORMAT_X32_TYPELESS_G8X24_UINT
             case 40: // DXGI_FORMAT_D32_FLOAT
@@ -550,7 +550,7 @@ namespace {
             case 47: // DXGI_FORMAT_X24_TYPELESS_G8_UINT
             case 55: // DXGI_FORMAT_D16_UNORM
             default:
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                             "Unsupported DirectX format found in DDS file",
                             "DDSCodec::convertDXToOgreFormat");
         }
@@ -562,40 +562,40 @@ namespace {
         switch(fourcc)
         {
         case FOURCC('D','X','T','1'):
-            return PF_DXT1;
+            return PixelFormat::DXT1;
         case FOURCC('D','X','T','2'):
-            return PF_DXT2;
+            return PixelFormat::DXT2;
         case FOURCC('D','X','T','3'):
-            return PF_DXT3;
+            return PixelFormat::DXT3;
         case FOURCC('D','X','T','4'):
-            return PF_DXT4;
+            return PixelFormat::DXT4;
         case FOURCC('D','X','T','5'):
-            return PF_DXT5;
+            return PixelFormat::DXT5;
         case FOURCC('A','T','I','1'):
         case FOURCC('B','C','4','U'):
-            return PF_BC4_UNORM;
+            return PixelFormat::BC4_UNORM;
         case FOURCC('B','C','4','S'):
-            return PF_BC4_SNORM;
+            return PixelFormat::BC4_SNORM;
         case FOURCC('A','T','I','2'):
         case FOURCC('B','C','5','U'):
-            return PF_BC5_UNORM;
+            return PixelFormat::BC5_UNORM;
         case FOURCC('B','C','5','S'):
-            return PF_BC5_SNORM;
+            return PixelFormat::BC5_SNORM;
         case D3DFMT_R16F:
-            return PF_FLOAT16_R;
+            return PixelFormat::FLOAT16_R;
         case D3DFMT_G16R16F:
-            return PF_FLOAT16_GR;
+            return PixelFormat::FLOAT16_GR;
         case D3DFMT_A16B16G16R16F:
-            return PF_FLOAT16_RGBA;
+            return PixelFormat::FLOAT16_RGBA;
         case D3DFMT_R32F:
-            return PF_FLOAT32_R;
+            return PixelFormat::FLOAT32_R;
         case D3DFMT_G32R32F:
-            return PF_FLOAT32_GR;
+            return PixelFormat::FLOAT32_GR;
         case D3DFMT_A32B32G32R32F:
-            return PF_FLOAT32_RGBA;
+            return PixelFormat::FLOAT32_RGBA;
         // We could support 3Dc here, but only ATI cards support it, not nVidia
         default:
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 "Unsupported FourCC format found in DDS file", 
                 "DDSCodec::convertFourCCFormat");
         };
@@ -606,7 +606,7 @@ namespace {
         uint32 gMask, uint32 bMask, uint32 aMask) const -> PixelFormat
     {
         // General search through pixel formats
-        for (int i = PF_UNKNOWN + 1; i < PF_COUNT; ++i)
+        for (int i = std::to_underlying(PixelFormat::UNKNOWN) + 1; i < std::to_underlying(PixelFormat::COUNT); ++i)
         {
             auto pf = static_cast<PixelFormat>(i);
             if (PixelUtil::getNumElemBits(pf) == rgbBits)
@@ -626,7 +626,7 @@ namespace {
 
         }
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot determine pixel format",
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, "Cannot determine pixel format",
             "DDSCodec::convertPixelFormat");
     }
     //---------------------------------------------------------------------
@@ -638,11 +638,11 @@ namespace {
         // Colour lookup table
         ColourValue derivedColours[4];
 
-        if (pf == PF_DXT1 && block.colour_0 <= block.colour_1)
+        if (pf == PixelFormat::DXT1 && block.colour_0 <= block.colour_1)
         {
             // 1-bit alpha
-            PixelUtil::unpackColour(&(derivedColours[0]), PF_R5G6B5, &(block.colour_0));
-            PixelUtil::unpackColour(&(derivedColours[1]), PF_R5G6B5, &(block.colour_1));
+            PixelUtil::unpackColour(&(derivedColours[0]), PixelFormat::R5G6B5, &(block.colour_0));
+            PixelUtil::unpackColour(&(derivedColours[1]), PixelFormat::R5G6B5, &(block.colour_1));
             // one intermediate colour, half way between the other two
             derivedColours[2] = (derivedColours[0] + derivedColours[1]) / 2;
             // transparent colour
@@ -650,8 +650,8 @@ namespace {
         }
         else
         {
-            PixelUtil::unpackColour(&(derivedColours[0]), PF_R5G6B5, &(block.colour_0));
-            PixelUtil::unpackColour(&(derivedColours[1]), PF_R5G6B5, &(block.colour_1));
+            PixelUtil::unpackColour(&(derivedColours[0]), PixelFormat::R5G6B5, &(block.colour_0));
+            PixelUtil::unpackColour(&(derivedColours[1]), PixelFormat::R5G6B5, &(block.colour_1));
             // first interpolated colour, 1/3 of the way along
             derivedColours[2] = (2 * derivedColours[0] + derivedColours[1]) / 3;
             // second interpolated colour, 2/3 of the way along
@@ -665,7 +665,7 @@ namespace {
             {
                 // LSB come first
                 auto colIdx = static_cast<uint8>(block.indexRow[row] >> (x * 2) & 0x3);
-                if (pf == PF_DXT1)
+                if (pf == PixelFormat::DXT1)
                 {
                     // Overwrite entire colour
                     pCol[(row * 4) + x] = derivedColours[colIdx];
@@ -760,7 +760,7 @@ namespace {
         
         if (FOURCC('D', 'D', 'S', ' ') != fileType)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "This is not a DDS file!", "DDSCodec::decode");
         }
         
@@ -774,12 +774,12 @@ namespace {
         // Check some sizes
         if (header.size != DDS_HEADER_SIZE)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "DDS header size mismatch!", "DDSCodec::decode");
         }
         if (header.pixelFormat.size != DDS_PIXELFORMAT_SIZE)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "DDS header size mismatch!", "DDSCodec::decode");
         }
 
@@ -793,28 +793,28 @@ namespace {
 
         if (header.caps.caps1 & DDSCAPS_MIPMAP)
         {
-            imgData->num_mipmaps = static_cast<uint8>(header.mipMapCount - 1);
+            imgData->num_mipmaps = static_cast<TextureMipmap>(header.mipMapCount - 1);
         }
         else
         {
-            imgData->num_mipmaps = 0;
+            imgData->num_mipmaps = {};
         }
-        imgData->flags = 0;
+        imgData->flags = {};
 
         bool decompressDXT = false;
         // Figure out basic image type
         if (header.caps.caps2 & DDSCAPS2_CUBEMAP)
         {
-            imgData->flags |= IF_CUBEMAP;
+            imgData->flags |= ImageFlags::CUBEMAP;
             numFaces = 6;
         }
         else if (header.caps.caps2 & DDSCAPS2_VOLUME)
         {
-            imgData->flags |= IF_3D_TEXTURE;
+            imgData->flags |= ImageFlags::_3D_TEXTURE;
             imgData->depth = header.depth;
         }
         // Pixel format
-        PixelFormat sourceFormat = PF_UNKNOWN;
+        PixelFormat sourceFormat = PixelFormat::UNKNOWN;
 
         if (header.pixelFormat.flags & DDPF_FOURCC)
         {
@@ -845,14 +845,14 @@ namespace {
         if (PixelUtil::isCompressed(sourceFormat))
         {
             if (Root::getSingleton().getRenderSystem() == nullptr ||
-                !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_TEXTURE_COMPRESSION_DXT))
+                !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Capabilities::TEXTURE_COMPRESSION_DXT))
             {
                 // We'll need to decompress
                 decompressDXT = true;
                 // Convert format
                 switch (sourceFormat)
                 {
-                case PF_DXT1:
+                case PixelFormat::DXT1:
                     // source can be either 565 or 5551 depending on whether alpha present
                     // unfortunately you have to read a block to figure out which
                     // Note that we upgrade to 32-bit pixel formats here, even 
@@ -869,19 +869,19 @@ namespace {
                     // colour_0 <= colour_1 means transparency in DXT1
                     if (block.colour_0 <= block.colour_1)
                     {
-                        imgData->format = PF_BYTE_RGBA;
+                        imgData->format = PixelFormat::BYTE_RGBA;
                     }
                     else
                     {
-                        imgData->format = PF_BYTE_RGB;
+                        imgData->format = PixelFormat::BYTE_RGB;
                     }
                     break;
-                case PF_DXT2:
-                case PF_DXT3:
-                case PF_DXT4:
-                case PF_DXT5:
+                case PixelFormat::DXT2:
+                case PixelFormat::DXT3:
+                case PixelFormat::DXT4:
+                case PixelFormat::DXT5:
                     // full alpha present, formats vary only in encoding 
-                    imgData->format = PF_BYTE_RGBA;
+                    imgData->format = PixelFormat::BYTE_RGBA;
                     break;
                 default:
                     // all other cases need no special format handling
@@ -893,7 +893,7 @@ namespace {
                 // Use original format
                 imgData->format = sourceFormat;
                 // Keep DXT data compressed
-                imgData->flags |= IF_COMPRESSED;
+                imgData->flags |= ImageFlags::COMPRESSED;
             }
         }
         else // not compressed
@@ -921,7 +921,7 @@ namespace {
             uint32 height = imgData->height;
             uint32 depth = imgData->depth;
 
-            for(size_t mip = 0; mip <= imgData->num_mipmaps; ++mip)
+            for(size_t mip = 0; mip <= std::to_underlying(imgData->num_mipmaps); ++mip)
             {
                 size_t dstPitch = width * PixelUtil::getNumElemBytes(imgData->format);
                 
@@ -957,16 +957,16 @@ namespace {
 
                                     remainingWidth -= sx;
 
-                                    if (sourceFormat == PF_DXT2 || 
-                                        sourceFormat == PF_DXT3)
+                                    if (sourceFormat == PixelFormat::DXT2 || 
+                                        sourceFormat == PixelFormat::DXT3)
                                     {
                                         // explicit alpha
                                         stream->read(&eAlpha, sizeof(DXTExplicitAlphaBlock));
                                         flipEndian(eAlpha.alphaRow, sizeof(uint16), 4);
                                         unpackDXTAlpha(eAlpha, tempColours) ;
                                     }
-                                    else if (sourceFormat == PF_DXT4 || 
-                                        sourceFormat == PF_DXT5)
+                                    else if (sourceFormat == PixelFormat::DXT4 || 
+                                        sourceFormat == PixelFormat::DXT5)
                                     {
                                         // interpolated alpha
                                         stream->read(&iAlpha, sizeof(DXTInterpolatedAlphaBlock));

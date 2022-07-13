@@ -71,11 +71,21 @@ namespace Ogre {
     class DataStream : public StreamAlloc
     {
     public:
-        enum AccessMode
+        enum class AccessMode
         {
             READ = 1, 
             WRITE = 2
         };
+
+        friend auto constexpr operator bitor(AccessMode left, AccessMode right)
+        {
+            return static_cast<AccessMode>
+            (   std::to_underlying(left)
+            |   std::to_underlying(right)
+            );
+        }
+
+        using enum AccessMode;
     protected:
         /// The name (e.g. resource name) that can be used to identify the source for this data (optional)
         String mName;       
@@ -86,18 +96,18 @@ namespace Ogre {
 
     public:
         /// Constructor for creating unnamed streams
-        DataStream(uint16 accessMode = READ) : mSize(0), mAccess(accessMode) {}
+        DataStream(uint16 accessMode = std::to_underlying(READ)) : mSize(0), mAccess(accessMode) {}
         /// Constructor for creating named streams
-        DataStream(std::string_view name, uint16 accessMode = READ) 
+        DataStream(std::string_view name, uint16 accessMode = std::to_underlying(READ))
             : mName(name), mSize(0), mAccess(accessMode) {}
         /// Returns the name of the stream, if it has one.
         auto getName() noexcept -> std::string_view { return mName; }
         /// Gets the access mode of the stream
         [[nodiscard]] auto getAccessMode() const noexcept -> uint16 { return mAccess; }
         /** Reports whether this stream is readable. */
-        [[nodiscard]] virtual auto isReadable() const noexcept -> bool { return (mAccess & READ) != 0; }
+        [[nodiscard]] virtual auto isReadable() const noexcept -> bool { return (mAccess & std::to_underlying(READ)) != 0; }
         /** Reports whether this stream is writeable. */
-        [[nodiscard]] virtual auto isWriteable() const noexcept -> bool { return (mAccess & WRITE) != 0; }
+        [[nodiscard]] virtual auto isWriteable() const noexcept -> bool { return (mAccess & std::to_underlying(WRITE)) != 0; }
         virtual ~DataStream() = default;
         // Streaming operators
         template<typename T> auto operator>>(T& val) -> DataStream&;
@@ -497,9 +507,9 @@ namespace Ogre {
         FILE* mFileHandle;
     public:
         /// Create stream from a C file handle
-        FileHandleDataStream(FILE* handle, uint16 accessMode = READ);
+        FileHandleDataStream(FILE* handle, uint16 accessMode = std::to_underlying(AccessMode::READ));
         /// Create named stream from a C file handle
-        FileHandleDataStream(std::string_view name, FILE* handle, uint16 accessMode = READ);
+        FileHandleDataStream(std::string_view name, FILE* handle, uint16 accessMode = std::to_underlying(AccessMode::READ));
         ~FileHandleDataStream() override;
 
         /** @copydoc DataStream::read

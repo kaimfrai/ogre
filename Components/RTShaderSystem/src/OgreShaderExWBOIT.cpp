@@ -42,42 +42,42 @@ String WBOIT::Type = "WBOIT";
 auto WBOIT::getType() const noexcept -> std::string_view { return Type; }
 
 //-----------------------------------------------------------------------
-auto WBOIT::getExecutionOrder() const noexcept -> int { return FFP_POST_PROCESS; }
+auto WBOIT::getExecutionOrder() const noexcept -> FFPShaderStage { return FFPShaderStage::POST_PROCESS; }
 
 auto WBOIT::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
 {
     dstPass->setTransparentSortingEnabled(false);
-    dstPass->setSeparateSceneBlending(SBF_ONE, SBF_ONE, SBF_ZERO, SBF_ONE_MINUS_SOURCE_ALPHA);
+    dstPass->setSeparateSceneBlending(SceneBlendFactor::ONE, SceneBlendFactor::ONE, SceneBlendFactor::ZERO, SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA);
     return true;
 }
 
 auto WBOIT::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     psProgram->addDependency("SGXLib_WBOIT");
 
-    Function* vsMain = programSet->getCpuProgram(GPT_VERTEX_PROGRAM)->getMain();
+    Function* vsMain = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM)->getMain();
     Function* psMain = psProgram->getMain();
 
-    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    auto vsOutPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_PROJECTIVE_SPACE);
 
     bool isD3D9 = ShaderGenerator::getSingleton().getTargetLanguage() == "hlsl" &&
                   !GpuProgramManager::getSingleton().isSyntaxSupported("vs_4_0_level_9_1");
 
     if (isD3D9)
     {
-        auto vstage = vsMain->getStage(FFP_VS_POST_PROCESS);
-        auto vsPos = vsMain->resolveOutputParameter(Parameter::SPC_UNKNOWN, GCT_FLOAT4);
+        auto vstage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::POST_PROCESS));
+        auto vsPos = vsMain->resolveOutputParameter(Parameter::Content::UNKNOWN, GpuConstantType::FLOAT4);
         vstage.assign(vsOutPos, vsPos);
         std::swap(vsOutPos, vsPos);
     }
 
     auto viewPos = psMain->resolveInputParameter(vsOutPos);
 
-    auto accum = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    auto revealage = psMain->resolveOutputParameter(Parameter::SPC_COLOR_SPECULAR);
+    auto accum = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
+    auto revealage = psMain->resolveOutputParameter(Parameter::Content::COLOR_SPECULAR);
 
-    auto stage = psMain->getStage(FFP_PS_POST_PROCESS);
+    auto stage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::POST_PROCESS));
 
     if (isD3D9)
     {

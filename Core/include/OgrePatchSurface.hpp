@@ -58,10 +58,10 @@ class VertexDeclaration;
         PatchSurface();
         ~PatchSurface();
 
-        enum PatchSurfaceType
+        enum class PatchSurfaceType
         {
             /// A patch defined by a set of bezier curves
-            PST_BEZIER
+            BEZIER
         };
 
         /// Constant for indicating automatic determination of subdivision level for patches
@@ -70,13 +70,13 @@ class VertexDeclaration;
             AUTO_LEVEL = -1
         };
 
-        enum VisibleSide {
+        enum class VisibleSide {
             /// The side from which u goes right and v goes up (as in texture coords)
-            VS_FRONT,
+            FRONT,
             /// The side from which u goes right and v goes down (reverse of texture coords)
-            VS_BACK,
+            BACK,
             /// Both sides are visible - warning this creates 2x the number of triangles and adds extra overhead for calculating normals
-            VS_BOTH
+            BOTH
         };
         /** Sets up the surface by defining it's control points, type and initial subdivision level.
             @remarks
@@ -98,7 +98,7 @@ class VertexDeclaration;
             @param
                 height Specifies the height of the patch in control points. 
             @param
-                pType The type of surface - currently only PST_BEZIER is supported
+                pType The type of surface - currently only PatchSurfaceType::BEZIER is supported
             @param
                 uMaxSubdivisionLevel,vMaxSubdivisionLevel If you want to manually set the top level of subdivision, 
                 do it here, otherwise let the system decide.
@@ -107,9 +107,9 @@ class VertexDeclaration;
         */
         void defineSurface(void* controlPointBuffer, 
             VertexDeclaration *declaration, size_t width, size_t height,
-            PatchSurfaceType pType = PST_BEZIER, 
+            PatchSurfaceType pType = PatchSurfaceType::BEZIER,
             size_t uMaxSubdivisionLevel = AUTO_LEVEL, size_t vMaxSubdivisionLevel = AUTO_LEVEL,
-            VisibleSide visibleSide = VS_FRONT);
+            VisibleSide visibleSide = VisibleSide::FRONT);
 
         /** Based on a previous call to defineSurface, establishes the number of vertices required
             to hold this patch at the maximum detail level. 

@@ -46,17 +46,15 @@ struct GpuNamedConstants;
      *  @{
      */
     /** Enumerates the types of programs which can run on the GPU. */
-    enum GpuProgramType : uint8
+    enum class GpuProgramType : uint8
     {
-        GPT_VERTEX_PROGRAM = 0,
-        GPT_FRAGMENT_PROGRAM,
-        GPT_GEOMETRY_PROGRAM,
-        GPT_DOMAIN_PROGRAM,
-        GPT_HULL_PROGRAM,
-        GPT_COMPUTE_PROGRAM
-    };
-    enum {
-        GPT_COUNT = GPT_COMPUTE_PROGRAM + 1
+        VERTEX_PROGRAM = 0,
+        FRAGMENT_PROGRAM,
+        GEOMETRY_PROGRAM,
+        DOMAIN_PROGRAM,
+        HULL_PROGRAM,
+        COMPUTE_PROGRAM,
+        COUNT
     };
 
     /** Defines a program which runs on the GPU such as a vertex or fragment program.
@@ -78,7 +76,7 @@ struct GpuNamedConstants;
     /// Syntax code e.g. arbvp1, vs_2_0 etc
     String mSyntaxCode;
     /// The type of the program
-    GpuProgramType mType{GPT_VERTEX_PROGRAM};
+    GpuProgramType mType{GpuProgramType::VERTEX_PROGRAM};
     /// Whether we need to load source from file or not
     bool mLoadFromFile{true};
     /// Does this (vertex) program include skeletal animation?
@@ -257,9 +255,9 @@ struct GpuNamedConstants;
     */
     virtual auto isVertexTextureFetchRequired() const noexcept -> bool { return mVertexTextureFetch; }
 
-    /// @deprecated use OT_DETAIL_ADJACENCY_BIT
+    /// @deprecated use OperationType::DETAIL_ADJACENCY_BIT
     virtual void setAdjacencyInfoRequired(bool r) { mNeedsAdjacencyInfo = r; }
-    /// @deprecated use OT_DETAIL_ADJACENCY_BIT
+    /// @deprecated use OperationType::DETAIL_ADJACENCY_BIT
     virtual auto isAdjacencyInfoRequired() const noexcept -> bool { return mNeedsAdjacencyInfo; }
 
     /** Get a reference to the default parameters which are to be used for all

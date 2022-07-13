@@ -178,7 +178,7 @@ class RenderTexture;
         void blitToMemory(const PixelBox& dst) { blitToMemory(Box(getSize()), dst); }
 
         /** Get a render target for this PixelBuffer, or a slice of it. The texture this
-            was acquired from must have TU_RENDERTARGET set
+            was acquired from must have TextureUsage::RENDERTARGET set
             @param slice    Which slice
             @return A pointer to the render target. This pointer has the lifespan of this
             PixelBuffer.

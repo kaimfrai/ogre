@@ -112,7 +112,7 @@ class RenderTexture;
             size_t refcount{0};
         };
         /** Type to map each component type to a PBuffer */
-        PBRef mPBuffers[PCT_COUNT];
+        PBRef mPBuffers[std::to_underlying(PixelComponentType::COUNT)];
     };
 }
 

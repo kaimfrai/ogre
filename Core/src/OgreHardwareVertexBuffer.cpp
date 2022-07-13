@@ -85,14 +85,14 @@ namespace Ogre {
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
 
         // Check if the supported  
-        return rs->getCapabilities()->hasCapability(RSC_VERTEX_BUFFER_INSTANCE_DATA);
+        return rs->getCapabilities()->hasCapability(Capabilities::VERTEX_BUFFER_INSTANCE_DATA);
     }
     //-----------------------------------------------------------------------------
     void HardwareVertexBuffer::setIsInstanceData( const bool val )
     {
         if (val && !checkIfVertexInstanceDataIsSupported())
         {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                 "vertex instance data is not supported by the render system.", 
                 "HardwareVertexBuffer::checkIfInstanceDataSupported");
         }
@@ -115,7 +115,7 @@ namespace Ogre {
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                 "Instance data step rate must be bigger then 0.", 
                 "HardwareVertexBuffer::setInstanceDataStepRate");
         }
@@ -138,55 +138,55 @@ namespace Ogre {
     {
         switch(etype)
         {
-        case VET_FLOAT1:
+        case VertexElementType::FLOAT1:
             return sizeof(float);
-        case VET_FLOAT2:
+        case VertexElementType::FLOAT2:
             return sizeof(float)*2;
-        case VET_FLOAT3:
+        case VertexElementType::FLOAT3:
             return sizeof(float)*3;
-        case VET_FLOAT4:
+        case VertexElementType::FLOAT4:
             return sizeof(float)*4;
-        case VET_DOUBLE1:
+        case VertexElementType::DOUBLE1:
             return sizeof(double);
-        case VET_DOUBLE2:
+        case VertexElementType::DOUBLE2:
             return sizeof(double)*2;
-        case VET_DOUBLE3:
+        case VertexElementType::DOUBLE3:
             return sizeof(double)*3;
-        case VET_DOUBLE4:
+        case VertexElementType::DOUBLE4:
             return sizeof(double)*4;
-        case VET_SHORT1:
-        case VET_USHORT1:
+        case VertexElementType::SHORT1:
+        case VertexElementType::USHORT1:
             return sizeof( short );
-        case VET_SHORT2:
-        case VET_SHORT2_NORM:
-        case VET_USHORT2:
-        case VET_USHORT2_NORM:
+        case VertexElementType::SHORT2:
+        case VertexElementType::SHORT2_NORM:
+        case VertexElementType::USHORT2:
+        case VertexElementType::USHORT2_NORM:
             return sizeof( short ) * 2;
-        case VET_SHORT3:
-        case VET_USHORT3:
+        case VertexElementType::SHORT3:
+        case VertexElementType::USHORT3:
             return sizeof( short ) * 3;
-        case VET_SHORT4:
-        case VET_SHORT4_NORM:
-        case VET_USHORT4:
-        case VET_USHORT4_NORM:
+        case VertexElementType::SHORT4:
+        case VertexElementType::SHORT4_NORM:
+        case VertexElementType::USHORT4:
+        case VertexElementType::USHORT4_NORM:
             return sizeof( short ) * 4;
-        case VET_INT1:
-        case VET_UINT1:
+        case VertexElementType::INT1:
+        case VertexElementType::UINT1:
             return sizeof( int );
-        case VET_INT2:
-        case VET_UINT2:
+        case VertexElementType::INT2:
+        case VertexElementType::UINT2:
             return sizeof( int ) * 2;
-        case VET_INT3:
-        case VET_UINT3:
+        case VertexElementType::INT3:
+        case VertexElementType::UINT3:
             return sizeof( int ) * 3;
-        case VET_INT4:
-        case VET_UINT4:
+        case VertexElementType::INT4:
+        case VertexElementType::UINT4:
             return sizeof( int ) * 4;
-        case VET_BYTE4:
-        case VET_BYTE4_NORM:
-        case VET_UBYTE4:
-        case VET_UBYTE4_NORM:
-        case _DETAIL_SWAP_RB:
+        case VertexElementType::BYTE4:
+        case VertexElementType::BYTE4_NORM:
+        case VertexElementType::UBYTE4:
+        case VertexElementType::UBYTE4_NORM:
+        case VertexElementType::_DETAIL_SWAP_RB:
             return sizeof(char)*4;
         }
         return 0;
@@ -196,45 +196,45 @@ namespace Ogre {
     {
         switch (etype)
         {
-        case VET_FLOAT1:
-        case VET_SHORT1:
-        case VET_USHORT1:
-        case VET_UINT1:
-        case VET_INT1:
-        case VET_DOUBLE1:
+        case VertexElementType::FLOAT1:
+        case VertexElementType::SHORT1:
+        case VertexElementType::USHORT1:
+        case VertexElementType::UINT1:
+        case VertexElementType::INT1:
+        case VertexElementType::DOUBLE1:
             return 1;
-        case VET_FLOAT2:
-        case VET_SHORT2:
-        case VET_SHORT2_NORM:
-        case VET_USHORT2:
-        case VET_USHORT2_NORM:
-        case VET_UINT2:
-        case VET_INT2:
-        case VET_DOUBLE2:
+        case VertexElementType::FLOAT2:
+        case VertexElementType::SHORT2:
+        case VertexElementType::SHORT2_NORM:
+        case VertexElementType::USHORT2:
+        case VertexElementType::USHORT2_NORM:
+        case VertexElementType::UINT2:
+        case VertexElementType::INT2:
+        case VertexElementType::DOUBLE2:
             return 2;
-        case VET_FLOAT3:
-        case VET_SHORT3:
-        case VET_USHORT3:
-        case VET_UINT3:
-        case VET_INT3:
-        case VET_DOUBLE3:
+        case VertexElementType::FLOAT3:
+        case VertexElementType::SHORT3:
+        case VertexElementType::USHORT3:
+        case VertexElementType::UINT3:
+        case VertexElementType::INT3:
+        case VertexElementType::DOUBLE3:
             return 3;
-        case VET_FLOAT4:
-        case VET_SHORT4:
-        case VET_SHORT4_NORM:
-        case VET_USHORT4:
-        case VET_USHORT4_NORM:
-        case VET_UINT4:
-        case VET_INT4:
-        case VET_DOUBLE4:
-        case VET_BYTE4:
-        case VET_UBYTE4:
-        case VET_BYTE4_NORM:
-        case VET_UBYTE4_NORM:
-        case _DETAIL_SWAP_RB:
+        case VertexElementType::FLOAT4:
+        case VertexElementType::SHORT4:
+        case VertexElementType::SHORT4_NORM:
+        case VertexElementType::USHORT4:
+        case VertexElementType::USHORT4_NORM:
+        case VertexElementType::UINT4:
+        case VertexElementType::INT4:
+        case VertexElementType::DOUBLE4:
+        case VertexElementType::BYTE4:
+        case VertexElementType::UBYTE4:
+        case VertexElementType::BYTE4_NORM:
+        case VertexElementType::UBYTE4_NORM:
+        case VertexElementType::_DETAIL_SWAP_RB:
             return 4;
         }
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Invalid type", 
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid type", 
             "VertexElement::getTypeCount");
     }
     //-----------------------------------------------------------------------------
@@ -245,59 +245,59 @@ namespace Ogre {
 
         switch (baseType)
         {
-        case VET_FLOAT1:
-        case VET_DOUBLE1:
-        case VET_INT1:
-        case VET_UINT1:
+        case VertexElementType::FLOAT1:
+        case VertexElementType::DOUBLE1:
+        case VertexElementType::INT1:
+        case VertexElementType::UINT1:
             // evil enumeration arithmetic
-            return static_cast<VertexElementType>( baseType + count - 1 );
+            return static_cast<VertexElementType>( std::to_underlying(baseType) + count - 1 );
 
-        case VET_SHORT1:
-        case VET_SHORT2:
+        case VertexElementType::SHORT1:
+        case VertexElementType::SHORT2:
             if ( count <= 2 )
             {
-                return VET_SHORT2;
+                return VertexElementType::SHORT2;
             }
-            return VET_SHORT4;
+            return VertexElementType::SHORT4;
 
-        case VET_USHORT1:
-        case VET_USHORT2:
+        case VertexElementType::USHORT1:
+        case VertexElementType::USHORT2:
             if ( count <= 2 )
             {
-                return VET_USHORT2;
+                return VertexElementType::USHORT2;
             }
-            return VET_USHORT4;
+            return VertexElementType::USHORT4;
 
-        case VET_SHORT2_NORM:
+        case VertexElementType::SHORT2_NORM:
             if ( count <= 2 )
             {
-                return VET_SHORT2_NORM;
+                return VertexElementType::SHORT2_NORM;
             }
-            return VET_SHORT4_NORM;
+            return VertexElementType::SHORT4_NORM;
 
-        case VET_USHORT2_NORM:
+        case VertexElementType::USHORT2_NORM:
             if ( count <= 2 )
             {
-                return VET_USHORT2_NORM;
+                return VertexElementType::USHORT2_NORM;
             }
-            return VET_USHORT4_NORM;
+            return VertexElementType::USHORT4_NORM;
 
-        case VET_BYTE4:
-        case VET_BYTE4_NORM:
-        case VET_UBYTE4:
-        case VET_UBYTE4_NORM:
+        case VertexElementType::BYTE4:
+        case VertexElementType::BYTE4_NORM:
+        case VertexElementType::UBYTE4:
+        case VertexElementType::UBYTE4_NORM:
             return baseType;
 
         default:
             break;
         }
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Invalid base type", 
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid base type", 
             "VertexElement::multiplyTypeCount");
     }
     //--------------------------------------------------------------------------
     auto VertexElement::getBestColourVertexElementType() -> VertexElementType
     {
-        return VET_UBYTE4_NORM;
+        return VertexElementType::UBYTE4_NORM;
     }
     //--------------------------------------------------------------------------
     void VertexElement::convertColourValue(VertexElementType srcType, 
@@ -315,54 +315,54 @@ namespace Ogre {
     {
         switch (multiType)
         {
-            case VET_FLOAT1:
-            case VET_FLOAT2:
-            case VET_FLOAT3:
-            case VET_FLOAT4:
-                return VET_FLOAT1;
-            case VET_DOUBLE1:
-            case VET_DOUBLE2:
-            case VET_DOUBLE3:
-            case VET_DOUBLE4:
-                return VET_DOUBLE1;
-            case VET_INT1:
-            case VET_INT2:
-            case VET_INT3:
-            case VET_INT4:
-                return VET_INT1;
-            case VET_UINT1:
-            case VET_UINT2:
-            case VET_UINT3:
-            case VET_UINT4:
-                return VET_UINT1;
-            case VET_SHORT1:
-            case VET_SHORT2:
-            case VET_SHORT3:
-            case VET_SHORT4:
-                return VET_SHORT1;
-            case VET_USHORT1:
-            case VET_USHORT2:
-            case VET_USHORT3:
-            case VET_USHORT4:
-                return VET_USHORT1;
-            case VET_SHORT2_NORM:
-            case VET_SHORT4_NORM:
-                return VET_SHORT2_NORM;
-            case VET_USHORT2_NORM:
-            case VET_USHORT4_NORM:
-                return VET_USHORT2_NORM;
-            case VET_BYTE4:
-                return VET_BYTE4;
-            case VET_BYTE4_NORM:
-                return VET_BYTE4_NORM;
-            case VET_UBYTE4:
-                return VET_UBYTE4;
-            case VET_UBYTE4_NORM:
-            case _DETAIL_SWAP_RB:
-                return VET_UBYTE4_NORM;
+            case VertexElementType::FLOAT1:
+            case VertexElementType::FLOAT2:
+            case VertexElementType::FLOAT3:
+            case VertexElementType::FLOAT4:
+                return VertexElementType::FLOAT1;
+            case VertexElementType::DOUBLE1:
+            case VertexElementType::DOUBLE2:
+            case VertexElementType::DOUBLE3:
+            case VertexElementType::DOUBLE4:
+                return VertexElementType::DOUBLE1;
+            case VertexElementType::INT1:
+            case VertexElementType::INT2:
+            case VertexElementType::INT3:
+            case VertexElementType::INT4:
+                return VertexElementType::INT1;
+            case VertexElementType::UINT1:
+            case VertexElementType::UINT2:
+            case VertexElementType::UINT3:
+            case VertexElementType::UINT4:
+                return VertexElementType::UINT1;
+            case VertexElementType::SHORT1:
+            case VertexElementType::SHORT2:
+            case VertexElementType::SHORT3:
+            case VertexElementType::SHORT4:
+                return VertexElementType::SHORT1;
+            case VertexElementType::USHORT1:
+            case VertexElementType::USHORT2:
+            case VertexElementType::USHORT3:
+            case VertexElementType::USHORT4:
+                return VertexElementType::USHORT1;
+            case VertexElementType::SHORT2_NORM:
+            case VertexElementType::SHORT4_NORM:
+                return VertexElementType::SHORT2_NORM;
+            case VertexElementType::USHORT2_NORM:
+            case VertexElementType::USHORT4_NORM:
+                return VertexElementType::USHORT2_NORM;
+            case VertexElementType::BYTE4:
+                return VertexElementType::BYTE4;
+            case VertexElementType::BYTE4_NORM:
+                return VertexElementType::BYTE4_NORM;
+            case VertexElementType::UBYTE4:
+                return VertexElementType::UBYTE4;
+            case VertexElementType::UBYTE4_NORM:
+            case VertexElementType::_DETAIL_SWAP_RB:
+                return VertexElementType::UBYTE4_NORM;
         };
         // To keep compiler happy
-        return VET_FLOAT1;
+        return VertexElementType::FLOAT1;
     }
     //-----------------------------------------------------------------------------
     VertexDeclaration::VertexDeclaration()
@@ -381,7 +381,7 @@ namespace Ogre {
         VertexElementSemantic semantic, unsigned short index) -> const VertexElement&
     {
         // Refine colour type to a specific type
-        if (theType == VET_COLOUR)
+        if (theType == VertexElementType::COLOUR)
         {
             theType = VertexElement::getBestColourVertexElementType();
         }
@@ -599,7 +599,7 @@ namespace Ogre {
         // Now sort out proper buffer assignments and offsets
         size_t offset = 0;
         unsigned short buffer = 0;
-        VertexElementSemantic prevSemantic = VES_POSITION;
+        VertexElementSemantic prevSemantic = VertexElementSemantic::POSITION;
         for (unsigned short c = 0;
              const auto & elem : elems)
         {
@@ -607,34 +607,34 @@ namespace Ogre {
             bool splitWithNext = false;
             switch (elem.getSemantic())
             {
-            case VES_POSITION:
+            case VertexElementSemantic::POSITION:
                 // Split positions if vertex animated with only positions
                 // group with normals otherwise
                 splitWithPrev = false;
                 splitWithNext = vertexAnimation && !vertexAnimationNormals;
                 break;
-            case VES_NORMAL:
+            case VertexElementSemantic::NORMAL:
                 // Normals can't share with blend weights/indices
-                splitWithPrev = (prevSemantic == VES_BLEND_WEIGHTS || prevSemantic == VES_BLEND_INDICES);
+                splitWithPrev = (prevSemantic == VertexElementSemantic::BLEND_WEIGHTS || prevSemantic == VertexElementSemantic::BLEND_INDICES);
                 // All animated meshes have to split after normal
                 splitWithNext = (skeletalAnimation || (vertexAnimation && vertexAnimationNormals));
                 break;
-            case VES_BLEND_WEIGHTS:
+            case VertexElementSemantic::BLEND_WEIGHTS:
                 // Blend weights/indices can be sharing with their own buffer only
                 splitWithPrev = true;
                 break;
-            case VES_BLEND_INDICES:
+            case VertexElementSemantic::BLEND_INDICES:
                 // Blend weights/indices can be sharing with their own buffer only
                 splitWithNext = true;
                 break;
             default:
-            case VES_DIFFUSE:
-            case VES_SPECULAR:
-            case VES_TEXTURE_COORDINATES:
-            case VES_BINORMAL:
-            case VES_TANGENT:
+            case VertexElementSemantic::DIFFUSE:
+            case VertexElementSemantic::SPECULAR:
+            case VertexElementSemantic::TEXTURE_COORDINATES:
+            case VertexElementSemantic::BINORMAL:
+            case VertexElementSemantic::TANGENT:
                 // Make sure position is separate if animated & there were no normals
-                splitWithPrev = prevSemantic == VES_POSITION && 
+                splitWithPrev = prevSemantic == VertexElementSemantic::POSITION && 
                     (skeletalAnimation || vertexAnimation);
                 break;
             }
@@ -685,7 +685,7 @@ namespace Ogre {
         unsigned short texCoord = 0;
         for (const auto & el : mElementList)
         {
-            if (el.getSemantic() == VES_TEXTURE_COORDINATES)
+            if (el.getSemantic() == VertexElementSemantic::TEXTURE_COORDINATES)
             {
                 ++texCoord;
             }
@@ -714,7 +714,7 @@ namespace Ogre {
         auto i = mBindingMap.find(index);
         if (i == mBindingMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 ::std::format("Cannot find buffer binding for index {}", index),
                 "VertexBufferBinding::unsetBinding");
         }
@@ -738,7 +738,7 @@ namespace Ogre {
         auto i = mBindingMap.find(index);
         if (i == mBindingMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "No buffer is bound to that index.",
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, "No buffer is bound to that index.",
                 "VertexBufferBinding::getBuffer");
         }
         return i->second;

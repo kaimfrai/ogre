@@ -70,7 +70,7 @@ namespace Ogre
         mTimeControllerValue = ControllerValueRealPtr(new TimeControllerValue(this));
 
         // use V as varying texture coord, so we can use 1D textures to 'smear'
-        setTextureCoordDirection(TCD_V);
+        setTextureCoordDirection(TexCoordDirection::V);
 
 
     }
@@ -95,14 +95,14 @@ namespace Ogre
     {
         if (mNodeList.size() == mChainCount)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("{} cannot monitor any more nodes, chain count exceeded",
                     mName),
                 "RibbonTrail::addNode");
         }
         if (n->getListener())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 ::std::format("{} cannot monitor node {} since it already has a listener.", mName, n->getName()),
                 "RibbonTrail::addNode");
         }
@@ -126,7 +126,7 @@ namespace Ogre
         auto i = mNodeToSegMap.find(n);
         if (i == mNodeToSegMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 "This node is not being tracked", "RibbonTrail::getChainIndexForNode");
         }
         return i->second;

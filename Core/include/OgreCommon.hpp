@@ -67,110 +67,110 @@ class RenderWindow;
 
     /** Comparison functions used for the depth/stencil buffer operations and 
         others. */
-    enum CompareFunction : uint8
+    enum class CompareFunction : uint8
     {
-        CMPF_ALWAYS_FAIL,  //!< Never writes a pixel to the render target
-        CMPF_ALWAYS_PASS,  //!< Always writes a pixel to the render target
-        CMPF_LESS,         //!< Write if (new_Z < existing_Z)
-        CMPF_LESS_EQUAL,   //!< Write if (new_Z <= existing_Z)
-        CMPF_EQUAL,        //!< Write if (new_Z == existing_Z)
-        CMPF_NOT_EQUAL,    //!< Write if (new_Z != existing_Z)
-        CMPF_GREATER_EQUAL,//!< Write if (new_Z >= existing_Z)
-        CMPF_GREATER       //!< Write if (new_Z >= existing_Z)
+        ALWAYS_FAIL,  //!< Never writes a pixel to the render target
+        ALWAYS_PASS,  //!< Always writes a pixel to the render target
+        LESS,         //!< Write if (new_Z < existing_Z)
+        LESS_EQUAL,   //!< Write if (new_Z <= existing_Z)
+        EQUAL,        //!< Write if (new_Z == existing_Z)
+        NOT_EQUAL,    //!< Write if (new_Z != existing_Z)
+        GREATER_EQUAL,//!< Write if (new_Z >= existing_Z)
+        GREATER       //!< Write if (new_Z >= existing_Z)
     };
 
     /** High-level filtering options providing shortcuts to settings the
         minification, magnification and mip filters. */
-    enum TextureFilterOptions
+    enum class TextureFilterOptions
     {
         /// No filtering or mipmapping is used. 
-        /// Equal to: min=Ogre::FO_POINT, mag=Ogre::FO_POINT, mip=Ogre::FO_NONE
-        TFO_NONE,
+        /// Equal to: min=Ogre::FilterOptions::POINT, mag=Ogre::FilterOptions::POINT, mip=Ogre::FilterOptions::NONE
+        NONE,
         /// 2x2 box filtering is performed when magnifying or reducing a texture, and a mipmap is picked from the list but no filtering is done between the levels of the mipmaps. 
-        /// Equal to: min=Ogre::FO_LINEAR, mag=Ogre::FO_LINEAR, mip=Ogre::FO_POINT
-        TFO_BILINEAR,
+        /// Equal to: min=Ogre::FilterOptions::LINEAR, mag=Ogre::FilterOptions::LINEAR, mip=Ogre::FilterOptions::POINT
+        BILINEAR,
         /// 2x2 box filtering is performed when magnifying and reducing a texture, and the closest 2 mipmaps are filtered together. 
-        /// Equal to: min=Ogre::FO_LINEAR, mag=Ogre::FO_LINEAR, mip=Ogre::FO_LINEAR
-        TFO_TRILINEAR,
+        /// Equal to: min=Ogre::FilterOptions::LINEAR, mag=Ogre::FilterOptions::LINEAR, mip=Ogre::FilterOptions::LINEAR
+        TRILINEAR,
         /// This is the same as ’trilinear’, except the filtering algorithm takes account of the slope of the triangle in relation to the camera rather than simply doing a 2x2 pixel filter in all cases.
-        /// Equal to: min=Ogre::FO_ANISOTROPIC, max=Ogre::FO_ANISOTROPIC, mip=Ogre::FO_LINEAR
-        TFO_ANISOTROPIC
+        /// Equal to: min=Ogre::FilterOptions::ANISOTROPIC, max=Ogre::FilterOptions::ANISOTROPIC, mip=Ogre::FilterOptions::LINEAR
+        ANISOTROPIC
     };
 
-    enum FilterType
+    enum class FilterType
     {
         /// The filter used when shrinking a texture
-        FT_MIN,
+        Min,
         /// The filter used when magnifying a texture
-        FT_MAG,
+        Mag,
         /// The filter used when determining the mipmap
-        FT_MIP
+        Mip
     };
     /** Filtering options for textures / mipmaps. */
-    enum FilterOptions : uint8
+    enum class FilterOptions : uint8
     {
-        /// No filtering, used for FT_MIP to turn off mipmapping
-        FO_NONE,
+        /// No filtering, used for FilterType::Mip to turn off mipmapping
+        NONE,
         /// Use the closest pixel
-        FO_POINT,
+        POINT,
         /// Average of a 2x2 pixel area, denotes bilinear for MIN and MAG, trilinear for MIP
-        FO_LINEAR,
-        /// Similar to FO_LINEAR, but compensates for the angle of the texture plane. Note that in
+        LINEAR,
+        /// Similar to FilterOptions::LINEAR, but compensates for the angle of the texture plane. Note that in
         /// order for this to make any difference, you must also set the
         /// TextureUnitState::setTextureAnisotropy attribute too.
-        FO_ANISOTROPIC
+        ANISOTROPIC
     };
 
-    /** Texture addressing modes - default is TAM_WRAP.
+    /** Texture addressing modes - default is TextureAddressingMode::WRAP.
     */
-    enum TextureAddressingMode : uint8
+    enum class TextureAddressingMode : uint8
     {
         /// %Any value beyond 1.0 wraps back to 0.0. %Texture is repeated.
-        TAM_WRAP,
+        WRAP,
         /// %Texture flips every boundary, meaning texture is mirrored every 1.0 u or v
-        TAM_MIRROR,
+        MIRROR,
         /// Values beyond 1.0 are clamped to 1.0. %Texture ’streaks’ beyond 1.0 since last line
         /// of pixels is used across the rest of the address space. Useful for textures which
         /// need exact coverage from 0.0 to 1.0 without the ’fuzzy edge’ wrap gives when
         /// combined with filtering.
-        TAM_CLAMP,
+        CLAMP,
         /// %Texture coordinates outside the range [0.0, 1.0] are set to the border colour.
-        TAM_BORDER,
+        BORDER,
         /// Unknown
-        TAM_UNKNOWN = 99
+        UNKNOWN = 99
     };
 
     /** %Light shading modes. */
-    enum ShadeOptions : uint8
+    enum class ShadeOptions : uint8
     {
-        SO_FLAT, //!< No interpolation takes place. Each face is shaded with a single colour determined from the first vertex in the face.
-        SO_GOURAUD, //!< Colour at each vertex is linearly interpolated across the face.
-        SO_PHONG //!< Vertex normals are interpolated across the face, and these are used to determine colour at each pixel. Gives a more natural lighting effect but is more expensive and works better at high levels of tessellation. Not supported on all hardware.
+        FLAT, //!< No interpolation takes place. Each face is shaded with a single colour determined from the first vertex in the face.
+        GOURAUD, //!< Colour at each vertex is linearly interpolated across the face.
+        PHONG //!< Vertex normals are interpolated across the face, and these are used to determine colour at each pixel. Gives a more natural lighting effect but is more expensive and works better at high levels of tessellation. Not supported on all hardware.
     };
 
     /** Fog modes. */
-    enum FogMode : uint8
+    enum class FogMode : uint8
     {
         /// No fog. Duh.
-        FOG_NONE,
+        NONE,
         /// Fog density increases  exponentially from the camera (fog = 1/e^(distance * density))
-        FOG_EXP,
-        /// Fog density increases at the square of FOG_EXP, i.e. even quicker (fog = 1/e^(distance * density)^2)
-        FOG_EXP2,
+        EXP,
+        /// Fog density increases at the square of FogMode::EXP, i.e. even quicker (fog = 1/e^(distance * density)^2)
+        EXP2,
         /// Fog density increases linearly between the start and end distances
-        FOG_LINEAR
+        LINEAR
     };
 
     /** Hardware culling modes based on vertex winding.
         This setting applies to how the hardware API culls triangles it is sent. */
-    enum CullingMode : uint8
+    enum class CullingMode : uint8
     {
         /// Hardware never culls triangles and renders everything it receives.
-        CULL_NONE = 1,
+        NONE = 1,
         /// Hardware culls triangles whose vertices are listed clockwise in the view (default).
-        CULL_CLOCKWISE = 2,
+        CLOCKWISE = 2,
         /// Hardware culls triangles whose vertices are listed anticlockwise in the view.
-        CULL_ANTICLOCKWISE = 3
+        ANTICLOCKWISE = 3
     };
 
     /** Manual culling modes based on vertex normals.
@@ -178,65 +178,65 @@ class RenderWindow;
         hardware API. This culling mode is used by scene managers which choose to implement it -
         normally those which deal with large amounts of fixed world geometry which is often 
         planar (software culling movable variable geometry is expensive). */
-    enum ManualCullingMode : uint8
+    enum class ManualCullingMode : uint8
     {
         /// No culling so everything is sent to the hardware.
-        MANUAL_CULL_NONE = 1,
+        NONE = 1,
         /// Cull triangles whose normal is pointing away from the camera (default).
-        MANUAL_CULL_BACK = 2,
+        BACK = 2,
         /// Cull triangles whose normal is pointing towards the camera.
-        MANUAL_CULL_FRONT = 3
+        FRONT = 3
     };
 
     /** Enumerates the wave types usable with the Ogre engine. */
-    enum WaveformType
+    enum class WaveformType
     {
         /// Standard sine wave which smoothly changes from low to high and back again.
-        WFT_SINE,
+        SINE,
         /// An angular wave with a constant increase / decrease speed with pointed peaks.
-        WFT_TRIANGLE,
+        TRIANGLE,
         /// Half of the time is spent at the min, half at the max with instant transition between.
-        WFT_SQUARE,
+        SQUARE,
         /// Gradual steady increase from min to max over the period with an instant return to min at the end.
-        WFT_SAWTOOTH,
+        SAWTOOTH,
         /// Gradual steady decrease from max to min over the period, with an instant return to max at the end.
-        WFT_INVERSE_SAWTOOTH,
-        /// Pulse Width Modulation. Works like WFT_SQUARE, except the high to low transition is controlled by duty cycle. 
-        /// With a duty cycle of 50% (0.5) will give the same output as WFT_SQUARE.
-        WFT_PWM
+        INVERSE_SAWTOOTH,
+        /// Pulse Width Modulation. Works like WaveformType::SQUARE, except the high to low transition is controlled by duty cycle.
+        /// With a duty cycle of 50% (0.5) will give the same output as WaveformType::SQUARE.
+        PWM
     };
 
     /** The polygon mode to use when rasterising. */
-    enum PolygonMode : uint8
+    enum class PolygonMode : uint8
     {
         /// Only the points of each polygon are rendered.
-        PM_POINTS = 1,
+        POINTS = 1,
         /// Polygons are drawn in outline only.
-        PM_WIREFRAME = 2,
+        WIREFRAME = 2,
         /// The normal situation - polygons are filled in.
-        PM_SOLID = 3
+        SOLID = 3
     };
 
     /** An enumeration of broad shadow techniques */
-    enum ShadowTechnique
+    enum class ShadowTechnique
     {
         /** No shadows */
-        SHADOWTYPE_NONE = 0x00,
-        /** Mask for additive shadows (not for direct use, use  SHADOWTYPE_ enum instead)
+        NONE = 0x00,
+        /** Mask for additive shadows (not for direct use, use  ShadowTechnique:: enum class instead)
         */
-        SHADOWDETAILTYPE_ADDITIVE = 0x01,
-        /** Mask for modulative shadows (not for direct use, use  SHADOWTYPE_ enum instead)
+        DETAIL_ADDITIVE = 0x01,
+        /** Mask for modulative shadows (not for direct use, use  ShadowTechnique:: enum class instead)
         */
-        SHADOWDETAILTYPE_MODULATIVE = 0x02,
-        /** Mask for integrated shadows (not for direct use, use SHADOWTYPE_ enum instead)
+        DETAIL_MODULATIVE = 0x02,
+        /** Mask for integrated shadows (not for direct use, use ShadowTechnique:: enum class instead)
         */
-        SHADOWDETAILTYPE_INTEGRATED = 0x04,
-        /** Mask for stencil shadows (not for direct use, use  SHADOWTYPE_ enum instead)
+        DETAIL_INTEGRATED = 0x04,
+        /** Mask for stencil shadows (not for direct use, use  ShadowTechnique:: enum class instead)
         */
-        SHADOWDETAILTYPE_STENCIL = 0x10,
-        /** Mask for texture shadows (not for direct use, use  SHADOWTYPE_ enum instead)
+        DETAIL_STENCIL = 0x10,
+        /** Mask for texture shadows (not for direct use, use  ShadowTechnique:: enum class instead)
         */
-        SHADOWDETAILTYPE_TEXTURE = 0x20,
+        DETAIL_TEXTURE = 0x20,
         
         /** Stencil shadow technique which renders all shadow volumes as
             a modulation after all the non-transparent areas have been 
@@ -244,7 +244,7 @@ class RenderWindow;
             than the additive stencil shadow approach when there are multiple
             lights, but is not an accurate model. 
         */
-        SHADOWTYPE_STENCIL_MODULATIVE = SHADOWDETAILTYPE_STENCIL | SHADOWDETAILTYPE_MODULATIVE,
+        STENCIL_MODULATIVE = DETAIL_STENCIL | DETAIL_MODULATIVE,
         /** Stencil shadow technique which renders each light as a separate
             additive pass to the scene. This technique can be very fillrate
             intensive because it requires at least 2 passes of the entire
@@ -252,12 +252,12 @@ class RenderWindow;
             accurate model than the modulative stencil approach and this is
             especially apparent when using coloured lights or bump mapping.
         */
-        SHADOWTYPE_STENCIL_ADDITIVE = SHADOWDETAILTYPE_STENCIL | SHADOWDETAILTYPE_ADDITIVE,
+        STENCIL_ADDITIVE = DETAIL_STENCIL | DETAIL_ADDITIVE,
         /** Texture-based shadow technique which involves a monochrome render-to-texture
             of the shadow caster and a projection of that texture onto the 
             shadow receivers as a modulative pass. 
         */
-        SHADOWTYPE_TEXTURE_MODULATIVE = SHADOWDETAILTYPE_TEXTURE | SHADOWDETAILTYPE_MODULATIVE,
+        TEXTURE_MODULATIVE = DETAIL_TEXTURE | DETAIL_MODULATIVE,
         
         /** Texture-based shadow technique which involves a render-to-texture
             of the shadow caster and a projection of that texture onto the 
@@ -267,7 +267,7 @@ class RenderWindow;
             modulative approach and this is especially apparent when using coloured lights 
             or bump mapping.
         */
-        SHADOWTYPE_TEXTURE_ADDITIVE = SHADOWDETAILTYPE_TEXTURE | SHADOWDETAILTYPE_ADDITIVE,
+        TEXTURE_ADDITIVE = DETAIL_TEXTURE | DETAIL_ADDITIVE,
 
         /** Texture-based shadow technique which involves a render-to-texture
         of the shadow caster and a projection of that texture on to the shadow
@@ -276,7 +276,7 @@ class RenderWindow;
         This technique is easily the most flexible of all techniques because 
         the material author is in complete control over how the shadows are
         combined with regular rendering. It can perform shadows as accurately
-        as SHADOWTYPE_TEXTURE_ADDITIVE but more efficiently because it requires
+        as ShadowTechnique::TEXTURE_ADDITIVE but more efficiently because it requires
         less passes. However it also requires more expertise to use, and 
         in almost all cases, shader capable hardware to really use to the full.
         @note The 'additive' part of this mode means that the colour of
@@ -284,7 +284,7 @@ class RenderWindow;
         not mean it does the adding on your receivers automatically though, how you
         use that result is up to you.
         */
-        SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED = SHADOWTYPE_TEXTURE_ADDITIVE | SHADOWDETAILTYPE_INTEGRATED,
+        TEXTURE_ADDITIVE_INTEGRATED = TEXTURE_ADDITIVE | ShadowTechnique::DETAIL_INTEGRATED,
         /** Texture-based shadow technique which involves a render-to-texture
             of the shadow caster and a projection of that texture on to the shadow
             receivers, with the usage of those shadow textures completely controlled
@@ -292,7 +292,7 @@ class RenderWindow;
             This technique is easily the most flexible of all techniques because 
             the material author is in complete control over how the shadows are
             combined with regular rendering. It can perform shadows as accurately
-            as SHADOWTYPE_TEXTURE_ADDITIVE but more efficiently because it requires
+            as ShadowTechnique::TEXTURE_ADDITIVE but more efficiently because it requires
             less passes. However it also requires more expertise to use, and 
             in almost all cases, shader capable hardware to really use to the full.
             @note The 'modulative' part of this mode means that the colour of
@@ -300,86 +300,171 @@ class RenderWindow;
             not mean it modulates on your receivers automatically though, how you
             use that result is up to you.
         */
-        SHADOWTYPE_TEXTURE_MODULATIVE_INTEGRATED = SHADOWTYPE_TEXTURE_MODULATIVE | SHADOWDETAILTYPE_INTEGRATED
+        TEXTURE_MODULATIVE_INTEGRATED = TEXTURE_MODULATIVE | DETAIL_INTEGRATED
     };
+
+    auto constexpr operator not(ShadowTechnique value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    auto constexpr operator bitand(ShadowTechnique left, ShadowTechnique right) -> ShadowTechnique
+    {
+        return static_cast<ShadowTechnique>
+        (    std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** An enumeration describing which material properties should track the vertex colours */
-    using TrackVertexColourType = int;
-    enum TrackVertexColourEnum {
-        TVC_NONE        = 0x0,
-        TVC_AMBIENT     = 0x1,        
-        TVC_DIFFUSE     = 0x2,
-        TVC_SPECULAR    = 0x4,
-        TVC_EMISSIVE    = 0x8
+    enum class TrackVertexColourEnum {
+        NONE        = 0x0,
+        AMBIENT     = 0x1,
+        DIFFUSE     = 0x2,
+        SPECULAR    = 0x4,
+        EMISSIVE    = 0x8
     };
+    using TrackVertexColourType = TrackVertexColourEnum;
+
+    auto constexpr operator bitor(TrackVertexColourEnum left, TrackVertexColourEnum right) -> TrackVertexColourEnum
+    {
+        return static_cast<TrackVertexColourEnum>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator not(TrackVertexColourEnum value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    auto constexpr operator bitand(TrackVertexColourEnum left, TrackVertexColourEnum right) -> TrackVertexColourEnum
+    {
+        return static_cast<TrackVertexColourEnum>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** Function used compute the camera-distance for sorting objects */
-    enum SortMode : uint8
+    enum class SortMode : uint8
     {
 
         /** Sort by direction of the camera
          *
          * The distance along the camera view as in `cam->getDerivedDirection().dotProduct(diff)`
-         * Best for @ref PT_ORTHOGRAPHIC
+         * Best for @ref ProjectionType::ORTHOGRAPHIC
          */
-        SM_DIRECTION,
+        Direction,
         /** Sort by distance from the camera
          *
          * The euclidean distance as in `diff.squaredLength()`
-         * Best for @ref PT_PERSPECTIVE
+         * Best for @ref ProjectionType::PERSPECTIVE
          */
-        SM_DISTANCE
+        Distance
     };
 
     /** Defines the frame buffer types. */
-    enum FrameBufferType {
-        FBT_COLOUR  = 0x1,
-        FBT_DEPTH   = 0x2,
-        FBT_STENCIL = 0x4
+    enum class FrameBufferType {
+        COLOUR  = 0x1,
+        DEPTH   = 0x2,
+        STENCIL = 0x4
     };
+
+    auto constexpr operator not (FrameBufferType mask) -> bool
+    {
+        return not std::to_underlying(mask);
+    }
+
+    auto constexpr operator bitor(FrameBufferType left, FrameBufferType right) -> FrameBufferType
+    {
+        return
+        static_cast<FrameBufferType>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |= (FrameBufferType& left, FrameBufferType right) -> FrameBufferType&
+    {
+        return left = left bitor right;
+    }
+
+    auto constexpr operator bitand(FrameBufferType left, FrameBufferType right) -> FrameBufferType
+    {
+        return
+        static_cast<FrameBufferType>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator &= (FrameBufferType& left, FrameBufferType right) -> FrameBufferType&
+    {
+        return left = left bitand right;
+    }
 	
 	/** Defines the colour buffer types. */
-    enum ColourBufferType
+    enum class ColourBufferType
     {
-      CBT_BACK = 0x0,
-      CBT_BACK_LEFT,
-      CBT_BACK_RIGHT
+      BACK = 0x0,
+      BACK_LEFT,
+      BACK_RIGHT
     };
 	
 	/** Defines the stereo mode types. */
-    enum StereoModeType
+    enum class StereoModeType
     {
-      SMT_NONE = 0x0,
-      SMT_FRAME_SEQUENTIAL
+      NONE = 0x0,
+      FRAME_SEQUENTIAL
     };
 
     /** Flags for the Instance Manager when calculating ideal number of instances per batch */
-    enum InstanceManagerFlags
+    enum class InstanceManagerFlags
     {
         /** Forces an amount of instances per batch low enough so that vertices * numInst < 65535
             since usually improves performance. In HW instanced techniques, this flag is ignored
         */
-        IM_USE16BIT     = 0x0001,
+        USE16BIT     = 0x0001,
 
         /** The num. of instances is adjusted so that as few pixels as possible are wasted
             in the vertex texture */
-        IM_VTFBESTFIT   = 0x0002,
+        VTFBESTFIT   = 0x0002,
 
         /** Use a limited number of skeleton animations shared among all instances. 
         Update only that limited amount of animations in the vertex texture.*/
-        IM_VTFBONEMATRIXLOOKUP = 0x0004,
+        VTFBONEMATRIXLOOKUP = 0x0004,
 
-        IM_USEBONEDUALQUATERNIONS = 0x0008,
+        USEBONEDUALQUATERNIONS = 0x0008,
 
         /** Use one weight per vertex when recommended (i.e. VTF). */
-        IM_USEONEWEIGHT = 0x0010,
+        USEONEWEIGHT = 0x0010,
 
         /** All techniques are forced to one weight per vertex. */
-        IM_FORCEONEWEIGHT = 0x0020,
+        FORCEONEWEIGHT = 0x0020,
 
-        IM_USEALL       = IM_USE16BIT|IM_VTFBESTFIT|IM_USEONEWEIGHT
+        USEALL       = USE16BIT|VTFBESTFIT|USEONEWEIGHT
     };
+
+    auto constexpr operator not(InstanceManagerFlags value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
     
+    auto constexpr operator bitand(InstanceManagerFlags left, InstanceManagerFlags right) -> InstanceManagerFlags
+    {
+        return static_cast<InstanceManagerFlags>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
     
     /** A hashed vector.
     */
@@ -821,14 +906,14 @@ class RenderWindow;
         BinaryOptionList& binOptList) -> int;
 
     /// Generic result of clipping
-    enum ClipResult
+    enum class ClipResult
     {
         /// Nothing was clipped
-        CLIPPED_NONE = 0,
+        NONE = 0,
         /// Partially clipped
-        CLIPPED_SOME = 1, 
+        SOME = 1,
         /// Everything was clipped away
-        CLIPPED_ALL = 2
+        ALL = 2
     };
 
     /// Render window creation parameters.

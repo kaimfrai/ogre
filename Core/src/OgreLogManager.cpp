@@ -124,12 +124,12 @@ namespace Ogre {
 
     void LogManager::logError(std::string_view message, bool maskDebug )
     {
-        stream(LML_CRITICAL, maskDebug) << "Error: " << message;
+        stream(LogMessageLevel::Critical, maskDebug) << "Error: " << message;
     }
 
     void LogManager::logWarning(std::string_view message, bool maskDebug )
     {
-        stream(LML_WARNING, maskDebug) << "Warning: " << message;
+        stream(LogMessageLevel::Warning, maskDebug) << "Warning: " << message;
     }
 
     //-----------------------------------------------------------------------

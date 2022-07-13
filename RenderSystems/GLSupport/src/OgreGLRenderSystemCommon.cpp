@@ -160,7 +160,7 @@ namespace Ogre {
     {
         auto option = mOptions.find(name);
         if (option == mOptions.end()) {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Option named '{}' does not exist.", name ));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Option named '{}' does not exist.", name ));
         }
         option->second.currentValue = value;
 
@@ -233,7 +233,7 @@ namespace Ogre {
         // This is only valid once we've created the main context
         if (!mMainContext)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Cannot register a background thread before the main context has been created");
         }
 

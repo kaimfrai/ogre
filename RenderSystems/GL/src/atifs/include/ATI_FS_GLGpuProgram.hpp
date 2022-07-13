@@ -53,7 +53,7 @@ class ResourceManager;
         /// Execute the unbinding functions for this program
         void unbindProgram() override;
         /// Execute the param binding functions for this program
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, GpuParamVariability mask) override;
 
         /// Get the assigned GL program id
         auto getProgramID() const noexcept -> GLuint

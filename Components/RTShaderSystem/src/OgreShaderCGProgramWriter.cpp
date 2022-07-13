@@ -60,33 +60,33 @@ CGProgramWriter::~CGProgramWriter()
 //-----------------------------------------------------------------------
 void CGProgramWriter::initializeStringMaps()
 {
-    mGpuConstTypeMap[GCT_FLOAT1] = "float";
-    mGpuConstTypeMap[GCT_FLOAT2] = "float2";
-    mGpuConstTypeMap[GCT_FLOAT3] = "float3";
-    mGpuConstTypeMap[GCT_FLOAT4] = "float4";
-    mGpuConstTypeMap[GCT_SAMPLER1D] = "sampler1D";
-    mGpuConstTypeMap[GCT_SAMPLER2D] = "sampler2D";
-    mGpuConstTypeMap[GCT_SAMPLER3D] = "sampler3D";
-    mGpuConstTypeMap[GCT_SAMPLERCUBE] = "samplerCUBE";
-    mGpuConstTypeMap[GCT_MATRIX_2X2] = "float2x2";
-    mGpuConstTypeMap[GCT_MATRIX_2X3] = "float2x3";
-    mGpuConstTypeMap[GCT_MATRIX_2X4] = "float2x4";
-    mGpuConstTypeMap[GCT_MATRIX_3X2] = "float3x2";
-    mGpuConstTypeMap[GCT_MATRIX_3X3] = "float3x3";
-    mGpuConstTypeMap[GCT_MATRIX_3X4] = "float3x4";
-    mGpuConstTypeMap[GCT_MATRIX_4X2] = "float4x2";
-    mGpuConstTypeMap[GCT_MATRIX_4X3] = "float4x3";
-    mGpuConstTypeMap[GCT_MATRIX_4X4] = "float4x4";
-    mGpuConstTypeMap[GCT_INT1] = "int";
-    mGpuConstTypeMap[GCT_INT2] = "int2";
-    mGpuConstTypeMap[GCT_INT3] = "int3";
-    mGpuConstTypeMap[GCT_INT4] = "int4";
-    mGpuConstTypeMap[GCT_UINT1] = "uint";
-    mGpuConstTypeMap[GCT_UINT2] = "uint2";
-    mGpuConstTypeMap[GCT_UINT3] = "uint3";
-    mGpuConstTypeMap[GCT_UINT4] = "uint4";
+    mGpuConstTypeMap[GpuConstantType::FLOAT1] = "float";
+    mGpuConstTypeMap[GpuConstantType::FLOAT2] = "float2";
+    mGpuConstTypeMap[GpuConstantType::FLOAT3] = "float3";
+    mGpuConstTypeMap[GpuConstantType::FLOAT4] = "float4";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER1D] = "sampler1D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER2D] = "sampler2D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER3D] = "sampler3D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLERCUBE] = "samplerCUBE";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X2] = "float2x2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X3] = "float2x3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X4] = "float2x4";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X2] = "float3x2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X3] = "float3x3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X4] = "float3x4";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X2] = "float4x2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X3] = "float4x3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X4] = "float4x4";
+    mGpuConstTypeMap[GpuConstantType::INT1] = "int";
+    mGpuConstTypeMap[GpuConstantType::INT2] = "int2";
+    mGpuConstTypeMap[GpuConstantType::INT3] = "int3";
+    mGpuConstTypeMap[GpuConstantType::INT4] = "int4";
+    mGpuConstTypeMap[GpuConstantType::UINT1] = "uint";
+    mGpuConstTypeMap[GpuConstantType::UINT2] = "uint2";
+    mGpuConstTypeMap[GpuConstantType::UINT3] = "uint3";
+    mGpuConstTypeMap[GpuConstantType::UINT4] = "uint4";
 
-    mParamSemanticMap[Parameter::SPS_FRONT_FACING] = "VFACE";
+    mParamSemanticMap[Parameter::Semantic::FRONT_FACING] = "VFACE";
 }
 
 //-----------------------------------------------------------------------

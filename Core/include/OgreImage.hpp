@@ -47,12 +47,51 @@ namespace Ogre {
     *  @{
     */
 
-    enum ImageFlags
+    enum class ImageFlags
     {
-        IF_COMPRESSED = 0x00000001,
-        IF_CUBEMAP    = 0x00000002,
-        IF_3D_TEXTURE = 0x00000004
+        COMPRESSED = 0x00000001,
+        CUBEMAP    = 0x00000002,
+        _3D_TEXTURE = 0x00000004
     };
+
+    auto constexpr operator bitor(ImageFlags left, ImageFlags right) -> ImageFlags
+    {
+        return static_cast<ImageFlags>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |= (ImageFlags& left, ImageFlags right) -> ImageFlags&
+    {
+        return left = left bitor right;
+    }
+
+        auto constexpr operator bitand(ImageFlags left, ImageFlags right) -> ImageFlags
+    {
+        return static_cast<ImageFlags>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    /** Enum identifying special mipmap numbers
+    */
+    enum class TextureMipmap : uint32
+    {
+        /// Generate mipmaps up to 1x1
+        UNLIMITED = 0x7FFFFFFF,
+        /// Use TextureManager default
+        DEFAULT = static_cast<uint32>(-1)
+    };
+
+    auto constexpr operator not (TextureMipmap map) -> bool
+    {
+        return not std::to_underlying(map);
+    }
+
     /** Class representing an image file.
         @remarks
             The Image class usually holds uncompressed image data and is the
@@ -72,7 +111,7 @@ namespace Ogre {
          *
          * allocates a buffer of given size if buffer pointer is NULL.
          */
-        Image(PixelFormat format = PF_UNKNOWN, uint32 width = 0, uint32 height = 0, uint32 depth = 1,
+        Image(PixelFormat format = PixelFormat::UNKNOWN, uint32 width = 0, uint32 height = 0, uint32 depth = 1,
               uchar* buffer = nullptr, bool autoDelete = true);
         /** Copy-constructor - copies all the data from the target image.
          */
@@ -87,7 +126,7 @@ namespace Ogre {
          * @see loadDynamicImage
          */
         void create(PixelFormat format, uint32 width, uint32 height, uint32 depth = 1, uint32 numFaces = 1,
-                    uint32 numMipMaps = 0);
+                    TextureMipmap numMipMaps = {});
 
         /** Standard destructor.
         */
@@ -185,7 +224,7 @@ namespace Ogre {
                 The size of the buffer must be numFaces * PixelUtil::getMemorySize(width, height, depth, format)
          */
         auto loadDynamicImage(uchar* data, uint32 width, uint32 height, uint32 depth, PixelFormat format,
-                                bool autoDelete = false, uint32 numFaces = 1, uint32 numMipMaps = 0) -> Image&;
+                                bool autoDelete = false, uint32 numFaces = 1, TextureMipmap numMipMaps = {}) -> Image&;
 
         /// @overload
         auto loadDynamicImage(uchar* data, uint32 width, uint32 height, PixelFormat format) -> Image&
@@ -212,7 +251,7 @@ namespace Ogre {
                 depth too.
         */
         auto loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, uint32 depth,
-                           PixelFormat format, uint32 numFaces = 1, uint32 numMipMaps = 0) -> Image&;
+                           PixelFormat format, uint32 numFaces = 1, TextureMipmap numMipMaps = {}) -> Image&;
         /// @overload
         auto loadRawData(const DataStreamPtr& stream, uint32 width, uint32 height, PixelFormat format) -> Image&
         {
@@ -269,7 +308,7 @@ namespace Ogre {
         @param format The destination format
         */
         auto loadTwoImagesAsRGBA(std::string_view rgbFilename, std::string_view alphaFilename,
-            std::string_view groupName, PixelFormat format = PF_BYTE_RGBA) -> Image &;
+            std::string_view groupName, PixelFormat format = PixelFormat::BYTE_RGBA) -> Image &;
 
         /** Utility method to combine 2 separate images into this one, with the first
         image source supplying the RGB channels, and the second image supplying the 
@@ -287,7 +326,7 @@ namespace Ogre {
             a header to identify the data.
         */
         auto loadTwoImagesAsRGBA(const DataStreamPtr& rgbStream, const DataStreamPtr& alphaStream,
-                                   PixelFormat format = PF_BYTE_RGBA,
+                                   PixelFormat format = PixelFormat::BYTE_RGBA,
                                    std::string_view rgbType = BLANKSTRING,
                                    std::string_view alphaType = BLANKSTRING) -> Image&;
 
@@ -300,7 +339,7 @@ namespace Ogre {
             converted to greyscale.
         @param format The destination format
         */
-        auto combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat format = PF_BYTE_RGBA) -> Image &;
+        auto combineTwoImagesAsRGBA(const Image& rgb, const Image& alpha, PixelFormat format = PixelFormat::BYTE_RGBA) -> Image &;
 
         
         /** Save the image as a file. 
@@ -358,7 +397,7 @@ namespace Ogre {
 
         /** Returns the number of mipmaps contained in the image.
         */
-        [[nodiscard]] auto getNumMipmaps() const noexcept -> uint32;
+        [[nodiscard]] auto getNumMipmaps() const noexcept -> TextureMipmap;
 
         /** Returns true if the image has the appropriate flag set.
         */
@@ -421,16 +460,16 @@ namespace Ogre {
         /**
          * Get a PixelBox encapsulating the image data of a mipmap
          */
-        [[nodiscard]] auto getPixelBox(uint32 face = 0, uint32 mipmap = 0) const -> PixelBox;
+        [[nodiscard]] auto getPixelBox(uint32 face = 0, TextureMipmap mipmap = {}) const -> PixelBox;
 
         /// Delete all the memory held by this image, if owned by this image (not dynamic)
         void freeMemory();
 
-        enum Filter
+        enum class Filter
         {
-            FILTER_NEAREST,
-            FILTER_LINEAR,
-            FILTER_BILINEAR = FILTER_LINEAR
+            NEAREST,
+            LINEAR,
+            BILINEAR = LINEAR
         };
         /** Scale a 1D, 2D or 3D image volume. 
             @param  src         PixelBox containing the source pointer, dimensions and format
@@ -439,13 +478,13 @@ namespace Ogre {
             @remarks    This function can do pixel format conversion in the process.
             @note   dst and src can point to the same PixelBox object without any problem
         */
-        static void scale(const PixelBox &src, const PixelBox &dst, Filter filter = FILTER_BILINEAR);
+        static void scale(const PixelBox &src, const PixelBox &dst, Filter filter = Filter::BILINEAR);
         
         /** Resize a 2D image, applying the appropriate filter. */
-        void resize(ushort width, ushort height, Filter filter = FILTER_BILINEAR);
+        void resize(ushort width, ushort height, Filter filter = Filter::BILINEAR);
         
         /// Static function to calculate size in bytes from the number of mipmaps, faces and the dimensions
-        static auto calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
+        static auto calculateSize(TextureMipmap mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth, PixelFormat format) -> size_t;
 
         /// Static function to get an image type string from a stream via magic numbers
         static auto getFileExtFromMagic(DataStreamPtr stream) -> std::string_view;
@@ -458,11 +497,11 @@ namespace Ogre {
         /// The depth of the image
         uint32 mDepth{0};
         /// The number of mipmaps the image contains
-        uint32 mNumMipmaps{0};
+        TextureMipmap mNumMipmaps{0};
         /// The size of the image buffer
         size_t mBufSize{0};
         /// Image specific flags.
-        int mFlags{0};
+        ImageFlags mFlags{0};
 
         /// The pixel format of the image
         PixelFormat mFormat;

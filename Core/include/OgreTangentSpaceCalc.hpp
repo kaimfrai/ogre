@@ -99,11 +99,11 @@ class VertexData;
         /** Add a set of index data that references the vertex data.
             This might be modified if there are vertex splits.
         */
-        void addIndexData(IndexData* i_in, RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST);
+        void addIndexData(IndexData* i_in, RenderOperation::OperationType opType = RenderOperation::OperationType::TRIANGLE_LIST);
 
         /** Sets whether to store tangent space parity in the W of a 4-component tangent or not.
         @remarks
-            The default element format to use is VET_FLOAT3 which is enough to accurately 
+            The default element format to use is VertexElementType::FLOAT3 which is enough to accurately 
             deal with tangents that do not involve any texture coordinate mirroring. 
             If you wish to allow UV mirroring in your model, you must enable 4-component
             tangents using this method, and the 'w' co-ordinate will be populated
@@ -172,7 +172,7 @@ class VertexData;
             of 2D texture coordinates, with which to calculate the tangents.
         @param index The element index, ie the texture coordinate set which should be used to store the 3D
             coordinates representing a tangent vector per vertex, if targetSemantic is 
-            VES_TEXTURE_COORDINATES. If this already exists, it will be overwritten.
+            VertexElementSemantic::TEXTURE_COORDINATES. If this already exists, it will be overwritten.
         @return
             A structure containing the results of the tangent space build. Vertex data
             will always be modified but it's also possible that the index data
@@ -181,7 +181,7 @@ class VertexData;
             This is discontinuous, therefore the vertices have to be split along
             this edge, resulting in new vertices.
         */
-        auto build(VertexElementSemantic targetSemantic = VES_TANGENT,
+        auto build(VertexElementSemantic targetSemantic = VertexElementSemantic::TANGENT,
             unsigned short sourceTexCoordSet = 0, unsigned short index = 1) -> Result;
 
 

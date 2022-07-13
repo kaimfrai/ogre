@@ -59,16 +59,16 @@ namespace Ogre {
      *  @{
      */
     /// Categorisation of passes for the purpose of additive lighting
-    enum IlluminationStage : uint8
+    enum class IlluminationStage : uint8
     {
         /// Part of the rendering which occurs without any kind of direct lighting
-        IS_AMBIENT,
+        AMBIENT,
         /// Part of the rendering which occurs per light
-        IS_PER_LIGHT,
+        PER_LIGHT,
         /// Post-lighting rendering
-        IS_DECAL,
+        DECAL,
         /// Not determined
-        IS_UNKNOWN
+        UNKNOWN
     };
 
     /** Class defining a single pass of a Technique (of a Material): a single rendering call.
@@ -87,7 +87,7 @@ namespace Ogre {
 
         $$ passBase = C $$
 
-        where \f$C = (1, 1, 1)\f$ or a tracked vertex attribute if #TVC_DIFFUSE is set.
+        where \f$C = (1, 1, 1)\f$ or a tracked vertex attribute if #TrackVertexColourEnum::DIFFUSE is set.
 
         @par Lighting enabled
 
@@ -218,7 +218,7 @@ namespace Ogre {
         ushort mIndex; /// Pass index
 
         /// With a specific light mask?
-        uint32 mLightMask;
+        QueryTypeMask mLightMask;
 
         //-------------------------------------------------------------------------
         // Fog
@@ -237,7 +237,7 @@ namespace Ogre {
         mutable ContentTypeLookup mShadowContentTypeLookup;
 
         /// Vertex program details
-        std::unique_ptr<GpuProgramUsage> mProgramUsage[GPT_COUNT];
+        std::unique_ptr<GpuProgramUsage> mProgramUsage[std::to_underlying(GpuProgramType::COUNT)];
         /// Number of pass iterations to perform
         size_t mPassIterationCount;
         /// Point size, applies when not using per-vertex point size
@@ -308,7 +308,7 @@ namespace Ogre {
         the mesh instead of the colour values.
         @note
         This setting has no effect if dynamic lighting is disabled (see
-        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LBO_REPLACE
+        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LayerBlendOperation::REPLACE
         attribute.
         */
         void setAmbient(float red, float green, float blue);
@@ -326,7 +326,7 @@ namespace Ogre {
         the mesh instead of the colour values.
         @note
         This setting has no effect if dynamic lighting is disabled (see
-        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LBO_REPLACE
+        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LayerBlendOperation::REPLACE
         attribute.
         */
         void setDiffuse(float red, float green, float blue, float alpha);
@@ -345,7 +345,7 @@ namespace Ogre {
         The size of the specular highlights is determined by the separate 'shininess' property.
         @note
         This setting has no effect if dynamic lighting is disabled (see
-        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LBO_REPLACE
+        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LayerBlendOperation::REPLACE
         attribute.
         */
         void setSpecular(float red, float green, float blue, float alpha);
@@ -363,7 +363,7 @@ namespace Ogre {
         DirectX and OpenGL renderers.
         @note
         This setting has no effect if dynamic lighting is disabled (see
-        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LBO_REPLACE
+        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LayerBlendOperation::REPLACE
         attribute.
         */
         void setShininess(float val) {  mShininess = val; }
@@ -378,7 +378,7 @@ namespace Ogre {
         the mesh instead of the colour values.
         @note
         This setting has no effect if dynamic lighting is disabled (see
-        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LBO_REPLACE
+        Ogre::Pass::setLightingEnabled), or, if any texture layer has a Ogre::LayerBlendOperation::REPLACE
         attribute.
         */
         void setSelfIllumination(float red, float green, float blue);
@@ -785,7 +785,7 @@ namespace Ogre {
 
             If depth checking is enabled (see setDepthCheckEnabled) a comparison occurs between the depth
             value of the pixel to be written and the current contents of the buffer. This comparison is
-            normally Ogre::CMPF_LESS_EQUAL.
+            normally Ogre::CompareFunction::LESS_EQUAL.
         */
         void setDepthFunction( CompareFunction func ) {  mDepthFunc = func; }
         /** Returns the function used to compare depth values when depth checking is on.
@@ -840,11 +840,11 @@ namespace Ogre {
             triangles. Vertex winding refers to the direction in which the vertices are passed or indexed
             to in the rendering operation as viewed from the camera, and will wither be clockwise or
             anticlockwise (that's 'counterclockwise' for you Americans out there ;) The default is
-            Ogre::CULL_CLOCKWISE i.e. that only triangles whose vertices are passed/indexed in anticlockwise order
+            Ogre::CullingMode::CLOCKWISE i.e. that only triangles whose vertices are passed/indexed in anticlockwise order
             are rendered - this is a common approach and is used in 3D studio models for example. You can
             alter this culling mode if you wish but it is not advised unless you know what you are doing.
 
-            You may wish to use the Ogre::CULL_NONE option for mesh data that you cull yourself where the vertex
+            You may wish to use the Ogre::CullingMode::NONE option for mesh data that you cull yourself where the vertex
             winding is uncertain or for creating 2-sided passes.
         */
         void setCullingMode( CullingMode mode ) { mCullMode = mode; }
@@ -864,10 +864,10 @@ namespace Ogre {
             In this case the culling is based on whether the ’back’ or ’front’ of the triangle is facing the
             camera - this definition is based on the face normal (a vector which sticks out of the front side of
             the polygon perpendicular to the face). Since %Ogre expects face normals to be on anticlockwise side
-            of the face, Ogre::MANUAL_CULL_BACK is the software equivalent of Ogre::CULL_CLOCKWISE setting,
+            of the face, Ogre::ManualCullingMode::BACK is the software equivalent of Ogre::CullingMode::CLOCKWISE setting,
             which is why they are both the default. The naming is different to reflect the way the culling is
             done though, since most of the time face normals are pre-calculated and they don’t have to be the
-            way %Ogre expects - you could set Ogre::CULL_NONE and completely cull in software based on your
+            way %Ogre expects - you could set Ogre::CullingMode::NONE and completely cull in software based on your
             own face normals, if you have the right SceneManager which uses them.
         */
         void setManualCullingMode( ManualCullingMode mode );
@@ -882,7 +882,7 @@ namespace Ogre {
 
             When dynamic lighting is turned on, the effect is to generate colour values at each
             vertex. Whether these values are interpolated across the face (and how) depends on this
-            setting. The default shading method is Ogre::SO_GOURAUD.
+            setting. The default shading method is Ogre::ShadeOptions::GOURAUD.
         */
         void setShadingMode( ShadeOptions mode ) { mShadeOptions = mode; }
 
@@ -893,7 +893,7 @@ namespace Ogre {
         /** Sets the type of polygon rendering required
             
             Sets how polygons should be rasterised, i.e. whether they should be filled in, or just drawn as lines or points.
-            The default shading method is Ogre::PM_SOLID.
+            The default shading method is Ogre::PolygonMode::SOLID.
         */
         void setPolygonMode( PolygonMode mode ) { mPolygonMode = mode; }
 
@@ -929,24 +929,24 @@ namespace Ogre {
             If you specify false, so other parameters are necessary, and this is the default behaviour for passes.
             @param
             mode Only applicable if overrideScene is true. You can disable fog which is turned on for the
-            rest of the scene by specifying FOG_NONE. Otherwise, set a pass-specific fog mode as
-            defined in the enum FogMode.
+            rest of the scene by specifying FogMode::NONE. Otherwise, set a pass-specific fog mode as
+            defined in the enum class FogMode.
             @param
             colour The colour of the fog. Either set this to the same as your viewport background colour,
             or to blend in with a skydome or skybox.
             @param
-            expDensity The density of the fog in FOG_EXP or FOG_EXP2 mode, as a value between 0 and 1.
+            expDensity The density of the fog in FogMode::EXP or FogMode::EXP2 mode, as a value between 0 and 1.
             The default is 0.001.
             @param
             linearStart Distance in world units at which linear fog starts to encroach.
-            Only applicable if mode is FOG_LINEAR.
+            Only applicable if mode is FogMode::LINEAR.
             @param
             linearEnd Distance in world units at which linear fog becomes completely opaque.
-            Only applicable if mode is FOG_LINEAR.
+            Only applicable if mode is FogMode::LINEAR.
         */
         void setFog(
             bool overrideScene,
-            FogMode mode = FOG_NONE,
+            FogMode mode = FogMode::NONE,
             const ColourValue& colour = ColourValue::White,
             float expDensity = 0.001f, float linearStart = 0.0f, float linearEnd = 1.0f );
 
@@ -987,7 +987,7 @@ namespace Ogre {
         /// @{
         /** Sets the way the pass will have use alpha to totally reject pixels from the pipeline.
             @remarks
-            The default is CMPF_ALWAYS_PASS i.e. alpha is not used to reject pixels.
+            The default is CompareFunction::ALWAYS_PASS i.e. alpha is not used to reject pixels.
             @param func The comparison which must pass for the pixel to be written.
             @param value 1 byte value against which alpha values will be tested(0-255)
             @param alphaToCoverageEnabled Whether to use alpha to coverage with MSAA.
@@ -1089,9 +1089,9 @@ namespace Ogre {
         auto getStartLight() const noexcept -> unsigned short { return mStartLight; }
 
         /** Sets the light mask which can be matched to specific light flags to be handled by this pass */
-        void setLightMask(uint32 mask) { mLightMask = mask; }
+        void setLightMask(QueryTypeMask mask) { mLightMask = mask; }
         /** Gets the light mask controlling which lights are used for this pass */
-        auto getLightMask() const noexcept -> uint32 { return mLightMask; }
+        auto getLightMask() const noexcept -> QueryTypeMask { return mLightMask; }
 
         /** Sets whether or not this pass should iterate per light or number of
             lights which can affect the object being rendered.
@@ -1136,7 +1136,7 @@ namespace Ogre {
             @param lightType The single light type which will be considered for this pass
         */
         void setIteratePerLight(bool enabled,
-                                bool onlyForOneLightType = true, Light::LightTypes lightType = Light::LT_POINT);
+                                bool onlyForOneLightType = true, Light::LightTypes lightType = Light::LightTypes::POINT);
 
         /** Does this pass run once for every light in range? */
         auto getIteratePerLight() const noexcept -> bool { return mIteratePerLight; }
@@ -1179,31 +1179,31 @@ namespace Ogre {
             return false;
         }
         /// Returns true if this pass uses a programmable vertex pipeline
-        auto hasVertexProgram() const -> bool { return hasGpuProgram(GPT_VERTEX_PROGRAM); }
+        auto hasVertexProgram() const -> bool { return hasGpuProgram(GpuProgramType::VERTEX_PROGRAM); }
         /// Returns true if this pass uses a programmable fragment pipeline
-        auto hasFragmentProgram() const -> bool { return hasGpuProgram(GPT_FRAGMENT_PROGRAM); }
+        auto hasFragmentProgram() const -> bool { return hasGpuProgram(GpuProgramType::FRAGMENT_PROGRAM); }
         /// Returns true if this pass uses a programmable geometry pipeline
-        auto hasGeometryProgram() const -> bool { return hasGpuProgram(GPT_GEOMETRY_PROGRAM); }
+        auto hasGeometryProgram() const -> bool { return hasGpuProgram(GpuProgramType::GEOMETRY_PROGRAM); }
         /// Returns true if this pass uses a programmable tessellation control pipeline
-        auto hasTessellationHullProgram() const -> bool { return hasGpuProgram(GPT_HULL_PROGRAM); }
+        auto hasTessellationHullProgram() const -> bool { return hasGpuProgram(GpuProgramType::HULL_PROGRAM); }
         /// Returns true if this pass uses a programmable tessellation control pipeline
-        auto hasTessellationDomainProgram() const -> bool { return hasGpuProgram(GPT_DOMAIN_PROGRAM); }
+        auto hasTessellationDomainProgram() const -> bool { return hasGpuProgram(GpuProgramType::DOMAIN_PROGRAM); }
         /// Returns true if this pass uses a programmable compute pipeline
-        auto hasComputeProgram() const -> bool { return hasGpuProgram(GPT_COMPUTE_PROGRAM); }
+        auto hasComputeProgram() const -> bool { return hasGpuProgram(GpuProgramType::COMPUTE_PROGRAM); }
         /// Gets the Gpu program used by this pass, only available after _load()
         auto getGpuProgram(GpuProgramType programType) const -> const GpuProgramPtr&;
         /// @overload
-        auto getVertexProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_VERTEX_PROGRAM); }
+        auto getVertexProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::VERTEX_PROGRAM); }
         /// @overload
-        auto getFragmentProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_FRAGMENT_PROGRAM); }
+        auto getFragmentProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::FRAGMENT_PROGRAM); }
         /// @overload
-        auto getGeometryProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_GEOMETRY_PROGRAM); }
+        auto getGeometryProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::GEOMETRY_PROGRAM); }
         /// @overload
-        auto getTessellationHullProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_HULL_PROGRAM); }
+        auto getTessellationHullProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::HULL_PROGRAM); }
         /// @overload
-        auto getTessellationDomainProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_DOMAIN_PROGRAM); }
+        auto getTessellationDomainProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::DOMAIN_PROGRAM); }
         /// @overload
-        auto getComputeProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GPT_COMPUTE_PROGRAM); }
+        auto getComputeProgram() const noexcept -> const GpuProgramPtr& { return getGpuProgram(GpuProgramType::COMPUTE_PROGRAM); }
 
         auto hasGpuProgram(GpuProgramType programType) const -> bool;
 
@@ -1241,17 +1241,17 @@ namespace Ogre {
         /** Gets the name of the program used by this pass. */
         auto getGpuProgramName(GpuProgramType type) const -> std::string_view ;
         /// @overload
-        auto getFragmentProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_FRAGMENT_PROGRAM); }
+        auto getFragmentProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::FRAGMENT_PROGRAM); }
         /// @overload
-        auto getGeometryProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_GEOMETRY_PROGRAM); }
+        auto getGeometryProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::GEOMETRY_PROGRAM); }
         /// @overload
-        auto getTessellationDomainProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_DOMAIN_PROGRAM); }
+        auto getTessellationDomainProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::DOMAIN_PROGRAM); }
         /// @overload
-        auto getTessellationHullProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_HULL_PROGRAM); }
+        auto getTessellationHullProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::HULL_PROGRAM); }
         /// @overload
-        auto getVertexProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_VERTEX_PROGRAM); }
+        auto getVertexProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::VERTEX_PROGRAM); }
         /// @overload
-        auto getComputeProgramName() const noexcept -> std::string_view { return getGpuProgramName(GPT_COMPUTE_PROGRAM); }
+        auto getComputeProgramName() const noexcept -> std::string_view { return getGpuProgramName(GpuProgramType::COMPUTE_PROGRAM); }
 
         /** Sets the Gpu program parameters.
             @remarks
@@ -1339,7 +1339,7 @@ namespace Ogre {
             @param source The source of the parameters
             @param variabilityMask A mask of GpuParamVariability which identifies which autos will need updating
         */
-        void _updateAutoParams(const AutoParamDataSource* source, uint16 variabilityMask) const;
+        void _updateAutoParams(const AutoParamDataSource* source, GpuParamVariability variabilityMask) const;
 
         /** If set to true, this forces normals to be normalised dynamically
             by the hardware for this pass.
@@ -1418,7 +1418,7 @@ namespace Ogre {
             algorithms, where the scene has already been 'seeded' with an ambient
             pass and this pass is just adding light in affected areas.
 
-            When using Ogre::SHADOWTYPE_STENCIL_ADDITIVE or Ogre::SHADOWTYPE_TEXTURE_ADDITIVE,
+            When using Ogre::ShadowTechnique::STENCIL_ADDITIVE or Ogre::ShadowTechnique::TEXTURE_ADDITIVE,
             this option is implicitly used for all per-light passes and does
             not need to be specified. If you are not using shadows or are using
             a modulative or @ref Integrated-Texture-Shadows then this could be useful.
@@ -1451,7 +1451,7 @@ namespace Ogre {
             being used in this pass. Also, these clip planes override any user clip
             planes set on Camera.
 
-            When using Ogre::SHADOWTYPE_STENCIL_ADDITIVE or Ogre::SHADOWTYPE_TEXTURE_ADDITIVE,
+            When using Ogre::ShadowTechnique::STENCIL_ADDITIVE or Ogre::ShadowTechnique::TEXTURE_ADDITIVE,
             this option is automatically used for all per-light passes if you
             enable Ogre::SceneManager::setShadowUseLightClipPlanes and does
             not need to be specified. It is disabled by default since clip planes have
@@ -1471,14 +1471,14 @@ namespace Ogre {
 
         /** Manually set which illumination stage this pass is a member of.
 
-            When using an additive lighting mode (Ogre::SHADOWTYPE_STENCIL_ADDITIVE or
-            Ogre::SHADOWTYPE_TEXTURE_ADDITIVE), the scene is rendered in 3 discrete
+            When using an additive lighting mode (Ogre::ShadowTechnique::STENCIL_ADDITIVE or
+            Ogre::ShadowTechnique::TEXTURE_ADDITIVE), the scene is rendered in 3 discrete
             stages, ambient (or pre-lighting), per-light (once per light, with
             shadowing) and decal (or post-lighting). Usually OGRE figures out how
             to categorise your passes automatically, but there are some effects you
             cannot achieve without manually controlling the illumination. For example
             specular effects are muted by the typical sequence because all textures
-            are saved until the Ogre::IS_DECAL stage which mutes the specular effect.
+            are saved until the Ogre::IlluminationStage::DECAL stage which mutes the specular effect.
             Instead, you could do texturing within the per-light stage if it's
             possible for your material and thus add the specular on after the
             decal texturing, and have no post-light rendering.
@@ -1496,7 +1496,7 @@ namespace Ogre {
         /** There are some default hash functions used to order passes so that
             render state changes are minimised, this enumerates them.
         */
-        enum BuiltinHashFunction
+        enum class BuiltinHashFunction
         {
             /** Try to minimise the number of texture changes. */
             MIN_TEXTURE_CHANGE,
@@ -1506,6 +1506,8 @@ namespace Ogre {
             */
             MIN_GPU_PROGRAM_CHANGE
         };
+
+        using enum BuiltinHashFunction;
         /** Sets one of the default hash functions to be used.
             @remarks
             You absolutely must not change the hash function whilst any Pass instances

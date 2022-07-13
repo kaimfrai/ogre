@@ -59,11 +59,11 @@ class ResourceManager;
     */
 
     /**  */
-    enum SkeletonAnimationBlendMode : uint8 {
+    enum class SkeletonAnimationBlendMode : uint8 {
         /// Animations are applied by calculating a weighted average of all animations
-        ANIMBLEND_AVERAGE = 0,
+        AVERAGE = 0,
         /// Animations are applied by calculating a weighted cumulative total
-        ANIMBLEND_CUMULATIVE = 1
+        CUMULATIVE = 1
     };
 
 auto constexpr inline OGRE_MAX_NUM_BONES = 256;

@@ -59,7 +59,7 @@ namespace Ogre
         ~RenderTexture() override;
 
         using RenderTarget::copyContentsToMemory;
-        void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO) override;
+        void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FrameBuffer::AUTO) override;
         [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override;
 
     protected:
@@ -104,10 +104,10 @@ namespace Ogre
         /** Error throwing implementation, it's not possible to write a MultiRenderTarget
             to disk. 
         */
-        void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO) override;
+        void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FrameBuffer::AUTO) override;
 
         /// Irrelevant implementation since cannot copy
-        [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override { return PF_UNKNOWN; }
+        [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override { return PixelFormat::UNKNOWN; }
 
         using BoundSufaceList = std::vector<RenderTexture *>;
         /// Get a list of the surfaces which have been bound

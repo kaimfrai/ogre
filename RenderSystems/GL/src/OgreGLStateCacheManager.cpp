@@ -393,7 +393,7 @@ namespace Ogre {
         {
             mPointSizeMin = minSize;
             const Ogre::RenderSystemCapabilities* caps = dynamic_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem())->getCapabilities();
-            if (caps->hasCapability(RSC_POINT_EXTENDED_PARAMETERS))
+            if (caps->hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS))
                 glPointParameterf(GL_POINT_SIZE_MIN, mPointSizeMin);
         }
 
@@ -401,7 +401,7 @@ namespace Ogre {
         {
             mPointSizeMax = maxSize;
             const Ogre::RenderSystemCapabilities* caps = dynamic_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem())->getCapabilities();
-            if (caps->hasCapability(RSC_POINT_EXTENDED_PARAMETERS))
+            if (caps->hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS))
                 glPointParameterf(GL_POINT_SIZE_MAX, mPointSizeMax);
         }
 
@@ -411,7 +411,7 @@ namespace Ogre {
             mPointAttenuation[1] = attenuation[1];
             mPointAttenuation[2] = attenuation[2];
             const Ogre::RenderSystemCapabilities* caps = dynamic_cast<GLRenderSystem*>(Root::getSingleton().getRenderSystem())->getCapabilities();
-            if (caps->hasCapability(RSC_POINT_EXTENDED_PARAMETERS))
+            if (caps->hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS))
                 glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, &mPointAttenuation[0]);
         }
     }

@@ -278,7 +278,7 @@ namespace Ogre
         auto i = mAnimationStates.find(name);
         if (i != mAnimationStates.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("State for animation named '{}' already exists.", name ), 
                 "AnimationStateSet::createAnimationState");
         }
@@ -295,7 +295,7 @@ namespace Ogre
         auto i = mAnimationStates.find(name);
         if (i == mAnimationStates.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("No state found for animation named '{}'", name ), 
                 "AnimationStateSet::getAnimationState");
         }
@@ -320,7 +320,7 @@ namespace Ogre
         for (auto const& i : target->mAnimationStates) {
             auto iother = mAnimationStates.find(i.first);
             if (iother == mAnimationStates.end()) {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", i.first),
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", i.first),
                     "AnimationStateSet::copyMatchingState");
             } else {
                 i.second->copyStateFrom(*(iother->second));

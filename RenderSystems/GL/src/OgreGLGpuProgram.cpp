@@ -47,12 +47,12 @@ auto GLArbGpuProgram::getProgramType() const -> GLenum
 {
     switch (mType)
     {
-        case GPT_VERTEX_PROGRAM:
+        case GpuProgramType::VERTEX_PROGRAM:
         default:
             return GL_VERTEX_PROGRAM_ARB;
-        case GPT_GEOMETRY_PROGRAM:
+        case GpuProgramType::GEOMETRY_PROGRAM:
             return GL_GEOMETRY_PROGRAM_NV;
-        case GPT_FRAGMENT_PROGRAM:
+        case GpuProgramType::FRAGMENT_PROGRAM:
             return GL_FRAGMENT_PROGRAM_ARB;
     }
 }
@@ -80,16 +80,16 @@ auto GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint ind
     // default implementation
     switch(semantic)
     {
-        case VES_POSITION:
-        case VES_NORMAL:
-        case VES_DIFFUSE:
-        case VES_SPECULAR:
-        case VES_TEXTURE_COORDINATES:
+        case VertexElementSemantic::POSITION:
+        case VertexElementSemantic::NORMAL:
+        case VertexElementSemantic::DIFFUSE:
+        case VertexElementSemantic::SPECULAR:
+        case VertexElementSemantic::TEXTURE_COORDINATES:
             return false;
-        case VES_BLEND_WEIGHTS:
-        case VES_BLEND_INDICES:
-        case VES_BINORMAL:
-        case VES_TANGENT:
+        case VertexElementSemantic::BLEND_WEIGHTS:
+        case VertexElementSemantic::BLEND_INDICES:
+        case VertexElementSemantic::BINORMAL:
+        case VertexElementSemantic::TANGENT:
             return true; // with default binding
     }
 
@@ -123,7 +123,7 @@ void GLArbGpuProgram::unbindProgram()
     glDisable(getProgramType());
 }
 
-void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask)
+void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, Ogre::GpuParamVariability mask)
 {
     GLenum type = getProgramType();
     
@@ -132,7 +132,7 @@ void GLArbGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params
 
     for (auto & i : floatStruct->map)
     {
-        if (i.second.variability & mask)
+        if (!!(i.second.variability & mask))
         {
             auto logicalIndex = static_cast<GLuint>(i.first);
             const float* pFloat = params->getFloatPointer(i.second.physicalIndex);
@@ -155,7 +155,7 @@ void GLArbGpuProgram::unloadImpl()
 void GLArbGpuProgram::loadFromSource()
 {
     if (GL_INVALID_OPERATION == glGetError()) {
-        LogManager::getSingleton().logMessage(::std::format("Invalid Operation before loading program {}", mName), LML_CRITICAL);
+        LogManager::getSingleton().logMessage(::std::format("Invalid Operation before loading program {}", mName), LogMessageLevel::Critical);
 
     }
     glBindProgramARB(getProgramType(), mProgramID);
@@ -166,7 +166,7 @@ void GLArbGpuProgram::loadFromSource()
         GLint errPos;
         glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &errPos);
         const char* errStr = (const char*)glGetString(GL_PROGRAM_ERROR_STRING_ARB);
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("'{}' ", mName ) + errStr);
+        OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, ::std::format("'{}' ", mName ) + errStr);
     }
     glBindProgramARB(getProgramType(), 0);
 }

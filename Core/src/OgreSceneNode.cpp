@@ -133,7 +133,7 @@ namespace Ogre {
         MovableObjectNameExists pred = {obj->getName()};
         auto it = std::ranges::find_if(mObjectsByName, pred);
         if (it != mObjectsByName.end())
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                         ::std::format("An object named '{}' already attached to this SceneNode", obj->getName() ));
         mObjectsByName.push_back(obj);
 
@@ -149,7 +149,7 @@ namespace Ogre {
 
         if (i == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 ::std::format("Attached object {} not found.", "SceneNode::getAttachedObject",
                 name));
         }
@@ -182,7 +182,7 @@ namespace Ogre {
 
         if (it == mObjectsByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Object {} is not attached "
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Object {} is not attached "
                 "to this node.", name), "SceneNode::detachObject");
         }
 
@@ -346,7 +346,7 @@ namespace Ogre {
         StringUtil::splitBaseFilename(filename, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("No codec found to load {}", filename));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("No codec found to load {}", filename));
 
         auto stream = Root::openFileStream(
             filename, ResourceGroupManager::getSingleton().getWorldResourceGroupName());
@@ -372,7 +372,7 @@ namespace Ogre {
         return static_cast<SceneNode*>(this->createChild(name, inTranslate, inRotate));
     }
     //-----------------------------------------------------------------------
-    void SceneNode::findLights(LightList& destList, Real radius, uint32 lightMask) const
+    void SceneNode::findLights(LightList& destList, Real radius, QueryTypeMask lightMask) const
     {
         // No any optimisation here, hope inherits more smart for that.
         //
@@ -449,7 +449,7 @@ namespace Ogre {
         // Transform target direction to world space
         switch (relativeTo)
         {
-        case TS_PARENT:
+        case TransformSpace::PARENT:
             if (getInheritOrientation())
             {
                 if (getParent())
@@ -458,10 +458,10 @@ namespace Ogre {
                 }
             }
             break;
-        case TS_LOCAL:
+        case TransformSpace::LOCAL:
             targetDir = _getDerivedOrientation() * targetDir;
             break;
-        case TS_WORLD:
+        case TransformSpace::WORLD:
             // default orientation
             break;
         }
@@ -530,13 +530,13 @@ namespace Ogre {
         switch (relativeTo)
         {
         default:    // Just in case
-        case TS_WORLD:
+        case TransformSpace::WORLD:
             origin = _getDerivedPosition();
             break;
-        case TS_PARENT:
+        case TransformSpace::PARENT:
             origin = getPosition();
             break;
-        case TS_LOCAL:
+        case TransformSpace::LOCAL:
             origin = Vector3::ZERO;
             break;
         }
@@ -550,7 +550,7 @@ namespace Ogre {
         if (mAutoTrackTarget)
         {
             lookAt(mAutoTrackTarget->_getDerivedPosition() + mAutoTrackOffset, 
-                TS_WORLD, mAutoTrackLocalDirection);
+                TransformSpace::WORLD, mAutoTrackLocalDirection);
             // update self & children
             _update(true, true);
         }

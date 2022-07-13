@@ -56,14 +56,14 @@ void SGMaterialSerializerListener::materialEventRaised(MaterialSerializer* ser,
                                                         MaterialSerializer::SerializeEvent event, 
                                                         bool& skip, const Material* mat)
 {
-    if (event == MaterialSerializer::MSE_PRE_WRITE)
+    if (event == MaterialSerializer::SerializeEvent::PRE_WRITE)
     {
         MaterialPtr matPtr = MaterialManager::getSingleton().getByName(mat->getName());
         mSourceMaterial = matPtr.get();
         mSGPassList = ShaderGenerator::getSingleton().createSGPassList(mSourceMaterial);
     }
 
-    if (event == MaterialSerializer::MSE_POST_WRITE)
+    if (event == MaterialSerializer::SerializeEvent::POST_WRITE)
     {
         mSourceMaterial = nullptr;
         mSGPassList.clear();
@@ -76,7 +76,7 @@ void SGMaterialSerializerListener::techniqueEventRaised(MaterialSerializer* ser,
                                           bool& skip, const Technique* tech)
 {
     // Pre technique write event.
-    if (event == MaterialSerializer::MSE_PRE_WRITE)
+    if (event == MaterialSerializer::SerializeEvent::PRE_WRITE)
     {       
         ::std::any const& techUserData = tech->getUserObjectBindings().getUserAny(ShaderGenerator::SGTechnique::UserKey);
 
@@ -96,7 +96,7 @@ void SGMaterialSerializerListener::passEventRaised(MaterialSerializer* ser,
                                                    bool& skip, const Pass* pass)
 {
     // End of pass writing event.
-    if (event == MaterialSerializer::MSE_WRITE_END)
+    if (event == MaterialSerializer::SerializeEvent::WRITE_END)
     {       
         // Grab the shader generator pass instance.
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(pass);
@@ -113,7 +113,7 @@ void SGMaterialSerializerListener::textureUnitStateEventRaised(MaterialSerialize
                                             bool& skip, const TextureUnitState* textureUnit)
 {
     // End of pass writing event.
-    if (event == MaterialSerializer::MSE_WRITE_END)
+    if (event == MaterialSerializer::SerializeEvent::WRITE_END)
     {       
         // Grab the shader generator pass instance.
         ShaderGenerator::SGPass* passEntry = getShaderGeneratedPass(textureUnit->getParent());

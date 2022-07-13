@@ -69,7 +69,7 @@ class Camera;
 
 
         // Write closing message
-        LogManager::getSingleton().stream(LML_TRIVIAL)
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial)
             << "Render Target '" << mName << "' "
             << "Average FPS: " << mStats.avgFPS << " "
             << "Best FPS: " << mStats.bestFPS << " "
@@ -98,7 +98,7 @@ class Camera;
         return mHeight;
     }
     //-----------------------------------------------------------------------
-    void RenderTarget::setDepthBufferPool( uint16 poolId )
+    void RenderTarget::setDepthBufferPool( DepthBuffer::PoolId poolId )
     {
         if( mDepthBufferPoolId != poolId )
         {
@@ -107,7 +107,7 @@ class Camera;
         }
     }
     //-----------------------------------------------------------------------
-    auto RenderTarget::getDepthBufferPool() const noexcept -> uint16
+    auto RenderTarget::getDepthBufferPool() const noexcept -> DepthBuffer::PoolId
     {
         return mDepthBufferPoolId;
     }
@@ -208,7 +208,7 @@ class Camera;
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, std::format("No viewport with given zorder : {}", zorder), "RenderTarget::_updateViewport");
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, std::format("No viewport with given zorder : {}", zorder), "RenderTarget::_updateViewport");
         }
     }
 
@@ -224,7 +224,7 @@ class Camera;
             str << "Can't create another viewport for "
                 << mName << " with Z-order " << ZOrder
                 << " because a viewport exists with this Z-order already.";
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, str.str(), "RenderTarget::addViewport");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, str.str(), "RenderTarget::addViewport");
         }
         // Add viewport to list
         // Order based on Z-order
@@ -311,7 +311,7 @@ class Camera;
 
     void RenderTarget::getCustomAttribute(std::string_view name, void* pData)
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Attribute not found. {}", name), " RenderTarget::getCustomAttribute");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Attribute not found. {}", name), " RenderTarget::getCustomAttribute");
     }
     //-----------------------------------------------------------------------
     void RenderTarget::addListener(RenderTargetListener* listener)
@@ -386,7 +386,7 @@ class Camera;
         auto i = mViewportList.find(ZOrder);
         if(i == mViewportList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, std::format("No viewport with given Z-order: {}", ZOrder), "RenderTarget::getViewportByZOrder");
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, std::format("No viewport with given Z-order: {}", ZOrder), "RenderTarget::getViewportByZOrder");
         }
         return i->second.get();
     }

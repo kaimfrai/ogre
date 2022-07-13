@@ -491,7 +491,7 @@ class Technique;
         */
         void setFog(
             bool overrideScene,
-            FogMode mode = FOG_NONE,
+            FogMode mode = FogMode::NONE,
             const ColourValue& colour = ColourValue::White,
             Real expDensity = 0.001f, Real linearStart = 0.0f, Real linearEnd = 1.0f );
 

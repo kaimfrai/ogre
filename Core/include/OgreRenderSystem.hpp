@@ -40,7 +40,9 @@ THE SOFTWARE.
 #include "OgreCommon.hpp"
 #include "OgreConfig.hpp"
 #include "OgreConfigOptionMap.hpp"
+#include "OgreDepthBuffer.hpp"
 #include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlane.hpp"
 #include "OgrePlatform.hpp"
@@ -73,45 +75,45 @@ class VertexDeclaration;
     */
 
     using DepthBufferVec = std::vector<DepthBuffer *>;
-    using DepthBufferMap = std::map<uint16, DepthBufferVec>;
+    using DepthBufferMap = std::map<DepthBuffer::PoolId, DepthBufferVec>;
     using RenderTargetMap = std::map<std::string_view, RenderTarget *>;
     using RenderTargetPriorityMap = std::multimap<uchar, RenderTarget *>;
 
     class TextureManager;
 
     /// Enum describing the ways to generate texture coordinates
-    enum TexCoordCalcMethod
+    enum class TexCoordCalcMethod
     {
         /// No calculated texture coordinates
-        TEXCALC_NONE,
+        NONE,
         /// Environment map based on vertex normals
-        TEXCALC_ENVIRONMENT_MAP,
+        ENVIRONMENT_MAP,
         /// Environment map based on vertex positions
-        TEXCALC_ENVIRONMENT_MAP_PLANAR,
-        TEXCALC_ENVIRONMENT_MAP_REFLECTION,
-        TEXCALC_ENVIRONMENT_MAP_NORMAL,
+        ENVIRONMENT_MAP_PLANAR,
+        ENVIRONMENT_MAP_REFLECTION,
+        ENVIRONMENT_MAP_NORMAL,
         /// Projective texture
-        TEXCALC_PROJECTIVE_TEXTURE
+        PROJECTIVE_TEXTURE
     };
     /// Enum describing the various actions which can be taken on the stencil buffer
-    enum StencilOperation
+    enum class StencilOperation
     {
         /// Leave the stencil buffer unchanged
-        SOP_KEEP,
+        KEEP,
         /// Set the stencil value to zero
-        SOP_ZERO,
+        ZERO,
         /// Set the stencil value to the reference value
-        SOP_REPLACE,
+        REPLACE,
         /// Increase the stencil value by 1, clamping at the maximum value
-        SOP_INCREMENT,
+        INCREMENT,
         /// Decrease the stencil value by 1, clamping at 0
-        SOP_DECREMENT,
+        DECREMENT,
         /// Increase the stencil value by 1, wrapping back to 0 when incrementing the maximum value
-        SOP_INCREMENT_WRAP,
+        INCREMENT_WRAP,
         /// Decrease the stencil value by 1, wrapping when decrementing 0
-        SOP_DECREMENT_WRAP,
+        DECREMENT_WRAP,
         /// Invert the bits of the stencil buffer
-        SOP_INVERT
+        INVERT
     };
 
     /** Describes the stencil buffer operation
@@ -132,20 +134,20 @@ class VertexDeclaration;
     struct StencilState
     {
         /// Comparison operator for the stencil test
-        CompareFunction compareOp{CMPF_LESS_EQUAL};
+        CompareFunction compareOp{CompareFunction::LESS_EQUAL};
         /// The action to perform when the stencil check fails
-        StencilOperation stencilFailOp{SOP_KEEP};
+        StencilOperation stencilFailOp{StencilOperation::KEEP};
         /// The action to perform when the stencil check passes, but the depth buffer check fails
-        StencilOperation depthFailOp{SOP_KEEP};
+        StencilOperation depthFailOp{StencilOperation::KEEP};
         /// The action to take when both the stencil and depth check pass
-        StencilOperation depthStencilPassOp{SOP_KEEP};
+        StencilOperation depthStencilPassOp{StencilOperation::KEEP};
 
         /// The reference value used in the stencil comparison
         uint32 referenceValue{0};
         ///  The bitmask applied to both the stencil value and the reference value before comparison
         uint32 compareMask{0xFFFFFFFF};
         /** The bitmask the controls which bits from stencilRefValue will be written to stencil buffer
-        (valid for operations such as #SOP_REPLACE) */
+        (valid for operations such as #StencilOperation::REPLACE) */
         uint32 writeMask{0xFFFFFFFF};
 
         /// Turns stencil buffer checking on or off
@@ -313,7 +315,7 @@ class VertexDeclaration;
             return mFixedFunctionParams;
         }
 
-        virtual void applyFixedFunctionParams(const GpuProgramParametersPtr& params, uint16 variabilityMask) {}
+        virtual void applyFixedFunctionParams(const GpuProgramParametersPtr& params, GpuParamVariability variabilityMask) {}
 
         /** Sets the type of light shading required (default = Gouraud).
         @deprecated only needed for fixed function APIs
@@ -488,7 +490,7 @@ class VertexDeclaration;
         /** Disables all texture units from the given unit upwards */
         virtual void _disableTextureUnitsFrom(size_t texUnit);
 
-        /** Sets whether or not rendering points using OT_POINT_LIST will 
+        /** Sets whether or not rendering points using OperationType::POINT_LIST will
         render point sprites (textured quads) or plain points.
         @param enabled True enables point sprites, false returns to normal
         point rendering.
@@ -502,8 +504,8 @@ class VertexDeclaration;
         virtual void _setPointParameters(bool attenuationEnabled, Real minSize, Real maxSize) {}
 
         /**
-         * Set the line width when drawing as RenderOperation::OT_LINE_LIST/ RenderOperation::OT_LINE_STRIP
-         * @param width only value of 1.0 might be supported. Check for RSC_WIDE_LINES.
+         * Set the line width when drawing as RenderOperation::OperationType::LINE_LIST/ RenderOperation::OperationType::LINE_STRIP
+         * @param width only value of 1.0 might be supported. Check for Capabilities::WIDE_LINES.
          */
         virtual void _setLineWidth(float width) {};
 
@@ -638,10 +640,10 @@ class VertexDeclaration;
         'vertex winding' of triangles. Vertex winding refers to the direction in
         which the vertices are passed or indexed to in the rendering operation as viewed
         from the camera, and will wither be clockwise or anticlockwise (that's 'counterclockwise' for
-        you Americans out there ;) The default is CULL_CLOCKWISE i.e. that only triangles whose vertices
+        you Americans out there ;) The default is CullingMode::CLOCKWISE i.e. that only triangles whose vertices
         are passed/indexed in anticlockwise order are rendered - this is a common approach and is used in 3D studio models
         for example. You can alter this culling mode if you wish but it is not advised unless you know what you are doing.
-        You may wish to use the CULL_NONE option for mesh data that you cull yourself where the vertex
+        You may wish to use the CullingMode::NONE option for mesh data that you cull yourself where the vertex
         winding is uncertain.
         */
         virtual void _setCullingMode(CullingMode mode) = 0;
@@ -661,7 +663,7 @@ class VertexDeclaration;
         If false, the depth buffer is left unchanged even if a new pixel is written.
         @param depthFunction Sets the function required for the depth test.
         */
-        virtual void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CMPF_LESS_EQUAL) = 0;
+        virtual void _setDepthBufferParams(bool depthTest = true, bool depthWrite = true, CompareFunction depthFunction = CompareFunction::LESS_EQUAL) = 0;
 
         /** Sets the depth bias, NB you should use the Material version of this. 
         @remarks
@@ -788,7 +790,7 @@ class VertexDeclaration;
         @param variabilityMask A mask of GpuParamVariability identifying which params need binding
         */
         virtual void bindGpuProgramParameters(GpuProgramType gptype, 
-            const GpuProgramParametersPtr& params, uint16 variabilityMask) = 0;
+            const GpuProgramParametersPtr& params, GpuParamVariability variabilityMask) = 0;
 
         /** Unbinds GpuPrograms of a given GpuProgramType.
         @remarks
@@ -851,7 +853,7 @@ class VertexDeclaration;
         @param depth The value to initialise the depth buffer with, if enabled
         @param stencil The value to initialise the stencil buffer with, if enabled.
         */
-        virtual void clearFrameBuffer(uint32 buffers, const ColourValue& colour = ColourValue::Black,
+        virtual void clearFrameBuffer(FrameBufferType buffers, const ColourValue& colour = ColourValue::Black,
                                       float depth = 1.0f, uint16 stencil = 0) = 0;
         /** Returns the horizontal texel offset value required for mapping 
         texel origins to pixel origins in this rendersystem.
@@ -1083,7 +1085,7 @@ class VertexDeclaration;
         // Active viewport (dest for future rendering operations)
         Viewport* mActiveViewport{nullptr};
 
-        CullingMode mCullingMode{CULL_CLOCKWISE};
+        CullingMode mCullingMode{CullingMode::CLOCKWISE};
 
         size_t mBatchCount{0};
         size_t mFaceCount{0};

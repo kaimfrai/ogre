@@ -173,7 +173,7 @@ public:
     /** 
     @see SubRenderState::getExecutionOrder.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /** 
     @see SubRenderState::preAddToRenderState.

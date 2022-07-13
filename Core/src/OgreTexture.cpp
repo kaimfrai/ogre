@@ -156,7 +156,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto Texture::getNumFaces() const noexcept -> uint32
     {
-        return getTextureType() == TEX_TYPE_CUBE_MAP ? 6 : 1;
+        return getTextureType() == TextureType::CUBE_MAP ? 6 : 1;
     }
     //--------------------------------------------------------------------------
     void Texture::_loadImages( const ConstImagePtrList& images )
@@ -169,13 +169,13 @@ namespace Ogre {
         mSrcDepth = mDepth = images[0]->getDepth();
         mSrcFormat = images[0]->getFormat();
 
-        if(!mLayerNames.empty() && mTextureType != TEX_TYPE_CUBE_MAP)
+        if(!mLayerNames.empty() && mTextureType != TextureType::CUBE_MAP)
             mDepth = uint32(mLayerNames.size());
 
-        if(mTreatLuminanceAsAlpha && mSrcFormat == PF_L8)
-            mDesiredFormat = PF_A8;
+        if(mTreatLuminanceAsAlpha && mSrcFormat == PixelFormat::L8)
+            mDesiredFormat = PixelFormat::A8;
 
-        if (mDesiredFormat != PF_UNKNOWN)
+        if (mDesiredFormat != PixelFormat::UNKNOWN)
         {
             // If have desired format, use it
             mFormat = mDesiredFormat;
@@ -187,13 +187,13 @@ namespace Ogre {
         }
 
         // The custom mipmaps in the image clamp the request
-        uint32 imageMips = images[0]->getNumMipmaps();
+        auto imageMips = images[0]->getNumMipmaps();
 
-        if(imageMips > 0)
+        if(imageMips > TextureMipmap{})
         {
             mNumMipmaps = mNumRequestedMipmaps = std::min(mNumRequestedMipmaps, imageMips);
             // Disable flag for auto mip generation
-            mUsage &= ~TU_AUTOMIPMAP;
+            mUsage &= ~TextureUsage::AUTOMIPMAP;
         }
 
         // Create the texture
@@ -225,10 +225,10 @@ namespace Ogre {
                 << "(" << PixelUtil::getFormatName(images[0]->getFormat()) << ","
                 << images[0]->getWidth() << "x" << images[0]->getHeight() << "x"
                 << images[0]->getDepth() << ")";
-            if (!(mMipmapsHardwareGenerated && mNumMipmaps == 0))
+            if (!(mMipmapsHardwareGenerated && mNumMipmaps == TextureMipmap{}))
             {
                 str << " with " << mNumMipmaps;
-                if(mUsage & TU_AUTOMIPMAP)
+                if(!!(mUsage & TextureUsage::AUTOMIPMAP))
                 {
                     if (mMipmapsHardwareGenerated)
                         str << " hardware";
@@ -246,27 +246,27 @@ namespace Ogre {
             }
 
             // Print data about first destination surface
-            const auto& buf = getBuffer(0, 0);
+            const auto& buf = getBuffer(0, TextureMipmap{});
             str << " Internal format is " << PixelUtil::getFormatName(buf->getFormat()) << ","
                 << buf->getWidth() << "x" << buf->getHeight() << "x" << buf->getDepth() << ".";
         }
         
         // Main loading loop
         // imageMips == 0 if the image has no custom mipmaps, otherwise contains the number of custom mips
-        for(uint32 mip = 0; mip <= std::min(mNumMipmaps, imageMips); ++mip)
+        for(uint32 mip = 0; mip <= std::to_underlying(std::min(mNumMipmaps, imageMips)); ++mip)
         {
             for(uint32 i = 0; i < std::max(faces, uint32(images.size())); ++i)
             {
                 PixelBox src;
                 size_t face = (mDepth == 1) ? i : 0; // depth = 1, then cubemap face else 3d/ array layer
 
-                auto buffer = getBuffer(face, mip);
+                auto buffer = getBuffer(face, static_cast<TextureMipmap>(mip));
                 Box dst(0, 0, 0, buffer->getWidth(), buffer->getHeight(), buffer->getDepth());
 
                 if(multiImage)
                 {
                     // Load from multiple images
-                    src = images[i]->getPixelBox(0, mip);
+                    src = images[i]->getPixelBox(0, static_cast<TextureMipmap>(mip));
                     // set dst layer
                     if(mDepth > 1)
                     {
@@ -277,7 +277,7 @@ namespace Ogre {
                 else
                 {
                     // Load from faces of images[0]
-                    src = images[0]->getPixelBox(i, mip);
+                    src = images[0]->getPixelBox(i, static_cast<TextureMipmap>(mip));
                 }
 
                 if(mGamma != 1.0f) {
@@ -320,7 +320,7 @@ namespace Ogre {
                 if(mIsManual && mLoader)
                     mLoader->loadResource(this);
 
-                mLoadingState.store(LOADSTATE_LOADED);
+                mLoadingState.store(LoadingState::LOADED);
                 _fireLoadingComplete(false);
             }
         }
@@ -335,9 +335,9 @@ namespace Ogre {
             mInternalResourcesCreated = false;
 
             // this is also public API, so update state accordingly
-            if(mLoadingState.load() != LOADSTATE_UNLOADING)
+            if(mLoadingState.load() != LoadingState::UNLOADING)
             {
-                mLoadingState.store(LOADSTATE_UNLOADED);
+                mLoadingState.store(LoadingState::UNLOADED);
                 _fireUnloadingComplete();
             }
         }
@@ -351,14 +351,14 @@ namespace Ogre {
     void Texture::copyToTexture( TexturePtr& target )
     {
         OgreAssert(target->getNumFaces() == getNumFaces(), "Texture types must match");
-        size_t numMips = std::min(getNumMipmaps(), target->getNumMipmaps());
-        if((mUsage & TU_AUTOMIPMAP) || (target->getUsage()&TU_AUTOMIPMAP))
-            numMips = 0;
+        auto numMips = std::min(getNumMipmaps(), target->getNumMipmaps());
+        if(!!(mUsage & TextureUsage::AUTOMIPMAP) || !!(target->getUsage()&TextureUsage::AUTOMIPMAP))
+            numMips = {};
         for(unsigned int face=0; face<getNumFaces(); face++)
         {
-            for(unsigned int mip=0; mip<=numMips; mip++)
+            for(unsigned int mip=0; mip<=std::to_underlying(numMips); mip++)
             {
-                target->getBuffer(face, mip)->blit(getBuffer(face, mip));
+                target->getBuffer(face, static_cast<TextureMipmap>(mip))->blit(getBuffer(face, static_cast<TextureMipmap>(mip)));
             }
         }
     }
@@ -380,7 +380,7 @@ namespace Ogre {
         auto dstream = ResourceGroupManager::getSingleton().openResource(
             mName, mGroup, nullptr, false);
 
-        if (!dstream && getTextureType() == TEX_TYPE_CUBE_MAP)
+        if (!dstream && getTextureType() == TextureType::CUBE_MAP)
         {
             // try again with one of the faces (non-dds)
             dstream = ResourceGroupManager::getSingleton().openResource(::std::format("{}_rt", mName), mGroup, nullptr, false);
@@ -389,12 +389,12 @@ namespace Ogre {
         return String{ dstream ? Image::getFileExtFromMagic(dstream) : BLANKSTRING };
 
     }
-    auto Texture::getBuffer(size_t face, size_t mipmap) -> const HardwarePixelBufferSharedPtr&
+    auto Texture::getBuffer(size_t face, TextureMipmap mipmap) -> const HardwarePixelBufferSharedPtr&
     {
         OgreAssert(face < getNumFaces(), "out of range");
         OgreAssert(mipmap <= mNumMipmaps, "out of range");
 
-        size_t idx = face * (mNumMipmaps + 1) + mipmap;
+        size_t idx = face * (std::to_underlying(mNumMipmaps) + 1) + std::to_underlying(mipmap);
         assert(idx < mSurfaceList.size());
         return mSurfaceList[idx];
     }
@@ -402,14 +402,14 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Texture::convertToImage(Image& destImage, bool includeMipMaps)
     {
-        uint32 numMips = includeMipMaps? getNumMipmaps() + 1 : 1;
+        auto numMips = static_cast<TextureMipmap>(includeMipMaps? std::to_underlying(getNumMipmaps()) + 1 : 1);
         destImage.create(getFormat(), getWidth(), getHeight(), getDepth(), getNumFaces(), numMips);
 
         for (uint32 face = 0; face < getNumFaces(); ++face)
         {
-            for (uint32 mip = 0; mip < numMips; ++mip)
+            for (uint32 mip = 0; mip < std::to_underlying(numMips); ++mip)
             {
-                getBuffer(face, mip)->blitToMemory(destImage.getPixelBox(face, mip));
+                getBuffer(face, static_cast<TextureMipmap>(mip))->blitToMemory(destImage.getPixelBox(face, static_cast<TextureMipmap>(mip)));
             }
         }
     }
@@ -439,14 +439,14 @@ namespace Ogre {
 
     void Texture::prepareImpl()
     {
-        if (mUsage & TU_RENDERTARGET)
+        if (!!(mUsage & TextureUsage::RENDERTARGET))
             return;
 
         const RenderSystemCapabilities* renderCaps =
             Root::getSingleton().getRenderSystem()->getCapabilities();
 
-        bool haveNPOT = renderCaps->hasCapability(RSC_NON_POWER_OF_2_TEXTURES) ||
-                        (renderCaps->getNonPOW2TexturesLimited() && mNumMipmaps == 0);
+        bool haveNPOT = renderCaps->hasCapability(Capabilities::NON_POWER_OF_2_TEXTURES) ||
+                        (renderCaps->getNonPOW2TexturesLimited() && mNumMipmaps == TextureMipmap{});
 
         std::string_view baseName, ext;
         StringUtil::splitBaseFilename(mName, baseName, ext);
@@ -461,22 +461,22 @@ namespace Ogre {
 
                 // If this is a volumetric texture set the texture type flag accordingly.
                 // If this is a cube map, set the texture type flag accordingly.
-                if (loadedImages[0].hasFlag(IF_CUBEMAP))
-                    mTextureType = TEX_TYPE_CUBE_MAP;
+                if (loadedImages[0].hasFlag(ImageFlags::CUBEMAP))
+                    mTextureType = TextureType::CUBE_MAP;
                 // If this is a volumetric texture set the texture type flag accordingly.
-                if (loadedImages[0].getDepth() > 1 && mTextureType != TEX_TYPE_2D_ARRAY)
-                    mTextureType = TEX_TYPE_3D;
+                if (loadedImages[0].getDepth() > 1 && mTextureType != TextureType::_2D_ARRAY)
+                    mTextureType = TextureType::_3D;
             }
         }
         catch(const FileNotFoundException&)
         {
-            if(mTextureType == TEX_TYPE_CUBE_MAP)
+            if(mTextureType == TextureType::CUBE_MAP)
             {
                 mLayerNames.resize(6);
                 for (size_t i = 0; i < 6; i++)
                     mLayerNames[i] = std::format("{}{}.{}", baseName, CUBEMAP_SUFFIXES[i], ext);
             }
-            else if (mTextureType == TEX_TYPE_2D_ARRAY)
+            else if (mTextureType == TextureType::_2D_ARRAY)
             { // ignore
             }
             else
@@ -494,11 +494,11 @@ namespace Ogre {
         // disable software mipmap creation.
         // Not supported by GLES.
         if (PixelUtil::isCompressed(loadedImages[0].getFormat()) &&
-            !renderCaps->hasCapability(RSC_AUTOMIPMAP_COMPRESSED) && loadedImages[0].getNumMipmaps() == 0)
+            !renderCaps->hasCapability(Capabilities::AUTOMIPMAP_COMPRESSED) && loadedImages[0].getNumMipmaps() == TextureMipmap{})
         {
-            mNumMipmaps = mNumRequestedMipmaps = 0;
+            mNumMipmaps = mNumRequestedMipmaps = TextureMipmap{};
             // Disable flag for auto mip generation
-            mUsage &= ~TU_AUTOMIPMAP;
+            mUsage &= ~TextureUsage::AUTOMIPMAP;
         }
 
         // avoid copying Image data
@@ -512,7 +512,7 @@ namespace Ogre {
 
     void Texture::loadImpl()
     {
-        if (mUsage & TU_RENDERTARGET)
+        if (!!(mUsage & TextureUsage::RENDERTARGET))
         {
             createInternalResources();
             return;

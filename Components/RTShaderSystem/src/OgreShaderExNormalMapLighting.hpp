@@ -69,7 +69,7 @@ public:
     */
     auto getType() const noexcept -> std::string_view override;
 
-    auto getExecutionOrder() const noexcept -> int override { return FFP_LIGHTING - 1; }
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override { return FFPShaderStage::LIGHTING - 1; }
 
     /** 
     @see SubRenderState::copyFrom.
@@ -95,12 +95,26 @@ public:
     // Type of this render state.
     static String Type;
 
-    enum NormalMapSpace
+    enum class NormalMapSpace
     {
-        NMS_OBJECT = 1,
-        NMS_TANGENT = 2,
-        NMS_PARALLAX = 6
+        OBJECT = 1,
+        TANGENT = 2,
+        PARALLAX = 6
     };
+
+    friend auto constexpr operator not(NormalMapSpace value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    friend auto constexpr operator bitand(NormalMapSpace left, NormalMapSpace right) -> NormalMapSpace
+    {
+        return static_cast<NormalMapSpace>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     /** 
     Set the normal map space.

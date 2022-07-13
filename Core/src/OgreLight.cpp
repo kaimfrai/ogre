@@ -55,7 +55,7 @@ namespace Ogre {
           mShadowFarClipDist(-1),
           mCameraToBeRelativeTo(nullptr),
           mPowerScale(1.0f),
-          mLightType(LT_POINT),
+          mLightType(LightTypes::POINT),
           mOwnShadowFarDist(false)
     {
         //mMinPixelSize should always be zero for lights otherwise lights will disapear
@@ -77,7 +77,7 @@ namespace Ogre {
         mShadowFarClipDist(-1),
         mCameraToBeRelativeTo(nullptr),
         mPowerScale(1.0f),
-        mLightType(LT_POINT),
+        mLightType(LightTypes::POINT),
         mOwnShadowFarDist(false)
     {
         //mMinPixelSize should always be zero for lights otherwise lights will disapear
@@ -201,7 +201,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto Light::getAs4DVector(bool cameraRelativeIfSet) const -> Vector4
     {
-        if (mLightType == Light::LT_DIRECTIONAL)
+        if (mLightType == Light::LightTypes::DIRECTIONAL)
         {
             return Vector4(-getDerivedDirection(), // negate direction as 'position'
                            0.0);                   // infinite distance
@@ -217,7 +217,7 @@ namespace Ogre {
         // First check if the light is close to the near plane, since
         // in this case we have to build a degenerate clip volume
         mNearClipVolume.planes.clear();
-        mNearClipVolume.outside = Plane::NEGATIVE_SIDE;
+        mNearClipVolume.outside = Plane::Side::Negative;
 
         Real n = cam->getNearClipDistance();
         // Homogenous position
@@ -254,7 +254,7 @@ namespace Ogre {
             }
 
             // Now do the near plane plane
-            normal = cam->getFrustumPlane(FRUSTUM_PLANE_NEAR).normal;
+            normal = cam->getFrustumPlane(std::to_underlying(FrustumPlane::NEAR)).normal;
             if (d < 0)
             {
                 // Behind near plane
@@ -265,7 +265,7 @@ namespace Ogre {
 
             // Finally, for a point/spot light we can add a sixth plane
             // This prevents false positives from behind the light
-            if (mLightType != LT_DIRECTIONAL)
+            if (mLightType != LightTypes::DIRECTIONAL)
             {
                 // Direction from light perpendicular to near plane
                 mNearClipVolume.planes.push_back(Plane(-normal, lightPos3));
@@ -315,7 +315,7 @@ namespace Ogre {
         for (unsigned short n = 0; n < 6; ++n)
         {
             // Skip far plane if infinite view frustum
-            if (infiniteViewDistance && n == FRUSTUM_PLANE_FAR)
+            if (infiniteViewDistance && n == std::to_underlying(FrustumPlane::FAR))
                 continue;
 
             const Plane& plane = cam->getFrustumPlane(n);
@@ -330,39 +330,39 @@ namespace Ogre {
 
                 mFrustumClipVolumes.push_back(PlaneBoundedVolume());
                 PlaneBoundedVolume& vol = mFrustumClipVolumes.back();
-                switch(n)
+                switch(static_cast<FrustumPlane>(n))
                 {
-                case(FRUSTUM_PLANE_NEAR):
+                case(FrustumPlane::NEAR):
                     clockwiseVerts[0] = corners + 3;
                     clockwiseVerts[1] = corners + 2;
                     clockwiseVerts[2] = corners + 1;
                     clockwiseVerts[3] = corners + 0;
                     break;
-                case(FRUSTUM_PLANE_FAR):
+                case(FrustumPlane::FAR):
                     clockwiseVerts[0] = corners + 7;
                     clockwiseVerts[1] = corners + 6;
                     clockwiseVerts[2] = corners + 5;
                     clockwiseVerts[3] = corners + 4;
                     break;
-                case(FRUSTUM_PLANE_LEFT):
+                case(FrustumPlane::LEFT):
                     clockwiseVerts[0] = infiniteViewDistance ? notSoFarCorners + 1 : corners + 5;
                     clockwiseVerts[1] = corners + 1;
                     clockwiseVerts[2] = corners + 2;
                     clockwiseVerts[3] = infiniteViewDistance ? notSoFarCorners + 2 : corners + 6;
                     break;
-                case(FRUSTUM_PLANE_RIGHT):
+                case(FrustumPlane::RIGHT):
                     clockwiseVerts[0] = infiniteViewDistance ? notSoFarCorners + 3 : corners + 7;
                     clockwiseVerts[1] = corners + 3;
                     clockwiseVerts[2] = corners + 0;
                     clockwiseVerts[3] = infiniteViewDistance ? notSoFarCorners + 0 : corners + 4;
                     break;
-                case(FRUSTUM_PLANE_TOP):
+                case(FrustumPlane::TOP):
                     clockwiseVerts[0] = infiniteViewDistance ? notSoFarCorners + 0 : corners + 4;
                     clockwiseVerts[1] = corners + 0;
                     clockwiseVerts[2] = corners + 1;
                     clockwiseVerts[3] = infiniteViewDistance ? notSoFarCorners + 1 : corners + 5;
                     break;
-                case(FRUSTUM_PLANE_BOTTOM):
+                case(FrustumPlane::BOTTOM):
                     clockwiseVerts[0] = infiniteViewDistance ? notSoFarCorners + 2 : corners + 6;
                     clockwiseVerts[1] = corners + 2;
                     clockwiseVerts[2] = corners + 3;
@@ -392,7 +392,7 @@ namespace Ogre {
 
                 // Finally, for a point/spot light we can add a sixth plane
                 // This prevents false positives from behind the light
-                if (mLightType != LT_DIRECTIONAL)
+                if (mLightType != LightTypes::DIRECTIONAL)
                 {
                     // re-use our own plane normal
                     vol.planes.push_back(Plane(plane.normal, lightPos3));
@@ -403,14 +403,14 @@ namespace Ogre {
         return mFrustumClipVolumes;
     }
     //-----------------------------------------------------------------------
-    auto Light::getTypeFlags() const noexcept -> uint32
+    auto Light::getTypeFlags() const noexcept -> QueryTypeMask
     {
-        return SceneManager::LIGHT_TYPE_MASK;
+        return QueryTypeMask::LIGHT;
     }
     //---------------------------------------------------------------------
     void Light::_calcTempSquareDist(const Vector3& worldPos)
     {
-        if (mLightType == LT_DIRECTIONAL)
+        if (mLightType == LightTypes::DIRECTIONAL)
         {
             // make sure directional lights are always in front
             // even of point lights at worldPos
@@ -657,7 +657,7 @@ namespace Ogre {
             return mShadowFarClipDist;
         else
         {
-            if (mLightType == LT_DIRECTIONAL)
+            if (mLightType == LightTypes::DIRECTIONAL)
                 return 0;
             else
                 return mAttenuation[0];
@@ -678,7 +678,7 @@ namespace Ogre {
         }
         else
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 "Parameter at the given index was not found.",
                 "Light::getCustomParameter");
         }
@@ -698,7 +698,7 @@ namespace Ogre {
     {
         bool isIntersect = true;
         //directional light always intersects (check only spotlight and point)
-        if (mLightType != LT_DIRECTIONAL)
+        if (mLightType != LightTypes::DIRECTIONAL)
         {
             const auto& mDerivedDirection = getDerivedDirection();
             const auto& mDerivedPosition = mParentNode->_getDerivedPosition();
@@ -706,7 +706,7 @@ namespace Ogre {
             //Check that the sphere is within the sphere of the light
             isIntersect = container.intersects(Sphere(mDerivedPosition, mAttenuation[0]));
             //If this is a spotlight, check that the sphere is within the cone of the spot light
-            if ((isIntersect) && (mLightType == LT_SPOTLIGHT))
+            if ((isIntersect) && (mLightType == LightTypes::SPOTLIGHT))
             {
                 //check first check of the sphere surrounds the position of the light
                 //(this covers the case where the center of the sphere is behind the position of the light
@@ -736,13 +736,13 @@ namespace Ogre {
 
         bool isIntersect = true;
         //Check the 2 simple / obvious situations. Light is directional or light source is inside the container
-        if ((mLightType != LT_DIRECTIONAL) && (container.intersects(mDerivedPosition) == false))
+        if ((mLightType != LightTypes::DIRECTIONAL) && (container.intersects(mDerivedPosition) == false))
         {
             float range = mAttenuation[0];
             //Check that the container is within the sphere of the light
             isIntersect = Math::intersects(Sphere(mDerivedPosition, range),container);
             //If this is a spotlight, do a more specific check
-            if ((isIntersect) && (mLightType == LT_SPOTLIGHT) && (mSpotOuter.valueRadians() <= Math::PI))
+            if ((isIntersect) && (mLightType == LightTypes::SPOTLIGHT) && (mSpotOuter.valueRadians() <= Math::PI))
             {
                 //Create a rough bounding box around the light and check if
                 Quaternion localToWorld = Vector3::NEGATIVE_UNIT_Z.getRotationTo(mDerivedDirection);
@@ -793,13 +793,13 @@ namespace Ogre {
             if ((ni = params->find("type")) != params->end())
             {
                 if (ni->second == "point")
-                    light->setType(Light::LT_POINT);
+                    light->setType(Light::LightTypes::POINT);
                 else if (ni->second == "directional")
-                    light->setType(Light::LT_DIRECTIONAL);
+                    light->setType(Light::LightTypes::DIRECTIONAL);
                 else if (ni->second == "spotlight")
-                    light->setType(Light::LT_SPOTLIGHT);
+                    light->setType(Light::LightTypes::SPOTLIGHT);
                 else
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Invalid light type '{}'.", ni->second ),
                         "LightFactory::createInstance");
             }

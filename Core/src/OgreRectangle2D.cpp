@@ -80,14 +80,14 @@ class MovableObject;
         mRenderOp.indexData = nullptr;
         mRenderOp.vertexData->vertexCount = 4; 
         mRenderOp.vertexData->vertexStart = 0; 
-        mRenderOp.operationType = RenderOperation::OT_TRIANGLE_STRIP; 
+        mRenderOp.operationType = RenderOperation::OperationType::TRIANGLE_STRIP; 
         mRenderOp.useIndexes = false; 
         mRenderOp.useGlobalInstancingVertexBufferIsAvailable = false;
 
         VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
         VertexBufferBinding* bind = mRenderOp.vertexData->vertexBufferBinding;
 
-        decl->addElement(POSITION_BINDING, 0, VET_FLOAT3, VES_POSITION);
+        decl->addElement(POSITION_BINDING, 0, VertexElementType::FLOAT3, VertexElementSemantic::POSITION);
 
         auto& hbm = HardwareBufferManager::getSingleton();
         auto vbuf =
@@ -98,7 +98,7 @@ class MovableObject;
 
         setCorners(-1, 1, 1, -1, false);
 
-        decl->addElement(NORMAL_BINDING, 0, VET_FLOAT3, VES_NORMAL);
+        decl->addElement(NORMAL_BINDING, 0, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL);
 
         vbuf =
             hbm.createVertexBuffer(decl->getVertexSize(NORMAL_BINDING), mRenderOp.vertexData->vertexCount, vBufUsage);
@@ -109,7 +109,7 @@ class MovableObject;
 
         if (includeTextureCoords)
         {
-            decl->addElement(TEXCOORD_BINDING, 0, VET_FLOAT2, VES_TEXTURE_COORDINATES);
+            decl->addElement(TEXCOORD_BINDING, 0, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES);
 
             auto tvbuf = hbm.createVertexBuffer(decl->getVertexSize(TEXCOORD_BINDING),
                                                 mRenderOp.vertexData->vertexCount, vBufUsage);
@@ -135,7 +135,7 @@ class MovableObject;
     {
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = left;
@@ -167,7 +167,7 @@ class MovableObject;
     {
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(NORMAL_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;
@@ -195,7 +195,7 @@ class MovableObject;
 
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pFloat = static_cast<float*>(vbufLock.pData);
 
         *pFloat++ = topLeft.x;

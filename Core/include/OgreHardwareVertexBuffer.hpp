@@ -89,81 +89,81 @@ namespace Ogre {
     };
 
     /// Vertex element semantics, used to identify the meaning of vertex buffer contents
-    enum VertexElementSemantic {
-        /// Position, typically VET_FLOAT3
-        VES_POSITION = 1,
+    enum class VertexElementSemantic {
+        /// Position, typically VertexElementType::FLOAT3
+        POSITION = 1,
         /// Blending weights
-        VES_BLEND_WEIGHTS = 2,
+        BLEND_WEIGHTS = 2,
         /// Blending indices
-        VES_BLEND_INDICES = 3,
-        /// Normal, typically VET_FLOAT3
-        VES_NORMAL = 4,
-        /// Colour, typically VET_UBYTE4
-        VES_COLOUR = 5,
+        BLEND_INDICES = 3,
+        /// Normal, typically VertexElementType::FLOAT3
+        NORMAL = 4,
+        /// Colour, typically VertexElementType::UBYTE4
+        COLOUR = 5,
         /// Secondary colour. Generally free for custom data. Means specular with OpenGL FFP.
-        VES_COLOUR2 = 6,
-        /// Texture coordinates, typically VET_FLOAT2
-        VES_TEXTURE_COORDINATES = 7,
+        COLOUR2 = 6,
+        /// Texture coordinates, typically VertexElementType::FLOAT2
+        TEXTURE_COORDINATES = 7,
         /// Binormal (Y axis if normal is Z)
-        VES_BINORMAL = 8,
+        BINORMAL = 8,
         /// Tangent (X axis if normal is Z)
-        VES_TANGENT = 9,
-        /// The  number of VertexElementSemantic elements (note - the first value VES_POSITION is 1) 
-        VES_COUNT = 9,
-        /// @deprecated use VES_COLOUR
-        VES_DIFFUSE = VES_COLOUR,
-        /// @deprecated use VES_COLOUR2
-        VES_SPECULAR = VES_COLOUR2
+        TANGENT = 9,
+        /// The  number of VertexElementSemantic elements (note - the first value POSITION is 1)
+        COUNT = 9,
+        /// @deprecated use COLOUR
+        DIFFUSE = COLOUR,
+        /// @deprecated use COLOUR2
+        SPECULAR = COLOUR2
     };
 
     /**
      * Vertex element type, used to identify the base types of the vertex contents
      *
-     * @note VET_SHORT1, VET_SHORT3, VET_USHORT1 and VET_USHORT3 should never be used
+     * @note VertexElementType::SHORT1, VertexElementType::SHORT3, VertexElementType::USHORT1 and VertexElementType::USHORT3 should never be used
      * because they aren't supported on any known hardware - they are unaligned as their size
      * is not a multiple of 4 bytes. Therefore drivers usually must add padding on upload.
      */
-    enum VertexElementType
+    enum class VertexElementType
     {
-        VET_FLOAT1 = 0,
-        VET_FLOAT2 = 1,
-        VET_FLOAT3 = 2,
-        VET_FLOAT4 = 3,
+        FLOAT1 = 0,
+        FLOAT2 = 1,
+        FLOAT3 = 2,
+        FLOAT4 = 3,
 
-        VET_SHORT1 = 5,  ///< @deprecated (see #VertexElementType note)
-        VET_SHORT2 = 6,
-        VET_SHORT3 = 7,  ///< @deprecated (see #VertexElementType note)
-        VET_SHORT4 = 8,
-        VET_UBYTE4 = 9,
+        SHORT1 = 5,  ///< @deprecated (see #VertexElementType note)
+        SHORT2 = 6,
+        SHORT3 = 7,  ///< @deprecated (see #VertexElementType note)
+        SHORT4 = 8,
+        UBYTE4 = 9,
         _DETAIL_SWAP_RB = 10,
 
         // the following are not universally supported on all hardware:
-        VET_DOUBLE1 = 12,
-        VET_DOUBLE2 = 13,
-        VET_DOUBLE3 = 14,
-        VET_DOUBLE4 = 15,
-        VET_USHORT1 = 16,  ///< @deprecated (see #VertexElementType note)
-        VET_USHORT2 = 17,
-        VET_USHORT3 = 18,  ///< @deprecated (see #VertexElementType note)
-        VET_USHORT4 = 19,
-        VET_INT1 = 20,
-        VET_INT2 = 21,
-        VET_INT3 = 22,
-        VET_INT4 = 23,
-        VET_UINT1 = 24,
-        VET_UINT2 = 25,
-        VET_UINT3 = 26,
-        VET_UINT4 = 27,
-        VET_BYTE4 = 28,  /// signed bytes
-        VET_BYTE4_NORM = 29,   /// signed bytes (normalized to -1..1)
-        VET_UBYTE4_NORM = 30,  /// unsigned bytes (normalized to 0..1)
-        VET_SHORT2_NORM = 31,  /// signed shorts (normalized to -1..1)
-        VET_SHORT4_NORM = 32,
-        VET_USHORT2_NORM = 33, /// unsigned shorts (normalized to 0..1)
-        VET_USHORT4_NORM = 34,
-        VET_COLOUR = VET_UBYTE4_NORM,  ///< @deprecated use VET_UBYTE4_NORM
-        VET_COLOUR_ARGB = VET_UBYTE4_NORM,  ///< @deprecated use VET_UBYTE4_NORM
-        VET_COLOUR_ABGR = VET_UBYTE4_NORM,  ///< @deprecated use VET_UBYTE4_NORM
+        DOUBLE1 = 12,
+        DOUBLE2 = 13,
+        DOUBLE3 = 14,
+        DOUBLE4 = 15,
+        USHORT1 = 16,  ///< @deprecated (see #VertexElementType note)
+        USHORT2 = 17,
+        USHORT3 = 18,  ///< @deprecated (see #VertexElementType note)
+        USHORT4 = 19,
+        INT1 = 20,
+        INT2 = 21,
+        INT3 = 22,
+        INT4 = 23,
+        UINT1 = 24,
+        UINT2 = 25,
+        UINT3 = 26,
+        UINT4 = 27,
+        BYTE4 = 28,  /// signed bytes
+        BYTE4_NORM = 29,   /// signed bytes (normalized to -1..1)
+        UBYTE4_NORM = 30,  /// unsigned bytes (normalized to 0..1)
+        SHORT2_NORM = 31,  /// signed shorts (normalized to -1..1)
+        SHORT4_NORM = 32,
+        USHORT2_NORM = 33, /// unsigned shorts (normalized to 0..1)
+        USHORT4_NORM = 34,
+        COLOUR = UBYTE4_NORM,  ///< @deprecated use UBYTE4_NORM
+        COLOUR_ARGB = UBYTE4_NORM,  ///< @deprecated use UBYTE4_NORM
+        COLOUR_ABGR = UBYTE4_NORM,  ///< @deprecated use VertexElementType::UBYTE4_NORM
     };
 
     /** This class declares the usage of a single vertex buffer as a component

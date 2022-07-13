@@ -68,7 +68,7 @@ void FontTranslator::translate(ScriptCompiler* compiler, const AbstractNodePtr& 
 
     for (auto& c : obj->children)
     {
-        if (c->type == ANT_PROPERTY)
+        if (c->type == AbstractNodeType::PROPERTY)
         {
             parseAttribute(compiler, font, static_cast<PropertyAbstractNode*>(c.get()));
         }
@@ -210,7 +210,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
     String val;
     for (auto& c : obj->children)
     {
-        if (c->type == ANT_PROPERTY)
+        if (c->type == AbstractNodeType::PROPERTY)
         {
             auto* prop = static_cast<PropertyAbstractNode*>(c.get());
 
@@ -233,7 +233,7 @@ void ElementTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
             if(!succ || !newElement->setParameter(prop->name, val))
                 compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
         }
-        else if(c->type == ANT_OBJECT)
+        else if(c->type == AbstractNodeType::OBJECT)
             translate(compiler, c); // recurse
     }
 }
@@ -258,7 +258,7 @@ void OverlayTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
 
     for (auto& c : obj->children)
     {
-        if (c->type == ANT_PROPERTY)
+        if (c->type == AbstractNodeType::PROPERTY)
         {
             auto* prop = static_cast<PropertyAbstractNode*>(c.get());
 
@@ -270,7 +270,7 @@ void OverlayTranslator::translate(ScriptCompiler* compiler, const AbstractNodePt
             }
             overlay->setZOrder(Math::uint16Cast(zorder));
         }
-        else if(c->type == ANT_OBJECT)
+        else if(c->type == AbstractNodeType::OBJECT)
             processNode(compiler, c);
     }
 }
@@ -296,7 +296,7 @@ OverlayTranslatorManager::~OverlayTranslatorManager()
 //! [font_get_translator]
 auto OverlayTranslatorManager::getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*
 {
-    if (node->type != ANT_OBJECT)
+    if (node->type != AbstractNodeType::OBJECT)
         return nullptr;
 
     auto* obj = static_cast<ObjectAbstractNode*>(node.get());

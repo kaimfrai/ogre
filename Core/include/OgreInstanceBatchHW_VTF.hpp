@@ -104,7 +104,7 @@ class VertexData;
                             std::string_view batchName );
         ~InstanceBatchHW_VTF() override;
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t override;
 
         /** @copydoc InstanceBatchHW::_boundsDirty */
         void _boundsDirty() override;

@@ -138,22 +138,22 @@ namespace Ogre
         {
             ParamDictionary* dict = getParamDictionary();
             dict->addParameter(
-                ParameterDef("type", "'truetype' or 'image' based font", PT_STRING),
+                ParameterDef("type", "'truetype' or 'image' based font", ParameterType::STRING),
                 &msTypeCmd);
             dict->addParameter(
-                ParameterDef("source", "Filename of the source of the font.", PT_STRING),
+                ParameterDef("source", "Filename of the source of the font.", ParameterType::STRING),
                 &msSourceCmd);
             dict->addParameter(
-                ParameterDef("character_spacer", "Spacing between characters to prevent overlap artifacts.", PT_STRING),
+                ParameterDef("character_spacer", "Spacing between characters to prevent overlap artifacts.", ParameterType::STRING),
                 &msCharacterSpacerCmd);
             dict->addParameter(
-                ParameterDef("size", "True type size", PT_REAL),
+                ParameterDef("size", "True type size", ParameterType::REAL),
                 &msSizeCmd);
             dict->addParameter(
-                ParameterDef("resolution", "True type resolution", PT_UNSIGNED_INT),
+                ParameterDef("resolution", "True type resolution", ParameterType::UNSIGNED_INT),
                 &msResolutionCmd);
             dict->addParameter(
-                ParameterDef("code_points", "Add a range of code points", PT_STRING),
+                ParameterDef("code_points", "Add a range of code points", ParameterType::STRING),
                 &msCodePointsCmd);
         }
 
@@ -222,8 +222,8 @@ namespace Ogre
         load();
         // configure Billboard for display
         bbs->setMaterial(mMaterial);
-        bbs->setBillboardType(BBT_PERPENDICULAR_COMMON);
-        bbs->setBillboardOrigin(BBO_CENTER_LEFT);
+        bbs->setBillboardType(BillboardType::PERPENDICULAR_COMMON);
+        bbs->setBillboardOrigin(BillboardOrigin::CENTER_LEFT);
         bbs->setDefaultDimensions(0, 0);
 
         float spaceWidth = mCodePointMap.find('0')->second.advance * height;
@@ -280,26 +280,26 @@ namespace Ogre
 
         if (!mMaterial)
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                 "Error creating new material!", "Font::load" );
         }
 
-        if (mType == FT_TRUETYPE)
+        if (mType == FontType::TRUETYPE)
         {
             createTextureFromFont();
         }
         else
         {
             // Manually load since we need to load to get alpha
-            mTexture = TextureManager::getSingleton().load(mSource, mGroup, TEX_TYPE_2D, 0);
+            mTexture = TextureManager::getSingleton().load(mSource, mGroup, TextureType::_2D, TextureMipmap{});
         }
 
         // Make sure material is aware of colour per vertex.
         auto pass = mMaterial->getTechnique(0)->getPass(0);
-        pass->setVertexColourTracking(TVC_DIFFUSE);
+        pass->setVertexColourTracking(TrackVertexColourEnum::DIFFUSE);
 
         // lighting and culling also do not make much sense
-        pass->setCullingMode(CULL_NONE);
+        pass->setCullingMode(CullingMode::NONE);
         pass->setLightingEnabled(false);
         mMaterial->setReceiveShadows(false);
         // font quads should not occlude things
@@ -308,21 +308,21 @@ namespace Ogre
         TextureUnitState *texLayer = mMaterial->getTechnique(0)->getPass(0)->createTextureUnitState();
         texLayer->setTexture(mTexture);
         // Clamp to avoid fuzzy edges
-        texLayer->setTextureAddressingMode( TextureUnitState::TAM_CLAMP );
+        texLayer->setTextureAddressingMode( TextureAddressingMode::CLAMP );
         // Allow min/mag filter, but no mip
-        texLayer->setTextureFiltering(FO_LINEAR, FO_LINEAR, FO_NONE);
+        texLayer->setTextureFiltering(FilterOptions::LINEAR, FilterOptions::LINEAR, FilterOptions::NONE);
 
 
         // Set up blending
         if (mTexture->hasAlpha())
         {
-            mMaterial->setSceneBlending( SBT_TRANSPARENT_ALPHA );
+            mMaterial->setSceneBlending( SceneBlendType::TRANSPARENT_ALPHA );
             mMaterial->getTechnique(0)->getPass(0)->setTransparentSortingEnabled(false);
         }
         else
         {
             // Use add if no alpha (assume black background)
-            mMaterial->setSceneBlending(SBT_ADD);
+            mMaterial->setSceneBlending(SceneBlendType::ADD);
         }
     }
     //---------------------------------------------------------------------
@@ -346,8 +346,8 @@ namespace Ogre
         // Just create the texture here, and point it at ourselves for when
         // it wants to (re)load for real
         mTexture = TextureManager::getSingleton().create(::std::format("{}Texture", mName), mGroup, true, this);
-        mTexture->setTextureType(TEX_TYPE_2D);
-        mTexture->setNumMipmaps(0);
+        mTexture->setTextureType(TextureType::_2D);
+        mTexture->setNumMipmaps(TextureMipmap{});
         mTexture->load();
     }
     //---------------------------------------------------------------------
@@ -371,21 +371,21 @@ namespace Ogre
         FT_Library ftLibrary;
         // Init freetype
         if( FT_Init_FreeType( &ftLibrary ) )
-            OGRE_EXCEPT( Exception::ERR_INTERNAL_ERROR, "Could not init FreeType library!",
+            OGRE_EXCEPT( ExceptionCodes::INTERNAL_ERROR, "Could not init FreeType library!",
             "Font::Font");
 
         FT_Face face;
 
         // Load font
         if( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
-            OGRE_EXCEPT( Exception::ERR_INTERNAL_ERROR,
+            OGRE_EXCEPT( ExceptionCodes::INTERNAL_ERROR,
             "Could not open font face!", "Font::createTextureFromFont" );
 
 
         // Convert our point size to freetype 26.6 fixed point format
         auto ftSize = (FT_F26Dot6)(mTtfSize * (1 << 6));
         if (FT_Set_Char_Size(face, ftSize, 0, mTtfResolution * vpScale, mTtfResolution * vpScale))
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Could not set char size!");
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Could not set char size!");
 
         //FILE *fo_def = stdout;
 
@@ -429,7 +429,7 @@ namespace Ogre
 
         Real textureAspect = (Real)finalWidth / (Real)finalHeight;
 
-        Image img(PF_BYTE_LA, finalWidth, finalHeight);
+        Image img(PixelFormat::BYTE_LA, finalWidth, finalHeight);
         // Reset content (transparent)
         img.setTo(ColourValue::ZERO);
 
@@ -522,7 +522,7 @@ namespace Ogre
     auto CmdType::doGet(const void* target) const -> String
     {
         const Font* f = static_cast<const Font*>(target);
-        if (f->getType() == FT_TRUETYPE)
+        if (f->getType() == FontType::TRUETYPE)
         {
             return "truetype";
         }
@@ -536,11 +536,11 @@ namespace Ogre
         Font* f = static_cast<Font*>(target);
         if (val == "truetype")
         {
-            f->setType(FT_TRUETYPE);
+            f->setType(FontType::TRUETYPE);
         }
         else
         {
-            f->setType(FT_IMAGE);
+            f->setType(FontType::IMAGE);
         }
     }
     //-----------------------------------------------------------------------

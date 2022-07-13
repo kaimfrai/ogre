@@ -548,9 +548,9 @@ namespace Ogre {
     {
         mAccess = 0;
         if (mInStream)
-            mAccess |= READ;
+            mAccess |= std::to_underlying(READ);
         if (mFStream)
-            mAccess |= WRITE;
+            mAccess |= std::to_underlying(WRITE);
     }
     //-----------------------------------------------------------------------
     FileStreamDataStream::~FileStreamDataStream()
@@ -580,7 +580,7 @@ namespace Ogre {
     {
         if (delim.empty())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "No delimiter provided",
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "No delimiter provided",
                 "FileStreamDataStream::readLine");
         }
         if (delim.size() > 1)
@@ -618,7 +618,7 @@ namespace Ogre {
             }
             else
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, 
                     "Streaming error occurred", 
                     "FileStreamDataStream::readLine");
             }

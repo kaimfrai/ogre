@@ -82,7 +82,7 @@ public:
         bool isValid{true};
         ushort maxBoneCount{0};
         ushort maxWeightCount{0};
-        SkinningType skinningType{ST_LINEAR};
+        SkinningType skinningType{SkinningType::LINEAR};
         bool correctAntipodalityHandling{false};
         bool scalingShearingSupport{false};
     };
@@ -100,7 +100,7 @@ public:
     /**
     @see SubRenderState::getType.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /**
     @see SubRenderState::copyFrom.
@@ -117,7 +117,7 @@ public:
     @param correctAntipodalityHandling If correct antipodality handling should be utilized (Only applicable for dual quaternion skinning).
     @param scalingShearingSupport If scaling and shearing support should be enabled (Only applicable for dual quaternion skinning).
     */
-    void setHardwareSkinningParam(ushort boneCount, ushort weightCount, SkinningType skinningType = ST_LINEAR,  bool correctAntipodalityHandling = false, bool scalingShearingSupport = false);
+    void setHardwareSkinningParam(ushort boneCount, ushort weightCount, SkinningType skinningType = SkinningType::LINEAR,  bool correctAntipodalityHandling = false, bool scalingShearingSupport = false);
 
     /**
     Returns the number of bones in the model assigned to the material.
@@ -184,7 +184,7 @@ protected:
     
     ///The factory which created this sub render state
     const HardwareSkinningFactory* mCreator{nullptr};
-    SkinningType mSkinningType{ST_LINEAR};
+    SkinningType mSkinningType{SkinningType::LINEAR};
 };
 
 /** 
@@ -250,7 +250,7 @@ public:
         
         @par pEntity A pointer to an entity who's materials need preparing.
     */
-    void prepareEntityForSkinning(const Entity* pEntity, SkinningType skinningType = ST_LINEAR, bool correctAntidpodalityHandling = false, bool shearScale = false);
+    void prepareEntityForSkinning(const Entity* pEntity, SkinningType skinningType = SkinningType::LINEAR, bool correctAntidpodalityHandling = false, bool shearScale = false);
 
     /** 
         @brief

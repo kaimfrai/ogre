@@ -59,26 +59,64 @@ namespace Ogre {
     public:
 
         /// Enum describing the different CPU features we want to check for, platform-dependent
-        enum CpuFeatures
+        enum class CpuFeatures
         {
-            CPU_FEATURE_SSE             = 1 << 0,
-            CPU_FEATURE_SSE2            = 1 << 1,
-            CPU_FEATURE_SSE3            = 1 << 2,
-            CPU_FEATURE_SSE41           = 1 << 3,
-            CPU_FEATURE_SSE42           = 1 << 4,
-            CPU_FEATURE_MMX             = 1 << 5,
-            CPU_FEATURE_MMXEXT          = 1 << 6,
-            CPU_FEATURE_3DNOW           = 1 << 7,
-            CPU_FEATURE_3DNOWEXT        = 1 << 8,
-            CPU_FEATURE_CMOV            = 1 << 9,
-            CPU_FEATURE_TSC             = 1 << 10,
-            CPU_FEATURE_INVARIANT_TSC   = 1 << 11,
-            CPU_FEATURE_FPU             = 1 << 12,
-            CPU_FEATURE_PRO             = 1 << 13,
-            CPU_FEATURE_HTT             = 1 << 14,
+            SSE             = 1 << 0,
+            SSE2            = 1 << 1,
+            SSE3            = 1 << 2,
+            SSE41           = 1 << 3,
+            SSE42           = 1 << 4,
+            MMX             = 1 << 5,
+            MMXEXT          = 1 << 6,
+            _3DNOW           = 1 << 7,
+            _3DNOWEXT        = 1 << 8,
+            CMOV            = 1 << 9,
+            TSC             = 1 << 10,
+            INVARIANT_TSC   = 1 << 11,
+            FPU             = 1 << 12,
+            PRO             = 1 << 13,
+            HTT             = 1 << 14,
 
-            CPU_FEATURE_NONE            = 0
+            NONE            = 0
         };
+
+        friend auto constexpr operator not (CpuFeatures mask) -> bool
+        {
+            return not std::to_underlying(mask);
+        }
+
+        friend auto constexpr operator bitor(CpuFeatures left, CpuFeatures right) -> CpuFeatures
+        {
+            return static_cast<CpuFeatures>
+            (   std::to_underlying(left)
+            bitor
+                std::to_underlying(right)
+            );
+        }
+
+        friend auto constexpr operator |=(CpuFeatures& left, CpuFeatures right) -> CpuFeatures&
+        {
+            return left = left bitor right;
+        }
+
+        friend auto constexpr operator bitand(CpuFeatures left, CpuFeatures right) -> CpuFeatures
+        {
+            return static_cast<CpuFeatures>
+            (   std::to_underlying(left)
+            bitand
+                std::to_underlying(right)
+            );
+        }
+
+        friend auto constexpr operator &=(CpuFeatures& left, CpuFeatures right) -> CpuFeatures&
+        {
+            return left = left bitand right;
+        }
+
+        friend auto constexpr operator compl(CpuFeatures mask) -> CpuFeatures
+        {
+            return static_cast<CpuFeatures>(compl std::to_underlying(mask));
+        }
 
         /** Gets a string of the CPU identifier.
         @note
@@ -87,12 +125,12 @@ namespace Ogre {
         */
         static auto getCpuIdentifier() noexcept -> std::string_view ;
 
-        /** Gets a or-masked of enum CpuFeatures that are supported by the CPU.
+        /** Gets a or-masked of enum class CpuFeatures that are supported by the CPU.
         @note
             Actual detecting are performs in the first time call to this function,
             and then all future calls with return internal cached value.
         */
-        static auto getCpuFeatures() noexcept -> uint;
+        static auto getCpuFeatures() noexcept -> CpuFeatures;
 
         /** Gets whether a specific feature is supported by the CPU.
         @note

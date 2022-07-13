@@ -60,7 +60,7 @@ void StencilShadowTest::setupContent()
     mSceneMgr->setAmbientLight(ColourValue(0.0, 0.0, 0.0));
 
     // turn on stencil shadows
-    mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_MODULATIVE);
+    mSceneMgr->setShadowTechnique(ShadowTechnique::STENCIL_MODULATIVE);
     
     // add a couple lights
     Ogre::Light* light = mSceneMgr->createLight("Light1");
@@ -69,14 +69,14 @@ void StencilShadowTest::setupContent()
     light->setAttenuation(8000,1,0.0005,0);
     mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3(220, 100, 0))->attachObject(light);
     light->setCastShadows(true);
-    light->setType(Light::LT_POINT);
+    light->setType(Light::LightTypes::POINT);
     light = mSceneMgr->createLight("Light2");
     light->setDiffuseColour(0.5f,0.4f,0.35f);
     light->setSpecularColour(0, 0, 0);
     light->setAttenuation(8000,1,0.0005,0);
     mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3(220, 100, -200))->attachObject(light);
     light->setCastShadows(true);
-    light->setType(Light::LT_POINT);
+    light->setType(Light::LightTypes::POINT);
     
     // create a ground plane to receive some shadows
     Plane pln = MovablePlane("plane");

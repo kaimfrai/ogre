@@ -57,28 +57,28 @@ class Parameter : public RTShaderSystemAlloc
 {
 public:
     // Shader parameter semantic.
-    enum Semantic
+    enum class Semantic
     {
         /// Unknown semantic
-        SPS_UNKNOWN = 0,
+        UNKNOWN = 0,
         /// Position
-        SPS_POSITION = 1,
+        POSITION = 1,
         /// Blending weights
-        SPS_BLEND_WEIGHTS = 2,
+        BLEND_WEIGHTS = 2,
         /// Blending indices
-        SPS_BLEND_INDICES = 3,
+        BLEND_INDICES = 3,
         /// Normal, 3 reals per vertex
-        SPS_NORMAL = 4,
+        NORMAL = 4,
         /// General floating point color.
-        SPS_COLOR = 5,      
+        COLOR = 5,
         /// Texture coordinates
-        SPS_TEXTURE_COORDINATES = 7,
+        TEXTURE_COORDINATES = 7,
         /// Binormal (Y axis if normal is Z)
-        SPS_BINORMAL = 8,
+        BINORMAL = 8,
         /// Tangent (X axis if normal is Z)
-        SPS_TANGENT = 9,
+        TANGENT = 9,
         /// VFACE
-        SPS_FRONT_FACING
+        FRONT_FACING
     };
 
     /** Shader parameter content
@@ -86,240 +86,240 @@ public:
      * used to resolve Parameters across different SubRenderState instances
      * Think of it as Semantic extended to the actual parameter content.
      */ 
-    enum Content
+    enum class Content
     {
         /// Unknown content
-        SPC_UNKNOWN,
+        UNKNOWN,
 
         /// Position in object space
-        SPC_POSITION_OBJECT_SPACE,
+        POSITION_OBJECT_SPACE,
 
         /// Position in world space
-        SPC_POSITION_WORLD_SPACE,
+        POSITION_WORLD_SPACE,
 
         /// Position in view space
-        SPC_POSITION_VIEW_SPACE,
+        POSITION_VIEW_SPACE,
 
         /// Position in projective space
-        SPC_POSITION_PROJECTIVE_SPACE,
+        POSITION_PROJECTIVE_SPACE,
 
         /// Position in light space index 0-7
-        SPC_POSITION_LIGHT_SPACE0,
-        SPC_POSITION_LIGHT_SPACE1,
-        SPC_POSITION_LIGHT_SPACE2,
-        SPC_POSITION_LIGHT_SPACE3,
-        SPC_POSITION_LIGHT_SPACE4,
-        SPC_POSITION_LIGHT_SPACE5,
-        SPC_POSITION_LIGHT_SPACE6,
-        SPC_POSITION_LIGHT_SPACE7,
+        POSITION_LIGHT_SPACE0,
+        POSITION_LIGHT_SPACE1,
+        POSITION_LIGHT_SPACE2,
+        POSITION_LIGHT_SPACE3,
+        POSITION_LIGHT_SPACE4,
+        POSITION_LIGHT_SPACE5,
+        POSITION_LIGHT_SPACE6,
+        POSITION_LIGHT_SPACE7,
 
         /// Normal in object space
-        SPC_NORMAL_OBJECT_SPACE,
+        NORMAL_OBJECT_SPACE,
 
         /// Normal in world space
-        SPC_NORMAL_WORLD_SPACE,
+        NORMAL_WORLD_SPACE,
 
         /// Normal in view space
-        SPC_NORMAL_VIEW_SPACE,
+        NORMAL_VIEW_SPACE,
 
         /// Normal in tangent space
-        SPC_NORMAL_TANGENT_SPACE,
+        NORMAL_TANGENT_SPACE,
 
         /// View vector in object space
-        SPC_POSTOCAMERA_OBJECT_SPACE,
+        POSTOCAMERA_OBJECT_SPACE,
 
         /// View vector in world space
-        SPC_POSTOCAMERA_WORLD_SPACE,
+        POSTOCAMERA_WORLD_SPACE,
 
         /// View vector in view space
-        SPC_POSTOCAMERA_VIEW_SPACE,
+        POSTOCAMERA_VIEW_SPACE,
 
         /// View vector in tangent space
-        SPC_POSTOCAMERA_TANGENT_SPACE,
+        POSTOCAMERA_TANGENT_SPACE,
 
         /// Light vector in object space index 0-7
-        SPC_POSTOLIGHT_OBJECT_SPACE0,
-        SPC_POSTOLIGHT_OBJECT_SPACE1,
-        SPC_POSTOLIGHT_OBJECT_SPACE2,
-        SPC_POSTOLIGHT_OBJECT_SPACE3,
-        SPC_POSTOLIGHT_OBJECT_SPACE4,
-        SPC_POSTOLIGHT_OBJECT_SPACE5,
-        SPC_POSTOLIGHT_OBJECT_SPACE6,
-        SPC_POSTOLIGHT_OBJECT_SPACE7,
+        POSTOLIGHT_OBJECT_SPACE0,
+        POSTOLIGHT_OBJECT_SPACE1,
+        POSTOLIGHT_OBJECT_SPACE2,
+        POSTOLIGHT_OBJECT_SPACE3,
+        POSTOLIGHT_OBJECT_SPACE4,
+        POSTOLIGHT_OBJECT_SPACE5,
+        POSTOLIGHT_OBJECT_SPACE6,
+        POSTOLIGHT_OBJECT_SPACE7,
 
         /// Light vector in world space index 0-7
-        SPC_POSTOLIGHT_WORLD_SPACE0,
-        SPC_POSTOLIGHT_WORLD_SPACE1,
-        SPC_POSTOLIGHT_WORLD_SPACE2,
-        SPC_POSTOLIGHT_WORLD_SPACE3,
-        SPC_POSTOLIGHT_WORLD_SPACE4,
-        SPC_POSTOLIGHT_WORLD_SPACE5,
-        SPC_POSTOLIGHT_WORLD_SPACE6,
-        SPC_POSTOLIGHT_WORLD_SPACE7,
+        POSTOLIGHT_WORLD_SPACE0,
+        POSTOLIGHT_WORLD_SPACE1,
+        POSTOLIGHT_WORLD_SPACE2,
+        POSTOLIGHT_WORLD_SPACE3,
+        POSTOLIGHT_WORLD_SPACE4,
+        POSTOLIGHT_WORLD_SPACE5,
+        POSTOLIGHT_WORLD_SPACE6,
+        POSTOLIGHT_WORLD_SPACE7,
 
         /// Light vector in view space index 0-7
-        SPC_POSTOLIGHT_VIEW_SPACE0,
-        SPC_POSTOLIGHT_VIEW_SPACE1,
-        SPC_POSTOLIGHT_VIEW_SPACE2,
-        SPC_POSTOLIGHT_VIEW_SPACE3,
-        SPC_POSTOLIGHT_VIEW_SPACE4,
-        SPC_POSTOLIGHT_VIEW_SPACE5,
-        SPC_POSTOLIGHT_VIEW_SPACE6,
-        SPC_POSTOLIGHT_VIEW_SPACE7,
+        POSTOLIGHT_VIEW_SPACE0,
+        POSTOLIGHT_VIEW_SPACE1,
+        POSTOLIGHT_VIEW_SPACE2,
+        POSTOLIGHT_VIEW_SPACE3,
+        POSTOLIGHT_VIEW_SPACE4,
+        POSTOLIGHT_VIEW_SPACE5,
+        POSTOLIGHT_VIEW_SPACE6,
+        POSTOLIGHT_VIEW_SPACE7,
 
         /// Light vector in tangent space index 0-7
-        SPC_POSTOLIGHT_TANGENT_SPACE0,
-        SPC_POSTOLIGHT_TANGENT_SPACE1,
-        SPC_POSTOLIGHT_TANGENT_SPACE2,
-        SPC_POSTOLIGHT_TANGENT_SPACE3,
-        SPC_POSTOLIGHT_TANGENT_SPACE4,
-        SPC_POSTOLIGHT_TANGENT_SPACE5,
-        SPC_POSTOLIGHT_TANGENT_SPACE6,
-        SPC_POSTOLIGHT_TANGENT_SPACE7,
+        POSTOLIGHT_TANGENT_SPACE0,
+        POSTOLIGHT_TANGENT_SPACE1,
+        POSTOLIGHT_TANGENT_SPACE2,
+        POSTOLIGHT_TANGENT_SPACE3,
+        POSTOLIGHT_TANGENT_SPACE4,
+        POSTOLIGHT_TANGENT_SPACE5,
+        POSTOLIGHT_TANGENT_SPACE6,
+        POSTOLIGHT_TANGENT_SPACE7,
 
         /// Light direction in object space index 0-7
-        SPC_LIGHTDIRECTION_OBJECT_SPACE0,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE1,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE2,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE3,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE4,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE5,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE6,
-        SPC_LIGHTDIRECTION_OBJECT_SPACE7,
+        LIGHTDIRECTION_OBJECT_SPACE0,
+        LIGHTDIRECTION_OBJECT_SPACE1,
+        LIGHTDIRECTION_OBJECT_SPACE2,
+        LIGHTDIRECTION_OBJECT_SPACE3,
+        LIGHTDIRECTION_OBJECT_SPACE4,
+        LIGHTDIRECTION_OBJECT_SPACE5,
+        LIGHTDIRECTION_OBJECT_SPACE6,
+        LIGHTDIRECTION_OBJECT_SPACE7,
 
         /// Light direction in world space index 0-7
-        SPC_LIGHTDIRECTION_WORLD_SPACE0,
-        SPC_LIGHTDIRECTION_WORLD_SPACE1,
-        SPC_LIGHTDIRECTION_WORLD_SPACE2,
-        SPC_LIGHTDIRECTION_WORLD_SPACE3,
-        SPC_LIGHTDIRECTION_WORLD_SPACE4,
-        SPC_LIGHTDIRECTION_WORLD_SPACE5,
-        SPC_LIGHTDIRECTION_WORLD_SPACE6,
-        SPC_LIGHTDIRECTION_WORLD_SPACE7,
+        LIGHTDIRECTION_WORLD_SPACE0,
+        LIGHTDIRECTION_WORLD_SPACE1,
+        LIGHTDIRECTION_WORLD_SPACE2,
+        LIGHTDIRECTION_WORLD_SPACE3,
+        LIGHTDIRECTION_WORLD_SPACE4,
+        LIGHTDIRECTION_WORLD_SPACE5,
+        LIGHTDIRECTION_WORLD_SPACE6,
+        LIGHTDIRECTION_WORLD_SPACE7,
 
         /// Light direction in view space index 0-7
-        SPC_LIGHTDIRECTION_VIEW_SPACE0,
-        SPC_LIGHTDIRECTION_VIEW_SPACE1,
-        SPC_LIGHTDIRECTION_VIEW_SPACE2,
-        SPC_LIGHTDIRECTION_VIEW_SPACE3,
-        SPC_LIGHTDIRECTION_VIEW_SPACE4,
-        SPC_LIGHTDIRECTION_VIEW_SPACE5,
-        SPC_LIGHTDIRECTION_VIEW_SPACE6,
-        SPC_LIGHTDIRECTION_VIEW_SPACE7,
+        LIGHTDIRECTION_VIEW_SPACE0,
+        LIGHTDIRECTION_VIEW_SPACE1,
+        LIGHTDIRECTION_VIEW_SPACE2,
+        LIGHTDIRECTION_VIEW_SPACE3,
+        LIGHTDIRECTION_VIEW_SPACE4,
+        LIGHTDIRECTION_VIEW_SPACE5,
+        LIGHTDIRECTION_VIEW_SPACE6,
+        LIGHTDIRECTION_VIEW_SPACE7,
 
         /// Light direction in tangent space index 0-7
-        SPC_LIGHTDIRECTION_TANGENT_SPACE0,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE1,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE2,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE3,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE4,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE5,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE6,
-        SPC_LIGHTDIRECTION_TANGENT_SPACE7,
+        LIGHTDIRECTION_TANGENT_SPACE0,
+        LIGHTDIRECTION_TANGENT_SPACE1,
+        LIGHTDIRECTION_TANGENT_SPACE2,
+        LIGHTDIRECTION_TANGENT_SPACE3,
+        LIGHTDIRECTION_TANGENT_SPACE4,
+        LIGHTDIRECTION_TANGENT_SPACE5,
+        LIGHTDIRECTION_TANGENT_SPACE6,
+        LIGHTDIRECTION_TANGENT_SPACE7,
 
         /// Light position in object space index 0-7
-        SPC_LIGHTPOSITION_OBJECT_SPACE0,
-        SPC_LIGHTPOSITION_OBJECT_SPACE1,
-        SPC_LIGHTPOSITION_OBJECT_SPACE2,
-        SPC_LIGHTPOSITION_OBJECT_SPACE3,
-        SPC_LIGHTPOSITION_OBJECT_SPACE4,
-        SPC_LIGHTPOSITION_OBJECT_SPACE5,
-        SPC_LIGHTPOSITION_OBJECT_SPACE6,
-        SPC_LIGHTPOSITION_OBJECT_SPACE7,
+        LIGHTPOSITION_OBJECT_SPACE0,
+        LIGHTPOSITION_OBJECT_SPACE1,
+        LIGHTPOSITION_OBJECT_SPACE2,
+        LIGHTPOSITION_OBJECT_SPACE3,
+        LIGHTPOSITION_OBJECT_SPACE4,
+        LIGHTPOSITION_OBJECT_SPACE5,
+        LIGHTPOSITION_OBJECT_SPACE6,
+        LIGHTPOSITION_OBJECT_SPACE7,
 
         /// Light position in world space index 0-7
-        SPC_LIGHTPOSITION_WORLD_SPACE0,
-        SPC_LIGHTPOSITION_WORLD_SPACE1,
-        SPC_LIGHTPOSITION_WORLD_SPACE2,
-        SPC_LIGHTPOSITION_WORLD_SPACE3,
-        SPC_LIGHTPOSITION_WORLD_SPACE4,
-        SPC_LIGHTPOSITION_WORLD_SPACE5,
-        SPC_LIGHTPOSITION_WORLD_SPACE6,
-        SPC_LIGHTPOSITION_WORLD_SPACE7,
+        LIGHTPOSITION_WORLD_SPACE0,
+        LIGHTPOSITION_WORLD_SPACE1,
+        LIGHTPOSITION_WORLD_SPACE2,
+        LIGHTPOSITION_WORLD_SPACE3,
+        LIGHTPOSITION_WORLD_SPACE4,
+        LIGHTPOSITION_WORLD_SPACE5,
+        LIGHTPOSITION_WORLD_SPACE6,
+        LIGHTPOSITION_WORLD_SPACE7,
 
         /// Light position in view space index 0-7
-        SPC_LIGHTPOSITIONVIEW_SPACE0,
-        SPC_LIGHTPOSITIONVIEW_SPACE1,
-        SPC_LIGHTPOSITIONVIEW_SPACE2,
-        SPC_LIGHTPOSITIONVIEW_SPACE3,
-        SPC_LIGHTPOSITIONVIEW_SPACE4,
-        SPC_LIGHTPOSITIONVIEW_SPACE5,
-        SPC_LIGHTPOSITIONVIEW_SPACE6,
-        SPC_LIGHTPOSITIONVIEW_SPACE7,
+        LIGHTPOSITIONVIEW_SPACE0,
+        LIGHTPOSITIONVIEW_SPACE1,
+        LIGHTPOSITIONVIEW_SPACE2,
+        LIGHTPOSITIONVIEW_SPACE3,
+        LIGHTPOSITIONVIEW_SPACE4,
+        LIGHTPOSITIONVIEW_SPACE5,
+        LIGHTPOSITIONVIEW_SPACE6,
+        LIGHTPOSITIONVIEW_SPACE7,
 
         /// Light position in tangent space index 0-7
-        SPC_LIGHTPOSITION_TANGENT_SPACE,
+        LIGHTPOSITION_TANGENT_SPACE,
 
         /// Blending weights
-        SPC_BLEND_WEIGHTS,
+        BLEND_WEIGHTS,
 
         /// Blending indices
-        SPC_BLEND_INDICES,
+        BLEND_INDICES,
         
         /// Tangent in object space
-        SPC_TANGENT_OBJECT_SPACE,
+        TANGENT_OBJECT_SPACE,
 
         /// Tangent in world space
-        SPC_TANGENT_WORLD_SPACE,
+        TANGENT_WORLD_SPACE,
 
         /// Tangent in view space
-        SPC_TANGENT_VIEW_SPACE,
+        TANGENT_VIEW_SPACE,
 
         /// Tangent in tangent space
-        SPC_TANGENT_TANGENT_SPACE,
+        TANGENT_TANGENT_SPACE,
 
         /// Binormal in object space
-        SPC_BINORMAL_OBJECT_SPACE,
+        BINORMAL_OBJECT_SPACE,
 
         /// Binormal in world space
-        SPC_BINORMAL_WORLD_SPACE,
+        BINORMAL_WORLD_SPACE,
 
         /// Binormal in view space
-        SPC_BINORMAL_VIEW_SPACE,
+        BINORMAL_VIEW_SPACE,
 
         /// Binormal in tangent space
-        SPC_BINORMAL_TANGENT_SPACE,
+        BINORMAL_TANGENT_SPACE,
 
         /// Diffuse color
-        SPC_COLOR_DIFFUSE,
+        COLOR_DIFFUSE,
 
         /// Specular color
-        SPC_COLOR_SPECULAR,
+        COLOR_SPECULAR,
 
         /// Depth in object space
-        SPC_DEPTH_OBJECT_SPACE,
+        DEPTH_OBJECT_SPACE,
 
         /// Depth in world space
-        SPC_DEPTH_WORLD_SPACE,
+        DEPTH_WORLD_SPACE,
 
         /// Depth in view space
-        SPC_DEPTH_VIEW_SPACE,
+        DEPTH_VIEW_SPACE,
 
         /// Depth in projective space
-        SPC_DEPTH_PROJECTIVE_SPACE,
+        DEPTH_PROJECTIVE_SPACE,
 
         /// Texture coordinate set index 0-7
-        SPC_TEXTURE_COORDINATE0,        
-        SPC_TEXTURE_COORDINATE1,        
-        SPC_TEXTURE_COORDINATE2,        
-        SPC_TEXTURE_COORDINATE3,    
-        SPC_TEXTURE_COORDINATE4,
-        SPC_TEXTURE_COORDINATE5,
-        SPC_TEXTURE_COORDINATE6,
-        SPC_TEXTURE_COORDINATE7,
+        TEXTURE_COORDINATE0,
+        TEXTURE_COORDINATE1,
+        TEXTURE_COORDINATE2,
+        TEXTURE_COORDINATE3,
+        TEXTURE_COORDINATE4,
+        TEXTURE_COORDINATE5,
+        TEXTURE_COORDINATE6,
+        TEXTURE_COORDINATE7,
 		
         /// point sprite coordinates
-        SPC_POINTSPRITE_COORDINATE,
+        POINTSPRITE_COORDINATE,
 
         /// point sprite size
-        SPC_POINTSPRITE_SIZE,
+        POINTSPRITE_SIZE,
 
         /// gl_FrontFacing
-        SPC_FRONT_FACING,
+        FRONT_FACING,
 
         /// Reserved custom content range to be used by user custom shader extensions.
-        SPC_CUSTOM_CONTENT_BEGIN    = 1000,
-        SPC_CUSTOM_CONTENT_END      = 2000
+        CUSTOM_CONTENT_BEGIN    = 1000,
+        CUSTOM_CONTENT_END      = 2000
     };
 
 // Interface.
@@ -427,7 +427,7 @@ public:
     UniformParameter(GpuConstantType type, std::string_view name, 
         const Semantic& semantic, int index, 
         const Content& content,
-        uint16 variability, size_t size);
+        GpuParamVariability variability, size_t size);
 
     /** Class constructor.
     @param autoType The auto type of this parameter.
@@ -492,7 +492,7 @@ public:
     [[nodiscard]] auto getAutoConstantType  () const noexcept -> GpuProgramParameters::AutoConstantType { return mAutoConstantType; }
 
     /** Return the variability of this parameter. */
-    [[nodiscard]] auto getVariability() const noexcept -> uint16 { return mVariability; }
+    [[nodiscard]] auto getVariability() const noexcept -> GpuParamVariability { return mVariability; }
 
     /** Bind this parameter to the corresponding GPU parameter. */
     void bind(GpuProgramParametersSharedPtr paramsPtr);
@@ -617,7 +617,7 @@ private:
     GpuProgramParameters::AutoConstantType  mAutoConstantType;      // The auto constant type of this parameter.
     ::std::variant<::std::monostate, uint32, float> mAutoConstantData;
     // How this parameter varies (bitwise combination of GpuProgramVariability).
-    uint16 mVariability;
+    GpuParamVariability mVariability;
     // The actual GPU parameters pointer.
     GpuProgramParameters* mParamsPtr;
     // The physical index of this parameter in the GPU program.
@@ -673,7 +673,7 @@ class ParameterFactory
     // Interface.
 public:
 
-    static auto createInPosition(int index, Parameter::Content content = Parameter::SPC_POSITION_OBJECT_SPACE) -> ParameterPtr;
+    static auto createInPosition(int index, Parameter::Content content = Parameter::Content::POSITION_OBJECT_SPACE) -> ParameterPtr;
     static auto createOutPosition(int index) -> ParameterPtr;
 
     static auto createInNormal(int index) -> ParameterPtr;
@@ -702,7 +702,7 @@ public:
     static auto createSampler3D(int index) -> UniformParameterPtr;
     static auto createSamplerCUBE(int index) -> UniformParameterPtr;    
 
-    static auto createUniform(GpuConstantType type, int index, uint16 variability, std::string_view suggestedName, size_t size) -> UniformParameterPtr;
+    static auto createUniform(GpuConstantType type, int index, GpuParamVariability variability, std::string_view suggestedName, size_t size) -> UniformParameterPtr;
 };
 
 

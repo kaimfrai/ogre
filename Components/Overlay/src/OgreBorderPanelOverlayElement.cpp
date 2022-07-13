@@ -172,11 +172,11 @@ namespace Ogre {
             VertexDeclaration* decl = mRenderOp2.vertexData->vertexDeclaration;
             // Position and texture coords each have their own buffers to allow
             // each to be edited separately with the discard flag
-            decl->addElement(POSITION_BINDING, 0, VET_FLOAT3, VES_POSITION);
-            decl->addElement(TEXCOORD_BINDING, 0, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0);
+            decl->addElement(POSITION_BINDING, 0, VertexElementType::FLOAT3, VertexElementSemantic::POSITION);
+            decl->addElement(TEXCOORD_BINDING, 0, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0);
 
             // Index data
-            mRenderOp2.operationType = RenderOperation::OT_TRIANGLE_LIST;
+            mRenderOp2.operationType = RenderOperation::OperationType::TRIANGLE_LIST;
             mRenderOp2.useIndexes = true;
             mRenderOp2.indexData = new IndexData();
             mRenderOp2.indexData->indexCount = 8 * 6;
@@ -207,7 +207,7 @@ namespace Ogre {
             HardwareBufferManager::getSingleton().createVertexBuffer(
                 decl->getVertexSize(POSITION_BINDING), 
                 mRenderOp2.vertexData->vertexCount,
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+                HardwareBuffer::DYNAMIC_WRITE_ONLY,
                 true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
         // bind position
         VertexBufferBinding* binding = mRenderOp2.vertexData->vertexBufferBinding;
@@ -217,7 +217,7 @@ namespace Ogre {
         vbuf = HardwareBufferManager::getSingleton().createVertexBuffer(
                 decl->getVertexSize(TEXCOORD_BINDING), 
                 mRenderOp2.vertexData->vertexCount,
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+                HardwareBuffer::DYNAMIC_WRITE_ONLY,
                 true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
         // bind texcoord
         binding->setBinding(TEXCOORD_BINDING, vbuf);
@@ -234,12 +234,12 @@ namespace Ogre {
         */
         mRenderOp2.indexData->indexBuffer =
             HardwareBufferManager::getSingleton().createIndexBuffer(
-                HardwareIndexBuffer::IT_16BIT, 
+                HardwareIndexBuffer::IndexType::_16BIT, 
                 mRenderOp2.indexData->indexCount, 
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+                HardwareBuffer::DYNAMIC_WRITE_ONLY,
                 true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
 
-        HardwareBufferLockGuard indexLock(mRenderOp2.indexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard indexLock(mRenderOp2.indexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
         auto* pIdx = static_cast<ushort*>(indexLock.pData);
 
         for (ushort cell = 0; cell < 8; ++cell)
@@ -274,58 +274,58 @@ namespace Ogre {
         dict->addParameter(ParameterDef("border_size", 
             "The sizes of the borders relative to the screen size, in the order "
             "left, right, top, bottom."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderSize);
         dict->addParameter(ParameterDef("border_material", 
             "The material to use for the border."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderMaterial);
         dict->addParameter(ParameterDef("border_topleft_uv", 
             "The texture coordinates for the top-left corner border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderTopLeftUV);
         dict->addParameter(ParameterDef("border_topright_uv", 
             "The texture coordinates for the top-right corner border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderTopRightUV);
         dict->addParameter(ParameterDef("border_bottomright_uv", 
             "The texture coordinates for the bottom-right corner border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderBottomRightUV);
         dict->addParameter(ParameterDef("border_bottomleft_uv", 
             "The texture coordinates for the bottom-left corner border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderBottomLeftUV);
         dict->addParameter(ParameterDef("border_left_uv", 
             "The texture coordinates for the left edge border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderLeftUV);
         dict->addParameter(ParameterDef("border_top_uv", 
             "The texture coordinates for the top edge border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderTopUV);
         dict->addParameter(ParameterDef("border_right_uv", 
             "The texture coordinates for the right edge border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderRightUV);
         dict->addParameter(ParameterDef("border_bottom_uv", 
             "The texture coordinates for the bottom edge border texture. 2 sets of uv values, "
             "one for the top-left corner, the other for the bottom-right corner."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdBorderBottomUV);
 
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBorderSize(Real size)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelLeftBorderSize = mPixelRightBorderSize = 
                 mPixelTopBorderSize = mPixelBottomBorderSize = static_cast<unsigned short>(size);
@@ -340,7 +340,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBorderSize(Real sides, Real topAndBottom)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelLeftBorderSize = mPixelRightBorderSize = static_cast<unsigned short>(sides);
             mPixelTopBorderSize = mPixelBottomBorderSize = static_cast<unsigned short>(topAndBottom);
@@ -357,7 +357,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBorderSize(Real left, Real right, Real top, Real bottom)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelLeftBorderSize = static_cast<unsigned short>(left);
             mPixelRightBorderSize = static_cast<unsigned short>(right);
@@ -376,7 +376,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getLeftBorderSize() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelLeftBorderSize;
         }
@@ -388,7 +388,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getRightBorderSize() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelRightBorderSize;
         }
@@ -400,7 +400,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getTopBorderSize() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelTopBorderSize;
         }
@@ -412,7 +412,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getBottomBorderSize() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelBottomBorderSize;
         }
@@ -437,7 +437,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp2.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
         // Can't use discard since this discards whole buffer
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pUV = static_cast<float*>(vbufLock.pData);
         
         for (auto & i : mBorderUV)
@@ -454,124 +454,124 @@ namespace Ogre {
         return
         ::std::format
         (   "{} {} {} {}"
-        ,   mBorderUV[idx].u1
-        ,   mBorderUV[idx].v1
-        ,   mBorderUV[idx].u2
-        ,   mBorderUV[idx].v2
+        ,   mBorderUV[std::to_underlying(idx)].u1
+        ,   mBorderUV[std::to_underlying(idx)].v1
+        ,   mBorderUV[std::to_underlying(idx)].u2
+        ,   mBorderUV[std::to_underlying(idx)].v2
         );
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setLeftBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_LEFT].u1 = u1; 
-        mBorderUV[BCELL_LEFT].u2 = u2; 
-        mBorderUV[BCELL_LEFT].v1 = v1; 
-        mBorderUV[BCELL_LEFT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::LEFT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::LEFT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::LEFT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::LEFT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setRightBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_RIGHT].u1 = u1; 
-        mBorderUV[BCELL_RIGHT].u2 = u2; 
-        mBorderUV[BCELL_RIGHT].v1 = v1; 
-        mBorderUV[BCELL_RIGHT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::RIGHT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::RIGHT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::RIGHT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::RIGHT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setTopBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_TOP].u1 = u1; 
-        mBorderUV[BCELL_TOP].u2 = u2; 
-        mBorderUV[BCELL_TOP].v1 = v1; 
-        mBorderUV[BCELL_TOP].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBottomBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_BOTTOM].u1 = u1; 
-        mBorderUV[BCELL_BOTTOM].u2 = u2; 
-        mBorderUV[BCELL_BOTTOM].v1 = v1; 
-        mBorderUV[BCELL_BOTTOM].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setTopLeftBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_TOP_LEFT].u1 = u1; 
-        mBorderUV[BCELL_TOP_LEFT].u2 = u2; 
-        mBorderUV[BCELL_TOP_LEFT].v1 = v1; 
-        mBorderUV[BCELL_TOP_LEFT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_LEFT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_LEFT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_LEFT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_LEFT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setTopRightBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_TOP_RIGHT].u1 = u1; 
-        mBorderUV[BCELL_TOP_RIGHT].u2 = u2; 
-        mBorderUV[BCELL_TOP_RIGHT].v1 = v1; 
-        mBorderUV[BCELL_TOP_RIGHT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_RIGHT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_RIGHT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_RIGHT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::TOP_RIGHT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBottomLeftBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_BOTTOM_LEFT].u1 = u1; 
-        mBorderUV[BCELL_BOTTOM_LEFT].u2 = u2; 
-        mBorderUV[BCELL_BOTTOM_LEFT].v1 = v1; 
-        mBorderUV[BCELL_BOTTOM_LEFT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_LEFT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_LEFT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_LEFT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_LEFT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
     //---------------------------------------------------------------------
     void BorderPanelOverlayElement::setBottomRightBorderUV(Real u1, Real v1, Real u2, Real v2)
     {
-        mBorderUV[BCELL_BOTTOM_RIGHT].u1 = u1; 
-        mBorderUV[BCELL_BOTTOM_RIGHT].u2 = u2; 
-        mBorderUV[BCELL_BOTTOM_RIGHT].v1 = v1; 
-        mBorderUV[BCELL_BOTTOM_RIGHT].v2 = v2; 
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_RIGHT)].u1 = u1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_RIGHT)].u2 = u2;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_RIGHT)].v1 = v1;
+        mBorderUV[std::to_underlying(BorderCellIndex::BOTTOM_RIGHT)].v2 = v2;
         mGeomUVsOutOfDate = true;
     }
 
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getLeftBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_LEFT);
+        return getCellUVString(BorderCellIndex::LEFT);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getRightBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_RIGHT);
+        return getCellUVString(BorderCellIndex::RIGHT);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getTopBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_TOP);
+        return getCellUVString(BorderCellIndex::TOP);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getBottomBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_BOTTOM);
+        return getCellUVString(BorderCellIndex::BOTTOM);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getTopLeftBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_TOP_LEFT);
+        return getCellUVString(BorderCellIndex::TOP_LEFT);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getTopRightBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_TOP_RIGHT);
+        return getCellUVString(BorderCellIndex::TOP_RIGHT);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getBottomLeftBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_BOTTOM_LEFT);
+        return getCellUVString(BorderCellIndex::BOTTOM_LEFT);
     }
     //---------------------------------------------------------------------
     auto BorderPanelOverlayElement::getBottomRightBorderUVString() const -> String
     {
-        return getCellUVString(BCELL_BOTTOM_RIGHT);
+        return getCellUVString(BorderCellIndex::BOTTOM_RIGHT);
     }
 
 
@@ -583,7 +583,7 @@ namespace Ogre {
     {
         mBorderMaterial = MaterialManager::getSingleton().getByName(name, group);
         if (!mBorderMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
+            OGRE_EXCEPT( ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BorderPanelOverlayElement::setBorderMaterialName" );
         mBorderMaterial->load();
         // Set some prerequisites to be sure
@@ -630,7 +630,7 @@ namespace Ogre {
         // Lock the whole position buffer in discard mode
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp2.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pPos = static_cast<float*>(vbufLock.pData);
         // Use the furthest away depth value, since materials should have depth-check off
         // This initialised the depth buffer for any 3D objects in front
@@ -666,7 +666,7 @@ namespace Ogre {
         // Also update center geometry
         // NB don't use superclass because we need to make it smaller because of border
         vbuf = mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
-        vbufLock.lock(vbuf, HardwareBuffer::HBL_DISCARD);
+        vbufLock.lock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         pPos = static_cast<float*>(vbufLock.pData);
         // Use cell 1 and 3 to determine positions
         *pPos++ = left[1];
@@ -696,7 +696,7 @@ namespace Ogre {
         {
 
             // Add outer
-            queue->addRenderable(mBorderRenderable.get(), RENDER_QUEUE_OVERLAY, mZOrder);
+            queue->addRenderable(mBorderRenderable.get(), RenderQueueGroupID::OVERLAY, mZOrder);
 
             // do inner last so the border artifacts don't overwrite the children
             // Add inner
@@ -714,7 +714,7 @@ namespace Ogre {
     void BorderPanelOverlayElement::setMetricsMode(GuiMetricsMode gmm)
     {
         PanelOverlayElement::setMetricsMode(gmm);
-        if (gmm != GMM_RELATIVE)
+        if (gmm != GuiMetricsMode::RELATIVE)
         {
             mPixelBottomBorderSize = static_cast<unsigned short>(mBottomBorderSize);
             mPixelLeftBorderSize = static_cast<unsigned short>(mLeftBorderSize);
@@ -725,7 +725,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void BorderPanelOverlayElement::_update()
     {
-        if (mMetricsMode != GMM_RELATIVE && 
+        if (mMetricsMode != GuiMetricsMode::RELATIVE && 
             mGeomPositionsOutOfDate)
         {
             mLeftBorderSize = mPixelLeftBorderSize * mPixelScaleX;

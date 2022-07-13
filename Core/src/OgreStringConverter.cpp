@@ -368,14 +368,14 @@ namespace Ogre {
 		StringStream stream;
 		switch (val)
 		{
-		case SMT_NONE:
+		case StereoModeType::NONE:
 		  stream << "None";
 		  break;
-		case SMT_FRAME_SEQUENTIAL:
+		case StereoModeType::FRAME_SEQUENTIAL:
 		  stream << "Frame Sequential";
 		  break;
 		default:
-		  OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "Unsupported stereo mode value", "StringConverter::toString(const StereoModeType& val)");
+		  OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "Unsupported stereo mode value", "StringConverter::toString(const StereoModeType& val)");
 		}
 
 		return stream.str();
@@ -386,11 +386,11 @@ namespace Ogre {
 		StereoModeType result = defaultValue;
 		if (val.compare("None") == 0)
 		{
-			result = SMT_NONE;
+			result = StereoModeType::NONE;
 		}
 		else if (val.compare("Frame Sequential") == 0)
 		{
-			result = SMT_FRAME_SEQUENTIAL;
+			result = StereoModeType::FRAME_SEQUENTIAL;
 		}
 		
 		return result;

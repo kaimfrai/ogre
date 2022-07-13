@@ -187,7 +187,7 @@ class Technique;
             loaded automatically (e.g. by Material class) or when 'load' is called with the default
             parameters by the application.
             @note
-                The default value is TFO_BILINEAR.
+                The default value is TextureFilterOptions::BILINEAR.
         */
         virtual void setDefaultTextureFiltering(TextureFilterOptions fo);
         /** Sets the default texture filtering to be used for loaded textures, for when textures are
@@ -224,13 +224,13 @@ class Technique;
             - emissive = ColourValue::Black
             - shininess = 0 (not shiny)
             - No texture unit settings (& hence no textures)
-            - SourceBlendFactor = Ogre::SBF_ONE
-            - DestBlendFactor = Ogre::SBF_ZERO (no blend, replace with new colour)
+            - SourceBlendFactor = Ogre::SceneBlendFactor::ONE
+            - DestBlendFactor = Ogre::SceneBlendFactor::ZERO (no blend, replace with new colour)
             - Depth buffer checking on
             - Depth buffer writing on
-            - Depth buffer comparison function = Ogre::CMPF_LESS_EQUAL
+            - Depth buffer comparison function = Ogre::CompareFunction::LESS_EQUAL
             - Colour buffer writing on for all channels
-            - Culling mode = Ogre::CULL_CLOCKWISE
+            - Culling mode = Ogre::CullingMode::CLOCKWISE
             - Ambient lighting = ColourValue(0.5, 0.5, 0.5) (mid-grey)
             - Dynamic lighting enabled
             - Gourad shading mode

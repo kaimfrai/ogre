@@ -159,7 +159,7 @@ class RenderSystem;
 
 
         // Look for a position element
-        const VertexElement* posElem = vertexDeclaration->findElementBySemantic(VES_POSITION);
+        const VertexElement* posElem = vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         if (posElem)
         {
             size_t v;
@@ -185,16 +185,16 @@ class RenderSystem;
             size_t oldVertexCount = vbuf->getNumVertices();
             size_t newVertexCount = oldVertexCount * 2;
             newPosBuffer = vbuf->getManager()->createVertexBuffer(
-                VertexElement::getTypeSize(VET_FLOAT3), newVertexCount, vbuf->getUsage(), 
+                VertexElement::getTypeSize(VertexElementType::FLOAT3), newVertexCount, vbuf->getUsage(), 
                 vbuf->hasShadowBuffer());
 
             // Iterate over the old buffer, copying the appropriate elements and initialising the rest
             float* pSrc;
             auto *pBaseSrc = static_cast<unsigned char*>(
-                vbuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                vbuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
             // Point first destination pointer at the start of the new position buffer,
             // the other one half way along
-            auto *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::HBL_DISCARD));
+            auto *pDest = static_cast<float*>(newPosBuffer->lock(HardwareBuffer::LockOptions::DISCARD));
             float* pDest2 = pDest + oldVertexCount * 3; 
 
             // Precalculate any dimensions of vertex areas outside the position
@@ -204,7 +204,7 @@ class RenderSystem;
             {
                 size_t postPosVertexSize, postPosVertexOffset;
                 pBaseDestRem = static_cast<unsigned char*>(
-                    newRemainderBuffer->lock(HardwareBuffer::HBL_DISCARD));
+                    newRemainderBuffer->lock(HardwareBuffer::LockOptions::DISCARD));
                 prePosVertexSize = posElem->getOffset();
                 postPosVertexOffset = prePosVertexSize + posElem->getSize();
                 postPosVertexSize = vbuf->getVertexSize() - postPosVertexOffset;
@@ -253,10 +253,10 @@ class RenderSystem;
             {
                 // Now it's time to set up the w buffer
                 hardwareShadowVolWBuffer = vbuf->getManager()->createVertexBuffer(
-                    sizeof(float), newVertexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY, false);
+                    sizeof(float), newVertexCount, HardwareBuffer::STATIC_WRITE_ONLY, false);
                 // Fill the first half with 1.0, second half with 0.0
                 pDest = static_cast<float*>(
-                    hardwareShadowVolWBuffer->lock(HardwareBuffer::HBL_DISCARD));
+                    hardwareShadowVolWBuffer->lock(HardwareBuffer::LockOptions::DISCARD));
                 for (v = 0; v < oldVertexCount; ++v)
                 {
                     *pDest++ = 1.0f;
@@ -296,8 +296,8 @@ class RenderSystem;
                         idx, 
                         newPosBufferSource, // new source buffer
                         0, // no offset now
-                        VET_FLOAT3, 
-                        VES_POSITION);
+                        VertexElementType::FLOAT3, 
+                        VertexElementSemantic::POSITION);
                 }
                 else if (wasSharedBuffer &&
                     elemi.getSource() == posOldSource &&
@@ -360,7 +360,7 @@ class RenderSystem;
                 value->getVertexSize();
             oldBufferLocks[key] =
                 value->lock(
-                    HardwareBuffer::HBL_READ_ONLY);
+                    HardwareBuffer::LockOptions::READ_ONLY);
 
             useShadowBuffer |= value->hasShadowBuffer();
         }
@@ -379,7 +379,7 @@ class RenderSystem;
 
             newBufferVertexSizes.push_back(vertexSize);
             newBufferLocks.push_back(
-                vbuf->lock(HardwareBuffer::HBL_DISCARD));
+                vbuf->lock(HardwareBuffer::LockOptions::DISCARD));
         }
 
         // Map from new to old elements
@@ -395,7 +395,7 @@ class RenderSystem;
             if (!oldElem)
             {
                 // Error, cannot create new elements with this method
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                     "Element not found in old vertex declaration", 
                     "VertexData::reorganiseBuffers");
             }
@@ -463,7 +463,7 @@ class RenderSystem;
         {
             VertexDeclaration::VertexElementList destElems = newDeclaration->findElementsBySource(b);
             // Initialise with most restrictive version
-            int final = HardwareBuffer::HBU_STATIC_WRITE_ONLY;
+            auto final = HardwareBuffer::STATIC_WRITE_ONLY;
             for (VertexElement& destelem : destElems)
             {
                 // get source
@@ -474,20 +474,20 @@ class RenderSystem;
                 HardwareVertexBufferSharedPtr srcbuf = 
                     vertexBufferBinding->getBuffer(srcelem->getSource());
                 // improve flexibility only
-                if (srcbuf->getUsage() & HardwareBuffer::HBU_DYNAMIC)
+                if (!!(srcbuf->getUsage() & HardwareBuffer::DYNAMIC))
                 {
                     // remove static
-                    final &= ~HardwareBuffer::HBU_STATIC;
+                    final &= ~HardwareBuffer::STATIC;
                     // add dynamic
-                    final |= HardwareBuffer::HBU_DYNAMIC;
+                    final |= HardwareBuffer::DYNAMIC;
                 }
-                if (!(srcbuf->getUsage() & HBU_DETAIL_WRITE_ONLY))
+                if (!(srcbuf->getUsage() & HardwareBufferUsage::DETAIL_WRITE_ONLY))
                 {
                     // remove write only
-                    final &= ~HBU_DETAIL_WRITE_ONLY;
+                    final &= ~HardwareBufferUsage::DETAIL_WRITE_ONLY;
                 }
             }
-            usages.push_back(static_cast<HardwareBuffer::Usage>(final));
+            usages.push_back(final);
         }
         // Call specific method
         reorganiseBuffers(newDeclaration, usages, mgr);
@@ -506,7 +506,7 @@ class RenderSystem;
         {
             if (!vertexBufferBinding->isBufferBound(elem.getSource()))
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     "No buffer is bound to that element source.",
                     "VertexData::closeGapsInBindings");
             }
@@ -563,7 +563,7 @@ class RenderSystem;
     //-----------------------------------------------------------------------
     void VertexData::convertPackedColour(VertexElementType, VertexElementType destType)
     {
-        OgreAssert(destType == VET_UBYTE4_NORM, "Not supported");
+        OgreAssert(destType == VertexElementType::UBYTE4_NORM, "Not supported");
 
         const VertexBufferBinding::VertexBufferBindingMap& bindMap = 
             vertexBufferBinding->getBindings();
@@ -574,7 +574,7 @@ class RenderSystem;
             bool conversionNeeded = false;
             for (auto & elem : elems)
             {
-                if (elem.getType() == _DETAIL_SWAP_RB)
+                if (elem.getType() == VertexElementType::_DETAIL_SWAP_RB)
                 {
                     conversionNeeded = true;
                 }
@@ -582,18 +582,18 @@ class RenderSystem;
 
             if (conversionNeeded)
             {
-                void* pBase = value->lock(HardwareBuffer::HBL_NORMAL);
+                void* pBase = value->lock(HardwareBuffer::LockOptions::NORMAL);
 
                 for (size_t v = 0; v < value->getNumVertices(); ++v)
                 {
 
                     for (auto & elem : elems)
                     {
-                        if (elem.getType() == _DETAIL_SWAP_RB)
+                        if (elem.getType() == VertexElementType::_DETAIL_SWAP_RB)
                         {
                             uint32* pRGBA;
                             elem.baseVertexPointerToElement(pBase, &pRGBA);
-                            VertexElement::convertColourValue(_DETAIL_SWAP_RB, destType, pRGBA);
+                            VertexElement::convertColourValue(VertexElementType::_DETAIL_SWAP_RB, destType, pRGBA);
                         }
                     }
                     pBase = static_cast<void*>(
@@ -607,7 +607,7 @@ class RenderSystem;
                 unsigned short elemIndex = 0;
                 for (const auto & elem : allelems)
                 {
-                    if (elem.getType() == _DETAIL_SWAP_RB)
+                    if (elem.getType() == VertexElementType::_DETAIL_SWAP_RB)
                     {
                         vertexDeclaration->modifyElement(elemIndex, 
                             elem.getSource(), elem.getOffset(), destType, 
@@ -641,9 +641,9 @@ class RenderSystem;
             // Create a new 3D texture coordinate set
             HardwareAnimationData data;
             data.targetBufferIndex = vertexBufferBinding->getNextIndex();
-            vertexDeclaration->addElement(data.targetBufferIndex, 0, VET_FLOAT3, VES_TEXTURE_COORDINATES, texCoord++);
+            vertexDeclaration->addElement(data.targetBufferIndex, 0, VertexElementType::FLOAT3, VertexElementSemantic::TEXTURE_COORDINATES, texCoord++);
             if (animateNormals)
-                    vertexDeclaration->addElement(data.targetBufferIndex, sizeof(float)*3, VET_FLOAT3, VES_TEXTURE_COORDINATES, texCoord++);
+                    vertexDeclaration->addElement(data.targetBufferIndex, sizeof(float)*3, VertexElementType::FLOAT3, VertexElementSemantic::TEXTURE_COORDINATES, texCoord++);
 
             hwAnimationDataList.push_back(data);
             // Vertex buffer will not be bound yet, we expect this to be done by the
@@ -783,7 +783,7 @@ class RenderSystem;
     {
         if (indexBuffer->isLocked()) return;
 
-        void *buffer = indexBuffer->lock(HardwareBuffer::HBL_NORMAL);
+        void *buffer = indexBuffer->lock(HardwareBuffer::LockOptions::NORMAL);
 
         Triangle* triangles;
 
@@ -792,7 +792,7 @@ class RenderSystem;
         size_t i, j;
         uint16 *source = nullptr;
 
-        if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
+        if (indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT)
         {
             triangles = new Triangle[nTriangles];
             source = (uint16 *)buffer;
@@ -837,7 +837,7 @@ class RenderSystem;
             }
         }
 
-        if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
+        if (indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT)
         {
             // reorder the indexbuffer
             j = 0;
@@ -892,9 +892,9 @@ class RenderSystem;
     {
         if (indexBuffer->isLocked()) return;
 
-        auto *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
+        auto *shortbuffer = (uint16 *)indexBuffer->lock(HardwareBuffer::LockOptions::READ_ONLY);
 
-        if (indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT)
+        if (indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT)
             for (unsigned int i = 0; i < indexBuffer->getNumIndexes(); ++i)
                 inCache(shortbuffer[i]);
         else

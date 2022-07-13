@@ -54,7 +54,7 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------------
     Technique::Technique(Material* parent)
-        : mParent(parent), mIlluminationPassesCompilationPhase(IPS_NOT_COMPILED), mIsSupported(false), mLodIndex(0), mSchemeIndex(0)
+        : mParent(parent), mIlluminationPassesCompilationPhase(IlluminationPassesState::NOT_COMPILED), mIsSupported(false), mLodIndex(0), mSchemeIndex(0)
     {
         // See above, defaults to unsupported until examined
     }
@@ -101,7 +101,7 @@ namespace Ogre {
 
         // Compile for categorised illumination on demand
         clearIlluminationPasses();
-        mIlluminationPassesCompilationPhase = IPS_NOT_COMPILED;
+        mIlluminationPassesCompilationPhase = IlluminationPassesState::NOT_COMPILED;
 
         return errors.str();
 
@@ -151,13 +151,13 @@ namespace Ogre {
                 for(const TextureUnitState* tex : currPass->getTextureUnitStates())
                 {
                     String err;
-                    if ((tex->getTextureType() == TEX_TYPE_3D) && !caps->hasCapability(RSC_TEXTURE_3D))
+                    if ((tex->getTextureType() == TextureType::_3D) && !caps->hasCapability(Capabilities::TEXTURE_3D))
                     {
                         err = "Volume textures";
                     }
 
-                    if ((tex->getTextureType() == TEX_TYPE_2D_ARRAY) &&
-                        !caps->hasCapability(RSC_TEXTURE_2D_ARRAY))
+                    if ((tex->getTextureType() == TextureType::_2D_ARRAY) &&
+                        !caps->hasCapability(Capabilities::TEXTURE_2D_ARRAY))
                     {
                         err = "Array textures";
                     }
@@ -412,7 +412,7 @@ namespace Ogre {
         }
         // Compile for categorised illumination on demand
         clearIlluminationPasses();
-        mIlluminationPassesCompilationPhase = IPS_NOT_COMPILED;
+        mIlluminationPassesCompilationPhase = IlluminationPassesState::NOT_COMPILED;
         return *this;
     }
     //-----------------------------------------------------------------------------
@@ -674,7 +674,7 @@ namespace Ogre {
     void Technique::_notifyNeedsRecompile()
     {
         // Disable require to recompile when splitting illumination passes
-        if (mIlluminationPassesCompilationPhase != IPS_COMPILE_DISABLED)
+        if (mIlluminationPassesCompilationPhase != IlluminationPassesState::COMPILE_DISABLED)
         {
             mParent->_notifyNeedsRecompile();
         }
@@ -707,7 +707,7 @@ namespace Ogre {
         // first check whether all passes have manually assigned illumination
         for (auto & mPasse : mPasses)
         {
-            if (mPasse->getIlluminationStage() == IS_UNKNOWN)
+            if (mPasse->getIlluminationStage() == IlluminationStage::UNKNOWN)
                 return false;
         }
 
@@ -736,7 +736,7 @@ namespace Ogre {
             iend = mPasses.end();
             i = mPasses.begin();
 
-            IlluminationStage iStage = IS_AMBIENT;
+            IlluminationStage iStage = IlluminationStage::AMBIENT;
 
             bool haveAmbient = false;
             while (i != iend)
@@ -745,7 +745,7 @@ namespace Ogre {
                 Pass* p = *i;
                 switch(iStage)
                 {
-                case IS_AMBIENT:
+                case IlluminationStage::AMBIENT:
                     // Keep looking for ambient only
                     if (p->isAmbientOnly())
                     {
@@ -764,17 +764,17 @@ namespace Ogre {
                         // Split off any ambient part
                         if (p->getAmbient() != ColourValue::Black ||
                             p->getSelfIllumination() != ColourValue::Black ||
-                            p->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
+                            p->getAlphaRejectFunction() != CompareFunction::ALWAYS_PASS)
                         {
                             // Copy existing pass
                             Pass* newPass = new Pass(this, p->getIndex(), *p);
-                            if (newPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
+                            if (newPass->getAlphaRejectFunction() != CompareFunction::ALWAYS_PASS)
                             {
                                 // Alpha rejection passes must retain their transparency, so
                                 // we allow the texture units, but override the colour functions
                                 for (auto tus : newPass->getTextureUnitStates())
                                 {
-                                    tus->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT);
+                                    tus->setColourOperationEx(LayerBlendOperationEx::SOURCE1, LayerBlendSource::CURRENT);
                                 }
                             }
                             else
@@ -828,10 +828,10 @@ namespace Ogre {
                             haveAmbient = true;
                         }
                         // This means we're done with ambients, progress to per-light
-                        iStage = IS_PER_LIGHT;
+                        iStage = IlluminationStage::PER_LIGHT;
                     }
                     break;
-                case IS_PER_LIGHT:
+                case IlluminationStage::PER_LIGHT:
                     if (p->getIteratePerLight())
                     {
                         // If this is per-light already, use it directly
@@ -852,13 +852,13 @@ namespace Ogre {
                         {
                             // Copy existing pass
                             Pass* newPass = new Pass(this, p->getIndex(), *p);
-                            if (newPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS)
+                            if (newPass->getAlphaRejectFunction() != CompareFunction::ALWAYS_PASS)
                             {
                                 // Alpha rejection passes must retain their transparency, so
                                 // we allow the texture units, but override the colour functions
                                 for (auto tus : newPass->getTextureUnitStates())
                                 {
-                                    tus->setColourOperationEx(LBX_SOURCE1, LBS_CURRENT);
+                                    tus->setColourOperationEx(LayerBlendOperationEx::SOURCE1, LayerBlendSource::CURRENT);
                                 }
                             }
                             else
@@ -874,7 +874,7 @@ namespace Ogre {
                             newPass->setAmbient(ColourValue::Black);
                             newPass->setSelfIllumination(ColourValue::Black);
                             // must be additive
-                            newPass->setSceneBlending(SBF_ONE, SBF_ONE);
+                            newPass->setSceneBlending(SceneBlendFactor::ONE, SceneBlendFactor::ONE);
 
                             // Calculate hash value for new pass, because we are compiling
                             // illumination passes on demand, which will loss hash calculate
@@ -891,10 +891,10 @@ namespace Ogre {
 
                         }
                         // This means the end of per-light passes
-                        iStage = IS_DECAL;
+                        iStage = IlluminationStage::DECAL;
                     }
                     break;
-                case IS_DECAL:
+                case IlluminationStage::DECAL:
                     // We just want a 'lighting off' pass to finish off
                     // and only if there are texture units
                     if (p->getNumTextureUnitStates() > 0)
@@ -919,7 +919,7 @@ namespace Ogre {
                             newPass->setLightingEnabled(false);
                             newPass->setIteratePerLight(false, false);
                             // modulate
-                            newPass->setSceneBlending(SBF_DEST_COLOUR, SBF_ZERO);
+                            newPass->setSceneBlending(SceneBlendFactor::DEST_COLOUR, SceneBlendFactor::ZERO);
 
                             // Calculate hash value for new pass, because we are compiling
                             // illumination passes on demand, which will loss hash calculate
@@ -941,7 +941,7 @@ namespace Ogre {
                     ++i; // always increment on decal, since nothing more to do with this pass
 
                     break;
-                case IS_UNKNOWN:
+                case IlluminationStage::UNKNOWN:
                     break;
                 }
             }
@@ -968,12 +968,12 @@ namespace Ogre {
     auto
     Technique::getIlluminationPasses() noexcept -> const IlluminationPassList&
     {
-        IlluminationPassesState targetState = IPS_COMPILED;
+        IlluminationPassesState targetState = IlluminationPassesState::COMPILED;
         if(mIlluminationPassesCompilationPhase != targetState
-        && mIlluminationPassesCompilationPhase != IPS_COMPILE_DISABLED)
+        && mIlluminationPassesCompilationPhase != IlluminationPassesState::COMPILE_DISABLED)
         {
             // prevents parent->_notifyNeedsRecompile() call during compile
-            mIlluminationPassesCompilationPhase = IPS_COMPILE_DISABLED;
+            mIlluminationPassesCompilationPhase = IlluminationPassesState::COMPILE_DISABLED;
             // Splitting the passes into illumination passes
             _compileIlluminationPasses();
             // Post notification, so that technique owner can post-process created passes

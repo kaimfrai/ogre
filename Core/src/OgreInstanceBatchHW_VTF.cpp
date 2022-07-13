@@ -103,7 +103,7 @@ namespace Ogre
 
         //Blend weights may not be present because HW_VTF does not require to be skeletally animated
         const VertexElement *veWeights = baseVertexData->vertexDeclaration->
-                                                        findElementBySemantic( VES_BLEND_WEIGHTS ); 
+                                                        findElementBySemantic( VertexElementSemantic::BLEND_WEIGHTS ); 
         if( veWeights )
             mWeightCount = forceOneWeight() ? 1 : veWeights->getSize() / sizeof(float);
         else
@@ -124,12 +124,12 @@ namespace Ogre
             }
 
             const VertexElement* pElement = thisVertexData->vertexDeclaration->findElementBySemantic
-                                                                                    (VES_BLEND_INDICES);
+                                                                                    (VertexElementSemantic::BLEND_INDICES);
             if (pElement) 
             {
                 unsigned short skelDataSource = pElement->getSource();
-                thisVertexData->vertexDeclaration->removeElement( VES_BLEND_INDICES );
-                thisVertexData->vertexDeclaration->removeElement( VES_BLEND_WEIGHTS );
+                thisVertexData->vertexDeclaration->removeElement( VertexElementSemantic::BLEND_INDICES );
+                thisVertexData->vertexDeclaration->removeElement( VertexElementSemantic::BLEND_WEIGHTS );
                 if (thisVertexData->vertexDeclaration->findElementsBySource(skelDataSource).empty())
                 {
                     thisVertexData->vertexDeclaration->closeGapsInSource();
@@ -170,14 +170,14 @@ namespace Ogre
         //Can fit two dual quaternions in every float4, but only one 3x4 matrix
         for(size_t i = 0; i < mWeightCount; i += maxFloatsPerVector / mRowLength)
         {
-            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                                         thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
         }
 
         //Add the weights (supports up to four, which is Ogre's limit)
         if(mWeightCount > 1)
         {
-            thisVertexData->vertexDeclaration->addElement(newSource, offset, VET_FLOAT4, VES_BLEND_WEIGHTS,
+            thisVertexData->vertexDeclaration->addElement(newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::BLEND_WEIGHTS,
                                         0 );
         }
         
@@ -186,10 +186,10 @@ namespace Ogre
             HardwareBufferManager::getSingleton().createVertexBuffer(
             thisVertexData->vertexDeclaration->getVertexSize(newSource),
             thisVertexData->vertexCount,
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+            HardwareBuffer::STATIC_WRITE_ONLY );
         thisVertexData->vertexBufferBinding->setBinding( newSource, vertexBuffer );
 
-        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
         auto *thisFloat = static_cast<float*>(vertexLock.pData);
 
         //Create the UVs to sample from the right bone/matrix
@@ -245,17 +245,17 @@ namespace Ogre
 
         //Now create the instance buffer that will be incremented per instance, contains UV offsets
         newSource = thisVertexData->vertexDeclaration->getMaxSource() + 1;
-        offset = thisVertexData->vertexDeclaration->addElement( newSource, 0, VET_FLOAT2, VES_TEXTURE_COORDINATES,
+        offset = thisVertexData->vertexDeclaration->addElement( newSource, 0, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES,
                                     thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
         if (useBoneMatrixLookup())
         {
             //if using bone matrix lookup we will need to add 3 more float4 to contain the matrix. containing
             //the personal world transform of each entity.
-            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
-            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() ).getSize();
-            thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() );
             //Add two floats of padding here? or earlier?
             //If not using bone matrix lookup, is it ok that it is 8 bytes since divides evenly into 16
@@ -266,7 +266,7 @@ namespace Ogre
         mInstanceVertexBuffer = HardwareBufferManager::getSingleton().createVertexBuffer(
                                         thisVertexData->vertexDeclaration->getVertexSize(newSource),
                                         mInstancesPerBatch,
-                                        HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                        HardwareBuffer::STATIC_WRITE_ONLY );
         thisVertexData->vertexBufferBinding->setBinding( newSource, mInstanceVertexBuffer );
 
         //Mark this buffer as instanced
@@ -296,7 +296,7 @@ namespace Ogre
             texelOffsets.x = /*renderSystem->getHorizontalTexelOffset()*/ -0.5f / texWidth;
             texelOffsets.y = /*renderSystem->getHorizontalTexelOffset()*/ -0.5f / texHeight;
 
-            HardwareBufferLockGuard instanceVertexLock(mInstanceVertexBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard instanceVertexLock(mInstanceVertexBuffer, HardwareBuffer::LockOptions::DISCARD);
             auto *thisVec = static_cast<float*>(instanceVertexLock.pData);
 
             const size_t maxPixelsPerLine = std::min( static_cast<size_t>(mMatrixTexture->getWidth()), mMaxFloatsPerLine >> 2 );
@@ -365,7 +365,7 @@ namespace Ogre
         }
         if( baseSubMesh->vertexData->vertexDeclaration->getNextFreeTextureCoordinate() > 8 - neededTextureCoord )
         {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, 
                     ::std::format("Given mesh must have at least "
                     "{} free TEXCOORDs", neededTextureCoord),
                     "InstanceBatchHW_VTF::checkSubMeshCompatibility");
@@ -375,7 +375,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     auto InstanceBatchHW_VTF::calculateMaxNumInstances( 
-                    const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
+                    const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t
     {
         size_t retVal = 0;
 
@@ -383,10 +383,10 @@ namespace Ogre
         const RenderSystemCapabilities *capabilities = renderSystem->getCapabilities();
 
         //VTF & HW Instancing must be supported
-        if( capabilities->hasCapability( RSC_VERTEX_BUFFER_INSTANCE_DATA ) &&
-            capabilities->hasCapability( RSC_VERTEX_TEXTURE_FETCH ) )
+        if( capabilities->hasCapability( Capabilities::VERTEX_BUFFER_INSTANCE_DATA ) &&
+            capabilities->hasCapability( Capabilities::VERTEX_TEXTURE_FETCH ) )
         {
-            //TODO: Check PF_FLOAT32_RGBA is supported (should be, since it was the 1st one)
+            //TODO: Check PixelFormat::FLOAT32_RGBA is supported (should be, since it was the 1st one)
             const size_t numBones = std::max<size_t>( 1, baseSubMesh->blendIndexToBoneIndexMap.size() );
 
             const size_t maxUsableWidth = c_maxTexWidthHW - (c_maxTexWidthHW % (numBones * mRowLength));
@@ -394,10 +394,10 @@ namespace Ogre
             //See InstanceBatchHW::calculateMaxNumInstances for the 65535
             retVal = std::min<size_t>( 65535, maxUsableWidth * c_maxTexHeightHW / mRowLength / numBones );
 
-            if( flags & IM_VTFBESTFIT )
+            if(!!(flags & InstanceManagerFlags::VTFBESTFIT))
             {
                 size_t numUsedSkeletons = mInstancesPerBatch;
-                if (flags & IM_VTFBONEMATRIXLOOKUP)
+                if (!!(flags & InstanceManagerFlags::VTFBONEMATRIXLOOKUP))
                     numUsedSkeletons = std::min<size_t>(getMaxLookupTableInstances(), numUsedSkeletons);
                 const size_t instancesPerBatch = std::min( retVal, numUsedSkeletons );
                 //Do the same as in createVertexTexture(), but changing c_maxTexWidthHW for maxUsableWidth
@@ -434,7 +434,7 @@ namespace Ogre
         mDirtyAnimation = false;
 
         //Now lock the texture and copy the 4x3 matrices!
-        HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::LockOptions::DISCARD);
         const PixelBox &pixelBox = mMatrixTexture->getBuffer()->getCurrentLock();
 
         auto *pSource = reinterpret_cast<float*>(pixelBox.data);

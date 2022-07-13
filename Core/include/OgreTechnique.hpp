@@ -68,11 +68,11 @@ class Material;
 
     private:
         /// Illumination pass state type
-        enum IlluminationPassesState : int8
+        enum class IlluminationPassesState : int8
         {
-            IPS_COMPILE_DISABLED = -1,
-            IPS_NOT_COMPILED = 0,
-            IPS_COMPILED = 1
+            COMPILE_DISABLED = -1,
+            NOT_COMPILED = 0,
+            COMPILED = 1
         };
 
         /// List of primary passes
@@ -125,20 +125,22 @@ class Material;
         /** Directive used to manually control technique support based on the
             inclusion or exclusion of some factor.
         */
-        enum IncludeOrExclude
+        enum class IncludeOrExclude
         {
             /// Inclusive - only support if present
             INCLUDE = 0,
             /// Exclusive - do not support if present
             EXCLUDE = 1
         };
+        using enum IncludeOrExclude;
+
         /// Rule controlling whether technique is deemed supported based on GPU vendor
         struct GPUVendorRule
         {
             GPUVendor vendor;
             IncludeOrExclude includeOrExclude;
             GPUVendorRule()
-                : vendor(GPU_UNKNOWN), includeOrExclude(EXCLUDE) {}
+                : vendor(GPUVendor::UNKNOWN), includeOrExclude(EXCLUDE) {}
             GPUVendorRule(GPUVendor v, IncludeOrExclude ie)
                 : vendor(v), includeOrExclude(ie) {}
         };
@@ -484,7 +486,7 @@ class Material;
         */
         void setFog(
             bool overrideScene,
-            FogMode mode = FOG_NONE,
+            FogMode mode = FogMode::NONE,
             const ColourValue& colour = ColourValue::White,
             Real expDensity = 0.001f, Real linearStart = 0.0f, Real linearEnd = 1.0f );
 

@@ -54,7 +54,7 @@ CompositionTechnique::~CompositionTechnique()
 auto CompositionTechnique::createTextureDefinition(std::string_view name) -> CompositionTechnique::TextureDefinition *
 {
     if(getTextureDefinition(name))
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("Texture '{}' already exists", name));
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, ::std::format("Texture '{}' already exists", name));
 
     auto *t = new TextureDefinition();
     t->name = name;
@@ -158,11 +158,11 @@ auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
         {
             // Check whether equivalent supported
             // Need a format which is the same number of bits to pass
-            bool accepted = texMgr.isEquivalentFormatSupported(td->type, pfi, TU_RENDERTARGET);
+            bool accepted = texMgr.isEquivalentFormatSupported(td->type, pfi, TextureUsage::RENDERTARGET);
             if(!accepted && acceptTextureDegradation)
             {
                 // Don't care about exact format so long as something is supported
-                accepted = texMgr.getNativeFormat(td->type, pfi, TU_RENDERTARGET) != PF_UNKNOWN;
+                accepted = texMgr.getNativeFormat(td->type, pfi, TextureUsage::RENDERTARGET) != PixelFormat::UNKNOWN;
             }
 
             if(!accepted)
@@ -171,15 +171,15 @@ auto CompositionTechnique::isSupported(bool acceptTextureDegradation) -> bool
 
         //Check all render targets have same number of bits
         if( !Root::getSingleton().getRenderSystem()->getCapabilities()->
-            hasCapability( RSC_MRT_DIFFERENT_BIT_DEPTHS ) && !td->formatList.empty() )
+            hasCapability( Capabilities::MRT_DIFFERENT_BIT_DEPTHS ) && !td->formatList.empty() )
         {
             PixelFormat nativeFormat = texMgr.getNativeFormat( td->type, td->formatList.front(),
-                                                                TU_RENDERTARGET );
+                                                                TextureUsage::RENDERTARGET );
             size_t nativeBits = PixelUtil::getNumElemBits( nativeFormat );
             for( auto pfi = td->formatList.begin()+1;
                     pfi != td->formatList.end(); ++pfi )
             {
-                PixelFormat nativeTmp = texMgr.getNativeFormat( td->type, *pfi, TU_RENDERTARGET );
+                PixelFormat nativeTmp = texMgr.getNativeFormat( td->type, *pfi, TextureUsage::RENDERTARGET );
                 if( PixelUtil::getNumElemBits( nativeTmp ) != nativeBits )
                 {
                     return false;

@@ -46,9 +46,9 @@ namespace Ogre {
     class HardwareIndexBuffer : public HardwareBuffer
     {
         public:
-            enum IndexType : uint8 {
-                IT_16BIT,
-                IT_32BIT
+            enum class IndexType : uint8 {
+                _16BIT,
+                _32BIT
             };
 
         private:
@@ -72,7 +72,7 @@ namespace Ogre {
             /// Get the size in bytes of each index
             [[nodiscard]] auto getIndexSize() const noexcept -> uint8 { return mIndexSize; }
 
-            static auto indexSize(IndexType type) -> size_t { return type == IT_16BIT ? sizeof(uint16) : sizeof(uint32); }
+            static auto indexSize(IndexType type) -> size_t { return type == IndexType::_16BIT ? sizeof(uint16) : sizeof(uint32); }
 
             // NB subclasses should override lock, unlock, readData, writeData
     };

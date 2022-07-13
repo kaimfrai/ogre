@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define OGRE_RENDERSYSTEMS_GL_GPUPROGRAM_H
 
 #include "OgreGpuProgram.hpp"
+#include "OgreGpuProgramParams.hpp"
 #include "OgreHardwareVertexBuffer.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
@@ -47,7 +48,7 @@ class ResourceManager;
         /// Execute the binding functions for this program
         virtual void unbindProgram() = 0;
         /// Execute the param binding functions for this program
-        virtual void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) = 0;
+        virtual void bindProgramParameters(GpuProgramParametersSharedPtr params, GpuParamVariability mask) = 0;
         /// Test whether attribute index for a given semantic is valid
         virtual auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool;
     };
@@ -77,7 +78,7 @@ class ResourceManager;
         /// Execute the unbinding functions for this program
         void unbindProgram() override;
         /// Execute the param binding functions for this program
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, Ogre::GpuParamVariability mask) override;
 
         /// Get the GL type for the program
         auto getProgramType() const -> GLenum;

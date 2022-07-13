@@ -48,7 +48,7 @@ namespace Ogre
     {
         delete[] (char*)address;
     }
-    #define OGRE_DEFLATE_TMP_SIZE 16384
+    auto constexpr inline OGRE_DEFLATE_TMP_SIZE = 16384;
     //---------------------------------------------------------------------
     DeflateStream::DeflateStream(const DataStreamPtr& compressedStream, std::string_view tmpFileName, size_t avail_in)
     : DataStream(compressedStream->getAccessMode())
@@ -110,7 +110,7 @@ namespace Ogre
         mZStream->zalloc = OgreZalloc;
         mZStream->zfree = OgreZfree;
         
-        if (getAccessMode() == READ)
+        if (getAccessMode() == std::to_underlying(READ))
         {
             mTmp = new unsigned char[OGRE_DEFLATE_TMP_SIZE];
             size_t restorePoint = mCompressedStream->tell();
@@ -157,7 +157,7 @@ namespace Ogre
 
                 char tmpname[] = "/tmp/ogreXXXXXX";
                 if (mkstemp(tmpname) == -1)
-                    OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Temporary file name generation failed.", "DeflateStream::init");
+                    OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Temporary file name generation failed.", "DeflateStream::init");
 
                 mTempFileName = tmpname;
             }
@@ -170,7 +170,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DeflateStream::destroy()
     {
-        if (getAccessMode() == READ)
+        if (getAccessMode() == std::to_underlying(READ))
             inflateEnd(mZStream);
 
         delete[] mZStream;
@@ -191,7 +191,7 @@ namespace Ogre
             return mCompressedStream->read(buf, count);
         }
         
-        if (getAccessMode() & WRITE)
+        if (getAccessMode() &  std::to_underlying(WRITE))
         {
             return mTmpWriteStream->read(buf, count);
         }
@@ -230,7 +230,7 @@ namespace Ogre
                             if (mStatus != Z_STREAM_END)
                             {
                                 mCompressedStream->seek(restorePoint);
-                                OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Error in compressed stream");
+                                OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "Error in compressed stream");
                             }
                             else 
                             {
@@ -256,8 +256,8 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto DeflateStream::write(const void* buf, size_t count) -> size_t
     {
-        if ((getAccessMode() & WRITE) == 0)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        if ((getAccessMode() & std::to_underlying(WRITE)) == 0)
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Not a writable stream", "DeflateStream::write");
         
         return mTmpWriteStream->write(buf, count);
@@ -282,7 +282,7 @@ namespace Ogre
         if (deflateInit2(mZStream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, windowBits, 8, Z_DEFAULT_STRATEGY) != Z_OK)
         {
             destroy();
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                         "Error initialising deflate compressed stream!",
                         "DeflateStream::init");
         }
@@ -297,7 +297,7 @@ namespace Ogre
             if (inFile.bad()) 
             {
                 deflateEnd(mZStream);
-                OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                             "Error reading temp uncompressed stream!",
                             "DeflateStream::init");
             }
@@ -336,7 +336,7 @@ namespace Ogre
             return;
         }
         
-        if (getAccessMode() & WRITE)
+        if (getAccessMode() & std::to_underlying(WRITE))
         {
             mTmpWriteStream->skip(count);
         }
@@ -346,7 +346,7 @@ namespace Ogre
             {
                 if (!mReadCache.ff(count))
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                    OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 "You can only skip within the cache range in a deflate stream.",
                                 "DeflateStream::skip");
                 }
@@ -355,7 +355,7 @@ namespace Ogre
             {
                 if (!mReadCache.rewind((size_t)(-count)))
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                    OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 "You can only skip within the cache range in a deflate stream.",
                                 "DeflateStream::skip");
                 }
@@ -373,7 +373,7 @@ namespace Ogre
             mCompressedStream->seek(pos);
             return;
         }
-        if (getAccessMode() & WRITE)
+        if (getAccessMode() & std::to_underlying(WRITE))
         {
             mTmpWriteStream->seek(pos);
         }
@@ -401,7 +401,7 @@ namespace Ogre
         {
             return mCompressedStream->tell();
         }
-        else if(getAccessMode() & WRITE) 
+        else if(getAccessMode() & std::to_underlying(WRITE))
         {
             return mTmpWriteStream->tell();
         }
@@ -414,7 +414,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto DeflateStream::eof() const -> bool
     {
-        if (getAccessMode() & WRITE)
+        if (getAccessMode() & std::to_underlying(WRITE))
             return mTmpWriteStream->eof();
         else 
         {
@@ -427,7 +427,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void DeflateStream::close()
     {
-        if (getAccessMode() & WRITE)
+        if (getAccessMode() & std::to_underlying(WRITE))
             compressFinal();
 
         destroy();

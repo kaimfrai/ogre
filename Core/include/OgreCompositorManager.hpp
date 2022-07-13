@@ -158,7 +158,7 @@ class Viewport;
         auto getPooledTexture(std::string_view name, std::string_view localName, 
             uint32 w, uint32 h,
             PixelFormat f, uint aa, std::string_view aaHint, bool srgb, UniqueTextureSet& texturesAlreadyAssigned, 
-            CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TEX_TYPE_2D) -> TexturePtr;
+            CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type = TextureType::_2D) -> TexturePtr;
 
         /** Free pooled textures from the shared pool (compositor instances still 
             using them will keep them in memory though). 

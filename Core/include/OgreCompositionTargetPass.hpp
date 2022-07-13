@@ -33,6 +33,7 @@ THE SOFTWARE.
 
 #include "OgreCompositionPass.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
+#include "OgreMovableObject.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 
@@ -57,10 +58,10 @@ class CompositionTechnique;
         
         /** Input mode of a TargetPass
         */
-        enum InputMode
+        enum class InputMode
         {
-            IM_NONE,        /// No input
-            IM_PREVIOUS     /// Output of previous Composition in chain
+            NONE,        /// No input
+            PREVIOUS     /// Output of previous Composition in chain
         };
         using Passes = std::vector<CompositionPass *>;
         using PassIterator = VectorIterator<Passes>;
@@ -90,10 +91,10 @@ class CompositionTechnique;
         
         /** Set the scene visibility mask used by this pass 
         */
-        void setVisibilityMask(uint32 mask);
+        void setVisibilityMask(QueryTypeMask mask);
         /** Get the scene visibility mask used by this pass 
         */
-        auto getVisibilityMask() noexcept -> uint32;
+        auto getVisibilityMask() noexcept -> QueryTypeMask;
 
         /** Set the material scheme used by this target pass.
         @remarks
@@ -132,7 +133,7 @@ class CompositionTechnique;
 
         /** Create a new pass, and return a pointer to it.
         */
-        auto createPass(CompositionPass::PassType type = CompositionPass::PT_RENDERQUAD) -> CompositionPass *;
+        auto createPass(CompositionPass::PassType type = CompositionPass::PassType::RENDERQUAD) -> CompositionPass *;
         /** Remove a pass. It will also be destroyed.
         */
         void removePass(size_t idx);
@@ -162,7 +163,7 @@ class CompositionTechnique;
         /// Parent technique
         CompositionTechnique *mParent;
         /// Input mode
-        InputMode mInputMode{IM_NONE};
+        InputMode mInputMode{InputMode::NONE};
         /// (local) output texture
         String mOutputName;
         /// Passes
@@ -171,7 +172,7 @@ class CompositionTechnique;
         /// has been enabled.
         bool mOnlyInitial{false};
         /// Visibility mask for this render
-        uint32 mVisibilityMask{0xFFFFFFFF};
+        QueryTypeMask mVisibilityMask{0xFFFFFFFF};
         /// LOD bias of this render
         float mLodBias{1.0f};
         /// Material scheme name

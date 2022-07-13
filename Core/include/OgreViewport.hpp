@@ -127,11 +127,11 @@ class RenderTarget;
             option of manually clearing the frame buffer (or elements of it)
             using this method.
          @param buffers Bitmask identifying which buffer elements to clear
-         @param colour The colour value to clear to, if FBT_COLOUR is included
-         @param depth The depth value to clear to, if FBT_DEPTH is included
-         @param stencil The stencil value to clear to, if FBT_STENCIL is included
+         @param colour The colour value to clear to, if FrameBufferType::COLOUR is included
+         @param depth The depth value to clear to, if FrameBufferType::DEPTH is included
+         @param stencil The stencil value to clear to, if FrameBufferType::STENCIL is included
         */
-        void clear(uint32 buffers = FBT_COLOUR | FBT_DEPTH, const ColourValue& colour = ColourValue::Black,
+        void clear(FrameBufferType buffers = FrameBufferType::COLOUR | FrameBufferType::DEPTH, const ColourValue& colour = ColourValue::Black,
                    float depth = 1.0f, uint16 stencil = 0);
 
         /** Retrieves a pointer to the render target for this viewport.
@@ -245,14 +245,14 @@ class RenderTarget;
             which buffers to clear, if clear is set to true. Note you should
             not clear the stencil buffer here unless you know what you're doing.
          */
-        void setClearEveryFrame(bool clear, unsigned int buffers = FBT_COLOUR | FBT_DEPTH);
+        void setClearEveryFrame(bool clear, FrameBufferType buffers = FrameBufferType::COLOUR | FrameBufferType::DEPTH);
 
         /** Determines if the viewport is cleared before every frame.
         */
         [[nodiscard]] auto getClearEveryFrame() const noexcept -> bool;
 
         /** Gets which buffers are to be cleared each frame. */
-        [[nodiscard]] auto getClearBuffers() const noexcept -> unsigned int;
+        [[nodiscard]] auto getClearBuffers() const noexcept -> FrameBufferType;
 
         /** Sets whether this viewport should be automatically updated 
             if Ogre's rendering loop or RenderTarget::update is being used.
@@ -356,12 +356,12 @@ class RenderTarget;
             (@see MovableObject::setVisibilityFlags), and if a binary 'and'
             returns zero, the object will not be rendered.
         */
-        void setVisibilityMask(uint32 mask) { mVisibilityMask = mask; }
+        void setVisibilityMask(QueryTypeMask mask) { mVisibilityMask = mask; }
 
         /** Gets a per-viewport visibility mask.
         @see Viewport::setVisibilityMask
         */
-        [[nodiscard]] auto getVisibilityMask() const noexcept -> uint { return mVisibilityMask; }
+        [[nodiscard]] auto getVisibilityMask() const noexcept -> QueryTypeMask { return mVisibilityMask; }
 
         /** Convert oriented input point coordinates to screen coordinates. */
         void pointOrientedToScreen(const Vector2 &v, int orientationMode, Vector2 &outv);
@@ -402,12 +402,12 @@ class RenderTarget;
         ColourValue mBackColour;
         float mDepthClearValue{1};
         bool mClearEveryFrame{true};
-        unsigned int mClearBuffers;
+        FrameBufferType mClearBuffers;
         bool mUpdated{false};
         bool mShowOverlays{true};
         bool mShowSkies{true};
         bool mShowShadows{true};
-        uint32 mVisibilityMask{0xFFFFFFFF};
+        QueryTypeMask mVisibilityMask{0xFFFFFFFF};
         /// Material scheme
         String mMaterialSchemeName;
         /// Viewport orientation mode
@@ -419,7 +419,7 @@ class RenderTarget;
 
         using ListenerList = std::vector<Listener *>;
         ListenerList mListeners;
-		ColourBufferType mColourBuffer{CBT_BACK};
+		ColourBufferType mColourBuffer{ColourBufferType::BACK};
     };
     /** @} */
     /** @} */

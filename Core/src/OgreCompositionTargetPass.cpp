@@ -83,12 +83,12 @@ auto CompositionTargetPass::getOnlyInitial() noexcept -> bool
     return mOnlyInitial;
 }
 //-----------------------------------------------------------------------
-void CompositionTargetPass::setVisibilityMask(uint32 mask)
+void CompositionTargetPass::setVisibilityMask(QueryTypeMask mask)
 {
     mVisibilityMask = mask;
 }
 //-----------------------------------------------------------------------
-auto CompositionTargetPass::getVisibilityMask() noexcept -> uint32
+auto CompositionTargetPass::getVisibilityMask() noexcept -> QueryTypeMask
 {
     return mVisibilityMask;
 }

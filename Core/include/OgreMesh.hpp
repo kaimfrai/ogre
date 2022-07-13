@@ -179,8 +179,8 @@ class VertexData;
         MeshLodUsageList mMeshLodUsageList;
 
         HardwareBufferManagerBase* mBufferManager{nullptr};
-        HardwareBuffer::Usage mVertexBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
-        HardwareBuffer::Usage mIndexBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
+        HardwareBuffer::Usage mVertexBufferUsage{HardwareBuffer::STATIC_WRITE_ONLY};
+        HardwareBuffer::Usage mIndexBufferUsage{HardwareBuffer::STATIC_WRITE_ONLY};
         bool mVertexBufferShadowBuffer{false};
         bool mIndexBufferShadowBuffer{false};
 
@@ -193,7 +193,7 @@ class VertexData;
         using AnimationList = std::map<std::string, Animation*, std::less<>>;
         AnimationList mAnimationsList;
         /// The vertex animation type associated with the shared vertex data
-        mutable VertexAnimationType mSharedVertexDataAnimationType{VAT_NONE};
+        mutable VertexAnimationType mSharedVertexDataAnimationType{VertexAnimationType::NONE};
         /// Whether vertex animation includes normals
         mutable bool mSharedVertexDataAnimationIncludesNormals{false};
         /// Do we need to scan animations for animation types?
@@ -323,7 +323,7 @@ class VertexData;
         @par
             We collect actually used bones of all bone assignments, and build the
             blend index in 'packed' form, then the range of the blend index in vertex
-            data VES_BLEND_INDICES element is continuous, with no gaps. Thus, by
+            data VertexElementSemantic::BLEND_INDICES element is continuous, with no gaps. Thus, by
             minimising the world matrix array constants passing to GPU, we can support
             more bones for a mesh when hardware skinning is used. The hardware skinning
             support limit is applied to each set of vertex data in the mesh, in other words, the
@@ -352,7 +352,7 @@ class VertexData;
         auto clone(std::string_view newName, std::string_view newGroup = BLANKSTRING) -> MeshPtr;
 
         /** @copydoc Resource::reload */
-        void reload(LoadingFlags flags = LF_DEFAULT) override;
+        void reload(LoadingFlags flags = LoadingFlags::DEFAULT) override;
 
         /** Get the axis-aligned bounding box for this mesh.
         */
@@ -574,7 +574,7 @@ class VertexData;
             the first time instead of you having to reload the mesh after changing these options.
         @param usage
             The usage flags, which by default are 
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY
+            HardwareBuffer::STATIC_WRITE_ONLY
         @param shadowBuffer
             If set to @c true, the vertex buffers will be created with a
             system memory shadow buffer. You should set this if you want to be able to
@@ -599,7 +599,7 @@ class VertexData;
             the first time instead of you having to reload the mesh after changing these options.
         @param usage
             The usage flags, which by default are 
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY
+            HardwareBuffer::STATIC_WRITE_ONLY
         @param shadowBuffer
             If set to @c true, the index buffers will be created with a
             system memory shadow buffer. You should set this if you want to be able to
@@ -689,7 +689,7 @@ class VertexData;
         @param index
             The element index, ie the texture coordinate set which should be used to store the 3D
             coordinates representing a tangent vector per vertex, if targetSemantic is 
-            VES_TEXTURE_COORDINATES. If this already exists, it will be overwritten.
+            VertexElementSemantic::TEXTURE_COORDINATES. If this already exists, it will be overwritten.
         @param splitMirrored
             Sets whether or not to split vertices when a mirrored tangent space
             transition is detected (matrix parity differs). @see TangentSpaceCalc::setSplitMirrored
@@ -699,7 +699,7 @@ class VertexData;
         @param storeParityInW
             If @c true, store tangents as a 4-vector and include parity in w.
         */
-        void buildTangentVectors(VertexElementSemantic targetSemantic = VES_TANGENT,
+        void buildTangentVectors(VertexElementSemantic targetSemantic = VertexElementSemantic::TANGENT,
             unsigned short sourceTexCoordSet = 0, unsigned short index = 0, 
             bool splitMirrored = false, bool splitRotated = false, bool storeParityInW = false);
 
@@ -714,7 +714,7 @@ class VertexData;
         @param targetSemantic
             The semantic you intend to use to store the tangents
             if they are not already present;
-            most likely options are VES_TEXTURE_COORDINATES or VES_TANGENT; you should
+            most likely options are VertexElementSemantic::TEXTURE_COORDINATES or VertexElementSemantic::TANGENT; you should
             use texture coordinates if you want compatibility with older, pre-SM2
             graphics cards, and the tangent binding otherwise.
         @param outSourceCoordSet
@@ -815,9 +815,9 @@ class VertexData;
         @param t
             Parametric distance between the start and end buffer positions.
         @param b1
-            Vertex buffer containing VET_FLOAT3 entries for the start positions.
+            Vertex buffer containing VertexElementType::FLOAT3 entries for the start positions.
         @param b2
-            Vertex buffer containing VET_FLOAT3 entries for the end positions.
+            Vertex buffer containing VertexElementType::FLOAT3 entries for the end positions.
         @param targetVertexData
             VertexData destination; assumed to have a separate position
             buffer already bound, and the number of vertices must agree with the

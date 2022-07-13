@@ -42,7 +42,7 @@ THE SOFTWARE.
 #include "OgreViewport.hpp"
 
 namespace Ogre {
-    OrientationMode Viewport::mDefaultOrientationMode = OR_DEGREE_0;
+    OrientationMode Viewport::mDefaultOrientationMode = OrientationMode::DEGREE_0;
     //---------------------------------------------------------------------
     Viewport::Viewport(Camera* cam, RenderTarget* target, Real left, Real top, Real width, Real height, int ZOrder)
         : mCamera(cam)
@@ -55,12 +55,12 @@ namespace Ogre {
         , mZOrder(ZOrder)
         , mBackColour(ColourValue::Black)
         , 
-         mClearBuffers(FBT_COLOUR | FBT_DEPTH)
+         mClearBuffers(FrameBufferType::COLOUR | FrameBufferType::DEPTH)
         , 
          mMaterialSchemeName(MaterialManager::DEFAULT_SCHEME_NAME)
          
     {           
-        LogManager::getSingleton().stream(LML_TRIVIAL)
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial)
             << "Creating viewport on target '" << target->getName() << "'"
             << ", rendering from camera '" << (cam != nullptr ? cam->getName() : "NULL") << "'"
             << ", relative dimensions " << std::ios::fixed << std::setprecision(2) 
@@ -129,7 +129,7 @@ namespace Ogre {
                 mCamera->setAspectRatio((Real) mActWidth / (Real) mActHeight);
         }
 
-        LogManager::getSingleton().stream(LML_TRIVIAL)
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial)
             << "Viewport for camera '" << (mCamera != nullptr ? mCamera->getName() : "NULL") << "'"
             << ", actual dimensions "   << std::ios::fixed << std::setprecision(2) 
             << "L: " << mActLeft << " T: " << mActTop << " W: " << mActWidth << " H: " << mActHeight;
@@ -220,25 +220,25 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Viewport::setOrientationMode(OrientationMode orientationMode, bool setDefault)
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Setting Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
     auto Viewport::getOrientationMode() const -> OrientationMode
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Getting Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
     void Viewport::setDefaultOrientationMode(OrientationMode orientationMode)
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Setting default Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
     auto Viewport::getDefaultOrientationMode() -> OrientationMode
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Getting default Viewport orientation mode is not supported");
     }
     //---------------------------------------------------------------------
@@ -262,10 +262,10 @@ namespace Ogre {
         return mDepthClearValue;
     }
     //---------------------------------------------------------------------
-    void Viewport::setClearEveryFrame(bool inClear, unsigned int inBuffers)
+    void Viewport::setClearEveryFrame(bool inClear, FrameBufferType inBuffers)
     {
         mClearEveryFrame = inClear;
-        mClearBuffers = inClear ? inBuffers : 0;
+        mClearBuffers = inClear ? inBuffers : FrameBufferType{};
     }
     //---------------------------------------------------------------------
     auto Viewport::getClearEveryFrame() const noexcept -> bool
@@ -273,12 +273,12 @@ namespace Ogre {
         return mClearEveryFrame;
     }
     //---------------------------------------------------------------------
-    auto Viewport::getClearBuffers() const noexcept -> unsigned int
+    auto Viewport::getClearBuffers() const noexcept -> FrameBufferType
     {
         return mClearBuffers;
     }
     //---------------------------------------------------------------------
-    void Viewport::clear(uint32 buffers, const ColourValue& col, float depth, uint16 stencil)
+    void Viewport::clear(FrameBufferType buffers, const ColourValue& col, float depth, uint16 stencil)
     {
         RenderSystem* rs = Root::getSingleton().getRenderSystem();
         if (rs)

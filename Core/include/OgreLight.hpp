@@ -112,14 +112,14 @@ class Sphere;
         void _calcTempSquareDist(const Vector3& worldPos);
 
         /// Defines the type of light
-        enum LightTypes : uint8
+        enum class LightTypes : uint8
         {
             /// Point light sources give off light equally in all directions, so require only position not direction
-            LT_POINT = 0,
+            POINT = 0,
             /// Directional lights simulate parallel light beams from a distant source, hence have direction but no position
-            LT_DIRECTIONAL = 1,
+            DIRECTIONAL = 1,
             /// Spotlights simulate a cone of light from a source so require position and direction, plus extra values for falloff
-            LT_SPOTLIGHT = 2
+            SPOTLIGHT = 2
         };
 
         /** Default constructor (for Python mainly).
@@ -355,7 +355,7 @@ class Sphere;
         virtual auto _getFrustumClipVolumes(const Camera* const cam) const -> const PlaneBoundedVolumeList&;
 
         /// Override to return specific type flag
-        auto getTypeFlags() const noexcept -> uint32 override;
+        auto getTypeFlags() const noexcept -> QueryTypeMask override;
 
         /// @copydoc AnimableObject::createAnimableValue
         auto createAnimableValue(std::string_view valueName) -> AnimableValuePtr override;
@@ -461,14 +461,14 @@ class Sphere;
             Calling this method simply associates a numeric index with a 4-dimensional
             value for this specific Light. This is most useful if the material
             which this Renderable uses a vertex or fragment program, and has an 
-            ACT_LIGHT_CUSTOM parameter entry. This parameter entry can refer to the
+            AutoConstantType::LIGHT_CUSTOM parameter entry. This parameter entry can refer to the
             index you specify as part of this call, thereby mapping a custom
             parameter for this renderable to a program parameter.
         @param index
             The index with which to associate the value. Note that this
             does not have to start at 0, and can include gaps. It also has no direct
             correlation with a GPU program parameter index - the mapping between the
-            two is performed by the ACT_LIGHT_CUSTOM entry, if that is used.
+            two is performed by the AutoConstantType::LIGHT_CUSTOM entry, if that is used.
         @param value
             The value to associate.
         */
@@ -485,7 +485,7 @@ class Sphere;
         @remarks
             This method allows a Light to map in a custom GPU program parameter
             based on it's own data. This is represented by a GPU auto parameter
-            of ACT_LIGHT_CUSTOM, and to allow there to be more than one of these per
+            of AutoConstantType::LIGHT_CUSTOM, and to allow there to be more than one of these per
             Light, the 'data' field on the auto parameter will identify
             which parameter is being updated and on which light. The implementation 
             of this method must identify the parameter being updated, and call a 'setConstant' 

@@ -60,14 +60,14 @@ AdvancedRenderControls::AdvancedRenderControls(TrayManager* trayMgr, Ogre::Camer
     items.push_back("Generated VS");
     items.push_back("Generated FS");
 
-    mDetailsPanel = mTrayMgr->createParamsPanel(TL_NONE, "DetailsPanel", 200, items);
+    mDetailsPanel = mTrayMgr->createParamsPanel(TrayLocation::NONE, "DetailsPanel", 200, items);
     mDetailsPanel->hide();
 
     mDetailsPanel->setParamValue(9, "Bilinear");
     mDetailsPanel->setParamValue(10, "Solid");
 
     mDetailsPanel->setParamValue(11, "Off");
-    if (!mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) {
+    if (!mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::Capabilities::FIXED_FUNCTION)) {
         mDetailsPanel->setParamValue(11, "On");
     }
 
@@ -92,8 +92,8 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
         mTrayMgr->toggleAdvancedFrameStats();
     } else if (key == 'g') // toggle visibility of even rarer debugging details
     {
-        if (mDetailsPanel->getTrayLocation() == TL_NONE) {
-            mTrayMgr->moveWidgetToTray(mDetailsPanel, TL_TOPRIGHT, 0);
+        if (mDetailsPanel->getTrayLocation() == TrayLocation::NONE) {
+            mTrayMgr->moveWidgetToTray(mDetailsPanel, TrayLocation::TOPRIGHT, 0);
             mDetailsPanel->show();
         } else {
             mTrayMgr->removeWidgetFromTray(mDetailsPanel);
@@ -105,28 +105,28 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
         Ogre::TextureFilterOptions tfo;
         unsigned int aniso;
 
-        Ogre::FilterOptions mip = Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FT_MIP);
+        Ogre::FilterOptions mip = Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FilterType::Mip);
 
-        switch (Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FT_MAG)) {
-        case Ogre::FO_LINEAR:
-            if (mip == Ogre::FO_POINT) {
+        switch (Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FilterType::Mag)) {
+        case Ogre::FilterOptions::LINEAR:
+            if (mip == Ogre::FilterOptions::POINT) {
                 newVal = "Trilinear";
-                tfo = Ogre::TFO_TRILINEAR;
+                tfo = Ogre::TextureFilterOptions::TRILINEAR;
                 aniso = 1;
             } else {
                 newVal = "Anisotropic";
-                tfo = Ogre::TFO_ANISOTROPIC;
+                tfo = Ogre::TextureFilterOptions::ANISOTROPIC;
                 aniso = 8;
             }
             break;
-        case Ogre::FO_ANISOTROPIC:
+        case Ogre::FilterOptions::ANISOTROPIC:
             newVal = "None";
-            tfo = Ogre::TFO_NONE;
+            tfo = Ogre::TextureFilterOptions::NONE;
             aniso = 1;
             break;
         default:
             newVal = "Bilinear";
-            tfo = Ogre::TFO_BILINEAR;
+            tfo = Ogre::TextureFilterOptions::BILINEAR;
             aniso = 1;
             break;
         }
@@ -140,17 +140,17 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
         Ogre::PolygonMode pm;
 
         switch (mCamera->getPolygonMode()) {
-        case Ogre::PM_SOLID:
+        case Ogre::PolygonMode::SOLID:
             newVal = "Wireframe";
-            pm = Ogre::PM_WIREFRAME;
+            pm = Ogre::PolygonMode::WIREFRAME;
             break;
-        case Ogre::PM_WIREFRAME:
+        case Ogre::PolygonMode::WIREFRAME:
             newVal = "Points";
-            pm = Ogre::PM_POINTS;
+            pm = Ogre::PolygonMode::POINTS;
             break;
         default:
             newVal = "Solid";
-            pm = Ogre::PM_SOLID;
+            pm = Ogre::PolygonMode::SOLID;
             break;
         }
 
@@ -172,7 +172,7 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
     }
     // Toggle schemes.
     else if (key == SDLK_F2) {
-        if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) {
+        if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::Capabilities::FIXED_FUNCTION)) {
             Ogre::Viewport* mainVP = mCamera->getViewport();
             std::string_view curMaterialScheme = mainVP->getMaterialScheme();
 
@@ -228,18 +228,18 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
     // Switch vertex shader outputs compaction policy.
     else if (key == SDLK_F4) {
         switch (mShaderGenerator->getVertexShaderOutputsCompactPolicy()) {
-        case Ogre::RTShader::VSOCP_LOW:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOCP_MEDIUM);
+        case Ogre::RTShader::VSOutputCompactPolicy::LOW:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::MEDIUM);
             mDetailsPanel->setParamValue(13, "Medium");
             break;
 
-        case Ogre::RTShader::VSOCP_MEDIUM:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOCP_HIGH);
+        case Ogre::RTShader::VSOutputCompactPolicy::MEDIUM:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::HIGH);
             mDetailsPanel->setParamValue(13, "High");
             break;
 
-        case Ogre::RTShader::VSOCP_HIGH:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOCP_LOW);
+        case Ogre::RTShader::VSOutputCompactPolicy::HIGH:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::LOW);
             mDetailsPanel->setParamValue(13, "Low");
             break;
         }
@@ -265,8 +265,8 @@ void AdvancedRenderControls::frameRendered(const Ogre::FrameEvent& evt) {
         mDetailsPanel->setParamValue(6, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().y));
         mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().z));
 
-        mDetailsPanel->setParamValue(14, StringConverter::toString(mShaderGenerator->getShaderCount(GPT_VERTEX_PROGRAM)));
-        mDetailsPanel->setParamValue(15, StringConverter::toString(mShaderGenerator->getShaderCount(GPT_FRAGMENT_PROGRAM)));
+        mDetailsPanel->setParamValue(14, StringConverter::toString(mShaderGenerator->getShaderCount(GpuProgramType::VERTEX_PROGRAM)));
+        mDetailsPanel->setParamValue(15, StringConverter::toString(mShaderGenerator->getShaderCount(GpuProgramType::FRAGMENT_PROGRAM)));
     }
 }
 

@@ -92,7 +92,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     MeshManager::MeshManager() 
     {
-        mBlendWeightsBaseElementType = VET_FLOAT1;
+        mBlendWeightsBaseElementType = VertexElementType::FLOAT1;
         mPrepAllMeshesForShadowVolumes = false;
 
         mLoadOrder = 350.0f;
@@ -196,7 +196,7 @@ namespace Ogre
         pMesh->setAutoBuildEdgeLists(false);
         // store parameters
         MeshBuildParams params = {};
-        params.type = MBT_PLANE;
+        params.type = MeshBuildType::PLANE;
         params.plane = plane;
         params.width = width;
         params.height = height;
@@ -232,7 +232,7 @@ namespace Ogre
         pMesh->setAutoBuildEdgeLists(false);
         // store parameters
         MeshBuildParams params = {};
-        params.type = MBT_CURVED_PLANE;
+        params.type = MeshBuildType::CURVED_PLANE;
         params.plane = plane;
         params.width = width;
         params.height = height;
@@ -275,7 +275,7 @@ namespace Ogre
         pMesh->setAutoBuildEdgeLists(false);
         // store parameters
         MeshBuildParams params;
-        params.type = MBT_CURVED_ILLUSION_PLANE;
+        params.type = MeshBuildType::CURVED_ILLUSION_PLANE;
         params.plane = plane;
         params.width = width;
         params.height = height;
@@ -325,14 +325,14 @@ namespace Ogre
         // Num faces, width*height*2 (2 tris per square), index count is * 3 on top
         sm->indexData->indexCount = (meshWidth-1) * (meshHeight-1) * 2 * iterations * 3;
         sm->indexData->indexBuffer = HardwareBufferManager::getSingleton().
-            createIndexBuffer(HardwareIndexBuffer::IT_16BIT,
+            createIndexBuffer(HardwareIndexBuffer::IndexType::_16BIT,
             sm->indexData->indexCount, indexBufferUsage, indexShadowBuffer);
 
         unsigned short v1, v2, v3;
         //bool firstTri = true;
         HardwareIndexBufferSharedPtr ibuf = sm->indexData->indexBuffer;
         // Lock the whole buffer
-        HardwareBufferLockGuard ibufLock(ibuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard ibufLock(ibuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pIndexes = static_cast<unsigned short*>(ibufLock.pData);
 
         while (iterations--)
@@ -407,7 +407,7 @@ namespace Ogre
             auto ibld = mMeshBuildParams.find(res);
             if (ibld == mMeshBuildParams.end())
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                     ::std::format("Cannot find build parameters for {}", res->getName()),
                     "MeshManager::loadResource");
             }
@@ -415,17 +415,17 @@ namespace Ogre
 
             switch(params.type)
             {
-            case MBT_PLANE:
+            case MeshBuildType::PLANE:
                 loadManualPlane(msh, params);
                 break;
-            case MBT_CURVED_ILLUSION_PLANE:
+            case MeshBuildType::CURVED_ILLUSION_PLANE:
                 loadManualCurvedIllusionPlane(msh, params);
                 break;
-            case MBT_CURVED_PLANE:
+            case MeshBuildType::CURVED_PLANE:
                 loadManualCurvedPlane(msh, params);
                 break;
             default:
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                     ::std::format("Unknown build parameters for {}", res->getName()),
                     "MeshManager::loadResource");
             }
@@ -436,7 +436,7 @@ namespace Ogre
     void MeshManager::PrefabLoader::loadManualPlane(Mesh* pMesh, MeshBuildParams& params)
     {
         if ((params.xsegments + 1) * (params.ysegments + 1) > 65536)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "Plane tessellation is too high, must generate max 65536 vertices");
         SubMesh *pSub = pMesh->createSubMesh();
 
@@ -448,17 +448,17 @@ namespace Ogre
         VertexDeclaration* vertexDecl = vertexData->vertexDeclaration;
         size_t currOffset = 0;
         // We always need positions
-        currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_POSITION).getSize();
+        currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
         // Optional normals
         if(params.normals)
         {
-            currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_NORMAL).getSize();
+            currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
         }
 
         for (unsigned short i = 0; i < params.numTexCoordSets; ++i)
         {
             // Assumes 2D texture coords
-            currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT2, VES_TEXTURE_COORDINATES, i).getSize();
+            currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, i).getSize();
         }
 
         vertexData->vertexCount = (params.xsegments + 1) * (params.ysegments + 1);
@@ -488,7 +488,7 @@ namespace Ogre
         if (xAxis.squaredLength() == 0)
         {
             //upVector must be wrong
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
                 "MeshManager::loadManualPlane");
         }
         xAxis.normalise();
@@ -504,7 +504,7 @@ namespace Ogre
 
         // Generate vertex data
         // Lock the whole buffer
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pReal = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
@@ -568,7 +568,7 @@ namespace Ogre
     void MeshManager::PrefabLoader::loadManualCurvedPlane(Mesh* pMesh, MeshBuildParams& params)
     {
         if ((params.xsegments + 1) * (params.ysegments + 1) > 65536)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "Plane tessellation is too high, must generate max 65536 vertices");
         SubMesh *pSub = pMesh->createSubMesh();
 
@@ -581,15 +581,15 @@ namespace Ogre
         pMesh->sharedVertexData->vertexCount = (params.xsegments + 1) * (params.ysegments + 1);
 
         size_t offset = 0;
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_POSITION).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
         if (params.normals)
         {
-            offset += decl->addElement(0, 0, VET_FLOAT3, VES_NORMAL).getSize();
+            offset += decl->addElement(0, 0, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
         }
 
         for (unsigned short i = 0; i < params.numTexCoordSets; ++i)
         {
-            offset += decl->addElement(0, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, i).getSize();
+            offset += decl->addElement(0, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, i).getSize();
         }
 
 
@@ -615,7 +615,7 @@ namespace Ogre
         if (xAxis.squaredLength() == 0)
         {
             //upVector must be wrong
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
                 "MeshManager::createPlane");
         }
         xAxis.normalise();
@@ -630,7 +630,7 @@ namespace Ogre
         xform = xlate * rot;
 
         // Generate vertex data
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pFloat = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
@@ -707,7 +707,7 @@ namespace Ogre
         if (params.ySegmentsToKeep == -1) params.ySegmentsToKeep = params.ysegments;
 
         if ((params.xsegments + 1) * (params.ySegmentsToKeep + 1) > 65536)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                 "Plane tessellation is too high, must generate max 65536 vertices");
         SubMesh *pSub = pMesh->createSubMesh();
 
@@ -720,17 +720,17 @@ namespace Ogre
         VertexDeclaration* vertexDecl = vertexData->vertexDeclaration;
         size_t currOffset = 0;
         // We always need positions
-        currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_POSITION).getSize();
+        currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
         // Optional normals
         if(params.normals)
         {
-            currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_NORMAL).getSize();
+            currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
         }
 
         for (unsigned short i = 0; i < params.numTexCoordSets; ++i)
         {
             // Assumes 2D texture coords
-            currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT2, VES_TEXTURE_COORDINATES, i).getSize();
+            currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, i).getSize();
         }
 
         vertexData->vertexCount = (params.xsegments + 1) * (params.ySegmentsToKeep + 1);
@@ -760,7 +760,7 @@ namespace Ogre
         if (xAxis.squaredLength() == 0)
         {
             //upVector must be wrong
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "The upVector you supplied is parallel to the plane normal, so is not valid.",
                 "MeshManager::createPlane");
         }
         xAxis.normalise();
@@ -793,7 +793,7 @@ namespace Ogre
         camPos = sphereRadius - CAM_DIST;
 
         // Lock the whole buffer
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pFloat = static_cast<float*>(vbufLock.pData);
         Real xSpace = params.width / params.xsegments;
         Real ySpace = params.height / params.ysegments;
@@ -876,7 +876,7 @@ namespace Ogre
     {
         if (width < 3 || height < 3)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Bezier patch require at least 3x3 control points",
                 "MeshManager::createBezierPatch");
         }
@@ -884,7 +884,7 @@ namespace Ogre
         MeshPtr pMesh = getByName(name, groupName);
         if (pMesh)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("A mesh called {} already exists!", name), "MeshManager::createBezierPatch");
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, ::std::format("A mesh called {} already exists!", name), "MeshManager::createBezierPatch");
         }
         auto* pm = new PatchMesh(this, name, getNextHandle(), groupName);
         pm->define(controlPointBuffer, declaration, width, height,
@@ -916,9 +916,9 @@ namespace Ogre
     {
         switch ( vet )
         {
-            case VET_UBYTE4_NORM:
-            case VET_USHORT2_NORM:
-            case VET_FLOAT1:
+            case VertexElementType::UBYTE4_NORM:
+            case VertexElementType::USHORT2_NORM:
+            case VertexElementType::FLOAT1:
                 mBlendWeightsBaseElementType = vet;
                 break;
             default:

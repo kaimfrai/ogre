@@ -61,7 +61,7 @@ namespace Ogre::GLSL
 
             if (forceException) 
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, msg, ogreMethod);
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, msg, ogreMethod);
             }
         }
     }
@@ -75,7 +75,7 @@ namespace Ogre::GLSL
 
         logMessage = ::std::format("{}\n{}", msg , logMessage);
 
-        LogManager::getSingleton().logMessage(LML_CRITICAL, logMessage);
+        LogManager::getSingleton().logMessage(LogMessageLevel::Critical, logMessage);
 
         return logMessage;
     }

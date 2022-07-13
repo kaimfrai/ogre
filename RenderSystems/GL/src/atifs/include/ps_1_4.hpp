@@ -87,9 +87,9 @@ auto constexpr inline ckp_PS_1_4_BASE = (ckp_PS_BASE + ckp_PS_1_4);
 */
 class PS_1_4 : public Compiler2Pass{
 private:
-    enum RWAflags {rwa_NONE = 0, rwa_READ = 1, rwa_WRITE = 2};
+    enum class RWAflags {rwa_NONE = 0, rwa_READ = 1, rwa_WRITE = 2};
 
-    enum MachineInstID {mi_COLOROP1, mi_COLOROP2, mi_COLOROP3, mi_ALPHAOP1, mi_ALPHAOP2,
+    enum class MachineInstID {mi_COLOROP1, mi_COLOROP2, mi_COLOROP3, mi_ALPHAOP1, mi_ALPHAOP2,
                         mi_ALPHAOP3, mi_SETCONSTANTS, mi_PASSTEXCOORD, mi_SAMPLEMAP, mi_TEX,
                         mi_TEXCOORD, mi_TEXREG2RGB, mi_NOP
     };
@@ -105,67 +105,6 @@ private:
         bool Phase2Write;
     };
 
-    // Token ID enumeration
-    enum SymbolID {
-        // Terminal Tokens section
-
-        // DirectX pixel shader source formats 
-        sid_PS_1_4, sid_PS_1_1, sid_PS_1_2, sid_PS_1_3,
-                    
-        // PS_BASE
-        sid_C0, sid_C1, sid_C2, sid_C3, sid_C4, sid_C5, sid_C6, sid_C7,
-        sid_V0, sid_V1,
-        sid_ADD, sid_SUB, sid_MUL, sid_MAD, sid_LRP, sid_MOV, sid_CMP, sid_CND,
-        sid_DP3, sid_DP4, sid_DEF,
-        sid_R, sid_RA, sid_G, sid_GA, sid_B, sid_BA, sid_A, sid_RGBA, sid_RGB,
-        sid_RG, sid_RGA, sid_RB, sid_RBA, sid_GB, sid_GBA,
-        sid_RRRR, sid_GGGG, sid_BBBB, sid_AAAA,
-        sid_X2, sid_X4, sid_D2, sid_SAT,
-        sid_BIAS, sid_INVERT, sid_NEGATE, sid_BX2,
-        sid_COMMA, sid_VALUE,
-
-        //PS_1_4 sid
-        sid_R0, sid_R1, sid_R2, sid_R3, sid_R4, sid_R5,
-        sid_T0, sid_T1, sid_T2, sid_T3, sid_T4, sid_T5,
-        sid_DP2ADD,
-        sid_X8, sid_D8, sid_D4,
-        sid_TEXCRD, sid_TEXLD,
-        sid_STR, sid_STQ,
-        sid_STRDR, sid_STQDQ,
-        sid_BEM,
-        sid_PHASE,
-
-        //PS_1_1 sid
-        sid_1R0, sid_1R1, sid_1T0, sid_1T1, sid_1T2, sid_1T3,
-        sid_TEX, sid_TEXCOORD, sid_TEXM3X2PAD,
-        sid_TEXM3X2TEX, sid_TEXM3X3PAD, sid_TEXM3X3TEX, sid_TEXM3X3SPEC, sid_TEXM3X3VSPEC,
-        sid_TEXREG2AR, sid_TEXREG2GB,
-        
-        //PS_1_2 side
-        sid_TEXREG2RGB, sid_TEXDP3, sid_TEXDP3TEX,
-
-        // common
-        sid_SKIP, sid_PLUS,
-
-        // non-terminal tokens section
-        sid_PROGRAM, sid_PROGRAMTYPE, sid_DECLCONSTS, sid_DEFCONST,
-        sid_CONSTANT, sid_COLOR,
-        sid_TEXSWIZZLE, sid_UNARYOP,
-        sid_NUMVAL, sid_SEPERATOR, sid_ALUOPS, sid_TEXMASK, sid_TEXOP_PS1_1_3,
-        sid_TEXOP_PS1_4,
-        sid_ALU_STATEMENT, sid_DSTMODSAT, sid_UNARYOP_ARGS, sid_REG_PS1_4,
-        sid_TEX_PS1_4, sid_REG_PS1_1_3, sid_TEX_PS1_1_3, sid_DSTINFO,
-        sid_SRCINFO, sid_BINARYOP_ARGS, sid_TERNARYOP_ARGS, sid_TEMPREG,
-        sid_DSTMASK, sid_PRESRCMOD, sid_SRCNAME, sid_SRCREP, sid_POSTSRCMOD,
-        sid_DSTMOD, sid_DSTSAT, sid_BINARYOP,  sid_TERNARYOP,
-        sid_TEXOPS_PHASE1, sid_COISSUE, sid_PHASEMARKER, sid_TEXOPS_PHASE2, 
-        sid_TEXREG_PS1_4, sid_TEXOPS_PS1_4, sid_TEXOPS_PS1_1_3, sid_TEXCISCOP_PS1_1_3,
-
-
-        // last token
-        sid_INVALID = BAD_TOKEN // must be last in enumeration
-    };
-
     /// structure used to keep track of arguments and instruction parameters
     struct OpParram {
       GLuint Arg;       // type of argument
@@ -174,12 +113,12 @@ private:
       GLuint Mod;       // argument modifier
     };
 
-    using MachineInstContainer = std::vector<uint>;
+    using MachineInstContainer = std::vector<MachineInstID>;
     //typedef MachineInstContainer::iterator MachineInstIterator;
 
 
     // there are 2 phases with 2 subphases each
-    enum PhaseType {ptPHASE1TEX, ptPHASE1ALU, ptPHASE2TEX, ptPHASE2ALU };
+    enum class PhaseType {ptPHASE1TEX, ptPHASE1ALU, ptPHASE2TEX, ptPHASE2ALU };
 
     struct RegModOffset {
         uint MacroOffset;
@@ -195,9 +134,9 @@ private:
 
     };
 
-    static auto constexpr inline R_BASE = static_cast<unsigned int>((sid_R0 - GL_REG_0_ATI));
-    static auto constexpr inline C_BASE = static_cast<unsigned int>((sid_C0 - GL_CON_0_ATI));
-    static auto constexpr inline T_BASE = static_cast<unsigned int>((sid_1T0 - GL_REG_0_ATI));
+    static auto constexpr inline R_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::R0) - GL_REG_0_ATI));
+    static auto constexpr inline C_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::C0) - GL_CON_0_ATI));
+    static auto constexpr inline T_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::_1T0) - GL_REG_0_ATI));
 
     // static library database for tokens and BNF rules
     static SymbolDef PS_1_4_SymbolTypeLib[];
@@ -251,7 +190,7 @@ private:
 
     // vars used during pass 2
     MachineInstID mOpType;
-    uint mOpInst;
+    SymbolID mOpInst;
     bool mDo_Alpha;
     PhaseType mInstructionPhase;
     int mArgCnt;
@@ -330,11 +269,15 @@ private:
     auto expandMachineInstruction() -> bool;
 
     // mainly used by tests - too slow for use in binding
-    auto getMachineInst(size_t Idx) -> size_t;
+    auto getMachineInst(size_t Idx) -> MachineInstID;
 
     auto getMachineInstCount() -> size_t;
 
-    void addMachineInst(PhaseType phase, const uint inst);
+    void addMachineInst(PhaseType phase, const MachineInstID inst);
+    void addMachineInst(PhaseType phase, unsigned int inst)
+    {
+        addMachineInst(phase, static_cast<MachineInstID>(inst));
+    }
 
     void clearAllMachineInst();
 

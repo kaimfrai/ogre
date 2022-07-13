@@ -266,7 +266,7 @@ namespace Ogre {
         std::ofstream of(mConfigFileName.c_str());
 
         if (!of)
-            OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create settings file.",
+            OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE, "Cannot create settings file.",
             "Root::saveConfig");
 
         if (mActiveRenderer)
@@ -471,7 +471,7 @@ namespace Ogre {
             RenderSystemCapabilities* rsc = rscManager.loadParsedCapabilities(capsName);
             if(rsc == nullptr)
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     std::format("Cannot load a RenderSystemCapability named {}", capsName),
                     "Root::initialise");
             }
@@ -657,7 +657,7 @@ namespace Ogre {
     auto Root::_fireFrameStarted() -> bool
     {
         FrameEvent evt;
-        populateFrameEvent(FETT_STARTED, evt);
+        populateFrameEvent(FrameEventTimeType::STARTED, evt);
 
         return _fireFrameStarted(evt);
     }
@@ -665,7 +665,7 @@ namespace Ogre {
     auto Root::_fireFrameRenderingQueued() -> bool
     {
         FrameEvent evt;
-        populateFrameEvent(FETT_QUEUED, evt);
+        populateFrameEvent(FrameEventTimeType::QUEUED, evt);
 
         return _fireFrameRenderingQueued(evt);
     }
@@ -673,14 +673,14 @@ namespace Ogre {
     auto Root::_fireFrameEnded() -> bool
     {
         FrameEvent evt;
-        populateFrameEvent(FETT_ENDED, evt);
+        populateFrameEvent(FrameEventTimeType::ENDED, evt);
         return _fireFrameEnded(evt);
     }
     //---------------------------------------------------------------------
     void Root::populateFrameEvent(FrameEventTimeType type, FrameEvent& evtToUpdate)
     {
         unsigned long now = mTimer->getMilliseconds();
-        auto const timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
+        auto const timeSinceLastEvent = calculateEventTime(now, FrameEventTimeType::ANY);
         auto const timeSinceLastFrame = calculateEventTime(now, type);
 //         evtToUpdate.timeSinceLastEvent = timeSinceLastEvent;
 //         evtToUpdate.timeSinceLastFrame = timeSinceLastFrame;
@@ -703,7 +703,7 @@ namespace Ogre {
         // Calculate the average time passed between events of the given type
         // during the last mFrameSmoothingTime seconds.
 
-        EventTimesQueue& times = mEventTimes[type];
+        EventTimesQueue& times = mEventTimes[std::to_underlying(type)];
         times.push_back(now);
 
         if(times.size() == 1)
@@ -755,7 +755,7 @@ namespace Ogre {
 
         for(::std::size_t frame = 0; frame < mFrameCount && !mQueuedEnd; ++frame)
         {
-            Ogre::Profile frameProfile("Frame", OGREPROF_GENERAL);
+            Ogre::Profile frameProfile("Frame", ProfileGroupMask::GENERAL);
             if (!renderOneFrame())
             {
                 break;
@@ -780,7 +780,7 @@ namespace Ogre {
         evt.timeSinceLastFrame = timeSinceLastFrame;
 
         unsigned long now = mTimer->getMilliseconds();
-        evt.timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
+        evt.timeSinceLastEvent = calculateEventTime(now, FrameEventTimeType::ANY);
 
         if(!_fireFrameStarted(evt))
             return false;
@@ -789,7 +789,7 @@ namespace Ogre {
             return false;
 
         now = mTimer->getMilliseconds();
-        evt.timeSinceLastEvent = calculateEventTime(now, FETT_ANY);
+        evt.timeSinceLastEvent = calculateEventTime(now, FrameEventTimeType::ANY);
 
         return _fireFrameEnded(evt);
     }
@@ -1135,7 +1135,7 @@ namespace Ogre {
             fact->getType());
         if (!overrideExisting && facti != mMovableObjectFactoryMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("A factory of type '{}' already exists.", fact->getType() ),
                 "Root::addMovableObjectFactory");
         }
@@ -1172,24 +1172,24 @@ namespace Ogre {
             mMovableObjectFactoryMap.find(typeName);
         if (i == mMovableObjectFactoryMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 ::std::format("MovableObjectFactory of type {} does not exist", typeName ),
                 "Root::getMovableObjectFactory");
         }
         return i->second;
     }
     //---------------------------------------------------------------------
-    auto Root::_allocateNextMovableObjectTypeFlag() -> uint32
+    auto Root::_allocateNextMovableObjectTypeFlag() -> QueryTypeMask
     {
-        if (mNextMovableObjectTypeFlag == SceneManager::USER_TYPE_MASK_LIMIT)
+        if (mNextMovableObjectTypeFlag == QueryTypeMask::USER_LIMIT)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                 "Cannot allocate a type flag since "
                 "all the available flags have been used.",
                 "Root::_allocateNextMovableObjectTypeFlag");
 
         }
-        uint32 ret = mNextMovableObjectTypeFlag;
+        auto ret = mNextMovableObjectTypeFlag;
         mNextMovableObjectTypeFlag <<= 1;
         return ret;
 

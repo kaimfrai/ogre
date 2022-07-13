@@ -19,6 +19,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_compile_options(-O1)
 endif ()
 
+add_compile_options(-Werror)
+
 if	(BUILD_WITH_SANITIZER)
 	add_compile_options(
 		-fsanitize=address

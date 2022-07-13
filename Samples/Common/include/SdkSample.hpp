@@ -65,7 +65,7 @@ namespace OgreBites
         -----------------------------------------------------------------------------*/
         void saveState(Ogre::NameValuePairList& state) override
         {
-            if (mCameraMan->getStyle() == CS_FREELOOK)
+            if (mCameraMan->getStyle() == CameraStyle::FREELOOK)
             {
                 state["CameraPosition"] = Ogre::StringConverter::toString(mCameraNode->getPosition());
                 state["CameraOrientation"] = Ogre::StringConverter::toString(mCameraNode->getOrientation());
@@ -79,7 +79,7 @@ namespace OgreBites
         {
             if (state.find("CameraPosition") != state.end() && state.find("CameraOrientation") != state.end())
             {
-                mCameraMan->setStyle(CS_FREELOOK);
+                mCameraMan->setStyle(CameraStyle::FREELOOK);
                 mCameraNode->setPosition(Ogre::StringConverter::parseVector3(state["CameraPosition"]));
                 mCameraNode->setOrientation(Ogre::StringConverter::parseQuaternion(state["CameraOrientation"]));
             }
@@ -147,9 +147,9 @@ namespace OgreBites
         {
             if (mTrayMgr->mousePressed(evt)) return true;
 
-            if (mDragLook && evt.button == BUTTON_LEFT)
+            if (mDragLook && evt.button == ButtonType::LEFT)
             {
-                mCameraMan->setStyle(CS_FREELOOK);
+                mCameraMan->setStyle(CameraStyle::FREELOOK);
                 mTrayMgr->hideCursor();
             }
 
@@ -160,7 +160,7 @@ namespace OgreBites
         // convert and redirect
         auto touchPressed(const TouchFingerDownEvent& evt) noexcept -> bool override {
             MouseButtonDownEvent e;
-            e.button = BUTTON_LEFT;
+            e.button = ButtonType::LEFT;
             return mousePressed(e);
         }
 
@@ -168,9 +168,9 @@ namespace OgreBites
         {
             if (mTrayMgr->mouseReleased(evt)) return true;
 
-            if (mDragLook && evt.button == BUTTON_LEFT)
+            if (mDragLook && evt.button == ButtonType::LEFT)
             {
-                mCameraMan->setStyle(CS_MANUAL);
+                mCameraMan->setStyle(CameraStyle::MANUAL);
                 mTrayMgr->showCursor();
             }
 
@@ -181,7 +181,7 @@ namespace OgreBites
         // convert and redirect
         auto touchReleased(const TouchFingerUpEvent& evt) noexcept -> bool override {
             MouseButtonUpEvent e;
-            e.button = BUTTON_LEFT;
+            e.button = ButtonType::LEFT;
             return mouseReleased(e);
         }
 
@@ -212,7 +212,7 @@ namespace OgreBites
             mTrayMgr.reset();
 
             // restore settings we may have changed, so as not to affect other samples
-            Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_BILINEAR);
+            Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TextureFilterOptions::BILINEAR);
             Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(1);
         }
 
@@ -235,13 +235,13 @@ namespace OgreBites
         {
             if (enabled)
             {
-                mCameraMan->setStyle(CS_MANUAL);
+                mCameraMan->setStyle(CameraStyle::MANUAL);
                 mTrayMgr->showCursor();
                 mDragLook = true;
             }
             else
             {
-                mCameraMan->setStyle(CS_FREELOOK);
+                mCameraMan->setStyle(CameraStyle::FREELOOK);
                 mTrayMgr->hideCursor();
                 mDragLook = false;
             }
@@ -263,13 +263,13 @@ namespace OgreBites
             p->removeAllTextureUnitStates();
             p->setLightingEnabled(false);
             TextureUnitState *t = p->createTextureUnitState(tex->getName());
-            t->setTextureAddressingMode(TextureUnitState::TAM_CLAMP);
+            t->setTextureAddressingMode(TextureAddressingMode::CLAMP);
 
             // create template
             if (!OverlayManager::getSingleton().hasOverlayElement("Ogre/DebugTexOverlay", true))
             {
                 OverlayElement* e = OverlayManager::getSingleton().createOverlayElement("Panel", "Ogre/DebugTexOverlay", true);
-                e->setMetricsMode(GMM_PIXELS);
+                e->setMetricsMode(GuiMetricsMode::PIXELS);
                 e->setWidth(128);
                 e->setHeight(128);
             }

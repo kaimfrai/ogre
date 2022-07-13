@@ -62,7 +62,7 @@ class Sphere;
         mNearDist = 100.0f;
         mFarDist = 100000.0f;
         mAspect = 1.33333333333333f;
-        mProjType = PT_PERSPECTIVE;
+        mProjType = ProjectionType::PERSPECTIVE;
 
         invalidateFrustum();
         invalidateView();
@@ -158,7 +158,7 @@ class Sphere;
     void Camera::_renderScene(Viewport *vp)
     {
         //update the pixel display ratio
-        if (mProjType == Ogre::PT_PERSPECTIVE)
+        if (mProjType == Ogre::ProjectionType::PERSPECTIVE)
         {
             mPixelDisplayRatio = (2 * Ogre::Math::Tan(mFOVy * 0.5f)) / vp->getActualHeight();
         }
@@ -211,12 +211,12 @@ class Sphere;
         o << ", aspect=" << c.mAspect << ", ";
         o << ", xoffset=" << c.mFrustumOffset.x << ", yoffset=" << c.mFrustumOffset.y;
         o << ", focalLength=" << c.mFocalLength << ", ";
-        o << "NearFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_NEAR] << ", ";
-        o << "FarFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_FAR] << ", ";
-        o << "LeftFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_LEFT] << ", ";
-        o << "RightFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_RIGHT] << ", ";
-        o << "TopFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_TOP] << ", ";
-        o << "BottomFrustumPlane=" << c.mFrustumPlanes[FRUSTUM_PLANE_BOTTOM];
+        o << "NearFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)] << ", ";
+        o << "FarFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)] << ", ";
+        o << "LeftFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)] << ", ";
+        o << "RightFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)] << ", ";
+        o << "TopFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)] << ", ";
+        o << "BottomFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)];
         o << ")";
 
         return o;
@@ -387,7 +387,7 @@ class Sphere;
     {
         outVolume->planes.clear();
 
-        if (mProjType == PT_PERSPECTIVE)
+        if (mProjType == ProjectionType::PERSPECTIVE)
         {
 
             // Use the corner rays to generate planes
@@ -432,21 +432,21 @@ class Sphere;
 
             updateFrustumPlanes();
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[FRUSTUM_PLANE_TOP].normal, ul.getOrigin()));
+                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal, ul.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[FRUSTUM_PLANE_RIGHT].normal, br.getOrigin()));
+                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal, br.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[FRUSTUM_PLANE_BOTTOM].normal, br.getOrigin()));
+                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal, br.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[FRUSTUM_PLANE_LEFT].normal, ul.getOrigin()));
+                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal, ul.getOrigin()));
             
 
         }
 
         // near & far plane applicable to both projection types
-        outVolume->planes.push_back(getFrustumPlane(FRUSTUM_PLANE_NEAR));
+        outVolume->planes.push_back(getFrustumPlane(std::to_underlying(FrustumPlane::NEAR)));
         if (includeFarPlane)
-            outVolume->planes.push_back(getFrustumPlane(FRUSTUM_PLANE_FAR));
+            outVolume->planes.push_back(getFrustumPlane(std::to_underlying(FrustumPlane::FAR)));
     }
     // -------------------------------------------------------------------
     void Camera::setWindow (Real Left, Real Top, Real Right, Real Bottom)
@@ -494,7 +494,7 @@ class Sphere;
         Vector3 vw_br = inv * vp_br;
 
         mWindowClipPlanes.clear();
-        if (mProjType == PT_PERSPECTIVE)
+        if (mProjType == ProjectionType::PERSPECTIVE)
         {
             Vector3 position = getPositionForViewUpdate();
             mWindowClipPlanes.emplace_back(position, vw_bl, vw_ul);

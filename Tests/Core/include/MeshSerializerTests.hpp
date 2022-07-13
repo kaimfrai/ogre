@@ -74,11 +74,11 @@ public:
     void SetUp() override;
     void TearDown() override;
     void testMesh(MeshVersion version);
-    void assertMeshClone(Mesh* a, Mesh* b, MeshVersion version = MESH_VERSION_LATEST);
-    void assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version = MESH_VERSION_LATEST);
-    void assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version = MESH_VERSION_LATEST);
-    void assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version = MESH_VERSION_LATEST);
-    void assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version = MESH_VERSION_LATEST);
+    void assertMeshClone(Mesh* a, Mesh* b, MeshVersion version = MeshVersion::LATEST);
+    void assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version = MeshVersion::LATEST);
+    void assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version = MeshVersion::LATEST);
+    void assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version = MeshVersion::LATEST);
+    void assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version = MeshVersion::LATEST);
 
     template<typename T>
     auto isContainerClone(T& a, T& b) -> bool;

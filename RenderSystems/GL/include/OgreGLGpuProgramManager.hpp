@@ -47,7 +47,7 @@ struct CreateCallbackWrapper : public GpuProgramFactory
                        std::string_view group, bool isManual, ManualResourceLoader* loader) -> GpuProgram* override
     {
         // type and syntax code will be corrected by GpuProgramManager
-        return callback(creator, name, handle, group, isManual, loader, GPT_VERTEX_PROGRAM, "");
+        return callback(creator, name, handle, group, isManual, loader, GpuProgramType::VERTEX_PROGRAM, "");
     }
     CreateCallbackWrapper(std::string_view lang, CreateGpuProgramCallback cb) : language(lang), callback(cb) {}
 };

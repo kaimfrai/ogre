@@ -52,11 +52,11 @@ namespace Ogre {
          
     {
         // Create the 'main' queue up-front since we'll always need that
-        mGroups[RENDER_QUEUE_MAIN] = std::make_unique<RenderQueueGroup>(
+        mGroups[std::to_underlying(RenderQueueGroupID::MAIN)] = std::make_unique<RenderQueueGroup>(
             mSplitPassesByLightingType, mSplitNoShadowPasses, mShadowCastersCannotBeReceivers);
 
         // set default queue
-        mDefaultQueueGroup = RENDER_QUEUE_MAIN;
+        mDefaultQueueGroup = RenderQueueGroupID::MAIN;
         mDefaultRenderablePriority = Renderable::DEFAULT_PRIORITY;
 
     }
@@ -68,7 +68,7 @@ namespace Ogre {
         Pass::processPendingPassUpdates();
     }
     //-----------------------------------------------------------------------
-    void RenderQueue::addRenderable(Renderable* pRend, uint8 groupID, ushort priority)
+    void RenderQueue::addRenderable(Renderable* pRend, RenderQueueGroupID groupID, ushort priority)
     {
         // Find group
         RenderQueueGroup* pGroup = getQueueGroup(groupID);
@@ -86,7 +86,7 @@ namespace Ogre {
             // Use default base white, with lighting only if vertices has normals
             RenderOperation op;
             pRend->getRenderOperation(op);
-            bool useLighting = (nullptr != op.vertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL));
+            bool useLighting = (nullptr != op.vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL));
             MaterialPtr defaultMat = MaterialManager::getSingleton().getDefaultMaterial(useLighting);
             defaultMat->load();
             pTech = defaultMat->getBestTechnique();
@@ -134,7 +134,7 @@ namespace Ogre {
         //  that would cause, let them be destroyed in the destructor.
     }
     //-----------------------------------------------------------------------
-    void RenderQueue::addRenderable(Renderable* pRend, uint8 groupID)
+    void RenderQueue::addRenderable(Renderable* pRend, RenderQueueGroupID groupID)
     {
         addRenderable(pRend, groupID, mDefaultRenderablePriority);
     }
@@ -144,12 +144,12 @@ namespace Ogre {
         addRenderable(pRend, mDefaultQueueGroup, mDefaultRenderablePriority);
     }
     //-----------------------------------------------------------------------
-    auto RenderQueue::getDefaultQueueGroup() const noexcept -> uint8
+    auto RenderQueue::getDefaultQueueGroup() const noexcept -> RenderQueueGroupID
     {
         return mDefaultQueueGroup;
     }
     //-----------------------------------------------------------------------
-    void RenderQueue::setDefaultQueueGroup(uint8 grp)
+    void RenderQueue::setDefaultQueueGroup(RenderQueueGroupID grp)
     {
         mDefaultQueueGroup = grp;
     }
@@ -166,16 +166,16 @@ namespace Ogre {
     
     
     //-----------------------------------------------------------------------
-    auto RenderQueue::getQueueGroup(uint8 groupID) -> RenderQueueGroup*
+    auto RenderQueue::getQueueGroup(RenderQueueGroupID groupID) -> RenderQueueGroup*
     {
-        if (!mGroups[groupID])
+        if (!mGroups[std::to_underlying(groupID)])
         {
             // Insert new
-            mGroups[groupID] = std::make_unique<RenderQueueGroup>(mSplitPassesByLightingType, mSplitNoShadowPasses,
+            mGroups[std::to_underlying(groupID)] = std::make_unique<RenderQueueGroup>(mSplitPassesByLightingType, mSplitNoShadowPasses,
                                                         mShadowCastersCannotBeReceivers);
         }
 
-        return mGroups[groupID].get();
+        return mGroups[std::to_underlying(groupID)].get();
 
     }
     //-----------------------------------------------------------------------
@@ -229,12 +229,12 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderQueue::merge( const RenderQueue* rhs )
     {
-        for (size_t i = 0; i < RENDER_QUEUE_COUNT; ++i)
+        for (size_t i = 0; i < std::to_underlying(RenderQueueGroupID::COUNT); ++i)
         {
             if(!rhs->mGroups[i])
                 continue;
 
-            RenderQueueGroup* pDstGroup = getQueueGroup( i );
+            RenderQueueGroup* pDstGroup = getQueueGroup( static_cast<RenderQueueGroupID>(i) );
             pDstGroup->merge( rhs->mGroups[i].get() );
         }
     }

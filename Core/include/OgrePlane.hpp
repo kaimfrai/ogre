@@ -92,37 +92,38 @@ namespace Ogre {
             plane normal points. The "negative side" is the other half
             space. The flag "no side" indicates the plane itself.
         */
-        enum Side
+        enum class Side
         {
-            NO_SIDE,
-            POSITIVE_SIDE,
-            NEGATIVE_SIDE,
-            BOTH_SIDE
+            NONE,
+            Positive,
+            Negative,
+            Both
         };
 
         [[nodiscard]] auto getSide(const Vector3& rkPoint) const -> Side
         {
+            using enum Side;
             Real fDistance = getDistance(rkPoint);
 
             if (fDistance < 0.0)
-                return Plane::NEGATIVE_SIDE;
+                return Negative;
 
             if (fDistance > 0.0)
-                return Plane::POSITIVE_SIDE;
+                return Positive;
 
-            return Plane::NO_SIDE;
+            return NONE;
         }
 
         /**
-        Returns the side where the alignedBox is. The flag BOTH_SIDE indicates an intersecting box.
+        Returns the side where the alignedBox is. The flag Side::Both indicates an intersecting box.
         One corner ON the plane is sufficient to consider the box and the plane intersecting.
         */
         [[nodiscard]] auto getSide(const AxisAlignedBox& box) const -> Side
         {
             if (box.isNull())
-                return NO_SIDE;
+                return Side::NONE;
             if (box.isInfinite())
-                return BOTH_SIDE;
+                return Side::Both;
 
             return getSide(box.getCenter(), box.getHalfSize());
         }
@@ -132,9 +133,9 @@ namespace Ogre {
         @param centre The centre of the box.
         @param halfSize The half-size of the box.
         @return
-            POSITIVE_SIDE if the box complete lies on the "positive side" of the plane,
-            NEGATIVE_SIDE if the box complete lies on the "negative side" of the plane,
-            and BOTH_SIDE if the box intersects the plane.
+            Side::Positive if the box complete lies on the "positive side" of the plane,
+            Side::Negative if the box complete lies on the "negative side" of the plane,
+            and Side::Both if the box intersects the plane.
         */
         [[nodiscard]] auto getSide(const Vector3& centre, const Vector3& halfSize) const -> Side
         {
@@ -146,12 +147,12 @@ namespace Ogre {
             Real maxAbsDist = normal.absDotProduct(halfSize);
 
             if (dist < -maxAbsDist)
-                return NEGATIVE_SIDE;
+                return Side::Negative;
 
             if (dist > +maxAbsDist)
-                return POSITIVE_SIDE;
+                return Side::Positive;
 
-            return BOTH_SIDE;
+            return Side::Both;
         }
 
         /** This is a pseudodistance. The sign of the return value is
@@ -262,7 +263,7 @@ namespace Ogre {
 
     inline auto Math::intersects(const Plane& plane, const AxisAlignedBox& box) -> bool
     {
-        return plane.getSide(box) == Plane::BOTH_SIDE;
+        return plane.getSide(box) == Plane::Side::Both;
     }
 
     using PlaneList = std::vector<Plane>;

@@ -123,45 +123,45 @@ class RenderTexture;
     void GLPBRTTManager::requestPBuffer(PixelComponentType ctype, uint32 width, uint32 height)
     {
         //Check size
-        if(mPBuffers[ctype].pb)
+        if(mPBuffers[std::to_underlying(ctype)].pb)
         {
-            if(mPBuffers[ctype].pb->getWidth()<width || mPBuffers[ctype].pb->getHeight()<height)
+            if(mPBuffers[std::to_underlying(ctype)].pb->getWidth()<width || mPBuffers[std::to_underlying(ctype)].pb->getHeight()<height)
             {
                 // If the current PBuffer is too small, destroy it and create a new one
-                delete mPBuffers[ctype].pb;
-                mPBuffers[ctype].pb = nullptr;
+                delete mPBuffers[std::to_underlying(ctype)].pb;
+                mPBuffers[std::to_underlying(ctype)].pb = nullptr;
             }
         }
-        if(!mPBuffers[ctype].pb)
+        if(!mPBuffers[std::to_underlying(ctype)].pb)
         {
             // Create pbuffer via rendersystem
-            mPBuffers[ctype].pb = mSupport->createPBuffer(ctype, width, height);
+            mPBuffers[std::to_underlying(ctype)].pb = mSupport->createPBuffer(ctype, width, height);
         }
         
-        ++mPBuffers[ctype].refcount;
+        ++mPBuffers[std::to_underlying(ctype)].refcount;
     }
     
     void GLPBRTTManager::releasePBuffer(PixelComponentType ctype)
     {
-        --mPBuffers[ctype].refcount;
-        if(mPBuffers[ctype].refcount == 0)
+        --mPBuffers[std::to_underlying(ctype)].refcount;
+        if(mPBuffers[std::to_underlying(ctype)].refcount == 0)
         {
-            delete mPBuffers[ctype].pb;
-            mPBuffers[ctype].pb = nullptr;
+            delete mPBuffers[std::to_underlying(ctype)].pb;
+            mPBuffers[std::to_underlying(ctype)].pb = nullptr;
         }
     }
     
     auto GLPBRTTManager::getContextFor(PixelComponentType ctype, uint32 width, uint32 height) -> GLContext *
     {
         // Faster to return main context if the RTT is smaller than the window size
-        // and ctype is PCT_BYTE. This must be checked every time because the window might have been resized
-        if(ctype == PCT_BYTE)
+        // and ctype is PixelComponentType::BYTE. This must be checked every time because the window might have been resized
+        if(ctype == PixelComponentType::BYTE)
         {
             if(width <= mMainWindow->getWidth() && height <= mMainWindow->getHeight())
                 return mMainContext;
         }
-        assert(mPBuffers[ctype].pb);
-        return mPBuffers[ctype].pb->getContext();
+        assert(mPBuffers[std::to_underlying(ctype)].pb);
+        return mPBuffers[std::to_underlying(ctype)].pb->getContext();
     }
 //---------------------------------------------------------------------------------------------
 

@@ -122,7 +122,7 @@ namespace {
         defaultOrganisationMode();
 
         // Transparents will always be sorted this way
-        mTransparents.addOrganisationMode(QueuedRenderableCollection::OM_SORT_DESCENDING);
+        mTransparents.addOrganisationMode(QueuedRenderableCollection::OrganisationMode::SORT_DESCENDING);
 
         
     }
@@ -148,7 +148,7 @@ namespace {
     void RenderPriorityGroup::defaultOrganisationMode()
     {
         resetOrganisationModes();
-        addOrganisationMode(QueuedRenderableCollection::OM_PASS_GROUP);
+        addOrganisationMode(QueuedRenderableCollection::OrganisationMode::PASS_GROUP);
     }
     //-----------------------------------------------------------------------
     void RenderPriorityGroup::addRenderable(Renderable* rend, Technique* pTech)
@@ -225,13 +225,13 @@ namespace {
             QueuedRenderableCollection* collection = nullptr;
             switch(p->stage)
             {
-            case IS_AMBIENT:
+            case IlluminationStage::AMBIENT:
                 collection = &mSolidsBasic;
                 break;
-            case IS_PER_LIGHT:
+            case IlluminationStage::PER_LIGHT:
                 collection = &mSolidsDiffuseSpecular;
                 break;
-            case IS_DECAL:
+            case IlluminationStage::DECAL:
                 collection = &mSolidsDecal;
                 break;
             default:
@@ -367,7 +367,7 @@ namespace {
         // ascending and descending sort both set bit 1
         // We always sort descending, because the only difference is in the
         // acceptVisitor method, where we iterate in reverse in ascending mode
-        if (mOrganisationMode & OM_SORT_DESCENDING)
+        if (!!(mOrganisationMode & OrganisationMode::SORT_DESCENDING))
         {
             
             // We can either use a stable_sort and the 'less' implementation,
@@ -403,12 +403,12 @@ namespace {
     void QueuedRenderableCollection::addRenderable(Pass* pass, Renderable* rend)
     {
         // ascending and descending sort both set bit 1
-        if (mOrganisationMode & OM_SORT_DESCENDING)
+        if (!!(mOrganisationMode & OrganisationMode::SORT_DESCENDING))
         {
             mSortedDescending.push_back(RenderablePass(rend, pass));
         }
 
-        if (mOrganisationMode & OM_PASS_GROUP)
+        if (!!(mOrganisationMode & OrganisationMode::PASS_GROUP))
         {
             // Optionally create new pass entry, build a new list
             // Note that this pass and list are never destroyed until the
@@ -426,17 +426,17 @@ namespace {
     void QueuedRenderableCollection::acceptVisitor(
         QueuedRenderableVisitor* visitor, OrganisationMode om) const
     {
-        if ((om & mOrganisationMode) == 0)
+        if ((om & mOrganisationMode) == OrganisationMode{})
         {
             // try to fall back
-            if (OM_PASS_GROUP & mOrganisationMode)
-                om = OM_PASS_GROUP;
-            else if (OM_SORT_ASCENDING & mOrganisationMode)
-                om = OM_SORT_ASCENDING;
-            else if (OM_SORT_DESCENDING & mOrganisationMode)
-                om = OM_SORT_DESCENDING;
+            if (!!(OrganisationMode::PASS_GROUP & mOrganisationMode))
+                om = OrganisationMode::PASS_GROUP;
+            else if (!!(OrganisationMode::SORT_ASCENDING & mOrganisationMode))
+                om = OrganisationMode::SORT_ASCENDING;
+            else if (!!(OrganisationMode::SORT_DESCENDING & mOrganisationMode))
+                om = OrganisationMode::SORT_DESCENDING;
             else
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                     "Organisation mode requested in acceptVistor was not notified "
                     "to this class ahead of time, therefore may not be supported.", 
                     "QueuedRenderableCollection::acceptVisitor");
@@ -444,13 +444,13 @@ namespace {
 
         switch(om)
         {
-        case OM_PASS_GROUP:
+        case OrganisationMode::PASS_GROUP:
             acceptVisitorGrouped(visitor);
             break;
-        case OM_SORT_DESCENDING:
+        case OrganisationMode::SORT_DESCENDING:
             acceptVisitorDescending(visitor);
             break;
-        case OM_SORT_ASCENDING:
+        case OrganisationMode::SORT_ASCENDING:
             acceptVisitorAscending(visitor);
             break;
         }

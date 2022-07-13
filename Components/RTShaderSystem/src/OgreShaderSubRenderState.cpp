@@ -109,7 +109,7 @@ auto SubRenderState::operator=(const SubRenderState& rhs) -> SubRenderState&
 {
     if (getType() != rhs.getType())
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
             "Can not copy sub render states of different types !!",
             "SubRenderState::operator=");
     }

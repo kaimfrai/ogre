@@ -108,36 +108,36 @@ namespace Ogre {
         return RenderToVertexBufferSharedPtr(new GLRenderToVertexBuffer);
     }
     //---------------------------------------------------------------------
-    auto GLHardwareBufferManager::getGLUsage(unsigned int usage) -> GLenum
+    auto GLHardwareBufferManager::getGLUsage(HardwareBufferUsage usage) -> GLenum
     {
-        return (usage == HBU_GPU_TO_CPU) ? GL_STATIC_READ
-                                         : (usage == HBU_GPU_ONLY) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
+        return (usage == HardwareBufferUsage::GPU_TO_CPU) ? GL_STATIC_READ
+                                         : (usage == HardwareBufferUsage::GPU_ONLY) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW;
     }
     //---------------------------------------------------------------------
-    auto GLHardwareBufferManager::getGLType(unsigned int type) -> GLenum
+    auto GLHardwareBufferManager::getGLType(VertexElementType type) -> GLenum
     {
         switch(type)
         {
-            case VET_FLOAT1:
-            case VET_FLOAT2:
-            case VET_FLOAT3:
-            case VET_FLOAT4:
+            case VertexElementType::FLOAT1:
+            case VertexElementType::FLOAT2:
+            case VertexElementType::FLOAT3:
+            case VertexElementType::FLOAT4:
                 return GL_FLOAT;
-            case VET_SHORT1:
-            case VET_SHORT2:
-            case VET_SHORT3:
-            case VET_SHORT4:
-            case VET_SHORT2_NORM:
-            case VET_SHORT4_NORM:
+            case VertexElementType::SHORT1:
+            case VertexElementType::SHORT2:
+            case VertexElementType::SHORT3:
+            case VertexElementType::SHORT4:
+            case VertexElementType::SHORT2_NORM:
+            case VertexElementType::SHORT4_NORM:
                 return GL_SHORT;
-            case VET_UBYTE4:
-            case VET_UBYTE4_NORM:
+            case VertexElementType::UBYTE4:
+            case VertexElementType::UBYTE4_NORM:
                 return GL_UNSIGNED_BYTE;
-            case VET_BYTE4:
-            case VET_BYTE4_NORM:
+            case VertexElementType::BYTE4:
+            case VertexElementType::BYTE4_NORM:
                 return GL_BYTE;
-            case VET_USHORT2_NORM:
-            case VET_USHORT4_NORM:
+            case VertexElementType::USHORT2_NORM:
+            case VertexElementType::USHORT4_NORM:
                 return GL_UNSIGNED_SHORT;
             default:
                 return 0;

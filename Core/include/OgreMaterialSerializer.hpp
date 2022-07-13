@@ -61,12 +61,12 @@ class Technique;
     public:
 
         // Material serialize event.
-        enum SerializeEvent
+        enum class SerializeEvent
         {
-            MSE_PRE_WRITE,
-            MSE_WRITE_BEGIN,
-            MSE_WRITE_END,
-            MSE_POST_WRITE
+            PRE_WRITE,
+            WRITE_BEGIN,
+            WRITE_END,
+            POST_WRITE
         };
 
         /** Class that allows listening in on the various stages of material serialization process.
@@ -81,7 +81,7 @@ class Technique;
             @param ser The MaterialSerializer instance that writes the given material.
             @param event The current section writing stage.
             @param skip May set to true by sub-class instances in order to skip the following section write.
-            This parameter relevant only when stage equals MSE_PRE_WRITE. 
+            This parameter relevant only when stage equals SerializeEvent::PRE_WRITE.
             @param mat The material that is being written.          
             */
             virtual void materialEventRaised(MaterialSerializer* ser, 
@@ -92,7 +92,7 @@ class Technique;
             @param ser The MaterialSerializer instance that writes the given material.
             @param event The current section writing stage.
             @param skip May set to true by sub-class instances in order to skip the following section write.
-            This parameter relevant only when stage equals MSE_PRE_WRITE. 
+            This parameter relevant only when stage equals SerializeEvent::PRE_WRITE.
             @param tech The technique that is being written.        
             */
             virtual void techniqueEventRaised(MaterialSerializer* ser, 
@@ -103,7 +103,7 @@ class Technique;
             @param ser The MaterialSerializer instance that writes the given material.
             @param event The current section writing stage.
             @param skip May set to true by sub-class instances in order to skip the following section write.
-            This parameter relevant only when stage equals MSE_PRE_WRITE. 
+            This parameter relevant only when stage equals SerializeEvent::PRE_WRITE.
             @param pass The pass that is being written.     
             */
             virtual void passEventRaised(MaterialSerializer* ser, 
@@ -114,7 +114,7 @@ class Technique;
             @param ser The MaterialSerializer instance that writes the given material.
             @param event The current section writing stage.
             @param skip May set to true by sub-class instances in order to skip the following section write.
-            This parameter relevant only when stage equals MSE_PRE_WRITE. 
+            This parameter relevant only when stage equals SerializeEvent::PRE_WRITE.
             @param attrib The GPU program reference description (vertex_program_ref, fragment_program_ref, etc).        
             @param program The program being written.
             @param params The program parameters.
@@ -140,7 +140,7 @@ class Technique;
             @param ser The MaterialSerializer instance that writes the given material.
             @param event The current section writing stage.
             @param skip May set to true by sub-class instances in order to skip the following section write.
-            This parameter relevant only when stage equals MSE_PRE_WRITE. 
+            This parameter relevant only when stage equals SerializeEvent::PRE_WRITE.
             @param textureUnit The texture unit state that is being written.        
             */
             virtual void textureUnitStateEventRaised(MaterialSerializer* ser, 

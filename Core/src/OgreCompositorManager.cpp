@@ -158,7 +158,7 @@ auto CompositorManager::_getTexturedRectangle2D() -> Renderable *
     if(!mRectangle)
     {
         /// 2D rectangle, to use for render_quad passes
-        mRectangle = ::std::make_unique<Rectangle2D>(true, HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+        mRectangle = ::std::make_unique<Rectangle2D>(true, HardwareBuffer::DYNAMIC_WRITE_ONLY_DISCARDABLE);
     }
     RenderSystem* rs = Root::getSingleton().getRenderSystem();
     Viewport* vp = rs->_getViewport();
@@ -172,7 +172,7 @@ auto CompositorManager::addCompositor(Viewport *vp, std::string_view compositor,
 {
     CompositorPtr comp = getByName(compositor);
     if(!comp)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not found", compositor));
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Compositor '{}' not found", compositor));
     CompositorChain *chain = getCompositorChain(vp);
     return chain->addCompositor(comp, addPosition==-1 ? CompositorChain::LAST : (size_t)addPosition);
 }
@@ -183,7 +183,7 @@ void CompositorManager::removeCompositor(Viewport *vp, std::string_view composit
     size_t pos = chain->getCompositorPosition(compositor);
 
     if(pos == CompositorChain::NPOS)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
 
     chain->removeCompositor(pos);
 }
@@ -194,7 +194,7 @@ void CompositorManager::setCompositorEnabled(Viewport *vp, std::string_view comp
     size_t pos = chain->getCompositorPosition(compositor);
 
     if(pos == CompositorChain::NPOS)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Compositor '{}' not in chain", compositor));
 
     chain->setCompositorEnabled(pos, value);
 }
@@ -233,11 +233,11 @@ auto CompositorManager::getPooledTexture(std::string_view name,
     CompositorManager::UniqueTextureSet& texturesAssigned, 
     CompositorInstance* inst, CompositionTechnique::TextureScope scope, TextureType type) -> TexturePtr
 {
-    OgreAssert(scope != CompositionTechnique::TS_GLOBAL, "Global scope texture can not be pooled");
+    OgreAssert(scope != CompositionTechnique::TextureScope::GLOBAL, "Global scope texture can not be pooled");
 
     TextureDef def(w, h, type, f, aa, aaHint, srgb);
 
-    if (scope == CompositionTechnique::TS_CHAIN)
+    if (scope == CompositionTechnique::TextureScope::CHAIN)
     {
         StringPair pair = std::make_pair(std::string{inst->getCompositor()->getName()}, std::string{localName});
         TextureDefMap& defMap = mChainTexturesByDef[pair];
@@ -249,8 +249,8 @@ auto CompositorManager::getPooledTexture(std::string_view name,
         // ok, we need to create a new one
         TexturePtr newTex = TextureManager::getSingleton().createManual(
             name, 
-            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            (uint)w, (uint)h, 0, f, TU_RENDERTARGET, nullptr,
+            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TextureType::_2D, 
+            (uint)w, (uint)h, TextureMipmap{}, f, TextureUsage::RENDERTARGET, nullptr,
             srgb, aa, aaHint);
         defMap.emplace(def, newTex);
         return newTex;
@@ -306,8 +306,8 @@ auto CompositorManager::getPooledTexture(std::string_view name,
         // ok, we need to create a new one
         ret = TextureManager::getSingleton().createManual(
             name, 
-            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-            w, h, 0, f, TU_RENDERTARGET, nullptr,
+            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TextureType::_2D, 
+            w, h, TextureMipmap{}, f, TextureUsage::RENDERTARGET, nullptr,
             srgb, aa, aaHint); 
 
         texList.push_back(ret);
@@ -326,7 +326,7 @@ auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, std::str
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     for (auto tp : passes)
     {
-        if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS &&
+        if (tp->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS &&
             tp->getOutputName() == localName)
         {
             return true;
@@ -343,7 +343,7 @@ auto CompositorManager::isInputPreviousTarget(CompositorInstance* inst, TextureP
     const CompositionTechnique::TargetPasses& passes = inst->getTechnique()->getTargetPasses();
     for (auto tp : passes)
     {
-        if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
+        if (tp->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS)
         {
             // Don't have to worry about an MRT, because no MRT can be input previous
             TexturePtr t = inst->getTextureInstance(tp->getOutputName(), 0);
@@ -439,7 +439,7 @@ void CompositorManager::registerCompositorLogic(std::string_view name, Composito
     OgreAssert(!name.empty(), "Compositor logic name must not be empty");
     if (mCompositorLogics.find(name) != mCompositorLogics.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
             ::std::format("Compositor logic '{}' already exists.", name ),
             "CompositorManager::registerCompositorLogic");
     }
@@ -451,7 +451,7 @@ void CompositorManager::unregisterCompositorLogic(std::string_view name)
     auto itor = mCompositorLogics.find(name);
     if( itor == mCompositorLogics.end() )
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             ::std::format("Compositor logic '{}' not registered.", name ),
             "CompositorManager::unregisterCompositorLogic");
     }
@@ -464,7 +464,7 @@ auto CompositorManager::getCompositorLogic(std::string_view name) -> CompositorL
     auto it = mCompositorLogics.find(name);
     if (it == mCompositorLogics.end())
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             ::std::format("Compositor logic '{}' not registered.", name ),
             "CompositorManager::getCompositorLogic");
     }
@@ -481,7 +481,7 @@ void CompositorManager::registerCustomCompositionPass(std::string_view name, Cus
     OgreAssert(!name.empty(), "Compositor pass name must not be empty");
     if (mCustomCompositionPasses.find(name) != mCustomCompositionPasses.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
             ::std::format("Custom composition pass  '{}' already exists.", name ),
             "CompositorManager::registerCustomCompositionPass");
     }
@@ -493,7 +493,7 @@ void CompositorManager::unregisterCustomCompositionPass(std::string_view name)
 	auto itor = mCustomCompositionPasses.find(name);
 	if( itor == mCustomCompositionPasses.end() )
 	{
-		OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+		OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
 			::std::format("Custom composition pass '{}' not registered.", name ),
 			"CompositorManager::unRegisterCustomCompositionPass");
 	}
@@ -510,7 +510,7 @@ auto CompositorManager::getCustomCompositionPass(std::string_view name) -> Custo
     auto it = mCustomCompositionPasses.find(name);
     if (it == mCustomCompositionPasses.end())
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             ::std::format("Custom composition pass '{}' not registered.", name ),
             "CompositorManager::getCustomCompositionPass");
     }

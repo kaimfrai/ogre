@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreCommon.hpp"
+#include "OgreShaderFFPRenderState.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "OgreShaderPrerequisites.hpp"
@@ -92,7 +93,7 @@ public:
     The return value should be synchronized with the predefined values
     of the FFPShaderStage enum.
     */
-    virtual auto getExecutionOrder() const noexcept -> int = 0;
+    virtual auto getExecutionOrder() const noexcept -> FFPShaderStage = 0;
 
 
     /** Copy details from a given sub render state to this one.

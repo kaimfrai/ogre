@@ -222,7 +222,7 @@ class Technique;
         @param flags Flags to pass to the InstanceManager. @see InstanceManagerFlags
         @return The max instances limit
         */
-        virtual auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t = 0;
+        virtual auto calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t = 0;
 
         /** Constructs all the data needed to use this batch, as well as the
             InstanceEntities. Placed here because in the constructor virtual

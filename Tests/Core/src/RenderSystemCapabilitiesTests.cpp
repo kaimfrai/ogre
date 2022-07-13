@@ -107,23 +107,23 @@ TEST_F(RenderSystemCapabilitiesTests,HasCapability)
     RenderSystemCapabilities rsc;
 
     // check that no caps (from 2 categories) are supported
-    EXPECT_TRUE(!rsc.hasCapability(RSC_TWO_SIDED_STENCIL));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_MIPMAP_LOD_BIAS));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_TEXTURE_COMPRESSION));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_TEXTURE_COMPRESSION_VTC));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_PBUFFER));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::TWO_SIDED_STENCIL));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::MIPMAP_LOD_BIAS));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::TEXTURE_COMPRESSION));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::TEXTURE_COMPRESSION_VTC));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::PBUFFER));
 
     // add support for few caps from each category
-    rsc.setCapability(RSC_TEXTURE_COMPRESSION);
+    rsc.setCapability(Capabilities::TEXTURE_COMPRESSION);
 
     // check that the newly set caps are supported
-    EXPECT_TRUE(rsc.hasCapability(RSC_TEXTURE_COMPRESSION));
+    EXPECT_TRUE(rsc.hasCapability(Capabilities::TEXTURE_COMPRESSION));
 
     // check that the non-set caps are NOT supported
-    EXPECT_TRUE(!rsc.hasCapability(RSC_TWO_SIDED_STENCIL));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_MIPMAP_LOD_BIAS));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_TEXTURE_COMPRESSION_VTC));
-    EXPECT_TRUE(!rsc.hasCapability(RSC_PBUFFER));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::TWO_SIDED_STENCIL));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::MIPMAP_LOD_BIAS));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::TEXTURE_COMPRESSION_VTC));
+    EXPECT_TRUE(!rsc.hasCapability(Capabilities::PBUFFER));
 }
 //--------------------------------------------------------------------------
 TEST_F(RenderSystemCapabilitiesTests,SerializeBlank)
@@ -146,7 +146,7 @@ TEST_F(RenderSystemCapabilitiesTests,SerializeEnumCapability)
     EXPECT_TRUE(rsc != nullptr);
 
     // confirm that the contents are the same as in .rendercaps file
-    EXPECT_TRUE(rsc->hasCapability(RSC_AUTOMIPMAP_COMPRESSED));
+    EXPECT_TRUE(rsc->hasCapability(Capabilities::AUTOMIPMAP_COMPRESSED));
 }
 //--------------------------------------------------------------------------
 TEST_F(RenderSystemCapabilitiesTests,SerializeStringCapability)
@@ -340,36 +340,36 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAllTrueCapabilities)
     RenderSystemCapabilities caps;
 
     // set all caps
-    caps.setCapability(RSC_AUTOMIPMAP_COMPRESSED);
-    caps.setCapability(RSC_ANISOTROPY);
-    caps.setCapability(RSC_HWSTENCIL);
+    caps.setCapability(Capabilities::AUTOMIPMAP_COMPRESSED);
+    caps.setCapability(Capabilities::ANISOTROPY);
+    caps.setCapability(Capabilities::HWSTENCIL);
 
-    caps.setCapability(RSC_TWO_SIDED_STENCIL);
-    caps.setCapability(RSC_STENCIL_WRAP);
+    caps.setCapability(Capabilities::TWO_SIDED_STENCIL);
+    caps.setCapability(Capabilities::STENCIL_WRAP);
 
-    caps.setCapability(RSC_HWOCCLUSION);
-    caps.setCapability(RSC_USER_CLIP_PLANES);
-    caps.setCapability(RSC_HWRENDER_TO_TEXTURE);
-    caps.setCapability(RSC_TEXTURE_FLOAT);
+    caps.setCapability(Capabilities::HWOCCLUSION);
+    caps.setCapability(Capabilities::USER_CLIP_PLANES);
+    caps.setCapability(Capabilities::HWRENDER_TO_TEXTURE);
+    caps.setCapability(Capabilities::TEXTURE_FLOAT);
 
-    caps.setCapability(RSC_NON_POWER_OF_2_TEXTURES);
-    caps.setCapability(RSC_TEXTURE_3D);
-    caps.setCapability(RSC_POINT_SPRITES);
-    caps.setCapability(RSC_POINT_EXTENDED_PARAMETERS);
-    caps.setCapability(RSC_VERTEX_TEXTURE_FETCH);
-    caps.setCapability(RSC_MIPMAP_LOD_BIAS);
+    caps.setCapability(Capabilities::NON_POWER_OF_2_TEXTURES);
+    caps.setCapability(Capabilities::TEXTURE_3D);
+    caps.setCapability(Capabilities::POINT_SPRITES);
+    caps.setCapability(Capabilities::POINT_EXTENDED_PARAMETERS);
+    caps.setCapability(Capabilities::VERTEX_TEXTURE_FETCH);
+    caps.setCapability(Capabilities::MIPMAP_LOD_BIAS);
 
-    caps.setCapability(RSC_TEXTURE_COMPRESSION);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_DXT);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_VTC);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_PVRTC);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_DXT);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_VTC);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_PVRTC);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_BC4_BC5);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_BC6H_BC7);
 
-    caps.setCapability(RSC_PBUFFER);
-    caps.setCapability(RSC_PERSTAGECONSTANT);
-    caps.setCapability(RSC_SEPARATE_SHADER_OBJECTS);
-    caps.setCapability(RSC_VAO);
+    caps.setCapability(Capabilities::PBUFFER);
+    caps.setCapability(Capabilities::PERSTAGECONSTANT);
+    caps.setCapability(Capabilities::SEPARATE_SHADER_OBJECTS);
+    caps.setCapability(Capabilities::VAO);
 
     // write them to file
     serializer.writeScript(&caps, name, filename);
@@ -442,24 +442,24 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     RenderSystemCapabilities caps;
 
     // set all caps
-    caps.setCapability(RSC_HWSTENCIL);
-    caps.setCapability(RSC_TWO_SIDED_STENCIL);
-    caps.setCapability(RSC_HWOCCLUSION);
-    caps.setCapability(RSC_HWRENDER_TO_TEXTURE);
-    caps.setCapability(RSC_TEXTURE_FLOAT);
-    caps.setCapability(RSC_NON_POWER_OF_2_TEXTURES);
-    caps.setCapability(RSC_TEXTURE_3D);
-    caps.setCapability(RSC_POINT_EXTENDED_PARAMETERS);
-    caps.setCapability(RSC_MIPMAP_LOD_BIAS);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_DXT);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_VTC);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_PVRTC);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5);
-    caps.setCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7);
-    caps.setCapability(RSC_PERSTAGECONSTANT);
-    caps.setCapability(RSC_SEPARATE_SHADER_OBJECTS);
-    caps.setCapability(RSC_VAO);
+    caps.setCapability(Capabilities::HWSTENCIL);
+    caps.setCapability(Capabilities::TWO_SIDED_STENCIL);
+    caps.setCapability(Capabilities::HWOCCLUSION);
+    caps.setCapability(Capabilities::HWRENDER_TO_TEXTURE);
+    caps.setCapability(Capabilities::TEXTURE_FLOAT);
+    caps.setCapability(Capabilities::NON_POWER_OF_2_TEXTURES);
+    caps.setCapability(Capabilities::TEXTURE_3D);
+    caps.setCapability(Capabilities::POINT_EXTENDED_PARAMETERS);
+    caps.setCapability(Capabilities::MIPMAP_LOD_BIAS);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_DXT);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_VTC);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_PVRTC);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_BC4_BC5);
+    caps.setCapability(Capabilities::TEXTURE_COMPRESSION_BC6H_BC7);
+    caps.setCapability(Capabilities::PERSTAGECONSTANT);
+    caps.setCapability(Capabilities::SEPARATE_SHADER_OBJECTS);
+    caps.setCapability(Capabilities::VAO);
 
     caps.setNumTextureUnits(22);
     caps.setNumMultiRenderTargets(23);
@@ -505,35 +505,35 @@ TEST_F(RenderSystemCapabilitiesTests,WriteAndReadComplexCapabilities)
     // create a reference, so that were are working with two refs
     RenderSystemCapabilities& caps2 = *rsc;
 
-    EXPECT_EQ(caps.hasCapability(RSC_ANISOTROPY), caps2.hasCapability(RSC_ANISOTROPY));
-    EXPECT_EQ(caps.hasCapability(RSC_HWSTENCIL), caps2.hasCapability(RSC_HWSTENCIL));
+    EXPECT_EQ(caps.hasCapability(Capabilities::ANISOTROPY), caps2.hasCapability(Capabilities::ANISOTROPY));
+    EXPECT_EQ(caps.hasCapability(Capabilities::HWSTENCIL), caps2.hasCapability(Capabilities::HWSTENCIL));
 
-    EXPECT_EQ(caps.hasCapability(RSC_TWO_SIDED_STENCIL), caps2.hasCapability(RSC_TWO_SIDED_STENCIL));
-    EXPECT_EQ(caps.hasCapability(RSC_STENCIL_WRAP), caps2.hasCapability(RSC_STENCIL_WRAP));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TWO_SIDED_STENCIL), caps2.hasCapability(Capabilities::TWO_SIDED_STENCIL));
+    EXPECT_EQ(caps.hasCapability(Capabilities::STENCIL_WRAP), caps2.hasCapability(Capabilities::STENCIL_WRAP));
 
-    EXPECT_EQ(caps.hasCapability(RSC_HWOCCLUSION), caps2.hasCapability(RSC_HWOCCLUSION));
-    EXPECT_EQ(caps.hasCapability(RSC_USER_CLIP_PLANES), caps2.hasCapability(RSC_USER_CLIP_PLANES));
-    EXPECT_EQ(caps.hasCapability(RSC_HWRENDER_TO_TEXTURE), caps2.hasCapability(RSC_HWRENDER_TO_TEXTURE));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_FLOAT), caps2.hasCapability(RSC_TEXTURE_FLOAT));
+    EXPECT_EQ(caps.hasCapability(Capabilities::HWOCCLUSION), caps2.hasCapability(Capabilities::HWOCCLUSION));
+    EXPECT_EQ(caps.hasCapability(Capabilities::USER_CLIP_PLANES), caps2.hasCapability(Capabilities::USER_CLIP_PLANES));
+    EXPECT_EQ(caps.hasCapability(Capabilities::HWRENDER_TO_TEXTURE), caps2.hasCapability(Capabilities::HWRENDER_TO_TEXTURE));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_FLOAT), caps2.hasCapability(Capabilities::TEXTURE_FLOAT));
 
-    EXPECT_EQ(caps.hasCapability(RSC_NON_POWER_OF_2_TEXTURES), caps2.hasCapability(RSC_NON_POWER_OF_2_TEXTURES));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_3D), caps2.hasCapability(RSC_TEXTURE_3D));
-    EXPECT_EQ(caps.hasCapability(RSC_POINT_SPRITES), caps2.hasCapability(RSC_POINT_SPRITES));
-    EXPECT_EQ(caps.hasCapability(RSC_POINT_EXTENDED_PARAMETERS), caps2.hasCapability(RSC_POINT_EXTENDED_PARAMETERS));
-    EXPECT_EQ(caps.hasCapability(RSC_VERTEX_TEXTURE_FETCH), caps2.hasCapability(RSC_VERTEX_TEXTURE_FETCH));
-    EXPECT_EQ(caps.hasCapability(RSC_MIPMAP_LOD_BIAS), caps2.hasCapability(RSC_MIPMAP_LOD_BIAS));
+    EXPECT_EQ(caps.hasCapability(Capabilities::NON_POWER_OF_2_TEXTURES), caps2.hasCapability(Capabilities::NON_POWER_OF_2_TEXTURES));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_3D), caps2.hasCapability(Capabilities::TEXTURE_3D));
+    EXPECT_EQ(caps.hasCapability(Capabilities::POINT_SPRITES), caps2.hasCapability(Capabilities::POINT_SPRITES));
+    EXPECT_EQ(caps.hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS), caps2.hasCapability(Capabilities::POINT_EXTENDED_PARAMETERS));
+    EXPECT_EQ(caps.hasCapability(Capabilities::VERTEX_TEXTURE_FETCH), caps2.hasCapability(Capabilities::VERTEX_TEXTURE_FETCH));
+    EXPECT_EQ(caps.hasCapability(Capabilities::MIPMAP_LOD_BIAS), caps2.hasCapability(Capabilities::MIPMAP_LOD_BIAS));
 
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION), caps2.hasCapability(RSC_TEXTURE_COMPRESSION));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION_DXT), caps2.hasCapability(RSC_TEXTURE_COMPRESSION_DXT));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION_VTC), caps2.hasCapability(RSC_TEXTURE_COMPRESSION_VTC));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION_PVRTC), caps2.hasCapability(RSC_TEXTURE_COMPRESSION_PVRTC));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5), caps2.hasCapability(RSC_TEXTURE_COMPRESSION_BC4_BC5));
-    EXPECT_EQ(caps.hasCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7), caps2.hasCapability(RSC_TEXTURE_COMPRESSION_BC6H_BC7));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION_DXT), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION_DXT));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION_VTC), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION_VTC));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION_PVRTC), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION_PVRTC));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION_BC4_BC5), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION_BC4_BC5));
+    EXPECT_EQ(caps.hasCapability(Capabilities::TEXTURE_COMPRESSION_BC6H_BC7), caps2.hasCapability(Capabilities::TEXTURE_COMPRESSION_BC6H_BC7));
 
-    EXPECT_EQ(caps.hasCapability(RSC_PBUFFER), caps2.hasCapability(RSC_PBUFFER));
-    EXPECT_EQ(caps.hasCapability(RSC_PERSTAGECONSTANT), caps2.hasCapability(RSC_PERSTAGECONSTANT));
-    EXPECT_EQ(caps.hasCapability(RSC_SEPARATE_SHADER_OBJECTS), caps2.hasCapability(RSC_SEPARATE_SHADER_OBJECTS));
-    EXPECT_EQ(caps.hasCapability(RSC_VAO), caps2.hasCapability(RSC_VAO));
+    EXPECT_EQ(caps.hasCapability(Capabilities::PBUFFER), caps2.hasCapability(Capabilities::PBUFFER));
+    EXPECT_EQ(caps.hasCapability(Capabilities::PERSTAGECONSTANT), caps2.hasCapability(Capabilities::PERSTAGECONSTANT));
+    EXPECT_EQ(caps.hasCapability(Capabilities::SEPARATE_SHADER_OBJECTS), caps2.hasCapability(Capabilities::SEPARATE_SHADER_OBJECTS));
+    EXPECT_EQ(caps.hasCapability(Capabilities::VAO), caps2.hasCapability(Capabilities::VAO));
 
     EXPECT_EQ(caps.getNumTextureUnits(), caps2.getNumTextureUnits());
     EXPECT_EQ(caps.getNumMultiRenderTargets(), caps2.getNumMultiRenderTargets());

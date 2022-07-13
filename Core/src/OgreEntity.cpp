@@ -754,14 +754,14 @@ class Sphere;
     {
         // Do we still have temp buffers for software vertex animation bound?
         bool ret = true;
-        if (mMesh->sharedVertexData && mMesh->getSharedVertexDataAnimationType() != VAT_NONE)
+        if (mMesh->sharedVertexData && mMesh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE)
         {
             ret = ret && mTempVertexAnimInfo.buffersCheckedOut(true, mMesh->getSharedVertexDataAnimationIncludesNormals());
         }
         for (auto sub : mSubEntityList)
         {
             if (!sub->getSubMesh()->useSharedVertices
-                && sub->getSubMesh()->getVertexAnimationType() != VAT_NONE)
+                && sub->getSubMesh()->getVertexAnimationType() != VertexAnimationType::NONE)
             {
                 ret = ret && sub->_getVertexAnimTempBufferInfo()->buffersCheckedOut(
                     true, sub->getSubMesh()->getVertexAnimationIncludesNormals());
@@ -828,7 +828,7 @@ class Sphere;
                 {
                     // grab & bind temporary buffer for positions (& normals if they are included)
                     if (mSoftwareVertexAnimVertexData
-                        && mMesh->getSharedVertexDataAnimationType() != VAT_NONE)
+                        && mMesh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE)
                     {
                         bool useNormals = mMesh->getSharedVertexDataAnimationIncludesNormals();
                         mTempVertexAnimInfo.checkoutTempCopies(true, useNormals);
@@ -842,7 +842,7 @@ class Sphere;
                     {
                         // Blend dedicated geometry
                         if (se->isVisible() && se->mSoftwareVertexAnimVertexData
-                            && se->getSubMesh()->getVertexAnimationType() != VAT_NONE)
+                            && se->getSubMesh()->getVertexAnimationType() != VertexAnimationType::NONE)
                         {
                             bool useNormals = se->getSubMesh()->getVertexAnimationIncludesNormals();
                             se->mTempVertexAnimInfo.checkoutTempCopies(true, useNormals);
@@ -880,7 +880,7 @@ class Sphere;
                                                             mBoneMatrices, mMesh->sharedBlendIndexToBoneIndexMap);
                         // Blend, taking source from either mesh data or morph data
                         Mesh::softwareVertexBlend(
-                            (mMesh->getSharedVertexDataAnimationType() != VAT_NONE) ?
+                            (mMesh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE) ?
                             mSoftwareVertexAnimVertexData.get() : mMesh->sharedVertexData,
                             mSkelAnimVertexData.get(),
                             blendMatrices, mMesh->sharedBlendIndexToBoneIndexMap.size(),
@@ -899,7 +899,7 @@ class Sphere;
                                                                 mBoneMatrices, se->mSubMesh->blendIndexToBoneIndexMap);
                             // Blend, taking source from either mesh data or morph data
                             Mesh::softwareVertexBlend(
-                                (se->getSubMesh()->getVertexAnimationType() != VAT_NONE)?
+                                (se->getSubMesh()->getVertexAnimationType() != VertexAnimationType::NONE)?
                                 se->mSoftwareVertexAnimVertexData.get() : se->mSubMesh->vertexData.get(),
                                 se->mSkelAnimVertexData.get(),
                                 blendMatrices, se->mSubMesh->blendIndexToBoneIndexMap.size(),
@@ -985,15 +985,15 @@ class Sphere;
         if (hardwareAnimation)
         {
             if (mHardwareVertexAnimVertexData
-                && msh->getSharedVertexDataAnimationType() != VAT_NONE)
+                && msh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE)
             {
                 ushort supportedCount =
                     initHardwareAnimationElements(mHardwareVertexAnimVertexData.get(),
-                                                  (msh->getSharedVertexDataAnimationType() == VAT_POSE)
+                                                  (msh->getSharedVertexDataAnimationType() == VertexAnimationType::POSE)
                                                   ? mHardwarePoseCount : 1, 
                                                   msh->getSharedVertexDataAnimationIncludesNormals());
                 
-                if (msh->getSharedVertexDataAnimationType() == VAT_POSE && 
+                if (msh->getSharedVertexDataAnimationType() == VertexAnimationType::POSE && 
                     supportedCount < mHardwarePoseCount)
                 {
                     LogManager::getSingleton().stream() <<
@@ -1007,16 +1007,16 @@ class Sphere;
 }
             for (auto sub : mSubEntityList)
             {
-                if (sub->getSubMesh()->getVertexAnimationType() != VAT_NONE &&
+                if (sub->getSubMesh()->getVertexAnimationType() != VertexAnimationType::NONE &&
                     !sub->getSubMesh()->useSharedVertices)
                 {
                     ushort supportedCount = initHardwareAnimationElements(
                         sub->_getHardwareVertexAnimVertexData(),
-                        (sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
+                        (sub->getSubMesh()->getVertexAnimationType() == VertexAnimationType::POSE)
                         ? sub->mHardwarePoseCount : 1,
                         sub->getSubMesh()->getVertexAnimationIncludesNormals());
 
-                    if (sub->getSubMesh()->getVertexAnimationType() == VAT_POSE && 
+                    if (sub->getSubMesh()->getVertexAnimationType() == VertexAnimationType::POSE && 
                         supportedCount < sub->mHardwarePoseCount)
                     {
                         LogManager::getSingleton().stream() <<
@@ -1037,10 +1037,10 @@ class Sphere;
             // Suppress hardware upload of buffers
             // Note, we query position buffer here but it may also include normals
             if (mSoftwareVertexAnimVertexData &&
-                mMesh->getSharedVertexDataAnimationType() == VAT_POSE)
+                mMesh->getSharedVertexDataAnimationType() == VertexAnimationType::POSE)
             {
                 const VertexElement* elem = mSoftwareVertexAnimVertexData
-                    ->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                    ->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
                 HardwareVertexBufferSharedPtr buf = mSoftwareVertexAnimVertexData
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(true);
@@ -1051,11 +1051,11 @@ class Sphere;
             for (auto sub : mSubEntityList)
             {
                 if (!sub->getSubMesh()->useSharedVertices &&
-                    sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
+                    sub->getSubMesh()->getVertexAnimationType() == VertexAnimationType::POSE)
                 {
                     VertexData* data = sub->_getSoftwareVertexAnimVertexData();
                     const VertexElement* elem = data->vertexDeclaration
-                        ->findElementBySemantic(VES_POSITION);
+                        ->findElementBySemantic(VertexElementSemantic::POSITION);
                     HardwareVertexBufferSharedPtr buf = data
                         ->vertexBufferBinding->getBuffer(elem->getSource());
                     buf->suppressHardwareUpdate(true);
@@ -1087,14 +1087,14 @@ class Sphere;
         if (!hardwareAnimation)
         {
             if (mSoftwareVertexAnimVertexData &&
-                msh->getSharedVertexDataAnimationType() == VAT_POSE)
+                msh->getSharedVertexDataAnimationType() == VertexAnimationType::POSE)
             {
                 // if we're animating normals, if pose influence < 1 need to use the base mesh
                 if (mMesh->getSharedVertexDataAnimationIncludesNormals())
                     finalisePoseNormals(mMesh->sharedVertexData, mSoftwareVertexAnimVertexData.get());
             
                 const VertexElement* elem = mSoftwareVertexAnimVertexData
-                    ->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                    ->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
                 HardwareVertexBufferSharedPtr buf = mSoftwareVertexAnimVertexData
                     ->vertexBufferBinding->getBuffer(elem->getSource());
                 buf->suppressHardwareUpdate(false);
@@ -1102,7 +1102,7 @@ class Sphere;
             for (auto sub : mSubEntityList)
             {
                 if (!sub->getSubMesh()->useSharedVertices &&
-                    sub->getSubMesh()->getVertexAnimationType() == VAT_POSE)
+                    sub->getSubMesh()->getVertexAnimationType() == VertexAnimationType::POSE)
                 {
                     VertexData* data = sub->_getSoftwareVertexAnimVertexData();
                     // if we're animating normals, if pose influence < 1 need to use the base mesh
@@ -1110,7 +1110,7 @@ class Sphere;
                         finalisePoseNormals(sub->getSubMesh()->vertexData.get(), data);
                     
                     const VertexElement* elem = data->vertexDeclaration
-                        ->findElementBySemantic(VES_POSITION);
+                        ->findElementBySemantic(VertexElementSemantic::POSITION);
                     HardwareVertexBufferSharedPtr buf = data
                         ->vertexBufferBinding->getBuffer(elem->getSource());
                     buf->suppressHardwareUpdate(false);
@@ -1143,19 +1143,19 @@ class Sphere;
         //    or we're pose animated and software (hardware is fine, still bound)
         if (mMesh->sharedVertexData &&
             !mVertexAnimationAppliedThisFrame &&
-            (!hardwareAnimation || mMesh->getSharedVertexDataAnimationType() == VAT_MORPH))
+            (!hardwareAnimation || mMesh->getSharedVertexDataAnimationType() == VertexAnimationType::MORPH))
         {
-            // Note, VES_POSITION is specified here but if normals are included in animation
+            // Note, VertexElementSemantic::POSITION is specified here but if normals are included in animation
             // then these will be re-bound too (buffers must be shared)
             const VertexElement* srcPosElem =
-                mMesh->sharedVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                mMesh->sharedVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             HardwareVertexBufferSharedPtr srcBuf =
                 mMesh->sharedVertexData->vertexBufferBinding->getBuffer(
                     srcPosElem->getSource());
 
             // Bind to software
             const VertexElement* destPosElem =
-                mSoftwareVertexAnimVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                mSoftwareVertexAnimVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             mSoftwareVertexAnimVertexData->vertexBufferBinding->setBinding(
                 destPosElem->getSource(), srcBuf);
                 
@@ -1165,7 +1165,7 @@ class Sphere;
         // Caused by not having any animations enabled, or keyframes which reference
         // no poses
         if (mMesh->sharedVertexData && hardwareAnimation 
-            && mMesh->getSharedVertexDataAnimationType() == VAT_POSE)
+            && mMesh->getSharedVertexDataAnimationType() == VertexAnimationType::POSE)
         {
             bindMissingHardwarePoseBuffers(mMesh->sharedVertexData, mHardwareVertexAnimVertexData.get());
         }
@@ -1187,7 +1187,7 @@ class Sphere;
         // to an unbound source.
         // Get the original position source, we'll use this to fill gaps
         const VertexElement* srcPosElem =
-            srcData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            srcData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         HardwareVertexBufferSharedPtr srcBuf =
             srcData->vertexBufferBinding->getBuffer(
                 srcPosElem->getSource());
@@ -1214,9 +1214,9 @@ class Sphere;
         // First time through for a piece of pose animated vertex data
         // We need to copy the original position values to the temp accumulator
         const VertexElement* origelem = 
-            srcData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            srcData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         const VertexElement* destelem = 
-            destData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            destData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         HardwareVertexBufferSharedPtr origBuffer = 
             srcData->vertexBufferBinding->getBuffer(origelem->getSource());
         HardwareVertexBufferSharedPtr destBuffer = 
@@ -1227,13 +1227,13 @@ class Sphere;
         if (animateNormals)
         {
             const VertexElement* normElem =
-                destData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+                destData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
                 
             if (normElem)
             {
                 HardwareVertexBufferSharedPtr buf = 
                     destData->vertexBufferBinding->getBuffer(normElem->getSource());
-                HardwareBufferLockGuard vertexLock(buf, HardwareBuffer::HBL_NORMAL);
+                HardwareBufferLockGuard vertexLock(buf, HardwareBuffer::LockOptions::NORMAL);
                 char* pBase = static_cast<char*>(vertexLock.pData) + destData->vertexStart * buf->getVertexSize();
                 
                 for (size_t v = 0; v < destData->vertexCount; ++v)
@@ -1253,23 +1253,23 @@ class Sphere;
     void Entity::finalisePoseNormals(const VertexData* srcData, VertexData* destData)
     {
         const VertexElement* destNormElem =
-            destData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            destData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
         const VertexElement* srcNormElem =
-            srcData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            srcData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
             
         if (destNormElem && srcNormElem)
         {
             auto srcbuf = srcData->vertexBufferBinding->getBuffer(srcNormElem->getSource());
             auto dstbuf = destData->vertexBufferBinding->getBuffer(destNormElem->getSource());
 
-            HardwareBufferLockGuard dstLock(dstbuf, HardwareBuffer::HBL_NORMAL);
+            HardwareBufferLockGuard dstLock(dstbuf, HardwareBuffer::LockOptions::NORMAL);
             char* pDstBase = static_cast<char*>(dstLock.pData) + destData->vertexStart * dstbuf->getVertexSize();
             char* pSrcBase = pDstBase;
 
             HardwareBufferLockGuard srcLock;
             if (srcbuf != dstbuf)
             {
-                srcLock.lock(srcbuf, HardwareBuffer::HBL_READ_ONLY);
+                srcLock.lock(srcbuf, HardwareBuffer::LockOptions::READ_ONLY);
                 pSrcBase = static_cast<char*>(srcLock.pData) + srcData->vertexStart * srcbuf->getVertexSize();
             }
             // The goal here is to detect the length of the vertices, and to apply
@@ -1450,7 +1450,7 @@ class Sphere;
         auto it = std::ranges::find_if(mChildObjectList, pred);
         if (it != mChildObjectList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("An object with the name {} already attached", pMovable->getName() ),
                 "Entity::attachObjectToBone");
         }
@@ -1459,7 +1459,7 @@ class Sphere;
         Bone* bone = mSkeletonInstance->getBone(boneName);
         if (!bone)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot locate bone named {}", boneName),
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Cannot locate bone named {}", boneName),
                 "Entity::attachObjectToBone");
         }
 
@@ -1495,7 +1495,7 @@ class Sphere;
 
         if (it == mChildObjectList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No child object entry found named {}", name),
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No child object entry found named {}", name),
                 "Entity::detachObjectFromBone");
         }
         detachObjectImpl(*it);
@@ -1571,7 +1571,7 @@ class Sphere;
         {
             // Shared data
             if (mMesh->sharedVertexData
-                && mMesh->getSharedVertexDataAnimationType() != VAT_NONE)
+                && mMesh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE)
             {
                 // Create temporary vertex blend info
                 // Prepare temp vertex data if needed
@@ -1626,7 +1626,7 @@ class Sphere;
          
         unsigned short safeSource = 0xFFFF;
         const VertexElement* blendIndexElem =
-            source->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES);
+            source->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_INDICES);
         if (blendIndexElem)
         {
             //save the source in order to prevent the next stage from unbinding it.
@@ -1641,7 +1641,7 @@ class Sphere;
         {
             // Remove blend weights
             const VertexElement* blendWeightElem =
-                source->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS);
+                source->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_WEIGHTS);
             if (blendWeightElem &&
                 blendWeightElem->getSource() != safeSource)
             {
@@ -1652,9 +1652,9 @@ class Sphere;
 
         // remove elements from declaration
         if (removeIndices)
-            ret->vertexDeclaration->removeElement(VES_BLEND_INDICES);
+            ret->vertexDeclaration->removeElement(VertexElementSemantic::BLEND_INDICES);
         if (removeWeights)
-            ret->vertexDeclaration->removeElement(VES_BLEND_WEIGHTS);
+            ret->vertexDeclaration->removeElement(VertexElementSemantic::BLEND_WEIGHTS);
 
         // Close gaps in bindings for effective and safely
         if (removeWeights || removeIndices)
@@ -1743,7 +1743,7 @@ class Sphere;
                     }
                 }
 
-                VertexAnimationType animType = VAT_NONE;
+                VertexAnimationType animType = VertexAnimationType::NONE;
                 if (sub->getSubMesh()->useSharedVertices)
                 {
                     animType = mMesh->getSharedVertexDataAnimationType();
@@ -1752,7 +1752,7 @@ class Sphere;
                 {
                     animType = sub->getSubMesh()->getVertexAnimationType();
                 }
-                if (animType == VAT_MORPH)
+                if (animType == VertexAnimationType::MORPH)
                 {
                     // All materials must support morph animation for us to consider using
                     // hardware animation - if one fails we use software
@@ -1767,7 +1767,7 @@ class Sphere;
                             p->getVertexProgram()->isMorphAnimationIncluded();
                     }
                 }
-                else if (animType == VAT_POSE)
+                else if (animType == VertexAnimationType::POSE)
                 {
                     // All materials must support pose animation for us to consider using
                     // hardware animation - if one fails we use software
@@ -1816,9 +1816,9 @@ class Sphere;
     //-----------------------------------------------------------------------
     auto
     Entity::getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-                                          size_t& indexBufferUsedSize, float extrusionDistance, int flags) -> const ShadowRenderableList&
+                                          size_t& indexBufferUsedSize, float extrusionDistance, ShadowRenderableFlags flags) -> const ShadowRenderableList&
     {
-        assert(indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT &&
+        assert(indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT &&
                "Only 16-bit indexes supported for now");
 
         // Check mesh state count, will be incremented if reloaded
@@ -1899,7 +1899,7 @@ class Sphere;
 
         bool isAnimated = hasAnimation;
         bool updatedSharedGeomNormals = false;
-        bool extrude = flags & SRF_EXTRUDE_IN_SOFTWARE;
+        bool extrude = !!(flags & ShadowRenderableFlags::EXTRUDE_IN_SOFTWARE);
         auto egi = edgeList->edgeGroups.begin();
         for (auto & mShadowRenderable : mShadowRenderables)
         {
@@ -1951,7 +1951,7 @@ class Sphere;
                     if (!extrude)
                     {
                         // Lock, we'll be locking the (suppressed hardware update) shadow buffer
-                        HardwareBufferLockGuard posLock(esrPositionBuffer, HardwareBuffer::HBL_NORMAL);
+                        HardwareBufferLockGuard posLock(esrPositionBuffer, HardwareBuffer::LockOptions::NORMAL);
                         auto* pSrc = static_cast<float*>(posLock.pData);
                         float* pDest = pSrc + (egi->vertexData->vertexCount * 3);
                         memcpy(pDest, pSrc, sizeof(float) * 3 * egi->vertexData->vertexCount);
@@ -2000,7 +2000,7 @@ class Sphere;
             }
         }
         // None found
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             "Cannot find blended version of the vertex data specified.",
             "Entity::findBlendedVertexData");
     }
@@ -2037,7 +2037,7 @@ class Sphere;
         if (mSoftwareAnimationRequests == 0 ||
             (normalsAlso && mSoftwareAnimationNormalsRequests == 0))
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Attempt to remove nonexistent request.",
                         "Entity::removeSoftwareAnimationRequest");
         }
@@ -2070,7 +2070,7 @@ class Sphere;
         // Save link to vertex data
         mCurrentVertexData = vertexData;
         mOriginalPosBufferBinding =
-            vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION)->getSource();
+            vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION)->getSource();
         if (!isLightCap && createSeparateLightCap) // we passed createSeparateLightCap=false to parent
         {
             _createSeparateLightCap();
@@ -2115,7 +2115,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    void Entity::setRenderQueueGroup(uint8 queueID)
+    void Entity::setRenderQueueGroup(RenderQueueGroupID queueID)
     {
         MovableObject::setRenderQueueGroup(queueID);
 
@@ -2130,7 +2130,7 @@ class Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    void Entity::setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
+    void Entity::setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority)
     {
         MovableObject::setRenderQueueGroupAndPriority(queueID, priority);
 
@@ -2216,24 +2216,24 @@ class Sphere;
         mMesh->_refreshAnimationState(mAnimationState);
     }
     //-----------------------------------------------------------------------
-    auto Entity::getTypeFlags() const noexcept -> uint32
+    auto Entity::getTypeFlags() const noexcept -> QueryTypeMask
     {
-        return SceneManager::ENTITY_TYPE_MASK;
+        return QueryTypeMask::ENTITY;
     }
     //-----------------------------------------------------------------------
     auto Entity::getVertexDataForBinding() noexcept -> VertexData*
     {
         Entity::VertexDataBindChoice c =
-            chooseVertexDataForBinding(mMesh->getSharedVertexDataAnimationType() != VAT_NONE);
+            chooseVertexDataForBinding(mMesh->getSharedVertexDataAnimationType() != VertexAnimationType::NONE);
         switch(c)
         {
-        case BIND_ORIGINAL:
+        case VertexDataBindChoice::ORIGINAL:
             return mMesh->sharedVertexData;
-        case BIND_HARDWARE_MORPH:
+        case VertexDataBindChoice::HARDWARE_MORPH:
             return mHardwareVertexAnimVertexData.get();
-        case BIND_SOFTWARE_MORPH:
+        case VertexDataBindChoice::SOFTWARE_MORPH:
             return mSoftwareVertexAnimVertexData.get();
-        case BIND_SOFTWARE_SKELETAL:
+        case VertexDataBindChoice::SOFTWARE_SKELETAL:
             return mSkelAnimVertexData.get();
         };
         // keep compiler happy
@@ -2248,17 +2248,17 @@ class Sphere;
             {
                 // all software skeletal binds same vertex data
                 // may be a 2-stage s/w transform including morph earlier though
-                return BIND_SOFTWARE_SKELETAL;
+                return VertexDataBindChoice::SOFTWARE_SKELETAL;
             }
             else if (vertexAnim)
             {
                 // hardware morph animation
-                return BIND_HARDWARE_MORPH;
+                return VertexDataBindChoice::HARDWARE_MORPH;
             }
             else
             {
                 // hardware skeletal, no morphing
-                return BIND_ORIGINAL;
+                return VertexDataBindChoice::ORIGINAL;
             }
         }
         else if (vertexAnim)
@@ -2266,17 +2266,17 @@ class Sphere;
             // morph only, no skeletal
             if (isHardwareAnimationEnabled())
             {
-                return BIND_HARDWARE_MORPH;
+                return VertexDataBindChoice::HARDWARE_MORPH;
             }
             else
             {
-                return BIND_SOFTWARE_MORPH;
+                return VertexDataBindChoice::SOFTWARE_MORPH;
             }
 
         }
         else
         {
-            return BIND_ORIGINAL;
+            return VertexDataBindChoice::ORIGINAL;
         }
 
     }
@@ -2343,7 +2343,7 @@ class Sphere;
         }
         if (!pMesh)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "'mesh' parameter required when constructing an Entity.",
                 "EntityFactory::createInstance");
         }

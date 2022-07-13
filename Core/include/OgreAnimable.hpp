@@ -128,39 +128,39 @@ namespace Ogre {
 
         /// Set value 
         virtual void setValue(int) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(Real) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Vector2&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Vector3&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Vector4&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Quaternion&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const ColourValue&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Radian&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(const Degree&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void setValue(::std::any const& val);
@@ -170,39 +170,39 @@ namespace Ogre {
 
         /// Apply delta value
         virtual void applyDeltaValue(int) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Set value 
         virtual void applyDeltaValue(Real) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Vector2&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Vector3&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Vector4&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Quaternion&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const ColourValue&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Degree&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(const Radian&) {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         }
         /// Apply delta value 
         virtual void applyDeltaValue(::std::any const& val);
@@ -255,7 +255,7 @@ namespace Ogre {
         */
         virtual auto createAnimableValue(std::string_view valueName) -> AnimableValuePtr
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("No animable value named '{}' present.", valueName ), 
                 "AnimableObject::createAnimableValue");
         }

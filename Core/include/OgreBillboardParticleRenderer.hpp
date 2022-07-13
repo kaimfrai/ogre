@@ -141,9 +141,9 @@ class RenderQueue;
             mBillboardSet->setDefaultDimensions(width, height);
         }
         /// @copydoc ParticleSystemRenderer::setRenderQueueGroup
-        void setRenderQueueGroup(uint8 queueID) override { mBillboardSet->setRenderQueueGroup(queueID); }
+        void setRenderQueueGroup(RenderQueueGroupID queueID) override { mBillboardSet->setRenderQueueGroup(queueID); }
         /// @copydoc MovableObject::setRenderQueueGroupAndPriority
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override
+        void setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority) override
         {
             mBillboardSet->setRenderQueueGroupAndPriority(queueID, priority);
         }

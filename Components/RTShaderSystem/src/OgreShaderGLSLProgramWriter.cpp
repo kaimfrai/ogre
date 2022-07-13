@@ -75,55 +75,55 @@ GLSLProgramWriter::~GLSLProgramWriter()
 void GLSLProgramWriter::initializeStringMaps()
 {
     // basic glsl types
-    mGpuConstTypeMap[GCT_FLOAT1] = "float";
-    mGpuConstTypeMap[GCT_FLOAT2] = "vec2";
-    mGpuConstTypeMap[GCT_FLOAT3] = "vec3";
-    mGpuConstTypeMap[GCT_FLOAT4] = "vec4";
-    mGpuConstTypeMap[GCT_SAMPLER1D] = "sampler1D";
-    mGpuConstTypeMap[GCT_SAMPLER2D] = "sampler2D";
-    mGpuConstTypeMap[GCT_SAMPLER2DARRAY] = "sampler2DArray";
-    mGpuConstTypeMap[GCT_SAMPLER3D] = "sampler3D";
-    mGpuConstTypeMap[GCT_SAMPLERCUBE] = "samplerCube";
-    mGpuConstTypeMap[GCT_SAMPLER1DSHADOW] = "sampler1DShadow";
-    mGpuConstTypeMap[GCT_SAMPLER2DSHADOW] = "sampler2DShadow";
-    mGpuConstTypeMap[GCT_SAMPLER_EXTERNAL_OES] = "samplerExternalOES";
-    mGpuConstTypeMap[GCT_MATRIX_2X2] = "mat2";
-    mGpuConstTypeMap[GCT_MATRIX_2X3] = "mat2x3";
-    mGpuConstTypeMap[GCT_MATRIX_2X4] = "mat2x4";
-    mGpuConstTypeMap[GCT_MATRIX_3X2] = "mat3x2";
-    mGpuConstTypeMap[GCT_MATRIX_3X3] = "mat3";
-    mGpuConstTypeMap[GCT_MATRIX_3X4] = "mat3x4";
-    mGpuConstTypeMap[GCT_MATRIX_4X2] = "mat4x2";
-    mGpuConstTypeMap[GCT_MATRIX_4X3] = "mat4x3";
-    mGpuConstTypeMap[GCT_MATRIX_4X4] = "mat4";
-    mGpuConstTypeMap[GCT_INT1] = "int";
-    mGpuConstTypeMap[GCT_INT2] = "ivec2";
-    mGpuConstTypeMap[GCT_INT3] = "ivec3";
-    mGpuConstTypeMap[GCT_INT4] = "ivec4";
-    mGpuConstTypeMap[GCT_UINT1] = "uint";
-    mGpuConstTypeMap[GCT_UINT2] = "uvec2";
-    mGpuConstTypeMap[GCT_UINT3] = "uvec3";
-    mGpuConstTypeMap[GCT_UINT4] = "uvec4";
+    mGpuConstTypeMap[GpuConstantType::FLOAT1] = "float";
+    mGpuConstTypeMap[GpuConstantType::FLOAT2] = "vec2";
+    mGpuConstTypeMap[GpuConstantType::FLOAT3] = "vec3";
+    mGpuConstTypeMap[GpuConstantType::FLOAT4] = "vec4";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER1D] = "sampler1D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER2D] = "sampler2D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER2DARRAY] = "sampler2DArray";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER3D] = "sampler3D";
+    mGpuConstTypeMap[GpuConstantType::SAMPLERCUBE] = "samplerCube";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER1DSHADOW] = "sampler1DShadow";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER2DSHADOW] = "sampler2DShadow";
+    mGpuConstTypeMap[GpuConstantType::SAMPLER_EXTERNAL_OES] = "samplerExternalOES";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X2] = "mat2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X3] = "mat2x3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_2X4] = "mat2x4";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X2] = "mat3x2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X3] = "mat3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_3X4] = "mat3x4";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X2] = "mat4x2";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X3] = "mat4x3";
+    mGpuConstTypeMap[GpuConstantType::MATRIX_4X4] = "mat4";
+    mGpuConstTypeMap[GpuConstantType::INT1] = "int";
+    mGpuConstTypeMap[GpuConstantType::INT2] = "ivec2";
+    mGpuConstTypeMap[GpuConstantType::INT3] = "ivec3";
+    mGpuConstTypeMap[GpuConstantType::INT4] = "ivec4";
+    mGpuConstTypeMap[GpuConstantType::UINT1] = "uint";
+    mGpuConstTypeMap[GpuConstantType::UINT2] = "uvec2";
+    mGpuConstTypeMap[GpuConstantType::UINT3] = "uvec3";
+    mGpuConstTypeMap[GpuConstantType::UINT4] = "uvec4";
 
     // Custom vertex attributes defined http://www.ogre3d.org/docs/manual/manual_21.html
-    mContentToPerVertexAttributes[Parameter::SPC_POSITION_OBJECT_SPACE] = "vertex";
-    mContentToPerVertexAttributes[Parameter::SPC_NORMAL_OBJECT_SPACE] = "normal";
-    mContentToPerVertexAttributes[Parameter::SPC_TANGENT_OBJECT_SPACE] = "tangent";
-    mContentToPerVertexAttributes[Parameter::SPC_BINORMAL_OBJECT_SPACE] = "binormal";
-    mContentToPerVertexAttributes[Parameter::SPC_BLEND_INDICES] = "blendIndices";
-    mContentToPerVertexAttributes[Parameter::SPC_BLEND_WEIGHTS] = "blendWeights";
+    mContentToPerVertexAttributes[Parameter::Content::POSITION_OBJECT_SPACE] = "vertex";
+    mContentToPerVertexAttributes[Parameter::Content::NORMAL_OBJECT_SPACE] = "normal";
+    mContentToPerVertexAttributes[Parameter::Content::TANGENT_OBJECT_SPACE] = "tangent";
+    mContentToPerVertexAttributes[Parameter::Content::BINORMAL_OBJECT_SPACE] = "binormal";
+    mContentToPerVertexAttributes[Parameter::Content::BLEND_INDICES] = "blendIndices";
+    mContentToPerVertexAttributes[Parameter::Content::BLEND_WEIGHTS] = "blendWeights";
 
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE0] = "uv0";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE1] = "uv1";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE2] = "uv2";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE3] = "uv3";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE4] = "uv4";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE5] = "uv5";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE6] = "uv6";
-    mContentToPerVertexAttributes[Parameter::SPC_TEXTURE_COORDINATE7] = "uv7";  
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE0] = "uv0";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE1] = "uv1";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE2] = "uv2";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE3] = "uv3";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE4] = "uv4";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE5] = "uv5";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE6] = "uv6";
+    mContentToPerVertexAttributes[Parameter::Content::TEXTURE_COORDINATE7] = "uv7";
 
-    mContentToPerVertexAttributes[Parameter::SPC_COLOR_DIFFUSE] = "colour";
-    mContentToPerVertexAttributes[Parameter::SPC_COLOR_SPECULAR] = "secondary_colour";
+    mContentToPerVertexAttributes[Parameter::Content::COLOR_DIFFUSE] = "colour";
+    mContentToPerVertexAttributes[Parameter::Content::COLOR_SPECULAR] = "secondary_colour";
 }
 
 //-----------------------------------------------------------------------
@@ -146,7 +146,7 @@ void GLSLProgramWriter::writeUniformBlock(std::ostream& os, std::string_view nam
 
     for (auto uparam : uniforms)
     {
-        if(uparam->getType() == GCT_MATRIX_3X4 || uparam->getType() == GCT_MATRIX_2X4)
+        if(uparam->getType() == GpuConstantType::MATRIX_3X4 || uparam->getType() == GpuConstantType::MATRIX_2X4)
             os << "layout(column_major) ";
         writeParameter(os, uparam);
         os << ";\n";
@@ -158,9 +158,9 @@ void GLSLProgramWriter::writeUniformBlock(std::ostream& os, std::string_view nam
 void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
 {
     GpuProgramType gpuType = program->getType();
-    if(gpuType == GPT_GEOMETRY_PROGRAM)
+    if(gpuType == GpuProgramType::GEOMETRY_PROGRAM)
     {
-        OGRE_EXCEPT( Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT( ExceptionCodes::NOT_IMPLEMENTED,
             "Geometry Program not supported in GLSL writer ",
             "GLSLProgramWriter::writeSourceCode" );
     }
@@ -172,7 +172,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
     os << std::endl;
 
     auto* rs = Root::getSingleton().getRenderSystem();
-    auto hasSSO = rs ? rs->getCapabilities()->hasCapability(RSC_SEPARATE_SHADER_OBJECTS) : false;
+    auto hasSSO = rs ? rs->getCapabilities()->hasCapability(Capabilities::SEPARATE_SHADER_OBJECTS) : false;
 
     // Write the uniforms
     UniformParameterList uniforms;
@@ -188,7 +188,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
     }
     if (mIsVulkan && !uniforms.empty())
     {
-        writeUniformBlock(os, "OgreUniforms", gpuType, uniforms);
+        writeUniformBlock(os, "OgreUniforms", std::to_underlying(gpuType), uniforms);
         uniforms.clear();
     }
 
@@ -240,7 +240,7 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
             bool isInputParam =
                 std::ranges::find(inParams, param) != inParams.end();
 
-            if (opSemantic == Operand::OPS_OUT || opSemantic == Operand::OPS_INOUT)
+            if (opSemantic == Operand::OpSemantic::OUT || opSemantic == Operand::OpSemantic::INOUT)
             {
                 // Check if we write to an input variable because they are only readable
                 // Well, actually "attribute" were writable in GLSL < 120, but we dont care here
@@ -268,8 +268,8 @@ void GLSLProgramWriter::writeMainSourceCode(std::ostream& os, Program* program)
 
             // Now that every texcoord is a vec4 (passed as vertex attributes) we
             // have to swizzle them according the desired type.
-            if (gpuType == GPT_VERTEX_PROGRAM && isInputParam &&
-                param->getSemantic() == Parameter::SPS_TEXTURE_COORDINATES)
+            if (gpuType == GpuProgramType::VERTEX_PROGRAM && isInputParam &&
+                param->getSemantic() == Parameter::Semantic::TEXTURE_COORDINATES)
             {
                 operand.setMaskToParamType();
             }
@@ -308,19 +308,19 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
         Parameter::Content paramContent = pParam->getContent();
         std::string_view paramName = pParam->getName();
 
-        if (gpuType == GPT_FRAGMENT_PROGRAM)
+        if (gpuType == GpuProgramType::FRAGMENT_PROGRAM)
         {
-            if(paramContent == Parameter::SPC_POINTSPRITE_COORDINATE)
+            if(paramContent == Parameter::Content::POINTSPRITE_COORDINATE)
             {
                 pParam->_rename("gl_PointCoord");
                 continue;
             }
-            else if(paramContent == Parameter::SPC_POSITION_PROJECTIVE_SPACE)
+            else if(paramContent == Parameter::Content::POSITION_PROJECTIVE_SPACE)
             {
                 pParam->_rename("gl_FragCoord");
                 continue;
             }
-            else if(paramContent == Parameter::SPC_FRONT_FACING)
+            else if(paramContent == Parameter::Content::FRONT_FACING)
             {
                 pParam->_rename("gl_FrontFacing");
                 continue;
@@ -332,7 +332,7 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
             os << paramName;
             os << ", " << psInLocation++ << ")\n";
         }
-        else if (gpuType == GPT_VERTEX_PROGRAM && 
+        else if (gpuType == GpuProgramType::VERTEX_PROGRAM && 
                  mContentToPerVertexAttributes.find(paramContent) != mContentToPerVertexAttributes.end())
         {
             // Due the fact that glsl does not have register like cg we have to rename the params
@@ -341,15 +341,15 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
 
             os << "IN(";
             // all uv texcoords passed by ogre are at least vec4
-            if ((paramContent == Parameter::SPC_TEXTURE_COORDINATE0 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE1 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE2 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE3 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE4 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE5 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE6 ||
-                 paramContent == Parameter::SPC_TEXTURE_COORDINATE7) &&
-                (pParam->getType() < GCT_FLOAT4))
+            if ((paramContent == Parameter::Content::TEXTURE_COORDINATE0 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE1 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE2 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE3 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE4 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE5 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE6 ||
+                 paramContent == Parameter::Content::TEXTURE_COORDINATE7) &&
+                (pParam->getType() < GpuConstantType::FLOAT4))
             {
                 os << "vec4";
             }
@@ -358,7 +358,7 @@ void GLSLProgramWriter::writeInputParameters(std::ostream& os, Function* functio
                 // the gl rendersystems only pass float attributes
                 GpuConstantType type = pParam->getType();
                 if(!mIsVulkan && !GpuConstantDefinition::isFloat(type))
-                    type = GpuConstantType(type & ~GpuConstantDefinition::getBaseType(type));
+                    type = GpuConstantType(type & ~static_cast<GpuConstantType>(GpuConstantDefinition::getBaseType(type)));
                 os << mGpuConstTypeMap[type];
             }
             os << "\t"; 
@@ -385,14 +385,14 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
     for (int vsOutLocation = 0;
          ParameterPtr pParam : outParams)
     {
-        if(gpuType == GPT_VERTEX_PROGRAM)
+        if(gpuType == GpuProgramType::VERTEX_PROGRAM)
         {
             // GLSL vertex program has to write always gl_Position (but this is also deprecated after version 130)
-            if(pParam->getContent() == Parameter::SPC_POSITION_PROJECTIVE_SPACE)
+            if(pParam->getContent() == Parameter::Content::POSITION_PROJECTIVE_SPACE)
             {
                 pParam->_rename("gl_Position");
             }
-            else if(pParam->getContent() == Parameter::SPC_POINTSPRITE_SIZE)
+            else if(pParam->getContent() == Parameter::Content::POINTSPRITE_SIZE)
             {
                 pParam->_rename("gl_PointSize");
             }
@@ -411,8 +411,8 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
                 os << ", " << vsOutLocation++ << ")\n";
             }
         }
-        else if(gpuType == GPT_FRAGMENT_PROGRAM &&
-                pParam->getSemantic() == Parameter::SPS_COLOR)
+        else if(gpuType == GpuProgramType::FRAGMENT_PROGRAM &&
+                pParam->getSemantic() == Parameter::Semantic::COLOR)
         {                   
             if(pParam->getIndex() == 0)
             {
@@ -425,11 +425,11 @@ void GLSLProgramWriter::writeOutParameters(std::ostream& os, Function* function,
         }
     }
     
-    if(gpuType == GPT_VERTEX_PROGRAM && !mIsGLSLES) // TODO: also use for GLSLES?
+    if(gpuType == GpuProgramType::VERTEX_PROGRAM && !mIsGLSLES) // TODO: also use for GLSLES?
     {
         // Special case where gl_Position needs to be redeclared
         if (mGLSLVersion >= 150 && Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(
-                                       RSC_GLSL_SSO_REDECLARE))
+                                       Capabilities::GLSL_SSO_REDECLARE))
         {
             os << "out gl_PerVertex\n{\nvec4 gl_Position;\nfloat gl_PointSize;\nfloat gl_ClipDistance[];\n};\n" << std::endl;
         }

@@ -18,10 +18,10 @@ GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
       
 {
     // compute shader presence means no other shaders are allowed
-    if(shaders[GPT_COMPUTE_PROGRAM])
+    if(shaders[std::to_underlying(GpuProgramType::COMPUTE_PROGRAM)])
     {
         mShaders.fill(nullptr);
-        mShaders[GPT_COMPUTE_PROGRAM] = shaders[GPT_COMPUTE_PROGRAM];
+        mShaders[std::to_underlying(GpuProgramType::COMPUTE_PROGRAM)] = shaders[std::to_underlying(GpuProgramType::COMPUTE_PROGRAM)];
     }
 }
 
@@ -47,36 +47,36 @@ GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
 //  14 gl_MultiTexCoord6    uv6, tangent
 //  15 gl_MultiTexCoord7    uv7, binormal
 GLSLProgramCommon::CustomAttribute GLSLProgramCommon::msCustomAttributes[17] = {
-    {"vertex", getFixedAttributeIndex(VES_POSITION, 0), VES_POSITION},
-    {"position", getFixedAttributeIndex(VES_POSITION, 0), VES_POSITION}, // allow alias for "vertex"
-    {"blendWeights", getFixedAttributeIndex(VES_BLEND_WEIGHTS, 0), VES_BLEND_WEIGHTS},
-    {"normal", getFixedAttributeIndex(VES_NORMAL, 0), VES_NORMAL},
-    {"colour", getFixedAttributeIndex(VES_DIFFUSE, 0), VES_DIFFUSE},
-    {"secondary_colour", getFixedAttributeIndex(VES_SPECULAR, 0), VES_SPECULAR},
-    {"blendIndices", getFixedAttributeIndex(VES_BLEND_INDICES, 0), VES_BLEND_INDICES},
-    {"uv0", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 0), VES_TEXTURE_COORDINATES},
-    {"uv1", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 1), VES_TEXTURE_COORDINATES},
-    {"uv2", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 2), VES_TEXTURE_COORDINATES},
-    {"uv3", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 3), VES_TEXTURE_COORDINATES},
-    {"uv4", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 4), VES_TEXTURE_COORDINATES},
-    {"uv5", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 5), VES_TEXTURE_COORDINATES},
-    {"uv6", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 6), VES_TEXTURE_COORDINATES},
-    {"uv7", getFixedAttributeIndex(VES_TEXTURE_COORDINATES, 7), VES_TEXTURE_COORDINATES},
-    {"tangent", getFixedAttributeIndex(VES_TANGENT, 0), VES_TANGENT},
-    {"binormal", getFixedAttributeIndex(VES_BINORMAL, 0), VES_BINORMAL},
+    {"vertex", getFixedAttributeIndex(VertexElementSemantic::POSITION, 0), VertexElementSemantic::POSITION},
+    {"position", getFixedAttributeIndex(VertexElementSemantic::POSITION, 0), VertexElementSemantic::POSITION}, // allow alias for "vertex"
+    {"blendWeights", getFixedAttributeIndex(VertexElementSemantic::BLEND_WEIGHTS, 0), VertexElementSemantic::BLEND_WEIGHTS},
+    {"normal", getFixedAttributeIndex(VertexElementSemantic::NORMAL, 0), VertexElementSemantic::NORMAL},
+    {"colour", getFixedAttributeIndex(VertexElementSemantic::DIFFUSE, 0), VertexElementSemantic::DIFFUSE},
+    {"secondary_colour", getFixedAttributeIndex(VertexElementSemantic::SPECULAR, 0), VertexElementSemantic::SPECULAR},
+    {"blendIndices", getFixedAttributeIndex(VertexElementSemantic::BLEND_INDICES, 0), VertexElementSemantic::BLEND_INDICES},
+    {"uv0", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 0), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv1", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 1), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv2", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 2), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv3", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 3), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv4", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 4), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv5", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 5), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv6", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 6), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"uv7", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 7), VertexElementSemantic::TEXTURE_COORDINATES},
+    {"tangent", getFixedAttributeIndex(VertexElementSemantic::TANGENT, 0), VertexElementSemantic::TANGENT},
+    {"binormal", getFixedAttributeIndex(VertexElementSemantic::BINORMAL, 0), VertexElementSemantic::BINORMAL},
 };
 
-static int32 attributeIndex[VES_COUNT + 1] = {
+static int32 attributeIndex[std::to_underlying(VertexElementSemantic::COUNT) + 1] = {
         -1,// n/a
-        0, // VES_POSITION
-        1, // VES_BLEND_WEIGHTS
-        7, // VES_BLEND_INDICES
-        2, // VES_NORMAL
-        3, // VES_DIFFUSE
-        4, // VES_SPECULAR
-        8, // VES_TEXTURE_COORDINATES
-        15,// VES_BINORMAL
-        14 // VES_TANGENT
+        0, // VertexElementSemantic::POSITION
+        1, // VertexElementSemantic::BLEND_WEIGHTS
+        7, // VertexElementSemantic::BLEND_INDICES
+        2, // VertexElementSemantic::NORMAL
+        3, // VertexElementSemantic::DIFFUSE
+        4, // VertexElementSemantic::SPECULAR
+        8, // VertexElementSemantic::TEXTURE_COORDINATES
+        15,// VertexElementSemantic::BINORMAL
+        14 // VertexElementSemantic::TANGENT
 };
 
 void GLSLProgramCommon::useTightAttributeLayout() {
@@ -95,32 +95,32 @@ void GLSLProgramCommon::useTightAttributeLayout() {
     for (size_t i = 0; i < numAttribs; ++i)
     {
         CustomAttribute& a = msCustomAttributes[i];
-        a.attrib -= attributeIndex[a.semantic]; // only keep index (for uvXY)
+        a.attrib -= attributeIndex[std::to_underlying(a.semantic)]; // only keep index (for uvXY)
     }
 
-    attributeIndex[VES_NORMAL] = 1;
-    attributeIndex[VES_DIFFUSE] = 2;
-    attributeIndex[VES_TEXTURE_COORDINATES] = 3;
-    attributeIndex[VES_BLEND_WEIGHTS] = 4;
-    attributeIndex[VES_BLEND_INDICES] = 5;
-    attributeIndex[VES_TANGENT] = 6;
-    attributeIndex[VES_BINORMAL] = 7;
+    attributeIndex[std::to_underlying(VertexElementSemantic::NORMAL)] = 1;
+    attributeIndex[std::to_underlying(VertexElementSemantic::DIFFUSE)] = 2;
+    attributeIndex[std::to_underlying(VertexElementSemantic::TEXTURE_COORDINATES)] = 3;
+    attributeIndex[std::to_underlying(VertexElementSemantic::BLEND_WEIGHTS)] = 4;
+    attributeIndex[std::to_underlying(VertexElementSemantic::BLEND_INDICES)] = 5;
+    attributeIndex[std::to_underlying(VertexElementSemantic::TANGENT)] = 6;
+    attributeIndex[std::to_underlying(VertexElementSemantic::BINORMAL)] = 7;
 
     for (size_t i = 0; i < numAttribs; ++i)
     {
         CustomAttribute& a = msCustomAttributes[i];
-        a.attrib += attributeIndex[a.semantic];
+        a.attrib += attributeIndex[std::to_underlying(a.semantic)];
     }
 }
 
 auto GLSLProgramCommon::getFixedAttributeIndex(VertexElementSemantic semantic, uint index) -> int32
 {
-    OgreAssertDbg(semantic > 0 && semantic <= VES_COUNT, "Missing attribute!");
+    OgreAssertDbg(semantic > VertexElementSemantic{} && semantic <= VertexElementSemantic::COUNT, "Missing attribute!");
 
-    if(semantic == VES_TEXTURE_COORDINATES)
-        return attributeIndex[semantic] + index;
+    if(semantic == VertexElementSemantic::TEXTURE_COORDINATES)
+        return attributeIndex[std::to_underlying(semantic)] + index;
 
-    return attributeIndex[semantic];
+    return attributeIndex[std::to_underlying(semantic)];
 }
 
 auto GLSLProgramCommon::getCombinedName() -> String

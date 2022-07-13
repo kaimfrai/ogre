@@ -52,76 +52,66 @@ class ResourceManager;
      */
     /** Enum identifying the texture usage
      */
-    enum TextureUsage
+    struct TextureUsage
     {
-        /// same as #HBU_GPU_TO_CPU
-        TU_STATIC = HBU_GPU_TO_CPU,
-        /// same as #HBU_CPU_ONLY
-        TU_DYNAMIC = HBU_CPU_ONLY,
-        /// same as #HBU_DETAIL_WRITE_ONLY
-        TU_WRITE_ONLY = HBU_DETAIL_WRITE_ONLY,
-        /// same as #HBU_GPU_ONLY
-        TU_STATIC_WRITE_ONLY = HBU_GPU_ONLY,
-        /// same as #HBU_CPU_TO_GPU
-        TU_DYNAMIC_WRITE_ONLY = HBU_CPU_TO_GPU,
+        /// same as #HardwareBufferUsage::GPU_TO_CPU
+        static auto constexpr STATIC = HardwareBufferUsage::GPU_TO_CPU;
+        /// same as #HardwareBufferUsage::CPU_ONLY
+        static auto constexpr DYNAMIC = HardwareBufferUsage::CPU_ONLY;
+        /// same as #HardwareBufferUsage::DETAIL_WRITE_ONLY
+        static auto constexpr WRITE_ONLY = HardwareBufferUsage::DETAIL_WRITE_ONLY;
+        /// same as #HardwareBufferUsage::GPU_ONLY
+        static auto constexpr STATIC_WRITE_ONLY = HardwareBufferUsage::GPU_ONLY;
+        /// same as #HardwareBufferUsage::CPU_TO_GPU
+        static auto constexpr DYNAMIC_WRITE_ONLY = HardwareBufferUsage::CPU_TO_GPU;
         /// @deprecated do not use
-        TU_DYNAMIC_WRITE_ONLY_DISCARDABLE = HBU_CPU_TO_GPU,
+        static auto constexpr DYNAMIC_WRITE_ONLY_DISCARDABLE = HardwareBufferUsage::CPU_TO_GPU;
         /// Mipmaps will be automatically generated for this texture
-        TU_AUTOMIPMAP = 0x10,
+        static auto constexpr AUTOMIPMAP = static_cast<HardwareBufferUsage>(0x10);
         /** This texture will be a render target, i.e. used as a target for render to texture
-            setting this flag will ignore all other texture usages except TU_AUTOMIPMAP, TU_UAV, TU_NOT_SRV */
-        TU_RENDERTARGET = 0x20,
+            setting this flag will ignore all other texture usages except AUTOMIPMAP, UAV, NOT_SRV */
+        static auto constexpr RENDERTARGET = static_cast<HardwareBufferUsage>(0x20);
         /// Texture would not be used as Shader Resource View, i.e. as regular texture.
-        /// That flag could be combined with TU_RENDERTARGET or TU_UAV to remove possible limitations on some hardware
-        TU_NOT_SRV = 0x40,
+        /// That flag could be combined with RENDERTARGET or UAV to remove possible limitations on some hardware
+        static auto constexpr NOT_SRV = static_cast<HardwareBufferUsage>(0x40);
         /// Texture can be bound as an Unordered Access View
         /// (imageStore/imageRead/glBindImageTexture in GL jargon)
-        TU_UAV = 0x80,
+        static auto constexpr UAV = static_cast<HardwareBufferUsage>(0x80);
         /// Texture can be used as an UAV, but not as a regular texture.
-        TU_UAV_NOT_SRV = TU_UAV | TU_NOT_SRV,
+        static auto constexpr UAV_NOT_SRV = UAV | NOT_SRV;
         /// Default to automatic mipmap generation static textures
-        TU_DEFAULT = TU_AUTOMIPMAP | HBU_GPU_ONLY,
+        static auto constexpr DEFAULT = AUTOMIPMAP | HardwareBufferUsage::GPU_ONLY;
 
         // deprecated
-        TU_NOTSHADERRESOURCE = TU_NOT_SRV
+        static auto constexpr NOTSHADERRESOURCE = NOT_SRV;
     };
 
     /** Enum identifying the texture access privilege
      */
-    enum TextureAccess
+    enum class TextureAccess
     {
-        TA_READ = 0x01,
-        TA_WRITE = 0x10,
-        TA_READ_WRITE = TA_READ | TA_WRITE
+        READ = 0x01,
+        WRITE = 0x10,
+        READ_WRITE = READ | WRITE
     };
 
     /** Enum identifying the texture type
     */
-    enum TextureType : uint8
+    enum class TextureType : uint8
     {
         /// 1D texture, used in combination with 1D texture coordinates
-        TEX_TYPE_1D = 1,
+        _1D = 1,
         /// 2D texture, used in combination with 2D texture coordinates (default)
-        TEX_TYPE_2D = 2,
+        _2D = 2,
         /// 3D volume texture, used in combination with 3D texture coordinates
-        TEX_TYPE_3D = 3,
+        _3D = 3,
         /// cube map (six two dimensional textures, one for each cube face), used in combination with 3D
         /// texture coordinates
-        TEX_TYPE_CUBE_MAP = 4,
+        CUBE_MAP = 4,
         /// 2D texture array
-        TEX_TYPE_2D_ARRAY = 5,
+        _2D_ARRAY = 5,
         /// GLES2 only OES texture type
-        TEX_TYPE_EXTERNAL_OES = 6
-    };
-
-    /** Enum identifying special mipmap numbers
-    */
-    enum TextureMipmap
-    {
-        /// Generate mipmaps up to 1x1
-        MIP_UNLIMITED = 0x7FFFFFFF,
-        /// Use TextureManager default
-        MIP_DEFAULT = -1
+        EXTERNAL_OES = 6
     };
 
     /** Abstract class representing a Texture resource.
@@ -151,17 +141,17 @@ class ResourceManager;
 
         /** Gets the number of mipmaps to be used for this texture.
         */
-        auto getNumMipmaps() const noexcept -> uint32 {return mNumMipmaps;}
+        auto getNumMipmaps() const noexcept -> TextureMipmap {return mNumMipmaps;}
 
         /** Sets the number of mipmaps to be used for this texture.
             @note
                 Must be set before calling any 'load' method.
         */
-        void setNumMipmaps(uint32 num)
+        void setNumMipmaps(TextureMipmap num)
         {
             mNumRequestedMipmaps = mNumMipmaps = num;
             if (!num)
-                mUsage &= ~TU_AUTOMIPMAP;
+                mUsage &= ~TextureUsage::AUTOMIPMAP;
         }
 
         /** Are mipmaps hardware generated?
@@ -211,7 +201,7 @@ class ResourceManager;
 
         /** Set the level of multisample AA to be used if this texture is a 
             rendertarget.
-        @note This option will be ignored if TU_RENDERTARGET is not part of the
+        @note This option will be ignored if TextureUsage::RENDERTARGET is not part of the
             usage options on this texture, or if the hardware does not support it. 
         @param fsaa The number of samples
         @param fsaaHint Any hinting text (see Root::createRenderWindow)
@@ -266,19 +256,19 @@ class ResourceManager;
 
         /** Returns the TextureUsage identifier for this Texture
         */
-        auto getUsage() const noexcept -> int
+        auto getUsage() const noexcept -> HardwareBufferUsage
         {
             return mUsage;
         }
 
         /** Sets the TextureUsage identifier for this Texture; only useful before load()
             
-            @param u is a combination of TU_STATIC, TU_DYNAMIC, TU_WRITE_ONLY 
-                TU_AUTOMIPMAP and TU_RENDERTARGET (see TextureUsage enum). You are
-                strongly advised to use HBU_STATIC_WRITE_ONLY wherever possible, if you need to 
-                update regularly, consider HBU_DYNAMIC_WRITE_ONLY.
+            @param u is a combination of TextureUsage::STATIC, TextureUsage::DYNAMIC, TextureUsage::WRITE_ONLY
+                TextureUsage::AUTOMIPMAP and TextureUsage::RENDERTARGET (see TextureUsage enum). You are
+                strongly advised to use HardwareBufferUsage::STATIC_WRITE_ONLY wherever possible, if you need to 
+                update regularly, consider HardwareBufferUsage::DYNAMIC_WRITE_ONLY.
         */
-        void setUsage(int u) { mUsage = u; }
+        void setUsage(HardwareBufferUsage u) { mUsage = u; }
 
         /** Creates the internal texture resources for this texture. 
         @remarks
@@ -380,7 +370,7 @@ class ResourceManager;
         */
         void setDesiredBitDepths(ushort integerBits, ushort floatBits);
 
-        /// @deprecated use setFormat(PF_A8)
+        /// @deprecated use setFormat(PixelFormat::A8)
         void setTreatLuminanceAsAlpha(bool asAlpha);
 
         /** Return the number of faces this texture has. This will be 6 for a cubemap
@@ -400,7 +390,7 @@ class ResourceManager;
             @remarks The buffer is invalidated when the resource is unloaded or destroyed.
             Do not use it after the lifetime of the containing texture.
         */
-        virtual auto getBuffer(size_t face=0, size_t mipmap=0) -> const HardwarePixelBufferSharedPtr&;
+        virtual auto getBuffer(size_t face=0, TextureMipmap mipmap={}) -> const HardwarePixelBufferSharedPtr&;
 
 
         /** Populate an Image with the contents of this texture. 
@@ -439,9 +429,9 @@ class ResourceManager;
             @param textureArrayIndex The index of the texture array to use. If texture is not a texture array, set to 0.
             @param format Texture format to be read in by shader. For OpenGL this may be different than the bound texture format.
         */
-        virtual void createShaderAccessPoint(uint bindPoint, TextureAccess access = TA_READ_WRITE,
+        virtual void createShaderAccessPoint(uint bindPoint, TextureAccess access = TextureAccess::READ_WRITE,
                                         int mipmapLevel = 0, int textureArrayIndex = 0,
-                                        PixelFormat format = PF_UNKNOWN) {}
+                                        PixelFormat format = PixelFormat::UNKNOWN) {}
         /** Set image names to be loaded as layers (3d & texture array) or cubemap faces
          */
         void setLayerNames(const std::vector<String>& names)
@@ -454,19 +444,19 @@ class ResourceManager;
         uint32 mWidth{512};
         uint32 mDepth{1};
 
-        uint32 mNumRequestedMipmaps{0};
-        uint32 mNumMipmaps{0};
+        TextureMipmap mNumRequestedMipmaps{0};
+        TextureMipmap mNumMipmaps{0};
 
         float mGamma{1.0f};
         uint mFSAA{0};
 
-        PixelFormat mFormat{PF_UNKNOWN};
-        int mUsage{TU_DEFAULT}; /// Bit field, so this can't be TextureUsage
+        PixelFormat mFormat{PixelFormat::UNKNOWN};
+        HardwareBufferUsage mUsage{TextureUsage::DEFAULT}; /// Bit field, so this can't be TextureUsage
 
-        PixelFormat mSrcFormat{PF_UNKNOWN};
+        PixelFormat mSrcFormat{PixelFormat::UNKNOWN};
         uint32 mSrcWidth{0}, mSrcHeight{0}, mSrcDepth{0};
 
-        PixelFormat mDesiredFormat{PF_UNKNOWN};
+        PixelFormat mDesiredFormat{PixelFormat::UNKNOWN};
         unsigned short mDesiredIntegerBitDepth{0};
         unsigned short mDesiredFloatBitDepth{0};
 
@@ -490,7 +480,7 @@ class ResourceManager;
         using SurfaceList = std::vector<HardwarePixelBufferSharedPtr>;
         SurfaceList mSurfaceList;
 
-        TextureType mTextureType{TEX_TYPE_2D};
+        TextureType mTextureType{TextureType::_2D};
 
         void readImage(LoadedImages& imgs, std::string_view name, std::string_view ext, bool haveNPOT);
 

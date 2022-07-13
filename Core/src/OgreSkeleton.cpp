@@ -69,7 +69,7 @@ class Affine3;
     Skeleton::Skeleton()
         : Resource(),
         mNextAutoHandle(0),
-        mBlendState(ANIMBLEND_AVERAGE),
+        mBlendState(SkeletonAnimationBlendMode::AVERAGE),
         mManualBonesDirty(false)
     {
     }
@@ -77,7 +77,7 @@ class Affine3;
     Skeleton::Skeleton(ResourceManager* creator, std::string_view name, ResourceHandle handle,
         std::string_view group, bool isManual, ManualResourceLoader* loader) 
         : Resource(creator, name, handle, group, isManual, loader), 
-        mNextAutoHandle(0), mBlendState(ANIMBLEND_AVERAGE)
+        mNextAutoHandle(0), mBlendState(SkeletonAnimationBlendMode::AVERAGE)
         // set animation blending to weighted, not cumulative
     {
         if (createParamDictionary("Skeleton"))
@@ -154,7 +154,7 @@ class Affine3;
         if (handle < mBoneList.size() && mBoneList[handle] != nullptr)
         {
             OGRE_EXCEPT(
-                Exception::ERR_DUPLICATE_ITEM,
+                ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("A bone with the handle {} already exists", handle ),
                 "Skeleton::createBone" );
         }
@@ -177,7 +177,7 @@ class Affine3;
         if (handle < mBoneList.size() && mBoneList[handle] != nullptr)
         {
             OGRE_EXCEPT(
-                Exception::ERR_DUPLICATE_ITEM,
+                ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("A bone with the handle {} already exists", handle ),
                 "Skeleton::createBone" );
         }
@@ -185,7 +185,7 @@ class Affine3;
         if (mBoneListByName.find(name) != mBoneListByName.end())
         {
             OGRE_EXCEPT(
-                Exception::ERR_DUPLICATE_ITEM,
+                ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("A bone with the name {} already exists", name),
                 "Skeleton::createBone" );
         }
@@ -221,7 +221,7 @@ class Affine3;
         reset();
 
         Real weightFactor = 1.0f;
-        if (mBlendState == ANIMBLEND_AVERAGE)
+        if (mBlendState == SkeletonAnimationBlendMode::AVERAGE)
         {
             // Derive total weights so we can rebalance if > 1.0f
             Real totalWeights = 0.0f;
@@ -293,7 +293,7 @@ class Affine3;
         if (mAnimationsList.find(name) != mAnimationsList.end())
         {
             OGRE_EXCEPT(
-                Exception::ERR_DUPLICATE_ITEM,
+                ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("An animation with the name {} already exists", name ),
                 "Skeleton::createAnimation");
         }
@@ -314,7 +314,7 @@ class Affine3;
         Animation* ret = _getAnimationImpl(name, linker);
         if (!ret)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
                 "Skeleton::getAnimation");
         }
 
@@ -371,7 +371,7 @@ class Affine3;
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name), 
             "Skeleton::getAnimation");
         }
 
@@ -503,7 +503,7 @@ class Affine3;
 
         if (i == mBoneListByName.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Bone named '{}' not found.", name ), 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Bone named '{}' not found.", name ), 
                 "Skeleton::getBone");
         }
 
@@ -720,7 +720,7 @@ class Affine3;
                     (!srcParent || !destParent ||
                      boneHandleMap[srcParent->getHandle()] != destParent->getHandle()))
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format(
                         "Source skeleton incompatible with this skeleton: "
                         "difference hierarchy between bone '{}"
@@ -868,7 +868,7 @@ class Affine3;
                 srcAnimation = src->_getAnimationImpl(animations[i], &linker);
                 if (!srcAnimation || linker)
                 {
-                    OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                    OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                         ::std::format("No animation entry found named {}", animations[i]),
                         "Skeleton::_mergeSkeletonAnimations");
                 }

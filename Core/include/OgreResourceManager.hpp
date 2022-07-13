@@ -189,7 +189,7 @@ namespace Ogre {
             @see Resource::isReloadable for resource is reloadable.
         */
         void unloadAll(bool reloadableOnly = true)
-            { unloadAll(reloadableOnly ? Resource::LF_DEFAULT : Resource::LF_INCLUDE_NON_RELOADABLE); }
+            { unloadAll(reloadableOnly ? Resource::LoadingFlags::DEFAULT : Resource::LoadingFlags::INCLUDE_NON_RELOADABLE); }
 
         /** Caused all currently loaded resources to be reloaded.
         @remarks
@@ -203,7 +203,7 @@ namespace Ogre {
             @see Resource::isReloadable for resource is reloadable.
         */
         void reloadAll(bool reloadableOnly = true)
-            { reloadAll(reloadableOnly ? Resource::LF_DEFAULT : Resource::LF_INCLUDE_NON_RELOADABLE); }
+            { reloadAll(reloadableOnly ? Resource::LoadingFlags::DEFAULT : Resource::LoadingFlags::INCLUDE_NON_RELOADABLE); }
 
         /** Unload all resources which are not referenced by any other object.
         @remarks
@@ -220,7 +220,7 @@ namespace Ogre {
             which can be subsequently automatically reloaded.
         */
         void unloadUnreferencedResources(bool reloadableOnly = true)
-            { unloadAll(reloadableOnly ? Resource::LF_ONLY_UNREFERENCED : Resource::LF_ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE); }
+            { unloadAll(reloadableOnly ? Resource::LoadingFlags::ONLY_UNREFERENCED : Resource::LoadingFlags::ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE); }
 
         /** Caused all currently loaded but not referenced by any other object
             resources to be reloaded.
@@ -236,7 +236,7 @@ namespace Ogre {
             which can be subsequently automatically reloaded.
         */
         void reloadUnreferencedResources(bool reloadableOnly = true)
-            { reloadAll(reloadableOnly ? Resource::LF_ONLY_UNREFERENCED : Resource::LF_ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE); }
+            { reloadAll(reloadableOnly ? Resource::LoadingFlags::ONLY_UNREFERENCED : Resource::LoadingFlags::ONLY_UNREFERENCED_INCLUDE_NON_RELOADABLE); }
 
         /** Unloads all resources.
         @remarks

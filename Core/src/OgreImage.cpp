@@ -104,10 +104,10 @@ namespace Ogre {
         mFormat(format)
         
     {
-        if (format == PF_UNKNOWN)
+        if (format == PixelFormat::UNKNOWN)
             return;
 
-        size_t size = calculateSize(0, 1,  width, height, depth, mFormat);
+        size_t size = calculateSize(TextureMipmap{}, 1,  width, height, depth, mFormat);
 
         if (size == 0)
             return;
@@ -118,7 +118,7 @@ namespace Ogre {
     }
 
     void Image::create(PixelFormat format, uint32 width, uint32 height, uint32 depth, uint32 numFaces,
-                       uint32 numMipMaps)
+                       TextureMipmap numMipMaps)
     {
         size_t size = calculateSize(numMipMaps, numFaces, width, height, depth, format);
         if (!mAutoDelete || !mBuffer || mBufSize != size)
@@ -197,7 +197,7 @@ namespace Ogre {
     auto Image::flipAroundY() -> Image &
     {
         OgreAssert(mBuffer, "No image data loaded");
-        mNumMipmaps = 0; // Image operations lose precomputed mipmaps
+        mNumMipmaps = {}; // Image operations lose precomputed mipmaps
 
         ushort y;
         switch (mPixelSize)
@@ -233,7 +233,7 @@ namespace Ogre {
 
         default:
             OGRE_EXCEPT( 
-                Exception::ERR_INTERNAL_ERROR,
+                ExceptionCodes::INTERNAL_ERROR,
                 "Unknown pixel depth",
                 "Image::flipAroundY" );
             break;
@@ -248,7 +248,7 @@ namespace Ogre {
     {
         OgreAssert(mBuffer, "No image data loaded");
         
-        mNumMipmaps = 0; // Image operations lose precomputed mipmaps
+        mNumMipmaps = {}; // Image operations lose precomputed mipmaps
         PixelUtil::bulkPixelVerticalFlip(getPixelBox());
 
         return *this;
@@ -256,7 +256,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     auto Image::loadDynamicImage(uchar* pData, uint32 uWidth, uint32 uHeight, uint32 depth,
-                                   PixelFormat eFormat, bool autoDelete, uint32 numFaces, uint32 numMipMaps) -> Image&
+                                   PixelFormat eFormat, bool autoDelete, uint32 numFaces, TextureMipmap numMipMaps) -> Image&
     {
 
         freeMemory();
@@ -267,14 +267,14 @@ namespace Ogre {
         mFormat = eFormat;
         mPixelSize = static_cast<uchar>(PixelUtil::getNumElemBytes( mFormat ));
         mNumMipmaps = numMipMaps;
-        mFlags = 0;
+        mFlags = {};
         // Set flags
         if (PixelUtil::isCompressed(eFormat))
-            mFlags |= IF_COMPRESSED;
+            mFlags |= ImageFlags::COMPRESSED;
         if (mDepth != 1)
-            mFlags |= IF_3D_TEXTURE;
+            mFlags |= ImageFlags::_3D_TEXTURE;
         if(numFaces == 6)
-            mFlags |= IF_CUBEMAP;
+            mFlags |= ImageFlags::CUBEMAP;
         OgreAssert(numFaces == 6 || numFaces == 1, "Invalid number of faces");
 
         mBufSize = calculateSize(numMipMaps, numFaces, uWidth, uHeight, depth, eFormat);
@@ -286,7 +286,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------
     auto Image::loadRawData(const DataStreamPtr& stream, uint32 uWidth, uint32 uHeight, uint32 uDepth,
-                              PixelFormat eFormat, uint32 numFaces, uint32 numMipMaps) -> Image&
+                              PixelFormat eFormat, uint32 numFaces, TextureMipmap numMipMaps) -> Image&
     {
 
         size_t size = calculateSize(numMipMaps, numFaces, uWidth, uHeight, uDepth, eFormat);
@@ -357,7 +357,7 @@ namespace Ogre {
             pCodec = Codec::getCodec(magicBuf, magicLen);
 
             if (!pCodec)
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                             "Unable to load image: Image format is unknown. Unable to identify codec. "
                             "Check it or specify format explicitly.");
         }
@@ -395,7 +395,7 @@ namespace Ogre {
     }
 
     //-----------------------------------------------------------------------------
-    auto Image::getNumMipmaps() const noexcept -> uint32
+    auto Image::getNumMipmaps() const noexcept -> TextureMipmap
     {
         return mNumMipmaps;
     }
@@ -403,7 +403,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto Image::hasFlag(const ImageFlags imgFlag) const -> bool
     {
-        return (mFlags & imgFlag) != 0;
+        return (mFlags & imgFlag) != ImageFlags{};
     }
 
     //-----------------------------------------------------------------------------
@@ -425,7 +425,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto Image::getNumFaces() const noexcept -> uint32
     {
-        if(hasFlag(IF_CUBEMAP))
+        if(hasFlag(ImageFlags::CUBEMAP))
             return 6;
         return 1;
     }
@@ -450,7 +450,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto Image::getHasAlpha() const noexcept -> bool
     {
-        return PixelUtil::getFlags(mFormat) & PFF_HASALPHA;
+        return (PixelUtil::getFlags(mFormat) & PixelFormatFlags::HASALPHA) != PixelFormatFlags{};
     }
     //-----------------------------------------------------------------------------
     void Image::applyGamma( uchar *buffer, Real gamma, size_t size, uchar bpp )
@@ -504,7 +504,7 @@ namespace Ogre {
         switch (filter) 
         {
         default:
-        case FILTER_NEAREST:
+        case Filter::NEAREST:
             if(src.format != scaled.format)
             {
                 // Allocate temporary buffer of destination size in source format 
@@ -533,14 +533,14 @@ namespace Ogre {
             }
             break;
 
-        case FILTER_BILINEAR:
+        case Filter::BILINEAR:
             switch (src.format) 
             {
-            case PF_L8: case PF_R8: case PF_A8: case PF_BYTE_LA:
-            case PF_R8G8B8: case PF_B8G8R8:
-            case PF_R8G8B8A8: case PF_B8G8R8A8:
-            case PF_A8B8G8R8: case PF_A8R8G8B8:
-            case PF_X8B8G8R8: case PF_X8R8G8B8:
+            case PixelFormat::L8: case PixelFormat::R8: case PixelFormat::A8: case PixelFormat::BYTE_LA:
+            case PixelFormat::R8G8B8: case PixelFormat::B8G8R8:
+            case PixelFormat::R8G8B8A8: case PixelFormat::B8G8R8A8:
+            case PixelFormat::A8B8G8R8: case PixelFormat::A8R8G8B8:
+            case PixelFormat::X8B8G8R8: case PixelFormat::X8R8G8B8:
                 if(src.format != scaled.format)
                 {
                     // Allocate temp buffer of destination size in source format 
@@ -564,9 +564,9 @@ namespace Ogre {
                     PixelUtil::bulkPixelConversion(temp, scaled);
                 }
                 break;
-            case PF_FLOAT32_RGB:
-            case PF_FLOAT32_RGBA:
-                if (scaled.format == PF_FLOAT32_RGB || scaled.format == PF_FLOAT32_RGBA)
+            case PixelFormat::FLOAT32_RGB:
+            case PixelFormat::FLOAT32_RGBA:
+                if (scaled.format == PixelFormat::FLOAT32_RGB || scaled.format == PixelFormat::FLOAT32_RGBA)
                 {
                     // float32 to float32, avoid unpack/repack overhead
                     LinearResampler_Float32::scale(src, scaled);
@@ -599,7 +599,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------------    
 
-    auto Image::getPixelBox(uint32 face, uint32 mipmap) const -> PixelBox
+    auto Image::getPixelBox(uint32 face, TextureMipmap mipmap) const -> PixelBox
     {
         // Image data is arranged as:
         // face 0, top level (mip 0)
@@ -615,15 +615,15 @@ namespace Ogre {
         uint8 *offset = mBuffer;
         // Base offset is number of full faces
         uint32 width = getWidth(), height=getHeight(), depth=getDepth();
-        uint32 numMips = getNumMipmaps();
+        auto numMips = getNumMipmaps();
 
         // Figure out the offsets 
         size_t fullFaceSize = 0;
         size_t finalFaceSize = 0;
         uint32 finalWidth = 0, finalHeight = 0, finalDepth = 0;
-        for(uint32 mip=0; mip <= numMips; ++mip)
+        for(uint32 mip=0; mip <= std::to_underlying(numMips); ++mip)
         {
-            if (mip == mipmap)
+            if (mip == std::to_underlying(mipmap))
             {
                 finalFaceSize = fullFaceSize;
                 finalWidth = width;
@@ -645,11 +645,11 @@ namespace Ogre {
         return src;
     }
     //-----------------------------------------------------------------------------
-    auto Image::calculateSize(uint32 mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth,
+    auto Image::calculateSize(TextureMipmap mipmaps, uint32 faces, uint32 width, uint32 height, uint32 depth,
                                 PixelFormat format) -> size_t
     {
         size_t size = 0;
-        for(uint32 mip=0; mip<=mipmaps; ++mip)
+        for(uint32 mip=0; mip<=std::to_underlying(mipmaps); ++mip)
         {
             size += PixelUtil::getMemorySize(width, height, depth, format)*faces; 
             if(width!=1) width /= 2;
@@ -705,15 +705,15 @@ namespace Ogre {
 
         for (uint32 face = 0; face < numFaces; ++face)
         {
-            for (uint8 mip = 0; mip <= mNumMipmaps; ++mip)
+            for (uint8 mip = 0; mip <= std::to_underlying(mNumMipmaps); ++mip)
             {
                 // convert the RGB first
-                PixelBox srcRGB = rgb.getPixelBox(face, mip);
-                PixelBox dst = getPixelBox(face, mip);
+                PixelBox srcRGB = rgb.getPixelBox(face, static_cast<TextureMipmap>(mip));
+                PixelBox dst = getPixelBox(face, static_cast<TextureMipmap>(mip));
                 PixelUtil::bulkPixelConversion(srcRGB, dst);
 
                 // now selectively add the alpha
-                PixelBox srcAlpha = alpha.getPixelBox(face, mip);
+                PixelBox srcAlpha = alpha.getPixelBox(face, static_cast<TextureMipmap>(mip));
                 uchar* psrcAlpha = srcAlpha.data;
                 uchar* pdst = dst.data;
                 for (uint32 d = 0; d < mDepth; ++d)

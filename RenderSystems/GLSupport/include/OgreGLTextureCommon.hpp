@@ -57,7 +57,7 @@ protected:
 
         @return how many times we can divide this texture in 2 until we reach 1x1.
     */
-    auto getMaxMipmaps() noexcept -> uint32;
+    auto getMaxMipmaps() noexcept -> TextureMipmap;
 
     uint mTextureID{0};
 };

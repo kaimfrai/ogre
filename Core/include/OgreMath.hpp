@@ -218,10 +218,10 @@ class Sphere;
            this functionality is actually still used is when parsing files. Search for
            usage of the Angle class for those instances
        */
-       enum AngleUnit
+       enum class AngleUnit
        {
-           AU_DEGREE,
-           AU_RADIAN
+           DEGREE,
+           RADIAN
        };
 
 

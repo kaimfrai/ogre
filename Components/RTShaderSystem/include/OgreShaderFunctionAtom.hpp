@@ -53,37 +53,67 @@ class Operand : public RTShaderSystemAlloc
 public:
 
     // InOut semantic
-    enum OpSemantic
+    enum class OpSemantic
     {
         /// The parameter is a input parameter
-        OPS_IN, 
+        IN,
         /// The parameter is a output parameter
-        OPS_OUT,
+        OUT,
         /// The parameter is a input/output parameter
-        OPS_INOUT
+        INOUT
     };
 
     // Used field mask
-    enum OpMask : uchar
+    enum class OpMask : uchar
     {
-        OPM_NONE    = 0,
-        OPM_X       = 0x0001,
-        OPM_Y       = 0x0002,
-        OPM_Z       = 0x0004,
-        OPM_W       = 0x0008,
-        OPM_XY      = OPM_X | OPM_Y,
-        OPM_XZ      = OPM_X | OPM_Z,
-        OPM_XW      = OPM_X | OPM_W,
-        OPM_YZ      = OPM_Y | OPM_Z,
-        OPM_YW      = OPM_Y | OPM_W,
-        OPM_ZW      = OPM_Z | OPM_W,
-        OPM_XYZ     = OPM_X | OPM_Y | OPM_Z,
-        OPM_XYW     = OPM_X | OPM_Y | OPM_W,
-        OPM_XZW     = OPM_X | OPM_Z | OPM_W,
-        OPM_YZW     = OPM_Y | OPM_Z | OPM_W,
-        OPM_XYZW    = OPM_X | OPM_Y | OPM_Z | OPM_W,
-        OPM_ALL     = OPM_XYZW
+        NONE    = 0,
+        X       = 0x0001,
+        Y       = 0x0002,
+        Z       = 0x0004,
+        W       = 0x0008,
+        XY      = X | Y,
+        XZ      = X | Z,
+        XW      = X | W,
+        YZ      = Y | Z,
+        YW      = Y | W,
+        ZW      = Z | W,
+        XYZ     = X | Y | Z,
+        XYW     = X | Y | W,
+        XZW     = X | Z | W,
+        YZW     = Y | Z | W,
+        XYZW    = X | Y | Z | W,
+        ALL     = XYZW
     };
+
+    friend auto constexpr operator not(OpMask value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    friend auto constexpr operator bitand(OpMask left, OpMask right) -> OpMask
+    {
+        return static_cast<OpMask>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    friend auto constexpr operator << (OpMask left, std::size_t shift) -> OpMask
+    {
+        return static_cast<OpMask>
+        (   std::to_underlying(left)
+        <<  shift
+        );
+    }
+
+    friend auto constexpr operator >> (OpMask left, std::size_t shift) -> OpMask
+    {
+        return static_cast<OpMask>
+        (   std::to_underlying(left)
+        >>  shift
+        );
+    }
 
     /** Class constructor 
     @param parameter A function parameter.
@@ -91,7 +121,7 @@ public:
     @param opMask The field mask of the parameter.
     @param indirectionLevel
     */
-    Operand(ParameterPtr parameter, OpSemantic opSemantic, OpMask opMask = OPM_ALL, ushort indirectionLevel = 0);
+    Operand(ParameterPtr parameter, OpSemantic opSemantic, OpMask opMask = OpMask::ALL, ushort indirectionLevel = 0);
 
     /** Copy constructor */
     Operand(const Operand& rhs);
@@ -108,17 +138,17 @@ public:
     [[nodiscard]] auto getParameter() const noexcept -> const ParameterPtr& { return mParameter; }
 
     /** Returns true if not all fields used. (usage is described through semantic)*/
-    [[nodiscard]] auto hasFreeFields()    const -> bool { return mMask != OPM_ALL; }
+    [[nodiscard]] auto hasFreeFields()    const -> bool { return mMask != OpMask::ALL; }
     
     /** Returns the mask bitfield. */
     [[nodiscard]] auto getMask()   const noexcept -> OpMask { return mMask; }
 
-    auto x() -> Operand& { return mask(OPM_X); }
-    auto y() -> Operand& { return mask(OPM_Y); }
-    auto z() -> Operand& { return mask(OPM_Z); }
-    auto w() -> Operand& { return mask(OPM_W); }
-    auto xy() -> Operand& { return mask(OPM_XY); }
-    auto xyz() -> Operand& { return mask(OPM_XYZ); }
+    auto x() -> Operand& { return mask(OpMask::X); }
+    auto y() -> Operand& { return mask(OpMask::Y); }
+    auto z() -> Operand& { return mask(OpMask::Z); }
+    auto w() -> Operand& { return mask(OpMask::W); }
+    auto xy() -> Operand& { return mask(OpMask::XY); }
+    auto xyz() -> Operand& { return mask(OpMask::XYZ); }
 
     auto mask(OpMask opMask) -> Operand&
     {
@@ -143,7 +173,7 @@ public:
     void write(std::ostream& os) const;
 
     /** Return the float count of the given mask. */
-    static auto getFloatCount(int mask) -> int;
+    static auto getFloatCount(OpMask mask) -> int;
 protected:
     /// The parameter being carried by the operand
     ParameterPtr mParameter;
@@ -157,35 +187,35 @@ protected:
 
 struct In : Operand 
 {
-    In(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_IN, "invalid semantic"); }
-    In(ParameterPtr p) : Operand(p, OPS_IN) {}
-    In(UniformParameterPtr p) : Operand(p, OPS_IN) {}
+    In(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OpSemantic::IN, "invalid semantic"); }
+    In(ParameterPtr p) : Operand(p, OpSemantic::IN) {}
+    In(UniformParameterPtr p) : Operand(p, OpSemantic::IN) {}
 
     // implicitly construct const params
-    In(float f) : Operand(ParameterFactory::createConstParam(f), OPS_IN) {}
-    In(const Vector2& v) : Operand(ParameterFactory::createConstParam(v), OPS_IN) {}
-    In(const Vector3& v) : Operand(ParameterFactory::createConstParam(v), OPS_IN) {}
-    In(const Vector4& v) : Operand(ParameterFactory::createConstParam(v), OPS_IN) {}
+    In(float f) : Operand(ParameterFactory::createConstParam(f), OpSemantic::IN) {}
+    In(const Vector2& v) : Operand(ParameterFactory::createConstParam(v), OpSemantic::IN) {}
+    In(const Vector3& v) : Operand(ParameterFactory::createConstParam(v), OpSemantic::IN) {}
+    In(const Vector4& v) : Operand(ParameterFactory::createConstParam(v), OpSemantic::IN) {}
 };
 
 struct Out : Operand 
 {
-    Out(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_OUT, "invalid semantic"); }
-    Out(ParameterPtr p) : Operand(p, OPS_OUT) {}
-    Out(UniformParameterPtr p) : Operand(p, OPS_OUT) {}
+    Out(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OpSemantic::OUT, "invalid semantic"); }
+    Out(ParameterPtr p) : Operand(p, OpSemantic::OUT) {}
+    Out(UniformParameterPtr p) : Operand(p, OpSemantic::OUT) {}
 };
 
 struct InOut : Operand 
 {
-    InOut(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OPS_INOUT, "invalid semantic"); }
-    InOut(ParameterPtr p) : Operand(p, OPS_INOUT) {}
-    InOut(UniformParameterPtr p) : Operand(p, OPS_INOUT) {}
+    InOut(const Operand& rhs) : Operand(rhs) { OgreAssert(mSemantic == OpSemantic::INOUT, "invalid semantic"); }
+    InOut(ParameterPtr p) : Operand(p, OpSemantic::INOUT) {}
+    InOut(UniformParameterPtr p) : Operand(p, OpSemantic::INOUT) {}
 };
 
 /// shorthand for operator[]  on preceding operand. e.g. myArray[p]
 struct At : Operand
 {
-    At(ParameterPtr p) : Operand(p, OPS_IN, OPM_ALL, 1) {}
+    At(ParameterPtr p) : Operand(p, OpSemantic::IN, OpMask::ALL, 1) {}
 };
 
 /** A class that represents an atomic code section of shader based program function.
@@ -211,7 +241,7 @@ public:
     @param opMask The field mask of the parameter.
     @param indirectionLevel The level of nesting inside brackets
     */
-    void pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask = Operand::OPM_ALL, int indirectionLevel = 0);
+    void pushOperand(ParameterPtr parameter, Operand::OpSemantic opSemantic, Operand::OpMask opMask = Operand::OpMask::ALL, int indirectionLevel = 0);
 
     void setOperands(const OperandVector& ops);
 

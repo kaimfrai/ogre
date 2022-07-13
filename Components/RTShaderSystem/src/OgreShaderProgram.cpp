@@ -79,7 +79,7 @@ void Program::addParameter(UniformParameterPtr parameter)
 {
     if (getParameterByName(parameter->getName()).get() != nullptr)
     {
-        OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Parameter '{}' already declared in program.", parameter->getName() ),
             "Program::addParameter" );
     }
@@ -107,32 +107,32 @@ static auto isArray(GpuProgramParameters::AutoConstantType autoType) -> bool
 {
     switch (autoType)
     {
-    case GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4:
-    case GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY:
-    case GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4:
-    case GpuProgramParameters::ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
-    case GpuProgramParameters::ACT_LIGHT_DIFFUSE_COLOUR_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_ATTENUATION_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_POSITION_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_POSITION_OBJECT_SPACE_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_POSITION_VIEW_SPACE_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_DIRECTION_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_POWER_SCALE_ARRAY:
-    case GpuProgramParameters::ACT_SPOTLIGHT_PARAMS_ARRAY:
-    case GpuProgramParameters::ACT_DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
-    case GpuProgramParameters::ACT_DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
-    case GpuProgramParameters::ACT_LIGHT_CASTS_SHADOWS_ARRAY:
-    case GpuProgramParameters::ACT_TEXTURE_VIEWPROJ_MATRIX_ARRAY:
-    case GpuProgramParameters::ACT_TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
-    case GpuProgramParameters::ACT_SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
-    case GpuProgramParameters::ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
-    case GpuProgramParameters::ACT_SHADOW_SCENE_DEPTH_RANGE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY_3x4:
+    case GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY:
+    case GpuProgramParameters::AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4:
+    case GpuProgramParameters::AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_POSITION_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_POWER_SCALE_ARRAY:
+    case GpuProgramParameters::AutoConstantType::SPOTLIGHT_PARAMS_ARRAY:
+    case GpuProgramParameters::AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
+    case GpuProgramParameters::AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
+    case GpuProgramParameters::AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY:
+    case GpuProgramParameters::AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY:
+    case GpuProgramParameters::AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
+    case GpuProgramParameters::AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
+    case GpuProgramParameters::AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
+    case GpuProgramParameters::AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY:
         return true;
     default:
         return false;
@@ -237,7 +237,7 @@ auto Program::resolveAutoParameterInt(GpuProgramParameters::AutoConstantType aut
 
 //-----------------------------------------------------------------------------
 auto Program::resolveParameter(GpuConstantType type, 
-                                    int index, uint16 variability,
+                                    int index, GpuParamVariability variability,
                                     std::string_view suggestedName,
                                     size_t size) -> UniformParameterPtr
 {

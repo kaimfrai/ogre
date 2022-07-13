@@ -66,9 +66,9 @@ auto FFPTransform::getType() const noexcept -> std::string_view
 
 
 //-----------------------------------------------------------------------
-auto FFPTransform::getExecutionOrder() const noexcept -> int
+auto FFPTransform::getExecutionOrder() const noexcept -> FFPShaderStage
 {
-    return FFP_TRANSFORM;
+    return FFPShaderStage::TRANSFORM;
 }
 
 auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool
@@ -82,17 +82,17 @@ auto FFPTransform::preAddToRenderState(const RenderState* renderState, Pass* src
 auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
     //! [param_resolve]
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsEntry = vsProgram->getEntryPointFunction();
     
     // Resolve World View Projection Matrix.
-    UniformParameterPtr wvpMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEWPROJ_MATRIX);
+    UniformParameterPtr wvpMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEWPROJ_MATRIX);
 
     // Resolve input position parameter.
-    ParameterPtr positionIn = vsEntry->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+    ParameterPtr positionIn = vsEntry->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
     
     // Resolve output position parameter.
-    ParameterPtr positionOut = vsEntry->resolveOutputParameter(Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    ParameterPtr positionOut = vsEntry->resolveOutputParameter(Parameter::Content::POSITION_PROJECTIVE_SPACE);
     //! [param_resolve]
 
     // Add dependency.
@@ -105,7 +105,7 @@ auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
         !GpuProgramManager::getSingleton().isSyntaxSupported("glsl300es"))
         mInstanced = false;
 
-    auto stage = vsEntry->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsEntry->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
     if(mInstanced)
     {
         if (isHLSL)
@@ -115,12 +115,12 @@ auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
             vsProgram->setUseColumnMajorMatrices(false);
         }
 
-        auto wMatrix = vsEntry->resolveInputParameter(mTexCoordIndex, GCT_MATRIX_3X4);
+        auto wMatrix = vsEntry->resolveInputParameter(mTexCoordIndex, GpuConstantType::MATRIX_3X4);
         stage.callFunction(FFP_FUNC_TRANSFORM, wMatrix, positionIn, Out(positionIn).xyz());
 
         if(mDoLightCalculations)
         {
-            auto vsInNormal = vsEntry->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+            auto vsInNormal = vsEntry->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
             stage.callFunction(FFP_FUNC_TRANSFORM, wMatrix, vsInNormal, vsInNormal);
         }
         // we can end here because the world matrix will be identity with instanced rendering
@@ -131,8 +131,8 @@ auto FFPTransform::createCpuSubPrograms(ProgramSet* programSet) -> bool
     if(!mSetPointSize || isHLSL) // not supported with DX11
         return true;
 
-    UniformParameterPtr pointParams = vsProgram->resolveParameter(GpuProgramParameters::ACT_POINT_PARAMS);
-    ParameterPtr pointSize = vsEntry->resolveOutputParameter(Parameter::SPC_POINTSPRITE_SIZE);
+    UniformParameterPtr pointParams = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::POINT_PARAMS);
+    ParameterPtr pointSize = vsEntry->resolveOutputParameter(Parameter::Content::POINTSPRITE_SIZE);
 
     // using eye space depth only instead of the eye real distance
     // its faster to obtain, so lets call it close enough..

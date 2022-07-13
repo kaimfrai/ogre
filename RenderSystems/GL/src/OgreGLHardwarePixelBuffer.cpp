@@ -58,7 +58,7 @@ namespace Ogre {
 void GLTextureBuffer::_blitFromMemory(const PixelBox &src, const Box &dst)
 {
     if(!mBuffer.contains(src))
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "destination box out of range",
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "destination box out of range",
          "GLHardwarePixelBuffer::blitFromMemory");
     PixelBox converted;
     
@@ -83,7 +83,7 @@ void GLTextureBuffer::_blitFromMemory(const PixelBox &src, const Box &dst)
 void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
 {
     if(!mBuffer.contains(srcBox))
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "source box out of range",
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "source box out of range",
          "GLHardwarePixelBuffer::blitToMemory");
     if(srcBox.getOrigin() == Vector<3, uint32>(0, 0 ,0) &&
        srcBox.getSize() == getSize() &&
@@ -103,7 +103,7 @@ void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
         if(srcBox.getSize() != dst.getSize())
         {
             // We need scaling
-            Image::scale(mBuffer.getSubVolume(srcBox), dst, Image::FILTER_BILINEAR);
+            Image::scale(mBuffer.getSubVolume(srcBox), dst, Image::Filter::BILINEAR);
         }
         else
         {
@@ -138,7 +138,7 @@ GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent
         << "format=" << PixelUtil::getFormatName(mFormat) << "(internal 0x"
         << std::hex << value << ")";
     LogManager::getSingleton().logMessage( 
-                LML_NORMAL, str.str());
+                LogMessageLevel::Normal, str.str());
     */
     // Set up pixel box
     mBuffer = PixelBox(mWidth, mHeight, mDepth, mFormat);
@@ -147,10 +147,10 @@ GLTextureBuffer::GLTextureBuffer(GLRenderSystem* renderSystem, GLTexture* parent
         /// We are invalid, do not allocate a buffer
         return;
     // Allocate buffer
-    //if(mUsage & HBU_STATIC)
+    //if(mUsage & HardwareBufferUsage::STATIC)
     //  allocateBuffer();
     // Is this a render target?
-    if(mUsage & TU_RENDERTARGET)
+    if(!!(mUsage & TextureUsage::RENDERTARGET))
     {
         // Create render target for each slice
         mSliceTRT.reserve(mDepth);
@@ -175,7 +175,7 @@ void GLTextureBuffer::upload(const PixelBox &data, const Box &dest)
     if(PixelUtil::isCompressed(data.format))
     {
         if(data.format != mFormat || !data.isConsecutive())
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
             "Compressed images must be consecutive, in the source format",
             "GLTextureBuffer::upload");
         GLenum format = GLPixelUtil::getGLInternalFormat(mFormat, mHwGamma);
@@ -294,9 +294,9 @@ void GLTextureBuffer::upload(const PixelBox &data, const Box &dest)
         }   
     }
 
-    // TU_AUTOMIPMAP is only enabled when there are no custom mips
+    // TextureUsage::AUTOMIPMAP is only enabled when there are no custom mips
     // so we do not have to care about overwriting
-    if((mUsage & TU_AUTOMIPMAP) && (mLevel == 0))
+    if(!!(mUsage & TextureUsage::AUTOMIPMAP) && (mLevel == 0))
     {
         glGenerateMipmapEXT(mTarget);
     }
@@ -310,13 +310,13 @@ void GLTextureBuffer::upload(const PixelBox &data, const Box &dest)
 void GLTextureBuffer::download(const PixelBox &data)
 {
     if(data.getSize() != getSize())
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "only download of entire buffer is supported by GL",
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "only download of entire buffer is supported by GL",
             "GLTextureBuffer::download");
     mRenderSystem->_getStateCacheManager()->bindGLTexture( mTarget, mTextureID );
     if(PixelUtil::isCompressed(data.format))
     {
         if(data.format != mFormat || !data.isConsecutive())
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
             "Compressed images must be consecutive, in the source format",
             "GLTextureBuffer::download");
         // Data must be consecutive and at beginning of buffer as PixelStorei not allowed
@@ -394,7 +394,7 @@ void GLTextureBuffer::blit(const HardwarePixelBufferSharedPtr &src, const Box &s
     
     // Using this in Terrain composite map RTT interferes with Impostor RTT rendering in pagedgeometry
     // I have no idea why! For the moment, disable when src is RTT
-    if(GLAD_GL_EXT_framebuffer_object && (src->getUsage() & TU_RENDERTARGET) == 0 &&
+    if(GLAD_GL_EXT_framebuffer_object && (src->getUsage() & TextureUsage::RENDERTARGET) == HardwareBufferUsage{} &&
         (srct->mTarget==GL_TEXTURE_1D||srct->mTarget==GL_TEXTURE_2D
          ||srct->mTarget==GL_TEXTURE_3D)&&mTarget!=GL_TEXTURE_2D_ARRAY_EXT)
     {
@@ -467,7 +467,7 @@ void GLTextureBuffer::blitFromTexture(GLTextureBuffer *src, const Box &srcBox, c
     {
         /// Dimensions don't match -- use bi or trilinear filtering depending on the
         /// source texture.
-        if(src->mUsage & TU_AUTOMIPMAP)
+        if(!!(src->mUsage & TextureUsage::AUTOMIPMAP))
         {
             /// Automatic mipmaps, we can safely use trilinear filter which
             /// brings greatly imporoved quality for minimisation.
@@ -504,8 +504,8 @@ void GLTextureBuffer::blitFromTexture(GLTextureBuffer *src, const Box &srcBox, c
     {
         /// If target format not directly supported, create intermediate texture
         tempTex = TextureManager::getSingleton().createManual(
-            "GLBlitFromTextureTMP", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D,
-            dstBox.getWidth(), dstBox.getHeight(), dstBox.getDepth(), 0,
+            "GLBlitFromTextureTMP", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TextureType::_2D,
+            dstBox.getWidth(), dstBox.getHeight(), dstBox.getDepth(), TextureMipmap{},
             fboMan->getSupportedAlternative(mFormat));
 
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
@@ -584,7 +584,7 @@ void GLTextureBuffer::blitFromTexture(GLTextureBuffer *src, const Box &srcBox, c
     if(!tempTex)
     {
         /// Generate mipmaps
-        if(mUsage & TU_AUTOMIPMAP)
+        if(!!(mUsage & TextureUsage::AUTOMIPMAP))
         {
             mRenderSystem->_getStateCacheManager()->bindGLTexture(mTarget, mTextureID);
             glGenerateMipmapEXT(mTarget);
@@ -626,15 +626,15 @@ void GLTextureBuffer::blitFromMemory(const PixelBox &src, const Box &dstBox)
         return;
     }
     if(!mBuffer.contains(dstBox))
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "destination box out of range",
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "destination box out of range",
                     "GLTextureBuffer::blitFromMemory");
 
-    TextureType type = (src.getDepth() != 1) ? TEX_TYPE_3D : TEX_TYPE_2D;
+    TextureType type = (src.getDepth() != 1) ? TextureType::_3D : TextureType::_2D;
 
     // Set automatic mipmap generation; nice for minimisation
     TexturePtr tex = TextureManager::getSingleton().createManual(
         "GLBlitFromMemoryTMP", ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, type,
-        src.getWidth(), src.getHeight(), src.getDepth(), MIP_UNLIMITED, src.format);
+        src.getWidth(), src.getHeight(), src.getDepth(), TextureMipmap::UNLIMITED, src.format);
 
     // Upload data to 0,0,0 in temporary texture
     Box tempTarget(src.getSize());
@@ -650,14 +650,14 @@ void GLTextureBuffer::blitFromMemory(const PixelBox &src, const Box &dstBox)
 
 auto GLTextureBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
 {
-    assert(mUsage & TU_RENDERTARGET);
+    assert(mUsage & TextureUsage::RENDERTARGET);
     assert(zoffset < mDepth);
     return mSliceTRT[zoffset];
 }
 //********* GLRenderBuffer
 //----------------------------------------------------------------------------- 
 GLRenderBuffer::GLRenderBuffer(GLenum format, uint32 width, uint32 height, GLsizei numSamples):
-    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HBU_GPU_ONLY)
+    GLHardwarePixelBufferCommon(width, height, 1, GLPixelUtil::getClosestOGREFormat(format),HardwareBufferUsage::GPU_ONLY)
     
 {
     mGLInternalFormat = format;

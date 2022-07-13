@@ -43,13 +43,13 @@ namespace Ogre {
 
     auto Codec::encode(::std::any const& input) const -> DataStreamPtr
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to memory not supported", getType()));
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, ::std::format("{} - encoding to memory not supported", getType()));
         return {};
     }
 
     void Codec::encodeToFile(::std::any const& input, std::string_view outFileName) const
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, ::std::format("{} - encoding to file not supported", getType()));
     }
 
     auto Codec::getExtensions() -> std::vector<std::string_view>
@@ -67,7 +67,7 @@ namespace Ogre {
     {
         auto ret = msMapCodecs.emplace(pCodec->getType(), pCodec);
         if (!ret.second)
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, ::std::format("{} already has a registered codec", pCodec->getType()));
     }
 
     auto Codec::getCodec(std::string_view extension) -> Codec*
@@ -83,7 +83,7 @@ namespace Ogre {
             else
                 formats_str = ::std::format("Supported formats are: {}.", getExtensions() );
 
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                         ::std::format("Can not find codec for '{}' format.\n", extension ) + formats_str);
         }
 

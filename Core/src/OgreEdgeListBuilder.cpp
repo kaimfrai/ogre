@@ -99,11 +99,11 @@ namespace Ogre {
     void EdgeListBuilder::addIndexData(const IndexData* indexData, 
         size_t vertexSet, RenderOperation::OperationType opType)
     {
-        if (opType != RenderOperation::OT_TRIANGLE_LIST &&
-            opType != RenderOperation::OT_TRIANGLE_FAN &&
-            opType != RenderOperation::OT_TRIANGLE_STRIP)
+        if (opType != RenderOperation::OperationType::TRIANGLE_LIST &&
+            opType != RenderOperation::OperationType::TRIANGLE_FAN &&
+            opType != RenderOperation::OperationType::TRIANGLE_STRIP)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Only triangle list, fan and strip are supported to build edge list.",
                 "EdgeListBuilder::addIndexData");
         }
@@ -212,11 +212,11 @@ namespace Ogre {
         
         switch (opType)
         {
-        case RenderOperation::OT_TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
             iterations = indexData->indexCount / 3;
             break;
-        case RenderOperation::OT_TRIANGLE_FAN:
-        case RenderOperation::OT_TRIANGLE_STRIP:
+        case RenderOperation::OperationType::TRIANGLE_FAN:
+        case RenderOperation::OperationType::TRIANGLE_STRIP:
             iterations = indexData->indexCount - 2;
             break;
         default:
@@ -228,16 +228,16 @@ namespace Ogre {
 
         // locate position element & the buffer to go with it
         const VertexData* vertexData = mVertexDataList[vertexSet];
-        const VertexElement* posElem = vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+        const VertexElement* posElem = vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         HardwareVertexBufferSharedPtr vbuf = 
             vertexData->vertexBufferBinding->getBuffer(posElem->getSource());
         // lock the buffer for reading
-        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::LockOptions::READ_ONLY);
         auto* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
 
         // Get the indexes ready for reading
-        bool idx32bit = (indexData->indexBuffer->getType() == HardwareIndexBuffer::IT_32BIT);
-        HardwareBufferLockGuard indexLock(indexData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
+        bool idx32bit = (indexData->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_32BIT);
+        HardwareBufferLockGuard indexLock(indexData->indexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
         unsigned short* p16Idx = static_cast<unsigned short*>(indexLock.pData) + indexData->indexStart;
         unsigned int* p32Idx = static_cast<unsigned int*>(indexLock.pData) + indexData->indexStart;
 
@@ -261,7 +261,7 @@ namespace Ogre {
             tri.indexSet = indexSet;
             tri.vertexSet = vertexSet;
 
-            if (opType == RenderOperation::OT_TRIANGLE_LIST || t == 0)
+            if (opType == RenderOperation::OperationType::TRIANGLE_LIST || t == 0)
             {
                 // Standard 3-index read for tri list or first tri in strip / fan
                 if (idx32bit)
@@ -287,7 +287,7 @@ namespace Ogre {
                 // one index and the current one for triangles after the first.
                 // We also make sure that all the triangles are process in the
                 // _anti_ clockwise orientation
-                index[(opType == RenderOperation::OT_TRIANGLE_STRIP) && (t & 1) ? 0 : 1] = index[2];
+                index[(opType == RenderOperation::OperationType::TRIANGLE_STRIP) && (t & 1) ? 0 : 1] = index[2];
                 // Read for the last tri index
                 if (idx32bit)
                     index[2] = *p32Idx++;
@@ -432,7 +432,7 @@ namespace Ogre {
         const EdgeData::EdgeGroup& eg = edgeGroups[vertexSet];
         if (eg.triCount != 0) 
         {
-            HardwareBufferLockGuard positionsLock(positionBuffer, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard positionsLock(positionBuffer, HardwareBuffer::LockOptions::READ_ONLY);
             OptimisedUtil::getImplementation()->calculateFaceNormals(
                 static_cast<float*>(positionsLock.pData),
                 &triangles[eg.triStart],
@@ -469,11 +469,11 @@ namespace Ogre {
                 " - vertex count {}",
                 i,
                 vData->vertexCount));
-            const VertexElement* posElem = vData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            const VertexElement* posElem = vData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             HardwareVertexBufferSharedPtr vbuf = 
                 vData->vertexBufferBinding->getBuffer(posElem->getSource());
             // lock the buffer for reading
-            HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::LockOptions::READ_ONLY);
             auto* pBaseVertex = static_cast<unsigned char*>(vertexLock.pData);
             float* pFloat;
             for (j = 0; j < vData->vertexCount; ++j)
@@ -502,16 +502,16 @@ namespace Ogre {
                 mGeometryList[i].vertexSet,
                 mGeometryList[i].opType));
             // Get the indexes ready for reading
-            HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard indexLock(iData->indexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
             auto* p16Idx = static_cast<unsigned short*>(indexLock.pData);
             auto* p32Idx = static_cast<unsigned int*>(indexLock.pData);
-            bool isIT32 = iData->indexBuffer->getType() == HardwareIndexBuffer::IT_32BIT;
+            bool isIT32 = iData->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_32BIT;
 
             for (j = 0; j < iData->indexCount;  )
             {
                 if (isIT32)
                 {
-                    if (mGeometryList[i].opType == RenderOperation::OT_TRIANGLE_LIST
+                    if (mGeometryList[i].opType == RenderOperation::OperationType::TRIANGLE_LIST
                         || j == 0)
                     {
                         unsigned int n1 = *p32Idx++;
@@ -534,7 +534,7 @@ namespace Ogre {
                 }
                 else
                 {
-                    if (mGeometryList[i].opType == RenderOperation::OT_TRIANGLE_LIST
+                    if (mGeometryList[i].opType == RenderOperation::OperationType::TRIANGLE_LIST
                         || j == 0)
                     {
                         unsigned short n1 = *p16Idx++;

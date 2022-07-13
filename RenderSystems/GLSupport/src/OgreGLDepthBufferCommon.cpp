@@ -16,7 +16,7 @@ namespace Ogre
 {
 class GLContext;
 
-GLDepthBufferCommon::GLDepthBufferCommon(uint16 poolId, GLRenderSystemCommon* renderSystem,
+GLDepthBufferCommon::GLDepthBufferCommon(DepthBuffer::PoolId poolId, GLRenderSystemCommon* renderSystem,
                                          GLContext* creatorContext, GLHardwarePixelBufferCommon* depth,
                                          GLHardwarePixelBufferCommon* stencil, const RenderTarget* target,
                                          bool manual)
@@ -39,7 +39,7 @@ auto GLDepthBufferCommon::isCompatible(RenderTarget* renderTarget) const -> bool
     bool retVal = false;
 
     // Check standard stuff first.
-    if (mRenderSystem->getCapabilities()->hasCapability(RSC_RTT_DEPTHBUFFER_RESOLUTION_LESSEQUAL))
+    if (mRenderSystem->getCapabilities()->hasCapability(Capabilities::RTT_DEPTHBUFFER_RESOLUTION_LESSEQUAL))
     {
         if (!DepthBuffer::isCompatible(renderTarget))
             return false;

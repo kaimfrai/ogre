@@ -76,21 +76,21 @@ namespace Ogre {
         class Token
         {
         public:
-            enum Kind
+            enum class Kind
             {
-                TK_EOS,          // End of input stream
-                TK_ERROR,        // An error has been encountered
-                TK_WHITESPACE,   // A whitespace span (but not newline)
-                TK_NEWLINE,      // A single newline (CR & LF)
-                TK_LINECONT,     // Line continuation ('\' followed by LF)
-                TK_NUMBER,       // A number
-                TK_KEYWORD,      // A keyword
-                TK_PUNCTUATION,  // A punctuation character
-                TK_DIRECTIVE,    // A preprocessor directive
-                TK_STRING,       // A string
-                TK_COMMENT,      // A block comment
-                TK_LINECOMMENT,  // A line comment
-                TK_TEXT          // An unparsed text (cannot be returned from GetToken())
+                EOS,          // End of input stream
+                ERROR,        // An error has been encountered
+                WHITESPACE,   // A whitespace span (but not newline)
+                NEWLINE,      // A single newline (CR & LF)
+                LINECONT,     // Line continuation ('\' followed by LF)
+                NUMBER,       // A number
+                KEYWORD,      // A keyword
+                PUNCTUATION,  // A punctuation character
+                DIRECTIVE,    // A preprocessor directive
+                STRING,       // A string
+                COMMENT,      // A block comment
+                LINECOMMENT,  // A line comment
+                TEXT          // An unparsed text (cannot be returned from GetToken())
             };
 
             /// Token type

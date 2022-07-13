@@ -144,12 +144,12 @@ class VertexDeclaration;
 
     public:
 
-        enum BufferLicenseType
+        enum class BufferLicenseType
         {
             /// Licensee will only release buffer when it says so.
-            BLT_MANUAL_RELEASE,
+            MANUAL_RELEASE,
             /// Licensee can have license revoked.
-            BLT_AUTOMATIC_RELEASE
+            AUTOMATIC_RELEASE
         };
 
     private:
@@ -189,7 +189,7 @@ class VertexDeclaration;
         size_t mUnderUsedFrameCount{0};
         /// Number of frames to wait before free unused temporary buffers.
         static const size_t UNDER_USED_FRAME_THRESHOLD;
-        /// Frame delay for BLT_AUTOMATIC_RELEASE temporary buffers.
+        /// Frame delay for BufferLicenseType::AUTOMATIC_RELEASE temporary buffers.
         static const size_t EXPIRED_DELAY_FRAME_THRESHOLD;
 
         /// Creates a new buffer as a copy of the source, does not copy data.
@@ -221,14 +221,14 @@ class VertexDeclaration;
             The number of vertices in this buffer.
         @param usage
             One or more members of the HardwareBuffer::Usage enumeration; you are
-            strongly advised to use HBU_STATIC_WRITE_ONLY wherever possible, if you need to 
-            update regularly, consider HBU_DYNAMIC_WRITE_ONLY and useShadowBuffer=true.
+            strongly advised to use HardwareBufferUsage::STATIC_WRITE_ONLY wherever possible, if you need to 
+            update regularly, consider HardwareBufferUsage::DYNAMIC_WRITE_ONLY and useShadowBuffer=true.
         @param useShadowBuffer
             If set to @c true, this buffer will be 'shadowed' by one stored in 
             system memory rather than GPU memory. You should set this flag if you intend
             to read data back from the vertex buffer, because reading data from a buffer
             in the GPU memory is very expensive, and is in fact impossible if you
-            specify HBU_DETAIL_WRITE_ONLY for the main buffer. If you use this option, all
+            specify HardwareBufferUsage::DETAIL_WRITE_ONLY for the main buffer. If you use this option, all
             reads and writes will be done to the shadow buffer, and the shadow buffer will
             be synchronised with the real buffer at an appropriate time.
         */
@@ -251,7 +251,7 @@ class VertexDeclaration;
             system memory rather than GPU memory. You should set this flag if you intend
             to read data back from the index buffer, because reading data from a buffer
             in the GPU memory is very expensive, and is in fact impossible if you
-            specify HBU_DETAIL_WRITE_ONLY for the main buffer. If you use this option, all
+            specify HardwareBufferUsage::DETAIL_WRITE_ONLY for the main buffer. If you use this option, all
             reads and writes will be done to the shadow buffer, and the shadow buffer will
             be synchronised with the real buffer at an appropriate time.
         */
@@ -271,7 +271,7 @@ class VertexDeclaration;
          * The update shall be triggered by GpuProgramParameters, if is dirty
          */
         virtual auto createUniformBuffer(size_t sizeBytes,
-                                                      HardwareBufferUsage usage = HBU_CPU_TO_GPU,
+                                                      HardwareBufferUsage usage = HardwareBufferUsage::CPU_TO_GPU,
                                                       bool useShadowBuffer = false) -> HardwareBufferPtr;
 
         /** Creates a new vertex declaration. */
@@ -322,7 +322,7 @@ class VertexDeclaration;
         /** Manually release a vertex buffer copy for others to subsequently use.
         @remarks
             Only required if the original call to allocateVertexBufferCopy
-            included a licenseType of BLT_MANUAL_RELEASE. 
+            included a licenseType of BufferLicenseType::MANUAL_RELEASE.
         @param bufferCopy
             The buffer copy. The caller is expected to delete
             or at least no longer use this reference, since another user may
@@ -332,7 +332,7 @@ class VertexDeclaration;
 
         /** Tell engine that the vertex buffer copy intent to reuse.
         @remarks
-            Ogre internal keep an expired delay counter of BLT_AUTOMATIC_RELEASE
+            Ogre internal keep an expired delay counter of BufferLicenseType::AUTOMATIC_RELEASE
             buffers, when the counter count down to zero, it'll release for other
             purposes later. But you can use this function to reset the counter to
             the internal configured value, keep the buffer not get released for
@@ -355,7 +355,7 @@ class VertexDeclaration;
         void _freeUnusedBufferCopies();
 
         /** Internal method for releasing all temporary buffers which have been 
-           allocated using BLT_AUTOMATIC_RELEASE; is called by OGRE.
+           allocated using BufferLicenseType::AUTOMATIC_RELEASE; is called by OGRE.
         @param forceFreeUnused
             If @c true, free all unused temporary buffers.
             If @c false, auto detect and free all unused temporary buffers based on

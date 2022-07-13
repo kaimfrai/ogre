@@ -55,155 +55,155 @@ namespace Ogre
 {
     //---------------------------------------------------------------------
     GpuProgramParameters::AutoConstantDefinition GpuProgramParameters::AutoConstantDictionary[] = {
-        AutoConstantDefinition(ACT_WORLD_MATRIX,                  "world_matrix",                16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_WORLD_MATRIX,          "inverse_world_matrix",        16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_WORLD_MATRIX,             "transpose_world_matrix",            16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_WORLD_MATRIX, "inverse_transpose_world_matrix", 16, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::WORLD_MATRIX,                  "world_matrix",                16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_WORLD_MATRIX,          "inverse_world_matrix",        16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_WORLD_MATRIX,             "transpose_world_matrix",            16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX, "inverse_transpose_world_matrix", 16, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_WORLD_MATRIX_ARRAY_3x4,        "world_matrix_array_3x4",      12, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_WORLD_MATRIX_ARRAY,            "world_matrix_array",          16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_WORLD_DUALQUATERNION_ARRAY_2x4, "world_dualquaternion_array_2x4",      8, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4, "world_scale_shear_matrix_array_3x4", 12, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEW_MATRIX,                   "view_matrix",                 16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_VIEW_MATRIX,           "inverse_view_matrix",         16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_VIEW_MATRIX,              "transpose_view_matrix",             16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_VIEW_MATRIX,       "inverse_transpose_view_matrix",     16, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::WORLD_MATRIX_ARRAY_3x4,        "world_matrix_array_3x4",      12, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::WORLD_MATRIX_ARRAY,            "world_matrix_array",          16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4, "world_dualquaternion_array_2x4",      8, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4, "world_scale_shear_matrix_array_3x4", 12, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEW_MATRIX,                   "view_matrix",                 16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_VIEW_MATRIX,           "inverse_view_matrix",         16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_VIEW_MATRIX,              "transpose_view_matrix",             16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_VIEW_MATRIX,       "inverse_transpose_view_matrix",     16, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_PROJECTION_MATRIX,             "projection_matrix",           16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_PROJECTION_MATRIX,          "inverse_projection_matrix",         16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_PROJECTION_MATRIX,        "transpose_projection_matrix",       16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_PROJECTION_MATRIX, "inverse_transpose_projection_matrix", 16, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::PROJECTION_MATRIX,             "projection_matrix",           16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_PROJECTION_MATRIX,          "inverse_projection_matrix",         16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_PROJECTION_MATRIX,        "transpose_projection_matrix",       16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_PROJECTION_MATRIX, "inverse_transpose_projection_matrix", 16, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_VIEWPROJ_MATRIX,               "viewproj_matrix",             16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_VIEWPROJ_MATRIX,       "inverse_viewproj_matrix",     16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_VIEWPROJ_MATRIX,          "transpose_viewproj_matrix",         16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_VIEWPROJ_MATRIX,   "inverse_transpose_viewproj_matrix", 16, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::VIEWPROJ_MATRIX,               "viewproj_matrix",             16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_VIEWPROJ_MATRIX,       "inverse_viewproj_matrix",     16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_VIEWPROJ_MATRIX,          "transpose_viewproj_matrix",         16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_VIEWPROJ_MATRIX,   "inverse_transpose_viewproj_matrix", 16, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_WORLDVIEW_MATRIX,              "worldview_matrix",            16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_WORLDVIEW_MATRIX,      "inverse_worldview_matrix",    16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_WORLDVIEW_MATRIX,         "transpose_worldview_matrix",        16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX, "inverse_transpose_worldview_matrix", 16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_NORMAL_MATRIX,                  "normal_matrix",     9, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::WORLDVIEW_MATRIX,              "worldview_matrix",            16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_WORLDVIEW_MATRIX,      "inverse_worldview_matrix",    16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_WORLDVIEW_MATRIX,         "transpose_worldview_matrix",        16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX, "inverse_transpose_worldview_matrix", 16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::NORMAL_MATRIX,                  "normal_matrix",     9, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_WORLDVIEWPROJ_MATRIX,          "worldviewproj_matrix",        16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_WORLDVIEWPROJ_MATRIX,       "inverse_worldviewproj_matrix",      16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TRANSPOSE_WORLDVIEWPROJ_MATRIX,     "transpose_worldviewproj_matrix",    16, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX, "inverse_transpose_worldviewproj_matrix", 16, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::WORLDVIEWPROJ_MATRIX,          "worldviewproj_matrix",        16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_WORLDVIEWPROJ_MATRIX,       "inverse_worldviewproj_matrix",      16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TRANSPOSE_WORLDVIEWPROJ_MATRIX,     "transpose_worldviewproj_matrix",    16, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX, "inverse_transpose_worldviewproj_matrix", 16, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_RENDER_TARGET_FLIPPING,          "render_target_flipping",         1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VERTEX_WINDING,          "vertex_winding",         1, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::RENDER_TARGET_FLIPPING,          "render_target_flipping",         1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VERTEX_WINDING,          "vertex_winding",         1, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_FOG_COLOUR,                    "fog_colour",                   4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_FOG_PARAMS,                    "fog_params",                   4, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::FOG_COLOUR,                    "fog_colour",                   4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::FOG_PARAMS,                    "fog_params",                   4, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_SURFACE_AMBIENT_COLOUR,          "surface_ambient_colour",           4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SURFACE_DIFFUSE_COLOUR,          "surface_diffuse_colour",           4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SURFACE_SPECULAR_COLOUR,         "surface_specular_colour",          4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SURFACE_EMISSIVE_COLOUR,         "surface_emissive_colour",          4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SURFACE_SHININESS,               "surface_shininess",                1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SURFACE_ALPHA_REJECTION_VALUE,   "surface_alpha_rejection_value",    1, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_AMBIENT_COLOUR,          "surface_ambient_colour",           4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_DIFFUSE_COLOUR,          "surface_diffuse_colour",           4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_SPECULAR_COLOUR,         "surface_specular_colour",          4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_EMISSIVE_COLOUR,         "surface_emissive_colour",          4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_SHININESS,               "surface_shininess",                1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE,   "surface_alpha_rejection_value",    1, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_LIGHT_COUNT,                   "light_count",                  1, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::LIGHT_COUNT,                   "light_count",                  1, ElementType::REAL, ACDataType::NONE),
 
-        AutoConstantDefinition(ACT_AMBIENT_LIGHT_COLOUR,          "ambient_light_colour",         4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_LIGHT_DIFFUSE_COLOUR,          "light_diffuse_colour",         4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_SPECULAR_COLOUR,         "light_specular_colour",        4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_ATTENUATION,             "light_attenuation",            4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_PARAMS,              "spotlight_params",             4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION,                "light_position",               4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION_OBJECT_SPACE,   "light_position_object_space",  4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION_VIEW_SPACE,          "light_position_view_space",    4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION,               "light_direction",              4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION_OBJECT_SPACE,  "light_direction_object_space", 4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION_VIEW_SPACE,         "light_direction_view_space",   4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DISTANCE_OBJECT_SPACE,   "light_distance_object_space",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POWER_SCALE,                     "light_power",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED, "light_diffuse_colour_power_scaled",         4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED, "light_specular_colour_power_scaled",        4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIFFUSE_COLOUR_ARRAY,          "light_diffuse_colour_array",         4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_SPECULAR_COLOUR_ARRAY,         "light_specular_colour_array",        4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY, "light_diffuse_colour_power_scaled_array",         4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY, "light_specular_colour_power_scaled_array",        4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_ATTENUATION_ARRAY,             "light_attenuation_array",            4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION_ARRAY,                "light_position_array",               4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION_OBJECT_SPACE_ARRAY,   "light_position_object_space_array",  4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POSITION_VIEW_SPACE_ARRAY,          "light_position_view_space_array",    4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION_ARRAY,               "light_direction_array",              4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION_OBJECT_SPACE_ARRAY,  "light_direction_object_space_array", 4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DIRECTION_VIEW_SPACE_ARRAY,         "light_direction_view_space_array",   4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_DISTANCE_OBJECT_SPACE_ARRAY,   "light_distance_object_space_array",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_POWER_SCALE_ARRAY,               "light_power_array",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_PARAMS_ARRAY,              "spotlight_params_array",             4, ET_REAL, ACDT_INT),
+        AutoConstantDefinition(AutoConstantType::AMBIENT_LIGHT_COLOUR,          "ambient_light_colour",         4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIFFUSE_COLOUR,          "light_diffuse_colour",         4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_SPECULAR_COLOUR,         "light_specular_colour",        4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_ATTENUATION,             "light_attenuation",            4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_PARAMS,              "spotlight_params",             4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION,                "light_position",               4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION_OBJECT_SPACE,   "light_position_object_space",  4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION_VIEW_SPACE,          "light_position_view_space",    4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION,               "light_direction",              4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE,  "light_direction_object_space", 4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE,         "light_direction_view_space",   4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE,   "light_distance_object_space",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POWER_SCALE,                     "light_power",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED, "light_diffuse_colour_power_scaled",         4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED, "light_specular_colour_power_scaled",        4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY,          "light_diffuse_colour_array",         4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY,         "light_specular_colour_array",        4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY, "light_diffuse_colour_power_scaled_array",         4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY, "light_specular_colour_power_scaled_array",        4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_ATTENUATION_ARRAY,             "light_attenuation_array",            4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION_ARRAY,                "light_position_array",               4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY,   "light_position_object_space_array",  4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY,          "light_position_view_space_array",    4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION_ARRAY,               "light_direction_array",              4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY,  "light_direction_object_space_array", 4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY,         "light_direction_view_space_array",   4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY,   "light_distance_object_space_array",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_POWER_SCALE_ARRAY,               "light_power_array",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_PARAMS_ARRAY,              "spotlight_params_array",             4, ElementType::REAL, ACDataType::INT),
 
-        AutoConstantDefinition(ACT_DERIVED_AMBIENT_LIGHT_COLOUR,    "derived_ambient_light_colour",     4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_DERIVED_SCENE_COLOUR,            "derived_scene_colour",             4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_DERIVED_LIGHT_DIFFUSE_COLOUR,    "derived_light_diffuse_colour",     4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_DERIVED_LIGHT_SPECULAR_COLOUR,   "derived_light_specular_colour",    4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY,  "derived_light_diffuse_colour_array",   4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY, "derived_light_specular_colour_array",  4, ET_REAL, ACDT_INT),
+        AutoConstantDefinition(AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR,    "derived_ambient_light_colour",     4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::DERIVED_SCENE_COLOUR,            "derived_scene_colour",             4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR,    "derived_light_diffuse_colour",     4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR,   "derived_light_specular_colour",    4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY,  "derived_light_diffuse_colour_array",   4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY, "derived_light_specular_colour_array",  4, ElementType::REAL, ACDataType::INT),
 
-        AutoConstantDefinition(ACT_LIGHT_NUMBER,                                          "light_number",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_CASTS_SHADOWS,                           "light_casts_shadows",  1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LIGHT_CASTS_SHADOWS_ARRAY,     "light_casts_shadows_array",  1, ET_REAL, ACDT_INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_NUMBER,                                          "light_number",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_CASTS_SHADOWS,                           "light_casts_shadows",  1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY,     "light_casts_shadows_array",  1, ElementType::REAL, ACDataType::INT),
 
-        AutoConstantDefinition(ACT_SHADOW_EXTRUSION_DISTANCE,     "shadow_extrusion_distance",    1, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_CAMERA_POSITION,               "camera_position",              3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_CAMERA_POSITION_OBJECT_SPACE,  "camera_position_object_space", 3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_CAMERA_RELATIVE_POSITION,      "camera_relative_position",     3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TEXTURE_VIEWPROJ_MATRIX,       "texture_viewproj_matrix",     16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_TEXTURE_VIEWPROJ_MATRIX_ARRAY, "texture_viewproj_matrix_array", 16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_TEXTURE_WORLDVIEWPROJ_MATRIX,  "texture_worldviewproj_matrix",16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY, "texture_worldviewproj_matrix_array",16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_VIEWPROJ_MATRIX,       "spotlight_viewproj_matrix",     16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY, "spotlight_viewproj_matrix_array", 16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX,  "spotlight_worldviewproj_matrix",16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY,  "spotlight_worldviewproj_matrix_array",16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_CUSTOM,                        "custom",                       4, ET_REAL, ACDT_INT),  // *** needs to be tested
-        AutoConstantDefinition(ACT_TIME,                               "time",                               1, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_X,                      "time_0_x",                     4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_COSTIME_0_X,                   "costime_0_x",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_SINTIME_0_X,                   "sintime_0_x",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TANTIME_0_X,                   "tantime_0_x",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_X_PACKED,               "time_0_x_packed",              4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_1,                      "time_0_1",                     4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_COSTIME_0_1,                   "costime_0_1",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_SINTIME_0_1,                   "sintime_0_1",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TANTIME_0_1,                   "tantime_0_1",                  4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_1_PACKED,               "time_0_1_packed",              4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_2PI,                    "time_0_2pi",                   4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_COSTIME_0_2PI,                 "costime_0_2pi",                4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_SINTIME_0_2PI,                 "sintime_0_2pi",                4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TANTIME_0_2PI,                 "tantime_0_2pi",                4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_TIME_0_2PI_PACKED,             "time_0_2pi_packed",            4, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_FRAME_TIME,                    "frame_time",                   1, ET_REAL, ACDT_REAL),
-        AutoConstantDefinition(ACT_FPS,                           "fps",                          1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEWPORT_WIDTH,                "viewport_width",               1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEWPORT_HEIGHT,               "viewport_height",              1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_VIEWPORT_WIDTH,        "inverse_viewport_width",       1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_INVERSE_VIEWPORT_HEIGHT,       "inverse_viewport_height",      1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEWPORT_SIZE,                 "viewport_size",                4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEW_DIRECTION,                "view_direction",               3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEW_SIDE_VECTOR,              "view_side_vector",             3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_VIEW_UP_VECTOR,                "view_up_vector",               3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_FOV,                           "fov",                          1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_NEAR_CLIP_DISTANCE,            "near_clip_distance",           1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_FAR_CLIP_DISTANCE,             "far_clip_distance",            1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_PASS_NUMBER,                        "pass_number",                        1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_PASS_ITERATION_NUMBER,              "pass_iteration_number",              1, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_ANIMATION_PARAMETRIC,               "animation_parametric",               4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_TEXEL_OFFSETS,               "texel_offsets",                                  4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SCENE_DEPTH_RANGE,           "scene_depth_range",                      4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_SHADOW_SCENE_DEPTH_RANGE,    "shadow_scene_depth_range",               4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SHADOW_SCENE_DEPTH_RANGE_ARRAY,    "shadow_scene_depth_range_array",           4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_SHADOW_COLOUR,                               "shadow_colour",                                  4, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_TEXTURE_SIZE,                "texture_size",                   4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_INVERSE_TEXTURE_SIZE,        "inverse_texture_size",           4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_PACKED_TEXTURE_SIZE,         "packed_texture_size",            4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_TEXTURE_MATRIX,  "texture_matrix", 16, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_LOD_CAMERA_POSITION,               "lod_camera_position",              3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_LOD_CAMERA_POSITION_OBJECT_SPACE,  "lod_camera_position_object_space", 3, ET_REAL, ACDT_NONE),
-        AutoConstantDefinition(ACT_LIGHT_CUSTOM,        "light_custom", 4, ET_REAL, ACDT_INT),
-        AutoConstantDefinition(ACT_POINT_PARAMS,                    "point_params",                   4, ET_REAL, ACDT_NONE),
+        AutoConstantDefinition(AutoConstantType::SHADOW_EXTRUSION_DISTANCE,     "shadow_extrusion_distance",    1, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::CAMERA_POSITION,               "camera_position",              3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::CAMERA_POSITION_OBJECT_SPACE,  "camera_position_object_space", 3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::CAMERA_RELATIVE_POSITION,      "camera_relative_position",     3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_VIEWPROJ_MATRIX,       "texture_viewproj_matrix",     16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY, "texture_viewproj_matrix_array", 16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX,  "texture_worldviewproj_matrix",16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY, "texture_worldviewproj_matrix_array",16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX,       "spotlight_viewproj_matrix",     16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY, "spotlight_viewproj_matrix_array", 16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX,  "spotlight_worldviewproj_matrix",16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY,  "spotlight_worldviewproj_matrix_array",16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::CUSTOM,                        "custom",                       4, ElementType::REAL, ACDataType::INT),  // *** needs to be tested
+        AutoConstantDefinition(AutoConstantType::TIME,                               "time",                               1, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_X,                      "time_0_x",                     4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::COSTIME_0_X,                   "costime_0_x",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::SINTIME_0_X,                   "sintime_0_x",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TANTIME_0_X,                   "tantime_0_x",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_X_PACKED,               "time_0_x_packed",              4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_1,                      "time_0_1",                     4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::COSTIME_0_1,                   "costime_0_1",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::SINTIME_0_1,                   "sintime_0_1",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TANTIME_0_1,                   "tantime_0_1",                  4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_1_PACKED,               "time_0_1_packed",              4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_2PI,                    "time_0_2pi",                   4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::COSTIME_0_2PI,                 "costime_0_2pi",                4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::SINTIME_0_2PI,                 "sintime_0_2pi",                4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TANTIME_0_2PI,                 "tantime_0_2pi",                4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::TIME_0_2PI_PACKED,             "time_0_2pi_packed",            4, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::FRAME_TIME,                    "frame_time",                   1, ElementType::REAL, ACDataType::REAL),
+        AutoConstantDefinition(AutoConstantType::FPS,                           "fps",                          1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEWPORT_WIDTH,                "viewport_width",               1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEWPORT_HEIGHT,               "viewport_height",              1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_VIEWPORT_WIDTH,        "inverse_viewport_width",       1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::INVERSE_VIEWPORT_HEIGHT,       "inverse_viewport_height",      1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEWPORT_SIZE,                 "viewport_size",                4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEW_DIRECTION,                "view_direction",               3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEW_SIDE_VECTOR,              "view_side_vector",             3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::VIEW_UP_VECTOR,                "view_up_vector",               3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::FOV,                           "fov",                          1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::NEAR_CLIP_DISTANCE,            "near_clip_distance",           1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::FAR_CLIP_DISTANCE,             "far_clip_distance",            1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::PASS_NUMBER,                        "pass_number",                        1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::PASS_ITERATION_NUMBER,              "pass_iteration_number",              1, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::ANIMATION_PARAMETRIC,               "animation_parametric",               4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::TEXEL_OFFSETS,               "texel_offsets",                                  4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SCENE_DEPTH_RANGE,           "scene_depth_range",                      4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::SHADOW_SCENE_DEPTH_RANGE,    "shadow_scene_depth_range",               4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY,    "shadow_scene_depth_range_array",           4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::SHADOW_COLOUR,                               "shadow_colour",                                  4, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_SIZE,                "texture_size",                   4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::INVERSE_TEXTURE_SIZE,        "inverse_texture_size",           4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::PACKED_TEXTURE_SIZE,         "packed_texture_size",            4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::TEXTURE_MATRIX,  "texture_matrix", 16, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::LOD_CAMERA_POSITION,               "lod_camera_position",              3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::LOD_CAMERA_POSITION_OBJECT_SPACE,  "lod_camera_position_object_space", 3, ElementType::REAL, ACDataType::NONE),
+        AutoConstantDefinition(AutoConstantType::LIGHT_CUSTOM,        "light_custom", 4, ElementType::REAL, ACDataType::INT),
+        AutoConstantDefinition(AutoConstantType::POINT_PARAMS,                    "point_params",                   4, ElementType::REAL, ACDataType::NONE),
     };
 
     GpuNamedConstants::GpuNamedConstants()  = default;
@@ -247,7 +247,7 @@ namespace Ogre
     = default;
     //---------------------------------------------------------------------
     void GpuNamedConstantsSerializer::exportNamedConstants(
-        const GpuNamedConstants* pConsts, std::string_view filename, Endian endianMode)
+        const GpuNamedConstants* pConsts, std::string_view filename, std::endian endianMode)
     {
         DataStreamPtr stream = _openFileStream(filename, std::ios::binary | std::ios::out);
         exportNamedConstants(pConsts, stream, endianMode);
@@ -256,7 +256,7 @@ namespace Ogre
     }
     //---------------------------------------------------------------------
     void GpuNamedConstantsSerializer::exportNamedConstants(
-        const GpuNamedConstants* pConsts, DataStreamPtr stream, Endian endianMode)
+        const GpuNamedConstants* pConsts, DataStreamPtr stream, std::endian endianMode)
     {
         // Decide on endian mode
         determineEndianness(endianMode);
@@ -264,7 +264,7 @@ namespace Ogre
         mStream =stream;
         if (!stream->isWriteable())
         {
-            OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
+            OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE,
                         ::std::format("Unable to write to stream {}", stream->getName()),
                         "GpuNamedConstantsSerializer::exportNamedConstants");
         }
@@ -353,7 +353,7 @@ namespace Ogre
     {
         if (mNamedConstants.map.find(name) != mNamedConstants.map.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Constant entry with name '{}' already exists. ", name ),
                         "GpuSharedParameters::addConstantDefinition");
         }
@@ -381,9 +381,9 @@ namespace Ogre
             def.logicalIndex = mOffset;
         }
 
-        mOffset = def.logicalIndex + (def.constType == GCT_MATRIX_4X3 ? 16 : def.elementSize) * 4; // mat4x3 have a size of 64 bytes
+        mOffset = def.logicalIndex + (def.constType == GpuConstantType::MATRIX_4X3 ? 16 : def.elementSize) * 4; // mat4x3 have a size of 64 bytes
 
-        def.variability = (uint16)GPV_GLOBAL;
+        def.variability = GpuParamVariability::GLOBAL;
 
         if (def.isFloat())
         {
@@ -403,7 +403,7 @@ namespace Ogre
         else 
         {
             //FIXME Is this the right exception type?
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Constant entry with name '{}' is not a known type.", name ),
                         "GpuSharedParameters::addConstantDefinition");
         }
@@ -443,7 +443,7 @@ namespace Ogre
         auto i = mNamedConstants.map.find(name);
         if (i == mNamedConstants.map.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Constant entry with name '{}' does not exist. ", name ),
                         "GpuSharedParameters::getConstantDefinition");
         }
@@ -597,7 +597,7 @@ namespace Ogre
 
                 // Deal with matrix transposition here!!!
                 // transposition is specific to the dest param set, shared params don't do it
-                if (mParams->getTransposeMatrices() && (e.dstDefinition->constType == GCT_MATRIX_4X4))
+                if (mParams->getTransposeMatrices() && (e.dstDefinition->constType == GpuConstantType::MATRIX_4X4))
                 {
                     // for each matrix that needs to be transposed and copied,
                     for (size_t iMat = 0; iMat < e.dstDefinition->arraySize; ++iMat)
@@ -640,7 +640,7 @@ namespace Ogre
 
                 // Deal with matrix transposition here!!!
                 // transposition is specific to the dest param set, shared params don't do it
-                if (mParams->getTransposeMatrices() && (e.dstDefinition->constType == GCT_MATRIX_DOUBLE_4X4))
+                if (mParams->getTransposeMatrices() && (e.dstDefinition->constType == GpuConstantType::MATRIX_DOUBLE_4X4))
                 {
                     // for each matrix that needs to be transposed and copied,
                     for (size_t iMat = 0; iMat < e.dstDefinition->arraySize; ++iMat)
@@ -896,7 +896,7 @@ namespace Ogre
         // get physical index
         assert(mLogicalToPhysical && "GpuProgram hasn't set up the logical -> physical map!");
 
-        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GPV_GLOBAL, BCT_FLOAT);
+        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GpuParamVariability::GLOBAL, BaseConstantType::FLOAT);
 
         // Copy
         _writeRawConstants(physicalIndex, val, rawCount);
@@ -910,7 +910,7 @@ namespace Ogre
         // get physical index
         assert(mLogicalToPhysical && "GpuProgram hasn't set up the logical -> physical map!");
 
-        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GPV_GLOBAL, BCT_DOUBLE);
+        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GpuParamVariability::GLOBAL, BaseConstantType::DOUBLE);
         // Copy
         _writeRawConstants(physicalIndex, val, rawCount);
     }
@@ -922,7 +922,7 @@ namespace Ogre
         // get physical index
         assert(mLogicalToPhysical && "GpuProgram hasn't set up the logical -> physical map!");
 
-        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GPV_GLOBAL, BCT_INT);
+        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GpuParamVariability::GLOBAL, BaseConstantType::INT);
         // Copy
         _writeRawConstants(physicalIndex, val, rawCount);
     }
@@ -934,7 +934,7 @@ namespace Ogre
         // get physical index
         assert(mLogicalToPhysical && "GpuProgram hasn't set up the logical -> physical map!");
 
-        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GPV_GLOBAL, BCT_INT);
+        size_t physicalIndex = _getConstantPhysicalIndex(index, rawCount, GpuParamVariability::GLOBAL, BaseConstantType::INT);
         // Copy
         _writeRawConstants(physicalIndex, val, rawCount);
     }
@@ -1025,174 +1025,174 @@ namespace Ogre
         memcpy(dest, &mConstants[physicalIndex], sizeof(int) * count);
     }
     //---------------------------------------------------------------------
-    auto GpuProgramParameters::deriveVariability(GpuProgramParameters::AutoConstantType act) -> uint16
+    auto GpuProgramParameters::deriveVariability(GpuProgramParameters::AutoConstantType act) -> GpuParamVariability
     {
         switch(act)
         {
-        case ACT_VIEW_MATRIX:
-        case ACT_INVERSE_VIEW_MATRIX:
-        case ACT_TRANSPOSE_VIEW_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_VIEW_MATRIX:
-        case ACT_PROJECTION_MATRIX:
-        case ACT_INVERSE_PROJECTION_MATRIX:
-        case ACT_TRANSPOSE_PROJECTION_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_PROJECTION_MATRIX:
-        case ACT_VIEWPROJ_MATRIX:
-        case ACT_INVERSE_VIEWPROJ_MATRIX:
-        case ACT_TRANSPOSE_VIEWPROJ_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
-        case ACT_RENDER_TARGET_FLIPPING:
-        case ACT_VERTEX_WINDING:
-        case ACT_AMBIENT_LIGHT_COLOUR:
-        case ACT_DERIVED_AMBIENT_LIGHT_COLOUR:
-        case ACT_DERIVED_SCENE_COLOUR:
-        case ACT_FOG_COLOUR:
-        case ACT_FOG_PARAMS:
-        case ACT_SURFACE_AMBIENT_COLOUR:
-        case ACT_SURFACE_DIFFUSE_COLOUR:
-        case ACT_SURFACE_SPECULAR_COLOUR:
-        case ACT_SURFACE_EMISSIVE_COLOUR:
-        case ACT_SURFACE_SHININESS:
-        case ACT_SURFACE_ALPHA_REJECTION_VALUE:
-        case ACT_CAMERA_POSITION:
-        case ACT_CAMERA_RELATIVE_POSITION:
-        case ACT_TIME:
-        case ACT_TIME_0_X:
-        case ACT_COSTIME_0_X:
-        case ACT_SINTIME_0_X:
-        case ACT_TANTIME_0_X:
-        case ACT_TIME_0_X_PACKED:
-        case ACT_TIME_0_1:
-        case ACT_COSTIME_0_1:
-        case ACT_SINTIME_0_1:
-        case ACT_TANTIME_0_1:
-        case ACT_TIME_0_1_PACKED:
-        case ACT_TIME_0_2PI:
-        case ACT_COSTIME_0_2PI:
-        case ACT_SINTIME_0_2PI:
-        case ACT_TANTIME_0_2PI:
-        case ACT_TIME_0_2PI_PACKED:
-        case ACT_FRAME_TIME:
-        case ACT_FPS:
-        case ACT_VIEWPORT_WIDTH:
-        case ACT_VIEWPORT_HEIGHT:
-        case ACT_INVERSE_VIEWPORT_WIDTH:
-        case ACT_INVERSE_VIEWPORT_HEIGHT:
-        case ACT_VIEWPORT_SIZE:
-        case ACT_TEXEL_OFFSETS:
-        case ACT_TEXTURE_SIZE:
-        case ACT_INVERSE_TEXTURE_SIZE:
-        case ACT_PACKED_TEXTURE_SIZE:
-        case ACT_SCENE_DEPTH_RANGE:
-        case ACT_VIEW_DIRECTION:
-        case ACT_VIEW_SIDE_VECTOR:
-        case ACT_VIEW_UP_VECTOR:
-        case ACT_FOV:
-        case ACT_NEAR_CLIP_DISTANCE:
-        case ACT_FAR_CLIP_DISTANCE:
-        case ACT_PASS_NUMBER:
-        case ACT_TEXTURE_MATRIX:
-        case ACT_LOD_CAMERA_POSITION:
+        case AutoConstantType::VIEW_MATRIX:
+        case AutoConstantType::INVERSE_VIEW_MATRIX:
+        case AutoConstantType::TRANSPOSE_VIEW_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_VIEW_MATRIX:
+        case AutoConstantType::PROJECTION_MATRIX:
+        case AutoConstantType::INVERSE_PROJECTION_MATRIX:
+        case AutoConstantType::TRANSPOSE_PROJECTION_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_PROJECTION_MATRIX:
+        case AutoConstantType::VIEWPROJ_MATRIX:
+        case AutoConstantType::INVERSE_VIEWPROJ_MATRIX:
+        case AutoConstantType::TRANSPOSE_VIEWPROJ_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
+        case AutoConstantType::RENDER_TARGET_FLIPPING:
+        case AutoConstantType::VERTEX_WINDING:
+        case AutoConstantType::AMBIENT_LIGHT_COLOUR:
+        case AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR:
+        case AutoConstantType::DERIVED_SCENE_COLOUR:
+        case AutoConstantType::FOG_COLOUR:
+        case AutoConstantType::FOG_PARAMS:
+        case AutoConstantType::SURFACE_AMBIENT_COLOUR:
+        case AutoConstantType::SURFACE_DIFFUSE_COLOUR:
+        case AutoConstantType::SURFACE_SPECULAR_COLOUR:
+        case AutoConstantType::SURFACE_EMISSIVE_COLOUR:
+        case AutoConstantType::SURFACE_SHININESS:
+        case AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE:
+        case AutoConstantType::CAMERA_POSITION:
+        case AutoConstantType::CAMERA_RELATIVE_POSITION:
+        case AutoConstantType::TIME:
+        case AutoConstantType::TIME_0_X:
+        case AutoConstantType::COSTIME_0_X:
+        case AutoConstantType::SINTIME_0_X:
+        case AutoConstantType::TANTIME_0_X:
+        case AutoConstantType::TIME_0_X_PACKED:
+        case AutoConstantType::TIME_0_1:
+        case AutoConstantType::COSTIME_0_1:
+        case AutoConstantType::SINTIME_0_1:
+        case AutoConstantType::TANTIME_0_1:
+        case AutoConstantType::TIME_0_1_PACKED:
+        case AutoConstantType::TIME_0_2PI:
+        case AutoConstantType::COSTIME_0_2PI:
+        case AutoConstantType::SINTIME_0_2PI:
+        case AutoConstantType::TANTIME_0_2PI:
+        case AutoConstantType::TIME_0_2PI_PACKED:
+        case AutoConstantType::FRAME_TIME:
+        case AutoConstantType::FPS:
+        case AutoConstantType::VIEWPORT_WIDTH:
+        case AutoConstantType::VIEWPORT_HEIGHT:
+        case AutoConstantType::INVERSE_VIEWPORT_WIDTH:
+        case AutoConstantType::INVERSE_VIEWPORT_HEIGHT:
+        case AutoConstantType::VIEWPORT_SIZE:
+        case AutoConstantType::TEXEL_OFFSETS:
+        case AutoConstantType::TEXTURE_SIZE:
+        case AutoConstantType::INVERSE_TEXTURE_SIZE:
+        case AutoConstantType::PACKED_TEXTURE_SIZE:
+        case AutoConstantType::SCENE_DEPTH_RANGE:
+        case AutoConstantType::VIEW_DIRECTION:
+        case AutoConstantType::VIEW_SIDE_VECTOR:
+        case AutoConstantType::VIEW_UP_VECTOR:
+        case AutoConstantType::FOV:
+        case AutoConstantType::NEAR_CLIP_DISTANCE:
+        case AutoConstantType::FAR_CLIP_DISTANCE:
+        case AutoConstantType::PASS_NUMBER:
+        case AutoConstantType::TEXTURE_MATRIX:
+        case AutoConstantType::LOD_CAMERA_POSITION:
 
-            return (uint16)GPV_GLOBAL;
+            return GpuParamVariability::GLOBAL;
 
-        case ACT_WORLD_MATRIX:
-        case ACT_INVERSE_WORLD_MATRIX:
-        case ACT_TRANSPOSE_WORLD_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_WORLD_MATRIX:
-        case ACT_WORLD_MATRIX_ARRAY_3x4:
-        case ACT_WORLD_MATRIX_ARRAY:
-        case ACT_WORLD_DUALQUATERNION_ARRAY_2x4:
-        case ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
-        case ACT_WORLDVIEW_MATRIX:
-        case ACT_INVERSE_WORLDVIEW_MATRIX:
-        case ACT_TRANSPOSE_WORLDVIEW_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
-        case ACT_NORMAL_MATRIX:
-        case ACT_WORLDVIEWPROJ_MATRIX:
-        case ACT_INVERSE_WORLDVIEWPROJ_MATRIX:
-        case ACT_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
-        case ACT_INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
-        case ACT_CAMERA_POSITION_OBJECT_SPACE:
-        case ACT_LOD_CAMERA_POSITION_OBJECT_SPACE:
-        case ACT_CUSTOM:
-        case ACT_ANIMATION_PARAMETRIC:
+        case AutoConstantType::WORLD_MATRIX:
+        case AutoConstantType::INVERSE_WORLD_MATRIX:
+        case AutoConstantType::TRANSPOSE_WORLD_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX:
+        case AutoConstantType::WORLD_MATRIX_ARRAY_3x4:
+        case AutoConstantType::WORLD_MATRIX_ARRAY:
+        case AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4:
+        case AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
+        case AutoConstantType::WORLDVIEW_MATRIX:
+        case AutoConstantType::INVERSE_WORLDVIEW_MATRIX:
+        case AutoConstantType::TRANSPOSE_WORLDVIEW_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
+        case AutoConstantType::NORMAL_MATRIX:
+        case AutoConstantType::WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::INVERSE_WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::CAMERA_POSITION_OBJECT_SPACE:
+        case AutoConstantType::LOD_CAMERA_POSITION_OBJECT_SPACE:
+        case AutoConstantType::CUSTOM:
+        case AutoConstantType::ANIMATION_PARAMETRIC:
 
-            return (uint16)GPV_PER_OBJECT;
+            return GpuParamVariability::PER_OBJECT;
 
-        case ACT_LIGHT_POSITION_OBJECT_SPACE:
-        case ACT_LIGHT_DIRECTION_OBJECT_SPACE:
-        case ACT_LIGHT_DISTANCE_OBJECT_SPACE:
-        case ACT_LIGHT_POSITION_OBJECT_SPACE_ARRAY:
-        case ACT_LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
-        case ACT_LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
-        case ACT_TEXTURE_WORLDVIEWPROJ_MATRIX:
-        case ACT_TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
-        case ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
-        case ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
-        case ACT_SHADOW_EXTRUSION_DISTANCE:
+        case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE:
+        case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE:
+        case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE:
+        case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY:
+        case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
+        case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
+        case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
+        case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
+        case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
+        case AutoConstantType::SHADOW_EXTRUSION_DISTANCE:
 
             // These depend on BOTH lights and objects
-            return ((uint16)GPV_PER_OBJECT) | ((uint16)GPV_LIGHTS);
+            return GpuParamVariability::PER_OBJECT | GpuParamVariability::LIGHTS;
 
-        case ACT_LIGHT_COUNT:
-        case ACT_LIGHT_DIFFUSE_COLOUR:
-        case ACT_LIGHT_SPECULAR_COLOUR:
-        case ACT_LIGHT_POSITION:
-        case ACT_LIGHT_DIRECTION:
-        case ACT_LIGHT_POSITION_VIEW_SPACE:
-        case ACT_LIGHT_DIRECTION_VIEW_SPACE:
-        case ACT_SHADOW_SCENE_DEPTH_RANGE:
-        case ACT_SHADOW_SCENE_DEPTH_RANGE_ARRAY:
-        case ACT_SHADOW_COLOUR:
-        case ACT_LIGHT_POWER_SCALE:
-        case ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
-        case ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED:
-        case ACT_LIGHT_NUMBER:
-        case ACT_LIGHT_CASTS_SHADOWS:
-        case ACT_LIGHT_CASTS_SHADOWS_ARRAY:
-        case ACT_LIGHT_ATTENUATION:
-        case ACT_SPOTLIGHT_PARAMS:
-        case ACT_LIGHT_DIFFUSE_COLOUR_ARRAY:
-        case ACT_LIGHT_SPECULAR_COLOUR_ARRAY:
-        case ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
-        case ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
-        case ACT_LIGHT_POSITION_ARRAY:
-        case ACT_LIGHT_DIRECTION_ARRAY:
-        case ACT_LIGHT_POSITION_VIEW_SPACE_ARRAY:
-        case ACT_LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
-        case ACT_LIGHT_POWER_SCALE_ARRAY:
-        case ACT_LIGHT_ATTENUATION_ARRAY:
-        case ACT_SPOTLIGHT_PARAMS_ARRAY:
-        case ACT_TEXTURE_VIEWPROJ_MATRIX:
-        case ACT_TEXTURE_VIEWPROJ_MATRIX_ARRAY:
-        case ACT_SPOTLIGHT_VIEWPROJ_MATRIX:
-        case ACT_SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
-        case ACT_LIGHT_CUSTOM:
+        case AutoConstantType::LIGHT_COUNT:
+        case AutoConstantType::LIGHT_DIFFUSE_COLOUR:
+        case AutoConstantType::LIGHT_SPECULAR_COLOUR:
+        case AutoConstantType::LIGHT_POSITION:
+        case AutoConstantType::LIGHT_DIRECTION:
+        case AutoConstantType::LIGHT_POSITION_VIEW_SPACE:
+        case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE:
+        case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE:
+        case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY:
+        case AutoConstantType::SHADOW_COLOUR:
+        case AutoConstantType::LIGHT_POWER_SCALE:
+        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
+        case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED:
+        case AutoConstantType::LIGHT_NUMBER:
+        case AutoConstantType::LIGHT_CASTS_SHADOWS:
+        case AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY:
+        case AutoConstantType::LIGHT_ATTENUATION:
+        case AutoConstantType::SPOTLIGHT_PARAMS:
+        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY:
+        case AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY:
+        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
+        case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
+        case AutoConstantType::LIGHT_POSITION_ARRAY:
+        case AutoConstantType::LIGHT_DIRECTION_ARRAY:
+        case AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY:
+        case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
+        case AutoConstantType::LIGHT_POWER_SCALE_ARRAY:
+        case AutoConstantType::LIGHT_ATTENUATION_ARRAY:
+        case AutoConstantType::SPOTLIGHT_PARAMS_ARRAY:
+        case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX:
+        case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY:
+        case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX:
+        case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
+        case AutoConstantType::LIGHT_CUSTOM:
 
-            return (uint16)GPV_LIGHTS;
+            return GpuParamVariability::LIGHTS;
 
-        case ACT_DERIVED_LIGHT_DIFFUSE_COLOUR:
-        case ACT_DERIVED_LIGHT_SPECULAR_COLOUR:
-        case ACT_DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
-        case ACT_DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
+        case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR:
+        case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR:
+        case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
+        case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
 
-            return ((uint16)GPV_GLOBAL | (uint16)GPV_LIGHTS);
+            return GpuParamVariability::GLOBAL | GpuParamVariability::LIGHTS;
 
-        case ACT_PASS_ITERATION_NUMBER:
+        case AutoConstantType::PASS_ITERATION_NUMBER:
 
-            return (uint16)GPV_PASS_ITERATION_NUMBER;
+            return GpuParamVariability::PASS_ITERATION_NUMBER;
 
         default:
-            return (uint16)GPV_GLOBAL;
+            return GpuParamVariability::GLOBAL;
         };
 
     }
     //---------------------------------------------------------------------
     auto GpuProgramParameters::getConstantLogicalIndexUse(
-        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> GpuLogicalIndexUse*
+        size_t logicalIndex, size_t requestedSize, Ogre::GpuParamVariability variability, BaseConstantType type) -> GpuLogicalIndexUse*
     {
-        OgreAssert(type != BCT_SAMPLER, "");
+        OgreAssert(type != BaseConstantType::SAMPLER, "");
         if (!mLogicalToPhysical)
             return nullptr;
 
@@ -1292,7 +1292,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
     auto GpuProgramParameters::_getConstantPhysicalIndex(
-        size_t logicalIndex, size_t requestedSize, uint16 variability, BaseConstantType type) -> size_t
+        size_t logicalIndex, size_t requestedSize, Ogre::GpuParamVariability variability, BaseConstantType type) -> size_t
     {
         GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(logicalIndex, requestedSize, variability, type);
         return indexUse ? indexUse->physicalIndex : 0;
@@ -1313,7 +1313,7 @@ namespace Ogre
     auto GpuProgramParameters::getConstantDefinitions() const noexcept -> const GpuNamedConstants&
     {
         if (!mNamedConstants)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Named constants have not been initialised, perhaps a compile error");
 
         return *mNamedConstants;
@@ -1322,7 +1322,7 @@ namespace Ogre
     auto GpuProgramParameters::getConstantDefinition(std::string_view name) const -> const GpuConstantDefinition&
     {
         if (!mNamedConstants)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Named constants have not been initialised, perhaps a compile error",
                         "GpuProgramParameters::getConstantDefinitionIterator");
 
@@ -1341,7 +1341,7 @@ namespace Ogre
         if (!mNamedConstants)
         {
             if (throwExceptionIfNotFound)
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                             "Named constants have not been initialised, perhaps a compile error");
             return nullptr;
         }
@@ -1353,7 +1353,7 @@ namespace Ogre
         {
             if (throwExceptionIfNotFound)
 			{
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
 				::std::format("Parameter called {} does not exist. ", name),
                             "GpuProgramParameters::_findNamedConstantDefinition");
 			}
@@ -1371,7 +1371,7 @@ namespace Ogre
         const AutoConstantDefinition* autoDef = getAutoConstantDefinition(acType);
 
         if(!autoDef)
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No constant definition found for type {}",
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No constant definition found for type {}",
                         acType),
                         "GpuProgramParameters::setAutoConstant");
 
@@ -1382,14 +1382,14 @@ namespace Ogre
             sz += 4 - (sz % 4);
         }
 
-        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, sz, deriveVariability(acType), BCT_FLOAT);
+        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, sz, deriveVariability(acType), BaseConstantType::FLOAT);
 
         if(indexUse)
             _setRawAutoConstant(indexUse->physicalIndex, acType, extraInfo, indexUse->variability, sz);
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::_setRawAutoConstant(size_t physicalIndex,
-                                                   AutoConstantType acType, uint32 extraInfo, uint16 variability, uint8 elementSize)
+                                                   AutoConstantType acType, uint32 extraInfo, GpuParamVariability variability, uint8 elementSize)
     {
         // update existing index if it exists
         bool found = false;
@@ -1414,7 +1414,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::_setRawAutoConstantReal(size_t physicalIndex,
-                                                       AutoConstantType acType, float rData, uint16 variability, uint8 elementSize)
+                                                       AutoConstantType acType, float rData, GpuParamVariability variability, uint8 elementSize)
     {
         // update existing index if it exists
         bool found = false;
@@ -1438,11 +1438,11 @@ namespace Ogre
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::clearAutoConstant(size_t index)
     {
-        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, 0, GPV_GLOBAL, BCT_FLOAT);
+        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, 0, GpuParamVariability::GLOBAL, BaseConstantType::FLOAT);
 
         if (indexUse)
         {
-            indexUse->variability = GPV_GLOBAL;
+            indexUse->variability = GpuParamVariability::GLOBAL;
             size_t physicalIndex = indexUse->physicalIndex;
             // update existing index if it exists
             for (auto i = mAutoConstants.begin();
@@ -1462,7 +1462,7 @@ namespace Ogre
         const GpuConstantDefinition* def = _findNamedConstantDefinition(name);
         if (def)
         {
-            def->variability = GPV_GLOBAL;
+            def->variability = GpuParamVariability::GLOBAL;
 
             // Autos are always floating point
             if (def->isFloat()) {
@@ -1482,7 +1482,7 @@ namespace Ogre
     void GpuProgramParameters::clearAutoConstants()
     {
         mAutoConstants.clear();
-        mCombinedVariability = GPV_GLOBAL;
+        mCombinedVariability = GpuParamVariability::GLOBAL;
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::setAutoConstantReal(size_t index, AutoConstantType acType, float rData)
@@ -1491,7 +1491,7 @@ namespace Ogre
         const AutoConstantDefinition* autoDef = getAutoConstantDefinition(acType);
 
         if(!autoDef)
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No constant definition found for type {}",
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No constant definition found for type {}",
                         acType),
                         "GpuProgramParameters::setAutoConstantReal");
 
@@ -1502,14 +1502,14 @@ namespace Ogre
             sz += 4 - (sz % 4);
         }
 
-        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, sz, deriveVariability(acType), BCT_FLOAT);
+        GpuLogicalIndexUse* indexUse = getConstantLogicalIndexUse(index, sz, deriveVariability(acType), BaseConstantType::FLOAT);
 
         _setRawAutoConstantReal(indexUse->physicalIndex, acType, rData, indexUse->variability, sz);
     }
     //-----------------------------------------------------------------------------
 
     //-----------------------------------------------------------------------------
-    void GpuProgramParameters::_updateAutoParams(const AutoParamDataSource* source, uint16 mask)
+    void GpuProgramParameters::_updateAutoParams(const AutoParamDataSource* source, GpuParamVariability mask)
     {
         // abort early if no autos
         if (!hasAutoConstants()) return;
@@ -1532,53 +1532,53 @@ namespace Ogre
         for (auto & mAutoConstant : mAutoConstants)
         {
             // Only update needed slots
-            if (mAutoConstant.variability & mask)
+            if (!!(mAutoConstant.variability & mask))
             {
 
                 switch(mAutoConstant.paramType)
                 {
-                case ACT_VIEW_MATRIX:
+                case AutoConstantType::VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_VIEW_MATRIX:
+                case AutoConstantType::INVERSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_VIEW_MATRIX:
+                case AutoConstantType::TRANSPOSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TRANSPOSE_VIEW_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeViewMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case ACT_PROJECTION_MATRIX:
+                case AutoConstantType::PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_PROJECTION_MATRIX:
+                case AutoConstantType::INVERSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_PROJECTION_MATRIX:
+                case AutoConstantType::TRANSPOSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TRANSPOSE_PROJECTION_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeProjectionMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case ACT_VIEWPROJ_MATRIX:
+                case AutoConstantType::VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_VIEWPROJ_MATRIX:
+                case AutoConstantType::INVERSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_VIEWPROJ_MATRIX:
+                case AutoConstantType::TRANSPOSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_RENDER_TARGET_FLIPPING:
+                case AutoConstantType::RENDER_TARGET_FLIPPING:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCurrentRenderTarget()->requiresTextureFlipping() ? -1.f : +1.f);
                     break;
-                case ACT_VERTEX_WINDING:
+                case AutoConstantType::VERTEX_WINDING:
                     {
                         RenderSystem* rsys = Root::getSingleton().getRenderSystem();
                         _writeRawConstant(mAutoConstant.physicalIndex, rsys->getInvertVertexWinding() ? -1.f : +1.f);
@@ -1586,131 +1586,131 @@ namespace Ogre
                     break;
 
                     // NB ambient light still here because it's not related to a specific light
-                case ACT_AMBIENT_LIGHT_COLOUR:
+                case AutoConstantType::AMBIENT_LIGHT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getAmbientLightColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_DERIVED_AMBIENT_LIGHT_COLOUR:
+                case AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getDerivedAmbientLightColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_DERIVED_SCENE_COLOUR:
+                case AutoConstantType::DERIVED_SCENE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getDerivedSceneColour(),
                                       mAutoConstant.elementCount);
                     break;
 
-                case ACT_FOG_COLOUR:
+                case AutoConstantType::FOG_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFogColour(), mAutoConstant.elementCount);
                     break;
-                case ACT_FOG_PARAMS:
+                case AutoConstantType::FOG_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFogParams(), mAutoConstant.elementCount);
                     break;
-                case ACT_POINT_PARAMS:
+                case AutoConstantType::POINT_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getPointParams(), mAutoConstant.elementCount);
                     break;
-                case ACT_SURFACE_AMBIENT_COLOUR:
+                case AutoConstantType::SURFACE_AMBIENT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceAmbientColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_SURFACE_DIFFUSE_COLOUR:
+                case AutoConstantType::SURFACE_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceDiffuseColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_SURFACE_SPECULAR_COLOUR:
+                case AutoConstantType::SURFACE_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceSpecularColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_SURFACE_EMISSIVE_COLOUR:
+                case AutoConstantType::SURFACE_EMISSIVE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceEmissiveColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_SURFACE_SHININESS:
+                case AutoConstantType::SURFACE_SHININESS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceShininess());
                     break;
-                case ACT_SURFACE_ALPHA_REJECTION_VALUE:
+                case AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceAlphaRejectionValue());
                     break;
 
-                case ACT_CAMERA_POSITION:
+                case AutoConstantType::CAMERA_POSITION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCameraPosition(), mAutoConstant.elementCount);
                     break;
-                case ACT_CAMERA_RELATIVE_POSITION:
+                case AutoConstantType::CAMERA_RELATIVE_POSITION:
                     _writeRawConstant (mAutoConstant.physicalIndex, source->getCameraRelativePosition(), mAutoConstant.elementCount);
                     break;
-                case ACT_TIME:
+                case AutoConstantType::TIME:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime() * mAutoConstant.fData);
                     break;
-                case ACT_TIME_0_X:
+                case AutoConstantType::TIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_X(mAutoConstant.fData));
                     break;
-                case ACT_COSTIME_0_X:
+                case AutoConstantType::COSTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_X(mAutoConstant.fData));
                     break;
-                case ACT_SINTIME_0_X:
+                case AutoConstantType::SINTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_X(mAutoConstant.fData));
                     break;
-                case ACT_TANTIME_0_X:
+                case AutoConstantType::TANTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_X(mAutoConstant.fData));
                     break;
-                case ACT_TIME_0_X_PACKED:
+                case AutoConstantType::TIME_0_X_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_X_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case ACT_TIME_0_1:
+                case AutoConstantType::TIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_1(mAutoConstant.fData));
                     break;
-                case ACT_COSTIME_0_1:
+                case AutoConstantType::COSTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_1(mAutoConstant.fData));
                     break;
-                case ACT_SINTIME_0_1:
+                case AutoConstantType::SINTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_1(mAutoConstant.fData));
                     break;
-                case ACT_TANTIME_0_1:
+                case AutoConstantType::TANTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_1(mAutoConstant.fData));
                     break;
-                case ACT_TIME_0_1_PACKED:
+                case AutoConstantType::TIME_0_1_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_1_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case ACT_TIME_0_2PI:
+                case AutoConstantType::TIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case ACT_COSTIME_0_2PI:
+                case AutoConstantType::COSTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case ACT_SINTIME_0_2PI:
+                case AutoConstantType::SINTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case ACT_TANTIME_0_2PI:
+                case AutoConstantType::TANTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case ACT_TIME_0_2PI_PACKED:
+                case AutoConstantType::TIME_0_2PI_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_2Pi_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case ACT_FRAME_TIME:
+                case AutoConstantType::FRAME_TIME:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFrameTime() * mAutoConstant.fData);
                     break;
-                case ACT_FPS:
+                case AutoConstantType::FPS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFPS());
                     break;
-                case ACT_VIEWPORT_WIDTH:
+                case AutoConstantType::VIEWPORT_WIDTH:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewportWidth());
                     break;
-                case ACT_VIEWPORT_HEIGHT:
+                case AutoConstantType::VIEWPORT_HEIGHT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewportHeight());
                     break;
-                case ACT_INVERSE_VIEWPORT_WIDTH:
+                case AutoConstantType::INVERSE_VIEWPORT_WIDTH:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewportWidth());
                     break;
-                case ACT_INVERSE_VIEWPORT_HEIGHT:
+                case AutoConstantType::INVERSE_VIEWPORT_HEIGHT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewportHeight());
                     break;
-                case ACT_VIEWPORT_SIZE:
+                case AutoConstantType::VIEWPORT_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
                         source->getViewportWidth(),
                         source->getViewportHeight(),
                         source->getInverseViewportWidth(),
                         source->getInverseViewportHeight()), mAutoConstant.elementCount);
                     break;
-                case ACT_TEXEL_OFFSETS:
+                case AutoConstantType::TEXEL_OFFSETS:
                     {
                         RenderSystem* rsys = Root::getSingleton().getRenderSystem();
                         _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
@@ -1721,56 +1721,56 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_TEXTURE_SIZE:
+                case AutoConstantType::TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TEXTURE_SIZE:
+                case AutoConstantType::INVERSE_TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_PACKED_TEXTURE_SIZE:
+                case AutoConstantType::PACKED_TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getPackedTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_SCENE_DEPTH_RANGE:
+                case AutoConstantType::SCENE_DEPTH_RANGE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSceneDepthRange(), mAutoConstant.elementCount);
                     break;
-                case ACT_VIEW_DIRECTION:
+                case AutoConstantType::VIEW_DIRECTION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewDirection());
                     break;
-                case ACT_VIEW_SIDE_VECTOR:
+                case AutoConstantType::VIEW_SIDE_VECTOR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewSideVector());
                     break;
-                case ACT_VIEW_UP_VECTOR:
+                case AutoConstantType::VIEW_UP_VECTOR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewUpVector());
                     break;
-                case ACT_FOV:
+                case AutoConstantType::FOV:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFOV());
                     break;
-                case ACT_NEAR_CLIP_DISTANCE:
+                case AutoConstantType::NEAR_CLIP_DISTANCE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getNearClipDistance());
                     break;
-                case ACT_FAR_CLIP_DISTANCE:
+                case AutoConstantType::FAR_CLIP_DISTANCE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFarClipDistance());
                     break;
-                case ACT_PASS_NUMBER:
+                case AutoConstantType::PASS_NUMBER:
                     _writeRawConstant(mAutoConstant.physicalIndex, (float)source->getPassNumber());
                     break;
-                case ACT_PASS_ITERATION_NUMBER:
+                case AutoConstantType::PASS_ITERATION_NUMBER:
                     // this is actually just an initial set-up, it's bound separately, so still global
                     _writeRawConstant(mAutoConstant.physicalIndex, 0.0f);
                     mActivePassIterationIndex = mAutoConstant.physicalIndex;
                     break;
-                case ACT_TEXTURE_MATRIX:
+                case AutoConstantType::TEXTURE_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureTransformMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case ACT_LOD_CAMERA_POSITION:
+                case AutoConstantType::LOD_CAMERA_POSITION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLodCameraPosition(), mAutoConstant.elementCount);
                     break;
 
-                case ACT_TEXTURE_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX:
                     // can also be updated in lights
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureWorldViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case ACT_TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
+                case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights
@@ -1778,20 +1778,20 @@ namespace Ogre
                                           source->getTextureWorldViewProjMatrix(l),mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightWorldViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case ACT_SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
+                case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Matrix4), source->getSpotlightWorldViewProjMatrix(l), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_POSITION_OBJECT_SPACE:
+                case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getInverseWorldMatrix() *
                                           source->getLightAs4DVector(mAutoConstant.data),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DIRECTION_OBJECT_SPACE:
+                case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE:
                     // We need the inverse of the inverse transpose
                     m3 = source->getTransposeWorldMatrix().linear();
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
@@ -1799,11 +1799,11 @@ namespace Ogre
                     // Set as 4D vector for compatibility
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DISTANCE_OBJECT_SPACE:
+                case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE:
                     vec3 = source->getInverseWorldMatrix() * source->getLightPosition(mAutoConstant.data);
                     _writeRawConstant(mAutoConstant.physicalIndex, vec3.length());
                     break;
-                case ACT_LIGHT_POSITION_OBJECT_SPACE_ARRAY:
+                case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getInverseWorldMatrix() *
@@ -1811,7 +1811,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
+                case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
                     // We need the inverse of the inverse transpose
                     m3 = source->getTransposeWorldMatrix().linear();
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
@@ -1823,7 +1823,7 @@ namespace Ogre
                     }
                     break;
 
-                case ACT_LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
+                case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         vec3 = source->getInverseWorldMatrix() * source->getLightPosition(l);
@@ -1831,20 +1831,20 @@ namespace Ogre
                     }
                     break;
 
-                case ACT_WORLD_MATRIX:
+                case AutoConstantType::WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_WORLD_MATRIX:
+                case AutoConstantType::INVERSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_WORLD_MATRIX:
+                case AutoConstantType::TRANSPOSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TRANSPOSE_WORLD_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case ACT_WORLD_MATRIX_ARRAY_3x4:
+                case AutoConstantType::WORLD_MATRIX_ARRAY_3x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1856,11 +1856,11 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case ACT_WORLD_MATRIX_ARRAY:
+                case AutoConstantType::WORLD_MATRIX_ARRAY:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldMatrixArray(),
                                       source->getWorldMatrixCount());
                     break;
-                case ACT_WORLD_DUALQUATERNION_ARRAY_2x4:
+                case AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1873,7 +1873,7 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
+                case AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1910,78 +1910,78 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case ACT_WORLDVIEW_MATRIX:
+                case AutoConstantType::WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_WORLDVIEW_MATRIX:
+                case AutoConstantType::INVERSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_WORLDVIEW_MATRIX:
+                case AutoConstantType::TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_NORMAL_MATRIX:
+                case AutoConstantType::NORMAL_MATRIX:
                     if(mAutoConstant.elementCount == 9) // check if shader supports packed data
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewMatrix().linear(),mAutoConstant.elementCount);
                         break;
                     }
                     [[fallthrough]]; // fallthrough to padded 4x4 matrix
-                case ACT_INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case ACT_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::INVERSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::TRANSPOSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+                case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case ACT_CAMERA_POSITION_OBJECT_SPACE:
+                case AutoConstantType::CAMERA_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCameraPositionObjectSpace(), mAutoConstant.elementCount);
                     break;
-                case ACT_LOD_CAMERA_POSITION_OBJECT_SPACE:
+                case AutoConstantType::LOD_CAMERA_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLodCameraPositionObjectSpace(), mAutoConstant.elementCount);
                     break;
 
-                case ACT_CUSTOM:
-                case ACT_ANIMATION_PARAMETRIC:
+                case AutoConstantType::CUSTOM:
+                case AutoConstantType::ANIMATION_PARAMETRIC:
                     source->getCurrentRenderable()->_updateCustomGpuParameter(mAutoConstant, this);
                     break;
-                case ACT_LIGHT_CUSTOM:
+                case AutoConstantType::LIGHT_CUSTOM:
                     source->updateLightCustomGpuParameter(mAutoConstant, this);
                     break;
-                case ACT_LIGHT_COUNT:
+                case AutoConstantType::LIGHT_COUNT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightCount());
                     break;
-                case ACT_LIGHT_DIFFUSE_COLOUR:
+                case AutoConstantType::LIGHT_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightDiffuseColour(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_SPECULAR_COLOUR:
+                case AutoConstantType::LIGHT_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightSpecularColour(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_POSITION:
+                case AutoConstantType::LIGHT_POSITION:
                     // Get as 4D vector, works for directional lights too
                     // Use element count in case uniform slot is smaller
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightAs4DVector(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DIRECTION:
+                case AutoConstantType::LIGHT_DIRECTION:
                     vec3 = source->getLightDirection(mAutoConstant.data);
                     // Set as 4D vector for compatibility
                     // Use element count in case uniform slot is smaller
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 1.0f), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_POSITION_VIEW_SPACE:
+                case AutoConstantType::LIGHT_POSITION_VIEW_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getViewMatrix() * source->getLightAs4DVector(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DIRECTION_VIEW_SPACE:
+                case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE:
                     m3 = source->getInverseTransposeViewMatrix().linear();
                     // inverse transpose in case of scaling
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
@@ -1989,79 +1989,79 @@ namespace Ogre
                     // Set as 4D vector for compatibility
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f),mAutoConstant.elementCount);
                     break;
-                case ACT_SHADOW_EXTRUSION_DISTANCE:
+                case AutoConstantType::SHADOW_EXTRUSION_DISTANCE:
                     // extrusion is in object-space, so we have to rescale by the inverse
                     // of the world scaling to deal with scaled objects
                     m3 = source->getWorldMatrix().linear();
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowExtrusionDistance() /
                                       Math::Sqrt(std::max(std::max(m3.GetColumn(0).squaredLength(), m3.GetColumn(1).squaredLength()), m3.GetColumn(2).squaredLength())));
                     break;
-                case ACT_SHADOW_SCENE_DEPTH_RANGE:
+                case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowSceneDepthRange(mAutoConstant.data));
                     break;
-                case ACT_SHADOW_SCENE_DEPTH_RANGE_ARRAY:
+                case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*mAutoConstant.elementCount, source->getShadowSceneDepthRange(l), mAutoConstant.elementCount);
                     break;
-                case ACT_SHADOW_COLOUR:
+                case AutoConstantType::SHADOW_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowColour(), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_POWER_SCALE:
+                case AutoConstantType::LIGHT_POWER_SCALE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightPowerScale(mAutoConstant.data));
                     break;
-                case ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
+                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightDiffuseColourWithPower(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED:
+                case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightSpecularColourWithPower(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_NUMBER:
+                case AutoConstantType::LIGHT_NUMBER:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightNumber(mAutoConstant.data));
                     break;
-                case ACT_LIGHT_CASTS_SHADOWS:
+                case AutoConstantType::LIGHT_CASTS_SHADOWS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightCastsShadows(mAutoConstant.data));
                     break;
-                case ACT_LIGHT_CASTS_SHADOWS_ARRAY:
+                case AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(float), source->getLightCastsShadows(l));
                     break;
-                case ACT_LIGHT_ATTENUATION:
+                case AutoConstantType::LIGHT_ATTENUATION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightAttenuation(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_SPOTLIGHT_PARAMS:
+                case AutoConstantType::SPOTLIGHT_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightParams(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DIFFUSE_COLOUR_ARRAY:
+                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightDiffuseColour(l), mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_SPECULAR_COLOUR_ARRAY:
+                case AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightSpecularColour(l), mAutoConstant.elementCount);
                     break;
-                case ACT_LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
+                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightDiffuseColourWithPower(l), mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
+                case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightSpecularColourWithPower(l), mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_POSITION_ARRAY:
+                case AutoConstantType::LIGHT_POSITION_ARRAY:
                     // Get as 4D vector, works for directional lights too
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getLightAs4DVector(l), mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_DIRECTION_ARRAY:
+                case AutoConstantType::LIGHT_DIRECTION_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         vec3 = source->getLightDirection(l);
@@ -2071,7 +2071,7 @@ namespace Ogre
                     }
                     break;
 
-                case ACT_LIGHT_POSITION_VIEW_SPACE_ARRAY:
+                case AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getViewMatrix() *
@@ -2079,7 +2079,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     break;
 
-                case ACT_LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
+                case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
                     m3 = source->getInverseTransposeViewMatrix().linear();
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
@@ -2091,37 +2091,37 @@ namespace Ogre
                     }
                     break;
 
-                case ACT_LIGHT_POWER_SCALE_ARRAY:
+                case AutoConstantType::LIGHT_POWER_SCALE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Real),
                                           source->getLightPowerScale(l));
                     break;
 
-                case ACT_LIGHT_ATTENUATION_ARRAY:
+                case AutoConstantType::LIGHT_ATTENUATION_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f),
                                           source->getLightAttenuation(l), mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_SPOTLIGHT_PARAMS_ARRAY:
+                case AutoConstantType::SPOTLIGHT_PARAMS_ARRAY:
                     for (size_t l = 0 ; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f), source->getSpotlightParams(l),
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_DERIVED_LIGHT_DIFFUSE_COLOUR:
+                case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightDiffuseColourWithPower(mAutoConstant.data) * source->getSurfaceDiffuseColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_DERIVED_LIGHT_SPECULAR_COLOUR:
+                case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightSpecularColourWithPower(mAutoConstant.data) * source->getSurfaceSpecularColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case ACT_DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
+                case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
@@ -2129,7 +2129,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
+                case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
@@ -2137,11 +2137,11 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_TEXTURE_VIEWPROJ_MATRIX:
+                case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX:
                     // can also be updated in lights
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case ACT_TEXTURE_VIEWPROJ_MATRIX_ARRAY:
+                case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights
@@ -2149,10 +2149,10 @@ namespace Ogre
                                           source->getTextureViewProjMatrix(l),mAutoConstant.elementCount);
                     }
                     break;
-                case ACT_SPOTLIGHT_VIEWPROJ_MATRIX:
+                case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case ACT_SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
+                case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights
@@ -2330,7 +2330,7 @@ namespace Ogre
         {
             def->variability = deriveVariability(acType);
             // make sure we also set variability on the logical index map
-            getConstantLogicalIndexUse(def->logicalIndex, def->elementSize * def->arraySize, def->variability, BCT_FLOAT);
+            getConstantLogicalIndexUse(def->logicalIndex, def->elementSize * def->arraySize, def->variability, BaseConstantType::FLOAT);
             _setRawAutoConstant(withArrayOffset(def, name), acType, extraInfo, def->variability, def->elementSize);
         }
 
@@ -2346,7 +2346,7 @@ namespace Ogre
         {
             def->variability = deriveVariability(acType);
             // make sure we also set variability on the logical index map
-            getConstantLogicalIndexUse(def->logicalIndex, def->elementSize * def->arraySize, def->variability, BCT_FLOAT);
+            getConstantLogicalIndexUse(def->logicalIndex, def->elementSize * def->arraySize, def->variability, BaseConstantType::FLOAT);
             _setRawAutoConstantReal(withArrayOffset(def, name), acType, rData, def->variability, def->elementSize);
         }
     }
@@ -2367,12 +2367,12 @@ namespace Ogre
     GpuProgramParameters::findFloatAutoConstantEntry(size_t logicalIndex) -> const GpuProgramParameters::AutoConstantEntry*
     {
         if (!mLogicalToPhysical)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "This is not a low-level parameter parameter object",
                         "GpuProgramParameters::findFloatAutoConstantEntry");
 
         return _findRawAutoConstantEntryFloat(
-            _getConstantPhysicalIndex(logicalIndex, 0, GPV_GLOBAL, BCT_FLOAT));
+            _getConstantPhysicalIndex(logicalIndex, 0, GpuParamVariability::GLOBAL, BaseConstantType::FLOAT));
 
     }
     //---------------------------------------------------------------------------
@@ -2380,7 +2380,7 @@ namespace Ogre
     GpuProgramParameters::findAutoConstantEntry(std::string_view paramName) const -> const GpuProgramParameters::AutoConstantEntry*
     {
         if (!mNamedConstants)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "This params object is not based on a program with named parameters.",
                         "GpuProgramParameters::findAutoConstantEntry");
 
@@ -2468,7 +2468,7 @@ namespace Ogre
                 auto mi = srcToDestNamedMap.find(autoEntry.physicalIndex);
                 if (mi != srcToDestNamedMap.end())
                 {
-                    if (getAutoConstantDefinition(autoEntry.paramType)->dataType == ACDT_REAL)
+                    if (getAutoConstantDefinition(autoEntry.paramType)->dataType == ACDataType::REAL)
                     {
                         setNamedAutoConstantReal(mi->second, autoEntry.paramType, autoEntry.fData);
                     }
@@ -2515,15 +2515,15 @@ namespace Ogre
 
     //-----------------------------------------------------------------------
     auto
-    GpuProgramParameters::getAutoConstantDefinition(const size_t idx) -> const GpuProgramParameters::AutoConstantDefinition*
+    GpuProgramParameters::getAutoConstantDefinition(GpuProgramParameters::AutoConstantType idx) -> const GpuProgramParameters::AutoConstantDefinition*
     {
 
-        if (idx < getNumAutoConstantDefinitions())
+        if (std::to_underlying(idx) < getNumAutoConstantDefinitions())
         {
             // verify index is equal to acType
             // if they are not equal then the dictionary was not setup properly
-            assert(idx == static_cast<size_t>(AutoConstantDictionary[idx].acType));
-            return &AutoConstantDictionary[idx];
+            assert(idx == AutoConstantDictionary[std::to_underlying(idx)].acType);
+            return &AutoConstantDictionary[std::to_underlying(idx)];
         }
         else
             return nullptr;

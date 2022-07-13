@@ -36,7 +36,7 @@ THE SOFTWARE.
 #include "OgreSharedPtr.hpp"
 
 namespace {
-    enum Programs
+    enum class Programs
     {
         // Point light extruder, infinite distance
         POINT_LIGHT = 0,
@@ -48,8 +48,9 @@ namespace {
         DIRECTIONAL_LIGHT_FINITE,
         NUM_SHADOW_EXTRUDER_PROGRAMS
     };
+    using enum Programs;
 
-    const char* programNames[NUM_SHADOW_EXTRUDER_PROGRAMS] =
+    const char* programNames[std::to_underlying(Programs::NUM_SHADOW_EXTRUDER_PROGRAMS)] =
     {
         "Ogre/ShadowExtrudePointLight",
         "Ogre/ShadowExtrudeDirLight",
@@ -70,7 +71,7 @@ namespace Ogre {
         {
             auto vp = HighLevelGpuProgramManager::getSingleton().getByName(name, RGN_INTERNAL);
             if (!vp)
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                            ::std::format("{} not found. Verify that you referenced the 'Media/Main' ", name),
                                            "folder in your resources.cfg");
             vp->load();
@@ -85,13 +86,13 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto ShadowVolumeExtrudeProgram::get(Light::LightTypes lightType, bool finite) -> const GpuProgramPtr&
     {
-        if (lightType == Light::LT_DIRECTIONAL)
+        if (lightType == Light::LightTypes::DIRECTIONAL)
         {
-            return mPrograms[finite ? DIRECTIONAL_LIGHT_FINITE : DIRECTIONAL_LIGHT];
+            return mPrograms[std::to_underlying(finite ? DIRECTIONAL_LIGHT_FINITE : DIRECTIONAL_LIGHT)];
         }
         else
         {
-            return mPrograms[finite ? POINT_LIGHT_FINITE : POINT_LIGHT];
+            return mPrograms[std::to_underlying(finite ? POINT_LIGHT_FINITE : POINT_LIGHT)];
         }
     }
 

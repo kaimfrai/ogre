@@ -225,13 +225,13 @@ namespace Ogre {
             Calling this method simply associates a numeric index with a 4-dimensional
             value for this specific Renderable. This is most useful if the material
             which this Renderable uses a vertex or fragment program, and has an 
-            ACT_CUSTOM parameter entry. This parameter entry can refer to the
+            AutoConstantType::CUSTOM parameter entry. This parameter entry can refer to the
             index you specify as part of this call, thereby mapping a custom
             parameter for this renderable to a program parameter.
         @param index The index with which to associate the value. Note that this
             does not have to start at 0, and can include gaps. It also has no direct
             correlation with a GPU program parameter index - the mapping between the
-            two is performed by the ACT_CUSTOM entry, if that is used.
+            two is performed by the AutoConstantType::CUSTOM entry, if that is used.
         @param value The value to associate.
         */
         void setCustomParameter(size_t index, const Vector4& value);
@@ -259,7 +259,7 @@ namespace Ogre {
         @remarks
             This method allows a Renderable to map in a custom GPU program parameter
             based on it's own data. This is represented by a GPU auto parameter
-            of ACT_CUSTOM, and to allow there to be more than one of these per
+            of AutoConstantType::CUSTOM, and to allow there to be more than one of these per
             Renderable, the 'data' field on the auto parameter will identify
             which parameter is being updated. The implementation of this method
             must identify the parameter being updated, and call a 'setConstant' 

@@ -67,7 +67,7 @@ class InstanceManager;
     }
 
     //-----------------------------------------------------------------------
-    auto InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
+    auto InstanceBatchShader::calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t
     {
         const size_t numBones = std::max<size_t>( 1, baseSubMesh->blendIndexToBoneIndexMap.size() );
 
@@ -78,42 +78,42 @@ class InstanceManager;
             GpuProgramParametersSharedPtr vertexParam = technique->getPass(0)->getVertexProgramParameters();
             for(auto const& [key, constDef] : vertexParam->getConstantDefinitions().map)
             {
-                if(((constDef.constType == GCT_MATRIX_3X4 ||
-                    constDef.constType == GCT_MATRIX_4X3 ||             //OGL GLSL bitches without this
-                    constDef.constType == GCT_MATRIX_2X4 ||
-                    constDef.constType == GCT_FLOAT4)                   //OGL GLSL bitches without this
+                if(((constDef.constType == GpuConstantType::MATRIX_3X4 ||
+                    constDef.constType == GpuConstantType::MATRIX_4X3 ||             //OGL GLSL bitches without this
+                    constDef.constType == GpuConstantType::MATRIX_2X4 ||
+                    constDef.constType == GpuConstantType::FLOAT4)                   //OGL GLSL bitches without this
                     && constDef.isFloat()) ||
-                   ((constDef.constType == GCT_MATRIX_DOUBLE_3X4 ||
-                    constDef.constType == GCT_MATRIX_DOUBLE_4X3 ||      //OGL GLSL bitches without this
-                    constDef.constType == GCT_MATRIX_DOUBLE_2X4 ||
-                    constDef.constType == GCT_DOUBLE4)                  //OGL GLSL bitches without this
+                   ((constDef.constType == GpuConstantType::MATRIX_DOUBLE_3X4 ||
+                    constDef.constType == GpuConstantType::MATRIX_DOUBLE_4X3 ||      //OGL GLSL bitches without this
+                    constDef.constType == GpuConstantType::MATRIX_DOUBLE_2X4 ||
+                    constDef.constType == GpuConstantType::DOUBLE4)                  //OGL GLSL bitches without this
                     && constDef.isDouble())
                    )
                 {
                     const GpuProgramParameters::AutoConstantEntry *entry =
                                     vertexParam->_findRawAutoConstantEntryFloat( constDef.physicalIndex );
-                    if( entry && (entry->paramType == GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4 || entry->paramType == GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4))
+                    if( entry && (entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY_3x4 || entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4))
                     {
                         //Material is correctly done!
                         size_t arraySize = constDef.arraySize;
 
                         //Deal with GL "hacky" way of doing 4x3 matrices
-                        if(entry->paramType == GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4 && constDef.constType == GCT_FLOAT4)
+                        if(entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY_3x4 && constDef.constType == GpuConstantType::FLOAT4)
                             arraySize /= 3;
-                        else if(entry->paramType == GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4 && constDef.constType == GCT_FLOAT4)
+                        else if(entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4 && constDef.constType == GpuConstantType::FLOAT4)
                             arraySize /= 2;
 
                         //Check the num of arrays
                         size_t retVal = arraySize / numBones;
 
-                        if( flags & IM_USE16BIT )
+                        if(!!(flags & InstanceManagerFlags::USE16BIT))
                         {
                             if( baseSubMesh->vertexData->vertexCount * retVal > 0xFFFF )
                                 retVal = 0xFFFF / baseSubMesh->vertexData->vertexCount;
                         }
 
-                        if((retVal < 3 && entry->paramType == GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4) ||
-                            (retVal < 2 && entry->paramType == GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4))
+                        if((retVal < 3 && entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY_3x4) ||
+                            (retVal < 2 && entry->paramType == GpuProgramParameters::AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4))
                         {
                             LogManager::getSingleton().logWarning(std::format("InstanceBatchShader: Mesh '{}' using material '{}'. The amount of possible "
                                         "instances per batch is very low. Performance benefits will "
@@ -126,7 +126,7 @@ class InstanceManager;
             }
 
             //Reaching here means material is supported, but malformed
-            OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+            OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Material '{}' is malformed for this instancing technique", mMaterial->getName() ),
             "InstanceBatchShader::calculateMaxNumInstances");
         }
@@ -167,7 +167,7 @@ class InstanceManager;
         //TODO: Can't we, instead of using another source, put the index ID in the same source?
         thisVertexData->vertexDeclaration->addElement(
                                         thisVertexData->vertexDeclaration->getMaxSource() + 1, 0,
-                                        VET_UBYTE4, VES_BLEND_INDICES );
+                                        VertexElementType::UBYTE4, VertexElementSemantic::BLEND_INDICES );
 
 
         for( uint16 i=0; i<thisVertexData->vertexDeclaration->getMaxSource(); ++i )
@@ -177,15 +177,15 @@ class InstanceManager;
                                             HardwareBufferManager::getSingleton().createVertexBuffer(
                                             thisVertexData->vertexDeclaration->getVertexSize(i),
                                             thisVertexData->vertexCount,
-                                            HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                            HardwareBuffer::STATIC_WRITE_ONLY );
             thisVertexData->vertexBufferBinding->setBinding( i, vertexBuffer );
 
             //Grab the base submesh data
             HardwareVertexBufferSharedPtr baseVertexBuffer =
                                                     baseVertexData->vertexBufferBinding->getBuffer(i);
 
-            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
-            HardwareBufferLockGuard baseLock(baseVertexBuffer, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
+            HardwareBufferLockGuard baseLock(baseVertexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
             char* thisBuf = static_cast<char*>(thisLock.pData);
             char* baseBuf = static_cast<char*>(baseLock.pData);
 
@@ -205,10 +205,10 @@ class InstanceManager;
                                             HardwareBufferManager::getSingleton().createVertexBuffer(
                                             thisVertexData->vertexDeclaration->getVertexSize( lastSource ),
                                             thisVertexData->vertexCount,
-                                            HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                            HardwareBuffer::STATIC_WRITE_ONLY );
             thisVertexData->vertexBufferBinding->setBinding( lastSource, vertexBuffer );
 
-            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
             char* thisBuf = static_cast<char*>(thisLock.pData);
             for( uint8 j=0; j<uint8(mInstancesPerBatch); ++j )
             {
@@ -236,17 +236,17 @@ class InstanceManager;
         thisIndexData->indexCount = baseIndexData->indexCount * mInstancesPerBatch;
 
         //TODO: Check numVertices is below max supported by GPU
-        HardwareIndexBuffer::IndexType indexType = HardwareIndexBuffer::IT_16BIT;
+        HardwareIndexBuffer::IndexType indexType = HardwareIndexBuffer::IndexType::_16BIT;
         if( mRenderOperation.vertexData->vertexCount > 65535 )
-            indexType = HardwareIndexBuffer::IT_32BIT;
+            indexType = HardwareIndexBuffer::IndexType::_32BIT;
         thisIndexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(
-            indexType, thisIndexData->indexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+            indexType, thisIndexData->indexCount, HardwareBuffer::STATIC_WRITE_ONLY );
 
-        HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-        HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
+        HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
         auto *thisBuf16 = static_cast<uint16*>(thisLock.pData);
         auto *thisBuf32 = static_cast<uint32*>(thisLock.pData);
-        bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT;
+        bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT;
 
         for( size_t i=0; i<mInstancesPerBatch; ++i )
         {
@@ -259,7 +259,7 @@ class InstanceManager;
             {
                 uint32 originalVal = baseIndex16bit ? *initBuf16++ : *initBuf32++;
 
-                if( indexType == HardwareIndexBuffer::IT_16BIT )
+                if( indexType == HardwareIndexBuffer::IndexType::_16BIT )
                     *thisBuf16++ = static_cast<uint16>(originalVal + vertexOffset);
                 else
                     *thisBuf32++ = static_cast<uint32>(originalVal + vertexOffset);
@@ -280,7 +280,7 @@ class InstanceManager;
                                             HardwareBufferManager::getSingleton().createVertexBuffer(
                                             thisVertexData->vertexDeclaration->getVertexSize(i),
                                             thisVertexData->vertexCount,
-                                            HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                                            HardwareBuffer::STATIC_WRITE_ONLY );
             thisVertexData->vertexBufferBinding->setBinding( i, vertexBuffer );
 
             VertexDeclaration::VertexElementList veList =
@@ -290,8 +290,8 @@ class InstanceManager;
             HardwareVertexBufferSharedPtr baseVertexBuffer =
                                                     baseVertexData->vertexBufferBinding->getBuffer(i);
 
-            HardwareBufferLockGuard thisVertexLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
-            HardwareBufferLockGuard baseVertexLock(baseVertexBuffer, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard thisVertexLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
+            HardwareBufferLockGuard baseVertexLock(baseVertexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
             char* thisBuf = static_cast<char*>(thisVertexLock.pData);
             char* baseBuf = static_cast<char*>(baseVertexLock.pData);
             char *startBuf = baseBuf;
@@ -308,7 +308,7 @@ class InstanceManager;
                     {
                         switch( it.getSemantic() )
                         {
-                        case VES_BLEND_INDICES:
+                        case VertexElementSemantic::BLEND_INDICES:
                         *(thisBuf + it.getOffset() + 0) = *(baseBuf + it.getOffset() + 0) + j * numBones;
                         *(thisBuf + it.getOffset() + 1) = *(baseBuf + it.getOffset() + 1) + j * numBones;
                         *(thisBuf + it.getOffset() + 2) = *(baseBuf + it.getOffset() + 2) + j * numBones;

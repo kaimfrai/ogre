@@ -122,17 +122,45 @@ namespace Ogre {
             then internally there will be multiple organisations. Changing the organisation
             needs to be done when the collection is empty.
         */      
-        enum OrganisationMode
+        enum class OrganisationMode
         {
             /// Group by pass
-            OM_PASS_GROUP = 1,
+            PASS_GROUP = 1,
             /// Sort descending camera distance
-            OM_SORT_DESCENDING = 2,
+            SORT_DESCENDING = 2,
             /** Sort ascending camera distance 
                 Note value overlaps with descending since both use same sort
             */
-            OM_SORT_ASCENDING = 6
+            SORT_ASCENDING = 6
         };
+
+        friend auto constexpr operator not(OrganisationMode value) -> bool
+        {
+            return not std::to_underlying(value);
+        }
+
+        friend auto constexpr operator bitor(OrganisationMode left, OrganisationMode right) -> OrganisationMode
+        {
+            return static_cast<OrganisationMode>
+            (   std::to_underlying(left)
+            bitor
+                std::to_underlying(right)
+            );
+        }
+
+        friend auto constexpr operator |=(OrganisationMode& left, OrganisationMode right) -> OrganisationMode&
+        {
+            return left = left bitor right;
+        }
+
+        friend auto constexpr operator bitand(OrganisationMode left, OrganisationMode right) -> OrganisationMode
+        {
+            return static_cast<OrganisationMode>
+            (   std::to_underlying(left)
+            bitand
+                std::to_underlying(right)
+            );
+        }
 
     private:
         /// Comparator to order pass groups
@@ -162,7 +190,7 @@ namespace Ogre {
         using PassGroupRenderableMap = std::map<Pass *, RenderableList, PassGroupLess>;
 
         /// Bitmask of the organisation modes requested
-        uint8 mOrganisationMode{0};
+        OrganisationMode mOrganisationMode{0};
 
         /// Grouped 
         PassGroupRenderableMap mGrouped;
@@ -196,7 +224,7 @@ namespace Ogre {
         */
         void resetOrganisationModes() 
         { 
-            mOrganisationMode = 0; 
+            mOrganisationMode = {};
         }
         
         /** Add a required sorting / grouping mode to this collection when next used.
@@ -206,7 +234,7 @@ namespace Ogre {
         */
         void addOrganisationMode(OrganisationMode om) 
         { 
-            mOrganisationMode |= uint8(om);
+            mOrganisationMode |= om;
         }
 
         /// Add a renderable to the collection using a given pass
@@ -406,7 +434,7 @@ namespace Ogre {
         /// Whether shadows are enabled for this queue
         bool mShadowsEnabled{true};
         /// Bitmask of the organisation modes requested (for new priority groups)
-        uint8 mOrganisationMode{0};
+        QueuedRenderableCollection::OrganisationMode mOrganisationMode{0};
 
 
     public:
@@ -435,10 +463,10 @@ namespace Ogre {
                     mSplitPassesByLightingType,
                     mSplitNoShadowPasses, 
                     mShadowCastersNotReceivers);
-                if (mOrganisationMode)
+                if (mOrganisationMode != decltype(mOrganisationMode){})
                 {
                     pPriorityGrp->resetOrganisationModes();
-                    pPriorityGrp->addOrganisationMode((QueuedRenderableCollection::OrganisationMode)mOrganisationMode);
+                    pPriorityGrp->addOrganisationMode(mOrganisationMode);
                 }
 
                 mPriorityGroups.emplace(priority, pPriorityGrp);
@@ -532,7 +560,7 @@ namespace Ogre {
         */
         void resetOrganisationModes()
         {
-            mOrganisationMode = 0;
+            mOrganisationMode = {};
 
             for (auto & mPriorityGroup : mPriorityGroups)
             {
@@ -548,7 +576,7 @@ namespace Ogre {
         */
         void addOrganisationMode(QueuedRenderableCollection::OrganisationMode om)
         {
-            mOrganisationMode |= uint8(om);
+            mOrganisationMode |= om;
 
             for (auto & mPriorityGroup : mPriorityGroups)
             {
@@ -564,7 +592,7 @@ namespace Ogre {
         */
         void defaultOrganisationMode()
         {
-            mOrganisationMode = 0;
+            mOrganisationMode = {};
 
             for (auto & mPriorityGroup : mPriorityGroups)
             {
@@ -589,10 +617,10 @@ namespace Ogre {
                         mSplitPassesByLightingType,
                         mSplitNoShadowPasses, 
                         mShadowCastersNotReceivers);
-                    if (mOrganisationMode)
+                    if (mOrganisationMode != decltype(mOrganisationMode){})
                     {
                         pDstPriorityGrp->resetOrganisationModes();
-                        pDstPriorityGrp->addOrganisationMode((QueuedRenderableCollection::OrganisationMode)mOrganisationMode);
+                        pDstPriorityGrp->addOrganisationMode(mOrganisationMode);
                     }
 
                     mPriorityGroups.emplace(priority, pDstPriorityGrp);

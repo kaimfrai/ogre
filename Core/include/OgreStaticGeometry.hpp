@@ -286,7 +286,7 @@ class Technique;
             /// Build
             void build(bool stencilShadows);
             /// Add children to the render queue
-            void addRenderables(RenderQueue* queue, uint8 group, 
+            void addRenderables(RenderQueue* queue, RenderQueueGroupID group,
                 Real lodValue);
             /// Get the material for this bucket
             [[nodiscard]] auto getMaterial() const noexcept -> const MaterialPtr& { return mMaterial; }
@@ -343,7 +343,7 @@ class Technique;
             /// Build
             void build(bool stencilShadows);
             /// Add children to the render queue
-            void addRenderables(RenderQueue* queue, uint8 group, 
+            void addRenderables(RenderQueue* queue, RenderQueueGroupID group,
                 Real lodValue);
             /// Iterator over the materials in this LOD
             using MaterialIterator = MapIterator<MaterialBucketMap>;
@@ -357,7 +357,7 @@ class Technique;
             auto getShadowRenderableList() noexcept -> ShadowCaster::ShadowRenderableList& { return mShadowRenderables; }
             [[nodiscard]] auto isVertexProgramInUse() const noexcept -> bool { return mVertexProgramInUse; }
             void updateShadowRenderables(const Vector4& lightPos, const HardwareIndexBufferPtr& indexBuffer,
-                                         Real extrusionDistance, int flags = 0);
+                                         Real extrusionDistance, ShadowRenderableFlags flags = {});
         };
         /** The details of a topological region which is the highest level of
             partitioning for this class.
@@ -427,7 +427,7 @@ class Technique;
             void visitRenderables(Renderable::Visitor* visitor, 
                 bool debugRenderables = false) override;
             auto isVisible() const noexcept -> bool override;
-            auto getTypeFlags() const noexcept -> uint32 override;
+            auto getTypeFlags() const noexcept -> QueryTypeMask override;
 
             using LODIterator = VectorIterator<LODBucketList>;
 
@@ -436,7 +436,7 @@ class Technique;
             auto
             getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                           size_t& indexBufferUsedSize, float extrusionDistance,
-                                          int flags = 0) -> const ShadowRenderableList& override;
+                                          ShadowRenderableFlags flags = {}) -> const ShadowRenderableList& override;
             auto getEdgeList() noexcept -> EdgeData* override;
 
             void _releaseManualHardwareResources() override;
@@ -466,11 +466,11 @@ class Technique;
         Vector3 mOrigin;
         bool mVisible{true};
         /// The render queue to use when rendering this object
-        uint8 mRenderQueueID{RENDER_QUEUE_MAIN};
+        RenderQueueGroupID mRenderQueueID{RenderQueueGroupID::MAIN};
         /// Flags whether the RenderQueue's default should be used.
         bool mRenderQueueIDSet{false};
         /// Stores the visibility flags for the regions
-        uint32 mVisibilityFlags;
+        QueryTypeMask mVisibilityFlags;
 
         QueuedSubMeshList mQueuedSubMeshes;
 
@@ -709,9 +709,9 @@ class Technique;
         [[nodiscard]] virtual auto getOrigin() const noexcept -> const Vector3& { return mOrigin; }
 
         /// Sets the visibility flags of all the regions at once
-        void setVisibilityFlags(uint32 flags);
+        void setVisibilityFlags(QueryTypeMask flags);
         /// Returns the visibility flags of the regions
-        [[nodiscard]] auto getVisibilityFlags() const noexcept -> uint32;
+        [[nodiscard]] auto getVisibilityFlags() const noexcept -> QueryTypeMask;
 
         /** Sets the render queue group this object will be rendered through.
         @remarks
@@ -724,10 +724,10 @@ class Technique;
             See RenderQueue for more details.
         @param queueID Enumerated value of the queue group to use.
         */
-        virtual void setRenderQueueGroup(uint8 queueID);
+        virtual void setRenderQueueGroup(RenderQueueGroupID queueID);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        [[nodiscard]] virtual auto getRenderQueueGroup() const noexcept -> uint8;
+        [[nodiscard]] virtual auto getRenderQueueGroup() const noexcept -> RenderQueueGroupID;
         /// @copydoc MovableObject::visitRenderables
         void visitRenderables(Renderable::Visitor* visitor, 
             bool debugRenderables = false);

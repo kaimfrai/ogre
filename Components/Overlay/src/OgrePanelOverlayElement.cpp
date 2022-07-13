@@ -122,14 +122,14 @@ class RenderQueue;
             // Vertex declaration: 1 position, add texcoords later depending on #layers
             // Create as separate buffers so we can lock & discard separately
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
-            decl->addElement(POSITION_BINDING, 0, VET_FLOAT3, VES_POSITION);
+            decl->addElement(POSITION_BINDING, 0, VertexElementType::FLOAT3, VertexElementSemantic::POSITION);
 
             // Basic vertex data
             mRenderOp.vertexData->vertexStart = 0;
             mRenderOp.vertexData->vertexCount = 4;
             // No indexes & issue as a strip
             mRenderOp.useIndexes = false;
-            mRenderOp.operationType = RenderOperation::OT_TRIANGLE_STRIP;
+            mRenderOp.operationType = RenderOperation::OperationType::TRIANGLE_STRIP;
             mRenderOp.useGlobalInstancingVertexBufferIsAvailable = false;
 
             mInitialised = true;
@@ -149,7 +149,7 @@ class RenderQueue;
         HardwareVertexBufferSharedPtr vbuf =
             HardwareBufferManager::getSingleton().createVertexBuffer(
             decl->getVertexSize(POSITION_BINDING), mRenderOp.vertexData->vertexCount,
-            HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,// mostly static except during resizing
+            HardwareBuffer::DYNAMIC_WRITE_ONLY,// mostly static except during resizing
             true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
         // Bind buffer
         mRenderOp.vertexData->vertexBufferBinding->setBinding(POSITION_BINDING, vbuf);
@@ -177,7 +177,7 @@ class RenderQueue;
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
             for(size_t i = mNumTexCoordsInBuffer; i > 0; --i)
             {
-                decl->removeElement(VES_TEXTURE_COORDINATES,
+                decl->removeElement(VertexElementSemantic::TEXTURE_COORDINATES,
                     static_cast<unsigned short>(i - 1));
             }
             mNumTexCoordsInBuffer = 0;
@@ -286,7 +286,7 @@ class RenderQueue;
 
         HardwareVertexBufferSharedPtr vbuf =
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POSITION_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pPos = static_cast<float*>(vbufLock.pData);
 
         // Use the furthest away depth value, since materials should have depth-check off
@@ -324,18 +324,18 @@ class RenderQueue;
                 // remove extras
                 for (size_t i = mNumTexCoordsInBuffer; i > numLayers; --i)
                 {
-                    decl->removeElement(VES_TEXTURE_COORDINATES, 
+                    decl->removeElement(VertexElementSemantic::TEXTURE_COORDINATES, 
                         static_cast<unsigned short>(i - 1));
                 }
             }
             else if (mNumTexCoordsInBuffer < numLayers)
             {
                 // Add extra texcoord elements
-                size_t offset = VertexElement::getTypeSize(VET_FLOAT2) * mNumTexCoordsInBuffer;
+                size_t offset = VertexElement::getTypeSize(VertexElementType::FLOAT2) * mNumTexCoordsInBuffer;
                 for (size_t i = mNumTexCoordsInBuffer; i < numLayers; ++i)
                 {
-                    offset += decl->addElement(TEXCOORD_BINDING, offset, VET_FLOAT2,
-                                               VES_TEXTURE_COORDINATES, ushort(i))
+                    offset += decl->addElement(TEXCOORD_BINDING, offset, VertexElementType::FLOAT2,
+                                               VertexElementSemantic::TEXTURE_COORDINATES, ushort(i))
                                   .getSize();
                 }
             }
@@ -347,7 +347,7 @@ class RenderQueue;
                 HardwareVertexBufferSharedPtr newbuf =
                     HardwareBufferManager::getSingleton().createVertexBuffer(
                     decl->getVertexSize(TEXCOORD_BINDING), mRenderOp.vertexData->vertexCount,
-                    HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY, // mostly static except during resizing
+                    HardwareBuffer::DYNAMIC_WRITE_ONLY, // mostly static except during resizing
                     true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
                 // Bind buffer, note this will unbind the old one and destroy the buffer it had
                 mRenderOp.vertexData->vertexBufferBinding->setBinding(TEXCOORD_BINDING, newbuf);
@@ -360,10 +360,10 @@ class RenderQueue;
             {
                 HardwareVertexBufferSharedPtr vbuf =
                     mRenderOp.vertexData->vertexBufferBinding->getBuffer(TEXCOORD_BINDING);
-                HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+                HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
                 auto* pVBStart = static_cast<float*>(vbufLock.pData);
 
-                size_t uvSize = VertexElement::getTypeSize(VET_FLOAT2) / sizeof(float);
+                size_t uvSize = VertexElement::getTypeSize(VertexElementType::FLOAT2) / sizeof(float);
                 size_t vertexSize = decl->getVertexSize(TEXCOORD_BINDING) / sizeof(float);
                 for (ushort i = 0; i < numLayers; ++i)
                 {
@@ -408,18 +408,18 @@ class RenderQueue;
 
         dict->addParameter(ParameterDef("uv_coords",
            "The texture coordinates for the texture. 1 set of uv values."
-           , PT_STRING),
+           , ParameterType::STRING),
            &msCmdUVCoords);
 
         dict->addParameter(ParameterDef("tiling",
             "The number of times to repeat the background texture."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdTiling);
 
         dict->addParameter(ParameterDef("transparent",
             "Sets whether the panel is transparent, i.e. invisible itself "
             "but it's contents are still displayed."
-            , PT_BOOL),
+            , ParameterType::BOOL),
             &msCmdTransparent);
     }
     //-----------------------------------------------------------------------

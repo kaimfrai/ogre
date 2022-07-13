@@ -60,14 +60,48 @@ class FFPColour : public SubRenderState
 public:
 
     // Parameter stage flags of the colour component.
-    enum StageFlags
+    enum class StageFlags
     {
-        SF_VS_INPUT_DIFFUSE     = 1 << 1,
-        SF_VS_OUTPUT_DIFFUSE    = 1 << 2,
-        SF_VS_OUTPUT_SPECULAR   = 1 << 3,
-        SF_PS_INPUT_DIFFUSE     = 1 << 4,
-        SF_PS_INPUT_SPECULAR    = 1 << 5
+        VS_INPUT_DIFFUSE     = 1 << 1,
+        VS_OUTPUT_DIFFUSE    = 1 << 2,
+        VS_OUTPUT_SPECULAR   = 1 << 3,
+        PS_INPUT_DIFFUSE     = 1 << 4,
+        PS_INPUT_SPECULAR    = 1 << 5
     };
+
+    friend auto constexpr operator compl(StageFlags flags) -> StageFlags
+    {   return static_cast<StageFlags>(compl std::to_underlying(flags));    }
+
+    friend auto constexpr operator not(StageFlags flags) -> bool
+    {   return not std::to_underlying(flags);    }
+
+    friend auto constexpr operator bitor(StageFlags left, StageFlags right) -> StageFlags
+    {
+        return static_cast<StageFlags>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    friend auto constexpr operator |=(StageFlags& left, StageFlags right) -> StageFlags&
+    {
+        return left = left bitor right;
+    }
+
+    friend auto constexpr operator bitand(StageFlags left, StageFlags right) -> StageFlags
+    {
+        return static_cast<StageFlags>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    friend auto constexpr operator &=(StageFlags& left, StageFlags right) -> StageFlags&
+    {
+        return left = left bitand right;
+    }
 
 // Interface.
 public:
@@ -84,7 +118,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -99,27 +133,27 @@ public:
     /**
     Set the resolve stage flags that this sub render state will produce.
     I.E - If one want to specify that the vertex shader program needs to get a diffuse component
-    and the pixel shader should output diffuse component he should pass SF_VS_INPUT_DIFFUSE.
+    and the pixel shader should output diffuse component he should pass StageFlags::VS_INPUT_DIFFUSE.
     @param flags The stage flag to set.
     */
-    void setResolveStageFlags(unsigned int flags) { mResolveStageFlags = flags; }
+    void setResolveStageFlags(StageFlags flags) { mResolveStageFlags = flags; }
 
     /**
     Get the current resolve stage flags.
     */
-    auto getResolveStageFlags() const noexcept -> unsigned int { return mResolveStageFlags; }
+    auto getResolveStageFlags() const noexcept -> StageFlags { return mResolveStageFlags; }
 
     /**
     Add the given mask to resolve stage flags that this sub render state will produce.
     @param mask The mask to add to current flag set.
     */
-    void addResolveStageMask(unsigned int mask)  { mResolveStageFlags |= mask; }
+    void addResolveStageMask(StageFlags mask)  { mResolveStageFlags |= mask; }
 
     /**
     Remove the given mask from the resolve stage flags that this sub render state will produce.
     @param mask The mask to remove from current flag set.
     */
-    void removeResolveStageMask(unsigned int mask)  { mResolveStageFlags &= ~mask; }
+    void removeResolveStageMask(StageFlags mask)  { mResolveStageFlags &= ~mask; }
 
     static String Type;
 
@@ -144,7 +178,7 @@ protected:
     // Pixel shader output diffuse component.
     ParameterPtr mPSOutputDiffuse;
     // Stage flags that defines resolve parameters definitions.
-    unsigned int mResolveStageFlags;
+    StageFlags mResolveStageFlags;
 };
 
 

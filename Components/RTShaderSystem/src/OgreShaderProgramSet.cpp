@@ -49,14 +49,14 @@ void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
 {
     switch(program->getType())
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         mVSCpuProgram = std::move(program);
         break;
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         mPSCpuProgram = std::move(program);
         break;
     default:
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         break;
     }
 }
@@ -66,9 +66,9 @@ auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
 {
     switch(type)
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         return mVSCpuProgram.get();
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         return mPSCpuProgram.get();
     default:
         return nullptr;
@@ -79,14 +79,14 @@ void ProgramSet::setGpuProgram(const GpuProgramPtr& program)
 {
     switch(program->getType())
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         mVSGpuProgram = program;
         break;
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         mPSGpuProgram = program;
         break;
     default:
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "", "");
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "", "");
         break;
     }
 }
@@ -96,10 +96,10 @@ auto ProgramSet::getGpuProgram(GpuProgramType type) const -> const GpuProgramPtr
 {
     switch(type)
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         return mVSGpuProgram;
         break;
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         return mPSGpuProgram;
         break;
     default:

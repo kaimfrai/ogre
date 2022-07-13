@@ -44,15 +44,15 @@ class Skeleton;
 class TransformKeyFrame;
 
     /// Skeleton compatibility versions
-    enum SkeletonVersion 
+    enum class SkeletonVersion 
     {
         /// OGRE version v1.0+
-        SKELETON_VERSION_1_0,
+        _1_0,
         /// OGRE version v1.8+
-        SKELETON_VERSION_1_8,
+        _1_8,
         
         /// Latest version available
-        SKELETON_VERSION_LATEST = 100
+        Latest = 100
     };
 
     /** \addtogroup Core
@@ -89,7 +89,7 @@ class TransformKeyFrame;
         @param endianMode The endian mode to write in
         */
         void exportSkeleton(const Skeleton* pSkeleton, std::string_view filename,
-            SkeletonVersion ver = SKELETON_VERSION_LATEST, Endian endianMode = ENDIAN_NATIVE);
+            SkeletonVersion ver = SkeletonVersion::Latest, std::endian endianMode = std::endian::native);
 
         /** Exports a skeleton to the stream specified. 
         @remarks
@@ -101,7 +101,7 @@ class TransformKeyFrame;
         @param endianMode The endian mode to write in
         */
         void exportSkeleton(const Skeleton* pSkeleton, DataStreamPtr stream,
-            SkeletonVersion ver = SKELETON_VERSION_LATEST, Endian endianMode = ENDIAN_NATIVE);
+            SkeletonVersion ver = SkeletonVersion::Latest, std::endian endianMode = std::endian::native);
         /** Imports Skeleton and animation data from a .skeleton file DataStream.
         @remarks
             This method imports data from a DataStream opened from a .skeleton file and places it's

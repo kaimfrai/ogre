@@ -52,7 +52,7 @@ namespace Ogre {
     class GLXGLSupport : public GLNativeSupport
     {
     public:
-        GLXGLSupport(int profile);
+        GLXGLSupport(GLNativeSupport::ContextProfile profile);
         ~GLXGLSupport() override;
 
         Atom mAtomDeleteWindow;

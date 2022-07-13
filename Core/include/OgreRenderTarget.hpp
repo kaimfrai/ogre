@@ -89,11 +89,11 @@ struct Box;
             int vBlankMissCount; // -1 means that the value is not applicable
         };
 
-        enum FrameBuffer
+        enum class FrameBuffer
         {
-            FB_FRONT,
-            FB_BACK,
-            FB_AUTO
+            FRONT,
+            BACK,
+            AUTO
         };
 
         RenderTarget();
@@ -109,16 +109,16 @@ struct Box;
         [[nodiscard]] virtual auto getHeight() const noexcept -> uint32;
 
         /**
-         * Sets the pool ID this RenderTarget should query from. Default value is POOL_DEFAULT.
-         * Set to POOL_NO_DEPTH to avoid using a DepthBuffer (or manually controlling it) @see DepthBuffer
+         * Sets the pool ID this RenderTarget should query from. Default value is PoolId::DEFAULT.
+         * Set to PoolId::NO_DEPTH to avoid using a DepthBuffer (or manually controlling it) @see DepthBuffer
          *  @remarks
          *      Changing the pool Id will cause the current depth buffer to be detached unless the old
          *      id and the new one are the same
          */
-        void setDepthBufferPool( uint16 poolId );
+        void setDepthBufferPool( DepthBuffer::PoolId poolId );
 
         //Returns the pool ID this RenderTarget should query from. @see DepthBuffer
-        [[nodiscard]] auto getDepthBufferPool() const noexcept -> uint16;
+        [[nodiscard]] auto getDepthBufferPool() const noexcept -> DepthBuffer::PoolId;
 
         [[nodiscard]] auto getDepthBuffer() const noexcept -> DepthBuffer*;
 
@@ -317,12 +317,12 @@ struct Box;
             extract into, although you can use whatever format you like and the 
             results will be converted.
         */
-        virtual void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FB_AUTO) = 0;
+        virtual void copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer = FrameBuffer::AUTO) = 0;
 
         /** Suggests a pixel format to use for extracting the data in this target,
             when calling copyContentsToMemory.
         */
-        [[nodiscard]] virtual auto suggestPixelFormat() const noexcept -> PixelFormat { return PF_BYTE_RGBA; }
+        [[nodiscard]] virtual auto suggestPixelFormat() const noexcept -> PixelFormat { return PixelFormat::BYTE_RGBA; }
         
         /** Writes the current contents of the render target to the named file. */
         void writeContentsToFile(std::string_view filename);
@@ -445,7 +445,7 @@ struct Box;
 
         uint32 mWidth;
         uint32 mHeight;
-        uint16       mDepthBufferPoolId{DepthBuffer::POOL_DEFAULT};
+        DepthBuffer::PoolId mDepthBufferPoolId{DepthBuffer::PoolId::DEFAULT};
         DepthBuffer *mDepthBuffer{nullptr};
 
         // Stats

@@ -169,9 +169,9 @@ class Viewport;
         /// @see Camera::getPixelDisplayRatio
         Real mPixelDisplayRatio{0};
 
-        SortMode mSortMode{SM_DISTANCE};
+        SortMode mSortMode{SortMode::Distance};
         /// Rendering type
-        PolygonMode mSceneDetail{PM_SOLID};
+        PolygonMode mSceneDetail{PolygonMode::SOLID};
 
         // Internal functions for calcs
         auto isViewOutOfDate() const noexcept -> bool override;

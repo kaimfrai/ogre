@@ -108,7 +108,7 @@ namespace Ogre {
         // Base computation on projection type
         switch (camera->getProjectionType())
         {
-        case PT_PERSPECTIVE:
+        case ProjectionType::PERSPECTIVE:
             {
                 // Get camera distance
                 Real distanceSquared = movableObject->getParentNode()->getSquaredViewDepth(camera);
@@ -127,7 +127,7 @@ namespace Ogre {
                 return 0.25 * (boundingArea * projectionMatrix[0][0] * projectionMatrix[1][1]) /
                        distanceSquared;
             }
-        case PT_ORTHOGRAPHIC:
+        case ProjectionType::ORTHOGRAPHIC:
             {
                 // Compute orthographic area
                 Real orthoArea = camera->getOrthoWindowHeight() * camera->getOrthoWindowWidth();

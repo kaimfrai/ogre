@@ -63,12 +63,12 @@ namespace Ogre {
         /** Function to get the closest matching OGRE format to an internal GL format. To be
             precise, the format will be chosen that is most efficient to transfer to the card 
             without losing precision.
-            @remarks It is valid for this function to always return PF_A8R8G8B8.
+            @remarks It is valid for this function to always return PixelFormat::A8R8G8B8.
         */
         static auto getClosestOGREFormat(GLenum fmt) -> PixelFormat;
 
         /** Returns next power-of-two size if required by render system, in case
-            RSC_NON_POWER_OF_2_TEXTURES is supported it returns value as-is.
+            Capabilities::NON_POWER_OF_2_TEXTURES is supported it returns value as-is.
         */
         static auto optionalPO2(uint32 value) -> uint32;
     };

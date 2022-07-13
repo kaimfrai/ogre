@@ -120,17 +120,45 @@ class VertexData;
     };
 
     /** A set of flags that can be used to influence ShadowRenderable creation. */
-    enum ShadowRenderableFlags
+    enum class ShadowRenderableFlags
     {
         /// For shadow volume techniques only, generate a light cap on the volume.
-        SRF_INCLUDE_LIGHT_CAP = 0x00000001,
+        INCLUDE_LIGHT_CAP = 0x00000001,
         /// For shadow volume techniques only, generate a dark cap on the volume.
-        SRF_INCLUDE_DARK_CAP  = 0x00000002,
+        INCLUDE_DARK_CAP  = 0x00000002,
         /// For shadow volume techniques only, indicates volume is extruded to infinity.
-        SRF_EXTRUDE_TO_INFINITY  = 0x00000004,
+        EXTRUDE_TO_INFINITY  = 0x00000004,
         /// For shadow volume techniques only, indicates hardware extrusion is not supported.
-        SRF_EXTRUDE_IN_SOFTWARE  = 0x00000008,
+        EXTRUDE_IN_SOFTWARE  = 0x00000008,
     };
+
+    auto constexpr operator bitor(ShadowRenderableFlags left, ShadowRenderableFlags right) -> ShadowRenderableFlags
+    {
+        return static_cast<ShadowRenderableFlags>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |=(ShadowRenderableFlags& left, ShadowRenderableFlags right) -> ShadowRenderableFlags&
+    {
+        return left = left bitor right;
+    }
+
+    auto constexpr operator not(ShadowRenderableFlags value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    auto constexpr operator bitand(ShadowRenderableFlags left, ShadowRenderableFlags right) -> ShadowRenderableFlags
+    {
+        return static_cast<ShadowRenderableFlags>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
 
     using ShadowRenderableList = std::vector<ShadowRenderable *>;
 
@@ -170,8 +198,8 @@ class VertexData;
             the current contents are assumed to be disposable.
         @param indexBufferUsedSize
             If the rest of buffer is enough than it would be locked with
-            HBL_NO_OVERWRITE semantic and indexBufferUsedSize would be increased,
-            otherwise HBL_DISCARD would be used and indexBufferUsedSize would be reset.
+            LockOptions::NO_OVERWRITE semantic and indexBufferUsedSize would be increased,
+            otherwise LockOptions::DISCARD would be used and indexBufferUsedSize would be reset.
         @param extrusionDistance
             The distance to extrude the shadow volume.
         @param flags
@@ -180,7 +208,7 @@ class VertexData;
         virtual auto
         getShadowVolumeRenderableList(const Light* light, const HardwareIndexBufferPtr& indexBuffer,
                                       size_t& indexBufferUsedSize, float extrusionDistance,
-                                      int flags = 0) -> const ShadowRenderableList& = 0;
+                                      ShadowRenderableFlags flags = {}) -> const ShadowRenderableList& = 0;
 
         /** Common implementation of releasing shadow renderables.*/
         static void clearShadowRenderableList(ShadowRenderableList& shadowRenderables);
@@ -234,8 +262,8 @@ class VertexData;
             contents are assumed to be discardable.
         @param indexBufferUsedSize
             If the rest of buffer is enough than it would be locked with
-            HBL_NO_OVERWRITE semantic and indexBufferUsedSize would be increased,
-            otherwise HBL_DISCARD would be used and indexBufferUsedSize would be reset.
+            LockOptions::NO_OVERWRITE semantic and indexBufferUsedSize would be increased,
+            otherwise LockOptions::DISCARD would be used and indexBufferUsedSize would be reset.
         @param light
             The light, mainly for type info as silhouette calculations
             should already have been done in updateEdgeListLightFacing
@@ -248,7 +276,7 @@ class VertexData;
         */
         virtual void generateShadowVolume(EdgeData* edgeData, 
             const HardwareIndexBufferSharedPtr& indexBuffer, size_t& indexBufferUsedSize,
-            const Light* light, ShadowRenderableList& shadowRenderables, unsigned long flags);
+            const Light* light, ShadowRenderableList& shadowRenderables, ShadowRenderableFlags flags);
         /** Utility method for extruding a bounding box. 
         @param box
             Original bounding box, will be updated in-place.

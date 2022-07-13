@@ -49,7 +49,7 @@ class Frustum;
         : mBorderColour(ColourValue::Black)
          
     {
-        setAddressingMode(TAM_WRAP);
+        setAddressingMode(TextureAddressingMode::WRAP);
     }
     Sampler::~Sampler() = default;
     //-----------------------------------------------------------------------
@@ -64,17 +64,17 @@ class Frustum;
     {
         switch (filterType)
         {
-        case TFO_NONE:
-            setFiltering(FO_POINT, FO_POINT, FO_NONE);
+        case TextureFilterOptions::NONE:
+            setFiltering(FilterOptions::POINT, FilterOptions::POINT, FilterOptions::NONE);
             break;
-        case TFO_BILINEAR:
-            setFiltering(FO_LINEAR, FO_LINEAR, FO_POINT);
+        case TextureFilterOptions::BILINEAR:
+            setFiltering(FilterOptions::LINEAR, FilterOptions::LINEAR, FilterOptions::POINT);
             break;
-        case TFO_TRILINEAR:
-            setFiltering(FO_LINEAR, FO_LINEAR, FO_LINEAR);
+        case TextureFilterOptions::TRILINEAR:
+            setFiltering(FilterOptions::LINEAR, FilterOptions::LINEAR, FilterOptions::LINEAR);
             break;
-        case TFO_ANISOTROPIC:
-            setFiltering(FO_ANISOTROPIC, FO_ANISOTROPIC, FO_LINEAR);
+        case TextureFilterOptions::ANISOTROPIC:
+            setFiltering(FilterOptions::ANISOTROPIC, FilterOptions::ANISOTROPIC, FilterOptions::LINEAR);
             break;
         }
     }
@@ -83,13 +83,13 @@ class Frustum;
     {
         switch (ft)
         {
-        case FT_MIN:
+        case FilterType::Min:
             mMinFilter = fo;
             break;
-        case FT_MAG:
+        case FilterType::Mag:
             mMagFilter = fo;
             break;
-        case FT_MIP:
+        case FilterType::Mip:
             mMipFilter = fo;
             break;
         }
@@ -108,11 +108,11 @@ class Frustum;
     {
         switch (ft)
         {
-        case FT_MIN:
+        case FilterType::Min:
             return mMinFilter;
-        case FT_MAG:
+        case FilterType::Mag:
             return mMagFilter;
-        case FT_MIP:
+        case FilterType::Mip:
             return mMipFilter;
         }
         // to keep compiler happy
@@ -130,8 +130,8 @@ class Frustum;
         , mVScale(1)
         , mRotate(0)
         , mTexModMatrix(Matrix4::IDENTITY)
-        , mBindingType(BT_FRAGMENT)
-        , mContentType(CONTENT_NAMED)
+        , mBindingType(BindingType::FRAGMENT)
+        , mContentType(ContentType::NAMED)
         , mTextureLoadFailed(false)
         , mRecalcTexMatrix(false)
         , mFramePtrs(1)
@@ -139,12 +139,12 @@ class Frustum;
         , mParent(parent)
         , mAnimController(nullptr)
     {
-        mColourBlendMode.blendType = LBT_COLOUR;
-        mAlphaBlendMode.operation = LBX_MODULATE;
-        mAlphaBlendMode.blendType = LBT_ALPHA;
-        mAlphaBlendMode.source1 = LBS_TEXTURE;
-        mAlphaBlendMode.source2 = LBS_CURRENT;
-        setColourOperation(LBO_MODULATE);
+        mColourBlendMode.blendType = LayerBlendType::COLOUR;
+        mAlphaBlendMode.operation = LayerBlendOperationEx::MODULATE;
+        mAlphaBlendMode.blendType = LayerBlendType::ALPHA;
+        mAlphaBlendMode.source1 = LayerBlendSource::TEXTURE;
+        mAlphaBlendMode.source2 = LayerBlendSource::CURRENT;
+        setColourOperation(LayerBlendOperation::MODULATE);
 
         if( Pass::getHashFunction() == Pass::getBuiltinHashFunction( Pass::MIN_TEXTURE_CHANGE ) )
         {
@@ -173,20 +173,20 @@ class Frustum;
         , mVScale(1)
         , mRotate(0)
         , mTexModMatrix(Matrix4::IDENTITY)
-        , mBindingType(BT_FRAGMENT)
-        , mContentType(CONTENT_NAMED)
+        , mBindingType(BindingType::FRAGMENT)
+        , mContentType(ContentType::NAMED)
         , mTextureLoadFailed(false)
         , mRecalcTexMatrix(false)
         , mSampler(TextureManager::getSingletonPtr() ? TextureManager::getSingleton().getDefaultSampler() : DUMMY_SAMPLER)
         , mParent(parent)
         , mAnimController(nullptr)
     {
-        mColourBlendMode.blendType = LBT_COLOUR;
-        mAlphaBlendMode.operation = LBX_MODULATE;
-        mAlphaBlendMode.blendType = LBT_ALPHA;
-        mAlphaBlendMode.source1 = LBS_TEXTURE;
-        mAlphaBlendMode.source2 = LBS_CURRENT;
-        setColourOperation(LBO_MODULATE);
+        mColourBlendMode.blendType = LayerBlendType::COLOUR;
+        mAlphaBlendMode.operation = LayerBlendOperationEx::MODULATE;
+        mAlphaBlendMode.blendType = LayerBlendType::ALPHA;
+        mAlphaBlendMode.source1 = LayerBlendSource::TEXTURE;
+        mAlphaBlendMode.source2 = LayerBlendSource::CURRENT;
+        setColourOperation(LayerBlendOperation::MODULATE);
 
         setTextureName(texName);
         setTextureCoordSet(texCoordSet);
@@ -271,18 +271,18 @@ class Frustum;
     {
         if (!texPtr)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 "Texture Pointer is empty.",
                 "TextureUnitState::setTexture");
         }
 
-        setContentType(CONTENT_NAMED);
+        setContentType(ContentType::NAMED);
         mTextureLoadFailed = false;
         
-        if (texPtr->getTextureType() == TEX_TYPE_EXTERNAL_OES)
+        if (texPtr->getTextureType() == TextureType::EXTERNAL_OES)
         {
-            setTextureAddressingMode( TAM_CLAMP );
-            setTextureFiltering(FT_MIP, FO_NONE);
+            setTextureAddressingMode( TextureAddressingMode::CLAMP );
+            setTextureFiltering(FilterType::Mip, FilterOptions::NONE);
         }
 
         mFramePtrs.resize(1);
@@ -321,7 +321,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     auto TextureUnitState::getTextureType() const -> TextureType
     {
-        return !mFramePtrs[0] ? TEX_TYPE_2D : mFramePtrs[0]->getTextureType();
+        return !mFramePtrs[0] ? TextureType::_2D : mFramePtrs[0]->getTextureType();
     }
 
     //-----------------------------------------------------------------------
@@ -346,7 +346,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::addFrameTextureName(std::string_view name)
     {
-        setContentType(CONTENT_NAMED);
+        setContentType(ContentType::NAMED);
         mTextureLoadFailed = false;
 
         mFramePtrs.push_back(retrieveTexture(name));
@@ -398,7 +398,7 @@ class Frustum;
     //-----------------------------------------------------------------------
     void TextureUnitState::setAnimatedTextureName(const String* const names, size_t numFrames, Real duration)
     {
-        setContentType(CONTENT_NAMED);
+        setContentType(ContentType::NAMED);
         mTextureLoadFailed = false;
 
         // resize pointers, but don't populate until needed
@@ -429,17 +429,17 @@ class Frustum;
         const char* typeName;
         switch(type)
         {
-        case TEX_TYPE_CUBE_MAP:
+        case TextureType::CUBE_MAP:
             typeName = "Cube";
             break;
-        case TEX_TYPE_2D_ARRAY:
+        case TextureType::_2D_ARRAY:
             typeName = "Array";
             break;
-        case TEX_TYPE_3D:
+        case TextureType::_3D:
             typeName = "Volume";
             break;
         default:
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "arrays not possible for this texture type");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "arrays not possible for this texture type");
             return;
         }
 
@@ -460,7 +460,7 @@ class Frustum;
         
         TexturePtr tex = _getTexturePtr(frame);
         if (!tex)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find texture {}", frame),
+            OGRE_EXCEPT( ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Could not find texture {}", frame),
             "TextureUnitState::getTextureDimensions" );
 
         return {tex->getWidth(), tex->getHeight()};
@@ -503,21 +503,21 @@ class Frustum;
     //-----------------------------------------------------------------------
     auto TextureUnitState::getDesiredFormat() const -> PixelFormat
     {
-        return !mFramePtrs[0] ? PF_UNKNOWN : mFramePtrs[0]->getDesiredFormat();
+        return !mFramePtrs[0] ? PixelFormat::UNKNOWN : mFramePtrs[0]->getDesiredFormat();
     }
     //-----------------------------------------------------------------------
-    void TextureUnitState::setNumMipmaps(int numMipmaps)
+    void TextureUnitState::setNumMipmaps(TextureMipmap numMipmaps)
     {
         OgreAssert(mFramePtrs[0], "frame must not be blank");
         for (auto& frame : mFramePtrs)
-            frame->setNumMipmaps(numMipmaps == MIP_DEFAULT
+            frame->setNumMipmaps(numMipmaps == TextureMipmap::DEFAULT
                                      ? TextureManager::getSingleton().getDefaultNumMipmaps()
                                      : numMipmaps);
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::getNumMipmaps() const noexcept -> int
+    auto TextureUnitState::getNumMipmaps() const noexcept -> TextureMipmap
     {
-        return !mFramePtrs[0] ? int(MIP_DEFAULT) : mFramePtrs[0]->getNumMipmaps();
+        return !mFramePtrs[0] ? TextureMipmap::DEFAULT : mFramePtrs[0]->getNumMipmaps();
     }
     //-----------------------------------------------------------------------
     void TextureUnitState::setIsAlpha(bool isAlpha)
@@ -579,21 +579,21 @@ class Frustum;
         // Set up the multitexture and multipass blending operations
         switch (op)
         {
-        case LBO_REPLACE:
-            setColourOperationEx(LBX_SOURCE1, LBS_TEXTURE, LBS_CURRENT);
-            setColourOpMultipassFallback(SBF_ONE, SBF_ZERO);
+        case LayerBlendOperation::REPLACE:
+            setColourOperationEx(LayerBlendOperationEx::SOURCE1, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
+            setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ZERO);
             break;
-        case LBO_ADD:
-            setColourOperationEx(LBX_ADD, LBS_TEXTURE, LBS_CURRENT);
-            setColourOpMultipassFallback(SBF_ONE, SBF_ONE);
+        case LayerBlendOperation::ADD:
+            setColourOperationEx(LayerBlendOperationEx::ADD, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
+            setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ONE);
             break;
-        case LBO_MODULATE:
-            setColourOperationEx(LBX_MODULATE, LBS_TEXTURE, LBS_CURRENT);
-            setColourOpMultipassFallback(SBF_DEST_COLOUR, SBF_ZERO);
+        case LayerBlendOperation::MODULATE:
+            setColourOperationEx(LayerBlendOperationEx::MODULATE, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
+            setColourOpMultipassFallback(SceneBlendFactor::DEST_COLOUR, SceneBlendFactor::ZERO);
             break;
-        case LBO_ALPHA_BLEND:
-            setColourOperationEx(LBX_BLEND_TEXTURE_ALPHA, LBS_TEXTURE, LBS_CURRENT);
-            setColourOpMultipassFallback(SBF_SOURCE_ALPHA, SBF_ONE_MINUS_SOURCE_ALPHA);
+        case LayerBlendOperation::ALPHA_BLEND:
+            setColourOperationEx(LayerBlendOperationEx::BLEND_TEXTURE_ALPHA, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
+            setColourOpMultipassFallback(SceneBlendFactor::SOURCE_ALPHA, SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA);
             break;
         }
 
@@ -626,12 +626,12 @@ class Frustum;
         // Ensure controller pointer is null
         effect.controller = nullptr;
 
-        if (effect.type == ET_ENVIRONMENT_MAP 
-            || effect.type == ET_UVSCROLL
-            || effect.type == ET_USCROLL
-            || effect.type == ET_VSCROLL
-            || effect.type == ET_ROTATE
-            || effect.type == ET_PROJECTIVE_TEXTURE)
+        if (effect.type == TextureEffectType::ENVIRONMENT_MAP 
+            || effect.type == TextureEffectType::UVSCROLL
+            || effect.type == TextureEffectType::USCROLL
+            || effect.type == TextureEffectType::VSCROLL
+            || effect.type == TextureEffectType::ROTATE
+            || effect.type == TextureEffectType::PROJECTIVE_TEXTURE)
         {
             // Replace - must be unique
             // Search for existing effect of this type
@@ -705,14 +705,14 @@ class Frustum;
         if (enable)
         {
             TextureEffect eff;
-            eff.type = ET_ENVIRONMENT_MAP;
+            eff.type = TextureEffectType::ENVIRONMENT_MAP;
 
-            eff.subtype = envMapType;
+            eff.subtype = std::to_underlying(envMapType);
             addEffect(eff);
         }
         else
         {
-            removeEffect(ET_ENVIRONMENT_MAP);
+            removeEffect(TextureEffectType::ENVIRONMENT_MAP);
         }
     }
     //-----------------------------------------------------------------------
@@ -857,9 +857,9 @@ class Frustum;
     void TextureUnitState::setScrollAnimation(Real uSpeed, Real vSpeed)
     {
         // Remove existing effects
-        removeEffect(ET_UVSCROLL);
-        removeEffect(ET_USCROLL);
-        removeEffect(ET_VSCROLL);
+        removeEffect(TextureEffectType::UVSCROLL);
+        removeEffect(TextureEffectType::USCROLL);
+        removeEffect(TextureEffectType::VSCROLL);
 
         // don't create an effect if the speeds are both 0
         if(uSpeed == 0.0f && vSpeed == 0.0f) 
@@ -871,7 +871,7 @@ class Frustum;
         TextureEffect eff;
     if(uSpeed == vSpeed) 
     {
-        eff.type = ET_UVSCROLL;
+        eff.type = TextureEffectType::UVSCROLL;
         eff.arg1 = uSpeed;
         addEffect(eff);
     }
@@ -879,13 +879,13 @@ class Frustum;
     {
         if(uSpeed)
         {
-            eff.type = ET_USCROLL;
+            eff.type = TextureEffectType::USCROLL;
         eff.arg1 = uSpeed;
         addEffect(eff);
     }
         if(vSpeed)
         {
-            eff.type = ET_VSCROLL;
+            eff.type = TextureEffectType::VSCROLL;
             eff.arg1 = vSpeed;
             addEffect(eff);
         }
@@ -895,7 +895,7 @@ class Frustum;
     void TextureUnitState::setRotateAnimation(Real speed)
     {
         // Remove existing effect
-        removeEffect(ET_ROTATE);
+        removeEffect(TextureEffectType::ROTATE);
         // don't create an effect if the speed is 0
         if(speed == 0.0f) 
         {
@@ -903,7 +903,7 @@ class Frustum;
         }
         // Create new effect
         TextureEffect eff;
-        eff.type = ET_ROTATE;
+        eff.type = TextureEffectType::ROTATE;
         eff.arg1 = speed;
         addEffect(eff);
     }
@@ -912,12 +912,12 @@ class Frustum;
         WaveformType waveType, Real base, Real frequency, Real phase, Real amplitude)
     {
         // Remove existing effect
-        // note, only remove for subtype, not entire ET_TRANSFORM
+        // note, only remove for subtype, not entire TextureEffectType::TRANSFORM
         // otherwise we won't be able to combine subtypes
         // Get range of items matching this effect
         for (auto i = mEffects.begin(); i != mEffects.end(); ++i)
         {
-            if (i->second.type == ET_TRANSFORM && i->second.subtype == ttype)
+            if (i->second.type == TextureEffectType::TRANSFORM && i->second.subtype == std::to_underlying(ttype))
             {
                 if (i->second.controller)
                 {
@@ -937,8 +937,8 @@ class Frustum;
     }
         // Create new effect
         TextureEffect eff;
-        eff.type = ET_TRANSFORM;
-        eff.subtype = ttype;
+        eff.type = TextureEffectType::TRANSFORM;
+        eff.subtype = std::to_underlying(ttype);
         eff.waveType = waveType;
         eff.base = base;
         eff.frequency = frequency;
@@ -989,7 +989,7 @@ class Frustum;
     {
         if (frame < mFramePtrs.size())
         {
-            if (mContentType == CONTENT_NAMED)
+            if (mContentType == ContentType::NAMED)
             {
                 ensureLoaded(frame);
             }
@@ -1079,23 +1079,23 @@ class Frustum;
         ControllerManager& cMgr = ControllerManager::getSingleton();
         switch (effect.type)
         {
-        case ET_UVSCROLL:
+        case TextureEffectType::UVSCROLL:
             effect.controller = cMgr.createTextureUVScroller(this, effect.arg1);
             break;
-        case ET_USCROLL:
+        case TextureEffectType::USCROLL:
             effect.controller = cMgr.createTextureUScroller(this, effect.arg1);
             break;
-        case ET_VSCROLL:
+        case TextureEffectType::VSCROLL:
             effect.controller = cMgr.createTextureVScroller(this, effect.arg1);
             break;
-        case ET_ROTATE:
+        case TextureEffectType::ROTATE:
             effect.controller = cMgr.createTextureRotater(this, effect.arg1);
             break;
-        case ET_TRANSFORM:
+        case TextureEffectType::TRANSFORM:
             effect.controller = cMgr.createTextureWaveTransformer(this, (TextureUnitState::TextureTransformType)effect.subtype, effect.waveType, effect.base,
                 effect.frequency, effect.phase, effect.amplitude);
             break;
-        case ET_ENVIRONMENT_MAP:
+        case TextureEffectType::ENVIRONMENT_MAP:
             break;
         default:
             break;
@@ -1169,7 +1169,7 @@ class Frustum;
 
         // don't unload named textures. may be used elsewhere
         // drop references on managed textures, however
-        if(mContentType != CONTENT_NAMED)
+        if(mContentType != ContentType::NAMED)
             mFramePtrs[0].reset();
     }
     //-----------------------------------------------------------------------------
@@ -1194,16 +1194,16 @@ class Frustum;
                 auto begin() { return Begin; }
                 auto end() { return End; }
             }   span
-            {   mEffects.find(ET_ENVIRONMENT_MAP)
+            {   mEffects.find(TextureEffectType::ENVIRONMENT_MAP)
             ,   mEffects.end()
             };
             auto const& i : span)
         {
-            if (i.second.subtype == ENV_REFLECTION)
+            if (i.second.subtype == std::to_underlying(EnvMapType::REFLECTION))
                 return true;
         }
 
-        if(mEffects.find(ET_PROJECTIVE_TEXTURE) != mEffects.end())
+        if(mEffects.find(TextureEffectType::PROJECTIVE_TEXTURE) != mEffects.end())
         {
             return true;
         }
@@ -1217,13 +1217,13 @@ class Frustum;
         if (enable)
         {
             TextureEffect eff;
-            eff.type = ET_PROJECTIVE_TEXTURE;
+            eff.type = TextureEffectType::PROJECTIVE_TEXTURE;
             eff.frustum = projectionSettings;
             addEffect(eff);
         }
         else
         {
-            removeEffect(ET_PROJECTIVE_TEXTURE);
+            removeEffect(TextureEffectType::PROJECTIVE_TEXTURE);
         }
 
     }

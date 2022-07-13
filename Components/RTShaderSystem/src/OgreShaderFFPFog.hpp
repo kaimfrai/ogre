@@ -62,10 +62,10 @@ class FFPFog : public SubRenderState
 public:
 
     // Fog calculation mode enum.
-    enum CalcMode
+    enum class CalcMode
     {
-        CM_PER_VERTEX   = 1,        // Per vertex fog calculations. (Default).
-        CM_PER_PIXEL    = 2         // Per pixel fog calculations.
+        PER_VERTEX   = 1,        // Per vertex fog calculations. (Default).
+        PER_PIXEL    = 2         // Per pixel fog calculations.
     };
 
 // Interface.
@@ -82,7 +82,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /** 
     @see SubRenderState::copyFrom.

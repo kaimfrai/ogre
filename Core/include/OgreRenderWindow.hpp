@@ -207,7 +207,7 @@ namespace Ogre
         void getMetrics(unsigned int& width, unsigned int& height, int& left, int& top) const;
 
         /// Override since windows don't usually have alpha
-        [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override { return PF_BYTE_RGB; }
+        [[nodiscard]] auto suggestPixelFormat() const noexcept -> PixelFormat override { return PixelFormat::BYTE_RGB; }
 
         /** Returns true if the window will automatically de-activate itself when it loses focus.
         */

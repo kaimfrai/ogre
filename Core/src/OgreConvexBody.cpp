@@ -938,7 +938,7 @@ namespace Ogre
             // check if polygons lie inside or outside (or on the plane)
             // for each vertex check where it is situated in regard to the plane
             // three possibilities appear:
-            Plane::Side clipSide = keepNegative ? Plane::POSITIVE_SIDE : Plane::NEGATIVE_SIDE;
+            Plane::Side clipSide = keepNegative ? Plane::Side::Positive : Plane::Side::Negative;
             // - side is clipSide: vertex will be clipped
             // - side is !clipSide: vertex will be untouched
             // - side is NOSIDE:   vertex will be untouched
@@ -1194,7 +1194,7 @@ namespace Ogre
         StringStream ssOut( std::stringstream::out );
         ssOut << *this;
         
-        Ogre::LogManager::getSingleton().logMessage( Ogre::LML_NORMAL, ssOut.str()  );
+        Ogre::LogManager::getSingleton().logMessage( Ogre::LogMessageLevel::Normal, ssOut.str()  );
     }
 }
 

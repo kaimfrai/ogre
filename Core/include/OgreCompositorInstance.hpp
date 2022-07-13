@@ -38,6 +38,7 @@ THE SOFTWARE.
 
 #include "OgreCommon.hpp"
 #include "OgreCompositionTechnique.hpp"
+#include "OgreDepthBuffer.hpp"
 #include "OgreMaterialManager.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePlatform.hpp"
@@ -125,7 +126,7 @@ class SceneManager;
             /// Set state to SceneManager and RenderSystem
             virtual void execute(SceneManager *sm, RenderSystem *rs) = 0;
         };
-        using RenderSystemOpPair = std::pair<int, RenderSystemOperation *>;
+        using RenderSystemOpPair = std::pair<Ogre::RenderQueueGroupID, RenderSystemOperation *>;
         using RenderSystemOpPairs = std::vector<RenderSystemOpPair>;
         /** Operation setup for a RenderTarget (collected).
         */
@@ -135,7 +136,7 @@ class SceneManager;
             TargetOperation()
             = default;
             TargetOperation(RenderTarget* inTarget)
-                : target(inTarget), currentQueueGroupID(0), visibilityMask(0xFFFFFFFF), lodBias(1.0f),
+                : target(inTarget), currentQueueGroupID{0}, visibilityMask{0xFFFFFFFF}, lodBias(1.0f),
                   onlyInitial(false), hasBeenRendered(false), findVisibleObjects(false),
                   materialScheme(MaterialManager::DEFAULT_SCHEME_NAME), shadowsEnabled(true),
                   alignCameraToFace(-1)
@@ -145,7 +146,7 @@ class SceneManager;
             RenderTarget *target;
 
             /// Current group ID
-            int currentQueueGroupID;
+            RenderQueueGroupID currentQueueGroupID;
 
             /// RenderSystem operations to queue into the scene manager, by
             /// uint8
@@ -153,7 +154,7 @@ class SceneManager;
 
             /// Scene visibility mask
             /// If this is 0, the scene is not rendered at all
-            uint32 visibilityMask;
+            QueryTypeMask visibilityMask;
             
             /// LOD offset. This is multiplied with the camera LOD offset
             /// 1.0 is default, lower means lower detail, higher means higher detail
@@ -161,7 +162,7 @@ class SceneManager;
             
             /** A set of render queues to either include or exclude certain render queues.
             */
-            using RenderQueueBitSet = std::bitset<RENDER_QUEUE_COUNT>;
+            using RenderQueueBitSet = std::bitset<std::to_underlying(RenderQueueGroupID::COUNT)>;
 
             /// Which renderqueues to render from scene
             RenderQueueBitSet renderQueues;
@@ -377,7 +378,7 @@ class SceneManager;
         */
         void createResources(bool forResizeOnly);
 
-        void setupRenderTarget(RenderTarget* target, uint16 depthBufferId);
+        void setupRenderTarget(RenderTarget* target, DepthBuffer::PoolId depthBufferId);
         
         /** Destroy local rendertextures and other resources.
         */

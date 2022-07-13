@@ -88,7 +88,7 @@ namespace Ogre
         mDictionaryName = "NotAssigned";
         mUpdateEveryFrame = false;
         mFramesPerSecond = 24;
-        mMode = TextureEffectPause;
+        mMode = eTexturePlayMode::Pause;
     }
 
     //---------------------------------------------------------------------------------------//
@@ -96,7 +96,7 @@ namespace Ogre
     void ExternalTextureSource::addBaseParams()
     {
         if( mDictionaryName == "NotAssigned" )
-            OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::FILE_NOT_FOUND, 
                 ::std::format("Plugin {}"
                 " needs to override default mDictionaryName", 
                 "ExternalTextureSource::addBaseParams", mPluginName ));
@@ -108,19 +108,19 @@ namespace Ogre
             
             dict->addParameter(ParameterDef("filename", 
                 "A source for the texture effect (only certain plugins require this)"
-                , PT_STRING),
+                , ParameterType::STRING),
                 &msCmdInputFile);
             dict->addParameter(ParameterDef("frames_per_second", 
                 "How fast should playback be (only certain plugins use this)"
-                , PT_INT),
+                , ParameterType::INT),
                 &msCmdFramesPerSecond);
             dict->addParameter(ParameterDef("play_mode", 
                 "How the playback starts(only certain plugins use this)"
-                , PT_STRING),
+                , ParameterType::STRING),
                 &msCmdPlayMode);
             dict->addParameter(ParameterDef("set_T_P_S", 
                 "Set the technique, pass, and state level of this texture_unit (eg. 0 0 0 )"
-                , PT_STRING),
+                , ParameterType::STRING),
                 &msCmdTecPassState);
         }
     }
@@ -154,13 +154,13 @@ namespace Ogre
 
         switch(eMode)
         {
-        case TextureEffectPlay_ASAP:
+        case eTexturePlayMode::Play_ASAP:
             val = "play";
             break;
-        case TextureEffectPlay_Looping: 
+        case eTexturePlayMode::Play_Looping:
             val = "loop";
             break;
-        case TextureEffectPause:
+        case eTexturePlayMode::Pause:
             val = "pause";
             break;
         default: 
@@ -172,14 +172,14 @@ namespace Ogre
     }
     void CmdPlayMode::doSet(void* target, std::string_view val)
     {
-        eTexturePlayMode eMode = TextureEffectPause;
+        eTexturePlayMode eMode = eTexturePlayMode::Pause;
 
         if( val == "play" )
-            eMode = TextureEffectPlay_ASAP;
+            eMode = eTexturePlayMode::Play_ASAP;
         if( val == "loop" )
-            eMode = TextureEffectPlay_Looping;
+            eMode = eTexturePlayMode::Play_Looping;
         if( val == "pause" )
-            eMode = TextureEffectPause;
+            eMode = eTexturePlayMode::Pause;
 
         static_cast<ExternalTextureSource*>(target)->setPlayMode( eMode );
     }
@@ -208,7 +208,7 @@ namespace Ogre
         }
         else
         {
-            LogManager::getSingleton().logMessage("Texture controller had problems extracting technique, pass, and state level... Default to 0, 0, 0", LML_CRITICAL);
+            LogManager::getSingleton().logMessage("Texture controller had problems extracting technique, pass, and state level... Default to 0, 0, 0", LogMessageLevel::Critical);
             t = p = s = 0;
         }
 

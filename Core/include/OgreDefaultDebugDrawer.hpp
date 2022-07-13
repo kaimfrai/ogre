@@ -20,19 +20,50 @@ class Viewport;
 
 class DefaultDebugDrawer : public DebugDrawer
 {
+public:
+    enum class DrawType
+    {
+        AXES = 1 << 0,
+        WIREBOX = 1 << 1
+    };
+
+    friend auto constexpr operator not(DrawType value) -> bool
+    {
+        return not std::to_underlying(value);
+    }
+
+    friend auto constexpr operator bitand(DrawType left, DrawType right) -> DrawType
+    {
+        return static_cast<DrawType>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    friend auto constexpr operator bitor(DrawType left, DrawType right) -> DrawType
+    {
+        return static_cast<DrawType>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    friend auto constexpr operator |=(DrawType& left, DrawType right) -> DrawType&
+    {
+        return left = left bitor right;
+    }
+
+private:
     ManualObject mLines;
     ManualObject mAxes;
-    int mDrawType{0};
+    DrawType mDrawType{0};
     bool mStatic{false};
     void preFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs, Viewport* v) override;
     void postFindVisibleObjects(SceneManager* source, SceneManager::IlluminationRenderStage irs, Viewport* v) override;
     void beginLines();
 public:
-    enum DrawType
-    {
-        DT_AXES = 1 << 0,
-        DT_WIREBOX = 1 << 1
-    };
 
     DefaultDebugDrawer();
 

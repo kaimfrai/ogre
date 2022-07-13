@@ -158,6 +158,12 @@ namespace Ogre {
         */
         static auto toString(const StringVector& val) -> String;
 
+        template<typename T>
+        static auto toString(T v) -> decltype(toString(std::to_underlying(v)))
+        {
+            return toString(std::to_underlying(v));
+        }
+
         /** Converts a String to a basic value type
             @return whether the conversion was successful
         */
@@ -177,6 +183,19 @@ namespace Ogre {
         static auto parse(std::string_view str, bool& v) -> bool;
         static auto parse(std::string_view str, double& v) -> bool;
         static auto parse(std::string_view str, float& v) -> bool;
+
+        template<typename T>
+        static auto parse(std::string_view str, T& v) -> bool
+            requires requires(std::underlying_type_t<T>& u)
+            {
+                parse(str, u);
+            }
+        {
+            auto u = std::to_underlying(v);
+            auto result = parse(str, u);
+            v = static_cast<T>(u);
+            return result;
+        }
 
         /** Converts a String to a Real. 
         @return
@@ -317,7 +336,7 @@ namespace Ogre {
 		@remarks
 			String input format should be "None", "Frame Sequential", etc.
 		*/
-		static auto parseStereoMode(std::string_view val, StereoModeType defaultValue = SMT_NONE) -> StereoModeType;
+		static auto parseStereoMode(std::string_view val, StereoModeType defaultValue = StereoModeType::NONE) -> StereoModeType;
 
 		static locale_t _numLocale;
     private:

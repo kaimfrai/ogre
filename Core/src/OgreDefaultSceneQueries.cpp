@@ -46,7 +46,7 @@ namespace Ogre {
     : IntersectionSceneQuery(creator)
     {
         // No world geometry results supported
-        mSupportedWorldFragments.insert(SceneQuery::WFT_NONE);
+        mSupportedWorldFragments.insert(SceneQuery::WorldFragmentType::NONE);
     }
     //---------------------------------------------------------------------
     DefaultIntersectionSceneQuery::~DefaultIntersectionSceneQuery()
@@ -79,7 +79,7 @@ namespace Ogre {
                     MovableObject* b = (objItB++)->second;
 
                     // Apply mask to b (both must pass)
-                    if ((b->getQueryFlags() & mQueryMask) && b->isInScene())
+                    if (std::to_underlying(b->getQueryFlags() & mQueryMask) && b->isInScene())
                     {
                         const AxisAlignedBox& box1 = a->getWorldBoundingBox();
                         const AxisAlignedBox& box2 = b->getWorldBoundingBox();
@@ -102,7 +102,7 @@ namespace Ogre {
                             break;
 
                         // Apply mask to c (both must pass)
-                        if ((c->getQueryFlags() & mQueryMask) && c->isInScene())
+                        if (std::to_underlying(c->getQueryFlags() & mQueryMask) && c->isInScene())
                         {
                             const AxisAlignedBox& box1 = a->getWorldBoundingBox();
                             const AxisAlignedBox& box2 = c->getWorldBoundingBox();
@@ -128,7 +128,7 @@ namespace Ogre {
     : AxisAlignedBoxSceneQuery(creator)
     {
         // No world geometry results supported
-        mSupportedWorldFragments.insert(SceneQuery::WFT_NONE);
+        mSupportedWorldFragments.insert(SceneQuery::WorldFragmentType::NONE);
     }
     //---------------------------------------------------------------------
     DefaultAxisAlignedBoxSceneQuery::~DefaultAxisAlignedBoxSceneQuery()
@@ -145,7 +145,7 @@ namespace Ogre {
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;
 
-                if ((a->getQueryFlags() & mQueryMask) && a->isInScene() &&
+                if (std::to_underlying(a->getQueryFlags() & mQueryMask) && a->isInScene() &&
                     mAABB.intersects(a->getWorldBoundingBox()))
                 {
                     if (!listener->queryResult(a)) return;
@@ -158,7 +158,7 @@ namespace Ogre {
     DefaultRaySceneQuery(SceneManager* creator) : RaySceneQuery(creator)
     {
         // No world geometry results supported
-        mSupportedWorldFragments.insert(SceneQuery::WFT_NONE);
+        mSupportedWorldFragments.insert(SceneQuery::WorldFragmentType::NONE);
     }
     //---------------------------------------------------------------------
     DefaultRaySceneQuery::~DefaultRaySceneQuery()
@@ -181,7 +181,7 @@ namespace Ogre {
                 if (!(a->getTypeFlags() & mQueryTypeMask))
                     break;
 
-                if ((a->getQueryFlags() & mQueryMask) && a->isInScene())
+                if (std::to_underlying(a->getQueryFlags() & mQueryMask) && a->isInScene())
                 {
                     // Do ray / box test
                     std::pair<bool, Real> result = mRay.intersects(a->getWorldBoundingBox());
@@ -200,7 +200,7 @@ namespace Ogre {
     DefaultSphereSceneQuery(SceneManager* creator) : SphereSceneQuery(creator)
     {
         // No world geometry results supported
-        mSupportedWorldFragments.insert(SceneQuery::WFT_NONE);
+        mSupportedWorldFragments.insert(SceneQuery::WorldFragmentType::NONE);
     }
     //---------------------------------------------------------------------
     DefaultSphereSceneQuery::~DefaultSphereSceneQuery()
@@ -234,7 +234,7 @@ namespace Ogre {
     : PlaneBoundedVolumeListSceneQuery(creator)
     {
         // No world geometry results supported
-        mSupportedWorldFragments.insert(SceneQuery::WFT_NONE);
+        mSupportedWorldFragments.insert(SceneQuery::WorldFragmentType::NONE);
     }
     //---------------------------------------------------------------------
     DefaultPlaneBoundedVolumeListSceneQuery::~DefaultPlaneBoundedVolumeListSceneQuery()
@@ -254,7 +254,7 @@ namespace Ogre {
                 for (const auto& vol : mVolumes)
                 {
                     // Do AABB / plane volume test
-                    if ((a->getQueryFlags() & mQueryMask) && a->isInScene() &&
+                    if (std::to_underlying(a->getQueryFlags() & mQueryMask) && a->isInScene() &&
                         vol.intersects(a->getWorldBoundingBox()))
                     {
                         if (!listener->queryResult(a)) return;

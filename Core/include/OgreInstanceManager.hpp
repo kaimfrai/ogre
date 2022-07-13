@@ -71,7 +71,7 @@ namespace Ogre
     class InstanceManager : public FactoryAlloc
     {
     public:
-        enum InstancingTechnique
+        enum class InstancingTechnique
         {
             ShaderBased,            ///< %Any SM 2.0+ @ref InstanceBatchShader
             TextureVTF,             ///< Needs Vertex Texture Fetch & SM 3.0+ @ref InstanceBatchVTF
@@ -80,8 +80,10 @@ namespace Ogre
             InstancingTechniquesCount
         };
 
+        using enum InstancingTechnique;
+
         /** Values to be used in setSetting() & BatchSettings::setting */
-        enum BatchSettingId
+        enum class BatchSettingId
         {
             /// Makes all batches from same material cast shadows
             CAST_SHADOWS        = 0,
@@ -91,16 +93,19 @@ namespace Ogre
             NUM_SETTINGS
         };
 
+        using enum BatchSettingId;
+
     private:
         struct BatchSettings
         {
             //These are all per material
-            bool setting[NUM_SETTINGS];
+            bool setting[std::to_underlying(BatchSettingId::NUM_SETTINGS)];
 
             BatchSettings()
             {
-                setting[CAST_SHADOWS]     = true;
-                setting[SHOW_BOUNDINGBOX] = false;
+                using enum BatchSettingId;
+                setting[std::to_underlying(CAST_SHADOWS)]     = true;
+                setting[std::to_underlying(SHOW_BOUNDINGBOX)] = false;
             }
         };
 
@@ -120,7 +125,7 @@ namespace Ogre
 
         size_t                  mInstancesPerBatch;
         InstancingTechnique     mInstancingTechnique;
-        uint16                  mInstancingFlags;       ///< @see InstanceManagerFlags
+        InstanceManagerFlags    mInstancingFlags;       ///< @see InstanceManagerFlags
         unsigned short          mSubMeshIdx;
         
         BatchSettingsMap        mBatchSettings;
@@ -164,7 +169,7 @@ namespace Ogre
     public:
         InstanceManager(std::string_view customName, SceneManager *sceneManager,
                          std::string_view meshName, std::string_view groupName,
-                         InstancingTechnique instancingTechnique, uint16 instancingFlags,
+                         InstancingTechnique instancingTechnique, InstanceManagerFlags instancingFlags,
                          size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup = false);
 
         [[nodiscard]] auto getName() const noexcept -> std::string_view { return mName; }
@@ -226,7 +231,7 @@ namespace Ogre
         @param flags @ref InstanceManagerFlags to pass to the InstanceManager
         @return The max/best amount of instances per batch given the suggested size and flags
         */
-        auto getMaxOrBestNumInstancesPerBatch( std::string_view materialName, size_t suggestedSize, uint16 flags ) -> size_t;
+        auto getMaxOrBestNumInstancesPerBatch( std::string_view materialName, size_t suggestedSize, InstanceManagerFlags flags ) -> size_t;
 
         /// Creates an InstancedEntity
         auto createInstancedEntity( std::string_view materialName ) -> InstancedEntity*;

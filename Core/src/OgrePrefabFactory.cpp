@@ -101,19 +101,19 @@ namespace Ogre {
 
         //! [vertex_decl]
         size_t offset = 0;
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_POSITION).getSize();
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_NORMAL).getSize();
-        offset += decl->addElement(0, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0).getSize();
         //! [vertex_decl]
 
         //! [vertex_buffer]
         HardwareVertexBufferPtr vbuf =
-            HardwareBufferManager::getSingleton().createVertexBuffer(offset, 4, HBU_GPU_ONLY);
+            HardwareBufferManager::getSingleton().createVertexBuffer(offset, 4, HardwareBufferUsage::GPU_ONLY);
         vbuf->writeData(0, vbuf->getSizeInBytes(), vertices, true);
         bind->setBinding(0, vbuf);
 
         HardwareIndexBufferPtr ibuf =
-            HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IT_16BIT, 6, HBU_GPU_ONLY);
+            HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IndexType::_16BIT, 6, HardwareBufferUsage::GPU_ONLY);
         ibuf->writeData(0, ibuf->getSizeInBytes(), faces, true);
         //! [vertex_buffer]
 
@@ -235,13 +235,13 @@ namespace Ogre {
         VertexBufferBinding* bind = mesh->sharedVertexData->vertexBufferBinding;
 
         size_t offset = 0;
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_POSITION).getSize();
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_NORMAL).getSize();
-        offset += decl->addElement(0, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0).getSize();
 
         HardwareVertexBufferSharedPtr vbuf = 
             HardwareBufferManager::getSingleton().createVertexBuffer(
-            offset, NUM_VERTICES, HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+            offset, NUM_VERTICES, HardwareBuffer::STATIC_WRITE_ONLY);
         bind->setBinding(0, vbuf);
 
         vbuf->writeData(0, vbuf->getSizeInBytes(), vertices, true);
@@ -249,9 +249,9 @@ namespace Ogre {
         sub->useSharedVertices = true;
         HardwareIndexBufferSharedPtr ibuf = HardwareBufferManager::getSingleton().
             createIndexBuffer(
-            HardwareIndexBuffer::IT_16BIT, 
+            HardwareIndexBuffer::IndexType::_16BIT, 
             NUM_INDICES,
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+            HardwareBuffer::STATIC_WRITE_ONLY);
 
         unsigned short faces[NUM_INDICES] = {
             // front
@@ -303,23 +303,23 @@ namespace Ogre {
         // define the vertex format
         VertexDeclaration* vertexDecl = vertexData->vertexDeclaration;
         size_t currOffset = 0;
-        currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_POSITION).getSize();
-        currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT3, VES_NORMAL).getSize();
-        currOffset += vertexDecl->addElement(0, currOffset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0).getSize();
+        currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
+        currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT3, VertexElementSemantic::NORMAL).getSize();
+        currOffset += vertexDecl->addElement(0, currOffset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0).getSize();
 
         // allocate the vertex buffer
         vertexData->vertexCount = (NUM_RINGS + 1) * (NUM_SEGMENTS+1);
-        HardwareVertexBufferSharedPtr vBuf = HardwareBufferManager::getSingleton().createVertexBuffer(vertexDecl->getVertexSize(0), vertexData->vertexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY, false);
+        HardwareVertexBufferSharedPtr vBuf = HardwareBufferManager::getSingleton().createVertexBuffer(vertexDecl->getVertexSize(0), vertexData->vertexCount, HardwareBuffer::STATIC_WRITE_ONLY, false);
         VertexBufferBinding* binding = vertexData->vertexBufferBinding;
         binding->setBinding(0, vBuf);
-        HardwareBufferLockGuard vBufLock(vBuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vBufLock(vBuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pVertex = static_cast<float*>(vBufLock.pData);
 
         // allocate index buffer
         pSphereVertex->indexData->indexCount = 6 * NUM_RINGS * (NUM_SEGMENTS + 1);
-        pSphereVertex->indexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IT_16BIT, pSphereVertex->indexData->indexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY, false);
+        pSphereVertex->indexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(HardwareIndexBuffer::IndexType::_16BIT, pSphereVertex->indexData->indexCount, HardwareBuffer::STATIC_WRITE_ONLY, false);
         HardwareIndexBufferSharedPtr iBuf = pSphereVertex->indexData->indexBuffer;
-        HardwareBufferLockGuard iBufLock(iBuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard iBufLock(iBuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pIndices = static_cast<unsigned short*>(iBufLock.pData);
 
         float fDeltaRingAngle = (Math::PI / NUM_RINGS);

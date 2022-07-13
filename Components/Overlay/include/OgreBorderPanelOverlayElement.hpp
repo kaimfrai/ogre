@@ -215,15 +215,15 @@ class RenderQueue;
         /// Internal method for setting up parameters
         void addBaseParameters() override;
 
-        enum BorderCellIndex {
-            BCELL_TOP_LEFT = 0,
-            BCELL_TOP = 1,
-            BCELL_TOP_RIGHT = 2,
-            BCELL_LEFT = 3,
-            BCELL_RIGHT = 4,
-            BCELL_BOTTOM_LEFT = 5,
-            BCELL_BOTTOM = 6,
-            BCELL_BOTTOM_RIGHT = 7
+        enum class BorderCellIndex {
+            TOP_LEFT = 0,
+            TOP = 1,
+            TOP_RIGHT = 2,
+            LEFT = 3,
+            RIGHT = 4,
+            BOTTOM_LEFT = 5,
+            BOTTOM = 6,
+            BOTTOM_RIGHT = 7
         };
         [[nodiscard]] auto getCellUVString(BorderCellIndex idx) const -> String;
 

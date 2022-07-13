@@ -150,7 +150,7 @@ namespace Ogre {
 
         if (!result.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                         ::std::format("{} with the name {} already exists.", getResourceType(), res->getName()),
                         "ResourceManager::add");
         }
@@ -159,7 +159,7 @@ namespace Ogre {
         std::pair<ResourceHandleMap::iterator, bool> resultHandle = mResourcesByHandle.emplace(res->getHandle(), res);
         if (!resultHandle.second)
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
                         std::format("{} with the handle {} already exists.", getResourceType(), (long) (res->getHandle())),
                         "ResourceManager::add");
         }
@@ -221,7 +221,7 @@ namespace Ogre {
         ResourcePtr res = getResourceByName(name, group);
 
         if (!res)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("attempting to unload unknown resource: {} in group {}", name, group));
 
         if (res)
@@ -244,8 +244,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceManager::unloadAll(Resource::LoadingFlags flags)
     {
-        bool reloadableOnly = (flags & Resource::LF_INCLUDE_NON_RELOADABLE) == 0;
-        bool unreferencedOnly = (flags & Resource::LF_ONLY_UNREFERENCED) != 0;
+        bool reloadableOnly = (flags & Resource::LoadingFlags::INCLUDE_NON_RELOADABLE) == Resource::LoadingFlags{};
+        bool unreferencedOnly = (flags & Resource::LoadingFlags::ONLY_UNREFERENCED) != Resource::LoadingFlags{};
 
         for (auto const& [key, res] : mResources)
         {
@@ -263,8 +263,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void ResourceManager::reloadAll(Resource::LoadingFlags flags)
     {
-        bool reloadableOnly = (flags & Resource::LF_INCLUDE_NON_RELOADABLE) == 0;
-        bool unreferencedOnly = (flags & Resource::LF_ONLY_UNREFERENCED) != 0;
+        bool reloadableOnly = (flags & Resource::LoadingFlags::INCLUDE_NON_RELOADABLE) == Resource::LoadingFlags{};
+        bool unreferencedOnly = (flags & Resource::LoadingFlags::ONLY_UNREFERENCED) != Resource::LoadingFlags{};
 
         for (auto const& [key, res] : mResources)
         {
@@ -290,7 +290,7 @@ namespace Ogre {
         ResourcePtr res = getResourceByName(name, group);
 
         if (!res)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("attempting to remove unknown resource: {} in group {}", name, group));
 
         if (res)

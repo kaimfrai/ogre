@@ -77,7 +77,7 @@ class Viewport;
          
     {
         mLightFrustumCamera->_notifyAttached(&mLightFrustumCameraNode);
-        mTempFrustum->setProjectionType(PT_PERSPECTIVE);
+        mTempFrustum->setProjectionType(ProjectionType::PERSPECTIVE);
     }
 
     FocusedShadowCameraSetup::~FocusedShadowCameraSetup() = default;
@@ -103,7 +103,7 @@ class Viewport;
             out_cam->setFarClipDistance(light._deriveShadowFarClipDistance());
         }
 
-        if (light.getType() == Light::LT_DIRECTIONAL)
+        if (light.getType() == Light::LightTypes::DIRECTIONAL)
         {
             // generate view matrix if requested
             if (out_view != nullptr)
@@ -132,13 +132,13 @@ class Viewport;
             // set up camera if requested
             if (out_cam != nullptr)
             {
-                out_cam->setProjectionType(PT_ORTHOGRAPHIC);
-                out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TS_WORLD);
+                out_cam->setProjectionType(ProjectionType::ORTHOGRAPHIC);
+                out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(cam.getDerivedPosition());
                 out_cam->setFOVy(Degree(90));
             }
         }
-        else if (light.getType() == Light::LT_POINT)
+        else if (light.getType() == Light::LightTypes::POINT)
         {
             // target analogue to the default shadow textures
             // Calculate look at position
@@ -172,13 +172,13 @@ class Viewport;
             // set up camera if requested
             if (out_cam != nullptr)
             {
-                out_cam->setProjectionType(PT_PERSPECTIVE);
-                out_cam->getParentSceneNode()->setDirection(lightDir, Node::TS_WORLD);
+                out_cam->setProjectionType(ProjectionType::PERSPECTIVE);
+                out_cam->getParentSceneNode()->setDirection(lightDir, Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(light.getDerivedPosition());
                 out_cam->setFOVy(Degree(120));
             }
         }
-        else if (light.getType() == Light::LT_SPOTLIGHT)
+        else if (light.getType() == Light::LightTypes::SPOTLIGHT)
         {
             // generate view matrix if requested
             if (out_view != nullptr)
@@ -203,8 +203,8 @@ class Viewport;
             // set up camera if requested
             if (out_cam != nullptr)
             {
-                out_cam->setProjectionType(PT_PERSPECTIVE);
-                out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TS_WORLD);
+                out_cam->setProjectionType(ProjectionType::PERSPECTIVE);
+                out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(light.getDerivedPosition());
                 out_cam->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian(0), Radian(Math::PI/2.0f)));
             }
@@ -222,7 +222,7 @@ class Viewport;
         // get V
         mBodyB.define(cam);
 
-        if (light.getType() != Light::LT_DIRECTIONAL)
+        if (light.getType() != Light::LightTypes::DIRECTIONAL)
         {
             // clip bodyB with sceneBB
             /* Note, Matthias' original code states this:
@@ -303,7 +303,7 @@ class Viewport;
         // for a directional light the space of the intersected
         // view frustum and sceneBB is always lighted and in front
         // of the viewer.
-        if (light.getType() != Light::LT_DIRECTIONAL)
+        if (light.getType() != Light::LightTypes::DIRECTIONAL)
         {
             // clip with the light frustum
             // set up light camera to clip the resulting frustum

@@ -89,12 +89,12 @@ class ResourceManager;
         {
             switch (operationType)
             {
-            case RenderOperation::OT_POINT_LIST:
-            case RenderOperation::OT_LINE_STRIP:
-            case RenderOperation::OT_TRIANGLE_STRIP:
+            case RenderOperation::OperationType::POINT_LIST:
+            case RenderOperation::OperationType::LINE_STRIP:
+            case RenderOperation::OperationType::TRIANGLE_STRIP:
                 break;
             default:
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR,
+                OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR,
                             "Geometry shader output operation type can only be point list,"
                             "line strip or triangle strip");
             }
@@ -109,7 +109,7 @@ class ResourceManager;
 
         void bindProgram() override;
         void unbindProgram() override;
-        void bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask) override;
+        void bindProgramParameters(GpuProgramParametersSharedPtr params, GpuParamVariability mask) override;
         auto isAttributeValid(VertexElementSemantic semantic, uint index) -> bool override;
     protected:
         void loadFromSource() override;
@@ -120,8 +120,8 @@ class ResourceManager;
         void buildConstantDefinitions() override;
 
         // legacy GL_EXT_geometry_shader4 functionality
-        RenderOperation::OperationType mInputOperationType{RenderOperation::OT_TRIANGLE_LIST};
-        RenderOperation::OperationType mOutputOperationType{RenderOperation::OT_TRIANGLE_LIST};
+        RenderOperation::OperationType mInputOperationType{RenderOperation::OperationType::TRIANGLE_LIST};
+        RenderOperation::OperationType mOutputOperationType{RenderOperation::OperationType::TRIANGLE_LIST};
         int mMaxOutputVertices{3};
         bool mPassFFPStates;
     };

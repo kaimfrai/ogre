@@ -49,28 +49,28 @@ namespace Ogre
     policies to different classes, but is the only control you have over
     general allocations that are primitive types.
     */
-    enum MemoryCategory
+    enum class MemoryCategory
     {
         /// General purpose
-        MEMCATEGORY_GENERAL = 0,
+        GENERAL = 0,
         /// Geometry held in main memory
-        MEMCATEGORY_GEOMETRY = 1, 
+        GEOMETRY = 1,
         /// Animation data like tracks, bone matrices
-        MEMCATEGORY_ANIMATION = 2, 
+        ANIMATION = 2,
         /// Nodes, control data
-        MEMCATEGORY_SCENE_CONTROL = 3,
+        SCENE_CONTROL = 3,
         /// Scene object instances
-        MEMCATEGORY_SCENE_OBJECTS = 4,
+        SCENE_OBJECTS = 4,
         /// Other resources
-        MEMCATEGORY_RESOURCE = 5,
+        RESOURCE = 5,
         /// Scripting
-        MEMCATEGORY_SCRIPTING = 6,
+        SCRIPTING = 6,
         /// Rendersystem structures
-        MEMCATEGORY_RENDERSYS = 7,
+        RENDERSYS = 7,
 
         
         // sentinel value, do not use 
-        MEMCATEGORY_COUNT = 8
+        COUNT = 8
     };
     /** @} */
     /** @} */
@@ -81,7 +81,7 @@ namespace Ogre
 {
     class AllocPolicy {};
     // this is a template, mainly so swig does not pick it up
-    template<int Category = MEMCATEGORY_GENERAL> class AllocatedObject
+    template<MemoryCategory Category = MemoryCategory::GENERAL> class AllocatedObject
     {
         friend auto constexpr operator <=>(AllocatedObject, AllocatedObject) = default;
     };

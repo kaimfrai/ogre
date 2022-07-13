@@ -47,9 +47,9 @@ namespace Ogre {
 class Node;
 class VertexData;
 
-    Animation::InterpolationMode Animation::msDefaultInterpolationMode = Animation::IM_LINEAR;
+    Animation::InterpolationMode Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
     Animation::RotationInterpolationMode 
-        Animation::msDefaultRotationInterpolationMode = Animation::RIM_LINEAR;
+        Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
     //---------------------------------------------------------------------
     Animation::Animation(std::string_view name, Real length)
         : mName(name)
@@ -81,7 +81,7 @@ class VertexData;
     {
         if (hasNodeTrack(handle))
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("Node track with the specified handle {} already exists", handle),
                 "Animation::createNodeTrack");
         }
@@ -117,7 +117,7 @@ class VertexData;
 
         if (i == mNodeTrackList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("Cannot find node track with the specified handle {}", handle),
                 "Animation::getNodeTrack");
         }
@@ -152,7 +152,7 @@ class VertexData;
     {
         if (hasNumericTrack(handle))
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("Numeric track with the specified handle {} already exists", handle),
                 "Animation::createNumericTrack");
         }
@@ -189,7 +189,7 @@ class VertexData;
 
         if (i == mNumericTrackList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("Cannot find numeric track with the specified handle {}", handle),
                 "Animation::getNumericTrack");
         }
@@ -225,7 +225,7 @@ class VertexData;
     {
         if (hasVertexTrack(handle))
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("Vertex track with the specified handle {} already exists", handle),
                 "Animation::createVertexTrack");
         }
@@ -263,7 +263,7 @@ class VertexData;
 
         if (i == mVertexTrackList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
                 ::std::format("Cannot find vertex track with the specified handle {}", handle),
                 "Animation::getVertexTrack");
         }
@@ -408,13 +408,13 @@ class VertexData;
             // Apply to both hardware and software, if requested
             if (software)
             {
-                track->setTargetMode(VertexAnimationTrack::TM_SOFTWARE);
+                track->setTargetMode(VertexAnimationTrack::TargetMode::SOFTWARE);
                 track->applyToVertexData(swVertexData, timeIndex, weight, 
                     &(entity->getMesh()->getPoseList()));
             }
             if (hardware)
             {
-                track->setTargetMode(VertexAnimationTrack::TM_HARDWARE);
+                track->setTargetMode(VertexAnimationTrack::TargetMode::HARDWARE);
                 track->applyToVertexData(hwVertexData, timeIndex, weight, 
                     &(entity->getMesh()->getPoseList()));
             }
@@ -719,7 +719,7 @@ class VertexData;
                 
                 for (auto const& [key, track] : mVertexTrackList)
                 {
-                    if (track->getAnimationType() == VAT_POSE)
+                    if (track->getAnimationType() == VertexAnimationType::POSE)
                     {
                         VertexAnimationTrack* baseTrack;
                         if (baseAnim == this)

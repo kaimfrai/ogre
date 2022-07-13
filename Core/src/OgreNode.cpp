@@ -266,7 +266,7 @@ namespace Ogre {
     {
         if (child->mParent)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 ::std::format("Node '{}' already was a child of '{}'.", child->getName(), child->mParent->getName()),
                 "Node::addChild");
         }
@@ -360,13 +360,14 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::translate(const Vector3& d, TransformSpace relativeTo)
     {
+        using enum TransformSpace;
         switch(relativeTo)
         {
-        case TS_LOCAL:
+        case LOCAL:
             // position is relative to parent so transform downwards
             mPosition += mOrientation * d;
             break;
-        case TS_WORLD:
+        case WORLD:
             // position is relative to parent so transform upwards
             if (mParent)
             {
@@ -377,7 +378,7 @@ namespace Ogre {
                 mPosition += d;
             }
             break;
-        case TS_PARENT:
+        case PARENT:
             mPosition += d;
             break;
         }
@@ -387,18 +388,19 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::rotate(const Quaternion& q, TransformSpace relativeTo)
     {
+        using enum TransformSpace;
         switch(relativeTo)
         {
-        case TS_PARENT:
+        case PARENT:
             // Rotations are normally relative to local axes, transform up
             mOrientation = q * mOrientation;
             break;
-        case TS_WORLD:
+        case WORLD:
             // Rotations are normally relative to local axes, transform up
             mOrientation = mOrientation * _getDerivedOrientation().Inverse()
                 * q * _getDerivedOrientation();
             break;
-        case TS_LOCAL:
+        case LOCAL:
             // Note the order of the mult, i.e. q comes after
             mOrientation = mOrientation * q;
             break;
@@ -587,7 +589,7 @@ namespace Ogre {
 
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child node named {}"
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Child node named {}"
                 " does not exist.", name ), "Node::getChild");
         }
 
@@ -602,7 +604,7 @@ namespace Ogre {
 
         if (i == mChildren.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Child node named {}"
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Child node named {}"
                 " does not exist.", name), "Node::removeChild");
         }
 
@@ -626,7 +628,7 @@ namespace Ogre {
         Vector3 zAxis = cam->getDerivedDirection();
 
         // NB use squared length to avoid square root
-        return cam->getSortMode() == SM_DISTANCE ? diff.squaredLength() : Math::Sqr(zAxis.dotProduct(diff));
+        return cam->getSortMode() == SortMode::Distance ? diff.squaredLength() : Math::Sqr(zAxis.dotProduct(diff));
     }
     //-----------------------------------------------------------------------
     void Node::needUpdate(bool forceParentUpdate)

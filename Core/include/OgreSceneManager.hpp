@@ -45,6 +45,7 @@ Torus Knot Software Ltd.
 #include "OgreAxisAlignedBox.hpp"
 #include "OgreColourValue.hpp"
 #include "OgreCommon.hpp"
+#include "OgreDepthBuffer.hpp"
 #include "OgreInstanceManager.hpp"
 #include "OgreIteratorWrapper.hpp"
 #include "OgreLight.hpp"
@@ -109,9 +110,9 @@ namespace Ogre {
     {
         unsigned int width{512};
         unsigned int height{512};
-        PixelFormat format{PF_BYTE_RGBA};
+        PixelFormat format{PixelFormat::BYTE_RGBA};
         unsigned int fsaa{0};
-        uint16      depthBufferPoolId{1};
+        DepthBuffer::PoolId depthBufferPoolId{1};
 
         ShadowTextureConfig()  = default;
     };
@@ -276,23 +277,6 @@ namespace Ogre {
     class SceneManager : public SceneMgtAlloc
     {
     public:
-        enum QueryTypeMask : uint32
-        {
-            /// Query type mask which will be used for world geometry @see SceneQuery
-            WORLD_GEOMETRY_TYPE_MASK = 0x80000000,
-            /// Query type mask which will be used for entities @see SceneQuery
-            ENTITY_TYPE_MASK = 0x40000000,
-            /// Query type mask which will be used for effects like billboardsets / particle systems @see SceneQuery
-            FX_TYPE_MASK = 0x20000000,
-            /// Query type mask which will be used for StaticGeometry  @see SceneQuery
-            STATICGEOMETRY_TYPE_MASK = 0x10000000,
-            /// Query type mask which will be used for lights  @see SceneQuery
-            LIGHT_TYPE_MASK = 0x08000000,
-            /// Query type mask which will be used for frusta and cameras @see SceneQuery
-            FRUSTUM_TYPE_MASK = 0x04000000,
-            /// User type mask limit
-            USER_TYPE_MASK_LIMIT = FRUSTUM_TYPE_MASK
-        };
         /** Comparator for material map, for sorting materials into render order (e.g. transparent last).
         */
         struct materialLess
@@ -306,26 +290,26 @@ namespace Ogre {
         };
 
         /// Describes the stage of rendering when performing complex illumination
-        enum IlluminationRenderStage
+        enum class IlluminationRenderStage
         {
             /// No special illumination stage
-            IRS_NONE,
+            NONE,
             /// Render to texture stage, used for texture based shadows
-            IRS_RENDER_TO_TEXTURE,
+            RENDER_TO_TEXTURE,
             /// Render from shadow texture to receivers stage
-            IRS_RENDER_RECEIVER_PASS
+            RENDER_RECEIVER_PASS
         };
 
         /** Enumeration of the possible modes allowed for processing the special case
         render queue list.
         @see SceneManager::setSpecialCaseRenderQueueMode
         */
-        enum SpecialCaseRenderQueueMode
+        enum class SpecialCaseRenderQueueMode
         {
             /// Render only the queues in the special case list
-            SCRQM_INCLUDE,
+            INCLUDE,
             /// Render all except the queues in the special case list
-            SCRQM_EXCLUDE
+            EXCLUDE
         };
 
         struct SkyDomeGenParameters
@@ -384,8 +368,8 @@ namespace Ogre {
                 Note that the render queue at this stage will be full of the last
                 render's contents and will be cleared after this method is called.
             @param source The SceneManager instance raising this event.
-            @param irs The stage of illumination being dealt with. IRS_NONE for 
-                a regular render, IRS_RENDER_TO_TEXTURE for a shadow caster render.
+            @param irs The stage of illumination being dealt with. IlluminationRenderStage::NONE for
+                a regular render, IlluminationRenderStage::RENDER_TO_TEXTURE for a shadow caster render.
             @param v The viewport being updated. You can get the camera from here.
             */
             virtual void preFindVisibleObjects(SceneManager* source, 
@@ -398,8 +382,8 @@ namespace Ogre {
                 scenes contents, ready for rendering. You may manually add renderables
                 to this queue if you wish.
             @param source The SceneManager instance raising this event.
-            @param irs The stage of illumination being dealt with. IRS_NONE for 
-                a regular render, IRS_RENDER_TO_TEXTURE for a shadow caster render.
+            @param irs The stage of illumination being dealt with. IlluminationRenderStage::NONE for
+                a regular render, IlluminationRenderStage::RENDER_TO_TEXTURE for a shadow caster render.
             @param v The viewport being updated. You can get the camera from here.
             */
             virtual void postFindVisibleObjects(SceneManager* source, 
@@ -514,14 +498,14 @@ namespace Ogre {
             virtual void _updateRenderQueue(RenderQueue* queue) = 0;
             void nodeDestroyed(const Node*) override;
         public:
-            enum BoxPlane
+            enum class BoxPlane
             {
-                BP_FRONT = 0,
-                BP_BACK = 1,
-                BP_LEFT = 2,
-                BP_RIGHT = 3,
-                BP_UP = 4,
-                BP_DOWN = 5
+                FRONT = 0,
+                BACK = 1,
+                LEFT = 2,
+                RIGHT = 3,
+                UP = 4,
+                DOWN = 5
             };
 
             SkyRenderer(SceneManager* owner);
@@ -542,7 +526,7 @@ namespace Ogre {
             SkyPlaneRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyPlaneGenParameters mSkyPlaneGenParameters;
             void setSkyPlane(bool enable, const Plane& plane, std::string_view materialName,
-                             Real scale, Real tiling, uint8 renderQueue, Real bow, int xsegments,
+                             Real scale, Real tiling, RenderQueueGroupID renderQueue, Real bow, int xsegments,
                              int ysegments, std::string_view groupName);
         } mSkyPlane;
 
@@ -556,7 +540,7 @@ namespace Ogre {
             SkyBoxRenderer(SceneManager* owner) : SkyRenderer(owner) {}
             SkyBoxGenParameters mSkyBoxGenParameters;
             void setSkyBox(bool enable, std::string_view materialName, Real distance,
-                           uint8 renderQueue, const Quaternion& orientation,
+                           RenderQueueGroupID renderQueue, const Quaternion& orientation,
                            std::string_view groupName);
         } mSkyBox;
 
@@ -576,22 +560,22 @@ namespace Ogre {
             SkyDomeRenderer(SceneManager* owner)  : SkyRenderer(owner) {}
             SkyDomeGenParameters mSkyDomeGenParameters;
             void setSkyDome(bool enable, std::string_view materialName, Real curvature, Real tiling,
-                            Real distance, uint8 renderQueue, const Quaternion& orientation,
+                            Real distance, RenderQueueGroupID renderQueue, const Quaternion& orientation,
                             int xsegments, int ysegments, int ysegments_keep,
                             std::string_view groupName);
         } mSkyDome;
 
         // Fog
-        FogMode mFogMode{FOG_NONE};
+        FogMode mFogMode{FogMode::NONE};
         ColourValue mFogColour;
         Real mFogStart{0};
         Real mFogEnd{0};
         Real mFogDensity{0};
 
-        using SpecialCaseRenderQueueList = std::set<uint8>;
+        using SpecialCaseRenderQueueList = std::set<RenderQueueGroupID>;
         SpecialCaseRenderQueueList mSpecialCaseQueueList;
-        SpecialCaseRenderQueueMode mSpecialCaseQueueMode{SCRQM_EXCLUDE};
-        uint8 mWorldGeometryRenderQueue{RENDER_QUEUE_WORLD_GEOMETRY_1};
+        SpecialCaseRenderQueueMode mSpecialCaseQueueMode{SpecialCaseRenderQueueMode::EXCLUDE};
+        uint8 mWorldGeometryRenderQueue{std::to_underlying(RenderQueueGroupID::WORLD_GEOMETRY_1)};
         
         unsigned long mLastFrameNumber{0};
         bool mResetIdentityView{false};
@@ -617,10 +601,10 @@ namespace Ogre {
         struct LightInfo
         {
             Light* light;       /// Just a pointer for comparison, the light might destroyed for some reason
-            int type;           /// Use int instead of Light::LightTypes to avoid header file dependence
+            Light::LightTypes type;           /// Use int instead of Light::LightTypes to avoid header file dependence
             Real range;         /// Sets to zero if directional light
             Vector3 position;   /// Sets to zero if directional light
-            uint32 lightMask;   /// Light mask
+            QueryTypeMask lightMask;   /// Light mask
 
             [[nodiscard]] auto operator== (const LightInfo& rhs) const noexcept -> bool = default;
         };
@@ -668,7 +652,7 @@ namespace Ogre {
             SceneManager* mSceneManager;
             RenderSystem* mDestRenderSystem;
 
-            ShadowTechnique mShadowTechnique{SHADOWTYPE_NONE};
+            ShadowTechnique mShadowTechnique{ShadowTechnique::NONE};
             ColourValue mShadowColour;
 
             /// A pass designed to let us render shadow colour on white for texture shadows
@@ -802,7 +786,7 @@ namespace Ogre {
             void setShadowVolumeStencilState(bool secondpass, bool zfail, bool twosided);
             /** Render a set of shadow renderables. */
             void renderShadowVolumeObjects(const ShadowCaster::ShadowRenderableList& shadowRenderables,
-                Pass* pass, const LightList *manualLightList, unsigned long flags,
+                Pass* pass, const LightList *manualLightList, ShadowRenderableFlags flags,
                 bool secondpass, bool zfail, bool twosided);
 
             auto getShadowTexIndex(size_t lightIndex) -> size_t;
@@ -814,14 +798,14 @@ namespace Ogre {
             void resolveShadowTexture(TextureUnitState* tu, size_t shadowIndex, size_t shadowTexUnitIndex) const;
 
             void setShadowTextureSettings(uint16 size, uint16 count, PixelFormat fmt, uint16 fsaa,
-                                          uint16 depthBufferPoolId);
+                                          DepthBuffer::PoolId depthBufferPoolId);
             void setShadowTextureSize(unsigned short size);
             void setShadowTextureCount(size_t count);
             void setShadowTexturePixelFormat(PixelFormat fmt);
             void setShadowTextureFSAA(unsigned short fsaa);
             void setShadowTextureConfig(size_t shadowIndex, const ShadowTextureConfig& config);
             void setShadowTextureConfig(size_t shadowIndex, uint16 width, uint16 height, PixelFormat format,
-                                        uint16 fsaa, uint16 depthBufferPoolId);
+                                        uint16 fsaa, DepthBuffer::PoolId depthBufferPoolId);
 
             using ShadowCasterList = std::vector<ShadowCaster *>;
             ShadowCasterList mShadowCasterList;
@@ -923,9 +907,9 @@ namespace Ogre {
         /// Internal method for firing the queue end event
         void firePostRenderQueues();
         /// Internal method for firing the queue start event, returns true if queue is to be skipped
-        virtual auto fireRenderQueueStarted(uint8 id, std::string_view invocation) -> bool;
+        virtual auto fireRenderQueueStarted(Ogre::RenderQueueGroupID id, std::string_view invocation) -> bool;
         /// Internal method for firing the queue end event, returns true if queue is to be repeated
-        virtual auto fireRenderQueueEnded(uint8 id, std::string_view invocation) -> bool;
+        virtual auto fireRenderQueueEnded(Ogre::RenderQueueGroupID id, std::string_view invocation) -> bool;
         /// Internal method for firing when rendering a single object.
         void fireRenderSingleObject(Renderable* rend, const Pass* pass, const AutoParamDataSource* source,
             const LightList* pLightList, bool suppressRenderStateChanges);
@@ -976,7 +960,7 @@ namespace Ogre {
         CompositorChain* mActiveCompositorChain{nullptr};
         bool mLateMaterialResolving{false};
 
-        IlluminationRenderStage mIlluminationStage{IRS_NONE};
+        IlluminationRenderStage mIlluminationStage{IlluminationRenderStage::NONE};
 
         /// Struct for caching light clipping information for re-use in a frame
         struct LightClippingInfo
@@ -1054,7 +1038,7 @@ namespace Ogre {
 
     protected:
         /// Visibility mask used to show / hide objects
-        uint32 mVisibilityMask{0xFFFFFFFF};
+        QueryTypeMask mVisibilityMask{0xFFFFFFFF};
         bool mFindVisibleObjects{true};
 
         /** Render a group in the ordinary way */
@@ -1092,7 +1076,7 @@ namespace Ogre {
         /// Last light sets
         uint32 mLastLightHash{0};
         /// Gpu params that need rebinding (mask of GpuParamVariability)
-        uint16 mGpuParamsDirty;
+        GpuParamVariability mGpuParamsDirty;
 
         void useLights(const LightList* lights, ushort limit);
         void bindGpuProgram(GpuProgram* prog);
@@ -1315,10 +1299,10 @@ namespace Ogre {
             this method before population.
         @param lightMask The mask with which to include / exclude lights
         */
-        void _populateLightList(const Vector3& position, Real radius, LightList& destList, uint32 lightMask = 0xFFFFFFFF);
+        void _populateLightList(const Vector3& position, Real radius, LightList& destList, QueryTypeMask lightMask = QueryTypeMask{0xFFFFFFFF});
 
         /// @overload
-        void _populateLightList(const SceneNode* sn, Real radius, LightList& destList, uint32 lightMask = 0xFFFFFFFF);
+        void _populateLightList(const SceneNode* sn, Real radius, LightList& destList, QueryTypeMask lightMask = QueryTypeMask{0xFFFFFFFF});
         /// @}
 
         /// @name Scene Nodes
@@ -1411,10 +1395,10 @@ namespace Ogre {
             @todo
                 Add more prefabs (teapots, teapots!!!)
         */
-        enum PrefabType {
-            PT_PLANE,
-            PT_CUBE,
-            PT_SPHERE
+        enum class PrefabType {
+            PLANE,
+            CUBE,
+            SPHERE
         };
         /// @name Entities
         /// @{
@@ -1949,7 +1933,7 @@ namespace Ogre {
         void _setSkyPlane(
             bool enable,
             const Plane& plane, std::string_view materialName, Real scale = 1000,
-            Real tiling = 10, uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY, Real bow = 0, 
+            Real tiling = 10, RenderQueueGroupID renderQueue = RenderQueueGroupID::SKIES_EARLY, Real bow = 0,
             int xsegments = 1, int ysegments = 1, 
             std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
@@ -2014,7 +1998,7 @@ namespace Ogre {
         /// @overload
         void _setSkyBox(
             bool enable, std::string_view materialName, Real distance = 5000,
-            uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY, const Quaternion& orientation = Quaternion::IDENTITY,
+            RenderQueueGroupID renderQueue = RenderQueueGroupID::SKIES_EARLY, const Quaternion& orientation = Quaternion::IDENTITY,
             std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
         /** Enables / disables a 'sky box' */
@@ -2095,7 +2079,7 @@ namespace Ogre {
         /// @overload
         void _setSkyDome(
             bool enable, std::string_view materialName, Real curvature = 10,
-            Real tiling = 8, Real distance = 4000, uint8 renderQueue = RENDER_QUEUE_SKIES_EARLY,
+            Real tiling = 8, Real distance = 4000, RenderQueueGroupID renderQueue = RenderQueueGroupID::SKIES_EARLY,
             const Quaternion& orientation = Quaternion::IDENTITY,
             int xsegments = 16, int ysegments = 16, int ysegments_keep = -1,
             std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
@@ -2122,25 +2106,25 @@ namespace Ogre {
                 is rendered has it's own fog settings (see Material::setFog).
             @param
                 mode Set up the mode of fog as described in the FogMode
-                enum, or set to FOG_NONE to turn off.
+                enum, or set to FogMode::NONE to turn off.
             @param
                 colour The colour of the fog. Either set this to the same
                 as your viewport background colour, or to blend in with a
                 skydome or skybox.
             @param
-                expDensity The density of the fog in FOG_EXP or FOG_EXP2
+                expDensity The density of the fog in FogMode::EXP or FogMode::EXP2
                 mode, as a value between 0 and 1. The default is 0.001. 
             @param
                 linearStart Distance in world units at which linear fog starts to
                 encroach. Only applicable if mode is
-                FOG_LINEAR.
+                FogMode::LINEAR.
             @param
                 linearEnd Distance in world units at which linear fog becomes completely
                 opaque. Only applicable if mode is
-                FOG_LINEAR.
+                FogMode::LINEAR.
         */
         void setFog(
-            FogMode mode = FOG_NONE, const ColourValue& colour = ColourValue::White,
+            FogMode mode = FogMode::NONE, const ColourValue& colour = ColourValue::White,
             Real expDensity = 0.001f, Real linearStart = 0.0f, Real linearEnd = 1.0f);
 
         /** Returns the fog mode for the scene.
@@ -2416,13 +2400,13 @@ namespace Ogre {
         @param qid The identifier of the queue which should be added to the
             special case list. Nothing happens if the queue is already in the list.
         */
-        void addSpecialCaseRenderQueue(uint8 qid);
+        void addSpecialCaseRenderQueue(RenderQueueGroupID qid);
         /** Removes an item to the 'special case' render queue list.
         @see SceneManager::addSpecialCaseRenderQueue
         @param qid The identifier of the queue which should be removed from the
             special case list. Nothing happens if the queue is not in the list.
         */
-        void removeSpecialCaseRenderQueue(uint8 qid);
+        void removeSpecialCaseRenderQueue(RenderQueueGroupID qid);
         /** Clears the 'special case' render queue list.
         @see SceneManager::addSpecialCaseRenderQueue
         */
@@ -2440,7 +2424,7 @@ namespace Ogre {
         @param qid The identifier of the queue which should be tested
         @return true if the queue will be rendered, false otherwise
         */
-        auto isRenderQueueToBeProcessed(uint8 qid) -> bool;
+        auto isRenderQueueToBeProcessed(RenderQueueGroupID qid) -> bool;
 
         /** Sets the render queue that the world geometry (if any) this SceneManager
             renders will be associated with.
@@ -2488,7 +2472,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto 
-            createAABBQuery(const AxisAlignedBox& box, uint32 mask = 0xFFFFFFFF) -> AxisAlignedBoxSceneQuery*;
+            createAABBQuery(const AxisAlignedBox& box, QueryTypeMask mask = QueryTypeMask{0xFFFFFFFF}) -> AxisAlignedBoxSceneQuery*;
         /** Creates a SphereSceneQuery for this scene manager. 
         @remarks
             This method creates a new instance of a query object for this scene manager, 
@@ -2502,7 +2486,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto 
-            createSphereQuery(const Sphere& sphere, uint32 mask = 0xFFFFFFFF) -> SphereSceneQuery*;
+            createSphereQuery(const Sphere& sphere, QueryTypeMask mask = QueryTypeMask{0xFFFFFFFF}) -> SphereSceneQuery*;
         /** Creates a PlaneBoundedVolumeListSceneQuery for this scene manager. 
         @remarks
         This method creates a new instance of a query object for this scene manager, 
@@ -2516,7 +2500,7 @@ namespace Ogre {
         certain objects; see SceneQuery for details.
         */
         virtual auto 
-            createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, uint32 mask = 0xFFFFFFFF) -> PlaneBoundedVolumeListSceneQuery*;
+            createPlaneBoundedVolumeQuery(const PlaneBoundedVolumeList& volumes, QueryTypeMask mask = QueryTypeMask{0xFFFFFFFF}) -> PlaneBoundedVolumeListSceneQuery*;
 
 
         /** Creates a RaySceneQuery for this scene manager. 
@@ -2532,7 +2516,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto
-            createRayQuery(const Ray& ray, uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<RaySceneQuery>;
+            createRayQuery(const Ray& ray, QueryTypeMask mask = QueryTypeMask{0xFFFFFFFF}) -> ::std::unique_ptr<RaySceneQuery>;
 
         /** Creates an IntersectionSceneQuery for this scene manager. 
         @remarks
@@ -2546,7 +2530,7 @@ namespace Ogre {
             certain objects; see SceneQuery for details.
         */
         virtual auto
-            createIntersectionQuery(uint32 mask = 0xFFFFFFFF) -> ::std::unique_ptr<IntersectionSceneQuery>;
+            createIntersectionQuery(QueryTypeMask mask = QueryTypeMask{0xFFFFFFFF}) -> ::std::unique_ptr<IntersectionSceneQuery>;
 
         /** Destroys a scene query of any type. */
         void destroyQuery(SceneQuery* query);
@@ -2725,22 +2709,22 @@ namespace Ogre {
 
         /** Is there a stencil shadow based shadowing technique in use? */
         auto isShadowTechniqueStencilBased() const noexcept -> bool
-        { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_STENCIL) != 0; }
+        { return (mShadowRenderer.mShadowTechnique & ShadowTechnique::DETAIL_STENCIL) != ShadowTechnique{}; }
         /** Is there a texture shadow based shadowing technique in use? */
         auto isShadowTechniqueTextureBased() const noexcept -> bool
-        { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_TEXTURE) != 0; }
+        { return (mShadowRenderer.mShadowTechnique & ShadowTechnique::DETAIL_TEXTURE) != ShadowTechnique{}; }
         /** Is there a modulative shadowing technique in use? */
         auto isShadowTechniqueModulative() const noexcept -> bool
-        { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_MODULATIVE) != 0; }
+        { return (mShadowRenderer.mShadowTechnique & ShadowTechnique::DETAIL_MODULATIVE) != ShadowTechnique{}; }
         /** Is there an additive shadowing technique in use? */
         auto isShadowTechniqueAdditive() const noexcept -> bool
-        { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_ADDITIVE) != 0; }
+        { return (mShadowRenderer.mShadowTechnique & ShadowTechnique::DETAIL_ADDITIVE) != ShadowTechnique{}; }
         /** Is the shadow technique integrated into primary materials? */
         auto isShadowTechniqueIntegrated() const noexcept -> bool
-        { return (mShadowRenderer.mShadowTechnique & SHADOWDETAILTYPE_INTEGRATED) != 0; }
+        { return (mShadowRenderer.mShadowTechnique & ShadowTechnique::DETAIL_INTEGRATED) != ShadowTechnique{}; }
         /** Is there any shadowing technique in use? */
         auto isShadowTechniqueInUse() const noexcept -> bool
-        { return mShadowRenderer.mShadowTechnique != SHADOWTYPE_NONE; }
+        { return mShadowRenderer.mShadowTechnique != ShadowTechnique::NONE; }
         /** Sets whether when using a built-in additive shadow mode, user clip
             planes should be used to restrict light rendering.
         */
@@ -2779,7 +2763,7 @@ namespace Ogre {
         @param depthBufferPoolId The pool # it should query the depth buffers from
         */
         void setShadowTextureConfig(size_t shadowIndex, uint16 width, uint16 height, PixelFormat format,
-                                    uint16 fsaa = 0, uint16 depthBufferPoolId = 1)
+                                    uint16 fsaa = 0, DepthBuffer::PoolId depthBufferPoolId =  DepthBuffer::PoolId{1})
         {
             mShadowRenderer.setShadowTextureConfig(shadowIndex, width, height, format, fsaa, depthBufferPoolId);
         }
@@ -2798,7 +2782,7 @@ namespace Ogre {
 
         /** Set the pixel format of the textures used for texture-based shadows.
         @remarks
-            By default, a colour texture is used (PF_X8R8G8B8) for texture shadows,
+            By default, a colour texture is used (PixelFormat::X8R8G8B8) for texture shadows,
             but if you want to use more advanced texture shadow types you can 
             alter this. If you do, you will have to also call
             setShadowTextureCasterMaterial and setShadowTextureReceiverMaterial
@@ -2838,10 +2822,10 @@ namespace Ogre {
             appropriately (e.g. via setShadowTextureCount)!!
         */
         void setShadowTextureCountPerLightType(Light::LightTypes type, size_t count)
-        { mShadowRenderer.mShadowTextureCountPerType[type] = count; }
+        { mShadowRenderer.mShadowTextureCountPerType[std::to_underlying(type)] = count; }
         /// Get the number of shadow textures is assigned for the given light type.
         auto getShadowTextureCountPerLightType(Light::LightTypes type) const -> size_t
-        {return mShadowRenderer.mShadowTextureCountPerType[type]; }
+        {return mShadowRenderer.mShadowTextureCountPerType[std::to_underlying(type)]; }
 
         /** Sets the size and count of textures used in texture-based shadows. 
         @see setShadowTextureSize and setShadowTextureCount for details, this
@@ -2850,8 +2834,8 @@ namespace Ogre {
         @note This is the simple form, see setShadowTextureConfig for the more 
             complex form.
         */
-        void setShadowTextureSettings(uint16 size, uint16 count, PixelFormat fmt = PF_BYTE_RGBA,
-                                      uint16 fsaa = 0, uint16 depthBufferPoolId = 1)
+        void setShadowTextureSettings(uint16 size, uint16 count, PixelFormat fmt = PixelFormat::BYTE_RGBA,
+                                      uint16 fsaa = 0, DepthBuffer::PoolId depthBufferPoolId =  DepthBuffer::PoolId{1})
         {
             mShadowRenderer.setShadowTextureSettings(size, count, fmt, fsaa, depthBufferPoolId);
         }
@@ -3075,7 +3059,7 @@ namespace Ogre {
         auto createInstanceManager( std::string_view customName, std::string_view meshName,
                                                         std::string_view groupName,
                                                         InstanceManager::InstancingTechnique technique,
-                                                        size_t numInstancesPerBatch, uint16 flags=0,
+                                                        size_t numInstancesPerBatch, InstanceManagerFlags flags = InstanceManagerFlags{},
                                                         unsigned short subMeshIdx=0 ) -> InstanceManager*;
 
         /** Retrieves an existing InstanceManager by it's name.
@@ -3103,7 +3087,7 @@ namespace Ogre {
             getMaxOrBestNumInstancesPerBatch() function directly.
             Another (not recommended) way to know if the technique is unsupported is by creating
             an InstanceManager and use createInstancedEntity, which will return null pointer.
-            The input parameter "numInstancesPerBatch" is a suggested value when using IM_VTFBESTFIT
+            The input parameter "numInstancesPerBatch" is a suggested value when using InstanceManagerFlags::VTFBESTFIT
             flag (in that case it should be non-zero)
         @return
             The ideal (or maximum, depending on flags) number of instances per batch for
@@ -3112,7 +3096,7 @@ namespace Ogre {
         auto getNumInstancesPerBatch( std::string_view meshName, std::string_view groupName,
                                                 std::string_view materialName,
                                                 InstanceManager::InstancingTechnique technique,
-                                                size_t numInstancesPerBatch, uint16 flags=0,
+                                                size_t numInstancesPerBatch, InstanceManagerFlags flags = InstanceManagerFlags{},
                                                 unsigned short subMeshIdx=0 ) -> size_t;
 
         /** Creates an InstancedEntity based on an existing InstanceManager
@@ -3225,17 +3209,17 @@ namespace Ogre {
             Note that this is combined with any per-viewport visibility mask
             through an 'and' operation. @see Viewport::setVisibilityMask
         */
-        void setVisibilityMask(uint32 vmask) { mVisibilityMask = vmask; }
+        void setVisibilityMask(QueryTypeMask vmask) { mVisibilityMask = vmask; }
 
         /** Gets a mask which is bitwise 'and'ed with objects own visibility masks
             to determine if the object is visible.
         */
-        auto getVisibilityMask() noexcept -> uint32 { return mVisibilityMask; }
+        auto getVisibilityMask() noexcept -> QueryTypeMask { return mVisibilityMask; }
 
         /** Internal method for getting the combination between the global visibility
             mask and the per-viewport visibility mask.
         */
-        auto _getCombinedVisibilityMask() const -> uint32;
+        auto _getCombinedVisibilityMask() const -> QueryTypeMask;
 
         /** Sets whether the SceneManager should search for visible objects, or
             whether they are being manually handled.
@@ -3314,7 +3298,7 @@ namespace Ogre {
             @param mask Some combination of GpuParamVariability which is bitwise OR'ed with the
                 current dirty state.
         */
-        void _markGpuParamsDirty(uint16 mask);
+        void _markGpuParamsDirty(GpuParamVariability mask);
 
         /** Render the objects in a given queue group
         */

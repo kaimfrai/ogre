@@ -77,7 +77,7 @@ namespace Ogre {
         if(!name.empty())
         {
             if (mNamedSamplers.find(name) != mNamedSamplers.end())
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Sampler '{}' already exists", name ));
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Sampler '{}' already exists", name ));
             mNamedSamplers[std::string{ name }] = ret;
         }
         return ret;
@@ -107,7 +107,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto TextureManager::createOrRetrieve(
             std::string_view name, std::string_view group, bool isManual, ManualResourceLoader* loader,
-            const NameValuePairList* createParams, TextureType texType, int numMipmaps, Real gamma,
+            const NameValuePairList* createParams, TextureType texType, TextureMipmap numMipmaps, Real gamma,
             bool isAlpha, PixelFormat desiredFormat, bool hwGamma) -> TextureManager::ResourceCreateOrRetrieveResult
     {
         ResourceCreateOrRetrieveResult res =
@@ -117,8 +117,8 @@ namespace Ogre {
         {
             TexturePtr tex = static_pointer_cast<Texture>(res.first);
             tex->setTextureType(texType);
-            tex->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
-                static_cast<uint32>(numMipmaps));
+            tex->setNumMipmaps((numMipmaps == TextureMipmap::DEFAULT)? mDefaultNumMipmaps :
+                numMipmaps);
             tex->setGamma(gamma);
             tex->setTreatLuminanceAsAlpha(isAlpha);
             tex->setFormat(desiredFormat);
@@ -128,7 +128,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto TextureManager::prepare(std::string_view name, std::string_view group, TextureType texType,
-                                       int numMipmaps, Real gamma, bool isAlpha,
+                                       TextureMipmap numMipmaps, Real gamma, bool isAlpha,
                                        PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         ResourceCreateOrRetrieveResult res =
@@ -139,7 +139,7 @@ namespace Ogre {
     }
 
     auto TextureManager::load(std::string_view name, std::string_view group, TextureType texType,
-                                    int numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
+                                    TextureMipmap numMipmaps, Real gamma, PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         auto res = createOrRetrieve(name, group, false, nullptr, nullptr, texType, numMipmaps, gamma, false,
                                     desiredFormat, hwGamma);
@@ -149,14 +149,14 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto TextureManager::loadImage( std::string_view name, std::string_view group,
-        const Image &img, TextureType texType, int numMipmaps, Real gamma, bool isAlpha, 
+        const Image &img, TextureType texType, TextureMipmap numMipmaps, Real gamma, bool isAlpha,
         PixelFormat desiredFormat, bool hwGamma) -> TexturePtr
     {
         TexturePtr tex = create(name, group, true);
 
         tex->setTextureType(texType);
-        tex->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
-            static_cast<uint32>(numMipmaps));
+        tex->setNumMipmaps((numMipmaps == TextureMipmap::DEFAULT)? mDefaultNumMipmaps :
+            numMipmaps);
         tex->setGamma(gamma);
         tex->setTreatLuminanceAsAlpha(isAlpha);
         tex->setFormat(desiredFormat);
@@ -169,13 +169,13 @@ namespace Ogre {
     auto TextureManager::loadRawData(std::string_view name, std::string_view group,
         DataStreamPtr& stream, ushort uWidth, ushort uHeight, 
         PixelFormat format, TextureType texType, 
-        int numMipmaps, Real gamma, bool hwGamma) -> TexturePtr
+        TextureMipmap numMipmaps, Real gamma, bool hwGamma) -> TexturePtr
     {
         TexturePtr tex = create(name, group, true);
 
         tex->setTextureType(texType);
-        tex->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
-            static_cast<uint32>(numMipmaps));
+        tex->setNumMipmaps((numMipmaps == TextureMipmap::DEFAULT)? mDefaultNumMipmaps :
+            numMipmaps);
         tex->setGamma(gamma);
         tex->setHardwareGammaEnabled(hwGamma);
         tex->loadRawData(stream, uWidth, uHeight, format);
@@ -184,8 +184,8 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     auto TextureManager::createManual(std::string_view name, std::string_view group,
-        TextureType texType, uint width, uint height, uint depth, int numMipmaps,
-        PixelFormat format, int usage, ManualResourceLoader* loader, bool hwGamma, 
+        TextureType texType, uint width, uint height, uint depth, TextureMipmap numMipmaps,
+        PixelFormat format, HardwareBufferUsage usage, ManualResourceLoader* loader, bool hwGamma,
         uint fsaa, std::string_view fsaaHint) -> TexturePtr
     {
         TexturePtr ret;
@@ -194,8 +194,8 @@ namespace Ogre {
 
         // Check for texture support
         const auto caps = Root::getSingleton().getRenderSystem()->getCapabilities();
-        if (((texType == TEX_TYPE_3D) && !caps->hasCapability(RSC_TEXTURE_3D)) ||
-            ((texType == TEX_TYPE_2D_ARRAY) && !caps->hasCapability(RSC_TEXTURE_2D_ARRAY)))
+        if (((texType == TextureType::_3D) && !caps->hasCapability(Capabilities::TEXTURE_3D)) ||
+            ((texType == TextureType::_2D_ARRAY) && !caps->hasCapability(Capabilities::TEXTURE_2D_ARRAY)))
             return ret;
 
         ret = create(name, group, true, loader);
@@ -207,8 +207,8 @@ namespace Ogre {
         ret->setWidth(width);
         ret->setHeight(height);
         ret->setDepth(depth);
-        ret->setNumMipmaps((numMipmaps == MIP_DEFAULT)? mDefaultNumMipmaps :
-            static_cast<uint32>(numMipmaps));
+        ret->setNumMipmaps((numMipmaps == TextureMipmap::DEFAULT)? mDefaultNumMipmaps :
+            numMipmaps);
         ret->setFormat(format);
         ret->setUsage(usage);
         ret->setHardwareGammaEnabled(hwGamma);
@@ -303,17 +303,17 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void TextureManager::setDefaultNumMipmaps( uint32 num )
+    void TextureManager::setDefaultNumMipmaps( TextureMipmap num )
     {
         mDefaultNumMipmaps = num;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::isFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool
+    auto TextureManager::isFormatSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> bool
     {
         return getNativeFormat(ttype, format, usage) == format;
     }
     //-----------------------------------------------------------------------
-    auto TextureManager::isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool
+    auto TextureManager::isEquivalentFormatSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> bool
     {
         PixelFormat supportedFormat = getNativeFormat(ttype, format, usage);
 
@@ -323,9 +323,9 @@ namespace Ogre {
     }
 
     auto TextureManager::isHardwareFilteringSupported(TextureType ttype, PixelFormat format,
-                                                      int usage, bool preciseFormatOnly) -> bool
+                                                      HardwareBufferUsage usage, bool preciseFormatOnly) -> bool
     {
-        if (format == PF_UNKNOWN)
+        if (format == PixelFormat::UNKNOWN)
             return false;
 
         // Check native format
@@ -341,7 +341,7 @@ namespace Ogre {
             return mWarningTexture;
 
         // Generate warning texture
-        Image pixels(PF_R5G6B5, 8, 8);
+        Image pixels(PixelFormat::R5G6B5, 8, 8);
 
         // Yellow/black stripes
         const ColourValue black(0, 0, 0), yellow(1, 1, 0);

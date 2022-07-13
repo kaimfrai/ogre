@@ -70,7 +70,7 @@ public:
     /** 
     @see SubRenderState::getExecutionOrder.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /** 
     @see SubRenderState::copyFrom.
@@ -87,12 +87,12 @@ public:
     void setInstancingParams(bool enabled, int texCoordIndex)
     {
         mInstanced = enabled;
-        mTexCoordIndex = Parameter::Content(Parameter::SPC_TEXTURE_COORDINATE0 + texCoordIndex);
+        mTexCoordIndex = Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + texCoordIndex);
     }
 
     static String Type;
 protected:
-    Parameter::Content mTexCoordIndex = Parameter::SPC_TEXTURE_COORDINATE0;
+    Parameter::Content mTexCoordIndex = Parameter::Content::TEXTURE_COORDINATE0;
     bool mSetPointSize;
     bool mInstanced = false;
     bool mDoLightCalculations;

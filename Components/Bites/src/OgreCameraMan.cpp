@@ -19,7 +19,7 @@ CameraMan::CameraMan(Ogre::SceneNode *cam)
 {
 
     setCamera(cam);
-    setStyle(CS_FREELOOK);
+    setStyle(CameraStyle::FREELOOK);
 }
 
 void CameraMan::setCamera(Ogre::SceneNode *cam)
@@ -44,16 +44,16 @@ void CameraMan::setYawPitchDist(const Ogre::Radian&  yaw, const Ogre::Radian& pi
     mCamera->setOrientation(mTarget->_getDerivedOrientation());
     mCamera->yaw(yaw);
     mCamera->pitch(-pitch);
-    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TS_LOCAL);
+    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
 }
 
 void CameraMan::setStyle(CameraStyle style)
 {
-    if (mStyle != CS_ORBIT && style == CS_ORBIT)
+    if (mStyle != CameraStyle::ORBIT && style == CameraStyle::ORBIT)
     {
         setTarget(mTarget ? mTarget : mCamera->getCreator()->getRootSceneNode());
         // fix the yaw axis if requested
-        mCamera->setFixedYawAxis(mYawSpace == Ogre::Node::TS_PARENT);
+        mCamera->setFixedYawAxis(mYawSpace == Ogre::Node::TransformSpace::PARENT);
         manualStop();
 
         // try to replicate the camera configuration
@@ -61,11 +61,11 @@ void CameraMan::setStyle(CameraStyle style)
         const Ogre::Quaternion& q = mCamera->getOrientation();
         setYawPitchDist(q.getYaw(), q.getPitch(), dist == 0 ? 150 : dist); // enforce some distance
     }
-    else if (mStyle != CS_FREELOOK && style == CS_FREELOOK)
+    else if (mStyle != CameraStyle::FREELOOK && style == CameraStyle::FREELOOK)
     {
         mCamera->setFixedYawAxis(true); // also fix axis with lookAt calls
     }
-    else if (mStyle != CS_MANUAL && style == CS_MANUAL)
+    else if (mStyle != CameraStyle::MANUAL && style == CameraStyle::MANUAL)
     {
         manualStop();
     }
@@ -75,7 +75,7 @@ void CameraMan::setStyle(CameraStyle style)
 
 void CameraMan::manualStop()
 {
-    if (mStyle == CS_FREELOOK)
+    if (mStyle == CameraStyle::FREELOOK)
     {
         mGoingForward = false;
         mGoingBack = false;
@@ -89,7 +89,7 @@ void CameraMan::manualStop()
 
 void CameraMan::frameRendered(const Ogre::FrameEvent &evt)
 {
-    if (mStyle == CS_FREELOOK)
+    if (mStyle == CameraStyle::FREELOOK)
     {
         // build our acceleration vector based on keyboard input composite
         Ogre::Vector3 accel = Ogre::Vector3::ZERO;
@@ -128,7 +128,7 @@ void CameraMan::frameRendered(const Ogre::FrameEvent &evt)
 
 auto CameraMan::keyPressed(const KeyDownEvent &evt) noexcept -> bool
 {
-    if (mStyle == CS_FREELOOK)
+    if (mStyle == CameraStyle::FREELOOK)
     {
         Keycode key = evt.keysym.sym;
         if (key == 'w' || key == SDLK_UP) mGoingForward = true;
@@ -145,7 +145,7 @@ auto CameraMan::keyPressed(const KeyDownEvent &evt) noexcept -> bool
 
 auto CameraMan::keyReleased(const KeyUpEvent &evt) noexcept -> bool
 {
-    if (mStyle == CS_FREELOOK)
+    if (mStyle == CameraStyle::FREELOOK)
     {
         Keycode key = evt.keysym.sym;
         if (key == 'w' || key == SDLK_UP) mGoingForward = false;
@@ -171,12 +171,12 @@ void CameraMan::setPivotOffset(const Ogre::Vector3& pivot)
     Ogre::Real dist = getDistToTarget();
     mOffset = pivot;
     mCamera->setPosition(mTarget->_getDerivedPosition() + mOffset);
-    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TS_LOCAL);
+    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
 }
 
 auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
 {
-    if (mStyle == CS_ORBIT)
+    if (mStyle == CameraStyle::ORBIT)
     {
         Ogre::Real dist = getDistToTarget();
 
@@ -187,7 +187,7 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
             mCamera->yaw(Ogre::Degree(-evt.xrel * 0.25f), mYawSpace);
             mCamera->pitch(Ogre::Degree(-evt.yrel * 0.25f));
 
-            mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TS_LOCAL);
+            mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
             // don't let the camera go over the top or around the bottom of the target
         }
         else if (mMoving)  // move the camera along the image plane
@@ -199,9 +199,9 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
             mCamera->translate(delta);
         }
     }
-    else if (mStyle == CS_FREELOOK)
+    else if (mStyle == CameraStyle::FREELOOK)
     {
-        mCamera->yaw(Ogre::Degree(-evt.xrel * 0.15f), Ogre::Node::TS_PARENT);
+        mCamera->yaw(Ogre::Degree(-evt.xrel * 0.15f), Ogre::Node::TransformSpace::PARENT);
         mCamera->pitch(Ogre::Degree(-evt.yrel * 0.15f));
     }
 
@@ -209,10 +209,10 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
 }
 
 auto CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept -> bool {
-    if (mStyle == CS_ORBIT && evt.y != 0)
+    if (mStyle == CameraStyle::ORBIT && evt.y != 0)
     {
         Ogre::Real dist = (mCamera->getPosition() - mTarget->_getDerivedPosition()).length();
-        mCamera->translate(Ogre::Vector3(0, 0, -evt.y * 0.08f * dist), Ogre::Node::TS_LOCAL);
+        mCamera->translate(Ogre::Vector3(0, 0, -evt.y * 0.08f * dist), Ogre::Node::TransformSpace::LOCAL);
     }
 
     return InputListener::mouseWheelRolled(evt);
@@ -220,10 +220,10 @@ auto CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept -> bool {
 
 auto CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 {
-    if (mStyle == CS_ORBIT)
+    if (mStyle == CameraStyle::ORBIT)
     {
-        if (evt.button == BUTTON_LEFT) mOrbiting = true;
-        else if (evt.button == BUTTON_RIGHT) mMoving = true;
+        if (evt.button == ButtonType::LEFT) mOrbiting = true;
+        else if (evt.button == ButtonType::RIGHT) mMoving = true;
     }
 
     return InputListener::mousePressed(evt);
@@ -231,10 +231,10 @@ auto CameraMan::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 
 auto CameraMan::mouseReleased(const MouseButtonUpEvent &evt) noexcept -> bool
 {
-    if (mStyle == CS_ORBIT)
+    if (mStyle == CameraStyle::ORBIT)
     {
-        if (evt.button == BUTTON_LEFT) mOrbiting = false;
-        else if (evt.button == BUTTON_RIGHT) mMoving = false;
+        if (evt.button == ButtonType::LEFT) mOrbiting = false;
+        else if (evt.button == ButtonType::RIGHT) mMoving = false;
     }
 
     return InputListener::mouseReleased(evt);

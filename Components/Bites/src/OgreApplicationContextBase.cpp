@@ -193,7 +193,7 @@ void ApplicationContextBase::createDummyScene()
     // Must be before resource loading in order to allow parsing extended material attributes.
     if (!initialiseRTShaderSystem())
     {
-        OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND,
+        OGRE_EXCEPT(Ogre::ExceptionCodes::FILE_NOT_FOUND,
                     "Shader Generator Initialization failed - Core shader libs path not found",
                     "ApplicationContextBase::createDummyScene");
     }
@@ -276,7 +276,7 @@ void ApplicationContextBase::destroyWindow(std::string_view name)
         return;
     }
 
-    OGRE_EXCEPT(Ogre::Exception::ERR_INVALIDPARAMS, ::std::format("No window named '{}'", name));
+    OGRE_EXCEPT(Ogre::ExceptionCodes::INVALIDPARAMS, ::std::format("No window named '{}'", name));
 }
 
 void ApplicationContextBase::_destroyWindow(const NativeWindowPair& win)

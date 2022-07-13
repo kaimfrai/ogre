@@ -251,10 +251,10 @@ class HardwareBufferManagerBase;
         VertexData *vert = useSharedVertices ?
             parent->sharedVertexData : vertexData.get();
         const VertexElement *poselem = vert->vertexDeclaration->
-            findElementBySemantic (VES_POSITION);
+            findElementBySemantic (VertexElementSemantic::POSITION);
         HardwareVertexBufferSharedPtr vbuf = vert->vertexBufferBinding->
             getBuffer (poselem->getSource ());
-        auto *vdata = (uint8 *)vbuf->lock (HardwareBuffer::HBL_READ_ONLY);
+        auto *vdata = (uint8 *)vbuf->lock (HardwareBuffer::LockOptions::READ_ONLY);
         size_t vsz = vbuf->getVertexSize ();
 
         std::vector<Cluster> boxes;
@@ -266,11 +266,11 @@ class HardwareBufferManagerBase;
         if (indexData->indexCount > 0)
         {
 
-            uint elsz = indexData->indexBuffer->getType () == HardwareIndexBuffer::IT_32BIT ?
+            uint elsz = indexData->indexBuffer->getType () == HardwareIndexBuffer::IndexType::_32BIT ?
                 4 : 2;
             auto *idata = (uint8 *)indexData->indexBuffer->lock (
                 indexData->indexStart * elsz, indexData->indexCount * elsz,
-                HardwareIndexBuffer::HBL_READ_ONLY);
+                HardwareIndexBuffer::LockOptions::READ_ONLY);
 
             for (size_t i = 0; i < indexData->indexCount; i++)
             {

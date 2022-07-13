@@ -93,12 +93,12 @@ namespace Ogre
             {
                 if (mDebugOut && !maskDebug)
                 {
-                    std::ostream& os = int(lml) >= int(LML_WARNING) ? std::cerr : std::cout;
+                    std::ostream& os = int(lml) >= int(LogMessageLevel::Warning) ? std::cerr : std::cout;
 
                     if(mTermHasColours) {
-                        if(lml == LML_WARNING)
+                        if(lml == LogMessageLevel::Warning)
                             os << YELLOW;
-                        if(lml == LML_CRITICAL)
+                        if(lml == LogMessageLevel::Critical)
                             os << RED;
                     }
 

@@ -63,7 +63,7 @@ DualQuaternionSkinning::DualQuaternionSkinning() : HardwareSkinningTechnique()
 //-----------------------------------------------------------------------
 auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
 
     //if needed mark this vertex program as hardware skinned
@@ -80,34 +80,34 @@ auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
     // in projective space to cover the responsibility of the transform stage
 
     //input param
-    mParamInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+    mParamInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
 
     if(mDoLightCalculations)
-        mParamInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
-    //mParamInBiNormal = vsMain->resolveInputParameter(Parameter::SPS_BINORMAL, 0, Parameter::SPC_BINORMAL_OBJECT_SPACE, GCT_FLOAT3);
-    //mParamInTangent = vsMain->resolveInputParameter(Parameter::SPS_TANGENT, 0, Parameter::SPC_TANGENT_OBJECT_SPACE, GCT_FLOAT3);
+        mParamInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
+    //mParamInBiNormal = vsMain->resolveInputParameter(Parameter::Semantic::BINORMAL, 0, Parameter::Content::BINORMAL_OBJECT_SPACE, GpuConstantType::FLOAT3);
+    //mParamInTangent = vsMain->resolveInputParameter(Parameter::Semantic::TANGENT, 0, Parameter::Content::TANGENT_OBJECT_SPACE, GpuConstantType::FLOAT3);
 
     //local param
-    mParamLocalBlendPosition = vsMain->resolveLocalParameter(GCT_FLOAT3, "BlendedPosition");
-    mParamLocalNormalWorld = vsMain->resolveLocalParameter(Parameter::SPC_NORMAL_WORLD_SPACE);
-    //mParamLocalTangentWorld = vsMain->resolveLocalParameter(Parameter::SPS_TANGENT, 0, Parameter::SPC_TANGENT_WORLD_SPACE, GCT_FLOAT3);
-    //mParamLocalBinormalWorld = vsMain->resolveLocalParameter(Parameter::SPS_BINORMAL, 0, Parameter::SPC_BINORMAL_WORLD_SPACE, GCT_FLOAT3);
+    mParamLocalBlendPosition = vsMain->resolveLocalParameter(GpuConstantType::FLOAT3, "BlendedPosition");
+    mParamLocalNormalWorld = vsMain->resolveLocalParameter(Parameter::Content::NORMAL_WORLD_SPACE);
+    //mParamLocalTangentWorld = vsMain->resolveLocalParameter(Parameter::Semantic::TANGENT, 0, Parameter::Content::TANGENT_WORLD_SPACE, GpuConstantType::FLOAT3);
+    //mParamLocalBinormalWorld = vsMain->resolveLocalParameter(Parameter::Semantic::BINORMAL, 0, Parameter::Content::BINORMAL_WORLD_SPACE, GpuConstantType::FLOAT3);
 
     //output param
-    mParamOutPositionProj = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    mParamOutPositionProj = vsMain->resolveOutputParameter(Parameter::Content::POSITION_PROJECTIVE_SPACE);
 
     if (mDoBoneCalculations == true)
     {
         //input parameters
-        mParamInIndices = vsMain->resolveInputParameter(Parameter::SPC_BLEND_INDICES);
-        mParamInWeights = vsMain->resolveInputParameter(Parameter::SPC_BLEND_WEIGHTS);
-        mParamInWorldMatrices = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_DUALQUATERNION_ARRAY_2x4, mBoneCount);
-        mParamInInvWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_WORLD_MATRIX);
-        mParamInViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_VIEWPROJ_MATRIX);
+        mParamInIndices = vsMain->resolveInputParameter(Parameter::Content::BLEND_INDICES);
+        mParamInWeights = vsMain->resolveInputParameter(Parameter::Content::BLEND_WEIGHTS);
+        mParamInWorldMatrices = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4, mBoneCount);
+        mParamInInvWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::INVERSE_WORLD_MATRIX);
+        mParamInViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::VIEWPROJ_MATRIX);
         
-        mParamTempWorldMatrix = vsMain->resolveLocalParameter(GCT_MATRIX_2X4, "worldMatrix");
-        mParamBlendDQ = vsMain->resolveLocalParameter(GCT_MATRIX_2X4, "blendDQ");
-        mParamInitialDQ = vsMain->resolveLocalParameter(GCT_MATRIX_2X4, "initialDQ");
+        mParamTempWorldMatrix = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_2X4, "worldMatrix");
+        mParamBlendDQ = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_2X4, "blendDQ");
+        mParamInitialDQ = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_2X4, "initialDQ");
 
         if (ShaderGenerator::getSingleton().getTargetLanguage() == "hlsl")
         {
@@ -118,20 +118,20 @@ auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
 
         if(mScalingShearingSupport)
         {
-            mParamInScaleShearMatrices = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4, mBoneCount);
-            mParamBlendS = vsMain->resolveLocalParameter(GCT_MATRIX_3X4, "blendS");
-            mParamTempFloat3x3 = vsMain->resolveLocalParameter(GCT_MATRIX_3X3, "TempVal3x3");
-            mParamTempFloat3x4 = vsMain->resolveLocalParameter(GCT_MATRIX_3X4, "TempVal3x4");
+            mParamInScaleShearMatrices = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4, mBoneCount);
+            mParamBlendS = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_3X4, "blendS");
+            mParamTempFloat3x3 = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_3X3, "TempVal3x3");
+            mParamTempFloat3x4 = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_3X4, "TempVal3x4");
         }
         
-        mParamTempFloat2x4 = vsMain->resolveLocalParameter(GCT_MATRIX_2X4, "TempVal2x4");
-        mParamTempFloat4 = vsMain->resolveLocalParameter(GCT_FLOAT4, "TempVal4");
-        mParamTempFloat3 = vsMain->resolveLocalParameter(GCT_FLOAT3, "TempVal3");
+        mParamTempFloat2x4 = vsMain->resolveLocalParameter(GpuConstantType::MATRIX_2X4, "TempVal2x4");
+        mParamTempFloat4 = vsMain->resolveLocalParameter(GpuConstantType::FLOAT4, "TempVal4");
+        mParamTempFloat3 = vsMain->resolveLocalParameter(GpuConstantType::FLOAT3, "TempVal3");
     }
     else
     {
-        mParamInWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX);
-        mParamInWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEWPROJ_MATRIX);
+        mParamInWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
+        mParamInWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEWPROJ_MATRIX);
     }
     return true;
 }
@@ -139,7 +139,7 @@ auto DualQuaternionSkinning::resolveParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
     vsProgram->addDependency(FFP_LIB_TRANSFORM);
     if(mDoBoneCalculations)
@@ -151,7 +151,7 @@ auto DualQuaternionSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
 
     //add functions to calculate position data in world, object and projective space
@@ -169,7 +169,7 @@ auto DualQuaternionSkinning::addFunctionInvocations(ProgramSet* programSet) -> b
 //-----------------------------------------------------------------------
 void DualQuaternionSkinning::addPositionCalculations(Function* vsMain)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     if (mDoBoneCalculations == true)
     {
@@ -237,7 +237,7 @@ void DualQuaternionSkinning::addNormalRelatedCalculations(Function* vsMain,
                                 ParameterPtr& pNormalRelatedParam,
                                 ParameterPtr& pNormalWorldRelatedParam)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     if (mDoBoneCalculations == true)
     {
@@ -266,7 +266,7 @@ void DualQuaternionSkinning::addNormalRelatedCalculations(Function* vsMain,
 void DualQuaternionSkinning::adjustForCorrectAntipodality(Function* vsMain,
                                 int index, const ParameterPtr& pTempWorldMatrix)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
     
     //Antipodality doesn't need to be adjusted for dq0 on itself (used as the basis of antipodality calculations)
     if(index > 0)
@@ -286,7 +286,7 @@ void DualQuaternionSkinning::addIndexedPositionWeight(Function* vsMain, int inde
                                 ParameterPtr& pWorldMatrix, ParameterPtr& pPositionTempParameter,
                                 ParameterPtr& pPositionRelatedOutputParam)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     //multiply position with world matrix and put into temporary param
     stage.mul(In(mParamInWeights).mask(indexToMask(index)), pWorldMatrix, pPositionTempParameter);

@@ -96,18 +96,18 @@ void Sample_NewInstancing::setupContent()
     //Initialize the techniques and current mesh variables
     mCurrentManager         = nullptr;
 
-    mSceneMgr->setShadowTechnique( SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED );
+    mSceneMgr->setShadowTechnique( ShadowTechnique::TEXTURE_ADDITIVE_INTEGRATED );
     mSceneMgr->setShadowTextureSelfShadow( true );
     mSceneMgr->setShadowCasterRenderBackFaces( true );
 
     if (Ogre::Root::getSingletonPtr()->getRenderSystem()->getName().find("OpenGL ES 2") == String::npos)
     {
-        mSceneMgr->setShadowTextureConfig( 0, 2048, 2048, PF_DEPTH16 );
+        mSceneMgr->setShadowTextureConfig( 0, 2048, 2048, PixelFormat::DEPTH16 );
     }
     else
     {
         // Use a smaller texture for GL ES 3.0
-        mSceneMgr->setShadowTextureConfig( 0, 512, 512, PF_DEPTH16 );
+        mSceneMgr->setShadowTextureConfig( 0, 512, 512, PixelFormat::DEPTH16 );
     }
 
     mSceneMgr->setShadowCameraSetup( LiSPSMShadowCameraSetup::create() );
@@ -143,7 +143,7 @@ void Sample_NewInstancing::setupLighting()
 
     //Create main light
     Light* light = mSceneMgr->createLight();
-    light->setType( Light::LT_DIRECTIONAL );
+    light->setType( Light::LightTypes::DIRECTIONAL );
     light->setDiffuseColour(1, 0.5, 0.3);
     auto n = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     n->attachObject(light);
@@ -157,13 +157,13 @@ void Sample_NewInstancing::switchInstancingTechnique()
     //Instancing
 
     //Create the manager if we haven't already (i.e. first time)
-    //Because we use IM_USEALL as flags, the actual num of instances per batch might be much lower
-    //If you're not bandwidth limited, you may want to lift IM_VTFBESTFIT flag away
+    //Because we use InstanceManagerFlags::USEALL as flags, the actual num of instances per batch might be much lower
+    //If you're not bandwidth limited, you may want to lift InstanceManagerFlags::VTFBESTFIT flag away
 
     mCurrentManager = mSceneMgr->createInstanceManager(
         "InstanceMgr", "robot.mesh",
         ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, InstanceManager::ShaderBased,
-        NUM_INST_ROW * NUM_INST_COLUMN, IM_USEALL);
+        NUM_INST_ROW * NUM_INST_COLUMN, InstanceManagerFlags::USEALL);
 
     createInstancedEntities();
 
@@ -311,7 +311,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
             }
 
             //Move along the direction we're looking to
-            itor->translate( Vector3::UNIT_X * timeSinceLast * fMovSpeed, Node::TS_LOCAL );
+            itor->translate( Vector3::UNIT_X * timeSinceLast * fMovSpeed, Node::TransformSpace::LOCAL );
         }
     }
     else

@@ -136,23 +136,23 @@ void CompositorInstance::setAlive(bool value)
 class RSClearOperation: public CompositorInstance::RenderSystemOperation
 {
 public:
-    RSClearOperation(uint32 inBuffers, ColourValue inColour, Real inDepth, unsigned short inStencil, CompositorChain *inChain):
+    RSClearOperation(FrameBufferType inBuffers, ColourValue inColour, Real inDepth, unsigned short inStencil, CompositorChain *inChain):
         chain(inChain), buffers(inBuffers), colour(inColour), depth(inDepth), stencil(inStencil)
     {}
     /// Automatic colour from original viewport background colour
     CompositorChain* chain;
     /// Which buffers to clear (FrameBufferType)
-    uint32 buffers;
-    /// Colour to clear in case FBT_COLOUR is set
+    FrameBufferType buffers;
+    /// Colour to clear in case FrameBufferType::COLOUR is set
     ColourValue colour;
-    /// Depth to set in case FBT_DEPTH is set
+    /// Depth to set in case FrameBufferType::DEPTH is set
     Real depth;
-    /// Stencil value to set in case FBT_STENCIL is set
+    /// Stencil value to set in case FrameBufferType::STENCIL is set
     unsigned short stencil;
 
     void execute(SceneManager *sm, RenderSystem *rs) override
     {
-        if((buffers & FBT_COLOUR) && chain) // if chain is present, query colour from dst viewport
+        if(!!(buffers & FrameBufferType::COLOUR) && chain) // if chain is present, query colour from dst viewport
           colour = chain->getViewport()->getBackgroundColour();
         rs->clearFrameBuffer(buffers, colour, depth, stencil);
     }
@@ -314,10 +314,10 @@ public:
         // Queue passes from mat
         for(auto* pass : technique->getPasses())
         {
-            auto params = pass->getGpuProgramParameters(GPT_COMPUTE_PROGRAM);
-            params->_updateAutoParams(sm->_getAutoParamDataSource(), GPV_GLOBAL);
+            auto params = pass->getGpuProgramParameters(GpuProgramType::COMPUTE_PROGRAM);
+            params->_updateAutoParams(sm->_getAutoParamDataSource(), GpuParamVariability::GLOBAL);
             rs->bindGpuProgram(pass->getComputeProgram()->_getBindingDelegate());
-            rs->bindGpuProgramParameters(GPT_COMPUTE_PROGRAM, params, GPV_GLOBAL);
+            rs->bindGpuProgramParameters(GpuProgramType::COMPUTE_PROGRAM, params, GpuParamVariability::GLOBAL);
             rs->_dispatchCompute(thread_groups);
         }
     }
@@ -335,7 +335,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
         bool isCompute = false;
         switch(pass->getType())
         {
-        case CompositionPass::PT_CLEAR:
+        case CompositionPass::PassType::CLEAR:
             queueRenderSystemOp(finalState, new RSClearOperation(
                 pass->getClearBuffers(),
                 pass->getClearColour(),
@@ -344,10 +344,10 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 pass->getAutomaticColour() ? mChain : nullptr
                 ));
             break;
-        case CompositionPass::PT_STENCIL:
+        case CompositionPass::PassType::STENCIL:
             queueRenderSystemOp(finalState, new RSStencilOperation(pass->getStencilState()));
             break;
-        case CompositionPass::PT_RENDERSCENE: 
+        case CompositionPass::PassType::RENDERSCENE: 
         {
             if(pass->getFirstRenderQueue() < finalState.currentQueueGroupID)
             {
@@ -372,7 +372,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             
             /// Add render queues
-            for(int x=pass->getFirstRenderQueue(); x<=pass->getLastRenderQueue(); ++x)
+            for(int x=std::to_underlying(pass->getFirstRenderQueue()); x<=std::to_underlying(pass->getLastRenderQueue()); ++x)
             {
                 assert(x>=0);
                 finalState.renderQueues.set(x);
@@ -393,10 +393,10 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
 
             break;
         }
-        case CompositionPass::PT_COMPUTE:
+        case CompositionPass::PassType::COMPUTE:
             isCompute = true;
             [[fallthrough]];
-        case CompositionPass::PT_RENDERQUAD: {
+        case CompositionPass::PassType::RENDERQUAD: {
             srcmat = pass->getMaterial();
             if(!srcmat)
             {
@@ -425,7 +425,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 targetpass = localMat->getTechnique(0)->createPass();
                 (*targetpass) = (*srcpass);
 
-                if (isCompute && !targetpass->hasGpuProgram(GPT_COMPUTE_PROGRAM))
+                if (isCompute && !targetpass->hasGpuProgram(GpuProgramType::COMPUTE_PROGRAM))
                 {
                     LogManager::getSingleton().logError(
                         ::std::format("in compilation of Compositor {}: material ", mCompositor->getName() ) +
@@ -474,7 +474,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             }
             break;
-        case CompositionPass::PT_RENDERCUSTOM:
+        case CompositionPass::PassType::RENDERCUSTOM:
 		
 			finalState.currentQueueGroupID = pass->getFirstRenderQueue();
 		
@@ -502,7 +502,7 @@ void CompositorInstance::_compileTargetOperations(CompiledState &compiledState)
         ts.shadowsEnabled = target->getShadowsEnabled();
         ts.materialScheme = target->getMaterialScheme();
         /// Check for input mode previous
-        if(target->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
+        if(target->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS)
         {
             /// Collect target state for previous compositor
             /// The TargetOperation for the final target is collected separately as it is merged
@@ -526,7 +526,7 @@ void CompositorInstance::_compileOutputOperation(TargetOperation &finalState)
     finalState.materialScheme = tpass->getMaterialScheme();
     finalState.shadowsEnabled = tpass->getShadowsEnabled();
 
-    if(tpass->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
+    if(tpass->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS)
     {
         /// Collect target state for previous compositor
         /// The TargetOperation for the final target is collected separately as it is merged
@@ -655,7 +655,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
             continue;
         }
 
-        if (def->scope == CompositionTechnique::TS_GLOBAL) {
+        if (def->scope == CompositionTechnique::TextureScope::GLOBAL) {
             //This is a global texture, just link the created resources from the parent
             Compositor* parentComp = mTechnique->getParent();
             if (def->formatList.size() > 1) 
@@ -747,7 +747,7 @@ void CompositorInstance::createResources(bool forResizeOnly)
                     {
                         tex = TextureManager::getSingleton().createManual(texname,
                                                                           RGN_INTERNAL, def->type,
-                                                                          width, height, 0, *p, TU_RENDERTARGET, nullptr,
+                                                                          width, height, TextureMipmap{}, *p, TextureUsage::RENDERTARGET, nullptr,
                                                                           hwGamma && !PixelUtil::isFloatingPoint(*p), fsaa, fsaaHint ); 
                     }
                     
@@ -787,8 +787,8 @@ void CompositorInstance::createResources(bool forResizeOnly)
                 else
                 {
                     tex = TextureManager::getSingleton().createManual(
-                        texName, RGN_INTERNAL, def->type, width, height, 0, def->formatList[0],
-                        TU_RENDERTARGET, nullptr, hwGamma, fsaa, fsaaHint);
+                        texName, RGN_INTERNAL, def->type, width, height, TextureMipmap{}, def->formatList[0],
+                        TextureUsage::RENDERTARGET, nullptr, hwGamma, fsaa, fsaaHint);
                 }
 
                 mLocalTextures[def->name] = tex;
@@ -802,9 +802,9 @@ void CompositorInstance::createResources(bool forResizeOnly)
     _fireNotifyResourcesCreated(forResizeOnly);
 }
 
-void CompositorInstance::setupRenderTarget(RenderTarget* rendTarget, uint16 depthBufferId)
+void CompositorInstance::setupRenderTarget(RenderTarget* rendTarget, DepthBuffer::PoolId depthBufferId)
 {
-    if(rendTarget->getDepthBufferPool() != DepthBuffer::POOL_NO_DEPTH)
+    if(rendTarget->getDepthBufferPool() != DepthBuffer::PoolId::NO_DEPTH)
     {
         //Set DepthBuffer pool for sharing
         rendTarget->setDepthBufferPool( depthBufferId );
@@ -857,7 +857,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
     {
         if (tp->getOutputName() == texname)
         {
-            if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
+            if (tp->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS)
             {
                 // this may be rendering the scene implicitly
                 // Can't check mPreviousInstance against mChain->_getOriginalSceneCompositor()
@@ -882,7 +882,7 @@ void CompositorInstance::deriveTextureRenderTargetOptions(
                 // look for a render_scene pass
                 for (CompositionPass* pass : tp->getPasses())
                 {
-                    if (pass->getType() == CompositionPass::PT_RENDERSCENE)
+                    if (pass->getType() == CompositionPass::PassType::RENDERSCENE)
                     {
                         renderingScene = true;
                         break;
@@ -950,7 +950,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
                 auto i = mLocalTextures.find(texName);
                 if (i != mLocalTextures.end())
                 {
-                    if (!def->pooled && def->scope != CompositionTechnique::TS_GLOBAL)
+                    if (!def->pooled && def->scope != CompositionTechnique::TextureScope::GLOBAL)
                     {
                         // remove myself from central only if not pooled and not global
                         TextureManager::getSingleton().remove(i->second);
@@ -969,7 +969,7 @@ void CompositorInstance::freeResources(bool forResizeOnly, bool clearReserveText
                 auto mrti = mLocalMRTs.find(def->name);
                 if (mrti != mLocalMRTs.end())
                 {
-                    if (def->scope != CompositionTechnique::TS_GLOBAL) 
+                    if (def->scope != CompositionTechnique::TextureScope::GLOBAL) 
                     {
                         // remove MRT if not global
                         Root::getSingleton().getRenderSystem()->destroyRenderTarget(mrti->second->getName());
@@ -1042,15 +1042,15 @@ CompositorInstance::resolveTexReference(const CompositionTechnique::TextureDefin
             refTexDef = refComp->getSupportedTechnique()->getTextureDefinition(texDef->refTexName);
         }
 
-        if (refTexDef && refTexDef->scope != CompositionTechnique::TS_GLOBAL)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        if (refTexDef && refTexDef->scope != CompositionTechnique::TextureScope::GLOBAL)
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Referenced texture '{}' must have global scope", texDef->refTexName ));
     }
 
     OgreAssert(refTexDef, "Referencing non-existent compositor texture");
 
-    if (refTexDef->scope == CompositionTechnique::TS_LOCAL)
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+    if (refTexDef->scope == CompositionTechnique::TextureScope::LOCAL)
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                     ::std::format("Referenced texture '{}' has only local scope", texDef->refTexName ));
 
     return refTexDef;
@@ -1077,7 +1077,7 @@ auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> Re
 
         switch(refTexDef->scope) 
         {
-            case CompositionTechnique::TS_CHAIN:
+            case CompositionTechnique::TextureScope::CHAIN:
             {
                 //Find the instance and check if it is before us
                 CompositorInstance* refCompInst = nullptr;
@@ -1101,19 +1101,19 @@ auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> Re
                 OgreAssert(beforeMe, "Referencing compositor that is later in the chain");
                 return refCompInst->getRenderTarget(texDef->refTexName, slice);
             }
-            case CompositionTechnique::TS_GLOBAL:
+            case CompositionTechnique::TextureScope::GLOBAL:
             {
                 //Chain and global case - the referenced compositor will know how to handle
                 const CompositorPtr& refComp = CompositorManager::getSingleton().getByName(texDef->refCompName);
                 OgreAssert(refComp, "Referencing non-existent compositor");
                 return refComp->getRenderTarget(texDef->refTexName, slice);
             }
-            case CompositionTechnique::TS_LOCAL:
+            case CompositionTechnique::TextureScope::LOCAL:
                 break; // handled by resolveTexReference
         }
     }
 
-    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Non-existent local texture name", 
+    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Non-existent local texture name", 
         "CompositorInstance::getTargetForTex");
 
 }
@@ -1130,7 +1130,7 @@ auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex)
         
         switch(refTexDef->scope)
         {
-            case CompositionTechnique::TS_CHAIN:
+            case CompositionTechnique::TextureScope::CHAIN:
             {
                 //Find the instance and check if it is before us
                 CompositorInstance* refCompInst = nullptr;
@@ -1154,14 +1154,14 @@ auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex)
                 OgreAssert(beforeMe, "Referencing compositor that is later in the chain");
                 return refCompInst->getTextureInstance(texDef->refTexName, mrtIndex);
             }
-            case CompositionTechnique::TS_GLOBAL:
+            case CompositionTechnique::TextureScope::GLOBAL:
             {
                 //Chain and global case - the referenced compositor will know how to handle
                 const CompositorPtr& refComp = CompositorManager::getSingleton().getByName(texDef->refCompName);
                 OgreAssert(refComp, "Referencing non-existent compositor");
                 return refComp->getTextureInstance(texDef->refTexName, mrtIndex);
             }
-            case CompositionTechnique::TS_LOCAL:
+            case CompositionTechnique::TextureScope::LOCAL:
                 break; // handled by resolveTexReference
         }
 
@@ -1186,7 +1186,7 @@ auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex)
         }
     }
     
-    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Non-existent local texture name", 
+    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Non-existent local texture name", 
         "CompositorInstance::getSourceForTex");
 }
 //-----------------------------------------------------------------------

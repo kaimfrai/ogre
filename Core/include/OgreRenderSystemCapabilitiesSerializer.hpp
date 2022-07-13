@@ -72,10 +72,10 @@ namespace Ogre {
     private:
         void write(const RenderSystemCapabilities* caps, std::string_view name, std::ostream &file);
 
-        enum CapabilityKeywordType {UNDEFINED_CAPABILITY_TYPE = 0, SET_STRING_METHOD, SET_INT_METHOD, SET_BOOL_METHOD, SET_REAL_METHOD,
+        enum class CapabilityKeywordType {UNDEFINED_CAPABILITY_TYPE = 0, SET_STRING_METHOD, SET_INT_METHOD, SET_BOOL_METHOD, SET_REAL_METHOD,
                                 SET_CAPABILITY_ENUM_BOOL, ADD_SHADER_PROFILE_STRING};
         // determines what keyword is what type of capability. For example:
-        // "automipmap" and "pbuffer" are both activated with setCapability (passing RSC_AUTOMIPMAP and RSC_PBUFFER respectivelly)
+        // "automipmap" and "pbuffer" are both activated with setCapability (passing Capabilities::AUTOMIPMAP and Capabilities::PBUFFER respectivelly)
         // while "max_num_multi_render_targets" is an integer and has it's own method: setMaxMultiNumRenderTargets
         // we need to know these types to automatically parse each capability
         using KeywordTypeMap = std::map<std::string_view, CapabilityKeywordType>;
@@ -113,7 +113,7 @@ namespace Ogre {
         // capabilities lines for parsing are collected along with their line numbers for debugging
         using CapabilitiesLinesList = std::vector<std::pair<String, int>>;
         // the set of states that the parser can be in
-        enum ParseAction {PARSE_HEADER, FIND_OPEN_BRACE, COLLECT_LINES};
+        enum class ParseAction {PARSE_HEADER, FIND_OPEN_BRACE, COLLECT_LINES};
 
         int mCurrentLineNumber{0};
         String* mCurrentLine{nullptr};
@@ -133,7 +133,7 @@ namespace Ogre {
                 return (*it).second;
 
             // default
-            return SET_CAPABILITY_ENUM_BOOL;
+            return CapabilityKeywordType::SET_CAPABILITY_ENUM_BOOL;
         }
 
         inline void addSetStringMethod(std::string_view keyword, SetStringMethod method)

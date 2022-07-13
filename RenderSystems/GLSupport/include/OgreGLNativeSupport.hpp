@@ -55,13 +55,13 @@ namespace Ogre
         public:
             using ExtensionList = std::set<std::string_view>;
 
-            enum ContextProfile {
-                CONTEXT_CORE = 1,
-                CONTEXT_COMPATIBILITY = 2,
-                CONTEXT_ES = 4
+            enum class ContextProfile {
+                CORE = 1,
+                COMPATIBILITY = 2,
+                ES = 4
             };
 
-            GLNativeSupport(int profile) : mContextProfile(ContextProfile(profile)) {}
+            GLNativeSupport(GLNativeSupport::ContextProfile profile) : mContextProfile(profile) {}
             virtual ~GLNativeSupport() = default;
 
             /// @copydoc RenderSystem::_createRenderWindow

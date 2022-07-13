@@ -136,16 +136,16 @@ class RenderSystem;
 
             size_t offset = 0;
             // Add a description for the buffer of the positions of the vertices
-            offset += decl->addElement(0, offset, VET_FLOAT3, VES_POSITION).getSize();
+            offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
 
             if (mUseVertexColour)
             {
-                offset += decl->addElement(0, offset, VET_UBYTE4_NORM, VES_DIFFUSE).getSize();
+                offset += decl->addElement(0, offset, VertexElementType::UBYTE4_NORM, VertexElementSemantic::DIFFUSE).getSize();
             }
 
             if (mUseTexCoords)
             {
-                decl->addElement(0, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES);
+                decl->addElement(0, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES);
             }
 
             if (!mUseTexCoords && !mUseVertexColour)
@@ -170,7 +170,7 @@ class RenderSystem;
                 HardwareBufferManager::getSingleton().createVertexBuffer(
                 mVertexData->vertexDeclaration->getVertexSize(0),
                 mVertexData->vertexCount,
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+                HardwareBuffer::DYNAMIC_WRITE_ONLY_DISCARDABLE);
 
             // (re)Bind the buffer
             // Any existing buffer will lose its reference count and be destroyed
@@ -178,9 +178,9 @@ class RenderSystem;
 
             mIndexData->indexBuffer =
                 HardwareBufferManager::getSingleton().createIndexBuffer(
-                    HardwareIndexBuffer::IT_16BIT,
+                    HardwareIndexBuffer::IndexType::_16BIT,
                     mChainCount * mMaxElementsPerChain * 6, // max we can use
-                    mDynamic? HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY : HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+                    mDynamic ? HardwareBuffer::DYNAMIC_WRITE_ONLY : HardwareBuffer::STATIC_WRITE_ONLY);
             // NB we don't set the indexCount on IndexData here since we will
             // probably use less than the maximum number of indices
 
@@ -456,7 +456,7 @@ class RenderSystem;
 
         HardwareVertexBufferSharedPtr pBuffer =
             mVertexData->vertexBufferBinding->getBuffer(0);
-        HardwareBufferLockGuard vertexLock(pBuffer, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vertexLock(pBuffer, HardwareBuffer::LockOptions::DISCARD);
 
         const Vector3& camPos = cam->getDerivedPosition();
         Vector3 eyePos = mParentNode->convertWorldToLocalPosition(camPos);
@@ -532,7 +532,7 @@ class RenderSystem;
 
                     if (mUseTexCoords)
                     {
-                        if (mTexCoordDir == TCD_U)
+                        if (mTexCoordDir == TexCoordDirection::U)
                         {
                             *pFloat++ = elem.texCoord;
                             *pFloat++ = mOtherTexCoordRange[0];
@@ -557,7 +557,7 @@ class RenderSystem;
 
                     if (mUseTexCoords)
                     {
-                        if (mTexCoordDir == TCD_U)
+                        if (mTexCoordDir == TexCoordDirection::U)
                         {
                             *pFloat++ = elem.texCoord;
                             *pFloat++ = mOtherTexCoordRange[1];
@@ -589,7 +589,7 @@ class RenderSystem;
         setupBuffers();
         if (mIndexContentDirty)
         {
-            HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
             auto* pShort = static_cast<uint16*>(indexLock.pData);
             mIndexData->indexCount = 0;
             // indexes
@@ -697,7 +697,7 @@ class RenderSystem;
     void BillboardChain::getRenderOperation(RenderOperation& op)
     {
         op.indexData = mIndexData.get();
-        op.operationType = RenderOperation::OT_TRIANGLE_LIST;
+        op.operationType = RenderOperation::OperationType::TRIANGLE_LIST;
         op.srcRenderable = this;
         op.useIndexes = true;
         op.vertexData = mVertexData.get();

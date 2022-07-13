@@ -42,30 +42,30 @@ class MovableObject;
         
     {
         // default type mask to everything except lights & fx (previous behaviour)
-        mQueryTypeMask = (0xFFFFFFFF & ~SceneManager::FX_TYPE_MASK) 
-            & ~SceneManager::LIGHT_TYPE_MASK;
+        mQueryTypeMask = (QueryTypeMask{0xFFFFFFFF} & ~QueryTypeMask::FX)
+            & ~QueryTypeMask::LIGHT;
 
     }
     //-----------------------------------------------------------------------
     SceneQuery::~SceneQuery()
     = default;
     //-----------------------------------------------------------------------
-    void SceneQuery::setQueryMask(uint32 mask)
+    void SceneQuery::setQueryMask(QueryTypeMask mask)
     {
         mQueryMask = mask;
     }
     //-----------------------------------------------------------------------
-    auto SceneQuery::getQueryMask() const noexcept -> uint32
+    auto SceneQuery::getQueryMask() const noexcept -> QueryTypeMask
     {
         return mQueryMask;
     }
     //-----------------------------------------------------------------------
-    void SceneQuery::setQueryTypeMask(uint32 mask)
+    void SceneQuery::setQueryTypeMask(QueryTypeMask mask)
     {
         mQueryTypeMask = mask;
     }
     //-----------------------------------------------------------------------
-    auto SceneQuery::getQueryTypeMask() const noexcept -> uint32
+    auto SceneQuery::getQueryTypeMask() const noexcept -> QueryTypeMask
     {
         return mQueryTypeMask;
     }
@@ -75,7 +75,7 @@ class MovableObject;
         // Check supported
         if (mSupportedWorldFragments.find(wft) == mSupportedWorldFragments.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "This world fragment type is not supported.",
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "This world fragment type is not supported.",
                 "SceneQuery::setWorldFragmentType");
         }
         mWorldFragmentType = wft;

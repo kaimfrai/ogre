@@ -157,7 +157,7 @@ namespace OgreBites
         auto frameRenderingQueued(const Ogre::FrameEvent& evt) -> bool override
         {
             // don't do all these calculations when sample's running or when in configuration screen or when no samples loaded
-            if (!mLoadedSamples.empty() && mTitleLabel->getTrayLocation() != TL_NONE && (!mCurrentSample || mSamplePaused))
+            if (!mLoadedSamples.empty() && mTitleLabel->getTrayLocation() != TrayLocation::NONE && (!mCurrentSample || mSamplePaused))
             {
                 // makes the carousel spin smoothly toward its right position
                 float carouselOffset = mSampleMenu->getSelectionIndex() - mCarouselPlace;
@@ -269,28 +269,28 @@ namespace OgreBites
 
                 mTrayMgr->removeWidgetFromTray("UnloadReload");
                 mTrayMgr->removeWidgetFromTray("Quit");
-                mTrayMgr->moveWidgetToTray("Apply", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("Apply", TrayLocation::RIGHT);
 
-                mTrayMgr->moveWidgetToTray("Back", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("Back", TrayLocation::RIGHT);
 
                 for (auto & mThumb : mThumbs)
                 {
                     mThumb->hide();
                 }
 
-                while (mTrayMgr->getTrayContainer(TL_CENTER)->isVisible())
+                while (mTrayMgr->getTrayContainer(TrayLocation::CENTER)->isVisible())
                 {
-                    mTrayMgr->removeWidgetFromTray(TL_CENTER, 0);
+                    mTrayMgr->removeWidgetFromTray(TrayLocation::CENTER, 0);
                 }
 
-                while (mTrayMgr->getTrayContainer(TL_LEFT)->isVisible())
+                while (mTrayMgr->getTrayContainer(TrayLocation::LEFT)->isVisible())
                 {
-                    mTrayMgr->removeWidgetFromTray(TL_LEFT, 0);
+                    mTrayMgr->removeWidgetFromTray(TrayLocation::LEFT, 0);
                 }
 
-                mTrayMgr->moveWidgetToTray("ConfigLabel", TL_LEFT);
-                mTrayMgr->moveWidgetToTray(mRendererMenu, TL_LEFT);
-                mTrayMgr->moveWidgetToTray("ConfigSeparator", TL_LEFT);
+                mTrayMgr->moveWidgetToTray("ConfigLabel", TrayLocation::LEFT);
+                mTrayMgr->moveWidgetToTray(mRendererMenu, TrayLocation::LEFT);
+                mTrayMgr->moveWidgetToTray("ConfigSeparator", TrayLocation::LEFT);
 
                 mRendererMenu->selectItem(mRoot->getRenderSystem()->getName());
 
@@ -303,9 +303,9 @@ namespace OgreBites
                     mTrayMgr->destroyWidget(mRendererMenu->getTrayLocation(), 3);
                 }
 
-                while (!mTrayMgr->getWidgets(TL_NONE).empty())
+                while (!mTrayMgr->getWidgets(TrayLocation::NONE).empty())
                 {
-                    mTrayMgr->moveWidgetToTray(TL_NONE, 0, TL_LEFT);
+                    mTrayMgr->moveWidgetToTray(TrayLocation::NONE, 0, TrayLocation::LEFT);
                 }
 
                 mTrayMgr->removeWidgetFromTray("Apply");
@@ -314,13 +314,13 @@ namespace OgreBites
                 mTrayMgr->removeWidgetFromTray(mRendererMenu);
                 mTrayMgr->removeWidgetFromTray("ConfigSeparator");
 
-                mTrayMgr->moveWidgetToTray("StartStop", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("StartStop", TrayLocation::RIGHT);
 
-                mTrayMgr->moveWidgetToTray("UnloadReload", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("UnloadReload", TrayLocation::RIGHT);
 
-                mTrayMgr->moveWidgetToTray("Configure", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("Configure", TrayLocation::RIGHT);
 
-                mTrayMgr->moveWidgetToTray("Quit", TL_RIGHT);
+                mTrayMgr->moveWidgetToTray("Quit", TrayLocation::RIGHT);
 
                 mCarouselPlace += CAROUSEL_REDRAW_EPS;  // force redraw
                 windowResized(mWindow);
@@ -402,8 +402,8 @@ namespace OgreBites
                         // create sample thumbnail overlay
                         auto bp = dynamic_cast<Ogre::PanelOverlayElement*>(
                             om.createOverlayElementFromTemplate("SdkTrays/Picture", "", name));
-                        bp->setHorizontalAlignment(Ogre::GHA_RIGHT);
-                        bp->setVerticalAlignment(Ogre::GVA_CENTER);
+                        bp->setHorizontalAlignment(Ogre::GuiHorizontalAlignment::RIGHT);
+                        bp->setVerticalAlignment(Ogre::GuiVerticalAlignment::CENTER);
                         bp->setMaterialName(name);
                         bp->getUserObjectBindings().setUserAny(sample);
                         mTrayMgr->getTraysLayer()->add2D(bp);
@@ -450,7 +450,7 @@ namespace OgreBites
                 {
                     i++;
                     SelectMenu* optionMenu = mTrayMgr->createLongSelectMenu
-                        (TL_LEFT, ::std::format("ConfigOption{}", i), option.first, 450, 240, 10);
+                        (TrayLocation::LEFT, ::std::format("ConfigOption{}", i), option.first, 450, 240, 10);
                     optionMenu->setItems(option.second.possibleValues);
 
                     // if the current config value is not in the menu, add it
@@ -491,7 +491,7 @@ namespace OgreBites
 
             if (key == SDLK_ESCAPE)
             {
-                if (mTitleLabel->getTrayLocation() != TL_NONE)
+                if (mTitleLabel->getTrayLocation() != TrayLocation::NONE)
                 {
                     // if we're in the main screen and a sample's running, toggle sample pause state
                     if (mCurrentSample)
@@ -510,7 +510,7 @@ namespace OgreBites
                 }
                 else buttonHit((Button*)mTrayMgr->getWidget("Back"));  // if we're in config, just go back
             }
-            else if ((key == SDLK_UP || key == SDLK_DOWN) && mTitleLabel->getTrayLocation() != TL_NONE)
+            else if ((key == SDLK_UP || key == SDLK_DOWN) && mTitleLabel->getTrayLocation() != TrayLocation::NONE)
             {
                 // if we're in the main screen, use the up and down arrow keys to cycle through samples
                 int newIndex = mSampleMenu->getSelectionIndex() + (key == SDLK_UP ? -1 : 1);
@@ -552,7 +552,7 @@ namespace OgreBites
           -----------------------------------------------------------------------------*/
         auto mousePressed(const MouseButtonDownEvent& evt) noexcept -> bool override
         {
-            if (mTitleLabel->getTrayLocation() != TL_NONE)
+            if (mTitleLabel->getTrayLocation() != TrayLocation::NONE)
             {
                 for (unsigned int i = 0; i < mThumbs.size(); i++)
                 {
@@ -573,7 +573,7 @@ namespace OgreBites
         // convert and redirect
         auto touchPressed(const TouchFingerDownEvent& evt) noexcept -> bool override {
             MouseButtonDownEvent e;
-            e.button = BUTTON_LEFT;
+            e.button = ButtonType::LEFT;
             return mousePressed(e);
         }
 
@@ -612,7 +612,7 @@ namespace OgreBites
         // convert and redirect
         auto touchReleased(const TouchFingerUpEvent& evt) noexcept -> bool override {
             MouseButtonUpEvent e;
-            e.button = BUTTON_LEFT;
+            e.button = ButtonType::LEFT;
             return mouseReleased(e);
         }
 
@@ -645,7 +645,7 @@ namespace OgreBites
             if(mTrayMgr->mouseWheelRolled(evt))
                 return true;
 
-            if (isCurrentSamplePaused() && mTitleLabel->getTrayLocation() != TL_NONE &&
+            if (isCurrentSamplePaused() && mTitleLabel->getTrayLocation() != TrayLocation::NONE &&
                 mSampleMenu->getNumItems() != 0)
             {
                 int newIndex = mSampleMenu->getSelectionIndex() - evt.y / Ogre::Math::Abs(evt.y);
@@ -664,21 +664,21 @@ namespace OgreBites
         {
             if (!mTrayMgr) return;
 
-            Ogre::OverlayContainer* center = mTrayMgr->getTrayContainer(TL_CENTER);
-            Ogre::OverlayContainer* left = mTrayMgr->getTrayContainer(TL_LEFT);
+            Ogre::OverlayContainer* center = mTrayMgr->getTrayContainer(TrayLocation::CENTER);
+            Ogre::OverlayContainer* left = mTrayMgr->getTrayContainer(TrayLocation::LEFT);
 
             if (center->isVisible() && rw->getWidth() < 1280 - center->getWidth())
             {
                 while (center->isVisible())
                 {
-                    mTrayMgr->moveWidgetToTray(mTrayMgr->getWidgets(TL_CENTER)[0], TL_LEFT);
+                    mTrayMgr->moveWidgetToTray(mTrayMgr->getWidgets(TrayLocation::CENTER)[0], TrayLocation::LEFT);
                 }
             }
             else if (left->isVisible() && rw->getWidth() >= 1280 - left->getWidth())
             {
                 while (left->isVisible())
                 {
-                    mTrayMgr->moveWidgetToTray(mTrayMgr->getWidgets(TL_LEFT)[0], TL_CENTER);
+                    mTrayMgr->moveWidgetToTray(mTrayMgr->getWidgets(TrayLocation::LEFT)[0], TrayLocation::CENTER);
                 }
             }
 
@@ -736,7 +736,7 @@ namespace OgreBites
             Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("Essential");
             mTrayMgr = new TrayManager("BrowserControls", getRenderWindow(), this);
             mTrayMgr->showBackdrop("SdkTrays/Bands");
-            mTrayMgr->getTrayContainer(TL_NONE)->hide();
+            mTrayMgr->getTrayContainer(TrayLocation::NONE)->hide();
 
             // Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
@@ -813,37 +813,37 @@ namespace OgreBites
             mTrayMgr->destroyAllWidgets();
 
             // create main navigation tray
-            mTrayMgr->showLogo(TL_RIGHT);
-            mTrayMgr->createSeparator(TL_RIGHT, "LogoSep");
-            mTrayMgr->createButton(TL_RIGHT, "StartStop", "Start Sample", 120);
+            mTrayMgr->showLogo(TrayLocation::RIGHT);
+            mTrayMgr->createSeparator(TrayLocation::RIGHT, "LogoSep");
+            mTrayMgr->createButton(TrayLocation::RIGHT, "StartStop", "Start Sample", 120);
 
-            mTrayMgr->createButton(TL_RIGHT, "UnloadReload", mLoadedSamples.empty() ? "Reload Samples" : "Unload Samples");
+            mTrayMgr->createButton(TrayLocation::RIGHT, "UnloadReload", mLoadedSamples.empty() ? "Reload Samples" : "Unload Samples");
 
-            mTrayMgr->createButton(TL_RIGHT, "Configure", "Configure");
+            mTrayMgr->createButton(TrayLocation::RIGHT, "Configure", "Configure");
 
-            mTrayMgr->createButton(TL_RIGHT, "Quit", "Quit");
+            mTrayMgr->createButton(TrayLocation::RIGHT, "Quit", "Quit");
 
             // create sample viewing controls
             float infoWidth = 250;
 
-            mTitleLabel = mTrayMgr->createLabel(TL_LEFT, "SampleTitle", "");
-            mDescBox = mTrayMgr->createTextBox(TL_LEFT, "SampleInfo", "Sample Info", infoWidth, 208);
-            mCategoryMenu = mTrayMgr->createThickSelectMenu(TL_LEFT, "CategoryMenu", "Select Category", infoWidth, 10);
-            mSampleMenu = mTrayMgr->createThickSelectMenu(TL_LEFT, "SampleMenu", "Select Sample", infoWidth, 10);
-            mSampleSlider = mTrayMgr->createThickSlider(TL_LEFT, "SampleSlider", "Slide Samples", infoWidth, 80, 0, 0, 0);
+            mTitleLabel = mTrayMgr->createLabel(TrayLocation::LEFT, "SampleTitle", "");
+            mDescBox = mTrayMgr->createTextBox(TrayLocation::LEFT, "SampleInfo", "Sample Info", infoWidth, 208);
+            mCategoryMenu = mTrayMgr->createThickSelectMenu(TrayLocation::LEFT, "CategoryMenu", "Select Category", infoWidth, 10);
+            mSampleMenu = mTrayMgr->createThickSelectMenu(TrayLocation::LEFT, "SampleMenu", "Select Sample", infoWidth, 10);
+            mSampleSlider = mTrayMgr->createThickSlider(TrayLocation::LEFT, "SampleSlider", "Slide Samples", infoWidth, 80, 0, 0, 0);
 
             /* Sliders do not notify their listeners on creation, so we manually call the callback here
                to format the slider value correctly. */
             sliderMoved(mSampleSlider);
 
             // create configuration screen button tray
-            mTrayMgr->createButton(TL_NONE, "Apply", "Apply Changes");
-            mTrayMgr->createButton(TL_NONE, "Back", "Go Back");
+            mTrayMgr->createButton(TrayLocation::NONE, "Apply", "Apply Changes");
+            mTrayMgr->createButton(TrayLocation::NONE, "Back", "Go Back");
 
             // create configuration screen label and renderer menu
-            mTrayMgr->createLabel(TL_NONE, "ConfigLabel", "Configuration");
-            mRendererMenu = mTrayMgr->createLongSelectMenu(TL_NONE, "RendererMenu", "Render System", 450, 240, 10);
-            mTrayMgr->createSeparator(TL_NONE, "ConfigSeparator");
+            mTrayMgr->createLabel(TrayLocation::NONE, "ConfigLabel", "Configuration");
+            mRendererMenu = mTrayMgr->createLongSelectMenu(TrayLocation::NONE, "RendererMenu", "Render System", 450, 240, 10);
+            mTrayMgr->createSeparator(TrayLocation::NONE, "ConfigSeparator");
 
             // populate render system names
             Ogre::StringVector rsNames;

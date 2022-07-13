@@ -122,9 +122,9 @@ public:
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    auto resolveInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
+    auto resolveInputParameter(Parameter::Content content, GpuConstantType type = GpuConstantType::UNKNOWN) -> ParameterPtr
     {
-        return resolveInputParameter(Parameter::SPS_UNKNOWN, 0, content, type);
+        return resolveInputParameter(Parameter::Semantic::UNKNOWN, 0, content, type);
     }
 
     /// resolve input parameter from previous output
@@ -140,7 +140,7 @@ public:
      * @param type The type of the desired parameter.
      * @return parameter or NULL if not found
      */
-    auto getInputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
+    auto getInputParameter(Parameter::Content content, GpuConstantType type = GpuConstantType::UNKNOWN) -> ParameterPtr
     {
         return _getParameterByContent(mInputParameters, content, type);
     }
@@ -153,9 +153,9 @@ public:
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    auto resolveOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
+    auto resolveOutputParameter(Parameter::Content content, GpuConstantType type = GpuConstantType::UNKNOWN) -> ParameterPtr
     {
-        return resolveOutputParameter(Parameter::SPS_UNKNOWN, 0, content, type);
+        return resolveOutputParameter(Parameter::Semantic::UNKNOWN, 0, content, type);
     }
 
     /**
@@ -164,7 +164,7 @@ public:
      * @param type The type of the desired parameter.
      * @return parameter or NULL if not found
      */
-    auto getOutputParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr
+    auto getOutputParameter(Parameter::Content content, GpuConstantType type = GpuConstantType::UNKNOWN) -> ParameterPtr
     {
         return _getParameterByContent(mOutputParameters, content, type);
     }
@@ -185,7 +185,7 @@ public:
     @param type The type of the desired parameter.
     @return parameter instance in case of that resolve operation succeeded.
     */
-    auto resolveLocalParameter(Parameter::Content content, GpuConstantType type = GCT_UNKNOWN) -> ParameterPtr;
+    auto resolveLocalParameter(Parameter::Content content, GpuConstantType type = GpuConstantType::UNKNOWN) -> ParameterPtr;
 
     /**
      * get local parameter by content
@@ -194,7 +194,7 @@ public:
      */
     auto getLocalParameter(Parameter::Content content) -> ParameterPtr
     {
-        return _getParameterByContent(mLocalParameters, content, GCT_UNKNOWN);
+        return _getParameterByContent(mLocalParameters, content, GpuConstantType::UNKNOWN);
     }
     /// @overload
     auto getLocalParameter(std::string_view name) -> ParameterPtr

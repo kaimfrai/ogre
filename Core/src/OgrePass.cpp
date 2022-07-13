@@ -88,7 +88,7 @@ namespace Ogre {
         {
             uint32 hash = 0;
 
-            for(int i = 0; i < GPT_COUNT; i++)
+            for(int i = 0; i < std::to_underlying(GpuProgramType::COUNT); i++)
             {
                 std::string_view name = p->getGpuProgramName(GpuProgramType(i));
                 if(!name.empty()) {
@@ -144,7 +144,7 @@ namespace Ogre {
         , mSpecular(ColourValue::Black)
         , mEmissive(ColourValue::Black)
         , mShininess(0)
-        , mTracking(TVC_NONE)
+        , mTracking(TrackVertexColourEnum::NONE)
         , mHashDirtyQueued(false)
         , mDepthCheck(true)
         , mDepthWrite(true)
@@ -167,15 +167,15 @@ namespace Ogre {
         , mDepthBiasConstant(0.0f)
         , mDepthBiasSlopeScale(0.0f)
         , mDepthBiasPerIteration(0.0f)
-        , mDepthFunc(CMPF_LESS_EQUAL)
-        , mAlphaRejectFunc(CMPF_ALWAYS_PASS)
-        , mCullMode(CULL_CLOCKWISE)
-        , mManualCullMode(MANUAL_CULL_BACK)
+        , mDepthFunc(CompareFunction::LESS_EQUAL)
+        , mAlphaRejectFunc(CompareFunction::ALWAYS_PASS)
+        , mCullMode(CullingMode::CLOCKWISE)
+        , mManualCullMode(ManualCullingMode::BACK)
         , mMaxSimultaneousLights(OGRE_MAX_SIMULTANEOUS_LIGHTS)
         , mStartLight(0)
         , mLightsPerIteration(1)
         , mIndex(index)
-        , mLightMask(0xFFFFFFFF)
+        , mLightMask{0xFFFFFFFF}
         , mFogColour(ColourValue::White)
         , mFogStart(0.0)
         , mFogEnd(1.0)
@@ -185,11 +185,11 @@ namespace Ogre {
         , mPointMinSize(0.0f)
         , mPointMaxSize(0.0f)
         , mPointAttenution(1.0f, 1.0f, 0.0f, 0.0f)
-        , mShadeOptions(SO_GOURAUD)
-        , mPolygonMode(PM_SOLID)
-        , mIlluminationStage(IS_UNKNOWN)
-        , mOnlyLightType(Light::LT_POINT)
-        , mFogMode(FOG_NONE)
+        , mShadeOptions(ShadeOptions::GOURAUD)
+        , mPolygonMode(PolygonMode::SOLID)
+        , mIlluminationStage(IlluminationStage::UNKNOWN)
+        , mOnlyLightType(Light::LightTypes::POINT)
+        , mFogMode(FogMode::NONE)
     {
         // init the hash inline
         _recalculateHash();
@@ -269,7 +269,7 @@ namespace Ogre {
         mIlluminationStage = oth.mIlluminationStage;
         mLightMask = oth.mLightMask;
 
-        for(int i = 0; i < GPT_COUNT; i++)
+        for(int i = 0; i < std::to_underlying(GpuProgramType::COUNT); i++)
         {
             auto& programUsage = mProgramUsage[i];
             auto& othUsage = oth.mProgramUsage[i];
@@ -477,32 +477,32 @@ namespace Ogre {
     {
         switch ( type )
         {
-        case SBT_TRANSPARENT_ALPHA:
-            source = SBF_SOURCE_ALPHA;
-            dest = SBF_ONE_MINUS_SOURCE_ALPHA;
+        case SceneBlendType::TRANSPARENT_ALPHA:
+            source = SceneBlendFactor::SOURCE_ALPHA;
+            dest = SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA;
             return;
-        case SBT_TRANSPARENT_COLOUR:
-            source = SBF_SOURCE_COLOUR;
-            dest = SBF_ONE_MINUS_SOURCE_COLOUR;
+        case SceneBlendType::TRANSPARENT_COLOUR:
+            source = SceneBlendFactor::SOURCE_COLOUR;
+            dest = SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR;
             return;
-        case SBT_MODULATE:
-            source = SBF_DEST_COLOUR;
-            dest = SBF_ZERO;
+        case SceneBlendType::MODULATE:
+            source = SceneBlendFactor::DEST_COLOUR;
+            dest = SceneBlendFactor::ZERO;
             return;
-        case SBT_ADD:
-            source = SBF_ONE;
-            dest = SBF_ONE;
+        case SceneBlendType::ADD:
+            source = SceneBlendFactor::ONE;
+            dest = SceneBlendFactor::ONE;
             return;
-        case SBT_REPLACE:
-            source = SBF_ONE;
-            dest = SBF_ZERO;
+        case SceneBlendType::REPLACE:
+            source = SceneBlendFactor::ONE;
+            dest = SceneBlendFactor::ZERO;
             return;
         }
 
-        // Default to SBT_REPLACE
+        // Default to SceneBlendType::REPLACE
 
-        source = SBF_ONE;
-        dest = SBF_ZERO;
+        source = SceneBlendFactor::ONE;
+        dest = SceneBlendFactor::ZERO;
     }
     //-----------------------------------------------------------------------
     void Pass::setSceneBlending(SceneBlendType sbt)
@@ -567,11 +567,11 @@ namespace Ogre {
     auto Pass::isTransparent() const noexcept -> bool
     {
         // Transparent if any of the destination colour is taken into account
-        if (mBlendState.destFactor == SBF_ZERO &&
-            mBlendState.sourceFactor != SBF_DEST_COLOUR &&
-            mBlendState.sourceFactor != SBF_ONE_MINUS_DEST_COLOUR &&
-            mBlendState.sourceFactor != SBF_DEST_ALPHA &&
-            mBlendState.sourceFactor != SBF_ONE_MINUS_DEST_ALPHA)
+        if (mBlendState.destFactor == SceneBlendFactor::ZERO &&
+            mBlendState.sourceFactor != SceneBlendFactor::DEST_COLOUR &&
+            mBlendState.sourceFactor != SceneBlendFactor::ONE_MINUS_DEST_COLOUR &&
+            mBlendState.sourceFactor != SceneBlendFactor::DEST_ALPHA &&
+            mBlendState.sourceFactor != SceneBlendFactor::ONE_MINUS_DEST_ALPHA)
         {
             return false;
         }
@@ -677,8 +677,8 @@ namespace Ogre {
             // Fixup the texture unit 0   of new pass   blending method   to replace
             // all colour and alpha   with texture without adjustment, because we
             // assume it's detail texture.
-            (*i)->setColourOperationEx(LBX_SOURCE1,   LBS_TEXTURE, LBS_CURRENT);
-            (*i)->setAlphaOperation(LBX_SOURCE1, LBS_TEXTURE, LBS_CURRENT);
+            (*i)->setColourOperationEx(LayerBlendOperationEx::SOURCE1,   LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
+            (*i)->setAlphaOperation(LayerBlendOperationEx::SOURCE1, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
 
             // Add all the other texture unit states
             for (; i != iend; ++i)
@@ -764,7 +764,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Pass::setVertexProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_VERTEX_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::VERTEX_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setGpuProgramParameters(GpuProgramType type, const GpuProgramParametersSharedPtr& params)
@@ -772,14 +772,14 @@ namespace Ogre {
         const auto& programUsage = getProgramUsage(type);
         if (!programUsage)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "This pass does not have this program type assigned!");
         }
         programUsage->setParameters(params);
     }
     void Pass::setVertexProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_VERTEX_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::VERTEX_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     void Pass::setGpuProgram(GpuProgramType type, const GpuProgramPtr& program, bool resetParams)
@@ -822,52 +822,52 @@ namespace Ogre {
 
     void Pass::setFragmentProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_FRAGMENT_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::FRAGMENT_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setFragmentProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_FRAGMENT_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::FRAGMENT_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     void Pass::setGeometryProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_GEOMETRY_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::GEOMETRY_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setGeometryProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_GEOMETRY_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::GEOMETRY_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     void Pass::setTessellationHullProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_HULL_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::HULL_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setTessellationHullProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_HULL_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::HULL_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     void Pass::setTessellationDomainProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_DOMAIN_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::DOMAIN_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setTessellationDomainProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_DOMAIN_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::DOMAIN_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     void Pass::setComputeProgram(std::string_view name, bool resetParams)
     {
-        setGpuProgram(GPT_COMPUTE_PROGRAM, name, resetParams);
+        setGpuProgram(GpuProgramType::COMPUTE_PROGRAM, name, resetParams);
     }
     //-----------------------------------------------------------------------
     void Pass::setComputeProgramParameters(GpuProgramParametersSharedPtr params)
     {
-        setGpuProgramParameters(GPT_COMPUTE_PROGRAM, params);
+        setGpuProgramParameters(GpuProgramType::COMPUTE_PROGRAM, params);
     }
     //-----------------------------------------------------------------------
     auto Pass::getGpuProgramParameters(GpuProgramType type) const -> const GpuProgramParametersSharedPtr&
@@ -875,7 +875,7 @@ namespace Ogre {
         const auto& programUsage = getProgramUsage(type);
         if (!programUsage)
         {
-            OGRE_EXCEPT (Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT (ExceptionCodes::INVALIDPARAMS,
                 "This pass does not have this program type assigned!");
         }
         return programUsage->getParameters();
@@ -883,16 +883,16 @@ namespace Ogre {
 
     auto Pass::getVertexProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_VERTEX_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::VERTEX_PROGRAM);
     }
 
     auto Pass::getProgramUsage(GpuProgramType programType) -> std::unique_ptr<GpuProgramUsage>& {
-        return mProgramUsage[programType];
+        return mProgramUsage[std::to_underlying(programType)];
     }
 
     auto Pass::getProgramUsage(GpuProgramType programType) const -> const std::unique_ptr<GpuProgramUsage>&
     {
-        return mProgramUsage[programType];
+        return mProgramUsage[std::to_underlying(programType)];
     }
 
     auto Pass::hasGpuProgram(GpuProgramType programType) const -> bool {
@@ -900,8 +900,8 @@ namespace Ogre {
     }
     auto Pass::getGpuProgram(GpuProgramType programType) const -> const GpuProgramPtr&
 	{
-        OgreAssert(mProgramUsage[programType], "check whether program is available using hasGpuProgram()");
-        return mProgramUsage[programType]->getProgram();
+        OgreAssert(mProgramUsage[std::to_underlying(programType)], "check whether program is available using hasGpuProgram()");
+        return mProgramUsage[std::to_underlying(programType)]->getProgram();
 	}
     //-----------------------------------------------------------------------
     auto Pass::getGpuProgramName(GpuProgramType type) const -> std::string_view
@@ -915,27 +915,27 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto Pass::getFragmentProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_FRAGMENT_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::FRAGMENT_PROGRAM);
     }
     //-----------------------------------------------------------------------
     auto Pass::getGeometryProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_GEOMETRY_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::GEOMETRY_PROGRAM);
     }
     //-----------------------------------------------------------------------
     auto Pass::getTessellationHullProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_HULL_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::HULL_PROGRAM);
     }
     //-----------------------------------------------------------------------
     auto Pass::getTessellationDomainProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_DOMAIN_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::DOMAIN_PROGRAM);
     }
     //-----------------------------------------------------------------------
     auto Pass::getComputeProgramParameters() const -> GpuProgramParametersSharedPtr
     {
-        return getGpuProgramParameters(GPT_COMPUTE_PROGRAM);
+        return getGpuProgramParameters(GpuProgramType::COMPUTE_PROGRAM);
     }
     //-----------------------------------------------------------------------
     auto Pass::isLoaded() const noexcept -> bool
@@ -1001,9 +1001,9 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    void Pass::_updateAutoParams(const AutoParamDataSource* source, uint16 mask) const
+    void Pass::_updateAutoParams(const AutoParamDataSource* source, GpuParamVariability mask) const
     {
-        for(int i = 0; i < GPT_COUNT; i++)
+        for(int i = 0; i < std::to_underlying(GpuProgramType::COUNT); i++)
         {
             const auto& programUsage = getProgramUsage(GpuProgramType(i));
             if (programUsage)
@@ -1075,7 +1075,7 @@ namespace Ogre {
             mShadowContentTypeLookup.clear();
             for (unsigned short i = 0; i < mTextureUnitStates.size(); ++i)
             {
-                if (mTextureUnitStates[i]->getContentType() == TextureUnitState::CONTENT_SHADOW)
+                if (mTextureUnitStates[i]->getContentType() == TextureUnitState::ContentType::SHADOW)
                 {
                     mShadowContentTypeLookup.push_back(i);
                 }
@@ -1085,7 +1085,7 @@ namespace Ogre {
 
         switch(contentType)
         {
-        case TextureUnitState::CONTENT_SHADOW:
+        case TextureUnitState::ContentType::SHADOW:
             if (index < mShadowContentTypeLookup.size())
             {
                 return mShadowContentTypeLookup[index];
@@ -1095,7 +1095,7 @@ namespace Ogre {
             // Simple iteration
             for (unsigned short i = 0; i < mTextureUnitStates.size(); ++i)
             {
-                if (mTextureUnitStates[i]->getContentType() == TextureUnitState::CONTENT_SHADOW)
+                if (mTextureUnitStates[i]->getContentType() == TextureUnitState::ContentType::SHADOW)
                 {
                     if (index == 0)
                     {

@@ -89,7 +89,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
                                std::string_view materialName,
                                Real gscale,
                                Real tiling,
-                               uint8 renderQueue,
+                               RenderQueueGroupID renderQueue,
                                Real bow,
                                int xsegments, int ysegments,
                                std::string_view groupName)
@@ -102,7 +102,7 @@ void SceneManager::SkyPlaneRenderer::setSkyPlane(
         MaterialPtr m = MaterialManager::getSingleton().getByName(materialName, groupName);
         if (!m)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 ::std::format("Sky plane material '{}' not found.", materialName ),
                 "SceneManager::setSkyPlane");
         }
@@ -185,7 +185,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
                              bool enable,
                              std::string_view materialName,
                              Real distance,
-                             uint8 renderQueue,
+                             RenderQueueGroupID renderQueue,
                              const Quaternion& orientation,
                              std::string_view groupName)
 {
@@ -194,7 +194,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         MaterialPtr m = MaterialManager::getSingleton().getByName(materialName, groupName);
         if (!m)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 ::std::format("Sky box material '{}' not found.", materialName ),
                 "SceneManager::setSkyBox");
         }
@@ -206,7 +206,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         {
             Pass* pass = m->getBestTechnique()->getPass(0);
             valid = valid && pass->getNumTextureUnitStates() &&
-                    pass->getTextureUnitState(0)->getTextureType() == TEX_TYPE_CUBE_MAP;
+                    pass->getTextureUnitState(0)->getTextureType() == TextureType::CUBE_MAP;
         }
 
         if (!valid)
@@ -240,7 +240,7 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
         }
 
         mSkyBoxObj->setRenderQueueGroup(renderQueue);
-        mSkyBoxObj->begin(materialName, RenderOperation::OT_TRIANGLE_LIST, groupName);
+        mSkyBoxObj->begin(materialName, RenderOperation::OperationType::TRIANGLE_LIST, groupName);
 
         // Set up the box (6 planes)
         for (uint16 i = 0; i < 6; ++i)
@@ -248,34 +248,34 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
             Vector3 middle;
             Vector3 up, right;
 
-            switch(i)
+            switch(static_cast<BoxPlane>(i))
             {
-            case BP_FRONT:
+            case BoxPlane::FRONT:
                 middle = Vector3(0, 0, -distance);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
-            case BP_BACK:
+            case BoxPlane::BACK:
                 middle = Vector3(0, 0, distance);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_X * distance;
                 break;
-            case BP_LEFT:
+            case BoxPlane::LEFT:
                 middle = Vector3(-distance, 0, 0);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_Z * distance;
                 break;
-            case BP_RIGHT:
+            case BoxPlane::RIGHT:
                 middle = Vector3(distance, 0, 0);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_Z * distance;
                 break;
-            case BP_UP:
+            case BoxPlane::UP:
                 middle = Vector3(0, distance, 0);
                 up = Vector3::UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
-            case BP_DOWN:
+            case BoxPlane::DOWN:
                 middle = Vector3(0, -distance, 0);
                 up = Vector3::NEGATIVE_UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
@@ -320,7 +320,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
                               Real curvature,
                               Real tiling,
                               Real distance,
-                              uint8 renderQueue,
+                              RenderQueueGroupID renderQueue,
                               const Quaternion& orientation,
                               int xsegments, int ysegments, int ySegmentsToKeep,
                               std::string_view groupName)
@@ -330,7 +330,7 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
         MaterialPtr m = MaterialManager::getSingleton().getByName(materialName, groupName);
         if (!m)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 ::std::format("Sky dome material '{}' not found.", materialName ),
                 "SceneManager::setSkyDome");
         }
@@ -353,9 +353,10 @@ void SceneManager::SkyDomeRenderer::setSkyDome(
         // Set up the dome (5 planes)
         for (int i = 0; i < 5; ++i)
         {
-            MeshPtr planeMesh = createSkydomePlane((BoxPlane)i, curvature,
+            auto const boxplane = static_cast<BoxPlane>(i);
+            MeshPtr planeMesh = createSkydomePlane(boxplane, curvature,
                 tiling, distance, orientation, xsegments, ysegments,
-                i!=BP_UP ? ySegmentsToKeep : -1, groupName);
+                boxplane != BoxPlane::UP ? ySegmentsToKeep : -1, groupName);
 
             String entName = ::std::format("SkyDomePlane{}", i);
 
@@ -414,32 +415,32 @@ auto SceneManager::SkyDomeRenderer::createSkydomePlane(
     plane.d = distance;
     switch(bp)
     {
-    case BP_FRONT:
+    case BoxPlane::FRONT:
         plane.normal = Vector3::UNIT_Z;
         up = Vector3::UNIT_Y;
         meshName += "Front";
         break;
-    case BP_BACK:
+    case BoxPlane::BACK:
         plane.normal = -Vector3::UNIT_Z;
         up = Vector3::UNIT_Y;
         meshName += "Back";
         break;
-    case BP_LEFT:
+    case BoxPlane::LEFT:
         plane.normal = Vector3::UNIT_X;
         up = Vector3::UNIT_Y;
         meshName += "Left";
         break;
-    case BP_RIGHT:
+    case BoxPlane::RIGHT:
         plane.normal = -Vector3::UNIT_X;
         up = Vector3::UNIT_Y;
         meshName += "Right";
         break;
-    case BP_UP:
+    case BoxPlane::UP:
         plane.normal = -Vector3::UNIT_Y;
         up = Vector3::UNIT_Z;
         meshName += "Up";
         break;
-    case BP_DOWN:
+    case BoxPlane::DOWN:
         // no down
         return {};
     }
@@ -460,7 +461,7 @@ auto SceneManager::SkyDomeRenderer::createSkydomePlane(
     planeMesh = mm.createCurvedIllusionPlane(meshName, groupName, plane,
         planeSize, planeSize, curvature,
         xsegments, ysegments, false, 1, tiling, tiling, up,
-        orientation, HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY, HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+        orientation, HardwareBuffer::DYNAMIC_WRITE_ONLY, HardwareBuffer::STATIC_WRITE_ONLY,
         false, false, ysegments_keep);
 
     //planeMesh->_dumpContents(meshName);
@@ -499,7 +500,7 @@ void SceneManager::SkyRenderer::postFindVisibleObjects(SceneManager* source, Ill
                                                        Viewport* vp)
 {
     // Queue skies, if viewport seems it
-    if (!vp->getSkiesEnabled() || irs == IRS_RENDER_TO_TEXTURE)
+    if (!vp->getSkiesEnabled() || irs == IlluminationRenderStage::RENDER_TO_TEXTURE)
         return;
 
     if(!mEnabled || !mSceneNode)

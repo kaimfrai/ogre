@@ -59,7 +59,7 @@ LinearSkinning::LinearSkinning() : HardwareSkinningTechnique()
 auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
 {
 
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
 
     //if needed mark this vertex program as hardware skinned
@@ -76,21 +76,21 @@ auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
     // in projective space to cover the responsibility of the transform stage
 
     //input param
-    mParamInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+    mParamInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
 
     if(mDoLightCalculations)
-        mParamInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
-    //mParamInBiNormal = vsMain->resolveInputParameter(Parameter::SPS_BINORMAL, 0, Parameter::SPC_BINORMAL_OBJECT_SPACE, GCT_FLOAT3);
-    //mParamInTangent = vsMain->resolveInputParameter(Parameter::SPS_TANGENT, 0, Parameter::SPC_TANGENT_OBJECT_SPACE, GCT_FLOAT3);
+        mParamInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
+    //mParamInBiNormal = vsMain->resolveInputParameter(Parameter::Semantic::BINORMAL, 0, Parameter::Content::BINORMAL_OBJECT_SPACE, GpuConstantType::FLOAT3);
+    //mParamInTangent = vsMain->resolveInputParameter(Parameter::Semantic::TANGENT, 0, Parameter::Content::TANGENT_OBJECT_SPACE, GpuConstantType::FLOAT3);
 
     //local param
-    mParamLocalPositionWorld = vsMain->resolveLocalParameter(Parameter::SPC_POSITION_WORLD_SPACE, GCT_FLOAT4);
-    mParamLocalNormalWorld = vsMain->resolveLocalParameter(Parameter::SPC_NORMAL_WORLD_SPACE);
-    //mParamLocalTangentWorld = vsMain->resolveLocalParameter(Parameter::SPS_TANGENT, 0, Parameter::SPC_TANGENT_WORLD_SPACE, GCT_FLOAT3);
-    //mParamLocalBinormalWorld = vsMain->resolveLocalParameter(Parameter::SPS_BINORMAL, 0, Parameter::SPC_BINORMAL_WORLD_SPACE, GCT_FLOAT3);
+    mParamLocalPositionWorld = vsMain->resolveLocalParameter(Parameter::Content::POSITION_WORLD_SPACE, GpuConstantType::FLOAT4);
+    mParamLocalNormalWorld = vsMain->resolveLocalParameter(Parameter::Content::NORMAL_WORLD_SPACE);
+    //mParamLocalTangentWorld = vsMain->resolveLocalParameter(Parameter::Semantic::TANGENT, 0, Parameter::Content::TANGENT_WORLD_SPACE, GpuConstantType::FLOAT3);
+    //mParamLocalBinormalWorld = vsMain->resolveLocalParameter(Parameter::Semantic::BINORMAL, 0, Parameter::Content::BINORMAL_WORLD_SPACE, GpuConstantType::FLOAT3);
 
     //output param
-    mParamOutPositionProj = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    mParamOutPositionProj = vsMain->resolveOutputParameter(Parameter::Content::POSITION_PROJECTIVE_SPACE);
 
     if (mDoBoneCalculations == true)
     {
@@ -102,19 +102,19 @@ auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
         }
 
         //input parameters
-        mParamInIndices = vsMain->resolveInputParameter(Parameter::SPC_BLEND_INDICES);
-        mParamInWeights = vsMain->resolveInputParameter(Parameter::SPC_BLEND_WEIGHTS);
-        mParamInWorldMatrices = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX_ARRAY_3x4, mBoneCount);
-        mParamInInvWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_INVERSE_WORLD_MATRIX);
-        mParamInViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_VIEWPROJ_MATRIX);
+        mParamInIndices = vsMain->resolveInputParameter(Parameter::Content::BLEND_INDICES);
+        mParamInWeights = vsMain->resolveInputParameter(Parameter::Content::BLEND_WEIGHTS);
+        mParamInWorldMatrices = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX_ARRAY_3x4, mBoneCount);
+        mParamInInvWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::INVERSE_WORLD_MATRIX);
+        mParamInViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::VIEWPROJ_MATRIX);
 
-        mParamTempFloat4 = vsMain->resolveLocalParameter(GCT_FLOAT4, "TempVal4");
-        mParamTempFloat3 = vsMain->resolveLocalParameter(GCT_FLOAT3, "TempVal3");
+        mParamTempFloat4 = vsMain->resolveLocalParameter(GpuConstantType::FLOAT4, "TempVal4");
+        mParamTempFloat3 = vsMain->resolveLocalParameter(GpuConstantType::FLOAT3, "TempVal3");
     }
     else
     {
-        mParamInWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLD_MATRIX);
-        mParamInWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEWPROJ_MATRIX);
+        mParamInWorldMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
+        mParamInWorldViewProjMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEWPROJ_MATRIX);
     }
     return true;
 }
@@ -122,7 +122,7 @@ auto LinearSkinning::resolveParameters(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 auto LinearSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     vsProgram->addDependency(FFP_LIB_COMMON);
     vsProgram->addDependency(FFP_LIB_TRANSFORM);
 
@@ -133,7 +133,7 @@ auto LinearSkinning::resolveDependencies(ProgramSet* programSet) -> bool
 auto LinearSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 {
 
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
 
     //add functions to calculate position data in world, object and projective space
@@ -150,7 +150,7 @@ auto LinearSkinning::addFunctionInvocations(ProgramSet* programSet) -> bool
 //-----------------------------------------------------------------------
 void LinearSkinning::addPositionCalculations(Function* vsMain)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     if (mDoBoneCalculations == true)
     {
@@ -181,7 +181,7 @@ void LinearSkinning::addNormalRelatedCalculations(Function* vsMain,
                                 ParameterPtr& pNormalRelatedParam,
                                 ParameterPtr& pNormalWorldRelatedParam)
 {
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     if (mDoBoneCalculations == true)
     {
@@ -210,7 +210,7 @@ void LinearSkinning::addIndexedPositionWeight(Function* vsMain,
 {
     Operand::OpMask indexMask = indexToMask(index);
 
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     //multiply position with world matrix and put into temporary param
     stage.callFunction(FFP_FUNC_TRANSFORM, {In(mParamInWorldMatrices), At(mParamInIndices).mask(indexMask),
@@ -244,7 +244,7 @@ void LinearSkinning::addIndexedNormalRelatedWeight(Function* vsMain,
 {
     Operand::OpMask indexMask = indexToMask(index);
 
-    auto stage = vsMain->getStage(FFP_VS_TRANSFORM);
+    auto stage = vsMain->getStage(std::to_underlying(FFPVertexShaderStage::TRANSFORM));
 
     //multiply position with world matrix and put into temporary param
     stage.callFunction(FFP_FUNC_TRANSFORM, {In(mParamInWorldMatrices), At(mParamInIndices).mask(indexMask),

@@ -67,14 +67,14 @@ void ProgramWriter::writeFunctionTitle(std::ostream& os, Function* function)
 
 ProgramWriter::ProgramWriter()
 {
-    mParamSemanticMap[Parameter::SPS_POSITION] = "POSITION";
-    mParamSemanticMap[Parameter::SPS_BLEND_WEIGHTS] = "BLENDWEIGHT";
-    mParamSemanticMap[Parameter::SPS_BLEND_INDICES] = "BLENDINDICES";
-    mParamSemanticMap[Parameter::SPS_NORMAL] = "NORMAL";
-    mParamSemanticMap[Parameter::SPS_COLOR] = "COLOR";
-    mParamSemanticMap[Parameter::SPS_TEXTURE_COORDINATES] = "TEXCOORD";
-    mParamSemanticMap[Parameter::SPS_BINORMAL] = "BINORMAL";
-    mParamSemanticMap[Parameter::SPS_TANGENT] = "TANGENT";
+    mParamSemanticMap[Parameter::Semantic::POSITION] = "POSITION";
+    mParamSemanticMap[Parameter::Semantic::BLEND_WEIGHTS] = "BLENDWEIGHT";
+    mParamSemanticMap[Parameter::Semantic::BLEND_INDICES] = "BLENDINDICES";
+    mParamSemanticMap[Parameter::Semantic::NORMAL] = "NORMAL";
+    mParamSemanticMap[Parameter::Semantic::COLOR] = "COLOR";
+    mParamSemanticMap[Parameter::Semantic::TEXTURE_COORDINATES] = "TEXCOORD";
+    mParamSemanticMap[Parameter::Semantic::BINORMAL] = "BINORMAL";
+    mParamSemanticMap[Parameter::Semantic::TANGENT] = "TANGENT";
 }
 
 ProgramWriter::~ProgramWriter() = default;
@@ -88,7 +88,7 @@ void ProgramWriter::writeParameter(std::ostream& os, const ParameterPtr& paramet
 
 void ProgramWriter::writeSamplerParameter(std::ostream& os, const UniformParameterPtr& parameter)
 {
-    if (parameter->getType() == GCT_SAMPLER_EXTERNAL_OES)
+    if (parameter->getType() == GpuConstantType::SAMPLER_EXTERNAL_OES)
     {
         os << "uniform\t";
         writeParameter(os, parameter);
@@ -97,37 +97,37 @@ void ProgramWriter::writeSamplerParameter(std::ostream& os, const UniformParamet
 
     switch(parameter->getType())
     {
-    case GCT_SAMPLER1D:
+    case GpuConstantType::SAMPLER1D:
         os << "SAMPLER1D(";
         break;
-    case GCT_SAMPLER2D:
+    case GpuConstantType::SAMPLER2D:
         os << "SAMPLER2D(";
         break;
-    case GCT_SAMPLER3D:
+    case GpuConstantType::SAMPLER3D:
         os << "SAMPLER3D(";
         break;
-    case GCT_SAMPLERCUBE:
+    case GpuConstantType::SAMPLERCUBE:
         os << "SAMPLERCUBE(";
         break;
-    case GCT_SAMPLER2DSHADOW:
+    case GpuConstantType::SAMPLER2DSHADOW:
         os << "SAMPLER2DSHADOW(";
         break;
-    case GCT_SAMPLER2DARRAY:
+    case GpuConstantType::SAMPLER2DARRAY:
         os << "SAMPLER2DARRAY(";
         break;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "unsupported sampler type");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "unsupported sampler type");
     }
     os << parameter->getName() << ", " << parameter->getIndex() << ")";
 }
 
 void ProgramWriter::writeParameterSemantic(std::ostream& os, const ParameterPtr& parameter)
 {
-    OgreAssertDbg(parameter->getSemantic() != Parameter::SPS_UNKNOWN, "invalid semantic");
+    OgreAssertDbg(parameter->getSemantic() != Parameter::Semantic::UNKNOWN, "invalid semantic");
     os << mParamSemanticMap[parameter->getSemantic()];
 
-    if (parameter->getSemantic() == Parameter::SPS_TEXTURE_COORDINATES ||
-        (parameter->getSemantic() == Parameter::SPS_COLOR && parameter->getIndex() > 0))
+    if (parameter->getSemantic() == Parameter::Semantic::TEXTURE_COORDINATES ||
+        (parameter->getSemantic() == Parameter::Semantic::COLOR && parameter->getIndex() > 0))
     {
         os << parameter->getIndex();
     }

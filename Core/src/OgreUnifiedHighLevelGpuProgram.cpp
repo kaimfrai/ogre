@@ -67,7 +67,7 @@ class ResourceManager;
 
             dict->addParameter(ParameterDef("delegate", 
                 "Additional delegate programs containing implementations.",
-                PT_STRING),&msCmdDelegate);
+                ParameterType::STRING),&msCmdDelegate);
         }
 
     }
@@ -321,7 +321,7 @@ class ResourceManager;
         if (_getDelegate())
             return _getDelegate()->getLoadingState();
         else
-            return Resource::LOADSTATE_UNLOADED;
+            return Resource::LoadingState::UNLOADED;
     }
     //-----------------------------------------------------------------------
     auto UnifiedHighLevelGpuProgram::getSize() const -> size_t
@@ -372,21 +372,21 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::createLowLevelImpl()
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, 
             "This method should never get called!",
             "UnifiedHighLevelGpuProgram::createLowLevelImpl");
     }
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::unloadHighLevelImpl()
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, 
             "This method should never get called!",
             "UnifiedHighLevelGpuProgram::unloadHighLevelImpl");
     }
     //-----------------------------------------------------------------------
     void UnifiedHighLevelGpuProgram::loadFromSource()
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, 
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, 
             "This method should never get called!",
             "UnifiedHighLevelGpuProgram::loadFromSource");
     }

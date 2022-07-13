@@ -54,44 +54,44 @@ class ResourceManager;
     {
         if (val == "point_list")
         {
-            return RenderOperation::OT_POINT_LIST;
+            return RenderOperation::OperationType::POINT_LIST;
         }
         else if (val == "line_list")
         {
-            return RenderOperation::OT_LINE_LIST;
+            return RenderOperation::OperationType::LINE_LIST;
         }
         else if (val == "line_list_adj")
         {
-            return RenderOperation::OT_LINE_LIST_ADJ;
+            return RenderOperation::OperationType::LINE_LIST_ADJ;
         }
         else if (val == "line_strip")
         {
-            return RenderOperation::OT_LINE_STRIP;
+            return RenderOperation::OperationType::LINE_STRIP;
         }
         else if (val == "line_strip_adj")
         {
-            return RenderOperation::OT_LINE_STRIP_ADJ;
+            return RenderOperation::OperationType::LINE_STRIP_ADJ;
         }
         else if (val == "triangle_strip")
         {
-            return RenderOperation::OT_TRIANGLE_STRIP;
+            return RenderOperation::OperationType::TRIANGLE_STRIP;
         }
         else if (val == "triangle_strip_adj")
         {
-            return RenderOperation::OT_TRIANGLE_STRIP_ADJ;
+            return RenderOperation::OperationType::TRIANGLE_STRIP_ADJ;
         }
         else if (val == "triangle_fan")
         {
-            return RenderOperation::OT_TRIANGLE_FAN;
+            return RenderOperation::OperationType::TRIANGLE_FAN;
         }
         else if (val == "triangle_list_adj")
         {
-            return RenderOperation::OT_TRIANGLE_LIST_ADJ;
+            return RenderOperation::OperationType::TRIANGLE_LIST_ADJ;
         }
         else
         {
             //Triangle list is the default fallback. Keep it this way?
-            return RenderOperation::OT_TRIANGLE_LIST;
+            return RenderOperation::OperationType::TRIANGLE_LIST;
         }
     }
     //-----------------------------------------------------------------------
@@ -99,34 +99,34 @@ class ResourceManager;
     {
         switch (val)
         {
-        case RenderOperation::OT_POINT_LIST:
+        case RenderOperation::OperationType::POINT_LIST:
             return "point_list";
             break;
-        case RenderOperation::OT_LINE_LIST:
+        case RenderOperation::OperationType::LINE_LIST:
             return "line_list";
             break;
-        case RenderOperation::OT_LINE_LIST_ADJ:
+        case RenderOperation::OperationType::LINE_LIST_ADJ:
             return "line_list_adj";
             break;
-        case RenderOperation::OT_LINE_STRIP:
+        case RenderOperation::OperationType::LINE_STRIP:
             return "line_strip";
             break;
-        case RenderOperation::OT_LINE_STRIP_ADJ:
+        case RenderOperation::OperationType::LINE_STRIP_ADJ:
             return "line_strip_adj";
             break;
-        case RenderOperation::OT_TRIANGLE_STRIP:
+        case RenderOperation::OperationType::TRIANGLE_STRIP:
             return "triangle_strip";
             break;
-        case RenderOperation::OT_TRIANGLE_STRIP_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
             return "triangle_strip_adj";
             break;
-        case RenderOperation::OT_TRIANGLE_FAN:
+        case RenderOperation::OperationType::TRIANGLE_FAN:
             return "triangle_fan";
             break;
-        case RenderOperation::OT_TRIANGLE_LIST_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
             return "triangle_list_adj";
             break;
-        case RenderOperation::OT_TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
         default:
             return "triangle_list";
             break;
@@ -204,18 +204,20 @@ class ResourceManager;
             GLenum shaderType = 0x0000;
             switch (mType)
             {
-            case GPT_VERTEX_PROGRAM:
+            case GpuProgramType::VERTEX_PROGRAM:
                 shaderType = GL_VERTEX_SHADER_ARB;
                 break;
-            case GPT_FRAGMENT_PROGRAM:
+            case GpuProgramType::FRAGMENT_PROGRAM:
                 shaderType = GL_FRAGMENT_SHADER_ARB;
                 break;
-            case GPT_GEOMETRY_PROGRAM:
+            case GpuProgramType::GEOMETRY_PROGRAM:
                 shaderType = GL_GEOMETRY_SHADER_EXT;
                 break;
-            case GPT_COMPUTE_PROGRAM:
-            case GPT_DOMAIN_PROGRAM:
-            case GPT_HULL_PROGRAM:
+            case GpuProgramType::COMPUTE_PROGRAM:
+            case GpuProgramType::DOMAIN_PROGRAM:
+            case GpuProgramType::HULL_PROGRAM:
+                break;
+            default:
                 break;
             }
             mGLShaderHandle = (size_t)glCreateShaderObjectARB(shaderType);
@@ -236,11 +238,11 @@ class ResourceManager;
         String compileInfo = getObjectInfo(mGLShaderHandle);
 
         if (!compiled)
-             OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("{} {}", getResourceLogName() , compileInfo), "compile");
+             OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, ::std::format("{} {}", getResourceLogName() , compileInfo), "compile");
 
         // probably we have warnings
         if (!compileInfo.empty())
-            LogManager::getSingleton().stream(LML_WARNING) << getResourceLogName() << " " << compileInfo;
+            LogManager::getSingleton().stream(LogMessageLevel::Warning) << getResourceLogName() << " " << compileInfo;
     }
     //-----------------------------------------------------------------------
     void GLSLProgram::unloadHighLevelImpl()
@@ -292,28 +294,28 @@ class ResourceManager;
 
             dict->addParameter(ParameterDef("attach", 
                 "name of another GLSL program needed by this program",
-                PT_STRING),&msCmdAttach);
+                ParameterType::STRING),&msCmdAttach);
             dict->addParameter(ParameterDef("column_major_matrices", 
                 "Whether matrix packing in column-major order.",
-                PT_BOOL),&msCmdColumnMajorMatrices);
+                ParameterType::BOOL),&msCmdColumnMajorMatrices);
             dict->addParameter(
                 ParameterDef("input_operation_type",
                 "The input operation type for this geometry program. \
                 Can be 'point_list', 'line_list', 'line_strip', 'triangle_list', \
-                'triangle_strip' or 'triangle_fan'", PT_STRING),
+                'triangle_strip' or 'triangle_fan'", ParameterType::STRING),
                 &msInputOperationTypeCmd);
             dict->addParameter(
                 ParameterDef("output_operation_type",
                 "The input operation type for this geometry program. \
                 Can be 'point_list', 'line_strip' or 'triangle_strip'",
-                 PT_STRING),
+                 ParameterType::STRING),
                  &msOutputOperationTypeCmd);
             dict->addParameter(
                 ParameterDef("max_output_vertices", 
                 "The maximum number of vertices a single run of this geometry program can output",
-                PT_INT),&msMaxOutputVerticesCmd);
+                ParameterType::INT),&msMaxOutputVerticesCmd);
         }
-        mPassFFPStates = Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_FIXED_FUNCTION);
+        mPassFFPStates = Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Capabilities::FIXED_FUNCTION);
     }
 
     //-----------------------------------------------------------------------
@@ -378,7 +380,7 @@ class ResourceManager;
     }
 
     //-----------------------------------------------------------------------------
-    void GLSLProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask)
+    void GLSLProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, GpuParamVariability mask)
     {
         // link can throw exceptions, ignore them at this point
         try

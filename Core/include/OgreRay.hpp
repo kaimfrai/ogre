@@ -91,7 +91,7 @@ namespace Ogre {
         /** Tests whether this ray intersects the given plane bounded volume. */
         [[nodiscard]] auto intersects(const PlaneBoundedVolume& p) const -> RayTestResult
         {
-            return Math::intersects(*this, p.planes, p.outside == Plane::POSITIVE_SIDE);
+            return Math::intersects(*this, p.planes, p.outside == Plane::Side::Positive);
         }
         /** Tests whether this ray intersects the given sphere. */
         [[nodiscard]] auto intersects(const Sphere& s, bool discardInside = true) const -> RayTestResult

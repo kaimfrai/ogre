@@ -475,14 +475,14 @@ class VertexMorphKeyFrame;
         that all morph animation can be expressed as pose animation, but not vice
         versa.
     */
-    enum VertexAnimationType : uint8
+    enum class VertexAnimationType : uint8
     {
         /// No animation
-        VAT_NONE = 0,
+        NONE = 0,
         /// Morph animation is made up of many interpolated snapshot keyframes
-        VAT_MORPH = 1,
+        MORPH = 1,
         /// Pose animation is made up of a single delta pose keyframe
-        VAT_POSE = 2
+        POSE = 2
     };
 
     /** Specialised AnimationTrack for dealing with changing vertex position information.
@@ -492,19 +492,19 @@ class VertexMorphKeyFrame;
     {
     public:
         /** The target animation mode */
-        enum TargetMode : uint8
+        enum class TargetMode : uint8
         {
             /// Interpolate vertex positions in software
-            TM_SOFTWARE, 
+            SOFTWARE,
             /** Bind keyframe 1 to position, and keyframe 2 to a texture coordinate
                 for interpolation in hardware */
-            TM_HARDWARE
+            HARDWARE
         };
         /// Constructor
         VertexAnimationTrack(Animation* parent, unsigned short handle, VertexAnimationType animType);
         /// Constructor, associates with target VertexData and temp buffer (for software)
         VertexAnimationTrack(Animation* parent, unsigned short handle, VertexAnimationType animType, 
-            VertexData* targetData, TargetMode target = TM_SOFTWARE);
+            VertexData* targetData, TargetMode target = TargetMode::SOFTWARE);
 
         /** Get the type of vertex animation we're performing. */
         [[nodiscard]] auto getAnimationType() const noexcept -> VertexAnimationType { return mAnimationType; }

@@ -90,13 +90,13 @@ namespace Ogre
         writeGpuPrograms();
 
         if (mBuffer.empty())
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Queue is empty !", "MaterialSerializer::exportQueued");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Queue is empty !", "MaterialSerializer::exportQueued");
 
-        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LML_NORMAL);
+        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material(s) to material script : {}", fileName), LogMessageLevel::Normal);
         FILE *fp;
         fp = fopen(fileName.data(), "w");
         if (!fp)
-            OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create material file.",
+            OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE, "Cannot create material file.",
             "MaterialSerializer::export");
 
         // output gpu program definitions to material script file if includeProgDef is true
@@ -116,13 +116,13 @@ namespace Ogre
             FILE *locFp;
             locFp = fopen(programFilename.data(), "w");
             if (!locFp)
-                OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE, "Cannot create program material file.",
+                OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE, "Cannot create program material file.",
                 "MaterialSerializer::export");
             fputs(mGpuProgramBuffer.c_str(), locFp);
             fclose(locFp);
         }
 
-        LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
+        LogManager::getSingleton().logMessage("MaterialSerializer : done.", LogMessageLevel::Normal);
         clearQueue();
     }
     //-----------------------------------------------------------------------
@@ -161,12 +161,12 @@ namespace Ogre
             outMaterialName = pMat->getName();
         }
 
-        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material {} to queue.", outMaterialName ), LML_NORMAL);
+        LogManager::getSingleton().logMessage(::std::format("MaterialSerializer : writing material {} to queue.", outMaterialName ), LogMessageLevel::Normal);
 
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireMaterialEvent(MSE_PRE_WRITE, skipWriting, pMat.get());
+        fireMaterialEvent(SerializeEvent::PRE_WRITE, skipWriting, pMat.get());
         if (skipWriting)        
             return;     
 
@@ -177,7 +177,7 @@ namespace Ogre
         beginSection(0);
         {
             // Fire write begin event.
-            fireMaterialEvent(MSE_WRITE_BEGIN, skipWriting, pMat.get());
+            fireMaterialEvent(SerializeEvent::WRITE_BEGIN, skipWriting, pMat.get());
 
             // Write LOD information
             auto valueIt = pMat->getUserLodValues().begin();
@@ -225,13 +225,13 @@ namespace Ogre
             }
 
             // Fire write end event.
-            fireMaterialEvent(MSE_WRITE_END, skipWriting, pMat.get());
+            fireMaterialEvent(SerializeEvent::WRITE_END, skipWriting, pMat.get());
         }
         endSection(0);
         mBuffer += "\n";
 
         // Fire post section write event.
-        fireMaterialEvent(MSE_POST_WRITE, skipWriting, pMat.get());
+        fireMaterialEvent(SerializeEvent::POST_WRITE, skipWriting, pMat.get());
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeTechnique(const Technique* pTech)
@@ -239,7 +239,7 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireTechniqueEvent(MSE_PRE_WRITE, skipWriting, pTech);
+        fireTechniqueEvent(SerializeEvent::PRE_WRITE, skipWriting, pTech);
         if (skipWriting)        
             return; 
         
@@ -252,7 +252,7 @@ namespace Ogre
         beginSection(1);
         {
             // Fire write begin event.
-            fireTechniqueEvent(MSE_WRITE_BEGIN, skipWriting, pTech);
+            fireTechniqueEvent(SerializeEvent::WRITE_BEGIN, skipWriting, pTech);
 
             // LOD index
             if (mDefaults ||
@@ -311,12 +311,12 @@ namespace Ogre
             }
 
             // Fire write end event.
-            fireTechniqueEvent(MSE_WRITE_END, skipWriting, pTech);
+            fireTechniqueEvent(SerializeEvent::WRITE_END, skipWriting, pTech);
         }
         endSection(1);
 
         // Fire post section write event.
-        fireTechniqueEvent(MSE_POST_WRITE, skipWriting, pTech);
+        fireTechniqueEvent(SerializeEvent::POST_WRITE, skipWriting, pTech);
 
     }
     //-----------------------------------------------------------------------
@@ -325,7 +325,7 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        firePassEvent(MSE_PRE_WRITE, skipWriting, pPass);
+        firePassEvent(SerializeEvent::PRE_WRITE, skipWriting, pPass);
         if (skipWriting)        
             return;
         
@@ -337,7 +337,7 @@ namespace Ogre
         beginSection(2);
         {
             // Fire write begin event.
-            firePassEvent(MSE_WRITE_BEGIN, skipWriting, pPass);
+            firePassEvent(SerializeEvent::WRITE_BEGIN, skipWriting, pPass);
 
             //lighting
             if (mDefaults ||
@@ -392,20 +392,20 @@ namespace Ogre
                 {
                     switch (pPass->getOnlyLightType())
                     {
-                    case Light::LT_DIRECTIONAL:
+                    case Light::LightTypes::DIRECTIONAL:
                         writeValue("directional");
                         break;
-                    case Light::LT_POINT:
+                    case Light::LightTypes::POINT:
                         writeValue("point");
                         break;
-                    case Light::LT_SPOTLIGHT:
+                    case Light::LightTypes::SPOTLIGHT:
                         writeValue("spot");
                         break;
                     };
                 }
             }
 
-            if(mDefaults || pPass->getLightMask() != 0xFFFFFFFF)
+            if(mDefaults || pPass->getLightMask() != QueryTypeMask{0xFFFFFFFF})
             {
                 writeAttribute(3, "light_mask");
                 writeValue(StringConverter::toString(pPass->getLightMask()));
@@ -419,10 +419,10 @@ namespace Ogre
                     pPass->getAmbient().g != 1 ||
                     pPass->getAmbient().b != 1 ||
                     pPass->getAmbient().a != 1 ||
-                    (pPass->getVertexColourTracking() & TVC_AMBIENT))
+                    (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::AMBIENT)))
                 {
                     writeAttribute(3, "ambient");
-                    if (pPass->getVertexColourTracking() & TVC_AMBIENT)
+                    if (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::AMBIENT))
                         writeValue("vertexcolour");
                     else
                         writeColourValue(pPass->getAmbient(), true);
@@ -434,10 +434,10 @@ namespace Ogre
                     pPass->getDiffuse().g != 1 ||
                     pPass->getDiffuse().b != 1 ||
                     pPass->getDiffuse().a != 1 ||
-                    (pPass->getVertexColourTracking() & TVC_DIFFUSE))
+                    (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::DIFFUSE)))
                 {
                     writeAttribute(3, "diffuse");
-                    if (pPass->getVertexColourTracking() & TVC_DIFFUSE)
+                    if (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::DIFFUSE))
                         writeValue("vertexcolour");
                     else
                         writeColourValue(pPass->getDiffuse(), true);
@@ -450,10 +450,10 @@ namespace Ogre
                     pPass->getSpecular().b != 0 ||
                     pPass->getSpecular().a != 1 ||
                     pPass->getShininess() != 0 ||
-                    (pPass->getVertexColourTracking() & TVC_SPECULAR))
+                    (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::SPECULAR)))
                 {
                     writeAttribute(3, "specular");
-                    if (pPass->getVertexColourTracking() & TVC_SPECULAR)
+                    if (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::SPECULAR))
                     {
                         writeValue("vertexcolour");
                     }
@@ -471,10 +471,10 @@ namespace Ogre
                     pPass->getSelfIllumination().g != 0 ||
                     pPass->getSelfIllumination().b != 0 ||
                     pPass->getSelfIllumination().a != 1 ||
-                    (pPass->getVertexColourTracking() & TVC_EMISSIVE))
+                    (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::EMISSIVE)))
                 {
                     writeAttribute(3, "emissive");
-                    if (pPass->getVertexColourTracking() & TVC_EMISSIVE)
+                    if (!!(pPass->getVertexColourTracking() & TrackVertexColourEnum::EMISSIVE))
                         writeValue("vertexcolour");
                     else
                         writeColourValue(pPass->getSelfIllumination(), true);
@@ -532,10 +532,10 @@ namespace Ogre
 
             // scene blend factor
             if (mDefaults ||
-                pPass->getSourceBlendFactor() != SBF_ONE ||
-                pPass->getDestBlendFactor() != SBF_ZERO ||
-                pPass->getSourceBlendFactorAlpha() != SBF_ONE ||
-                pPass->getDestBlendFactorAlpha() != SBF_ZERO)
+                pPass->getSourceBlendFactor() != SceneBlendFactor::ONE ||
+                pPass->getDestBlendFactor() != SceneBlendFactor::ZERO ||
+                pPass->getSourceBlendFactorAlpha() != SceneBlendFactor::ONE ||
+                pPass->getDestBlendFactorAlpha() != SceneBlendFactor::ZERO)
             {
                 writeAttribute(3, "separate_scene_blend");
                 writeSceneBlendFactor(pPass->getSourceBlendFactor(), pPass->getDestBlendFactor(),
@@ -552,7 +552,7 @@ namespace Ogre
             }
             // alpha_rejection
             if (mDefaults ||
-                pPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS ||
+                pPass->getAlphaRejectFunction() != CompareFunction::ALWAYS_PASS ||
                 pPass->getAlphaRejectValue() != 0)
             {
                 writeAttribute(3, "alpha_rejection");
@@ -587,7 +587,7 @@ namespace Ogre
 
             //depth function
             if (mDefaults ||
-                pPass->getDepthFunction() != CMPF_LESS_EQUAL)
+                pPass->getDepthFunction() != CompareFunction::LESS_EQUAL)
             {
                 writeAttribute(3, "depth_func");
                 writeCompareFunction(pPass->getDepthFunction());
@@ -627,40 +627,40 @@ namespace Ogre
             }
 
             // illumination stage
-            if (pPass->getIlluminationStage() != IS_UNKNOWN)
+            if (pPass->getIlluminationStage() != IlluminationStage::UNKNOWN)
             {
                 writeAttribute(3, "illumination_stage");
                 switch(pPass->getIlluminationStage())
                 {
-                case IS_AMBIENT:
+                case IlluminationStage::AMBIENT:
                     writeValue("ambient");
                     break;
-                case IS_PER_LIGHT:
+                case IlluminationStage::PER_LIGHT:
                     writeValue("per_light");
                     break;
-                case IS_DECAL:
+                case IlluminationStage::DECAL:
                     writeValue("decal");
                     break;
-                case IS_UNKNOWN:
+                case IlluminationStage::UNKNOWN:
                     break;
                 };
             }
 
             // hardware culling mode
             if (mDefaults ||
-                pPass->getCullingMode() != CULL_CLOCKWISE)
+                pPass->getCullingMode() != CullingMode::CLOCKWISE)
             {
                 CullingMode hcm = pPass->getCullingMode();
                 writeAttribute(3, "cull_hardware");
                 switch (hcm)
                 {
-                case CULL_NONE :
+                case CullingMode::NONE :
                     writeValue("none");
                     break;
-                case CULL_CLOCKWISE :
+                case CullingMode::CLOCKWISE :
                     writeValue("clockwise");
                     break;
-                case CULL_ANTICLOCKWISE :
+                case CullingMode::ANTICLOCKWISE :
                     writeValue("anticlockwise");
                     break;
                 }
@@ -668,19 +668,19 @@ namespace Ogre
 
             // software culling mode
             if (mDefaults ||
-                pPass->getManualCullingMode() != MANUAL_CULL_BACK)
+                pPass->getManualCullingMode() != ManualCullingMode::BACK)
             {
                 ManualCullingMode scm = pPass->getManualCullingMode();
                 writeAttribute(3, "cull_software");
                 switch (scm)
                 {
-                case MANUAL_CULL_NONE :
+                case ManualCullingMode::NONE :
                     writeValue("none");
                     break;
-                case MANUAL_CULL_BACK :
+                case ManualCullingMode::BACK :
                     writeValue("back");
                     break;
-                case MANUAL_CULL_FRONT :
+                case ManualCullingMode::FRONT :
                     writeValue("front");
                     break;
                 }
@@ -688,18 +688,18 @@ namespace Ogre
 
             //shading
             if (mDefaults ||
-                pPass->getShadingMode() != SO_GOURAUD)
+                pPass->getShadingMode() != ShadeOptions::GOURAUD)
             {
                 writeAttribute(3, "shading");
                 switch (pPass->getShadingMode())
                 {
-                case SO_FLAT:
+                case ShadeOptions::FLAT:
                     writeValue("flat");
                     break;
-                case SO_GOURAUD:
+                case ShadeOptions::GOURAUD:
                     writeValue("gouraud");
                     break;
-                case SO_PHONG:
+                case ShadeOptions::PHONG:
                     writeValue("phong");
                     break;
                 }
@@ -707,18 +707,18 @@ namespace Ogre
 
 
             if (mDefaults ||
-                pPass->getPolygonMode() != PM_SOLID)
+                pPass->getPolygonMode() != PolygonMode::SOLID)
             {
                 writeAttribute(3, "polygon_mode");
                 switch (pPass->getPolygonMode())
                 {
-                case PM_POINTS:
+                case PolygonMode::POINTS:
                     writeValue("points");
                     break;
-                case PM_WIREFRAME:
+                case PolygonMode::WIREFRAME:
                     writeValue("wireframe");
                     break;
-                case PM_SOLID:
+                case PolygonMode::SOLID:
                     writeValue("solid");
                     break;
                 }
@@ -750,21 +750,21 @@ namespace Ogre
                 {
                     switch (pPass->getFogMode())
                     {
-                    case FOG_NONE:
+                    case FogMode::NONE:
                         writeValue("none");
                         break;
-                    case FOG_LINEAR:
+                    case FogMode::LINEAR:
                         writeValue("linear");
                         break;
-                    case FOG_EXP2:
+                    case FogMode::EXP2:
                         writeValue("exp2");
                         break;
-                    case FOG_EXP:
+                    case FogMode::EXP:
                         writeValue("exp");
                         break;
                     }
 
-                    if (pPass->getFogMode() != FOG_NONE)
+                    if (pPass->getFogMode() != FogMode::NONE)
                     {
                         writeColourValue(pPass->getFogColour());
                         writeValue(StringConverter::toString(pPass->getFogDensity()));
@@ -807,27 +807,27 @@ namespace Ogre
             }
 
             // Fire write end event.
-            firePassEvent(MSE_WRITE_END, skipWriting, pPass);
+            firePassEvent(SerializeEvent::WRITE_END, skipWriting, pPass);
         }
         endSection(2);
         
         // Fire post section write event.
-        firePassEvent(MSE_POST_WRITE, skipWriting, pPass);
+        firePassEvent(SerializeEvent::POST_WRITE, skipWriting, pPass);
         
-        LogManager::getSingleton().logMessage("MaterialSerializer : done.", LML_NORMAL);
+        LogManager::getSingleton().logMessage("MaterialSerializer : done.", LogMessageLevel::Normal);
     }
     //-----------------------------------------------------------------------
     auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
     {
         switch (fo)
         {
-        case FO_NONE:
+        case FilterOptions::NONE:
             return "none";
-        case FO_POINT:
+        case FilterOptions::POINT:
             return "point";
-        case FO_LINEAR:
+        case FilterOptions::LINEAR:
             return "linear";
-        case FO_ANISOTROPIC:
+        case FilterOptions::ANISOTROPIC:
             return "anisotropic";
         }
 
@@ -838,14 +838,14 @@ namespace Ogre
     {
         switch (tam)
         {
-        case TextureUnitState::TAM_BORDER:
+        case TextureAddressingMode::BORDER:
             return "border";
-        case TextureUnitState::TAM_CLAMP:
+        case TextureAddressingMode::CLAMP:
             return "clamp";
-        case TextureUnitState::TAM_MIRROR:
+        case TextureAddressingMode::MIRROR:
             return "mirror";
-        case TextureUnitState::TAM_WRAP:
-        case TextureUnitState::TAM_UNKNOWN:
+        case TextureAddressingMode::WRAP:
+        case TextureAddressingMode::UNKNOWN:
             return "wrap";
         }
 
@@ -857,11 +857,11 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireTextureUnitStateEvent(MSE_PRE_WRITE, skipWriting, pTex);
+        fireTextureUnitStateEvent(SerializeEvent::PRE_WRITE, skipWriting, pTex);
         if (skipWriting)        
             return;
     
-        LogManager::getSingleton().logMessage("MaterialSerializer : parsing texture layer.", LML_NORMAL);
+        LogManager::getSingleton().logMessage("MaterialSerializer : parsing texture layer.", LogMessageLevel::Normal);
         mBuffer += "\n";
         writeAttribute(3, "texture_unit");
         // only write out name if its not equal to the default name
@@ -871,7 +871,7 @@ namespace Ogre
         beginSection(3);
         {
             // Fire write begin event.
-            fireTextureUnitStateEvent(MSE_WRITE_BEGIN, skipWriting, pTex);
+            fireTextureUnitStateEvent(SerializeEvent::WRITE_BEGIN, skipWriting, pTex);
 
             // texture_alias
             if (!pTex->getTextureNameAlias().empty() && pTex->getTextureNameAlias() != pTex->getName())
@@ -888,31 +888,31 @@ namespace Ogre
 
                 switch (pTex->getTextureType())
                 {
-                case TEX_TYPE_1D:
+                case TextureType::_1D:
                     writeValue("1d");
                     break;
-                case TEX_TYPE_2D:
+                case TextureType::_2D:
                     // nothing, this is the default
                     break;
-                case TEX_TYPE_2D_ARRAY:
+                case TextureType::_2D_ARRAY:
                     writeValue("2darray");
                     break;
-                case TEX_TYPE_3D:
+                case TextureType::_3D:
                     writeValue("3d");
                     break;
-                case TEX_TYPE_CUBE_MAP:
+                case TextureType::CUBE_MAP:
                     writeValue("cubic");
                     break;
                 default:
                     break;
                 };
 
-                if (uint32(pTex->getNumMipmaps()) != TextureManager::getSingleton().getDefaultNumMipmaps())
+                if (pTex->getNumMipmaps() != TextureManager::getSingleton().getDefaultNumMipmaps())
                 {
                     writeValue(StringConverter::toString(pTex->getNumMipmaps()));
                 }
 
-                if (pTex->getDesiredFormat() != PF_UNKNOWN)
+                if (pTex->getDesiredFormat() != PixelFormat::UNKNOWN)
                 {
                     writeValue(PixelUtil::getFormatName(pTex->getDesiredFormat()));
                 }
@@ -947,9 +947,9 @@ namespace Ogre
             const Sampler::UVWAddressingMode& uvw =
                 pTex->getTextureAddressingMode();
             if (mDefaults ||
-                uvw.u != Ogre::TextureUnitState::TAM_WRAP ||
-                uvw.v != Ogre::TextureUnitState::TAM_WRAP ||
-                uvw.w != Ogre::TextureUnitState::TAM_WRAP )
+                uvw.u != TextureAddressingMode::WRAP ||
+                uvw.v != TextureAddressingMode::WRAP ||
+                uvw.w != TextureAddressingMode::WRAP )
             {
                 writeAttribute(4, "tex_address_mode");
                 if (uvw.u == uvw.v && uvw.u == uvw.w)
@@ -960,7 +960,7 @@ namespace Ogre
                 {
                     writeValue(convertTexAddressMode(uvw.u));
                     writeValue(convertTexAddressMode(uvw.v));
-                    if (uvw.w != TextureUnitState::TAM_WRAP)
+                    if (uvw.w != TextureAddressingMode::WRAP)
                     {
                         writeValue(convertTexAddressMode(uvw.w));
                     }
@@ -983,9 +983,9 @@ namespace Ogre
                 writeAttribute(4, "filtering");
                 writeValue(
                     ::std::format("{} {} {}",
-                    convertFiltering(pTex->getTextureFiltering(FT_MIN))
-                    , convertFiltering(pTex->getTextureFiltering(FT_MAG))
-                    , convertFiltering(pTex->getTextureFiltering(FT_MIP))));
+                    convertFiltering(pTex->getTextureFiltering(FilterType::Min))
+                    , convertFiltering(pTex->getTextureFiltering(FilterType::Mag))
+                    , convertFiltering(pTex->getTextureFiltering(FilterType::Mip))));
             }
 
             // Mip biasing
@@ -999,19 +999,19 @@ namespace Ogre
 
             // colour_op_ex
             if (mDefaults ||
-                pTex->getColourBlendMode().operation != LBX_MODULATE ||
-                pTex->getColourBlendMode().source1 != LBS_TEXTURE ||
-                pTex->getColourBlendMode().source2 != LBS_CURRENT)
+                pTex->getColourBlendMode().operation != LayerBlendOperationEx::MODULATE ||
+                pTex->getColourBlendMode().source1 != LayerBlendSource::TEXTURE ||
+                pTex->getColourBlendMode().source2 != LayerBlendSource::CURRENT)
             {
                 writeAttribute(4, "colour_op_ex");
                 writeLayerBlendOperationEx(pTex->getColourBlendMode().operation);
                 writeLayerBlendSource(pTex->getColourBlendMode().source1);
                 writeLayerBlendSource(pTex->getColourBlendMode().source2);
-                if (pTex->getColourBlendMode().operation == LBX_BLEND_MANUAL)
+                if (pTex->getColourBlendMode().operation == LayerBlendOperationEx::BLEND_MANUAL)
                     writeValue(StringConverter::toString(pTex->getColourBlendMode().factor));
-                if (pTex->getColourBlendMode().source1 == LBS_MANUAL)
+                if (pTex->getColourBlendMode().source1 == LayerBlendSource::MANUAL)
                     writeColourValue(pTex->getColourBlendMode().colourArg1, false);
-                if (pTex->getColourBlendMode().source2 == LBS_MANUAL)
+                if (pTex->getColourBlendMode().source2 == LayerBlendSource::MANUAL)
                     writeColourValue(pTex->getColourBlendMode().colourArg2, false);
 
                 //colour_op_multipass_fallback
@@ -1022,19 +1022,19 @@ namespace Ogre
 
             // alpha_op_ex
             if (mDefaults ||
-                pTex->getAlphaBlendMode().operation != LBX_MODULATE ||
-                pTex->getAlphaBlendMode().source1 != LBS_TEXTURE ||
-                pTex->getAlphaBlendMode().source2 != LBS_CURRENT)
+                pTex->getAlphaBlendMode().operation != LayerBlendOperationEx::MODULATE ||
+                pTex->getAlphaBlendMode().source1 != LayerBlendSource::TEXTURE ||
+                pTex->getAlphaBlendMode().source2 != LayerBlendSource::CURRENT)
             {
                 writeAttribute(4, "alpha_op_ex");
                 writeLayerBlendOperationEx(pTex->getAlphaBlendMode().operation);
                 writeLayerBlendSource(pTex->getAlphaBlendMode().source1);
                 writeLayerBlendSource(pTex->getAlphaBlendMode().source2);
-                if (pTex->getAlphaBlendMode().operation == LBX_BLEND_MANUAL)
+                if (pTex->getAlphaBlendMode().operation == LayerBlendOperationEx::BLEND_MANUAL)
                     writeValue(StringConverter::toString(pTex->getAlphaBlendMode().factor));
-                else if (pTex->getAlphaBlendMode().source1 == LBS_MANUAL)
+                else if (pTex->getAlphaBlendMode().source1 == LayerBlendSource::MANUAL)
                     writeValue(StringConverter::toString(pTex->getAlphaBlendMode().alphaArg1));
-                else if (pTex->getAlphaBlendMode().source2 == LBS_MANUAL)
+                else if (pTex->getAlphaBlendMode().source2 == LayerBlendSource::MANUAL)
                     writeValue(StringConverter::toString(pTex->getAlphaBlendMode().alphaArg2));
             }
 
@@ -1096,22 +1096,22 @@ namespace Ogre
                 {
                     switch (ef.type)
                     {
-                    case TextureUnitState::ET_ENVIRONMENT_MAP :
+                    case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP :
                         writeEnvironmentMapEffect(ef, pTex);
                         break;
-                    case TextureUnitState::ET_ROTATE :
+                    case TextureUnitState::TextureEffectType::ROTATE :
                         writeRotationEffect(ef, pTex);
                         break;
-                    case TextureUnitState::ET_UVSCROLL :
+                    case TextureUnitState::TextureEffectType::UVSCROLL :
                         scrollAnimU = scrollAnimV = ef.arg1;
                         break;
-                    case TextureUnitState::ET_USCROLL :
+                    case TextureUnitState::TextureEffectType::USCROLL :
                         scrollAnimU = ef.arg1;
                         break;
-                    case TextureUnitState::ET_VSCROLL :
+                    case TextureUnitState::TextureEffectType::VSCROLL :
                         scrollAnimV = ef.arg1;
                         break;
-                    case TextureUnitState::ET_TRANSFORM :
+                    case TextureUnitState::TextureEffectType::TRANSFORM :
                         writeTransformEffect(ef, pTex);
                         break;
                     default:
@@ -1128,20 +1128,21 @@ namespace Ogre
                 writeScrollEffect(texEffect, pTex);
             }
 
+            using enum TextureUnitState::ContentType;
             // Content type
             if (mDefaults ||
-                pTex->getContentType() != TextureUnitState::CONTENT_NAMED)
+                pTex->getContentType() != NAMED)
             {
                 writeAttribute(4, "content_type");
                 switch(pTex->getContentType())
                 {
-                case TextureUnitState::CONTENT_NAMED:
+                case NAMED:
                     writeValue("named");
                     break;
-                case TextureUnitState::CONTENT_SHADOW:
+                case SHADOW:
                     writeValue("shadow");
                     break;
-                case TextureUnitState::CONTENT_COMPOSITOR:
+                case COMPOSITOR:
                     writeValue("compositor");
                     writeValue(quoteWord(pTex->getReferencedCompositorName()));
                     writeValue(quoteWord(pTex->getReferencedTextureName()));
@@ -1151,30 +1152,30 @@ namespace Ogre
             }
 
             // Fire write end event.
-            fireTextureUnitStateEvent(MSE_WRITE_END, skipWriting, pTex);
+            fireTextureUnitStateEvent(SerializeEvent::WRITE_END, skipWriting, pTex);
         }
         endSection(3);
 
         // Fire post section write event.
-        fireTextureUnitStateEvent(MSE_POST_WRITE, skipWriting, pTex);
+        fireTextureUnitStateEvent(SerializeEvent::POST_WRITE, skipWriting, pTex);
 
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeEnvironmentMapEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex)
     {
         writeAttribute(4, "env_map");
-        switch (effect.subtype)
+        switch (static_cast<TextureUnitState::EnvMapType>(effect.subtype))
         {
-        case TextureUnitState::ENV_PLANAR:
+        case TextureUnitState::EnvMapType::PLANAR:
             writeValue("planar");
             break;
-        case TextureUnitState::ENV_CURVED:
+        case TextureUnitState::EnvMapType::CURVED:
             writeValue("spherical");
             break;
-        case TextureUnitState::ENV_NORMAL:
+        case TextureUnitState::EnvMapType::NORMAL:
             writeValue("cubic_normal");
             break;
-        case TextureUnitState::ENV_REFLECTION:
+        case TextureUnitState::EnvMapType::REFLECTION:
             writeValue("cubic_reflection");
             break;
         }
@@ -1193,43 +1194,43 @@ namespace Ogre
     {
         writeAttribute(4, "wave_xform");
 
-        switch (effect.subtype)
+        switch (static_cast<TextureUnitState::TextureTransformType>(effect.subtype))
         {
-        case TextureUnitState::TT_ROTATE:
+        case TextureUnitState::TextureTransformType::ROTATE:
             writeValue("rotate");
             break;
-        case TextureUnitState::TT_SCALE_U:
+        case TextureUnitState::TextureTransformType::SCALE_U:
             writeValue("scale_x");
             break;
-        case TextureUnitState::TT_SCALE_V:
+        case TextureUnitState::TextureTransformType::SCALE_V:
             writeValue("scale_y");
             break;
-        case TextureUnitState::TT_TRANSLATE_U:
+        case TextureUnitState::TextureTransformType::TRANSLATE_U:
             writeValue("scroll_x");
             break;
-        case TextureUnitState::TT_TRANSLATE_V:
+        case TextureUnitState::TextureTransformType::TRANSLATE_V:
             writeValue("scroll_y");
             break;
         }
 
         switch (effect.waveType)
         {
-        case WFT_INVERSE_SAWTOOTH:
+        case WaveformType::INVERSE_SAWTOOTH:
             writeValue("inverse_sawtooth");
             break;
-        case WFT_SAWTOOTH:
+        case WaveformType::SAWTOOTH:
             writeValue("sawtooth");
             break;
-        case WFT_SINE:
+        case WaveformType::SINE:
             writeValue("sine");
             break;
-        case WFT_SQUARE:
+        case WaveformType::SQUARE:
             writeValue("square");
             break;
-        case WFT_TRIANGLE:
+        case WaveformType::TRIANGLE:
             writeValue("triangle");
             break;
-        case WFT_PWM:
+        case WaveformType::PWM:
             writeValue("pwm");
             break;
         }
@@ -1255,34 +1256,34 @@ namespace Ogre
     {
         switch (sbf)
         {
-        case SBF_DEST_ALPHA:
+        case SceneBlendFactor::DEST_ALPHA:
             writeValue("dest_alpha");
             break;
-        case SBF_DEST_COLOUR:
+        case SceneBlendFactor::DEST_COLOUR:
             writeValue("dest_colour");
             break;
-        case SBF_ONE:
+        case SceneBlendFactor::ONE:
             writeValue("one");
             break;
-        case SBF_ONE_MINUS_DEST_ALPHA:
+        case SceneBlendFactor::ONE_MINUS_DEST_ALPHA:
             writeValue("one_minus_dest_alpha");
             break;
-        case SBF_ONE_MINUS_DEST_COLOUR:
+        case SceneBlendFactor::ONE_MINUS_DEST_COLOUR:
             writeValue("one_minus_dest_colour");
             break;
-        case SBF_ONE_MINUS_SOURCE_ALPHA:
+        case SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA:
             writeValue("one_minus_src_alpha");
             break;
-        case SBF_ONE_MINUS_SOURCE_COLOUR:
+        case SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR:
             writeValue("one_minus_src_colour");
             break;
-        case SBF_SOURCE_ALPHA:
+        case SceneBlendFactor::SOURCE_ALPHA:
             writeValue("src_alpha");
             break;
-        case SBF_SOURCE_COLOUR:
+        case SceneBlendFactor::SOURCE_COLOUR:
             writeValue("src_colour");
             break;
-        case SBF_ZERO:
+        case SceneBlendFactor::ZERO:
             writeValue("zero");
             break;
         }
@@ -1290,13 +1291,13 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeSceneBlendFactor(const SceneBlendFactor sbf_src, const SceneBlendFactor sbf_dst)
     {
-        if (sbf_src == SBF_ONE && sbf_dst == SBF_ONE )
+        if (sbf_src == SceneBlendFactor::ONE && sbf_dst == SceneBlendFactor::ONE )
             writeValue("add");
-        else if (sbf_src == SBF_DEST_COLOUR && sbf_dst == SBF_ZERO)
+        else if (sbf_src == SceneBlendFactor::DEST_COLOUR && sbf_dst == SceneBlendFactor::ZERO)
             writeValue("modulate");
-        else if (sbf_src == SBF_SOURCE_COLOUR && sbf_dst == SBF_ONE_MINUS_SOURCE_COLOUR)
+        else if (sbf_src == SceneBlendFactor::SOURCE_COLOUR && sbf_dst == SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR)
             writeValue("colour_blend");
-        else if (sbf_src == SBF_SOURCE_ALPHA && sbf_dst == SBF_ONE_MINUS_SOURCE_ALPHA)
+        else if (sbf_src == SceneBlendFactor::SOURCE_ALPHA && sbf_dst == SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA)
             writeValue("alpha_blend");
         else
         {
@@ -1317,28 +1318,28 @@ namespace Ogre
     {
         switch (cf)
         {
-        case CMPF_ALWAYS_FAIL:
+        case CompareFunction::ALWAYS_FAIL:
             writeValue("always_fail");
             break;
-        case CMPF_ALWAYS_PASS:
+        case CompareFunction::ALWAYS_PASS:
             writeValue("always_pass");
             break;
-        case CMPF_EQUAL:
+        case CompareFunction::EQUAL:
             writeValue("equal");
             break;
-        case CMPF_GREATER:
+        case CompareFunction::GREATER:
             writeValue("greater");
             break;
-        case CMPF_GREATER_EQUAL:
+        case CompareFunction::GREATER_EQUAL:
             writeValue("greater_equal");
             break;
-        case CMPF_LESS:
+        case CompareFunction::LESS:
             writeValue("less");
             break;
-        case CMPF_LESS_EQUAL:
+        case CompareFunction::LESS_EQUAL:
             writeValue("less_equal");
             break;
-        case CMPF_NOT_EQUAL:
+        case CompareFunction::NOT_EQUAL:
             writeValue("not_equal");
             break;
         }
@@ -1357,49 +1358,49 @@ namespace Ogre
     {
         switch (op)
         {
-        case LBX_ADD:
+        case LayerBlendOperationEx::ADD:
             writeValue("add");
             break;
-        case LBX_ADD_SIGNED:
+        case LayerBlendOperationEx::ADD_SIGNED:
             writeValue("add_signed");
             break;
-        case LBX_ADD_SMOOTH:
+        case LayerBlendOperationEx::ADD_SMOOTH:
             writeValue("add_smooth");
             break;
-        case LBX_BLEND_CURRENT_ALPHA:
+        case LayerBlendOperationEx::BLEND_CURRENT_ALPHA:
             writeValue("blend_current_alpha");
             break;
-        case LBX_BLEND_DIFFUSE_COLOUR:
+        case LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR:
             writeValue("blend_diffuse_colour");
             break;
-        case LBX_BLEND_DIFFUSE_ALPHA:
+        case LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA:
             writeValue("blend_diffuse_alpha");
             break;
-        case LBX_BLEND_MANUAL:
+        case LayerBlendOperationEx::BLEND_MANUAL:
             writeValue("blend_manual");
             break;
-        case LBX_BLEND_TEXTURE_ALPHA:
+        case LayerBlendOperationEx::BLEND_TEXTURE_ALPHA:
             writeValue("blend_texture_alpha");
             break;
-        case LBX_MODULATE:
+        case LayerBlendOperationEx::MODULATE:
             writeValue("modulate");
             break;
-        case LBX_MODULATE_X2:
+        case LayerBlendOperationEx::MODULATE_X2:
             writeValue("modulate_x2");
             break;
-        case LBX_MODULATE_X4:
+        case LayerBlendOperationEx::MODULATE_X4:
             writeValue("modulate_x4");
             break;
-        case LBX_SOURCE1:
+        case LayerBlendOperationEx::SOURCE1:
             writeValue("source1");
             break;
-        case LBX_SOURCE2:
+        case LayerBlendOperationEx::SOURCE2:
             writeValue("source2");
             break;
-        case LBX_SUBTRACT:
+        case LayerBlendOperationEx::SUBTRACT:
             writeValue("subtract");
             break;
-        case LBX_DOTPRODUCT:
+        case LayerBlendOperationEx::DOTPRODUCT:
             writeValue("dotproduct");
             break;
         }
@@ -1409,19 +1410,19 @@ namespace Ogre
     {
         switch (lbs)
         {
-        case LBS_CURRENT:
+        case LayerBlendSource::CURRENT:
             writeValue("src_current");
             break;
-        case LBS_DIFFUSE:
+        case LayerBlendSource::DIFFUSE:
             writeValue("src_diffuse");
             break;
-        case LBS_MANUAL:
+        case LayerBlendSource::MANUAL:
             writeValue("src_manual");
             break;
-        case LBS_SPECULAR:
+        case LayerBlendSource::SPECULAR:
             writeValue("src_specular");
             break;
-        case LBS_TEXTURE:
+        case LayerBlendSource::TEXTURE:
             writeValue("src_texture");
             break;
         }
@@ -1464,7 +1465,7 @@ namespace Ogre
         bool skipWriting = false;
 
         // Fire pre-write event.
-        fireGpuProgramRefEvent(MSE_PRE_WRITE, skipWriting, attrib, program, params, nullptr);
+        fireGpuProgramRefEvent(SerializeEvent::PRE_WRITE, skipWriting, attrib, program, params, nullptr);
         if (skipWriting)        
             return;
 
@@ -1480,12 +1481,12 @@ namespace Ogre
                 defaultParams = program->getDefaultParameters().get();
 
             // Fire write begin event.
-            fireGpuProgramRefEvent(MSE_WRITE_BEGIN, skipWriting, attrib, program, params, defaultParams);
+            fireGpuProgramRefEvent(SerializeEvent::WRITE_BEGIN, skipWriting, attrib, program, params, defaultParams);
 
             writeGPUProgramParameters(params, defaultParams);
 
             // Fire write end event.
-            fireGpuProgramRefEvent(MSE_WRITE_END, skipWriting, attrib, program, params, defaultParams);
+            fireGpuProgramRefEvent(SerializeEvent::WRITE_END, skipWriting, attrib, program, params, defaultParams);
         }
         endSection(3);
 
@@ -1493,7 +1494,7 @@ namespace Ogre
         mGpuProgramDefinitionContainer.insert(program->getName());
 
         // Fire post section write event.
-        fireGpuProgramRefEvent(MSE_POST_WRITE, skipWriting, attrib, program, params, nullptr);     
+        fireGpuProgramRefEvent(SerializeEvent::POST_WRITE, skipWriting, attrib, program, params, nullptr);
     }
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeGPUProgramParameters(
@@ -1675,11 +1676,11 @@ namespace Ogre
                 // output data if it uses it
                 switch(autoConstDef->dataType)
                 {
-                case GpuProgramParameters::ACDT_REAL:
+                case GpuProgramParameters::ACDataType::REAL:
                     writeValue(StringConverter::toString(autoEntry->fData), useMainBuffer);
                     break;
 
-                case GpuProgramParameters::ACDT_INT:
+                case GpuProgramParameters::ACDataType::INT:
                     writeValue(StringConverter::toString(autoEntry->data), useMainBuffer);
                     break;
 

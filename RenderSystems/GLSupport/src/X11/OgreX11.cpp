@@ -47,7 +47,7 @@ void validateParentWindow(Display* display, Window parentWindow)
         if (!XGetWindowAttributes(display, parentWindow, &windowAttrib) ||
             windowAttrib.root != DefaultRootWindow(display))
         {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Invalid parentWindowHandle (wrong server or screen)");
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "Invalid parentWindowHandle (wrong server or screen)");
         }
     }
 
@@ -83,7 +83,7 @@ auto createXWindow(Display* display, Window parent, XVisualInfo* visualInfo, int
 
     if (!window)
     {
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Unable to create an X Window");
+        OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "Unable to create an X Window");
     }
 
     return window;

@@ -172,14 +172,14 @@ namespace Ogre {
         mDisabledProfiles.erase(profileName);
     }
     //-----------------------------------------------------------------------
-    void Profiler::beginProfile(std::string_view profileName, uint32 groupID)
+    void Profiler::beginProfile(std::string_view profileName, ProfileGroupMask groupID)
     {
         // if the profiler is enabled
         if (!mEnabled)
             return;
 
         // mask groups
-        if ((groupID & mProfileMask) == 0)
+        if ((groupID & mProfileMask) == ProfileGroupMask{})
             return;
 
         // empty string is reserved for the root
@@ -231,7 +231,7 @@ namespace Ogre {
         mCurrent->currentClock = mTimer->getCPUClocks();
     }
     //-----------------------------------------------------------------------
-    void Profiler::endProfile(std::string_view profileName, uint32 groupID)
+    void Profiler::endProfile(std::string_view profileName, ProfileGroupMask groupID)
     {
         if(!mEnabled) 
         {
@@ -274,7 +274,7 @@ namespace Ogre {
             return;
 
         // mask groups
-        if ((groupID & mProfileMask) == 0)
+        if ((groupID & mProfileMask) == ProfileGroupMask{})
             return;
 
         // need a timer to profile!

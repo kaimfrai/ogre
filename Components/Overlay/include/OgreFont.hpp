@@ -59,12 +59,12 @@ class ResourceManager;
     auto utftoc32(String str) -> std::vector<uint32>;
 
     /** Enumerates the types of Font usable in the engine. */
-    enum FontType
+    enum class FontType
     {
         /// Generated from a truetype (.ttf) font
-        FT_TRUETYPE = 1,
+        TRUETYPE = 1,
         /// Loaded from an image created by an artist
-        FT_IMAGE = 2
+        IMAGE = 2
     };
 
 
@@ -98,7 +98,7 @@ class ResourceManager;
     {
     protected:
         /// The type of font
-        FontType mType{FT_TRUETYPE};
+        FontType mType{FontType::TRUETYPE};
 
         /// Source of the font (either an image name or a truetype font)
         String mSource;
@@ -160,13 +160,13 @@ class ResourceManager;
 
         /** Sets the source of the font.
         @remarks
-            If you have created a font of type FT_IMAGE, this method tells the
+            If you have created a font of type FontType::IMAGE, this method tells the
             Font which image to use as the source for the characters. So the parameter 
             should be the name of an appropriate image file. Note that when using an image
             as a font source, you will also need to tell the font where each character is
             located using setGlyphTexCoords (for each character).
         @par
-            If you have created a font of type FT_TRUETYPE, this method tells the
+            If you have created a font of type FontType::TRUETYPE, this method tells the
             Font which .ttf file to use to generate the text. You will also need to call 
             setTrueTypeSize and setTrueTypeResolution, and call addCodePointRange
             as many times as required to define the range of glyphs you want to be
@@ -179,33 +179,33 @@ class ResourceManager;
         */
         auto getSource() const noexcept -> std::string_view ;
 
-        /** Sets the size of a truetype font (only required for FT_TRUETYPE). 
+        /** Sets the size of a truetype font (only required for FontType::TRUETYPE).
         @param ttfSize The size of the font in points. Note that the
             size of the font does not affect how big it is on the screen, just how large it is in
             the texture and thus how detailed it is.
         */
         void setTrueTypeSize(Real ttfSize);
         /** Gets the resolution (dpi) of the font used to generate the texture
-        (only required for FT_TRUETYPE).
+        (only required for FontType::TRUETYPE).
         @param ttfResolution The resolution in dpi
         */
         void setTrueTypeResolution(uint ttfResolution);
 
         /** Gets the point size of the font used to generate the texture.
         @remarks
-            Only applicable for FT_TRUETYPE Font objects.
+            Only applicable for FontType::TRUETYPE Font objects.
             Note that the size of the font does not affect how big it is on the screen, 
             just how large it is in the texture and thus how detailed it is.            
         */
         auto getTrueTypeSize() const -> Real;
         /** Gets the resolution (dpi) of the font used to generate the texture.
         @remarks
-            Only applicable for FT_TRUETYPE Font objects.
+            Only applicable for FontType::TRUETYPE Font objects.
         */
         auto getTrueTypeResolution() const noexcept -> uint;
         /** Gets the maximum baseline distance of all glyphs used in the texture.
         @remarks
-            Only applicable for FT_TRUETYPE Font objects.
+            Only applicable for FontType::TRUETYPE Font objects.
             The baseline is the vertical origin of horizontal based glyphs.  The bearingY
             attribute is the distance from the baseline (origin) to the top of the glyph's 
             bounding box.
@@ -262,7 +262,7 @@ class ResourceManager;
             auto i = mCodePointMap.find(id);
             if (i == mCodePointMap.end())
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                             std::format("Code point {} not found in font {}", id, mName.c_str()));
             }
             return i->second;
@@ -317,7 +317,7 @@ class ResourceManager;
         /** Sets whether or not the colour of this font is antialiased as it is generated
             from a true type font.
         @remarks
-            This is valid only for a FT_TRUETYPE font. If you are planning on using 
+            This is valid only for a FontType::TRUETYPE font. If you are planning on using
             alpha blending to draw your font, then it is a good idea to set this to
             false (which is the default), otherwise the darkening of the font will combine
             with the fading out of the alpha around the edges and make your font look thinner

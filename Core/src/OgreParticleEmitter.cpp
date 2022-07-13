@@ -377,96 +377,96 @@ namespace Ogre
 
         dict->addParameter(ParameterDef("angle", 
             "The angle up to which particles may vary in their initial direction "
-            "from the emitters direction, in degrees." , PT_REAL),
+            "from the emitters direction, in degrees." , ParameterType::REAL),
             &msAngleCmd);
 
         dict->addParameter(ParameterDef("colour", 
-            "The colour of emitted particles.", PT_COLOURVALUE),
+            "The colour of emitted particles.", ParameterType::COLOURVALUE),
             &msColourCmd);
 
         dict->addParameter(ParameterDef("colour_range_start", 
-            "The start of a range of colours to be assigned to emitted particles.", PT_COLOURVALUE),
+            "The start of a range of colours to be assigned to emitted particles.", ParameterType::COLOURVALUE),
             &msColourRangeStartCmd);
 
         dict->addParameter(ParameterDef("colour_range_end", 
-            "The end of a range of colours to be assigned to emitted particles.", PT_COLOURVALUE),
+            "The end of a range of colours to be assigned to emitted particles.", ParameterType::COLOURVALUE),
             &msColourRangeEndCmd);
 
         dict->addParameter(ParameterDef("direction", 
-            "The base direction of the emitter." , PT_VECTOR3),
+            "The base direction of the emitter." , ParameterType::VECTOR3),
             &msDirectionCmd);
 
         dict->addParameter(ParameterDef("up", 
-            "The up vector of the emitter." , PT_VECTOR3),
+            "The up vector of the emitter." , ParameterType::VECTOR3),
             &msUpCmd);
 
         dict->addParameter(ParameterDef("direction_position_reference", 
             "The reference position to calculate the direction of emitted particles "
-            "based on their position. Good for explosions and implosions (use negative velocity)" , PT_COLOURVALUE),
+            "based on their position. Good for explosions and implosions (use negative velocity)" , ParameterType::COLOURVALUE),
             &msDirPositionRefCmd);
 
         dict->addParameter(ParameterDef("emission_rate", 
-            "The number of particles emitted per second." , PT_REAL),
+            "The number of particles emitted per second." , ParameterType::REAL),
             &msEmissionRateCmd);
 
         dict->addParameter(ParameterDef("position", 
-            "The position of the emitter relative to the particle system center." , PT_VECTOR3),
+            "The position of the emitter relative to the particle system center." , ParameterType::VECTOR3),
             &msPositionCmd);
 
         dict->addParameter(ParameterDef("velocity", 
-            "The initial velocity to be assigned to every particle, in world units per second." , PT_REAL),
+            "The initial velocity to be assigned to every particle, in world units per second." , ParameterType::REAL),
             &msVelocityCmd);
 
         dict->addParameter(ParameterDef("velocity_min", 
-            "The minimum initial velocity to be assigned to each particle." , PT_REAL),
+            "The minimum initial velocity to be assigned to each particle." , ParameterType::REAL),
             &msMinVelocityCmd);
 
         dict->addParameter(ParameterDef("velocity_max", 
-            "The maximum initial velocity to be assigned to each particle." , PT_REAL),
+            "The maximum initial velocity to be assigned to each particle." , ParameterType::REAL),
             &msMaxVelocityCmd);
 
         dict->addParameter(ParameterDef("time_to_live", 
-            "The lifetime of each particle in seconds." , PT_REAL),
+            "The lifetime of each particle in seconds." , ParameterType::REAL),
             &msTTLCmd);
 
         dict->addParameter(ParameterDef("time_to_live_min", 
-            "The minimum lifetime of each particle in seconds." , PT_REAL),
+            "The minimum lifetime of each particle in seconds." , ParameterType::REAL),
             &msMinTTLCmd);
 
         dict->addParameter(ParameterDef("time_to_live_max", 
-            "The maximum lifetime of each particle in seconds." , PT_REAL),
+            "The maximum lifetime of each particle in seconds." , ParameterType::REAL),
             &msMaxTTLCmd);
 
         dict->addParameter(ParameterDef("duration", 
-            "The length of time in seconds which an emitter stays enabled for." , PT_REAL),
+            "The length of time in seconds which an emitter stays enabled for." , ParameterType::REAL),
             &msDurationCmd);
 
         dict->addParameter(ParameterDef("duration_min", 
-            "The minimum length of time in seconds which an emitter stays enabled for." , PT_REAL),
+            "The minimum length of time in seconds which an emitter stays enabled for." , ParameterType::REAL),
             &msMinDurationCmd);
 
         dict->addParameter(ParameterDef("duration_max", 
-            "The maximum length of time in seconds which an emitter stays enabled for." , PT_REAL),
+            "The maximum length of time in seconds which an emitter stays enabled for." , ParameterType::REAL),
             &msMaxDurationCmd);
 
         dict->addParameter(ParameterDef("repeat_delay", 
-            "If set, after disabling an emitter will repeat (reenable) after this many seconds." , PT_REAL),
+            "If set, after disabling an emitter will repeat (reenable) after this many seconds." , ParameterType::REAL),
             &msRepeatDelayCmd);
 
         dict->addParameter(ParameterDef("repeat_delay_min", 
-            "If set, after disabling an emitter will repeat (reenable) after this minimum number of seconds." , PT_REAL),
+            "If set, after disabling an emitter will repeat (reenable) after this minimum number of seconds." , ParameterType::REAL),
             &msMinRepeatDelayCmd);
 
         dict->addParameter(ParameterDef("repeat_delay_max", 
-            "If set, after disabling an emitter will repeat (reenable) after this maximum number of seconds." , PT_REAL),
+            "If set, after disabling an emitter will repeat (reenable) after this maximum number of seconds." , ParameterType::REAL),
             &msMaxRepeatDelayCmd);
 
         dict->addParameter(ParameterDef("name", 
-            "This is the name of the emitter" , PT_STRING),
+            "This is the name of the emitter" , ParameterType::STRING),
             &msNameCmd);
         
         dict->addParameter(ParameterDef("emit_emitter", 
-            "If set, this emitter will emit other emitters instead of visual particles" , PT_STRING),
+            "If set, this emitter will emit other emitters instead of visual particles" , ParameterType::STRING),
             &msEmittedEmitterCmd);
     }
     //-----------------------------------------------------------------------

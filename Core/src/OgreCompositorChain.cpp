@@ -132,13 +132,13 @@ void CompositorChain::createOriginalScene()
         /// Create base "original scene" compositor
         scene = CompositorManager::getSingleton().create(compName, ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
         CompositionTargetPass *tp = scene->createTechnique()->getOutputTargetPass();
-        auto pass = tp->createPass(CompositionPass::PT_CLEAR);
+        auto pass = tp->createPass(CompositionPass::PassType::CLEAR);
         pass->setAutomaticColour(true);
 
         /// Render everything, including skies
-        pass = tp->createPass(CompositionPass::PT_RENDERSCENE);
-        pass->setFirstRenderQueue(RENDER_QUEUE_BACKGROUND);
-        pass->setLastRenderQueue(RENDER_QUEUE_SKIES_LATE);
+        pass = tp->createPass(CompositionPass::PassType::RENDERSCENE);
+        pass->setFirstRenderQueue(RenderQueueGroupID::BACKGROUND);
+        pass->setLastRenderQueue(RenderQueueGroupID::SKIES_LATE);
         scene->load();
     }
     mOriginalScene = new CompositorInstance(scene->getSupportedTechnique(), this);
@@ -253,7 +253,7 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
                     nextInstance->getTechnique()->getTargetPasses();
                 CompositionTargetPass* tp : tps)
             {
-                if (tp->getInputMode() == CompositionTargetPass::IM_PREVIOUS)
+                if (tp->getInputMode() == CompositionTargetPass::InputMode::PREVIOUS)
                 {
                     if (nextInstance->getTechnique()->getTextureDefinition(tp->getOutputName())->pooled)
                     {
@@ -528,7 +528,7 @@ void CompositorChain::_compile()
         else
         {
             // Reset clearing options
-            mViewport->setClearEveryFrame(mOldClearEveryFrameBuffers > 0, 
+            mViewport->setClearEveryFrame(mOldClearEveryFrameBuffers > decltype(mOldClearEveryFrameBuffers){},
                 mOldClearEveryFrameBuffers);
         }
     }
@@ -573,7 +573,7 @@ void CompositorChain::_notifyViewport(Viewport* vp)
     }   
 }
 //-----------------------------------------------------------------------
-void CompositorChain::RQListener::renderQueueStarted(uint8 id, 
+void CompositorChain::RQListener::renderQueueStarted(Ogre::RenderQueueGroupID id,
     std::string_view invocation, bool& skipThisQueue)
 {
     // Skip when not matching viewport
@@ -584,13 +584,13 @@ void CompositorChain::RQListener::renderQueueStarted(uint8 id,
     flushUpTo(id);
     /// If no one wants to render this queue, skip it
     /// Don't skip the OVERLAY queue because that's handled separately
-    if(!mOperation->renderQueues.test(id) && id!=RENDER_QUEUE_OVERLAY)
+    if(!mOperation->renderQueues.test(std::to_underlying(id)) && id != RenderQueueGroupID::OVERLAY)
     {
         skipThisQueue = true;
     }
 }
 //-----------------------------------------------------------------------
-void CompositorChain::RQListener::renderQueueEnded(uint8 id, 
+void CompositorChain::RQListener::renderQueueEnded(Ogre::RenderQueueGroupID id,
     std::string_view invocation, bool& repeatThisQueue)
 {
 }
@@ -604,7 +604,7 @@ void CompositorChain::RQListener::setOperation(CompositorInstance::TargetOperati
     lastOp = op->renderSystemOperations.end();
 }
 //-----------------------------------------------------------------------
-void CompositorChain::RQListener::flushUpTo(uint8 id)
+void CompositorChain::RQListener::flushUpTo(Ogre::RenderQueueGroupID id)
 {
     /// Process all RenderSystemOperations up to and including render queue id.
     /// Including, because the operations for RenderQueueGroup x should be executed

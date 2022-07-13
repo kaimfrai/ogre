@@ -102,7 +102,7 @@ class VertexData;
         bool mVisible;
 
         /// The render queue to use when rendering this renderable
-        uint8 mRenderQueueID;
+        RenderQueueGroupID mRenderQueueID;
         /// Flags whether the RenderQueue's default should be used.
         bool mRenderQueueIDSet;
         /// Flags whether the RenderQueue's default should be used.
@@ -168,9 +168,9 @@ class VertexData;
         @par
             See Entity::setRenderQueueGroup for more details.
         @param queueID Enumerated value of the queue group to use. See the
-            enum RenderQueueGroupID for what kind of values can be used here.
+            enum class RenderQueueGroupID for what kind of values can be used here.
         */
-        void setRenderQueueGroup(uint8 queueID);
+        void setRenderQueueGroup(RenderQueueGroupID queueID);
 
         /** Sets the render queue group and group priority this SubEntity will be rendered through.
         @remarks
@@ -182,13 +182,13 @@ class VertexData;
         @par
             See Entity::setRenderQueueGroupAndPriority for more details.
         @param queueID Enumerated value of the queue group to use. See the
-            enum RenderQueueGroupID for what kind of values can be used here.
+            enum class RenderQueueGroupID for what kind of values can be used here.
         @param priority The priority within a group to use.
         */
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority);
+        void setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority);
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
-        auto getRenderQueueGroup() const noexcept -> uint8 { return mRenderQueueID; }
+        auto getRenderQueueGroup() const noexcept -> RenderQueueGroupID { return mRenderQueueID; }
 
         /** Gets the queue group for this entity, see setRenderQueueGroup for full details. */
         auto getRenderQueuePriority() const noexcept -> ushort { return mRenderQueuePriority; }

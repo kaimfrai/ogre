@@ -419,9 +419,9 @@ class VertexData;
 
         void _notifyCurrentCamera(Camera* cam) override;
 
-        void setRenderQueueGroup(uint8 queueID) override;
+        void setRenderQueueGroup(RenderQueueGroupID queueID) override;
 
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override;
+        void setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority) override;
 
         auto getBoundingBox() const noexcept -> const AxisAlignedBox& override;
 
@@ -597,7 +597,7 @@ class VertexData;
         auto getEdgeList() noexcept -> EdgeData* override;
         auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDistance, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDistance, ShadowRenderableFlags flags = {}) -> const ShadowRenderableList& override;
 
         /** Internal method for retrieving bone matrix information. */
         auto _getBoneMatrices() const noexcept -> const Affine3* { return mBoneMatrices;}
@@ -761,17 +761,17 @@ class VertexData;
         */
         auto _getVertexAnimTempBufferInfo() -> TempBlendedBufferInfo*;
         /// Override to return specific type flag.
-        auto getTypeFlags() const noexcept -> uint32 override;
+        auto getTypeFlags() const noexcept -> QueryTypeMask override;
         /// Retrieve the VertexData which should be used for GPU binding.
         auto getVertexDataForBinding() noexcept -> VertexData*;
 
         /// Identify which vertex data we should be sending to the renderer.
-        enum VertexDataBindChoice
+        enum class VertexDataBindChoice
         {
-            BIND_ORIGINAL,
-            BIND_SOFTWARE_SKELETAL,
-            BIND_SOFTWARE_MORPH,
-            BIND_HARDWARE_MORPH
+            ORIGINAL,
+            SOFTWARE_SKELETAL,
+            SOFTWARE_MORPH,
+            HARDWARE_MORPH
         };
         /// Choose which vertex data to bind to the renderer.
         auto chooseVertexDataForBinding(bool hasVertexAnim) -> VertexDataBindChoice;

@@ -55,32 +55,48 @@ class Technique;
         When passed into methods these are actually passed as a uint8 to allow you
         to use values in between if you want to.
     */
-    enum RenderQueueGroupID
+    enum class RenderQueueGroupID
     {
         /// Use this queue for objects which must be rendered first e.g. backgrounds
-        RENDER_QUEUE_BACKGROUND = 0,
+        BACKGROUND = 0,
         /// First queue (after backgrounds), used for skyboxes if rendered first
-        RENDER_QUEUE_SKIES_EARLY = 5,
-        RENDER_QUEUE_1 = 10,
-        RENDER_QUEUE_2 = 20,
-        RENDER_QUEUE_WORLD_GEOMETRY_1 = 25,
-        RENDER_QUEUE_3 = 30,
-        RENDER_QUEUE_4 = 40,
+        SKIES_EARLY = 5,
+        _1 = 10,
+        _2 = 20,
+        WORLD_GEOMETRY_1 = 25,
+        _3 = 30,
+        _4 = 40,
         /// The default render queue
-        RENDER_QUEUE_MAIN = 50,
-        RENDER_QUEUE_6 = 60,
-        RENDER_QUEUE_7 = 70,
-        RENDER_QUEUE_WORLD_GEOMETRY_2 = 75,
-        RENDER_QUEUE_8 = 80,
-        RENDER_QUEUE_9 = 90,
+        MAIN = 50,
+        _6 = 60,
+        _7 = 70,
+        WORLD_GEOMETRY_2 = 75,
+        _8 = 80,
+        _9 = 90,
         /// Penultimate queue(before overlays), used for skyboxes if rendered last
-        RENDER_QUEUE_SKIES_LATE = 95,
+        SKIES_LATE = 95,
         /// Use this queue for objects which must be rendered last e.g. overlays
-        RENDER_QUEUE_OVERLAY = 100, 
+        OVERLAY = 100,
         /// Final possible render queue, don't exceed this
-        RENDER_QUEUE_MAX = 105,
-        RENDER_QUEUE_COUNT
+        MAX = 105,
+        COUNT
     };
+
+    auto constexpr operator + (RenderQueueGroupID id, decltype(0z) add)
+    {
+        return static_cast<RenderQueueGroupID>
+        (   std::to_underlying(id)
+        +   add
+        );
+    }
+
+    auto constexpr operator - (RenderQueueGroupID id, decltype(0z) subtract)
+    {
+        return static_cast<RenderQueueGroupID>
+        (   std::to_underlying(id)
+        -   subtract
+        );
+    }
 
     /** Class to manage the scene object rendering queue.
         @remarks
@@ -97,7 +113,7 @@ class Technique;
     {
     public:
 
-        using RenderQueueGroupMap = std::unique_ptr<RenderQueueGroup>[RENDER_QUEUE_COUNT];
+        using RenderQueueGroupMap = std::unique_ptr<RenderQueueGroup>[std::to_underlying(RenderQueueGroupID::COUNT)];
 
         /** Class to listen in on items being added to the render queue. 
         @remarks
@@ -129,13 +145,13 @@ class Technique;
             @return true to allow the Renderable to be added to the queue, 
                 false if you want to prevent it being added
             */
-            virtual auto renderableQueued(Renderable* rend, uint8 groupID, 
+            virtual auto renderableQueued(Renderable* rend, RenderQueueGroupID groupID,
                 ushort priority, Technique** ppTech, RenderQueue* pQueue) -> bool = 0;
         };
     private:
         RenderQueueGroupMap mGroups;
         /// The current default queue group
-        uint8 mDefaultQueueGroup;
+        RenderQueueGroupID mDefaultQueueGroup;
         /// The default priority
         ushort mDefaultRenderablePriority;
 
@@ -159,7 +175,7 @@ class Technique;
             OGRE registers new queue groups as they are requested, 
             therefore this method will always return a valid group.
         */
-        auto getQueueGroup(uint8 qid) -> RenderQueueGroup*;
+        auto getQueueGroup(RenderQueueGroupID qid) -> RenderQueueGroup*;
 
         /** Add a renderable object to the queue.
         @remarks
@@ -183,7 +199,7 @@ class Technique;
             from sorting them for best efficiency. However this could be useful for ordering 2D
             elements manually for example.
         */
-        void addRenderable(Renderable* pRend, uint8 groupID, ushort priority);
+        void addRenderable(Renderable* pRend, RenderQueueGroupID groupID, ushort priority);
 
         /** Add a renderable object to the queue.
         @remarks
@@ -202,7 +218,7 @@ class Technique;
             boundaries. This can be handy for overlays where no matter what you want the overlay to 
             be rendered last.
         */
-        void addRenderable(Renderable* pRend, uint8 groupId);
+        void addRenderable(Renderable* pRend, RenderQueueGroupID groupId);
 
         /** Add a renderable object to the queue.
         @remarks
@@ -221,7 +237,7 @@ class Technique;
         /** Gets the current default queue group, which will be used for all renderable which do not
             specify which group they wish to be on.
         */
-        [[nodiscard]] auto getDefaultQueueGroup() const noexcept -> uint8;
+        [[nodiscard]] auto getDefaultQueueGroup() const noexcept -> RenderQueueGroupID;
 
         /** Sets the current default renderable priority, 
             which will be used for all renderables which do not
@@ -235,10 +251,10 @@ class Technique;
         [[nodiscard]] auto getDefaultRenderablePriority() const noexcept -> ushort;
 
         /** Sets the current default queue group, which will be used for all renderable which do not
-            specify which group they wish to be on. See the enum RenderQueueGroupID for what kind of
+            specify which group they wish to be on. See the enum class RenderQueueGroupID for what kind of
             values can be used here.
         */
-        void setDefaultQueueGroup(uint8 grp);
+        void setDefaultQueueGroup(RenderQueueGroupID grp);
         
         /** Internal method, returns the queue groups. */
         [[nodiscard]] auto _getQueueGroups() const -> const RenderQueueGroupMap& {

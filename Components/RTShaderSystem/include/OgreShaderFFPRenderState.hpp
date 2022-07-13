@@ -39,42 +39,58 @@ namespace Ogre::RTShader {
 */
 
 // Fixed Function vertex shader stages.
-enum FFPVertexShaderStage
+enum class FFPVertexShaderStage
 {
-    FFP_VS_PRE_PROCESS                  = 0,    
-    FFP_VS_TRANSFORM                    = 100,
-    FFP_VS_COLOUR                       = 200,
-    FFP_VS_LIGHTING                     = 300,
-    FFP_VS_TEXTURING                    = 400,      
-    FFP_VS_FOG                          = 500,  
-    FFP_VS_POST_PROCESS                 = 2000
+    PRE_PROCESS                  = 0,
+    TRANSFORM                    = 100,
+    COLOUR                       = 200,
+    LIGHTING                     = 300,
+    TEXTURING                    = 400,
+    FOG                          = 500,
+    POST_PROCESS                 = 2000
 };
 
 // Fixed Function fragment shader stages.
-enum FFPFragmentShaderStage
+enum class FFPFragmentShaderStage
 {
-    FFP_PS_PRE_PROCESS                  = 0,    
-    FFP_PS_COLOUR_BEGIN                 = 100,
-    FFP_PS_SAMPLING                     = 150,
-    FFP_PS_TEXTURING                    = 200,  
-    FFP_PS_COLOUR_END                   = 300,
-    FFP_PS_FOG                          = 400,
-    FFP_PS_POST_PROCESS                 = 500,
-	FFP_PS_ALPHA_TEST					= 1000
+    PRE_PROCESS                  = 0,
+    COLOUR_BEGIN                 = 100,
+    SAMPLING                     = 150,
+    TEXTURING                    = 200,
+    COLOUR_END                   = 300,
+    FOG                          = 400,
+    POST_PROCESS                 = 500,
+	ALPHA_TEST					= 1000
 };
 
 // Fixed Function generic stages.
-enum FFPShaderStage
+enum class FFPShaderStage
 {
-    FFP_PRE_PROCESS                     = 0,    
-    FFP_TRANSFORM                       = 100,  
-    FFP_COLOUR                          = 200,  
-    FFP_LIGHTING                        = 300,
-    FFP_TEXTURING                       = 400,
-    FFP_FOG                             = 500,
-    FFP_POST_PROCESS                    = 600,
-	FFP_ALPHA_TEST						= 1000
+    PRE_PROCESS                     = 0,
+    TRANSFORM                       = 100,
+    COLOUR                          = 200,
+    LIGHTING                        = 300,
+    TEXTURING                       = 400,
+    FOG                             = 500,
+    POST_PROCESS                    = 600,
+	ALPHA_TEST						= 1000
 };
+
+auto constexpr operator + (FFPShaderStage stage, int offset) -> FFPShaderStage
+{
+    return static_cast<FFPShaderStage>
+    (   std::to_underlying(stage)
+    +   offset
+    );
+}
+
+auto constexpr operator - (FFPShaderStage stage, int offset) -> FFPShaderStage
+{
+    return static_cast<FFPShaderStage>
+    (   std::to_underlying(stage)
+    -   offset
+    );
+}
 
 char const constexpr inline FFP_LIB_COMMON[] =
     "FFPLib_Common";

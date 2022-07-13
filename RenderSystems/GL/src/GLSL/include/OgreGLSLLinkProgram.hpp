@@ -80,7 +80,7 @@ class GLUniformCache;
         /** Updates program object uniforms using data from GpuProgramParameters.
         normally called by GLSLGpuProgram::bindParameters() just before rendering occurs.
         */
-        void updateUniforms(GpuProgramParametersSharedPtr params, uint16 mask, GpuProgramType fromProgType) override;
+        void updateUniforms(GpuProgramParametersSharedPtr params, GpuParamVariability mask, GpuProgramType fromProgType) override;
 
         /// Get the GL Handle for the program object
         [[nodiscard]] auto getGLHandle() const noexcept -> uint { return mGLProgramHandle; }

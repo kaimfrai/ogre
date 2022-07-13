@@ -155,7 +155,7 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
         mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
         mCameraNode->attachObject(mCamera);
         mCameraNode->setPosition(0,0,500);
-        mCameraNode->lookAt(Vector3(0, 0, 0), Node::TS_PARENT);
+        mCameraNode->lookAt(Vector3(0, 0, 0), Node::TransformSpace::PARENT);
 
         // Create a set of random balls
         Entity* ent = mSceneMgr->createEntity("501", "sphere.mesh", "General");
@@ -217,7 +217,7 @@ TEST(MaterialSerializer, Basic)
     auto mat = std::make_shared<Material>(nullptr, "Material Name", 0, group);
     auto pass = mat->createTechnique()->createPass();
     auto tus = pass->createTextureUnitState();
-    tus->setContentType(TextureUnitState::CONTENT_SHADOW);
+    tus->setContentType(TextureUnitState::ContentType::SHADOW);
     tus->setName("Test TUS");
     pass->setAmbient(ColourValue::Green);
 
@@ -241,7 +241,7 @@ TEST(MaterialSerializer, Basic)
     EXPECT_EQ(mat2->getTechniques()[0]->getPasses()[0]->getTextureUnitState(0)->getName(),
               "Test TUS");
     EXPECT_EQ(mat2->getTechniques()[0]->getPasses()[0]->getTextureUnitState("Test TUS")->getContentType(),
-              TextureUnitState::CONTENT_SHADOW);
+              TextureUnitState::ContentType::SHADOW);
     EXPECT_EQ(mat2->getTechniques()[0]->getPasses()[0]->getTextureUnitState(1)->getTextureName(),
               "TextureName");
 }
@@ -307,7 +307,7 @@ TEST(Image, Combine)
 
     Image combined;
     // pick 2 files that are the same size, alpha texture will be made greyscale
-    combined.loadTwoImagesAsRGBA("rockwall.tga", "flare.png", RGN_DEFAULT, PF_BYTE_RGBA);
+    combined.loadTwoImagesAsRGBA("rockwall.tga", "flare.png", RGN_DEFAULT, PixelFormat::BYTE_RGBA);
 
     // combined.save(::std::format("{}/rockwall_flare.png", testPath));
     STBIImageCodec::shutdown();
@@ -342,9 +342,9 @@ TEST_F(ResourceLoading, CollsionUseExisting)
     EXPECT_FALSE(CompositorManager::getSingleton().create("Collision", "Tests"));
 
     EXPECT_TRUE(HighLevelGpuProgramManager::getSingleton().createProgram(
-        "Collision", "Tests", "null", GPT_VERTEX_PROGRAM));
+        "Collision", "Tests", "null", GpuProgramType::VERTEX_PROGRAM));
     EXPECT_FALSE(HighLevelGpuProgramManager::getSingleton().createProgram(
-        "Collision", "Tests", "null", GPT_VERTEX_PROGRAM));
+        "Collision", "Tests", "null", GpuProgramType::VERTEX_PROGRAM));
 }
 
 struct DeletePreviousResourceLoadingListener : public ResourceLoadingListener
@@ -376,9 +376,9 @@ TEST_F(TextureTests, Blank)
 
     EXPECT_EQ(tus->isBlank(), true);
     EXPECT_EQ(tus->getTextureName(), "");
-    EXPECT_EQ(tus->getTextureType(), TEX_TYPE_2D);
-    EXPECT_EQ(tus->getNumMipmaps(), MIP_DEFAULT);
-    EXPECT_EQ(tus->getDesiredFormat(), PF_UNKNOWN);
+    EXPECT_EQ(tus->getTextureType(), TextureType::_2D);
+    EXPECT_EQ(tus->getNumMipmaps(), TextureMipmap::DEFAULT);
+    EXPECT_EQ(tus->getDesiredFormat(), PixelFormat::UNKNOWN);
     EXPECT_EQ(tus->getFrameTextureName(0), "");
     EXPECT_EQ(tus->getGamma(), 1.0f);
     EXPECT_EQ(tus->isHardwareGammaEnabled(), false);
@@ -390,19 +390,19 @@ TEST(GpuSharedParameters, align)
     GpuSharedParameters params("dummy");
 
     // trivial case
-    params.addConstantDefinition("a", GCT_FLOAT1);
+    params.addConstantDefinition("a", GpuConstantType::FLOAT1);
     EXPECT_EQ(params.getConstantDefinition("a").logicalIndex, 0);
 
     // 16 byte alignment
-    params.addConstantDefinition("b", GCT_FLOAT4);
+    params.addConstantDefinition("b", GpuConstantType::FLOAT4);
     EXPECT_EQ(params.getConstantDefinition("b").logicalIndex, 16);
 
     // break alignment again
-    params.addConstantDefinition("c", GCT_FLOAT1);
+    params.addConstantDefinition("c", GpuConstantType::FLOAT1);
     EXPECT_EQ(params.getConstantDefinition("c").logicalIndex, 32);
 
     // 16 byte alignment
-    params.addConstantDefinition("d", GCT_MATRIX_4X4);
+    params.addConstantDefinition("d", GpuConstantType::MATRIX_4X4);
     EXPECT_EQ(params.getConstantDefinition("d").logicalIndex, 48);
 }
 

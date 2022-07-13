@@ -183,7 +183,7 @@ void TargetRenderState::acquirePrograms(Pass* pass)
     bool logProgramNames = !ShaderGenerator::getSingleton().getShaderCachePath().empty();
     std::string_view matName = pass->getParent()->getParent()->getName();
 
-    for(auto type : {GPT_VERTEX_PROGRAM, GPT_FRAGMENT_PROGRAM})
+    for(auto type : {GpuProgramType::VERTEX_PROGRAM, GpuProgramType::FRAGMENT_PROGRAM})
     {
         auto prog = mProgramSet->getGpuProgram(type);
         hasError = hasError || prog->hasCompileError();
@@ -214,8 +214,8 @@ void TargetRenderState::releasePrograms(Pass* pass)
     if(!mProgramSet)
         return;
 
-    pass->setGpuProgram(GPT_VERTEX_PROGRAM, GpuProgramPtr());
-    pass->setGpuProgram(GPT_FRAGMENT_PROGRAM, GpuProgramPtr());
+    pass->setGpuProgram(GpuProgramType::VERTEX_PROGRAM, GpuProgramPtr());
+    pass->setGpuProgram(GpuProgramType::FRAGMENT_PROGRAM, GpuProgramPtr());
 
     ProgramManager::getSingleton().releasePrograms(mProgramSet.get());
 
@@ -240,10 +240,10 @@ static void fixupFFPLighting(TargetRenderState* renderState)
     OgreAssert(it != subRenderStateList.end(), "FFPColour required");
 
     auto ffpColour = static_cast<FFPColour*>(*it);
-    ffpColour->addResolveStageMask(FFPColour::SF_VS_OUTPUT_DIFFUSE);
+    ffpColour->addResolveStageMask(FFPColour::StageFlags::VS_OUTPUT_DIFFUSE);
 
     if(ffpLighting->getSpecularEnable())
-        ffpColour->addResolveStageMask(FFPColour::SF_VS_OUTPUT_SPECULAR);
+        ffpColour->addResolveStageMask(FFPColour::StageFlags::VS_OUTPUT_SPECULAR);
 }
 
 //-----------------------------------------------------------------------
@@ -254,14 +254,14 @@ void TargetRenderState::createCpuPrograms()
     fixupFFPLighting(this);
 
     ProgramSet* programSet = createProgramSet();
-    programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_VERTEX_PROGRAM)));
-    programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GPT_FRAGMENT_PROGRAM)));
+    programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GpuProgramType::VERTEX_PROGRAM)));
+    programSet->setCpuProgram(std::unique_ptr<Program>(new Program(GpuProgramType::FRAGMENT_PROGRAM)));
 
     for (auto srcSubRenderState : mSubRenderStateList)
     {
         if (!srcSubRenderState->createCpuSubPrograms(programSet))
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         ::std::format("Could not generate sub render program of type: {}", srcSubRenderState->getType()));
         }
     }
@@ -310,11 +310,11 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
         auto it = mSubRenderStateList.end();
         switch (srcSubRenderState->getExecutionOrder())
         {
-        case FFP_TRANSFORM:
-        case FFP_COLOUR:
-        case FFP_LIGHTING:
-        case FFP_TEXTURING:
-        case FFP_FOG:
+        case FFPShaderStage::TRANSFORM:
+        case FFPShaderStage::COLOUR:
+        case FFPShaderStage::LIGHTING:
+        case FFPShaderStage::TEXTURING:
+        case FFPShaderStage::FOG:
             // Check if this FFP stage already exists.
             it = std::ranges::find_if(mSubRenderStateList,
                               [srcSubRenderState](const SubRenderState* e) {

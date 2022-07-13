@@ -79,13 +79,13 @@ namespace Ogre
     };
     using GLXVideoModes = std::vector<GLXVideoMode>;
 
-    auto getGLSupport(int profile) -> GLNativeSupport*
+    auto getGLSupport(GLNativeSupport::ContextProfile profile) -> GLNativeSupport*
     {
         return new GLXGLSupport(profile);
     }
 
     //-------------------------------------------------------------------------------------------------//
-    GLXGLSupport::GLXGLSupport(int profile) : GLNativeSupport(profile) 
+    GLXGLSupport::GLXGLSupport(GLNativeSupport::ContextProfile profile) : GLNativeSupport(profile)
     {
         // A connection that might be shared with the application for GL rendering:
         mGLDisplay = getGLDisplay();
@@ -452,7 +452,7 @@ namespace Ogre
 
             if(! mGLDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)XDisplayName (nullptr))), "GLXGLSupport::getGLDisplay");
+                OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)XDisplayName (nullptr))), "GLXGLSupport::getGLDisplay");
             }
         }
 
@@ -470,7 +470,7 @@ namespace Ogre
 
             if (! mXDisplay)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)displayString)), "GLXGLSupport::getXDisplay");
+                OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, ::std::format("Couldn`t open X display {}", String((const char*)displayString)), "GLXGLSupport::getXDisplay");
             }
 
             mAtomDeleteWindow = XInternAtom(mXDisplay, "WM_DELETE_WINDOW", True);
@@ -507,11 +507,11 @@ namespace Ogre
         int minorVersion = 0;
 
         switch(mContextProfile) {
-        case CONTEXT_COMPATIBILITY:
+        case ContextProfile::COMPATIBILITY:
             profile = GLX_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB;
             majorVersion = 1;
             break;
-        case CONTEXT_ES:
+        case ContextProfile::ES:
             profile = GLX_CONTEXT_ES2_PROFILE_BIT_EXT;
             majorVersion = 2;
             break;
@@ -555,7 +555,7 @@ namespace Ogre
         {
             // try old style context creation as a last resort
             // Needed at least by MESA 8.0.4 on Ubuntu 12.04.
-            if (mContextProfile != CONTEXT_COMPATIBILITY) {
+            if (mContextProfile != ContextProfile::COMPATIBILITY) {
                 ctxErrorMessage = "Can not set a context profile";
             } else {
                 glxContext =

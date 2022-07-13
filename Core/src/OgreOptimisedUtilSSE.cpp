@@ -921,7 +921,7 @@ namespace Ogre {
             // assume general version faster than unrolled version :)
             //
             if (!(PlatformInformation::getCpuFeatures() &
-                (PlatformInformation::CPU_FEATURE_SSE2 | PlatformInformation::CPU_FEATURE_SSE3)))
+                (PlatformInformation::CpuFeatures::SSE2 | PlatformInformation::CpuFeatures::SSE3)))
             {
                 mPreferGeneralVersionForSharedBuffers = true;
             }

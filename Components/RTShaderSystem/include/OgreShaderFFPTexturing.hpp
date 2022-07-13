@@ -87,7 +87,7 @@ public:
     /** 
     @see SubRenderState::getType.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /** 
     @see SubRenderState::copyFrom.

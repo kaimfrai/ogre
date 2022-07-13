@@ -91,17 +91,17 @@ class SceneManager;
 
             @note only supported by the BspSceneManager
         */
-        enum WorldFragmentType {
+        enum class WorldFragmentType {
             /// Return no world geometry hits at all
-            WFT_NONE,
+            NONE,
             /// Return pointers to convex plane-bounded regions
-            WFT_PLANE_BOUNDED_REGION,
+            PLANE_BOUNDED_REGION,
             /// Return a single intersection point (typically RaySceneQuery only)
-            WFT_SINGLE_INTERSECTION,
+            SINGLE_INTERSECTION,
             /// Custom geometry as defined by the SceneManager
-            WFT_CUSTOM_GEOMETRY,
+            CUSTOM_GEOMETRY,
             /// General RenderOperation structure
-            WFT_RENDER_OPERATION
+            RENDER_OPERATION
         };
 
         /** Represents part of the world geometry that is a result of a SceneQuery. 
@@ -120,11 +120,11 @@ class SceneManager;
         struct WorldFragment {
             /// The type of this world fragment
             WorldFragmentType fragmentType;
-            /// Single intersection point, only applicable for WFT_SINGLE_INTERSECTION
+            /// Single intersection point, only applicable for WaveformType::SINGLE_INTERSECTION
             Vector3 singleIntersection;
-            /// Planes bounding a convex region, only applicable for WFT_PLANE_BOUNDED_REGION
+            /// Planes bounding a convex region, only applicable for WaveformType::PLANE_BOUNDED_REGION
             std::vector<Plane>* planes;
-            /// Custom geometry block, only applicable for WFT_CUSTOM_GEOMETRY
+            /// Custom geometry block, only applicable for WaveformType::CUSTOM_GEOMETRY
             void* geometry;
             /// General render operation structure, fallback if nothing else is available
             RenderOperation* renderOp;
@@ -132,10 +132,10 @@ class SceneManager;
         };
     protected:
         SceneManager* mParentSceneMgr;
-        uint32 mQueryMask{0xFFFFFFFF};
-        uint32 mQueryTypeMask;
+        QueryTypeMask mQueryMask{0xFFFFFFFF};
+        QueryTypeMask mQueryTypeMask;
         std::set<WorldFragmentType> mSupportedWorldFragments;
-        WorldFragmentType mWorldFragmentType{SceneQuery::WFT_NONE};
+        WorldFragmentType mWorldFragmentType{SceneQuery::WorldFragmentType::NONE};
     
     public:
         /** Standard constructor, should be called by SceneManager. */
@@ -151,9 +151,9 @@ class SceneManager;
             MovableObject::getQueryFlags value is non-zero. The application will
             have to decide what each of the bits means.
         */
-        virtual void setQueryMask(uint32 mask);
+        virtual void setQueryMask(QueryTypeMask mask);
         /** Returns the current mask for this query. */
-        [[nodiscard]] virtual auto getQueryMask() const noexcept -> uint32;
+        [[nodiscard]] virtual auto getQueryMask() const noexcept -> QueryTypeMask;
 
         /** Sets the type mask for results of this query.
 
@@ -163,9 +163,9 @@ class SceneManager;
             flags set per type of object. Both may exclude an object from query
             results.
         */
-        virtual void setQueryTypeMask(uint32 mask);
+        virtual void setQueryTypeMask(QueryTypeMask mask);
         /** Returns the current mask for this query. */
-        [[nodiscard]] virtual auto getQueryTypeMask() const noexcept -> uint32;
+        [[nodiscard]] virtual auto getQueryTypeMask() const noexcept -> QueryTypeMask;
 
         /** Tells the query what kind of world geometry to return from queries;
             often the full renderable geometry is not what is needed. 
@@ -175,9 +175,9 @@ class SceneManager;
             have knowledge of at least some of the structures
             used by the custom SceneManager.
         @par
-            The default setting is WFT_NONE.
+            The default setting is WaveformType::NONE.
         */
-        virtual void setWorldFragmentType(enum WorldFragmentType wft);
+        virtual void setWorldFragmentType(WorldFragmentType wft);
 
         /** Gets the current world fragment types to be returned from the query. */
         [[nodiscard]] virtual auto getWorldFragmentType() const -> WorldFragmentType;

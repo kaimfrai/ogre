@@ -43,9 +43,9 @@ auto CookTorranceLighting::getType() const noexcept -> std::string_view { return
 //-----------------------------------------------------------------------
 auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 {
-    Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+    Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
     Function* vsMain = vsProgram->getEntryPointFunction();
-    Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+    Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
     Function* psMain = psProgram->getEntryPointFunction();
 
     vsProgram->addDependency(FFP_LIB_TRANSFORM);
@@ -55,41 +55,41 @@ auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
     psProgram->addDependency("SGXLib_CookTorrance");
 
     // Resolve texture coordinates.
-    auto vsInTexcoord = vsMain->resolveInputParameter(Parameter::SPC_TEXTURE_COORDINATE0, GCT_FLOAT2);
-    auto vsOutTexcoord = vsMain->resolveOutputParameter(Parameter::SPC_TEXTURE_COORDINATE0, GCT_FLOAT2);
+    auto vsInTexcoord = vsMain->resolveInputParameter(Parameter::Content::TEXTURE_COORDINATE0, GpuConstantType::FLOAT2);
+    auto vsOutTexcoord = vsMain->resolveOutputParameter(Parameter::Content::TEXTURE_COORDINATE0, GpuConstantType::FLOAT2);
     auto psInTexcoord = psMain->resolveInputParameter(vsOutTexcoord);
 
     // resolve view position
-    auto vsInPosition = vsMain->getLocalParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+    auto vsInPosition = vsMain->getLocalParameter(Parameter::Content::POSITION_OBJECT_SPACE);
     if (!vsInPosition)
-        vsInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
-    auto vsOutViewPos = vsMain->resolveOutputParameter(Parameter::SPC_POSITION_VIEW_SPACE);
+        vsInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
+    auto vsOutViewPos = vsMain->resolveOutputParameter(Parameter::Content::POSITION_VIEW_SPACE);
     auto viewPos = psMain->resolveInputParameter(vsOutViewPos);
-    auto worldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_WORLDVIEW_MATRIX);
+    auto worldViewMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::WORLDVIEW_MATRIX);
 
     // Resolve normal.
-    auto viewNormal = psMain->getLocalParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+    auto viewNormal = psMain->getLocalParameter(Parameter::Content::NORMAL_VIEW_SPACE);
     ParameterPtr vsInNormal, vsOutNormal;
 
     if (!viewNormal)
     {
         // Resolve input vertex shader normal.
-        vsInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+        vsInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
 
         // Resolve output vertex shader normal.
-        vsOutNormal = vsMain->resolveOutputParameter(Parameter::SPC_NORMAL_VIEW_SPACE);
+        vsOutNormal = vsMain->resolveOutputParameter(Parameter::Content::NORMAL_VIEW_SPACE);
 
         // Resolve input pixel shader normal.
         viewNormal = psMain->resolveInputParameter(vsOutNormal);
     }
 
     // resolve light params
-    auto outDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
-    auto outSpecular = psMain->resolveLocalParameter(Parameter::SPC_COLOR_SPECULAR);
+    auto outDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
+    auto outSpecular = psMain->resolveLocalParameter(Parameter::Content::COLOR_SPECULAR);
 
     // insert after texturing
-    auto vstage = vsMain->getStage(FFP_PS_COLOUR_BEGIN + 1);
-    auto fstage = psMain->getStage(FFP_PS_COLOUR_END + 50);
+    auto vstage = vsMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_BEGIN) + 1);
+    auto fstage = psMain->getStage(std::to_underlying(FFPFragmentShaderStage::COLOUR_END) + 50);
 
     // Forward texture coordinates
     vstage.assign(vsInTexcoord, vsOutTexcoord);
@@ -98,7 +98,7 @@ auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
     // transform normal in VS
     if (vsOutNormal)
     {
-        auto worldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::ACT_NORMAL_MATRIX);
+        auto worldViewITMatrix = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::NORMAL_MATRIX);
         vstage.callFunction(FFP_FUNC_TRANSFORM, worldViewITMatrix, vsInNormal, vsOutNormal);
     }
 
@@ -107,29 +107,29 @@ auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
     if(!mMetalRoughnessMapName.empty())
     {
         auto metalRoughnessSampler =
-            psProgram->resolveParameter(GCT_SAMPLER2D, "metalRoughnessSampler", mMRMapSamplerIndex);
-        auto mrSample = psMain->resolveLocalParameter(GCT_FLOAT4, "mrSample");
+            psProgram->resolveParameter(GpuConstantType::SAMPLER2D, "metalRoughnessSampler", mMRMapSamplerIndex);
+        auto mrSample = psMain->resolveLocalParameter(GpuConstantType::FLOAT4, "mrSample");
         // Roughness is stored in the 'g' channel, metallic is stored in the 'b' channel.
         // This layout intentionally reserves the 'r' channel for (optional) occlusion map data
         fstage.sampleTexture(metalRoughnessSampler, psInTexcoord, mrSample);
-        mrparams = In(mrSample).mask(Operand::OPM_YZ);
+        mrparams = In(mrSample).mask(Operand::OpMask::YZ);
     }
     else
     {
-        auto specular = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_SPECULAR_COLOUR);
+        auto specular = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_SPECULAR_COLOUR);
         mrparams = In(specular).xy();
     }
 
-    auto litResult = psMain->resolveLocalParameter(GCT_FLOAT3, "litResult");
+    auto litResult = psMain->resolveLocalParameter(GpuConstantType::FLOAT3, "litResult");
     fstage.assign(Vector3(0), litResult);
 
     for (int i = 0; i < mLightCount; i++)
     {
-        auto lightPos = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_POSITION_VIEW_SPACE, i);
-        auto lightDiffuse = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_DIFFUSE_COLOUR, i);
-        auto pointParams = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_ATTENUATION, i);
-        auto spotParams = psProgram->resolveParameter(GpuProgramParameters::ACT_SPOTLIGHT_PARAMS, i);
-        auto lightDirView = psProgram->resolveParameter(GpuProgramParameters::ACT_LIGHT_DIRECTION_VIEW_SPACE, i);
+        auto lightPos = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
+        auto lightDiffuse = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR, i);
+        auto pointParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, i);
+        auto spotParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SPOTLIGHT_PARAMS, i);
+        auto lightDirView = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
 
         fstage.callFunction("PBR_Light", {In(viewNormal), In(viewPos), In(lightPos), In(lightDiffuse).xyz(),
                                           In(pointParams), In(lightDirView), In(spotParams), In(outDiffuse).xyz(),

@@ -87,7 +87,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setDimensions(Real width, Real height)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelWidth = width;
             mPixelHeight = height;
@@ -103,7 +103,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setPosition(Real left, Real top)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelLeft = left;
             mPixelTop = top;
@@ -119,7 +119,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setWidth(Real width)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelWidth = width;
         }
@@ -133,7 +133,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto OverlayElement::getWidth() const -> Real
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             return mPixelWidth;
         }
@@ -145,7 +145,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setHeight(Real height)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelHeight = height;
         }
@@ -159,7 +159,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto OverlayElement::getHeight() const -> Real
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             return mPixelHeight;
         }
@@ -171,7 +171,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setLeft(Real left)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelLeft = left;
         }
@@ -185,7 +185,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto OverlayElement::getLeft() const -> Real
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             return mPixelLeft;
         }
@@ -197,7 +197,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void OverlayElement::setTop(Real top)
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelTop = top;
         }
@@ -212,7 +212,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto OverlayElement::getTop() const -> Real
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             return mPixelTop;
         }
@@ -314,7 +314,7 @@ namespace Ogre {
         {
             mMaterial = MaterialManager::getSingleton().getByName(matName, group);
             if (!mMaterial)
-                OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", matName),
+                OGRE_EXCEPT( ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Could not find material {}", matName),
                     "OverlayElement::setMaterialName" );
 
             setMaterial(mMaterial);
@@ -350,7 +350,7 @@ namespace Ogre {
         // Check size if pixel-based or relative-aspect-adjusted
         switch (mMetricsMode)
         {
-        case GMM_PIXELS :
+        case GuiMetricsMode::PIXELS :
             if (mGeomPositionsOutOfDate)
             {               
                 mPixelScaleX = 1.0f / vpWidth;
@@ -358,7 +358,7 @@ namespace Ogre {
             }
             break;
 
-        case GMM_RELATIVE_ASPECT_ADJUSTED :
+        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED :
             if (mGeomPositionsOutOfDate)
             {
                 mPixelScaleX = 1.0f / (10000.0f * (vpWidth / vpHeight));
@@ -367,7 +367,7 @@ namespace Ogre {
             break;
 
         default:
-        case GMM_RELATIVE :
+        case GuiMetricsMode::RELATIVE :
             mPixelScaleX = 1.0;
             mPixelScaleY = 1.0;
             mPixelLeft = mLeft;
@@ -397,7 +397,7 @@ namespace Ogre {
             // second update call is needed, so leave the dirty flag on 'true'
             // so that that in a second call in the next frame, the element
             // width can be correctly set and the text gets displayed.
-            if(mMetricsMode == GMM_PIXELS && tmpPixelWidth != mPixelWidth)
+            if(mMetricsMode == GuiMetricsMode::PIXELS && tmpPixelWidth != mPixelWidth)
                 mGeomPositionsOutOfDate = true;
             else
                 mGeomPositionsOutOfDate = false;
@@ -419,11 +419,11 @@ namespace Ogre {
         {
             parentLeft = mParent->_getDerivedLeft();
             parentTop = mParent->_getDerivedTop();
-            if (mHorzAlign == GHA_CENTER || mHorzAlign == GHA_RIGHT)
+            if (mHorzAlign == GuiHorizontalAlignment::CENTER || mHorzAlign == GuiHorizontalAlignment::RIGHT)
             {
                 parentRight = parentLeft + mParent->_getRelativeWidth();
             }
-            if (mVertAlign == GVA_CENTER || mVertAlign == GVA_BOTTOM)
+            if (mVertAlign == GuiVerticalAlignment::CENTER || mVertAlign == GuiVerticalAlignment::BOTTOM)
             {
                 parentBottom = parentTop + mParent->_getRelativeHeight();
             }
@@ -449,25 +449,25 @@ namespace Ogre {
         // This is more flexible than forcing absolute right & middle 
         switch(mHorzAlign)
         {
-        case GHA_CENTER:
+        case GuiHorizontalAlignment::CENTER:
             mDerivedLeft = ((parentLeft + parentRight) * 0.5f) + mLeft;
             break;
-        case GHA_LEFT:
+        case GuiHorizontalAlignment::LEFT:
             mDerivedLeft = parentLeft + mLeft;
             break;
-        case GHA_RIGHT:
+        case GuiHorizontalAlignment::RIGHT:
             mDerivedLeft = parentRight + mLeft;
             break;
         };
         switch(mVertAlign)
         {
-        case GVA_CENTER:
+        case GuiVerticalAlignment::CENTER:
             mDerivedTop = ((parentTop + parentBottom) * 0.5f) + mTop;
             break;
-        case GVA_TOP:
+        case GuiVerticalAlignment::TOP:
             mDerivedTop = parentTop + mTop;
             break;
-        case GVA_BOTTOM:
+        case GuiVerticalAlignment::BOTTOM:
             mDerivedTop = parentBottom + mTop;
             break;
         };
@@ -562,7 +562,7 @@ namespace Ogre {
     {
         switch (mMetricsMode)
         {
-        case GMM_PIXELS :
+        case GuiMetricsMode::PIXELS :
             {
                 Real vpWidth, vpHeight;
                 OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -574,7 +574,7 @@ namespace Ogre {
             }
             break;
 
-        case GMM_RELATIVE_ASPECT_ADJUSTED :
+        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED :
             {
                 Real vpWidth, vpHeight;
                 OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -587,7 +587,7 @@ namespace Ogre {
             break;
 
         default:
-        case GMM_RELATIVE :
+        case GuiMetricsMode::RELATIVE :
             mPixelScaleX = 1.0;
             mPixelScaleY = 1.0;
             mPixelLeft = mLeft;
@@ -609,7 +609,7 @@ namespace Ogre {
     {
         if (mVisible)
         {
-            queue->addRenderable(this, RENDER_QUEUE_OVERLAY, mZOrder);
+            queue->addRenderable(this, RenderQueueGroupID::OVERLAY, mZOrder);
         }      
     }
     //---------------------------------------------------------------------
@@ -625,43 +625,43 @@ namespace Ogre {
 
         dict->addParameter(ParameterDef("left", 
             "The position of the left border of the gui element."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msLeftCmd);
         dict->addParameter(ParameterDef("top", 
             "The position of the top border of the gui element."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msTopCmd);
         dict->addParameter(ParameterDef("width", 
             "The width of the element."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msWidthCmd);
         dict->addParameter(ParameterDef("height", 
             "The height of the element."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msHeightCmd);
         dict->addParameter(ParameterDef("material", 
             "The name of the material to use."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msMaterialCmd);
         dict->addParameter(ParameterDef("caption", 
             "The element caption, if supported."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCaptionCmd);
         dict->addParameter(ParameterDef("metrics_mode", 
             "The type of metrics to use, either 'relative' to the screen, 'pixels' or 'relative_aspect_adjusted'."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msMetricsModeCmd);
         dict->addParameter(ParameterDef("horz_align", 
             "The horizontal alignment, 'left', 'right' or 'center'."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msHorizontalAlignCmd);
         dict->addParameter(ParameterDef("vert_align", 
             "The vertical alignment, 'top', 'bottom' or 'center'."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msVerticalAlignCmd);
         dict->addParameter(ParameterDef("visible", 
             "Initial visibility of element, either 'true' or 'false' (default true)."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msVisibleCmd);
     }
     //-----------------------------------------------------------------------
@@ -685,7 +685,7 @@ namespace Ogre {
     {
         switch (gmm)
         {
-        case GMM_PIXELS :
+        case GuiMetricsMode::PIXELS :
             {
                 Real vpWidth, vpHeight;
                 OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -699,7 +699,7 @@ namespace Ogre {
                 mPixelScaleX = 1.0f / vpWidth;
                 mPixelScaleY = 1.0f / vpHeight;
 
-                if (mMetricsMode == GMM_RELATIVE)
+                if (mMetricsMode == GuiMetricsMode::RELATIVE)
                 {
                     mPixelLeft = mLeft;
                     mPixelTop = mTop;
@@ -709,7 +709,7 @@ namespace Ogre {
             }
             break;
 
-        case GMM_RELATIVE_ASPECT_ADJUSTED :
+        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED :
             {
                 Real vpWidth, vpHeight;
                 OverlayManager& oMgr = OverlayManager::getSingleton();
@@ -719,7 +719,7 @@ namespace Ogre {
                 mPixelScaleX = 1.0f / (10000.0f * (vpWidth / vpHeight));
                 mPixelScaleY = 1.0f /  10000.0f;
 
-                if (mMetricsMode == GMM_RELATIVE)
+                if (mMetricsMode == GuiMetricsMode::RELATIVE)
                 {
                     mPixelLeft = mLeft;
                     mPixelTop = mTop;
@@ -730,7 +730,7 @@ namespace Ogre {
             break;
 
         default:
-        case GMM_RELATIVE :
+        case GuiMetricsMode::RELATIVE :
             mPixelScaleX = 1.0;
             mPixelScaleY = 1.0;
             mPixelLeft = mLeft;

@@ -48,7 +48,7 @@ namespace Ogre
     class TextAreaOverlayElement : public OverlayElement
     {
     public:
-        enum Alignment
+        enum class Alignment
         {
             Left,
             Right,

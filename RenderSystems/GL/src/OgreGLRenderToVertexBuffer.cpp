@@ -64,14 +64,14 @@ namespace Ogre {
     {
         switch (operationType)
         {
-        case RenderOperation::OT_POINT_LIST:
+        case RenderOperation::OperationType::POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OT_LINE_LIST:
+        case RenderOperation::OperationType::LINE_LIST:
             return GL_LINES;
-        case RenderOperation::OT_TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
             return GL_TRIANGLES;
         default:
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "GL RenderToVertexBuffer"
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "GL RenderToVertexBuffer"
                 "can only output point lists, line lists, or triangle lists",
                 "OgreGLRenderToVertexBuffer::getR2VBPrimitiveType");
         }
@@ -83,12 +83,12 @@ namespace Ogre {
         //legal R2VB output primitive types
         switch (operationType)
         {
-        case RenderOperation::OT_POINT_LIST:
+        case RenderOperation::OperationType::POINT_LIST:
             return 1;
-        case RenderOperation::OT_LINE_LIST:
+        case RenderOperation::OperationType::LINE_LIST:
             return 2;
         default:
-        case RenderOperation::OT_TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
             return 3;
         }
     }
@@ -113,11 +113,11 @@ namespace Ogre {
             String fullErrorMessage = ::std::format("GL Error : {} in {}", msg, sectionName);
             if (logError)
             {
-                LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LML_CRITICAL);
+                LogManager::getSingleton().getDefaultLog()->logMessage(fullErrorMessage, LogMessageLevel::Critical);
             }
             if (throwException)
             {
-                OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+                OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                     fullErrorMessage, "OgreGLRenderToVertexBuffer");
             }
         }
@@ -165,7 +165,7 @@ namespace Ogre {
 
         bindVerticesOutput(r2vbPass);
 
-        r2vbPass->_updateAutoParams(sceneMgr->_getAutoParamDataSource(), GPV_GLOBAL);
+        r2vbPass->_updateAutoParams(sceneMgr->_getAutoParamDataSource(), GpuParamVariability::GLOBAL);
 
         RenderOperation renderOp;
         size_t targetBufferIndex;
@@ -207,13 +207,13 @@ namespace Ogre {
         targetRenderSystem->setProjectionMatrix(Matrix4::IDENTITY);
         if (r2vbPass->hasVertexProgram())
         {
-            targetRenderSystem->bindGpuProgramParameters(GPT_VERTEX_PROGRAM, 
-                r2vbPass->getVertexProgramParameters(), GPV_ALL);
+            targetRenderSystem->bindGpuProgramParameters(GpuProgramType::VERTEX_PROGRAM, 
+                r2vbPass->getVertexProgramParameters(), GpuParamVariability::ALL);
         }
         if (r2vbPass->hasGeometryProgram())
         {
-            targetRenderSystem->bindGpuProgramParameters(GPT_GEOMETRY_PROGRAM,
-                r2vbPass->getGeometryProgramParameters(), GPV_ALL);
+            targetRenderSystem->bindGpuProgramParameters(GpuProgramType::GEOMETRY_PROGRAM,
+                r2vbPass->getGeometryProgramParameters(), GpuParamVariability::ALL);
         }
         targetRenderSystem->_render(renderOp);
         
@@ -253,7 +253,7 @@ namespace Ogre {
         
         mVertexBuffers[index] = HardwareBufferManager::getSingleton().createVertexBuffer(
             mVertexData->vertexDeclaration->getVertexSize(0), mMaxVertexCount, 
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY
+            HardwareBuffer::STATIC_WRITE_ONLY
             );
     }
 //-----------------------------------------------------------------------------
@@ -261,17 +261,17 @@ namespace Ogre {
     {
         switch (semantic)
         {
-        case VES_POSITION:
+        case VertexElementSemantic::POSITION:
             return "gl_Position";
-        case VES_TEXTURE_COORDINATES:
+        case VertexElementSemantic::TEXTURE_COORDINATES:
             return ::std::format("gl_TexCoord[{}]", index);
-        case VES_DIFFUSE:
+        case VertexElementSemantic::DIFFUSE:
             return "gl_FrontColor";
-        case VES_SPECULAR:
+        case VertexElementSemantic::SPECULAR:
             return "gl_FrontSecondaryColor";
         //TODO : Implement more?
         default:
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                 "Unsupported vertex element semantic in render to vertex buffer",
                 "OgreGLRenderToVertexBuffer::getSemanticVaryingName");
         }
@@ -281,17 +281,17 @@ namespace Ogre {
     {
         switch (semantic)
         {
-        case VES_POSITION:
+        case VertexElementSemantic::POSITION:
             return GL_POSITION;
-        case VES_TEXTURE_COORDINATES:
+        case VertexElementSemantic::TEXTURE_COORDINATES:
             return GL_TEXTURE_COORD_NV;
-        case VES_DIFFUSE:
+        case VertexElementSemantic::DIFFUSE:
             return GL_PRIMARY_COLOR;
-        case VES_SPECULAR:
+        case VertexElementSemantic::SPECULAR:
             return GL_SECONDARY_COLOR_NV;
         //TODO : Implement more?
         default:
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                 "Unsupported vertex element semantic in render to vertex buffer",
                 "OgreGLRenderToVertexBuffer::getGLSemanticType");
             
@@ -333,7 +333,7 @@ namespace Ogre {
                 GLint location = glGetVaryingLocationNV(linkProgramId, varyingName.c_str());
                 if (location < 0)
                 {
-                    OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, 
+                    OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, 
                         ::std::format("GLSL link program does not output {}"
                         " so it cannot fill the requested vertex buffer",
                         varyingName),

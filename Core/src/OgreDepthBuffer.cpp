@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    DepthBuffer::DepthBuffer( uint16 poolId, uint32 width, uint32 height,
+    DepthBuffer::DepthBuffer( DepthBuffer::PoolId poolId, uint32 width, uint32 height,
                               uint32 fsaa, bool manual ) :
                 mPoolId(poolId),
                 mWidth(width),
@@ -47,7 +47,7 @@ namespace Ogre
         detachFromAllRenderTargets();
     }
 
-    void DepthBuffer::_setPoolId( uint16 poolId )
+    void DepthBuffer::_setPoolId( DepthBuffer::PoolId poolId )
     {
         //Change the pool Id
         mPoolId = poolId;
@@ -57,7 +57,7 @@ namespace Ogre
         detachFromAllRenderTargets();
     }
     //-----------------------------------------------------------------------
-    auto DepthBuffer::getPoolId() const noexcept -> uint16
+    auto DepthBuffer::getPoolId() const noexcept -> DepthBuffer::PoolId
     {
         return mPoolId;
     }

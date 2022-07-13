@@ -45,7 +45,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     PatchSurface::PatchSurface()
     {
-        mType = PST_BEZIER;
+        mType = PatchSurfaceType::BEZIER;
     }
     //-----------------------------------------------------------------------
     PatchSurface::~PatchSurface()
@@ -68,7 +68,7 @@ namespace Ogre {
 
         // Copy positions into Vector3 vector
         mVecCtlPoints.clear();
-        const VertexElement* elem = declaration->findElementBySemantic(VES_POSITION);
+        const VertexElement* elem = declaration->findElementBySemantic(VertexElementSemantic::POSITION);
         size_t vertSize = declaration->getVertexSize(0);
         auto *pVert = static_cast<uchar*>(controlPointBuffer);
         float* pFloat;
@@ -111,7 +111,7 @@ namespace Ogre {
 
         // Calculate number of required vertices / indexes at max resolution
         mRequiredVertexCount = mMeshWidth * mMeshHeight;
-        int iterations = (mVSide == VS_BOTH)? 2 : 1;
+        int iterations = (mVSide == VisibleSide::BOTH)? 2 : 1;
         mRequiredIndexCount = (mMeshWidth-1) * (mMeshHeight-1) * 2 * iterations * 3;
 
         // Calculate bounds based on control points
@@ -175,7 +175,7 @@ namespace Ogre {
         HardwareBufferLockGuard vertexLock(mVertexBuffer,
             mVertexOffset * mDeclaration->getVertexSize(0), 
             mRequiredVertexCount * mDeclaration->getVertexSize(0),
-            HardwareBuffer::HBL_NO_OVERWRITE);
+            HardwareBuffer::LockOptions::NO_OVERWRITE);
 
         distributeControlPoints(vertexLock.pData);
 
@@ -226,7 +226,7 @@ namespace Ogre {
             if(found) break;
         }
         if(!found) {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Can't find suitable control points for determining U subdivision level",
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Can't find suitable control points for determining U subdivision level",
                 "PatchSurface::getAutoULevel");
         }
 
@@ -252,7 +252,7 @@ namespace Ogre {
             if(found) break;
         }
         if(!found) {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Can't find suitable control points for determining V subdivision level",
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Can't find suitable control points for determining V subdivision level",
                 "PatchSurface::getAutoVLevel");
         }
 
@@ -326,11 +326,11 @@ namespace Ogre {
         size_t vertexSize = mDeclaration->getVertexSize(0);
         float *pSrcReal, *pDestReal;
         RGBA *pSrcRGBA, *pDestRGBA;
-        const VertexElement* elemPos = mDeclaration->findElementBySemantic(VES_POSITION);
-        const VertexElement* elemNorm = mDeclaration->findElementBySemantic(VES_NORMAL);
-        const VertexElement* elemTex0 = mDeclaration->findElementBySemantic(VES_TEXTURE_COORDINATES, 0);
-        const VertexElement* elemTex1 = mDeclaration->findElementBySemantic(VES_TEXTURE_COORDINATES, 1);
-        const VertexElement* elemDiffuse = mDeclaration->findElementBySemantic(VES_DIFFUSE);
+        const VertexElement* elemPos = mDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
+        const VertexElement* elemNorm = mDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
+        const VertexElement* elemTex0 = mDeclaration->findElementBySemantic(VertexElementSemantic::TEXTURE_COORDINATES, 0);
+        const VertexElement* elemTex1 = mDeclaration->findElementBySemantic(VertexElementSemantic::TEXTURE_COORDINATES, 1);
+        const VertexElement* elemDiffuse = mDeclaration->findElementBySemantic(VertexElementSemantic::DIFFUSE);
         for (size_t v = 0; v < mMeshHeight; v += vStep)
         {
             // set dest by v from base
@@ -440,14 +440,14 @@ namespace Ogre {
         size_t currWidth = (LEVEL_WIDTH(mULevel)-1) * ((mCtlWidth-1)/2) + 1;
         size_t currHeight = (LEVEL_WIDTH(mVLevel)-1) * ((mCtlHeight-1)/2) + 1;
 
-        bool use32bitindexes = (mIndexBuffer->getType() == HardwareIndexBuffer::IT_32BIT);
+        bool use32bitindexes = (mIndexBuffer->getType() == HardwareIndexBuffer::IndexType::_32BIT);
 
         // The mesh is built, just make a list of indexes to spit out the triangles
         int vInc;
         
         size_t uCount, v, iterations;
 
-        if (mVSide == VS_BOTH)
+        if (mVSide == VisibleSide::BOTH)
         {
             iterations = 2;
             vInc = vStep;
@@ -456,7 +456,7 @@ namespace Ogre {
         else
         {
             iterations = 1;
-            if (mVSide == VS_FRONT)
+            if (mVSide == VisibleSide::FRONT)
             {
                 vInc = vStep;
                 v = 0;
@@ -476,7 +476,7 @@ namespace Ogre {
         HardwareBufferLockGuard indexLock(mIndexBuffer,
                                           mIndexOffset * (use32bitindexes ? 4 : 2),
                                           mRequiredIndexCount * (use32bitindexes ? 4 : 2),
-                                          HardwareBuffer::HBL_NO_OVERWRITE);
+                                          HardwareBuffer::LockOptions::NO_OVERWRITE);
         auto* p16 = static_cast<unsigned short*>(indexLock.pData);
         auto* p32 = static_cast<unsigned int*>(indexLock.pData);
 
@@ -549,11 +549,11 @@ namespace Ogre {
     void PatchSurface::interpolateVertexData(void* lockedBuffer, size_t leftIdx, size_t rightIdx, size_t destIdx)
     {
         size_t vertexSize = mDeclaration->getVertexSize(0);
-        const VertexElement* elemPos = mDeclaration->findElementBySemantic(VES_POSITION);
-        const VertexElement* elemNorm = mDeclaration->findElementBySemantic(VES_NORMAL);
-        const VertexElement* elemDiffuse = mDeclaration->findElementBySemantic(VES_DIFFUSE);
-        const VertexElement* elemTex0 = mDeclaration->findElementBySemantic(VES_TEXTURE_COORDINATES, 0);
-        const VertexElement* elemTex1 = mDeclaration->findElementBySemantic(VES_TEXTURE_COORDINATES, 1);
+        const VertexElement* elemPos = mDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
+        const VertexElement* elemNorm = mDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
+        const VertexElement* elemDiffuse = mDeclaration->findElementBySemantic(VertexElementSemantic::DIFFUSE);
+        const VertexElement* elemTex0 = mDeclaration->findElementBySemantic(VertexElementSemantic::TEXTURE_COORDINATES, 0);
+        const VertexElement* elemTex1 = mDeclaration->findElementBySemantic(VertexElementSemantic::TEXTURE_COORDINATES, 1);
 
         float *pDestReal, *pLeftReal, *pRightReal;
         unsigned char *pDestChar, *pLeftChar, *pRightChar;

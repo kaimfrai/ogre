@@ -95,18 +95,18 @@ namespace Ogre {
         GpuLogicalBufferStructPtr logicalBufferStruct(new GpuLogicalBufferStruct());
         mFixedFunctionParams = std::make_shared<GpuProgramParameters>();
         mFixedFunctionParams->_setLogicalIndexes(logicalBufferStruct);
-        mFixedFunctionParams->setAutoConstant(0, GpuProgramParameters::ACT_WORLD_MATRIX);
-        mFixedFunctionParams->setAutoConstant(4, GpuProgramParameters::ACT_VIEW_MATRIX);
-        mFixedFunctionParams->setAutoConstant(8, GpuProgramParameters::ACT_PROJECTION_MATRIX);
-        mFixedFunctionParams->setAutoConstant(12, GpuProgramParameters::ACT_SURFACE_AMBIENT_COLOUR);
-        mFixedFunctionParams->setAutoConstant(13, GpuProgramParameters::ACT_SURFACE_DIFFUSE_COLOUR);
-        mFixedFunctionParams->setAutoConstant(14, GpuProgramParameters::ACT_SURFACE_SPECULAR_COLOUR);
-        mFixedFunctionParams->setAutoConstant(15, GpuProgramParameters::ACT_SURFACE_EMISSIVE_COLOUR);
-        mFixedFunctionParams->setAutoConstant(16, GpuProgramParameters::ACT_SURFACE_SHININESS);
-        mFixedFunctionParams->setAutoConstant(17, GpuProgramParameters::ACT_POINT_PARAMS);
-        mFixedFunctionParams->setConstant(18, Vector4::ZERO); // ACT_FOG_PARAMS
-        mFixedFunctionParams->setConstant(19, Vector4::ZERO); // ACT_FOG_COLOUR
-        mFixedFunctionParams->setAutoConstant(20, GpuProgramParameters::ACT_AMBIENT_LIGHT_COLOUR);
+        mFixedFunctionParams->setAutoConstant(0, GpuProgramParameters::AutoConstantType::WORLD_MATRIX);
+        mFixedFunctionParams->setAutoConstant(4, GpuProgramParameters::AutoConstantType::VIEW_MATRIX);
+        mFixedFunctionParams->setAutoConstant(8, GpuProgramParameters::AutoConstantType::PROJECTION_MATRIX);
+        mFixedFunctionParams->setAutoConstant(12, GpuProgramParameters::AutoConstantType::SURFACE_AMBIENT_COLOUR);
+        mFixedFunctionParams->setAutoConstant(13, GpuProgramParameters::AutoConstantType::SURFACE_DIFFUSE_COLOUR);
+        mFixedFunctionParams->setAutoConstant(14, GpuProgramParameters::AutoConstantType::SURFACE_SPECULAR_COLOUR);
+        mFixedFunctionParams->setAutoConstant(15, GpuProgramParameters::AutoConstantType::SURFACE_EMISSIVE_COLOUR);
+        mFixedFunctionParams->setAutoConstant(16, GpuProgramParameters::AutoConstantType::SURFACE_SHININESS);
+        mFixedFunctionParams->setAutoConstant(17, GpuProgramParameters::AutoConstantType::POINT_PARAMS);
+        mFixedFunctionParams->setConstant(18, Vector4::ZERO); // AutoConstantType::FOG_PARAMS
+        mFixedFunctionParams->setConstant(19, Vector4::ZERO); // AutoConstantType::FOG_COLOUR
+        mFixedFunctionParams->setAutoConstant(20, GpuProgramParameters::AutoConstantType::AMBIENT_LIGHT_COLOUR);
 
         // allocate per light parameters. slots 21..69
         for(int i = 0; i < OGRE_MAX_SIMULTANEOUS_LIGHTS; i++)
@@ -137,12 +137,12 @@ namespace Ogre {
             mFixedFunctionParams->clearAutoConstant(light_offset + 5);
             return;
         }
-        mFixedFunctionParams->setAutoConstant(light_offset + 0, GpuProgramParameters::ACT_LIGHT_POSITION, index);
-        mFixedFunctionParams->setAutoConstant(light_offset + 1, GpuProgramParameters::ACT_LIGHT_DIRECTION, index);
-        mFixedFunctionParams->setAutoConstant(light_offset + 2, GpuProgramParameters::ACT_LIGHT_DIFFUSE_COLOUR, index);
-        mFixedFunctionParams->setAutoConstant(light_offset + 3, GpuProgramParameters::ACT_LIGHT_SPECULAR_COLOUR, index);
-        mFixedFunctionParams->setAutoConstant(light_offset + 4, GpuProgramParameters::ACT_LIGHT_ATTENUATION, index);
-        mFixedFunctionParams->setAutoConstant(light_offset + 5, GpuProgramParameters::ACT_SPOTLIGHT_PARAMS, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 0, GpuProgramParameters::AutoConstantType::LIGHT_POSITION, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 1, GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 2, GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 3, GpuProgramParameters::AutoConstantType::LIGHT_SPECULAR_COLOUR, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 4, GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, index);
+        mFixedFunctionParams->setAutoConstant(light_offset + 5, GpuProgramParameters::AutoConstantType::SPOTLIGHT_PARAMS, index);
     }
 
     //-----------------------------------------------------------------------
@@ -162,13 +162,13 @@ namespace Ogre {
 
         auto opt = mOptions.find("Full Screen");
         if (opt == end)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Can't find 'Full Screen' option");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Can't find 'Full Screen' option");
 
         ret.useFullScreen = StringConverter::parseBool(opt->second.currentValue);
 
         opt = mOptions.find("Video Mode");
         if (opt == end)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Can't find 'Video Mode' option");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Can't find 'Video Mode' option");
 
         StringStream mode(opt->second.currentValue);
         String token;
@@ -294,7 +294,7 @@ namespace Ogre {
     {
     if (mRealCapabilities != nullptr)
     {
-      OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+      OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
           "Custom render capabilities must be set before the RenderSystem is initialised.",
           "RenderSystem::useCustomRenderSystemCapabilities");
     }
@@ -310,7 +310,7 @@ namespace Ogre {
     {
         if (mRenderTargets.find(name) != mRenderTargets.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Window with name '{}' already exists", name ));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Window with name '{}' already exists", name ));
         }
 
         // Log a message
@@ -435,36 +435,39 @@ namespace Ogre {
         {
             switch (mEffect.second.type)
             {
-            case TextureUnitState::ET_ENVIRONMENT_MAP:
-                if (mEffect.second.subtype == TextureUnitState::ENV_CURVED)
+            case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP:
+            {
+                auto const subtype = static_cast<TextureUnitState::EnvMapType>(mEffect.second.subtype);
+                if (subtype == TextureUnitState::EnvMapType::CURVED)
                 {
-                    _setTextureCoordCalculation(texUnit, TEXCALC_ENVIRONMENT_MAP);
+                    _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::ENVIRONMENT_MAP);
                     anyCalcs = true;
                 }
-                else if (mEffect.second.subtype == TextureUnitState::ENV_PLANAR)
+                else if (subtype == TextureUnitState::EnvMapType::PLANAR)
                 {
-                    _setTextureCoordCalculation(texUnit, TEXCALC_ENVIRONMENT_MAP_PLANAR);
+                    _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR);
                     anyCalcs = true;
                 }
-                else if (mEffect.second.subtype == TextureUnitState::ENV_REFLECTION)
+                else if (subtype == TextureUnitState::EnvMapType::REFLECTION)
                 {
-                    _setTextureCoordCalculation(texUnit, TEXCALC_ENVIRONMENT_MAP_REFLECTION);
+                    _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION);
                     anyCalcs = true;
                 }
-                else if (mEffect.second.subtype == TextureUnitState::ENV_NORMAL)
+                else if (subtype == TextureUnitState::EnvMapType::NORMAL)
                 {
-                    _setTextureCoordCalculation(texUnit, TEXCALC_ENVIRONMENT_MAP_NORMAL);
+                    _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL);
                     anyCalcs = true;
                 }
                 break;
-            case TextureUnitState::ET_UVSCROLL:
-            case TextureUnitState::ET_USCROLL:
-            case TextureUnitState::ET_VSCROLL:
-            case TextureUnitState::ET_ROTATE:
-            case TextureUnitState::ET_TRANSFORM:
+            }
+            case TextureUnitState::TextureEffectType::UVSCROLL:
+            case TextureUnitState::TextureEffectType::USCROLL:
+            case TextureUnitState::TextureEffectType::VSCROLL:
+            case TextureUnitState::TextureEffectType::ROTATE:
+            case TextureUnitState::TextureEffectType::TRANSFORM:
                 break;
-            case TextureUnitState::ET_PROJECTIVE_TEXTURE:
-                _setTextureCoordCalculation(texUnit, TEXCALC_PROJECTIVE_TEXTURE,
+            case TextureUnitState::TextureEffectType::PROJECTIVE_TEXTURE:
+                _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::PROJECTIVE_TEXTURE,
                     mEffect.second.frustum);
                 anyCalcs = true;
                 break;
@@ -473,7 +476,7 @@ namespace Ogre {
         // Ensure any previous texcoord calc settings are reset if there are now none
         if (!anyCalcs)
         {
-            _setTextureCoordCalculation(texUnit, TEXCALC_NONE);
+            _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::NONE);
         }
 
         // Change tetxure matrix
@@ -519,7 +522,7 @@ namespace Ogre {
     void RenderSystem::_beginFrame()
     {
         if (!mActiveViewport)
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, "Cannot begin frame - no viewport selected.");
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, "Cannot begin frame - no viewport selected.");
     }
     //-----------------------------------------------------------------------
     auto RenderSystem::_getCullingMode() const -> CullingMode
@@ -529,8 +532,8 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::setDepthBufferFor( RenderTarget *renderTarget )
     {
-        uint16 poolId = renderTarget->getDepthBufferPool();
-        if( poolId == DepthBuffer::POOL_NO_DEPTH )
+        auto const poolId = renderTarget->getDepthBufferPool();
+        if( poolId == DepthBuffer::PoolId::NO_DEPTH )
             return; //RenderTarget explicitly requested no depth buffer
 
         //Find a depth buffer in the pool
@@ -648,17 +651,17 @@ namespace Ogre {
 
         switch(op.operationType)
         {
-        case RenderOperation::OT_TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
             mFaceCount += (val / 3);
             break;
-        case RenderOperation::OT_TRIANGLE_LIST_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
             mFaceCount += (val / 6);
             break;
-        case RenderOperation::OT_TRIANGLE_STRIP_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
             mFaceCount += (val / 2 - 2);
             break;
-        case RenderOperation::OT_TRIANGLE_STRIP:
-        case RenderOperation::OT_TRIANGLE_FAN:
+        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case RenderOperation::OperationType::TRIANGLE_FAN:
             mFaceCount += (val - 2);
             break;
         default:
@@ -720,37 +723,37 @@ namespace Ogre {
         --mCurrentPassIterationCount;
         ++mCurrentPassIterationNum;
 
-        const uint16 mask = GPV_PASS_ITERATION_NUMBER;
+        const auto mask = GpuParamVariability::PASS_ITERATION_NUMBER;
 
         if (mActiveVertexGpuProgramParameters)
         {
             mActiveVertexGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_VERTEX_PROGRAM, mActiveVertexGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::VERTEX_PROGRAM, mActiveVertexGpuProgramParameters, mask);
         }
         if (mActiveGeometryGpuProgramParameters)
         {
             mActiveGeometryGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_GEOMETRY_PROGRAM, mActiveGeometryGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::GEOMETRY_PROGRAM, mActiveGeometryGpuProgramParameters, mask);
         }
         if (mActiveFragmentGpuProgramParameters)
         {
             mActiveFragmentGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_FRAGMENT_PROGRAM, mActiveFragmentGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::FRAGMENT_PROGRAM, mActiveFragmentGpuProgramParameters, mask);
         }
         if (mActiveTessellationHullGpuProgramParameters)
         {
             mActiveTessellationHullGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_HULL_PROGRAM, mActiveTessellationHullGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::HULL_PROGRAM, mActiveTessellationHullGpuProgramParameters, mask);
         }
         if (mActiveTessellationDomainGpuProgramParameters)
         {
             mActiveTessellationDomainGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_DOMAIN_PROGRAM, mActiveTessellationDomainGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::DOMAIN_PROGRAM, mActiveTessellationDomainGpuProgramParameters, mask);
         }
         if (mActiveComputeGpuProgramParameters)
         {
             mActiveComputeGpuProgramParameters->incPassIterationNumber();
-            bindGpuProgramParameters(GPT_COMPUTE_PROGRAM, mActiveComputeGpuProgramParameters, mask);
+            bindGpuProgramParameters(GpuProgramType::COMPUTE_PROGRAM, mActiveComputeGpuProgramParameters, mask);
         }
         return true;
     }
@@ -803,27 +806,29 @@ namespace Ogre {
     {
         switch(prg->getType())
         {
-        case GPT_VERTEX_PROGRAM:
+        case GpuProgramType::VERTEX_PROGRAM:
             // mark clip planes dirty if changed (programmable can change space)
             if (!mVertexProgramBound && !mClipPlanes.empty())
                 mClipPlanesDirty = true;
 
             mVertexProgramBound = true;
             break;
-        case GPT_GEOMETRY_PROGRAM:
+        case GpuProgramType::GEOMETRY_PROGRAM:
             mGeometryProgramBound = true;
             break;
-        case GPT_FRAGMENT_PROGRAM:
+        case GpuProgramType::FRAGMENT_PROGRAM:
             mFragmentProgramBound = true;
             break;
-        case GPT_HULL_PROGRAM:
+        case GpuProgramType::HULL_PROGRAM:
             mTessellationHullProgramBound = true;
             break;
-        case GPT_DOMAIN_PROGRAM:
+        case GpuProgramType::DOMAIN_PROGRAM:
             mTessellationDomainProgramBound = true;
             break;
-        case GPT_COMPUTE_PROGRAM:
+        case GpuProgramType::COMPUTE_PROGRAM:
             mComputeProgramBound = true;
+            break;
+        default:
             break;
         }
     }
@@ -832,26 +837,28 @@ namespace Ogre {
     {
         switch(gptype)
         {
-        case GPT_VERTEX_PROGRAM:
+        case GpuProgramType::VERTEX_PROGRAM:
             // mark clip planes dirty if changed (programmable can change space)
             if (mVertexProgramBound && !mClipPlanes.empty())
                 mClipPlanesDirty = true;
             mVertexProgramBound = false;
             break;
-        case GPT_GEOMETRY_PROGRAM:
+        case GpuProgramType::GEOMETRY_PROGRAM:
             mGeometryProgramBound = false;
             break;
-        case GPT_FRAGMENT_PROGRAM:
+        case GpuProgramType::FRAGMENT_PROGRAM:
             mFragmentProgramBound = false;
             break;
-        case GPT_HULL_PROGRAM:
+        case GpuProgramType::HULL_PROGRAM:
             mTessellationHullProgramBound = false;
             break;
-        case GPT_DOMAIN_PROGRAM:
+        case GpuProgramType::DOMAIN_PROGRAM:
             mTessellationDomainProgramBound = false;
             break;
-        case GPT_COMPUTE_PROGRAM:
+        case GpuProgramType::COMPUTE_PROGRAM:
             mComputeProgramBound = false;
+            break;
+        default:
             break;
         }
     }
@@ -860,18 +867,20 @@ namespace Ogre {
     {
         switch(gptype)
         {
-        case GPT_VERTEX_PROGRAM:
+        case GpuProgramType::VERTEX_PROGRAM:
             return mVertexProgramBound;
-        case GPT_GEOMETRY_PROGRAM:
+        case GpuProgramType::GEOMETRY_PROGRAM:
             return mGeometryProgramBound;
-        case GPT_FRAGMENT_PROGRAM:
+        case GpuProgramType::FRAGMENT_PROGRAM:
             return mFragmentProgramBound;
-        case GPT_HULL_PROGRAM:
+        case GpuProgramType::HULL_PROGRAM:
             return mTessellationHullProgramBound;
-        case GPT_DOMAIN_PROGRAM:
+        case GpuProgramType::DOMAIN_PROGRAM:
             return mTessellationDomainProgramBound;
-        case GPT_COMPUTE_PROGRAM:
+        case GpuProgramType::COMPUTE_PROGRAM:
             return mComputeProgramBound;
+        default:
+            break;
         }
         // Make compiler happy
         return false;
@@ -898,7 +907,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto RenderSystem::_getDefaultViewportMaterialScheme( ) const -> std::string_view
     {
-        if ( !(getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION)) )
+        if ( !(getCapabilities()->hasCapability(Ogre::Capabilities::FIXED_FUNCTION)) )
         {
             // I am returning the exact value for now - I don't want to add dependency for the RTSS just for one string
             static const String ShaderGeneratorDefaultScheme = "ShaderGeneratorDefaultScheme";
@@ -919,7 +928,7 @@ namespace Ogre {
     {
         if ( val && !val->isInstanceData() )
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "A none instance data vertex buffer was set to be the global instance vertex buffer.",
                         "RenderSystem::setGlobalInstanceVertexBuffer");
         }
@@ -948,7 +957,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void RenderSystem::getCustomAttribute(std::string_view name, void* pData)
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Attribute not found.", "RenderSystem::getCustomAttribute");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Attribute not found.", "RenderSystem::getCustomAttribute");
     }
 
     void RenderSystem::initConfigOptions()
@@ -995,14 +1004,14 @@ namespace Ogre {
         {
         default:
             return func;
-        case CMPF_LESS:
-            return CMPF_GREATER;
-        case CMPF_LESS_EQUAL:
-            return CMPF_GREATER_EQUAL;
-        case CMPF_GREATER_EQUAL:
-            return CMPF_LESS_EQUAL;
-        case CMPF_GREATER:
-            return CMPF_LESS;
+        case CompareFunction::LESS:
+            return CompareFunction::GREATER;
+        case CompareFunction::LESS_EQUAL:
+            return CompareFunction::GREATER_EQUAL;
+        case CompareFunction::GREATER_EQUAL:
+            return CompareFunction::LESS_EQUAL;
+        case CompareFunction::GREATER:
+            return CompareFunction::LESS;
         }
     }
 

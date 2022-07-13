@@ -109,12 +109,12 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Creating resource group {}", name));
         if (getResourceGroup(name))
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("Resource group with name '{}' already exists!", name ), 
                 "ResourceGroupManager::createResourceGroup");
         }
         auto* grp = new ResourceGroup();
-        grp->groupStatus = ResourceGroup::UNINITIALSED;
+        grp->groupStatus = ResourceGroup::Status::UNINITIALSED;
         grp->name = name;
         grp->inGlobalPool = inGlobalPool;
         grp->customStageCount = 0;
@@ -127,16 +127,16 @@ namespace Ogre {
         LogManager::getSingleton().logMessage(::std::format("Initialising resource group {}", name));
         ResourceGroup* grp = getResourceGroup(name, true);
 
-        if (grp->groupStatus == ResourceGroup::UNINITIALSED)
+        if (grp->groupStatus == ResourceGroup::Status::UNINITIALSED)
         {
             // in the process of initialising
-            grp->groupStatus = ResourceGroup::INITIALISING;
+            grp->groupStatus = ResourceGroup::Status::INITIALISING;
             // Set current group
             parseResourceGroupScripts(grp);
             mCurrentGroup = grp;
             LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", name));
             createDeclaredResources(grp);
-            grp->groupStatus = ResourceGroup::INITIALISED;
+            grp->groupStatus = ResourceGroup::Status::INITIALISED;
             LogManager::getSingleton().logMessage("All done");
             // Reset current group
             mCurrentGroup = nullptr;
@@ -148,16 +148,16 @@ namespace Ogre {
         // Intialise all declared resource groups
         for (auto const& [key, grp] : mResourceGroupMap)
         {
-            if (grp->groupStatus == ResourceGroup::UNINITIALSED)
+            if (grp->groupStatus == ResourceGroup::Status::UNINITIALSED)
             {
                 // in the process of initialising
-                grp->groupStatus = ResourceGroup::INITIALISING;
+                grp->groupStatus = ResourceGroup::Status::INITIALISING;
                 // Set current group
                 mCurrentGroup = grp;
                 parseResourceGroupScripts(grp);
                 LogManager::getSingleton().logMessage(::std::format("Creating resources for group {}", key));
                 createDeclaredResources(grp);
-                grp->groupStatus = ResourceGroup::INITIALISED;
+                grp->groupStatus = ResourceGroup::Status::INITIALISED;
                 LogManager::getSingleton().logMessage("All done");
                 // Reset current group
                 mCurrentGroup = nullptr;
@@ -284,7 +284,7 @@ namespace Ogre {
         fireResourceGroupLoadEnded(name);
 
         // group is loaded
-        grp->groupStatus = ResourceGroup::LOADED;
+        grp->groupStatus = ResourceGroup::Status::LOADED;
 
         // reset current group
         mCurrentGroup = nullptr;
@@ -313,7 +313,7 @@ namespace Ogre {
             }
         }
 
-        grp->groupStatus = ResourceGroup::INITIALISED;
+        grp->groupStatus = ResourceGroup::Status::INITIALISED;
 
         // reset current group
         mCurrentGroup = nullptr;
@@ -347,7 +347,7 @@ namespace Ogre {
             }
         }
 
-        grp->groupStatus = ResourceGroup::INITIALISED;
+        grp->groupStatus = ResourceGroup::Status::INITIALISED;
 
         // reset current group
         mCurrentGroup = nullptr;
@@ -363,7 +363,7 @@ namespace Ogre {
         mCurrentGroup = grp;
         dropGroupContents(grp);
         // clear initialised flag
-        grp->groupStatus = ResourceGroup::UNINITIALSED;
+        grp->groupStatus = ResourceGroup::Status::UNINITIALSED;
         // reset current group
         mCurrentGroup = nullptr;
         LogManager::getSingleton().logMessage(::std::format("Finished clearing resource group {}", name));
@@ -386,13 +386,13 @@ namespace Ogre {
     auto ResourceGroupManager::isResourceGroupInitialised(std::string_view name) const -> bool
     {
         ResourceGroup* grp = getResourceGroup(name, true);
-        return (grp->groupStatus != ResourceGroup::UNINITIALSED &&
-            grp->groupStatus != ResourceGroup::INITIALISING);
+        return (grp->groupStatus != ResourceGroup::Status::UNINITIALSED &&
+            grp->groupStatus != ResourceGroup::Status::INITIALISING);
     }
     //-----------------------------------------------------------------------
     auto ResourceGroupManager::isResourceGroupLoaded(std::string_view name) const -> bool
     {
-        return getResourceGroup(name, true)->groupStatus == ResourceGroup::LOADED;
+        return getResourceGroup(name, true)->groupStatus == ResourceGroup::Status::LOADED;
     }
     //-----------------------------------------------------------------------
     auto ResourceGroupManager::resourceGroupExists(std::string_view name) const -> bool
@@ -558,7 +558,7 @@ namespace Ogre {
         if(!throwOnFailure)
             return {};
 
-        OGRE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, ::std::format("Cannot locate resource {} in resource group {}.", resourceName, groupName ),
+        OGRE_EXCEPT(ExceptionCodes::FILE_NOT_FOUND, ::std::format("Cannot locate resource {} in resource group {}.", resourceName, groupName ),
             "ResourceGroupManager::openResource");
 
     }
@@ -606,7 +606,7 @@ namespace Ogre {
                 (locationPattern.empty() || StringUtil::match(arch->getName(), locationPattern, false)))
             {
                 if (!overwrite && arch->exists(filename))
-                    OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+                    OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                         ::std::format("Cannot overwrite existing file {}", filename), 
                         "ResourceGroupManager::createResource");
                 
@@ -619,7 +619,7 @@ namespace Ogre {
             }
         }
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, 
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, 
             ::std::format("Cannot find a writable location in group {}", groupName), 
             "ResourceGroupManager::createResource");
 
@@ -992,7 +992,7 @@ namespace Ogre {
         if (i == mResourceGroupMap.end())
         {
             if (throwOnFailure)
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("Cannot locate a resource group called '{}'", name ));
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Cannot locate a resource group called '{}'", name ));
 
             return nullptr;
         }
@@ -1005,7 +1005,7 @@ namespace Ogre {
         auto i = mResourceManagerMap.find(resourceType);
         if (i == mResourceManagerMap.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 std::format(
                 "Cannot locate resource manager for resource type '{}'", resourceType), "ResourceGroupManager::_getResourceManager");
         }
@@ -1310,7 +1310,7 @@ namespace Ogre {
         if(grp)
             return grp->name;
 
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             std::format("Unable to derive resource group for {} automatically since the resource was not "
             "found.", filename),
             "ResourceGroupManager::findGroupContainingResource");

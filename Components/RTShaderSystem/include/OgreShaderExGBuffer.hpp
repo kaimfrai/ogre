@@ -63,13 +63,13 @@ class GBuffer : public SubRenderState
 
     // Interface.
 public:
-    enum TargetLayout
+    enum class TargetLayout
     {
-        TL_DEPTH,
-        TL_NORMAL,
-        TL_VIEWPOS,
-        TL_NORMAL_VIEWDEPTH,
-        TL_DIFFUSE_SPECULAR,
+        DEPTH,
+        NORMAL,
+        VIEWPOS,
+        NORMAL_VIEWDEPTH,
+        DIFFUSE_SPECULAR,
     };
     using TargetBuffers = std::vector<TargetLayout>;
 
@@ -81,7 +81,7 @@ public:
     /**
     @see SubRenderState::getExecutionOrder.
     */
-    auto getExecutionOrder() const noexcept -> int override;
+    auto getExecutionOrder() const noexcept -> FFPShaderStage override;
 
     /**
     @see SubRenderState::copyFrom.

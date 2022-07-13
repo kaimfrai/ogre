@@ -58,50 +58,50 @@ Derives from FFPTexturing class which derives from SubRenderState class.
 class LayeredBlending : public FFPTexturing
 {
 public:
-    enum BlendMode
+    enum class BlendMode
     {
-        LB_Invalid = -1,
-        LB_FFPBlend,
-        LB_BlendNormal,
-        LB_BlendLighten,            
-        LB_BlendDarken,     
-        LB_BlendMultiply,
-        LB_BlendAverage,    
-        LB_BlendAdd,
-        LB_BlendSubtract,
-        LB_BlendDifference,
-        LB_BlendNegation,
-        LB_BlendExclusion,
-        LB_BlendScreen,
-        LB_BlendOverlay,
-        LB_BlendSoftLight,
-        LB_BlendHardLight,
-        LB_BlendColorDodge,
-        LB_BlendColorBurn, 
-        LB_BlendLinearDodge,
-        LB_BlendLinearBurn,
-        LB_BlendLinearLight,
-        LB_BlendVividLight,
-        LB_BlendPinLight,
-        LB_BlendHardMix,
-        LB_BlendReflect,
-        LB_BlendGlow,
-        LB_BlendPhoenix,
-        LB_BlendSaturation,
-        LB_BlendColor,
-        LB_BlendLuminosity,
-        LB_MaxBlendModes
+        Invalid = -1,
+        FFPBlend,
+        BlendNormal,
+        BlendLighten,
+        BlendDarken,
+        BlendMultiply,
+        BlendAverage,
+        BlendAdd,
+        BlendSubtract,
+        BlendDifference,
+        BlendNegation,
+        BlendExclusion,
+        BlendScreen,
+        BlendOverlay,
+        BlendSoftLight,
+        BlendHardLight,
+        BlendColorDodge,
+        BlendColorBurn,
+        BlendLinearDodge,
+        BlendLinearBurn,
+        BlendLinearLight,
+        BlendVividLight,
+        BlendPinLight,
+        BlendHardMix,
+        BlendReflect,
+        BlendGlow,
+        BlendPhoenix,
+        BlendSaturation,
+        BlendColor,
+        BlendLuminosity,
+        MaxBlendModes
     };
 
-    enum SourceModifier
+    enum class SourceModifier
     {
-        SM_Invalid = -1,
-        SM_None,
-        SM_Source1Modulate,
-        SM_Source2Modulate,
-        SM_Source1InvModulate,
-        SM_Source2InvModulate,
-        SM_MaxSourceModifiers
+        Invalid = -1,
+        None,
+        Source1Modulate,
+        Source2Modulate,
+        Source1InvModulate,
+        Source2InvModulate,
+        MaxSourceModifiers
     };
 
     struct TextureBlend
@@ -109,9 +109,9 @@ public:
         TextureBlend()  = default;
 
         //The blend mode to use
-        BlendMode blendMode{LB_Invalid};
+        BlendMode blendMode{BlendMode::Invalid};
         //The source modification to use
-        SourceModifier sourceModifier{SM_Invalid};
+        SourceModifier sourceModifier{SourceModifier::Invalid};
         // The number of the custom param controlling the source modification
         int customNum{0};
         //The parameter controlling the source modification

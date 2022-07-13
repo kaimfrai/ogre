@@ -68,7 +68,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     Math::Math( unsigned int trigTableSize )
     {
-        msAngleUnit = AU_DEGREE;
+        msAngleUnit = AngleUnit::DEGREE;
         mTrigTableSize = trigTableSize;
         mTrigTableFactor = mTrigTableSize / Math::TWO_PI;
 
@@ -180,7 +180,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     auto Math::AngleUnitsToRadians(float angleunits) -> float
     {
-       if (msAngleUnit == AU_DEGREE)
+       if (msAngleUnit == AngleUnit::DEGREE)
            return angleunits * fDeg2Rad;
        else
            return angleunits;
@@ -189,7 +189,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     auto Math::RadiansToAngleUnits(float radians) -> float
     {
-       if (msAngleUnit == AU_DEGREE)
+       if (msAngleUnit == AngleUnit::DEGREE)
            return radians * fRad2Deg;
        else
            return radians;
@@ -198,7 +198,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     auto Math::AngleUnitsToDegrees(float angleunits) -> float
     {
-       if (msAngleUnit == AU_RADIAN)
+       if (msAngleUnit == AngleUnit::RADIAN)
            return angleunits * fRad2Deg;
        else
            return angleunits;
@@ -207,7 +207,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     auto Math::DegreesToAngleUnits(float degrees) -> float
     {
-       if (msAngleUnit == AU_RADIAN)
+       if (msAngleUnit == AngleUnit::RADIAN)
            return degrees * fDeg2Rad;
        else
            return degrees;
@@ -326,7 +326,7 @@ namespace Ogre
         // derive side
         // NB we don't pass directly since that would require Plane::Side in 
         // interface, which results in recursive includes since Math is so fundamental
-        Plane::Side outside = normalIsOutside ? Plane::POSITIVE_SIDE : Plane::NEGATIVE_SIDE;
+        Plane::Side outside = normalIsOutside ? Plane::Side::Positive : Plane::Side::Negative;
 
         for (auto plane : planes)
         {

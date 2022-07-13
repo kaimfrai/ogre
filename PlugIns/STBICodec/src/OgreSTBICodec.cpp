@@ -61,7 +61,7 @@ static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, 
     if (ret != Z_OK)
     {
         free(dest);
-        OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "compress failed");
+        OGRE_EXCEPT(Ogre::ExceptionCodes::INTERNAL_ERROR, "compress failed");
     }
 
     *out_len = destLen;
@@ -116,7 +116,7 @@ namespace Ogre {
                                          const CodecDataPtr& pData) const -> DataStreamPtr
     {
         if(mType != "png") {
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                         "currently only encoding to PNG supported",
                         "STBIImageCodec::encode" ) ;
         }
@@ -127,10 +127,10 @@ namespace Ogre {
 
         // Convert image data to ABGR format for STBI (unless it's already compatible)
         uchar* tempData = nullptr;
-        if(format != Ogre::PF_A8B8G8R8 && format != PF_B8G8R8 && format != PF_BYTE_LA && 
-            format != PF_L8 && format != PF_R8)
+        if(format != Ogre::PixelFormat::A8B8G8R8 && format != PixelFormat::B8G8R8 && format != PixelFormat::BYTE_LA && 
+            format != PixelFormat::L8 && format != PixelFormat::R8)
         {   
-            format = Ogre::PF_A8B8G8R8;
+            format = Ogre::PixelFormat::A8B8G8R8;
             size_t tempDataSize = pImgData->width * pImgData->height * pImgData->depth * Ogre::PixelUtil::getNumElemBytes(format);
             tempData = new unsigned char[tempDataSize];
             Ogre::PixelBox pbIn(pImgData->width, pImgData->height, pImgData->depth, pImgData->format, inputData);
@@ -152,7 +152,7 @@ namespace Ogre {
         }
 
         if (!data) {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                 ::std::format("Error encoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::encode");
         }
@@ -168,7 +168,7 @@ namespace Ogre {
 
         if (!f.is_open())
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, ::std::format("could not open file {}", outFileName));
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, ::std::format("could not open file {}", outFileName));
         }
 
         f.write((char*)data->getPtr(), data->size());
@@ -184,7 +184,7 @@ namespace Ogre {
 
         if (!pixelData)
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, 
                 ::std::format("Error decoding image: {}", String(stbi_failure_reason())),
                 "STBIImageCodec::decode");
         }
@@ -194,26 +194,26 @@ namespace Ogre {
         imgData->depth = 1; // only 2D formats handled by this codec
         imgData->width = width;
         imgData->height = height;
-        imgData->num_mipmaps = 0; // no mipmaps in non-DDS 
-        imgData->flags = 0;
+        imgData->num_mipmaps = {}; // no mipmaps in non-DDS
+        imgData->flags = {};
 
         switch( components )
         {
             case 1:
-                imgData->format = PF_BYTE_L;
+                imgData->format = PixelFormat::BYTE_L;
                 break;
             case 2:
-                imgData->format = PF_BYTE_LA;
+                imgData->format = PixelFormat::BYTE_LA;
                 break;
             case 3:
-                imgData->format = PF_BYTE_RGB;
+                imgData->format = PixelFormat::BYTE_RGB;
                 break;
             case 4:
-                imgData->format = PF_BYTE_RGBA;
+                imgData->format = PixelFormat::BYTE_RGBA;
                 break;
             default:
                 stbi_image_free(pixelData);
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                             "Unknown or unsupported image format",
                             "STBIImageCodec::decode");
                 break;

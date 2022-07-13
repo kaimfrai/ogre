@@ -173,23 +173,23 @@ namespace Ogre {
 
         switch (ttype)
         {
-        case TextureUnitState::TT_TRANSLATE_U:
+        case TextureUnitState::TextureTransformType::TRANSLATE_U:
             // Target value is a u scroll
             val = TexCoordModifierControllerValue::create(layer, true);
             break;
-        case TextureUnitState::TT_TRANSLATE_V:
+        case TextureUnitState::TextureTransformType::TRANSLATE_V:
             // Target value is a v scroll
             val = TexCoordModifierControllerValue::create(layer, false, true);
             break;
-        case TextureUnitState::TT_SCALE_U:
+        case TextureUnitState::TextureTransformType::SCALE_U:
             // Target value is a u scale
             val = TexCoordModifierControllerValue::create(layer, false, false, true);
             break;
-        case TextureUnitState::TT_SCALE_V:
+        case TextureUnitState::TextureTransformType::SCALE_V:
             // Target value is a v scale
             val = TexCoordModifierControllerValue::create(layer, false, false, false, true);
             break;
-        case TextureUnitState::TT_ROTATE:
+        case TextureUnitState::TextureTransformType::ROTATE:
             // Target value is texture coord rotation
             val = TexCoordModifierControllerValue::create(layer, false, false, false, false, true);
             break;

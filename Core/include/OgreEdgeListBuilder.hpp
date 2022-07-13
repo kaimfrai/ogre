@@ -200,7 +200,7 @@ namespace Ogre {
             are supported (no point or line types)
         */
         void addIndexData(const IndexData* indexData, size_t vertexSet = 0, 
-            RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST);
+            RenderOperation::OperationType opType = RenderOperation::OperationType::TRIANGLE_LIST);
 
         /** Builds the edge information based on the information built up so far.
         @remarks

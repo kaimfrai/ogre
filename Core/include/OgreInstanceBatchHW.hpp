@@ -88,7 +88,7 @@ class SubMesh;
         ~InstanceBatchHW() override;
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t override;
 
         /** @see InstanceBatch::buildFrom */
         void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;

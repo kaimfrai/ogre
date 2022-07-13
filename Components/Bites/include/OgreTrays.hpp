@@ -70,25 +70,25 @@ namespace OgreBites
      * Simplistic GUI System build with Overlays
      * @{
      */
-    enum TrayLocation   /// enumerator values for widget tray anchoring locations
+    enum class TrayLocation   /// enumerator values for widget tray anchoring locations
     {
-        TL_TOPLEFT,
-        TL_TOP,
-        TL_TOPRIGHT,
-        TL_LEFT,
-        TL_CENTER,
-        TL_RIGHT,
-        TL_BOTTOMLEFT,
-        TL_BOTTOM,
-        TL_BOTTOMRIGHT,
-        TL_NONE
+        TOPLEFT,
+        TOP,
+        TOPRIGHT,
+        LEFT,
+        CENTER,
+        RIGHT,
+        BOTTOMLEFT,
+        BOTTOM,
+        BOTTOMRIGHT,
+        NONE
     };
 
-    enum ButtonState   /// enumerator values for button states
+    enum class ButtonState   /// enumerator values for button states
     {
-        BS_UP,
-        BS_OVER,
-        BS_DOWN
+        UP,
+        OVER,
+        DOWN
     };
 
     // forward widget class declarations
@@ -782,7 +782,7 @@ namespace OgreBites
 
         // these methods get the underlying overlays and overlay elements
 
-        auto getTrayContainer(TrayLocation trayLoc) -> Ogre::OverlayContainer* { return mTrays[trayLoc]; }
+        auto getTrayContainer(TrayLocation trayLoc) -> Ogre::OverlayContainer* { return mTrays[std::to_underlying(trayLoc)]; }
         auto getBackdropLayer() noexcept -> Ogre::Overlay* { return mBackdropLayer; }
         auto getTraysLayer() noexcept -> Ogre::Overlay* { return mTraysLayer; }
         auto getCursorLayer() noexcept -> Ogre::Overlay* { return mCursorLayer; }
@@ -978,7 +978,7 @@ namespace OgreBites
         Gets all the widgets of a specific tray.
         */
         [[nodiscard]] auto getWidgets(TrayLocation trayLoc) const -> const WidgetList& {
-            return mWidgets[trayLoc];
+            return mWidgets[std::to_underlying(trayLoc)];
         }
 
         /**
@@ -993,7 +993,7 @@ namespace OgreBites
 
         void destroyWidget(TrayLocation trayLoc, size_t place)
         {
-            destroyWidget(mWidgets[trayLoc][place]);
+            destroyWidget(mWidgets[std::to_underlying(trayLoc)][place]);
         }
 
         void destroyWidget(TrayLocation trayLoc, std::string_view name)
@@ -1035,7 +1035,7 @@ namespace OgreBites
         void moveWidgetToTray(TrayLocation currentTrayLoc, size_t currentPlace, TrayLocation targetTrayLoc,
             size_t targetPlace = -1)
         {
-            moveWidgetToTray(mWidgets[currentTrayLoc][currentPlace], targetTrayLoc, targetPlace);
+            moveWidgetToTray(mWidgets[std::to_underlying(currentTrayLoc)][currentPlace], targetTrayLoc, targetPlace);
         }
 
         /**
@@ -1043,7 +1043,7 @@ namespace OgreBites
         */
         void removeWidgetFromTray(Widget* widget)
         {
-            moveWidgetToTray(widget, TL_NONE);
+            moveWidgetToTray(widget, TrayLocation::NONE);
         }
 
         void removeWidgetFromTray(std::string_view name)
@@ -1058,7 +1058,7 @@ namespace OgreBites
 
         void removeWidgetFromTray(TrayLocation trayLoc, size_t place)
         {
-            removeWidgetFromTray(mWidgets[trayLoc][place]);
+            removeWidgetFromTray(mWidgets[std::to_underlying(trayLoc)][place]);
         }
 
         /**

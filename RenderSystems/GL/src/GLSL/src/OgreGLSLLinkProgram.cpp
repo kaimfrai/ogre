@@ -51,21 +51,21 @@ namespace Ogre::GLSL {
     {
         switch (operationType)
         {
-        case RenderOperation::OT_POINT_LIST:
+        case RenderOperation::OperationType::POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OT_LINE_LIST:
-        case RenderOperation::OT_LINE_STRIP:
+        case RenderOperation::OperationType::LINE_LIST:
+        case RenderOperation::OperationType::LINE_STRIP:
 			return GL_LINES;
-        case RenderOperation::OT_LINE_LIST_ADJ:
-        case RenderOperation::OT_LINE_STRIP_ADJ:
+        case RenderOperation::OperationType::LINE_LIST_ADJ:
+        case RenderOperation::OperationType::LINE_STRIP_ADJ:
 			return GL_LINES_ADJACENCY_EXT;
-        case RenderOperation::OT_TRIANGLE_LIST_ADJ:
-        case RenderOperation::OT_TRIANGLE_STRIP_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
+        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
             return GL_TRIANGLES_ADJACENCY_EXT;
         default:
-        case RenderOperation::OT_TRIANGLE_LIST:
-        case RenderOperation::OT_TRIANGLE_STRIP:
-        case RenderOperation::OT_TRIANGLE_FAN:
+        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case RenderOperation::OperationType::TRIANGLE_FAN:
             return GL_TRIANGLES;
 		}
     }
@@ -74,12 +74,12 @@ namespace Ogre::GLSL {
     {
         switch (operationType)
         {
-        case RenderOperation::OT_POINT_LIST:
+        case RenderOperation::OperationType::POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OT_LINE_STRIP:
+        case RenderOperation::OperationType::LINE_STRIP:
             return GL_LINE_STRIP;
         default:
-        case RenderOperation::OT_TRIANGLE_STRIP:
+        case RenderOperation::OperationType::TRIANGLE_STRIP:
             return GL_TRIANGLE_STRIP;
         }
     }
@@ -116,7 +116,7 @@ namespace Ogre::GLSL {
 
             if ( GpuProgramManager::getSingleton().canGetCompiledShaderBuffer() &&
                  GpuProgramManager::getSingleton().isMicrocodeAvailableInCache(hash) &&
-                 !mShaders[GPT_GEOMETRY_PROGRAM])
+                 !mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)])
             {
                 getMicrocodeFromCache(hash);
             }
@@ -180,7 +180,7 @@ namespace Ogre::GLSL {
             {
                 mValidAttributes.insert(a.attrib);
 
-                if(a.semantic != VES_TEXTURE_COORDINATES) continue;
+                if(a.semantic != VertexElementSemantic::TEXTURE_COORDINATES) continue;
 
                 // also enable next 4 attributes to allow matrix types in texcoord semantic
                 // might cause problems with mixing builtin and custom names,
@@ -203,17 +203,17 @@ namespace Ogre::GLSL {
             const GpuConstantDefinitionMap* vertParams = nullptr;
             const GpuConstantDefinitionMap* fragParams = nullptr;
             const GpuConstantDefinitionMap* geomParams = nullptr;
-            if (mShaders[GPT_VERTEX_PROGRAM])
+            if (mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)])
             {
-                vertParams = &(mShaders[GPT_VERTEX_PROGRAM]->getConstantDefinitions().map);
+                vertParams = &(mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)]->getConstantDefinitions().map);
             }
-            if (mShaders[GPT_GEOMETRY_PROGRAM])
+            if (mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)])
             {
-                geomParams = &(mShaders[GPT_GEOMETRY_PROGRAM]->getConstantDefinitions().map);
+                geomParams = &(mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)]->getConstantDefinitions().map);
             }
-            if (mShaders[GPT_FRAGMENT_PROGRAM])
+            if (mShaders[std::to_underlying(GpuProgramType::FRAGMENT_PROGRAM)])
             {
-                fragParams = &(mShaders[GPT_FRAGMENT_PROGRAM]->getConstantDefinitions().map);
+                fragParams = &(mShaders[std::to_underlying(GpuProgramType::FRAGMENT_PROGRAM)]->getConstantDefinitions().map);
             }
 
             GLSLLinkProgramManager::extractUniforms(
@@ -225,12 +225,12 @@ namespace Ogre::GLSL {
 
     //-----------------------------------------------------------------------
     void GLSLLinkProgram::updateUniforms(GpuProgramParametersSharedPtr params, 
-        uint16 mask, GpuProgramType fromProgType)
+        GpuParamVariability mask, GpuProgramType fromProgType)
     {
         // iterate through uniform reference list and update uniform values
 
         // determine if we need to transpose matrices when binding
-        bool transpose = !mShaders[fromProgType] || mShaders[fromProgType]->getColumnMajorMatrices();
+        bool transpose = !mShaders[std::to_underlying(fromProgType)] || mShaders[std::to_underlying(fromProgType)]->getColumnMajorMatrices();
 
         for (auto const& currentUniform : mGLUniformReferences)
         {
@@ -240,7 +240,7 @@ namespace Ogre::GLSL {
             if (fromProgType == currentUniform.mSourceProgType)
             {
                 const GpuConstantDefinition* def = currentUniform.mConstantDef;
-                if (def->variability & mask)
+                if (!!(def->variability & mask))
                 {
 
                     auto glArraySize = (GLsizei)def->arraySize;
@@ -256,100 +256,100 @@ namespace Ogre::GLSL {
                     // get the index in the parameter real list
                     switch (def->constType)
                     {
-                    case GCT_FLOAT1:
+                    case GpuConstantType::FLOAT1:
                         glUniform1fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_FLOAT2:
+                    case GpuConstantType::FLOAT2:
                         glUniform2fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_FLOAT3:
+                    case GpuConstantType::FLOAT3:
                         glUniform3fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_FLOAT4:
+                    case GpuConstantType::FLOAT4:
                         glUniform4fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_MATRIX_2X2:
+                    case GpuConstantType::MATRIX_2X2:
                         glUniformMatrix2fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_MATRIX_2X3:
+                    case GpuConstantType::MATRIX_2X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix2x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_2X4:
+                    case GpuConstantType::MATRIX_2X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix2x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_3X2:
+                    case GpuConstantType::MATRIX_3X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix3x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_3X3:
+                    case GpuConstantType::MATRIX_3X3:
                         glUniformMatrix3fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_MATRIX_3X4:
+                    case GpuConstantType::MATRIX_3X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix3x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_4X2:
+                    case GpuConstantType::MATRIX_4X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix4x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_4X3:
+                    case GpuConstantType::MATRIX_4X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix4x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GCT_MATRIX_4X4:
+                    case GpuConstantType::MATRIX_4X4:
                         glUniformMatrix4fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GCT_SAMPLER1D:
-                    case GCT_SAMPLER1DSHADOW:
-                    case GCT_SAMPLER2D:
-                    case GCT_SAMPLER2DSHADOW:
-                    case GCT_SAMPLER2DARRAY:
-                    case GCT_SAMPLER3D:
-                    case GCT_SAMPLERCUBE:
+                    case GpuConstantType::SAMPLER1D:
+                    case GpuConstantType::SAMPLER1DSHADOW:
+                    case GpuConstantType::SAMPLER2D:
+                    case GpuConstantType::SAMPLER2DSHADOW:
+                    case GpuConstantType::SAMPLER2DARRAY:
+                    case GpuConstantType::SAMPLER3D:
+                    case GpuConstantType::SAMPLERCUBE:
                         // samplers handled like 1-element ints
-                    case GCT_INT1:
+                    case GpuConstantType::INT1:
                         glUniform1ivARB(currentUniform.mLocation, glArraySize, (GLint*)val);
                         break;
-                    case GCT_INT2:
+                    case GpuConstantType::INT2:
                         glUniform2ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GCT_INT3:
+                    case GpuConstantType::INT3:
                         glUniform3ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GCT_INT4:
+                    case GpuConstantType::INT4:
                         glUniform4ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GCT_UNKNOWN:
+                    case GpuConstantType::UNKNOWN:
                     default:
                         break;
 
@@ -363,10 +363,10 @@ namespace Ogre::GLSL {
     void GLSLLinkProgram::compileAndLink()
     {
         uint32 hash = 0;
-        if (mShaders[GPT_VERTEX_PROGRAM])
+        if (mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)])
         {
             // attach Vertex Program
-            mShaders[GPT_VERTEX_PROGRAM]->attachToProgramObject(mGLProgramHandle);
+            mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)]->attachToProgramObject(mGLProgramHandle);
 
             // Some drivers (e.g. OS X on nvidia) incorrectly determine the attribute binding automatically
 
@@ -378,9 +378,9 @@ namespace Ogre::GLSL {
             // until it is linked (chicken and egg!) we have to parse the source
 
             size_t numAttribs = sizeof(msCustomAttributes)/sizeof(CustomAttribute);
-            std::string_view vpSource = mShaders[GPT_VERTEX_PROGRAM]->getSource();
+            std::string_view vpSource = mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)]->getSource();
             
-            hash = mShaders[GPT_VERTEX_PROGRAM]->_getHash(hash);
+            hash = mShaders[std::to_underlying(GpuProgramType::VERTEX_PROGRAM)]->_getHash(hash);
             for (size_t i = 0; i < numAttribs; ++i)
             {
                 const CustomAttribute& a = msCustomAttributes[i];
@@ -414,11 +414,11 @@ namespace Ogre::GLSL {
             }
         }
 
-        if (auto gshader = static_cast<GLSLProgram*>(mShaders[GPT_GEOMETRY_PROGRAM]))
+        if (auto gshader = static_cast<GLSLProgram*>(mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)]))
         {
-            hash = mShaders[GPT_GEOMETRY_PROGRAM]->_getHash(hash);
+            hash = mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)]->_getHash(hash);
             // attach Geometry Program
-            mShaders[GPT_GEOMETRY_PROGRAM]->attachToProgramObject(mGLProgramHandle);
+            mShaders[std::to_underlying(GpuProgramType::GEOMETRY_PROGRAM)]->attachToProgramObject(mGLProgramHandle);
 
             //Don't set adjacency flag. We handle it internally and expose "false"
 
@@ -435,11 +435,11 @@ namespace Ogre::GLSL {
                 gshader->getMaxOutputVertices());
         }
 
-        if (mShaders[GPT_FRAGMENT_PROGRAM])
+        if (mShaders[std::to_underlying(GpuProgramType::FRAGMENT_PROGRAM)])
         {
-            hash = mShaders[GPT_FRAGMENT_PROGRAM]->_getHash(hash);
+            hash = mShaders[std::to_underlying(GpuProgramType::FRAGMENT_PROGRAM)]->_getHash(hash);
             // attach Fragment Program
-            mShaders[GPT_FRAGMENT_PROGRAM]->attachToProgramObject(mGLProgramHandle);
+            mShaders[std::to_underlying(GpuProgramType::FRAGMENT_PROGRAM)]->attachToProgramObject(mGLProgramHandle);
         }
 
         

@@ -213,11 +213,11 @@ class RenderQueue;
         for (int plane = 0; plane < 6; ++plane)
         {
             // Skip far plane if infinite view frustum
-            if (plane == FRUSTUM_PLANE_FAR && mFarDist == 0)
+            if (plane == std::to_underlying(FrustumPlane::FAR) && mFarDist == 0)
                 continue;
 
             Plane::Side side = mFrustumPlanes[plane].getSide(centre, halfSize);
-            if (side == Plane::NEGATIVE_SIDE)
+            if (side == Plane::Side::Negative)
             {
                 // ALL corners on negative side therefore out of view
                 if (culledBy)
@@ -241,10 +241,10 @@ class RenderQueue;
         for (int plane = 0; plane < 6; ++plane)
         {
             // Skip far plane if infinite view frustum
-            if (plane == FRUSTUM_PLANE_FAR && mFarDist == 0)
+            if (plane == std::to_underlying(FrustumPlane::FAR) && mFarDist == 0)
                 continue;
 
-            if (mFrustumPlanes[plane].getSide(vert) == Plane::NEGATIVE_SIDE)
+            if (mFrustumPlanes[plane].getSide(vert) == Plane::Side::Negative)
             {
                 // ALL corners on negative side therefore out of view
                 if (culledBy)
@@ -267,7 +267,7 @@ class RenderQueue;
         for (int plane = 0; plane < 6; ++plane)
         {
             // Skip far plane if infinite view frustum
-            if (plane == FRUSTUM_PLANE_FAR && mFarDist == 0)
+            if (plane == std::to_underlying(FrustumPlane::FAR) && mFarDist == 0)
                 continue;
 
             // If the distance from sphere center to plane is negative, and 'more negative' 
@@ -285,9 +285,9 @@ class RenderQueue;
         return true;
     }
     //---------------------------------------------------------------------
-    auto Frustum::getTypeFlags() const noexcept -> uint32
+    auto Frustum::getTypeFlags() const noexcept -> QueryTypeMask
     {
-        return SceneManager::FRUSTUM_TYPE_MASK;
+        return QueryTypeMask::FRUSTUM;
     }
     //-----------------------------------------------------------------------
     auto Frustum::calcProjectionParameters() const -> RealRect
@@ -314,7 +314,7 @@ class RenderQueue;
                 return mExtents;
             }
             // Calculate general projection parameters
-            else if (mProjType == PT_PERSPECTIVE)
+            else if (mProjType == ProjectionType::PERSPECTIVE)
             {
                 Radian thetaY (mFOVy * 0.5f);
                 Real tanThetaY = Math::Tan(thetaY);
@@ -352,7 +352,7 @@ class RenderQueue;
         if (!mCustomProjMatrix)
         {
             // Recalc if frustum params changed
-            if (mProjType == PT_PERSPECTIVE)
+            if (mProjType == ProjectionType::PERSPECTIVE)
             {
                 mProjMatrix = Math::makePerspectiveMatrix(left, right, bottom, top, mNearDist, mFarDist);
 
@@ -396,7 +396,7 @@ class RenderQueue;
                     mProjMatrix[2][3] = c.w; 
                 }
             } // perspective
-            else if (mProjType == PT_ORTHOGRAPHIC)
+            else if (mProjType == ProjectionType::ORTHOGRAPHIC)
             {
                 // The code below will dealing with general projection
                 // parameters, similar glOrtho.
@@ -481,7 +481,7 @@ class RenderQueue;
             max.makeCeil(tmp);
         }
 
-        if (mProjType == PT_PERSPECTIVE)
+        if (mProjType == ProjectionType::PERSPECTIVE)
         {
             // Merge with far plane bounds
             Real radio = farDist / mNearDist;
@@ -611,35 +611,35 @@ class RenderQueue;
         // -------------------------
         Matrix4 combo = mProjMatrix * mViewMatrix;
 
-        mFrustumPlanes[FRUSTUM_PLANE_LEFT].normal.x = combo[3][0] + combo[0][0];
-        mFrustumPlanes[FRUSTUM_PLANE_LEFT].normal.y = combo[3][1] + combo[0][1];
-        mFrustumPlanes[FRUSTUM_PLANE_LEFT].normal.z = combo[3][2] + combo[0][2];
-        mFrustumPlanes[FRUSTUM_PLANE_LEFT].d = combo[3][3] + combo[0][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal.x = combo[3][0] + combo[0][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal.y = combo[3][1] + combo[0][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal.z = combo[3][2] + combo[0][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].d = combo[3][3] + combo[0][3];
 
-        mFrustumPlanes[FRUSTUM_PLANE_RIGHT].normal.x = combo[3][0] - combo[0][0];
-        mFrustumPlanes[FRUSTUM_PLANE_RIGHT].normal.y = combo[3][1] - combo[0][1];
-        mFrustumPlanes[FRUSTUM_PLANE_RIGHT].normal.z = combo[3][2] - combo[0][2];
-        mFrustumPlanes[FRUSTUM_PLANE_RIGHT].d = combo[3][3] - combo[0][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal.x = combo[3][0] - combo[0][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal.y = combo[3][1] - combo[0][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal.z = combo[3][2] - combo[0][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].d = combo[3][3] - combo[0][3];
 
-        mFrustumPlanes[FRUSTUM_PLANE_TOP].normal.x = combo[3][0] - combo[1][0];
-        mFrustumPlanes[FRUSTUM_PLANE_TOP].normal.y = combo[3][1] - combo[1][1];
-        mFrustumPlanes[FRUSTUM_PLANE_TOP].normal.z = combo[3][2] - combo[1][2];
-        mFrustumPlanes[FRUSTUM_PLANE_TOP].d = combo[3][3] - combo[1][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal.x = combo[3][0] - combo[1][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal.y = combo[3][1] - combo[1][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal.z = combo[3][2] - combo[1][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].d = combo[3][3] - combo[1][3];
 
-        mFrustumPlanes[FRUSTUM_PLANE_BOTTOM].normal.x = combo[3][0] + combo[1][0];
-        mFrustumPlanes[FRUSTUM_PLANE_BOTTOM].normal.y = combo[3][1] + combo[1][1];
-        mFrustumPlanes[FRUSTUM_PLANE_BOTTOM].normal.z = combo[3][2] + combo[1][2];
-        mFrustumPlanes[FRUSTUM_PLANE_BOTTOM].d = combo[3][3] + combo[1][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal.x = combo[3][0] + combo[1][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal.y = combo[3][1] + combo[1][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal.z = combo[3][2] + combo[1][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].d = combo[3][3] + combo[1][3];
 
-        mFrustumPlanes[FRUSTUM_PLANE_NEAR].normal.x = combo[3][0] + combo[2][0];
-        mFrustumPlanes[FRUSTUM_PLANE_NEAR].normal.y = combo[3][1] + combo[2][1];
-        mFrustumPlanes[FRUSTUM_PLANE_NEAR].normal.z = combo[3][2] + combo[2][2];
-        mFrustumPlanes[FRUSTUM_PLANE_NEAR].d = combo[3][3] + combo[2][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)].normal.x = combo[3][0] + combo[2][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)].normal.y = combo[3][1] + combo[2][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)].normal.z = combo[3][2] + combo[2][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)].d = combo[3][3] + combo[2][3];
 
-        mFrustumPlanes[FRUSTUM_PLANE_FAR].normal.x = combo[3][0] - combo[2][0];
-        mFrustumPlanes[FRUSTUM_PLANE_FAR].normal.y = combo[3][1] - combo[2][1];
-        mFrustumPlanes[FRUSTUM_PLANE_FAR].normal.z = combo[3][2] - combo[2][2];
-        mFrustumPlanes[FRUSTUM_PLANE_FAR].d = combo[3][3] - combo[2][3];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)].normal.x = combo[3][0] - combo[2][0];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)].normal.y = combo[3][1] - combo[2][1];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)].normal.z = combo[3][2] - combo[2][2];
+        mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)].d = combo[3][3] - combo[2][3];
 
         // Renormalise any normals which were not unit length
         for(auto & mFrustumPlane : mFrustumPlanes) 
@@ -678,7 +678,7 @@ class RenderQueue;
         Real farDist = (mFarDist == 0) ? 100000 : mFarDist;
 
         // Calc far palne corners
-        Real radio = mProjType == PT_PERSPECTIVE ? farDist / mNearDist : 1;
+        Real radio = mProjType == ProjectionType::PERSPECTIVE ? farDist / mNearDist : 1;
         Real farLeft = nearLeft * radio;
         Real farRight = nearRight * radio;
         Real farBottom = nearBottom * radio;
@@ -1103,24 +1103,24 @@ class RenderQueue;
         updateFrustumPlanes();
 
         PlaneBoundedVolume volume;
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_NEAR]);
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_FAR]);
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_BOTTOM]);
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_TOP]);
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_LEFT]);
-        volume.planes.push_back(mFrustumPlanes[FRUSTUM_PLANE_RIGHT]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)]);
+        volume.planes.push_back(mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)]);
         return volume;
     }
     //---------------------------------------------------------------------
     void Frustum::setOrientationMode(OrientationMode orientationMode)
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Setting Frustrum orientation mode is not supported");
     }
     //---------------------------------------------------------------------
     auto Frustum::getOrientationMode() const -> OrientationMode
     {
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     "Getting Frustrum orientation mode is not supported");
     }
 

@@ -43,24 +43,24 @@ namespace Ogre {
     class Mesh;
     
     /// Mesh compatibility versions
-    enum MeshVersion 
+    enum class MeshVersion 
     {
         /// Latest version available
-        MESH_VERSION_LATEST,
+        LATEST,
         
         /// OGRE version v1.10+
-        MESH_VERSION_1_10,
+        _1_10,
         /// OGRE version v1.8+
-        MESH_VERSION_1_8,
+        _1_8,
         /// OGRE version v1.7+
-        MESH_VERSION_1_7,
+        _1_7,
         /// OGRE version v1.4+
-        MESH_VERSION_1_4,
+        _1_4,
         /// OGRE version v1.0+
-        MESH_VERSION_1_0,
+        _1_0,
         
         /// Legacy versions, DO NOT USE for writing
-        MESH_VERSION_LEGACY
+        LEGACY
     };
 
     class MeshVersionData : public SerializerAlloc
@@ -120,7 +120,7 @@ namespace Ogre {
         @param endianMode The endian mode of the written file
         */
         void exportMesh(const Mesh* pMesh, std::string_view filename,
-            Endian endianMode = ENDIAN_NATIVE);
+            std::endian endianMode = std::endian::native);
 
         /** Exports a mesh to the file specified, in a specific version format. 
          @remarks
@@ -135,7 +135,7 @@ namespace Ogre {
          */
         void exportMesh(const Mesh* pMesh, std::string_view filename,
                         MeshVersion version,
-                        Endian endianMode = ENDIAN_NATIVE);
+                        std::endian endianMode = std::endian::native);
 
         /** Exports a mesh to the stream specified, in the latest format. 
         @remarks
@@ -146,7 +146,7 @@ namespace Ogre {
         @param endianMode The endian mode of the written file
         */
         void exportMesh(const Mesh* pMesh, DataStreamPtr stream,
-            Endian endianMode = ENDIAN_NATIVE);
+            std::endian endianMode = std::endian::native);
 
         /** Exports a mesh to the stream specified, in a specific version format. 
          @remarks
@@ -161,7 +161,7 @@ namespace Ogre {
          */
         void exportMesh(const Mesh* pMesh, DataStreamPtr stream,
                         MeshVersion version,
-                        Endian endianMode = ENDIAN_NATIVE);
+                        std::endian endianMode = std::endian::native);
         
         /** Imports Mesh and (optionally) Material data from a .mesh file DataStream.
         @remarks

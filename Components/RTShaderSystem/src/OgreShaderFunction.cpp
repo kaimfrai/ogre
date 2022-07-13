@@ -51,75 +51,75 @@ static auto typeFromContent(Parameter::Content content) -> GpuConstantType
 {
     switch (content)
     {
-    case Parameter::SPC_BLEND_INDICES:
-        return GCT_UINT4;
-    case Parameter::SPC_COLOR_DIFFUSE:
-    case Parameter::SPC_COLOR_SPECULAR:
-    case Parameter::SPC_POSITION_PROJECTIVE_SPACE:
-    case Parameter::SPC_POSITION_OBJECT_SPACE:
-    case Parameter::SPC_BLEND_WEIGHTS:
-    case Parameter::SPC_POSITION_LIGHT_SPACE0:
-    case Parameter::SPC_POSITION_LIGHT_SPACE1:
-    case Parameter::SPC_POSITION_LIGHT_SPACE2:
-    case Parameter::SPC_POSITION_LIGHT_SPACE3:
-    case Parameter::SPC_POSITION_LIGHT_SPACE4:
-    case Parameter::SPC_POSITION_LIGHT_SPACE5:
-    case Parameter::SPC_POSITION_LIGHT_SPACE6:
-    case Parameter::SPC_POSITION_LIGHT_SPACE7:
-        return GCT_FLOAT4;
-    case Parameter::SPC_NORMAL_TANGENT_SPACE:
-    case Parameter::SPC_NORMAL_OBJECT_SPACE:
-    case Parameter::SPC_NORMAL_WORLD_SPACE:
-    case Parameter::SPC_NORMAL_VIEW_SPACE:
-    case Parameter::SPC_TANGENT_OBJECT_SPACE:
-    case Parameter::SPC_POSTOCAMERA_TANGENT_SPACE:
-    case Parameter::SPC_POSTOCAMERA_OBJECT_SPACE:
-    case Parameter::SPC_POSTOCAMERA_VIEW_SPACE:
-    case Parameter::SPC_POSITION_VIEW_SPACE:
-    case Parameter::SPC_POSITION_WORLD_SPACE:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE0:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE1:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE2:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE3:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE4:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE5:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE6:
-    case Parameter::SPC_LIGHTDIRECTION_OBJECT_SPACE7:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE0:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE1:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE2:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE3:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE4:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE5:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE6:
-    case Parameter::SPC_POSTOLIGHT_OBJECT_SPACE7:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE0:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE1:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE2:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE3:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE4:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE5:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE6:
-    case Parameter::SPC_LIGHTDIRECTION_TANGENT_SPACE7:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE0:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE1:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE2:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE3:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE4:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE5:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE6:
-    case Parameter::SPC_POSTOLIGHT_TANGENT_SPACE7:
-    case Parameter::SPC_LIGHTDIRECTION_VIEW_SPACE0:
-        return GCT_FLOAT3;
-    case Parameter::SPC_POINTSPRITE_COORDINATE:
-        return GCT_FLOAT2;
-    case Parameter::SPC_POINTSPRITE_SIZE:
-    case Parameter::SPC_DEPTH_VIEW_SPACE:
-        return GCT_FLOAT1;
-    case Parameter::SPC_FRONT_FACING:
-        return GCT_FLOAT1;
+    case Parameter::Content::BLEND_INDICES:
+        return GpuConstantType::UINT4;
+    case Parameter::Content::COLOR_DIFFUSE:
+    case Parameter::Content::COLOR_SPECULAR:
+    case Parameter::Content::POSITION_PROJECTIVE_SPACE:
+    case Parameter::Content::POSITION_OBJECT_SPACE:
+    case Parameter::Content::BLEND_WEIGHTS:
+    case Parameter::Content::POSITION_LIGHT_SPACE0:
+    case Parameter::Content::POSITION_LIGHT_SPACE1:
+    case Parameter::Content::POSITION_LIGHT_SPACE2:
+    case Parameter::Content::POSITION_LIGHT_SPACE3:
+    case Parameter::Content::POSITION_LIGHT_SPACE4:
+    case Parameter::Content::POSITION_LIGHT_SPACE5:
+    case Parameter::Content::POSITION_LIGHT_SPACE6:
+    case Parameter::Content::POSITION_LIGHT_SPACE7:
+        return GpuConstantType::FLOAT4;
+    case Parameter::Content::NORMAL_TANGENT_SPACE:
+    case Parameter::Content::NORMAL_OBJECT_SPACE:
+    case Parameter::Content::NORMAL_WORLD_SPACE:
+    case Parameter::Content::NORMAL_VIEW_SPACE:
+    case Parameter::Content::TANGENT_OBJECT_SPACE:
+    case Parameter::Content::POSTOCAMERA_TANGENT_SPACE:
+    case Parameter::Content::POSTOCAMERA_OBJECT_SPACE:
+    case Parameter::Content::POSTOCAMERA_VIEW_SPACE:
+    case Parameter::Content::POSITION_VIEW_SPACE:
+    case Parameter::Content::POSITION_WORLD_SPACE:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE0:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE1:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE2:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE3:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE4:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE5:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE6:
+    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE7:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE0:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE1:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE2:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE3:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE4:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE5:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE6:
+    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE7:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE0:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE1:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE2:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE3:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE4:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE5:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE6:
+    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE7:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE0:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE1:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE2:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE3:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE4:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE5:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE6:
+    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE7:
+    case Parameter::Content::LIGHTDIRECTION_VIEW_SPACE0:
+        return GpuConstantType::FLOAT3;
+    case Parameter::Content::POINTSPRITE_COORDINATE:
+        return GpuConstantType::FLOAT2;
+    case Parameter::Content::POINTSPRITE_SIZE:
+    case Parameter::Content::DEPTH_VIEW_SPACE:
+        return GpuConstantType::FLOAT1;
+    case Parameter::Content::FRONT_FACING:
+        return GpuConstantType::FLOAT1;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "cannot derive type from content");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "cannot derive type from content");
         break;
     }
 }
@@ -128,46 +128,45 @@ static auto semanticFromContent(Parameter::Content content, bool isVSOut = false
 {
     switch (content)
     {
-    case Parameter::SPC_COLOR_DIFFUSE:
-    case Parameter::SPC_COLOR_SPECULAR:
-        return Parameter::SPS_COLOR;
-    case Parameter::SPC_POSITION_PROJECTIVE_SPACE:
-        return Parameter::SPS_POSITION;
-    case Parameter::SPC_BLEND_INDICES:
-        return Parameter::SPS_BLEND_INDICES;
-    case Parameter::SPC_BLEND_WEIGHTS:
-        return Parameter::SPS_BLEND_WEIGHTS;
-    case Parameter::SPC_POINTSPRITE_COORDINATE:
-        return Parameter::SPS_TEXTURE_COORDINATES;
-    case Parameter::SPC_BINORMAL_OBJECT_SPACE:
-        return Parameter::SPS_BINORMAL;
-    case Parameter::SPC_FRONT_FACING:
-        return Parameter::SPS_FRONT_FACING;
-    case Parameter::SPC_TANGENT_OBJECT_SPACE:
-        if(!isVSOut) return Parameter::SPS_TANGENT;
+    case Parameter::Content::COLOR_DIFFUSE:
+    case Parameter::Content::COLOR_SPECULAR:
+        return Parameter::Semantic::COLOR;
+    case Parameter::Content::POSITION_PROJECTIVE_SPACE:
+        return Parameter::Semantic::POSITION;
+    case Parameter::Content::BLEND_INDICES:
+        return Parameter::Semantic::BLEND_INDICES;
+    case Parameter::Content::BLEND_WEIGHTS:
+        return Parameter::Semantic::BLEND_WEIGHTS;
+    case Parameter::Content::POINTSPRITE_COORDINATE:
+        return Parameter::Semantic::TEXTURE_COORDINATES;
+    case Parameter::Content::BINORMAL_OBJECT_SPACE:
+        return Parameter::Semantic::BINORMAL;
+    case Parameter::Content::FRONT_FACING:
+        return Parameter::Semantic::FRONT_FACING;
+    case Parameter::Content::TANGENT_OBJECT_SPACE:
+        if(!isVSOut) return Parameter::Semantic::TANGENT;
         [[fallthrough]];
-    case Parameter::SPC_POSITION_OBJECT_SPACE:
-        if(!isVSOut) return Parameter::SPS_POSITION;
+    case Parameter::Content::POSITION_OBJECT_SPACE:
+        if(!isVSOut) return Parameter::Semantic::POSITION;
         [[fallthrough]];
-    case Parameter::SPC_NORMAL_OBJECT_SPACE:
-        if(!isVSOut) return Parameter::SPS_NORMAL;
+    case Parameter::Content::NORMAL_OBJECT_SPACE:
+        if(!isVSOut) return Parameter::Semantic::NORMAL;
         [[fallthrough]];
     // the remaining types are VS output types only (or indeed texcoord)
     // for out types we use the TEXCOORD[n] semantics for compatibility
     // with Cg, HLSL SM2.0 where they are the only multivariate semantics
     default:
-        return Parameter::SPS_TEXTURE_COORDINATES;
+        return Parameter::Semantic::TEXTURE_COORDINATES;
     }
 }
 
 /// fixed index for texcoords, next free semantic slot else
 static auto indexFromContent(Parameter::Content content) -> int
 {
-    int c = int(content);
-    if(c < Parameter::SPC_TEXTURE_COORDINATE0 || c > Parameter::SPC_TEXTURE_COORDINATE7)
+    if(content < Parameter::Content::TEXTURE_COORDINATE0 || content > Parameter::Content::TEXTURE_COORDINATE7)
         return -1;
 
-    return c - Parameter::SPC_TEXTURE_COORDINATE0;
+    return std::to_underlying(content) - std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0);
 }
 
 void FunctionStageRef::callFunction(const char* name, const InOut& inout) const
@@ -227,34 +226,34 @@ static auto getParameterName(const char* prefix, Parameter::Semantic semantic, i
     const char* name = "";
     switch (semantic)
     {
-    case Parameter::SPS_POSITION:
+    case Parameter::Semantic::POSITION:
         name = "Pos";
         break;
-    case Parameter::SPS_BLEND_WEIGHTS:
+    case Parameter::Semantic::BLEND_WEIGHTS:
         name = "BlendWeights";
         break;
-    case Parameter::SPS_BLEND_INDICES:
+    case Parameter::Semantic::BLEND_INDICES:
         name = "BlendIndices";
         break;
-    case Parameter::SPS_NORMAL:
+    case Parameter::Semantic::NORMAL:
         name = "Normal";
         break;
-    case Parameter::SPS_COLOR:
+    case Parameter::Semantic::COLOR:
         name = "Color";
         break;
-    case Parameter::SPS_TEXTURE_COORDINATES:
+    case Parameter::Semantic::TEXTURE_COORDINATES:
         name = "Texcoord";
         break;
-    case Parameter::SPS_BINORMAL:
+    case Parameter::Semantic::BINORMAL:
         name = "BiNormal";
         break;
-    case Parameter::SPS_TANGENT:
+    case Parameter::Semantic::TANGENT:
         name = "Tangent";
         break;
-    case Parameter::SPS_FRONT_FACING:
+    case Parameter::Semantic::FRONT_FACING:
         name = "FrontFacing";
         break;
-    case Parameter::SPS_UNKNOWN:
+    case Parameter::Semantic::UNKNOWN:
         name = "Param";
         break;
     };
@@ -267,7 +266,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
                                         const Parameter::Content content,
                                         GpuConstantType type) -> ParameterPtr
 {
-    if(type == GCT_UNKNOWN)
+    if(type == GpuConstantType::UNKNOWN)
         type = typeFromContent(content);
 
     ParameterPtr param;
@@ -277,7 +276,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
     if (param.get() != nullptr)
         return param;
 
-    if(semantic == Parameter::SPS_UNKNOWN)
+    if(semantic == Parameter::Semantic::UNKNOWN)
     {
         semantic = semanticFromContent(content);
         index = indexFromContent(content); // create new parameter for this content
@@ -307,7 +306,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
             {
                 return param;
             }
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
                             semantic, index));
         }
@@ -315,7 +314,7 @@ auto Function::resolveInputParameter(Parameter::Semantic semantic,
 
     
     // No parameter found -> create new one.
-    OgreAssert(semantic != Parameter::SPS_UNKNOWN, "unknown semantic");
+    OgreAssert(semantic != Parameter::Semantic::UNKNOWN, "unknown semantic");
     param =
         std::make_shared<Parameter>(type, getParameterName("i", semantic, index), semantic, index, content);
     addInputParameter(param);
@@ -329,7 +328,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
                                             Parameter::Content content,                                         
                                             GpuConstantType type) -> ParameterPtr
 {
-    if(type == GCT_UNKNOWN)
+    if(type == GpuConstantType::UNKNOWN)
         type = typeFromContent(content);
 
     ParameterPtr param;
@@ -339,7 +338,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
     if (param.get() != nullptr)
         return param;
 
-    if(semantic == Parameter::SPS_UNKNOWN)
+    if(semantic == Parameter::Semantic::UNKNOWN)
     {
         semantic = semanticFromContent(content, true);
         index = -1; // create new parameter for this content
@@ -369,7 +368,7 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
             {
                 return param;
             }
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         std::format("Can not resolve parameter due to type mismatch: semantic: {}, index: {}",
                             semantic, index));
         }
@@ -379,15 +378,15 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
     // No parameter found -> create new one.
     switch (semantic)
     {
-    case Parameter::SPS_TEXTURE_COORDINATES:
-    case Parameter::SPS_COLOR:
-    case Parameter::SPS_POSITION:
+    case Parameter::Semantic::TEXTURE_COORDINATES:
+    case Parameter::Semantic::COLOR:
+    case Parameter::Semantic::POSITION:
         param = std::make_shared<Parameter>(type, getParameterName("o", semantic, index), semantic, index,
                                             content);
         break;
 
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                     std::format("Semantic not supported as output parameter: {}", semantic));
         break;
     }
@@ -411,12 +410,12 @@ auto Function::resolveLocalParameter(GpuConstantType type, std::string_view name
         }
         else 
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Can not resolve local parameter due to type mismatch");
         }       
     }
         
-    param = std::make_shared<Parameter>(type, name, Parameter::SPS_UNKNOWN, 0, Parameter::SPC_UNKNOWN);
+    param = std::make_shared<Parameter>(type, name, Parameter::Semantic::UNKNOWN, 0, Parameter::Content::UNKNOWN);
     addParameter(mLocalParameters, param);
             
     return param;
@@ -427,7 +426,7 @@ auto Function::resolveLocalParameter(const Parameter::Content content, GpuConsta
 {
     ParameterPtr param;
 
-    if(type == GCT_UNKNOWN) type = typeFromContent(content);
+    if(type == GpuConstantType::UNKNOWN) type = typeFromContent(content);
 
     param = _getParameterByContent(mLocalParameters, content, type);
     if (param.get() != nullptr)    
@@ -435,7 +434,7 @@ auto Function::resolveLocalParameter(const Parameter::Content content, GpuConsta
 
     param = std::make_shared<Parameter>(
         type, getParameterName("l", semanticFromContent(content), mLocalParameters.size()),
-        Parameter::SPS_UNKNOWN, 0, content);
+        Parameter::Semantic::UNKNOWN, 0, content);
     addParameter(mLocalParameters, param);
 
     return param;
@@ -448,7 +447,7 @@ void Function::addInputParameter(ParameterPtr parameter)
     // Check that parameter with the same semantic and index in input parameters list.
     if (_getParameterBySemantic(mInputParameters, parameter->getSemantic(), parameter->getIndex()).get() != nullptr)
     {
-        OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Parameter '{}' has equal semantic parameter", parameter->getName() ));
     }
 
@@ -461,7 +460,7 @@ void Function::addOutputParameter(ParameterPtr parameter)
     // Check that parameter with the same semantic and index in output parameters list.
     if (_getParameterBySemantic(mOutputParameters, parameter->getSemantic(), parameter->getIndex()).get() != nullptr)
     {
-        OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Parameter '{}' has equal semantic parameter", parameter->getName() ));
     }
 
@@ -498,14 +497,14 @@ void Function::addParameter(ShaderParameterList& parameterList, ParameterPtr par
     // Check that parameter with the same name doest exist in input parameters list.
     if (_getParameterByName(mInputParameters, parameter->getName()).get() != nullptr)
     {
-        OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Parameter '{}' already declared", parameter->getName() ));
     }
 
     // Check that parameter with the same name doest exist in output parameters list.
     if (_getParameterByName(mOutputParameters, parameter->getName()).get() != nullptr)
     {
-        OGRE_EXCEPT( Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT( ExceptionCodes::INVALIDPARAMS, 
             ::std::format("Parameter '{}' already declared", parameter->getName() ));
     }
 
@@ -562,11 +561,11 @@ auto Function::_getParameterBySemantic(const ShaderParameterList& parameterList,
 //-----------------------------------------------------------------------------
 auto Function::_getParameterByContent(const ShaderParameterList& parameterList, const Parameter::Content content, GpuConstantType type) -> ParameterPtr
 {
-    if(type == GCT_UNKNOWN)
+    if(type == GpuConstantType::UNKNOWN)
         type = typeFromContent(content);
 
     // Search only for known content.
-    if (content != Parameter::SPC_UNKNOWN)  
+    if (content != Parameter::Content::UNKNOWN)  
     {
         for (auto const& it : parameterList)
         {

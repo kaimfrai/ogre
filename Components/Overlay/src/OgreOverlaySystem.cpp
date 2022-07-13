@@ -124,16 +124,16 @@ class OverlayElement;
             RenderSystem::setSharedListener(nullptr);
     }
     //---------------------------------------------------------------------
-    void OverlaySystem::renderQueueStarted(uint8 queueGroupId, std::string_view invocation, 
+    void OverlaySystem::renderQueueStarted(Ogre::RenderQueueGroupID queueGroupId, std::string_view invocation,
             bool& skipThisInvocation)
     {
-        if(queueGroupId == Ogre::RENDER_QUEUE_OVERLAY)
+        if(queueGroupId == Ogre::RenderQueueGroupID::OVERLAY)
         {
             Ogre::Viewport* vp = Ogre::Root::getSingletonPtr()->getRenderSystem()->_getViewport();
             if(vp != nullptr)
             {
                 Ogre::SceneManager* sceneMgr = vp->getCamera()->getSceneManager();
-                if (vp->getOverlaysEnabled() && sceneMgr->_getCurrentRenderStage() != Ogre::SceneManager::IRS_RENDER_TO_TEXTURE)
+                if (vp->getOverlaysEnabled() && sceneMgr->_getCurrentRenderStage() != Ogre::SceneManager::IlluminationRenderStage::RENDER_TO_TEXTURE)
                 {
                     OverlayManager::getSingleton()._queueOverlaysForRendering(vp->getCamera(), sceneMgr->getRenderQueue(), vp);
                 }

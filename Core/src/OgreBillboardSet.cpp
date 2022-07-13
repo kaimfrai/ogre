@@ -65,14 +65,14 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     BillboardSet::BillboardSet() :
         mBoundingRadius(0.0f), 
-        mOriginType( BBO_CENTER ),
-        mRotationType( BBR_TEXCOORD ),
+        mOriginType( BillboardOrigin::CENTER ),
+        mRotationType( BillboardRotationType::TEXCOORD ),
         mAutoExtendPool( true ),
         mSortingEnabled(false),
         mAccurateFacing(false),
         mWorldSpace(false),
         mCullIndividual( false ),
-        mBillboardType(BBT_POINT),
+        mBillboardType(BillboardType::POINT),
         mCommonDirection(Ogre::Vector3::UNIT_Z),
         mCommonUpVector(Vector3::UNIT_Y),
         mPointRendering(false),
@@ -96,15 +96,15 @@ namespace Ogre {
         bool externalData) :
         MovableObject(name),
         mBoundingRadius(0.0f), 
-        mOriginType( BBO_CENTER ),
-        mRotationType( BBR_TEXCOORD ),
+        mOriginType( BillboardOrigin::CENTER ),
+        mRotationType( BillboardRotationType::TEXCOORD ),
         mAutoExtendPool( true ),
         mSortingEnabled(false),
         mAccurateFacing(false),
         mWorldSpace(false),
         mActiveBillboards(0),
         mCullIndividual( false ),
-        mBillboardType(BBT_POINT),
+        mBillboardType(BillboardType::POINT),
         mCommonDirection(Ogre::Vector3::UNIT_Z),
         mCommonUpVector(Vector3::UNIT_Y),
         mPointRendering(false),
@@ -202,7 +202,7 @@ namespace Ogre {
         mMaterial = MaterialManager::getSingleton().getByName(name, groupName);
 
         if (!mMaterial)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
+            OGRE_EXCEPT( ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Could not find material {}", name),
                 "BillboardSet::setMaterialName" );
 
         /* Ensure that the new material was loaded (will not load again if
@@ -218,11 +218,11 @@ namespace Ogre {
 
         switch (_getSortMode())
         {
-        case SM_DIRECTION:
+        case SortMode::Direction:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
                               SortByDirectionFunctor(-mCamDir));
             break;
-        case SM_DISTANCE:
+        case SortMode::Distance:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
                               SortByDistanceFunctor(mCamPos));
             break;
@@ -250,14 +250,14 @@ namespace Ogre {
     {
         // Need to sort by distance if we're using accurate facing, or perpendicular billboard type.
         if (mAccurateFacing ||
-            mBillboardType == BBT_PERPENDICULAR_SELF ||
-            mBillboardType == BBT_PERPENDICULAR_COMMON)
+            mBillboardType == BillboardType::PERPENDICULAR_SELF ||
+            mBillboardType == BillboardType::PERPENDICULAR_COMMON)
         {
-            return SM_DISTANCE;
+            return SortMode::Distance;
         }
         else
         {
-            return SM_DIRECTION;
+            return SortMode::Direction;
         }
     }
     //-----------------------------------------------------------------------
@@ -317,9 +317,9 @@ namespace Ogre {
             getParametricOffsets(mLeftOff, mRightOff, mTopOff, mBottomOff);
 
             // Generate axes etc up-front if not oriented per-billboard
-            if (mBillboardType != BBT_ORIENTED_SELF &&
-                mBillboardType != BBT_PERPENDICULAR_SELF && 
-                !(mAccurateFacing && mBillboardType != BBT_PERPENDICULAR_COMMON))
+            if (mBillboardType != BillboardType::ORIENTED_SELF &&
+                mBillboardType != BillboardType::PERPENDICULAR_SELF && 
+                !(mAccurateFacing && mBillboardType != BillboardType::PERPENDICULAR_COMMON))
             {
                 genBillboardAxes(&mCamX, &mCamY);
 
@@ -357,13 +357,13 @@ namespace Ogre {
 
             mLockPtr = static_cast<float*>(
                 mMainBuf->lock(0, numBillboards * billboardSize, 
-                mMainBuf->getUsage() & HardwareBuffer::HBU_DYNAMIC ?
-                HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NORMAL) );
+                !!(mMainBuf->getUsage() & HardwareBuffer::DYNAMIC) ?
+                HardwareBuffer::LockOptions::DISCARD : HardwareBuffer::LockOptions::NORMAL) );
         }
         else // lock the entire thing
             mLockPtr = static_cast<float*>(
-            mMainBuf->lock(mMainBuf->getUsage() & HardwareBuffer::HBU_DYNAMIC ?
-            HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NORMAL) );
+            mMainBuf->lock(!!(mMainBuf->getUsage() & HardwareBuffer::DYNAMIC) ?
+            HardwareBuffer::LockOptions::DISCARD : HardwareBuffer::LockOptions::NORMAL) );
 
     }
     //-----------------------------------------------------------------------
@@ -384,15 +384,15 @@ namespace Ogre {
             return;
         }
 
-        if ((mBillboardType == BBT_ORIENTED_SELF || mBillboardType == BBT_PERPENDICULAR_SELF ||
-             (mAccurateFacing && mBillboardType != BBT_PERPENDICULAR_COMMON)))
+        if ((mBillboardType == BillboardType::ORIENTED_SELF || mBillboardType == BillboardType::PERPENDICULAR_SELF ||
+             (mAccurateFacing && mBillboardType != BillboardType::PERPENDICULAR_COMMON)))
         {
             // Have to generate axes & offsets per billboard
             genBillboardAxes(&mCamX, &mCamY, &bb);
         }
 
-        if ((mBillboardType == BBT_ORIENTED_SELF || mBillboardType == BBT_PERPENDICULAR_SELF ||
-             bb.mOwnDimensions || (mAccurateFacing && mBillboardType != BBT_PERPENDICULAR_COMMON)))
+        if ((mBillboardType == BillboardType::ORIENTED_SELF || mBillboardType == BillboardType::PERPENDICULAR_SELF ||
+             bb.mOwnDimensions || (mAccurateFacing && mBillboardType != BillboardType::PERPENDICULAR_COMMON)))
         {
             // If it has own dimensions, or self-oriented, gen offsets
             Vector3 vOwnOffset[4];
@@ -510,7 +510,7 @@ namespace Ogre {
 
         if (mPointRendering)
         {
-            op.operationType = RenderOperation::OT_POINT_LIST;
+            op.operationType = RenderOperation::OperationType::POINT_LIST;
             op.useIndexes = false;
             op.useGlobalInstancingVertexBufferIsAvailable = false;
             op.indexData = nullptr;
@@ -518,7 +518,7 @@ namespace Ogre {
         }
         else
         {
-            op.operationType = RenderOperation::OT_TRIANGLE_LIST;
+            op.operationType = RenderOperation::OperationType::TRIANGLE_LIST;
             op.useIndexes = true;
 
             op.vertexData->vertexCount = mNumVisibleBillboards * 4;
@@ -577,12 +577,12 @@ namespace Ogre {
 
         // Warn if user requested an invalid setup
         // Do it here so it only appears once
-        if (mPointRendering && mBillboardType != BBT_POINT)
+        if (mPointRendering && mBillboardType != BillboardType::POINT)
         {
 
             LogManager::getSingleton().logWarning("BillboardSet " +
                 mName + " has point rendering enabled but is using a type "
-                "other than BBT_POINT, this may not give you the results you "
+                "other than BillboardType::POINT, this may not give you the results you "
                 "expect.");
         }
 
@@ -599,21 +599,21 @@ namespace Ogre {
         VertexBufferBinding* binding = mVertexData->vertexBufferBinding;
 
         size_t offset = 0;
-        offset += decl->addElement(0, offset, VET_FLOAT3, VES_POSITION).getSize();
-        offset += decl->addElement(0, offset, VET_UBYTE4_NORM, VES_DIFFUSE).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
+        offset += decl->addElement(0, offset, VertexElementType::UBYTE4_NORM, VertexElementSemantic::DIFFUSE).getSize();
         // Texture coords irrelevant when enabled point rendering (generated
         // in point sprite mode, and unused in standard point mode)
         if (!mPointRendering)
         {
-            decl->addElement(0, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0);
+            decl->addElement(0, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0);
         }
 
         mMainBuf =
             HardwareBufferManager::getSingleton().createVertexBuffer(
                 decl->getVertexSize(0),
                 mVertexData->vertexCount,
-                mAutoUpdate ? HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE : 
-                HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+                mAutoUpdate ? HardwareBuffer::DYNAMIC_WRITE_ONLY_DISCARDABLE :
+                HardwareBuffer::STATIC_WRITE_ONLY);
         // bind position and diffuses
         binding->setBinding(0, mMainBuf);
 
@@ -624,9 +624,9 @@ namespace Ogre {
             mIndexData->indexCount = mPoolSize * 6;
 
             mIndexData->indexBuffer = HardwareBufferManager::getSingleton().
-                createIndexBuffer(HardwareIndexBuffer::IT_16BIT,
+                createIndexBuffer(HardwareIndexBuffer::IndexType::_16BIT,
                     mIndexData->indexCount,
-                    HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+                    HardwareBuffer::STATIC_WRITE_ONLY);
 
             /* Create indexes (will be the same every frame)
                Using indexes because it means 1/3 less vertex transforms (4 instead of 6)
@@ -640,7 +640,7 @@ namespace Ogre {
                 2-----3
             */
 
-            HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard indexLock(mIndexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
             auto* pIdx = static_cast<ushort*>(indexLock.pData);
 
             for(
@@ -679,63 +679,63 @@ namespace Ogre {
     {
         switch( mOriginType )
         {
-        case BBO_TOP_LEFT:
+        case BillboardOrigin::TOP_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BBO_TOP_CENTER:
+        case BillboardOrigin::TOP_CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BBO_TOP_RIGHT:
+        case BillboardOrigin::TOP_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BBO_CENTER_LEFT:
+        case BillboardOrigin::CENTER_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BBO_CENTER:
+        case BillboardOrigin::CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BBO_CENTER_RIGHT:
+        case BillboardOrigin::CENTER_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BBO_BOTTOM_LEFT:
+        case BillboardOrigin::BOTTOM_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 1.0f;
             bottom = 0.0f;
             break;
 
-        case BBO_BOTTOM_CENTER:
+        case BillboardOrigin::BOTTOM_CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 1.0f;
             bottom = 0.0f;
             break;
 
-        case BBO_BOTTOM_RIGHT:
+        case BillboardOrigin::BOTTOM_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 1.0f;
@@ -787,9 +787,9 @@ namespace Ogre {
     {
         // If we're using accurate facing, recalculate camera direction per BB
         if (mAccurateFacing && 
-            (mBillboardType == BBT_POINT || 
-            mBillboardType == BBT_ORIENTED_COMMON ||
-            mBillboardType == BBT_ORIENTED_SELF))
+            (mBillboardType == BillboardType::POINT || 
+            mBillboardType == BillboardType::ORIENTED_COMMON ||
+            mBillboardType == BillboardType::ORIENTED_SELF))
         {
             // cam -> bb direction
             mCamDir = bb->mPosition - mCamPos;
@@ -799,7 +799,7 @@ namespace Ogre {
 
         switch (mBillboardType)
         {
-        case BBT_POINT:
+        case BillboardType::POINT:
             if (mAccurateFacing)
             {
                 // Point billboards will have 'up' based on but not equal to cameras
@@ -817,7 +817,7 @@ namespace Ogre {
             }
             break;
 
-        case BBT_ORIENTED_COMMON:
+        case BillboardType::ORIENTED_COMMON:
             // Y-axis is common direction
             // X-axis is cross with camera direction
             *pY = mCommonDirection;
@@ -825,7 +825,7 @@ namespace Ogre {
             pX->normalise();
             break;
 
-        case BBT_ORIENTED_SELF:
+        case BillboardType::ORIENTED_SELF:
             // Y-axis is direction
             // X-axis is cross with camera direction
             // Scale direction first
@@ -834,14 +834,14 @@ namespace Ogre {
             pX->normalise();
             break;
 
-        case BBT_PERPENDICULAR_COMMON:
+        case BillboardType::PERPENDICULAR_COMMON:
             // X-axis is up-vector cross common direction
             // Y-axis is common direction cross X-axis
             *pX = mCommonUpVector.crossProduct(mCommonDirection);
             *pY = mCommonDirection.crossProduct(*pX);
             break;
 
-        case BBT_PERPENDICULAR_SELF:
+        case BillboardType::PERPENDICULAR_SELF:
             // X-axis is up-vector cross own direction
             // Y-axis is own direction cross X-axis
             *pX = mCommonUpVector.crossProduct(bb->mDirection);
@@ -852,9 +852,9 @@ namespace Ogre {
 
     }
     //-----------------------------------------------------------------------
-    auto BillboardSet::getTypeFlags() const noexcept -> uint32
+    auto BillboardSet::getTypeFlags() const noexcept -> QueryTypeMask
     {
-        return SceneManager::FX_TYPE_MASK;
+        return QueryTypeMask::FX;
     }
     //-----------------------------------------------------------------------
     void BillboardSet::genPointVertices(const Billboard& bb)
@@ -924,9 +924,9 @@ namespace Ogre {
             *mLockPtr++ = r.right;
             *mLockPtr++ = r.bottom;
         }
-        else if (mRotationType == BBR_VERTEX)
+        else if (mRotationType == BillboardRotationType::VERTEX)
         {
-            // TODO: Cache axis when billboard type is BBT_POINT or BBT_PERPENDICULAR_COMMON
+            // TODO: Cache axis when billboard type is BillboardType::POINT or BillboardType::PERPENDICULAR_COMMON
             Vector3 axis = (offsets[3] - offsets[0]).crossProduct(offsets[2] - offsets[1]).normalisedCopy();
 
             Matrix3 rotation;
@@ -1132,7 +1132,7 @@ namespace Ogre {
     void BillboardSet::setPointRenderingEnabled(bool enabled)
     {
         // Override point rendering if not supported
-        if (enabled && !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_POINT_SPRITES))
+        if (enabled && !Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(Capabilities::POINT_SPRITES))
         {
             enabled = false;
         }

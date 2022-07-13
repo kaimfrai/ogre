@@ -178,7 +178,7 @@ template <typename T> class ControllerValue;
         @param ttype
             The type of transform, either translate (scroll), scale (stretch) or rotate (spin).
         @param waveType
-            The shape of the wave, see WaveformType enum for details.
+            The shape of the wave, see WaveformType enum class for details.
         @param base
             The base value of the output.
         @param frequency

@@ -45,8 +45,8 @@ class Matrix4;
     /** Allows the rendering of a simple 2D rectangle
     This class renders a simple 2D rectangle; this rectangle has no depth and
     therefore is best used with specific render queue and depth settings,
-    like RENDER_QUEUE_BACKGROUND and 'depth_write off' for backdrops, and 
-    RENDER_QUEUE_OVERLAY and 'depth_check off' for fullscreen quads.
+    like RenderQueueGroupID::BACKGROUND and 'depth_write off' for backdrops, and 
+    RenderQueueGroupID::OVERLAY and 'depth_check off' for fullscreen quads.
     */
     class Rectangle2D : public SimpleRenderable
     {
@@ -59,8 +59,8 @@ class Matrix4;
 
     public:
 
-        Rectangle2D(bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
-        Rectangle2D(std::string_view name, bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY);
+        Rectangle2D(bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::STATIC_WRITE_ONLY);
+        Rectangle2D(std::string_view name, bool includeTextureCoordinates = false, HardwareBuffer::Usage vBufUsage = HardwareBuffer::STATIC_WRITE_ONLY);
         ~Rectangle2D() override;
 
         /** Sets the corners of the rectangle, in relative coordinates.

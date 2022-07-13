@@ -44,7 +44,7 @@ struct Box;
         mHeight = mBuffer->getHeight();
 
         if(PixelUtil::isDepth(mBuffer->getFormat()))
-            mDepthBufferPoolId = DepthBuffer::POOL_NO_DEPTH;
+            mDepthBufferPoolId = DepthBuffer::PoolId::NO_DEPTH;
     }
     RenderTexture::~RenderTexture()
     {
@@ -53,8 +53,8 @@ struct Box;
 
     void RenderTexture::copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer)
     {
-        if (buffer == FB_AUTO) buffer = FB_FRONT;
-        OgreAssert(buffer == FB_FRONT, "Invalid buffer");
+        if (buffer == FrameBuffer::AUTO) buffer = FrameBuffer::FRONT;
+        OgreAssert(buffer == FrameBuffer::FRONT, "Invalid buffer");
 
         mBuffer->blitToMemory(src, dst);
     }
@@ -74,7 +74,7 @@ struct Box;
     void MultiRenderTarget::bindSurface(size_t attachment, RenderTexture* target)
     {
         if(PixelUtil::isDepth(target->suggestPixelFormat()))
-            setDepthBufferPool(DepthBuffer::POOL_NO_DEPTH); // unbinds any previously bound depth render buffer
+            setDepthBufferPool(DepthBuffer::PoolId::NO_DEPTH); // unbinds any previously bound depth render buffer
 
         for (size_t i = mBoundSurfaces.size(); i <= attachment; ++i)
         {
@@ -88,7 +88,7 @@ struct Box;
     //-----------------------------------------------------------------------------
     void MultiRenderTarget::copyContentsToMemory(const Box& src, const PixelBox &dst, FrameBuffer buffer)
     {
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                     "Cannot get MultiRenderTargets pixels",
                     "MultiRenderTarget::copyContentsToMemory");
     }

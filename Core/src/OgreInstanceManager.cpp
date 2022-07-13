@@ -57,7 +57,7 @@ namespace Ogre
 {
     InstanceManager::InstanceManager( std::string_view customName, SceneManager *sceneManager,
                                         std::string_view meshName, std::string_view groupName,
-                                        InstancingTechnique instancingTechnique, uint16 instancingFlags,
+                                        InstancingTechnique instancingTechnique, InstanceManagerFlags instancingFlags,
                                         size_t instancesPerBatch, unsigned short subMeshIdx, bool useBoneMatrixLookup ) :
                 mName(customName),
                 mInstancesPerBatch( instancesPerBatch ),
@@ -97,7 +97,7 @@ namespace Ogre
     }
     //----------------------------------------------------------------------
     auto InstanceManager::getMaxOrBestNumInstancesPerBatch( std::string_view materialName, size_t suggestedSize,
-                                                                uint16 flags ) -> size_t
+                                                                InstanceManagerFlags flags ) -> size_t
     {
         //Get the material
         MaterialPtr mat = MaterialManager::getSingleton().getByName( materialName,
@@ -117,9 +117,9 @@ namespace Ogre
         case TextureVTF:
             batch = new InstanceBatchVTF( this, mMeshReference, mat, suggestedSize,
                                                     nullptr, ::std::format("{}/TempBatch", mName) );
-            static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchVTF*>(batch)->setBoneDualQuaternions(!!(mInstancingFlags & InstanceManagerFlags::USEBONEDUALQUATERNIONS));
+            static_cast<InstanceBatchVTF*>(batch)->setUseOneWeight(!!(mInstancingFlags & InstanceManagerFlags::USEONEWEIGHT));
+            static_cast<InstanceBatchVTF*>(batch)->setForceOneWeight(!!(mInstancingFlags & InstanceManagerFlags::FORCEONEWEIGHT));
             break;
         case HWInstancingBasic:
             batch = new InstanceBatchHW( this, mMeshReference, mat, suggestedSize,
@@ -128,13 +128,13 @@ namespace Ogre
         case HWInstancingVTF:
             batch = new InstanceBatchHW_VTF( this, mMeshReference, mat, suggestedSize,
                                                     nullptr, ::std::format("{}/TempBatch", mName) );
-            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch)->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneMatrixLookup(!!(mInstancingFlags & InstanceManagerFlags::VTFBONEMATRIXLOOKUP), mMaxLookupTableInstances);
+            static_cast<InstanceBatchHW_VTF*>(batch)->setBoneDualQuaternions(!!(mInstancingFlags & InstanceManagerFlags::USEBONEDUALQUATERNIONS));
+            static_cast<InstanceBatchHW_VTF*>(batch)->setUseOneWeight(!!(mInstancingFlags & InstanceManagerFlags::USEONEWEIGHT));
+            static_cast<InstanceBatchHW_VTF*>(batch)->setForceOneWeight(!!(mInstancingFlags & InstanceManagerFlags::FORCEONEWEIGHT));
             break;
         default:
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     ::std::format("Unimplemented instancing technique: {}", mInstancingTechnique),
                     "InstanceBatch::getMaxOrBestNumInstancesPerBatches()");
         }
@@ -198,9 +198,9 @@ namespace Ogre
         case TextureVTF:
             batch = ::std::make_unique<InstanceBatchVTF>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, ::std::format("{}/InstanceBatch_{}", mName, mIdCount++));
-            static_cast<InstanceBatchVTF*>(batch.get())->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchVTF*>(batch.get())->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchVTF*>(batch.get())->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchVTF*>(batch.get())->setBoneDualQuaternions(!!(mInstancingFlags & InstanceManagerFlags::USEBONEDUALQUATERNIONS));
+            static_cast<InstanceBatchVTF*>(batch.get())->setUseOneWeight(!!(mInstancingFlags & InstanceManagerFlags::USEONEWEIGHT));
+            static_cast<InstanceBatchVTF*>(batch.get())->setForceOneWeight(!!(mInstancingFlags & InstanceManagerFlags::FORCEONEWEIGHT));
             break;
         case HWInstancingBasic:
             batch = ::std::make_unique<InstanceBatchHW>( this, mMeshReference, mat, mInstancesPerBatch,
@@ -209,13 +209,13 @@ namespace Ogre
         case HWInstancingVTF:
             batch = ::std::make_unique<InstanceBatchHW_VTF>( this, mMeshReference, mat, mInstancesPerBatch,
                                                     &idxMap, ::std::format("{}/InstanceBatch_{}", mName, mIdCount++));
-            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneMatrixLookup((mInstancingFlags & IM_VTFBONEMATRIXLOOKUP) != 0, mMaxLookupTableInstances);
-            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneDualQuaternions((mInstancingFlags & IM_USEBONEDUALQUATERNIONS) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch.get())->setUseOneWeight((mInstancingFlags & IM_USEONEWEIGHT) != 0);
-            static_cast<InstanceBatchHW_VTF*>(batch.get())->setForceOneWeight((mInstancingFlags & IM_FORCEONEWEIGHT) != 0);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneMatrixLookup(!!(mInstancingFlags & InstanceManagerFlags::VTFBONEMATRIXLOOKUP), mMaxLookupTableInstances);
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setBoneDualQuaternions(!!(mInstancingFlags & InstanceManagerFlags::USEBONEDUALQUATERNIONS));
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setUseOneWeight(!!(mInstancingFlags & InstanceManagerFlags::USEONEWEIGHT));
+            static_cast<InstanceBatchHW_VTF*>(batch.get())->setForceOneWeight(!!(mInstancingFlags & InstanceManagerFlags::FORCEONEWEIGHT));
             break;
         default:
-            OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+            OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                     ::std::format("Unimplemented instancing technique: {}", mInstancingTechnique),
                     "InstanceBatch::buildNewBatch()");
         }
@@ -246,12 +246,12 @@ namespace Ogre
         }
 
         const BatchSettings &batchSettings = mBatchSettings[materialName];
-        batch->setCastShadows( batchSettings.setting[CAST_SHADOWS] );
+        batch->setCastShadows( batchSettings.setting[std::to_underlying(CAST_SHADOWS)] );
 
         //Batches need to be part of a scene node so that their renderable can be rendered
         SceneNode *sceneNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
         sceneNode->attachObject( batch.get() );
-        sceneNode->showBoundingBox( batchSettings.setting[SHOW_BOUNDINGBOX] );
+        sceneNode->showBoundingBox( batchSettings.setting[std::to_underlying(SHOW_BOUNDINGBOX)] );
 
         materialInstanceBatch.push_back( ::std::move(batch) );
 
@@ -375,14 +375,14 @@ namespace Ogre
             //Setup all existing materials
             for (auto const& itor : mInstanceBatches)
             {
-                mBatchSettings[itor.first].setting[id] = value;
+                mBatchSettings[itor.first].setting[std::to_underlying(id)] = value;
                 applySettingToBatches( id, value, itor.second );
             }
         }
         else
         {
             //Setup a given material
-            mBatchSettings[materialName].setting[id] = value;
+            mBatchSettings[materialName].setting[std::to_underlying(id)] = value;
 
             auto itor = mInstanceBatches.find( materialName );
             //Don't crash or throw if the batch with that material hasn't been created yet
@@ -397,10 +397,10 @@ namespace Ogre
 
         auto itor = mBatchSettings.find( materialName );
         if( itor != mBatchSettings.end() )
-            return itor->second.setting[id]; //Return current setting
+            return itor->second.setting[std::to_underlying(id)]; //Return current setting
 
         //Return default
-        return BatchSettings().setting[id];
+        return BatchSettings().setting[std::to_underlying(id)];
     }
     auto InstanceManager::hasSettings(std::string_view materialName) const -> bool
     {
@@ -412,6 +412,7 @@ namespace Ogre
     {
         for (auto const& itor : container)
         {
+            using enum BatchSettingId;
             switch( id )
             {
             case CAST_SHADOWS:
@@ -465,7 +466,7 @@ namespace Ogre
         HardwareBufferLockGuard indexLock(idxData->indexBuffer,
                                           idxData->indexStart * sizeof(TIndexType),
                                           idxData->indexCount * sizeof(TIndexType),
-                                          HardwareBuffer::HBL_READ_ONLY);
+                                          HardwareBuffer::LockOptions::READ_ONLY);
         auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < idxData->indexCount; i++)
@@ -493,7 +494,7 @@ namespace Ogre
         HardwareBufferLockGuard indexLock(idxData->indexBuffer,
                                           start * sizeof(TIndexType),
                                           count * sizeof(TIndexType),
-                                          HardwareBuffer::HBL_NORMAL);
+                                          HardwareBuffer::LockOptions::NORMAL);
         auto *data = (TIndexType*)indexLock.pData;
 
         for (size_t i = 0; i < count; i++)
@@ -523,7 +524,7 @@ namespace Ogre
             IndexData *indexData = subMesh->indexData.get();
             HardwareIndexBuffer::IndexType idxType = indexData->indexBuffer->getType();
             IndicesMap indicesMap;
-            if (idxType == HardwareIndexBuffer::IT_16BIT) {
+            if (idxType == HardwareIndexBuffer::IndexType::_16BIT) {
                 collectUsedIndices<uint16>(indicesMap, indexData);
             } else {
                 collectUsedIndices<uint32>(indicesMap, indexData);
@@ -532,7 +533,7 @@ namespace Ogre
             //Also collect indices for all LOD faces.
             for (auto& lodIndex : subMesh->mLodFaceList) {
                 //Typically the LOD indices would use the same buffer type as the main index. But we'll check to make extra sure.
-                if (lodIndex->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT) {
+                if (lodIndex->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT) {
                     collectUsedIndices<uint16>(indicesMap, lodIndex);
                 } else {
                     collectUsedIndices<uint32>(indicesMap, lodIndex);
@@ -552,8 +553,8 @@ namespace Ogre
                 HardwareVertexBufferSharedPtr newVertexBuffer = HardwareBufferManager::getSingleton().createVertexBuffer
                     (vertexSize, newVertexData->vertexCount, sharedVertexBuffer->getUsage(), sharedVertexBuffer->hasShadowBuffer());
 
-                HardwareBufferLockGuard oldLock(sharedVertexBuffer, 0, sharedVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_READ_ONLY);
-                HardwareBufferLockGuard newLock(newVertexBuffer, 0, newVertexData->vertexCount * vertexSize, HardwareBuffer::HBL_NORMAL);
+                HardwareBufferLockGuard oldLock(sharedVertexBuffer, 0, sharedVertexData->vertexCount * vertexSize, HardwareBuffer::LockOptions::READ_ONLY);
+                HardwareBufferLockGuard newLock(newVertexBuffer, 0, newVertexData->vertexCount * vertexSize, HardwareBuffer::LockOptions::NORMAL);
 
                 for (auto const& indIt : indicesMap)
                 {
@@ -564,7 +565,7 @@ namespace Ogre
                 newVertexData->vertexBufferBinding->setBinding(bufIdx, newVertexBuffer);
             }
 
-            if (idxType == HardwareIndexBuffer::IT_16BIT)
+            if (idxType == HardwareIndexBuffer::IndexType::_16BIT)
             {
                 copyIndexBuffer<uint16>(indexData, indicesMap, 0);
             }
@@ -587,7 +588,7 @@ namespace Ogre
                 }
 
                 //Typically the LOD indices would use the same buffer type as the main index. But we'll check to make extra sure.
-                if (lodIndex->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT) {
+                if (lodIndex->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT) {
                     copyIndexBuffer<uint16>(lodIndex, indicesMap, lastIndexEnd);
                 } else {
                     copyIndexBuffer<uint32>(lodIndex, indicesMap, lastIndexEnd);
@@ -633,7 +634,7 @@ namespace Ogre
         if(it != mInstanceBatches.end())
             return { it->second.begin(), it->second.end() };
 
-        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, ::std::format("Cannot create instance batch iterator. "
+        OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, ::std::format("Cannot create instance batch iterator. "
                     "Material {} cannot be found", materialName ));
     }
 }

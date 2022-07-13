@@ -116,7 +116,7 @@ namespace Ogre {
             Codec::registerCodec(msKTXInstance);
         }
 
-        LogManager::getSingleton().logMessage(LML_NORMAL,
+        LogManager::getSingleton().logMessage(LogMessageLevel::Normal,
                                               "ETC codec registering");
     }
     //---------------------------------------------------------------------
@@ -152,7 +152,7 @@ namespace Ogre {
         if (decodePKM(stream, ret))
             return ret;
 
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                     "This is not a valid ETC file!", "ETCCodec::decode");
     }
     //---------------------------------------------------------------------
@@ -205,39 +205,39 @@ namespace Ogre {
         {
             switch (type) {
                 case 0:
-                    imgData->format = PF_ETC1_RGB8;
+                    imgData->format = PixelFormat::ETC1_RGB8;
                     break;
 
                     // GL_COMPRESSED_RGB8_ETC2
                 case 1:
-                    imgData->format = PF_ETC2_RGB8;
+                    imgData->format = PixelFormat::ETC2_RGB8;
                     break;
 
                     // GL_COMPRESSED_RGBA8_ETC2_EAC
                 case 3:
-                    imgData->format = PF_ETC2_RGBA8;
+                    imgData->format = PixelFormat::ETC2_RGBA8;
                     break;
 
                     // GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2
                 case 4:
-                    imgData->format = PF_ETC2_RGB8A1;
+                    imgData->format = PixelFormat::ETC2_RGB8A1;
                     break;
 
                     // Default case is ETC1
                 default:
-                    imgData->format = PF_ETC1_RGB8;
+                    imgData->format = PixelFormat::ETC1_RGB8;
                     break;
             }
         }
         else
-            imgData->format = PF_ETC1_RGB8;
+            imgData->format = PixelFormat::ETC1_RGB8;
 
         // ETC has no support for mipmaps - malideveloper.com has a example
         // where the load mipmap levels from different external files
-        imgData->num_mipmaps = 0;
+        imgData->num_mipmaps = {};
 
         // ETC is a compressed format
-        imgData->flags |= IF_COMPRESSED;
+        imgData->flags |= ImageFlags::COMPRESSED;
 
         // Calculate total size from number of mipmaps, faces and size
         imgData->size = (paddedWidth * paddedHeight) >> 1;
@@ -274,103 +274,103 @@ namespace Ogre {
         imgData->depth = 1;
         imgData->width = header.pixelWidth;
         imgData->height = header.pixelHeight;
-        imgData->num_mipmaps = static_cast<uint8>(header.numberOfMipmapLevels - 1);
+        imgData->num_mipmaps = static_cast<TextureMipmap>(header.numberOfMipmapLevels - 1);
 
         switch(header.glInternalFormat)
         {
         case 37492: // GL_COMPRESSED_RGB8_ETC2
-            imgData->format = PF_ETC2_RGB8;
+            imgData->format = PixelFormat::ETC2_RGB8;
             break;
         case 37496:// GL_COMPRESSED_RGBA8_ETC2_EAC
-            imgData->format = PF_ETC2_RGBA8;
+            imgData->format = PixelFormat::ETC2_RGBA8;
             break;
         case 37494: // GL_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2
-            imgData->format = PF_ETC2_RGB8A1;
+            imgData->format = PixelFormat::ETC2_RGB8A1;
             break;
         case 35986: // ATC_RGB
-            imgData->format = PF_ATC_RGB;
+            imgData->format = PixelFormat::ATC_RGB;
             break;
         case 35987: // ATC_RGB_Explicit
-            imgData->format = PF_ATC_RGBA_EXPLICIT_ALPHA;
+            imgData->format = PixelFormat::ATC_RGBA_EXPLICIT_ALPHA;
             break;
         case 34798: // ATC_RGB_Interpolated
-            imgData->format = PF_ATC_RGBA_INTERPOLATED_ALPHA;
+            imgData->format = PixelFormat::ATC_RGBA_INTERPOLATED_ALPHA;
             break;
         case 33777: // DXT 1
-            imgData->format = PF_DXT1;
+            imgData->format = PixelFormat::DXT1;
             break;
         case 33778: // DXT 3
-            imgData->format = PF_DXT3;
+            imgData->format = PixelFormat::DXT3;
             break;
         case 33779: // DXT 5
-            imgData->format = PF_DXT5;
+            imgData->format = PixelFormat::DXT5;
             break;
          case 0x8c00: // COMPRESSED_RGB_PVRTC_4BPPV1_IMG
-            imgData->format = PF_PVRTC_RGB4;
+            imgData->format = PixelFormat::PVRTC_RGB4;
             break;
         case 0x8c01: // COMPRESSED_RGB_PVRTC_2BPPV1_IMG
-            imgData->format = PF_PVRTC_RGB2;
+            imgData->format = PixelFormat::PVRTC_RGB2;
             break;
         case 0x8c02: // COMPRESSED_RGBA_PVRTC_4BPPV1_IMG
-            imgData->format = PF_PVRTC_RGBA4;
+            imgData->format = PixelFormat::PVRTC_RGBA4;
             break;
         case 0x8c03: // COMPRESSED_RGBA_PVRTC_2BPPV1_IMG
-            imgData->format = PF_PVRTC_RGBA2;
+            imgData->format = PixelFormat::PVRTC_RGBA2;
             break;
         case 0x93B0: // COMPRESSED_RGBA_ASTC_4x4_KHR
-            imgData->format = PF_ASTC_RGBA_4X4_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_4X4_LDR;
             break;
         case 0x93B1: // COMPRESSED_RGBA_ASTC_5x4_KHR
-            imgData->format = PF_ASTC_RGBA_5X4_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_5X4_LDR;
             break;
         case 0x93B2: // COMPRESSED_RGBA_ASTC_5x5_KHR
-            imgData->format = PF_ASTC_RGBA_5X5_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_5X5_LDR;
             break;
         case 0x93B3: // COMPRESSED_RGBA_ASTC_6x5_KHR
-            imgData->format = PF_ASTC_RGBA_6X5_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_6X5_LDR;
             break;
         case 0x93B4: // COMPRESSED_RGBA_ASTC_6x6_KHR
-            imgData->format = PF_ASTC_RGBA_6X6_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_6X6_LDR;
             break;
         case 0x93B5: // COMPRESSED_RGBA_ASTC_8x5_KHR
-            imgData->format = PF_ASTC_RGBA_8X5_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_8X5_LDR;
             break;
         case 0x93B6: // COMPRESSED_RGBA_ASTC_8x6_KHR
-            imgData->format = PF_ASTC_RGBA_8X6_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_8X6_LDR;
             break;
         case 0x93B7: // COMPRESSED_RGBA_ASTC_8x8_KHR
-            imgData->format = PF_ASTC_RGBA_8X8_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_8X8_LDR;
             break;
         case 0x93B8: // COMPRESSED_RGBA_ASTC_10x5_KHR
-            imgData->format = PF_ASTC_RGBA_10X5_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_10X5_LDR;
             break;
         case 0x93B9: // COMPRESSED_RGBA_ASTC_10x6_KHR
-            imgData->format = PF_ASTC_RGBA_10X6_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_10X6_LDR;
             break;
         case 0x93BA: // COMPRESSED_RGBA_ASTC_10x8_KHR
-            imgData->format = PF_ASTC_RGBA_10X8_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_10X8_LDR;
             break;
         case 0x93BB: // COMPRESSED_RGBA_ASTC_10x10_KHR
-            imgData->format = PF_ASTC_RGBA_10X10_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_10X10_LDR;
             break;
         case 0x93BC: // COMPRESSED_RGBA_ASTC_12x10_KHR
-            imgData->format = PF_ASTC_RGBA_12X10_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_12X10_LDR;
             break;
         case 0x93BD: // COMPRESSED_RGBA_ASTC_12x12_KHR
-            imgData->format = PF_ASTC_RGBA_12X12_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_12X12_LDR;
             break;
         default:
-            imgData->format = PF_ETC1_RGB8;
+            imgData->format = PixelFormat::ETC1_RGB8;
             break;
         }
 
-        imgData->flags = 0;
+        imgData->flags = {};
         if (header.glType == 0 || header.glFormat == 0)
-            imgData->flags |= IF_COMPRESSED;
+            imgData->flags |= ImageFlags::COMPRESSED;
 
         uint32 numFaces = header.numberOfFaces;
         if (numFaces > 1)
-            imgData->flags |= IF_CUBEMAP;
+            imgData->flags |= ImageFlags::CUBEMAP;
         // Calculate total size from number of mipmaps, faces and size
         imgData->size = Image::calculateSize(imgData->num_mipmaps, numFaces,
                                              imgData->width, imgData->height, imgData->depth, imgData->format);

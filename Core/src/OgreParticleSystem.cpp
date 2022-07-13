@@ -530,7 +530,7 @@ class RenderQueue;
                 mRenderer->_notifyParticleExpired(pParticle);
 
                 // Identify the particle type
-                if (pParticle->mParticleType == Particle::Visual)
+                if (pParticle->mParticleType == Particle::ParticleType::Visual)
                 {
                     // add back to free list
                     mFreeParticles.push_back(pParticle);
@@ -751,7 +751,7 @@ class RenderQueue;
         if (fee && !fee->empty())
         {
             p = fee->front();
-            p->mParticleType = Particle::Emitter;
+            p->mParticleType = Particle::ParticleType::Emitter;
             fee->pop_front();
             mActiveParticles.push_back(p);
 
@@ -790,59 +790,59 @@ class RenderQueue;
 
             dict->addParameter(ParameterDef("quota", 
                 "The maximum number of particles allowed at once in this system.",
-                PT_UNSIGNED_INT),
+                ParameterType::UNSIGNED_INT),
                 &msQuotaCmd);
 
             dict->addParameter(ParameterDef("emit_emitter_quota", 
                 "The maximum number of emitters to be emitted at once in this system.",
-                PT_UNSIGNED_INT),
+                ParameterType::UNSIGNED_INT),
                 &msEmittedEmitterQuotaCmd);
 
             dict->addParameter(ParameterDef("material", 
                 "The name of the material to be used to render all particles in this system.",
-                PT_STRING),
+                ParameterType::STRING),
                 &msMaterialCmd);
 
             dict->addParameter(ParameterDef("particle_width", 
                 "The width of particles in world units.",
-                PT_REAL),
+                ParameterType::REAL),
                 &msWidthCmd);
 
             dict->addParameter(ParameterDef("particle_height", 
                 "The height of particles in world units.",
-                PT_REAL),
+                ParameterType::REAL),
                 &msHeightCmd);
 
             dict->addParameter(ParameterDef("cull_each", 
                 "If true, each particle is culled in it's own right. If false, the entire system is culled as a whole.",
-                PT_BOOL),
+                ParameterType::BOOL),
                 &msCullCmd);
 
             dict->addParameter(ParameterDef("renderer", 
                 "Sets the particle system renderer to use (default 'billboard').",
-                PT_STRING),
+                ParameterType::STRING),
                 &msRendererCmd);
 
             dict->addParameter(ParameterDef("sorted", 
                 "Sets whether particles should be sorted relative to the camera. ",
-                PT_BOOL),
+                ParameterType::BOOL),
                 &msSortedCmd);
 
             dict->addParameter(ParameterDef("local_space", 
                 "Sets whether particles should be kept in local space rather than "
                 "emitted into world space. ",
-                PT_BOOL),
+                ParameterType::BOOL),
                 &msLocalSpaceCmd);
 
             dict->addParameter(ParameterDef("iteration_interval", 
                 "Sets a fixed update interval for the system, or 0 for the frame rate. ",
-                PT_REAL),
+                ParameterType::REAL),
                 &msIterationIntervalCmd);
 
             dict->addParameter(ParameterDef("nonvisible_update_timeout", 
                 "Sets a timeout on updates to the system if the system is not visible "
                 "for the given number of seconds (0 to always update)",
-                PT_REAL),
+                ParameterType::REAL),
                 &msNonvisibleTimeoutCmd);
 
         }
@@ -1180,7 +1180,7 @@ class RenderQueue;
         mBoundsUpdateTime = stopIn;
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::setRenderQueueGroup(uint8 queueID)
+    void ParticleSystem::setRenderQueueGroup(RenderQueueGroupID queueID)
     {
         MovableObject::setRenderQueueGroup(queueID);
         if (mRenderer)
@@ -1189,7 +1189,7 @@ class RenderQueue;
         }
     }
     //-----------------------------------------------------------------------
-    void ParticleSystem::setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
+    void ParticleSystem::setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority)
     {
         MovableObject::setRenderQueueGroupAndPriority(queueID, priority);
         if (mRenderer)
@@ -1213,9 +1213,9 @@ class RenderQueue;
         if (mRenderer)
         {
             SortMode sortMode =
-                cam->getSortMode() == SM_DIRECTION ? SM_DIRECTION : mRenderer->_getSortMode();
+                cam->getSortMode() == SortMode::Direction ? SortMode::Direction : mRenderer->_getSortMode();
 
-            if (sortMode == SM_DIRECTION)
+            if (sortMode == SortMode::Direction)
             {
                 Vector3 camDir = cam->getDerivedDirection();
                 if (mLocalSpace)
@@ -1225,7 +1225,7 @@ class RenderQueue;
                 }
                 mRadixSorter.sort(mActiveParticles, SortByDirectionFunctor(- camDir));
             }
-            else if (sortMode == SM_DISTANCE)
+            else if (sortMode == SortMode::Distance)
             {
                 Vector3 camPos = cam->getDerivedPosition();
                 if (mLocalSpace)
@@ -1255,9 +1255,9 @@ class RenderQueue;
         return - (sortPos - p->mPosition).squaredLength();
     }
     //-----------------------------------------------------------------------
-    auto ParticleSystem::getTypeFlags() const noexcept -> uint32
+    auto ParticleSystem::getTypeFlags() const noexcept -> QueryTypeMask
     {
-        return SceneManager::FX_TYPE_MASK;
+        return QueryTypeMask::FX;
     }
     //-----------------------------------------------------------------------
     void ParticleSystem::initialiseEmittedEmitters()

@@ -59,33 +59,33 @@ namespace Ogre {
     {
         switch (fmt)
         {
-        case PF_ASTC_RGBA_4X4_LDR:
+        case PixelFormat::ASTC_RGBA_4X4_LDR:
             return 8.00;
-        case PF_ASTC_RGBA_5X4_LDR:
+        case PixelFormat::ASTC_RGBA_5X4_LDR:
             return 6.40;
-        case PF_ASTC_RGBA_5X5_LDR:
+        case PixelFormat::ASTC_RGBA_5X5_LDR:
             return 5.12;
-        case PF_ASTC_RGBA_6X5_LDR:
+        case PixelFormat::ASTC_RGBA_6X5_LDR:
             return 4.27;
-        case PF_ASTC_RGBA_6X6_LDR:
+        case PixelFormat::ASTC_RGBA_6X6_LDR:
             return 3.56;
-        case PF_ASTC_RGBA_8X5_LDR:
+        case PixelFormat::ASTC_RGBA_8X5_LDR:
             return 3.20;
-        case PF_ASTC_RGBA_8X6_LDR:
+        case PixelFormat::ASTC_RGBA_8X6_LDR:
             return 2.67;
-        case PF_ASTC_RGBA_8X8_LDR:
+        case PixelFormat::ASTC_RGBA_8X8_LDR:
             return 2.00;
-        case PF_ASTC_RGBA_10X5_LDR:
+        case PixelFormat::ASTC_RGBA_10X5_LDR:
             return 2.56;
-        case PF_ASTC_RGBA_10X6_LDR:
+        case PixelFormat::ASTC_RGBA_10X6_LDR:
             return 2.13;
-        case PF_ASTC_RGBA_10X8_LDR:
+        case PixelFormat::ASTC_RGBA_10X8_LDR:
             return 1.60;
-        case PF_ASTC_RGBA_10X10_LDR:
+        case PixelFormat::ASTC_RGBA_10X10_LDR:
             return 1.28;
-        case PF_ASTC_RGBA_12X10_LDR:
+        case PixelFormat::ASTC_RGBA_12X10_LDR:
             return 1.07;
-        case PF_ASTC_RGBA_12X12_LDR:
+        case PixelFormat::ASTC_RGBA_12X12_LDR:
             return 0.89;
 
         default:
@@ -177,7 +177,7 @@ namespace Ogre {
 			Codec::registerCodec(msInstance);
 		}
 
-        LogManager::getSingleton().logMessage(LML_NORMAL,
+        LogManager::getSingleton().logMessage(LogMessageLevel::Normal,
                                               "ASTC codec registering");
 	}
 	//---------------------------------------------------------------------
@@ -205,7 +205,7 @@ namespace Ogre {
         stream->read(&header, sizeof(ASTCHeader));
 
 		if (memcmp(&ASTC_MAGIC, &header.magic, sizeof(uint32)) != 0 )
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "This is not a valid ASTC file!", "ASTCCodec::decode");
 
         int xdim = header.blockdim_x;
@@ -220,7 +220,7 @@ namespace Ogre {
         imgData->width = xsize;
         imgData->height = ysize;
         imgData->depth = zsize;
-		imgData->num_mipmaps = 0; // Always 1 mip level per file
+		imgData->num_mipmaps = {}; // Always 1 mip level per file
 
         // For 3D we calculate the bitrate then find the nearest 2D block size.
         if(zdim > 1)
@@ -231,51 +231,51 @@ namespace Ogre {
 
         if(xdim == 4)
         {
-            imgData->format = PF_ASTC_RGBA_4X4_LDR;
+            imgData->format = PixelFormat::ASTC_RGBA_4X4_LDR;
         }
         else if(xdim == 5)
         {
             if(ydim == 4)
-                imgData->format = PF_ASTC_RGBA_5X4_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_5X4_LDR;
             else if(ydim == 5)
-                imgData->format = PF_ASTC_RGBA_5X5_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_5X5_LDR;
         }
         else if(xdim == 6)
         {
             if(ydim == 5)
-                imgData->format = PF_ASTC_RGBA_6X5_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_6X5_LDR;
             else if(ydim == 6)
-                imgData->format = PF_ASTC_RGBA_6X6_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_6X6_LDR;
         }
         else if(xdim == 8)
         {
             if(ydim == 5)
-                imgData->format = PF_ASTC_RGBA_8X5_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_8X5_LDR;
             else if(ydim == 6)
-                imgData->format = PF_ASTC_RGBA_8X6_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_8X6_LDR;
             else if(ydim == 8)
-                imgData->format = PF_ASTC_RGBA_8X8_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_8X8_LDR;
         }
         else if(xdim == 10)
         {
             if(ydim == 5)
-                imgData->format = PF_ASTC_RGBA_10X5_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_10X5_LDR;
             else if(ydim == 6)
-                imgData->format = PF_ASTC_RGBA_10X6_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_10X6_LDR;
             else if(ydim == 8)
-                imgData->format = PF_ASTC_RGBA_10X8_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_10X8_LDR;
             else if(ydim == 10)
-                imgData->format = PF_ASTC_RGBA_10X10_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_10X10_LDR;
         }
         else if(xdim == 12)
         {
             if(ydim == 10)
-                imgData->format = PF_ASTC_RGBA_12X10_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_12X10_LDR;
             else if(ydim == 12)
-                imgData->format = PF_ASTC_RGBA_12X12_LDR;
+                imgData->format = PixelFormat::ASTC_RGBA_12X12_LDR;
         }
 
-        imgData->flags = IF_COMPRESSED;
+        imgData->flags = ImageFlags::COMPRESSED;
 
 		uint32 numFaces = 1; // Always one face, cubemaps are not currently supported
                              // Calculate total size from number of mipmaps, faces and size

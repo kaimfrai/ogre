@@ -119,7 +119,7 @@ namespace Ogre {
         : OverlayElement(name), mColourBottom(ColourValue::White), mColourTop(ColourValue::White)
     {
         mTransparent = false;
-        mAlignment = Left;
+        mAlignment = Alignment::Left;
 
         mColoursChanged = true;
 
@@ -148,13 +148,13 @@ namespace Ogre {
             VertexDeclaration* decl = mRenderOp.vertexData->vertexDeclaration;
             size_t offset = 0;
             // Positions
-            offset += decl->addElement(POS_TEX_BINDING, offset, VET_FLOAT3, VES_POSITION).getSize();
+            offset += decl->addElement(POS_TEX_BINDING, offset, VertexElementType::FLOAT3, VertexElementSemantic::POSITION).getSize();
             // Texcoords
-            decl->addElement(POS_TEX_BINDING, offset, VET_FLOAT2, VES_TEXTURE_COORDINATES, 0);
+            decl->addElement(POS_TEX_BINDING, offset, VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES, 0);
             // Colours - store these in a separate buffer because they change less often
-            decl->addElement(COLOUR_BINDING, 0, VET_UBYTE4_NORM, VES_DIFFUSE);
+            decl->addElement(COLOUR_BINDING, 0, VertexElementType::UBYTE4_NORM, VertexElementSemantic::DIFFUSE);
 
-            mRenderOp.operationType = RenderOperation::OT_TRIANGLE_LIST;
+            mRenderOp.operationType = RenderOperation::OperationType::TRIANGLE_LIST;
             mRenderOp.useIndexes = false;
             mRenderOp.vertexData->vertexStart = 0;
             mRenderOp.useGlobalInstancingVertexBufferIsAvailable = false;
@@ -198,7 +198,7 @@ namespace Ogre {
                 createVertexBuffer(
                     decl->getVertexSize(POS_TEX_BINDING), 
                     allocatedVertexCount,
-                    HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+                    HardwareBuffer::DYNAMIC_WRITE_ONLY,
                     true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
         bind->setBinding(POS_TEX_BINDING, vbuf);
 
@@ -207,7 +207,7 @@ namespace Ogre {
                 createVertexBuffer(
                     decl->getVertexSize(COLOUR_BINDING), 
                     allocatedVertexCount,
-                    HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+                    HardwareBuffer::DYNAMIC_WRITE_ONLY,
                     true);//Workaround, using shadow buffer to avoid stall due to buffer mapping
         bind->setBinding(COLOUR_BINDING, vbuf);
 
@@ -247,7 +247,7 @@ namespace Ogre {
         // Get position / texcoord buffer
         const HardwareVertexBufferSharedPtr& vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(POS_TEX_BINDING);
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         pVert = static_cast<float*>(vbufLock.pData);
 
         float largestWidth = 0;
@@ -286,9 +286,9 @@ namespace Ogre {
                     }
                 }
 
-                if( mAlignment == Right )
+                if( mAlignment == Alignment::Right )
                     left -= len;
-                else if( mAlignment == Center )
+                else if( mAlignment == Alignment::Center )
                     left -= len * 0.5f;
 
                 newLine = false;
@@ -410,7 +410,7 @@ namespace Ogre {
             }
         }
 
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             // Derive parametric version of dimensions
             Real vpWidth;
@@ -439,7 +439,7 @@ namespace Ogre {
     {
         mFont = FontManager::getSingleton().getByName(font, group);
         if (!mFont)
-            OGRE_EXCEPT( Exception::ERR_ITEM_NOT_FOUND, ::std::format("Could not find font {}", font),
+            OGRE_EXCEPT( ExceptionCodes::ITEM_NOT_FOUND, ::std::format("Could not find font {}", font),
                 "TextAreaOverlayElement::setFontName" );
         mMaterial.reset();
 
@@ -449,7 +449,7 @@ namespace Ogre {
 
     void TextAreaOverlayElement::setCharHeight( Real height )
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelCharHeight = static_cast<unsigned short>(height);
         }
@@ -461,7 +461,7 @@ namespace Ogre {
     }
     auto TextAreaOverlayElement::getCharHeight() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelCharHeight;
         }
@@ -473,7 +473,7 @@ namespace Ogre {
 
     void TextAreaOverlayElement::setSpaceWidth( Real width )
     {
-        if (mMetricsMode != GMM_RELATIVE)
+        if (mMetricsMode != GuiMetricsMode::RELATIVE)
         {
             mPixelSpaceWidth = static_cast<unsigned short>(width);
         }
@@ -486,7 +486,7 @@ namespace Ogre {
     }
     auto TextAreaOverlayElement::getSpaceWidth() const -> Real
     {
-        if (mMetricsMode == GMM_PIXELS)
+        if (mMetricsMode == GuiMetricsMode::PIXELS)
         {
             return mPixelSpaceWidth;
         }
@@ -533,37 +533,37 @@ namespace Ogre {
 
         dict->addParameter(ParameterDef("char_height", 
             "Sets the height of the characters in relation to the screen."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msCmdCharHeight);
 
         dict->addParameter(ParameterDef("space_width", 
             "Sets the width of a space in relation to the screen."
-            , PT_REAL),
+            , ParameterType::REAL),
             &msCmdSpaceWidth);
 
         dict->addParameter(ParameterDef("font_name", 
             "Sets the name of the font to use."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdFontName);
 
         dict->addParameter(ParameterDef("colour", 
             "Sets the colour of the font (a solid colour)."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdColour);
 
         dict->addParameter(ParameterDef("colour_bottom", 
             "Sets the colour of the font at the bottom (a gradient colour)."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdColourBottom);
 
         dict->addParameter(ParameterDef("colour_top", 
             "Sets the colour of the font at the top (a gradient colour)."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdColourTop);
 
         dict->addParameter(ParameterDef("alignment", 
             "Sets the alignment of the text: 'left', 'center' or 'right'."
-            , PT_STRING),
+            , ParameterType::STRING),
             &msCmdAlignment);
     }
     //---------------------------------------------------------------------
@@ -610,7 +610,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf = 
             mRenderOp.vertexData->vertexBufferBinding->getBuffer(COLOUR_BINDING);
 
-        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vbufLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         RGBA* pDest = static_cast<RGBA*>(vbufLock.pData);
 
         for (size_t i = 0; i < mAllocSize; ++i)
@@ -638,13 +638,13 @@ namespace Ogre {
 
         switch (mMetricsMode)
         {
-        case GMM_PIXELS:
+        case GuiMetricsMode::PIXELS:
             // set pixel variables based on viewport multipliers
             mPixelCharHeight = static_cast<unsigned short>(mCharHeight * vpHeight);
             mPixelSpaceWidth = static_cast<unsigned short>(mSpaceWidth * vpHeight);
             break;
 
-        case GMM_RELATIVE_ASPECT_ADJUSTED:
+        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED:
             // set pixel variables multiplied by the height constant
             mPixelCharHeight = static_cast<unsigned short>(mCharHeight * 10000.0);
             mPixelSpaceWidth = static_cast<unsigned short>(mSpaceWidth * 10000.0);
@@ -666,7 +666,7 @@ namespace Ogre {
         // Check size if pixel-based / relative-aspect-adjusted
         switch (mMetricsMode)
         {
-        case GMM_PIXELS:
+        case GuiMetricsMode::PIXELS:
             if(mGeomPositionsOutOfDate)
             {
                 // recalculate character size
@@ -676,7 +676,7 @@ namespace Ogre {
             }
             break;
 
-        case GMM_RELATIVE_ASPECT_ADJUSTED:
+        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED:
             if(mGeomPositionsOutOfDate)
             {
                 // recalculate character size
@@ -791,11 +791,11 @@ namespace Ogre {
         TextAreaOverlayElement::Alignment align = static_cast< const TextAreaOverlayElement* >( target )->getAlignment();
         switch (align)
         {
-            case TextAreaOverlayElement::Left:
+            case TextAreaOverlayElement::Alignment::Left:
                 return "left";
-            case TextAreaOverlayElement::Center:
+            case TextAreaOverlayElement::Alignment::Center:
                 return "center";
-            case TextAreaOverlayElement::Right:
+            case TextAreaOverlayElement::Alignment::Right:
                 return "right";
                 
         }
@@ -806,15 +806,15 @@ namespace Ogre {
     {
         if (val == "center")
         {
-            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Center);
+            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Alignment::Center);
         }
         else if (val == "right")
         {
-            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Right);
+            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Alignment::Right);
         }
         else
         {
-            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Left);
+            static_cast< TextAreaOverlayElement* >( target )->setAlignment(TextAreaOverlayElement::Alignment::Left);
         }
     }
     //---------------------------------------------------------------------------------------------

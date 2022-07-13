@@ -134,7 +134,7 @@ namespace Ogre {
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("ParticleSystem template with name '{}' already exists.", name ), 
                 "ParticleSystemManager::addTemplate");
         }
@@ -146,7 +146,7 @@ namespace Ogre {
     {
         auto itr = mSystemTemplates.find(name);
         if (itr == mSystemTemplates.end())
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 ::std::format("ParticleSystem template with name '{}' cannot be found.", name ),
                 "ParticleSystemManager::removeTemplate");
 
@@ -188,7 +188,7 @@ namespace Ogre {
         // check name
         if (mSystemTemplates.find(name) != mSystemTemplates.end())
         {
-            OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, 
+            OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, 
                 ::std::format("ParticleSystem template with name '{}' already exists.", name ), 
                 "ParticleSystemManager::createTemplate");
         }
@@ -227,7 +227,7 @@ namespace Ogre {
         ParticleSystem* pTemplate = getTemplate(templateName);
         if (!pTemplate)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find required template '{}'", templateName ), "ParticleSystemManager::createSystem");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Cannot find required template '{}'", templateName ), "ParticleSystemManager::createSystem");
         }
 
         ParticleSystem* sys = createSystemImpl(name, pTemplate->getParticleQuota(), 
@@ -246,7 +246,7 @@ namespace Ogre {
 
         if (pFact == mEmitterFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find emitter type '{}'", emitterType ));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Cannot find emitter type '{}'", emitterType ));
         }
 
         return pFact->second->createEmitter(psys);
@@ -255,14 +255,14 @@ namespace Ogre {
     void ParticleSystemManager::_destroyEmitter(ParticleEmitter* emitter)
     {
         if(!emitter)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleEmitter.", "ParticleSystemManager::_destroyEmitter");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot destroy a null ParticleEmitter.", "ParticleSystemManager::_destroyEmitter");
 
         // Destroy using the factory which created it
         auto pFact = mEmitterFactories.find(emitter->getType());
 
         if (pFact == mEmitterFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find emitter factory to destroy emitter.", 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot find emitter factory to destroy emitter.", 
                 "ParticleSystemManager::_destroyEmitter");
         }
 
@@ -277,7 +277,7 @@ namespace Ogre {
 
         if (pFact == mAffectorFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("Cannot find affector type '{}'", affectorType ));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("Cannot find affector type '{}'", affectorType ));
         }
 
         return pFact->second->createAffector(psys);
@@ -287,14 +287,14 @@ namespace Ogre {
     void ParticleSystemManager::_destroyAffector(ParticleAffector* affector)
     {
         if(!affector)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleAffector.", "ParticleSystemManager::_destroyAffector");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot destroy a null ParticleAffector.", "ParticleSystemManager::_destroyAffector");
 
         // Destroy using the factory which created it
         auto pFact = mAffectorFactories.find(affector->getType());
 
         if (pFact == mAffectorFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find affector factory to destroy affector.", 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot find affector factory to destroy affector.", 
                 "ParticleSystemManager::_destroyAffector");
         }
 
@@ -308,7 +308,7 @@ namespace Ogre {
 
         if (pFact == mRendererFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find requested renderer type.", 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot find requested renderer type.", 
                 "ParticleSystemManager::_createRenderer");
         }
 
@@ -318,14 +318,14 @@ namespace Ogre {
     void ParticleSystemManager::_destroyRenderer(ParticleSystemRenderer* renderer)
     {
         if(!renderer)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot destroy a null ParticleSystemRenderer.", "ParticleSystemManager::_destroyRenderer");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot destroy a null ParticleSystemRenderer.", "ParticleSystemManager::_destroyRenderer");
 
         // Destroy using the factory which created it
         auto pFact = mRendererFactories.find(renderer->getType());
 
         if (pFact == mRendererFactories.end())
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Cannot find renderer factory to destroy renderer.", 
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot find renderer factory to destroy renderer.", 
                 "ParticleSystemManager::_destroyRenderer");
         }
 

@@ -30,6 +30,7 @@ THE SOFTWARE.
 
 #include "OgreBitwise.hpp"
 #include "OgreCodec.hpp"
+#include "OgreImage.hpp"
 #include "OgrePixelFormat.hpp"
 
 #include <any>
@@ -69,20 +70,19 @@ namespace Ogre {
         ~ImageCodec() override;
         /** Codec return class for images. Has information about the size and the
             pixel format of the image. */
-        class ImageData
+        struct ImageData
         {
-        public:
-            ImageData() 
+            ImageData()
             = default;
             uint32 height{0};
             uint32 width{0};
             uint32 depth{1};
             size_t size{0};
             
-            uint32 num_mipmaps{0};
-            uint flags{0};
+            TextureMipmap num_mipmaps{0};
+            ImageFlags flags{0};
 
-            PixelFormat format{PF_UNKNOWN};
+            PixelFormat format{PixelFormat::UNKNOWN};
         };
         using CodecDataPtr = SharedPtr<ImageData>;
 

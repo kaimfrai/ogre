@@ -75,15 +75,15 @@ class ResourceManager;
     {
         switch(mTextureType)
         {
-            case TEX_TYPE_1D:
+            case TextureType::_1D:
                 return GL_TEXTURE_1D;
-            case TEX_TYPE_2D:
+            case TextureType::_2D:
                 return GL_TEXTURE_2D;
-            case TEX_TYPE_3D:
+            case TextureType::_3D:
                 return GL_TEXTURE_3D;
-            case TEX_TYPE_CUBE_MAP:
+            case TextureType::CUBE_MAP:
                 return GL_TEXTURE_CUBE_MAP;
-            case TEX_TYPE_2D_ARRAY:
+            case TextureType::_2D_ARRAY:
                 return GL_TEXTURE_2D_ARRAY_EXT;
             default:
                 return 0;
@@ -93,8 +93,8 @@ class ResourceManager;
     //* Creation / loading methods ********************************************
     void GLTexture::createInternalResourcesImpl()
     {
-        OgreAssert(mTextureType != TEX_TYPE_EXTERNAL_OES,
-                   "TEX_TYPE_EXTERNAL_OES is not available for openGL");
+        OgreAssert(mTextureType != TextureType::EXTERNAL_OES,
+                   "TextureType::EXTERNAL_OES is not available for openGL");
 
         // Convert to nearest power-of-two size if required
         mWidth = GLPixelUtil::optionalPO2(mWidth);      
@@ -106,7 +106,7 @@ class ResourceManager;
         mFormat = TextureManager::getSingleton().getNativeFormat(mTextureType, mFormat, mUsage);
         
         // Check requested number of mipmaps
-        uint32 maxMips = getMaxMipmaps();
+        auto maxMips = getMaxMipmaps();
         mNumMipmaps = mNumRequestedMipmaps;
         if(mNumMipmaps>maxMips)
             mNumMipmaps = maxMips;
@@ -122,9 +122,9 @@ class ResourceManager;
         
         // This needs to be set otherwise the texture doesn't get rendered
         mRenderSystem->_getStateCacheManager()->setTexParameteri(getGLTextureTarget(), GL_TEXTURE_MAX_LEVEL,
-                                                                 mNumMipmaps);
+                                                                 static_cast<GLint>(mNumMipmaps));
 
-        if ((mUsage & TU_AUTOMIPMAP) && mNumRequestedMipmaps)
+        if (!!(mUsage & TextureUsage::AUTOMIPMAP) && !!mNumRequestedMipmaps)
         {
             mRenderSystem->_getStateCacheManager()->setTexParameteri( getGLTextureTarget(), GL_GENERATE_MIPMAP, GL_TRUE );
         }
@@ -148,38 +148,38 @@ class ResourceManager;
             // Run through this process for every mipmap to pregenerate mipmap piramid
             std::vector<uint8> tmpdata(size);
             
-            for(uint32 mip=0; mip<=mNumMipmaps; mip++)
+            for(uint32 mip=0; mip<=std::to_underlying(mNumMipmaps); mip++)
             {
                 size = static_cast<GLsizei>(PixelUtil::getMemorySize(width, height, depth, mFormat));
                 switch(mTextureType)
                 {
-                    case TEX_TYPE_1D:
+                    case TextureType::_1D:
                         glCompressedTexImage1DARB(GL_TEXTURE_1D, mip, internalformat, 
                             width, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TEX_TYPE_2D:
+                    case TextureType::_2D:
                         glCompressedTexImage2DARB(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TEX_TYPE_2D_ARRAY:
-                    case TEX_TYPE_3D:
+                    case TextureType::_2D_ARRAY:
+                    case TextureType::_3D:
                         glCompressedTexImage3DARB(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TEX_TYPE_CUBE_MAP:
+                    case TextureType::CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glCompressedTexImage2DARB(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
                                 size, &tmpdata[0]);
                         }
                         break;
-                    case TEX_TYPE_EXTERNAL_OES:
+                    case TextureType::EXTERNAL_OES:
                         OGRE_EXCEPT(
-                            Exception::ERR_RENDERINGAPI_ERROR,
-                            "Attempt to create mipmaps for unsupported TEX_TYPE_EXTERNAL_OES, should never happen",
+                            ExceptionCodes::RENDERINGAPI_ERROR,
+                            "Attempt to create mipmaps for unsupported TextureType::EXTERNAL_OES, should never happen",
                             "GLTexture::createInternalResourcesImpl"
                         );
                         break;
@@ -188,46 +188,46 @@ class ResourceManager;
                     width = width/2;
                 if(height>1)
                     height = height/2;
-                if(depth>1 && mTextureType != TEX_TYPE_2D_ARRAY)
+                if(depth>1 && mTextureType != TextureType::_2D_ARRAY)
                     depth = depth/2;
             }
         }
         else
         {
             // Run through this process to pregenerate mipmap pyramid
-            for(uint32 mip=0; mip<=mNumMipmaps; mip++)
+            for(uint32 mip=0; mip<=std::to_underlying(mNumMipmaps); mip++)
             {
                 // Normal formats
                 switch(mTextureType)
                 {
-                    case TEX_TYPE_1D:
+                    case TextureType::_1D:
                         glTexImage1D(GL_TEXTURE_1D, mip, internalformat,
                             width, 0, 
                             format, datatype, nullptr);
     
                         break;
-                    case TEX_TYPE_2D:
+                    case TextureType::_2D:
                         glTexImage2D(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
                             format, datatype, nullptr);
                         break;
-                    case TEX_TYPE_2D_ARRAY:
-                    case TEX_TYPE_3D:
+                    case TextureType::_2D_ARRAY:
+                    case TextureType::_3D:
                         glTexImage3D(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
                             format, datatype, nullptr);
                         break;
-                    case TEX_TYPE_CUBE_MAP:
+                    case TextureType::CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
                                 format, datatype, nullptr);
                         }
                         break;
-                    case TEX_TYPE_EXTERNAL_OES:
+                    case TextureType::EXTERNAL_OES:
                         OGRE_EXCEPT(
-                            Exception::ERR_RENDERINGAPI_ERROR,
-                            "Attempt to create mipmaps for unsupported TEX_TYPE_EXTERNAL_OES, should never happen",
+                            ExceptionCodes::RENDERINGAPI_ERROR,
+                            "Attempt to create mipmaps for unsupported TextureType::EXTERNAL_OES, should never happen",
                             "GLTexture::createInternalResourcesImpl"
                         );
                         break;
@@ -236,13 +236,13 @@ class ResourceManager;
                     width = width/2;
                 if(height>1)
                     height = height/2;
-                if(depth>1 && mTextureType != TEX_TYPE_2D_ARRAY)
+                if(depth>1 && mTextureType != TextureType::_2D_ARRAY)
                     depth = depth/2;
             }
         }
         _createSurfaceList();
         // Get final internal format
-        mFormat = getBuffer(0,0)->getFormat();
+        mFormat = getBuffer(0, TextureMipmap{})->getFormat();
     }
 
     //*************************************************************************
@@ -269,7 +269,7 @@ class ResourceManager;
             uint32 width = mWidth;
             uint32 height = mHeight;
 
-            for(uint32 mip=0; mip<=getNumMipmaps(); mip++)
+            for(uint32 mip=0; mip<=std::to_underlying(getNumMipmaps()); mip++)
             {
                 auto buf = std::make_shared<GLTextureBuffer>(mRenderSystem, this, face, mip, width, height, depth);
                 mSurfaceList.push_back(buf);
@@ -278,7 +278,7 @@ class ResourceManager;
                     width = width / 2;
                 if (height > 1)
                     height = height / 2;
-                if (depth > 1 && mTextureType != TEX_TYPE_2D_ARRAY)
+                if (depth > 1 && mTextureType != TextureType::_2D_ARRAY)
                     depth = depth / 2;
             }
         }

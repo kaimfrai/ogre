@@ -71,35 +71,35 @@ namespace Ogre
                         node->token = token->lexeme;
                         node->file = file;
                         node->line = token->line;
-                        node->type = CNT_IMPORT;
+                        node->type = ConcreteNodeType::IMPORT;
 
                         // The next token is the target
                         ++i;
                         if(i == end || (i->type != TID_WORD && i->type != TID_QUOTE))
-                            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 std::format("expected import target at line {}", node->line),
                                 "ScriptParser::parse");
                         ConcreteNodePtr temp(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
-                        temp->type = i->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
-                        temp->token = unquoted(i->lexeme, temp->type == CNT_QUOTE);
+                        temp->type = i->type == TID_WORD ? ConcreteNodeType::WORD : ConcreteNodeType::QUOTE;
+                        temp->token = unquoted(i->lexeme, temp->type == ConcreteNodeType::QUOTE);
                         node->children.push_back(temp);
 
                         // The second-next token is the source
                         ++i;
                         ++i;
                         if(i == end || (i->type != TID_WORD && i->type != TID_QUOTE))
-                            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 std::format("expected import source at line {}", node->line),
                                 "ScriptParser::parse");
                         temp = ConcreteNodePtr(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
-                        temp->type = i->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
-                        temp->token = unquoted(i->lexeme, temp->type == CNT_QUOTE);
+                        temp->type = i->type == TID_WORD ? ConcreteNodeType::WORD : ConcreteNodeType::QUOTE;
+                        temp->token = unquoted(i->lexeme, temp->type == ConcreteNodeType::QUOTE);
                         node->children.push_back(temp);
 
                         // Consume all the newlines
@@ -124,34 +124,34 @@ namespace Ogre
                         node->token = token->lexeme;
                         node->file = file;
                         node->line = token->line;
-                        node->type = CNT_VARIABLE_ASSIGN;
+                        node->type = ConcreteNodeType::VARIABLE_ASSIGN;
 
                         // The next token is the variable
                         ++i;
                         if(i == end || i->type != TID_VARIABLE)
-                            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 std::format("expected variable name at line {}", node->line),
                                 "ScriptParser::parse");
                         ConcreteNodePtr temp(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
-                        temp->type = CNT_VARIABLE;
+                        temp->type = ConcreteNodeType::VARIABLE;
                         temp->token = i->lexeme;
                         node->children.push_back(temp);
 
                         // The next token is the assignment
                         ++i;
                         if(i == end || (i->type != TID_WORD && i->type != TID_QUOTE))
-                            OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                                 std::format("expected variable value at line {}", node->line),
                                 "ScriptParser::parse");
                         temp = ConcreteNodePtr(new ConcreteNode());
                         temp->parent = node.get();
                         temp->file = file;
                         temp->line = i->line;
-                        temp->type = i->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
-                        temp->token = unquoted(i->lexeme, temp->type == CNT_QUOTE);
+                        temp->type = i->type == TID_WORD ? ConcreteNodeType::WORD : ConcreteNodeType::QUOTE;
+                        temp->token = unquoted(i->lexeme, temp->type == ConcreteNodeType::QUOTE);
                         node->children.push_back(temp);
 
                         // Consume all the newlines
@@ -175,8 +175,8 @@ namespace Ogre
                         node = ConcreteNodePtr(new ConcreteNode());
                         node->file = file;
                         node->line = token->line;
-                        node->type = token->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
-                        node->token = unquoted(token->lexeme, node->type == CNT_QUOTE);
+                        node->type = token->type == TID_WORD ? ConcreteNodeType::WORD : ConcreteNodeType::QUOTE;
+                        node->token = unquoted(token->lexeme, node->type == ConcreteNodeType::QUOTE);
 
                         // Insert the node
                         if(parent)
@@ -209,7 +209,7 @@ namespace Ogre
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_RBRACE;
+                    node->type = ConcreteNodeType::RBRACE;
 
                     // Consume all the newlines
                     i = skipNewlines(i, end);
@@ -252,7 +252,7 @@ namespace Ogre
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_COLON;
+                    node->type = ConcreteNodeType::COLON;
 
                     // The following token are the parent objects (base classes).
                     // Require at least one of them.
@@ -260,7 +260,7 @@ namespace Ogre
                     auto j = i + 1;
                     j = skipNewlines(j, end);
                     if(j == end || (j->type != TID_WORD && j->type != TID_QUOTE)) {
-                        OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                        OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                             std::format("expected object identifier at line {}", node->line),
                             "ScriptParser::parse");
                     }
@@ -271,7 +271,7 @@ namespace Ogre
                         tempNode->token = j->lexeme;
                         tempNode->file = file;
                         tempNode->line = j->line;
-                        tempNode->type = j->type == TID_WORD ? CNT_WORD : CNT_QUOTE;
+                        tempNode->type = j->type == TID_WORD ? ConcreteNodeType::WORD : ConcreteNodeType::QUOTE;
                         tempNode->parent = node.get();
                         node->children.push_back(tempNode);
                         ++j;
@@ -299,7 +299,7 @@ namespace Ogre
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_LBRACE;
+                    node->type = ConcreteNodeType::LBRACE;
 
                     // Consume all the newlines
                     i = skipNewlines(i, end);
@@ -331,14 +331,14 @@ namespace Ogre
                         parent = parent->parent;
 
                     // If the parent is currently a { then go up again
-                    if(parent && parent->type == CNT_LBRACE && parent->parent)
+                    if(parent && parent->type == ConcreteNodeType::LBRACE && parent->parent)
                         parent = parent->parent;
 
                     node = ConcreteNodePtr(new ConcreteNode());
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_RBRACE;
+                    node->type = ConcreteNodeType::RBRACE;
 
                     // Consume all the newlines
                     i = skipNewlines(i, end);
@@ -368,7 +368,7 @@ namespace Ogre
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_VARIABLE;
+                    node->type = ConcreteNodeType::VARIABLE;
 
                     // Insert the node
                     if(parent)
@@ -389,7 +389,7 @@ namespace Ogre
                     node->token = unquoted(token->lexeme);
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_QUOTE;
+                    node->type = ConcreteNodeType::QUOTE;
 
                     // Insert the node
                     if(parent)
@@ -410,7 +410,7 @@ namespace Ogre
                     node->token = token->lexeme;
                     node->file = file;
                     node->line = token->line;
-                    node->type = CNT_WORD;
+                    node->type = ConcreteNodeType::WORD;
 
                     // Insert the node
                     if(parent)
@@ -453,7 +453,7 @@ namespace Ogre
                 node->line = token->line;
                 node->parent = nullptr;
                 node->token = token->lexeme;
-                node->type = CNT_VARIABLE;
+                node->type = ConcreteNodeType::VARIABLE;
                 break;
             case TID_WORD:
                 node = ConcreteNodePtr(new ConcreteNode());
@@ -461,7 +461,7 @@ namespace Ogre
                 node->line = token->line;
                 node->parent = nullptr;
                 node->token = token->lexeme;
-                node->type = CNT_WORD;
+                node->type = ConcreteNodeType::WORD;
                 break;
             case TID_QUOTE:
                 node = ConcreteNodePtr(new ConcreteNode());
@@ -469,10 +469,10 @@ namespace Ogre
                 node->line = token->line;
                 node->parent = nullptr;
                 node->token= unquoted(token->lexeme);
-                node->type = CNT_QUOTE;
+                node->type = ConcreteNodeType::QUOTE;
                 break;
             default:
-                OGRE_EXCEPT(Exception::ERR_INVALID_STATE, 
+                OGRE_EXCEPT(ExceptionCodes::INVALID_STATE, 
                     ::std::format("unexpected token {} at line {}",
                         token->lexeme, token->line),
                     "ScriptParser::parseChunk");

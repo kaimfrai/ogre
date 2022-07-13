@@ -50,22 +50,22 @@ namespace Ogre {
     */
 
     /// @deprecated do not use
-    enum ParameterType
+    enum class ParameterType
     {
-        PT_BOOL,
-        PT_REAL,
-        PT_INT,
-        PT_UNSIGNED_INT,
-        PT_SHORT,
-        PT_UNSIGNED_SHORT,
-        PT_LONG,
-        PT_UNSIGNED_LONG,
-        PT_STRING,
-        PT_VECTOR3,
-        PT_MATRIX3,
-        PT_MATRIX4,
-        PT_QUATERNION,
-        PT_COLOURVALUE
+        BOOL,
+        REAL,
+        INT,
+        UNSIGNED_INT,
+        SHORT,
+        UNSIGNED_SHORT,
+        LONG,
+        UNSIGNED_LONG,
+        STRING,
+        VECTOR3,
+        MATRIX3,
+        MATRIX4,
+        QUATERNION,
+        COLOURVALUE
     };
 
     /// @deprecated directly pass parameter name
@@ -73,7 +73,7 @@ namespace Ogre {
     {
     public:
         String name;
-        ParameterDef(std::string_view newName, std::string_view = "", ParameterType = PT_INT)
+        ParameterDef(std::string_view newName, std::string_view = "", ParameterType = ParameterType::INT)
             : name(newName) {}
     };
     using ParameterList = std::vector<String>;

@@ -76,7 +76,7 @@ namespace Ogre {
     {
         // Check for invalid strategy name
         if (strategy->getName() == "default")
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Lod strategy name must not be \"default\".", "LodStrategyManager::addStrategy");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Lod strategy name must not be \"default\".", "LodStrategyManager::addStrategy");
 
         // Insert the strategy into the map with its name as the key
         mStrategies.insert(std::make_pair(strategy->getName(), strategy));

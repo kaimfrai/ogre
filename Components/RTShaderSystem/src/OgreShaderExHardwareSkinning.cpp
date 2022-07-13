@@ -99,9 +99,9 @@ auto HardwareSkinning::getType() const noexcept -> std::string_view
 }
 
 //-----------------------------------------------------------------------
-auto HardwareSkinning::getExecutionOrder() const noexcept -> int
+auto HardwareSkinning::getExecutionOrder() const noexcept -> FFPShaderStage
 {
-    return FFP_TRANSFORM;
+    return FFPShaderStage::TRANSFORM;
 }
 
 //-----------------------------------------------------------------------
@@ -109,7 +109,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
 {
     mSkinningType = skinningType;
     
-    if(skinningType == ST_DUAL_QUATERNION)
+    if(skinningType == SkinningType::DUAL_QUATERNION)
     {
         if(!mDualQuat)
         {
@@ -118,7 +118,7 @@ void HardwareSkinning::setHardwareSkinningParam(ushort boneCount, ushort weightC
 
         mActiveTechnique = mDualQuat;
     }
-    else //if(skinningType == ST_LINEAR)
+    else //if(skinningType == SkinningType::LINEAR)
     {
         if(!mLinear)
         {
@@ -200,7 +200,7 @@ auto HardwareSkinning::preAddToRenderState(const RenderState* renderState, Pass*
     //If there is no associated technique, default to linear skinning as a pass-through
     if(!mActiveTechnique)
     {
-        setHardwareSkinningParam(0, 0, ST_LINEAR, false, false);
+        setHardwareSkinningParam(0, 0, SkinningType::LINEAR, false, false);
     }
 
     int boneCount = mActiveTechnique->getBoneCount();
@@ -284,7 +284,7 @@ auto HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyA
         uint32 boneCount = 0;
         uint32 weightCount = 0;
         String skinningType = "";
-        SkinningType skinType = ST_LINEAR;
+        SkinningType skinType = SkinningType::LINEAR;
         bool correctAntipodalityHandling = false;
         bool scalingShearingSupport = false;
         
@@ -313,11 +313,11 @@ auto HardwareSkinningFactory::createInstance(ScriptCompiler* compiler, PropertyA
             //If the skinningType is not specified or is specified incorrectly, default to linear skinning.
             if(skinningType == "dual_quaternion")
             {
-                skinType = ST_DUAL_QUATERNION;
+                skinType = SkinningType::DUAL_QUATERNION;
             }
             else
             {
-                skinType = ST_LINEAR;
+                skinType = SkinningType::LINEAR;
             }
         }
         else
@@ -354,7 +354,7 @@ void HardwareSkinningFactory::writeInstance(MaterialSerializer* ser, SubRenderSt
     ser->writeValue(StringConverter::toString(hardSkinSrs->getWeightCount()));
 
     //Correct antipodality handling and scaling and shearing support are only really valid for dual quaternion skinning
-    if(hardSkinSrs->getSkinningType() == ST_DUAL_QUATERNION)
+    if(hardSkinSrs->getSkinningType() == SkinningType::DUAL_QUATERNION)
     {
         ser->writeValue("dual_quaternion");
         ser->writeValue(StringConverter::toString(hardSkinSrs->hasCorrectAntipodalityHandling()));
@@ -375,14 +375,14 @@ auto HardwareSkinningFactory::createInstanceImpl() -> SubRenderState*
 void HardwareSkinningFactory::setCustomShadowCasterMaterials(const SkinningType skinningType, const MaterialPtr& caster1Weight, const MaterialPtr& caster2Weight,
                                             const MaterialPtr& caster3Weight, const MaterialPtr& caster4Weight)
 {
-    if(skinningType == ST_DUAL_QUATERNION)
+    if(skinningType == SkinningType::DUAL_QUATERNION)
     {
         mCustomShadowCasterMaterialsDualQuaternion[0] = caster1Weight;
         mCustomShadowCasterMaterialsDualQuaternion[1] = caster2Weight;
         mCustomShadowCasterMaterialsDualQuaternion[2] = caster3Weight;
         mCustomShadowCasterMaterialsDualQuaternion[3] = caster4Weight;
     }
-    else //if(skinningType == ST_LINEAR)
+    else //if(skinningType == SkinningType::LINEAR)
     {
         mCustomShadowCasterMaterialsLinear[0] = caster1Weight;
         mCustomShadowCasterMaterialsLinear[1] = caster2Weight;
@@ -395,14 +395,14 @@ void HardwareSkinningFactory::setCustomShadowCasterMaterials(const SkinningType 
 void HardwareSkinningFactory::setCustomShadowReceiverMaterials(const SkinningType skinningType, const MaterialPtr& receiver1Weight, const MaterialPtr& receiver2Weight,
                                               const MaterialPtr& receiver3Weight, const MaterialPtr& receiver4Weight)
 {
-    if(skinningType == ST_DUAL_QUATERNION)
+    if(skinningType == SkinningType::DUAL_QUATERNION)
     {
         mCustomShadowReceiverMaterialsDualQuaternion[0] = receiver1Weight;
         mCustomShadowReceiverMaterialsDualQuaternion[1] = receiver2Weight;
         mCustomShadowReceiverMaterialsDualQuaternion[2] = receiver3Weight;
         mCustomShadowReceiverMaterialsDualQuaternion[3] = receiver4Weight;
     }
-    else //if(skinningType == ST_LINEAR)
+    else //if(skinningType == SkinningType::LINEAR)
     {
         mCustomShadowReceiverMaterialsLinear[0] = receiver1Weight;
         mCustomShadowReceiverMaterialsLinear[1] = receiver2Weight;
@@ -416,11 +416,11 @@ auto HardwareSkinningFactory::getCustomShadowCasterMaterial(const SkinningType s
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
-    if(skinningType == ST_DUAL_QUATERNION)
+    if(skinningType == SkinningType::DUAL_QUATERNION)
     {
         return mCustomShadowCasterMaterialsDualQuaternion[index];
     }
-    else //if(skinningType = ST_LINEAR)
+    else //if(skinningType = SkinningType::LINEAR)
     {
         return mCustomShadowCasterMaterialsLinear[index];
     }
@@ -431,11 +431,11 @@ auto HardwareSkinningFactory::getCustomShadowReceiverMaterial(const SkinningType
 {
     assert(index < HS_MAX_WEIGHT_COUNT);
 
-    if(skinningType == ST_DUAL_QUATERNION)
+    if(skinningType == SkinningType::DUAL_QUATERNION)
     {
         return mCustomShadowReceiverMaterialsDualQuaternion[index];
     }
-    else //if(skinningType == ST_LINEAR)
+    else //if(skinningType == SkinningType::LINEAR)
     {
         return mCustomShadowReceiverMaterialsLinear[index];
     }
@@ -498,26 +498,26 @@ auto HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
             
         //go over vertex deceleration 
         //check that they have blend indices and blend weights
-        const VertexElement* pDeclWeights = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS,0);
-        const VertexElement* pDeclIndexes = ro.vertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES,0);
+        const VertexElement* pDeclWeights = ro.vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_WEIGHTS,0);
+        const VertexElement* pDeclIndexes = ro.vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_INDICES,0);
         if ((pDeclWeights != nullptr) && (pDeclIndexes != nullptr))
         {
             isValidData = true;
             switch (pDeclWeights->getType())
             {
-            case VET_FLOAT1:
+            case VertexElementType::FLOAT1:
                 weightCount = 1;
                 break;
-            case VET_USHORT2_NORM:
-            case VET_FLOAT2:
+            case VertexElementType::USHORT2_NORM:
+            case VertexElementType::FLOAT2:
                 weightCount = 2;
                 break;
-            case VET_FLOAT3:
+            case VertexElementType::FLOAT3:
                 weightCount = 3;
                 break;
-            case VET_USHORT4_NORM:
-            case VET_UBYTE4_NORM:
-            case VET_FLOAT4:
+            case VertexElementType::USHORT4_NORM:
+            case VertexElementType::UBYTE4_NORM:
+            case VertexElementType::FLOAT4:
                 weightCount = 4;
                 break;
             default:

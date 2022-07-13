@@ -47,10 +47,10 @@ class GLRenderSystem;
         ~GLTextureManager() override;
 
         /// @copydoc TextureManager::getNativeFormat
-        auto getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat override;
+        auto getNativeFormat(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> PixelFormat override;
 
         /// @copydoc TextureManager::isHardwareFilteringSupported
-        auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+        auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage,
             bool preciseFormatOnly = false) -> bool override;
 
     protected:

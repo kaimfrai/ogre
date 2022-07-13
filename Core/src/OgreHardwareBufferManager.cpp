@@ -174,7 +174,7 @@ namespace Ogre {
             // copy buffer, use shadow buffer and make dynamic
             vbuf = makeBufferCopy(
                 sourceBuffer,
-                HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE,
+                HardwareBuffer::DYNAMIC_WRITE_ONLY_DISCARDABLE,
                 true);
         }
         else
@@ -221,7 +221,7 @@ namespace Ogre {
         if (i != mTempVertexBufferLicenses.end())
         {
             VertexBufferLicense& vbl = i->second;
-            assert(vbl.licenseType == BLT_AUTOMATIC_RELEASE);
+            assert(vbl.licenseType == BufferLicenseType::AUTOMATIC_RELEASE);
 
             vbl.expiredDelay = EXPIRED_DELAY_FRAME_THRESHOLD;
         }
@@ -256,7 +256,7 @@ namespace Ogre {
         {
             str << "HardwareBufferManager: No unused temporary vertex buffers found.";
         }
-        LogManager::getSingleton().logMessage(str.str(), LML_TRIVIAL);
+        LogManager::getSingleton().logMessage(str.str(), LogMessageLevel::Trivial);
     }
     //-----------------------------------------------------------------------
     void HardwareBufferManagerBase::_releaseBufferCopies(bool forceFreeUnused)
@@ -271,7 +271,7 @@ namespace Ogre {
         {
             auto icur = i++;
             VertexBufferLicense& vbl = icur->second;
-            if (vbl.licenseType == BLT_AUTOMATIC_RELEASE &&
+            if (vbl.licenseType == BufferLicenseType::AUTOMATIC_RELEASE &&
                 (forceFreeUnused || --vbl.expiredDelay <= 0))
             {
                 vbl.licensee->licenseExpired(vbl.buffer.get());
@@ -391,13 +391,13 @@ namespace Ogre {
     }
     auto HardwareBufferManagerBase::createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr
     {
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "not supported by RenderSystem");
+        OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "not supported by RenderSystem");
     }
     auto HardwareBufferManagerBase::createUniformBuffer(size_t sizeBytes,
                                                                      HardwareBufferUsage usage,
                                                                      bool useShadowBuffer) -> HardwareBufferPtr
     {
-        OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "not supported by RenderSystem");
+        OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "not supported by RenderSystem");
     }
     //-----------------------------------------------------------------------
     auto 
@@ -439,8 +439,8 @@ namespace Ogre {
 
         VertexDeclaration* decl = sourceData->vertexDeclaration;
         VertexBufferBinding* bind = sourceData->vertexBufferBinding;
-        const VertexElement *posElem = decl->findElementBySemantic(VES_POSITION);
-        const VertexElement *normElem = decl->findElementBySemantic(VES_NORMAL);
+        const VertexElement *posElem = decl->findElementBySemantic(VertexElementSemantic::POSITION);
+        const VertexElement *normElem = decl->findElementBySemantic(VertexElementSemantic::NORMAL);
 
         assert(posElem && "Positions are required");
 
@@ -476,12 +476,12 @@ namespace Ogre {
         if (positions && !destPositionBuffer)
         {
             destPositionBuffer = srcPositionBuffer->getManager()->allocateVertexBufferCopy(srcPositionBuffer, 
-                HardwareBufferManagerBase::BLT_AUTOMATIC_RELEASE, this);
+                HardwareBufferManagerBase::BufferLicenseType::AUTOMATIC_RELEASE, this);
         }
         if (normals && !posNormalShareBuffer && srcNormalBuffer && !destNormalBuffer)
         {
             destNormalBuffer = srcNormalBuffer->getManager()->allocateVertexBufferCopy(srcNormalBuffer, 
-                HardwareBufferManagerBase::BLT_AUTOMATIC_RELEASE, this);
+                HardwareBufferManagerBase::BufferLicenseType::AUTOMATIC_RELEASE, this);
         }
     }
     //-----------------------------------------------------------------------------

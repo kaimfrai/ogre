@@ -66,46 +66,46 @@ namespace Ogre::RTShader {
 
 	auto TriplanarTexturing::resolveParameters(ProgramSet* programSet) -> bool
 	{
-		Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
-		Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+		Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
+		Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 		Function* vsMain = vsProgram->getEntryPointFunction();
 		Function* psMain = psProgram->getEntryPointFunction();
 
 		// Resolve input vertex shader normal.
-		mVSInNormal = vsMain->resolveInputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+		mVSInNormal = vsMain->resolveInputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
 
 		// Resolve output vertex shader normal.
-		mVSOutNormal = vsMain->resolveOutputParameter(Parameter::SPC_NORMAL_OBJECT_SPACE);
+		mVSOutNormal = vsMain->resolveOutputParameter(Parameter::Content::NORMAL_OBJECT_SPACE);
 
 		// Resolve pixel shader output diffuse color.
-		mPSInDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
+		mPSInDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
 
 		// Resolve input pixel shader normal.
 		mPSInNormal = psMain->resolveInputParameter(mVSOutNormal);
 
 		// Resolve input vertex shader normal.
-		mVSInPosition = vsMain->resolveInputParameter(Parameter::SPC_POSITION_OBJECT_SPACE);
+		mVSInPosition = vsMain->resolveInputParameter(Parameter::Content::POSITION_OBJECT_SPACE);
 
-		mVSOutPosition = vsMain->resolveOutputParameter(Parameter::SPS_TEXTURE_COORDINATES, -1, Parameter::SPC_POSITION_OBJECT_SPACE, GCT_FLOAT4);
+		mVSOutPosition = vsMain->resolveOutputParameter(Parameter::Semantic::TEXTURE_COORDINATES, -1, Parameter::Content::POSITION_OBJECT_SPACE, GpuConstantType::FLOAT4);
 		mPSInPosition = psMain->resolveInputParameter(mVSOutPosition);
 
-		mSamplerFromX = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_x", mTextureSamplerIndexFromX);
+		mSamplerFromX = psProgram->resolveParameter(GpuConstantType::SAMPLER2D, "tp_sampler_from_x", mTextureSamplerIndexFromX);
 		if (mSamplerFromX.get() == nullptr)
 			return false;
 
-		mSamplerFromY = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_y", mTextureSamplerIndexFromY);
+		mSamplerFromY = psProgram->resolveParameter(GpuConstantType::SAMPLER2D, "tp_sampler_from_y", mTextureSamplerIndexFromY);
 		if (mSamplerFromY.get() == nullptr)
 			return false;
 
-		mSamplerFromZ = psProgram->resolveParameter(GCT_SAMPLER2D, "tp_sampler_from_z", mTextureSamplerIndexFromZ);
+		mSamplerFromZ = psProgram->resolveParameter(GpuConstantType::SAMPLER2D, "tp_sampler_from_z", mTextureSamplerIndexFromZ);
 		if (mSamplerFromZ.get() == nullptr)
 			return false;
 
-        mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
+        mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
         if (mPSOutDiffuse.get() == nullptr)    
             return false;
     
-        mPSTPParams = psProgram->resolveParameter(GCT_FLOAT3, "gTPParams");
+        mPSTPParams = psProgram->resolveParameter(GpuConstantType::FLOAT3, "gTPParams");
         if (mPSTPParams.get() == nullptr)
             return false;
         return true;
@@ -114,8 +114,8 @@ namespace Ogre::RTShader {
     //-----------------------------------------------------------------------
     auto TriplanarTexturing::resolveDependencies(ProgramSet* programSet) -> bool
     {
-        Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
-        Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+        Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
+        Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
 		psProgram->addDependency(FFP_LIB_TEXTURING);
         psProgram->addDependency("SGXLib_TriplanarTexturing");
         vsProgram->addDependency(FFP_LIB_COMMON);
@@ -125,16 +125,16 @@ namespace Ogre::RTShader {
     //-----------------------------------------------------------------------
 	auto TriplanarTexturing::addFunctionInvocations(ProgramSet* programSet) -> bool
 	{
-        Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+        Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
         Function* psMain = psProgram->getEntryPointFunction();
-        Program* vsProgram = programSet->getCpuProgram(GPT_VERTEX_PROGRAM);
+        Program* vsProgram = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM);
         Function* vsMain = vsProgram->getEntryPointFunction();
 
-        auto vsStage = vsMain->getStage(FFP_PS_TEXTURING);
+        auto vsStage = vsMain->getStage(std::to_underlying(FFPFragmentShaderStage::TEXTURING));
         vsStage.assign(mVSInNormal, mVSOutNormal);
         vsStage.assign(mVSInPosition, mVSOutPosition);
 
-        psMain->getStage(FFP_PS_TEXTURING)
+        psMain->getStage(std::to_underlying(FFPFragmentShaderStage::TEXTURING))
             .callFunction("SGX_TriplanarTexturing",
                           {In(mPSInDiffuse), In(mPSInNormal), In(mPSInPosition), In(mSamplerFromX),
                            In(mSamplerFromY), In(mSamplerFromZ), In(mPSTPParams), Out(mPSOutDiffuse)});
@@ -149,9 +149,9 @@ namespace Ogre::RTShader {
     }
 
     //-----------------------------------------------------------------------
-    auto TriplanarTexturing::getExecutionOrder() const noexcept -> int
+    auto TriplanarTexturing::getExecutionOrder() const noexcept -> FFPShaderStage
     {
-        return FFP_TEXTURING;
+        return FFPShaderStage::TEXTURING;
     }
 
     //-----------------------------------------------------------------------

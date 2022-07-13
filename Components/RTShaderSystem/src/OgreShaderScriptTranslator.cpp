@@ -131,7 +131,7 @@ void SGScriptTranslator::translateTextureUnit(ScriptCompiler* compiler, const Ab
         // Go over all the render state properties.
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
                 SubRenderState* subRenderState = ShaderGenerator::getSingleton().createSubRenderState(compiler, prop, texState, this);
@@ -185,7 +185,7 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
         // Go over all the render state properties.
         for(auto & i : obj->children)
         {
-            if(i->type == ANT_PROPERTY)
+            if(i->type == AbstractNodeType::PROPERTY)
             {
                 auto *prop = static_cast<PropertyAbstractNode*>(i.get());
 

@@ -454,9 +454,9 @@ namespace Ogre {
         void _notifyOrigin(std::string_view origin) { mOrigin = origin; }
 
         /** @copydoc MovableObject::setRenderQueueGroup */
-        void setRenderQueueGroup(uint8 queueID) override;
+        void setRenderQueueGroup(RenderQueueGroupID queueID) override;
         /** @copydoc MovableObject::setRenderQueueGroupAndPriority */
-        void setRenderQueueGroupAndPriority(uint8 queueID, ushort priority) override;
+        void setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority) override;
 
         /** Set whether or not particles are sorted according to the camera.
         @remarks
@@ -547,7 +547,7 @@ namespace Ogre {
         auto getEmitting() const noexcept -> bool;
 
         /// Override to return specific type flag
-        auto getTypeFlags() const noexcept -> uint32 override;
+        auto getTypeFlags() const noexcept -> QueryTypeMask override;
     private:
         AxisAlignedBox mAABB;
         Real mBoundingRadius;

@@ -180,7 +180,7 @@ class SubMesh;
             of the object with.
         */
         virtual void begin(std::string_view materialName,
-            RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST,
+            RenderOperation::OperationType opType = RenderOperation::OperationType::TRIANGLE_LIST,
             std::string_view groupName = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
         /** @overload
@@ -188,7 +188,7 @@ class SubMesh;
         @param opType The type of operation to use to render.
         */
         virtual void begin(const MaterialPtr& mat,
-            RenderOperation::OperationType opType = RenderOperation::OT_TRIANGLE_LIST);
+            RenderOperation::OperationType opType = RenderOperation::OperationType::TRIANGLE_LIST);
 
         /** Use before defining geometry to indicate how you intend to update the
             geometry.
@@ -199,11 +199,11 @@ class SubMesh;
         void setDynamic(bool dyn)
         {
             mBufferUsage =
-                dyn ? HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY : HardwareBuffer::HBU_STATIC_WRITE_ONLY;
+               dyn ? HardwareBuffer::DYNAMIC_WRITE_ONLY : HardwareBuffer::STATIC_WRITE_ONLY;
         }
 
         /** Gets whether this object is marked as dynamic */
-        auto getDynamic() const noexcept -> bool { return mBufferUsage & HardwareBuffer::HBU_DYNAMIC; }
+        auto getDynamic() const noexcept -> bool { return !!(mBufferUsage & HardwareBuffer::DYNAMIC); }
 
         /** Start the definition of an update to a part of the object.
         @remarks
@@ -236,7 +236,7 @@ class SubMesh;
 
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT3, VES_POSITION);
+                declareElement(VertexElementType::FLOAT3, VertexElementSemantic::POSITION);
             }
 
             mTempVertex.position = pos;
@@ -263,7 +263,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT3, VES_NORMAL);
+                declareElement(VertexElementType::FLOAT3, VertexElementSemantic::NORMAL);
             }
             mTempVertex.normal = norm;
         }
@@ -274,7 +274,7 @@ class SubMesh;
         @remarks
             Vertex tangents are most often used for dynamic lighting, and 
             their components should be normalised. 
-            Also, using tangent() you enable VES_TANGENT vertex semantic, which is not
+            Also, using tangent() you enable VertexElementSemantic::TANGENT vertex semantic, which is not
             supported on old non-SM2 cards.
         */
         void tangent(const Vector3& tan)
@@ -282,7 +282,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT3, VES_TANGENT);
+                declareElement(VertexElementType::FLOAT3, VertexElementSemantic::TANGENT);
             }
             mTempVertex.tangent = tan;
         }
@@ -303,7 +303,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT1, VES_TEXTURE_COORDINATES);
+                declareElement(VertexElementType::FLOAT1, VertexElementSemantic::TEXTURE_COORDINATES);
             }
             mTempVertex.texCoordDims[mTexCoordIndex] = 1;
             mTempVertex.texCoord[mTexCoordIndex].x = u;
@@ -316,7 +316,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT2, VES_TEXTURE_COORDINATES);
+                declareElement(VertexElementType::FLOAT2, VertexElementSemantic::TEXTURE_COORDINATES);
             }
             mTempVertex.texCoordDims[mTexCoordIndex] = 2;
             mTempVertex.texCoord[mTexCoordIndex].x = u;
@@ -330,7 +330,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT3, VES_TEXTURE_COORDINATES);
+                declareElement(VertexElementType::FLOAT3, VertexElementSemantic::TEXTURE_COORDINATES);
             }
             mTempVertex.texCoordDims[mTexCoordIndex] = 3;
             mTempVertex.texCoord[mTexCoordIndex].x = u;
@@ -351,7 +351,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_FLOAT4, VES_TEXTURE_COORDINATES);
+                declareElement(VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES);
             }
             mTempVertex.texCoordDims[mTexCoordIndex] = 4;
             mTempVertex.texCoord[mTexCoordIndex] = xyzw;
@@ -366,7 +366,7 @@ class SubMesh;
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             if (mFirstVertex && !mCurrentUpdating)
             {
-                declareElement(VET_COLOUR, VES_DIFFUSE);
+                declareElement(VertexElementType::COLOUR, VertexElementSemantic::DIFFUSE);
             }
             mTempVertex.colour = col;
         }
@@ -415,7 +415,7 @@ class SubMesh;
         {
             OgreAssert(mCurrentSection, "You must call begin() before this method");
             OgreAssert(mCurrentSection->getRenderOperation()->operationType ==
-                           RenderOperation::OT_TRIANGLE_LIST,
+                           RenderOperation::OperationType::TRIANGLE_LIST,
                        "This method is only valid on triangle lists");
             index(i1);
             index(i2);
@@ -581,7 +581,7 @@ class SubMesh;
         /** Implement this method to enable stencil shadows. */
         auto getShadowVolumeRenderableList(
             const Light* light, const HardwareIndexBufferPtr& indexBuffer,
-            size_t& indexBufferUsedSize, float extrusionDist, int flags = 0) -> const ShadowRenderableList& override;
+            size_t& indexBufferUsedSize, float extrusionDist, ShadowRenderableFlags flags = {}) -> const ShadowRenderableList& override;
 
         /// Built, renderable section of geometry
         class ManualObjectSection : public Renderable, public MovableAlloc
@@ -648,7 +648,7 @@ class SubMesh;
         
     private:
         /// Dynamic?
-        HardwareBuffer::Usage mBufferUsage{HardwareBuffer::HBU_STATIC_WRITE_ONLY};
+        HardwareBuffer::Usage mBufferUsage{HardwareBuffer::STATIC_WRITE_ONLY};
         /// List of subsections
         SectionList mSectionList;
         /// Current section

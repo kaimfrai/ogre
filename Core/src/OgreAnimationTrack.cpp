@@ -390,16 +390,16 @@ namespace Ogre {
             Vector3 base;
             switch(im)
             {
-            case Animation::IM_LINEAR:
+            case Animation::InterpolationMode::LINEAR:
                 // Interpolate linearly
                 // Rotation
                 // Interpolate to nearest rotation if mUseShortestRotationPath set
-                if (rim == Animation::RIM_LINEAR)
+                if (rim == Animation::RotationInterpolationMode::LINEAR)
                 {
                     kret->setRotation( Quaternion::nlerp(t, k1->getRotation(),
                         k2->getRotation(), mUseShortestRotationPath) );
                 }
-                else //if (rim == Animation::RIM_SPHERICAL)
+                else //if (rim == Animation::RotationInterpolationMode::SPHERICAL)
                 {
                     kret->setRotation( Quaternion::Slerp(t, k1->getRotation(),
                         k2->getRotation(), mUseShortestRotationPath) );
@@ -414,7 +414,7 @@ namespace Ogre {
                 kret->setScale( base + ((k2->getScale() - base) * t) );
                 break;
 
-            case Animation::IM_SPLINE:
+            case Animation::InterpolationMode::SPLINE:
                 // Spline interpolation
 
                 // Build splines if required
@@ -473,11 +473,11 @@ namespace Ogre {
         Quaternion rotate;
         Animation::RotationInterpolationMode rim =
             mParent->getRotationInterpolationMode();
-        if (rim == Animation::RIM_LINEAR)
+        if (rim == Animation::RotationInterpolationMode::LINEAR)
         {
             rotate = Quaternion::nlerp(weight, Quaternion::IDENTITY, kf.getRotation(), mUseShortestRotationPath);
         }
-        else //if (rim == Animation::RIM_SPHERICAL)
+        else //if (rim == Animation::RotationInterpolationMode::SPHERICAL)
         {
             rotate = Quaternion::Slerp(weight, Quaternion::IDENTITY, kf.getRotation(), mUseShortestRotationPath);
         }
@@ -686,20 +686,20 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::createVertexMorphKeyFrame(Real timePos) -> VertexMorphKeyFrame*
     {
-        OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
+        OgreAssert(mAnimationType == VertexAnimationType::MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::createVertexPoseKeyFrame(Real timePos) -> VertexPoseKeyFrame*
     {
-        OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
+        OgreAssert(mAnimationType == VertexAnimationType::POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(createKeyFrame(timePos));
     }
     //--------------------------------------------------------------------------
     void VertexAnimationTrack::getInterpolatedKeyFrame(const TimeIndex& timeIndex, KeyFrame* kf) const
     {
         // Only relevant for pose animation
-        if (mAnimationType == VAT_POSE)
+        if (mAnimationType == VertexAnimationType::POSE)
         {
             // Get keyframes
             KeyFrame *kf1, *kf2;
@@ -762,10 +762,10 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::getVertexAnimationIncludesNormals() const noexcept -> bool
     {
-        if (mAnimationType == VAT_NONE)
+        if (mAnimationType == VertexAnimationType::NONE)
             return false;
         
-        if (mAnimationType == VAT_MORPH)
+        if (mAnimationType == VertexAnimationType::MORPH)
         {
             bool normals = false;
             for (auto i = mKeyFrames.begin(); i != mKeyFrames.end(); ++i)
@@ -806,12 +806,12 @@ namespace Ogre {
         KeyFrame *kf1, *kf2;
         Real t = getKeyFramesAtTime(timeIndex, &kf1, &kf2);
 
-        if (mAnimationType == VAT_MORPH)
+        if (mAnimationType == VertexAnimationType::MORPH)
         {
             auto* vkf1 = static_cast<VertexMorphKeyFrame*>(kf1);
             auto* vkf2 = static_cast<VertexMorphKeyFrame*>(kf2);
 
-            if (mTargetMode == TM_HARDWARE)
+            if (mTargetMode == TargetMode::HARDWARE)
             {
                 // If target mode is hardware, need to bind our 2 keyframe buffers,
                 // one to main pos, one to morph target texcoord
@@ -822,7 +822,7 @@ namespace Ogre {
                 // NB we assume that position buffer is unshared, except for normals
                 // VertexDeclaration::getAutoOrganisedDeclaration should see to that
                 const VertexElement* posElem =
-                    data->vertexDeclaration->findElementBySemantic(VES_POSITION);
+                    data->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
                 // Set keyframe1 data as original position
                 data->vertexBufferBinding->setBinding(
                     posElem->getSource(), vkf1->getVertexBuffer());
@@ -907,7 +907,7 @@ namespace Ogre {
     void VertexAnimationTrack::applyPoseToVertexData(const Pose* pose,
         VertexData* data, Real influence)
     {
-        if (mTargetMode == TM_HARDWARE)
+        if (mTargetMode == TargetMode::HARDWARE)
         {
             // Hardware
             // If target mode is hardware, need to bind our pose buffer
@@ -940,13 +940,13 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::getVertexMorphKeyFrame(unsigned short index) const -> VertexMorphKeyFrame*
     {
-        OgreAssert(mAnimationType == VAT_MORPH, "Type mismatch");
+        OgreAssert(mAnimationType == VertexAnimationType::MORPH, "Type mismatch");
         return static_cast<VertexMorphKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::getVertexPoseKeyFrame(unsigned short index) const -> VertexPoseKeyFrame*
     {
-        OgreAssert(mAnimationType == VAT_POSE, "Type mismatch");
+        OgreAssert(mAnimationType == VertexAnimationType::POSE, "Type mismatch");
         return static_cast<VertexPoseKeyFrame*>(getKeyFrame(index));
     }
     //--------------------------------------------------------------------------
@@ -955,9 +955,9 @@ namespace Ogre {
         switch(mAnimationType)
         {
         default:
-        case VAT_MORPH:
+        case VertexAnimationType::MORPH:
             return new VertexMorphKeyFrame(this, time);
-        case VAT_POSE:
+        case VertexAnimationType::POSE:
             return new VertexPoseKeyFrame(this, time);
         };
 
@@ -965,7 +965,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto VertexAnimationTrack::hasNonZeroKeyFrames() const noexcept -> bool
     {
-        if (mAnimationType == VAT_MORPH)
+        if (mAnimationType == VertexAnimationType::MORPH)
         {
             return !mKeyFrames.empty();
         }

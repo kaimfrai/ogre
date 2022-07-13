@@ -118,13 +118,13 @@ namespace Ogre {
             switch (format)
             {
                 default:
-                case PF_DEPTH16:
-                    format = PF_FLOAT16_R;
+                case PixelFormat::DEPTH16:
+                    format = PixelFormat::FLOAT16_R;
                     break;
-                case PF_DEPTH24_STENCIL8:
-                case PF_DEPTH32F:
-                case PF_DEPTH32:
-                    format = PF_FLOAT32_R;
+                case PixelFormat::DEPTH24_STENCIL8:
+                case PixelFormat::DEPTH32F:
+                case PixelFormat::DEPTH32:
+                    format = PixelFormat::FLOAT32_R;
                     break;
             }
         }
@@ -133,17 +133,17 @@ namespace Ogre {
             /// Find first alternative
             switch (PixelUtil::getComponentType(format))
             {
-            case PCT_BYTE:
-                format = PF_BYTE_RGBA; // native endian
+            case PixelComponentType::BYTE:
+                format = PixelFormat::BYTE_RGBA; // native endian
                 break;
-            case PCT_SHORT:
-                format = PF_SHORT_RGBA;
+            case PixelComponentType::SHORT:
+                format = PixelFormat::SHORT_RGBA;
                 break;
-            case PCT_FLOAT16:
-                format = PF_FLOAT16_RGBA;
+            case PixelComponentType::FLOAT16:
+                format = PixelFormat::FLOAT16_RGBA;
                 break;
-            case PCT_FLOAT32:
-                format = PF_FLOAT32_RGBA;
+            case PixelComponentType::FLOAT32:
+                format = PixelFormat::FLOAT32_RGBA;
                 break;
             default:
                 break;
@@ -154,7 +154,7 @@ namespace Ogre {
             return format;
 
         /// If none at all, return to default
-        return PF_BYTE_RGBA; // native endian
+        return PixelFormat::BYTE_RGBA; // native endian
     }
 
     void GLRTTManager::releaseRenderBuffer(const GLSurfaceDesc &surface)

@@ -41,9 +41,9 @@ void GLTextureCommon::getCustomAttribute(std::string_view name, void* pData)
         *static_cast<uint*>(pData) = mTextureID;
 }
 
-auto GLTextureCommon::getMaxMipmaps() noexcept -> uint32 {
+auto GLTextureCommon::getMaxMipmaps() noexcept -> TextureMipmap {
     // see ARB_texture_non_power_of_two
-    return Bitwise::mostSignificantBitSet(std::max(mWidth, std::max(mHeight, mDepth)));
+    return static_cast<TextureMipmap>(Bitwise::mostSignificantBitSet(std::max(mWidth, std::max(mHeight, mDepth))));
 }
 
 } /* namespace Ogre */

@@ -45,8 +45,8 @@ HLSLProgramWriter::HLSLProgramWriter()
 
     if(mIsShaderModel4)
     {
-        mGpuConstTypeMap[GCT_SAMPLER2DARRAY] = "Sampler2DArray";
-        mGpuConstTypeMap[GCT_SAMPLER2DSHADOW] = "Sampler2DShadow";
+        mGpuConstTypeMap[GpuConstantType::SAMPLER2DARRAY] = "Sampler2DArray";
+        mGpuConstTypeMap[GpuConstantType::SAMPLER2DSHADOW] = "Sampler2DShadow";
     }
 }
 

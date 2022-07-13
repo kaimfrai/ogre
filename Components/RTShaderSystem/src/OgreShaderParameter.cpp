@@ -174,7 +174,7 @@ namespace Ogre::RTShader {
     };
 
 //-----------------------------------------------------------------------
-Parameter::Parameter() : mName(""), mType(GCT_UNKNOWN), mSemantic(SPS_UNKNOWN), mIndex(0), mContent(SPC_UNKNOWN), mSize(0), mUsed(false)
+Parameter::Parameter() : mName(""), mType(GpuConstantType::UNKNOWN), mSemantic(Semantic::UNKNOWN), mIndex(0), mContent(Content::UNKNOWN), mSize(0), mUsed(false)
 {
 }
 
@@ -190,38 +190,38 @@ Parameter::Parameter(GpuConstantType type, std::string_view name,
 UniformParameter::UniformParameter(GpuConstantType type, std::string_view name,
                  const Semantic& semantic, int index, 
                  const Content& content,
-                 uint16 variability, size_t size) : Parameter(type, name, semantic, index, content, size)
+                 GpuParamVariability variability, size_t size) : Parameter(type, name, semantic, index, content, size)
 {
     mAutoConstantData    = ::std::monostate{};
     mVariability            = variability;
     mParamsPtr              = nullptr;
     mPhysicalIndex          = -1;
-    mAutoConstantType       = GpuProgramParameters::ACT_UNKNOWN;
+    mAutoConstantType       = GpuProgramParameters::AutoConstantType::UNKNOWN;
 }
 
 static auto getGCType(const GpuProgramParameters::AutoConstantDefinition* def) -> GpuConstantType
 {
-    assert(def->elementType == GpuProgramParameters::ET_REAL);
+    assert(def->elementType == GpuProgramParameters::ElementType::REAL);
 
     switch (def->elementCount)
     {
     default:
     case 1:
-        return GCT_FLOAT1;
+        return GpuConstantType::FLOAT1;
     case 2:
-        return GCT_FLOAT2;
+        return GpuConstantType::FLOAT2;
     case 3:
-        return GCT_FLOAT3;
+        return GpuConstantType::FLOAT3;
     case 4:
-        return GCT_FLOAT4;
+        return GpuConstantType::FLOAT4;
     case 8:
-        return GCT_MATRIX_2X4;
+        return GpuConstantType::MATRIX_2X4;
     case 9:
-        return GCT_MATRIX_3X3;
+        return GpuConstantType::MATRIX_3X3;
     case 12:
-        return GCT_MATRIX_3X4;
+        return GpuConstantType::MATRIX_3X4;
     case 16:
-        return GCT_MATRIX_4X4;
+        return GpuConstantType::MATRIX_4X4;
     }
 }
 
@@ -239,12 +239,12 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
         std::ranges::replace(mName, '.', '_'); 
     }
     mType               = getGCType(parameterDef);
-    mSemantic           = SPS_UNKNOWN;
+    mSemantic           = Semantic::UNKNOWN;
     mIndex              = -1;
-    mContent            = SPC_UNKNOWN;
+    mContent            = Content::UNKNOWN;
     mAutoConstantType   = autoType;
     mAutoConstantData = fAutoConstantData;
-    mVariability        = (uint16)GPV_GLOBAL;
+    mVariability        = GpuParamVariability::GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
@@ -264,12 +264,12 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
         std::ranges::replace(mName, '.', '_'); 
     }
     mType               = type;
-    mSemantic           = SPS_UNKNOWN;
+    mSemantic           = Semantic::UNKNOWN;
     mIndex              = -1;
-    mContent            = SPC_UNKNOWN;
+    mContent            = Content::UNKNOWN;
     mAutoConstantType   = autoType;
     mAutoConstantData = fAutoConstantData;
-    mVariability        = (uint16)GPV_GLOBAL;
+    mVariability        = GpuParamVariability::GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
@@ -285,12 +285,12 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     if (nAutoConstantData != 0)
         mName += StringConverter::toString(nAutoConstantData);
     mType               = getGCType(parameterDef);
-    mSemantic           = SPS_UNKNOWN;
+    mSemantic           = Semantic::UNKNOWN;
     mIndex              = -1;
-    mContent            = SPC_UNKNOWN;
+    mContent            = Content::UNKNOWN;
     mAutoConstantType   = autoType;
     mAutoConstantData = nAutoConstantData;
-    mVariability        = (uint16)GPV_GLOBAL;
+    mVariability        = GpuParamVariability::GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
@@ -306,12 +306,12 @@ UniformParameter::UniformParameter(GpuProgramParameters::AutoConstantType autoTy
     if (nAutoConstantData != 0)
         mName += StringConverter::toString(nAutoConstantData);
     mType               = type;
-    mSemantic           = SPS_UNKNOWN;
+    mSemantic           = Semantic::UNKNOWN;
     mIndex              = -1;
-    mContent            = SPC_UNKNOWN;
+    mContent            = Content::UNKNOWN;
     mAutoConstantType   = autoType;
     mAutoConstantData = nAutoConstantData;
-    mVariability        = (uint16)GPV_GLOBAL;
+    mVariability        = GpuParamVariability::GLOBAL;
     mParamsPtr           = nullptr;
     mPhysicalIndex       = -1;
     mSize                = size;
@@ -335,34 +335,34 @@ void UniformParameter::bind(GpuProgramParametersSharedPtr paramsPtr)
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInPosition(int index, Parameter::Content content) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iPos_{}", index),
-                                       Parameter::SPS_POSITION, index,
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT4, ::std::format("iPos_{}", index),
+                                       Parameter::Semantic::POSITION, index,
                                        content);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutPosition(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("oPos_{}", index),
-        Parameter::SPS_POSITION, index, 
-        Parameter::SPC_POSITION_PROJECTIVE_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT4, ::std::format("oPos_{}", index),
+        Parameter::Semantic::POSITION, index,
+        Parameter::Content::POSITION_PROJECTIVE_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iNormal_{}", index),
-        Parameter::SPS_NORMAL, index, 
-        Parameter::SPC_NORMAL_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("iNormal_{}", index),
+        Parameter::Semantic::NORMAL, index,
+        Parameter::Content::NORMAL_OBJECT_SPACE);
 }
 
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInWeights(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iBlendWeights_{}", index),
-        Parameter::SPS_BLEND_WEIGHTS, index, 
-        Parameter::SPC_BLEND_WEIGHTS);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT4, ::std::format("iBlendWeights_{}", index),
+        Parameter::Semantic::BLEND_WEIGHTS, index,
+        Parameter::Content::BLEND_WEIGHTS);
 }
 
 
@@ -370,66 +370,66 @@ auto ParameterFactory::createInWeights(int index) -> ParameterPtr
 auto ParameterFactory::createInIndices(int index) -> ParameterPtr
 {
 	return std::make_shared<Parameter>(
-		GCT_UINT4
+		GpuConstantType::UINT4
 	, ::std::format("iBlendIndices_{}", index),
-        Parameter::SPS_BLEND_INDICES, index, 
-        Parameter::SPC_BLEND_INDICES);
+        Parameter::Semantic::BLEND_INDICES, index,
+        Parameter::Content::BLEND_INDICES);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInBiNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iBiNormal_{}", index),
-        Parameter::SPS_BINORMAL, index, 
-        Parameter::SPC_BINORMAL_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("iBiNormal_{}", index),
+        Parameter::Semantic::BINORMAL, index,
+        Parameter::Content::BINORMAL_OBJECT_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInTangent(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("iTangent_{}", index),
-        Parameter::SPS_TANGENT, index, 
-        Parameter::SPC_TANGENT_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("iTangent_{}", index),
+        Parameter::Semantic::TANGENT, index,
+        Parameter::Content::TANGENT_OBJECT_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oNormal_{}", index),
-        Parameter::SPS_NORMAL, index, 
-        Parameter::SPC_NORMAL_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("oNormal_{}", index),
+        Parameter::Semantic::NORMAL, index,
+        Parameter::Content::NORMAL_OBJECT_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutBiNormal(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oBiNormal_{}", index),
-        Parameter::SPS_BINORMAL, index, 
-        Parameter::SPC_BINORMAL_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("oBiNormal_{}", index),
+        Parameter::Semantic::BINORMAL, index,
+        Parameter::Content::BINORMAL_OBJECT_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutTangent(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT3, ::std::format("oTangent_{}", index),
-        Parameter::SPS_TANGENT, index, 
-        Parameter::SPC_TANGENT_OBJECT_SPACE);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT3, ::std::format("oTangent_{}", index),
+        Parameter::Semantic::TANGENT, index,
+        Parameter::Content::TANGENT_OBJECT_SPACE);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInColor(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("iColor_{}", index),
-        Parameter::SPS_COLOR, index, 
-        index == 0 ? Parameter::SPC_COLOR_DIFFUSE : Parameter::SPC_COLOR_SPECULAR);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT4, ::std::format("iColor_{}", index),
+        Parameter::Semantic::COLOR, index,
+        index == 0 ? Parameter::Content::COLOR_DIFFUSE : Parameter::Content::COLOR_SPECULAR);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutColor(int index) -> ParameterPtr
 {
-    return std::make_shared<Parameter>(GCT_FLOAT4, ::std::format("oColor_{}", index),
-        Parameter::SPS_COLOR, index, 
-        index == 0 ? Parameter::SPC_COLOR_DIFFUSE : Parameter::SPC_COLOR_SPECULAR);
+    return std::make_shared<Parameter>(GpuConstantType::FLOAT4, ::std::format("oColor_{}", index),
+        Parameter::Semantic::COLOR, index,
+        index == 0 ? Parameter::Content::COLOR_DIFFUSE : Parameter::Content::COLOR_SPECULAR);
 }
 
 //-----------------------------------------------------------------------
@@ -437,38 +437,38 @@ auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Paramet
 {
     switch (type)
     {
-    case GCT_FLOAT1:
-    case GCT_FLOAT2:
-    case GCT_FLOAT3:
-    case GCT_FLOAT4:
-    case GCT_MATRIX_2X2:
-    case GCT_MATRIX_2X3:
-    case GCT_MATRIX_2X4:
-    case GCT_MATRIX_3X2:
-    case GCT_MATRIX_3X3:
-    case GCT_MATRIX_3X4:
-    case GCT_MATRIX_4X2:
-    case GCT_MATRIX_4X3:
-    case GCT_MATRIX_4X4:
-    case GCT_INT1:
-    case GCT_INT2:
-    case GCT_INT3:
-    case GCT_INT4:
-    case GCT_UINT1:
-    case GCT_UINT2:
-    case GCT_UINT3:
-    case GCT_UINT4:
+    case GpuConstantType::FLOAT1:
+    case GpuConstantType::FLOAT2:
+    case GpuConstantType::FLOAT3:
+    case GpuConstantType::FLOAT4:
+    case GpuConstantType::MATRIX_2X2:
+    case GpuConstantType::MATRIX_2X3:
+    case GpuConstantType::MATRIX_2X4:
+    case GpuConstantType::MATRIX_3X2:
+    case GpuConstantType::MATRIX_3X3:
+    case GpuConstantType::MATRIX_3X4:
+    case GpuConstantType::MATRIX_4X2:
+    case GpuConstantType::MATRIX_4X3:
+    case GpuConstantType::MATRIX_4X4:
+    case GpuConstantType::INT1:
+    case GpuConstantType::INT2:
+    case GpuConstantType::INT3:
+    case GpuConstantType::INT4:
+    case GpuConstantType::UINT1:
+    case GpuConstantType::UINT2:
+    case GpuConstantType::UINT3:
+    case GpuConstantType::UINT4:
         return std::make_shared<Parameter>(type, std::format("iTexcoord_{}", index),
-                                           Parameter::SPS_TEXTURE_COORDINATES, index, content);
+                                           Parameter::Semantic::TEXTURE_COORDINATES, index, content);
     default:
-    case GCT_SAMPLER1D:
-    case GCT_SAMPLER2D:
-    case GCT_SAMPLER2DARRAY:
-    case GCT_SAMPLER3D:
-    case GCT_SAMPLERCUBE:
-    case GCT_SAMPLER1DSHADOW:
-    case GCT_SAMPLER2DSHADOW:
-    case GCT_UNKNOWN:
+    case GpuConstantType::SAMPLER1D:
+    case GpuConstantType::SAMPLER2D:
+    case GpuConstantType::SAMPLER2DARRAY:
+    case GpuConstantType::SAMPLER3D:
+    case GpuConstantType::SAMPLERCUBE:
+    case GpuConstantType::SAMPLER1DSHADOW:
+    case GpuConstantType::SAMPLER2DSHADOW:
+    case GpuConstantType::UNKNOWN:
         break;
     }
 
@@ -480,38 +480,38 @@ auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parame
 {
     switch (type)
     {
-    case GCT_FLOAT1:
-    case GCT_FLOAT2:
-    case GCT_FLOAT3:
-    case GCT_FLOAT4:
+    case GpuConstantType::FLOAT1:
+    case GpuConstantType::FLOAT2:
+    case GpuConstantType::FLOAT3:
+    case GpuConstantType::FLOAT4:
         return std::make_shared<Parameter>(type, std::format("oTexcoord_{}", index),
-                                           Parameter::SPS_TEXTURE_COORDINATES, index, content);
+                                           Parameter::Semantic::TEXTURE_COORDINATES, index, content);
     default:
-    case GCT_SAMPLER1D:
-    case GCT_SAMPLER2D:
-    case GCT_SAMPLER2DARRAY:
-    case GCT_SAMPLER3D:
-    case GCT_SAMPLERCUBE:
-    case GCT_SAMPLER1DSHADOW:
-    case GCT_SAMPLER2DSHADOW:
-    case GCT_MATRIX_2X2:
-    case GCT_MATRIX_2X3:
-    case GCT_MATRIX_2X4:
-    case GCT_MATRIX_3X2:
-    case GCT_MATRIX_3X3:
-    case GCT_MATRIX_3X4:
-    case GCT_MATRIX_4X2:
-    case GCT_MATRIX_4X3:
-    case GCT_MATRIX_4X4:
-    case GCT_INT1:
-    case GCT_INT2:
-    case GCT_INT3:
-    case GCT_INT4:
-    case GCT_UINT1:
-    case GCT_UINT2:
-    case GCT_UINT3:
-    case GCT_UINT4:
-    case GCT_UNKNOWN:
+    case GpuConstantType::SAMPLER1D:
+    case GpuConstantType::SAMPLER2D:
+    case GpuConstantType::SAMPLER2DARRAY:
+    case GpuConstantType::SAMPLER3D:
+    case GpuConstantType::SAMPLERCUBE:
+    case GpuConstantType::SAMPLER1DSHADOW:
+    case GpuConstantType::SAMPLER2DSHADOW:
+    case GpuConstantType::MATRIX_2X2:
+    case GpuConstantType::MATRIX_2X3:
+    case GpuConstantType::MATRIX_2X4:
+    case GpuConstantType::MATRIX_3X2:
+    case GpuConstantType::MATRIX_3X3:
+    case GpuConstantType::MATRIX_3X4:
+    case GpuConstantType::MATRIX_4X2:
+    case GpuConstantType::MATRIX_4X3:
+    case GpuConstantType::MATRIX_4X4:
+    case GpuConstantType::INT1:
+    case GpuConstantType::INT2:
+    case GpuConstantType::INT3:
+    case GpuConstantType::INT4:
+    case GpuConstantType::UINT1:
+    case GpuConstantType::UINT2:
+    case GpuConstantType::UINT3:
+    case GpuConstantType::UINT4:
+    case GpuConstantType::UNKNOWN:
         break;
     }
 
@@ -523,42 +523,42 @@ auto ParameterFactory::createSampler(GpuConstantType type, int index) -> Uniform
 {
     switch (type)
     {
-    case GCT_SAMPLER1D:
+    case GpuConstantType::SAMPLER1D:
         return createSampler1D(index);
 
-    case GCT_SAMPLER2D:
+    case GpuConstantType::SAMPLER2D:
         return createSampler2D(index);
 
-    case GCT_SAMPLER2DARRAY:
+    case GpuConstantType::SAMPLER2DARRAY:
         return createSampler2DArray(index);
 
-    case GCT_SAMPLER3D:
+    case GpuConstantType::SAMPLER3D:
         return createSampler3D(index);
 
-    case GCT_SAMPLERCUBE:
+    case GpuConstantType::SAMPLERCUBE:
         return createSamplerCUBE(index);
 
     default:
-    case GCT_SAMPLER1DSHADOW:
-    case GCT_SAMPLER2DSHADOW:
-    case GCT_MATRIX_2X2:
-    case GCT_MATRIX_2X3:
-    case GCT_MATRIX_2X4:
-    case GCT_MATRIX_3X2:
-    case GCT_MATRIX_3X3:
-    case GCT_MATRIX_3X4:
-    case GCT_MATRIX_4X2:
-    case GCT_MATRIX_4X3:
-    case GCT_MATRIX_4X4:
-    case GCT_INT1:
-    case GCT_INT2:
-    case GCT_INT3:
-    case GCT_INT4:
-    case GCT_UINT1:
-    case GCT_UINT2:
-    case GCT_UINT3:
-    case GCT_UINT4:
-    case GCT_UNKNOWN:
+    case GpuConstantType::SAMPLER1DSHADOW:
+    case GpuConstantType::SAMPLER2DSHADOW:
+    case GpuConstantType::MATRIX_2X2:
+    case GpuConstantType::MATRIX_2X3:
+    case GpuConstantType::MATRIX_2X4:
+    case GpuConstantType::MATRIX_3X2:
+    case GpuConstantType::MATRIX_3X3:
+    case GpuConstantType::MATRIX_3X4:
+    case GpuConstantType::MATRIX_4X2:
+    case GpuConstantType::MATRIX_4X3:
+    case GpuConstantType::MATRIX_4X4:
+    case GpuConstantType::INT1:
+    case GpuConstantType::INT2:
+    case GpuConstantType::INT3:
+    case GpuConstantType::INT4:
+    case GpuConstantType::UINT1:
+    case GpuConstantType::UINT2:
+    case GpuConstantType::UINT3:
+    case GpuConstantType::UINT4:
+    case GpuConstantType::UNKNOWN:
         break;
     }
 
@@ -569,86 +569,86 @@ auto ParameterFactory::createSampler(GpuConstantType type, int index) -> Uniform
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler1D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER1D, ::std::format("gSampler1D_{}", index),
-        Parameter::SPS_UNKNOWN, index, 
-        Parameter::SPC_UNKNOWN,
-        (uint16)GPV_GLOBAL, 1);
+    return std::make_shared<UniformParameter>(GpuConstantType::SAMPLER1D, ::std::format("gSampler1D_{}", index),
+        Parameter::Semantic::UNKNOWN, index,
+        Parameter::Content::UNKNOWN,
+        GpuParamVariability::GLOBAL, 1);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler2D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER2D, ::std::format("gSampler2D_{}", index),
-        Parameter::SPS_UNKNOWN, index, 
-        Parameter::SPC_UNKNOWN,
-        (uint16)GPV_GLOBAL, 1);
+    return std::make_shared<UniformParameter>(GpuConstantType::SAMPLER2D, ::std::format("gSampler2D_{}", index),
+        Parameter::Semantic::UNKNOWN, index,
+        Parameter::Content::UNKNOWN,
+        GpuParamVariability::GLOBAL, 1);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler2DArray(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER2DARRAY, ::std::format("gSampler2DArray_{}", index),
-                                                         Parameter::SPS_UNKNOWN, index, 
-                                                         Parameter::SPC_UNKNOWN,
-                                                         (uint16)GPV_GLOBAL, 1);
+    return std::make_shared<UniformParameter>(GpuConstantType::SAMPLER2DARRAY, ::std::format("gSampler2DArray_{}", index),
+                                                         Parameter::Semantic::UNKNOWN, index,
+                                                         Parameter::Content::UNKNOWN,
+                                                         GpuParamVariability::GLOBAL, 1);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler3D(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLER3D, ::std::format("gSampler3D_{}", index),
-        Parameter::SPS_UNKNOWN, index, 
-        Parameter::SPC_UNKNOWN,
-        (uint16)GPV_GLOBAL, 1);
+    return std::make_shared<UniformParameter>(GpuConstantType::SAMPLER3D, ::std::format("gSampler3D_{}", index),
+        Parameter::Semantic::UNKNOWN, index,
+        Parameter::Content::UNKNOWN,
+        GpuParamVariability::GLOBAL, 1);
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSamplerCUBE(int index) -> UniformParameterPtr
 {
-    return std::make_shared<UniformParameter>(GCT_SAMPLERCUBE, ::std::format("gSamplerCUBE_{}", index),
-        Parameter::SPS_UNKNOWN, index, 
-        Parameter::SPC_UNKNOWN,
-        (uint16)GPV_GLOBAL, 1);
+    return std::make_shared<UniformParameter>(GpuConstantType::SAMPLERCUBE, ::std::format("gSamplerCUBE_{}", index),
+        Parameter::Semantic::UNKNOWN, index,
+        Parameter::Content::UNKNOWN,
+        GpuParamVariability::GLOBAL, 1);
 }
 //-----------------------------------------------------------------------
 auto ParameterFactory::createConstParam(const Vector2& val) -> ParameterPtr
 {
-    return ParameterPtr(new ConstParameterVec2(val, GCT_FLOAT2, Parameter::SPS_UNKNOWN,
-                                                    Parameter::SPC_UNKNOWN));
+    return ParameterPtr(new ConstParameterVec2(val, GpuConstantType::FLOAT2, Parameter::Semantic::UNKNOWN,
+                                                    Parameter::Content::UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createConstParam(const Vector3& val) -> ParameterPtr
 {
-    return ParameterPtr(new ConstParameterVec3(val, GCT_FLOAT3, Parameter::SPS_UNKNOWN,
-                                                    Parameter::SPC_UNKNOWN));
+    return ParameterPtr(new ConstParameterVec3(val, GpuConstantType::FLOAT3, Parameter::Semantic::UNKNOWN,
+                                                    Parameter::Content::UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createConstParam(const Vector4& val) -> ParameterPtr
 {
-    return ParameterPtr(new ConstParameterVec4(val, GCT_FLOAT4, Parameter::SPS_UNKNOWN,
-                                                    Parameter::SPC_UNKNOWN));
+    return ParameterPtr(new ConstParameterVec4(val, GpuConstantType::FLOAT4, Parameter::Semantic::UNKNOWN,
+                                                    Parameter::Content::UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createConstParam(float val) -> ParameterPtr
 {
-    return ParameterPtr(new ConstParameterFloat(val, GCT_FLOAT1, Parameter::SPS_UNKNOWN,
-                                                     Parameter::SPC_UNKNOWN));
+    return ParameterPtr(new ConstParameterFloat(val, GpuConstantType::FLOAT1, Parameter::Semantic::UNKNOWN,
+                                                     Parameter::Content::UNKNOWN));
 }
 
 //-----------------------------------------------------------------------
 auto ParameterFactory::createUniform(GpuConstantType type, 
-                                             int index, uint16 variability,
+                                             int index, GpuParamVariability variability,
                                              std::string_view suggestedName,
                                              size_t size) -> UniformParameterPtr
 {
     UniformParameterPtr param;
     
     param = std::make_shared<UniformParameter>(type, std::format("{}{}", suggestedName, index),
-        Parameter::SPS_UNKNOWN, index, 
-        Parameter::SPC_UNKNOWN, variability, size);
+        Parameter::Semantic::UNKNOWN, index,
+        Parameter::Content::UNKNOWN, variability, size);
         
     return param;
 }

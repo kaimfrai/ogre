@@ -7,7 +7,7 @@ auto main(int argc, char *argv[]) -> int
 {
     Ogre::LogManager logMgr{};
     logMgr.createLog("OgreTest.log", true, false);
-    logMgr.setMinLogLevel(Ogre::LML_TRIVIAL);
+    logMgr.setMinLogLevel(Ogre::LogMessageLevel::Trivial);
 
     ::testing::InitGoogleTest(&argc, argv);
 

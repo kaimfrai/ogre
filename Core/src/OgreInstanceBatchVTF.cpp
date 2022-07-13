@@ -156,11 +156,11 @@ class RenderQueue;
     void BaseInstanceBatchVTF::retrieveBoneIdx( VertexData *baseVertexData, HWBoneIdxVec &outBoneIdx )
     {
         const VertexElement *ve = baseVertexData->vertexDeclaration->
-                                                            findElementBySemantic( VES_BLEND_INDICES );
-        const VertexElement *veWeights = baseVertexData->vertexDeclaration->findElementBySemantic( VES_BLEND_WEIGHTS );
+                                                            findElementBySemantic( VertexElementSemantic::BLEND_INDICES );
+        const VertexElement *veWeights = baseVertexData->vertexDeclaration->findElementBySemantic( VertexElementSemantic::BLEND_WEIGHTS );
         
         HardwareVertexBufferSharedPtr buff = baseVertexData->vertexBufferBinding->getBuffer(ve->getSource());
-        HardwareBufferLockGuard baseVertexLock(buff, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard baseVertexLock(buff, HardwareBuffer::LockOptions::READ_ONLY);
         char const *baseBuffer = static_cast<char const*>(baseVertexLock.pData);
 
         for( size_t i=0; i<baseVertexData->vertexCount; ++i )
@@ -183,11 +183,11 @@ class RenderQueue;
     //-----------------------------------------------------------------------
     void BaseInstanceBatchVTF::retrieveBoneIdxWithWeights(VertexData *baseVertexData, HWBoneIdxVec &outBoneIdx, HWBoneWgtVec &outBoneWgt)
     {
-        const VertexElement *ve = baseVertexData->vertexDeclaration->findElementBySemantic( VES_BLEND_INDICES );
-        const VertexElement *veWeights = baseVertexData->vertexDeclaration->findElementBySemantic( VES_BLEND_WEIGHTS );
+        const VertexElement *ve = baseVertexData->vertexDeclaration->findElementBySemantic( VertexElementSemantic::BLEND_INDICES );
+        const VertexElement *veWeights = baseVertexData->vertexDeclaration->findElementBySemantic( VertexElementSemantic::BLEND_WEIGHTS );
         
         HardwareVertexBufferSharedPtr buff = baseVertexData->vertexBufferBinding->getBuffer(ve->getSource());
-        HardwareBufferLockGuard baseVertexLock(buff, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard baseVertexLock(buff, HardwareBuffer::LockOptions::READ_ONLY);
         char const *baseBuffer = static_cast<char const*>(baseVertexLock.pData);
 
         for( size_t i=0; i<baseVertexData->vertexCount * mWeightCount; i += mWeightCount)
@@ -225,7 +225,7 @@ class RenderQueue;
                     if( texUnit->getName() == "InstancingVTF" )
                     {
                         texUnit->setTextureName( mMatrixTexture->getName(), textureType );
-                        texUnit->setTextureFiltering( TFO_NONE );
+                        texUnit->setTextureFiltering( TextureFilterOptions::NONE );
                     }
                 }
             }
@@ -289,14 +289,14 @@ class RenderQueue;
             texHeight += 1;
 
         //Don't use 1D textures, as OGL goes crazy because the shader should be calling texture1D()...
-        TextureType texType = TEX_TYPE_2D;
+        TextureType texType = TextureType::_2D;
 
         mMatrixTexture = TextureManager::getSingleton().createManual(
                                         ::std::format("{}/VTF", mName), mMeshReference->getGroup(), texType,
                                         (uint)texWidth, (uint)texHeight,
-                                        0, PF_FLOAT32_RGBA, TU_DYNAMIC_WRITE_ONLY_DISCARDABLE );
+                                        TextureMipmap{}, PixelFormat::FLOAT32_RGBA, TextureUsage::DYNAMIC_WRITE_ONLY_DISCARDABLE );
 
-        OgreAssert(mMatrixTexture->getFormat() == PF_FLOAT32_RGBA, "float texture support required");
+        OgreAssert(mMatrixTexture->getFormat() == PixelFormat::FLOAT32_RGBA, "float texture support required");
         //Set our cloned material to use this custom texture!
         setupMaterialToUseVTF( texType, mMaterial );
     }
@@ -326,7 +326,7 @@ class RenderQueue;
     void BaseInstanceBatchVTF::updateVertexTexture()
     {
         //Now lock the texture and copy the 4x3 matrices!
-        HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard matTexLock(mMatrixTexture->getBuffer(), HardwareBuffer::LockOptions::DISCARD);
         const PixelBox &pixelBox = mMatrixTexture->getBuffer()->getCurrentLock();
 
         auto *pDest = reinterpret_cast<float*>(pixelBox.data);
@@ -398,7 +398,7 @@ class RenderQueue;
 
                 if (lookupCounter > getMaxLookupTableInstances())
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALID_STATE,"Number of unique bone matrix states exceeds current limitation.","BaseInstanceBatchVTF::updateSharedLookupIndexes()");
+                    OGRE_EXCEPT(ExceptionCodes::INVALID_STATE,"Number of unique bone matrix states exceeds current limitation.","BaseInstanceBatchVTF::updateSharedLookupIndexes()");
                 }
             }
 
@@ -478,7 +478,7 @@ class RenderQueue;
 
         //Blend weights may not be present because HW_VTF does not require to be skeletally animated
         const VertexElement *veWeights = baseVertexData->vertexDeclaration->
-                                                    findElementBySemantic( VES_BLEND_WEIGHTS );
+                                                    findElementBySemantic( VertexElementSemantic::BLEND_WEIGHTS );
         if( veWeights )
         {
             //One weight is recommended for VTF
@@ -502,8 +502,8 @@ class RenderQueue;
             else
             {
                 retrieveBoneIdx( baseVertexData, hwBoneIdx );
-                thisVertexData->vertexDeclaration->removeElement( VES_BLEND_INDICES );
-                thisVertexData->vertexDeclaration->removeElement( VES_BLEND_WEIGHTS );
+                thisVertexData->vertexDeclaration->removeElement( VertexElementSemantic::BLEND_INDICES );
+                thisVertexData->vertexDeclaration->removeElement( VertexElementSemantic::BLEND_WEIGHTS );
 
                 thisVertexData->vertexDeclaration->closeGapsInSource();
             }
@@ -517,15 +517,15 @@ class RenderQueue;
                 HardwareBufferManager::getSingleton().createVertexBuffer(
                 thisVertexData->vertexDeclaration->getVertexSize(i),
                 thisVertexData->vertexCount,
-                HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+                HardwareBuffer::STATIC_WRITE_ONLY );
             thisVertexData->vertexBufferBinding->setBinding( i, vertexBuffer );
 
             //Grab the base submesh data
             HardwareVertexBufferSharedPtr baseVertexBuffer =
                 baseVertexData->vertexBufferBinding->getBuffer(i);
 
-            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
-            HardwareBufferLockGuard baseLock(baseVertexBuffer, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard thisLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
+            HardwareBufferLockGuard baseLock(baseVertexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
             char* thisBuf = static_cast<char*>(thisLock.pData);
             char* baseBuf = static_cast<char*>(baseLock.pData);
 
@@ -554,17 +554,17 @@ class RenderQueue;
         thisIndexData->indexCount = baseIndexData->indexCount * mInstancesPerBatch;
 
         //TODO: Check numVertices is below max supported by GPU
-        HardwareIndexBuffer::IndexType indexType = HardwareIndexBuffer::IT_16BIT;
+        HardwareIndexBuffer::IndexType indexType = HardwareIndexBuffer::IndexType::_16BIT;
         if( mRenderOperation.vertexData->vertexCount > 65535 )
-            indexType = HardwareIndexBuffer::IT_32BIT;
+            indexType = HardwareIndexBuffer::IndexType::_32BIT;
         thisIndexData->indexBuffer = HardwareBufferManager::getSingleton().createIndexBuffer(
-            indexType, thisIndexData->indexCount, HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+            indexType, thisIndexData->indexCount, HardwareBuffer::STATIC_WRITE_ONLY );
 
-        HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::HBL_DISCARD);
-        HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard thisLock(thisIndexData->indexBuffer, HardwareBuffer::LockOptions::DISCARD);
+        HardwareBufferLockGuard baseLock(baseIndexData->indexBuffer, HardwareBuffer::LockOptions::READ_ONLY);
         auto *thisBuf16 = static_cast<uint16*>(thisLock.pData);
         auto *thisBuf32 = static_cast<uint32*>(thisLock.pData);
-        bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IT_16BIT;
+        bool baseIndex16bit = baseIndexData->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_16BIT;
 
         for( size_t i=0; i<mInstancesPerBatch; ++i )
         {
@@ -577,7 +577,7 @@ class RenderQueue;
             {
                 uint32 originalVal = baseIndex16bit ? *initBuf16++ : *initBuf32++;
 
-                if( indexType == HardwareIndexBuffer::IT_16BIT )
+                if( indexType == HardwareIndexBuffer::IndexType::_16BIT )
                     *thisBuf16++ = static_cast<uint16>(originalVal + vertexOffset);
                 else
                     *thisBuf32++ = static_cast<uint32>(originalVal + vertexOffset);
@@ -606,10 +606,10 @@ class RenderQueue;
 
         for(size_t i = 0; i < mWeightCount; i += maxFloatsPerVector / mRowLength)
         {
-            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->
                 getNextFreeTextureCoordinate() ).getSize();
-            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VET_FLOAT4, VES_TEXTURE_COORDINATES,
+            offset += thisVertexData->vertexDeclaration->addElement( newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::TEXTURE_COORDINATES,
                 thisVertexData->vertexDeclaration->
                 getNextFreeTextureCoordinate() ).getSize();
         }
@@ -617,7 +617,7 @@ class RenderQueue;
         //Add the weights (supports up to four, which is Ogre's limit)
         if(mWeightCount > 1)
         {
-            thisVertexData->vertexDeclaration->addElement(newSource, offset, VET_FLOAT4, VES_BLEND_WEIGHTS,
+            thisVertexData->vertexDeclaration->addElement(newSource, offset, VertexElementType::FLOAT4, VertexElementSemantic::BLEND_WEIGHTS,
                                         thisVertexData->vertexDeclaration->getNextFreeTextureCoordinate() );
         }
 
@@ -626,10 +626,10 @@ class RenderQueue;
             HardwareBufferManager::getSingleton().createVertexBuffer(
             thisVertexData->vertexDeclaration->getVertexSize(newSource),
             thisVertexData->vertexCount,
-            HardwareBuffer::HBU_STATIC_WRITE_ONLY );
+            HardwareBuffer::STATIC_WRITE_ONLY );
         thisVertexData->vertexBufferBinding->setBinding( newSource, vertexBuffer );
 
-        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vertexLock(vertexBuffer, HardwareBuffer::LockOptions::DISCARD);
         auto *thisFloat = static_cast<float*>(vertexLock.pData);
         
         //Copy and repeat
@@ -686,7 +686,7 @@ class RenderQueue;
     }
     //-----------------------------------------------------------------------
     auto InstanceBatchVTF::calculateMaxNumInstances( 
-                    const SubMesh *baseSubMesh, uint16 flags ) const -> size_t
+                    const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t
     {
         size_t retVal = 0;
 
@@ -694,19 +694,19 @@ class RenderQueue;
         const RenderSystemCapabilities *capabilities = renderSystem->getCapabilities();
 
         //VTF must be supported
-        if( capabilities->hasCapability( RSC_VERTEX_TEXTURE_FETCH ) )
+        if( capabilities->hasCapability( Capabilities::VERTEX_TEXTURE_FETCH ) )
         {
-            //TODO: Check PF_FLOAT32_RGBA is supported (should be, since it was the 1st one)
+            //TODO: Check PixelFormat::FLOAT32_RGBA is supported (should be, since it was the 1st one)
             const size_t numBones = std::max<size_t>( 1, baseSubMesh->blendIndexToBoneIndexMap.size() );
             retVal = c_maxTexWidth * c_maxTexHeight / mRowLength / numBones;
 
-            if( flags & IM_USE16BIT )
+            if(!!(flags & InstanceManagerFlags::USE16BIT))
             {
                 if( baseSubMesh->vertexData->vertexCount * retVal > 0xFFFF )
                     retVal = 0xFFFF / baseSubMesh->vertexData->vertexCount;
             }
 
-            if( flags & IM_VTFBESTFIT )
+            if(!!(flags & InstanceManagerFlags::VTFBESTFIT))
             {
                 const size_t instancesPerBatch = std::min( retVal, mInstancesPerBatch );
                 //Do the same as in createVertexTexture()

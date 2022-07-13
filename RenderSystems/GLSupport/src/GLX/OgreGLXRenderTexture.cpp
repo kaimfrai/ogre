@@ -64,19 +64,19 @@ namespace Ogre
         
         switch (mFormat)
         {
-        case PCT_BYTE:
+        case PixelComponentType::BYTE:
             bits = 8; 
             break;
             
-        case PCT_SHORT:
+        case PixelComponentType::SHORT:
             bits = 16; 
             break;
             
-        case PCT_FLOAT16:
+        case PixelComponentType::FLOAT16:
             bits = 16; 
             break;
             
-        case PCT_FLOAT32:
+        case PixelComponentType::FLOAT32:
             bits = 32; 
             break;
             
@@ -87,7 +87,7 @@ namespace Ogre
         int renderAttrib = GLX_RENDER_TYPE;
         int renderValue  = GLX_RGBA_BIT;
         
-        if (mFormat == PCT_FLOAT16 || mFormat == PCT_FLOAT32)
+        if (mFormat == PixelComponentType::FLOAT16 || mFormat == PixelComponentType::FLOAT32)
         {
             if (glsupport->checkExtension("GLX_NV_float_buffer"))
             {
@@ -109,7 +109,7 @@ namespace Ogre
             
             if (renderAttrib == GLX_RENDER_TYPE && renderValue == GLX_RGBA_BIT)
             {
-                OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "No support for Floating point PBuffers",  "GLRenderTexture::createPBuffer");
+                OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED, "No support for Floating point PBuffers",  "GLRenderTexture::createPBuffer");
             }
         }
         
@@ -142,7 +142,7 @@ namespace Ogre
         
         if (! fbConfig || ! glxDrawable) 
         {
-            OGRE_EXCEPT(Exception::ERR_RENDERINGAPI_ERROR, "Unable to create Pbuffer", "GLXPBuffer::GLXPBuffer");
+            OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR, "Unable to create Pbuffer", "GLXPBuffer::GLXPBuffer");
         }
         
         GLint fbConfigID;
@@ -154,7 +154,7 @@ namespace Ogre
         
         mWidth = iWidth;  
         mHeight = iHeight;
-        LogManager::getSingleton().logMessage(LML_NORMAL, ::std::format("GLXPBuffer::create used final dimensions {} x {}", mWidth, mHeight));
+        LogManager::getSingleton().logMessage(LogMessageLevel::Normal, ::std::format("GLXPBuffer::create used final dimensions {} x {}", mWidth, mHeight));
         LogManager::getSingleton().logMessage(::std::format("GLXPBuffer::create used FBConfigID {}", fbConfigID));
         
         mContext = ::std::make_unique<GLXContext>(mGLSupport, fbConfig, glxDrawable);
@@ -165,7 +165,7 @@ namespace Ogre
     {
         glXDestroyPbuffer(mGLSupport->getGLDisplay(), mContext->mDrawable);
         
-        LogManager::getSingleton().logMessage(LML_NORMAL, "GLXPBuffer::PBuffer destroyed");
+        LogManager::getSingleton().logMessage(LogMessageLevel::Normal, "GLXPBuffer::PBuffer destroyed");
     }
     
     //-------------------------------------------------------------------------------------------------//

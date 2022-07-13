@@ -69,14 +69,14 @@ class Camera;
     public:
         /** Enumeration denoting the spaces which a transform can be relative to.
         */
-        enum TransformSpace
+        enum class TransformSpace
         {
             /// Transform is relative to the local space
-            TS_LOCAL,
+            LOCAL,
             /// Transform is relative to the space of the parent node
-            TS_PARENT,
+            PARENT,
             /// Transform is relative to world space
-            TS_WORLD
+            WORLD
         };
         using ChildNodeMap = std::vector<Node *>;
         using ChildNodeIterator = VectorIterator<ChildNodeMap>;
@@ -365,9 +365,9 @@ class Camera;
         @param relativeTo
             The space which this transform is relative to.
         */
-        void translate(const Vector3& d, TransformSpace relativeTo = TS_PARENT);
+        void translate(const Vector3& d, TransformSpace relativeTo = TransformSpace::PARENT);
         /// @overload
-        void translate(Real x, Real y, Real z, TransformSpace relativeTo = TS_PARENT)
+        void translate(Real x, Real y, Real z, TransformSpace relativeTo = TransformSpace::PARENT)
         {
             translate(Vector3(x, y, z), relativeTo);
         }
@@ -390,47 +390,47 @@ class Camera;
         @param relativeTo
             The space which this transform is relative to.
         */
-        void translate(const Matrix3& axes, const Vector3& move, TransformSpace relativeTo = TS_PARENT)
+        void translate(const Matrix3& axes, const Vector3& move, TransformSpace relativeTo = TransformSpace::PARENT)
         {
             translate(axes * move, relativeTo);
         }
         /// @overload
-        void translate(const Matrix3& axes, Real x, Real y, Real z, TransformSpace relativeTo = TS_PARENT)
+        void translate(const Matrix3& axes, Real x, Real y, Real z, TransformSpace relativeTo = TransformSpace::PARENT)
         {
             translate(axes, Vector3(x, y, z), relativeTo);
         }
 
         /** Rotate the node around the Z-axis.
         */
-        virtual void roll(const Radian& angle, TransformSpace relativeTo = TS_LOCAL)
+        virtual void roll(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
             rotate(Quaternion(angle, Vector3::UNIT_Z), relativeTo);
         }
 
         /** Rotate the node around the X-axis.
         */
-        virtual void pitch(const Radian& angle, TransformSpace relativeTo = TS_LOCAL)
+        virtual void pitch(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
             rotate(Quaternion(angle, Vector3::UNIT_X), relativeTo);
         }
 
         /** Rotate the node around the Y-axis.
         */
-        virtual void yaw(const Radian& angle, TransformSpace relativeTo = TS_LOCAL)
+        virtual void yaw(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
             rotate(Quaternion(angle, Vector3::UNIT_Y), relativeTo);
         }
 
         /** Rotate the node around an arbitrary axis.
         */
-        void rotate(const Vector3& axis, const Radian& angle, TransformSpace relativeTo = TS_LOCAL)
+        void rotate(const Vector3& axis, const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
             rotate(Quaternion(angle, axis), relativeTo);
         }
 
         /** Rotate the node around an aritrary axis using a Quarternion.
         */
-        void rotate(const Quaternion& q, TransformSpace relativeTo = TS_LOCAL);
+        void rotate(const Quaternion& q, TransformSpace relativeTo = TransformSpace::LOCAL);
 
         /** Gets a matrix whose columns are the local axes based on
             the nodes orientation relative to it's parent. */

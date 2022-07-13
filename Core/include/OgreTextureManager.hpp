@@ -102,14 +102,14 @@ class Image;
             @param
                 texType The type of texture to load/create, defaults to normal 2D textures
             @param
-                numMipmaps The number of pre-filtered mipmaps to generate. If left to MIP_DEFAULT then
+                numMipmaps The number of pre-filtered mipmaps to generate. If left to TextureMipmap::DEFAULT then
                 the TextureManager's default number of mipmaps will be used (see setDefaultNumMipmaps())
-                If set to MIP_UNLIMITED mipmaps will be generated until the lowest possible
+                If set to TextureMipmap::UNLIMITED mipmaps will be generated until the lowest possible
                 level, 1x1x1.
             @param
                 gamma The gamma adjustment factor to apply to this texture (brightening/darkening)
             @param 
-                isAlpha deprecated: same as specifying #PF_A8 for @c desiredFormat
+                isAlpha deprecated: same as specifying #PixelFormat::A8 for @c desiredFormat
             @param 
                 desiredFormat The format you would like to have used instead of
                 the format being based on the contents of the texture
@@ -122,19 +122,19 @@ class Image;
         auto createOrRetrieve(
             std::string_view name, std::string_view group, bool isManual,
             ManualResourceLoader* loader, const NameValuePairList* createParams,
-            TextureType texType, int numMipmaps = MIP_DEFAULT,
+            TextureType texType, TextureMipmap numMipmaps = TextureMipmap::DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> ResourceCreateOrRetrieveResult;
+            PixelFormat desiredFormat = PixelFormat::UNKNOWN, bool hwGammaCorrection = false) -> ResourceCreateOrRetrieveResult;
 
         /** Prepares to loads a texture from a file.
             @copydetails TextureManager::load
-            @param isAlpha deprecated: same as specifying #PF_A8 for @c desiredFormat
+            @param isAlpha deprecated: same as specifying #PixelFormat::A8 for @c desiredFormat
         */
         auto prepare(
             std::string_view name, std::string_view group,
-            TextureType texType = TEX_TYPE_2D, int numMipmaps = MIP_DEFAULT,
+            TextureType texType = TextureType::_2D, TextureMipmap numMipmaps = TextureMipmap::DEFAULT,
             Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+            PixelFormat desiredFormat = PixelFormat::UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
 
         /** Loads a texture from a file.
             @param
@@ -144,9 +144,9 @@ class Image;
             @param
                 texType The type of texture to load/create, defaults to normal 2D textures
             @param
-                numMipmaps The number of pre-filtered mipmaps to generate. If left to MIP_DEFAULT then
+                numMipmaps The number of pre-filtered mipmaps to generate. If left to TextureMipmap::DEFAULT then
                 the TextureManager's default number of mipmaps will be used (see setDefaultNumMipmaps())
-                If set to MIP_UNLIMITED mipmaps will be generated until the lowest possible
+                If set to TextureMipmap::UNLIMITED mipmaps will be generated until the lowest possible
                 level, 1x1x1.
             @param
                 gamma The gamma adjustment factor to apply to this texture (brightening/darkening)
@@ -162,9 +162,9 @@ class Image;
                 8-bits per channel textures, will be ignored for other types. Has the advantage
                 over pre-applied gamma that the texture precision is maintained.
         */
-        auto load(std::string_view name, std::string_view group, TextureType texType = TEX_TYPE_2D,
-                        int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f,
-                        PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+        auto load(std::string_view name, std::string_view group, TextureType texType = TextureType::_2D,
+                        TextureMipmap numMipmaps = TextureMipmap::DEFAULT, Real gamma = 1.0f,
+                        PixelFormat desiredFormat = PixelFormat::UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
 
         /** Loads a texture from an Image object.
             @note
@@ -175,9 +175,9 @@ class Image;
         */
         virtual auto loadImage( 
             std::string_view name, std::string_view group, const Image &img, 
-            TextureType texType = TEX_TYPE_2D,
-            int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool isAlpha = false,
-            PixelFormat desiredFormat = PF_UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
+            TextureType texType = TextureType::_2D,
+            TextureMipmap numMipmaps = TextureMipmap::DEFAULT, Real gamma = 1.0f, bool isAlpha = false,
+            PixelFormat desiredFormat = PixelFormat::UNKNOWN, bool hwGammaCorrection = false) -> TexturePtr;
             
         /** Loads a texture from a raw data stream.
             @note
@@ -199,9 +199,9 @@ class Image;
             @param texType
                 The type of texture to load/create, defaults to normal 2D textures
             @param numMipmaps
-                The number of pre-filtered mipmaps to generate. If left to MIP_DEFAULT then
+                The number of pre-filtered mipmaps to generate. If left to TextureMipmap::DEFAULT then
                 the TextureManager's default number of mipmaps will be used (see setDefaultNumMipmaps())
-                If set to MIP_UNLIMITED mipmaps will be generated until the lowest possible
+                If set to TextureMipmap::UNLIMITED mipmaps will be generated until the lowest possible
                 level, 1x1x1.
             @param gamma
                 The gamma adjustment factor to apply to this texture (brightening/darkening)
@@ -214,8 +214,8 @@ class Image;
         */
         virtual auto loadRawData(std::string_view name, std::string_view group,
             DataStreamPtr& stream, ushort width, ushort height, 
-            PixelFormat format, TextureType texType = TEX_TYPE_2D, 
-            int numMipmaps = MIP_DEFAULT, Real gamma = 1.0f, bool hwGammaCorrection = false) -> TexturePtr;
+            PixelFormat format, TextureType texType = TextureType::_2D, 
+            TextureMipmap numMipmaps = TextureMipmap::DEFAULT, Real gamma = 1.0f, bool hwGammaCorrection = false) -> TexturePtr;
 
         /** Create a manual texture with specified width, height and depth (not loaded from a file).
             @param
@@ -231,9 +231,9 @@ class Image;
             @param depth
                 The depth of the texture
             @param
-                numMipmaps The number of pre-filtered mipmaps to generate. If left to MIP_DEFAULT then
+                numMipmaps The number of pre-filtered mipmaps to generate. If left to TextureMipmap::DEFAULT then
                 the TextureManager's default number of mipmaps will be used (see setDefaultNumMipmaps())
-                If set to MIP_UNLIMITED mipmaps will be generated until the lowest possible
+                If set to TextureMipmap::UNLIMITED mipmaps will be generated until the lowest possible
                 level, 1x1x1.
             @param
                 format The internal format you wish to request; the manager reserves
@@ -241,10 +241,10 @@ class Image;
                 not available in this context.
             @param 
                 usage The kind of usage this texture is intended for. It 
-                is a combination of TU_STATIC, TU_DYNAMIC, TU_WRITE_ONLY, 
-                TU_AUTOMIPMAP and TU_RENDERTARGET (see TextureUsage enum). You are
-                strongly advised to use HBU_GPU_ONLY wherever possible, if you need to
-                update regularly, consider HBU_CPU_TO_GPU.
+                is a combination of TextureUsage::STATIC, TextureUsage::DYNAMIC, TextureUsage::WRITE_ONLY, 
+                TextureUsage::AUTOMIPMAP and TextureUsage::RENDERTARGET (see TextureUsage enum). You are
+                strongly advised to use HardwareBufferUsage::GPU_ONLY wherever possible, if you need to
+                update regularly, consider HardwareBufferUsage::CPU_TO_GPU.
             @param
                 loader If you intend the contents of the manual texture to be 
                 regularly updated, to the extent that you don't need to recover 
@@ -260,20 +260,20 @@ class Image;
                 8-bits per channel textures, will be ignored for other types. Has the advantage
                 over pre-applied gamma that the texture precision is maintained.
             @param fsaa The level of multisampling to use if this is a render target. Ignored
-                if usage does not include TU_RENDERTARGET or if the device does
+                if usage does not include TextureUsage::RENDERTARGET or if the device does
                 not support it.
             @param fsaaHint @copybrief RenderTarget::getFSAAHint
         */
         virtual auto createManual(std::string_view name, std::string_view group,
             TextureType texType, uint width, uint height, uint depth, 
-            int numMipmaps, PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
+            TextureMipmap numMipmaps, PixelFormat format, HardwareBufferUsage usage = TextureUsage::DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr;
             
         /** @overload
         */
         auto createManual(std::string_view name, std::string_view group,
-            TextureType texType, uint width, uint height, int numMipmaps,
-            PixelFormat format, int usage = TU_DEFAULT, ManualResourceLoader* loader = nullptr,
+            TextureType texType, uint width, uint height, TextureMipmap numMipmaps,
+            PixelFormat format, HardwareBufferUsage usage = TextureUsage::DEFAULT, ManualResourceLoader* loader = nullptr,
             bool hwGammaCorrection = false, uint fsaa = 0, std::string_view fsaaHint = BLANKSTRING) -> TexturePtr
         {
             return createManual(name, group, texType, width, height, 1, 
@@ -335,17 +335,17 @@ class Image;
             the TextureUsage flags.
         @return true if the format is natively supported, false if a fallback would be used.
         */
-        virtual auto isFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool;
+        virtual auto isFormatSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> bool;
 
         /** Returns whether this render system can support the texture format requested
             with the given usage options, or another format with no quality reduction.
         */
-        virtual auto isEquivalentFormatSupported(TextureType ttype, PixelFormat format, int usage) -> bool;
+        virtual auto isEquivalentFormatSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> bool;
 
         /** Gets the format which will be natively used for a requested format given the
             constraints of the current device.
         */
-        virtual auto getNativeFormat(TextureType ttype, PixelFormat format, int usage) -> PixelFormat = 0;
+        virtual auto getNativeFormat(TextureType ttype, PixelFormat format, HardwareBufferUsage usage) -> PixelFormat = 0;
 
         /** Returns whether this render system has hardware filtering supported for the
             texture format requested with the given usage options.
@@ -374,7 +374,7 @@ class Image;
             will end up with very slow speed (less than 0.1 fps for example). To slove
             this performance problem, you must disable filtering manually (by use
             <b>filtering none</b> in the material script's texture_unit section, or
-            call TextureUnitState::setTextureFiltering with TFO_NONE if populate
+            call TextureUnitState::setTextureFiltering with TextureFilterOptions::NONE if populate
             material in code).
         @param ttype The texture type requested
         @param format The pixel format requested
@@ -386,22 +386,22 @@ class Image;
             check if in fallback mode.
         @return true if the texture filtering is supported.
         */
-        virtual auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, int usage,
+        virtual auto isHardwareFilteringSupported(TextureType ttype, PixelFormat format, HardwareBufferUsage usage,
             bool preciseFormatOnly = false) -> bool;
 
         /** Sets the default number of mipmaps to be used for loaded textures, for when textures are
             loaded automatically (e.g. by Material class) or when 'load' is called with the default
             parameters by the application.
-            If set to MIP_UNLIMITED mipmaps will be generated until the lowest possible
+            If set to TextureMipmap::UNLIMITED mipmaps will be generated until the lowest possible
                 level, 1x1x1.
             @note
                 The default value is 0.
         */
-        virtual void setDefaultNumMipmaps(uint32 num);
+        virtual void setDefaultNumMipmaps(TextureMipmap num);
 
         /** Gets the default number of mipmaps to be used for loaded textures.
         */
-        virtual auto getDefaultNumMipmaps() noexcept -> uint32
+        virtual auto getDefaultNumMipmaps() noexcept -> TextureMipmap
         {
             return mDefaultNumMipmaps;
         }
@@ -423,7 +423,7 @@ class Image;
 
         ushort mPreferredIntegerBitDepth{0};
         ushort mPreferredFloatBitDepth{0};
-        uint32 mDefaultNumMipmaps{MIP_UNLIMITED};
+        TextureMipmap mDefaultNumMipmaps{TextureMipmap::UNLIMITED};
         TexturePtr mWarningTexture;
         SamplerPtr mDefaultSampler;
         std::map<std::string, SamplerPtr, std::less<>> mNamedSamplers;
@@ -441,7 +441,7 @@ class Image;
                 : Texture(creator, name, handle, group)
             {
             }
-            auto getBuffer(size_t, size_t) -> const HardwarePixelBufferSharedPtr& override
+            auto getBuffer(size_t, TextureMipmap) -> const HardwarePixelBufferSharedPtr& override
             {
                 static HardwarePixelBufferSharedPtr nullBuffer;
                 return nullBuffer;
@@ -460,8 +460,8 @@ class Image;
         }
 
     public:
-        auto isHardwareFilteringSupported(TextureType, PixelFormat, int, bool) noexcept -> bool override { return false; }
-        auto getNativeFormat(TextureType, PixelFormat, int) noexcept -> PixelFormat override { return PF_UNKNOWN; }
+        auto isHardwareFilteringSupported(TextureType, PixelFormat, HardwareBufferUsage, bool) noexcept -> bool override { return false; }
+        auto getNativeFormat(TextureType, PixelFormat, HardwareBufferUsage) noexcept -> PixelFormat override { return PixelFormat::UNKNOWN; }
     };
     /** @} */
     /** @} */

@@ -101,8 +101,8 @@ ProgramManager::~ProgramManager()
 //-----------------------------------------------------------------------------
 void ProgramManager::releasePrograms(const ProgramSet* programSet)
 {
-    GpuProgramPtr vsProgram(programSet->getGpuProgram(GPT_VERTEX_PROGRAM));
-    GpuProgramPtr psProgram(programSet->getGpuProgram(GPT_FRAGMENT_PROGRAM));
+    GpuProgramPtr vsProgram(programSet->getGpuProgram(GpuProgramType::VERTEX_PROGRAM));
+    GpuProgramPtr psProgram(programSet->getGpuProgram(GpuProgramType::FRAGMENT_PROGRAM));
 
     auto itVsGpuProgram = !vsProgram ? mVertexShaderMap.end() : mVertexShaderMap.find(vsProgram->getName());
     auto itFsGpuProgram = !psProgram ? mFragmentShaderMap.end() : mFragmentShaderMap.find(psProgram->getName());
@@ -136,9 +136,9 @@ auto ProgramManager::getShaderCount(GpuProgramType type) const -> size_t
 {
     switch(type)
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         return mVertexShaderMap.size();
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         return mFragmentShaderMap.size();
     default:
         return 0;
@@ -201,7 +201,7 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 
     if (itProcessor == mProgramProcessorsMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
             ::std::format("Could not find processor for language '{}", language),
             "ProgramManager::createGpuPrograms");       
     }
@@ -210,10 +210,10 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     
     // Call the pre creation of GPU programs method.
     if (!programProcessor->preCreateGpuPrograms(programSet))
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "preCreateGpuPrograms failed");
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "preCreateGpuPrograms failed");
     
     // Create the shader programs
-    for(auto type : {GPT_VERTEX_PROGRAM, GPT_FRAGMENT_PROGRAM})
+    for(auto type : {GpuProgramType::VERTEX_PROGRAM, GpuProgramType::FRAGMENT_PROGRAM})
     {
         auto gpuProgram = createGpuProgram(programSet->getCpuProgram(type), programWriter, language,
                                            ShaderGenerator::getSingleton().getShaderProfiles(type),
@@ -222,12 +222,12 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
     }
 
     //update flags
-    programSet->getGpuProgram(GPT_VERTEX_PROGRAM)->setSkeletalAnimationIncluded(
-        programSet->getCpuProgram(GPT_VERTEX_PROGRAM)->getSkeletalAnimationIncluded());
+    programSet->getGpuProgram(GpuProgramType::VERTEX_PROGRAM)->setSkeletalAnimationIncluded(
+        programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM)->getSkeletalAnimationIncluded());
 
     // Call the post creation of GPU programs method.
     if(!programProcessor->postCreateGpuPrograms(programSet))
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "postCreateGpuPrograms failed");
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "postCreateGpuPrograms failed");
 }
 
 //-----------------------------------------------------------------------------
@@ -246,11 +246,11 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
     // Generate program name.
     String programName = generateHash(source, shaderProgram->getPreprocessorDefines());
 
-    if (shaderProgram->getType() == GPT_VERTEX_PROGRAM)
+    if (shaderProgram->getType() == GpuProgramType::VERTEX_PROGRAM)
     {
         programName += "_VS";
     }
-    else if (shaderProgram->getType() == GPT_FRAGMENT_PROGRAM)
+    else if (shaderProgram->getType() == GpuProgramType::FRAGMENT_PROGRAM)
     {
         programName += "_FS";
     }
@@ -319,11 +319,11 @@ auto ProgramManager::createGpuProgram(Program* shaderProgram,
     pGpuProgram->load();
 
     // Add the created GPU program to local cache.
-    if (pGpuProgram->getType() == GPT_VERTEX_PROGRAM)
+    if (pGpuProgram->getType() == GpuProgramType::VERTEX_PROGRAM)
     {
         mVertexShaderMap[programName] = pGpuProgram;
     }
-    else if (pGpuProgram->getType() == GPT_FRAGMENT_PROGRAM)
+    else if (pGpuProgram->getType() == GpuProgramType::FRAGMENT_PROGRAM)
     {
         mFragmentShaderMap[programName] = pGpuProgram;
     }
@@ -353,7 +353,7 @@ void ProgramManager::addProgramProcessor(std::string_view lang, ProgramProcessor
 
     if (itFind != mProgramProcessorsMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, ::std::format("A processor for language '{}' already exists.", lang ));
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM, ::std::format("A processor for language '{}' already exists.", lang ));
     }
 
     mProgramProcessorsMap[lang] = processor;
@@ -378,8 +378,8 @@ void ProgramManager::destroyGpuProgram(GpuProgramPtr& gpuProgram)
 //-----------------------------------------------------------------------
 void ProgramManager::synchronizePixelnToBeVertexOut( ProgramSet* programSet )
 {
-    Function* vertexMain = programSet->getCpuProgram(GPT_VERTEX_PROGRAM)->getMain();
-    Function* pixelMain = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM)->getMain();
+    Function* vertexMain = programSet->getCpuProgram(GpuProgramType::VERTEX_PROGRAM)->getMain();
+    Function* pixelMain = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM)->getMain();
 
     // save the pixel program original input parameters
     auto pixelOriginalInParams = pixelMain->getInputParameters();

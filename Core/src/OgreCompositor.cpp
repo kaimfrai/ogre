@@ -189,7 +189,7 @@ void Compositor::createGlobalTextures()
     for (const CompositionTechnique::TextureDefinitions& tdefs = firstTechnique->getTextureDefinitions();
             CompositionTechnique::TextureDefinition* def : tdefs)
     {
-        if (def->scope == CompositionTechnique::TS_GLOBAL) 
+        if (def->scope == CompositionTechnique::TextureScope::GLOBAL) 
         {
             //Check that this is a legit global texture
             OgreAssert(def->refCompName.empty(), "Global compositor texture definition can not be a reference");
@@ -225,8 +225,8 @@ void Compositor::createGlobalTextures()
                     
                     tex = TextureManager::getSingleton().createManual(
                             texname, 
-                            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                            (uint)def->width, (uint)def->height, 0, *p, TU_RENDERTARGET, nullptr, 
+                            ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TextureType::_2D, 
+                            (uint)def->width, (uint)def->height, TextureMipmap{}, *p, TextureUsage::RENDERTARGET, nullptr,
                             def->hwGammaWrite && !PixelUtil::isFloatingPoint(*p), def->fsaa); 
                     
                     RenderTexture* rt = tex->getBuffer()->getRenderTarget();
@@ -254,8 +254,8 @@ void Compositor::createGlobalTextures()
                 TexturePtr tex;
                 tex = TextureManager::getSingleton().createManual(
                     texName, 
-                    ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 
-                    (uint)def->width, (uint)def->height, 0, def->formatList[0], TU_RENDERTARGET, nullptr,
+                    ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME, TextureType::_2D, 
+                    (uint)def->width, (uint)def->height, TextureMipmap{}, def->formatList[0], TextureUsage::RENDERTARGET, nullptr,
                     def->hwGammaWrite && !PixelUtil::isFloatingPoint(def->formatList[0]), def->fsaa); 
                 
 
@@ -277,7 +277,7 @@ void Compositor::createGlobalTextures()
         for (const CompositionTechnique::TextureDefinitions& tdefs2 = technique->getTextureDefinitions();
                 CompositionTechnique::TextureDefinition* texDef : tdefs2)
         {
-            if (texDef->scope == CompositionTechnique::TS_GLOBAL) 
+            if (texDef->scope == CompositionTechnique::TextureScope::GLOBAL) 
             {
                 if (globalTextureNames.find(texDef->name) == globalTextureNames.end()) 
                 {
@@ -333,7 +333,7 @@ auto Compositor::getTextureInstance(std::string_view name, size_t mrtIndex) -> c
         return i->second;
     }
 
-    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Non-existent global texture name", 
+    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Non-existent global texture name", 
         "Compositor::getTextureInstance");
         
 }
@@ -350,7 +350,7 @@ auto Compositor::getRenderTarget(std::string_view name, int slice) -> RenderTarg
     if (mi != mGlobalMRTs.end())
         return mi->second;
     else
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Non-existent global texture name", 
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Non-existent global texture name", 
             "Compositor::getRenderTarget");
 }
 //---------------------------------------------------------------------

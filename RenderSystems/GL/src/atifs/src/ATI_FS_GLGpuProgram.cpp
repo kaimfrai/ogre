@@ -71,14 +71,14 @@ void ATI_FS_GLGpuProgram::unbindProgram()
 }
 
 
-void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, uint16 mask)
+void ATI_FS_GLGpuProgram::bindProgramParameters(GpuProgramParametersSharedPtr params, Ogre::GpuParamVariability mask)
 {
     // only supports float constants
     GpuLogicalBufferStructPtr floatStruct = params->getLogicalBufferStruct();
 
     for (auto const& [key, value] : floatStruct->map)
     {
-        if (value.variability & mask)
+        if (!!(value.variability & mask))
         {
             size_t logicalIndex = key;
             const float* pFloat = params->getFloatPointer(value.physicalIndex);
@@ -121,7 +121,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         // check GL for GPU machine instruction bind erros
         if (Error)
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, 
                 ::std::format("Cannot Bind ATI fragment shader :{}", mName), mName); 
         }
 
@@ -135,7 +135,7 @@ void ATI_FS_GLGpuProgram::loadFromSource()
         LogManager::getSingleton().logMessage("Warning: atifs compiler reported the following errors:");
         LogManager::getSingleton().logMessage(buff + mName);
 
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, 
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, 
             ::std::format("Cannot Compile ATI fragment shader : {}\n\n{}", mName, buff) , mName);// +
     }
 

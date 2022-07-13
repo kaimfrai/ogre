@@ -87,34 +87,34 @@ namespace Ogre {
         /// @name conversions from/ to native-endian packed formats
         /// @{
 
-        /// value packed as #PF_R8G8B8A8
+        /// value packed as #PixelFormat::R8G8B8A8
         [[nodiscard]] auto getAsRGBA() const -> RGBA;
 
-        /// value packed as #PF_A8R8G8B8
+        /// value packed as #PixelFormat::A8R8G8B8
         [[nodiscard]] auto getAsARGB() const -> ARGB;
 
-        /// value packed as #PF_B8G8R8A8
+        /// value packed as #PixelFormat::B8G8R8A8
         [[nodiscard]] auto getAsBGRA() const -> BGRA;
 
-        /// value packed as #PF_A8B8G8R8
+        /// value packed as #PixelFormat::A8B8G8R8
         [[nodiscard]] auto getAsABGR() const -> ABGR;
 
-        /// value packed as #PF_BYTE_RGBA
+        /// value packed as #PixelFormat::BYTE_RGBA
         [[nodiscard]] auto getAsBYTE() const -> RGBA
         {
             return getAsABGR();
         }
 
-        /// Set value from #PF_R8G8B8A8
+        /// Set value from #PixelFormat::R8G8B8A8
         void setAsRGBA(RGBA val);
 
-        /// Set value from #PF_A8R8G8B8
+        /// Set value from #PixelFormat::A8R8G8B8
         void setAsARGB(ARGB val);
 
-        /// Set value from #PF_B8G8R8A8
+        /// Set value from #PixelFormat::B8G8R8A8
         void setAsBGRA(BGRA val);
 
-        /// Set value from #PF_A8B8G8R8
+        /// Set value from #PixelFormat::A8B8G8R8
         void setAsABGR(ABGR val);
         /// @}
 

@@ -44,7 +44,7 @@ namespace Ogre {
     {
     public:
         /// Type of particle
-        enum ParticleType : uint8
+        enum class ParticleType : uint8
         {
             Visual,
             Emitter
@@ -71,7 +71,7 @@ namespace Ogre {
         /// Speed of rotation in radians/sec
         Radian mRotationSpeed;
         /// Determines the type of particle.
-        ParticleType mParticleType{Visual};
+        ParticleType mParticleType{ParticleType::Visual};
         /// Index into the array of texture coordinates @see BillboardSet::setTextureStacksAndSlices()
         uint8 mTexcoordIndex{0};
         uint8 mRandomTexcoordOffset{0};

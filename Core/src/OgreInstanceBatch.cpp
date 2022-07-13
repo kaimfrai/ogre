@@ -72,7 +72,7 @@ class Technique;
         //Force batch visibility to be always visible. The instanced entities
         //have individual visibility flags. If none matches the scene's current,
         //then this batch won't rendered.
-        mVisibilityFlags = std::numeric_limits<Ogre::uint32>::max();
+        mVisibilityFlags = static_cast<QueryTypeMask>(std::numeric_limits<Ogre::uint32>::max());
 
         if( indexToBoneMap )
         {
@@ -117,13 +117,13 @@ class Technique;
     //-----------------------------------------------------------------------
     auto InstanceBatch::checkSubMeshCompatibility( const SubMesh* baseSubMesh ) -> bool
     {
-        OgreAssert(baseSubMesh->operationType == RenderOperation::OT_TRIANGLE_LIST,
-                   "Only meshes with OT_TRIANGLE_LIST are supported");
+        OgreAssert(baseSubMesh->operationType == RenderOperation::OperationType::TRIANGLE_LIST,
+                   "Only meshes with OperationType::TRIANGLE_LIST are supported");
 
         if( !mCustomParams.empty() && mCreator->getInstancingTechnique() != InstanceManager::HWInstancingBasic )
         {
             //Implementing this for ShaderBased is impossible. All other variants can be.
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Custom parameters not supported for this "
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Custom parameters not supported for this "
                                                         "technique. Do you dare implementing it?"
                                                         "See InstanceManager::setNumCustomParams "
                                                         "documentation.",
@@ -221,7 +221,7 @@ class Technique;
         if( checkSubMeshCompatibility( baseSubMesh ) )
         {
             //Only triangle list at the moment
-            mRenderOperation.operationType  = RenderOperation::OT_TRIANGLE_LIST;
+            mRenderOperation.operationType  = RenderOperation::OperationType::TRIANGLE_LIST;
             mRenderOperation.srcRenderable  = this;
             mRenderOperation.useIndexes = true;
             setupVertices( baseSubMesh );
@@ -494,7 +494,7 @@ class Technique;
             // If we have a perspective camera calculations are done relative to distance
             Real sqrDistance = 1;
 
-            if (cam->getProjectionType() == PT_PERSPECTIVE)
+            if (cam->getProjectionType() == ProjectionType::PERSPECTIVE)
                 sqrDistance = getSquaredViewDepth(cam->getLodCamera()); // it's ok
 
             mBeyondFarDistance =

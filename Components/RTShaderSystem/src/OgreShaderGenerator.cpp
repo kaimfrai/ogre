@@ -221,8 +221,8 @@ ShaderGenerator::ShaderGenerator() :
         LogManager::getSingleton().logWarning("ShaderGenerator: No supported language found. Falling back to 'null'");
     }
 
-    setShaderProfiles(GPT_VERTEX_PROGRAM, "vs_3_0 vs_2_a vs_2_0 vs_1_1");
-    setShaderProfiles(GPT_FRAGMENT_PROGRAM, "ps_3_0 ps_2_a ps_2_b ps_2_0 ps_1_4 ps_1_3 ps_1_2 ps_1_1");
+    setShaderProfiles(GpuProgramType::VERTEX_PROGRAM, "vs_3_0 vs_2_a vs_2_0 vs_1_1");
+    setShaderProfiles(GpuProgramType::FRAGMENT_PROGRAM, "ps_3_0 ps_2_a ps_2_b ps_2_0 ps_1_4 ps_1_3 ps_1_2 ps_1_1");
 }
 
 //-----------------------------------------------------------------------------
@@ -439,7 +439,7 @@ void ShaderGenerator::addSubRenderStateFactory(SubRenderStateFactory* factory)
 
     if (itFind != mSubRenderStateFactories.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+        OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
             ::std::format("A factory of type '{}' already exists.", factory->getType() ),
             "ShaderGenerator::addSubRenderStateFactory");
     }       
@@ -467,7 +467,7 @@ auto  ShaderGenerator::getSubRenderStateFactory(size_t index) -> SubRenderStateF
         }
     }
 
-    OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
+    OGRE_EXCEPT(ExceptionCodes::DUPLICATE_ITEM,
         ::std::format("A factory on index {} does not exist.", index ),
         "ShaderGenerator::addSubRenderStateFactory");
         
@@ -499,7 +499,7 @@ auto ShaderGenerator::createSubRenderState(std::string_view type) -> SubRenderSt
         return itFind->second->createInstance();
 
 
-    OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+    OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
         ::std::format("A factory of type '{}' doesn't exists.", type ),
         "ShaderGenerator::createSubRenderState");
 
@@ -563,7 +563,7 @@ auto ShaderGenerator::getRenderState(std::string_view schemeName) -> RenderState
     
     if (itFind == mSchemeEntriesMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             ::std::format("A scheme named'{}' doesn't exists.", schemeName ),
             "ShaderGenerator::getRenderState"); 
     }   
@@ -615,7 +615,7 @@ auto ShaderGenerator::getRenderState(std::string_view schemeName,
 
     if (itFind == mSchemeEntriesMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             ::std::format("A scheme named'{}' doesn't exists.", schemeName ),
             "ShaderGenerator::getRenderState");
     }
@@ -685,10 +685,10 @@ void ShaderGenerator::setShaderProfiles(GpuProgramType type, std::string_view sh
 {
     switch(type)
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         mVertexShaderProfiles = shaderProfiles;
         break;
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         mFragmentShaderProfiles = shaderProfiles;
         break;
     default:
@@ -701,9 +701,9 @@ auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> std::strin
 {
     switch(type)
     {
-    case GPT_VERTEX_PROGRAM:
+    case GpuProgramType::VERTEX_PROGRAM:
         return mVertexShaderProfiles;
-    case GPT_FRAGMENT_PROGRAM:
+    case GpuProgramType::FRAGMENT_PROGRAM:
         return mFragmentShaderProfiles;
     default:
         return BLANKSTRING;
@@ -1149,7 +1149,7 @@ void ShaderGenerator::flushShaderCache()
 //-----------------------------------------------------------------------------
 auto ShaderGenerator::getTranslator(const AbstractNodePtr& node) -> ScriptTranslator*
 {
-    if(node->type != ANT_OBJECT)
+    if(node->type != AbstractNodeType::OBJECT)
         return nullptr;
     
     auto *obj = static_cast<ObjectAbstractNode*>(node.get());
@@ -1246,7 +1246,7 @@ void ShaderGenerator::setTargetLanguage(std::string_view shaderLanguage)
     // Make sure that the shader language is supported.
     if (!mProgramWriterManager->isLanguageSupported(shaderLanguage))
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, ::std::format("'{}' is not supported", shaderLanguage ));
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, ::std::format("'{}' is not supported", shaderLanguage ));
     }
 
     // Case target language changed -> flush the shaders cache.
@@ -1280,7 +1280,7 @@ void ShaderGenerator::setShaderCachePath( std::string_view cachePath )
             
             if (!outFile)
             {
-                OGRE_EXCEPT(Exception::ERR_CANNOT_WRITE_TO_FILE,
+                OGRE_EXCEPT(ExceptionCodes::CANNOT_WRITE_TO_FILE,
                     ::std::format("Could not create output files in the given shader cache path '{}", mShaderCachePath),
                     "ShaderGenerator::setShaderCachePath"); 
             }
@@ -1470,7 +1470,7 @@ void ShaderGenerator::SGTechnique::createSGPasses()
         Pass* srcPass = mSrcTechnique->getPass(i);
         Pass* dstPass = mDstTechnique->getPass(i);
 
-		auto* passEntry = new SGPass(this, srcPass, dstPass, IS_UNKNOWN);
+		auto* passEntry = new SGPass(this, srcPass, dstPass, IlluminationStage::UNKNOWN);
 
         if (i < mCustomRenderStates.size())
             passEntry->setCustomRenderState(mCustomRenderStates[i]);
@@ -1789,7 +1789,7 @@ void ShaderGenerator::SGScheme::synchronizeWithLightSettings()
         Vector3i sceneLightCount(0, 0, 0);
         for (auto i : lightList)
         {
-            sceneLightCount[i->getType()]++;
+            sceneLightCount[std::to_underlying(i->getType())]++;
         }
         
         auto currLightCount = mRenderState->getLightCount();
@@ -1799,7 +1799,7 @@ void ShaderGenerator::SGScheme::synchronizeWithLightSettings()
         // Case new light appeared -> invalidate. But dont invalidate the other way as shader compilation is costly.
         if (!(Vector3i(-1) < lightDiff))
         {
-            LogManager::getSingleton().stream(LML_TRIVIAL)
+            LogManager::getSingleton().stream(LogMessageLevel::Trivial)
                 << "RTSS: invalidating scheme " << mName << " - lights changed " << currLightCount
                 << " -> " << sceneLightCount;
             curRenderState->setLightCount(sceneLightCount);
@@ -1815,7 +1815,7 @@ void ShaderGenerator::SGScheme::synchronizeWithFogSettings()
 
     if (sceneManager != nullptr && sceneManager->getFogMode() != mFogMode)
     {
-        LogManager::getSingleton().stream(LML_TRIVIAL)
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial)
             << "RTSS: invalidating scheme " << mName << " - fog settings changed";
         mFogMode = sceneManager->getFogMode();
         invalidate();

@@ -181,7 +181,7 @@ TEST_F(MeshSerializerTests,Skeleton_Version_1_8)
 {
     if (mSkeleton) {
         SkeletonSerializer skeletonSerializer;
-        skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SKELETON_VERSION_1_8);
+        skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SkeletonVersion::_1_8);
         mSkeleton->reload();
     }
 }
@@ -190,34 +190,34 @@ TEST_F(MeshSerializerTests,Skeleton_Version_1_0)
 {
     if (mSkeleton) {
         SkeletonSerializer skeletonSerializer;
-        skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SKELETON_VERSION_1_0);
+        skeletonSerializer.exportSkeleton(mSkeleton.get(), mSkeletonFullPath, SkeletonVersion::_1_0);
         mSkeleton->reload();
     }
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_Version_1_10)
 {
-    testMesh(MESH_VERSION_LATEST);
+    testMesh(MeshVersion::LATEST);
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_Version_1_8)
 {
-    testMesh(MESH_VERSION_1_8);
+    testMesh(MeshVersion::_1_8);
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_Version_1_41)
 {
-    testMesh(MESH_VERSION_1_7);
+    testMesh(MeshVersion::_1_7);
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_Version_1_4)
 {
-    testMesh(MESH_VERSION_1_4);
+    testMesh(MeshVersion::_1_4);
 }
 //--------------------------------------------------------------------------
 TEST_F(MeshSerializerTests,Mesh_Version_1_3)
 {
-    testMesh(MESH_VERSION_1_0);
+    testMesh(MeshVersion::_1_0);
 }
 
 namespace Ogre
@@ -231,7 +231,7 @@ namespace Ogre
 }
 
 //--------------------------------------------------------------------------
-void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
+void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
     // TODO: Compare skeleton
     // TODO: Compare animations
@@ -259,8 +259,8 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
     EXPECT_TRUE(a->isEdgeListBuilt() == b->isEdgeListBuilt()); // <== OgreXMLSerializer is doing post processing to generate edgelists!
 
     if ((a->getNumLodLevels() > 1 || b->getNumLodLevels() > 1) &&
-        ((version < MESH_VERSION_1_8 || (!isLodMixed(a) && !isLodMixed(b))) && // mixed lod only supported in v1.10+
-         (version < MESH_VERSION_1_4 || (a->getLodStrategy() == DistanceLodBoxStrategy::getSingletonPtr() &&
+        ((version < MeshVersion::_1_8 || (!isLodMixed(a) && !isLodMixed(b))) && // mixed lod only supported in v1.10+
+         (version < MeshVersion::_1_4 || (a->getLodStrategy() == DistanceLodBoxStrategy::getSingletonPtr() &&
                                          b->getLodStrategy() == DistanceLodBoxStrategy::getSingletonPtr())))) { // Lod Strategy only supported in v1.41+
         EXPECT_TRUE(a->getNumLodLevels() == b->getNumLodLevels());
         EXPECT_TRUE(a->hasManualLodLevel() == b->hasManualLodLevel());
@@ -268,7 +268,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
 
         int numLods = a->getNumLodLevels();
         for (int i = 0; i < numLods; i++) {
-            if (version != MESH_VERSION_1_0 && a->getAutoBuildEdgeLists() == b->getAutoBuildEdgeLists()) {
+            if (version != MeshVersion::_1_0 && a->getAutoBuildEdgeLists() == b->getAutoBuildEdgeLists()) {
                 assertEdgeDataClone(a->getEdgeList(i), b->getEdgeList(i));
             } else if (a->getLodLevel(i).edgeData != nullptr && b->getLodLevel(i).edgeData != nullptr) {
                 assertEdgeDataClone(a->getLodLevel(i).edgeData, b->getLodLevel(i).edgeData);
@@ -360,7 +360,7 @@ auto MeshSerializerTests::isLodMixed(const Mesh* pMesh) -> bool
     return false;
 }
 //--------------------------------------------------------------------------
-void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
+void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
     EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
@@ -395,8 +395,8 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
                 const VertexElement& bElem = *bIt;
                 HardwareVertexBufferSharedPtr abuf = a->vertexBufferBinding->getBuffer(aElem.getSource());
                 HardwareVertexBufferSharedPtr bbuf = b->vertexBufferBinding->getBuffer(bElem.getSource());
-                auto* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::HBL_READ_ONLY));
-                auto* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                auto* avertex = static_cast<unsigned char*>(abuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
+                auto* bvertex = static_cast<unsigned char*>(bbuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
                 size_t avSize = abuf->getVertexSize();
                 size_t bvSize = bbuf->getVertexSize();
                 size_t elemSize = VertexElement::getTypeSize(aElem.getType());
@@ -456,7 +456,7 @@ auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V, H, E>& a
     return true;
 }
 //--------------------------------------------------------------------------
-void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
+void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
     EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
@@ -469,8 +469,8 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
             EXPECT_TRUE(a->indexBuffer->getIndexSize() == b->indexBuffer->getIndexSize());
             EXPECT_TRUE(a->indexBuffer->getType() == b->indexBuffer->getType());
 
-            char* abuf = (char*) a->indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
-            char* bbuf = (char*) b->indexBuffer->lock(HardwareBuffer::HBL_READ_ONLY);
+            char* abuf = (char*) a->indexBuffer->lock(HardwareBuffer::LockOptions::READ_ONLY);
+            char* bbuf = (char*) b->indexBuffer->lock(HardwareBuffer::LockOptions::READ_ONLY);
             size_t size = a->indexBuffer->getIndexSize();
             char* astart = abuf + a->indexStart * size;
             char* bstart = bbuf + b->indexStart * size;
@@ -481,7 +481,7 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
     }
 }
 //--------------------------------------------------------------------------
-void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MESH_VERSION_LATEST*/)
+void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
     EXPECT_TRUE((a == nullptr) == (b == nullptr));
     if (a) {
@@ -494,7 +494,7 @@ void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVers
     }
 }
 //--------------------------------------------------------------------------
-void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version /*= MESH_VERSION_LATEST*/)
+void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
     EXPECT_TRUE(a.manualName == b.manualName);
     EXPECT_TRUE(isEqual(a.userValue, b.userValue));

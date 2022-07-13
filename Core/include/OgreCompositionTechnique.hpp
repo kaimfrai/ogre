@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include <vector>
 
 #include "OgreCompositionTargetPass.hpp"
+#include "OgreDepthBuffer.hpp"
 #include "OgreMemoryAllocatorConfig.hpp"
 #include "OgrePixelFormat.hpp"
 #include "OgrePlatform.hpp"
@@ -58,13 +59,13 @@ namespace Ogre {
         virtual ~CompositionTechnique();
     
         //The scope of a texture defined by the compositor
-        enum TextureScope { 
+        enum class TextureScope { 
             //Local texture - only available to the compositor passes in this technique
-            TS_LOCAL, 
+            LOCAL,
             //Chain texture - available to the other compositors in the chain
-            TS_CHAIN, 
+            CHAIN,
             //Global texture - available to everyone in every scope
-            TS_GLOBAL 
+            GLOBAL
         };
 
         /// Local texture definition
@@ -77,15 +78,15 @@ namespace Ogre {
             String refTexName;  //If a reference, the name of the texture in the compositor being referenced
             uint32 width{0};       // 0 means adapt to target width
             uint32 height{0};      // 0 means adapt to target height
-            TextureType type{TEX_TYPE_2D};   // either 2d or cubic
+            TextureType type{TextureType::_2D};   // either 2d or cubic
             float widthFactor{1.0f};  // multiple of target width to use (if width = 0)
             float heightFactor{1.0f}; // multiple of target height to use (if height = 0)
             PixelFormatList formatList; // more than one means MRT
             bool fsaa{true};          // FSAA enabled; true = determine from main target (if render_scene), false = disable
             bool hwGammaWrite{false};  // Do sRGB gamma correction on write (only 8-bit per channel formats) 
-            uint16 depthBufferId{1};//Depth Buffer's pool ID. (unrelated to "pool" variable below)
+            DepthBuffer::PoolId depthBufferId{1};//Depth Buffer's pool ID. (unrelated to "pool" variable below)
             bool pooled{false};        // whether to use pooled textures for this one
-            TextureScope scope{TS_LOCAL}; // Which scope has access to this texture
+            TextureScope scope{TextureScope::LOCAL}; // Which scope has access to this texture
 
             TextureDefinition()  = default;
         };

@@ -83,7 +83,7 @@ class VertexData;
         /** When the mesh is (hardware) skinned, a different code path is called so that
             we reuse the index buffers and modify them in place. For example Instance #2
             with reference to bone #5 would have BlendIndex = 2 + 5 = 7
-            Everything is copied identically except the VES_BLEND_INDICES semantic
+            Everything is copied identically except the VertexElementSemantic::BLEND_INDICES semantic
         */
         void setupHardwareSkinned( const SubMesh* baseSubMesh, VertexData *thisVertexData,
                                     VertexData *baseVertexData );
@@ -94,7 +94,7 @@ class VertexData;
                             std::string_view batchName );
 
         /** @see InstanceBatch::calculateMaxNumInstances */
-        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, uint16 flags ) const -> size_t override;
+        auto calculateMaxNumInstances( const SubMesh *baseSubMesh, InstanceManagerFlags flags ) const -> size_t override;
 
         /** @see InstanceBatch::buildFrom */
         void buildFrom( const SubMesh *baseSubMesh, const RenderOperation &renderOperation ) override;

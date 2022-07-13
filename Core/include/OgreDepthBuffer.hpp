@@ -52,22 +52,22 @@ class RenderTarget;
         Usually, a depth buffer can only be attached to a RenderTarget if it's dimensions are bigger
         and have the same bit depth and same multisample settings. Depth Buffers are created automatically
         for new RTs when needed, and stored in the pool where the RenderTarget should have drawn from.
-        By default, all RTs have the Id POOL_DEFAULT, which means all depth buffers are stored by default
+        By default, all RTs have the Id PoolId::DEFAULT, which means all depth buffers are stored by default
         in that pool. By choosing a different Pool Id for a specific RenderTarget, that RT will only
         retrieve depth buffers from _that_ pool, therefore not conflicting with sharing depth buffers
         with other RTs (such as shadows maps).
-        Setting an RT to POOL_MANUAL_USAGE means Ogre won't manage the DepthBuffer for you (not recommended)
-        RTs with POOL_NO_DEPTH are very useful when you don't want to create a DepthBuffer for it. You can
-        still manually attach a depth buffer though as internally POOL_NO_DEPTH & POOL_MANUAL_USAGE are
+        Setting an RT to PoolId::MANUAL_USAGE means Ogre won't manage the DepthBuffer for you (not recommended)
+        RTs with PoolId::NO_DEPTH are very useful when you don't want to create a DepthBuffer for it. You can
+        still manually attach a depth buffer though as internally PoolId::NO_DEPTH & PoolId::MANUAL_USAGE are
         handled in the same way.
 
         Behavior is consistent across all render systems, if, and only if, the same RSC flags are set
         RSC flags that affect this class are:
-            * RSC_RTT_MAIN_DEPTHBUFFER_ATTACHABLE:
+            * Capabilities::RTT_MAIN_DEPTHBUFFER_ATTACHABLE:
                 some APIs (ie. OpenGL w/ FBO) don't allow using
                 the main depth buffer for offscreen RTTs. When this flag is set, the depth buffer can be
                 shared between the main window and an RTT.
-            * RSC_RTT_DEPTHBUFFER_RESOLUTION_LESSEQUAL:
+            * Capabilities::RTT_DEPTHBUFFER_RESOLUTION_LESSEQUAL:
                 When this flag isn't set, the depth buffer can only be shared across RTTs who have the EXACT
                 same resolution. When it's set, it can be shared with RTTs as long as they have a
                 resolution less or equal than the depth buffer's.
@@ -78,22 +78,22 @@ class RenderTarget;
     class DepthBuffer : public RenderSysAlloc
     {
     public:
-        enum PoolId
+        enum class PoolId
         {
-            POOL_NO_DEPTH       = 0,
-            POOL_MANUAL_USAGE   = 0,
-            POOL_DEFAULT        = 1
+            NO_DEPTH       = 0,
+            MANUAL_USAGE   = 0,
+            DEFAULT        = 1
         };
 
-        DepthBuffer(uint16 poolId, uint32 width, uint32 height, uint32 fsaa, bool manual);
+        DepthBuffer(PoolId poolId, uint32 width, uint32 height, uint32 fsaa, bool manual);
         virtual ~DepthBuffer();
 
         /** Sets the pool id in which this DepthBuffer lives.
             Note this will detach any render target from this depth buffer */
-        void _setPoolId( uint16 poolId );
+        void _setPoolId( PoolId poolId );
 
         /// Gets the pool id in which this DepthBuffer lives
-        [[nodiscard]] virtual auto getPoolId() const noexcept -> uint16;
+        [[nodiscard]] virtual auto getPoolId() const noexcept -> PoolId;
         [[nodiscard]] virtual auto getWidth() const noexcept -> uint32;
         [[nodiscard]] virtual auto getHeight() const noexcept -> uint32;
         [[nodiscard]] auto getFSAA() const noexcept -> uint32 { return mFsaa; }
@@ -132,7 +132,7 @@ class RenderTarget;
     protected:
         using RenderTargetSet = std::set<RenderTarget *>;
 
-        uint16                      mPoolId;
+        DepthBuffer::PoolId         mPoolId;
         uint32                      mWidth;
         uint32                      mHeight;
         uint32                      mFsaa;

@@ -61,16 +61,16 @@ class Material;
     *  @{
     */
     /** These enums hold the types of the concrete parsed nodes */
-    enum ConcreteNodeType
+    enum class ConcreteNodeType
     {
-        CNT_VARIABLE,
-        CNT_VARIABLE_ASSIGN,
-        CNT_WORD,
-        CNT_IMPORT,
-        CNT_QUOTE,
-        CNT_LBRACE,
-        CNT_RBRACE,
-        CNT_COLON
+        VARIABLE,
+        VARIABLE_ASSIGN,
+        WORD,
+        IMPORT,
+        QUOTE,
+        LBRACE,
+        RBRACE,
+        COLON
     };
 
     /** The ConcreteNode is the struct that holds an un-conditioned sub-tree of parsed input */
@@ -89,16 +89,16 @@ class Material;
         ConcreteNode *parent;
     };
 
-    /** This enum holds the types of the possible abstract nodes */
-    enum AbstractNodeType
+    /** This enum class holds the types of the possible abstract nodes */
+    enum class AbstractNodeType
     {
-        ANT_UNKNOWN,
-        ANT_ATOM,
-        ANT_OBJECT,
-        ANT_PROPERTY,
-        ANT_IMPORT,
-        ANT_VARIABLE_SET,
-        ANT_VARIABLE_ACCESS
+        UNKNOWN,
+        ATOM,
+        OBJECT,
+        PROPERTY,
+        IMPORT,
+        VARIABLE_SET,
+        VARIABLE_ACCESS
     };
     class AbstractNode;
     using AbstractNodePtr = SharedPtr<AbstractNode>;
@@ -110,7 +110,7 @@ class Material;
     public:
         String file;
         unsigned int line{0};
-        AbstractNodeType type{ANT_UNKNOWN};
+        AbstractNodeType type{AbstractNodeType::UNKNOWN};
         AbstractNode *parent;
         ::std::any context; // A holder for translation context data
     public:
@@ -336,7 +336,7 @@ class Material;
         };
         friend class AbstractTreeBuilder;
     public: // Public translator definitions
-        // This enum are built-in word id values
+        // This enum class are built-in word id values
         enum
         {
             ID_ON = 1,
@@ -481,7 +481,7 @@ class Material;
     class ProcessResourceNameScriptCompilerEvent : public ScriptCompilerEvent
     {
     public:
-        enum ResourceType
+        enum class ResourceType
         {
             TEXTURE,
             MATERIAL,
@@ -561,7 +561,7 @@ class Material;
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
     };
 
-    /// This enum defines the integer ids for keywords this compiler handles
+    /// This enum class defines the integer ids for keywords this compiler handles
     enum
     {
         ID_MATERIAL = 3,

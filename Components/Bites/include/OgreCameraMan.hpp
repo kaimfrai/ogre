@@ -47,11 +47,11 @@ namespace OgreBites
     /** \addtogroup Bites
     *  @{
     */
-    enum CameraStyle   /// enumerator values for different styles of camera movement
+    enum class CameraStyle   /// enumerator values for different styles of camera movement
     {
-        CS_FREELOOK,
-        CS_ORBIT,
-        CS_MANUAL
+        FREELOOK,
+        ORBIT,
+        MANUAL
     };
 
     /**
@@ -153,15 +153,16 @@ namespace OgreBites
          */
         void setFixedYaw(bool fixed)
         {
-            mYawSpace = fixed ? Ogre::Node::TS_PARENT : Ogre::Node::TS_LOCAL;
+            using enum Ogre::Node::TransformSpace;
+            mYawSpace = fixed ? PARENT : LOCAL;
         }
 
         void setPivotOffset(const Ogre::Vector3& offset);
     protected:
         auto getDistToTarget() -> Ogre::Real;
-        Ogre::Node::TransformSpace mYawSpace{Ogre::Node::TS_PARENT};
+        Ogre::Node::TransformSpace mYawSpace{Ogre::Node::TransformSpace::PARENT};
         Ogre::SceneNode* mCamera{nullptr};
-        CameraStyle mStyle{CS_MANUAL};
+        CameraStyle mStyle{CameraStyle::MANUAL};
         Ogre::SceneNode* mTarget{nullptr};
         bool mOrbiting{false};
         bool mMoving{false};

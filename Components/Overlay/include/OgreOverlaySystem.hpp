@@ -67,7 +67,7 @@ namespace Ogre {
         ~OverlaySystem() override;
 
         /// @see RenderQueueListener
-        void renderQueueStarted(uint8 queueGroupId, std::string_view invocation, 
+        void renderQueueStarted(Ogre::RenderQueueGroupID queueGroupId, std::string_view invocation,
             bool& skipThisInvocation) override;
 
         /// @see RenderSystem::Listener

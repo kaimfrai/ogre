@@ -33,6 +33,7 @@ THE SOFTWARE.
 #include "OgreHardwareBuffer.hpp"
 #include "OgreHardwareBufferManager.hpp"
 #include "OgreHardwareIndexBuffer.hpp"
+#include "OgreHardwareVertexBuffer.hpp"
 #include "OgrePlatform.hpp"
 #include "OgrePrerequisites.hpp"
 #include "glad/glad.h"
@@ -68,10 +69,10 @@ namespace Ogre {
         /// Create a render to vertex buffer
         auto createRenderToVertexBuffer() -> RenderToVertexBufferSharedPtr override;
         /// Utility function to get the correct GL usage based on HBU's
-        static auto getGLUsage(unsigned int usage) -> GLenum;
+        static auto getGLUsage(HardwareBufferUsage usage) -> GLenum;
 
         /// Utility function to get the correct GL type based on VET's
-        static auto getGLType(unsigned int type) -> GLenum;
+        static auto getGLType(VertexElementType type) -> GLenum;
 
         auto getStateCacheManager() noexcept -> GLStateCacheManager*;
 

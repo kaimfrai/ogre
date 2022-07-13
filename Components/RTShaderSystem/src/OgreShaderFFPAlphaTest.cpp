@@ -66,13 +66,13 @@ namespace Ogre::RTShader {
 		//-----------------------------------------------------------------------
 		auto FFPAlphaTest::resolveParameters(ProgramSet* programSet) -> bool
 		{
-			Program* psProgram  = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+			Program* psProgram  = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
 
-			mPSAlphaRef = psProgram->resolveParameter(GpuProgramParameters::ACT_SURFACE_ALPHA_REJECTION_VALUE);
-			mPSAlphaFunc = psProgram->resolveParameter(GCT_FLOAT1, "gAlphaFunc");
+			mPSAlphaRef = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE);
+			mPSAlphaFunc = psProgram->resolveParameter(GpuConstantType::FLOAT1, "gAlphaFunc");
 
-			mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::SPC_COLOR_DIFFUSE);
+			mPSOutDiffuse = psMain->resolveOutputParameter(Parameter::Content::COLOR_DIFFUSE);
 
 			return true;
 		}
@@ -82,7 +82,7 @@ namespace Ogre::RTShader {
 		//-----------------------------------------------------------------------
 		auto FFPAlphaTest::resolveDependencies(ProgramSet* programSet) -> bool
 		{
-			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+			Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 			psProgram->addDependency(FFP_LIB_ALPHA_TEST);
 			return true;
 		}
@@ -96,23 +96,23 @@ namespace Ogre::RTShader {
 
 		auto FFPAlphaTest::addFunctionInvocations( ProgramSet* programSet ) -> bool
 		{
-			Program* psProgram = programSet->getCpuProgram(GPT_FRAGMENT_PROGRAM);
+			Program* psProgram = programSet->getCpuProgram(GpuProgramType::FRAGMENT_PROGRAM);
 			Function* psMain = psProgram->getEntryPointFunction();
 
-            psMain->getStage(FFP_PS_ALPHA_TEST)
+            psMain->getStage(std::to_underlying(FFPFragmentShaderStage::ALPHA_TEST))
                 .callFunction(FFP_FUNC_ALPHA_TEST, {In(mPSAlphaFunc), In(mPSAlphaRef), In(mPSOutDiffuse)});
 
             return true;
 		}
 
-		auto FFPAlphaTest::getExecutionOrder() const noexcept -> int
+		auto FFPAlphaTest::getExecutionOrder() const noexcept -> FFPShaderStage
 		{
-			return FFP_ALPHA_TEST;
+			return FFPShaderStage::ALPHA_TEST;
 		}
 
 		auto FFPAlphaTest::preAddToRenderState( const RenderState* renderState, Pass* srcPass, Pass* dstPass ) noexcept -> bool
 		{
-			return srcPass->getAlphaRejectFunction() != CMPF_ALWAYS_PASS;
+			return srcPass->getAlphaRejectFunction() != CompareFunction::ALWAYS_PASS;
 		}
 
 		void FFPAlphaTest::updateGpuProgramsParams( Renderable* rend, const Pass* pass, const AutoParamDataSource* source, const LightList* pLightList )

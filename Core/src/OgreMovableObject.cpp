@@ -61,8 +61,8 @@ THE SOFTWARE.
 namespace Ogre {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    uint32 MovableObject::msDefaultQueryFlags = 0xFFFFFFFF;
-    uint32 MovableObject::msDefaultVisibilityFlags = 0xFFFFFFFF;
+    QueryTypeMask MovableObject::msDefaultQueryFlags{ 0xFFFFFFFF };
+    QueryTypeMask MovableObject::msDefaultVisibilityFlags{ 0xFFFFFFFF };
     //-----------------------------------------------------------------------
     MovableObject::MovableObject() : MovableObject(BLANKSTRING) {}
     //-----------------------------------------------------------------------
@@ -80,7 +80,7 @@ namespace Ogre {
         , mRenderQueueIDSet(false)
         , mRenderQueuePrioritySet(false)
         , mRenderingDisabled(false)
-        , mRenderQueueID(RENDER_QUEUE_MAIN)
+        , mRenderQueueID(RenderQueueGroupID::MAIN)
         , mRenderQueuePriority(100)
         , mUpperDistance(0)
         , mSquaredUpperDistance(0)
@@ -88,7 +88,7 @@ namespace Ogre {
         , mQueryFlags(msDefaultQueryFlags)
         , mVisibilityFlags(msDefaultVisibilityFlags)
         , mLightListUpdated(0)
-        , mLightMask(0xFFFFFFFF)
+        , mLightMask{0xFFFFFFFF}
     {
         if (Root::getSingletonPtr())
             mMinPixelSize = Root::getSingleton().getDefaultMinPixelSize();
@@ -264,7 +264,7 @@ namespace Ogre {
 
                 //If we have a perspective camera calculations are done relative to distance
                 Real sqrDistance = 1;
-                if (cam->getProjectionType() == PT_PERSPECTIVE)
+                if (cam->getProjectionType() == ProjectionType::PERSPECTIVE)
                 {
                     sqrDistance = mParentNode->getSquaredViewDepth(cam->getLodCamera());
                 }
@@ -287,15 +287,15 @@ namespace Ogre {
         mRenderingDisabled = mListener && !mListener->objectRendering(this, cam);
     }
     //-----------------------------------------------------------------------
-    void MovableObject::setRenderQueueGroup(uint8 queueID)
+    void MovableObject::setRenderQueueGroup(RenderQueueGroupID queueID)
     {
-        assert(queueID <= RENDER_QUEUE_MAX && "Render queue out of range!");
+        assert(queueID <= RenderQueueGroupID::MAX && "Render queue out of range!");
         mRenderQueueID = queueID;
         mRenderQueueIDSet = true;
     }
 
     //-----------------------------------------------------------------------
-    void MovableObject::setRenderQueueGroupAndPriority(uint8 queueID, ushort priority)
+    void MovableObject::setRenderQueueGroupAndPriority(RenderQueueGroupID queueID, ushort priority)
     {
         setRenderQueueGroup(queueID);
         mRenderQueuePriority = priority;
@@ -389,7 +389,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto MovableObject::getShadowVolumeRenderableList(
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
-        float extrusionDist, int flags) -> const ShadowRenderableList&
+        float extrusionDist, ShadowRenderableFlags flags) -> const ShadowRenderableList&
     {
         static ShadowRenderableList dummyList;
         return dummyList;
@@ -437,7 +437,7 @@ namespace Ogre {
         }
     }
     //-----------------------------------------------------------------------
-    auto MovableObject::getTypeFlags() const noexcept -> uint32
+    auto MovableObject::getTypeFlags() const noexcept -> QueryTypeMask
     {
         if (mCreator)
         {
@@ -445,11 +445,11 @@ namespace Ogre {
         }
         else
         {
-            return 0xFFFFFFFF;
+            return static_cast<QueryTypeMask>(0xFFFFFFFF);
         }
     }
     //---------------------------------------------------------------------
-    void MovableObject::setLightMask(uint32 lightMask)
+    void MovableObject::setLightMask(QueryTypeMask lightMask)
     {
         this->mLightMask = lightMask;
         //make sure to request a new light list from the scene manager if mask changed

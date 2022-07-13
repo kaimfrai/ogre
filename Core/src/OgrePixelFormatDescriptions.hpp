@@ -28,6 +28,8 @@ THE SOFTWARE.
 #ifndef OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
 #define OGRE_CORE_PIXELFORMATDESCRIPTIONS_H
 
+#include "OgrePixelFormat.hpp"
+
 namespace Ogre {
     //-----------------------------------------------------------------------
     /**
@@ -38,10 +40,10 @@ namespace Ogre {
         const std::string_view name;
         /* Number of bytes one element (colour value) takes. */
         unsigned char elemBytes;
-        /* Pixel format flags, see enum PixelFormatFlags for the bit field
+        /* Pixel format flags, see enum class PixelFormatFlags for the bit field
          * definitions
          */
-        uint32 flags;
+        PixelFormatFlags flags;
         /** Component type
          */
         PixelComponentType componentType;
@@ -58,15 +60,15 @@ namespace Ogre {
     };
     //-----------------------------------------------------------------------
     /** Pixel format database */
-    PixelFormatDescription _pixelFormats[PF_COUNT] = {
+    PixelFormatDescription _pixelFormats[std::to_underlying(PixelFormat::COUNT)] = {
         //-----------------------------------------------------------------------
         {"PF_UNKNOWN",
             /* Bytes per element */
             0,
             /* Flags */
-            0,
+            {},
             /* Component type and count */
-            PCT_BYTE, 0,
+            PixelComponentType::BYTE, 0,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -77,9 +79,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_LUMINANCE | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 1,
+            PixelComponentType::BYTE, 1,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 0,
             /* Masks and shifts */
@@ -90,9 +92,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_LUMINANCE | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SHORT, 1,
+            PixelComponentType::SHORT, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -103,9 +105,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_HASALPHA,
+            PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 1,
+            PixelComponentType::BYTE, 1,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 8,
             /* Masks and shifts */
@@ -116,9 +118,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_HASALPHA | PFF_LUMINANCE,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::LUMINANCE,
             /* Component type and count */
-            PCT_BYTE, 2,
+            PixelComponentType::BYTE, 2,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 8,
             /* Masks and shifts */
@@ -129,9 +131,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             5, 6, 5, 0,
             /* Masks and shifts */
@@ -143,9 +145,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             5, 6, 5, 0,
             /* Masks and shifts */
@@ -157,9 +159,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             4, 4, 4, 4,
             /* Masks and shifts */
@@ -171,9 +173,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             5, 5, 5, 1,
             /* Masks and shifts */
@@ -185,9 +187,9 @@ namespace Ogre {
             /* Bytes per element */
             3,  // 24 bit integer -- special
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -199,9 +201,9 @@ namespace Ogre {
             /* Bytes per element */
             3,  // 24 bit integer -- special
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -213,9 +215,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -227,9 +229,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -241,9 +243,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -255,9 +257,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             10, 10, 10, 2,
             /* Masks and shifts */
@@ -269,9 +271,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             10, 10, 10, 2,
             /* Masks and shifts */
@@ -283,9 +285,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3, // No alpha
+            PixelComponentType::BYTE, 3, // No alpha
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -296,9 +298,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -309,9 +311,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -322,9 +324,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -335,9 +337,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -348,9 +350,9 @@ namespace Ogre {
             /* Bytes per element */
             6,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT16, 3,
+            PixelComponentType::FLOAT16, 3,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 0,
             /* Masks and shifts */
@@ -361,9 +363,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_FLOAT | PFF_HASALPHA,
+            PixelFormatFlags::FLOAT | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_FLOAT16, 4,
+            PixelComponentType::FLOAT16, 4,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 16,
             /* Masks and shifts */
@@ -374,9 +376,9 @@ namespace Ogre {
             /* Bytes per element */
             12,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT32, 3,
+            PixelComponentType::FLOAT32, 3,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 0,
             /* Masks and shifts */
@@ -387,9 +389,9 @@ namespace Ogre {
             /* Bytes per element */
             16,
             /* Flags */
-            PFF_FLOAT | PFF_HASALPHA,
+            PixelFormatFlags::FLOAT | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_FLOAT32, 4,
+            PixelComponentType::FLOAT32, 4,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 32,
             /* Masks and shifts */
@@ -400,9 +402,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -414,9 +416,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -428,9 +430,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -442,9 +444,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_LUMINANCE | PFF_DEPTH | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::DEPTH | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SHORT, 1,
+            PixelComponentType::SHORT, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -455,9 +457,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_HASALPHA,
+            PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_SHORT, 4,
+            PixelComponentType::SHORT, 4,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 16,
             /* Masks and shifts */
@@ -468,9 +470,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             3, 3, 2, 0,
             /* Masks and shifts */
@@ -482,9 +484,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT16, 1,
+            PixelComponentType::FLOAT16, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -495,9 +497,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT32, 1,
+            PixelComponentType::FLOAT32, 1,
             /* rbits, gbits, bbits, abits */
             32, 0, 0, 0,
             /* Masks and shifts */
@@ -508,9 +510,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SHORT, 2,
+            PixelComponentType::SHORT, 2,
             /* rbits, gbits, bbits, abits */
             16, 16, 0, 0,
             /* Masks and shifts */
@@ -522,9 +524,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT16, 2,
+            PixelComponentType::FLOAT16, 2,
             /* rbits, gbits, bbits, abits */
             16, 16, 0, 0,
             /* Masks and shifts */
@@ -535,9 +537,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_FLOAT,
+            PixelFormatFlags::FLOAT,
             /* Component type and count */
-            PCT_FLOAT32, 2,
+            PixelComponentType::FLOAT32, 2,
             /* rbits, gbits, bbits, abits */
             32, 32, 0, 0,
             /* Masks and shifts */
@@ -548,9 +550,9 @@ namespace Ogre {
             /* Bytes per element */
             6,
             /* Flags */
-            0,
+            {},
             /* Component type and count */
-            PCT_SHORT, 3,
+            PixelComponentType::SHORT, 3,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 0,
             /* Masks and shifts */
@@ -561,9 +563,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -574,9 +576,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -587,9 +589,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -600,9 +602,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -613,9 +615,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -626,9 +628,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -639,9 +641,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_FLOAT | PFF_NATIVEENDIAN,
+            PixelFormatFlags::FLOAT | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_FLOAT32, 1,
+            PixelComponentType::FLOAT32, 1,
             /* rbits, gbits, bbits, abits */
             11, 11, 10, 0,
             /* Masks and shifts */
@@ -653,9 +655,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 1,
+            PixelComponentType::UINT, 1,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 0,
             /* Masks and shifts */
@@ -667,9 +669,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 2,
+            PixelComponentType::UINT, 2,
             /* rbits, gbits, bbits, abits */
             8, 8, 0, 0,
             /* Masks and shifts */
@@ -681,9 +683,9 @@ namespace Ogre {
             /* Bytes per element */
             3,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 3,
+            PixelComponentType::UINT, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -695,9 +697,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 4,
+            PixelComponentType::UINT, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -709,9 +711,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 1,
+            PixelComponentType::UINT, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -723,9 +725,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 2,
+            PixelComponentType::UINT, 2,
             /* rbits, gbits, bbits, abits */
             16, 16, 0, 0,
             /* Masks and shifts */
@@ -737,9 +739,9 @@ namespace Ogre {
             /* Bytes per element */
             6,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 3,
+            PixelComponentType::UINT, 3,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 0,
             /* Masks and shifts */
@@ -751,9 +753,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 4,
+            PixelComponentType::UINT, 4,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 16,
             /* Masks and shifts */
@@ -765,9 +767,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 1,
+            PixelComponentType::UINT, 1,
             /* rbits, gbits, bbits, abits */
             32, 0, 0, 0,
             /* Masks and shifts */
@@ -779,9 +781,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 2,
+            PixelComponentType::UINT, 2,
             /* rbits, gbits, bbits, abits */
             32, 32, 0, 0,
             /* Masks and shifts */
@@ -793,9 +795,9 @@ namespace Ogre {
             /* Bytes per element */
             12,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 3,
+            PixelComponentType::UINT, 3,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 0,
             /* Masks and shifts */
@@ -807,9 +809,9 @@ namespace Ogre {
             /* Bytes per element */
             16,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 4,
+            PixelComponentType::UINT, 4,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 32,
             /* Masks and shifts */
@@ -821,9 +823,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 1,
+            PixelComponentType::SINT, 1,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 0,
             /* Masks and shifts */
@@ -835,9 +837,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 2,
+            PixelComponentType::SINT, 2,
             /* rbits, gbits, bbits, abits */
             8, 8, 0, 0,
             /* Masks and shifts */
@@ -849,9 +851,9 @@ namespace Ogre {
             /* Bytes per element */
             3,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 3,
+            PixelComponentType::SINT, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -863,9 +865,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 4,
+            PixelComponentType::SINT, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -877,9 +879,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 1,
+            PixelComponentType::SINT, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -891,9 +893,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 2,
+            PixelComponentType::SINT, 2,
             /* rbits, gbits, bbits, abits */
             16, 16, 0, 0,
             /* Masks and shifts */
@@ -905,9 +907,9 @@ namespace Ogre {
             /* Bytes per element */
             6,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 3,
+            PixelComponentType::SINT, 3,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 0,
             /* Masks and shifts */
@@ -919,9 +921,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 4,
+            PixelComponentType::SINT, 4,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 16,
             /* Masks and shifts */
@@ -933,9 +935,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 1,
+            PixelComponentType::SINT, 1,
             /* rbits, gbits, bbits, abits */
             32, 0, 0, 0,
             /* Masks and shifts */
@@ -947,9 +949,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 2,
+            PixelComponentType::SINT, 2,
             /* rbits, gbits, bbits, abits */
             32, 32, 0, 0,
             /* Masks and shifts */
@@ -961,9 +963,9 @@ namespace Ogre {
             /* Bytes per element */
             12,
             /* Flags */
-            PFF_INTEGER | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 3,
+            PixelComponentType::SINT, 3,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 0,
             /* Masks and shifts */
@@ -975,9 +977,9 @@ namespace Ogre {
             /* Bytes per element */
             16,
             /* Flags */
-            PFF_INTEGER | PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::INTEGER | PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_SINT, 4,
+            PixelComponentType::SINT, 4,
             /* rbits, gbits, bbits, abits */
             32, 32, 32, 32,
             /* Masks and shifts */
@@ -989,9 +991,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             9, 9, 9, 0,
             /* Masks and shifts */
@@ -1003,9 +1005,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 1, // Red only
+            PixelComponentType::BYTE, 1, // Red only
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1016,9 +1018,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 1, // Red only
+            PixelComponentType::BYTE, 1, // Red only
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1029,9 +1031,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 2, // Red-Green only
+            PixelComponentType::BYTE, 2, // Red-Green only
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1042,9 +1044,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 2, // Red-Green only
+            PixelComponentType::BYTE, 2, // Red-Green only
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1055,9 +1057,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1068,9 +1070,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1081,9 +1083,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1094,9 +1096,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 1,
+            PixelComponentType::BYTE, 1,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 0,
             /* Masks and shifts */
@@ -1108,9 +1110,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 2,
+            PixelComponentType::BYTE, 2,
             /* rbits, gbits, bbits, abits */
             8, 8, 0, 0,
             /* Masks and shifts */
@@ -1122,9 +1124,9 @@ namespace Ogre {
             /* Bytes per element */
             1,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 1,
+            PixelComponentType::BYTE, 1,
             /* rbits, gbits, bbits, abits */
             8, 0, 0, 0,
             /* Masks and shifts */
@@ -1136,9 +1138,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 2,
+            PixelComponentType::BYTE, 2,
             /* rbits, gbits, bbits, abits */
             8, 8, 0, 0,
             /* Masks and shifts */
@@ -1150,9 +1152,9 @@ namespace Ogre {
             /* Bytes per element */
             3,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 0,
             /* Masks and shifts */
@@ -1164,9 +1166,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             8, 8, 8, 8,
             /* Masks and shifts */
@@ -1178,9 +1180,9 @@ namespace Ogre {
             /* Bytes per element */
             2,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 1,
+            PixelComponentType::BYTE, 1,
             /* rbits, gbits, bbits, abits */
             16, 0, 0, 0,
             /* Masks and shifts */
@@ -1192,9 +1194,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 2,
+            PixelComponentType::BYTE, 2,
             /* rbits, gbits, bbits, abits */
             16, 16, 0, 0,
             /* Masks and shifts */
@@ -1206,9 +1208,9 @@ namespace Ogre {
             /* Bytes per element */
             6,
             /* Flags */
-            PFF_NATIVEENDIAN,
+            PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 0,
             /* Masks and shifts */
@@ -1220,9 +1222,9 @@ namespace Ogre {
             /* Bytes per element */
             8,
             /* Flags */
-            PFF_HASALPHA | PFF_NATIVEENDIAN,
+            PixelFormatFlags::HASALPHA | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             16, 16, 16, 16,
             /* Masks and shifts */
@@ -1235,9 +1237,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1248,9 +1250,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1261,9 +1263,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1274,9 +1276,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1287,9 +1289,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED,
+            PixelFormatFlags::COMPRESSED,
             /* Component type and count */
-            PCT_BYTE, 3,
+            PixelComponentType::BYTE, 3,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1300,9 +1302,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1313,9 +1315,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1326,9 +1328,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1339,9 +1341,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1352,9 +1354,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1365,9 +1367,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1378,9 +1380,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1391,9 +1393,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1404,9 +1406,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1417,9 +1419,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1430,9 +1432,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1443,9 +1445,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1456,9 +1458,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1469,9 +1471,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1482,9 +1484,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1495,9 +1497,9 @@ namespace Ogre {
             /* Bytes per element */
             0,
             /* Flags */
-            PFF_COMPRESSED | PFF_HASALPHA,
+            PixelFormatFlags::COMPRESSED | PixelFormatFlags::HASALPHA,
             /* Component type and count */
-            PCT_BYTE, 4,
+            PixelComponentType::BYTE, 4,
             /* rbits, gbits, bbits, abits */
             0, 0, 0, 0,
             /* Masks and shifts */
@@ -1507,9 +1509,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_LUMINANCE | PFF_DEPTH | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::DEPTH | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 1,
+            PixelComponentType::UINT, 1,
             /* rbits, gbits, bbits, abits */
             32, 0, 0, 0,
             /* Masks and shifts */
@@ -1520,9 +1522,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_LUMINANCE | PFF_DEPTH | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::DEPTH | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_FLOAT32, 1,
+            PixelComponentType::FLOAT32, 1,
             /* rbits, gbits, bbits, abits */
             32, 0, 0, 0,
             /* Masks and shifts */
@@ -1532,9 +1534,9 @@ namespace Ogre {
             /* Bytes per element */
             4,
             /* Flags */
-            PFF_LUMINANCE | PFF_DEPTH | PFF_NATIVEENDIAN,
+            PixelFormatFlags::LUMINANCE | PixelFormatFlags::DEPTH | PixelFormatFlags::NATIVEENDIAN,
             /* Component type and count */
-            PCT_UINT, 1,
+            PixelComponentType::UINT, 1,
             /* rbits, gbits, bbits, abits */
             24, 0, 0, 0,
             /* Masks and shifts */

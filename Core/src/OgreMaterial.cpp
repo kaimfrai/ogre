@@ -196,7 +196,7 @@ class Renderable;
         newMat->mHandle = newHandle;
 
         //if we're cloning from a loaded material, notify the creator or otherwise size won't be right
-        if (newMat->getLoadingState() == LOADSTATE_LOADED)
+        if (newMat->getLoadingState() == LoadingState::LOADED)
         {
             // Notify manager
             if (mCreator)
@@ -416,7 +416,7 @@ class Renderable;
                 if (!mTechnique->getName().empty())
                     str << "(" << mTechnique->getName() << ")";
                 str << " is not supported. " << compileMessages;
-                LogManager::getSingleton().logMessage(str.str(), LML_TRIVIAL);
+                LogManager::getSingleton().logMessage(str.str(), LogMessageLevel::Trivial);
                 mUnsupportedReasons += compileMessages;
             }
             ++techNo;
@@ -427,7 +427,7 @@ class Renderable;
         // Did we find any?
         if (mSupportedTechniques.empty())
         {
-            LogManager::getSingleton().stream(LML_WARNING)
+            LogManager::getSingleton().stream(LogMessageLevel::Warning)
                 << "Warning: material " << mName << " has no supportable "
                 << "Techniques and will be blank. Explanation: \n" << mUnsupportedReasons;
         }

@@ -182,7 +182,7 @@ namespace Ogre {
             rid = ++mRequestCount;
             req = ::std::make_unique<Request>(channel, requestType, rData, retryCount, rid);
 
-            LogManager::getSingleton().stream(LML_TRIVIAL) << 
+            LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
                 "DefaultWorkQueueBase('" << mName << "') - QUEUED(thread:" <<
                 std::this_thread::get_id()
                 << "): ID=" << rid
@@ -217,7 +217,7 @@ namespace Ogre {
         if (mShuttingDown)
             return;
 
-        LogManager::getSingleton().stream(LML_TRIVIAL) << 
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
             "DefaultWorkQueueBase('" << mName << "') - REQUEUED(thread:" <<
             std::this_thread::get_id()
             << "): ID=" << rid
@@ -544,7 +544,7 @@ namespace Ogre {
             if (!r->getAborted())
             {
             // no response, delete request
-            LogManager::getSingleton().stream(LML_WARNING) <<
+            LogManager::getSingleton().stream(LogMessageLevel::Warning) <<
                 "DefaultWorkQueueBase('" << mName << "') warning: no handler processed request "
                 << r->getID() << ", channel " << r->getChannel()
                 << ", type " << r->getType();
@@ -611,7 +611,7 @@ namespace Ogre {
             << "): ID=" << r->getID() << " channel=" << r->getChannel() 
             << " requestType=" << r->getType();
 
-        LogManager::getSingleton().stream(LML_TRIVIAL) << 
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_REQUEST_START(" << dbgMsg.str();
 
         auto i = handlerListCopy.find(r->getChannel());
@@ -628,7 +628,7 @@ namespace Ogre {
             }
         }
 
-        LogManager::getSingleton().stream(LML_TRIVIAL) << 
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_REQUEST_END(" << dbgMsg.str()
             << " processed=" << (response!=nullptr);
 
@@ -645,7 +645,7 @@ namespace Ogre {
             << " success=" << r->succeeded() << " messages=[" << r->getMessages() << "] channel=" 
             << r->getRequest()->getChannel() << " requestType=" << r->getRequest()->getType();
 
-        LogManager::getSingleton().stream(LML_TRIVIAL) << 
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_RESPONSE_START(" << dbgMsg.str();
 
         auto i = mResponseHandlers.find(r->getRequest()->getChannel());
@@ -660,7 +660,7 @@ namespace Ogre {
                 }
             }
         }
-        LogManager::getSingleton().stream(LML_TRIVIAL) << 
+        LogManager::getSingleton().stream(LogMessageLevel::Trivial) << 
             "DefaultWorkQueueBase('" << mName << "') - PROCESS_RESPONSE_END(" << dbgMsg.str();
 
     }

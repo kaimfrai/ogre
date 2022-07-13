@@ -41,19 +41,19 @@ namespace Ogre {
     *  @{
     */
     /// Enums describing buffer usage
-    enum HardwareBufferUsage : uint8
+    enum class HardwareBufferUsage : uint8
     {
         /** Memory mappable on host and cached
          * @par Usage
          * results of some computations, e.g. screen capture
          */
-        HBU_GPU_TO_CPU = 1,
+        GPU_TO_CPU = 1,
         /** CPU (system) memory
          * This is the least optimal buffer setting.
          * @par Usage
          * Staging copy of resources used as transfer source.
          */
-        HBU_CPU_ONLY = 2,
+        CPU_ONLY = 2,
         /** Indicates the application will never read the contents of the buffer back,
         it will only ever write data. Locking a buffer with this flag will ALWAYS
         return a pointer to new, blank memory rather than the memory associated
@@ -62,19 +62,62 @@ namespace Ogre {
 
         However, you may read from it’s shadow buffer if you set one up
         */
-        HBU_DETAIL_WRITE_ONLY = 4,
+        DETAIL_WRITE_ONLY = 4,
         /** Device-local GPU (video) memory. No need to be mappable on host.
          * This is the optimal buffer usage setting.
          * @par Usage
          * Resources transferred from host once (immutable) - e.g. most textures, vertex buffers
          */
-        HBU_GPU_ONLY = HBU_GPU_TO_CPU | HBU_DETAIL_WRITE_ONLY,
+        GPU_ONLY = HardwareBufferUsage::GPU_TO_CPU | HardwareBufferUsage::DETAIL_WRITE_ONLY,
         /** Mappable on host and preferably fast to access by GPU.
          * @par Usage
          * Resources written frequently by host (dynamic) - e.g. uniform buffers updated every frame
          */
-        HBU_CPU_TO_GPU = HBU_CPU_ONLY | HBU_DETAIL_WRITE_ONLY,
+        CPU_TO_GPU = HardwareBufferUsage::CPU_ONLY | HardwareBufferUsage::DETAIL_WRITE_ONLY,
     };
+
+    auto constexpr operator compl(HardwareBufferUsage mask) -> HardwareBufferUsage
+    {
+        return static_cast<HardwareBufferUsage>
+        (   compl
+            std::to_underlying(mask)
+        );
+    }
+
+    auto constexpr operator not(HardwareBufferUsage mask) -> bool
+    {
+        return not std::to_underlying(mask);
+    }
+
+
+    auto constexpr operator bitor(HardwareBufferUsage left, HardwareBufferUsage right) -> HardwareBufferUsage
+    {
+        return static_cast<HardwareBufferUsage>
+        (   std::to_underlying(left)
+        bitor
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator |= (HardwareBufferUsage& left, HardwareBufferUsage right) -> HardwareBufferUsage&
+    {
+        return left = left bitor right;
+    }
+
+    auto constexpr operator bitand(HardwareBufferUsage left, HardwareBufferUsage right) -> HardwareBufferUsage
+    {
+        return static_cast<HardwareBufferUsage>
+        (   std::to_underlying(left)
+        bitand
+            std::to_underlying(right)
+        );
+    }
+
+    auto constexpr operator &= (HardwareBufferUsage& left, HardwareBufferUsage right) -> HardwareBufferUsage&
+    {
+        return left = left bitand right;
+    }
+
     /** Abstract class defining common features of hardware buffers.
     @remarks
         A 'hardware buffer' is any area of memory held outside of core system ram,
@@ -100,7 +143,7 @@ namespace Ogre {
         it is possible to create a hardware, write-only buffer (the most efficient kind) 
         and to back it with a system memory 'shadow' copy which can be read and updated arbitrarily.
         Ogre handles synchronising this buffer with the real hardware buffer (which should still be
-        created with the HBU_DYNAMIC flag if you intend to update it very frequently). Whilst this
+        created with the HardwareBufferUsage::DYNAMIC flag if you intend to update it very frequently). Whilst this
         approach does have its own costs, such as increased memory overhead, these costs can 
         often be outweighed by the performance benefits of using a more hardware efficient buffer.
         You should look for the 'useShadowBuffer' parameter on the creation methods used to create
@@ -110,27 +153,25 @@ namespace Ogre {
     {
 
         public:
-            using Usage = uint8;
-            /// Rather use HardwareBufferUsage
-            enum UsageEnum
-            {
-                /// same as #HBU_GPU_TO_CPU
-                HBU_STATIC = HBU_GPU_TO_CPU,
-                /// same as #HBU_CPU_ONLY
-                HBU_DYNAMIC = HBU_CPU_ONLY,
-                /// @deprecated use #HBU_DETAIL_WRITE_ONLY
-                HBU_WRITE_ONLY = HBU_DETAIL_WRITE_ONLY,
-                /// @deprecated do not use
-                HBU_DISCARDABLE = 8,
-                /// same as #HBU_GPU_ONLY
-                HBU_STATIC_WRITE_ONLY = HBU_GPU_ONLY,
-                /// same as #HBU_CPU_TO_GPU
-                HBU_DYNAMIC_WRITE_ONLY = HBU_CPU_TO_GPU,
-                /// @deprecated do not use
-                HBU_DYNAMIC_WRITE_ONLY_DISCARDABLE = HBU_CPU_TO_GPU,
-            };
+            using Usage = HardwareBufferUsage;
+            /// Rather use Usage
+            /// same as Usage::GPU_TO_CPU
+            static auto constexpr STATIC = Usage::GPU_TO_CPU;
+            /// same as Usage::CPU_ONLY
+            static auto constexpr DYNAMIC = Usage::CPU_ONLY;
+            /// @deprecated use Usage::DETAIL_WRITE_ONLY
+            static auto constexpr WRITE_ONLY = Usage::DETAIL_WRITE_ONLY;
+            /// @deprecated do not use
+            static auto constexpr DISCARDABLE = static_cast<Usage>(8);
+            /// same as #HardwareBufferUsage::GPU_ONLY
+            static auto constexpr STATIC_WRITE_ONLY = Usage::GPU_ONLY;
+            /// same as #HardwareBufferUsage::CPU_TO_GPU
+            static auto constexpr DYNAMIC_WRITE_ONLY = Usage::CPU_TO_GPU;
+            /// @deprecated do not use
+            static auto constexpr DYNAMIC_WRITE_ONLY_DISCARDABLE = Usage::CPU_TO_GPU;
+
             /// Locking options
-            enum LockOptions : uint8
+            enum class LockOptions : uint8
             {
                 /** Normal mode, ie allows read/write and contents are preserved.
                  This kind of lock allows reading and writing from the buffer - it’s also the least
@@ -139,7 +180,7 @@ namespace Ogre {
                  from the card and back again. If you’re using a shadow buffer the effect is
                  minimal.
                  */
-                HBL_NORMAL,
+                NORMAL,
                 /** Discards the <em>entire</em> buffer while locking.
                 This means you are happy for the card to discard the entire current contents of the
                 buffer. Implicitly this means you are not going to read the data - it also means
@@ -148,22 +189,22 @@ namespace Ogre {
                 possible when you are locking a buffer which was not created with a shadow buffer.
                 If you are using a shadow buffer it matters less, although with a shadow buffer it’s
                 preferable to lock the entire buffer at once, because that allows the shadow buffer
-                to use HBL_DISCARD when it uploads the updated contents to the real buffer.
-                @note Only useful on buffers created with the HBU_CPU_TO_GPU flag.
+                to use LockOptions::DISCARD when it uploads the updated contents to the real buffer.
+                @note Only useful on buffers created with the HardwareBufferUsage::CPU_TO_GPU flag.
                 */
-                HBL_DISCARD,
+                DISCARD,
                 /** Lock the buffer for reading only. Not allowed in buffers which are created with
-                HBU_GPU_ONLY.
-                Mandatory on static buffers, i.e. those created without the HBU_DYNAMIC flag.
+                HardwareBufferUsage::GPU_ONLY.
+                Mandatory on static buffers, i.e. those created without the HardwareBufferUsage::DYNAMIC flag.
                 */
-                HBL_READ_ONLY,
-                /** As HBL_WRITE_ONLY, except the application guarantees not to overwrite any
+                READ_ONLY,
+                /** As LockOptions::WRITE_ONLY, except the application guarantees not to overwrite any
                 region of the buffer which has already been used in this frame, can allow
                 some optimisation on some APIs.
                 @note Only useful on buffers with no shadow buffer.*/
-                HBL_NO_OVERWRITE,
+                NO_OVERWRITE,
                 /** Lock the buffer for writing only.*/
-                HBL_WRITE_ONLY
+                WRITE_ONLY
 
             };
         protected:
@@ -193,13 +234,13 @@ namespace Ogre {
                    mUsage(usage)
             {
                 // If use shadow buffer, upgrade to WRITE_ONLY on hardware side
-                if (useShadowBuffer && usage == HBU_CPU_ONLY)
+                if (useShadowBuffer && usage == HardwareBufferUsage::CPU_ONLY)
                 {
-                    mUsage = HBU_CPU_TO_GPU;
+                    mUsage = HardwareBufferUsage::CPU_TO_GPU;
                 }
-                else if (useShadowBuffer && usage == HBU_GPU_TO_CPU)
+                else if (useShadowBuffer && usage == HardwareBufferUsage::GPU_TO_CPU)
                 {
-                    mUsage = HBU_GPU_ONLY;
+                    mUsage = HardwareBufferUsage::GPU_ONLY;
                 }
             }
             virtual ~HardwareBuffer() = default;
@@ -219,7 +260,7 @@ namespace Ogre {
                 {
                     // we have to assume a read / write lock so we use the shadow buffer
                     // and tag for sync on unlock()
-                    mShadowUpdated = (options != HBL_READ_ONLY);
+                    mShadowUpdated = (options != LockOptions::READ_ONLY);
 
                     ret = mShadowBuffer->lock(offset, length, options);
                 }
@@ -310,7 +351,7 @@ namespace Ogre {
             /** Copy data from another buffer into this one.
             @remarks
                 Note that the source buffer must not be created with the
-                usage HBU_WRITE_ONLY otherwise this will fail. 
+                usage HardwareBufferUsage::WRITE_ONLY otherwise this will fail.
             @param srcBuffer The buffer from which to read the copied data
             @param srcOffset Offset in the source buffer at which to start reading
             @param dstOffset Offset in the destination buffer to start writing
@@ -326,7 +367,7 @@ namespace Ogre {
                     mDelegate->copyData(*srcBuffer.mDelegate, srcOffset, dstOffset, length, discardWholeBuffer);
                     return;
                 }
-                const void* srcData = srcBuffer.lock(srcOffset, length, HBL_READ_ONLY);
+                const void* srcData = srcBuffer.lock(srcOffset, length, LockOptions::READ_ONLY);
                 this->writeData(dstOffset, length, srcData, discardWholeBuffer);
                 srcBuffer.unlock();
             }
@@ -348,10 +389,10 @@ namespace Ogre {
                 if (mShadowBuffer && mShadowUpdated && !mSuppressHardwareUpdate)
                 {
                     // Do this manually to avoid locking problems
-                    const void* srcData = mShadowBuffer->lockImpl(mLockStart, mLockSize, HBL_READ_ONLY);
+                    const void* srcData = mShadowBuffer->lockImpl(mLockStart, mLockSize, LockOptions::READ_ONLY);
                     // Lock with discard if the whole buffer was locked, otherwise w/o
                     bool discardWholeBuffer = mLockStart == 0 && mLockSize == mSizeInBytes;
-                    LockOptions lockOpt = discardWholeBuffer ? HBL_DISCARD : HBL_WRITE_ONLY;
+                    LockOptions lockOpt = discardWholeBuffer ? LockOptions::DISCARD : LockOptions::WRITE_ONLY;
                     void* destData = this->lockImpl(mLockStart, mLockSize, lockOpt);
                     // Copy shadow to real
                     memcpy(destData, srcData, mLockSize);

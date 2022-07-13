@@ -328,7 +328,7 @@ namespace Ogre
                 startIt = inSource.find('<', afterIncludePos);
                 if (startIt == String::npos || startIt > newLineAfter)
                 {
-                    OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+                    OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                         ::std::format("Badly formed #include directive (expected \" or <) in file {} : {}",
                             fileName,
                             inSource.substr(includePos, newLineAfter - includePos)));
@@ -341,7 +341,7 @@ namespace Ogre
             size_t endIt = inSource.find(endDelimiter, startIt+1);
             if (endIt == String::npos || endIt <= startIt)
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                     ::std::format("Badly formed #include directive (expected {}) in file {}: {}",
                                 String(1, endDelimiter),
                                 fileName,

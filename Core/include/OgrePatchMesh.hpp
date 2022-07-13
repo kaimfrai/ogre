@@ -70,9 +70,9 @@ class VertexDeclaration;
             VertexDeclaration *declaration, size_t width, size_t height,
             size_t uMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL, 
             size_t vMaxSubdivisionLevel = PatchSurface::AUTO_LEVEL,
-            PatchSurface::VisibleSide visibleSide = PatchSurface::VS_FRONT,
-            HardwareBuffer::Usage vbUsage = HardwareBuffer::HBU_STATIC_WRITE_ONLY, 
-            HardwareBuffer::Usage ibUsage = HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY,
+            PatchSurface::VisibleSide visibleSide = PatchSurface::VisibleSide::FRONT,
+            HardwareBuffer::Usage vbUsage = HardwareBuffer::STATIC_WRITE_ONLY,
+            HardwareBuffer::Usage ibUsage = HardwareBuffer::DYNAMIC_WRITE_ONLY,
             bool vbUseShadow = false, bool ibUseShadow = false);
 
         /* Sets the current subdivision level as a proportion of full detail.

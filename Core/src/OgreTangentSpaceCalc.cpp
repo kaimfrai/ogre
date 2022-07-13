@@ -63,11 +63,11 @@ namespace Ogre
     //---------------------------------------------------------------------
     void TangentSpaceCalc::addIndexData(IndexData* i_in, RenderOperation::OperationType op)
     {
-        if (op != RenderOperation::OT_TRIANGLE_FAN && 
-            op != RenderOperation::OT_TRIANGLE_LIST && 
-            op != RenderOperation::OT_TRIANGLE_STRIP)
+        if (op != RenderOperation::OperationType::TRIANGLE_FAN && 
+            op != RenderOperation::OperationType::TRIANGLE_LIST && 
+            op != RenderOperation::OperationType::TRIANGLE_STRIP)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Only indexed triangle (list, strip, fan) render operations are supported.",
                 "TangentSpaceCalc::addIndexData");
 
@@ -132,7 +132,7 @@ namespace Ogre
                 newBuf->copyData(*(srcbuf.get()), 0, 0, srcbuf->getNumVertices() * srcbuf->getVertexSize(), true);
 
                 // Split vertices, read / write from new buffer
-                HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::HBL_NORMAL);
+                HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::LockOptions::NORMAL);
                 char* pBase = static_cast<char*>(newBufLock.pData);
                 for (auto & vertexSplit : vertexSplits)
                 {
@@ -156,18 +156,18 @@ namespace Ogre
                 {
                     // check index size
                     HardwareIndexBufferSharedPtr srcbuf = idata->indexBuffer;
-                    if (srcbuf->getType() == HardwareIndexBuffer::IT_16BIT)
+                    if (srcbuf->getType() == HardwareIndexBuffer::IndexType::_16BIT)
                     {
                         size_t indexCount = srcbuf->getNumIndexes();
 
                         // convert index buffer to 32bit.
                         HardwareIndexBufferSharedPtr newBuf =
                             HardwareBufferManager::getSingleton().createIndexBuffer(
-                            HardwareIndexBuffer::IT_32BIT, indexCount,
+                            HardwareIndexBuffer::IndexType::_32BIT, indexCount,
                             srcbuf->getUsage(), srcbuf->hasShadowBuffer());
 
-                        HardwareBufferLockGuard srcBufLock(srcbuf, HardwareBuffer::HBL_NORMAL);
-                        HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::HBL_NORMAL);
+                        HardwareBufferLockGuard srcBufLock(srcbuf, HardwareBuffer::LockOptions::NORMAL);
+                        HardwareBufferLockGuard newBufLock(newBuf, HardwareBuffer::LockOptions::NORMAL);
                         auto* pSrcBase = static_cast<uint16*>(srcBufLock.pData);
                         auto* pBase = static_cast<uint32*>(newBufLock.pData);
 
@@ -195,8 +195,8 @@ namespace Ogre
             IndexData* idata = mIDataList[i];
             // Now do index data
             // no new buffer required, same size but some triangles remapped
-            HardwareBufferLockGuard indexLock(idata->indexBuffer, HardwareBuffer::HBL_NORMAL);
-            if (idata->indexBuffer->getType() == HardwareIndexBuffer::IT_32BIT)
+            HardwareBufferLockGuard indexLock(idata->indexBuffer, HardwareBuffer::LockOptions::NORMAL);
+            if (idata->indexBuffer->getType() == HardwareIndexBuffer::IndexType::_32BIT)
             {
                 remapIndexes(static_cast<uint32*>(indexLock.pData), i, res);
             }
@@ -238,7 +238,7 @@ namespace Ogre
         // Quick pre-check for triangle strips / fans
         for (auto & mOpType : mOpTypes)
         {
-            if (mOpType != RenderOperation::OT_TRIANGLE_LIST)
+            if (mOpType != RenderOperation::OperationType::TRIANGLE_LIST)
             {
                 // Can't split strips / fans
                 setSplitMirrored(false);
@@ -253,27 +253,27 @@ namespace Ogre
 
             // Read data from buffers
             HardwareIndexBufferSharedPtr ibuf = i_in->indexBuffer;
-            HardwareBufferLockGuard ibufLock(ibuf, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard ibufLock(ibuf, HardwareBuffer::LockOptions::READ_ONLY);
             uint16 *p16 = static_cast<uint16*>(ibufLock.pData) + i_in->indexStart;
             uint32 *p32 = static_cast<uint32*>(ibufLock.pData) + i_in->indexStart;
-            bool isIT32 = ibuf->getType() == HardwareIndexBuffer::IT_32BIT;
+            bool isIT32 = ibuf->getType() == HardwareIndexBuffer::IndexType::_32BIT;
 
             // current triangle
             size_t vertInd[3] = { 0, 0, 0 };
             // loop through all faces to calculate the tangents and normals
-            size_t faceCount = opType == RenderOperation::OT_TRIANGLE_LIST ? 
+            size_t faceCount = opType == RenderOperation::OperationType::TRIANGLE_LIST ? 
                 i_in->indexCount / 3 : i_in->indexCount - 2;
             for (size_t f = 0; f < faceCount; ++f)
             {
                 bool invertOrdering = false;
                 // Read 1 or 3 indexes depending on type
-                if (f == 0 || opType == RenderOperation::OT_TRIANGLE_LIST)
+                if (f == 0 || opType == RenderOperation::OperationType::TRIANGLE_LIST)
                 {
                     vertInd[0] = isIT32? *p32++ : *p16++;
                     vertInd[1] = isIT32? *p32++ : *p16++;
                     vertInd[2] = isIT32? *p32++ : *p16++;
                 }
-                else if (opType == RenderOperation::OT_TRIANGLE_FAN)
+                else if (opType == RenderOperation::OperationType::TRIANGLE_FAN)
                 {
                     // Element 0 always remains the same
                     // Element 2 becomes element 1
@@ -281,7 +281,7 @@ namespace Ogre
                     // read new into element 2
                     vertInd[2] = isIT32? *p32++ : *p16++;
                 }
-                else if (opType == RenderOperation::OT_TRIANGLE_STRIP)
+                else if (opType == RenderOperation::OperationType::TRIANGLE_STRIP)
                 {
                     // Shunt everything down one, but also invert the ordering on 
                     // odd numbered triangles (== even numbered i's)
@@ -380,7 +380,7 @@ namespace Ogre
                         splitVertex = true;
                         splitBecauseOfParity = true;
 
-                        LogManager::getSingleton().stream(LML_TRIVIAL)
+                        LogManager::getSingleton().stream(LogMessageLevel::Trivial)
                             << "TSC parity split - Vpar: " << vertex->parity 
                             << " Fpar: " << faceParity
                             << " faceTsU: " << faceTsU
@@ -533,18 +533,18 @@ namespace Ogre
         VertexBufferBinding *bind = mVData->vertexBufferBinding;
 
         // Get the incoming UV element
-        const auto* uvElem = dcl->findElementBySemantic(VES_TEXTURE_COORDINATES, sourceTexCoordSet);
+        const auto* uvElem = dcl->findElementBySemantic(VertexElementSemantic::TEXTURE_COORDINATES, sourceTexCoordSet);
 
-        if (!uvElem || uvElem->getType() != VET_FLOAT2)
+        if (!uvElem || uvElem->getType() != VertexElementType::FLOAT2)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "No 2D texture coordinates with selected index, cannot calculate tangents");
         }
 
         // find a normal buffer
-        const auto* normElem = dcl->findElementBySemantic(VES_NORMAL);
+        const auto* normElem = dcl->findElementBySemantic(VertexElementSemantic::NORMAL);
         if (!normElem)
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                         "No vertex normals found, cannot calculate tangents");
 
         HardwareVertexBufferSharedPtr uvBuf, posBuf, normBuf;
@@ -553,13 +553,13 @@ namespace Ogre
 
         uvBuf = bind->getBuffer(uvElem->getSource());
         pUvBase = static_cast<unsigned char*>(
-            uvBuf->lock(HardwareBuffer::HBL_READ_ONLY));
+            uvBuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
         uvInc = uvBuf->getVertexSize();
         // offset for vertex start
         pUvBase += mVData->vertexStart * uvInc;
 
         // find position
-        const VertexElement *posElem = dcl->findElementBySemantic(VES_POSITION);
+        const VertexElement *posElem = dcl->findElementBySemantic(VertexElementSemantic::POSITION);
         if (posElem->getSource() == uvElem->getSource())
         {
             pPosBase = pUvBase;
@@ -570,7 +570,7 @@ namespace Ogre
             // A different buffer
             posBuf = bind->getBuffer(posElem->getSource());
             pPosBase = static_cast<unsigned char*>(
-                posBuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                posBuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
             posInc = posBuf->getVertexSize();
             // offset for vertex start
             pPosBase += mVData->vertexStart * posInc;
@@ -594,7 +594,7 @@ namespace Ogre
             // A different buffer
             normBuf = bind->getBuffer(normElem->getSource());
             pNormBase = static_cast<unsigned char*>(
-                normBuf->lock(HardwareBuffer::HBL_READ_ONLY));
+                normBuf->lock(HardwareBuffer::LockOptions::READ_ONLY));
             normInc = normBuf->getVertexSize();
             // offset for vertex start
             pNormBase += mVData->vertexStart * normInc;
@@ -651,7 +651,7 @@ namespace Ogre
 
         const VertexElement *tangentsElem = vDecl->findElementBySemantic(targetSemantic, index);
         bool needsToBeCreated = false;
-        VertexElementType tangentsType = mStoreParityInW ? VET_FLOAT4 : VET_FLOAT3;
+        VertexElementType tangentsType = mStoreParityInW ? VertexElementType::FLOAT4 : VertexElementType::FLOAT3;
 
         if (!tangentsElem)
         { // no tex coords with index 1
@@ -660,7 +660,7 @@ namespace Ogre
         else if (tangentsElem->getType() != tangentsType)
         {
             //  buffer exists, but not 3D
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Target semantic set already exists but is not of the right size, therefore "
                 "cannot contain tangents. You should delete this existing entry first. ",
                 "TangentSpaceCalc::insertTangents");
@@ -676,10 +676,10 @@ namespace Ogre
             // source texture coord set
             const VertexElement* prevTexCoordElem =
                 mVData->vertexDeclaration->findElementBySemantic(
-                VES_TEXTURE_COORDINATES, sourceTexCoordSet);
+                VertexElementSemantic::TEXTURE_COORDINATES, sourceTexCoordSet);
             if (!prevTexCoordElem)
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     "Cannot locate the first texture coordinate element to "
                     "which to append the new tangents.", 
                     "Mesh::orgagniseTangentsBuffer");
@@ -703,7 +703,7 @@ namespace Ogre
                 index));
             // Set up the source pointer
             pSrc = static_cast<unsigned char*>(
-                origBuffer->lock(HardwareBuffer::HBL_READ_ONLY));
+                origBuffer->lock(HardwareBuffer::LockOptions::READ_ONLY));
             // Rebind the new buffer
             vBind->setBinding(prevTexCoordElem->getSource(), targetBuffer);
         }
@@ -717,7 +717,7 @@ namespace Ogre
 
 
         auto* pDest = static_cast<unsigned char*>(
-            targetBuffer->lock(HardwareBuffer::HBL_DISCARD));
+            targetBuffer->lock(HardwareBuffer::LockOptions::DISCARD));
         size_t origVertSize = origBuffer->getVertexSize();
         size_t newVertSize = targetBuffer->getVertexSize();
         for (size_t v = 0; v < origBuffer->getNumVertices(); ++v)

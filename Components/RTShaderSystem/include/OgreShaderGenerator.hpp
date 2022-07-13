@@ -531,7 +531,7 @@ private:
 		auto getIlluminationStage() noexcept -> IlluminationStage { return mStage; }
 
 		/** Get illumination state. */
-		auto isIlluminationPass() noexcept -> bool { return mStage != IS_UNKNOWN; }
+		auto isIlluminationPass() noexcept -> bool { return mStage != IlluminationStage::UNKNOWN; }
 
         /** Get custom render state of this pass. */
         auto getCustomRenderState() noexcept -> RenderState* { return mCustomRenderState; }
@@ -746,7 +746,7 @@ private:
         // The global render state of this scheme.
         std::unique_ptr<RenderState> mRenderState;
         // Current fog mode.
-        FogMode mFogMode{FOG_NONE};
+        FogMode mFogMode{FogMode::NONE};
     };
 
     //-----------------------------------------------------------------------------
@@ -893,7 +893,7 @@ private:
     // Light count per light type.
     int mLightCount[3];
     // Vertex shader outputs compact policy.
-    VSOutputCompactPolicy mVSOutputCompactPolicy{VSOCP_LOW};
+    VSOutputCompactPolicy mVSOutputCompactPolicy{VSOutputCompactPolicy::LOW};
     // Tells whether shaders are created for passes with shaders
     bool mCreateShaderOverProgrammablePass{false};
     // A flag to indicate finalizing

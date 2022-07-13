@@ -250,7 +250,7 @@ namespace Ogre {
         mFreshFromDisk.reset();
 
         if (!data) {
-            OGRE_EXCEPT(Exception::ERR_INVALID_STATE,
+            OGRE_EXCEPT(ExceptionCodes::INVALID_STATE,
                         ::std::format("Data doesn't appear to have been prepared in {}", mName),
                         "Mesh::loadImpl()");
         }
@@ -259,7 +259,7 @@ namespace Ogre {
         StringUtil::splitBaseFilename(mName, baseName, strExt);
         auto codec = Codec::getCodec(strExt);
         if (!codec)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, ::std::format("No codec found to load {}", mName));
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, ::std::format("No codec found to load {}", mName));
 
         codec->decode(data, this);
     }
@@ -308,7 +308,7 @@ namespace Ogre {
 
         Resource::reload(flags);
 
-        if(flags & LF_PRESERVE_STATE)
+        if(!!(flags & LoadingFlags::PRESERVE_STATE))
         {
             if(wasPreparedForShadowVolumes)
                 prepareForShadowVolume();
@@ -476,9 +476,9 @@ namespace Ogre {
             }
             return;
         }
-        const VertexElement* elemPos = vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+        const VertexElement* elemPos = vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         HardwareVertexBufferSharedPtr vbuf = vertexData->vertexBufferBinding->getBuffer(elemPos->getSource());
-        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::LockOptions::READ_ONLY);
         auto* vertex = static_cast<unsigned char*>(vertexLock.pData);
 
         if (!extendOnly){
@@ -794,15 +794,15 @@ namespace Ogre {
         buildIndexMap(boneAssignments, boneIndexToBlendIndexMap, blendIndexToBoneIndexMap);
 
         const VertexElement* testElem =
-            decl->findElementBySemantic(VES_BLEND_INDICES);
+            decl->findElementBySemantic(VertexElementSemantic::BLEND_INDICES);
         if (testElem)
         {
             // Already have a buffer, unset it & delete elements
             bindIndex = testElem->getSource();
             // unset will cause deletion of buffer
             bind->unsetBinding(bindIndex);
-            decl->removeElement(VES_BLEND_INDICES);
-            decl->removeElement(VES_BLEND_WEIGHTS);
+            decl->removeElement(VertexElementSemantic::BLEND_INDICES);
+            decl->removeElement(VertexElementSemantic::BLEND_WEIGHTS);
         }
         else
         {
@@ -815,7 +815,7 @@ namespace Ogre {
         HardwareVertexBufferSharedPtr vbuf = getHardwareBufferManager()->createVertexBuffer(
             sizeof( unsigned char ) * 4 + VertexElement::getTypeSize( weightsVertexElemType ),
                 targetVertexData->vertexCount,
-                HardwareBuffer::HBU_STATIC_WRITE_ONLY,
+                HardwareBuffer::STATIC_WRITE_ONLY,
                 true // use shadow buffer
                 );
         // bind new buffer
@@ -826,7 +826,7 @@ namespace Ogre {
         // Note, insert directly after all elements using the same source as
         // position to abide by pre-Dx9 format restrictions
         const VertexElement* firstElem = decl->getElement(0);
-        if(firstElem->getSemantic() == VES_POSITION)
+        if(firstElem->getSemantic() == VertexElementSemantic::POSITION)
         {
             unsigned short insertPoint = 1;
             while (insertPoint < decl->getElementCount() &&
@@ -835,9 +835,9 @@ namespace Ogre {
                 ++insertPoint;
             }
             const VertexElement& idxElem =
-                decl->insertElement(insertPoint, bindIndex, 0, VET_UBYTE4, VES_BLEND_INDICES);
+                decl->insertElement(insertPoint, bindIndex, 0, VertexElementType::UBYTE4, VertexElementSemantic::BLEND_INDICES);
             const VertexElement& wtElem =
-                decl->insertElement(insertPoint+1, bindIndex, sizeof(unsigned char)*4, weightsVertexElemType, VES_BLEND_WEIGHTS);
+                decl->insertElement(insertPoint+1, bindIndex, sizeof(unsigned char)*4, weightsVertexElemType, VertexElementSemantic::BLEND_WEIGHTS);
             pIdxElem = &idxElem;
             pWeightElem = &wtElem;
         }
@@ -846,9 +846,9 @@ namespace Ogre {
             // Position is not the first semantic, therefore this declaration is
             // not pre-Dx9 compatible anyway, so just tack it on the end
             const VertexElement& idxElem =
-                decl->addElement(bindIndex, 0, VET_UBYTE4, VES_BLEND_INDICES);
+                decl->addElement(bindIndex, 0, VertexElementType::UBYTE4, VertexElementSemantic::BLEND_INDICES);
             const VertexElement& wtElem =
-                decl->addElement(bindIndex, sizeof(unsigned char)*4, weightsVertexElemType, VES_BLEND_WEIGHTS );
+                decl->addElement(bindIndex, sizeof(unsigned char)*4, weightsVertexElemType, VertexElementSemantic::BLEND_WEIGHTS );
             pIdxElem = &idxElem;
             pWeightElem = &wtElem;
         }
@@ -860,15 +860,15 @@ namespace Ogre {
             default:
             	OgreAssert(false, "Invalid BlendWeightsBaseElementType");
             	break;
-            case VET_FLOAT1:
+            case VertexElementType::FLOAT1:
                 break;
-            case VET_UBYTE4_NORM:
+            case VertexElementType::UBYTE4_NORM:
                 maxIntWt = 0xff;
                 break;
-            case VET_USHORT2_NORM:
+            case VertexElementType::USHORT2_NORM:
                 maxIntWt = 0xffff;
                 break;
-            case VET_SHORT2_NORM:
+            case VertexElementType::SHORT2_NORM:
                 maxIntWt = 0x7fff;
                 break;
         }
@@ -877,7 +877,7 @@ namespace Ogre {
         VertexBoneAssignmentList::const_iterator i, iend;
         i = boneAssignments.begin();
         iend = boneAssignments.end();
-        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::LockOptions::DISCARD);
         auto *pBase = static_cast<unsigned char*>(vertexLock.pData);
         // Iterate by vertex
         for (v = 0; v < targetVertexData->vertexCount; ++v)
@@ -897,7 +897,7 @@ namespace Ogre {
                 }
             }
             // if weights are integers,
-            if ( weightsBaseType != VET_FLOAT1 )
+            if ( weightsBaseType != VertexElementType::FLOAT1 )
             {
                 // pack the float weights into shorts/bytes
                 unsigned int intWeights[ 4 ];
@@ -934,7 +934,7 @@ namespace Ogre {
                 }
 
                 // now write the weights
-                if ( weightsBaseType == VET_UBYTE4_NORM )
+                if ( weightsBaseType == VertexElementType::UBYTE4_NORM )
                 {
                     // write out the weights as bytes
                     unsigned char* pWeight;
@@ -994,16 +994,16 @@ namespace Ogre {
         std::vector<Vector3> vertexPositions;
         {
             // extract vertex positions
-            const VertexElement* posElem = vertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            const VertexElement* posElem = vertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
             HardwareVertexBufferSharedPtr vbuf = vertexData->vertexBufferBinding->getBuffer(posElem->getSource());
             // if usage is write only,
-            if ( !vbuf->hasShadowBuffer() && (vbuf->getUsage() & HBU_DETAIL_WRITE_ONLY) )
+            if ( !vbuf->hasShadowBuffer() && !!(vbuf->getUsage() & HardwareBufferUsage::DETAIL_WRITE_ONLY) )
             {
                 // can't do it
                 return Real(0.0f);
             }
             vertexPositions.resize( vertexData->vertexCount );
-            HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::HBL_READ_ONLY);
+            HardwareBufferLockGuard vertexLock(vbuf, HardwareBuffer::LockOptions::READ_ONLY);
             auto* vertex = static_cast<unsigned char*>(vertexLock.pData);
             float* pFloat;
 
@@ -1218,7 +1218,7 @@ namespace Ogre {
     {
         auto i = mSubMeshNameMap.find(name) ;
         if (i == mSubMeshNameMap.end())
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No SubMesh named {} found.", name ),
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No SubMesh named {} found.", name ),
                 "Mesh::_getSubMeshIndex");
 
         return i->second;
@@ -1286,9 +1286,9 @@ namespace Ogre {
     {
         VertexDeclaration *vDecl    = vertexData->vertexDeclaration;
 
-        const VertexElement *uv0 = vDecl->findElementBySemantic( VES_TEXTURE_COORDINATES,
+        const VertexElement *uv0 = vDecl->findElementBySemantic( VertexElementSemantic::TEXTURE_COORDINATES,
                                                                     finalTexCoordSet );
-        const VertexElement *uv1 = vDecl->findElementBySemantic( VES_TEXTURE_COORDINATES,
+        const VertexElement *uv1 = vDecl->findElementBySemantic( VertexElementSemantic::TEXTURE_COORDINATES,
                                                                     texCoordSetToDestroy );
 
         if( uv0 && uv1 )
@@ -1316,8 +1316,8 @@ namespace Ogre {
                     unsigned short newIdx   = std::min( uv0->getIndex(), uv1->getIndex() );
 
                     vDecl->modifyElement( elem_idx, uv0->getSource(), newOffset, newType,
-                                            VES_TEXTURE_COORDINATES, newIdx );
-                    vDecl->removeElement( VES_TEXTURE_COORDINATES, texCoordSetToDestroy );
+                                            VertexElementSemantic::TEXTURE_COORDINATES, newIdx );
+                    vDecl->removeElement( VertexElementSemantic::TEXTURE_COORDINATES, texCoordSetToDestroy );
                     uv1 = nullptr;
                 }
 
@@ -1340,10 +1340,10 @@ namespace Ogre {
         { // no tex coords with index 1
                 needsToBeCreated = true ;
         }
-        else if (tangentsElem->getType() != VET_FLOAT3)
+        else if (tangentsElem->getType() != VertexElementType::FLOAT3)
         {
             //  buffer exists, but not 3D
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Target semantic set already exists but is not 3D, therefore "
                 "cannot contain tangents. Pick an alternative destination semantic. ",
                 "Mesh::organiseTangentsBuffer");
@@ -1357,10 +1357,10 @@ namespace Ogre {
             // source texture coord set
             const VertexElement* prevTexCoordElem =
                 vertexData->vertexDeclaration->findElementBySemantic(
-                    VES_TEXTURE_COORDINATES, sourceTexCoordSet);
+                    VertexElementSemantic::TEXTURE_COORDINATES, sourceTexCoordSet);
             if (!prevTexCoordElem)
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     "Cannot locate the first texture coordinate element to "
                     "which to append the new tangents.", 
                     "Mesh::orgagniseTangentsBuffer");
@@ -1380,12 +1380,12 @@ namespace Ogre {
             vDecl->addElement(
                 prevTexCoordElem->getSource(),
                 origBuffer->getVertexSize(),
-                VET_FLOAT3,
+                VertexElementType::FLOAT3,
                 targetSemantic,
                 index);
             // Now copy the original data across
-            HardwareBufferLockGuard srcLock(origBuffer, HardwareBuffer::HBL_READ_ONLY);
-            HardwareBufferLockGuard dstLock(newBuffer, HardwareBuffer::HBL_DISCARD);
+            HardwareBufferLockGuard srcLock(origBuffer, HardwareBuffer::LockOptions::READ_ONLY);
+            HardwareBufferLockGuard dstLock(newBuffer, HardwareBuffer::LockOptions::DISCARD);
             auto* pSrc = static_cast<unsigned char*>(srcLock.pData);
             auto* pDest = static_cast<unsigned char*>(dstLock.pData);
             size_t vertSize = origBuffer->getVertexSize();
@@ -1564,25 +1564,25 @@ namespace Ogre {
             {
                 const VertexElement* testElem =
                     vertexData->vertexDeclaration->findElementBySemantic(
-                        VES_TEXTURE_COORDINATES, targetIndex);
+                        VertexElementSemantic::TEXTURE_COORDINATES, targetIndex);
                 if (!testElem)
                     break; // finish if we've run out, t will be the target
 
                 if (!sourceElem)
                 {
                     // We're still looking for the source texture coords
-                    if (testElem->getType() == VET_FLOAT2)
+                    if (testElem->getType() == VertexElementType::FLOAT2)
                     {
                         // Ok, we found it
                         sourceElem = testElem;
                     }
                 }
                 
-                if(!foundExisting && targetSemantic == VES_TEXTURE_COORDINATES)
+                if(!foundExisting && targetSemantic == VertexElementSemantic::TEXTURE_COORDINATES)
                 {
                     // We're looking for the destination
                     // Check to see if we've found a possible
-                    if (testElem->getType() == VET_FLOAT3)
+                    if (testElem->getType() == VertexElementType::FLOAT3)
                     {
                         // This is a 3D set, might be tangents
                         foundExisting = true;
@@ -1592,7 +1592,7 @@ namespace Ogre {
 
             }
 
-            if (!foundExisting && targetSemantic != VES_TEXTURE_COORDINATES)
+            if (!foundExisting && targetSemantic != VertexElementSemantic::TEXTURE_COORDINATES)
             {
                 targetIndex = 0;
                 // Look for existing semantic
@@ -1609,7 +1609,7 @@ namespace Ogre {
             // After iterating, we should have a source and a possible destination (t)
             if (!sourceElem)
             {
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                     "Cannot locate an appropriate 2D texture coordinate set for "
                     "all the vertex data in this mesh to create tangents from. ",
                     "Mesh::suggestTangentVectorBuildParams");
@@ -1620,7 +1620,7 @@ namespace Ogre {
             {
                 if (sourceElem->getIndex() != outSourceCoordSet)
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Multiple sets of vertex data in this mesh disagree on "
                         "the appropriate index to use for the source texture coordinates. "
                         "This ambiguity must be rectified before tangents can be generated.",
@@ -1628,7 +1628,7 @@ namespace Ogre {
                 }
                 if (targetIndex != outIndex)
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Multiple sets of vertex data in this mesh disagree on "
                         "the appropriate index to use for the target texture coordinates. "
                         "This ambiguity must be rectified before tangents can be generated.",
@@ -1684,9 +1684,9 @@ namespace Ogre {
                 // Prepare the builder using the submesh information
                 for (auto s : mSubMeshList)
                 {
-                    if (s->operationType != RenderOperation::OT_TRIANGLE_FAN && 
-                        s->operationType != RenderOperation::OT_TRIANGLE_LIST && 
-                        s->operationType != RenderOperation::OT_TRIANGLE_STRIP)
+                    if (s->operationType != RenderOperation::OperationType::TRIANGLE_FAN && 
+                        s->operationType != RenderOperation::OperationType::TRIANGLE_LIST && 
+                        s->operationType != RenderOperation::OperationType::TRIANGLE_STRIP)
                     {
                         continue;
                     }
@@ -1773,9 +1773,9 @@ namespace Ogre {
         for (auto s : mSubMeshList)
         {
             if (!s->useSharedVertices && 
-                (s->operationType == RenderOperation::OT_TRIANGLE_FAN || 
-                s->operationType == RenderOperation::OT_TRIANGLE_LIST ||
-                s->operationType == RenderOperation::OT_TRIANGLE_STRIP))
+                (s->operationType == RenderOperation::OperationType::TRIANGLE_FAN || 
+                s->operationType == RenderOperation::OperationType::TRIANGLE_LIST ||
+                s->operationType == RenderOperation::OperationType::TRIANGLE_STRIP))
             {
                 s->vertexData->prepareForShadowVolume();
             }
@@ -1829,20 +1829,20 @@ namespace Ogre {
 
         // Get elements for source
         const VertexElement* srcElemPos =
-            sourceVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            sourceVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         const VertexElement* srcElemNorm =
-            sourceVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            sourceVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
         const VertexElement* srcElemBlendIndices =
-            sourceVertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_INDICES);
+            sourceVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_INDICES);
         const VertexElement* srcElemBlendWeights =
-            sourceVertexData->vertexDeclaration->findElementBySemantic(VES_BLEND_WEIGHTS);
+            sourceVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::BLEND_WEIGHTS);
         OgreAssert(srcElemPos && srcElemBlendIndices && srcElemBlendWeights,
             "You must supply at least positions, blend indices and blend weights");
         // Get elements for target
         const VertexElement* destElemPos =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         const VertexElement* destElemNorm =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
 
         // Do we have normals and want to blend them?
         bool includeNormals = blendNormals && (srcElemNorm != nullptr) && (destElemNorm != nullptr);
@@ -1875,7 +1875,7 @@ namespace Ogre {
         }
 
         // Lock source buffers for reading
-        HardwareBufferLockGuard srcPosLock(srcPosBuf, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard srcPosLock(srcPosBuf, HardwareBuffer::LockOptions::READ_ONLY);
         srcElemPos->baseVertexPointerToElement(srcPosLock.pData, &pSrcPos);
         HardwareBufferLockGuard srcNormLock;
         if (includeNormals)
@@ -1883,21 +1883,21 @@ namespace Ogre {
             if (srcNormBuf != srcPosBuf)
             {
                 // Different buffer
-                srcNormLock.lock(srcNormBuf, HardwareBuffer::HBL_READ_ONLY);
+                srcNormLock.lock(srcNormBuf, HardwareBuffer::LockOptions::READ_ONLY);
             }
             srcElemNorm->baseVertexPointerToElement(srcNormBuf != srcPosBuf ? srcNormLock.pData : srcPosLock.pData, &pSrcNorm);
         }
 
         // Indices must be 4 bytes
-        assert(srcElemBlendIndices->getType() == VET_UBYTE4 &&
-               "Blend indices must be VET_UBYTE4");
-        HardwareBufferLockGuard srcIdxLock(srcIdxBuf, HardwareBuffer::HBL_READ_ONLY);
+        assert(srcElemBlendIndices->getType() == VertexElementType::UBYTE4 &&
+               "Blend indices must be VertexElementType::UBYTE4");
+        HardwareBufferLockGuard srcIdxLock(srcIdxBuf, HardwareBuffer::LockOptions::READ_ONLY);
         srcElemBlendIndices->baseVertexPointerToElement(srcIdxLock.pData, &pBlendIdx);
         HardwareBufferLockGuard srcWeightLock;
         if (srcWeightBuf != srcIdxBuf)
         {
             // Lock buffer
-            srcWeightLock.lock(srcWeightBuf, HardwareBuffer::HBL_READ_ONLY);
+            srcWeightLock.lock(srcWeightBuf, HardwareBuffer::LockOptions::READ_ONLY);
         }
         srcElemBlendWeights->baseVertexPointerToElement(srcWeightBuf != srcIdxBuf ? srcWeightLock.pData : srcIdxLock.pData, &pBlendWeight);
         unsigned short numWeightsPerVertex =
@@ -1908,7 +1908,7 @@ namespace Ogre {
         HardwareBufferLockGuard destPosLock(destPosBuf,
             (destNormBuf != destPosBuf && destPosBuf->getVertexSize() == destElemPos->getSize()) ||
             (destNormBuf == destPosBuf && destPosBuf->getVertexSize() == destElemPos->getSize() + destElemNorm->getSize()) ?
-            HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NORMAL);
+            HardwareBuffer::LockOptions::DISCARD : HardwareBuffer::LockOptions::NORMAL);
         destElemPos->baseVertexPointerToElement(destPosLock.pData, &pDestPos);
         HardwareBufferLockGuard destNormLock;
         if (includeNormals)
@@ -1917,7 +1917,7 @@ namespace Ogre {
             {
                 destNormLock.lock(destNormBuf,
                     destNormBuf->getVertexSize() == destElemNorm->getSize() ?
-                    HardwareBuffer::HBL_DISCARD : HardwareBuffer::HBL_NORMAL);
+                    HardwareBuffer::LockOptions::DISCARD : HardwareBuffer::LockOptions::NORMAL);
             }
             destElemNorm->baseVertexPointerToElement(destNormBuf != destPosBuf ? destNormLock.pData : destPosLock.pData, &pDestNorm);
         }
@@ -1939,13 +1939,13 @@ namespace Ogre {
         const HardwareVertexBufferSharedPtr& b2,
         VertexData* targetVertexData)
     {
-        HardwareBufferLockGuard b1Lock(b1, HardwareBuffer::HBL_READ_ONLY);
+        HardwareBufferLockGuard b1Lock(b1, HardwareBuffer::LockOptions::READ_ONLY);
         auto* pb1 = static_cast<float*>(b1Lock.pData);
         HardwareBufferLockGuard b2Lock;
         float* pb2;
         if (b1.get() != b2.get())
         {
-            b2Lock.lock(b2, HardwareBuffer::HBL_READ_ONLY);
+            b2Lock.lock(b2, HardwareBuffer::LockOptions::READ_ONLY);
             pb2 = static_cast<float*>(b2Lock.pData);
         }
         else
@@ -1957,10 +1957,10 @@ namespace Ogre {
         }
 
         const VertexElement* posElem =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         assert(posElem);
         const VertexElement* normElem =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
         
         bool morphNormals = false;
         if (normElem && normElem->getSource() == posElem->getSource() &&
@@ -1973,7 +1973,7 @@ namespace Ogre {
         assert((posElem->getSize() == destBuf->getVertexSize()
                 || (morphNormals && posElem->getSize() + normElem->getSize() == destBuf->getVertexSize())) &&
             "Positions (or positions & normals) must be in a buffer on their own for morphing");
-        HardwareBufferLockGuard destLock(destBuf, HardwareBuffer::HBL_DISCARD);
+        HardwareBufferLockGuard destLock(destBuf, HardwareBuffer::LockOptions::DISCARD);
         auto* pdst = static_cast<float*>(destLock.pData);
 
         OptimisedUtil::getImplementation()->softwareVertexMorph(
@@ -1993,9 +1993,9 @@ namespace Ogre {
             return;
 
         const VertexElement* posElem =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_POSITION);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::POSITION);
         const VertexElement* normElem =
-            targetVertexData->vertexDeclaration->findElementBySemantic(VES_NORMAL);
+            targetVertexData->vertexDeclaration->findElementBySemantic(VertexElementSemantic::NORMAL);
         assert(posElem);
         // Support normals if they're in the same buffer as positions and pose includes them
         bool normals = normElem && !normalsMap.empty() && posElem->getSource() == normElem->getSource();
@@ -2006,7 +2006,7 @@ namespace Ogre {
         size_t elemsPerVertex = destBuf->getVertexSize()/sizeof(float);
 
         // Have to lock in normal mode since this is incremental
-        HardwareBufferLockGuard destLock(destBuf, HardwareBuffer::HBL_NORMAL);
+        HardwareBufferLockGuard destLock(destBuf, HardwareBuffer::LockOptions::NORMAL);
         auto* pBase = static_cast<float*>(destLock.pData);
                 
         // Iterate over affected vertices
@@ -2105,11 +2105,11 @@ namespace Ogre {
         // done, allow caller to force if they need to
 
         // Initialise all types to nothing
-        mSharedVertexDataAnimationType = VAT_NONE;
+        mSharedVertexDataAnimationType = VertexAnimationType::NONE;
         mSharedVertexDataAnimationIncludesNormals = false;
         for (auto i : mSubMeshList)
         {
-            i->mVertexAnimationType = VAT_NONE;
+            i->mVertexAnimationType = VertexAnimationType::NONE;
             i->mVertexAnimationIncludesNormals = false;
         }
         
@@ -2132,18 +2132,18 @@ namespace Ogre {
                 if (handle == 0)
                 {
                     // shared data
-                    if (mSharedVertexDataAnimationType != VAT_NONE &&
+                    if (mSharedVertexDataAnimationType != VertexAnimationType::NONE &&
                         mSharedVertexDataAnimationType != track->getAnimationType())
                     {
                         // Mixing of morph and pose animation on same data is not allowed
-                        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                             ::std::format("Animation tracks for shared vertex data on mesh {}"
                             " try to mix vertex animation types, which is "
                             "not allowed.", mName),
                             "Mesh::_determineAnimationTypes");
                     }
                     mSharedVertexDataAnimationType = track->getAnimationType();
-                    if (track->getAnimationType() == VAT_MORPH)
+                    if (track->getAnimationType() == VertexAnimationType::MORPH)
                         mSharedVertexDataAnimationIncludesNormals = track->getVertexAnimationIncludesNormals();
                     else 
                         mSharedVertexDataAnimationIncludesNormals = mPosesIncludeNormals;
@@ -2153,11 +2153,11 @@ namespace Ogre {
                 {
                     // submesh index (-1)
                     SubMesh* sm = getSubMesh(handle-1);
-                    if (sm->mVertexAnimationType != VAT_NONE &&
+                    if (sm->mVertexAnimationType != VertexAnimationType::NONE &&
                         sm->mVertexAnimationType != track->getAnimationType())
                     {
                         // Mixing of morph and pose animation on same data is not allowed
-                        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                             ::std::format("Animation tracks for dedicated vertex data "
                             "{} on mesh {}"
                             " try to mix vertex animation types, which is "
@@ -2165,7 +2165,7 @@ namespace Ogre {
                             "Mesh::_determineAnimationTypes");
                     }
                     sm->mVertexAnimationType = track->getAnimationType();
-                    if (track->getAnimationType() == VAT_MORPH)
+                    if (track->getAnimationType() == VertexAnimationType::MORPH)
                         sm->mVertexAnimationIncludesNormals = track->getVertexAnimationIncludesNormals();
                     else 
                         sm->mVertexAnimationIncludesNormals = mPosesIncludeNormals;
@@ -2183,7 +2183,7 @@ namespace Ogre {
         if (mAnimationsList.find(name) != mAnimationsList.end())
         {
             OGRE_EXCEPT(
-                Exception::ERR_DUPLICATE_ITEM,
+                ExceptionCodes::DUPLICATE_ITEM,
                 ::std::format("An animation with the name {} already exists", name ),
                 "Mesh::createAnimation");
         }
@@ -2206,7 +2206,7 @@ namespace Ogre {
         Animation* ret = _getAnimationImpl(name);
         if (!ret)
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                 ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
@@ -2257,7 +2257,7 @@ namespace Ogre {
 
         if (i == mAnimationsList.end())
         {
-            OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name),
+            OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND, ::std::format("No animation entry found named {}", name),
                 "Mesh::getAnimation");
         }
 
@@ -2306,7 +2306,7 @@ namespace Ogre {
         }
         StringStream str;
         str << "No pose called " << name << " found in Mesh " << mName;
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             str.str(),
             "Mesh::getPose");
 
@@ -2335,7 +2335,7 @@ namespace Ogre {
         }
         StringStream str;
         str << "No pose called " << name << " found in Mesh " << mName;
-        OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+        OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
             str.str(),
             "Mesh::removePose");
     }

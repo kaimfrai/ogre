@@ -57,18 +57,6 @@ namespace Ogre {
         Serializer();
         ~Serializer();
 
-        /// The endianness of written files
-        enum Endian
-        {
-            /// Use the platform native endian
-            ENDIAN_NATIVE,
-            /// Use big endian (0x1000 is serialised as 0x10 0x00)
-            ENDIAN_BIG,
-            /// Use little endian (0x1000 is serialised as 0x00 0x10)
-            ENDIAN_LITTLE
-        };
-
-
     protected:
 
         uint32 mCurrentstreamLen;
@@ -113,7 +101,7 @@ namespace Ogre {
         /// Determine the endianness of the incoming stream compared to native
         void determineEndianness(const DataStreamPtr& stream);
         /// Determine the endianness to write with based on option
-        void determineEndianness(Endian requestedEndian);
+        void determineEndianness(std::endian requestedEndian);
 
         void pushInnerChunk(const DataStreamPtr& stream);
         void popInnerChunk(const DataStreamPtr& stream);

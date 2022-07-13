@@ -57,36 +57,36 @@ namespace Ogre {
         // This one is a little ugly, 1.10 is used for version 1.1 legacy meshes.
         // So bump up to 1.100
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_1_10, "[MeshSerializer_v1.100]", 
+            MeshVersion::_1_10, "[MeshSerializer_v1.100]",
             ::std::make_unique<MeshSerializerImpl>()));
 
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_1_8, "[MeshSerializer_v1.8]", 
+            MeshVersion::_1_8, "[MeshSerializer_v1.8]",
             ::std::make_unique<MeshSerializerImpl_v1_8>()));
 
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_1_7, "[MeshSerializer_v1.41]", 
+            MeshVersion::_1_7, "[MeshSerializer_v1.41]",
             ::std::make_unique<MeshSerializerImpl_v1_41>()));
 
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_1_4, "[MeshSerializer_v1.40]", 
+            MeshVersion::_1_4, "[MeshSerializer_v1.40]",
             ::std::make_unique<MeshSerializerImpl_v1_4>()));
 
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_1_0, "[MeshSerializer_v1.30]", 
+            MeshVersion::_1_0, "[MeshSerializer_v1.30]",
             ::std::make_unique<MeshSerializerImpl_v1_3>()));
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_LEGACY, "[MeshSerializer_v1.20]", 
+            MeshVersion::LEGACY, "[MeshSerializer_v1.20]",
             ::std::make_unique<MeshSerializerImpl_v1_2>()));
 
         mVersionData.push_back(::std::make_unique<MeshVersionData>(
-            MESH_VERSION_LEGACY, "[MeshSerializer_v1.10]", 
+            MeshVersion::LEGACY, "[MeshSerializer_v1.10]",
             ::std::make_unique<MeshSerializerImpl_v1_1>()));
         
     }
     //---------------------------------------------------------------------
     void MeshSerializer::exportMesh(const Mesh* pMesh, std::string_view filename,
-        Endian endianMode)
+        std::endian endianMode)
     {
         DataStreamPtr stream = _openFileStream(filename, std::ios::binary | std::ios::out);
 
@@ -96,7 +96,7 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     void MeshSerializer::exportMesh(const Mesh* pMesh, std::string_view filename,
-                                    MeshVersion version, Endian endianMode)
+                                    MeshVersion version, std::endian endianMode)
     {
         DataStreamPtr stream = _openFileStream(filename, std::ios::binary | std::ios::out);
         
@@ -106,21 +106,21 @@ namespace Ogre {
     }
     //---------------------------------------------------------------------
     void MeshSerializer::exportMesh(const Mesh* pMesh, DataStreamPtr stream,
-        Endian endianMode)
+        std::endian endianMode)
     {
-        exportMesh(pMesh, stream, MESH_VERSION_LATEST, endianMode);
+        exportMesh(pMesh, stream, MeshVersion::LATEST, endianMode);
     }
     //---------------------------------------------------------------------
     void MeshSerializer::exportMesh(const Mesh* pMesh, DataStreamPtr stream,
-                                    MeshVersion version, Endian endianMode)
+                                    MeshVersion version, std::endian endianMode)
     {
-        if (version == MESH_VERSION_LEGACY)
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
+        if (version == MeshVersion::LEGACY)
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                         "You may not supply a legacy version number (pre v1.0) for writing meshes.",
                         "MeshSerializer::exportMesh");
         
         MeshSerializerImpl* impl = nullptr;
-        if (version == MESH_VERSION_LATEST)
+        if (version == MeshVersion::LATEST)
             impl = mVersionData[0]->impl.get();
         else 
         {
@@ -135,7 +135,7 @@ namespace Ogre {
         }
         
         if (!impl)
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Cannot find serializer implementation for "
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Cannot find serializer implementation for "
                     "specified version", "MeshSerializer::exportMesh");
 
                     
@@ -154,7 +154,7 @@ namespace Ogre {
         
         if (headerID != HEADER_CHUNK_ID)
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "File header not found",
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "File header not found",
                 "MeshSerializer::importMesh");
         }
         // Read version
@@ -173,7 +173,7 @@ namespace Ogre {
             }
         }           
         if (!impl)
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
                         ::std::format("Cannot find serializer implementation for mesh version {}", ver), "MeshSerializer::importMesh");
         
         // Call implementation

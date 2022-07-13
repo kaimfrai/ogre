@@ -68,7 +68,7 @@ namespace Ogre {
             if (it == mArchFactories.end())
             {
                 // Factory not found
-                OGRE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND,
+                OGRE_EXCEPT(ExceptionCodes::ITEM_NOT_FOUND,
                             ::std::format("Cannot find an ArchiveFactory for type '{}'", archiveType ));
             }
 

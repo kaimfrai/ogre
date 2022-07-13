@@ -69,10 +69,10 @@ namespace Ogre::OverlayElementCommands {
 
             switch (gmm)
             {
-            case GMM_PIXELS :
+            case GuiMetricsMode::PIXELS :
                 return "pixels";
 
-            case GMM_RELATIVE_ASPECT_ADJUSTED :
+            case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED :
                 return "relative_aspect_adjusted";
 
             default :
@@ -83,15 +83,15 @@ namespace Ogre::OverlayElementCommands {
         {
             if (val == "pixels")
             {
-                static_cast<OverlayElement*>(target)->setMetricsMode(GMM_PIXELS);
+                static_cast<OverlayElement*>(target)->setMetricsMode(GuiMetricsMode::PIXELS);
             }
             else if (val == "relative_aspect_adjusted")
             {
-                static_cast<OverlayElement*>(target)->setMetricsMode(GMM_RELATIVE_ASPECT_ADJUSTED);
+                static_cast<OverlayElement*>(target)->setMetricsMode(GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED);
             }
             else
             {
-                static_cast<OverlayElement*>(target)->setMetricsMode(GMM_RELATIVE);
+                static_cast<OverlayElement*>(target)->setMetricsMode(GuiMetricsMode::RELATIVE);
             }
         }
         //-----------------------------------------------------------------------
@@ -103,11 +103,11 @@ namespace Ogre::OverlayElementCommands {
                 static_cast<const OverlayElement*>(target)->getHorizontalAlignment();
             switch(gha)
             {
-            case GHA_LEFT:
+            case GuiHorizontalAlignment::LEFT:
                 return "left";
-            case GHA_RIGHT:
+            case GuiHorizontalAlignment::RIGHT:
                 return "right";
-            case GHA_CENTER:
+            case GuiHorizontalAlignment::CENTER:
                 return "center";
             }
             // To keep compiler happy
@@ -117,15 +117,15 @@ namespace Ogre::OverlayElementCommands {
         {
             if (val == "left")
             {
-                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GHA_LEFT);
+                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GuiHorizontalAlignment::LEFT);
             }
             else if (val == "right")
             {
-                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GHA_RIGHT);
+                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GuiHorizontalAlignment::RIGHT);
             }
             else
             {
-                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GHA_CENTER);
+                static_cast<OverlayElement*>(target)->setHorizontalAlignment(GuiHorizontalAlignment::CENTER);
             }
         }
         //-----------------------------------------------------------------------
@@ -137,11 +137,11 @@ namespace Ogre::OverlayElementCommands {
                 static_cast<const OverlayElement*>(target)->getVerticalAlignment();
             switch(gva)
             {
-            case GVA_TOP:
+            case GuiVerticalAlignment::TOP:
                 return "top";
-            case GVA_BOTTOM:
+            case GuiVerticalAlignment::BOTTOM:
                 return "bottom";
-            case GVA_CENTER:
+            case GuiVerticalAlignment::CENTER:
                 return "center";
             }
             // To keep compiler happy
@@ -151,15 +151,15 @@ namespace Ogre::OverlayElementCommands {
         {
             if (val == "top")
             {
-                static_cast<OverlayElement*>(target)->setVerticalAlignment(GVA_TOP);
+                static_cast<OverlayElement*>(target)->setVerticalAlignment(GuiVerticalAlignment::TOP);
             }
             else if (val == "bottom")
             {
-                static_cast<OverlayElement*>(target)->setVerticalAlignment(GVA_BOTTOM);
+                static_cast<OverlayElement*>(target)->setVerticalAlignment(GuiVerticalAlignment::BOTTOM);
             }
             else
             {
-                static_cast<OverlayElement*>(target)->setVerticalAlignment(GVA_CENTER);
+                static_cast<OverlayElement*>(target)->setVerticalAlignment(GuiVerticalAlignment::CENTER);
             }
         }
         //-----------------------------------------------------------------------

@@ -136,10 +136,10 @@ auto ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain) -> b
         return true;    
 
     // Case compact policy is low and output slots are enough -> quit compacting process.
-    if (ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOCP_LOW && outTexCoordSlots <= mMaxTexCoordSlots)
+    if (ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOutputCompactPolicy::LOW && outTexCoordSlots <= mMaxTexCoordSlots)
         return true;
 
-    // Build output parameter tables - each row represents different parameter type (GCT_FLOAT1-4).
+    // Build output parameter tables - each row represents different parameter type (GpuConstantType::FLOAT1-4).
     ShaderParameterList vsOutParamsTable[4];
     ShaderParameterList fsInParamsTable[4];
 
@@ -177,13 +177,13 @@ auto ProgramProcessor::compactVsOutputs(Function* vsMain, Function* fsMain) -> b
     LocalParameterMap vsLocalParamsMap;
     LocalParameterMap fsLocalParamsMap;
 
-    generateLocalSplitParameters(vsMain, GPT_VERTEX_PROGRAM, vsMergedParamsList, vsSplitParams, vsLocalParamsMap);
-    generateLocalSplitParameters(fsMain, GPT_FRAGMENT_PROGRAM, fsMergedParamsList, fsSplitParams, fsLocalParamsMap);
+    generateLocalSplitParameters(vsMain, GpuProgramType::VERTEX_PROGRAM, vsMergedParamsList, vsSplitParams, vsLocalParamsMap);
+    generateLocalSplitParameters(fsMain, GpuProgramType::FRAGMENT_PROGRAM, fsMergedParamsList, fsSplitParams, fsLocalParamsMap);
 
     
     // Rebuild functions parameter lists.
-    rebuildParameterList(vsMain, Operand::OPS_OUT, vsMergedParamsList);
-    rebuildParameterList(fsMain, Operand::OPS_IN, fsMergedParamsList);
+    rebuildParameterList(vsMain, Operand::OpSemantic::OUT, vsMergedParamsList);
+    rebuildParameterList(fsMain, Operand::OpSemantic::IN, fsMergedParamsList);
 
     // Adjust function invocations operands to reference the new merged parameters.
     rebuildFunctionInvocations(vsMain->getAtomInstances(), vsMergedParamsList, vsLocalParamsMap);
@@ -205,7 +205,7 @@ void ProgramProcessor::countVsTexcoordOutputs(Function* vsMain,
     for (const ShaderParameterList& vsOutputs = vsMain->getOutputParameters();
         const ParameterPtr& curParam : vsOutputs)
     {
-        if (curParam->getSemantic() == Parameter::SPS_TEXTURE_COORDINATES)
+        if (curParam->getSemantic() == Parameter::Semantic::TEXTURE_COORDINATES)
         {
             outTexCoordSlots++;
             outTexCoordFloats += getParameterFloatCount(curParam->getType());
@@ -218,51 +218,51 @@ void ProgramProcessor::buildTexcoordTable(const ShaderParameterList& paramList, 
 {
     for (const ParameterPtr& curParam : paramList)
     {
-        if (curParam->getSemantic() == Parameter::SPS_TEXTURE_COORDINATES)
+        if (curParam->getSemantic() == Parameter::Semantic::TEXTURE_COORDINATES)
         {
 
             switch (curParam->getType())
             {
-            case GCT_FLOAT1:
+            case GpuConstantType::FLOAT1:
                 outParamsTable[0].push_back(curParam);
                 break;
 
-            case GCT_FLOAT2:
+            case GpuConstantType::FLOAT2:
                 outParamsTable[1].push_back(curParam);
                 break;
 
-            case GCT_FLOAT3:
+            case GpuConstantType::FLOAT3:
                 outParamsTable[2].push_back(curParam);
                 break;
 
-            case GCT_FLOAT4:
+            case GpuConstantType::FLOAT4:
                 outParamsTable[3].push_back(curParam);
                 break;
-            case GCT_SAMPLER1D:
-            case GCT_SAMPLER2D:
-            case GCT_SAMPLER2DARRAY:
-            case GCT_SAMPLER3D:
-            case GCT_SAMPLERCUBE:
-            case GCT_SAMPLER1DSHADOW:
-            case GCT_SAMPLER2DSHADOW:
-            case GCT_MATRIX_2X2:
-            case GCT_MATRIX_2X3:
-            case GCT_MATRIX_2X4:
-            case GCT_MATRIX_3X2:
-            case GCT_MATRIX_3X3:
-            case GCT_MATRIX_3X4:
-            case GCT_MATRIX_4X2:
-            case GCT_MATRIX_4X3:
-            case GCT_MATRIX_4X4:
-            case GCT_INT1:
-            case GCT_INT2:
-            case GCT_INT3:
-            case GCT_INT4:
-            case GCT_UINT1:
-            case GCT_UINT2:
-            case GCT_UINT3:
-            case GCT_UINT4:
-            case GCT_UNKNOWN:
+            case GpuConstantType::SAMPLER1D:
+            case GpuConstantType::SAMPLER2D:
+            case GpuConstantType::SAMPLER2DARRAY:
+            case GpuConstantType::SAMPLER3D:
+            case GpuConstantType::SAMPLERCUBE:
+            case GpuConstantType::SAMPLER1DSHADOW:
+            case GpuConstantType::SAMPLER2DSHADOW:
+            case GpuConstantType::MATRIX_2X2:
+            case GpuConstantType::MATRIX_2X3:
+            case GpuConstantType::MATRIX_2X4:
+            case GpuConstantType::MATRIX_3X2:
+            case GpuConstantType::MATRIX_3X3:
+            case GpuConstantType::MATRIX_3X4:
+            case GpuConstantType::MATRIX_4X2:
+            case GpuConstantType::MATRIX_4X3:
+            case GpuConstantType::MATRIX_4X4:
+            case GpuConstantType::INT1:
+            case GpuConstantType::INT2:
+            case GpuConstantType::INT3:
+            case GpuConstantType::INT4:
+            case GpuConstantType::UINT1:
+            case GpuConstantType::UINT2:
+            case GpuConstantType::UINT3:
+            case GpuConstantType::UINT4:
+            case GpuConstantType::UNKNOWN:
             default:
                 break;
             }
@@ -314,8 +314,8 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
     }
 
     // Case low/medium compacting policy -> use these simplified combinations in order to prevent splits.
-    if (ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOCP_LOW ||
-        ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOCP_MEDIUM)
+    if (ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOutputCompactPolicy::LOW ||
+        ShaderGenerator::getSingleton().getVertexShaderOutputsCompactPolicy() == VSOutputCompactPolicy::MEDIUM)
     {
         const int curUsedSlots = static_cast<int>(mergedParams.size());
         const int float1ParamCount = static_cast<int>(paramsTable[0].size());
@@ -331,7 +331,7 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
         // Add the float2 count -> at max it will be 1 since all pairs have been merged previously.
         if (float2ParamCount > 1)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                 "Invalid float2 reminder count.",
                 "ProgramProcessor::mergeParametersByPredefinedCombinations");
         }
@@ -343,7 +343,7 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
         {
             if (float2ParamCount > 3)
             {
-                OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                     "Invalid float1 reminder count.",
                     "ProgramProcessor::mergeParametersByPredefinedCombinations");
             }
@@ -358,7 +358,7 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
                 // Float2 exists -> there must be at max 1 float1.
                 if (float1ParamCount > 1)
                 {
-                    OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+                    OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
                         "Invalid float1 reminder count.",
                         "ProgramProcessor::mergeParametersByPredefinedCombinations");
                 }
@@ -373,45 +373,45 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
         {
             // Deal with the float3 parameters.
             MergeCombination( 
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            1, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            1, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
 
             // Deal with float2 + float1 combination.
             MergeCombination( 
-            1, Operand::OPM_ALL,
-            1, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),
+            1, Operand::OpMask::ALL,
+            1, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
 
             // Deal with the float2 parameter.
             MergeCombination( 
-            0, Operand::OPM_ALL,
-            1, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),
+            0, Operand::OpMask::ALL,
+            1, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
 
             // Deal with the 3 float1 combination.
             MergeCombination( 
-            3, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),
+            3, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
 
             // Deal with the 2 float1 combination.
             MergeCombination( 
-            2, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),
+            2, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
 
             // Deal with the 1 float1 combination.
             MergeCombination( 
-            1, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL,
-            0, Operand::OPM_ALL),           
+            1, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL,
+            0, Operand::OpMask::ALL),
             
         };
 
@@ -490,7 +490,7 @@ void ProgramProcessor::mergeParametersReminders(ShaderParameterList paramsTable[
             // Case this list contains parameters -> pop it out and add to merged params.
             if (curParamList.size() > 0)
             {
-                curMergeParam.addSourceParameter(curParamList.back(), Operand::OPM_ALL);
+                curMergeParam.addSourceParameter(curParamList.back(), Operand::OpMask::ALL);
                 curParamList.pop_back();
                 mergedParams.push_back(curMergeParam);
                 break;
@@ -508,13 +508,10 @@ void ProgramProcessor::mergeParametersReminders(ShaderParameterList paramsTable[
         {
             ParameterPtr srcParameter  = curParamList.back();
             int splitCount             = 0;     // How many times the source parameter has been split.
-            int srcParameterComponents;
-            int srcParameterFloats;
-            int curSrcParameterFloats;
 
-            srcParameterFloats = getParameterFloatCount(srcParameter->getType());
-            curSrcParameterFloats = srcParameterFloats;
-            srcParameterComponents = getParameterMaskByType(srcParameter->getType());
+            auto srcParameterFloats = getParameterFloatCount(srcParameter->getType());
+            auto curSrcParameterFloats = srcParameterFloats;
+            auto srcParameterComponents = getParameterMaskByType(srcParameter->getType());
 
             
             // While this parameter has remaining components -> split it.
@@ -531,19 +528,17 @@ void ProgramProcessor::mergeParametersReminders(ShaderParameterList paramsTable[
                         // Case current components of source parameter can go all into this slot without split.
                         if (srcParameterFloats < freeFloatCount && splitCount == 0)
                         {                               
-                            curMergeParam.addSourceParameter(srcParameter, Operand::OPM_ALL);                           
+                            curMergeParam.addSourceParameter(srcParameter, Operand::OpMask::ALL);
                         }
 
                         // Case we have to split the current source parameter.
                         else
                         {
-                            int srcComponentsMask;
-
                             // Create the mask that tell us which part of the source component is added to the merged parameter.
-                            srcComponentsMask = getParameterMaskByFloatCount(freeFloatCount) << splitCount;                         
+                            auto srcComponentsMask = getParameterMaskByFloatCount(freeFloatCount) << splitCount;
 
                             // Add the partial source parameter to merged parameter.
-                            curMergeParam.addSourceParameter(srcParameter, Operand::OpMask(srcComponentsMask & srcParameterComponents));
+                            curMergeParam.addSourceParameter(srcParameter, srcComponentsMask & srcParameterComponents);
                         }
                         splitCount++;
 
@@ -571,7 +566,7 @@ void ProgramProcessor::mergeParametersReminders(ShaderParameterList paramsTable[
 }
 
 //-----------------------------------------------------------------------------
-void ProgramProcessor::rebuildParameterList(Function* func, int paramsUsage, MergeParameterList& mergedParams)
+void ProgramProcessor::rebuildParameterList(Function* func, Operand::OpSemantic paramsUsage, MergeParameterList& mergedParams)
 {
     // Delete the old merged parameters.
     for (auto & curMergeParameter : mergedParams)
@@ -580,11 +575,11 @@ void ProgramProcessor::rebuildParameterList(Function* func, int paramsUsage, Mer
         {
             ParameterPtr curSrcParam = curMergeParameter.getSourceParameter(j);
 
-            if (paramsUsage == Operand::OPS_OUT)
+            if (paramsUsage == Operand::OpSemantic::OUT)
             {
                 func->deleteOutputParameter(curSrcParam);
             }
-            else if (paramsUsage == Operand::OPS_IN)
+            else if (paramsUsage == Operand::OpSemantic::IN)
             {
                 func->deleteInputParameter(curSrcParam);
             }
@@ -596,11 +591,11 @@ void ProgramProcessor::rebuildParameterList(Function* func, int paramsUsage, Mer
     {
         MergeParameter& curMergeParameter = mergedParams[i];
         
-        if (paramsUsage == Operand::OPS_OUT)
+        if (paramsUsage == Operand::OpSemantic::OUT)
         {           
             func->addOutputParameter(curMergeParameter.getDestinationParameter(paramsUsage, i));
         }
-        else if (paramsUsage == Operand::OPS_IN)
+        else if (paramsUsage == Operand::OpSemantic::IN)
         {
             func->addInputParameter(curMergeParameter.getDestinationParameter(paramsUsage, i));
         }
@@ -638,20 +633,20 @@ void ProgramProcessor::generateLocalSplitParameters(Function* func, GpuProgramTy
             if (itFind != localParamsMap.end())
             {
                 // Case it is the vertex shader -> assign the local parameter to the output merged parameter.
-                if (progType == GPT_VERTEX_PROGRAM)
+                if (progType == GpuProgramType::VERTEX_PROGRAM)
                 {
-                    FunctionAtom* curFuncInvocation = new AssignmentAtom(FFP_VS_POST_PROCESS);
+                    FunctionAtom* curFuncInvocation = new AssignmentAtom(std::to_underlying(FFPVertexShaderStage::POST_PROCESS));
                     
-                    curFuncInvocation->pushOperand(itFind->second, Operand::OPS_IN, curMergeParameter.getSourceParameterMask(p));
-                    curFuncInvocation->pushOperand(curMergeParameter.getDestinationParameter(Operand::OPS_OUT, i), Operand::OPS_OUT, curMergeParameter.getDestinationParameterMask(p));     
+                    curFuncInvocation->pushOperand(itFind->second, Operand::OpSemantic::IN, curMergeParameter.getSourceParameterMask(p));
+                    curFuncInvocation->pushOperand(curMergeParameter.getDestinationParameter(Operand::OpSemantic::OUT, i), Operand::OpSemantic::OUT, curMergeParameter.getDestinationParameterMask(p));
                     func->addAtomInstance(curFuncInvocation);       
                 }
-                else if (progType == GPT_FRAGMENT_PROGRAM)
+                else if (progType == GpuProgramType::FRAGMENT_PROGRAM)
                 {
-                    FunctionAtom* curFuncInvocation = new AssignmentAtom(FFP_PS_PRE_PROCESS);
+                    FunctionAtom* curFuncInvocation = new AssignmentAtom(std::to_underlying(FFPFragmentShaderStage::PRE_PROCESS));
                     
-                    curFuncInvocation->pushOperand(curMergeParameter.getDestinationParameter(Operand::OPS_IN, i), Operand::OPS_IN, curMergeParameter.getDestinationParameterMask(p));       
-                    curFuncInvocation->pushOperand(itFind->second, Operand::OPS_OUT, curMergeParameter.getSourceParameterMask(p));
+                    curFuncInvocation->pushOperand(curMergeParameter.getDestinationParameter(Operand::OpSemantic::IN, i), Operand::OpSemantic::IN, curMergeParameter.getDestinationParameterMask(p));
+                    curFuncInvocation->pushOperand(itFind->second, Operand::OpSemantic::OUT, curMergeParameter.getSourceParameterMask(p));
                     func->addAtomInstance(curFuncInvocation);       
                 }
             }
@@ -710,20 +705,20 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
                 ParameterPtr dstParameter;
 
                 // Case the source parameter is fully contained within the destination merged parameter.
-                if (curMergeParameter.getSourceParameterMask(j) == Operand::OPM_ALL)
+                if (curMergeParameter.getSourceParameterMask(j) == Operand::OpMask::ALL)
                 {
-                    dstParameter = curMergeParameter.getDestinationParameter(Operand::OPS_INOUT, i);
+                    dstParameter = curMergeParameter.getDestinationParameter(Operand::OpSemantic::INOUT, i);
 
                     for (auto srcOperandPtr : srcParamRefs)
                     {
-                        int       dstOpMask;
+                        Operand::OpMask       dstOpMask;
 
-                        if (srcOperandPtr->getMask() == Operand::OPM_ALL)
+                        if (srcOperandPtr->getMask() == Operand::OpMask::ALL)
                         {
                             // Case the merged parameter contains only one source - no point in adding special mask.
                             if (curMergeParameter.getSourceParameterCount() == 1)
                             {
-                                dstOpMask = Operand::OPM_ALL;
+                                dstOpMask = Operand::OpMask::ALL;
                             }
                             else
                             {
@@ -736,7 +731,7 @@ void ProgramProcessor::replaceParametersReferences(MergeParameterList& mergedPar
                         }
 
                         // Replace the original source operand with a new operand the reference the new merged parameter.                       
-                        *srcOperandPtr = Operand(dstParameter, srcOperandPtr->getSemantic(), Operand::OpMask(dstOpMask));
+                        *srcOperandPtr = Operand(dstParameter, srcOperandPtr->getSemantic(), dstOpMask);
                     }
                 }
             }   
@@ -763,7 +758,7 @@ void ProgramProcessor::replaceSplitParametersReferences(LocalParameterMap& local
             {
                 Operand::OpMask dstOpMask;
 
-                if (srcOperandPtr->getMask() == Operand::OPM_ALL)
+                if (srcOperandPtr->getMask() == Operand::OpMask::ALL)
                 {                   
                     dstOpMask = getParameterMaskByType(curSrcParam->getType());
                 }
@@ -786,12 +781,12 @@ auto ProgramProcessor::getParameterFloatCount(GpuConstantType type) -> int
 
     switch (type)
     {
-    case GCT_FLOAT1: floatCount = 1; break;
-    case GCT_FLOAT2: floatCount = 2; break;
-    case GCT_FLOAT3: floatCount = 3; break;
-    case GCT_FLOAT4: floatCount = 4; break;
+    case GpuConstantType::FLOAT1: floatCount = 1; break;
+    case GpuConstantType::FLOAT2: floatCount = 2; break;
+    case GpuConstantType::FLOAT3: floatCount = 3; break;
+    case GpuConstantType::FLOAT4: floatCount = 4; break;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS,
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
             "Invalid parameter float type.",
             "ProgramProcessor::getParameterFloatCount");
     }
@@ -804,12 +799,12 @@ auto ProgramProcessor::getParameterMaskByType(GpuConstantType type) -> Operand::
 {
     switch (type)
     {
-    case GCT_FLOAT1: return Operand::OPM_X;
-    case GCT_FLOAT2: return Operand::OPM_XY;
-    case GCT_FLOAT3: return Operand::OPM_XYZ;
-    case GCT_FLOAT4: return Operand::OPM_XYZW;
+    case GpuConstantType::FLOAT1: return Operand::OpMask::X;
+    case GpuConstantType::FLOAT2: return Operand::OpMask::XY;
+    case GpuConstantType::FLOAT3: return Operand::OpMask::XYZ;
+    case GpuConstantType::FLOAT4: return Operand::OpMask::XYZW;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Invalid parameter type.");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid parameter type.");
     }
 }
 
@@ -818,12 +813,12 @@ auto ProgramProcessor::getParameterMaskByFloatCount(int floatCount) -> Operand::
 {
     switch (floatCount)
     {
-    case 1: return Operand::OPM_X;
-    case 2: return Operand::OPM_XY;
-    case 3: return Operand::OPM_XYZ;
-    case 4: return Operand::OPM_XYZW;
+    case 1: return Operand::OpMask::X;
+    case 2: return Operand::OpMask::XY;
+    case 3: return Operand::OpMask::XYZ;
+    case 4: return Operand::OpMask::XYZW;
     default:
-        OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Invalid parameter float type");
+        OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid parameter float type");
     }
 }
 
@@ -834,38 +829,38 @@ void ProgramProcessor::buildMergeCombinations()
 {
     mParamMergeCombinations.push_back(
         MergeCombination(
-        1, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        1, Operand::OPM_ALL,
-        0, Operand::OPM_ALL));
+        1, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        1, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL));
 
     mParamMergeCombinations.push_back(
         MergeCombination(
-        2, Operand::OPM_ALL,
-        1, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL));
+        2, Operand::OpMask::ALL,
+        1, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL));
 
     mParamMergeCombinations.push_back(
         MergeCombination( 
-        4, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL));
+        4, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL));
 
     mParamMergeCombinations.push_back(
         MergeCombination( 
-        0, Operand::OPM_ALL,
-        2, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL));
+        0, Operand::OpMask::ALL,
+        2, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL));
 
     mParamMergeCombinations.push_back(
         MergeCombination( 
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        0, Operand::OPM_ALL,
-        1, Operand::OPM_ALL));
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        0, Operand::OpMask::ALL,
+        1, Operand::OpMask::ALL));
 }
 
 //-----------------------------------------------------------------------------
@@ -880,7 +875,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
     // Case source count exceeded maximum
     if (mSrcParameterCount >= 4)
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
             "Merged parameter source parameters overflow",
             "MergeParameter::addSourceParameter");
     }
@@ -888,7 +883,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
     mSrcParameter[mSrcParameterCount]     = srcParam;
     mSrcParameterMask[mSrcParameterCount] = mask;
 
-    if (mask == Operand::OPM_ALL)
+    if (mask == Operand::OpMask::ALL)
     {
         mDstParameterMask[mSrcParameterCount] = mask;
 
@@ -908,7 +903,7 @@ void ProgramProcessor::MergeParameter::addSourceParameter(ParameterPtr srcParam,
     // Case float count exceeded maximum
     if (mUsedFloatCount > 4)
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR,
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR,
             "Merged parameter floats overflow",
             "MergeParameter::addSourceParameter");
     }
@@ -922,43 +917,43 @@ auto ProgramProcessor::MergeParameter::getUsedFloatCount() noexcept -> int
 }
 
 //-----------------------------------------------------------------------------
-void ProgramProcessor::MergeParameter::createDestinationParameter(int usage, int index)
+void ProgramProcessor::MergeParameter::createDestinationParameter(Operand::OpSemantic usage, int index)
 {
-    GpuConstantType dstParamType = GCT_UNKNOWN;
+    GpuConstantType dstParamType = GpuConstantType::UNKNOWN;
 
     switch (getUsedFloatCount())
     {
     case 1:
-        dstParamType = GCT_FLOAT1;
+        dstParamType = GpuConstantType::FLOAT1;
         break;
 
     case 2:
-        dstParamType = GCT_FLOAT2;
+        dstParamType = GpuConstantType::FLOAT2;
         break;
 
     case 3:
-        dstParamType = GCT_FLOAT3;
+        dstParamType = GpuConstantType::FLOAT3;
         break;
 
     case 4:
-        dstParamType = GCT_FLOAT4;
+        dstParamType = GpuConstantType::FLOAT4;
         break;
 
     }
 
 
-    if (usage == Operand::OPS_IN)
+    if (usage == Operand::OpSemantic::IN)
     {
-        mDstParameter = ParameterFactory::createInTexcoord(dstParamType, index, Parameter::SPC_UNKNOWN);
+        mDstParameter = ParameterFactory::createInTexcoord(dstParamType, index, Parameter::Content::UNKNOWN);
     }
-    else if (usage == Operand::OPS_OUT)
+    else if (usage == Operand::OpSemantic::OUT)
     {
-        mDstParameter = ParameterFactory::createOutTexcoord(dstParamType, index, Parameter::SPC_UNKNOWN);
+        mDstParameter = ParameterFactory::createOutTexcoord(dstParamType, index, Parameter::Content::UNKNOWN);
     }
 }
 
 //-----------------------------------------------------------------------------
-auto ProgramProcessor::MergeParameter::getDestinationParameter(int usage, int index) -> Ogre::RTShader::ParameterPtr
+auto ProgramProcessor::MergeParameter::getDestinationParameter( Operand::OpSemantic usage, int index) -> Ogre::RTShader::ParameterPtr
 {
     if (!mDstParameter)
         createDestinationParameter(usage, index);
@@ -973,8 +968,8 @@ void ProgramProcessor::MergeParameter::clear()
     for (unsigned int i=0; i < 4; ++i)
     {
         mSrcParameter[i].reset();
-        mSrcParameterMask[i] = Operand::OPM_NONE;
-        mDstParameterMask[i] = Operand::OPM_NONE;
+        mSrcParameterMask[i] = Operand::OpMask::NONE;
+        mDstParameterMask[i] = Operand::OpMask::NONE;
     }   
     mSrcParameterCount = 0;
     mUsedFloatCount = 0;

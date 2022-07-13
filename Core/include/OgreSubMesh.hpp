@@ -97,7 +97,7 @@ class VertexData;
             @par
                 We collect actually used bones of all bone assignments, and build the
                 blend index in 'packed' form, then the range of the blend index in vertex
-                data VES_BLEND_INDICES element is continuous, with no gaps. Thus, by
+                data VertexElementSemantic::BLEND_INDICES element is continuous, with no gaps. Thus, by
                 minimising the world matrix array constants passing to GPU, we can support
                 more bones for a mesh when hardware skinning is used. The hardware skinning
                 support limit is applied to each set of vertex data in the mesh, in other words, the
@@ -144,7 +144,7 @@ class VertexData;
         bool useSharedVertices{true};
 
         /// The render operation type used to render this submesh
-        RenderOperation::OperationType operationType{RenderOperation::OT_TRIANGLE_LIST};
+        RenderOperation::OperationType operationType{RenderOperation::OperationType::TRIANGLE_LIST};
 
         /// Sets the name of the Material which this SubMesh will use
         void setMaterialName(std::string_view matName, std::string_view groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME );
@@ -236,7 +236,7 @@ class VertexData;
         bool mBoneAssignmentsOutOfDate{false};
 
         /// Type of vertex animation for dedicated vertex data (populated by Mesh)
-        mutable VertexAnimationType mVertexAnimationType{VAT_NONE};
+        mutable VertexAnimationType mVertexAnimationType{VertexAnimationType::NONE};
 
         /// Whether normals are included in vertex animation keyframes
         mutable bool mVertexAnimationIncludesNormals{false};

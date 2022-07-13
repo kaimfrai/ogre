@@ -56,7 +56,7 @@ namespace Ogre
     //-----------------------------------------------------------------------------    
     HardwarePixelBuffer::~HardwarePixelBuffer()
     {
-        if (mUsage & TU_RENDERTARGET)
+        if (!!(mUsage & TextureUsage::RENDERTARGET))
         {
             // Delete all render targets that are not yet deleted via _clearSliceRTT because the rendertarget
             // was deleted by the user.
@@ -84,7 +84,7 @@ namespace Ogre
     {
         if (mShadowBuffer)
         {
-            if (options != HBL_READ_ONLY)
+            if (options != LockOptions::READ_ONLY)
             {
                 // we have to assume a read / write lock so we use the shadow buffer
                 // and tag for sync on unlock()
@@ -116,7 +116,7 @@ namespace Ogre
     /// Internal implementation of lock()
     auto HardwarePixelBuffer::lockImpl(size_t offset, size_t length, LockOptions options) -> void*
     {
-        OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "lockImpl(offset,length) is not valid for PixelBuffers and should never be called",
+        OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "lockImpl(offset,length) is not valid for PixelBuffers and should never be called",
             "HardwarePixelBuffer::lockImpl");
     }
 
@@ -126,18 +126,18 @@ namespace Ogre
     {
         if(isLocked() || src->isLocked())
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Source and destination buffer may not be locked!");
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Source and destination buffer may not be locked!");
         }
         if(src.get() == this)
         {
-            OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, "Source must not be the same object");
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Source must not be the same object");
         }
 
-        LockOptions method = HBL_WRITE_ONLY;
+        LockOptions method = LockOptions::WRITE_ONLY;
         if (dstBox.left == 0 && dstBox.top == 0 && dstBox.front == 0 && dstBox.right == mWidth &&
             dstBox.bottom == mHeight && dstBox.back == mDepth)
             // Entire buffer -- we can discard the previous contents
-            method = HBL_DISCARD;
+            method = LockOptions::DISCARD;
 
         src->blitToMemory(srcBox, lock(dstBox, method));
         unlock();
@@ -159,7 +159,7 @@ namespace Ogre
         }
 
         // TODO
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                 "Reading a byte range is not implemented. Use blitToMemory.",
                 "HardwarePixelBuffer::readData");
     }
@@ -178,7 +178,7 @@ namespace Ogre
         }
 
         // TODO
-        OGRE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED,
+        OGRE_EXCEPT(ExceptionCodes::NOT_IMPLEMENTED,
                 "Writing a byte range is not implemented. Use blitFromMemory.",
                 "HardwarePixelBuffer::writeData");
     }
@@ -186,7 +186,7 @@ namespace Ogre
     
     auto HardwarePixelBuffer::getRenderTarget(size_t zoffset) -> RenderTexture *
     {
-        assert(mUsage & TU_RENDERTARGET);
+        assert(mUsage & TextureUsage::RENDERTARGET);
         return mSliceTRT.at(zoffset);
     }
     //-----------------------------------------------------------------------------    

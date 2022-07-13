@@ -50,7 +50,7 @@ namespace Ogre {
 
         if (!mBufferId)
         {
-            OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Cannot create GL buffer");
+            OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Cannot create GL buffer");
         }
 
         mRenderSystem->_getStateCacheManager()->bindGLBuffer(mTarget, mBufferId);
@@ -86,9 +86,9 @@ namespace Ogre {
                 mScratchOffset = offset;
                 mScratchSize = length;
                 mScratchPtr = retPtr;
-                mScratchUploadOnUnlock = (options != HBL_READ_ONLY);
+                mScratchUploadOnUnlock = (options != LockOptions::READ_ONLY);
 
-                if (options != HBL_DISCARD && options != HBL_NO_OVERWRITE)
+                if (options != LockOptions::DISCARD && options != LockOptions::NO_OVERWRITE)
                 {
                     // have to read back the data before returning the pointer
                     readData(offset, length, retPtr);
@@ -102,14 +102,14 @@ namespace Ogre {
             // Use glMapBuffer
             mRenderSystem->_getStateCacheManager()->bindGLBuffer(mTarget, mBufferId);
             // Use glMapBuffer
-            if(options == HBL_DISCARD) // TODO: check possibility to use GL_MAP_UNSYNCHRONIZED_BIT for HBL_NO_OVERWRITE locking promise
+            if(options == LockOptions::DISCARD) // TODO: check possibility to use GL_MAP_UNSYNCHRONIZED_BIT for LockOptions::NO_OVERWRITE locking promise
             {
                 // Discard the buffer
                 glBufferDataARB(mTarget, mSizeInBytes, nullptr, GLHardwareBufferManager::getGLUsage(mUsage));
             }
-            if (mUsage & HBU_DETAIL_WRITE_ONLY)
+            if (!!(mUsage & HardwareBufferUsage::DETAIL_WRITE_ONLY))
                 access = GL_WRITE_ONLY_ARB;
-            else if (options == HBL_READ_ONLY)
+            else if (options == LockOptions::READ_ONLY)
                 access = GL_READ_ONLY_ARB;
             else
                 access = GL_READ_WRITE_ARB;
@@ -117,7 +117,7 @@ namespace Ogre {
             void* pBuffer = glMapBufferARB( mTarget, access);
             if(pBuffer == nullptr)
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Buffer: Out of memory");
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Buffer: Out of memory");
             }
 
             // return offsetted
@@ -152,7 +152,7 @@ namespace Ogre {
 
             if(!glUnmapBufferARB( mTarget ))
             {
-                OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "Buffer data corrupted, please reload");
+                OGRE_EXCEPT(ExceptionCodes::INTERNAL_ERROR, "Buffer data corrupted, please reload");
             }
         }
     }
@@ -206,7 +206,7 @@ namespace Ogre {
     {
         if (mShadowBuffer && mShadowUpdated && !mSuppressHardwareUpdate)
         {
-            HardwareBufferLockGuard shadowLock(mShadowBuffer.get(), mLockStart, mLockSize, HBL_READ_ONLY);
+            HardwareBufferLockGuard shadowLock(mShadowBuffer.get(), mLockStart, mLockSize, LockOptions::READ_ONLY);
 
             mRenderSystem->_getStateCacheManager()->bindGLBuffer(mTarget, mBufferId);
 
