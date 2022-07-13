@@ -369,7 +369,7 @@ class RenderWindow;
     };
 
     /** Defines the frame buffer types. */
-    enum class FrameBufferType {
+    enum class FrameBufferType : uint32 {
         COLOUR  = 0x1,
         DEPTH   = 0x2,
         STENCIL = 0x4
@@ -426,7 +426,7 @@ class RenderWindow;
     };
 
     /** Flags for the Instance Manager when calculating ideal number of instances per batch */
-    enum class InstanceManagerFlags
+    enum class InstanceManagerFlags : uint16
     {
         /** Forces an amount of instances per batch low enough so that vertices * numInst < 65535
             since usually improves performance. In HW instanced techniques, this flag is ignored

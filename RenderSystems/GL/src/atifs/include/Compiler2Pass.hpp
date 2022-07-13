@@ -64,7 +64,7 @@ public:
     enum class OperationType {otRULE, otAND, otOR, otOPTIONAL, otREPEAT, otEND};
 
     // Token ID enumeration
-    enum class SymbolID {
+    enum class SymbolID : uint {
         // Terminal Tokens section
 
         // DirectX pixel shader source formats

@@ -301,7 +301,7 @@ namespace Ogre {
     /**
      * Flags defining some on/off properties of pixel formats
      */
-    enum class PixelFormatFlags {
+    enum class PixelFormatFlags : uint32 {
         /// This format has an alpha channel
         HASALPHA        = 0x00000001,
         /** This format is compressed. This invalidates the values in elemBytes,

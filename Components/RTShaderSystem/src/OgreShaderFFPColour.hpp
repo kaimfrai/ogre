@@ -60,7 +60,7 @@ class FFPColour : public SubRenderState
 public:
 
     // Parameter stage flags of the colour component.
-    enum class StageFlags
+    enum class StageFlags : unsigned int
     {
         VS_INPUT_DIFFUSE     = 1 << 1,
         VS_OUTPUT_DIFFUSE    = 1 << 2,

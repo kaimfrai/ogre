@@ -120,7 +120,7 @@ class VertexData;
     };
 
     /** A set of flags that can be used to influence ShadowRenderable creation. */
-    enum class ShadowRenderableFlags
+    enum class ShadowRenderableFlags : unsigned long
     {
         /// For shadow volume techniques only, generate a light cap on the volume.
         INCLUDE_LIGHT_CAP = 0x00000001,

@@ -78,7 +78,7 @@ class RenderTarget;
     class DepthBuffer : public RenderSysAlloc
     {
     public:
-        enum class PoolId
+        enum class PoolId : uint16
         {
             NO_DEPTH       = 0,
             MANUAL_USAGE   = 0,

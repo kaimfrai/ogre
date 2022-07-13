@@ -55,7 +55,7 @@ class Technique;
         When passed into methods these are actually passed as a uint8 to allow you
         to use values in between if you want to.
     */
-    enum class RenderQueueGroupID
+    enum class RenderQueueGroupID : uint8
     {
         /// Use this queue for objects which must be rendered first e.g. backgrounds
         BACKGROUND = 0,

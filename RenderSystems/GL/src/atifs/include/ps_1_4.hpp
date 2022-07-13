@@ -89,7 +89,7 @@ class PS_1_4 : public Compiler2Pass{
 private:
     enum class RWAflags {rwa_NONE = 0, rwa_READ = 1, rwa_WRITE = 2};
 
-    enum class MachineInstID {mi_COLOROP1, mi_COLOROP2, mi_COLOROP3, mi_ALPHAOP1, mi_ALPHAOP2,
+    enum class MachineInstID : uint {mi_COLOROP1, mi_COLOROP2, mi_COLOROP3, mi_ALPHAOP1, mi_ALPHAOP2,
                         mi_ALPHAOP3, mi_SETCONSTANTS, mi_PASSTEXCOORD, mi_SAMPLEMAP, mi_TEX,
                         mi_TEXCOORD, mi_TEXREG2RGB, mi_NOP
     };

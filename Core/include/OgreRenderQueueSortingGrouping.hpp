@@ -122,7 +122,7 @@ namespace Ogre {
             then internally there will be multiple organisations. Changing the organisation
             needs to be done when the collection is empty.
         */      
-        enum class OrganisationMode
+        enum class OrganisationMode : uint8
         {
             /// Group by pass
             PASS_GROUP = 1,

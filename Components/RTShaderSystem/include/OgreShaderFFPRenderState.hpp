@@ -39,7 +39,7 @@ namespace Ogre::RTShader {
 */
 
 // Fixed Function vertex shader stages.
-enum class FFPVertexShaderStage
+enum class FFPVertexShaderStage : uint32
 {
     PRE_PROCESS                  = 0,
     TRANSFORM                    = 100,
@@ -51,7 +51,7 @@ enum class FFPVertexShaderStage
 };
 
 // Fixed Function fragment shader stages.
-enum class FFPFragmentShaderStage
+enum class FFPFragmentShaderStage : uint32
 {
     PRE_PROCESS                  = 0,
     COLOUR_BEGIN                 = 100,
@@ -64,7 +64,7 @@ enum class FFPFragmentShaderStage
 };
 
 // Fixed Function generic stages.
-enum class FFPShaderStage
+enum class FFPShaderStage : int
 {
     PRE_PROCESS                     = 0,
     TRANSFORM                       = 100,

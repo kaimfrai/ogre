@@ -59,7 +59,7 @@ namespace Ogre {
     public:
 
         /// Enum describing the different CPU features we want to check for, platform-dependent
-        enum class CpuFeatures
+        enum class CpuFeatures : uint
         {
             SSE             = 1 << 0,
             SSE2            = 1 << 1,
