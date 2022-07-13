@@ -45,14 +45,15 @@ class ResourceManager;
 
 auto GLArbGpuProgram::getProgramType() const -> GLenum
 {
+    using enum GpuProgramType;
     switch (mType)
     {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
         default:
             return GL_VERTEX_PROGRAM_ARB;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             return GL_GEOMETRY_PROGRAM_NV;
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             return GL_FRAGMENT_PROGRAM_ARB;
     }
 }
@@ -77,19 +78,20 @@ GLGpuProgram::~GLGpuProgram()
 
 auto GLGpuProgramBase::isAttributeValid(VertexElementSemantic semantic, uint index) -> bool
 {
+    using enum VertexElementSemantic;
     // default implementation
     switch(semantic)
     {
-        case VertexElementSemantic::POSITION:
-        case VertexElementSemantic::NORMAL:
-        case VertexElementSemantic::DIFFUSE:
-        case VertexElementSemantic::SPECULAR:
-        case VertexElementSemantic::TEXTURE_COORDINATES:
+        case POSITION:
+        case NORMAL:
+        case DIFFUSE:
+        case SPECULAR:
+        case TEXTURE_COORDINATES:
             return false;
-        case VertexElementSemantic::BLEND_WEIGHTS:
-        case VertexElementSemantic::BLEND_INDICES:
-        case VertexElementSemantic::BINORMAL:
-        case VertexElementSemantic::TANGENT:
+        case BLEND_WEIGHTS:
+        case BLEND_INDICES:
+        case BINORMAL:
+        case TANGENT:
             return true; // with default binding
     }
 

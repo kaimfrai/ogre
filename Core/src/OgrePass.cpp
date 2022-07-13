@@ -475,25 +475,26 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Pass::_getBlendFlags(SceneBlendType type, SceneBlendFactor& source, SceneBlendFactor& dest)
     {
+        using enum SceneBlendType;
         switch ( type )
         {
-        case SceneBlendType::TRANSPARENT_ALPHA:
+        case TRANSPARENT_ALPHA:
             source = SceneBlendFactor::SOURCE_ALPHA;
             dest = SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA;
             return;
-        case SceneBlendType::TRANSPARENT_COLOUR:
+        case TRANSPARENT_COLOUR:
             source = SceneBlendFactor::SOURCE_COLOUR;
             dest = SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR;
             return;
-        case SceneBlendType::MODULATE:
+        case MODULATE:
             source = SceneBlendFactor::DEST_COLOUR;
             dest = SceneBlendFactor::ZERO;
             return;
-        case SceneBlendType::ADD:
+        case ADD:
             source = SceneBlendFactor::ONE;
             dest = SceneBlendFactor::ONE;
             return;
-        case SceneBlendType::REPLACE:
+        case REPLACE:
             source = SceneBlendFactor::ONE;
             dest = SceneBlendFactor::ZERO;
             return;
@@ -1085,7 +1086,8 @@ namespace Ogre {
 
         switch(contentType)
         {
-        case TextureUnitState::ContentType::SHADOW:
+        using enum TextureUnitState::ContentType;
+        case SHADOW:
             if (index < mShadowContentTypeLookup.size())
             {
                 return mShadowContentTypeLookup[index];

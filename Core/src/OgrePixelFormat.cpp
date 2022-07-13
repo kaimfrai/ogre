@@ -116,80 +116,81 @@ namespace Ogre {
     {
         if(isCompressed(format))
         {
+            using enum PixelFormat;
             switch(format)
             {
                 // DXT formats work by dividing the image into 4x4 blocks, then encoding each
                 // 4x4 block with a certain number of bytes. 
-                case PixelFormat::DXT1:
+                case DXT1:
                     return ((width+3)/4)*((height+3)/4)*8 * depth;
-                case PixelFormat::DXT2:
-                case PixelFormat::DXT3:
-                case PixelFormat::DXT4:
-                case PixelFormat::DXT5:
+                case DXT2:
+                case DXT3:
+                case DXT4:
+                case DXT5:
                     return ((width+3)/4)*((height+3)/4)*16 * depth;
-                case PixelFormat::BC4_SNORM:
-                case PixelFormat::BC4_UNORM:
+                case BC4_SNORM:
+                case BC4_UNORM:
                     return ((width+3)/4)*((height+3)/4)*8 * depth;
-                case PixelFormat::BC5_SNORM:
-                case PixelFormat::BC5_UNORM:
-                case PixelFormat::BC6H_SF16:
-                case PixelFormat::BC6H_UF16:
-                case PixelFormat::BC7_UNORM:
+                case BC5_SNORM:
+                case BC5_UNORM:
+                case BC6H_SF16:
+                case BC6H_UF16:
+                case BC7_UNORM:
                     return ((width+3)/4)*((height+3)/4)*16 * depth;
 
                 // Size calculations from the PVRTC OpenGL extension spec
                 // http://www.khronos.org/registry/gles/extensions/IMG/IMG_texture_compression_pvrtc.txt
                 // Basically, 32 bytes is the minimum texture size.  Smaller textures are padded up to 32 bytes
-                case PixelFormat::PVRTC_RGB2:
-                case PixelFormat::PVRTC_RGBA2:
-                case PixelFormat::PVRTC2_2BPP:
+                case PVRTC_RGB2:
+                case PVRTC_RGBA2:
+                case PVRTC2_2BPP:
                     return (std::max((int)width, 16) * std::max((int)height, 8) * 2 + 7) / 8;
-                case PixelFormat::PVRTC_RGB4:
-                case PixelFormat::PVRTC_RGBA4:
-                case PixelFormat::PVRTC2_4BPP:
+                case PVRTC_RGB4:
+                case PVRTC_RGBA4:
+                case PVRTC2_4BPP:
                     return (std::max((int)width, 8) * std::max((int)height, 8) * 4 + 7) / 8;
 
                 // Size calculations from the ETC spec
                 // https://www.khronos.org/registry/OpenGL/extensions/OES/OES_compressed_ETC1_RGB8_texture.txt
-                case PixelFormat::ETC1_RGB8:
-                case PixelFormat::ETC2_RGB8:
-                case PixelFormat::ETC2_RGBA8:
-                case PixelFormat::ETC2_RGB8A1:
+                case ETC1_RGB8:
+                case ETC2_RGB8:
+                case ETC2_RGBA8:
+                case ETC2_RGB8A1:
                     return ((width + 3) / 4) * ((height + 3) / 4) * 8;
 
-                case PixelFormat::ATC_RGB:
+                case ATC_RGB:
                     return ((width + 3) / 4) * ((height + 3) / 4) * 8;
-                case PixelFormat::ATC_RGBA_EXPLICIT_ALPHA:
-                case PixelFormat::ATC_RGBA_INTERPOLATED_ALPHA:
+                case ATC_RGBA_EXPLICIT_ALPHA:
+                case ATC_RGBA_INTERPOLATED_ALPHA:
                     return ((width + 3) / 4) * ((height + 3) / 4) * 16;
 
-                case PixelFormat::ASTC_RGBA_4X4_LDR:
+                case ASTC_RGBA_4X4_LDR:
                     return astc_slice_size(width, height, 4, 4) * depth;
-                case PixelFormat::ASTC_RGBA_5X4_LDR:
+                case ASTC_RGBA_5X4_LDR:
                     return astc_slice_size(width, height, 5, 4) * depth;
-                case PixelFormat::ASTC_RGBA_5X5_LDR:
+                case ASTC_RGBA_5X5_LDR:
                     return astc_slice_size(width, height, 5, 5) * depth;
-                case PixelFormat::ASTC_RGBA_6X5_LDR:
+                case ASTC_RGBA_6X5_LDR:
                     return astc_slice_size(width, height, 6, 5) * depth;
-                case PixelFormat::ASTC_RGBA_6X6_LDR:
+                case ASTC_RGBA_6X6_LDR:
                     return astc_slice_size(width, height, 6, 6) * depth;
-                case PixelFormat::ASTC_RGBA_8X5_LDR:
+                case ASTC_RGBA_8X5_LDR:
                     return astc_slice_size(width, height, 8, 5) * depth;
-                case PixelFormat::ASTC_RGBA_8X6_LDR:
+                case ASTC_RGBA_8X6_LDR:
                     return astc_slice_size(width, height, 8, 6) * depth;
-                case PixelFormat::ASTC_RGBA_8X8_LDR:
+                case ASTC_RGBA_8X8_LDR:
                     return astc_slice_size(width, height, 8, 8) * depth;
-                case PixelFormat::ASTC_RGBA_10X5_LDR:
+                case ASTC_RGBA_10X5_LDR:
                     return astc_slice_size(width, height, 10, 5) * depth;
-                case PixelFormat::ASTC_RGBA_10X6_LDR:
+                case ASTC_RGBA_10X6_LDR:
                     return astc_slice_size(width, height, 10, 6) * depth;
-                case PixelFormat::ASTC_RGBA_10X8_LDR:
+                case ASTC_RGBA_10X8_LDR:
                     return astc_slice_size(width, height, 10, 8) * depth;
-                case PixelFormat::ASTC_RGBA_10X10_LDR:
+                case ASTC_RGBA_10X10_LDR:
                     return astc_slice_size(width, height, 10, 10) * depth;
-                case PixelFormat::ASTC_RGBA_12X10_LDR:
+                case ASTC_RGBA_12X10_LDR:
                     return astc_slice_size(width, height, 12, 10) * depth;
-                case PixelFormat::ASTC_RGBA_12X12_LDR:
+                case ASTC_RGBA_12X12_LDR:
                     return astc_slice_size(width, height, 12, 12) * depth;
                 default:
                 OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid compressed pixel format",
@@ -330,28 +331,29 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto PixelUtil::getFormatForBitDepths(PixelFormat fmt, ushort integerBits, ushort floatBits) -> PixelFormat
     {
+        using enum PixelFormat;
         switch (integerBits)
         {
         case 16:
             switch (fmt)
             {
-            case PixelFormat::R8G8B8:
-            case PixelFormat::X8R8G8B8:
-                return PixelFormat::R5G6B5;
+            case R8G8B8:
+            case X8R8G8B8:
+                return R5G6B5;
 
-            case PixelFormat::B8G8R8:
-            case PixelFormat::X8B8G8R8:
-                return PixelFormat::B5G6R5;
+            case B8G8R8:
+            case X8B8G8R8:
+                return B5G6R5;
 
-            case PixelFormat::A8R8G8B8:
-            case PixelFormat::R8G8B8A8:
-            case PixelFormat::A8B8G8R8:
-            case PixelFormat::B8G8R8A8:
-                return PixelFormat::A4R4G4B4;
+            case A8R8G8B8:
+            case R8G8B8A8:
+            case A8B8G8R8:
+            case B8G8R8A8:
+                return A4R4G4B4;
 
-            case PixelFormat::A2R10G10B10:
-            case PixelFormat::A2B10G10R10:
-                return PixelFormat::A1R5G5B5;
+            case A2R10G10B10:
+            case A2B10G10R10:
+                return A1R5G5B5;
 
             default:
                 // use original image format
@@ -362,17 +364,17 @@ namespace Ogre {
         case 32:
             switch (fmt)
             {
-            case PixelFormat::R5G6B5:
-                return PixelFormat::X8R8G8B8;
+            case R5G6B5:
+                return X8R8G8B8;
 
-            case PixelFormat::B5G6R5:
-                return PixelFormat::X8B8G8R8;
+            case B5G6R5:
+                return X8B8G8R8;
 
-            case PixelFormat::A4R4G4B4:
-                return PixelFormat::A8R8G8B8;
+            case A4R4G4B4:
+                return A8R8G8B8;
 
-            case PixelFormat::A1R5G5B5:
-                return PixelFormat::A2R10G10B10;
+            case A1R5G5B5:
+                return A2R10G10B10;
 
             default:
                 // use original image format
@@ -390,14 +392,14 @@ namespace Ogre {
         case 16:
             switch (fmt)
             {
-            case PixelFormat::FLOAT32_R:
-                return PixelFormat::FLOAT16_R;
+            case FLOAT32_R:
+                return FLOAT16_R;
 
-            case PixelFormat::FLOAT32_RGB:
-                return PixelFormat::FLOAT16_RGB;
+            case FLOAT32_RGB:
+                return FLOAT16_RGB;
 
-            case PixelFormat::FLOAT32_RGBA:
-                return PixelFormat::FLOAT16_RGBA;
+            case FLOAT32_RGBA:
+                return FLOAT16_RGBA;
 
             default:
                 // use original image format
@@ -408,14 +410,14 @@ namespace Ogre {
         case 32:
             switch (fmt)
             {
-            case PixelFormat::FLOAT16_R:
-                return PixelFormat::FLOAT32_R;
+            case FLOAT16_R:
+                return FLOAT32_R;
 
-            case PixelFormat::FLOAT16_RGB:
-                return PixelFormat::FLOAT32_RGB;
+            case FLOAT16_RGB:
+                return FLOAT32_RGB;
 
-            case PixelFormat::FLOAT16_RGBA:
-                return PixelFormat::FLOAT32_RGBA;
+            case FLOAT16_RGBA:
+                return FLOAT32_RGBA;
 
             default:
                 // use original image format
@@ -465,64 +467,65 @@ namespace Ogre {
             // And write to memory
             Bitwise::intWrite(dest, des.elemBytes, value);
         } else {
+            using enum PixelFormat;
             switch(pf)
             {
-            case PixelFormat::FLOAT32_R:
+            case FLOAT32_R:
                 ((float*)dest)[0] = r;
                 break;
-            case PixelFormat::FLOAT32_GR:
+            case FLOAT32_GR:
                 ((float*)dest)[0] = g;
                 ((float*)dest)[1] = r;
                 break;
-            case PixelFormat::FLOAT32_RGB:
+            case FLOAT32_RGB:
                 ((float*)dest)[0] = r;
                 ((float*)dest)[1] = g;
                 ((float*)dest)[2] = b;
                 break;
-            case PixelFormat::FLOAT32_RGBA:
+            case FLOAT32_RGBA:
                 ((float*)dest)[0] = r;
                 ((float*)dest)[1] = g;
                 ((float*)dest)[2] = b;
                 ((float*)dest)[3] = a;
                 break;
-            case PixelFormat::DEPTH16:
-            case PixelFormat::FLOAT16_R:
+            case DEPTH16:
+            case FLOAT16_R:
                 ((uint16*)dest)[0] = Bitwise::floatToHalf(r);
                 break;
-            case PixelFormat::FLOAT16_GR:
+            case FLOAT16_GR:
                 ((uint16*)dest)[0] = Bitwise::floatToHalf(g);
                 ((uint16*)dest)[1] = Bitwise::floatToHalf(r);
                 break;
-            case PixelFormat::FLOAT16_RGB:
+            case FLOAT16_RGB:
                 ((uint16*)dest)[0] = Bitwise::floatToHalf(r);
                 ((uint16*)dest)[1] = Bitwise::floatToHalf(g);
                 ((uint16*)dest)[2] = Bitwise::floatToHalf(b);
                 break;
-            case PixelFormat::FLOAT16_RGBA:
+            case FLOAT16_RGBA:
                 ((uint16*)dest)[0] = Bitwise::floatToHalf(r);
                 ((uint16*)dest)[1] = Bitwise::floatToHalf(g);
                 ((uint16*)dest)[2] = Bitwise::floatToHalf(b);
                 ((uint16*)dest)[3] = Bitwise::floatToHalf(a);
                 break;
-            case PixelFormat::SHORT_RGB:
+            case SHORT_RGB:
                 ((uint16*)dest)[0] = (uint16)Bitwise::floatToFixed(r, 16);
                 ((uint16*)dest)[1] = (uint16)Bitwise::floatToFixed(g, 16);
                 ((uint16*)dest)[2] = (uint16)Bitwise::floatToFixed(b, 16);
                 break;
-            case PixelFormat::SHORT_RGBA:
+            case SHORT_RGBA:
                 ((uint16*)dest)[0] = (uint16)Bitwise::floatToFixed(r, 16);
                 ((uint16*)dest)[1] = (uint16)Bitwise::floatToFixed(g, 16);
                 ((uint16*)dest)[2] = (uint16)Bitwise::floatToFixed(b, 16);
                 ((uint16*)dest)[3] = (uint16)Bitwise::floatToFixed(a, 16);
                 break;
-            case PixelFormat::BYTE_LA:
+            case BYTE_LA:
                 ((uint8*)dest)[0] = (uint8)Bitwise::floatToFixed(r, 8);
                 ((uint8*)dest)[1] = (uint8)Bitwise::floatToFixed(a, 8);
                 break;
-            case PixelFormat::A8:
+            case A8:
                 ((uint8*)dest)[0] = (uint8)Bitwise::floatToFixed(r, 8);
                 break;
-            case PixelFormat::A2B10G10R10:
+            case A2B10G10R10:
             {
                 const auto ir = static_cast<uint16>( Math::saturate( r ) * 1023.0f + 0.5f );
                 const auto ig = static_cast<uint16>( Math::saturate( g ) * 1023.0f + 0.5f );
@@ -608,63 +611,64 @@ namespace Ogre {
                 *a = 1.0f; // No alpha, default a component to full
             }
         } else {
+            using enum PixelFormat;
             switch(pf)
             {
-            case PixelFormat::FLOAT32_R:
+            case FLOAT32_R:
                 *r = *g = *b = ((const float*)src)[0];
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT32_GR:
+            case FLOAT32_GR:
                 *g = ((const float*)src)[0];
                 *r = *b = ((const float*)src)[1];
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT32_RGB:
+            case FLOAT32_RGB:
                 *r = ((const float*)src)[0];
                 *g = ((const float*)src)[1];
                 *b = ((const float*)src)[2];
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT32_RGBA:
+            case FLOAT32_RGBA:
                 *r = ((const float*)src)[0];
                 *g = ((const float*)src)[1];
                 *b = ((const float*)src)[2];
                 *a = ((const float*)src)[3];
                 break;
-            case PixelFormat::FLOAT16_R:
+            case FLOAT16_R:
                 *r = *g = *b = Bitwise::halfToFloat(((const uint16*)src)[0]);
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT16_GR:
+            case FLOAT16_GR:
                 *g = Bitwise::halfToFloat(((const uint16*)src)[0]);
                 *r = *b = Bitwise::halfToFloat(((const uint16*)src)[1]);
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT16_RGB:
+            case FLOAT16_RGB:
                 *r = Bitwise::halfToFloat(((const uint16*)src)[0]);
                 *g = Bitwise::halfToFloat(((const uint16*)src)[1]);
                 *b = Bitwise::halfToFloat(((const uint16*)src)[2]);
                 *a = 1.0f;
                 break;
-            case PixelFormat::FLOAT16_RGBA:
+            case FLOAT16_RGBA:
                 *r = Bitwise::halfToFloat(((const uint16*)src)[0]);
                 *g = Bitwise::halfToFloat(((const uint16*)src)[1]);
                 *b = Bitwise::halfToFloat(((const uint16*)src)[2]);
                 *a = Bitwise::halfToFloat(((const uint16*)src)[3]);
                 break;
-            case PixelFormat::SHORT_RGB:
+            case SHORT_RGB:
                 *r = Bitwise::fixedToFloat(((const uint16*)src)[0], 16);
                 *g = Bitwise::fixedToFloat(((const uint16*)src)[1], 16);
                 *b = Bitwise::fixedToFloat(((const uint16*)src)[2], 16);
                 *a = 1.0f;
                 break;
-            case PixelFormat::SHORT_RGBA:
+            case SHORT_RGBA:
                 *r = Bitwise::fixedToFloat(((const uint16*)src)[0], 16);
                 *g = Bitwise::fixedToFloat(((const uint16*)src)[1], 16);
                 *b = Bitwise::fixedToFloat(((const uint16*)src)[2], 16);
                 *a = Bitwise::fixedToFloat(((const uint16*)src)[3], 16);
                 break;
-            case PixelFormat::BYTE_LA:
+            case BYTE_LA:
                 *r = *g = *b = Bitwise::fixedToFloat(((const uint8*)src)[0], 8);
                 *a = Bitwise::fixedToFloat(((const uint8*)src)[1], 8);
                 break;

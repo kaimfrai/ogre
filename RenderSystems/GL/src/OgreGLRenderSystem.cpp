@@ -150,36 +150,37 @@ namespace Ogre {
 
     static auto getCombinedMinMipFilter(FilterOptions min, FilterOptions mip) -> GLint
     {
+        using enum FilterOptions;
         switch(min)
         {
-        case FilterOptions::ANISOTROPIC:
-        case FilterOptions::LINEAR:
+        case ANISOTROPIC:
+        case LINEAR:
             switch (mip)
             {
-            case FilterOptions::ANISOTROPIC:
-            case FilterOptions::LINEAR:
+            case ANISOTROPIC:
+            case LINEAR:
                 // linear min, linear mip
                 return GL_LINEAR_MIPMAP_LINEAR;
-            case FilterOptions::POINT:
+            case POINT:
                 // linear min, point mip
                 return GL_LINEAR_MIPMAP_NEAREST;
-            case FilterOptions::NONE:
+            case NONE:
                 // linear min, no mip
                 return GL_LINEAR;
             }
             break;
-        case FilterOptions::POINT:
-        case FilterOptions::NONE:
+        case POINT:
+        case NONE:
             switch (mip)
             {
-            case FilterOptions::ANISOTROPIC:
-            case FilterOptions::LINEAR:
+            case ANISOTROPIC:
+            case LINEAR:
                 // nearest min, linear mip
                 return GL_NEAREST_MIPMAP_LINEAR;
-            case FilterOptions::POINT:
+            case POINT:
                 // nearest min, point mip
                 return GL_NEAREST_MIPMAP_NEAREST;
-            case FilterOptions::NONE:
+            case NONE:
                 // nearest min, no mip
                 return GL_NEAREST;
             }
@@ -258,70 +259,71 @@ namespace Ogre {
             if (!!(ac.variability & mask))
             {
                 const float* ptr = params->getFloatPointer(ac.physicalIndex);
+                using enum GpuProgramParameters::AutoConstantType;
                 switch(ac.paramType)
                 {
-                case GpuProgramParameters::AutoConstantType::WORLD_MATRIX:
+                case WORLD_MATRIX:
                     setWorldMatrix(Matrix4(ptr));
                     break;
-                case GpuProgramParameters::AutoConstantType::VIEW_MATRIX:
+                case VIEW_MATRIX:
                     // force light update
                     updateLightPos = true;
                     mask |= GpuParamVariability::LIGHTS;
                     setViewMatrix(Matrix4(ptr));
                     break;
-                case GpuProgramParameters::AutoConstantType::PROJECTION_MATRIX:
+                case PROJECTION_MATRIX:
                     setProjectionMatrix(Matrix4(ptr));
                     break;
-                case GpuProgramParameters::AutoConstantType::SURFACE_AMBIENT_COLOUR:
+                case SURFACE_AMBIENT_COLOUR:
                     mStateCacheManager->setMaterialAmbient(ptr[0], ptr[1], ptr[2], ptr[3]);
                     break;
-                case GpuProgramParameters::AutoConstantType::SURFACE_DIFFUSE_COLOUR:
+                case SURFACE_DIFFUSE_COLOUR:
                     mStateCacheManager->setMaterialDiffuse(ptr[0], ptr[1], ptr[2], ptr[3]);
                     break;
-                case GpuProgramParameters::AutoConstantType::SURFACE_SPECULAR_COLOUR:
+                case SURFACE_SPECULAR_COLOUR:
                     mStateCacheManager->setMaterialSpecular(ptr[0], ptr[1], ptr[2], ptr[3]);
                     break;
-                case GpuProgramParameters::AutoConstantType::SURFACE_EMISSIVE_COLOUR:
+                case SURFACE_EMISSIVE_COLOUR:
                     mStateCacheManager->setMaterialEmissive(ptr[0], ptr[1], ptr[2], ptr[3]);
                     break;
-                case GpuProgramParameters::AutoConstantType::SURFACE_SHININESS:
+                case SURFACE_SHININESS:
                     mStateCacheManager->setMaterialShininess(ptr[0]);
                     break;
-                case GpuProgramParameters::AutoConstantType::POINT_PARAMS:
+                case POINT_PARAMS:
                     mStateCacheManager->setPointSize(ptr[0]);
                     mStateCacheManager->setPointParameters(ptr + 1);
                     break;
-                case GpuProgramParameters::AutoConstantType::FOG_PARAMS:
+                case FOG_PARAMS:
                     glFogf(GL_FOG_DENSITY, ptr[0]);
                     glFogf(GL_FOG_START, ptr[1]);
                     glFogf(GL_FOG_END, ptr[2]);
                     break;
-                case GpuProgramParameters::AutoConstantType::FOG_COLOUR:
+                case FOG_COLOUR:
                     glFogfv(GL_FOG_COLOR, ptr);
                     break;
-                case GpuProgramParameters::AutoConstantType::AMBIENT_LIGHT_COLOUR:
+                case AMBIENT_LIGHT_COLOUR:
                     mStateCacheManager->setLightAmbient(ptr[0], ptr[1], ptr[2]);
                     break;
-                case GpuProgramParameters::AutoConstantType::LIGHT_DIFFUSE_COLOUR:
+                case LIGHT_DIFFUSE_COLOUR:
                     glLightfv(GL_LIGHT0 + ac.data, GL_DIFFUSE, ptr);
                     break;
-                case GpuProgramParameters::AutoConstantType::LIGHT_SPECULAR_COLOUR:
+                case LIGHT_SPECULAR_COLOUR:
                     glLightfv(GL_LIGHT0 + ac.data, GL_SPECULAR, ptr);
                     break;
-                case GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION:
+                case LIGHT_ATTENUATION:
                     glLightf(GL_LIGHT0 + ac.data, GL_CONSTANT_ATTENUATION, ptr[1]);
                     glLightf(GL_LIGHT0 + ac.data, GL_LINEAR_ATTENUATION, ptr[2]);
                     glLightf(GL_LIGHT0 + ac.data, GL_QUADRATIC_ATTENUATION, ptr[3]);
                     break;
-                case GpuProgramParameters::AutoConstantType::SPOTLIGHT_PARAMS:
+                case SPOTLIGHT_PARAMS:
                 {
                     float cutoff = ptr[3] ? Math::RadiansToDegrees(std::acos(ptr[1])) : 180;
                     glLightf(GL_LIGHT0 + ac.data, GL_SPOT_CUTOFF, cutoff);
                     glLightf(GL_LIGHT0 + ac.data, GL_SPOT_EXPONENT, ptr[2]);
                     break;
                 }
-                case GpuProgramParameters::AutoConstantType::LIGHT_POSITION:
-                case GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION:
+                case LIGHT_POSITION:
+                case LIGHT_DIRECTION:
                     // handled below
                     updateLightPos = true;
                     break;
@@ -347,12 +349,13 @@ namespace Ogre {
             if (!!((GpuParamVariability::GLOBAL | GpuParamVariability::LIGHTS) & mask))
             {
                 const float* ptr = params->getFloatPointer(ac.physicalIndex);
+                using enum GpuProgramParameters::AutoConstantType;
                 switch(ac.paramType)
                 {
-                case GpuProgramParameters::AutoConstantType::LIGHT_POSITION:
+                case LIGHT_POSITION:
                     glLightfv(GL_LIGHT0 + ac.data, GL_POSITION, ptr);
                     break;
-                case GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION:
+                case LIGHT_DIRECTION:
                     glLightfv(GL_LIGHT0 + ac.data, GL_SPOT_DIRECTION, ptr);
                     break;
                 default:
@@ -1004,9 +1007,10 @@ namespace Ogre {
     void GLRenderSystem::setShadingType(ShadeOptions so)
     {
         // XXX Don't do this when using shader
+        using enum ShadeOptions;
         switch(so)
         {
-        case ShadeOptions::FLAT:
+        case FLAT:
             mStateCacheManager->setShadeModel(GL_FLAT);
             break;
         default:
@@ -1456,14 +1460,15 @@ namespace Ogre {
             target, GL_TEXTURE_MIN_FILTER,
             getCombinedMinMipFilter(sampler.getFiltering(FilterType::Min), sampler.getFiltering(FilterType::Mip)));
 
+        using enum FilterOptions;
         switch (sampler.getFiltering(FilterType::Mag))
         {
-        case FilterOptions::ANISOTROPIC: // GL treats linear and aniso the same
-        case FilterOptions::LINEAR:
+        case ANISOTROPIC: // GL treats linear and aniso the same
+        case LINEAR:
             mStateCacheManager->setTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             break;
-        case FilterOptions::POINT:
-        case FilterOptions::NONE:
+        case POINT:
+        case NONE:
             mStateCacheManager->setTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             break;
         }
@@ -1498,16 +1503,17 @@ namespace Ogre {
         if (!mStateCacheManager->activateGLTextureUnit(stage))
             return;
 
+        using enum TexCoordCalcMethod;
         switch( m )
         {
-        case TexCoordCalcMethod::NONE:
+        case NONE:
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_S );
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_T );
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_R );
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_Q );
             break;
 
-        case TexCoordCalcMethod::ENVIRONMENT_MAP:
+        case ENVIRONMENT_MAP:
             glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
             glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
 
@@ -1524,7 +1530,7 @@ namespace Ogre {
 
             break;
 
-        case TexCoordCalcMethod::ENVIRONMENT_MAP_PLANAR:
+        case ENVIRONMENT_MAP_PLANAR:
 
             glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
             glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
@@ -1536,7 +1542,7 @@ namespace Ogre {
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_Q );
 
             break;
-        case TexCoordCalcMethod::ENVIRONMENT_MAP_REFLECTION:
+        case ENVIRONMENT_MAP_REFLECTION:
 
             glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
             glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP );
@@ -1563,7 +1569,7 @@ namespace Ogre {
             mAutoTextureMatrix[15] = 1.0f;
 
             break;
-        case TexCoordCalcMethod::ENVIRONMENT_MAP_NORMAL:
+        case ENVIRONMENT_MAP_NORMAL:
             glTexGeni( GL_S, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP );
             glTexGeni( GL_T, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP );
             glTexGeni( GL_R, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP );
@@ -1573,7 +1579,7 @@ namespace Ogre {
             mStateCacheManager->enableTextureCoordGen( GL_TEXTURE_GEN_R );
             mStateCacheManager->disableTextureCoordGen( GL_TEXTURE_GEN_Q );
             break;
-        case TexCoordCalcMethod::PROJECTIVE_TEXTURE:
+        case PROJECTIVE_TEXTURE:
             glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
             glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
             glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
@@ -1615,16 +1621,17 @@ namespace Ogre {
     auto GLRenderSystem::getTextureAddressingMode(
         TextureAddressingMode tam) const -> GLint
     {
+        using enum TextureAddressingMode;
         switch(tam)
         {
         default:
-        case TextureAddressingMode::WRAP:
+        case WRAP:
             return GL_REPEAT;
-        case TextureAddressingMode::MIRROR:
+        case MIRROR:
             return GL_MIRRORED_REPEAT;
-        case TextureAddressingMode::CLAMP:
+        case CLAMP:
             return GL_CLAMP_TO_EDGE;
-        case TextureAddressingMode::BORDER:
+        case BORDER:
             return GL_CLAMP_TO_BORDER;
         }
 
@@ -1668,27 +1675,28 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto GLRenderSystem::getBlendMode(SceneBlendFactor ogreBlend) const -> GLint
     {
+        using enum SceneBlendFactor;
         switch(ogreBlend)
         {
-        case SceneBlendFactor::ONE:
+        case ONE:
             return GL_ONE;
-        case SceneBlendFactor::ZERO:
+        case ZERO:
             return GL_ZERO;
-        case SceneBlendFactor::DEST_COLOUR:
+        case DEST_COLOUR:
             return GL_DST_COLOR;
-        case SceneBlendFactor::SOURCE_COLOUR:
+        case SOURCE_COLOUR:
             return GL_SRC_COLOR;
-        case SceneBlendFactor::ONE_MINUS_DEST_COLOUR:
+        case ONE_MINUS_DEST_COLOUR:
             return GL_ONE_MINUS_DST_COLOR;
-        case SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR:
+        case ONE_MINUS_SOURCE_COLOUR:
             return GL_ONE_MINUS_SRC_COLOR;
-        case SceneBlendFactor::DEST_ALPHA:
+        case DEST_ALPHA:
             return GL_DST_ALPHA;
-        case SceneBlendFactor::SOURCE_ALPHA:
+        case SOURCE_ALPHA:
             return GL_SRC_ALPHA;
-        case SceneBlendFactor::ONE_MINUS_DEST_ALPHA:
+        case ONE_MINUS_DEST_ALPHA:
             return GL_ONE_MINUS_DST_ALPHA;
-        case SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA:
+        case ONE_MINUS_SOURCE_ALPHA:
             return GL_ONE_MINUS_SRC_ALPHA;
         };
         // to keep compiler happy
@@ -1766,15 +1774,16 @@ namespace Ogre {
         GLenum cullMode;
         bool flip = flipFrontFace();
 
+        using enum CullingMode;
         switch( mode )
         {
-        case CullingMode::NONE:
+        case NONE:
             mStateCacheManager->setEnabled( GL_CULL_FACE, false );
             return;
-        case CullingMode::CLOCKWISE:
+        case CLOCKWISE:
             cullMode = flip ? GL_FRONT : GL_BACK;
             break;
-        case CullingMode::ANTICLOCKWISE:
+        case ANTICLOCKWISE:
             cullMode = flip ? GL_BACK : GL_FRONT;
             break;
         }
@@ -1827,17 +1836,18 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     static auto getBlendOp(SceneBlendOperation op) -> GLenum
     {
+        using enum SceneBlendOperation;
         switch (op)
         {
-        case SceneBlendOperation::ADD:
+        case ADD:
             return GL_FUNC_ADD;
-        case SceneBlendOperation::SUBTRACT:
+        case SUBTRACT:
             return GL_FUNC_SUBTRACT;
-        case SceneBlendOperation::REVERSE_SUBTRACT:
+        case REVERSE_SUBTRACT:
             return GL_FUNC_REVERSE_SUBTRACT;
-        case SceneBlendOperation::MIN:
+        case MIN:
             return GL_MIN;
-        case SceneBlendOperation::MAX:
+        case MAX:
             return GL_MAX;
         }
         return GL_FUNC_ADD;
@@ -1872,15 +1882,16 @@ namespace Ogre {
     {
 
         GLint fogMode;
+        using enum FogMode;
         switch (mode)
         {
-        case FogMode::EXP:
+        case EXP:
             fogMode = GL_EXP;
             break;
-        case FogMode::EXP2:
+        case EXP2:
             fogMode = GL_EXP2;
             break;
-        case FogMode::LINEAR:
+        case LINEAR:
             fogMode = GL_LINEAR;
             break;
         default:
@@ -1900,16 +1911,17 @@ namespace Ogre {
     void GLRenderSystem::_setPolygonMode(PolygonMode level)
     {
         GLenum glmode;
+        using enum PolygonMode;
         switch(level)
         {
-        case PolygonMode::POINTS:
+        case POINTS:
             glmode = GL_POINT;
             break;
-        case PolygonMode::WIREFRAME:
+        case WIREFRAME:
             glmode = GL_LINE;
             break;
         default:
-        case PolygonMode::SOLID:
+        case SOLID:
             glmode = GL_FILL;
             break;
         }
@@ -1991,23 +2003,24 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto GLRenderSystem::convertCompareFunction(CompareFunction func) const -> GLint
     {
+        using enum CompareFunction;
         switch(func)
         {
-        case CompareFunction::ALWAYS_FAIL:
+        case ALWAYS_FAIL:
             return GL_NEVER;
-        case CompareFunction::ALWAYS_PASS:
+        case ALWAYS_PASS:
             return GL_ALWAYS;
-        case CompareFunction::LESS:
+        case LESS:
             return GL_LESS;
-        case CompareFunction::LESS_EQUAL:
+        case LESS_EQUAL:
             return GL_LEQUAL;
-        case CompareFunction::EQUAL:
+        case EQUAL:
             return GL_EQUAL;
-        case CompareFunction::NOT_EQUAL:
+        case NOT_EQUAL:
             return GL_NOTEQUAL;
-        case CompareFunction::GREATER_EQUAL:
+        case GREATER_EQUAL:
             return GL_GEQUAL;
-        case CompareFunction::GREATER:
+        case GREATER:
             return GL_GREATER;
         };
         // to keep compiler happy
@@ -2016,27 +2029,28 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto GLRenderSystem::convertStencilOp(StencilOperation op, bool invert) const -> GLint
     {
+        using enum StencilOperation;
         switch(op)
         {
-        case StencilOperation::KEEP:
+        case KEEP:
             return GL_KEEP;
-        case StencilOperation::ZERO:
+        case ZERO:
             return GL_ZERO;
-        case StencilOperation::REPLACE:
+        case REPLACE:
             return GL_REPLACE;
-        case StencilOperation::INCREMENT:
+        case INCREMENT:
             return invert ? GL_DECR : GL_INCR;
-        case StencilOperation::DECREMENT:
+        case DECREMENT:
             return invert ? GL_INCR : GL_DECR;
-        case StencilOperation::INCREMENT_WRAP:
+        case INCREMENT_WRAP:
             return invert ? GL_DECR_WRAP_EXT : GL_INCR_WRAP_EXT;
-        case StencilOperation::DECREMENT_WRAP:
+        case DECREMENT_WRAP:
             return invert ? GL_INCR_WRAP_EXT : GL_DECR_WRAP_EXT;
-        case StencilOperation::INVERT:
+        case INVERT:
             return GL_INVERT;
         };
         // to keep compiler happy
-        return static_cast<GLint>(StencilOperation::KEEP);
+        return static_cast<GLint>(KEEP);
     }
     //---------------------------------------------------------------------
     void GLRenderSystem::_setTextureUnitFiltering(size_t unit,
@@ -2044,9 +2058,10 @@ namespace Ogre {
     {
         if (!mStateCacheManager->activateGLTextureUnit(unit))
             return;
+        using enum FilterType;
         switch(ftype)
         {
-        case FilterType::Min:
+        case Min:
             mMinFilter = fo;
             // Combine with existing mip filter
             mStateCacheManager->setTexParameteri(
@@ -2054,18 +2069,19 @@ namespace Ogre {
                 GL_TEXTURE_MIN_FILTER,
                 getCombinedMinMipFilter(mMinFilter, mMipFilter));
             break;
-        case FilterType::Mag:
+        case Mag:
             switch (fo)
             {
-            case FilterOptions::ANISOTROPIC: // GL treats linear and aniso the same
-            case FilterOptions::LINEAR:
+                using enum FilterOptions;
+            case ANISOTROPIC: // GL treats linear and aniso the same
+            case LINEAR:
                 mStateCacheManager->setTexParameteri(
                     mTextureTypes[unit],
                     GL_TEXTURE_MAG_FILTER,
                     GL_LINEAR);
                 break;
-            case FilterOptions::POINT:
-            case FilterOptions::NONE:
+            case POINT:
+            case NONE:
                 mStateCacheManager->setTexParameteri(
                     mTextureTypes[unit],
                     GL_TEXTURE_MAG_FILTER,
@@ -2073,7 +2089,7 @@ namespace Ogre {
                 break;
             }
             break;
-        case FilterType::Mip:
+        case Mip:
             mMipFilter = fo;
             // Combine with existing min filter
             mStateCacheManager->setTexParameteri(
@@ -2126,20 +2142,21 @@ namespace Ogre {
 
         switch (bm.source1)
         {
-        case LayerBlendSource::CURRENT:
+        using enum LayerBlendSource;
+        case CURRENT:
             src1op = GL_PREVIOUS;
             break;
-        case LayerBlendSource::TEXTURE:
+        case TEXTURE:
             src1op = GL_TEXTURE;
             break;
-        case LayerBlendSource::MANUAL:
+        case MANUAL:
             src1op = GL_CONSTANT;
             break;
-        case LayerBlendSource::DIFFUSE:
+        case DIFFUSE:
             src1op = GL_PRIMARY_COLOR;
             break;
             // XXX
-        case LayerBlendSource::SPECULAR:
+        case SPECULAR:
             src1op = GL_PRIMARY_COLOR;
             break;
         default:
@@ -2148,20 +2165,21 @@ namespace Ogre {
 
         switch (bm.source2)
         {
-        case LayerBlendSource::CURRENT:
+        using enum LayerBlendSource;
+        case CURRENT:
             src2op = GL_PREVIOUS;
             break;
-        case LayerBlendSource::TEXTURE:
+        case TEXTURE:
             src2op = GL_TEXTURE;
             break;
-        case LayerBlendSource::MANUAL:
+        case MANUAL:
             src2op = GL_CONSTANT;
             break;
-        case LayerBlendSource::DIFFUSE:
+        case DIFFUSE:
             src2op = GL_PRIMARY_COLOR;
             break;
             // XXX
-        case LayerBlendSource::SPECULAR:
+        case SPECULAR:
             src2op = GL_PRIMARY_COLOR;
             break;
         default:
@@ -2170,49 +2188,50 @@ namespace Ogre {
 
         switch (bm.operation)
         {
-        case LayerBlendOperationEx::SOURCE1:
+            using enum LayerBlendOperationEx;
+        case SOURCE1:
             cmd = GL_REPLACE;
             break;
-        case LayerBlendOperationEx::SOURCE2:
+        case SOURCE2:
             cmd = GL_REPLACE;
             break;
-        case LayerBlendOperationEx::MODULATE:
+        case MODULATE:
             cmd = GL_MODULATE;
             break;
-        case LayerBlendOperationEx::MODULATE_X2:
+        case MODULATE_X2:
             cmd = GL_MODULATE;
             break;
-        case LayerBlendOperationEx::MODULATE_X4:
+        case MODULATE_X4:
             cmd = GL_MODULATE;
             break;
-        case LayerBlendOperationEx::ADD:
+        case ADD:
             cmd = GL_ADD;
             break;
-        case LayerBlendOperationEx::ADD_SIGNED:
+        case ADD_SIGNED:
             cmd = GL_ADD_SIGNED;
             break;
-        case LayerBlendOperationEx::ADD_SMOOTH:
+        case ADD_SMOOTH:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::SUBTRACT:
+        case SUBTRACT:
             cmd = GL_SUBTRACT;
             break;
-        case LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR:
+        case BLEND_DIFFUSE_COLOUR:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA:
+        case BLEND_DIFFUSE_ALPHA:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::BLEND_TEXTURE_ALPHA:
+        case BLEND_TEXTURE_ALPHA:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::BLEND_CURRENT_ALPHA:
+        case BLEND_CURRENT_ALPHA:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::BLEND_MANUAL:
+        case BLEND_MANUAL:
             cmd = GL_INTERPOLATE;
             break;
-        case LayerBlendOperationEx::DOTPRODUCT:
+        case DOTPRODUCT:
             cmd = GL_DOT3_RGB;
             break;
         default:
@@ -2239,25 +2258,26 @@ namespace Ogre {
         }
 
         float blendValue[4] = {0, 0, 0, static_cast<float>(bm.factor)};
+        using enum LayerBlendOperationEx;
         switch (bm.operation)
         {
-        case LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR:
+        case BLEND_DIFFUSE_COLOUR:
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PRIMARY_COLOR);
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_ALPHA, GL_PRIMARY_COLOR);
             break;
-        case LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA:
+        case BLEND_DIFFUSE_ALPHA:
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PRIMARY_COLOR);
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_ALPHA, GL_PRIMARY_COLOR);
             break;
-        case LayerBlendOperationEx::BLEND_TEXTURE_ALPHA:
+        case BLEND_TEXTURE_ALPHA:
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_TEXTURE);
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_ALPHA, GL_TEXTURE);
             break;
-        case LayerBlendOperationEx::BLEND_CURRENT_ALPHA:
+        case BLEND_CURRENT_ALPHA:
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PREVIOUS);
             glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_ALPHA, GL_PREVIOUS);
             break;
-        case LayerBlendOperationEx::BLEND_MANUAL:
+        case BLEND_MANUAL:
             glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, blendValue);
             break;
         default:
@@ -2266,11 +2286,11 @@ namespace Ogre {
 
         switch (bm.operation)
         {
-        case LayerBlendOperationEx::MODULATE_X2:
+        case MODULATE_X2:
             glTexEnvi(GL_TEXTURE_ENV, bm.blendType == LayerBlendType::COLOUR ?
                       GL_RGB_SCALE : GL_ALPHA_SCALE, 2);
             break;
-        case LayerBlendOperationEx::MODULATE_X4:
+        case MODULATE_X4:
             glTexEnvi(GL_TEXTURE_ENV, bm.blendType == LayerBlendType::COLOUR ?
                       GL_RGB_SCALE : GL_ALPHA_SCALE, 4);
             break;
@@ -2283,7 +2303,7 @@ namespace Ogre {
         if (bm.blendType == LayerBlendType::COLOUR){
             glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);
             glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);
-            if (bm.operation == LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR){
+            if (bm.operation == BLEND_DIFFUSE_COLOUR){
                 glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_COLOR);
             } else {
                 glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_ALPHA);
@@ -2345,40 +2365,41 @@ namespace Ogre {
         // Find the correct type to render
         GLint primType;
         auto operationType = op.operationType;
+        using enum RenderOperation::OperationType;
         // Use adjacency if there is a geometry program and it requested adjacency info
         if(mGeometryProgramBound && mCurrentGeometryProgram && dynamic_cast<GpuProgram*>(mCurrentGeometryProgram)->isAdjacencyInfoRequired())
-            operationType |= RenderOperation::OperationType::DETAIL_ADJACENCY_BIT;
+            operationType |= DETAIL_ADJACENCY_BIT;
         switch (operationType)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             primType = GL_POINTS;
             break;
-        case RenderOperation::OperationType::LINE_LIST:
+        case LINE_LIST:
             primType = GL_LINES;
             break;
-        case RenderOperation::OperationType::LINE_LIST_ADJ:
+        case LINE_LIST_ADJ:
             primType = GL_LINES_ADJACENCY_EXT;
             break;
-        case RenderOperation::OperationType::LINE_STRIP:
+        case LINE_STRIP:
             primType = GL_LINE_STRIP;
             break;
-        case RenderOperation::OperationType::LINE_STRIP_ADJ:
+        case LINE_STRIP_ADJ:
             primType = GL_LINE_STRIP_ADJACENCY_EXT;
             break;
         default:
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
             primType = GL_TRIANGLES;
             break;
-        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
+        case TRIANGLE_LIST_ADJ:
             primType = GL_TRIANGLES_ADJACENCY_EXT;
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case TRIANGLE_STRIP:
             primType = GL_TRIANGLE_STRIP;
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
+        case TRIANGLE_STRIP_ADJ:
             primType = GL_TRIANGLE_STRIP_ADJACENCY_EXT;
             break;
-        case RenderOperation::OperationType::TRIANGLE_FAN:
+        case TRIANGLE_FAN:
             primType = GL_TRIANGLE_FAN;
             break;
         }
@@ -2495,9 +2516,10 @@ namespace Ogre {
         //     itself, if type is changing (during load/unload, etc), and it's inuse,
         //     unbind and notify render system to correct for its state.
         //
+        using enum GpuProgramType;
         switch (prg->getType())
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             if (mCurrentVertexProgram != glprg)
             {
                 if (mCurrentVertexProgram)
@@ -2506,7 +2528,7 @@ namespace Ogre {
             }
             break;
 
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             if (mCurrentFragmentProgram != glprg)
             {
                 if (mCurrentFragmentProgram)
@@ -2514,7 +2536,7 @@ namespace Ogre {
                 mCurrentFragmentProgram = glprg;
             }
             break;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             if (mCurrentGeometryProgram != glprg)
             {
                 if (mCurrentGeometryProgram)
@@ -2522,9 +2544,9 @@ namespace Ogre {
                 mCurrentGeometryProgram = glprg;
             }
             break;
-        case GpuProgramType::COMPUTE_PROGRAM:
-        case GpuProgramType::DOMAIN_PROGRAM:
-        case GpuProgramType::HULL_PROGRAM:
+        case COMPUTE_PROGRAM:
+        case DOMAIN_PROGRAM:
+        case HULL_PROGRAM:
             break;
         default:
             break;
@@ -2571,23 +2593,24 @@ namespace Ogre {
             params->_copySharedParams();
         }
 
+        using enum GpuProgramType;
         switch (gptype)
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             mActiveVertexGpuProgramParameters = params;
             mCurrentVertexProgram->bindProgramParameters(params, mask);
             break;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             mActiveGeometryGpuProgramParameters = params;
             mCurrentGeometryProgram->bindProgramParameters(params, mask);
             break;
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             mActiveFragmentGpuProgramParameters = params;
             mCurrentFragmentProgram->bindProgramParameters(params, mask);
             break;
-        case GpuProgramType::COMPUTE_PROGRAM:
-        case GpuProgramType::DOMAIN_PROGRAM:
-        case GpuProgramType::HULL_PROGRAM:
+        case COMPUTE_PROGRAM:
+        case DOMAIN_PROGRAM:
+        case HULL_PROGRAM:
             break;
         default:
             break;
@@ -2953,13 +2976,14 @@ namespace Ogre {
             GLint attrib = GLSLProgramCommon::getFixedAttributeIndex(sem, elem.getIndex());
             unsigned short typeCount = VertexElement::getTypeCount(elem.getType());
             GLboolean normalised = GL_FALSE;
+            using enum VertexElementType;
             switch(elem.getType())
             {
-            case VertexElementType::UBYTE4_NORM:
-            case VertexElementType::SHORT2_NORM:
-            case VertexElementType::USHORT2_NORM:
-            case VertexElementType::SHORT4_NORM:
-            case VertexElementType::USHORT4_NORM:
+            case UBYTE4_NORM:
+            case SHORT2_NORM:
+            case USHORT2_NORM:
+            case SHORT4_NORM:
+            case USHORT4_NORM:
                 normalised = GL_TRUE;
                 break;
             default:
@@ -2980,9 +3004,10 @@ namespace Ogre {
         else
         {
             // fixed-function & builtin attribute support
+            using enum VertexElementSemantic;
             switch(sem)
             {
-            case VertexElementSemantic::POSITION:
+            case POSITION:
                 glVertexPointer(VertexElement::getTypeCount(
                     elem.getType()),
                                 GLHardwareBufferManager::getGLType(elem.getType()),
@@ -2990,21 +3015,21 @@ namespace Ogre {
                                 pBufferData);
                 glEnableClientState( GL_VERTEX_ARRAY );
                 break;
-            case VertexElementSemantic::NORMAL:
+            case NORMAL:
                 glNormalPointer(
                     GLHardwareBufferManager::getGLType(elem.getType()),
                     static_cast<GLsizei>(vertexBuffer->getVertexSize()),
                     pBufferData);
                 glEnableClientState( GL_NORMAL_ARRAY );
                 break;
-            case VertexElementSemantic::DIFFUSE:
+            case DIFFUSE:
                 glColorPointer(4,
                                GLHardwareBufferManager::getGLType(elem.getType()),
                                static_cast<GLsizei>(vertexBuffer->getVertexSize()),
                                pBufferData);
                 glEnableClientState( GL_COLOR_ARRAY );
                 break;
-            case VertexElementSemantic::SPECULAR:
+            case SPECULAR:
                 if (GLAD_GL_EXT_secondary_color)
                 {
                     glSecondaryColorPointerEXT(4,
@@ -3014,7 +3039,7 @@ namespace Ogre {
                     glEnableClientState( GL_SECONDARY_COLOR_ARRAY );
                 }
                 break;
-            case VertexElementSemantic::TEXTURE_COORDINATES:
+            case TEXTURE_COORDINATES:
 
                 if (mCurrentVertexProgram)
                 {

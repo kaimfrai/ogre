@@ -220,49 +220,50 @@ void ProgramProcessor::buildTexcoordTable(const ShaderParameterList& paramList, 
     {
         if (curParam->getSemantic() == Parameter::Semantic::TEXTURE_COORDINATES)
         {
+            using enum GpuConstantType;
 
             switch (curParam->getType())
             {
-            case GpuConstantType::FLOAT1:
+            case FLOAT1:
                 outParamsTable[0].push_back(curParam);
                 break;
 
-            case GpuConstantType::FLOAT2:
+            case FLOAT2:
                 outParamsTable[1].push_back(curParam);
                 break;
 
-            case GpuConstantType::FLOAT3:
+            case FLOAT3:
                 outParamsTable[2].push_back(curParam);
                 break;
 
-            case GpuConstantType::FLOAT4:
+            case FLOAT4:
                 outParamsTable[3].push_back(curParam);
                 break;
-            case GpuConstantType::SAMPLER1D:
-            case GpuConstantType::SAMPLER2D:
-            case GpuConstantType::SAMPLER2DARRAY:
-            case GpuConstantType::SAMPLER3D:
-            case GpuConstantType::SAMPLERCUBE:
-            case GpuConstantType::SAMPLER1DSHADOW:
-            case GpuConstantType::SAMPLER2DSHADOW:
-            case GpuConstantType::MATRIX_2X2:
-            case GpuConstantType::MATRIX_2X3:
-            case GpuConstantType::MATRIX_2X4:
-            case GpuConstantType::MATRIX_3X2:
-            case GpuConstantType::MATRIX_3X3:
-            case GpuConstantType::MATRIX_3X4:
-            case GpuConstantType::MATRIX_4X2:
-            case GpuConstantType::MATRIX_4X3:
-            case GpuConstantType::MATRIX_4X4:
-            case GpuConstantType::INT1:
-            case GpuConstantType::INT2:
-            case GpuConstantType::INT3:
-            case GpuConstantType::INT4:
-            case GpuConstantType::UINT1:
-            case GpuConstantType::UINT2:
-            case GpuConstantType::UINT3:
-            case GpuConstantType::UINT4:
-            case GpuConstantType::UNKNOWN:
+            case SAMPLER1D:
+            case SAMPLER2D:
+            case SAMPLER2DARRAY:
+            case SAMPLER3D:
+            case SAMPLERCUBE:
+            case SAMPLER1DSHADOW:
+            case SAMPLER2DSHADOW:
+            case MATRIX_2X2:
+            case MATRIX_2X3:
+            case MATRIX_2X4:
+            case MATRIX_3X2:
+            case MATRIX_3X3:
+            case MATRIX_3X4:
+            case MATRIX_4X2:
+            case MATRIX_4X3:
+            case MATRIX_4X4:
+            case INT1:
+            case INT2:
+            case INT3:
+            case INT4:
+            case UINT1:
+            case UINT2:
+            case UINT3:
+            case UINT4:
+            case UNKNOWN:
             default:
                 break;
             }
@@ -779,12 +780,13 @@ auto ProgramProcessor::getParameterFloatCount(GpuConstantType type) -> int
 {
     int floatCount = 0;
 
+    using enum GpuConstantType;
     switch (type)
     {
-    case GpuConstantType::FLOAT1: floatCount = 1; break;
-    case GpuConstantType::FLOAT2: floatCount = 2; break;
-    case GpuConstantType::FLOAT3: floatCount = 3; break;
-    case GpuConstantType::FLOAT4: floatCount = 4; break;
+    case FLOAT1: floatCount = 1; break;
+    case FLOAT2: floatCount = 2; break;
+    case FLOAT3: floatCount = 3; break;
+    case FLOAT4: floatCount = 4; break;
     default:
         OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,
             "Invalid parameter float type.",
@@ -797,12 +799,13 @@ auto ProgramProcessor::getParameterFloatCount(GpuConstantType type) -> int
 //-----------------------------------------------------------------------------
 auto ProgramProcessor::getParameterMaskByType(GpuConstantType type) -> Operand::OpMask
 {
+    using enum GpuConstantType;
     switch (type)
     {
-    case GpuConstantType::FLOAT1: return Operand::OpMask::X;
-    case GpuConstantType::FLOAT2: return Operand::OpMask::XY;
-    case GpuConstantType::FLOAT3: return Operand::OpMask::XYZ;
-    case GpuConstantType::FLOAT4: return Operand::OpMask::XYZW;
+    case FLOAT1: return Operand::OpMask::X;
+    case FLOAT2: return Operand::OpMask::XY;
+    case FLOAT3: return Operand::OpMask::XYZ;
+    case FLOAT4: return Operand::OpMask::XYZW;
     default:
         OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid parameter type.");
     }

@@ -306,9 +306,10 @@ class InstanceManager;
                 {
                     for (auto const& it : veList)
                     {
+                        using enum VertexElementSemantic;
                         switch( it.getSemantic() )
                         {
-                        case VertexElementSemantic::BLEND_INDICES:
+                        case BLEND_INDICES:
                         *(thisBuf + it.getOffset() + 0) = *(baseBuf + it.getOffset() + 0) + j * numBones;
                         *(thisBuf + it.getOffset() + 1) = *(baseBuf + it.getOffset() + 1) + j * numBones;
                         *(thisBuf + it.getOffset() + 2) = *(baseBuf + it.getOffset() + 2) + j * numBones;

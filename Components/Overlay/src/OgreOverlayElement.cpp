@@ -449,25 +449,28 @@ namespace Ogre {
         // This is more flexible than forcing absolute right & middle 
         switch(mHorzAlign)
         {
-        case GuiHorizontalAlignment::CENTER:
+        using enum GuiHorizontalAlignment;
+        case CENTER:
             mDerivedLeft = ((parentLeft + parentRight) * 0.5f) + mLeft;
             break;
-        case GuiHorizontalAlignment::LEFT:
+        case LEFT:
             mDerivedLeft = parentLeft + mLeft;
             break;
-        case GuiHorizontalAlignment::RIGHT:
+        case RIGHT:
             mDerivedLeft = parentRight + mLeft;
             break;
         };
+
         switch(mVertAlign)
         {
-        case GuiVerticalAlignment::CENTER:
+        using enum GuiVerticalAlignment;
+        case CENTER:
             mDerivedTop = ((parentTop + parentBottom) * 0.5f) + mTop;
             break;
-        case GuiVerticalAlignment::TOP:
+        case TOP:
             mDerivedTop = parentTop + mTop;
             break;
-        case GuiVerticalAlignment::BOTTOM:
+        case BOTTOM:
             mDerivedTop = parentBottom + mTop;
             break;
         };

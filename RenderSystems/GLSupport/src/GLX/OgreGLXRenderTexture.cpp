@@ -62,21 +62,22 @@ namespace Ogre
         
         int bits = 0;
         
+        using enum PixelComponentType;
         switch (mFormat)
         {
-        case PixelComponentType::BYTE:
+        case BYTE:
             bits = 8; 
             break;
             
-        case PixelComponentType::SHORT:
+        case SHORT:
             bits = 16; 
             break;
             
-        case PixelComponentType::FLOAT16:
+        case FLOAT16:
             bits = 16; 
             break;
             
-        case PixelComponentType::FLOAT32:
+        case FLOAT32:
             bits = 32; 
             break;
             

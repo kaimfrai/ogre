@@ -366,12 +366,13 @@ namespace Ogre {
     auto StringConverter::toString(StereoModeType val) -> String
     {
 		StringStream stream;
+        using enum StereoModeType;
 		switch (val)
 		{
-		case StereoModeType::NONE:
+		case NONE:
 		  stream << "None";
 		  break;
-		case StereoModeType::FRAME_SEQUENTIAL:
+		case FRAME_SEQUENTIAL:
 		  stream << "Frame Sequential";
 		  break;
 		default:

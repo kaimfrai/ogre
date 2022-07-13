@@ -106,10 +106,10 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
         unsigned int aniso;
 
         Ogre::FilterOptions mip = Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FilterType::Mip);
-
+        using enum Ogre::FilterOptions;
         switch (Ogre::MaterialManager::getSingleton().getDefaultTextureFiltering(Ogre::FilterType::Mag)) {
-        case Ogre::FilterOptions::LINEAR:
-            if (mip == Ogre::FilterOptions::POINT) {
+        case LINEAR:
+            if (mip == POINT) {
                 newVal = "Trilinear";
                 tfo = Ogre::TextureFilterOptions::TRILINEAR;
                 aniso = 1;
@@ -119,7 +119,7 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
                 aniso = 8;
             }
             break;
-        case Ogre::FilterOptions::ANISOTROPIC:
+        case ANISOTROPIC:
             newVal = "None";
             tfo = Ogre::TextureFilterOptions::NONE;
             aniso = 1;
@@ -139,18 +139,20 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
         Ogre::String newVal;
         Ogre::PolygonMode pm;
 
+        using enum Ogre::PolygonMode;
+
         switch (mCamera->getPolygonMode()) {
-        case Ogre::PolygonMode::SOLID:
+        case SOLID:
             newVal = "Wireframe";
-            pm = Ogre::PolygonMode::WIREFRAME;
+            pm = WIREFRAME;
             break;
-        case Ogre::PolygonMode::WIREFRAME:
+        case WIREFRAME:
             newVal = "Points";
-            pm = Ogre::PolygonMode::POINTS;
+            pm = POINTS;
             break;
         default:
             newVal = "Solid";
-            pm = Ogre::PolygonMode::SOLID;
+            pm = SOLID;
             break;
         }
 
@@ -227,19 +229,20 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
     }
     // Switch vertex shader outputs compaction policy.
     else if (key == SDLK_F4) {
+        using enum Ogre::RTShader::VSOutputCompactPolicy;
         switch (mShaderGenerator->getVertexShaderOutputsCompactPolicy()) {
-        case Ogre::RTShader::VSOutputCompactPolicy::LOW:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::MEDIUM);
+        case LOW:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(MEDIUM);
             mDetailsPanel->setParamValue(13, "Medium");
             break;
 
-        case Ogre::RTShader::VSOutputCompactPolicy::MEDIUM:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::HIGH);
+        case MEDIUM:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(HIGH);
             mDetailsPanel->setParamValue(13, "High");
             break;
 
-        case Ogre::RTShader::VSOutputCompactPolicy::HIGH:
-            mShaderGenerator->setVertexShaderOutputsCompactPolicy(Ogre::RTShader::VSOutputCompactPolicy::LOW);
+        case HIGH:
+            mShaderGenerator->setVertexShaderOutputsCompactPolicy(LOW);
             mDetailsPanel->setParamValue(13, "Low");
             break;
         }

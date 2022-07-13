@@ -86,21 +86,22 @@ auto GBuffer::createCpuSubPrograms(ProgramSet* programSet) -> bool
         auto out =
             psMain->resolveOutputParameter(i == 0 ? Parameter::Content::COLOR_DIFFUSE : Parameter::Content::COLOR_SPECULAR);
 
+        using enum TargetLayout;
         switch(mOutBuffers[i])
         {
-        case TargetLayout::DEPTH:
+        case DEPTH:
             addDepthInvocations(programSet, out);
             break;
-        case TargetLayout::NORMAL_VIEWDEPTH:
+        case NORMAL_VIEWDEPTH:
             addViewPosInvocations(programSet, out, true);
             [[fallthrough]];
-        case TargetLayout::NORMAL:
+        case NORMAL:
             addNormalInvocations(programSet, out);
             break;
-        case TargetLayout::VIEWPOS:
+        case VIEWPOS:
             addViewPosInvocations(programSet, out, false);
             break;
-        case TargetLayout::DIFFUSE_SPECULAR:
+        case DIFFUSE_SPECULAR:
             addDiffuseSpecularInvocations(programSet, out);
             break;
         default:

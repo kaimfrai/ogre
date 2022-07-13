@@ -128,9 +128,10 @@ namespace Ogre {
 
         while(!stream->eof())
         {
+            using enum MeshChunkID;
             switch (streamID)
             {
-            case MeshChunkID::MESH:
+            case MESH:
                 readMesh(stream, pMesh, listener);
                 break;
             default:
@@ -678,12 +679,13 @@ namespace Ogre {
                 (streamID == MeshChunkID::GEOMETRY_VERTEX_DECLARATION ||
                  streamID == MeshChunkID::GEOMETRY_VERTEX_BUFFER ))
             {
+                using enum MeshChunkID;
                 switch (streamID)
                 {
-                case MeshChunkID::GEOMETRY_VERTEX_DECLARATION:
+                case GEOMETRY_VERTEX_DECLARATION:
                     readGeometryVertexDeclaration(stream, pMesh, dest);
                     break;
-                case MeshChunkID::GEOMETRY_VERTEX_BUFFER:
+                case GEOMETRY_VERTEX_BUFFER:
                     readGeometryVertexBuffer(stream, pMesh, dest);
                     break;
                 default:
@@ -718,9 +720,10 @@ namespace Ogre {
             while(!stream->eof() &&
                 (streamID == MeshChunkID::GEOMETRY_VERTEX_ELEMENT ))
             {
+                using enum MeshChunkID;
                 switch (streamID)
                 {
-                case MeshChunkID::GEOMETRY_VERTEX_ELEMENT:
+                case GEOMETRY_VERTEX_ELEMENT:
                     readGeometryVertexElement(stream, pMesh, dest);
                     break;
                 default:
@@ -888,22 +891,23 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::GEOMETRY ||
-                 streamID == MeshChunkID::SUBMESH ||
-                 streamID == MeshChunkID::MESH_SKELETON_LINK ||
-                 streamID == MeshChunkID::MESH_BONE_ASSIGNMENT ||
-                 streamID == MeshChunkID::MESH_LOD_LEVEL ||
-                 streamID == MeshChunkID::MESH_BOUNDS ||
-                 streamID == MeshChunkID::SUBMESH_NAME_TABLE ||
-                 streamID == MeshChunkID::EDGE_LISTS ||
-                 streamID == MeshChunkID::POSES ||
-                 streamID == MeshChunkID::ANIMATIONS ||
-                 streamID == MeshChunkID::TABLE_EXTREMES))
+                (streamID == GEOMETRY ||
+                 streamID == SUBMESH ||
+                 streamID == MESH_SKELETON_LINK ||
+                 streamID == MESH_BONE_ASSIGNMENT ||
+                 streamID == MESH_LOD_LEVEL ||
+                 streamID == MESH_BOUNDS ||
+                 streamID == SUBMESH_NAME_TABLE ||
+                 streamID == EDGE_LISTS ||
+                 streamID == POSES ||
+                 streamID == ANIMATIONS ||
+                 streamID == TABLE_EXTREMES))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::GEOMETRY:
+                case GEOMETRY:
                     pMesh->sharedVertexData = new VertexData();
                     try {
                         readGeometry(stream, pMesh, pMesh->sharedVertexData);
@@ -917,34 +921,34 @@ namespace Ogre {
                         stream->skip(mCurrentstreamLen - MSTREAM_OVERHEAD_SIZE);
                     }
                     break;
-                case MeshChunkID::SUBMESH:
+                case SUBMESH:
                     readSubMesh(stream, pMesh, listener);
                     break;
-                case MeshChunkID::MESH_SKELETON_LINK:
+                case MESH_SKELETON_LINK:
                     readSkeletonLink(stream, pMesh, listener);
                     break;
-                case MeshChunkID::MESH_BONE_ASSIGNMENT:
+                case MESH_BONE_ASSIGNMENT:
                     readMeshBoneAssignment(stream, pMesh);
                     break;
-                case MeshChunkID::MESH_LOD_LEVEL:
+                case MESH_LOD_LEVEL:
                     readMeshLodLevel(stream, pMesh);
                     break;
-                case MeshChunkID::MESH_BOUNDS:
+                case MESH_BOUNDS:
                     readBoundsInfo(stream, pMesh);
                     break;
-                case MeshChunkID::SUBMESH_NAME_TABLE:
+                case SUBMESH_NAME_TABLE:
                     readSubMeshNameTable(stream, pMesh);
                     break;
-                case MeshChunkID::EDGE_LISTS:
+                case EDGE_LISTS:
                     readEdgeList(stream, pMesh);
                     break;
-                case MeshChunkID::POSES:
+                case POSES:
                     readPoses(stream, pMesh);
                     break;
-                case MeshChunkID::ANIMATIONS:
+                case ANIMATIONS:
                     readAnimations(stream, pMesh);
                     break;
-                case MeshChunkID::TABLE_EXTREMES:
+                case TABLE_EXTREMES:
                     readExtremes(stream, pMesh);
                     break;
                 default:
@@ -1047,20 +1051,21 @@ namespace Ogre {
         {
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
             bool seenTexAlias = false;
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::SUBMESH_BONE_ASSIGNMENT ||
-                 streamID == MeshChunkID::SUBMESH_OPERATION ||
-                 streamID == MeshChunkID::SUBMESH_TEXTURE_ALIAS))
+                (streamID == SUBMESH_BONE_ASSIGNMENT ||
+                 streamID == SUBMESH_OPERATION ||
+                 streamID == SUBMESH_TEXTURE_ALIAS))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::SUBMESH_OPERATION:
+                case SUBMESH_OPERATION:
                     readSubMeshOperation(stream, pMesh, sm);
                     break;
-                case MeshChunkID::SUBMESH_BONE_ASSIGNMENT:
+                case SUBMESH_BONE_ASSIGNMENT:
                     readSubMeshBoneAssignment(stream, pMesh, sm);
                     break;
-                case MeshChunkID::SUBMESH_TEXTURE_ALIAS:
+                case SUBMESH_TEXTURE_ALIAS:
                     seenTexAlias = true;
                     readSubMeshTextureAlias(stream, pMesh, sm);
                     break;
@@ -1445,11 +1450,12 @@ namespace Ogre {
             MeshLodUsage& usage = pMesh->mMeshLodUsageList[lodID];
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
             readFloats(stream, &(usage.userValue), 1);
+            using enum MeshChunkID;
             switch(streamID){
-            case MeshChunkID::MESH_LOD_MANUAL:
+            case MESH_LOD_MANUAL:
                 readMeshLodUsageManual(stream, pMesh, lodID, usage);
                 break;
-            case MeshChunkID::MESH_LOD_GENERATED:
+            case MESH_LOD_GENERATED:
                 readMeshLodUsageGenerated(stream, pMesh, lodID, usage);
                 break;
             default:
@@ -1570,26 +1576,27 @@ namespace Ogre {
                 size_t typeSize = 0;
                 switch (VertexElement::getBaseType(elem.getType()))
                 {
-                    case VertexElementType::FLOAT1:
+                    using enum VertexElementType;
+                    case FLOAT1:
                         typeSize = sizeof(float);
                         break;
-                    case VertexElementType::DOUBLE1:
+                    case DOUBLE1:
                         typeSize = sizeof(double);
                         break;
-                    case VertexElementType::SHORT1:
+                    case SHORT1:
                         typeSize = sizeof(short);
                         break;
-                    case VertexElementType::USHORT1:
+                    case USHORT1:
                         typeSize = sizeof(unsigned short);
                         break;
-                    case VertexElementType::INT1:
+                    case INT1:
                         typeSize = sizeof(int);
                         break;
-                    case VertexElementType::UINT1:
+                    case UINT1:
                         typeSize = sizeof(unsigned int);
                         break;
-                    case VertexElementType::UBYTE4_NORM:
-                    case VertexElementType::UBYTE4:
+                    case UBYTE4_NORM:
+                    case UBYTE4:
                         typeSize = 0; // NO FLIPPING
                         break;
                     default:
@@ -2273,12 +2280,13 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+                using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::POSE))
+                (streamID == POSE))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::POSE:
+                case POSE:
                     readPose(stream, pMesh);
                     break;
                 default:
@@ -2319,12 +2327,13 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::POSE_VERTEX))
+                (streamID == POSE_VERTEX))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::POSE_VERTEX:
+                case POSE_VERTEX:
                     // create vertex offset
                     uint32 vertIndex;
                     Vector3 offset, normal;
@@ -2373,9 +2382,10 @@ namespace Ogre {
             while(!stream->eof() &&
                 (streamID == MeshChunkID::ANIMATION))
             {
+                using enum MeshChunkID;
                 switch(streamID)
                 {
-                case MeshChunkID::ANIMATION:
+                case ANIMATION:
                     readAnimation(stream, pMesh);
                     break;
                 default:
@@ -2434,12 +2444,13 @@ namespace Ogre {
                 }
             }
             
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                streamID == MeshChunkID::ANIMATION_TRACK)
+                streamID == ANIMATION_TRACK)
             {
                 switch(streamID)
                 {
-                case MeshChunkID::ANIMATION_TRACK:
+                case ANIMATION_TRACK:
                     readAnimationTrack(stream, anim, pMesh);
                     break;
                 default:
@@ -2480,16 +2491,17 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::ANIMATION_MORPH_KEYFRAME ||
-                 streamID == MeshChunkID::ANIMATION_POSE_KEYFRAME))
+                (streamID == ANIMATION_MORPH_KEYFRAME ||
+                 streamID == ANIMATION_POSE_KEYFRAME))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::ANIMATION_MORPH_KEYFRAME:
+                case ANIMATION_MORPH_KEYFRAME:
                     readMorphKeyFrame(stream, pMesh, track);
                     break;
-                case MeshChunkID::ANIMATION_POSE_KEYFRAME:
+                case ANIMATION_POSE_KEYFRAME:
                     readPoseKeyFrame(stream, track);
                     break;
                 default:
@@ -2550,12 +2562,14 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                streamID == MeshChunkID::ANIMATION_POSE_REF)
+                streamID ==ANIMATION_POSE_REF)
             {
                 switch(streamID)
                 {
-                case MeshChunkID::ANIMATION_POSE_REF:
+                case ANIMATION_POSE_REF:
                     uint16 poseIndex;
                     float influence;
                     // unsigned short poseIndex
@@ -3063,12 +3077,13 @@ namespace Ogre {
         {
             pushInnerChunk(stream);
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::POSE_VERTEX))
+                (streamID == POSE_VERTEX))
             {
                 switch(streamID)
                 {
-                case MeshChunkID::POSE_VERTEX:
+                case POSE_VERTEX:
                     // create vertex offset
                     uint32 vertIndex;
                     Vector3 offset;
@@ -3718,20 +3733,21 @@ namespace Ogre {
             auto streamID = static_cast<MeshChunkID>(readChunk(stream));
             unsigned short texCoordSet = 0;
             
+            using enum MeshChunkID;
             while(!stream->eof() &&
-                (streamID == MeshChunkID::GEOMETRY_NORMALS ||
-                 streamID == MeshChunkID::GEOMETRY_COLOURS ||
-                 streamID == MeshChunkID::GEOMETRY_TEXCOORDS ))
+                (streamID == GEOMETRY_NORMALS ||
+                 streamID == GEOMETRY_COLOURS ||
+                 streamID == GEOMETRY_TEXCOORDS ))
             {
                 switch (streamID)
                 {
-                case MeshChunkID::GEOMETRY_NORMALS:
+                case GEOMETRY_NORMALS:
                     readGeometryNormals(bindIdx++, stream, pMesh, dest);
                     break;
-                case MeshChunkID::GEOMETRY_COLOURS:
+                case GEOMETRY_COLOURS:
                     readGeometryColours(bindIdx++, stream, pMesh, dest);
                     break;
-                case MeshChunkID::GEOMETRY_TEXCOORDS:
+                case GEOMETRY_TEXCOORDS:
                     readGeometryTexCoords(bindIdx++, stream, pMesh, dest, texCoordSet++);
                     break;
                 default:

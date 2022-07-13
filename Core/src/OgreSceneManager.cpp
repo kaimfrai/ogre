@@ -425,13 +425,14 @@ void SceneManager::_populateLightList(const SceneNode* sn, Real radius, LightLis
 //-----------------------------------------------------------------------
 auto SceneManager::createEntity(std::string_view entityName, PrefabType ptype) -> Entity*
 {
+    using enum PrefabType;
     switch (ptype)
     {
-    case PrefabType::PLANE:
+    case PLANE:
         return createEntity(entityName, "Prefab_Plane");
-    case PrefabType::CUBE:
+    case CUBE:
         return createEntity(entityName, "Prefab_Cube");
-    case PrefabType::SPHERE:
+    case SPHERE:
         return createEntity(entityName, "Prefab_Sphere");
 
         break;
@@ -1789,15 +1790,16 @@ void SceneManager::renderSingleObject(Renderable* rend, const Pass* pass,
 
         if (mAutoParamDataSource->getWorldMatrix().linear().hasNegativeScale())
         {
+            using enum CullingMode;
             switch(mPassCullingMode)
             {
-            case CullingMode::CLOCKWISE:
-                cullMode = CullingMode::ANTICLOCKWISE;
+            case CLOCKWISE:
+                cullMode = ANTICLOCKWISE;
                 break;
-            case CullingMode::ANTICLOCKWISE:
-                cullMode = CullingMode::CLOCKWISE;
+            case ANTICLOCKWISE:
+                cullMode = CLOCKWISE;
                 break;
-            case CullingMode::NONE:
+            case NONE:
                 break;
             };
         }
@@ -2852,9 +2854,10 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
 
     Vector3 pos = l->getDerivedPosition();
     Real r = l->getAttenuationRange();
+    using enum Light::LightTypes;
     switch(l->getType())
     {
-    case Light::LightTypes::POINT:
+    case POINT:
         {
             planes.push_back(Plane(Vector3::UNIT_X, pos + Vector3(-r, 0, 0)));
             planes.push_back(Plane(Vector3::NEGATIVE_UNIT_X, pos + Vector3(r, 0, 0)));
@@ -2864,7 +2867,7 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
             planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Z, pos + Vector3(0, 0, r)));
         }
         break;
-    case Light::LightTypes::SPOTLIGHT:
+    case SPOTLIGHT:
         {
             Vector3 dir = l->getDerivedDirection();
             // near & far planes

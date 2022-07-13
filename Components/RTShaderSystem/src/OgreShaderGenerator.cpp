@@ -683,12 +683,13 @@ void ShaderGenerator::_setActiveSceneManager(SceneManager* sceneManager)
 //-----------------------------------------------------------------------------
 void ShaderGenerator::setShaderProfiles(GpuProgramType type, std::string_view shaderProfiles)
 {
+    using enum GpuProgramType;
     switch(type)
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         mVertexShaderProfiles = shaderProfiles;
         break;
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         mFragmentShaderProfiles = shaderProfiles;
         break;
     default:
@@ -699,11 +700,12 @@ void ShaderGenerator::setShaderProfiles(GpuProgramType type, std::string_view sh
 
 auto ShaderGenerator::getShaderProfiles(GpuProgramType type) const -> std::string_view
 {
+    using enum GpuProgramType;
     switch(type)
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         return mVertexShaderProfiles;
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         return mFragmentShaderProfiles;
     default:
         return BLANKSTRING;

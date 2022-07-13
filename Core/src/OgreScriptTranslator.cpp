@@ -3978,9 +3978,10 @@ class LodStrategy;
                                 GpuProgramParameters::getAutoConstantDefinition(atom1->value);
                             if(def)
                             {
+                                using enum GpuProgramParameters::ACDataType;
                                 switch(def->dataType)
                                 {
-                                case GpuProgramParameters::ACDataType::NONE:
+                                case NONE:
                                     if (i2 != prop->values.end())
                                     {
                                         compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file,
@@ -4001,7 +4002,7 @@ class LodStrategy;
                                                            e.getDescription());
                                     }
                                     break;
-                                case GpuProgramParameters::ACDataType::INT:
+                                case INT:
                                     if(def->acType == GpuProgramParameters::AutoConstantType::ANIMATION_PARAMETRIC)
                                     {
                                         try
@@ -4092,7 +4093,7 @@ class LodStrategy;
                                         }
                                     }
                                     break;
-                                case GpuProgramParameters::ACDataType::REAL:
+                                case REAL:
                                     if(def->acType == GpuProgramParameters::AutoConstantType::TIME ||
                                        def->acType == GpuProgramParameters::AutoConstantType::FRAME_TIME)
                                     {
@@ -4269,9 +4270,10 @@ class LodStrategy;
             // amount of individual numbers to read
             arraySz *= GpuConstantDefinition::getElementSize(constType, false);
 
+            using enum BaseConstantType;
             switch (GpuConstantDefinition::getBaseType(constType))
             {
-            case BaseConstantType::FLOAT:
+            case FLOAT:
             {
                 std::vector<float> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4280,7 +4282,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BaseConstantType::INT:
+            case INT:
             {
                 std::vector<int> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4289,7 +4291,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BaseConstantType::DOUBLE:
+            case DOUBLE:
             {
                 std::vector<double> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4298,7 +4300,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BaseConstantType::UINT:
+            case UINT:
             {
                 std::vector<uint> values;
                 if(_getVector(arrayStart, arrayEnd, values, arraySz))
@@ -4309,7 +4311,7 @@ class LodStrategy;
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                 break;
             }
-            case BaseConstantType::BOOL:
+            case BOOL:
             {
                 std::vector<bool> tmp;
                 if(_getVector(arrayStart, arrayEnd, tmp, arraySz))

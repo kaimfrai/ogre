@@ -152,15 +152,16 @@ namespace Ogre
         eTexturePlayMode eMode = static_cast<const ExternalTextureSource*>(target)->getPlayMode();
         String val;
 
+        using enum eTexturePlayMode;
         switch(eMode)
         {
-        case eTexturePlayMode::Play_ASAP:
+        case Play_ASAP:
             val = "play";
             break;
-        case eTexturePlayMode::Play_Looping:
+        case Play_Looping:
             val = "loop";
             break;
-        case eTexturePlayMode::Pause:
+        case Pause:
             val = "pause";
             break;
         default: 

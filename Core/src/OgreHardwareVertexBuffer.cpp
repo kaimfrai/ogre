@@ -136,57 +136,58 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto VertexElement::getTypeSize(VertexElementType etype) -> size_t
     {
+        using enum VertexElementType;
         switch(etype)
         {
-        case VertexElementType::FLOAT1:
+        case FLOAT1:
             return sizeof(float);
-        case VertexElementType::FLOAT2:
+        case FLOAT2:
             return sizeof(float)*2;
-        case VertexElementType::FLOAT3:
+        case FLOAT3:
             return sizeof(float)*3;
-        case VertexElementType::FLOAT4:
+        case FLOAT4:
             return sizeof(float)*4;
-        case VertexElementType::DOUBLE1:
+        case DOUBLE1:
             return sizeof(double);
-        case VertexElementType::DOUBLE2:
+        case DOUBLE2:
             return sizeof(double)*2;
-        case VertexElementType::DOUBLE3:
+        case DOUBLE3:
             return sizeof(double)*3;
-        case VertexElementType::DOUBLE4:
+        case DOUBLE4:
             return sizeof(double)*4;
-        case VertexElementType::SHORT1:
-        case VertexElementType::USHORT1:
+        case SHORT1:
+        case USHORT1:
             return sizeof( short );
-        case VertexElementType::SHORT2:
-        case VertexElementType::SHORT2_NORM:
-        case VertexElementType::USHORT2:
-        case VertexElementType::USHORT2_NORM:
+        case SHORT2:
+        case SHORT2_NORM:
+        case USHORT2:
+        case USHORT2_NORM:
             return sizeof( short ) * 2;
-        case VertexElementType::SHORT3:
-        case VertexElementType::USHORT3:
+        case SHORT3:
+        case USHORT3:
             return sizeof( short ) * 3;
-        case VertexElementType::SHORT4:
-        case VertexElementType::SHORT4_NORM:
-        case VertexElementType::USHORT4:
-        case VertexElementType::USHORT4_NORM:
+        case SHORT4:
+        case SHORT4_NORM:
+        case USHORT4:
+        case USHORT4_NORM:
             return sizeof( short ) * 4;
-        case VertexElementType::INT1:
-        case VertexElementType::UINT1:
+        case INT1:
+        case UINT1:
             return sizeof( int );
-        case VertexElementType::INT2:
-        case VertexElementType::UINT2:
+        case INT2:
+        case UINT2:
             return sizeof( int ) * 2;
-        case VertexElementType::INT3:
-        case VertexElementType::UINT3:
+        case INT3:
+        case UINT3:
             return sizeof( int ) * 3;
-        case VertexElementType::INT4:
-        case VertexElementType::UINT4:
+        case INT4:
+        case UINT4:
             return sizeof( int ) * 4;
-        case VertexElementType::BYTE4:
-        case VertexElementType::BYTE4_NORM:
-        case VertexElementType::UBYTE4:
-        case VertexElementType::UBYTE4_NORM:
-        case VertexElementType::_DETAIL_SWAP_RB:
+        case BYTE4:
+        case BYTE4_NORM:
+        case UBYTE4:
+        case UBYTE4_NORM:
+        case _DETAIL_SWAP_RB:
             return sizeof(char)*4;
         }
         return 0;
@@ -194,44 +195,45 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto VertexElement::getTypeCount(VertexElementType etype) -> unsigned short
     {
+        using enum VertexElementType;
         switch (etype)
         {
-        case VertexElementType::FLOAT1:
-        case VertexElementType::SHORT1:
-        case VertexElementType::USHORT1:
-        case VertexElementType::UINT1:
-        case VertexElementType::INT1:
-        case VertexElementType::DOUBLE1:
+        case FLOAT1:
+        case SHORT1:
+        case USHORT1:
+        case UINT1:
+        case INT1:
+        case DOUBLE1:
             return 1;
-        case VertexElementType::FLOAT2:
-        case VertexElementType::SHORT2:
-        case VertexElementType::SHORT2_NORM:
-        case VertexElementType::USHORT2:
-        case VertexElementType::USHORT2_NORM:
-        case VertexElementType::UINT2:
-        case VertexElementType::INT2:
-        case VertexElementType::DOUBLE2:
+        case FLOAT2:
+        case SHORT2:
+        case SHORT2_NORM:
+        case USHORT2:
+        case USHORT2_NORM:
+        case UINT2:
+        case INT2:
+        case DOUBLE2:
             return 2;
-        case VertexElementType::FLOAT3:
-        case VertexElementType::SHORT3:
-        case VertexElementType::USHORT3:
-        case VertexElementType::UINT3:
-        case VertexElementType::INT3:
-        case VertexElementType::DOUBLE3:
+        case FLOAT3:
+        case SHORT3:
+        case USHORT3:
+        case UINT3:
+        case INT3:
+        case DOUBLE3:
             return 3;
-        case VertexElementType::FLOAT4:
-        case VertexElementType::SHORT4:
-        case VertexElementType::SHORT4_NORM:
-        case VertexElementType::USHORT4:
-        case VertexElementType::USHORT4_NORM:
-        case VertexElementType::UINT4:
-        case VertexElementType::INT4:
-        case VertexElementType::DOUBLE4:
-        case VertexElementType::BYTE4:
-        case VertexElementType::UBYTE4:
-        case VertexElementType::BYTE4_NORM:
-        case VertexElementType::UBYTE4_NORM:
-        case VertexElementType::_DETAIL_SWAP_RB:
+        case FLOAT4:
+        case SHORT4:
+        case SHORT4_NORM:
+        case USHORT4:
+        case USHORT4_NORM:
+        case UINT4:
+        case INT4:
+        case DOUBLE4:
+        case BYTE4:
+        case UBYTE4:
+        case BYTE4_NORM:
+        case UBYTE4_NORM:
+        case _DETAIL_SWAP_RB:
             return 4;
         }
         OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Invalid type", 
@@ -243,49 +245,50 @@ namespace Ogre {
     {
         OgreAssert(count > 0 && count < 5, "Count out of range");
 
+        using enum VertexElementType;
         switch (baseType)
         {
-        case VertexElementType::FLOAT1:
-        case VertexElementType::DOUBLE1:
-        case VertexElementType::INT1:
-        case VertexElementType::UINT1:
+        case FLOAT1:
+        case DOUBLE1:
+        case INT1:
+        case UINT1:
             // evil enumeration arithmetic
             return static_cast<VertexElementType>( std::to_underlying(baseType) + count - 1 );
 
-        case VertexElementType::SHORT1:
-        case VertexElementType::SHORT2:
+        case SHORT1:
+        case SHORT2:
             if ( count <= 2 )
             {
-                return VertexElementType::SHORT2;
+                return SHORT2;
             }
-            return VertexElementType::SHORT4;
+            return SHORT4;
 
-        case VertexElementType::USHORT1:
-        case VertexElementType::USHORT2:
+        case USHORT1:
+        case USHORT2:
             if ( count <= 2 )
             {
-                return VertexElementType::USHORT2;
+                return USHORT2;
             }
-            return VertexElementType::USHORT4;
+            return USHORT4;
 
-        case VertexElementType::SHORT2_NORM:
+        case SHORT2_NORM:
             if ( count <= 2 )
             {
-                return VertexElementType::SHORT2_NORM;
+                return SHORT2_NORM;
             }
-            return VertexElementType::SHORT4_NORM;
+            return SHORT4_NORM;
 
-        case VertexElementType::USHORT2_NORM:
+        case USHORT2_NORM:
             if ( count <= 2 )
             {
-                return VertexElementType::USHORT2_NORM;
+                return USHORT2_NORM;
             }
-            return VertexElementType::USHORT4_NORM;
+            return USHORT4_NORM;
 
-        case VertexElementType::BYTE4:
-        case VertexElementType::BYTE4_NORM:
-        case VertexElementType::UBYTE4:
-        case VertexElementType::UBYTE4_NORM:
+        case BYTE4:
+        case BYTE4_NORM:
+        case UBYTE4:
+        case UBYTE4_NORM:
             return baseType;
 
         default:
@@ -313,56 +316,57 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto VertexElement::getBaseType(VertexElementType multiType) -> VertexElementType
     {
+        using enum VertexElementType;
         switch (multiType)
         {
-            case VertexElementType::FLOAT1:
-            case VertexElementType::FLOAT2:
-            case VertexElementType::FLOAT3:
-            case VertexElementType::FLOAT4:
-                return VertexElementType::FLOAT1;
-            case VertexElementType::DOUBLE1:
-            case VertexElementType::DOUBLE2:
-            case VertexElementType::DOUBLE3:
-            case VertexElementType::DOUBLE4:
-                return VertexElementType::DOUBLE1;
-            case VertexElementType::INT1:
-            case VertexElementType::INT2:
-            case VertexElementType::INT3:
-            case VertexElementType::INT4:
-                return VertexElementType::INT1;
-            case VertexElementType::UINT1:
-            case VertexElementType::UINT2:
-            case VertexElementType::UINT3:
-            case VertexElementType::UINT4:
-                return VertexElementType::UINT1;
-            case VertexElementType::SHORT1:
-            case VertexElementType::SHORT2:
-            case VertexElementType::SHORT3:
-            case VertexElementType::SHORT4:
-                return VertexElementType::SHORT1;
-            case VertexElementType::USHORT1:
-            case VertexElementType::USHORT2:
-            case VertexElementType::USHORT3:
-            case VertexElementType::USHORT4:
-                return VertexElementType::USHORT1;
-            case VertexElementType::SHORT2_NORM:
-            case VertexElementType::SHORT4_NORM:
-                return VertexElementType::SHORT2_NORM;
-            case VertexElementType::USHORT2_NORM:
-            case VertexElementType::USHORT4_NORM:
-                return VertexElementType::USHORT2_NORM;
-            case VertexElementType::BYTE4:
-                return VertexElementType::BYTE4;
-            case VertexElementType::BYTE4_NORM:
-                return VertexElementType::BYTE4_NORM;
-            case VertexElementType::UBYTE4:
-                return VertexElementType::UBYTE4;
-            case VertexElementType::UBYTE4_NORM:
-            case VertexElementType::_DETAIL_SWAP_RB:
-                return VertexElementType::UBYTE4_NORM;
+            case FLOAT1:
+            case FLOAT2:
+            case FLOAT3:
+            case FLOAT4:
+                return FLOAT1;
+            case DOUBLE1:
+            case DOUBLE2:
+            case DOUBLE3:
+            case DOUBLE4:
+                return DOUBLE1;
+            case INT1:
+            case INT2:
+            case INT3:
+            case INT4:
+                return INT1;
+            case UINT1:
+            case UINT2:
+            case UINT3:
+            case UINT4:
+                return UINT1;
+            case SHORT1:
+            case SHORT2:
+            case SHORT3:
+            case SHORT4:
+                return SHORT1;
+            case USHORT1:
+            case USHORT2:
+            case USHORT3:
+            case USHORT4:
+                return USHORT1;
+            case SHORT2_NORM:
+            case SHORT4_NORM:
+                return SHORT2_NORM;
+            case USHORT2_NORM:
+            case USHORT4_NORM:
+                return USHORT2_NORM;
+            case BYTE4:
+                return BYTE4;
+            case BYTE4_NORM:
+                return BYTE4_NORM;
+            case UBYTE4:
+                return UBYTE4;
+            case UBYTE4_NORM:
+            case _DETAIL_SWAP_RB:
+                return UBYTE4_NORM;
         };
         // To keep compiler happy
-        return VertexElementType::FLOAT1;
+        return FLOAT1;
     }
     //-----------------------------------------------------------------------------
     VertexDeclaration::VertexDeclaration()
@@ -605,36 +609,37 @@ namespace Ogre {
         {
             bool splitWithPrev = false;
             bool splitWithNext = false;
+            using enum VertexElementSemantic;
             switch (elem.getSemantic())
             {
-            case VertexElementSemantic::POSITION:
+            case POSITION:
                 // Split positions if vertex animated with only positions
                 // group with normals otherwise
                 splitWithPrev = false;
                 splitWithNext = vertexAnimation && !vertexAnimationNormals;
                 break;
-            case VertexElementSemantic::NORMAL:
+            case NORMAL:
                 // Normals can't share with blend weights/indices
-                splitWithPrev = (prevSemantic == VertexElementSemantic::BLEND_WEIGHTS || prevSemantic == VertexElementSemantic::BLEND_INDICES);
+                splitWithPrev = (prevSemantic == BLEND_WEIGHTS || prevSemantic == BLEND_INDICES);
                 // All animated meshes have to split after normal
                 splitWithNext = (skeletalAnimation || (vertexAnimation && vertexAnimationNormals));
                 break;
-            case VertexElementSemantic::BLEND_WEIGHTS:
+            case BLEND_WEIGHTS:
                 // Blend weights/indices can be sharing with their own buffer only
                 splitWithPrev = true;
                 break;
-            case VertexElementSemantic::BLEND_INDICES:
+            case BLEND_INDICES:
                 // Blend weights/indices can be sharing with their own buffer only
                 splitWithNext = true;
                 break;
             default:
-            case VertexElementSemantic::DIFFUSE:
-            case VertexElementSemantic::SPECULAR:
-            case VertexElementSemantic::TEXTURE_COORDINATES:
-            case VertexElementSemantic::BINORMAL:
-            case VertexElementSemantic::TANGENT:
+            case DIFFUSE:
+            case SPECULAR:
+            case TEXTURE_COORDINATES:
+            case BINORMAL:
+            case TANGENT:
                 // Make sure position is separate if animated & there were no normals
-                splitWithPrev = prevSemantic == VertexElementSemantic::POSITION && 
+                splitWithPrev = prevSemantic == POSITION &&
                     (skeletalAnimation || vertexAnimation);
                 break;
             }

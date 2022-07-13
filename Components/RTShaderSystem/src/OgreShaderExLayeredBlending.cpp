@@ -243,21 +243,22 @@ void LayeredBlending::addPSModifierInvocation(Function* psMain,
     {
         ParameterPtr modifiedParam;
         const char* funcName = nullptr;
+        using enum SourceModifier;
         switch (modType)
         {
-        case SourceModifier::Source1Modulate: 
+        case Source1Modulate:
             funcName = "SGX_src_mod_modulate";
             modifiedParam = arg1;
             break;
-        case SourceModifier::Source2Modulate:
+        case Source2Modulate:
             funcName = "SGX_src_mod_modulate";
             modifiedParam = arg2;
             break;
-        case SourceModifier::Source1InvModulate:
+        case Source1InvModulate:
             funcName = "SGX_src_mod_inv_modulate";
             modifiedParam = arg1;
             break;
-        case SourceModifier::Source2InvModulate:
+        case Source2InvModulate:
             funcName = "SGX_src_mod_inv_modulate";
             modifiedParam = arg2;
             break;

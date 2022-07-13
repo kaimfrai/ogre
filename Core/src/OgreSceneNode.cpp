@@ -447,9 +447,10 @@ namespace Ogre {
         Vector3 targetDir = vec.normalisedCopy();
 
         // Transform target direction to world space
+        using enum TransformSpace;
         switch (relativeTo)
         {
-        case TransformSpace::PARENT:
+        case PARENT:
             if (getInheritOrientation())
             {
                 if (getParent())
@@ -458,10 +459,10 @@ namespace Ogre {
                 }
             }
             break;
-        case TransformSpace::LOCAL:
+        case LOCAL:
             targetDir = _getDerivedOrientation() * targetDir;
             break;
-        case TransformSpace::WORLD:
+        case WORLD:
             // default orientation
             break;
         }
@@ -527,16 +528,17 @@ namespace Ogre {
     {
         // Calculate ourself origin relative to the given transform space
         Vector3 origin;
+        using enum TransformSpace;
         switch (relativeTo)
         {
         default:    // Just in case
-        case TransformSpace::WORLD:
+        case WORLD:
             origin = _getDerivedPosition();
             break;
-        case TransformSpace::PARENT:
+        case PARENT:
             origin = getPosition();
             break;
-        case TransformSpace::LOCAL:
+        case LOCAL:
             origin = Vector3::ZERO;
             break;
         }

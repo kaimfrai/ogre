@@ -248,34 +248,35 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
             Vector3 middle;
             Vector3 up, right;
 
+            using enum BoxPlane;
             switch(static_cast<BoxPlane>(i))
             {
-            case BoxPlane::FRONT:
+            case FRONT:
                 middle = Vector3(0, 0, -distance);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
-            case BoxPlane::BACK:
+            case BACK:
                 middle = Vector3(0, 0, distance);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_X * distance;
                 break;
-            case BoxPlane::LEFT:
+            case LEFT:
                 middle = Vector3(-distance, 0, 0);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_Z * distance;
                 break;
-            case BoxPlane::RIGHT:
+            case RIGHT:
                 middle = Vector3(distance, 0, 0);
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_Z * distance;
                 break;
-            case BoxPlane::UP:
+            case UP:
                 middle = Vector3(0, distance, 0);
                 up = Vector3::UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
-            case BoxPlane::DOWN:
+            case DOWN:
                 middle = Vector3(0, -distance, 0);
                 up = Vector3::NEGATIVE_UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
@@ -413,34 +414,35 @@ auto SceneManager::SkyDomeRenderer::createSkydomePlane(
     meshName = ::std::format("{}SkyDomePlane_", mSceneManager->mName);
     // Set up plane equation
     plane.d = distance;
+    using enum BoxPlane;
     switch(bp)
     {
-    case BoxPlane::FRONT:
+    case FRONT:
         plane.normal = Vector3::UNIT_Z;
         up = Vector3::UNIT_Y;
         meshName += "Front";
         break;
-    case BoxPlane::BACK:
+    case BACK:
         plane.normal = -Vector3::UNIT_Z;
         up = Vector3::UNIT_Y;
         meshName += "Back";
         break;
-    case BoxPlane::LEFT:
+    case LEFT:
         plane.normal = Vector3::UNIT_X;
         up = Vector3::UNIT_Y;
         meshName += "Left";
         break;
-    case BoxPlane::RIGHT:
+    case RIGHT:
         plane.normal = -Vector3::UNIT_X;
         up = Vector3::UNIT_Y;
         meshName += "Right";
         break;
-    case BoxPlane::UP:
+    case UP:
         plane.normal = -Vector3::UNIT_Y;
         up = Vector3::UNIT_Z;
         meshName += "Up";
         break;
-    case BoxPlane::DOWN:
+    case DOWN:
         // no down
         return {};
     }

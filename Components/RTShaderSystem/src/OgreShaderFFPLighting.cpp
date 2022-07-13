@@ -121,18 +121,19 @@ void FFPLighting::updateGpuProgramsParams(Renderable* rend, const Pass* pass, co
 
 		switch (curParams.mType)
 		{
-		case Light::LightTypes::DIRECTIONAL:
+			using enum Light::LightTypes;
+		case DIRECTIONAL:
 		    // update light index. data will be set by scene manager
 			curParams.mDirection->updateExtraInfo(j);
 			break;
 
-		case Light::LightTypes::POINT:
+		case POINT:
 			// update light index. data will be set by scene manager
 			curParams.mPosition->updateExtraInfo(j);
 			curParams.mAttenuatParams->updateExtraInfo(j);
 			break;
 
-		case Light::LightTypes::SPOTLIGHT:
+		case SPOTLIGHT:
 		{						
 			// update light index. data will be set by scene manager
 			curParams.mPosition->updateExtraInfo(j);
@@ -203,21 +204,22 @@ auto FFPLighting::resolveParameters(ProgramSet* programSet) -> bool
 	bool needViewPos = mSpecularEnable;
 	for (unsigned int i=0; i < mLightParamsList.size(); ++i)
 	{		
+		using enum Light::LightTypes;
 		switch (mLightParamsList[i].mType)
 		{
-		case Light::LightTypes::DIRECTIONAL:
+		case DIRECTIONAL:
 			mLightParamsList[i].mDirection = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
 			mLightParamsList[i].mPSInDirection = mLightParamsList[i].mDirection;
 			break;
 		
-		case Light::LightTypes::POINT:
+		case POINT:
 		    needViewPos = true;
 			
 			mLightParamsList[i].mPosition = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
 			mLightParamsList[i].mAttenuatParams = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, i);
 			break;
 		
-		case Light::LightTypes::SPOTLIGHT:
+		case SPOTLIGHT:
 		    needViewPos = true;
 			
 			mLightParamsList[i].mPosition = vsProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
@@ -360,9 +362,10 @@ void FFPLighting::addIlluminationInvocation(const LightParams* curLightParams, c
                   Out(curLightParams->mSpecularColour).xyz());
     }
 
+    using enum Light::LightTypes;
     switch (curLightParams->mType)
     {
-    case Light::LightTypes::DIRECTIONAL:
+    case DIRECTIONAL:
         if (mSpecularEnable)
         {
             stage.callFunction(SGX_FUNC_LIGHT_DIRECTIONAL_DIFFUSESPECULAR,
@@ -379,7 +382,7 @@ void FFPLighting::addIlluminationInvocation(const LightParams* curLightParams, c
         }
         break;
 
-    case Light::LightTypes::POINT:
+    case POINT:
         if (mSpecularEnable)
         {
             stage.callFunction(SGX_FUNC_LIGHT_POINT_DIFFUSESPECULAR,
@@ -398,7 +401,7 @@ void FFPLighting::addIlluminationInvocation(const LightParams* curLightParams, c
 				
         break;
 
-    case Light::LightTypes::SPOTLIGHT:
+    case SPOTLIGHT:
         if (mSpecularEnable)
         {
             stage.callFunction(SGX_FUNC_LIGHT_SPOT_DIFFUSESPECULAR,

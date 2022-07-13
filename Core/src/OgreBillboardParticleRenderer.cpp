@@ -257,20 +257,21 @@ class RenderQueue;
     auto CmdBillboardType::doGet(const void* target) const -> String
     {
         BillboardType t = static_cast<const BillboardParticleRenderer*>(target)->getBillboardType();
+        using enum BillboardType;
         switch(t)
         {
-        case BillboardType::POINT:
+        case POINT:
             return "point";
             break;
-        case BillboardType::ORIENTED_COMMON:
+        case ORIENTED_COMMON:
             return "oriented_common";
             break;
-        case BillboardType::ORIENTED_SELF:
+        case ORIENTED_SELF:
             return "oriented_self";
             break;
-        case BillboardType::PERPENDICULAR_COMMON:
+        case PERPENDICULAR_COMMON:
             return "perpendicular_common";
-        case BillboardType::PERPENDICULAR_SELF:
+        case PERPENDICULAR_SELF:
             return "perpendicular_self";
         }
         // Compiler nicety
@@ -312,25 +313,26 @@ class RenderQueue;
     auto CmdBillboardOrigin::doGet(const void* target) const -> String
     {
         BillboardOrigin o = static_cast<const BillboardParticleRenderer*>(target)->getBillboardOrigin();
+        using enum BillboardOrigin;
         switch (o)
         {
-        case BillboardOrigin::TOP_LEFT:
+        case TOP_LEFT:
             return "top_left";
-        case BillboardOrigin::TOP_CENTER:
+        case TOP_CENTER:
             return "top_center";
-        case BillboardOrigin::TOP_RIGHT:
+        case TOP_RIGHT:
             return "top_right";
-        case BillboardOrigin::CENTER_LEFT:
+        case CENTER_LEFT:
             return "center_left";
-        case BillboardOrigin::CENTER:
+        case CENTER:
             return "center";
-        case BillboardOrigin::CENTER_RIGHT:
+        case CENTER_RIGHT:
             return "center_right";
-        case BillboardOrigin::BOTTOM_LEFT:
+        case BOTTOM_LEFT:
             return "bottom_left";
-        case BillboardOrigin::BOTTOM_CENTER:
+        case BOTTOM_CENTER:
             return "bottom_center";
-        case BillboardOrigin::BOTTOM_RIGHT:
+        case BOTTOM_RIGHT:
             return "bottom_right";
         }
         // Compiler nicety
@@ -370,11 +372,12 @@ class RenderQueue;
     auto CmdBillboardRotationType::doGet(const void* target) const -> String
     {
         BillboardRotationType r = static_cast<const BillboardParticleRenderer*>(target)->getBillboardRotationType();
+        using enum BillboardRotationType;
         switch(r)
         {
-        case BillboardRotationType::VERTEX:
+        case VERTEX:
             return "vertex";
-        case BillboardRotationType::TEXCOORD:
+        case TEXCOORD:
             return "texcoord";
         }
         // Compiler nicety

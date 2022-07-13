@@ -97,36 +97,37 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     static auto operationTypeToString(RenderOperation::OperationType val) -> const char*
     {
+        using enum RenderOperation::OperationType;
         switch (val)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             return "point_list";
             break;
-        case RenderOperation::OperationType::LINE_LIST:
+        case LINE_LIST:
             return "line_list";
             break;
-        case RenderOperation::OperationType::LINE_LIST_ADJ:
+        case LINE_LIST_ADJ:
             return "line_list_adj";
             break;
-        case RenderOperation::OperationType::LINE_STRIP:
+        case LINE_STRIP:
             return "line_strip";
             break;
-        case RenderOperation::OperationType::LINE_STRIP_ADJ:
+        case LINE_STRIP_ADJ:
             return "line_strip_adj";
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case TRIANGLE_STRIP:
             return "triangle_strip";
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
+        case TRIANGLE_STRIP_ADJ:
             return "triangle_strip_adj";
             break;
-        case RenderOperation::OperationType::TRIANGLE_FAN:
+        case TRIANGLE_FAN:
             return "triangle_fan";
             break;
-        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
+        case TRIANGLE_LIST_ADJ:
             return "triangle_list_adj";
             break;
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
         default:
             return "triangle_list";
             break;
@@ -202,20 +203,21 @@ class ResourceManager;
         {
             // create shader object
             GLenum shaderType = 0x0000;
+            using enum GpuProgramType;
             switch (mType)
             {
-            case GpuProgramType::VERTEX_PROGRAM:
+            case VERTEX_PROGRAM:
                 shaderType = GL_VERTEX_SHADER_ARB;
                 break;
-            case GpuProgramType::FRAGMENT_PROGRAM:
+            case FRAGMENT_PROGRAM:
                 shaderType = GL_FRAGMENT_SHADER_ARB;
                 break;
-            case GpuProgramType::GEOMETRY_PROGRAM:
+            case GEOMETRY_PROGRAM:
                 shaderType = GL_GEOMETRY_SHADER_EXT;
                 break;
-            case GpuProgramType::COMPUTE_PROGRAM:
-            case GpuProgramType::DOMAIN_PROGRAM:
-            case GpuProgramType::HULL_PROGRAM:
+            case COMPUTE_PROGRAM:
+            case DOMAIN_PROGRAM:
+            case HULL_PROGRAM:
                 break;
             default:
                 break;

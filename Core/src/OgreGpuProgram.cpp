@@ -376,19 +376,20 @@ class ResourceManager;
     //-----------------------------------------------------------------------------
     auto GpuProgram::getProgramTypeName(GpuProgramType programType) -> const String
     {
+        using enum GpuProgramType;
         switch (programType)
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             return "vertex";
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             return "geometry";
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             return "fragment";
-        case GpuProgramType::DOMAIN_PROGRAM:
+        case DOMAIN_PROGRAM:
             return "domain";
-        case GpuProgramType::HULL_PROGRAM:
+        case HULL_PROGRAM:
             return "hull";
-        case GpuProgramType::COMPUTE_PROGRAM:
+        case COMPUTE_PROGRAM:
             return "compute";
         default:
             OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS,

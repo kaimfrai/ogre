@@ -113,37 +113,39 @@ namespace Ogre {
             return format;
         }
 
+        using enum PixelFormat;
         if(PixelUtil::isDepth(format))
         {
             switch (format)
             {
                 default:
-                case PixelFormat::DEPTH16:
-                    format = PixelFormat::FLOAT16_R;
+                case DEPTH16:
+                    format = FLOAT16_R;
                     break;
-                case PixelFormat::DEPTH24_STENCIL8:
-                case PixelFormat::DEPTH32F:
-                case PixelFormat::DEPTH32:
-                    format = PixelFormat::FLOAT32_R;
+                case DEPTH24_STENCIL8:
+                case DEPTH32F:
+                case DEPTH32:
+                    format = FLOAT32_R;
                     break;
             }
         }
         else
         {
             /// Find first alternative
+            using enum PixelComponentType;
             switch (PixelUtil::getComponentType(format))
             {
-            case PixelComponentType::BYTE:
-                format = PixelFormat::BYTE_RGBA; // native endian
+            case BYTE:
+                format = BYTE_RGBA; // native endian
                 break;
-            case PixelComponentType::SHORT:
-                format = PixelFormat::SHORT_RGBA;
+            case SHORT:
+                format = SHORT_RGBA;
                 break;
-            case PixelComponentType::FLOAT16:
-                format = PixelFormat::FLOAT16_RGBA;
+            case FLOAT16:
+                format = FLOAT16_RGBA;
                 break;
-            case PixelComponentType::FLOAT32:
-                format = PixelFormat::FLOAT32_RGBA;
+            case FLOAT32:
+                format = FLOAT32_RGBA;
                 break;
             default:
                 break;

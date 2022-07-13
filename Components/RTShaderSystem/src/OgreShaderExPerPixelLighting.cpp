@@ -181,20 +181,21 @@ auto PerPixelLighting::resolvePerLightParameters(ProgramSet* programSet) -> bool
     {       
         switch (mLightParamsList[i].mType)
         {
-        case Light::LightTypes::DIRECTIONAL:
+            using enum Light::LightTypes;
+        case DIRECTIONAL:
             mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
             mLightParamsList[i].mPSInDirection = mLightParamsList[i].mDirection;
             needViewPos = mSpecularEnable || needViewPos;
             break;
 
-        case Light::LightTypes::POINT:
+        case POINT:
             mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
             mLightParamsList[i].mAttenuatParams = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_ATTENUATION, i);
             
             needViewPos = true;
             break;
 
-        case Light::LightTypes::SPOTLIGHT:
+        case SPOTLIGHT:
             mLightParamsList[i].mPosition = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_POSITION_VIEW_SPACE, i);
             mLightParamsList[i].mDirection = psProgram->resolveParameter(GpuProgramParameters::AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE, i);
             mLightParamsList[i].mPSInDirection = mLightParamsList[i].mDirection;

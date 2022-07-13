@@ -88,7 +88,8 @@ void ProgramWriter::writeParameter(std::ostream& os, const ParameterPtr& paramet
 
 void ProgramWriter::writeSamplerParameter(std::ostream& os, const UniformParameterPtr& parameter)
 {
-    if (parameter->getType() == GpuConstantType::SAMPLER_EXTERNAL_OES)
+    using enum GpuConstantType;
+    if (parameter->getType() == SAMPLER_EXTERNAL_OES)
     {
         os << "uniform\t";
         writeParameter(os, parameter);
@@ -97,22 +98,22 @@ void ProgramWriter::writeSamplerParameter(std::ostream& os, const UniformParamet
 
     switch(parameter->getType())
     {
-    case GpuConstantType::SAMPLER1D:
+    case SAMPLER1D:
         os << "SAMPLER1D(";
         break;
-    case GpuConstantType::SAMPLER2D:
+    case SAMPLER2D:
         os << "SAMPLER2D(";
         break;
-    case GpuConstantType::SAMPLER3D:
+    case SAMPLER3D:
         os << "SAMPLER3D(";
         break;
-    case GpuConstantType::SAMPLERCUBE:
+    case SAMPLERCUBE:
         os << "SAMPLERCUBE(";
         break;
-    case GpuConstantType::SAMPLER2DSHADOW:
+    case SAMPLER2DSHADOW:
         os << "SAMPLER2DSHADOW(";
         break;
-    case GpuConstantType::SAMPLER2DARRAY:
+    case SAMPLER2DARRAY:
         os << "SAMPLER2DARRAY(";
         break;
     default:

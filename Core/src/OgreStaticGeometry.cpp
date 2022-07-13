@@ -1425,9 +1425,10 @@ namespace Ogre {
                     {
                         elem.baseVertexPointerToElement(pSrcBase, &pSrcReal);
                         elem.baseVertexPointerToElement(pDstBase, &pDstReal);
+                        using enum VertexElementSemantic;
                         switch (elem.getSemantic())
                         {
-                        case VertexElementSemantic::POSITION:
+                        case POSITION:
                             tmp.x = *pSrcReal++;
                             tmp.y = *pSrcReal++;
                             tmp.z = *pSrcReal++;
@@ -1440,9 +1441,9 @@ namespace Ogre {
                             *pDstReal++ = tmp.y;
                             *pDstReal++ = tmp.z;
                             break;
-                        case VertexElementSemantic::NORMAL:
-                        case VertexElementSemantic::TANGENT:
-                        case VertexElementSemantic::BINORMAL:
+                        case NORMAL:
+                        case TANGENT:
+                        case BINORMAL:
                             tmp.x = *pSrcReal++;
                             tmp.y = *pSrcReal++;
                             tmp.z = *pSrcReal++;

@@ -71,15 +71,16 @@ auto Operand::operator= (const Operand & other) -> Operand&
 
 void Operand::setMaskToParamType()
 {
+    using enum GpuConstantType;
     switch (mParameter->getType())
     {
-    case GpuConstantType::FLOAT1:
+    case FLOAT1:
         mMask = OpMask::X;
         break;
-    case GpuConstantType::FLOAT2:
+    case FLOAT2:
         mMask = OpMask::XY;
         break;
-    case GpuConstantType::FLOAT3:
+    case FLOAT3:
         mMask = OpMask::XYZ;
         break;
     default:
@@ -371,19 +372,20 @@ void SampleTextureAtom::writeSourceCode(std::ostream& os, std::string_view targe
 
     os << "texture";
     const auto& sampler = mOperands.front().getParameter();
+    using enum GpuConstantType;
     switch(sampler->getType())
     {
-    case GpuConstantType::SAMPLER1D:
+    case SAMPLER1D:
         os << "1D";
         break;
-    case GpuConstantType::SAMPLER_EXTERNAL_OES:
-    case GpuConstantType::SAMPLER2D:
+    case SAMPLER_EXTERNAL_OES:
+    case SAMPLER2D:
         os << "2D";
         break;
-    case GpuConstantType::SAMPLER3D:
+    case SAMPLER3D:
         os << "3D";
         break;
-    case GpuConstantType::SAMPLERCUBE:
+    case SAMPLERCUBE:
         os << "Cube";
         break;
     default:

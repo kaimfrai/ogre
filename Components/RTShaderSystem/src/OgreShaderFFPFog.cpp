@@ -165,16 +165,17 @@ auto FFPFog::addFunctionInvocations(ProgramSet* programSet) -> bool
 
         switch (mFogMode)
         {
-        case FogMode::LINEAR:
+            using enum FogMode;
+        case LINEAR:
             fogfunc = FFP_FUNC_PIXELFOG_LINEAR;
             break;
-        case FogMode::EXP:
+        case EXP:
             fogfunc = FFP_FUNC_PIXELFOG_EXP;
             break;
-        case FogMode::EXP2:
+        case EXP2:
             fogfunc = FFP_FUNC_PIXELFOG_EXP2;
             break;
-        case FogMode::NONE:
+        case NONE:
             return true;
         }
         psMain->getStage(std::to_underlying(FFPFragmentShaderStage::FOG))
@@ -185,18 +186,19 @@ auto FFPFog::addFunctionInvocations(ProgramSet* programSet) -> bool
     // Per vertex fog.
     else
     {
+        using enum FogMode;
         switch (mFogMode)
         {
-        case FogMode::LINEAR:
+        case LINEAR:
             fogfunc = FFP_FUNC_VERTEXFOG_LINEAR;
             break;
-        case FogMode::EXP:
+        case EXP:
             fogfunc = FFP_FUNC_VERTEXFOG_EXP;
             break;
-        case FogMode::EXP2:
+        case EXP2:
             fogfunc = FFP_FUNC_VERTEXFOG_EXP2;
             break;
-        case FogMode::NONE:
+        case NONE:
             return true;
         }
 

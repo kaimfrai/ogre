@@ -49,74 +49,75 @@ namespace Ogre::RTShader {
 
 static auto typeFromContent(Parameter::Content content) -> GpuConstantType
 {
+    using enum Parameter::Content;
     switch (content)
     {
-    case Parameter::Content::BLEND_INDICES:
+    case BLEND_INDICES:
         return GpuConstantType::UINT4;
-    case Parameter::Content::COLOR_DIFFUSE:
-    case Parameter::Content::COLOR_SPECULAR:
-    case Parameter::Content::POSITION_PROJECTIVE_SPACE:
-    case Parameter::Content::POSITION_OBJECT_SPACE:
-    case Parameter::Content::BLEND_WEIGHTS:
-    case Parameter::Content::POSITION_LIGHT_SPACE0:
-    case Parameter::Content::POSITION_LIGHT_SPACE1:
-    case Parameter::Content::POSITION_LIGHT_SPACE2:
-    case Parameter::Content::POSITION_LIGHT_SPACE3:
-    case Parameter::Content::POSITION_LIGHT_SPACE4:
-    case Parameter::Content::POSITION_LIGHT_SPACE5:
-    case Parameter::Content::POSITION_LIGHT_SPACE6:
-    case Parameter::Content::POSITION_LIGHT_SPACE7:
+    case COLOR_DIFFUSE:
+    case COLOR_SPECULAR:
+    case POSITION_PROJECTIVE_SPACE:
+    case POSITION_OBJECT_SPACE:
+    case BLEND_WEIGHTS:
+    case POSITION_LIGHT_SPACE0:
+    case POSITION_LIGHT_SPACE1:
+    case POSITION_LIGHT_SPACE2:
+    case POSITION_LIGHT_SPACE3:
+    case POSITION_LIGHT_SPACE4:
+    case POSITION_LIGHT_SPACE5:
+    case POSITION_LIGHT_SPACE6:
+    case POSITION_LIGHT_SPACE7:
         return GpuConstantType::FLOAT4;
-    case Parameter::Content::NORMAL_TANGENT_SPACE:
-    case Parameter::Content::NORMAL_OBJECT_SPACE:
-    case Parameter::Content::NORMAL_WORLD_SPACE:
-    case Parameter::Content::NORMAL_VIEW_SPACE:
-    case Parameter::Content::TANGENT_OBJECT_SPACE:
-    case Parameter::Content::POSTOCAMERA_TANGENT_SPACE:
-    case Parameter::Content::POSTOCAMERA_OBJECT_SPACE:
-    case Parameter::Content::POSTOCAMERA_VIEW_SPACE:
-    case Parameter::Content::POSITION_VIEW_SPACE:
-    case Parameter::Content::POSITION_WORLD_SPACE:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE0:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE1:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE2:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE3:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE4:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE5:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE6:
-    case Parameter::Content::LIGHTDIRECTION_OBJECT_SPACE7:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE0:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE1:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE2:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE3:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE4:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE5:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE6:
-    case Parameter::Content::POSTOLIGHT_OBJECT_SPACE7:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE0:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE1:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE2:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE3:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE4:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE5:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE6:
-    case Parameter::Content::LIGHTDIRECTION_TANGENT_SPACE7:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE0:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE1:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE2:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE3:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE4:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE5:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE6:
-    case Parameter::Content::POSTOLIGHT_TANGENT_SPACE7:
-    case Parameter::Content::LIGHTDIRECTION_VIEW_SPACE0:
+    case NORMAL_TANGENT_SPACE:
+    case NORMAL_OBJECT_SPACE:
+    case NORMAL_WORLD_SPACE:
+    case NORMAL_VIEW_SPACE:
+    case TANGENT_OBJECT_SPACE:
+    case POSTOCAMERA_TANGENT_SPACE:
+    case POSTOCAMERA_OBJECT_SPACE:
+    case POSTOCAMERA_VIEW_SPACE:
+    case POSITION_VIEW_SPACE:
+    case POSITION_WORLD_SPACE:
+    case LIGHTDIRECTION_OBJECT_SPACE0:
+    case LIGHTDIRECTION_OBJECT_SPACE1:
+    case LIGHTDIRECTION_OBJECT_SPACE2:
+    case LIGHTDIRECTION_OBJECT_SPACE3:
+    case LIGHTDIRECTION_OBJECT_SPACE4:
+    case LIGHTDIRECTION_OBJECT_SPACE5:
+    case LIGHTDIRECTION_OBJECT_SPACE6:
+    case LIGHTDIRECTION_OBJECT_SPACE7:
+    case POSTOLIGHT_OBJECT_SPACE0:
+    case POSTOLIGHT_OBJECT_SPACE1:
+    case POSTOLIGHT_OBJECT_SPACE2:
+    case POSTOLIGHT_OBJECT_SPACE3:
+    case POSTOLIGHT_OBJECT_SPACE4:
+    case POSTOLIGHT_OBJECT_SPACE5:
+    case POSTOLIGHT_OBJECT_SPACE6:
+    case POSTOLIGHT_OBJECT_SPACE7:
+    case LIGHTDIRECTION_TANGENT_SPACE0:
+    case LIGHTDIRECTION_TANGENT_SPACE1:
+    case LIGHTDIRECTION_TANGENT_SPACE2:
+    case LIGHTDIRECTION_TANGENT_SPACE3:
+    case LIGHTDIRECTION_TANGENT_SPACE4:
+    case LIGHTDIRECTION_TANGENT_SPACE5:
+    case LIGHTDIRECTION_TANGENT_SPACE6:
+    case LIGHTDIRECTION_TANGENT_SPACE7:
+    case POSTOLIGHT_TANGENT_SPACE0:
+    case POSTOLIGHT_TANGENT_SPACE1:
+    case POSTOLIGHT_TANGENT_SPACE2:
+    case POSTOLIGHT_TANGENT_SPACE3:
+    case POSTOLIGHT_TANGENT_SPACE4:
+    case POSTOLIGHT_TANGENT_SPACE5:
+    case POSTOLIGHT_TANGENT_SPACE6:
+    case POSTOLIGHT_TANGENT_SPACE7:
+    case LIGHTDIRECTION_VIEW_SPACE0:
         return GpuConstantType::FLOAT3;
-    case Parameter::Content::POINTSPRITE_COORDINATE:
+    case POINTSPRITE_COORDINATE:
         return GpuConstantType::FLOAT2;
-    case Parameter::Content::POINTSPRITE_SIZE:
-    case Parameter::Content::DEPTH_VIEW_SPACE:
+    case POINTSPRITE_SIZE:
+    case DEPTH_VIEW_SPACE:
         return GpuConstantType::FLOAT1;
-    case Parameter::Content::FRONT_FACING:
+    case FRONT_FACING:
         return GpuConstantType::FLOAT1;
     default:
         OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "cannot derive type from content");
@@ -126,30 +127,31 @@ static auto typeFromContent(Parameter::Content content) -> GpuConstantType
 
 static auto semanticFromContent(Parameter::Content content, bool isVSOut = false) -> Parameter::Semantic
 {
+    using enum Parameter::Content;
     switch (content)
     {
-    case Parameter::Content::COLOR_DIFFUSE:
-    case Parameter::Content::COLOR_SPECULAR:
+    case COLOR_DIFFUSE:
+    case COLOR_SPECULAR:
         return Parameter::Semantic::COLOR;
-    case Parameter::Content::POSITION_PROJECTIVE_SPACE:
+    case POSITION_PROJECTIVE_SPACE:
         return Parameter::Semantic::POSITION;
-    case Parameter::Content::BLEND_INDICES:
+    case BLEND_INDICES:
         return Parameter::Semantic::BLEND_INDICES;
-    case Parameter::Content::BLEND_WEIGHTS:
+    case BLEND_WEIGHTS:
         return Parameter::Semantic::BLEND_WEIGHTS;
-    case Parameter::Content::POINTSPRITE_COORDINATE:
+    case POINTSPRITE_COORDINATE:
         return Parameter::Semantic::TEXTURE_COORDINATES;
-    case Parameter::Content::BINORMAL_OBJECT_SPACE:
+    case BINORMAL_OBJECT_SPACE:
         return Parameter::Semantic::BINORMAL;
-    case Parameter::Content::FRONT_FACING:
+    case FRONT_FACING:
         return Parameter::Semantic::FRONT_FACING;
-    case Parameter::Content::TANGENT_OBJECT_SPACE:
+    case TANGENT_OBJECT_SPACE:
         if(!isVSOut) return Parameter::Semantic::TANGENT;
         [[fallthrough]];
-    case Parameter::Content::POSITION_OBJECT_SPACE:
+    case POSITION_OBJECT_SPACE:
         if(!isVSOut) return Parameter::Semantic::POSITION;
         [[fallthrough]];
-    case Parameter::Content::NORMAL_OBJECT_SPACE:
+    case NORMAL_OBJECT_SPACE:
         if(!isVSOut) return Parameter::Semantic::NORMAL;
         [[fallthrough]];
     // the remaining types are VS output types only (or indeed texcoord)
@@ -224,36 +226,37 @@ Function::~Function()
 static auto getParameterName(const char* prefix, Parameter::Semantic semantic, int index) -> String
 {
     const char* name = "";
+    using enum Parameter::Semantic;
     switch (semantic)
     {
-    case Parameter::Semantic::POSITION:
+    case POSITION:
         name = "Pos";
         break;
-    case Parameter::Semantic::BLEND_WEIGHTS:
+    case BLEND_WEIGHTS:
         name = "BlendWeights";
         break;
-    case Parameter::Semantic::BLEND_INDICES:
+    case BLEND_INDICES:
         name = "BlendIndices";
         break;
-    case Parameter::Semantic::NORMAL:
+    case NORMAL:
         name = "Normal";
         break;
-    case Parameter::Semantic::COLOR:
+    case COLOR:
         name = "Color";
         break;
-    case Parameter::Semantic::TEXTURE_COORDINATES:
+    case TEXTURE_COORDINATES:
         name = "Texcoord";
         break;
-    case Parameter::Semantic::BINORMAL:
+    case BINORMAL:
         name = "BiNormal";
         break;
-    case Parameter::Semantic::TANGENT:
+    case TANGENT:
         name = "Tangent";
         break;
-    case Parameter::Semantic::FRONT_FACING:
+    case FRONT_FACING:
         name = "FrontFacing";
         break;
-    case Parameter::Semantic::UNKNOWN:
+    case UNKNOWN:
         name = "Param";
         break;
     };
@@ -376,11 +379,12 @@ auto Function::resolveOutputParameter(Parameter::Semantic semantic,
     
 
     // No parameter found -> create new one.
+    using enum Parameter::Semantic;
     switch (semantic)
     {
-    case Parameter::Semantic::TEXTURE_COORDINATES:
-    case Parameter::Semantic::COLOR:
-    case Parameter::Semantic::POSITION:
+    case TEXTURE_COORDINATES:
+    case COLOR:
+    case POSITION:
         param = std::make_shared<Parameter>(type, getParameterName("o", semantic, index), semantic, index,
                                             content);
         break;

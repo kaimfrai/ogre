@@ -311,12 +311,13 @@ namespace Ogre
         if(input < 0) input += 1;
 
         // Calculate output in -1..1 range
+        using enum WaveformType;
         switch (mWaveType)
         {
-        case WaveformType::SINE:
+        case SINE:
             output = Math::Sin(Radian(input * Math::TWO_PI));
             break;
-        case WaveformType::TRIANGLE:
+        case TRIANGLE:
             if (input < 0.25)
                 output = input * 4;
             else if (input >= 0.25 && input < 0.75)
@@ -325,19 +326,19 @@ namespace Ogre
                 output = ((input - 0.75f) * 4.0f) - 1.0f;
 
             break;
-        case WaveformType::SQUARE:
+        case SQUARE:
             if (input <= 0.5f)
                 output = 1.0f;
             else
                 output = -1.0f;
             break;
-        case WaveformType::SAWTOOTH:
+        case SAWTOOTH:
             output = (input * 2.0f) - 1.0f;
             break;
-        case WaveformType::INVERSE_SAWTOOTH:
+        case INVERSE_SAWTOOTH:
             output = -((input * 2.0f) - 1.0f);
             break;
-        case WaveformType::PWM:
+        case PWM:
             if( input <= mDutyCycle )
                 output = 1.0f;
             else

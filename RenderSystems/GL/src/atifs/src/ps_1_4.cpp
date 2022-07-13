@@ -1295,21 +1295,22 @@ auto PS_1_4::BuildMachineInst() -> bool
     // determine which MachineInstID is required based on the op instruction
     using enum MachineInstID;
     using enum PhaseType;
+    using enum SymbolID;
     mOpType = mi_NOP;
 
     switch(mOpInst) {
         // ALU operations
-        case SymbolID::ADD:
-        case SymbolID::SUB:
-        case SymbolID::MUL:
-        case SymbolID::MAD:
-        case SymbolID::LRP:
-        case SymbolID::MOV:
-        case SymbolID::CMP:
-        case SymbolID::CND:
-        case SymbolID::DP2ADD:
-        case SymbolID::DP3:
-        case SymbolID::DP4:
+        case ADD:
+        case SUB:
+        case MUL:
+        case MAD:
+        case LRP:
+        case MOV:
+        case CMP:
+        case CND:
+        case DP2ADD:
+        case DP3:
+        case DP4:
             mOpType = (MachineInstID)(std::to_underlying(mi_COLOROP1) + mArgCnt - 1);
 
             // if context is ps.1.x and Macro not on or a phase marker was found then put all ALU ops in phase 2 ALU container
@@ -1326,57 +1327,57 @@ auto PS_1_4::BuildMachineInst() -> bool
             }
             break;
 
-        case SymbolID::TEXCRD:
+        case TEXCRD:
             mOpType = mi_PASSTEXCOORD;
             if (mPhaseMarkerFound) mInstructionPhase = ptPHASE2TEX;
             else mInstructionPhase = ptPHASE1TEX;
             break;
 
-        case SymbolID::TEXLD:
+        case TEXLD:
             mOpType = mi_SAMPLEMAP;
             if (mPhaseMarkerFound) mInstructionPhase = ptPHASE2TEX;
             else mInstructionPhase = ptPHASE1TEX;
             break;
 
-        case SymbolID::TEX: // PS_1_1 emulation
+        case TEX: // PS_1_1 emulation
             mOpType = mi_TEX;
             mInstructionPhase = ptPHASE1TEX;
             break;
 
-        case SymbolID::TEXCOORD: // PS_1_1 emulation
+        case TEXCOORD: // PS_1_1 emulation
             mOpType = mi_TEXCOORD;
             mInstructionPhase = ptPHASE1TEX;
             break;
 
-        case SymbolID::TEXREG2AR:
+        case TEXREG2AR:
             passed = expandMacro(texreg2ar_MacroMods);
             break;
 
-        case SymbolID::TEXREG2GB:
+        case TEXREG2GB:
             passed = expandMacro(texreg2gb_MacroMods);
             break;
 
-        case SymbolID::TEXDP3:
+        case TEXDP3:
             passed = expandMacro(texdp3_MacroMods);
             break;
 
-        case SymbolID::TEXDP3TEX:
+        case TEXDP3TEX:
             passed = expandMacro(texdp3tex_MacroMods);
             break;
 
-        case SymbolID::TEXM3X2PAD:
+        case TEXM3X2PAD:
             passed = expandMacro(texm3x2pad_MacroMods);
             break;
 
-        case SymbolID::TEXM3X2TEX:
+        case TEXM3X2TEX:
             passed = expandMacro(texm3x2tex_MacroMods);
             break;
 
-        case SymbolID::TEXM3X3PAD:
+        case TEXM3X3PAD:
             // only 2 texm3x3pad instructions allowed
             // use count to modify macro to select which mask to use
             if(mTexm3x3padCount<2) {
-                texm3x3pad[4].mID = static_cast<SymbolID>(std::to_underlying(SymbolID::R) + mTexm3x3padCount);
+                texm3x3pad[4].mID = static_cast<SymbolID>(std::to_underlying(R) + mTexm3x3padCount);
                 mTexm3x3padCount++;
                 passed = expandMacro(texm3x3pad_MacroMods);
 
@@ -1385,16 +1386,16 @@ auto PS_1_4::BuildMachineInst() -> bool
 
             break;
 
-        case SymbolID::TEXM3X3TEX:
+        case TEXM3X3TEX:
             passed = expandMacro(texm3x3tex_MacroMods);
             break;
 
-        case SymbolID::DEF:
+        case DEF:
             mOpType = mi_SETCONSTANTS;
             mInstructionPhase = ptPHASE1TEX;
             break;
 
-        case SymbolID::PHASE: // PS_1_4 only
+        case PHASE: // PS_1_4 only
             mPhaseMarkerFound = true;
             break;
 
@@ -1709,60 +1710,61 @@ auto PS_1_4::Pass2scan(const TokenInst * Tokens, const size_t size) -> bool
         mCurrentLine = Tokens[i].mLine;
         mCharPos = Tokens[i].mPos;
 
+        using enum SymbolID;
         switch(ActiveNTTRuleID) {
 
-            case SymbolID::CONSTANT:
-            case SymbolID::COLOR:
-            case SymbolID::REG_PS1_4:
-            case SymbolID::TEX_PS1_4:
-            case SymbolID::REG_PS1_1_3:
-            case SymbolID::TEX_PS1_1_3:
+            case CONSTANT:
+            case COLOR:
+            case REG_PS1_4:
+            case TEX_PS1_4:
+            case REG_PS1_1_3:
+            case TEX_PS1_1_3:
                 // registars can be used for read and write so they can be used for dst and arg
                 passed = setOpParram(cursymboldef);
                 break;
 
 
-            case SymbolID::DEFCONST:
-            case SymbolID::UNARYOP:
-            case SymbolID::BINARYOP:
-            case SymbolID::TERNARYOP:
-            case SymbolID::TEXOP_PS1_1_3:
-            case SymbolID::TEXOP_PS1_4:
-            case SymbolID::PHASEMARKER:
-            case SymbolID::TEXCISCOP_PS1_1_3:
+            case DEFCONST:
+            case UNARYOP:
+            case BINARYOP:
+            case TERNARYOP:
+            case TEXOP_PS1_1_3:
+            case TEXOP_PS1_4:
+            case PHASEMARKER:
+            case TEXCISCOP_PS1_1_3:
                 // if the last instruction has not been passed on then do it now
                 // make sure the pipe is clear for a new instruction
                 BuildMachineInst();
-                if(mOpInst == SymbolID::INVALID) {
+                if(mOpInst == INVALID) {
                     mOpInst = cursymboldef->mID;
                 }
                 else passed = false;
                 break;
 
-            case SymbolID::DSTMASK:
-            case SymbolID::SRCREP:
-            case SymbolID::TEXSWIZZLE:
+            case DSTMASK:
+            case SRCREP:
+            case TEXSWIZZLE:
                 // could be a dst mask or a arg replicator
                 // if dst mask and alpha included then make up a alpha instruction: maybe best to wait until instruction args completed
                 mOpParrams[mArgCnt].MaskRep = cursymboldef->mPass2Data;
                 break;
 
-            case SymbolID::DSTMOD:
-            case SymbolID::DSTSAT:
-            case SymbolID::PRESRCMOD:
-            case SymbolID::POSTSRCMOD:
+            case DSTMOD:
+            case DSTSAT:
+            case PRESRCMOD:
+            case POSTSRCMOD:
                 mOpParrams[mArgCnt].Mod |= cursymboldef->mPass2Data;
                 break;
 
 
-            case SymbolID::NUMVAL:
+            case NUMVAL:
                 passed = setOpParram(cursymboldef);
                 // keep track of how many values are used
                 // update Constants array position
                 mConstantsPos++;
                 break;
 
-            case SymbolID::SEPERATOR:
+            case SEPERATOR:
                 mArgCnt++;
                 break;
             default:

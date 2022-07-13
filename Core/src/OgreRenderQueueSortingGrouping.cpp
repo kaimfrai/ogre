@@ -223,15 +223,16 @@ namespace {
         {
             // Insert into solid list
             QueuedRenderableCollection* collection = nullptr;
+            using enum IlluminationStage;
             switch(p->stage)
             {
-            case IlluminationStage::AMBIENT:
+            case AMBIENT:
                 collection = &mSolidsBasic;
                 break;
-            case IlluminationStage::PER_LIGHT:
+            case PER_LIGHT:
                 collection = &mSolidsDiffuseSpecular;
                 break;
-            case IlluminationStage::DECAL:
+            case DECAL:
                 collection = &mSolidsDecal;
                 break;
             default:
@@ -426,15 +427,16 @@ namespace {
     void QueuedRenderableCollection::acceptVisitor(
         QueuedRenderableVisitor* visitor, OrganisationMode om) const
     {
+        using enum OrganisationMode;
         if ((om & mOrganisationMode) == OrganisationMode{})
         {
             // try to fall back
-            if (!!(OrganisationMode::PASS_GROUP & mOrganisationMode))
-                om = OrganisationMode::PASS_GROUP;
-            else if (!!(OrganisationMode::SORT_ASCENDING & mOrganisationMode))
-                om = OrganisationMode::SORT_ASCENDING;
-            else if (!!(OrganisationMode::SORT_DESCENDING & mOrganisationMode))
-                om = OrganisationMode::SORT_DESCENDING;
+            if (!!(PASS_GROUP & mOrganisationMode))
+                om = PASS_GROUP;
+            else if (!!(SORT_ASCENDING & mOrganisationMode))
+                om = SORT_ASCENDING;
+            else if (!!(SORT_DESCENDING & mOrganisationMode))
+                om = SORT_DESCENDING;
             else
                 OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, 
                     "Organisation mode requested in acceptVistor was not notified "
@@ -444,13 +446,13 @@ namespace {
 
         switch(om)
         {
-        case OrganisationMode::PASS_GROUP:
+        case PASS_GROUP:
             acceptVisitorGrouped(visitor);
             break;
-        case OrganisationMode::SORT_DESCENDING:
+        case SORT_DESCENDING:
             acceptVisitorDescending(visitor);
             break;
-        case OrganisationMode::SORT_ASCENDING:
+        case SORT_ASCENDING:
             acceptVisitorAscending(visitor);
             break;
         }

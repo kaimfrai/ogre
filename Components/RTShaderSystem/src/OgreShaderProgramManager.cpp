@@ -134,11 +134,12 @@ void ProgramManager::flushGpuProgramsCache()
 
 auto ProgramManager::getShaderCount(GpuProgramType type) const -> size_t
 {
+    using enum GpuProgramType;
     switch(type)
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         return mVertexShaderMap.size();
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         return mFragmentShaderMap.size();
     default:
         return 0;

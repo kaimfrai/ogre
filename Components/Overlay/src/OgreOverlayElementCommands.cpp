@@ -101,13 +101,14 @@ namespace Ogre::OverlayElementCommands {
         {
             GuiHorizontalAlignment gha = 
                 static_cast<const OverlayElement*>(target)->getHorizontalAlignment();
+            using enum GuiHorizontalAlignment;
             switch(gha)
             {
-            case GuiHorizontalAlignment::LEFT:
+            case LEFT:
                 return "left";
-            case GuiHorizontalAlignment::RIGHT:
+            case RIGHT:
                 return "right";
-            case GuiHorizontalAlignment::CENTER:
+            case CENTER:
                 return "center";
             }
             // To keep compiler happy
@@ -133,15 +134,16 @@ namespace Ogre::OverlayElementCommands {
         //-----------------------------------------------------------------------
         auto CmdVerticalAlign::doGet(const void* target) const -> String
         {
+            using enum GuiVerticalAlignment;
             GuiVerticalAlignment gva = 
                 static_cast<const OverlayElement*>(target)->getVerticalAlignment();
             switch(gva)
             {
-            case GuiVerticalAlignment::TOP:
+            case TOP:
                 return "top";
-            case GuiVerticalAlignment::BOTTOM:
+            case BOTTOM:
                 return "bottom";
-            case GuiVerticalAlignment::CENTER:
+            case CENTER:
                 return "center";
             }
             // To keep compiler happy

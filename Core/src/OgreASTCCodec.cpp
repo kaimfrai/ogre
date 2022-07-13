@@ -57,35 +57,36 @@ namespace Ogre {
 
     auto ASTCCodec::getBitrateForPixelFormat(PixelFormat fmt) -> float
     {
+        using enum PixelFormat;
         switch (fmt)
         {
-        case PixelFormat::ASTC_RGBA_4X4_LDR:
+        case ASTC_RGBA_4X4_LDR:
             return 8.00;
-        case PixelFormat::ASTC_RGBA_5X4_LDR:
+        case ASTC_RGBA_5X4_LDR:
             return 6.40;
-        case PixelFormat::ASTC_RGBA_5X5_LDR:
+        case ASTC_RGBA_5X5_LDR:
             return 5.12;
-        case PixelFormat::ASTC_RGBA_6X5_LDR:
+        case ASTC_RGBA_6X5_LDR:
             return 4.27;
-        case PixelFormat::ASTC_RGBA_6X6_LDR:
+        case ASTC_RGBA_6X6_LDR:
             return 3.56;
-        case PixelFormat::ASTC_RGBA_8X5_LDR:
+        case ASTC_RGBA_8X5_LDR:
             return 3.20;
-        case PixelFormat::ASTC_RGBA_8X6_LDR:
+        case ASTC_RGBA_8X6_LDR:
             return 2.67;
-        case PixelFormat::ASTC_RGBA_8X8_LDR:
+        case ASTC_RGBA_8X8_LDR:
             return 2.00;
-        case PixelFormat::ASTC_RGBA_10X5_LDR:
+        case ASTC_RGBA_10X5_LDR:
             return 2.56;
-        case PixelFormat::ASTC_RGBA_10X6_LDR:
+        case ASTC_RGBA_10X6_LDR:
             return 2.13;
-        case PixelFormat::ASTC_RGBA_10X8_LDR:
+        case ASTC_RGBA_10X8_LDR:
             return 1.60;
-        case PixelFormat::ASTC_RGBA_10X10_LDR:
+        case ASTC_RGBA_10X10_LDR:
             return 1.28;
-        case PixelFormat::ASTC_RGBA_12X10_LDR:
+        case ASTC_RGBA_12X10_LDR:
             return 1.07;
-        case PixelFormat::ASTC_RGBA_12X12_LDR:
+        case ASTC_RGBA_12X12_LDR:
             return 0.89;
 
         default:

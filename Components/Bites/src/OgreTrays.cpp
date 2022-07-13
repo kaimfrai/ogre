@@ -1340,13 +1340,13 @@ void TrayManager::adjustTrays()
 
             e->setVerticalAlignment(Ogre::GuiVerticalAlignment::TOP);
             e->setTop(trayHeight);
-
+            using enum Ogre::GuiHorizontalAlignment;
             switch (e->getHorizontalAlignment())
             {
-            case Ogre::GuiHorizontalAlignment::LEFT:
+            case LEFT:
                 e->setLeft(mWidgetPadding);
                 break;
-            case Ogre::GuiHorizontalAlignment::RIGHT:
+            case RIGHT:
                 e->setLeft(-(e->getWidth() + mWidgetPadding));
                 break;
             default:

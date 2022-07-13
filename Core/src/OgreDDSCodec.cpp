@@ -244,18 +244,19 @@ namespace {
             notImplementedString += "non power two textures";
         }
 
+        using enum PixelFormat;
         switch(imgData->format)
         {
-        case PixelFormat::A8R8G8B8:
-        case PixelFormat::X8R8G8B8:
-        case PixelFormat::R8G8B8:
-        case PixelFormat::A8B8G8R8:
-        case PixelFormat::X8B8G8R8:
-        case PixelFormat::B8G8R8:
-        case PixelFormat::FLOAT32_R:
-        case PixelFormat::FLOAT16_R:
-        case PixelFormat::FLOAT16_RGBA:
-        case PixelFormat::FLOAT32_RGBA:
+        case A8R8G8B8:
+        case X8R8G8B8:
+        case R8G8B8:
+        case A8B8G8R8:
+        case X8B8G8R8:
+        case B8G8R8:
+        case FLOAT32_R:
+        case FLOAT16_R:
+        case FLOAT16_RGBA:
+        case FLOAT32_RGBA:
             break;
         default:
             // No crazy FOURCC or 565 et al. file formats at this stage
@@ -291,37 +292,38 @@ namespace {
 
             bool flipRgbMasks = false;
 
+            using enum PixelFormat;
             // Initalise the rgbBits flags
             switch(imgData->format)
             {
-            case PixelFormat::A8B8G8R8:
+            case A8B8G8R8:
                 flipRgbMasks = true;
                 [[fallthrough]];
-            case PixelFormat::A8R8G8B8:
+            case A8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 hasAlpha = true;
                 break;
-            case PixelFormat::X8B8G8R8:
+            case X8B8G8R8:
                 flipRgbMasks = true;
                 [[fallthrough]];
-            case PixelFormat::X8R8G8B8:
+            case X8R8G8B8:
                 ddsHeaderRgbBits = 8 * 4;
                 break;
-            case PixelFormat::B8G8R8:
-            case PixelFormat::R8G8B8:
+            case B8G8R8:
+            case R8G8B8:
                 ddsHeaderRgbBits = 8 * 3;
                 break;
-            case PixelFormat::FLOAT32_R:
+            case FLOAT32_R:
                 ddsHeaderRgbBits = 32;
                 break;
-            case PixelFormat::FLOAT16_R:
+            case FLOAT16_R:
                 ddsHeaderRgbBits = 16;
                 break;
-            case PixelFormat::FLOAT16_RGBA:
+            case FLOAT16_RGBA:
                 ddsHeaderRgbBits = 16 * 4;
                 hasAlpha = true;
                 break;
-            case PixelFormat::FLOAT32_RGBA:
+            case FLOAT32_RGBA:
                 ddsHeaderRgbBits = 32 * 4;
                 hasAlpha = true;
                 break;
@@ -850,9 +852,10 @@ namespace {
                 // We'll need to decompress
                 decompressDXT = true;
                 // Convert format
+                using enum PixelFormat;
                 switch (sourceFormat)
                 {
-                case PixelFormat::DXT1:
+                case DXT1:
                     // source can be either 565 or 5551 depending on whether alpha present
                     // unfortunately you have to read a block to figure out which
                     // Note that we upgrade to 32-bit pixel formats here, even 
@@ -869,19 +872,19 @@ namespace {
                     // colour_0 <= colour_1 means transparency in DXT1
                     if (block.colour_0 <= block.colour_1)
                     {
-                        imgData->format = PixelFormat::BYTE_RGBA;
+                        imgData->format = BYTE_RGBA;
                     }
                     else
                     {
-                        imgData->format = PixelFormat::BYTE_RGB;
+                        imgData->format = BYTE_RGB;
                     }
                     break;
-                case PixelFormat::DXT2:
-                case PixelFormat::DXT3:
-                case PixelFormat::DXT4:
-                case PixelFormat::DXT5:
+                case DXT2:
+                case DXT3:
+                case DXT4:
+                case DXT5:
                     // full alpha present, formats vary only in encoding 
-                    imgData->format = PixelFormat::BYTE_RGBA;
+                    imgData->format = BYTE_RGBA;
                     break;
                 default:
                     // all other cases need no special format handling

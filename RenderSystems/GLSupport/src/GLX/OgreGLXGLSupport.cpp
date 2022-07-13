@@ -506,12 +506,14 @@ namespace Ogre
         int majorVersion;
         int minorVersion = 0;
 
+        using enum ContextProfile;
+
         switch(mContextProfile) {
-        case ContextProfile::COMPATIBILITY:
+        case COMPATIBILITY:
             profile = GLX_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB;
             majorVersion = 1;
             break;
-        case ContextProfile::ES:
+        case ES:
             profile = GLX_CONTEXT_ES2_PROFILE_BIT_EXT;
             majorVersion = 2;
             break;

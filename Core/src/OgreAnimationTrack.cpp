@@ -388,9 +388,10 @@ namespace Ogre {
             Animation::RotationInterpolationMode rim =
                 mParent->getRotationInterpolationMode();
             Vector3 base;
+            using enum  Animation::InterpolationMode;
             switch(im)
             {
-            case Animation::InterpolationMode::LINEAR:
+            case LINEAR:
                 // Interpolate linearly
                 // Rotation
                 // Interpolate to nearest rotation if mUseShortestRotationPath set
@@ -414,7 +415,7 @@ namespace Ogre {
                 kret->setScale( base + ((k2->getScale() - base) * t) );
                 break;
 
-            case Animation::InterpolationMode::SPLINE:
+            case SPLINE:
                 // Spline interpolation
 
                 // Build splines if required
@@ -952,12 +953,13 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto VertexAnimationTrack::createKeyFrameImpl(Real time) -> KeyFrame*
     {
+        using enum VertexAnimationType;
         switch(mAnimationType)
         {
         default:
-        case VertexAnimationType::MORPH:
+        case MORPH:
             return new VertexMorphKeyFrame(this, time);
-        case VertexAnimationType::POSE:
+        case POSE:
             return new VertexPoseKeyFrame(this, time);
         };
 

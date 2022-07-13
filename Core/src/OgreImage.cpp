@@ -501,10 +501,11 @@ namespace Ogre {
         Image buf; // For auto-delete
         // Assume no intermediate buffer needed
         PixelBox temp = scaled;
+        using enum Filter;
         switch (filter) 
         {
         default:
-        case Filter::NEAREST:
+        case NEAREST:
             if(src.format != scaled.format)
             {
                 // Allocate temporary buffer of destination size in source format 
@@ -533,14 +534,15 @@ namespace Ogre {
             }
             break;
 
-        case Filter::BILINEAR:
+        case BILINEAR:
             switch (src.format) 
             {
-            case PixelFormat::L8: case PixelFormat::R8: case PixelFormat::A8: case PixelFormat::BYTE_LA:
-            case PixelFormat::R8G8B8: case PixelFormat::B8G8R8:
-            case PixelFormat::R8G8B8A8: case PixelFormat::B8G8R8A8:
-            case PixelFormat::A8B8G8R8: case PixelFormat::A8R8G8B8:
-            case PixelFormat::X8B8G8R8: case PixelFormat::X8R8G8B8:
+                using enum PixelFormat;
+            case L8: case R8: case A8: case BYTE_LA:
+            case R8G8B8: case B8G8R8:
+            case R8G8B8A8: case B8G8R8A8:
+            case A8B8G8R8: case A8R8G8B8:
+            case X8B8G8R8: case X8R8G8B8:
                 if(src.format != scaled.format)
                 {
                     // Allocate temp buffer of destination size in source format 
@@ -564,9 +566,9 @@ namespace Ogre {
                     PixelUtil::bulkPixelConversion(temp, scaled);
                 }
                 break;
-            case PixelFormat::FLOAT32_RGB:
-            case PixelFormat::FLOAT32_RGBA:
-                if (scaled.format == PixelFormat::FLOAT32_RGB || scaled.format == PixelFormat::FLOAT32_RGBA)
+            case FLOAT32_RGB:
+            case FLOAT32_RGBA:
+                if (scaled.format == FLOAT32_RGB || scaled.format == FLOAT32_RGBA)
                 {
                     // float32 to float32, avoid unpack/repack overhead
                     LinearResampler_Float32::scale(src, scaled);

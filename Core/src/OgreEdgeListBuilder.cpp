@@ -209,14 +209,15 @@ namespace Ogre {
         RenderOperation::OperationType opType = geometry.opType;
 
         size_t iterations;
-        
+
+        using enum RenderOperation::OperationType;
         switch (opType)
         {
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
             iterations = indexData->indexCount / 3;
             break;
-        case RenderOperation::OperationType::TRIANGLE_FAN:
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case TRIANGLE_FAN:
+        case TRIANGLE_STRIP:
             iterations = indexData->indexCount - 2;
             break;
         default:

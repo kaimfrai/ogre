@@ -308,13 +308,14 @@ void TargetRenderState::link(const RenderState& templateRS, Pass* srcPass, Pass*
     for (auto srcSubRenderState : templateRS.getSubRenderStates())
     {
         auto it = mSubRenderStateList.end();
+        using enum FFPShaderStage;
         switch (srcSubRenderState->getExecutionOrder())
         {
-        case FFPShaderStage::TRANSFORM:
-        case FFPShaderStage::COLOUR:
-        case FFPShaderStage::LIGHTING:
-        case FFPShaderStage::TEXTURING:
-        case FFPShaderStage::FOG:
+        case TRANSFORM:
+        case COLOUR:
+        case LIGHTING:
+        case TEXTURING:
+        case FOG:
             // Check if this FFP stage already exists.
             it = std::ranges::find_if(mSubRenderStateList,
                               [srcSubRenderState](const SubRenderState* e) {

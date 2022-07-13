@@ -87,11 +87,12 @@ class ResourceManager;
         */
         void setOutputOperationType(RenderOperation::OperationType operationType)
         {
+            using enum RenderOperation::OperationType;
             switch (operationType)
             {
-            case RenderOperation::OperationType::POINT_LIST:
-            case RenderOperation::OperationType::LINE_STRIP:
-            case RenderOperation::OperationType::TRIANGLE_STRIP:
+            case POINT_LIST:
+            case LINE_STRIP:
+            case TRIANGLE_STRIP:
                 break;
             default:
                 OGRE_EXCEPT(ExceptionCodes::RENDERINGAPI_ERROR,

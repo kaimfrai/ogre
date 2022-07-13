@@ -743,9 +743,10 @@ namespace Ogre {
             {
                 IlluminationPass* iPass;
                 Pass* p = *i;
+                using enum IlluminationStage;
                 switch(iStage)
                 {
-                case IlluminationStage::AMBIENT:
+                case AMBIENT:
                     // Keep looking for ambient only
                     if (p->isAmbientOnly())
                     {
@@ -828,10 +829,10 @@ namespace Ogre {
                             haveAmbient = true;
                         }
                         // This means we're done with ambients, progress to per-light
-                        iStage = IlluminationStage::PER_LIGHT;
+                        iStage = PER_LIGHT;
                     }
                     break;
-                case IlluminationStage::PER_LIGHT:
+                case PER_LIGHT:
                     if (p->getIteratePerLight())
                     {
                         // If this is per-light already, use it directly
@@ -891,10 +892,10 @@ namespace Ogre {
 
                         }
                         // This means the end of per-light passes
-                        iStage = IlluminationStage::DECAL;
+                        iStage = DECAL;
                     }
                     break;
-                case IlluminationStage::DECAL:
+                case DECAL:
                     // We just want a 'lighting off' pass to finish off
                     // and only if there are texture units
                     if (p->getNumTextureUnitStates() > 0)
@@ -941,7 +942,7 @@ namespace Ogre {
                     ++i; // always increment on decal, since nothing more to do with this pass
 
                     break;
-                case IlluminationStage::UNKNOWN:
+                case UNKNOWN:
                     break;
                 }
             }

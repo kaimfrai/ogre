@@ -636,15 +636,16 @@ namespace Ogre {
 
         OverlayElement::setMetricsMode(gmm);
 
+        using enum GuiMetricsMode;
         switch (mMetricsMode)
         {
-        case GuiMetricsMode::PIXELS:
+        case PIXELS:
             // set pixel variables based on viewport multipliers
             mPixelCharHeight = static_cast<unsigned short>(mCharHeight * vpHeight);
             mPixelSpaceWidth = static_cast<unsigned short>(mSpaceWidth * vpHeight);
             break;
 
-        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED:
+        case RELATIVE_ASPECT_ADJUSTED:
             // set pixel variables multiplied by the height constant
             mPixelCharHeight = static_cast<unsigned short>(mCharHeight * 10000.0);
             mPixelSpaceWidth = static_cast<unsigned short>(mSpaceWidth * 10000.0);
@@ -666,7 +667,8 @@ namespace Ogre {
         // Check size if pixel-based / relative-aspect-adjusted
         switch (mMetricsMode)
         {
-        case GuiMetricsMode::PIXELS:
+        using enum GuiMetricsMode;
+        case PIXELS:
             if(mGeomPositionsOutOfDate)
             {
                 // recalculate character size
@@ -676,7 +678,7 @@ namespace Ogre {
             }
             break;
 
-        case GuiMetricsMode::RELATIVE_ASPECT_ADJUSTED:
+        case RELATIVE_ASPECT_ADJUSTED:
             if(mGeomPositionsOutOfDate)
             {
                 // recalculate character size
@@ -788,14 +790,15 @@ namespace Ogre {
     //
     auto CmdAlignment::doGet( const void* target ) const -> String
     {
+        using enum TextAreaOverlayElement::Alignment;
         TextAreaOverlayElement::Alignment align = static_cast< const TextAreaOverlayElement* >( target )->getAlignment();
         switch (align)
         {
-            case TextAreaOverlayElement::Alignment::Left:
+            case Left:
                 return "left";
-            case TextAreaOverlayElement::Alignment::Center:
+            case Center:
                 return "center";
-            case TextAreaOverlayElement::Alignment::Right:
+            case Right:
                 return "right";
                 
         }

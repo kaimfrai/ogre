@@ -216,13 +216,14 @@ namespace Ogre {
     {
         static RadixSort<BillboardPool, ::std::unique_ptr<Billboard>, float> mRadixSorter;
 
+        using enum SortMode;
         switch (_getSortMode())
         {
-        case SortMode::Direction:
+        case Direction:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
                               SortByDirectionFunctor(-mCamDir));
             break;
-        case SortMode::Distance:
+        case Distance:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
                               SortByDistanceFunctor(mCamPos));
             break;
@@ -677,65 +678,66 @@ namespace Ogre {
     void BillboardSet::getParametricOffsets(
         Real& left, Real& right, Real& top, Real& bottom )
     {
+        using enum BillboardOrigin;
         switch( mOriginType )
         {
-        case BillboardOrigin::TOP_LEFT:
+        case TOP_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BillboardOrigin::TOP_CENTER:
+        case TOP_CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BillboardOrigin::TOP_RIGHT:
+        case TOP_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 0.0f;
             bottom = -1.0f;
             break;
 
-        case BillboardOrigin::CENTER_LEFT:
+        case CENTER_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BillboardOrigin::CENTER:
+        case CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BillboardOrigin::CENTER_RIGHT:
+        case CENTER_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 0.5f;
             bottom = -0.5f;
             break;
 
-        case BillboardOrigin::BOTTOM_LEFT:
+        case BOTTOM_LEFT:
             left = 0.0f;
             right = 1.0f;
             top = 1.0f;
             bottom = 0.0f;
             break;
 
-        case BillboardOrigin::BOTTOM_CENTER:
+        case BOTTOM_CENTER:
             left = -0.5f;
             right = 0.5f;
             top = 1.0f;
             bottom = 0.0f;
             break;
 
-        case BillboardOrigin::BOTTOM_RIGHT:
+        case BOTTOM_RIGHT:
             left = -1.0f;
             right = 0.0f;
             top = 1.0f;
@@ -797,9 +799,10 @@ namespace Ogre {
         }
 
 
+        using enum BillboardType;
         switch (mBillboardType)
         {
-        case BillboardType::POINT:
+        case POINT:
             if (mAccurateFacing)
             {
                 // Point billboards will have 'up' based on but not equal to cameras
@@ -817,7 +820,7 @@ namespace Ogre {
             }
             break;
 
-        case BillboardType::ORIENTED_COMMON:
+        case ORIENTED_COMMON:
             // Y-axis is common direction
             // X-axis is cross with camera direction
             *pY = mCommonDirection;
@@ -825,7 +828,7 @@ namespace Ogre {
             pX->normalise();
             break;
 
-        case BillboardType::ORIENTED_SELF:
+        case ORIENTED_SELF:
             // Y-axis is direction
             // X-axis is cross with camera direction
             // Scale direction first
@@ -834,14 +837,14 @@ namespace Ogre {
             pX->normalise();
             break;
 
-        case BillboardType::PERPENDICULAR_COMMON:
+        case PERPENDICULAR_COMMON:
             // X-axis is up-vector cross common direction
             // Y-axis is common direction cross X-axis
             *pX = mCommonUpVector.crossProduct(mCommonDirection);
             *pY = mCommonDirection.crossProduct(*pX);
             break;
 
-        case BillboardType::PERPENDICULAR_SELF:
+        case PERPENDICULAR_SELF:
             // X-axis is up-vector cross own direction
             // Y-axis is own direction cross X-axis
             *pX = mCommonUpVector.crossProduct(bb->mDirection);

@@ -62,13 +62,14 @@ namespace Ogre {
 //-----------------------------------------------------------------------------
     static auto getR2VBPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
+        using enum RenderOperation::OperationType;
         switch (operationType)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OperationType::LINE_LIST:
+        case LINE_LIST:
             return GL_LINES;
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
             return GL_TRIANGLES;
         default:
             OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "GL RenderToVertexBuffer"
@@ -81,14 +82,15 @@ namespace Ogre {
     {
         //We can only get points, lines or triangles since they are the only
         //legal R2VB output primitive types
+        using enum RenderOperation::OperationType;
         switch (operationType)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             return 1;
-        case RenderOperation::OperationType::LINE_LIST:
+        case LINE_LIST:
             return 2;
         default:
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
             return 3;
         }
     }
@@ -259,15 +261,16 @@ namespace Ogre {
 //-----------------------------------------------------------------------------
     auto GLRenderToVertexBuffer::getSemanticVaryingName(VertexElementSemantic semantic, unsigned short index) -> String
     {
+        using enum VertexElementSemantic;
         switch (semantic)
         {
-        case VertexElementSemantic::POSITION:
+        case POSITION:
             return "gl_Position";
-        case VertexElementSemantic::TEXTURE_COORDINATES:
+        case TEXTURE_COORDINATES:
             return ::std::format("gl_TexCoord[{}]", index);
-        case VertexElementSemantic::DIFFUSE:
+        case DIFFUSE:
             return "gl_FrontColor";
-        case VertexElementSemantic::SPECULAR:
+        case SPECULAR:
             return "gl_FrontSecondaryColor";
         //TODO : Implement more?
         default:
@@ -279,15 +282,16 @@ namespace Ogre {
 //-----------------------------------------------------------------------------
     auto GLRenderToVertexBuffer::getGLSemanticType(VertexElementSemantic semantic) -> GLint
     {
+        using enum VertexElementSemantic;
         switch (semantic)
         {
-        case VertexElementSemantic::POSITION:
+        case POSITION:
             return GL_POSITION;
-        case VertexElementSemantic::TEXTURE_COORDINATES:
+        case TEXTURE_COORDINATES:
             return GL_TEXTURE_COORD_NV;
-        case VertexElementSemantic::DIFFUSE:
+        case DIFFUSE:
             return GL_PRIMARY_COLOR;
-        case VertexElementSemantic::SPECULAR:
+        case SPECULAR:
             return GL_SECONDARY_COLOR_NV;
         //TODO : Implement more?
         default:

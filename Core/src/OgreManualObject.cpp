@@ -306,14 +306,15 @@ ManualObject::ManualObject(std::string_view name)
             RGBA* pRGBA = nullptr;
             switch(elem.getType())
             {
-            case VertexElementType::FLOAT1:
-            case VertexElementType::FLOAT2:
-            case VertexElementType::FLOAT3:
-            case VertexElementType::FLOAT4:
+            using enum VertexElementType;
+            case FLOAT1:
+            case FLOAT2:
+            case FLOAT3:
+            case FLOAT4:
                 OgreAssert(elem.getSemantic() != VertexElementSemantic::DIFFUSE, "must use VertexElementType::COLOUR");
                 elem.baseVertexPointerToElement(pBase, &pFloat);
                 break;
-            case VertexElementType::UBYTE4_NORM:
+            case UBYTE4_NORM:
                 OgreAssert(elem.getSemantic() == VertexElementSemantic::DIFFUSE, "must use VertexElementSemantic::DIFFUSE");
                 elem.baseVertexPointerToElement(pBase, &pRGBA);
                 break;
@@ -325,27 +326,28 @@ ManualObject::ManualObject(std::string_view name)
             unsigned short dims;
             switch(elem.getSemantic())
             {
-            case VertexElementSemantic::POSITION:
+            using enum VertexElementSemantic;
+            case POSITION:
                 *pFloat++ = mTempVertex.position.x;
                 *pFloat++ = mTempVertex.position.y;
                 *pFloat++ = mTempVertex.position.z;
                 break;
-            case VertexElementSemantic::NORMAL:
+            case NORMAL:
                 *pFloat++ = mTempVertex.normal.x;
                 *pFloat++ = mTempVertex.normal.y;
                 *pFloat++ = mTempVertex.normal.z;
                 break;
-            case VertexElementSemantic::TANGENT:
+            case TANGENT:
                 *pFloat++ = mTempVertex.tangent.x;
                 *pFloat++ = mTempVertex.tangent.y;
                 *pFloat++ = mTempVertex.tangent.z;
                 break;
-            case VertexElementSemantic::TEXTURE_COORDINATES:
+            case TEXTURE_COORDINATES:
                 dims = VertexElement::getTypeCount(elem.getType());
                 for (ushort t = 0; t < dims; ++t)
                     *pFloat++ = mTempVertex.texCoord[elem.getIndex()][t];
                 break;
-            case VertexElementSemantic::DIFFUSE:
+            case DIFFUSE:
                 *pRGBA++ = mTempVertex.colour.getAsABGR();
                 break;
             default:

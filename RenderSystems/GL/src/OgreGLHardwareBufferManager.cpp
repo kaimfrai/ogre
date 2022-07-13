@@ -116,28 +116,29 @@ namespace Ogre {
     //---------------------------------------------------------------------
     auto GLHardwareBufferManager::getGLType(VertexElementType type) -> GLenum
     {
+        using enum VertexElementType;
         switch(type)
         {
-            case VertexElementType::FLOAT1:
-            case VertexElementType::FLOAT2:
-            case VertexElementType::FLOAT3:
-            case VertexElementType::FLOAT4:
+            case FLOAT1:
+            case FLOAT2:
+            case FLOAT3:
+            case FLOAT4:
                 return GL_FLOAT;
-            case VertexElementType::SHORT1:
-            case VertexElementType::SHORT2:
-            case VertexElementType::SHORT3:
-            case VertexElementType::SHORT4:
-            case VertexElementType::SHORT2_NORM:
-            case VertexElementType::SHORT4_NORM:
+            case SHORT1:
+            case SHORT2:
+            case SHORT3:
+            case SHORT4:
+            case SHORT2_NORM:
+            case SHORT4_NORM:
                 return GL_SHORT;
-            case VertexElementType::UBYTE4:
-            case VertexElementType::UBYTE4_NORM:
+            case UBYTE4:
+            case UBYTE4_NORM:
                 return GL_UNSIGNED_BYTE;
-            case VertexElementType::BYTE4:
-            case VertexElementType::BYTE4_NORM:
+            case BYTE4:
+            case BYTE4_NORM:
                 return GL_BYTE;
-            case VertexElementType::USHORT2_NORM:
-            case VertexElementType::USHORT4_NORM:
+            case USHORT2_NORM:
+            case USHORT4_NORM:
                 return GL_UNSIGNED_SHORT;
             default:
                 return 0;

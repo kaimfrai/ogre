@@ -433,9 +433,10 @@ namespace Ogre {
         bool anyCalcs = false;
         for (auto & mEffect : tl.mEffects)
         {
+            using enum TextureUnitState::TextureEffectType;
             switch (mEffect.second.type)
             {
-            case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP:
+            case ENVIRONMENT_MAP:
             {
                 auto const subtype = static_cast<TextureUnitState::EnvMapType>(mEffect.second.subtype);
                 if (subtype == TextureUnitState::EnvMapType::CURVED)
@@ -460,13 +461,13 @@ namespace Ogre {
                 }
                 break;
             }
-            case TextureUnitState::TextureEffectType::UVSCROLL:
-            case TextureUnitState::TextureEffectType::USCROLL:
-            case TextureUnitState::TextureEffectType::VSCROLL:
-            case TextureUnitState::TextureEffectType::ROTATE:
-            case TextureUnitState::TextureEffectType::TRANSFORM:
+            case UVSCROLL:
+            case USCROLL:
+            case VSCROLL:
+            case ROTATE:
+            case TRANSFORM:
                 break;
-            case TextureUnitState::TextureEffectType::PROJECTIVE_TEXTURE:
+            case PROJECTIVE_TEXTURE:
                 _setTextureCoordCalculation(texUnit, TexCoordCalcMethod::PROJECTIVE_TEXTURE,
                     mEffect.second.frustum);
                 anyCalcs = true;
@@ -649,19 +650,20 @@ namespace Ogre {
             val *= mCurrentPassIterationCount;
         mCurrentPassIterationNum = 0;
 
+        using enum RenderOperation::OperationType;
         switch(op.operationType)
         {
-        case RenderOperation::OperationType::TRIANGLE_LIST:
+        case TRIANGLE_LIST:
             mFaceCount += (val / 3);
             break;
-        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
+        case TRIANGLE_LIST_ADJ:
             mFaceCount += (val / 6);
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
+        case TRIANGLE_STRIP_ADJ:
             mFaceCount += (val / 2 - 2);
             break;
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
-        case RenderOperation::OperationType::TRIANGLE_FAN:
+        case TRIANGLE_STRIP:
+        case TRIANGLE_FAN:
             mFaceCount += (val - 2);
             break;
         default:
@@ -804,28 +806,29 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::bindGpuProgram(GpuProgram* prg)
     {
+        using enum GpuProgramType;
         switch(prg->getType())
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             // mark clip planes dirty if changed (programmable can change space)
             if (!mVertexProgramBound && !mClipPlanes.empty())
                 mClipPlanesDirty = true;
 
             mVertexProgramBound = true;
             break;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             mGeometryProgramBound = true;
             break;
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             mFragmentProgramBound = true;
             break;
-        case GpuProgramType::HULL_PROGRAM:
+        case HULL_PROGRAM:
             mTessellationHullProgramBound = true;
             break;
-        case GpuProgramType::DOMAIN_PROGRAM:
+        case DOMAIN_PROGRAM:
             mTessellationDomainProgramBound = true;
             break;
-        case GpuProgramType::COMPUTE_PROGRAM:
+        case COMPUTE_PROGRAM:
             mComputeProgramBound = true;
             break;
         default:
@@ -835,27 +838,28 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void RenderSystem::unbindGpuProgram(GpuProgramType gptype)
     {
+        using enum GpuProgramType;
         switch(gptype)
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             // mark clip planes dirty if changed (programmable can change space)
             if (mVertexProgramBound && !mClipPlanes.empty())
                 mClipPlanesDirty = true;
             mVertexProgramBound = false;
             break;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             mGeometryProgramBound = false;
             break;
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             mFragmentProgramBound = false;
             break;
-        case GpuProgramType::HULL_PROGRAM:
+        case HULL_PROGRAM:
             mTessellationHullProgramBound = false;
             break;
-        case GpuProgramType::DOMAIN_PROGRAM:
+        case DOMAIN_PROGRAM:
             mTessellationDomainProgramBound = false;
             break;
-        case GpuProgramType::COMPUTE_PROGRAM:
+        case COMPUTE_PROGRAM:
             mComputeProgramBound = false;
             break;
         default:
@@ -865,19 +869,20 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto RenderSystem::isGpuProgramBound(GpuProgramType gptype) -> bool
     {
+        using enum GpuProgramType;
         switch(gptype)
         {
-        case GpuProgramType::VERTEX_PROGRAM:
+        case VERTEX_PROGRAM:
             return mVertexProgramBound;
-        case GpuProgramType::GEOMETRY_PROGRAM:
+        case GEOMETRY_PROGRAM:
             return mGeometryProgramBound;
-        case GpuProgramType::FRAGMENT_PROGRAM:
+        case FRAGMENT_PROGRAM:
             return mFragmentProgramBound;
-        case GpuProgramType::HULL_PROGRAM:
+        case HULL_PROGRAM:
             return mTessellationHullProgramBound;
-        case GpuProgramType::DOMAIN_PROGRAM:
+        case DOMAIN_PROGRAM:
             return mTessellationDomainProgramBound;
-        case GpuProgramType::COMPUTE_PROGRAM:
+        case COMPUTE_PROGRAM:
             return mComputeProgramBound;
         default:
             break;
@@ -1000,18 +1005,19 @@ namespace Ogre {
 
     auto RenderSystem::reverseCompareFunction(CompareFunction func) -> CompareFunction
     {
+        using enum CompareFunction;
         switch(func)
         {
         default:
             return func;
-        case CompareFunction::LESS:
-            return CompareFunction::GREATER;
-        case CompareFunction::LESS_EQUAL:
-            return CompareFunction::GREATER_EQUAL;
-        case CompareFunction::GREATER_EQUAL:
-            return CompareFunction::LESS_EQUAL;
-        case CompareFunction::GREATER:
-            return CompareFunction::LESS;
+        case LESS:
+            return GREATER;
+        case LESS_EQUAL:
+            return GREATER_EQUAL;
+        case GREATER_EQUAL:
+            return LESS_EQUAL;
+        case GREATER:
+            return LESS;
         }
     }
 

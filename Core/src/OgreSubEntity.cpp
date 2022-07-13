@@ -178,15 +178,16 @@ class Technique;
             Entity::VertexDataBindChoice c = 
                 mParentEntity->chooseVertexDataForBinding(
                     mSubMesh->getVertexAnimationType() != VertexAnimationType::NONE);
+            using enum Entity::VertexDataBindChoice;
             switch(c)
             {
-            case Entity::VertexDataBindChoice::ORIGINAL:
+            case ORIGINAL:
                 return mSubMesh->vertexData.get();
-            case Entity::VertexDataBindChoice::HARDWARE_MORPH:
+            case HARDWARE_MORPH:
                 return mHardwareVertexAnimVertexData.get();
-            case Entity::VertexDataBindChoice::SOFTWARE_MORPH:
+            case SOFTWARE_MORPH:
                 return mSoftwareVertexAnimVertexData.get();
-            case Entity::VertexDataBindChoice::SOFTWARE_SKELETAL:
+            case SOFTWARE_SKELETAL:
                 return mSkelAnimVertexData.get();
             };
             // keep compiler happy

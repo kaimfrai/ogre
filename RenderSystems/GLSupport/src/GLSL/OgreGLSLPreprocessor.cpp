@@ -675,19 +675,20 @@ namespace Ogre {
 
     auto CPreprocessor::GetValue (const Token &iToken, long &oValue, int iLine) -> bool
     {
+        using enum Token::Kind;
         Token r;
         const Token *vt = &iToken;
 
-        if ((vt->Type == Token::Kind::KEYWORD ||
-             vt->Type == Token::Kind::TEXT ||
-             vt->Type == Token::Kind::NUMBER) &&
+        if ((vt->Type == KEYWORD ||
+             vt->Type == TEXT ||
+             vt->Type == NUMBER) &&
             !vt->String)
         {
             Error (iLine, "Trying to evaluate an empty expression");
             return false;
         }
 
-        if (vt->Type == Token::Kind::TEXT)
+        if (vt->Type == TEXT)
         {
             CPreprocessor cpp (iToken, iLine);
             std::swap(cpp.MacroList, MacroList);
@@ -697,10 +698,10 @@ namespace Ogre {
 
             std::swap(cpp.MacroList, MacroList);
 
-            if (t.Type == Token::Kind::ERROR)
+            if (t.Type == ERROR)
                 return false;
 
-            if (t.Type != Token::Kind::EOS)
+            if (t.Type != EOS)
             {
                 Error (iLine, "Garbage after expression", &t);
                 return false;
@@ -712,11 +713,11 @@ namespace Ogre {
         Macro *m;
         switch (vt->Type)
         {
-        case Token::Kind::EOS:
-        case Token::Kind::ERROR:
+        case EOS:
+        case ERROR:
             return false;
 
-        case Token::Kind::KEYWORD:
+        case KEYWORD:
             // Try to expand the macro
             if ((m = IsDefined (*vt)) && !m->Expanding)
             {
@@ -731,8 +732,8 @@ namespace Ogre {
             oValue = 0;
             break;
 
-        case Token::Kind::TEXT:
-        case Token::Kind::NUMBER:
+        case TEXT:
+        case NUMBER:
             if (!vt->GetValue (oValue))
             {
                 Error (iLine, "Not a numeric expression", vt);
@@ -789,14 +790,15 @@ namespace Ogre {
         for(;;)
         {
             Token t = GetToken (iExpand);
+            using enum Token::Kind;
             switch (t.Type)
             {
-            case Token::Kind::EOS:
+            case EOS:
                 Error (Line, "Unfinished list of arguments");
                 [[fallthrough]];
-            case Token::Kind::ERROR:
-                return {Token::Kind::ERROR};
-            case Token::Kind::PUNCTUATION:
+            case ERROR:
+                return {ERROR};
+            case PUNCTUATION:
                 if( t.String [0] == '(' )
                 {
                     ++braceCount;
@@ -829,25 +831,25 @@ namespace Ogre {
                         --braceCount;
                 }
                 break;
-            case Token::Kind::LINECONT:
-            case Token::Kind::COMMENT:
-            case Token::Kind::LINECOMMENT:
-            case Token::Kind::NEWLINE:
+            case LINECONT:
+            case COMMENT:
+            case LINECOMMENT:
+            case NEWLINE:
                 // ignore these tokens
                 continue;
             default:
                 break;
             }
 
-            if (!iExpand && t.Type != Token::Kind::WHITESPACE)
+            if (!iExpand && t.Type != WHITESPACE)
             {
                 Error (Line, "Unexpected token", &oArg);
-                return {Token::Kind::ERROR};
+                return {ERROR};
             }
 
             oArg.Append (t);
 
-            if (t.Type != Token::Kind::WHITESPACE)
+            if (t.Type != WHITESPACE)
                 len = oArg.Length;
         }
     }
@@ -896,15 +898,16 @@ namespace Ogre {
 
             t = GetArgument (args [nargs++], iExpand, shouldAppendArg);
 
+            using enum Token::Kind;
             switch (t.Type)
             {
-            case Token::Kind::EOS:
+            case EOS:
                 Error (Line, "Unfinished list of arguments");
                 [[fallthrough]];
-            case Token::Kind::ERROR:
-                return {Token::Kind::ERROR};
+            case ERROR:
+                return {ERROR};
 
-            case Token::Kind::PUNCTUATION:
+            case PUNCTUATION:
                 if (t.String [0] == ')')
                 {
                     t = GetToken (iExpand);
@@ -942,19 +945,20 @@ namespace Ogre {
         while (t.Type == Token::Kind::WHITESPACE)
             t = cpp.GetToken (false);
 
+        using enum Token::Kind;
         switch (t.Type)
         {
-        case Token::Kind::NEWLINE:
-        case Token::Kind::EOS:
+        case NEWLINE:
+        case EOS:
             // Assign "" to token
-            t = Token (Token::Kind::TEXT, "", 0);
+            t = Token (TEXT, "", 0);
             break;
 
-        case Token::Kind::ERROR:
+        case ERROR:
             return false;
 
         default:
-            t.Type = Token::Kind::TEXT;
+            t.Type = TEXT;
             assert (t.String + t.Length == cpp.Source);
             t.Length = cpp.SourceEnd - t.String;
             break;
@@ -1164,42 +1168,43 @@ namespace Ogre {
 
         // Collect the remaining part of the directive until EOL
         Token t, last;
+        using enum Token::Kind;
         do
         {
             t = GetToken (false);
-            if (t.Type == Token::Kind::NEWLINE)
+            if (t.Type == NEWLINE)
             {
                 // No directive arguments
                 last = t;
                 t.Length = 0;
                 goto Done;
             }
-        } while (t.Type == Token::Kind::WHITESPACE ||
-                 t.Type == Token::Kind::LINECONT ||
-                 t.Type == Token::Kind::COMMENT ||
-                 t.Type == Token::Kind::LINECOMMENT);
+        } while (t.Type == WHITESPACE ||
+                 t.Type == LINECONT ||
+                 t.Type == COMMENT ||
+                 t.Type == LINECOMMENT);
 
         for (;;)
         {
             last = GetToken (false);
             switch (last.Type)
             {
-            case Token::Kind::EOS:
+            case EOS:
                 // Can happen and is not an error
                 goto Done;
 
-            case Token::Kind::LINECOMMENT:
-            case Token::Kind::COMMENT:
+            case LINECOMMENT:
+            case COMMENT:
                 // Skip comments in macros
                 continue;
 
-            case Token::Kind::ERROR:
+            case ERROR:
                 return last;
 
-            case Token::Kind::LINECONT:
+            case LINECONT:
                 continue;
 
-            case Token::Kind::NEWLINE:
+            case NEWLINE:
                 goto Done;
 
             default:
@@ -1207,7 +1212,7 @@ namespace Ogre {
             }
 
             t.Append (last);
-            t.Type = Token::Kind::TEXT;
+            t.Type = TEXT;
         }
     Done:
 
@@ -1244,19 +1249,19 @@ namespace Ogre {
         else
         {
             //Error (iLine, "Unknown preprocessor directive", &iToken);
-            //return Token (Token::Kind::ERROR);
+            //return Token (ERROR);
 
             // Unknown preprocessor directive, roll back and pass through
             Line = old_line;
             Source = iToken.String + iToken.Length;
-            iToken.Type = Token::Kind::TEXT;
+            iToken.Type = TEXT;
             return iToken;
         }
 
 #undef IS_DIRECTIVE
 
         if (!rc)
-            return {Token::Kind::ERROR};
+            return {ERROR};
         return last;
     }
 
@@ -1319,15 +1324,16 @@ namespace Ogre {
             Token t = GetToken (true);
 
         NextToken:
+            using enum Token::Kind;
             switch (t.Type)
             {
-            case Token::Kind::ERROR:
+            case ERROR:
                 return t;
 
-            case Token::Kind::EOS:
+            case EOS:
                 return output; // Force termination
 
-            case Token::Kind::COMMENT:
+            case COMMENT:
                 // C comments are replaced with single spaces.
                 if (output_enabled)
                 {
@@ -1336,11 +1342,11 @@ namespace Ogre {
                 }
                 break;
 
-            case Token::Kind::LINECOMMENT:
+            case LINECOMMENT:
                 // C++ comments are ignored
                 continue;
 
-            case Token::Kind::DIRECTIVE:
+            case DIRECTIVE:
                 // Handle preprocessor directives
                 t = HandleDirective (t, old_line);
 
@@ -1358,17 +1364,17 @@ namespace Ogre {
                     output.AppendNL (Line - old_line - t.CountNL ());
                 goto NextToken;
 
-            case Token::Kind::LINECONT:
+            case LINECONT:
                 // Backslash-Newline sequences are deleted, no matter where.
                 empty_lines++;
                 break;
 
-            case Token::Kind::PUNCTUATION:
+            case PUNCTUATION:
                 if (output_enabled && (!SupplimentaryExpand || t.String[0] != '#'))
                     output.Append (t);
                 break;
 
-            case Token::Kind::NEWLINE:
+            case NEWLINE:
                 if (empty_lines)
                 {
                     // Compensate for the backslash-newline combinations
@@ -1378,7 +1384,7 @@ namespace Ogre {
                     empty_lines = 0;
                 }
                 [[fallthrough]]; // to default
-            case Token::Kind::WHITESPACE:
+            case WHITESPACE:
                 // Fallthrough to default
             default:
                 // Passthrough all other tokens

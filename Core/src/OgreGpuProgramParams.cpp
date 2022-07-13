@@ -1027,159 +1027,160 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto GpuProgramParameters::deriveVariability(GpuProgramParameters::AutoConstantType act) -> GpuParamVariability
     {
+        using enum AutoConstantType;
         switch(act)
         {
-        case AutoConstantType::VIEW_MATRIX:
-        case AutoConstantType::INVERSE_VIEW_MATRIX:
-        case AutoConstantType::TRANSPOSE_VIEW_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_VIEW_MATRIX:
-        case AutoConstantType::PROJECTION_MATRIX:
-        case AutoConstantType::INVERSE_PROJECTION_MATRIX:
-        case AutoConstantType::TRANSPOSE_PROJECTION_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_PROJECTION_MATRIX:
-        case AutoConstantType::VIEWPROJ_MATRIX:
-        case AutoConstantType::INVERSE_VIEWPROJ_MATRIX:
-        case AutoConstantType::TRANSPOSE_VIEWPROJ_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
-        case AutoConstantType::RENDER_TARGET_FLIPPING:
-        case AutoConstantType::VERTEX_WINDING:
-        case AutoConstantType::AMBIENT_LIGHT_COLOUR:
-        case AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR:
-        case AutoConstantType::DERIVED_SCENE_COLOUR:
-        case AutoConstantType::FOG_COLOUR:
-        case AutoConstantType::FOG_PARAMS:
-        case AutoConstantType::SURFACE_AMBIENT_COLOUR:
-        case AutoConstantType::SURFACE_DIFFUSE_COLOUR:
-        case AutoConstantType::SURFACE_SPECULAR_COLOUR:
-        case AutoConstantType::SURFACE_EMISSIVE_COLOUR:
-        case AutoConstantType::SURFACE_SHININESS:
-        case AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE:
-        case AutoConstantType::CAMERA_POSITION:
-        case AutoConstantType::CAMERA_RELATIVE_POSITION:
-        case AutoConstantType::TIME:
-        case AutoConstantType::TIME_0_X:
-        case AutoConstantType::COSTIME_0_X:
-        case AutoConstantType::SINTIME_0_X:
-        case AutoConstantType::TANTIME_0_X:
-        case AutoConstantType::TIME_0_X_PACKED:
-        case AutoConstantType::TIME_0_1:
-        case AutoConstantType::COSTIME_0_1:
-        case AutoConstantType::SINTIME_0_1:
-        case AutoConstantType::TANTIME_0_1:
-        case AutoConstantType::TIME_0_1_PACKED:
-        case AutoConstantType::TIME_0_2PI:
-        case AutoConstantType::COSTIME_0_2PI:
-        case AutoConstantType::SINTIME_0_2PI:
-        case AutoConstantType::TANTIME_0_2PI:
-        case AutoConstantType::TIME_0_2PI_PACKED:
-        case AutoConstantType::FRAME_TIME:
-        case AutoConstantType::FPS:
-        case AutoConstantType::VIEWPORT_WIDTH:
-        case AutoConstantType::VIEWPORT_HEIGHT:
-        case AutoConstantType::INVERSE_VIEWPORT_WIDTH:
-        case AutoConstantType::INVERSE_VIEWPORT_HEIGHT:
-        case AutoConstantType::VIEWPORT_SIZE:
-        case AutoConstantType::TEXEL_OFFSETS:
-        case AutoConstantType::TEXTURE_SIZE:
-        case AutoConstantType::INVERSE_TEXTURE_SIZE:
-        case AutoConstantType::PACKED_TEXTURE_SIZE:
-        case AutoConstantType::SCENE_DEPTH_RANGE:
-        case AutoConstantType::VIEW_DIRECTION:
-        case AutoConstantType::VIEW_SIDE_VECTOR:
-        case AutoConstantType::VIEW_UP_VECTOR:
-        case AutoConstantType::FOV:
-        case AutoConstantType::NEAR_CLIP_DISTANCE:
-        case AutoConstantType::FAR_CLIP_DISTANCE:
-        case AutoConstantType::PASS_NUMBER:
-        case AutoConstantType::TEXTURE_MATRIX:
-        case AutoConstantType::LOD_CAMERA_POSITION:
+        case VIEW_MATRIX:
+        case INVERSE_VIEW_MATRIX:
+        case TRANSPOSE_VIEW_MATRIX:
+        case INVERSE_TRANSPOSE_VIEW_MATRIX:
+        case PROJECTION_MATRIX:
+        case INVERSE_PROJECTION_MATRIX:
+        case TRANSPOSE_PROJECTION_MATRIX:
+        case INVERSE_TRANSPOSE_PROJECTION_MATRIX:
+        case VIEWPROJ_MATRIX:
+        case INVERSE_VIEWPROJ_MATRIX:
+        case TRANSPOSE_VIEWPROJ_MATRIX:
+        case INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
+        case RENDER_TARGET_FLIPPING:
+        case VERTEX_WINDING:
+        case AMBIENT_LIGHT_COLOUR:
+        case DERIVED_AMBIENT_LIGHT_COLOUR:
+        case DERIVED_SCENE_COLOUR:
+        case FOG_COLOUR:
+        case FOG_PARAMS:
+        case SURFACE_AMBIENT_COLOUR:
+        case SURFACE_DIFFUSE_COLOUR:
+        case SURFACE_SPECULAR_COLOUR:
+        case SURFACE_EMISSIVE_COLOUR:
+        case SURFACE_SHININESS:
+        case SURFACE_ALPHA_REJECTION_VALUE:
+        case CAMERA_POSITION:
+        case CAMERA_RELATIVE_POSITION:
+        case TIME:
+        case TIME_0_X:
+        case COSTIME_0_X:
+        case SINTIME_0_X:
+        case TANTIME_0_X:
+        case TIME_0_X_PACKED:
+        case TIME_0_1:
+        case COSTIME_0_1:
+        case SINTIME_0_1:
+        case TANTIME_0_1:
+        case TIME_0_1_PACKED:
+        case TIME_0_2PI:
+        case COSTIME_0_2PI:
+        case SINTIME_0_2PI:
+        case TANTIME_0_2PI:
+        case TIME_0_2PI_PACKED:
+        case FRAME_TIME:
+        case FPS:
+        case VIEWPORT_WIDTH:
+        case VIEWPORT_HEIGHT:
+        case INVERSE_VIEWPORT_WIDTH:
+        case INVERSE_VIEWPORT_HEIGHT:
+        case VIEWPORT_SIZE:
+        case TEXEL_OFFSETS:
+        case TEXTURE_SIZE:
+        case INVERSE_TEXTURE_SIZE:
+        case PACKED_TEXTURE_SIZE:
+        case SCENE_DEPTH_RANGE:
+        case VIEW_DIRECTION:
+        case VIEW_SIDE_VECTOR:
+        case VIEW_UP_VECTOR:
+        case FOV:
+        case NEAR_CLIP_DISTANCE:
+        case FAR_CLIP_DISTANCE:
+        case PASS_NUMBER:
+        case TEXTURE_MATRIX:
+        case LOD_CAMERA_POSITION:
 
             return GpuParamVariability::GLOBAL;
 
-        case AutoConstantType::WORLD_MATRIX:
-        case AutoConstantType::INVERSE_WORLD_MATRIX:
-        case AutoConstantType::TRANSPOSE_WORLD_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX:
-        case AutoConstantType::WORLD_MATRIX_ARRAY_3x4:
-        case AutoConstantType::WORLD_MATRIX_ARRAY:
-        case AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4:
-        case AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
-        case AutoConstantType::WORLDVIEW_MATRIX:
-        case AutoConstantType::INVERSE_WORLDVIEW_MATRIX:
-        case AutoConstantType::TRANSPOSE_WORLDVIEW_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
-        case AutoConstantType::NORMAL_MATRIX:
-        case AutoConstantType::WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::INVERSE_WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::TRANSPOSE_WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::CAMERA_POSITION_OBJECT_SPACE:
-        case AutoConstantType::LOD_CAMERA_POSITION_OBJECT_SPACE:
-        case AutoConstantType::CUSTOM:
-        case AutoConstantType::ANIMATION_PARAMETRIC:
+        case WORLD_MATRIX:
+        case INVERSE_WORLD_MATRIX:
+        case TRANSPOSE_WORLD_MATRIX:
+        case INVERSE_TRANSPOSE_WORLD_MATRIX:
+        case WORLD_MATRIX_ARRAY_3x4:
+        case WORLD_MATRIX_ARRAY:
+        case WORLD_DUALQUATERNION_ARRAY_2x4:
+        case WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
+        case WORLDVIEW_MATRIX:
+        case INVERSE_WORLDVIEW_MATRIX:
+        case TRANSPOSE_WORLDVIEW_MATRIX:
+        case INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
+        case NORMAL_MATRIX:
+        case WORLDVIEWPROJ_MATRIX:
+        case INVERSE_WORLDVIEWPROJ_MATRIX:
+        case TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+        case INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+        case CAMERA_POSITION_OBJECT_SPACE:
+        case LOD_CAMERA_POSITION_OBJECT_SPACE:
+        case CUSTOM:
+        case ANIMATION_PARAMETRIC:
 
             return GpuParamVariability::PER_OBJECT;
 
-        case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE:
-        case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE:
-        case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE:
-        case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY:
-        case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
-        case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
-        case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
-        case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
-        case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
-        case AutoConstantType::SHADOW_EXTRUSION_DISTANCE:
+        case LIGHT_POSITION_OBJECT_SPACE:
+        case LIGHT_DIRECTION_OBJECT_SPACE:
+        case LIGHT_DISTANCE_OBJECT_SPACE:
+        case LIGHT_POSITION_OBJECT_SPACE_ARRAY:
+        case LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
+        case LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
+        case TEXTURE_WORLDVIEWPROJ_MATRIX:
+        case TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
+        case SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
+        case SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
+        case SHADOW_EXTRUSION_DISTANCE:
 
             // These depend on BOTH lights and objects
             return GpuParamVariability::PER_OBJECT | GpuParamVariability::LIGHTS;
 
-        case AutoConstantType::LIGHT_COUNT:
-        case AutoConstantType::LIGHT_DIFFUSE_COLOUR:
-        case AutoConstantType::LIGHT_SPECULAR_COLOUR:
-        case AutoConstantType::LIGHT_POSITION:
-        case AutoConstantType::LIGHT_DIRECTION:
-        case AutoConstantType::LIGHT_POSITION_VIEW_SPACE:
-        case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE:
-        case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE:
-        case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY:
-        case AutoConstantType::SHADOW_COLOUR:
-        case AutoConstantType::LIGHT_POWER_SCALE:
-        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
-        case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED:
-        case AutoConstantType::LIGHT_NUMBER:
-        case AutoConstantType::LIGHT_CASTS_SHADOWS:
-        case AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY:
-        case AutoConstantType::LIGHT_ATTENUATION:
-        case AutoConstantType::SPOTLIGHT_PARAMS:
-        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY:
-        case AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY:
-        case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
-        case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
-        case AutoConstantType::LIGHT_POSITION_ARRAY:
-        case AutoConstantType::LIGHT_DIRECTION_ARRAY:
-        case AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY:
-        case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
-        case AutoConstantType::LIGHT_POWER_SCALE_ARRAY:
-        case AutoConstantType::LIGHT_ATTENUATION_ARRAY:
-        case AutoConstantType::SPOTLIGHT_PARAMS_ARRAY:
-        case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX:
-        case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY:
-        case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX:
-        case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
-        case AutoConstantType::LIGHT_CUSTOM:
+        case LIGHT_COUNT:
+        case LIGHT_DIFFUSE_COLOUR:
+        case LIGHT_SPECULAR_COLOUR:
+        case LIGHT_POSITION:
+        case LIGHT_DIRECTION:
+        case LIGHT_POSITION_VIEW_SPACE:
+        case LIGHT_DIRECTION_VIEW_SPACE:
+        case SHADOW_SCENE_DEPTH_RANGE:
+        case SHADOW_SCENE_DEPTH_RANGE_ARRAY:
+        case SHADOW_COLOUR:
+        case LIGHT_POWER_SCALE:
+        case LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
+        case LIGHT_SPECULAR_COLOUR_POWER_SCALED:
+        case LIGHT_NUMBER:
+        case LIGHT_CASTS_SHADOWS:
+        case LIGHT_CASTS_SHADOWS_ARRAY:
+        case LIGHT_ATTENUATION:
+        case SPOTLIGHT_PARAMS:
+        case LIGHT_DIFFUSE_COLOUR_ARRAY:
+        case LIGHT_SPECULAR_COLOUR_ARRAY:
+        case LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
+        case LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
+        case LIGHT_POSITION_ARRAY:
+        case LIGHT_DIRECTION_ARRAY:
+        case LIGHT_POSITION_VIEW_SPACE_ARRAY:
+        case LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
+        case LIGHT_POWER_SCALE_ARRAY:
+        case LIGHT_ATTENUATION_ARRAY:
+        case SPOTLIGHT_PARAMS_ARRAY:
+        case TEXTURE_VIEWPROJ_MATRIX:
+        case TEXTURE_VIEWPROJ_MATRIX_ARRAY:
+        case SPOTLIGHT_VIEWPROJ_MATRIX:
+        case SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
+        case LIGHT_CUSTOM:
 
             return GpuParamVariability::LIGHTS;
 
-        case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR:
-        case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR:
-        case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
-        case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
+        case DERIVED_LIGHT_DIFFUSE_COLOUR:
+        case DERIVED_LIGHT_SPECULAR_COLOUR:
+        case DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
+        case DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
 
             return GpuParamVariability::GLOBAL | GpuParamVariability::LIGHTS;
 
-        case AutoConstantType::PASS_ITERATION_NUMBER:
+        case PASS_ITERATION_NUMBER:
 
             return GpuParamVariability::PASS_ITERATION_NUMBER;
 
@@ -1535,50 +1536,51 @@ namespace Ogre
             if (!!(mAutoConstant.variability & mask))
             {
 
+                using enum AutoConstantType;
                 switch(mAutoConstant.paramType)
                 {
-                case AutoConstantType::VIEW_MATRIX:
+                case VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_VIEW_MATRIX:
+                case INVERSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_VIEW_MATRIX:
+                case TRANSPOSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TRANSPOSE_VIEW_MATRIX:
+                case INVERSE_TRANSPOSE_VIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeViewMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::PROJECTION_MATRIX:
+                case PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_PROJECTION_MATRIX:
+                case INVERSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_PROJECTION_MATRIX:
+                case TRANSPOSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TRANSPOSE_PROJECTION_MATRIX:
+                case INVERSE_TRANSPOSE_PROJECTION_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeProjectionMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::VIEWPROJ_MATRIX:
+                case VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewProjectionMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_VIEWPROJ_MATRIX:
+                case INVERSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_VIEWPROJ_MATRIX:
+                case TRANSPOSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
+                case INVERSE_TRANSPOSE_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::RENDER_TARGET_FLIPPING:
+                case RENDER_TARGET_FLIPPING:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCurrentRenderTarget()->requiresTextureFlipping() ? -1.f : +1.f);
                     break;
-                case AutoConstantType::VERTEX_WINDING:
+                case VERTEX_WINDING:
                     {
                         RenderSystem* rsys = Root::getSingleton().getRenderSystem();
                         _writeRawConstant(mAutoConstant.physicalIndex, rsys->getInvertVertexWinding() ? -1.f : +1.f);
@@ -1586,131 +1588,131 @@ namespace Ogre
                     break;
 
                     // NB ambient light still here because it's not related to a specific light
-                case AutoConstantType::AMBIENT_LIGHT_COLOUR:
+                case AMBIENT_LIGHT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getAmbientLightColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::DERIVED_AMBIENT_LIGHT_COLOUR:
+                case DERIVED_AMBIENT_LIGHT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getDerivedAmbientLightColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::DERIVED_SCENE_COLOUR:
+                case DERIVED_SCENE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getDerivedSceneColour(),
                                       mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::FOG_COLOUR:
+                case FOG_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFogColour(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::FOG_PARAMS:
+                case FOG_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFogParams(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::POINT_PARAMS:
+                case POINT_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getPointParams(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SURFACE_AMBIENT_COLOUR:
+                case SURFACE_AMBIENT_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceAmbientColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SURFACE_DIFFUSE_COLOUR:
+                case SURFACE_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceDiffuseColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SURFACE_SPECULAR_COLOUR:
+                case SURFACE_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceSpecularColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SURFACE_EMISSIVE_COLOUR:
+                case SURFACE_EMISSIVE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceEmissiveColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SURFACE_SHININESS:
+                case SURFACE_SHININESS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceShininess());
                     break;
-                case AutoConstantType::SURFACE_ALPHA_REJECTION_VALUE:
+                case SURFACE_ALPHA_REJECTION_VALUE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSurfaceAlphaRejectionValue());
                     break;
 
-                case AutoConstantType::CAMERA_POSITION:
+                case CAMERA_POSITION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCameraPosition(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::CAMERA_RELATIVE_POSITION:
+                case CAMERA_RELATIVE_POSITION:
                     _writeRawConstant (mAutoConstant.physicalIndex, source->getCameraRelativePosition(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TIME:
+                case TIME:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime() * mAutoConstant.fData);
                     break;
-                case AutoConstantType::TIME_0_X:
+                case TIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_X(mAutoConstant.fData));
                     break;
-                case AutoConstantType::COSTIME_0_X:
+                case COSTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_X(mAutoConstant.fData));
                     break;
-                case AutoConstantType::SINTIME_0_X:
+                case SINTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_X(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TANTIME_0_X:
+                case TANTIME_0_X:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_X(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TIME_0_X_PACKED:
+                case TIME_0_X_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_X_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TIME_0_1:
+                case TIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_1(mAutoConstant.fData));
                     break;
-                case AutoConstantType::COSTIME_0_1:
+                case COSTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_1(mAutoConstant.fData));
                     break;
-                case AutoConstantType::SINTIME_0_1:
+                case SINTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_1(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TANTIME_0_1:
+                case TANTIME_0_1:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_1(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TIME_0_1_PACKED:
+                case TIME_0_1_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_1_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TIME_0_2PI:
+                case TIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case AutoConstantType::COSTIME_0_2PI:
+                case COSTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCosTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case AutoConstantType::SINTIME_0_2PI:
+                case SINTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSinTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TANTIME_0_2PI:
+                case TANTIME_0_2PI:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTanTime_0_2Pi(mAutoConstant.fData));
                     break;
-                case AutoConstantType::TIME_0_2PI_PACKED:
+                case TIME_0_2PI_PACKED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTime_0_2Pi_packed(mAutoConstant.fData), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::FRAME_TIME:
+                case FRAME_TIME:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFrameTime() * mAutoConstant.fData);
                     break;
-                case AutoConstantType::FPS:
+                case FPS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFPS());
                     break;
-                case AutoConstantType::VIEWPORT_WIDTH:
+                case VIEWPORT_WIDTH:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewportWidth());
                     break;
-                case AutoConstantType::VIEWPORT_HEIGHT:
+                case VIEWPORT_HEIGHT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewportHeight());
                     break;
-                case AutoConstantType::INVERSE_VIEWPORT_WIDTH:
+                case INVERSE_VIEWPORT_WIDTH:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewportWidth());
                     break;
-                case AutoConstantType::INVERSE_VIEWPORT_HEIGHT:
+                case INVERSE_VIEWPORT_HEIGHT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewportHeight());
                     break;
-                case AutoConstantType::VIEWPORT_SIZE:
+                case VIEWPORT_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
                         source->getViewportWidth(),
                         source->getViewportHeight(),
                         source->getInverseViewportWidth(),
                         source->getInverseViewportHeight()), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TEXEL_OFFSETS:
+                case TEXEL_OFFSETS:
                     {
                         RenderSystem* rsys = Root::getSingleton().getRenderSystem();
                         _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
@@ -1721,56 +1723,56 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::TEXTURE_SIZE:
+                case TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TEXTURE_SIZE:
+                case INVERSE_TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::PACKED_TEXTURE_SIZE:
+                case PACKED_TEXTURE_SIZE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getPackedTextureSize(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SCENE_DEPTH_RANGE:
+                case SCENE_DEPTH_RANGE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSceneDepthRange(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::VIEW_DIRECTION:
+                case VIEW_DIRECTION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewDirection());
                     break;
-                case AutoConstantType::VIEW_SIDE_VECTOR:
+                case VIEW_SIDE_VECTOR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewSideVector());
                     break;
-                case AutoConstantType::VIEW_UP_VECTOR:
+                case VIEW_UP_VECTOR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getViewUpVector());
                     break;
-                case AutoConstantType::FOV:
+                case FOV:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFOV());
                     break;
-                case AutoConstantType::NEAR_CLIP_DISTANCE:
+                case NEAR_CLIP_DISTANCE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getNearClipDistance());
                     break;
-                case AutoConstantType::FAR_CLIP_DISTANCE:
+                case FAR_CLIP_DISTANCE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getFarClipDistance());
                     break;
-                case AutoConstantType::PASS_NUMBER:
+                case PASS_NUMBER:
                     _writeRawConstant(mAutoConstant.physicalIndex, (float)source->getPassNumber());
                     break;
-                case AutoConstantType::PASS_ITERATION_NUMBER:
+                case PASS_ITERATION_NUMBER:
                     // this is actually just an initial set-up, it's bound separately, so still global
                     _writeRawConstant(mAutoConstant.physicalIndex, 0.0f);
                     mActivePassIterationIndex = mAutoConstant.physicalIndex;
                     break;
-                case AutoConstantType::TEXTURE_MATRIX:
+                case TEXTURE_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureTransformMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LOD_CAMERA_POSITION:
+                case LOD_CAMERA_POSITION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLodCameraPosition(), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX:
+                case TEXTURE_WORLDVIEWPROJ_MATRIX:
                     // can also be updated in lights
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureWorldViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
+                case TEXTURE_WORLDVIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights
@@ -1778,20 +1780,20 @@ namespace Ogre
                                           source->getTextureWorldViewProjMatrix(l),mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
+                case SPOTLIGHT_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightWorldViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
+                case SPOTLIGHT_WORLDVIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Matrix4), source->getSpotlightWorldViewProjMatrix(l), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE:
+                case LIGHT_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getInverseWorldMatrix() *
                                           source->getLightAs4DVector(mAutoConstant.data),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE:
+                case LIGHT_DIRECTION_OBJECT_SPACE:
                     // We need the inverse of the inverse transpose
                     m3 = source->getTransposeWorldMatrix().linear();
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
@@ -1799,11 +1801,11 @@ namespace Ogre
                     // Set as 4D vector for compatibility
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE:
+                case LIGHT_DISTANCE_OBJECT_SPACE:
                     vec3 = source->getInverseWorldMatrix() * source->getLightPosition(mAutoConstant.data);
                     _writeRawConstant(mAutoConstant.physicalIndex, vec3.length());
                     break;
-                case AutoConstantType::LIGHT_POSITION_OBJECT_SPACE_ARRAY:
+                case LIGHT_POSITION_OBJECT_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getInverseWorldMatrix() *
@@ -1811,7 +1813,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
+                case LIGHT_DIRECTION_OBJECT_SPACE_ARRAY:
                     // We need the inverse of the inverse transpose
                     m3 = source->getTransposeWorldMatrix().linear();
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
@@ -1823,7 +1825,7 @@ namespace Ogre
                     }
                     break;
 
-                case AutoConstantType::LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
+                case LIGHT_DISTANCE_OBJECT_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         vec3 = source->getInverseWorldMatrix() * source->getLightPosition(l);
@@ -1831,20 +1833,20 @@ namespace Ogre
                     }
                     break;
 
-                case AutoConstantType::WORLD_MATRIX:
+                case WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_WORLD_MATRIX:
+                case INVERSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_WORLD_MATRIX:
+                case TRANSPOSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TRANSPOSE_WORLD_MATRIX:
+                case INVERSE_TRANSPOSE_WORLD_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::WORLD_MATRIX_ARRAY_3x4:
+                case WORLD_MATRIX_ARRAY_3x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1856,11 +1858,11 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case AutoConstantType::WORLD_MATRIX_ARRAY:
+                case WORLD_MATRIX_ARRAY:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldMatrixArray(),
                                       source->getWorldMatrixCount());
                     break;
-                case AutoConstantType::WORLD_DUALQUATERNION_ARRAY_2x4:
+                case WORLD_DUALQUATERNION_ARRAY_2x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1873,7 +1875,7 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case AutoConstantType::WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
+                case WORLD_SCALE_SHEAR_MATRIX_ARRAY_3x4:
                     // Loop over matrices
                     pMatrix = source->getWorldMatrixArray();
                     numMatrices = source->getWorldMatrixCount();
@@ -1910,78 +1912,78 @@ namespace Ogre
                         ++pMatrix;
                     }
                     break;
-                case AutoConstantType::WORLDVIEW_MATRIX:
+                case WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_WORLDVIEW_MATRIX:
+                case INVERSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_WORLDVIEW_MATRIX:
+                case TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::NORMAL_MATRIX:
+                case NORMAL_MATRIX:
                     if(mAutoConstant.elementCount == 9) // check if shader supports packed data
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewMatrix().linear(),mAutoConstant.elementCount);
                         break;
                     }
                     [[fallthrough]]; // fallthrough to padded 4x4 matrix
-                case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
+                case INVERSE_TRANSPOSE_WORLDVIEW_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewMatrix(),mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::WORLDVIEWPROJ_MATRIX:
+                case WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_WORLDVIEWPROJ_MATRIX:
+                case INVERSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+                case TRANSPOSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTransposeWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
+                case INVERSE_TRANSPOSE_WORLDVIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseTransposeWorldViewProjMatrix(),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::CAMERA_POSITION_OBJECT_SPACE:
+                case CAMERA_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getCameraPositionObjectSpace(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LOD_CAMERA_POSITION_OBJECT_SPACE:
+                case LOD_CAMERA_POSITION_OBJECT_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLodCameraPositionObjectSpace(), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::CUSTOM:
-                case AutoConstantType::ANIMATION_PARAMETRIC:
+                case CUSTOM:
+                case ANIMATION_PARAMETRIC:
                     source->getCurrentRenderable()->_updateCustomGpuParameter(mAutoConstant, this);
                     break;
-                case AutoConstantType::LIGHT_CUSTOM:
+                case LIGHT_CUSTOM:
                     source->updateLightCustomGpuParameter(mAutoConstant, this);
                     break;
-                case AutoConstantType::LIGHT_COUNT:
+                case LIGHT_COUNT:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightCount());
                     break;
-                case AutoConstantType::LIGHT_DIFFUSE_COLOUR:
+                case LIGHT_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightDiffuseColour(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_SPECULAR_COLOUR:
+                case LIGHT_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightSpecularColour(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_POSITION:
+                case LIGHT_POSITION:
                     // Get as 4D vector, works for directional lights too
                     // Use element count in case uniform slot is smaller
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightAs4DVector(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DIRECTION:
+                case LIGHT_DIRECTION:
                     vec3 = source->getLightDirection(mAutoConstant.data);
                     // Set as 4D vector for compatibility
                     // Use element count in case uniform slot is smaller
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 1.0f), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_POSITION_VIEW_SPACE:
+                case LIGHT_POSITION_VIEW_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getViewMatrix() * source->getLightAs4DVector(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE:
+                case LIGHT_DIRECTION_VIEW_SPACE:
                     m3 = source->getInverseTransposeViewMatrix().linear();
                     // inverse transpose in case of scaling
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
@@ -1989,79 +1991,79 @@ namespace Ogre
                     // Set as 4D vector for compatibility
                     _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SHADOW_EXTRUSION_DISTANCE:
+                case SHADOW_EXTRUSION_DISTANCE:
                     // extrusion is in object-space, so we have to rescale by the inverse
                     // of the world scaling to deal with scaled objects
                     m3 = source->getWorldMatrix().linear();
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowExtrusionDistance() /
                                       Math::Sqrt(std::max(std::max(m3.GetColumn(0).squaredLength(), m3.GetColumn(1).squaredLength()), m3.GetColumn(2).squaredLength())));
                     break;
-                case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE:
+                case SHADOW_SCENE_DEPTH_RANGE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowSceneDepthRange(mAutoConstant.data));
                     break;
-                case AutoConstantType::SHADOW_SCENE_DEPTH_RANGE_ARRAY:
+                case SHADOW_SCENE_DEPTH_RANGE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*mAutoConstant.elementCount, source->getShadowSceneDepthRange(l), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SHADOW_COLOUR:
+                case SHADOW_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getShadowColour(), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_POWER_SCALE:
+                case LIGHT_POWER_SCALE:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightPowerScale(mAutoConstant.data));
                     break;
-                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
+                case LIGHT_DIFFUSE_COLOUR_POWER_SCALED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightDiffuseColourWithPower(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED:
+                case LIGHT_SPECULAR_COLOUR_POWER_SCALED:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightSpecularColourWithPower(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_NUMBER:
+                case LIGHT_NUMBER:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightNumber(mAutoConstant.data));
                     break;
-                case AutoConstantType::LIGHT_CASTS_SHADOWS:
+                case LIGHT_CASTS_SHADOWS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightCastsShadows(mAutoConstant.data));
                     break;
-                case AutoConstantType::LIGHT_CASTS_SHADOWS_ARRAY:
+                case LIGHT_CASTS_SHADOWS_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(float), source->getLightCastsShadows(l));
                     break;
-                case AutoConstantType::LIGHT_ATTENUATION:
+                case LIGHT_ATTENUATION:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getLightAttenuation(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SPOTLIGHT_PARAMS:
+                case SPOTLIGHT_PARAMS:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightParams(mAutoConstant.data), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_ARRAY:
+                case LIGHT_DIFFUSE_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightDiffuseColour(l), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_SPECULAR_COLOUR_ARRAY:
+                case LIGHT_SPECULAR_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightSpecularColour(l), mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
+                case LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightDiffuseColourWithPower(l), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
+                case LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
                                           source->getLightSpecularColourWithPower(l), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_POSITION_ARRAY:
+                case LIGHT_POSITION_ARRAY:
                     // Get as 4D vector, works for directional lights too
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getLightAs4DVector(l), mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_DIRECTION_ARRAY:
+                case LIGHT_DIRECTION_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         vec3 = source->getLightDirection(l);
@@ -2071,7 +2073,7 @@ namespace Ogre
                     }
                     break;
 
-                case AutoConstantType::LIGHT_POSITION_VIEW_SPACE_ARRAY:
+                case LIGHT_POSITION_VIEW_SPACE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4),
                                           source->getViewMatrix() *
@@ -2079,7 +2081,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     break;
 
-                case AutoConstantType::LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
+                case LIGHT_DIRECTION_VIEW_SPACE_ARRAY:
                     m3 = source->getInverseTransposeViewMatrix().linear();
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
@@ -2091,37 +2093,37 @@ namespace Ogre
                     }
                     break;
 
-                case AutoConstantType::LIGHT_POWER_SCALE_ARRAY:
+                case LIGHT_POWER_SCALE_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Real),
                                           source->getLightPowerScale(l));
                     break;
 
-                case AutoConstantType::LIGHT_ATTENUATION_ARRAY:
+                case LIGHT_ATTENUATION_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f),
                                           source->getLightAttenuation(l), mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::SPOTLIGHT_PARAMS_ARRAY:
+                case SPOTLIGHT_PARAMS_ARRAY:
                     for (size_t l = 0 ; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f), source->getSpotlightParams(l),
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR:
+                case DERIVED_LIGHT_DIFFUSE_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightDiffuseColourWithPower(mAutoConstant.data) * source->getSurfaceDiffuseColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR:
+                case DERIVED_LIGHT_SPECULAR_COLOUR:
                     _writeRawConstant(mAutoConstant.physicalIndex,
                                       source->getLightSpecularColourWithPower(mAutoConstant.data) * source->getSurfaceSpecularColour(),
                                       mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
+                case DERIVED_LIGHT_DIFFUSE_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
@@ -2129,7 +2131,7 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
+                case DERIVED_LIGHT_SPECULAR_COLOUR_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(ColourValue),
@@ -2137,11 +2139,11 @@ namespace Ogre
                                           mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX:
+                case TEXTURE_VIEWPROJ_MATRIX:
                     // can also be updated in lights
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getTextureViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::TEXTURE_VIEWPROJ_MATRIX_ARRAY:
+                case TEXTURE_VIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights
@@ -2149,10 +2151,10 @@ namespace Ogre
                                           source->getTextureViewProjMatrix(l),mAutoConstant.elementCount);
                     }
                     break;
-                case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX:
+                case SPOTLIGHT_VIEWPROJ_MATRIX:
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getSpotlightViewProjMatrix(mAutoConstant.data),mAutoConstant.elementCount);
                     break;
-                case AutoConstantType::SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
+                case SPOTLIGHT_VIEWPROJ_MATRIX_ARRAY:
                     for (size_t l = 0; l < mAutoConstant.data; ++l)
                     {
                         // can also be updated in lights

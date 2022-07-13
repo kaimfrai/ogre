@@ -503,21 +503,22 @@ auto HardwareSkinningFactory::extractSkeletonData(const Entity* pEntity, size_t 
         if ((pDeclWeights != nullptr) && (pDeclIndexes != nullptr))
         {
             isValidData = true;
+            using enum VertexElementType;
             switch (pDeclWeights->getType())
             {
-            case VertexElementType::FLOAT1:
+            case FLOAT1:
                 weightCount = 1;
                 break;
-            case VertexElementType::USHORT2_NORM:
-            case VertexElementType::FLOAT2:
+            case USHORT2_NORM:
+            case FLOAT2:
                 weightCount = 2;
                 break;
-            case VertexElementType::FLOAT3:
+            case FLOAT3:
                 weightCount = 3;
                 break;
-            case VertexElementType::USHORT4_NORM:
-            case VertexElementType::UBYTE4_NORM:
-            case VertexElementType::FLOAT4:
+            case USHORT4_NORM:
+            case UBYTE4_NORM:
+            case FLOAT4:
                 weightCount = 4;
                 break;
             default:

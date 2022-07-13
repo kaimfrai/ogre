@@ -73,17 +73,18 @@ class ResourceManager;
 
     auto GLTexture::getGLTextureTarget() const -> GLenum
     {
+        using enum TextureType;
         switch(mTextureType)
         {
-            case TextureType::_1D:
+            case _1D:
                 return GL_TEXTURE_1D;
-            case TextureType::_2D:
+            case _2D:
                 return GL_TEXTURE_2D;
-            case TextureType::_3D:
+            case _3D:
                 return GL_TEXTURE_3D;
-            case TextureType::CUBE_MAP:
+            case CUBE_MAP:
                 return GL_TEXTURE_CUBE_MAP;
-            case TextureType::_2D_ARRAY:
+            case _2D_ARRAY:
                 return GL_TEXTURE_2D_ARRAY_EXT;
             default:
                 return 0;
@@ -151,35 +152,36 @@ class ResourceManager;
             for(uint32 mip=0; mip<=std::to_underlying(mNumMipmaps); mip++)
             {
                 size = static_cast<GLsizei>(PixelUtil::getMemorySize(width, height, depth, mFormat));
+                using enum TextureType;
                 switch(mTextureType)
                 {
-                    case TextureType::_1D:
+                    case _1D:
                         glCompressedTexImage1DARB(GL_TEXTURE_1D, mip, internalformat, 
                             width, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TextureType::_2D:
+                    case _2D:
                         glCompressedTexImage2DARB(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TextureType::_2D_ARRAY:
-                    case TextureType::_3D:
+                    case _2D_ARRAY:
+                    case _3D:
                         glCompressedTexImage3DARB(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
                             size, &tmpdata[0]);
                         break;
-                    case TextureType::CUBE_MAP:
+                    case CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glCompressedTexImage2DARB(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
                                 size, &tmpdata[0]);
                         }
                         break;
-                    case TextureType::EXTERNAL_OES:
+                    case EXTERNAL_OES:
                         OGRE_EXCEPT(
                             ExceptionCodes::RENDERINGAPI_ERROR,
-                            "Attempt to create mipmaps for unsupported TextureType::EXTERNAL_OES, should never happen",
+                            "Attempt to create mipmaps for unsupported EXTERNAL_OES, should never happen",
                             "GLTexture::createInternalResourcesImpl"
                         );
                         break;
@@ -188,7 +190,7 @@ class ResourceManager;
                     width = width/2;
                 if(height>1)
                     height = height/2;
-                if(depth>1 && mTextureType != TextureType::_2D_ARRAY)
+                if(depth>1 && mTextureType != _2D_ARRAY)
                     depth = depth/2;
             }
         }
@@ -198,36 +200,37 @@ class ResourceManager;
             for(uint32 mip=0; mip<=std::to_underlying(mNumMipmaps); mip++)
             {
                 // Normal formats
+                using enum TextureType;
                 switch(mTextureType)
                 {
-                    case TextureType::_1D:
+                    case _1D:
                         glTexImage1D(GL_TEXTURE_1D, mip, internalformat,
                             width, 0, 
                             format, datatype, nullptr);
     
                         break;
-                    case TextureType::_2D:
+                    case _2D:
                         glTexImage2D(GL_TEXTURE_2D, mip, internalformat,
                             width, height, 0, 
                             format, datatype, nullptr);
                         break;
-                    case TextureType::_2D_ARRAY:
-                    case TextureType::_3D:
+                    case _2D_ARRAY:
+                    case _3D:
                         glTexImage3D(getGLTextureTarget(), mip, internalformat,
                             width, height, depth, 0, 
                             format, datatype, nullptr);
                         break;
-                    case TextureType::CUBE_MAP:
+                    case CUBE_MAP:
                         for(int face=0; face<6; face++) {
                             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, mip, internalformat,
                                 width, height, 0, 
                                 format, datatype, nullptr);
                         }
                         break;
-                    case TextureType::EXTERNAL_OES:
+                    case EXTERNAL_OES:
                         OGRE_EXCEPT(
                             ExceptionCodes::RENDERINGAPI_ERROR,
-                            "Attempt to create mipmaps for unsupported TextureType::EXTERNAL_OES, should never happen",
+                            "Attempt to create mipmaps for unsupported EXTERNAL_OES, should never happen",
                             "GLTexture::createInternalResourcesImpl"
                         );
                         break;
@@ -236,7 +239,7 @@ class ResourceManager;
                     width = width/2;
                 if(height>1)
                     height = height/2;
-                if(depth>1 && mTextureType != TextureType::_2D_ARRAY)
+                if(depth>1 && mTextureType != _2D_ARRAY)
                     depth = depth/2;
             }
         }

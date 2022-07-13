@@ -148,9 +148,10 @@ namespace Ogre {
 
         while(!stream->eof())
         {
+            using enum SkeletonChunkID;
             switch (streamID)
             {
-            case SkeletonChunkID::BLENDMODE:
+            case BLENDMODE:
             {
                 // Optional blend mode
                 uint16 blendMode;
@@ -158,16 +159,16 @@ namespace Ogre {
                 pSkel->setBlendMode(static_cast<SkeletonAnimationBlendMode>(blendMode));
                 break;
             }
-            case SkeletonChunkID::BONE:
+            case BONE:
                 readBone(stream, pSkel);
                 break;
-            case SkeletonChunkID::BONE_PARENT:
+            case BONE_PARENT:
                 readBoneParent(stream, pSkel);
                 break;
-            case SkeletonChunkID::ANIMATION:
+            case ANIMATION:
                 readAnimation(stream, pSkel);
                 break;
-            case SkeletonChunkID::ANIMATION_LINK:
+            case ANIMATION_LINK:
                 readSkeletonAnimationLink(stream, pSkel);
                 break;
             default:

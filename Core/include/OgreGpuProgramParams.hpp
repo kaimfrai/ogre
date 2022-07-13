@@ -270,60 +270,61 @@ template <int dims, typename T> class Vector;
         */
         static auto getElementSize(GpuConstantType ctype, bool padToMultiplesOf4) -> uint32
         {
+            using enum GpuConstantType;
             if (padToMultiplesOf4)
             {
                 switch(ctype)
                 {
-                case GpuConstantType::FLOAT1:
-                case GpuConstantType::INT1:
-                case GpuConstantType::UINT1:
-                case GpuConstantType::BOOL1:
-                case GpuConstantType::SAMPLER1D:
-                case GpuConstantType::SAMPLER2D:
-                case GpuConstantType::SAMPLER2DARRAY:
-                case GpuConstantType::SAMPLER3D:
-                case GpuConstantType::SAMPLERCUBE:
-                case GpuConstantType::SAMPLER1DSHADOW:
-                case GpuConstantType::SAMPLER2DSHADOW:
-                case GpuConstantType::FLOAT2:
-                case GpuConstantType::INT2:
-                case GpuConstantType::UINT2:
-                case GpuConstantType::BOOL2:
-                case GpuConstantType::FLOAT3:
-                case GpuConstantType::INT3:
-                case GpuConstantType::UINT3:
-                case GpuConstantType::BOOL3:
-                case GpuConstantType::FLOAT4:
-                case GpuConstantType::INT4:
-                case GpuConstantType::UINT4:
-                case GpuConstantType::BOOL4:
+                case FLOAT1:
+                case INT1:
+                case UINT1:
+                case BOOL1:
+                case SAMPLER1D:
+                case SAMPLER2D:
+                case SAMPLER2DARRAY:
+                case SAMPLER3D:
+                case SAMPLERCUBE:
+                case SAMPLER1DSHADOW:
+                case SAMPLER2DSHADOW:
+                case FLOAT2:
+                case INT2:
+                case UINT2:
+                case BOOL2:
+                case FLOAT3:
+                case INT3:
+                case UINT3:
+                case BOOL3:
+                case FLOAT4:
+                case INT4:
+                case UINT4:
+                case BOOL4:
                     return 4;
-                case GpuConstantType::MATRIX_2X2:
-                case GpuConstantType::MATRIX_2X3:
-                case GpuConstantType::MATRIX_2X4:
-                case GpuConstantType::DOUBLE1:
-                case GpuConstantType::DOUBLE2:
-                case GpuConstantType::DOUBLE3:
-                case GpuConstantType::DOUBLE4:
+                case MATRIX_2X2:
+                case MATRIX_2X3:
+                case MATRIX_2X4:
+                case DOUBLE1:
+                case DOUBLE2:
+                case DOUBLE3:
+                case DOUBLE4:
                     return 8; // 2 float4s
-                case GpuConstantType::MATRIX_3X2:
-                case GpuConstantType::MATRIX_3X3:
-                case GpuConstantType::MATRIX_3X4:
+                case MATRIX_3X2:
+                case MATRIX_3X3:
+                case MATRIX_3X4:
                     return 12; // 3 float4s
-                case GpuConstantType::MATRIX_4X2:
-                case GpuConstantType::MATRIX_4X3:
-                case GpuConstantType::MATRIX_4X4:
-                case GpuConstantType::MATRIX_DOUBLE_2X2:
-                case GpuConstantType::MATRIX_DOUBLE_2X3:
-                case GpuConstantType::MATRIX_DOUBLE_2X4:
+                case MATRIX_4X2:
+                case MATRIX_4X3:
+                case MATRIX_4X4:
+                case MATRIX_DOUBLE_2X2:
+                case MATRIX_DOUBLE_2X3:
+                case MATRIX_DOUBLE_2X4:
                     return 16; // 4 float4s
-                case GpuConstantType::MATRIX_DOUBLE_3X2:
-                case GpuConstantType::MATRIX_DOUBLE_3X3:
-                case GpuConstantType::MATRIX_DOUBLE_3X4:
+                case MATRIX_DOUBLE_3X2:
+                case MATRIX_DOUBLE_3X3:
+                case MATRIX_DOUBLE_3X4:
                     return 24;
-                case GpuConstantType::MATRIX_DOUBLE_4X2:
-                case GpuConstantType::MATRIX_DOUBLE_4X3:
-                case GpuConstantType::MATRIX_DOUBLE_4X4:
+                case MATRIX_DOUBLE_4X2:
+                case MATRIX_DOUBLE_4X3:
+                case MATRIX_DOUBLE_4X4:
                     return 32;
                 default:
                     return 4;
@@ -333,37 +334,37 @@ template <int dims, typename T> class Vector;
             {
                 switch(ctype)
                 {
-                case GpuConstantType::SAMPLER1D:
-                case GpuConstantType::SAMPLER2D:
-                case GpuConstantType::SAMPLER2DARRAY:
-                case GpuConstantType::SAMPLER3D:
-                case GpuConstantType::SAMPLERCUBE:
-                case GpuConstantType::SAMPLER1DSHADOW:
-                case GpuConstantType::SAMPLER2DSHADOW:
+                case SAMPLER1D:
+                case SAMPLER2D:
+                case SAMPLER2DARRAY:
+                case SAMPLER3D:
+                case SAMPLERCUBE:
+                case SAMPLER1DSHADOW:
+                case SAMPLER2DSHADOW:
                     return 1;
-                case GpuConstantType::MATRIX_2X2:
-                case GpuConstantType::MATRIX_DOUBLE_2X2:
+                case MATRIX_2X2:
+                case MATRIX_DOUBLE_2X2:
                     return 4;
-                case GpuConstantType::MATRIX_2X3:
-                case GpuConstantType::MATRIX_3X2:
-                case GpuConstantType::MATRIX_DOUBLE_2X3:
-                case GpuConstantType::MATRIX_DOUBLE_3X2:
+                case MATRIX_2X3:
+                case MATRIX_3X2:
+                case MATRIX_DOUBLE_2X3:
+                case MATRIX_DOUBLE_3X2:
                     return 6;
-                case GpuConstantType::MATRIX_2X4:
-                case GpuConstantType::MATRIX_4X2:
-                case GpuConstantType::MATRIX_DOUBLE_2X4:
-                case GpuConstantType::MATRIX_DOUBLE_4X2:
+                case MATRIX_2X4:
+                case MATRIX_4X2:
+                case MATRIX_DOUBLE_2X4:
+                case MATRIX_DOUBLE_4X2:
                     return 8;
-                case GpuConstantType::MATRIX_3X3:
-                case GpuConstantType::MATRIX_DOUBLE_3X3:
+                case MATRIX_3X3:
+                case MATRIX_DOUBLE_3X3:
                     return 9;
-                case GpuConstantType::MATRIX_3X4:
-                case GpuConstantType::MATRIX_4X3:
-                case GpuConstantType::MATRIX_DOUBLE_3X4:
-                case GpuConstantType::MATRIX_DOUBLE_4X3:
+                case MATRIX_3X4:
+                case MATRIX_4X3:
+                case MATRIX_DOUBLE_3X4:
+                case MATRIX_DOUBLE_4X3:
                     return 12;
-                case GpuConstantType::MATRIX_4X4:
-                case GpuConstantType::MATRIX_DOUBLE_4X4:
+                case MATRIX_4X4:
+                case MATRIX_DOUBLE_4X4:
                     return 16;
                 default:
                     return std::to_underlying(ctype) % 0x10;

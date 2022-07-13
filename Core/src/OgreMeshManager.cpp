@@ -415,13 +415,14 @@ namespace Ogre
 
             switch(params.type)
             {
-            case MeshBuildType::PLANE:
+                using enum MeshBuildType;
+            case PLANE:
                 loadManualPlane(msh, params);
                 break;
-            case MeshBuildType::CURVED_ILLUSION_PLANE:
+            case CURVED_ILLUSION_PLANE:
                 loadManualCurvedIllusionPlane(msh, params);
                 break;
-            case MeshBuildType::CURVED_PLANE:
+            case CURVED_PLANE:
                 loadManualCurvedPlane(msh, params);
                 break;
             default:
@@ -914,11 +915,12 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void MeshManager::setBlendWeightsBaseElementType( VertexElementType vet )
     {
+        using enum VertexElementType;
         switch ( vet )
         {
-            case VertexElementType::UBYTE4_NORM:
-            case VertexElementType::USHORT2_NORM:
-            case VertexElementType::FLOAT1:
+            case UBYTE4_NORM:
+            case USHORT2_NORM:
+            case FLOAT1:
                 mBlendWeightsBaseElementType = vet;
                 break;
             default:

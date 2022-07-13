@@ -390,15 +390,16 @@ namespace Ogre
 
                 if (pPass->getIteratePerLight() && pPass->getRunOnlyForOneLightType())
                 {
+                    using enum Light::LightTypes;
                     switch (pPass->getOnlyLightType())
                     {
-                    case Light::LightTypes::DIRECTIONAL:
+                    case DIRECTIONAL:
                         writeValue("directional");
                         break;
-                    case Light::LightTypes::POINT:
+                    case POINT:
                         writeValue("point");
                         break;
-                    case Light::LightTypes::SPOTLIGHT:
+                    case SPOTLIGHT:
                         writeValue("spot");
                         break;
                     };
@@ -629,19 +630,20 @@ namespace Ogre
             // illumination stage
             if (pPass->getIlluminationStage() != IlluminationStage::UNKNOWN)
             {
+                using enum IlluminationStage;
                 writeAttribute(3, "illumination_stage");
                 switch(pPass->getIlluminationStage())
                 {
-                case IlluminationStage::AMBIENT:
+                case AMBIENT:
                     writeValue("ambient");
                     break;
-                case IlluminationStage::PER_LIGHT:
+                case PER_LIGHT:
                     writeValue("per_light");
                     break;
-                case IlluminationStage::DECAL:
+                case DECAL:
                     writeValue("decal");
                     break;
-                case IlluminationStage::UNKNOWN:
+                case UNKNOWN:
                     break;
                 };
             }
@@ -650,17 +652,18 @@ namespace Ogre
             if (mDefaults ||
                 pPass->getCullingMode() != CullingMode::CLOCKWISE)
             {
+                using enum CullingMode;
                 CullingMode hcm = pPass->getCullingMode();
                 writeAttribute(3, "cull_hardware");
                 switch (hcm)
                 {
-                case CullingMode::NONE :
+                case NONE :
                     writeValue("none");
                     break;
-                case CullingMode::CLOCKWISE :
+                case CLOCKWISE :
                     writeValue("clockwise");
                     break;
-                case CullingMode::ANTICLOCKWISE :
+                case ANTICLOCKWISE :
                     writeValue("anticlockwise");
                     break;
                 }
@@ -670,17 +673,18 @@ namespace Ogre
             if (mDefaults ||
                 pPass->getManualCullingMode() != ManualCullingMode::BACK)
             {
+                using enum ManualCullingMode;
                 ManualCullingMode scm = pPass->getManualCullingMode();
                 writeAttribute(3, "cull_software");
                 switch (scm)
                 {
-                case ManualCullingMode::NONE :
+                case NONE :
                     writeValue("none");
                     break;
-                case ManualCullingMode::BACK :
+                case BACK :
                     writeValue("back");
                     break;
-                case ManualCullingMode::FRONT :
+                case FRONT :
                     writeValue("front");
                     break;
                 }
@@ -691,15 +695,16 @@ namespace Ogre
                 pPass->getShadingMode() != ShadeOptions::GOURAUD)
             {
                 writeAttribute(3, "shading");
+                using enum ShadeOptions;
                 switch (pPass->getShadingMode())
                 {
-                case ShadeOptions::FLAT:
+                case FLAT:
                     writeValue("flat");
                     break;
-                case ShadeOptions::GOURAUD:
+                case GOURAUD:
                     writeValue("gouraud");
                     break;
-                case ShadeOptions::PHONG:
+                case PHONG:
                     writeValue("phong");
                     break;
                 }
@@ -710,15 +715,16 @@ namespace Ogre
                 pPass->getPolygonMode() != PolygonMode::SOLID)
             {
                 writeAttribute(3, "polygon_mode");
+                using enum PolygonMode;
                 switch (pPass->getPolygonMode())
                 {
-                case PolygonMode::POINTS:
+                case POINTS:
                     writeValue("points");
                     break;
-                case PolygonMode::WIREFRAME:
+                case WIREFRAME:
                     writeValue("wireframe");
                     break;
-                case PolygonMode::SOLID:
+                case SOLID:
                     writeValue("solid");
                     break;
                 }
@@ -748,18 +754,19 @@ namespace Ogre
                 writeValue(pPass->getFogOverride() ? "true" : "false");
                 if (pPass->getFogOverride())
                 {
+                    using enum FogMode;
                     switch (pPass->getFogMode())
                     {
-                    case FogMode::NONE:
+                    case NONE:
                         writeValue("none");
                         break;
-                    case FogMode::LINEAR:
+                    case LINEAR:
                         writeValue("linear");
                         break;
-                    case FogMode::EXP2:
+                    case EXP2:
                         writeValue("exp2");
                         break;
-                    case FogMode::EXP:
+                    case EXP:
                         writeValue("exp");
                         break;
                     }
@@ -819,15 +826,16 @@ namespace Ogre
     //-----------------------------------------------------------------------
     auto MaterialSerializer::convertFiltering(FilterOptions fo) -> String
     {
+        using enum FilterOptions;
         switch (fo)
         {
-        case FilterOptions::NONE:
+        case NONE:
             return "none";
-        case FilterOptions::POINT:
+        case POINT:
             return "point";
-        case FilterOptions::LINEAR:
+        case LINEAR:
             return "linear";
-        case FilterOptions::ANISOTROPIC:
+        case ANISOTROPIC:
             return "anisotropic";
         }
 
@@ -836,16 +844,17 @@ namespace Ogre
     //-----------------------------------------------------------------------
     static auto convertTexAddressMode(TextureAddressingMode tam) -> String
     {
+        using enum TextureAddressingMode;
         switch (tam)
         {
-        case TextureAddressingMode::BORDER:
+        case BORDER:
             return "border";
-        case TextureAddressingMode::CLAMP:
+        case CLAMP:
             return "clamp";
-        case TextureAddressingMode::MIRROR:
+        case MIRROR:
             return "mirror";
-        case TextureAddressingMode::WRAP:
-        case TextureAddressingMode::UNKNOWN:
+        case WRAP:
+        case UNKNOWN:
             return "wrap";
         }
 
@@ -886,21 +895,22 @@ namespace Ogre
                 writeAttribute(4, "texture");
                 writeValue(quoteWord(pTex->getTextureName()));
 
+                using enum TextureType;
                 switch (pTex->getTextureType())
                 {
-                case TextureType::_1D:
+                case _1D:
                     writeValue("1d");
                     break;
-                case TextureType::_2D:
+                case _2D:
                     // nothing, this is the default
                     break;
-                case TextureType::_2D_ARRAY:
+                case _2D_ARRAY:
                     writeValue("2darray");
                     break;
-                case TextureType::_3D:
+                case _3D:
                     writeValue("3d");
                     break;
-                case TextureType::CUBE_MAP:
+                case CUBE_MAP:
                     writeValue("cubic");
                     break;
                 default:
@@ -1094,24 +1104,25 @@ namespace Ogre
             {
                 for (auto const& [key, ef] : effMap)
                 {
+                    using enum TextureUnitState::TextureEffectType;
                     switch (ef.type)
                     {
-                    case TextureUnitState::TextureEffectType::ENVIRONMENT_MAP :
+                    case ENVIRONMENT_MAP :
                         writeEnvironmentMapEffect(ef, pTex);
                         break;
-                    case TextureUnitState::TextureEffectType::ROTATE :
+                    case ROTATE :
                         writeRotationEffect(ef, pTex);
                         break;
-                    case TextureUnitState::TextureEffectType::UVSCROLL :
+                    case UVSCROLL :
                         scrollAnimU = scrollAnimV = ef.arg1;
                         break;
-                    case TextureUnitState::TextureEffectType::USCROLL :
+                    case USCROLL :
                         scrollAnimU = ef.arg1;
                         break;
-                    case TextureUnitState::TextureEffectType::VSCROLL :
+                    case VSCROLL :
                         scrollAnimV = ef.arg1;
                         break;
-                    case TextureUnitState::TextureEffectType::TRANSFORM :
+                    case TRANSFORM :
                         writeTransformEffect(ef, pTex);
                         break;
                     default:
@@ -1164,18 +1175,19 @@ namespace Ogre
     void MaterialSerializer::writeEnvironmentMapEffect(const TextureUnitState::TextureEffect& effect, const TextureUnitState *pTex)
     {
         writeAttribute(4, "env_map");
+        using enum TextureUnitState::EnvMapType;
         switch (static_cast<TextureUnitState::EnvMapType>(effect.subtype))
         {
-        case TextureUnitState::EnvMapType::PLANAR:
+        case PLANAR:
             writeValue("planar");
             break;
-        case TextureUnitState::EnvMapType::CURVED:
+        case CURVED:
             writeValue("spherical");
             break;
-        case TextureUnitState::EnvMapType::NORMAL:
+        case NORMAL:
             writeValue("cubic_normal");
             break;
-        case TextureUnitState::EnvMapType::REFLECTION:
+        case REFLECTION:
             writeValue("cubic_reflection");
             break;
         }
@@ -1196,41 +1208,43 @@ namespace Ogre
 
         switch (static_cast<TextureUnitState::TextureTransformType>(effect.subtype))
         {
-        case TextureUnitState::TextureTransformType::ROTATE:
+        using enum TextureUnitState::TextureTransformType;
+        case ROTATE:
             writeValue("rotate");
             break;
-        case TextureUnitState::TextureTransformType::SCALE_U:
+        case SCALE_U:
             writeValue("scale_x");
             break;
-        case TextureUnitState::TextureTransformType::SCALE_V:
+        case SCALE_V:
             writeValue("scale_y");
             break;
-        case TextureUnitState::TextureTransformType::TRANSLATE_U:
+        case TRANSLATE_U:
             writeValue("scroll_x");
             break;
-        case TextureUnitState::TextureTransformType::TRANSLATE_V:
+        case TRANSLATE_V:
             writeValue("scroll_y");
             break;
         }
 
         switch (effect.waveType)
         {
-        case WaveformType::INVERSE_SAWTOOTH:
+            using enum WaveformType;
+        case INVERSE_SAWTOOTH:
             writeValue("inverse_sawtooth");
             break;
-        case WaveformType::SAWTOOTH:
+        case SAWTOOTH:
             writeValue("sawtooth");
             break;
-        case WaveformType::SINE:
+        case SINE:
             writeValue("sine");
             break;
-        case WaveformType::SQUARE:
+        case SQUARE:
             writeValue("square");
             break;
-        case WaveformType::TRIANGLE:
+        case TRIANGLE:
             writeValue("triangle");
             break;
-        case WaveformType::PWM:
+        case PWM:
             writeValue("pwm");
             break;
         }
@@ -1256,34 +1270,35 @@ namespace Ogre
     {
         switch (sbf)
         {
-        case SceneBlendFactor::DEST_ALPHA:
+            using enum SceneBlendFactor;
+        case DEST_ALPHA:
             writeValue("dest_alpha");
             break;
-        case SceneBlendFactor::DEST_COLOUR:
+        case DEST_COLOUR:
             writeValue("dest_colour");
             break;
-        case SceneBlendFactor::ONE:
+        case ONE:
             writeValue("one");
             break;
-        case SceneBlendFactor::ONE_MINUS_DEST_ALPHA:
+        case ONE_MINUS_DEST_ALPHA:
             writeValue("one_minus_dest_alpha");
             break;
-        case SceneBlendFactor::ONE_MINUS_DEST_COLOUR:
+        case ONE_MINUS_DEST_COLOUR:
             writeValue("one_minus_dest_colour");
             break;
-        case SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA:
+        case ONE_MINUS_SOURCE_ALPHA:
             writeValue("one_minus_src_alpha");
             break;
-        case SceneBlendFactor::ONE_MINUS_SOURCE_COLOUR:
+        case ONE_MINUS_SOURCE_COLOUR:
             writeValue("one_minus_src_colour");
             break;
-        case SceneBlendFactor::SOURCE_ALPHA:
+        case SOURCE_ALPHA:
             writeValue("src_alpha");
             break;
-        case SceneBlendFactor::SOURCE_COLOUR:
+        case SOURCE_COLOUR:
             writeValue("src_colour");
             break;
-        case SceneBlendFactor::ZERO:
+        case ZERO:
             writeValue("zero");
             break;
         }
@@ -1316,30 +1331,31 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeCompareFunction(const CompareFunction cf)
     {
+        using enum CompareFunction;
         switch (cf)
         {
-        case CompareFunction::ALWAYS_FAIL:
+        case ALWAYS_FAIL:
             writeValue("always_fail");
             break;
-        case CompareFunction::ALWAYS_PASS:
+        case ALWAYS_PASS:
             writeValue("always_pass");
             break;
-        case CompareFunction::EQUAL:
+        case EQUAL:
             writeValue("equal");
             break;
-        case CompareFunction::GREATER:
+        case GREATER:
             writeValue("greater");
             break;
-        case CompareFunction::GREATER_EQUAL:
+        case GREATER_EQUAL:
             writeValue("greater_equal");
             break;
-        case CompareFunction::LESS:
+        case LESS:
             writeValue("less");
             break;
-        case CompareFunction::LESS_EQUAL:
+        case LESS_EQUAL:
             writeValue("less_equal");
             break;
-        case CompareFunction::NOT_EQUAL:
+        case NOT_EQUAL:
             writeValue("not_equal");
             break;
         }
@@ -1356,51 +1372,52 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeLayerBlendOperationEx(const LayerBlendOperationEx op)
     {
+        using enum LayerBlendOperationEx;
         switch (op)
         {
-        case LayerBlendOperationEx::ADD:
+        case ADD:
             writeValue("add");
             break;
-        case LayerBlendOperationEx::ADD_SIGNED:
+        case ADD_SIGNED:
             writeValue("add_signed");
             break;
-        case LayerBlendOperationEx::ADD_SMOOTH:
+        case ADD_SMOOTH:
             writeValue("add_smooth");
             break;
-        case LayerBlendOperationEx::BLEND_CURRENT_ALPHA:
+        case BLEND_CURRENT_ALPHA:
             writeValue("blend_current_alpha");
             break;
-        case LayerBlendOperationEx::BLEND_DIFFUSE_COLOUR:
+        case BLEND_DIFFUSE_COLOUR:
             writeValue("blend_diffuse_colour");
             break;
-        case LayerBlendOperationEx::BLEND_DIFFUSE_ALPHA:
+        case BLEND_DIFFUSE_ALPHA:
             writeValue("blend_diffuse_alpha");
             break;
-        case LayerBlendOperationEx::BLEND_MANUAL:
+        case BLEND_MANUAL:
             writeValue("blend_manual");
             break;
-        case LayerBlendOperationEx::BLEND_TEXTURE_ALPHA:
+        case BLEND_TEXTURE_ALPHA:
             writeValue("blend_texture_alpha");
             break;
-        case LayerBlendOperationEx::MODULATE:
+        case MODULATE:
             writeValue("modulate");
             break;
-        case LayerBlendOperationEx::MODULATE_X2:
+        case MODULATE_X2:
             writeValue("modulate_x2");
             break;
-        case LayerBlendOperationEx::MODULATE_X4:
+        case MODULATE_X4:
             writeValue("modulate_x4");
             break;
-        case LayerBlendOperationEx::SOURCE1:
+        case SOURCE1:
             writeValue("source1");
             break;
-        case LayerBlendOperationEx::SOURCE2:
+        case SOURCE2:
             writeValue("source2");
             break;
-        case LayerBlendOperationEx::SUBTRACT:
+        case SUBTRACT:
             writeValue("subtract");
             break;
-        case LayerBlendOperationEx::DOTPRODUCT:
+        case DOTPRODUCT:
             writeValue("dotproduct");
             break;
         }
@@ -1408,21 +1425,22 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void MaterialSerializer::writeLayerBlendSource(const LayerBlendSource lbs)
     {
+        using enum LayerBlendSource;
         switch (lbs)
         {
-        case LayerBlendSource::CURRENT:
+        case CURRENT:
             writeValue("src_current");
             break;
-        case LayerBlendSource::DIFFUSE:
+        case DIFFUSE:
             writeValue("src_diffuse");
             break;
-        case LayerBlendSource::MANUAL:
+        case MANUAL:
             writeValue("src_manual");
             break;
-        case LayerBlendSource::SPECULAR:
+        case SPECULAR:
             writeValue("src_specular");
             break;
-        case LayerBlendSource::TEXTURE:
+        case TEXTURE:
             writeValue("src_texture");
             break;
         }
@@ -1674,13 +1692,14 @@ namespace Ogre
                 // output auto constant name
                 writeValue(quoteWord(autoConstDef->name), useMainBuffer);
                 // output data if it uses it
+                using enum GpuProgramParameters::ACDataType;
                 switch(autoConstDef->dataType)
                 {
-                case GpuProgramParameters::ACDataType::REAL:
+                case REAL:
                     writeValue(StringConverter::toString(autoEntry->fData), useMainBuffer);
                     break;
 
-                case GpuProgramParameters::ACDataType::INT:
+                case INT:
                     writeValue(StringConverter::toString(autoEntry->data), useMainBuffer);
                     break;
 

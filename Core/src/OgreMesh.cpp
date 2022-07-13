@@ -855,20 +855,21 @@ namespace Ogre {
 
         unsigned int maxIntWt = 0;
         // keeping a switch out of the loop
+        using enum VertexElementType;
         switch ( weightsBaseType )
         {
             default:
             	OgreAssert(false, "Invalid BlendWeightsBaseElementType");
             	break;
-            case VertexElementType::FLOAT1:
+            case FLOAT1:
                 break;
-            case VertexElementType::UBYTE4_NORM:
+            case UBYTE4_NORM:
                 maxIntWt = 0xff;
                 break;
-            case VertexElementType::USHORT2_NORM:
+            case USHORT2_NORM:
                 maxIntWt = 0xffff;
                 break;
-            case VertexElementType::SHORT2_NORM:
+            case SHORT2_NORM:
                 maxIntWt = 0x7fff;
                 break;
         }

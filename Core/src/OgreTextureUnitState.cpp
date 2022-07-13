@@ -62,18 +62,19 @@ class Frustum;
     //-----------------------------------------------------------------------
     void Sampler::setFiltering(TextureFilterOptions filterType)
     {
+        using enum TextureFilterOptions;
         switch (filterType)
         {
-        case TextureFilterOptions::NONE:
+        case NONE:
             setFiltering(FilterOptions::POINT, FilterOptions::POINT, FilterOptions::NONE);
             break;
-        case TextureFilterOptions::BILINEAR:
+        case BILINEAR:
             setFiltering(FilterOptions::LINEAR, FilterOptions::LINEAR, FilterOptions::POINT);
             break;
-        case TextureFilterOptions::TRILINEAR:
+        case TRILINEAR:
             setFiltering(FilterOptions::LINEAR, FilterOptions::LINEAR, FilterOptions::LINEAR);
             break;
-        case TextureFilterOptions::ANISOTROPIC:
+        case ANISOTROPIC:
             setFiltering(FilterOptions::ANISOTROPIC, FilterOptions::ANISOTROPIC, FilterOptions::LINEAR);
             break;
         }
@@ -81,15 +82,16 @@ class Frustum;
     //-----------------------------------------------------------------------
     void Sampler::setFiltering(FilterType ft, FilterOptions fo)
     {
+        using enum FilterType;
         switch (ft)
         {
-        case FilterType::Min:
+        case Min:
             mMinFilter = fo;
             break;
-        case FilterType::Mag:
+        case Mag:
             mMagFilter = fo;
             break;
-        case FilterType::Mip:
+        case Mip:
             mMipFilter = fo;
             break;
         }
@@ -106,13 +108,14 @@ class Frustum;
     //-----------------------------------------------------------------------
     auto Sampler::getFiltering(FilterType ft) const -> FilterOptions
     {
+        using enum FilterType;
         switch (ft)
         {
-        case FilterType::Min:
+        case Min:
             return mMinFilter;
-        case FilterType::Mag:
+        case Mag:
             return mMagFilter;
-        case FilterType::Mip:
+        case Mip:
             return mMipFilter;
         }
         // to keep compiler happy
@@ -427,15 +430,16 @@ class Frustum;
         OgreAssert(!names.empty(), "array layers empty");
 
         const char* typeName;
+        using enum TextureType;
         switch(type)
         {
-        case TextureType::CUBE_MAP:
+        case CUBE_MAP:
             typeName = "Cube";
             break;
-        case TextureType::_2D_ARRAY:
+        case _2D_ARRAY:
             typeName = "Array";
             break;
-        case TextureType::_3D:
+        case _3D:
             typeName = "Volume";
             break;
         default:
@@ -577,21 +581,22 @@ class Frustum;
     void TextureUnitState::setColourOperation(LayerBlendOperation op)
     {
         // Set up the multitexture and multipass blending operations
+        using enum LayerBlendOperation;
         switch (op)
         {
-        case LayerBlendOperation::REPLACE:
+        case REPLACE:
             setColourOperationEx(LayerBlendOperationEx::SOURCE1, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
             setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ZERO);
             break;
-        case LayerBlendOperation::ADD:
+        case ADD:
             setColourOperationEx(LayerBlendOperationEx::ADD, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
             setColourOpMultipassFallback(SceneBlendFactor::ONE, SceneBlendFactor::ONE);
             break;
-        case LayerBlendOperation::MODULATE:
+        case MODULATE:
             setColourOperationEx(LayerBlendOperationEx::MODULATE, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
             setColourOpMultipassFallback(SceneBlendFactor::DEST_COLOUR, SceneBlendFactor::ZERO);
             break;
-        case LayerBlendOperation::ALPHA_BLEND:
+        case ALPHA_BLEND:
             setColourOperationEx(LayerBlendOperationEx::BLEND_TEXTURE_ALPHA, LayerBlendSource::TEXTURE, LayerBlendSource::CURRENT);
             setColourOpMultipassFallback(SceneBlendFactor::SOURCE_ALPHA, SceneBlendFactor::ONE_MINUS_SOURCE_ALPHA);
             break;
@@ -1077,25 +1082,26 @@ class Frustum;
             effect.controller = nullptr;
         }
         ControllerManager& cMgr = ControllerManager::getSingleton();
+        using enum TextureEffectType;
         switch (effect.type)
         {
-        case TextureEffectType::UVSCROLL:
+        case UVSCROLL:
             effect.controller = cMgr.createTextureUVScroller(this, effect.arg1);
             break;
-        case TextureEffectType::USCROLL:
+        case USCROLL:
             effect.controller = cMgr.createTextureUScroller(this, effect.arg1);
             break;
-        case TextureEffectType::VSCROLL:
+        case VSCROLL:
             effect.controller = cMgr.createTextureVScroller(this, effect.arg1);
             break;
-        case TextureEffectType::ROTATE:
+        case ROTATE:
             effect.controller = cMgr.createTextureRotater(this, effect.arg1);
             break;
-        case TextureEffectType::TRANSFORM:
+        case TRANSFORM:
             effect.controller = cMgr.createTextureWaveTransformer(this, (TextureUnitState::TextureTransformType)effect.subtype, effect.waveType, effect.base,
                 effect.frequency, effect.phase, effect.amplitude);
             break;
-        case TextureEffectType::ENVIRONMENT_MAP:
+        case ENVIRONMENT_MAP:
             break;
         default:
             break;

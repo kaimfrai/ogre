@@ -49,37 +49,39 @@ namespace Ogre::GLSL {
 
     static auto getGLGeometryInputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
+        using enum RenderOperation::OperationType;
         switch (operationType)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OperationType::LINE_LIST:
-        case RenderOperation::OperationType::LINE_STRIP:
+        case LINE_LIST:
+        case LINE_STRIP:
 			return GL_LINES;
-        case RenderOperation::OperationType::LINE_LIST_ADJ:
-        case RenderOperation::OperationType::LINE_STRIP_ADJ:
+        case LINE_LIST_ADJ:
+        case LINE_STRIP_ADJ:
 			return GL_LINES_ADJACENCY_EXT;
-        case RenderOperation::OperationType::TRIANGLE_LIST_ADJ:
-        case RenderOperation::OperationType::TRIANGLE_STRIP_ADJ:
+        case TRIANGLE_LIST_ADJ:
+        case TRIANGLE_STRIP_ADJ:
             return GL_TRIANGLES_ADJACENCY_EXT;
         default:
-        case RenderOperation::OperationType::TRIANGLE_LIST:
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
-        case RenderOperation::OperationType::TRIANGLE_FAN:
+        case TRIANGLE_LIST:
+        case TRIANGLE_STRIP:
+        case TRIANGLE_FAN:
             return GL_TRIANGLES;
 		}
     }
     //-----------------------------------------------------------------------
     static auto getGLGeometryOutputPrimitiveType(RenderOperation::OperationType operationType) -> GLint
     {
+        using enum RenderOperation::OperationType;
         switch (operationType)
         {
-        case RenderOperation::OperationType::POINT_LIST:
+        case POINT_LIST:
             return GL_POINTS;
-        case RenderOperation::OperationType::LINE_STRIP:
+        case LINE_STRIP:
             return GL_LINE_STRIP;
         default:
-        case RenderOperation::OperationType::TRIANGLE_STRIP:
+        case TRIANGLE_STRIP:
             return GL_TRIANGLE_STRIP;
         }
     }
@@ -253,103 +255,104 @@ namespace Ogre::GLSL {
                     if(!shouldUpdate)
                         continue;
 
+                    using enum GpuConstantType;
                     // get the index in the parameter real list
                     switch (def->constType)
                     {
-                    case GpuConstantType::FLOAT1:
+                    case FLOAT1:
                         glUniform1fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::FLOAT2:
+                    case FLOAT2:
                         glUniform2fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::FLOAT3:
+                    case FLOAT3:
                         glUniform3fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::FLOAT4:
+                    case FLOAT4:
                         glUniform4fvARB(currentUniform.mLocation, glArraySize,
                             params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::MATRIX_2X2:
+                    case MATRIX_2X2:
                         glUniformMatrix2fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::MATRIX_2X3:
+                    case MATRIX_2X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix2x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_2X4:
+                    case MATRIX_2X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix2x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_3X2:
+                    case MATRIX_3X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix3x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_3X3:
+                    case MATRIX_3X3:
                         glUniformMatrix3fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::MATRIX_3X4:
+                    case MATRIX_3X4:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix3x4fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_4X2:
+                    case MATRIX_4X2:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix4x2fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_4X3:
+                    case MATRIX_4X3:
                         if (GLAD_GL_VERSION_2_1)
                         {
                             glUniformMatrix4x3fv(currentUniform.mLocation, glArraySize,
                                 GL_FALSE, params->getFloatPointer(def->physicalIndex));
                         }
                         break;
-                    case GpuConstantType::MATRIX_4X4:
+                    case MATRIX_4X4:
                         glUniformMatrix4fvARB(currentUniform.mLocation, glArraySize,
                             transpose, params->getFloatPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::SAMPLER1D:
-                    case GpuConstantType::SAMPLER1DSHADOW:
-                    case GpuConstantType::SAMPLER2D:
-                    case GpuConstantType::SAMPLER2DSHADOW:
-                    case GpuConstantType::SAMPLER2DARRAY:
-                    case GpuConstantType::SAMPLER3D:
-                    case GpuConstantType::SAMPLERCUBE:
+                    case SAMPLER1D:
+                    case SAMPLER1DSHADOW:
+                    case SAMPLER2D:
+                    case SAMPLER2DSHADOW:
+                    case SAMPLER2DARRAY:
+                    case SAMPLER3D:
+                    case SAMPLERCUBE:
                         // samplers handled like 1-element ints
-                    case GpuConstantType::INT1:
+                    case INT1:
                         glUniform1ivARB(currentUniform.mLocation, glArraySize, (GLint*)val);
                         break;
-                    case GpuConstantType::INT2:
+                    case INT2:
                         glUniform2ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::INT3:
+                    case INT3:
                         glUniform3ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::INT4:
+                    case INT4:
                         glUniform4ivARB(currentUniform.mLocation, glArraySize,
                             (GLint*)params->getIntPointer(def->physicalIndex));
                         break;
-                    case GpuConstantType::UNKNOWN:
+                    case UNKNOWN:
                     default:
                         break;
 

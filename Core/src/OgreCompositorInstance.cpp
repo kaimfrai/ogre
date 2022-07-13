@@ -333,9 +333,10 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
     for (CompositionPass* pass : target->getPasses())
     {
         bool isCompute = false;
+        using enum CompositionPass::PassType;
         switch(pass->getType())
         {
-        case CompositionPass::PassType::CLEAR:
+        case CLEAR:
             queueRenderSystemOp(finalState, new RSClearOperation(
                 pass->getClearBuffers(),
                 pass->getClearColour(),
@@ -344,10 +345,10 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
                 pass->getAutomaticColour() ? mChain : nullptr
                 ));
             break;
-        case CompositionPass::PassType::STENCIL:
+        case STENCIL:
             queueRenderSystemOp(finalState, new RSStencilOperation(pass->getStencilState()));
             break;
-        case CompositionPass::PassType::RENDERSCENE: 
+        case RENDERSCENE:
         {
             if(pass->getFirstRenderQueue() < finalState.currentQueueGroupID)
             {
@@ -393,10 +394,10 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
 
             break;
         }
-        case CompositionPass::PassType::COMPUTE:
+        case COMPUTE:
             isCompute = true;
             [[fallthrough]];
-        case CompositionPass::PassType::RENDERQUAD: {
+        case RENDERQUAD: {
             srcmat = pass->getMaterial();
             if(!srcmat)
             {
@@ -474,7 +475,7 @@ void CompositorInstance::collectPasses(TargetOperation &finalState, const Compos
             }
             }
             break;
-        case CompositionPass::PassType::RENDERCUSTOM:
+        case RENDERCUSTOM:
 		
 			finalState.currentQueueGroupID = pass->getFirstRenderQueue();
 		
@@ -1075,9 +1076,10 @@ auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> Re
     {
         auto refTexDef = resolveTexReference(texDef);
 
+        using enum CompositionTechnique::TextureScope;
         switch(refTexDef->scope) 
         {
-            case CompositionTechnique::TextureScope::CHAIN:
+            case CHAIN:
             {
                 //Find the instance and check if it is before us
                 CompositorInstance* refCompInst = nullptr;
@@ -1101,14 +1103,14 @@ auto CompositorInstance::getTargetForTex(std::string_view name, int slice) -> Re
                 OgreAssert(beforeMe, "Referencing compositor that is later in the chain");
                 return refCompInst->getRenderTarget(texDef->refTexName, slice);
             }
-            case CompositionTechnique::TextureScope::GLOBAL:
+            case GLOBAL:
             {
                 //Chain and global case - the referenced compositor will know how to handle
                 const CompositorPtr& refComp = CompositorManager::getSingleton().getByName(texDef->refCompName);
                 OgreAssert(refComp, "Referencing non-existent compositor");
                 return refComp->getRenderTarget(texDef->refTexName, slice);
             }
-            case CompositionTechnique::TextureScope::LOCAL:
+            case LOCAL:
                 break; // handled by resolveTexReference
         }
     }
@@ -1128,9 +1130,10 @@ auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex)
     {
         auto refTexDef = resolveTexReference(texDef);
         
+        using enum CompositionTechnique::TextureScope;
         switch(refTexDef->scope)
         {
-            case CompositionTechnique::TextureScope::CHAIN:
+            case CHAIN:
             {
                 //Find the instance and check if it is before us
                 CompositorInstance* refCompInst = nullptr;
@@ -1154,14 +1157,14 @@ auto CompositorInstance::getSourceForTex(std::string_view name, size_t mrtIndex)
                 OgreAssert(beforeMe, "Referencing compositor that is later in the chain");
                 return refCompInst->getTextureInstance(texDef->refTexName, mrtIndex);
             }
-            case CompositionTechnique::TextureScope::GLOBAL:
+            case GLOBAL:
             {
                 //Chain and global case - the referenced compositor will know how to handle
                 const CompositorPtr& refComp = CompositorManager::getSingleton().getByName(texDef->refCompName);
                 OgreAssert(refComp, "Referencing non-existent compositor");
                 return refComp->getTextureInstance(texDef->refTexName, mrtIndex);
             }
-            case CompositionTechnique::TextureScope::LOCAL:
+            case LOCAL:
                 break; // handled by resolveTexReference
         }
 

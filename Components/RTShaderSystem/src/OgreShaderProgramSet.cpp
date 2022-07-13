@@ -47,12 +47,13 @@ ProgramSet::~ProgramSet() = default;
 //-----------------------------------------------------------------------------
 void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
 {
+    using enum GpuProgramType;
     switch(program->getType())
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         mVSCpuProgram = std::move(program);
         break;
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         mPSCpuProgram = std::move(program);
         break;
     default:
@@ -64,11 +65,12 @@ void ProgramSet::setCpuProgram(std::unique_ptr<Program>&& program)
 //-----------------------------------------------------------------------------
 auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
 {
+    using enum GpuProgramType;
     switch(type)
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         return mVSCpuProgram.get();
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         return mPSCpuProgram.get();
     default:
         return nullptr;
@@ -77,12 +79,13 @@ auto ProgramSet::getCpuProgram(GpuProgramType type) const -> Program*
 //-----------------------------------------------------------------------------
 void ProgramSet::setGpuProgram(const GpuProgramPtr& program)
 {
+    using enum GpuProgramType;
     switch(program->getType())
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         mVSGpuProgram = program;
         break;
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         mPSGpuProgram = program;
         break;
     default:
@@ -94,12 +97,13 @@ void ProgramSet::setGpuProgram(const GpuProgramPtr& program)
 //-----------------------------------------------------------------------------
 auto ProgramSet::getGpuProgram(GpuProgramType type) const -> const GpuProgramPtr&
 {
+    using enum GpuProgramType;
     switch(type)
     {
-    case GpuProgramType::VERTEX_PROGRAM:
+    case VERTEX_PROGRAM:
         return mVSGpuProgram;
         break;
-    case GpuProgramType::FRAGMENT_PROGRAM:
+    case FRAGMENT_PROGRAM:
         return mPSGpuProgram;
         break;
     default:

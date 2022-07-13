@@ -435,40 +435,41 @@ auto ParameterFactory::createOutColor(int index) -> ParameterPtr
 //-----------------------------------------------------------------------
 auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr
 {
+    using enum GpuConstantType;
     switch (type)
     {
-    case GpuConstantType::FLOAT1:
-    case GpuConstantType::FLOAT2:
-    case GpuConstantType::FLOAT3:
-    case GpuConstantType::FLOAT4:
-    case GpuConstantType::MATRIX_2X2:
-    case GpuConstantType::MATRIX_2X3:
-    case GpuConstantType::MATRIX_2X4:
-    case GpuConstantType::MATRIX_3X2:
-    case GpuConstantType::MATRIX_3X3:
-    case GpuConstantType::MATRIX_3X4:
-    case GpuConstantType::MATRIX_4X2:
-    case GpuConstantType::MATRIX_4X3:
-    case GpuConstantType::MATRIX_4X4:
-    case GpuConstantType::INT1:
-    case GpuConstantType::INT2:
-    case GpuConstantType::INT3:
-    case GpuConstantType::INT4:
-    case GpuConstantType::UINT1:
-    case GpuConstantType::UINT2:
-    case GpuConstantType::UINT3:
-    case GpuConstantType::UINT4:
+    case FLOAT1:
+    case FLOAT2:
+    case FLOAT3:
+    case FLOAT4:
+    case MATRIX_2X2:
+    case MATRIX_2X3:
+    case MATRIX_2X4:
+    case MATRIX_3X2:
+    case MATRIX_3X3:
+    case MATRIX_3X4:
+    case MATRIX_4X2:
+    case MATRIX_4X3:
+    case MATRIX_4X4:
+    case INT1:
+    case INT2:
+    case INT3:
+    case INT4:
+    case UINT1:
+    case UINT2:
+    case UINT3:
+    case UINT4:
         return std::make_shared<Parameter>(type, std::format("iTexcoord_{}", index),
                                            Parameter::Semantic::TEXTURE_COORDINATES, index, content);
     default:
-    case GpuConstantType::SAMPLER1D:
-    case GpuConstantType::SAMPLER2D:
-    case GpuConstantType::SAMPLER2DARRAY:
-    case GpuConstantType::SAMPLER3D:
-    case GpuConstantType::SAMPLERCUBE:
-    case GpuConstantType::SAMPLER1DSHADOW:
-    case GpuConstantType::SAMPLER2DSHADOW:
-    case GpuConstantType::UNKNOWN:
+    case SAMPLER1D:
+    case SAMPLER2D:
+    case SAMPLER2DARRAY:
+    case SAMPLER3D:
+    case SAMPLERCUBE:
+    case SAMPLER1DSHADOW:
+    case SAMPLER2DSHADOW:
+    case UNKNOWN:
         break;
     }
 
@@ -478,40 +479,41 @@ auto ParameterFactory::createInTexcoord(GpuConstantType type, int index, Paramet
 //-----------------------------------------------------------------------
 auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parameter::Content content) -> ParameterPtr
 {
+    using enum GpuConstantType;
     switch (type)
     {
-    case GpuConstantType::FLOAT1:
-    case GpuConstantType::FLOAT2:
-    case GpuConstantType::FLOAT3:
-    case GpuConstantType::FLOAT4:
+    case FLOAT1:
+    case FLOAT2:
+    case FLOAT3:
+    case FLOAT4:
         return std::make_shared<Parameter>(type, std::format("oTexcoord_{}", index),
                                            Parameter::Semantic::TEXTURE_COORDINATES, index, content);
     default:
-    case GpuConstantType::SAMPLER1D:
-    case GpuConstantType::SAMPLER2D:
-    case GpuConstantType::SAMPLER2DARRAY:
-    case GpuConstantType::SAMPLER3D:
-    case GpuConstantType::SAMPLERCUBE:
-    case GpuConstantType::SAMPLER1DSHADOW:
-    case GpuConstantType::SAMPLER2DSHADOW:
-    case GpuConstantType::MATRIX_2X2:
-    case GpuConstantType::MATRIX_2X3:
-    case GpuConstantType::MATRIX_2X4:
-    case GpuConstantType::MATRIX_3X2:
-    case GpuConstantType::MATRIX_3X3:
-    case GpuConstantType::MATRIX_3X4:
-    case GpuConstantType::MATRIX_4X2:
-    case GpuConstantType::MATRIX_4X3:
-    case GpuConstantType::MATRIX_4X4:
-    case GpuConstantType::INT1:
-    case GpuConstantType::INT2:
-    case GpuConstantType::INT3:
-    case GpuConstantType::INT4:
-    case GpuConstantType::UINT1:
-    case GpuConstantType::UINT2:
-    case GpuConstantType::UINT3:
-    case GpuConstantType::UINT4:
-    case GpuConstantType::UNKNOWN:
+    case SAMPLER1D:
+    case SAMPLER2D:
+    case SAMPLER2DARRAY:
+    case SAMPLER3D:
+    case SAMPLERCUBE:
+    case SAMPLER1DSHADOW:
+    case SAMPLER2DSHADOW:
+    case MATRIX_2X2:
+    case MATRIX_2X3:
+    case MATRIX_2X4:
+    case MATRIX_3X2:
+    case MATRIX_3X3:
+    case MATRIX_3X4:
+    case MATRIX_4X2:
+    case MATRIX_4X3:
+    case MATRIX_4X4:
+    case INT1:
+    case INT2:
+    case INT3:
+    case INT4:
+    case UINT1:
+    case UINT2:
+    case UINT3:
+    case UINT4:
+    case UNKNOWN:
         break;
     }
 
@@ -521,44 +523,45 @@ auto ParameterFactory::createOutTexcoord(GpuConstantType type, int index, Parame
 //-----------------------------------------------------------------------
 auto ParameterFactory::createSampler(GpuConstantType type, int index) -> UniformParameterPtr
 {
+    using enum GpuConstantType;
     switch (type)
     {
-    case GpuConstantType::SAMPLER1D:
+    case SAMPLER1D:
         return createSampler1D(index);
 
-    case GpuConstantType::SAMPLER2D:
+    case SAMPLER2D:
         return createSampler2D(index);
 
-    case GpuConstantType::SAMPLER2DARRAY:
+    case SAMPLER2DARRAY:
         return createSampler2DArray(index);
 
-    case GpuConstantType::SAMPLER3D:
+    case SAMPLER3D:
         return createSampler3D(index);
 
-    case GpuConstantType::SAMPLERCUBE:
+    case SAMPLERCUBE:
         return createSamplerCUBE(index);
 
     default:
-    case GpuConstantType::SAMPLER1DSHADOW:
-    case GpuConstantType::SAMPLER2DSHADOW:
-    case GpuConstantType::MATRIX_2X2:
-    case GpuConstantType::MATRIX_2X3:
-    case GpuConstantType::MATRIX_2X4:
-    case GpuConstantType::MATRIX_3X2:
-    case GpuConstantType::MATRIX_3X3:
-    case GpuConstantType::MATRIX_3X4:
-    case GpuConstantType::MATRIX_4X2:
-    case GpuConstantType::MATRIX_4X3:
-    case GpuConstantType::MATRIX_4X4:
-    case GpuConstantType::INT1:
-    case GpuConstantType::INT2:
-    case GpuConstantType::INT3:
-    case GpuConstantType::INT4:
-    case GpuConstantType::UINT1:
-    case GpuConstantType::UINT2:
-    case GpuConstantType::UINT3:
-    case GpuConstantType::UINT4:
-    case GpuConstantType::UNKNOWN:
+    case SAMPLER1DSHADOW:
+    case SAMPLER2DSHADOW:
+    case MATRIX_2X2:
+    case MATRIX_2X3:
+    case MATRIX_2X4:
+    case MATRIX_3X2:
+    case MATRIX_3X3:
+    case MATRIX_3X4:
+    case MATRIX_4X2:
+    case MATRIX_4X3:
+    case MATRIX_4X4:
+    case INT1:
+    case INT2:
+    case INT3:
+    case INT4:
+    case UINT1:
+    case UINT2:
+    case UINT3:
+    case UINT4:
+    case UNKNOWN:
         break;
     }
 
