@@ -598,7 +598,6 @@ namespace Ogre {
             /// Direction to sort in
             Vector3 sortDir;
 
-            SortByDirectionFunctor(const Vector3& dir);
             auto operator()(Particle* p) const -> float;
         };
 
@@ -608,7 +607,6 @@ namespace Ogre {
             /// Position to sort in
             Vector3 sortPos;
 
-            SortByDistanceFunctor(const Vector3& pos);
             auto operator()(Particle* p) const -> float;
         };
 

@@ -1223,7 +1223,7 @@ class RenderQueue;
                     // transform the camera direction into local space
                     camDir = mParentNode->convertWorldToLocalDirection(camDir, false);
                 }
-                mRadixSorter.sort(mActiveParticles, SortByDirectionFunctor(- camDir));
+                mRadixSorter.sort(mActiveParticles, SortByDirectionFunctor{- camDir});
             }
             else if (sortMode == SortMode::Distance)
             {
@@ -1233,21 +1233,13 @@ class RenderQueue;
                     // transform the camera position into local space
                     camPos = mParentNode->convertWorldToLocalPosition(camPos);
                 }
-                mRadixSorter.sort(mActiveParticles, SortByDistanceFunctor(camPos));
+                mRadixSorter.sort(mActiveParticles, SortByDistanceFunctor{camPos});
             }
         }
-    }
-    ParticleSystem::SortByDirectionFunctor::SortByDirectionFunctor(const Vector3& dir)
-        : sortDir(dir)
-    {
     }
     auto ParticleSystem::SortByDirectionFunctor::operator()(Particle* p) const -> float
     {
         return sortDir.dotProduct(p->mPosition);
-    }
-    ParticleSystem::SortByDistanceFunctor::SortByDistanceFunctor(const Vector3& pos)
-        : sortPos(pos)
-    {
     }
     auto ParticleSystem::SortByDistanceFunctor::operator()(Particle* p) const -> float
     {

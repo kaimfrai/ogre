@@ -163,7 +163,7 @@ namespace Ogre {
     {
         if(surface.buffer == nullptr)
             return;
-        RBFormat key(surface.buffer->getGLFormat(), surface.buffer->getWidth(), surface.buffer->getHeight(), surface.numSamples);
+        RBFormat key{surface.buffer->getGLFormat(), surface.buffer->getWidth(), surface.buffer->getHeight(), surface.numSamples};
         auto it = mRenderBufferMap.find(key);
         if(it != mRenderBufferMap.end())
         {

@@ -65,7 +65,7 @@ namespace Ogre
 
         mShuttingDown = false;
 
-        mWorkerFunc = new WorkerFunc(this);
+        mWorkerFunc = new WorkerFunc{this};
 
         LogManager::getSingleton().stream() <<
             "DefaultWorkQueue('" << mName << "') initialising on thread " <<

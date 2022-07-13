@@ -48,11 +48,6 @@ namespace {
     {
         const Camera* camera;
 
-        DistanceSortDescendingLess(const Camera* cam)
-            : camera(cam)
-        {
-        }
-
         auto operator()(const RenderablePass& a, const RenderablePass& b) const -> bool
         {
             if (a.renderable == b.renderable)
@@ -93,11 +88,6 @@ namespace {
     struct RadixSortFunctorDistance
     {
         const Camera* camera;
-
-        RadixSortFunctorDistance(const Camera* cam)
-            : camera(cam)
-        {
-        }
 
         auto operator()(const RenderablePass& p) const -> float
         {
@@ -387,13 +377,13 @@ namespace {
                 // sort by pass
                 msRadixSorter1.sort(mSortedDescending, RadixSortFunctorPass());
                 // sort by depth
-                msRadixSorter2.sort(mSortedDescending, RadixSortFunctorDistance(cam));
+                msRadixSorter2.sort(mSortedDescending, RadixSortFunctorDistance{cam});
             }
             else
             {
                 std::stable_sort(
                     mSortedDescending.begin(), mSortedDescending.end(),
-                    DistanceSortDescendingLess(cam));
+                    DistanceSortDescendingLess{cam});
             }
         }
 
@@ -406,7 +396,7 @@ namespace {
         // ascending and descending sort both set bit 1
         if (!!(mOrganisationMode & OrganisationMode::SORT_DESCENDING))
         {
-            mSortedDescending.push_back(RenderablePass(rend, pass));
+            mSortedDescending.push_back(RenderablePass{rend, pass});
         }
 
         if (!!(mOrganisationMode & OrganisationMode::PASS_GROUP))

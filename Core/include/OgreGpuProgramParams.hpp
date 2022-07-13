@@ -50,7 +50,7 @@ class AutoParamDataSource;
 class ColourValue;
 class Matrix3;
 class Matrix4;
-template <int dims, typename T> class Vector;
+template <int dims, typename T> struct Vector;
 
     /** \addtogroup Core
      *  @{
@@ -220,7 +220,7 @@ template <int dims, typename T> class Vector;
     struct GpuConstantDefinition
     {
         /// Physical byte offset in buffer
-        size_t physicalIndex;
+        size_t physicalIndex{std::numeric_limits<size_t>::max()};
         /// Logical index - used to communicate this constant to the rendersystem
         size_t logicalIndex{0};
         /** Number of typed slots per element
@@ -373,9 +373,6 @@ template <int dims, typename T> class Vector;
             }
         }
 
-    GpuConstantDefinition()
-        : physicalIndex((std::numeric_limits<size_t>::max)())
-             {}
     };
     using GpuConstantDefinitionMap = std::map<std::string, GpuConstantDefinition, std::less<>>;
     using GpuConstantDefinitionIterator = ConstMapIterator<GpuConstantDefinitionMap>;
@@ -389,9 +386,6 @@ template <int dims, typename T> class Vector;
         size_t registerCount{0};
         /// Map of parameter names to GpuConstantDefinition
         GpuConstantDefinitionMap map;
-
-        GpuNamedConstants();
-        ~GpuNamedConstants();
 
         /** Saves constant definitions to a file
          * compatible with @ref GpuProgram::setManualNamedConstantsFile.
@@ -424,18 +418,14 @@ template <int dims, typename T> class Vector;
     struct GpuLogicalIndexUse
     {
         /// Physical buffer index
-        size_t physicalIndex;
+        size_t physicalIndex{99999};
         /// Current physical size allocation
-        size_t currentSize;
+        size_t currentSize{0};
         /// How the contents of this slot vary
-        mutable GpuParamVariability variability;
+        mutable GpuParamVariability variability{GpuParamVariability::GLOBAL};
         /// Data type
-        BaseConstantType baseType;
+        BaseConstantType baseType{BaseConstantType::UNKNOWN};
 
-    GpuLogicalIndexUse()
-        : physicalIndex(99999), currentSize(0), variability(GpuParamVariability::GLOBAL), baseType(BaseConstantType::UNKNOWN) {}
-    GpuLogicalIndexUse(size_t bufIdx, size_t curSz, GpuParamVariability v, BaseConstantType t)
-        : physicalIndex(bufIdx), currentSize(curSz), variability(v), baseType(t) {}
     };
     using GpuLogicalIndexUseMap = std::map<size_t, GpuLogicalIndexUse>;
     /// Container struct to allow params to safely & update shared list of logical buffer assignments
@@ -445,8 +435,6 @@ template <int dims, typename T> class Vector;
         GpuLogicalIndexUseMap map;
         /// Shortcut to know the buffer size needs
         size_t bufferSize{0};
-        GpuLogicalBufferStruct();
-        ~GpuLogicalBufferStruct();
     };
 
     /** Definition of container that holds the current constants.
@@ -1255,15 +1243,6 @@ template <int dims, typename T> class Vector;
             ElementType elementType;
             /// The type of any extra data
             ACDataType dataType;
-
-        AutoConstantDefinition(AutoConstantType _acType, std::string_view _name,
-                               size_t _elementCount, ElementType _elementType,
-                               ACDataType _dataType)
-        :acType(_acType), name(_name), elementCount(_elementCount),
-                elementType(_elementType), dataType(_dataType)
-            {
-
-            }
         };
 
         /** Structure recording the use of an automatic parameter. */

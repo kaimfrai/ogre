@@ -67,9 +67,6 @@ class VertexData;
             size_t faceIndex;
             /// The old and new vertex index
             VertexSplit splitVertex;
-        
-            IndexRemap() = default; // to keep container happy
-            IndexRemap(size_t i, size_t f, VertexSplit  s) : indexSet(i), faceIndex(f), splitVertex(std::move(s)) {}
         };
         /** List of indexes that were remapped (split vertices).
         */
@@ -202,14 +199,12 @@ class VertexData;
             Vector3 pos;
             Vector3 norm;
             Vector2 uv;
-            Vector3 tangent;
-            Vector3 binormal;
+            Vector3 tangent{Vector3::ZERO};
+            Vector3 binormal{Vector3::ZERO};
             // Which way the tangent space is oriented (+1 / -1) (set on first time found)
             int parity{0};
             // What index the opposite parity vertex copy is at (0 if not created yet)
             size_t oppositeParityIndex{0};
-
-            VertexInfo() : tangent(Vector3::ZERO), binormal(Vector3::ZERO) {}
         };
         using VertexInfoArray = std::vector<VertexInfo>;
         VertexInfoArray mVertexArray;

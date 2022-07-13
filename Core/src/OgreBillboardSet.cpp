@@ -221,25 +221,17 @@ namespace Ogre {
         {
         case Direction:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
-                              SortByDirectionFunctor(-mCamDir));
+                              SortByDirectionFunctor{-mCamDir});
             break;
         case Distance:
             mRadixSorter.sort(mBillboardPool.begin(), mBillboardPool.begin() + mActiveBillboards,
-                              SortByDistanceFunctor(mCamPos));
+                              SortByDistanceFunctor{mCamPos});
             break;
         }
-    }
-    BillboardSet::SortByDirectionFunctor::SortByDirectionFunctor(const Vector3& dir)
-        : sortDir(dir)
-    {
     }
     auto BillboardSet::SortByDirectionFunctor::operator()(Billboard const* bill) const noexcept -> float
     {
         return sortDir.dotProduct(bill->getPosition());
-    }
-    BillboardSet::SortByDistanceFunctor::SortByDistanceFunctor(const Vector3& pos)
-        : sortPos(pos)
-    {
     }
     auto BillboardSet::SortByDistanceFunctor::operator()(Billboard const* bill) const noexcept -> float
     {

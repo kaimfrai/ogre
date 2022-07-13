@@ -310,10 +310,10 @@ class ResourceManager;
             // only consider non-array entries
             if (name.find('[') == String::npos)
             {
-                GpuLogicalIndexUseMap::value_type val(
+                GpuLogicalIndexUseMap::value_type val{
                     def.logicalIndex,
-                    GpuLogicalIndexUse(def.physicalIndex, def.arraySize * def.elementSize, def.variability,
-                                       GpuConstantDefinition::getBaseType(def.constType)));
+                    GpuLogicalIndexUse{def.physicalIndex, def.arraySize * def.elementSize, def.variability,
+                                       GpuConstantDefinition::getBaseType(def.constType)}};
                 mLogicalToPhysical->map.emplace(val);
             }
         }

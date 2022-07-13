@@ -247,12 +247,6 @@ class Viewport;
             std::string_view fsaaHint;
             bool sRGBwrite;
 
-            TextureDef(size_t w, size_t h, TextureType t, PixelFormat f, uint aa, std::string_view aaHint,
-                       bool srgb)
-                : width(w), height(h), type(t), format(f), fsaa(aa), fsaaHint(aaHint), sRGBwrite(srgb)
-            {
-            }
-
             [[nodiscard]] auto operator<=> (const TextureDef& y) const noexcept = default;
         };
         using TexturesByDef = std::map<TextureDef, TextureList>;

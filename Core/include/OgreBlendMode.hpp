@@ -282,10 +282,6 @@ namespace Ogre {
         SceneBlendOperation alphaOperation{SceneBlendOperation::ADD};
         /// @}
 
-        ColourBlendState()
-             
-        = default;
-
         /// can we simply overwrite the existing pixels or do we have to blend
         [[nodiscard]] auto blendingEnabled() const -> bool
         {

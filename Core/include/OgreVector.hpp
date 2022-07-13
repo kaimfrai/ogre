@@ -51,22 +51,6 @@ namespace Ogre
     /// helper class to implement legacy API. Notably x, y, z access
     template <int dims, typename T> struct VectorBase
     {
-        VectorBase() = default;
-        VectorBase(T _x, T _y)
-        {
-            static_assert(dims > 1, "must have at least 2 dimensions");
-            data[0] = _x; data[1] = _y;
-        }
-        VectorBase(T _x, T _y, T _z)
-        {
-            static_assert(dims > 2, "must have at least 3 dimensions");
-            data[0] = _x; data[1] = _y; data[2] = _z;
-        }
-        VectorBase(T _x, T _y, T _z, T _w)
-        {
-            static_assert(dims > 3, "must have at least 4 dimensions");
-            data[0] = _x; data[1] = _y; data[2] = _z; data[3] = _w;
-        }
         T data[dims];
         auto ptr() noexcept -> T* { return data; }
         [[nodiscard]] auto ptr() const noexcept -> const T* { return data; }
@@ -312,22 +296,21 @@ namespace Ogre
         you interpret the values.
     */
     template<int dims, typename T>
-    class Vector : public VectorBase<dims, T>
+    struct Vector : public VectorBase<dims, T>
     {
-    public:
         using VectorBase<dims, T>::ptr;
 
         /** Default constructor.
             @note It does <b>NOT</b> initialize the vector for efficiency.
         */
         Vector() = default;
-        Vector(T _x, T _y) : VectorBase<dims, T>(_x, _y) {}
-        Vector(T _x, T _y, T _z) : VectorBase<dims, T>(_x, _y, _z) {}
-        Vector(T _x, T _y, T _z, T _w) : VectorBase<dims, T>(_x, _y, _z, _w) {}
+        Vector(T _x, T _y) : VectorBase<dims, T>{_x, _y} {}
+        Vector(T _x, T _y, T _z) : VectorBase<dims, T>{_x, _y, _z} {}
+        Vector(T _x, T _y, T _z, T _w) : VectorBase<dims, T>{_x, _y, _z, _w} {}
 
         // use enable_if as function parameter for VC < 2017 compatibility
         template <int N = dims>
-        explicit Vector(const typename std::enable_if<N == 4, Vector3>::type& rhs, T fW = 1.0f) : VectorBase<dims, T>(rhs.x, rhs.y, rhs.z, fW) {}
+        explicit Vector(const typename std::enable_if<N == 4, Vector3>::type& rhs, T fW = 1.0f) : VectorBase<dims, T>{rhs.x, rhs.y, rhs.z, fW} {}
 
         template<typename U>
         explicit Vector(const U* _ptr) {
@@ -336,7 +319,7 @@ namespace Ogre
         }
 
         template<typename U>
-        explicit Vector(const Vector<dims, U>& o) : Vector(o.ptr()) {}
+        explicit Vector(const Vector<dims, U>& o) : Vector{o.ptr()} {}
 
 
         explicit Vector(T s)

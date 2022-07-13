@@ -697,24 +697,8 @@ class RenderWindow;
 
         template< typename T > struct TRect
         {
-          T left, top, right, bottom;
-          TRect() : left(0), top(0), right(0), bottom(0) {}
-          TRect( T const & l, T const & t, T const & r, T const & b )
-            : left( l ), top( t ), right( r ), bottom( b )
-          {
-          }
-          TRect( TRect const & o )
-            : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom )
-          {
-          }
-          auto operator=( TRect const & o ) -> TRect &
-          {
-            left = o.left;
-            top = o.top;
-            right = o.right;
-            bottom = o.bottom;
-            return *this;
-          }
+          T left{0}, top{0}, right{0}, bottom{0};
+
           [[nodiscard]] auto width() const -> T
           {
             return right - left;

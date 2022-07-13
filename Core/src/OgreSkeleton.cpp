@@ -660,14 +660,14 @@ class Affine3;
             SkeletonPtr skelPtr = static_pointer_cast<Skeleton>(
                 SkeletonManager::getSingleton().prepare(skelName, mGroup));
             mLinkedSkeletonAnimSourceList.push_back(
-                LinkedSkeletonAnimationSource(skelName, scale, skelPtr));
+                LinkedSkeletonAnimationSource{skelName, scale, skelPtr});
 
         }
         else
         {
             // Load later
             mLinkedSkeletonAnimSourceList.push_back(
-                LinkedSkeletonAnimationSource(skelName, scale));
+                LinkedSkeletonAnimationSource{skelName, scale});
         }
 
     }

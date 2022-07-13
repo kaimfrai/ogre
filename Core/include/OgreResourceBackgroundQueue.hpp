@@ -57,8 +57,6 @@ namespace Ogre {
         bool error{false};
         /// Any messages from the process
         std::string_view message;
-
-        BackgroundProcessResult()  = default;
     };
 
 

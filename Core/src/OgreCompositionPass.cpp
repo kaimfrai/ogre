@@ -111,7 +111,7 @@ auto CompositionPass::getAutomaticColour() const noexcept -> bool
 void CompositionPass::setInput(size_t id, std::string_view input, size_t mrtIndex)
 {
     assert(id<OGRE_MAX_TEXTURE_LAYERS);
-    mMaterial.inputs[id] = InputTex(input, mrtIndex);
+    mMaterial.inputs[id] = InputTex{input, mrtIndex};
 }
 //-----------------------------------------------------------------------
 auto CompositionPass::getInput(size_t id) const -> const CompositionPass::InputTex &

@@ -128,19 +128,17 @@ namespace Ogre
 
         /** General purpose response structure. 
         */
-        struct Response : public UtilityAlloc
+        struct Response
         {
             /// Pointer to the request that this response is in relation to
             ::std::unique_ptr<Request const> mRequest;
             /// Whether the work item succeeded or not
             bool mSuccess;
-            /// Any diagnostic messages
-            std::string_view mMessages;
             /// Data associated with the result of the process
             ::std::any mData;
+            /// Any diagnostic messages
+            std::string_view mMessages = "";
 
-        public:
-            Response(const Request* rq, bool success, ::std::any  data, std::string_view msg = BLANKSTRING);
             /// Get the request that this is a response to (NB destruction destroys this)
             [[nodiscard]] auto getRequest() const noexcept -> const Request* { return mRequest.get(); }
             /// Return whether this is a successful response
@@ -486,9 +484,6 @@ namespace Ogre
         struct WorkerFunc
         {
             DefaultWorkQueueBase* mQueue;
-
-            WorkerFunc(DefaultWorkQueueBase* q) 
-                : mQueue(q) {}
 
             void operator()();
             

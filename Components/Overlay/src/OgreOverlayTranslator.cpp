@@ -107,7 +107,7 @@ void FontTranslator::parseAttribute(ScriptCompiler* compiler, FontPtr& pFont,
             cp = val[0];
         }
         pFont->setGlyphInfoFromTexCoords(
-            cp, FloatRect(coords[0], coords[1], coords[2], coords[3])); // assume image is square
+            cp, FloatRect{coords[0], coords[1], coords[2], coords[3]}); // assume image is square
     }
     else if (attrib == "antialias_colour")
     {

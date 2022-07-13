@@ -137,23 +137,15 @@ class Material;
         /// Rule controlling whether technique is deemed supported based on GPU vendor
         struct GPUVendorRule
         {
-            GPUVendor vendor;
-            IncludeOrExclude includeOrExclude;
-            GPUVendorRule()
-                : vendor(GPUVendor::UNKNOWN), includeOrExclude(EXCLUDE) {}
-            GPUVendorRule(GPUVendor v, IncludeOrExclude ie)
-                : vendor(v), includeOrExclude(ie) {}
+            GPUVendor vendor{GPUVendor::UNKNOWN};
+            IncludeOrExclude includeOrExclude{EXCLUDE};
         };
         /// Rule controlling whether technique is deemed supported based on GPU device name
         struct GPUDeviceNameRule
         {
             std::string devicePattern;
-            IncludeOrExclude includeOrExclude;
-            bool caseSensitive;
-            GPUDeviceNameRule()
-                : includeOrExclude(EXCLUDE), caseSensitive(false) {}
-            GPUDeviceNameRule(std::string_view pattern, IncludeOrExclude ie, bool caseSen)
-                : devicePattern(pattern), includeOrExclude(ie), caseSensitive(caseSen) {}
+            IncludeOrExclude includeOrExclude{EXCLUDE};
+            bool caseSensitive{false};
         };
         using GPUVendorRuleList = std::vector<GPUVendorRule>;
         using GPUDeviceNameRuleList = std::vector<GPUDeviceNameRule>;

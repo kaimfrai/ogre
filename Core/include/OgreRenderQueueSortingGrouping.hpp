@@ -67,8 +67,6 @@ namespace Ogre {
         Renderable* renderable;
         /// Pointer to the Pass
         Pass* pass;
-
-        RenderablePass(Renderable* rend, Pass* p) :renderable(rend), pass(p) {}
     };
 
 

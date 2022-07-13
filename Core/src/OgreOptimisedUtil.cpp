@@ -51,18 +51,10 @@ namespace Ogre {
 
         struct ProfileItem
         {
-            uint mAvgTicks;
-            uint mCount;
-            uint64 mTotalTicks;
-            uint64 mStartTick;
-
-            ProfileItem(void)
-                : mAvgTicks()
-                , mCount()
-                , mTotalTicks()
-                , mStartTick()
-            {
-            }
+            uint mAvgTicks{};
+            uint mCount{};
+            uint64 mTotalTicks{};
+            uint64 mStartTick{};
 
             void begin(void)
             {

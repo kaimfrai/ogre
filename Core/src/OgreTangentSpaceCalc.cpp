@@ -431,7 +431,7 @@ namespace Ogre
                 locVertex.binormal = Vector3::ZERO;
                 locVertex.parity = faceParity;
                 mVertexArray.push_back(locVertex);
-                result.indexesRemapped.push_back(IndexRemap(indexSet, faceIndex, splitInfo));
+                result.indexesRemapped.push_back(IndexRemap{indexSet, faceIndex, splitInfo});
 
                 vertex = &(mVertexArray[newVertexIndex]);
 
@@ -440,7 +440,7 @@ namespace Ogre
             {
                 // didn't split again, but we do need to record the re-used remapping
                 VertexSplit splitInfo(localVertInd[v], reusedOppositeParity);
-                result.indexesRemapped.push_back(IndexRemap(indexSet, faceIndex, splitInfo));
+                result.indexesRemapped.push_back(IndexRemap{indexSet, faceIndex, splitInfo});
 
             }
 

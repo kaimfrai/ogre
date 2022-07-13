@@ -211,8 +211,6 @@ class AnimationTrack;
                 1.0 for full influence (full offset), 0.0 for no influence.
             */
             Real influence;
-
-            PoseRef(ushort p, Real i) : poseIndex(p), influence(i) {}
         };
         using PoseRefList = std::vector<PoseRef>;
 

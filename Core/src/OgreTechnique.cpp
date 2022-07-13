@@ -1045,7 +1045,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     void Technique::addGPUVendorRule(GPUVendor vendor, Technique::IncludeOrExclude includeOrExclude)
     {
-        addGPUVendorRule(GPUVendorRule(vendor, includeOrExclude));
+        addGPUVendorRule(GPUVendorRule{vendor, includeOrExclude});
     }
     //---------------------------------------------------------------------
     void Technique::addGPUVendorRule(const Technique::GPUVendorRule& rule)
@@ -1069,7 +1069,7 @@ namespace Ogre {
     void Technique::addGPUDeviceNameRule(std::string_view devicePattern, 
         Technique::IncludeOrExclude includeOrExclude, bool caseSensitive)
     {
-        addGPUDeviceNameRule(GPUDeviceNameRule(devicePattern, includeOrExclude, caseSensitive));
+        addGPUDeviceNameRule(GPUDeviceNameRule{std::string{devicePattern}, includeOrExclude, caseSensitive});
     }
     //---------------------------------------------------------------------
     void Technique::addGPUDeviceNameRule(const Technique::GPUDeviceNameRule& rule)

@@ -148,24 +148,8 @@ protected:
         // The count of each source type. I.E (1 FLOAT1, 0 FLOAT2, 1 FLOAT3, 0 FLOAT4).
         size_t srcParameterTypeCount[4];
         // Source parameters mask. OpMask::ALL means all fields used, otherwise it is split source parameter.
-        Operand::OpMask srcParameterMask[4];
-
-        MergeCombination(
-            int float1Count, Operand::OpMask float1Mask,
-            int float2Count, Operand::OpMask float2Mask,
-            int float3Count, Operand::OpMask float3Mask,
-            int float4Count, Operand::OpMask float4Mask)
-        {
-            srcParameterTypeCount[0] = float1Count;
-            srcParameterTypeCount[1] = float2Count;
-            srcParameterTypeCount[2] = float3Count;
-            srcParameterTypeCount[3] = float4Count;
-            srcParameterMask[0]     = float1Mask;
-            srcParameterMask[1]     = float2Mask;
-            srcParameterMask[2]     = float3Mask;
-            srcParameterMask[3]     = float4Mask;
-
-        }
+        using enum Operand::OpMask;
+        Operand::OpMask srcParameterMask[4]{ALL, ALL, ALL, ALL};
     };
     using MergeCombinationList = std::vector<MergeCombination>;
 

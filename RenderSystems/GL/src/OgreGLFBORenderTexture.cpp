@@ -502,7 +502,7 @@ static const uchar depthBits[] =
         retval.buffer = nullptr; // Return 0 buffer if GL_NONE is requested
         if(format != GL_NONE)
         {
-            RBFormat key(format, width, height, fsaa);
+            RBFormat key{format, width, height, fsaa};
             auto it = mRenderBufferMap.find(key);
             if(it != mRenderBufferMap.end())
             {

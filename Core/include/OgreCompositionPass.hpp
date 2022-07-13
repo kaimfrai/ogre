@@ -248,10 +248,7 @@ class CompositionTargetPass;
             /// Name (local) of the input texture (empty == no input)
             std::string_view name;
             /// MRT surface index if applicable
-            size_t mrtIndex;
-            InputTex() : mrtIndex(0) {}
-            InputTex(std::string_view _name, size_t _mrtIndex = 0)
-                : name(_name), mrtIndex(_mrtIndex) {}
+            size_t mrtIndex{0};
         };
 
         /** Set an input local texture. An empty string clears the input.
@@ -349,7 +346,6 @@ class CompositionTargetPass;
                 An empty string signifies that no input is used */
             InputTex inputs[OGRE_MAX_TEXTURE_LAYERS];
 
-            MaterialData()  = default;
         } mMaterial;
 
         // in case of PassType::RENDERSCENE
@@ -366,19 +362,15 @@ class CompositionTargetPass;
             std::string_view cameraName;
             bool alignCameraToFace{false};
 
-            RenderSceneData()
-                
-                  
-            = default;
         } mRenderScene;
 
         // in case of PassType::CLEAR
         struct ClearData
         {
             /// Clear buffers
-            FrameBufferType buffers;
+            FrameBufferType buffers{FrameBufferType::COLOUR | FrameBufferType::DEPTH};
             /// Clear colour
-            ColourValue colour;
+            ColourValue colour{ColourValue::ZERO};
             /// Clear colour with the colour of the original viewport. Overrides mClearColour
             bool automaticColour{false};
             /// Clear depth
@@ -386,10 +378,6 @@ class CompositionTargetPass;
             /// Clear stencil value
             uint16 stencil{0};
 
-            ClearData()
-                : buffers(FrameBufferType::COLOUR | FrameBufferType::DEPTH), colour(ColourValue::ZERO) 
-            {
-            }
         } mClear;
 
         /// in case of PassType::COMPUTE
@@ -404,13 +392,9 @@ class CompositionTargetPass;
             /// True if quad should not cover whole screen
             bool cornerModified{false};
             /// quad positions in normalised coordinates [-1;1]x[-1;1]
-            FloatRect rect;
+            FloatRect rect{-1, 1, 1, -1};
             bool farCorners{false}, farCornersViewSpace{false};
 
-            QuadData()
-                :  rect(-1, 1, 1, -1) 
-            {
-            }
         } mQuad;
 
         /// in case of PassType::RENDERCUSTOM

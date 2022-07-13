@@ -2727,7 +2727,7 @@ namespace Ogre {
 
         Rect vpRect = mActiveViewport->getActualDimensions();
         bool needScissorBox =
-            vpRect != Rect(0, 0, mActiveRenderTarget->getWidth(), mActiveRenderTarget->getHeight());
+            vpRect != Rect{0, 0, static_cast<int>(mActiveRenderTarget->getWidth()), static_cast<int>(mActiveRenderTarget->getHeight())};
         if (needScissorBox)
         {
             // Should be enable scissor test due the clear region is

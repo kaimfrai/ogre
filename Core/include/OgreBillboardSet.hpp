@@ -278,7 +278,6 @@ class VertexData;
             /// Direction to sort in
             Vector3 sortDir;
 
-            SortByDirectionFunctor(const Vector3& dir);
             [[nodiscard]] auto operator()(Billboard const* bill) const noexcept -> float;
             [[nodiscard]] auto operator()(::std::unique_ptr<Billboard> const& bill) const noexcept -> float
             {
@@ -292,7 +291,6 @@ class VertexData;
             /// Position to sort in
             Vector3 sortPos;
 
-            SortByDistanceFunctor(const Vector3& pos);
             [[nodiscard]] auto operator()(Billboard const* bill) const noexcept -> float;
             [[nodiscard]] auto operator()(::std::unique_ptr<Billboard> const& bill) const noexcept -> float
             {

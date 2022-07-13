@@ -475,13 +475,8 @@ auto constexpr inline OGRE_MAX_NUM_BONES = 256;
     struct LinkedSkeletonAnimationSource
     {
         std::string_view skeletonName;
-        SkeletonPtr pSkeleton;
         Real scale;
-        LinkedSkeletonAnimationSource(std::string_view skelName, Real scl)
-            : skeletonName(skelName), scale(scl) {}
-            LinkedSkeletonAnimationSource(std::string_view skelName, Real scl, 
-                SkeletonPtr skelPtr)
-                : skeletonName(skelName), pSkeleton(skelPtr), scale(scl) {}
+        SkeletonPtr pSkeleton;
     };
     /** @} */
     /** @} */

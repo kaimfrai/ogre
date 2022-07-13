@@ -181,7 +181,7 @@ public:
     RSQuadOperation(CompositorInstance *inInstance, uint32 inPass_id, MaterialPtr inMat):
       mat(inMat), instance(inInstance), pass_id(inPass_id),
       
-      mQuad(-1, 1, 1, -1)
+      mQuad{-1, 1, 1, -1}
     {
         instance->_fireNotifyMaterialSetup(pass_id, mat);
         technique = mat->getBestTechnique();

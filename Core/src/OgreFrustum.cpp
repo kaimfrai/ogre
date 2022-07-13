@@ -305,7 +305,7 @@ class RenderQueue;
             topLeft /= topLeft.w;
             bottomRight /= bottomRight.w;
 
-            mExtents = RealRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
+            mExtents = RealRect{topLeft.x, topLeft.y, bottomRight.x, bottomRight.y};
         }
         else
         {
@@ -326,8 +326,8 @@ class RenderQueue;
                 Real half_w = tanThetaX * mNearDist;
                 Real half_h = tanThetaY * mNearDist;
 
-                mExtents = RealRect(-half_w + nearOffsetX, +half_h + nearOffsetY,
-                                    +half_w + nearOffsetX, -half_h + nearOffsetY);
+                mExtents = RealRect{-half_w + nearOffsetX, +half_h + nearOffsetY,
+                                    +half_w + nearOffsetX, -half_h + nearOffsetY};
             }
             else
             {
@@ -335,7 +335,7 @@ class RenderQueue;
                 Real half_w = getOrthoWindowWidth() * 0.5f;
                 Real half_h = getOrthoWindowHeight() * 0.5f;
 
-                mExtents = RealRect(-half_w, +half_h, +half_w, -half_h);
+                mExtents = RealRect{-half_w, +half_h, +half_w, -half_h};
             }
         }
 
@@ -1081,7 +1081,7 @@ class RenderQueue;
     void Frustum::setFrustumExtents(Real left, Real right, Real top, Real bottom)
     {
         mFrustumExtentsManuallySet = true;
-        mExtents = RealRect(left, top, right, bottom);
+        mExtents = RealRect{left, top, right, bottom};
 
         invalidateFrustum();
     }

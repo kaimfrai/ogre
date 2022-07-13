@@ -113,8 +113,6 @@ class Sphere;
             uint32 length{0};
             /// Location of the chunk (header) in bytes from the start of a stream (derived)
             uint32 offset{0};
-
-            Chunk()  = default;
         };
 
         /** Constructor.

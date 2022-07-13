@@ -81,10 +81,6 @@ namespace Ogre {
     /// Struct that holds details of queued notifications
     struct ResourceResponse
     {
-        ResourceResponse(ResourcePtr r, ResourceRequest  req)
-            : resource(r), request(std::move(req))
-        {}
-
         ResourcePtr resource;
         ResourceRequest request;
     };
@@ -280,8 +276,8 @@ namespace Ogre {
                 resreq.loadParams = nullptr;
             }
             resreq.result.error = false;
-            ResourceResponse resresp(ResourcePtr(), resreq);
-            return new WorkQueue::Response(req, true, resresp);
+            ResourceResponse resresp{ResourcePtr(), resreq};
+            return new WorkQueue::Response{std::unique_ptr<const WorkQueue::Request>{req}, true, resresp};
         }
 
         ResourceManager* rm = nullptr;
@@ -343,8 +339,8 @@ namespace Ogre {
             resreq.result.message = e.getFullDescription();
 
             // return error response
-            ResourceResponse resresp(resource, resreq);
-            return new WorkQueue::Response(req, false, resresp, e.getFullDescription());
+            ResourceResponse resresp{resource, resreq};
+            return new WorkQueue::Response{std::unique_ptr<const WorkQueue::Request>{req}, false, resresp, e.getFullDescription()};
         }
 
 
@@ -355,8 +351,8 @@ namespace Ogre {
             resreq.loadParams = nullptr;
         }
         resreq.result.error = false;
-        ResourceResponse resresp(resource, resreq);
-        return new WorkQueue::Response(req, true, resresp);
+        ResourceResponse resresp{resource, resreq};
+        return new WorkQueue::Response{std::unique_ptr<const WorkQueue::Request>{req}, true, resresp};
 
     }
     //------------------------------------------------------------------------

@@ -373,46 +373,46 @@ void ProgramProcessor::mergeParametersByPredefinedCombinations(ShaderParameterLi
         MergeCombination simpleCombinations[6] = 
         {
             // Deal with the float3 parameters.
-            MergeCombination( 
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            1, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            0,
+            0,
+            1,
+            0},
 
             // Deal with float2 + float1 combination.
-            MergeCombination( 
-            1, Operand::OpMask::ALL,
-            1, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            1,
+            1,
+            0,
+            0},
 
             // Deal with the float2 parameter.
-            MergeCombination( 
-            0, Operand::OpMask::ALL,
-            1, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            0,
+            1,
+            0,
+            0},
 
             // Deal with the 3 float1 combination.
-            MergeCombination( 
-            3, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            3,
+            0,
+            0,
+            0},
 
             // Deal with the 2 float1 combination.
-            MergeCombination( 
-            2, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            2,
+            0,
+            0,
+            0},
 
             // Deal with the 1 float1 combination.
-            MergeCombination( 
-            1, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL,
-            0, Operand::OpMask::ALL),
+            MergeCombination{
+            1,
+            0,
+            0,
+            0},
             
         };
 
@@ -831,39 +831,39 @@ auto ProgramProcessor::getParameterMaskByFloatCount(int floatCount) -> Operand::
 void ProgramProcessor::buildMergeCombinations()
 {
     mParamMergeCombinations.push_back(
-        MergeCombination(
-        1, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        1, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL));
+        MergeCombination{
+        1,
+        0,
+        1,
+        0});
 
     mParamMergeCombinations.push_back(
-        MergeCombination(
-        2, Operand::OpMask::ALL,
-        1, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL));
+        MergeCombination{
+        2,
+        1,
+        0,
+        0});
 
     mParamMergeCombinations.push_back(
-        MergeCombination( 
-        4, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL));
+        MergeCombination{
+        4,
+        0,
+        0,
+        0});
 
     mParamMergeCombinations.push_back(
-        MergeCombination( 
-        0, Operand::OpMask::ALL,
-        2, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL));
+        MergeCombination{
+        0,
+        2,
+        0,
+        0});
 
     mParamMergeCombinations.push_back(
-        MergeCombination( 
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        0, Operand::OpMask::ALL,
-        1, Operand::OpMask::ALL));
+        MergeCombination{
+        0,
+        0,
+        0,
+        1});
 }
 
 //-----------------------------------------------------------------------------

@@ -145,7 +145,7 @@ namespace Ogre
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::addPoseReference(ushort poseIndex, Real influence)
     {
-        mPoseRefs.push_back(PoseRef(poseIndex, influence));
+        mPoseRefs.push_back(PoseRef{poseIndex, influence});
     }
     //---------------------------------------------------------------------
     void VertexPoseKeyFrame::updatePoseReference(ushort poseIndex, Real influence)

@@ -235,7 +235,7 @@ auto CompositorManager::getPooledTexture(std::string_view name,
 {
     OgreAssert(scope != CompositionTechnique::TextureScope::GLOBAL, "Global scope texture can not be pooled");
 
-    TextureDef def(w, h, type, f, aa, aaHint, srgb);
+    TextureDef def{w, h, type, f, aa, aaHint, srgb};
 
     if (scope == CompositionTechnique::TextureScope::CHAIN)
     {

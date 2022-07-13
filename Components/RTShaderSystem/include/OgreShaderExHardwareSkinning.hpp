@@ -76,9 +76,6 @@ class HardwareSkinning : public SubRenderState
 public:
     struct SkinningData
     {
-        SkinningData()  
-        = default;
-
         bool isValid{true};
         ushort maxBoneCount{0};
         ushort maxWeightCount{0};

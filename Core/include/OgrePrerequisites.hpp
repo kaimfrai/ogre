@@ -232,7 +232,7 @@ namespace Ogre {
     class TransformKeyFrame;
     class Timer;
     class UserObjectBindings;
-    template <int dims, typename T> class Vector;
+    template <int dims, typename T> struct Vector;
     using Vector2 = Vector<2, Real>;
     using Vector2i = Vector<2, int>;
     using Vector3 = Vector<3, Real>;

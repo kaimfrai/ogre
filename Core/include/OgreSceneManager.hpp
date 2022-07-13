@@ -113,8 +113,6 @@ namespace Ogre {
         PixelFormat format{PixelFormat::BYTE_RGBA};
         unsigned int fsaa{0};
         DepthBuffer::PoolId depthBufferPoolId{1};
-
-        ShadowTextureConfig()  = default;
     };
 
     using ShadowTextureConfigList = std::vector<ShadowTextureConfig>;
@@ -969,8 +967,6 @@ namespace Ogre {
             PlaneList clipPlanes;
             bool scissorValid{false};
             unsigned long clipPlanesValid{false};
-            LightClippingInfo()  = default;
-
         };
         using LightClippingInfoMap = std::map<Light *, LightClippingInfo>;
         LightClippingInfoMap mLightClippingInfoMap;

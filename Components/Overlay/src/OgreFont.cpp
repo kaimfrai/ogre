@@ -498,10 +498,10 @@ namespace Ogre
                     }
                 }
 
-                UVRect uvs((Real)l / (Real)finalWidth,                   // u1
+                UVRect uvs{(Real)l / (Real)finalWidth,                   // u1
                            (Real)m / (Real)finalHeight,                  // v1
                            (Real)(l + width) / (Real)finalWidth,         // u2
-                           (m + max_height) / (Real)finalHeight); // v2
+                           (m + max_height) / (Real)finalHeight}; // v2
                 this->setGlyphInfo({cp, uvs, float(textureAspect * uvs.width() / uvs.height()),
                                     float(x_bearing) / max_height, float(advance) / max_height});
 

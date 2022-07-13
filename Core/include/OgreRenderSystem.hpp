@@ -154,10 +154,6 @@ class VertexDeclaration;
         bool enabled : 1{false};
         /// Toggles two-sided stencil operation, which swaps increment and decrement for back-facing polygons.
         bool twoSidedOperation : 1{false};
-
-        StencilState()
-             
-        = default;
     };
 
     /** Defines the functionality of a 3D API

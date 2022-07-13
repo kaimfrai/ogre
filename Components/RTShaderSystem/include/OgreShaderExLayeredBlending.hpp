@@ -106,8 +106,6 @@ public:
 
     struct TextureBlend
     {
-        TextureBlend()  = default;
-
         //The blend mode to use
         BlendMode blendMode{BlendMode::Invalid};
         //The source modification to use

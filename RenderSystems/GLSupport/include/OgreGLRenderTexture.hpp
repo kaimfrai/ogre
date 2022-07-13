@@ -50,12 +50,9 @@ class RenderTarget;
      */
     struct GLSurfaceDesc
     {
-    public:
         GLHardwarePixelBufferCommon *buffer{nullptr};
         uint32 zoffset{0};
         uint numSamples{0};
-
-        GLSurfaceDesc()  = default;
     };
 
     /// Frame Buffer Object abstraction
@@ -199,11 +196,6 @@ class RenderTarget;
         */
         struct RBFormat
         {
-            RBFormat(uint inFormat, size_t inWidth, size_t inHeight, uint fsaa)
-                : format(inFormat), width(inWidth), height(inHeight), samples(fsaa)
-            {
-            }
-            RBFormat() = default;
             uint format;
             size_t width;
             size_t height;

@@ -104,10 +104,6 @@ namespace Ogre {
         {
             TCompValueType key;
             ContainerIter iter;
-            SortEntry() = default;
-            SortEntry(TCompValueType k, ContainerIter it)
-                : key(k), iter(it) {}
-
         };
         /// Temp sort storage
         using SortVector = typename std::vector<SortEntry>;

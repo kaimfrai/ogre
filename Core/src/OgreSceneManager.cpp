@@ -2745,10 +2745,10 @@ auto SceneManager::buildAndSetScissor(const LightList& ll, const Camera* cam) ->
         // Turn normalised device coordinates into pixels
         Rect vp = mCurrentViewport->getActualDimensions();
 
-        Rect scissor(vp.left + ((finalRect.left + 1) * 0.5 * vp.width()),
-                     vp.top + ((-finalRect.top + 1) * 0.5 * vp.height()),
-                     vp.left + ((finalRect.right + 1) * 0.5 * vp.width()),
-                     vp.top + ((-finalRect.bottom + 1) * 0.5 * vp.height()));
+        Rect scissor{static_cast<int32>(vp.left + ((finalRect.left + 1) * 0.5 * vp.width())),
+                     static_cast<int32>(vp.top + ((-finalRect.top + 1) * 0.5 * vp.height())),
+                     static_cast<int32>(vp.left + ((finalRect.right + 1) * 0.5 * vp.width())),
+                     static_cast<int32>(vp.top + ((-finalRect.bottom + 1) * 0.5 * vp.height()))};
         mDestRenderSystem->setScissorTest(true, scissor);
 
         return ClipResult::SOME;

@@ -1577,8 +1577,6 @@ namespace Ogre {
         bool destroyOnShutdown;
         /// The original pass which spawned this one
         Pass* originalPass;
-
-        IlluminationPass() = default;
     };
 
     using IlluminationPassList = std::vector<IlluminationPass *>;

@@ -166,9 +166,6 @@ class HardwareBufferManagerBase;
         Vector3 mMin, mMax;
         std::set<uint32> mIndices;
 
-        Cluster ()
-        = default;
-
         [[nodiscard]] auto empty () const -> bool
         {
             if (mIndices.empty ())
