@@ -42,7 +42,7 @@ THE SOFTWARE.
 
 namespace Ogre{
 class ColourValue;
-class Matrix4;
+struct Matrix4;
     class AbstractNode;
     class ObjectAbstractNode;
     using AbstractNodePtr = SharedPtr<AbstractNode>;

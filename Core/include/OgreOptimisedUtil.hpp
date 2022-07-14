@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 
 namespace Ogre {
-class Affine3;
+struct Affine3;
 
     /** \addtogroup Core
     *  @{

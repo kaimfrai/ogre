@@ -39,7 +39,7 @@ namespace Ogre
 {
 class Camera;
 class InstanceManager;
-class Matrix4;
+struct Matrix4;
 class RenderOperation;
 class RenderQueue;
 class SubMesh;

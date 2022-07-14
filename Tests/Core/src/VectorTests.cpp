@@ -118,7 +118,7 @@ TEST(VectorTests, Matrix4ArrayLoading)
                       0, 0, 1, 0,
                       0, 0, 0, 1 };
     
-    Matrix4 mat0(arr0);
+    Matrix4 mat0 = Matrix4::FromPtr(arr0);
     
     EXPECT_EQ(1, mat0[0][0]);
     EXPECT_EQ(1, mat0[1][1]);
@@ -130,7 +130,7 @@ TEST(VectorTests, Matrix4ArrayLoading)
                       8,    9,  10,  11,
                       12,  13,  14,  15};
 
-    Matrix4 mat1(arr1);
+    Matrix4 mat1 = Matrix4::FromPtr(arr1);
 
     EXPECT_EQ(0, mat1[0][0]);
     EXPECT_EQ(1, mat1[0][1]);
@@ -159,9 +159,9 @@ TEST(VectorTests, Matrix3SVD)
     Vector3 w;
 
     // bidiagonal matrix
-    Matrix3 ref(3, 1, 0,
+    Matrix3 ref{3, 1, 0,
                 0, 2, 0,
-                0, 0, 1);
+                0, 0, 1};
 
     ref.SingularValueDecomposition(U, w, V);
     mat.SingularValueComposition(U, w, V);
@@ -196,7 +196,7 @@ TEST(VectorTests, TransformBaseArrayLoading)
                         4,    5,   6,   7,
                         8,    9,  10,  11};
 
-    Matrix3x4f mat1(arr1);
+    Matrix3x4f mat1 = Matrix3x4f::FromPtr(arr1);
 
     EXPECT_EQ(0, mat1[0][0]);
     EXPECT_EQ(1, mat1[0][1]);
@@ -218,8 +218,8 @@ TEST(VectorTests, TypeCasts)
 {
     int arr[16] = { 0 };
 
-    Affine3 affine(arr);
-    Matrix4 matrix(arr);
+    Affine3 affine = Affine3::FromPtr(arr);
+    Matrix4 matrix = Matrix4::FromPtr(arr);
 
     EXPECT_EQ(affine, Affine3::ZERO);
     EXPECT_EQ(matrix, Matrix4::ZERO);

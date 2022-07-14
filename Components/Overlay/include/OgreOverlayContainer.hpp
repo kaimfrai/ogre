@@ -38,7 +38,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     template <typename T> class MapIterator;
-class Matrix4;
+struct Matrix4;
 class Overlay;
 class RenderQueue;
 

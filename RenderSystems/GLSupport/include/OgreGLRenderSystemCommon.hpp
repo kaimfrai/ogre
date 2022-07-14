@@ -45,7 +45,7 @@ THE SOFTWARE.
 namespace Ogre {
     class GLContext;
     class GLRTTManager;
-    class Matrix4;
+    struct Matrix4;
     class VertexElement;
     class Viewport;
     struct Box;

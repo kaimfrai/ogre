@@ -62,7 +62,7 @@ namespace Ogre {
 
     struct MeshLodUsage;
     class LodStrategy;
-class Affine3;
+struct Affine3;
 class AnimationStateSet;
 class EdgeData;
 class HardwareBufferManagerBase;

@@ -63,7 +63,7 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-class Affine3;
+struct Affine3;
 
     //---------------------------------------------------------------------
     Skeleton::Skeleton()

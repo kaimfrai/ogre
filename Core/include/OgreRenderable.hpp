@@ -42,7 +42,7 @@ THE SOFTWARE.
 
 namespace Ogre {
     class Camera;
-    class Matrix4;
+    struct Matrix4;
     class RenderOperation;
     class RenderSystem;
     class SceneManager;

@@ -44,7 +44,7 @@ THE SOFTWARE.
 namespace Ogre {
 class Camera;
 class Entity;
-class Matrix4;
+struct Matrix4;
 class RenderOperation;
 class SubMesh;
 class Technique;

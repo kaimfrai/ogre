@@ -12,7 +12,7 @@
 
 namespace Ogre
 {
-class Affine3;
+struct Affine3;
 class Frustum;
 class Node;
 class SceneNode;

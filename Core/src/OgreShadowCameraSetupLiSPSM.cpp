@@ -90,7 +90,7 @@ class Viewport;
         const auto C = C_start_ls + n_opt * Vector3::UNIT_Z;
 
         // set up a transformation matrix to transform the light space to its new origin
-        Matrix4 lightSpaceTranslation(Matrix4::IDENTITY);
+        Matrix4 lightSpaceTranslation{Matrix4::IDENTITY};
         lightSpaceTranslation.setTrans(-C);
 
         // range from bMin to bMax; d = |B_z_far - B_z_near|
@@ -277,7 +277,7 @@ class Viewport;
         // - position is the origin
         // - the view direction is the calculated viewDir
         // - the up vector is the y-axis
-        LProj = Matrix4(Math::lookRotation(-viewDir, Vector3::UNIT_Y).transpose()) * LProj;
+        LProj = Matrix4::FromMatrix3(Math::lookRotation(-viewDir, Vector3::UNIT_Y).transpose()) * LProj;
 
         // calculate LiSPSM projection
         LProj = calculateLiSPSM(LProj * LView, mPointListBodyB, mPointListBodyLVS, *sm, *cam, *light) * LProj;

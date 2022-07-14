@@ -212,7 +212,7 @@ class AxisAlignedBox;
                 const Affine3& mat = mBatchOwner->useBoneWorldMatrices() ?
                     _getParentNodeFullTransform() : Affine3::IDENTITY;
 
-                *xform = Matrix3x4f(mat[0]);
+                *xform = Matrix3x4f::FromPtr(mat[0]);
                 retVal = 12;
             }
             else
@@ -222,7 +222,7 @@ class AxisAlignedBox;
                 
                 for(auto i : *indexMap)
                 {
-                    *xform++ = Matrix3x4f(matrices[i][0]);
+                    *xform++ = Matrix3x4f::FromPtr(matrices[i][0]);
                 }
 
                 retVal = indexMap->size() * 4 * 3;
@@ -235,7 +235,7 @@ class AxisAlignedBox;
             else
                 retVal = 12;
             
-            std::ranges::fill(std::span{xform, retVal/12}, Matrix3x4f(Affine3::ZERO[0]) );
+            std::ranges::fill(std::span{xform, retVal/12}, Matrix3x4f::FromPtr(Affine3::ZERO[0]) );
         }
 
         return retVal;

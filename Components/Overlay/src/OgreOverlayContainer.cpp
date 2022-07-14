@@ -38,7 +38,7 @@ THE SOFTWARE.
 #include "OgreOverlayManager.hpp"
 
 namespace Ogre {
-class Matrix4;
+struct Matrix4;
 class RenderQueue;
 
     //---------------------------------------------------------------------

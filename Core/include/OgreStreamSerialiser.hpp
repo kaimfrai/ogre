@@ -41,8 +41,8 @@ THE SOFTWARE.
 namespace Ogre 
 {
 class AxisAlignedBox;
-class Matrix3;
-class Matrix4;
+struct Matrix3;
+struct Matrix4;
 class Node;
 class Plane;
 class Quaternion;

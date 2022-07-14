@@ -48,7 +48,7 @@ namespace Ogre {
 
     class BorderRenderable;
 class Camera;
-class Matrix4;
+struct Matrix4;
 class RenderQueue;
     
     /** A specialisation of the PanelOverlayElement to provide a panel with a border.

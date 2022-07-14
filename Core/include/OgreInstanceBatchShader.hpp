@@ -38,7 +38,7 @@ THE SOFTWARE.
 namespace Ogre
 {
 class InstanceManager;
-class Matrix4;
+struct Matrix4;
 class RenderOperation;
 class SubMesh;
 class VertexData;

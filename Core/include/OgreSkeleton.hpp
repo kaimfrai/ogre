@@ -47,7 +47,7 @@ THE SOFTWARE.
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
-class Affine3;
+struct Affine3;
 class AnimationStateSet;
 class Bone;
 class ResourceManager;

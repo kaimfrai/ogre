@@ -57,7 +57,7 @@ namespace Ogre
     class Camera;
     class DepthBuffer;
     class Frustum;
-    class Matrix4;
+    struct Matrix4;
     class MultiRenderTarget;
     class RenderOperation;
     class RenderTarget;

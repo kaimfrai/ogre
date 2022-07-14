@@ -69,34 +69,8 @@ namespace Ogre
         @par
             The coordinate system is assumed to be <b>right-handed</b>.
     */
-    class Matrix3
+    struct Matrix3
     {
-    public:
-        /** Default constructor.
-            @note
-                It does <b>NOT</b> initialize the matrix for efficiency.
-        */
-        Matrix3 () = default;
-        explicit Matrix3 (const Real arr[3][3])
-        {
-            memcpy(m,arr,9*sizeof(Real));
-        }
-
-        Matrix3 (Real fEntry00, Real fEntry01, Real fEntry02,
-                    Real fEntry10, Real fEntry11, Real fEntry12,
-                    Real fEntry20, Real fEntry21, Real fEntry22)
-        {
-            m[0][0] = fEntry00;
-            m[0][1] = fEntry01;
-            m[0][2] = fEntry02;
-            m[1][0] = fEntry10;
-            m[1][1] = fEntry11;
-            m[1][2] = fEntry12;
-            m[2][0] = fEntry20;
-            m[2][1] = fEntry21;
-            m[2][2] = fEntry22;
-        }
-
         /// Member access, allows use of construct mat[r][c]
         auto operator[] (size_t iRow) const -> const Real*
         {
@@ -290,7 +264,6 @@ namespace Ogre
         static const Matrix3 ZERO;
         static const Matrix3 IDENTITY;
 
-    private:
         // support for eigensolver
         void Tridiagonal (Real afDiag[3], Real afSubDiag[3]);
         auto QLAlgorithm (Real afDiag[3], Real afSubDiag[3]) -> bool;
@@ -306,9 +279,6 @@ namespace Ogre
         static auto MaxCubicRoot (Real afCoeff[3]) -> Real;
 
         Real m[3][3];
-
-        // for faster access
-        friend class Matrix4;
     };
 
     /// Matrix * vector [3x3 * 3x1 = 3x1]

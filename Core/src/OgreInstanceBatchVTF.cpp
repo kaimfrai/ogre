@@ -309,7 +309,7 @@ class RenderQueue;
 
         for (size_t m = 0; m < numOfMatrices; ++m)
         {
-            dQuat.fromTransformationMatrix(Affine3(matrices[m][0]));
+            dQuat.fromTransformationMatrix(Affine3::FromPtr(matrices[m][0]));
             
             //Copy the 2x4 matrix
             for(int i = 0; i < 8; ++i)

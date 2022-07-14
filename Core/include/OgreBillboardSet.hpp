@@ -51,7 +51,7 @@ THE SOFTWARE.
 namespace Ogre {
 class Camera;
 class IndexData;
-class Matrix4;
+struct Matrix4;
 class RenderOperation;
 class RenderQueue;
 class VertexData;

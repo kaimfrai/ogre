@@ -235,7 +235,7 @@ TEST_F(StringTests,ParseVector3)
 //--------------------------------------------------------------------------
 TEST_F(StringTests,ParseMatrix4)
 {
-    Matrix4 r(1.12, 0, 0, 34, 0, 0.87, 0, 20, 0, 0, 0.56, 10, 0, 0, 0, 1);
+    Matrix4 r{1.12, 0, 0, 34, 0, 0.87, 0, 20, 0, 0, 0.56, 10, 0, 0, 0, 1};
 
     String s = StringConverter::toString(r);
     Matrix4 t = StringConverter::parseMatrix4(s);

@@ -42,11 +42,11 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-class Affine3;
+struct Affine3;
 class AxisAlignedBox;
 class Degree;
-class Matrix3;
-class Matrix4;
+struct Matrix3;
+struct Matrix4;
 class Plane;
 class Quaternion;
 class Ray;

@@ -47,7 +47,7 @@ THE SOFTWARE.
 namespace Ogre {
 
     class Ray;
-class Affine3;
+struct Affine3;
 class SceneManager;
 class Sphere;
 class Viewport;

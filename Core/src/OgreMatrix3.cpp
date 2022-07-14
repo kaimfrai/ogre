@@ -37,8 +37,8 @@ THE SOFTWARE.
 namespace Ogre
 {
     const Real Matrix3::EPSILON = 1e-06;
-    const Matrix3 Matrix3::ZERO(0,0,0,0,0,0,0,0,0);
-    const Matrix3 Matrix3::IDENTITY(1,0,0,0,1,0,0,0,1);
+    const Matrix3 Matrix3::ZERO{0,0,0,0,0,0,0,0,0};
+    const Matrix3 Matrix3::IDENTITY{1,0,0,0,1,0,0,0,1};
     const unsigned int Matrix3::msSvdMaxIterations = 64;
 
     //-----------------------------------------------------------------------
@@ -1063,15 +1063,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         *this = kXMat*(kYMat*kZMat);
     }
@@ -1083,15 +1083,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         *this = kXMat*(kZMat*kYMat);
     }
@@ -1103,15 +1103,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         *this = kYMat*(kXMat*kZMat);
     }
@@ -1123,15 +1123,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         *this = kYMat*(kZMat*kXMat);
     }
@@ -1143,15 +1143,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         *this = kZMat*(kXMat*kYMat);
     }
@@ -1163,15 +1163,15 @@ namespace Ogre
 
         fCos = Math::Cos(fYAngle);
         fSin = Math::Sin(fYAngle);
-        Matrix3 kZMat(fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0);
+        Matrix3 kZMat{fCos,-fSin,0.0,fSin,fCos,0.0,0.0,0.0,1.0};
 
         fCos = Math::Cos(fPAngle);
         fSin = Math::Sin(fPAngle);
-        Matrix3 kYMat(fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos);
+        Matrix3 kYMat{fCos,0.0,fSin,0.0,1.0,0.0,-fSin,0.0,fCos};
 
         fCos = Math::Cos(fRAngle);
         fSin = Math::Sin(fRAngle);
-        Matrix3 kXMat(1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos);
+        Matrix3 kXMat{1.0,0.0,0.0,0.0,fCos,-fSin,0.0,fSin,fCos};
 
         *this = kZMat*(kYMat*kXMat);
     }

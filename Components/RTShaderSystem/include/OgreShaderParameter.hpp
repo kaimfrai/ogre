@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 class ColourValue;
-class Matrix3;
+struct Matrix3;
 
 namespace RTShader {
 
@@ -563,7 +563,7 @@ public:
         }
         else
         {
-            mParamsPtr->_writeRawConstant(mPhysicalIndex, Matrix4(val), mElementSize);
+            mParamsPtr->_writeRawConstant(mPhysicalIndex, Matrix4::FromMatrix3(val), mElementSize);
         }
     }
 

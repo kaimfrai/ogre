@@ -45,7 +45,7 @@ class AxisAlignedBox;
 class Camera;
 class EdgeData;
 class Light;
-class Matrix4;
+struct Matrix4;
 class MovableObject;
 class VertexData;
 

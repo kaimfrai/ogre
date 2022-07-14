@@ -61,7 +61,7 @@ class EdgeData;
 class Entity;
 class Light;
 class LodStrategy;
-class Matrix4;
+struct Matrix4;
 class RenderOperation;
 class RenderQueue;
 class SceneManager;

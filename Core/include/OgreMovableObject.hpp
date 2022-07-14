@@ -48,7 +48,7 @@ namespace Ogre {
 
     // Forward declaration
     class MovableObjectFactory;
-    class Affine3;
+    struct Affine3;
     class Camera;
     class EdgeData;
     class Light;

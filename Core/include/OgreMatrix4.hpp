@@ -46,7 +46,7 @@ namespace Ogre
     /** \addtogroup Math
     *  @{
     */
-    class Matrix4;
+    struct Matrix4;
 
     auto operator*(const Matrix4 &m, const Matrix4 &m2) -> Matrix4;
     /** Class encapsulating a standard 4x4 homogeneous matrix.
@@ -81,27 +81,19 @@ namespace Ogre
                 [ m[3][0]  m[3][1]  m[3][2]  m[3][3] ]   {1}
             </pre>
     */
-    template<int rows, typename T> class TransformBase
+    template<int rows, typename T> struct TransformBase
     {
-    protected:
-        /// The matrix entries, indexed by [row][col].
         T m[rows][4];
-        // do not reduce storage for affine for compatibility with SSE, shader mat4 types
-    public:
-        /// Do <b>NOT</b> initialize for efficiency.
-        TransformBase() = default;
 
         [[nodiscard]] inline auto operator == ( const TransformBase& m2 ) const noexcept -> bool = default;
 
         template<typename U>
-        explicit TransformBase(const U* ptr) {
-            for (int i = 0; i < rows; i++)
-                for (int j = 0; j < 4; j++)
-                    m[i][j] = T(ptr[i*4 + j]);
+        static auto constexpr FromPtr(const U* ptr)
+        {
+            TransformBase transform;
+            std::ranges::copy(std::span{ptr, rows * 4}, &transform.m[0][0]);
+            return transform;
         }
-
-        template<typename U>
-        explicit TransformBase(const TransformBase<rows, U>& o) : TransformBase(o[0]) {}
 
         auto operator[](size_t iRow) -> T*
         {
@@ -162,10 +154,6 @@ namespace Ogre
 
     struct TransformBaseReal : public TransformBase<4, Real>
     {
-        /// Do <b>NOT</b> initialize for efficiency.
-        TransformBaseReal() = default;
-        template<typename U>
-        explicit TransformBaseReal(const U* ptr) : TransformBase(ptr) {}
         /** Builds a translation matrix
         */
         void makeTrans( const Vector3& v )
@@ -220,49 +208,34 @@ namespace Ogre
     };
 
     /// Transform specialization for projective - encapsulating a 4x4 Matrix
-    class Matrix4 : public TransformBaseReal
+    struct Matrix4 : public TransformBaseReal
     {
-    public:
-        /// Do <b>NOT</b> initialize the matrix for efficiency.
-        Matrix4() = default;
-
-        Matrix4(
-            Real m00, Real m01, Real m02, Real m03,
-            Real m10, Real m11, Real m12, Real m13,
-            Real m20, Real m21, Real m22, Real m23,
-            Real m30, Real m31, Real m32, Real m33 )
-        {
-            m[0][0] = m00; m[0][1] = m01; m[0][2] = m02; m[0][3] = m03;
-            m[1][0] = m10; m[1][1] = m11; m[1][2] = m12; m[1][3] = m13;
-            m[2][0] = m20; m[2][1] = m21; m[2][2] = m22; m[2][3] = m23;
-            m[3][0] = m30; m[3][1] = m31; m[3][2] = m32; m[3][3] = m33;
-        }
-
         template<typename U>
-        explicit Matrix4(const U* ptr) : TransformBaseReal(ptr) {}
-        explicit Matrix4 (const Real* arr)
+        static auto constexpr FromPtr(U const* ptr) -> Matrix4
         {
-            memcpy(m,arr,16*sizeof(Real));
+            return std::bit_cast<Matrix4>(TransformBaseReal::FromPtr(ptr));
         }
 
         /** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling 3x3 matrix.
          */
-
-        explicit Matrix4(const Matrix3& m3x3)
+        static auto constexpr FromMatrix3(const Matrix3& m3x3) -> Matrix4
         {
-          operator=(IDENTITY);
-          operator=(m3x3);
+            Matrix4 mat4;
+            mat4 = IDENTITY;
+            mat4 = m3x3;
+            return mat4;
         }
 
         /** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling Quaternion.
          */
-        
-        explicit Matrix4(const Quaternion& rot)
+        static auto constexpr FromQuaternion(const Quaternion& rot) -> Matrix4
         {
-          Matrix3 m3x3;
-          rot.ToRotationMatrix(m3x3);
-          *this = IDENTITY;
-          *this = m3x3;
+            Matrix4 mat4;
+            Matrix3 m3x3;
+            rot.ToRotationMatrix(m3x3);
+            mat4 = IDENTITY;
+            mat4 = m3x3;
+            return mat4;
         }
         
         auto operator=(const Matrix3& mat3) -> Matrix4& {
@@ -290,51 +263,38 @@ namespace Ogre
     };
 
     /// Transform specialization for 3D Affine - encapsulating a 3x4 Matrix
-    class Affine3 : public TransformBaseReal
+    struct Affine3 : public TransformBaseReal
     {
-    public:
-        /// Do <b>NOT</b> initialize the matrix for efficiency.
-        Affine3() = default;
-
         /// @copydoc TransformBaseReal::makeTransform
-        Affine3(const Vector3& position, const Quaternion& orientation, const Vector3& scale = Vector3::UNIT_SCALE)
+        static auto constexpr MakeTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale = Vector3::UNIT_SCALE) -> Affine3
         {
-            makeTransform(position, scale, orientation);
+            Affine3 affine;
+            affine.makeTransform(position, scale, orientation);
+            return affine;
         }
 
         template<typename U>
-        explicit Affine3(const U* ptr)
+        static auto constexpr FromPtr(const U* ptr) -> Affine3
         {
-            for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 4; j++)
-                    m[i][j] = Real(ptr[i*4 + j]);
-            m[3][0] = 0, m[3][1] = 0, m[3][2] = 0, m[3][3] = 1;
-        }
-
-        explicit Affine3(const Real* arr)
-        {
-            memcpy(m, arr, 12 * sizeof(Real));
-            m[3][0] = 0, m[3][1] = 0, m[3][2] = 0, m[3][3] = 1;
-        }
-
-        Affine3(
-            Real m00, Real m01, Real m02, Real m03,
-            Real m10, Real m11, Real m12, Real m13,
-            Real m20, Real m21, Real m22, Real m23)
-        {
-            m[0][0] = m00; m[0][1] = m01; m[0][2] = m02; m[0][3] = m03;
-            m[1][0] = m10; m[1][1] = m11; m[1][2] = m12; m[1][3] = m13;
-            m[2][0] = m20; m[2][1] = m21; m[2][2] = m22; m[2][3] = m23;
-            m[3][0] = 0;   m[3][1] = 0;   m[3][2] = 0;   m[3][3] = 1;
+            Affine3 affine;
+            std::ranges::copy(std::span{ptr, 3 * 4}, &affine.m[0][0]);
+            affine.m[3][0] = 0;
+            affine.m[3][1] = 0;
+            affine.m[3][2] = 0;
+            affine.m[3][3] = 1;
+            return affine;
         }
 
         /// extract the Affine part of a Matrix4
-        explicit Affine3(const Matrix4& mat)
+        static auto constexpr FromMatrix4(const Matrix4& mat) -> Affine3
         {
+            Affine3 affine;
+            auto& m = affine.m;
             m[0][0] = mat[0][0]; m[0][1] = mat[0][1]; m[0][2] = mat[0][2]; m[0][3] = mat[0][3];
             m[1][0] = mat[1][0]; m[1][1] = mat[1][1]; m[1][2] = mat[1][2]; m[1][3] = mat[1][3];
             m[2][0] = mat[2][0]; m[2][1] = mat[2][1]; m[2][2] = mat[2][2]; m[2][3] = mat[2][3];
             m[3][0] = 0;         m[3][1] = 0;         m[3][2] = 0;         m[3][3] = 1;
+            return affine;
         }
 
         auto operator=(const Matrix3& mat3) -> Affine3& {
@@ -368,9 +328,12 @@ namespace Ogre
         */
         static auto getTrans( Real t_x, Real t_y, Real t_z ) -> Affine3
         {
-            return {1, 0, 0, t_x,
-                           0, 1, 0, t_y,
-                           0, 0, 1, t_z};
+            return
+            {   1, 0, 0, t_x,
+                0, 1, 0, t_y,
+                0, 0, 1, t_z,
+                0, 0, 0, 1
+            };
         }
 
         /** Gets a scale matrix.
@@ -384,9 +347,12 @@ namespace Ogre
         */
         static auto getScale( Real s_x, Real s_y, Real s_z ) -> Affine3
         {
-            return {s_x, 0, 0, 0,
-                           0, s_y, 0, 0,
-                           0, 0, s_z, 0};
+            return
+            {   s_x, 0, 0, 0,
+                0, s_y, 0, 0,
+                0, 0, s_z, 0,
+                0, 0, 0, 1
+            };
         }
 
 
@@ -500,7 +466,13 @@ namespace Ogre
             m[2][0] * m2[0][0] + m[2][1] * m2[1][0] + m[2][2] * m2[2][0],
             m[2][0] * m2[0][1] + m[2][1] * m2[1][1] + m[2][2] * m2[2][1],
             m[2][0] * m2[0][2] + m[2][1] * m2[1][2] + m[2][2] * m2[2][2],
-            m[2][0] * m2[0][3] + m[2][1] * m2[1][3] + m[2][2] * m2[2][3] + m[2][3]};
+            m[2][0] * m2[0][3] + m[2][1] * m2[1][3] + m[2][2] * m2[2][3] + m[2][3],
+
+            0,
+            0,
+            0,
+            1
+        };
     }
 
     /** Vector transformation using '*'.

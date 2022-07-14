@@ -34,33 +34,37 @@ THE SOFTWARE.
 namespace Ogre
 {
 
-    const Matrix4 Matrix4::ZERO(
+    const Matrix4 Matrix4::ZERO{
         0, 0, 0, 0,
         0, 0, 0, 0,
         0, 0, 0, 0,
-        0, 0, 0, 0 );
+        0, 0, 0, 0 };
     
-    const Affine3 Affine3::ZERO(
+    const Affine3 Affine3::ZERO{
         0, 0, 0, 0,
         0, 0, 0, 0,
-        0, 0, 0, 0);
+        0, 0, 0, 0,
+        0, 0, 0, 1
+    };
 
-    const Affine3 Affine3::IDENTITY(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0);
-
-    const Matrix4 Matrix4::IDENTITY(
+    const Affine3 Affine3::IDENTITY{
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
-        0, 0, 0, 1 );
+        0, 0, 0, 1
+    };
 
-    const Matrix4 Matrix4::CLIPSPACE2DTOIMAGESPACE(
+    const Matrix4 Matrix4::IDENTITY{
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1 };
+
+    const Matrix4 Matrix4::CLIPSPACE2DTOIMAGESPACE{
         0.5,    0,  0, 0.5, 
           0, -0.5,  0, 0.5, 
           0,    0,  1,   0,
-          0,    0,  0,   1);
+          0,    0,  0,   1};
 
     //-----------------------------------------------------------------------
     static auto
@@ -200,10 +204,12 @@ namespace Ogre
         Real r13 = - (r10 * m03 + r11 * m13 + r12 * m23);
         Real r23 = - (r20 * m03 + r21 * m13 + r22 * m23);
 
-        return {
-            r00, r01, r02, r03,
+        return
+        {   r00, r01, r02, r03,
             r10, r11, r12, r13,
-            r20, r21, r22, r23};
+            r20, r21, r22, r23,
+            0, 0, 0, 1
+        };
     }
     //-----------------------------------------------------------------------
     void TransformBaseReal::makeTransform(const Vector3& position, const Vector3& scale, const Quaternion& orientation)

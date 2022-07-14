@@ -263,16 +263,16 @@ namespace Ogre {
                 switch(ac.paramType)
                 {
                 case WORLD_MATRIX:
-                    setWorldMatrix(Matrix4(ptr));
+                    setWorldMatrix(Matrix4::FromPtr(ptr));
                     break;
                 case VIEW_MATRIX:
                     // force light update
                     updateLightPos = true;
                     mask |= GpuParamVariability::LIGHTS;
-                    setViewMatrix(Matrix4(ptr));
+                    setViewMatrix(Matrix4::FromPtr(ptr));
                     break;
                 case PROJECTION_MATRIX:
-                    setProjectionMatrix(Matrix4(ptr));
+                    setProjectionMatrix(Matrix4::FromPtr(ptr));
                     break;
                 case SURFACE_AMBIENT_COLOUR:
                     mStateCacheManager->setMaterialAmbient(ptr[0], ptr[1], ptr[2], ptr[3]);

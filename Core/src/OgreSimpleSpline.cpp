@@ -123,7 +123,7 @@ namespace Ogre {
         Vector4 powers{t3, t2, t, 1};
 
 
-        // Algorithm is ret = powers * mCoeffs * Matrix4(point1, point2, tangent1, tangent2)
+        // Algorithm is ret = powers * mCoeffs * Matrix4{point1, point2, tangent1, tangent2}
         const Vector3& point1 = mPoints[fromIndex];
         const Vector3& point2 = mPoints[fromIndex+1];
         const Vector3& tan1 = mTangents[fromIndex];

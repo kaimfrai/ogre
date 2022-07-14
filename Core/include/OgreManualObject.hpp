@@ -57,7 +57,7 @@ namespace Ogre
 class Camera;
 class EdgeData;
 class Light;
-class Matrix4;
+struct Matrix4;
 class RenderQueue;
 class SubMesh;
 

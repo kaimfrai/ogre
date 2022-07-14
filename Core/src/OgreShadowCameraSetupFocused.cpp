@@ -47,17 +47,17 @@ namespace Ogre
 class Viewport;
 
     /** transform from normal to light space */
-    const Matrix4 FocusedShadowCameraSetup::msNormalToLightSpace(
+    const Matrix4 FocusedShadowCameraSetup::msNormalToLightSpace{
         1,  0,  0,  0,      // x
         0,  0, -1,  0,      // y
         0,  1,  0,  0,      // z
-        0,  0,  0,  1); // w
+        0,  0,  0,  1}; // w
     /** transform  from light to normal space */
-    const Matrix4 FocusedShadowCameraSetup::msLightSpaceToNormal(
+    const Matrix4 FocusedShadowCameraSetup::msLightSpaceToNormal{
         1,  0,  0,  0,      // x
         0,  0,  1,  0,      // y
         0, -1,  0,  0,      // z
-        0,  0,  0,  1); // w
+        0,  0,  0,  1}; // w
 
     /// Builds a standard view matrix out of a given position, direction and up vector.
     static auto buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up) -> Affine3
@@ -66,7 +66,7 @@ class Viewport;
         Matrix4 m;
         m = Rt;
         m.setTrans(-Rt * pos);
-        return Affine3(m); // make sure projective part is identity
+        return Affine3::FromMatrix4(m); // make sure projective part is identity
     }
 
     FocusedShadowCameraSetup::FocusedShadowCameraSetup(bool useAggressiveRegion)
@@ -401,7 +401,7 @@ class Viewport;
             2 / (vMax.y - vMin.y),
             2 / (vMax.z - vMin.z)};
 
-        Matrix4 mOut(Matrix4::IDENTITY);
+        Matrix4 mOut{Matrix4::IDENTITY};
         mOut.setTrans(trans);
         mOut.setScale(scale);
 
@@ -472,7 +472,7 @@ class Viewport;
         // - position is the origin
         // - the view direction is the calculated viewDir
         // - the up vector is the y-axis
-        LProj = Matrix4(Math::lookRotation(-viewDir, Vector3::UNIT_Y).transpose()) * LProj;
+        LProj = Matrix4::FromMatrix3(Math::lookRotation(-viewDir, Vector3::UNIT_Y).transpose()) * LProj;
 
         // map bodyB to unit cube
         LProj = transformToUnitCube(LProj * LView, mPointListBodyB) * LProj;

@@ -48,8 +48,8 @@ namespace Ogre {
     template <typename T> class ConstMapIterator;
 class AutoParamDataSource;
 class ColourValue;
-class Matrix3;
-class Matrix4;
+struct Matrix3;
+struct Matrix4;
 template <int dims, typename T> struct Vector;
 
     /** \addtogroup Core

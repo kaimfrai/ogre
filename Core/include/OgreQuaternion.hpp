@@ -46,7 +46,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 
 namespace Ogre {
-class Matrix3;
+struct Matrix3;
 
     /** \addtogroup Core
     *  @{
