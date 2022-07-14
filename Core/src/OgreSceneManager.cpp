@@ -2859,20 +2859,20 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
     {
     case POINT:
         {
-            planes.push_back(Plane(Vector3::UNIT_X, pos + Vector3{-r, 0, 0}));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_X, pos + Vector3{r, 0, 0}));
-            planes.push_back(Plane(Vector3::UNIT_Y, pos + Vector3{0, -r, 0}));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Y, pos + Vector3{0, r, 0}));
-            planes.push_back(Plane(Vector3::UNIT_Z, pos + Vector3{0, 0, -r}));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Z, pos + Vector3{0, 0, r}));
+            planes.push_back(Plane::Redefine(Vector3::UNIT_X, pos + Vector3{-r, 0, 0}));
+            planes.push_back(Plane::Redefine(Vector3::NEGATIVE_UNIT_X, pos + Vector3{r, 0, 0}));
+            planes.push_back(Plane::Redefine(Vector3::UNIT_Y, pos + Vector3{0, -r, 0}));
+            planes.push_back(Plane::Redefine(Vector3::NEGATIVE_UNIT_Y, pos + Vector3{0, r, 0}));
+            planes.push_back(Plane::Redefine(Vector3::UNIT_Z, pos + Vector3{0, 0, -r}));
+            planes.push_back(Plane::Redefine(Vector3::NEGATIVE_UNIT_Z, pos + Vector3{0, 0, r}));
         }
         break;
     case SPOTLIGHT:
         {
             Vector3 dir = l->getDerivedDirection();
             // near & far planes
-            planes.push_back(Plane(dir, pos + dir * l->getSpotlightNearClipDistance()));
-            planes.push_back(Plane(-dir, pos + dir * r));
+            planes.push_back(Plane::Redefine(dir, pos + dir * l->getSpotlightNearClipDistance()));
+            planes.push_back(Plane::Redefine(-dir, pos + dir * r));
             // 4 sides of pyramids
             // derive orientation
             Vector3 up = Vector3::UNIT_Y;
@@ -2894,13 +2894,13 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
 
             // use cross product to derive normals, pass through light world pos
             // top
-            planes.push_back(Plane(tl.crossProduct(tr).normalisedCopy(), pos));
+            planes.push_back(Plane::Redefine(tl.crossProduct(tr).normalisedCopy(), pos));
             // right
-            planes.push_back(Plane(tr.crossProduct(br).normalisedCopy(), pos));
+            planes.push_back(Plane::Redefine(tr.crossProduct(br).normalisedCopy(), pos));
             // bottom
-            planes.push_back(Plane(br.crossProduct(bl).normalisedCopy(), pos));
+            planes.push_back(Plane::Redefine(br.crossProduct(bl).normalisedCopy(), pos));
             // left
-            planes.push_back(Plane(bl.crossProduct(tl).normalisedCopy(), pos));
+            planes.push_back(Plane::Redefine(bl.crossProduct(tl).normalisedCopy(), pos));
 
         }
         break;

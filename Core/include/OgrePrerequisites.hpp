@@ -163,7 +163,7 @@ namespace Ogre {
     class Pass;
     class PatchMesh;
     class PixelBox;
-    class Plane;
+    struct Plane;
     class PlaneBoundedVolume;
     class Plugin;
     class Pose;

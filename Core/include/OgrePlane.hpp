@@ -59,33 +59,25 @@ namespace Ogre {
             respectively), and a constant (D) which is the distance along
             the normal you have to go to move the plane back to the origin.
      */
-    class Plane
+    struct Plane
     {
-    public:
-        Vector3 normal;
-        Real d;
+        Vector3 normal{Vector3::ZERO};
+        Real d{0.0f};
 
-    public:
-        /** Default constructor - sets everything to 0.
-        */
-        Plane() : normal(Vector3::ZERO), d(0.0f) {}
-        /** Construct a plane through a normal, and a distance to move the plane along the normal.*/
-        Plane(const Vector3& rkNormal, Real fConstant)
+        [[nodiscard]]
+        static auto constexpr Redefine(const Vector3& rkNormal, const Vector3& rkPoint) -> Plane
         {
-            normal = rkNormal;
-            d = -fConstant;
+            Plane plane;
+            plane.redefine(rkNormal, rkPoint);
+            return plane;
         }
-        /** Construct a plane using the 4 constants directly **/
-        Plane(Real a, Real b, Real c, Real _d) : normal{a, b, c}, d(_d) {}
-        /// @overload
-        explicit Plane(const Vector4& v) : normal(v.xyz()), d(v.w) {}
-        Plane(const Vector3& rkNormal, const Vector3& rkPoint)
+
+        [[nodiscard]]
+        static auto constexpr Redefine(const Vector3& p0, const Vector3& p1, const Vector3& p2) -> Plane
         {
-            redefine(rkNormal, rkPoint);
-        }
-        Plane(const Vector3& p0, const Vector3& p1, const Vector3& p2)
-        {
-            redefine(p0, p1, p2);
+            Plane plane;
+            plane.redefine(p0, p1, p2);
+            return plane;
         }
 
         /** The "positive side" of the plane is the half space to which the
@@ -234,7 +226,7 @@ namespace Ogre {
         /// Get flipped plane, with same location but reverted orientation
         auto operator - () const -> Plane
         {
-            return {-(normal.x), -(normal.y), -(normal.z), -d}; // not equal to Plane(-normal, -d)
+            return { {-(normal.x), -(normal.y), -(normal.z) }, -d}; // not equal to Plane{-normal, -d}
         }
 
         /// Comparison operator
@@ -242,7 +234,7 @@ namespace Ogre {
 
         friend auto operator<<(std::ostream& o, const Plane& p) -> std::ostream&
         {
-            o << "Plane(normal=" << p.normal << ", d=" << p.d << ")";
+            o << "Plane{normal=" << p.normal << ", d=" << p.d << "}";
             return o;
         }
     };
@@ -271,5 +263,8 @@ namespace Ogre {
     /** @} */
 
 } // namespace Ogre
+
+static_assert(std::is_aggregate_v<Ogre::Plane>);
+static_assert(std::is_standard_layout_v<Ogre::Plane>);
 
 #endif

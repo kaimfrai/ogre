@@ -277,7 +277,7 @@ class Viewport;
             {
                 Vector3 pointOnPlane = cam.getDerivedPosition() + 
                     (cam.getDerivedDirection() * farDist);
-                Plane p(cam.getDerivedDirection(), pointOnPlane);
+                Plane p = Plane::Redefine(cam.getDerivedDirection(), pointOnPlane);
                 mBodyB.clip(p);
             }
 

@@ -253,7 +253,7 @@ namespace Ogre {
                 normal = (corner[i] - corner[(i+winding)%4])
                     .crossProduct(lightDir);
                 normal.normalise();
-                mNearClipVolume.planes.push_back(Plane(normal, corner[i]));
+                mNearClipVolume.planes.push_back(Plane::Redefine(normal, corner[i]));
             }
 
             // Now do the near plane plane
@@ -264,14 +264,14 @@ namespace Ogre {
                 normal = -normal;
             }
             const Vector3& cameraPos = cam->getDerivedPosition();
-            mNearClipVolume.planes.push_back(Plane(normal, cameraPos));
+            mNearClipVolume.planes.push_back(Plane::Redefine(normal, cameraPos));
 
             // Finally, for a point/spot light we can add a sixth plane
             // This prevents false positives from behind the light
             if (mLightType != LightTypes::DIRECTIONAL)
             {
                 // Direction from light perpendicular to near plane
-                mNearClipVolume.planes.push_back(Plane(-normal, lightPos3));
+                mNearClipVolume.planes.push_back(Plane::Redefine(-normal, lightPos3));
             }
         }
         else
@@ -279,8 +279,8 @@ namespace Ogre {
             // light is close to being on the near plane
             // degenerate volume including the entire scene 
             // we will always require light / dark caps
-            mNearClipVolume.planes.push_back(Plane(Vector3::UNIT_Z, -n));
-            mNearClipVolume.planes.push_back(Plane(-Vector3::UNIT_Z, n));
+            mNearClipVolume.planes.push_back(Plane{Vector3::UNIT_Z, n});
+            mNearClipVolume.planes.push_back(Plane{-Vector3::UNIT_Z, -n});
         }
 
         return mNearClipVolume;
@@ -386,19 +386,19 @@ namespace Ogre {
                     // Cross with anticlockwise corner, therefore normal points in
                     normal = edgeDir.crossProduct(lightDir);
                     normal.normalise();
-                    vol.planes.push_back(Plane(normal, *(clockwiseVerts[i])));
+                    vol.planes.push_back(Plane::Redefine(normal, *(clockwiseVerts[i])));
                 }
 
                 // Now do the near plane (this is the plane of the side we're 
                 // talking about, with the normal inverted (d is already interpreted as -ve)
-                vol.planes.push_back( Plane(-plane.normal, plane.d) );
+                vol.planes.push_back( Plane{-plane.normal, -plane.d} );
 
                 // Finally, for a point/spot light we can add a sixth plane
                 // This prevents false positives from behind the light
                 if (mLightType != LightTypes::DIRECTIONAL)
                 {
                     // re-use our own plane normal
-                    vol.planes.push_back(Plane(plane.normal, lightPos3));
+                    vol.planes.push_back(Plane::Redefine(plane.normal, lightPos3));
                 }
             }
         }

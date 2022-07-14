@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 class MovableObject;
-class Plane;
+struct Plane;
 class RenderOperation;
 class SceneManager;
 

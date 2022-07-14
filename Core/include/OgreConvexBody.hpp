@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-class Plane;
+struct Plane;
 
     /** \addtogroup Core
     *  @{

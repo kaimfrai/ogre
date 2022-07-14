@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-class Plane;
+struct Plane;
 class Sphere;
     /** \addtogroup Core
     *  @{

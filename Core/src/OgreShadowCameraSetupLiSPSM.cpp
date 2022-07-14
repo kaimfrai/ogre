@@ -171,7 +171,7 @@ class Viewport;
         const Vector3 e_ls = lightSpace * e;
 
         // set up a plane with the camera direction as normal and e as a point on the plane
-        Plane plane(camDir, e);
+        Plane plane = Plane::Redefine(camDir, e);
 
         plane = lightSpace * plane;
 

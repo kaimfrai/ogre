@@ -119,7 +119,7 @@ void Sample_NewInstancing::setupContent()
 
     // create a mesh for our ground
     MeshManager::getSingleton().createPlane("ground", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-        Plane(Vector3::UNIT_Y, 0), 10000, 10000, 20, 20, true, 1, 6, 6, Vector3::UNIT_Z);
+        Plane{Vector3::UNIT_Y, -0.0f}, 10000, 10000, 20, 20, true, 1, 6, 6, Vector3::UNIT_Z);
 
     // create a ground entity from our mesh and attach it to the origin
     Entity* ground = mSceneMgr->createEntity("Ground", "ground");

@@ -44,7 +44,7 @@ struct AxisAlignedBox;
 struct Matrix3;
 struct Matrix4;
 class Node;
-class Plane;
+struct Plane;
 struct Quaternion;
 class Radian;
 struct Ray;

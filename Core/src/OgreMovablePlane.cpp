@@ -33,34 +33,34 @@ namespace Ogre {
     String MovablePlane::msMovableType = "MovablePlane";
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    MovablePlane::MovablePlane(std::string_view name) : Plane(), MovableObject(name),
+    MovablePlane::MovablePlane(std::string_view name) : Plane{}, MovableObject(name),
         mLastTranslate(Vector3::ZERO), 
         mLastRotate(Quaternion::IDENTITY),
         mDirty(true)
     {
     }
     //-----------------------------------------------------------------------
-    MovablePlane::MovablePlane (const Plane& rhs) : Plane(rhs), 
+    MovablePlane::MovablePlane (const Plane& rhs) : Plane{rhs},
         mLastTranslate(Vector3::ZERO), mLastRotate(Quaternion::IDENTITY), 
         mDirty(true)
     {
     }
     //-----------------------------------------------------------------------
     MovablePlane::MovablePlane (const Vector3& rkNormal, Real fConstant)
-        : Plane (rkNormal, fConstant), mLastTranslate(Vector3::ZERO), 
+        : Plane{rkNormal, fConstant}, mLastTranslate(Vector3::ZERO),
         mLastRotate(Quaternion::IDENTITY), mDirty(true)
     {
     }
     //-----------------------------------------------------------------------
     MovablePlane::MovablePlane (const Vector3& rkNormal, const Vector3& rkPoint)
-        : Plane(rkNormal, rkPoint), mLastTranslate(Vector3::ZERO), 
+        : Plane{Plane::Redefine(rkNormal, rkPoint)}, mLastTranslate(Vector3::ZERO),
         mLastRotate(Quaternion::IDENTITY), mDirty(true)
     {
     }
     //-----------------------------------------------------------------------
     MovablePlane::MovablePlane (const Vector3& rkPoint0, const Vector3& rkPoint1,
         const Vector3& rkPoint2)
-        : Plane(rkPoint0, rkPoint1, rkPoint2), mLastTranslate(Vector3::ZERO), 
+        : Plane{Plane::Redefine(rkPoint0, rkPoint1, rkPoint2)}, mLastTranslate(Vector3::ZERO),
         mLastRotate(Quaternion::IDENTITY), mDirty(true)
     {
     }

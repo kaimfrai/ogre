@@ -402,25 +402,25 @@ class Sphere;
             normal = ul.getDirection().crossProduct(ur.getDirection());
             normal.normalise();
             outVolume->planes.push_back(
-                Plane(normal, getDerivedPosition()));
+                Plane::Redefine(normal, getDerivedPosition()));
 
             // right plane
             normal = ur.getDirection().crossProduct(br.getDirection());
             normal.normalise();
             outVolume->planes.push_back(
-                Plane(normal, getDerivedPosition()));
+                Plane::Redefine(normal, getDerivedPosition()));
 
             // bottom plane
             normal = br.getDirection().crossProduct(bl.getDirection());
             normal.normalise();
             outVolume->planes.push_back(
-                Plane(normal, getDerivedPosition()));
+                Plane::Redefine(normal, getDerivedPosition()));
 
             // left plane
             normal = bl.getDirection().crossProduct(ul.getDirection());
             normal.normalise();
             outVolume->planes.push_back(
-                Plane(normal, getDerivedPosition()));
+                Plane::Redefine(normal, getDerivedPosition()));
 
         }
         else
@@ -432,13 +432,13 @@ class Sphere;
 
             updateFrustumPlanes();
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal, ul.getOrigin()));
+                Plane::Redefine(mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)].normal, ul.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal, br.getOrigin()));
+                Plane::Redefine(mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)].normal, br.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal, br.getOrigin()));
+                Plane::Redefine(mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)].normal, br.getOrigin()));
             outVolume->planes.push_back(
-                Plane(mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal, ul.getOrigin()));
+                Plane::Redefine(mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)].normal, ul.getOrigin()));
             
 
         }
@@ -497,10 +497,10 @@ class Sphere;
         if (mProjType == ProjectionType::PERSPECTIVE)
         {
             Vector3 position = getPositionForViewUpdate();
-            mWindowClipPlanes.emplace_back(position, vw_bl, vw_ul);
-            mWindowClipPlanes.emplace_back(position, vw_ul, vw_ur);
-            mWindowClipPlanes.emplace_back(position, vw_ur, vw_br);
-            mWindowClipPlanes.emplace_back(position, vw_br, vw_bl);
+            mWindowClipPlanes.push_back(Plane::Redefine(position, vw_bl, vw_ul));
+            mWindowClipPlanes.push_back(Plane::Redefine(position, vw_ul, vw_ur));
+            mWindowClipPlanes.push_back(Plane::Redefine(position, vw_ur, vw_br));
+            mWindowClipPlanes.push_back(Plane::Redefine(position, vw_br, vw_bl));
         }
         else
         {
@@ -508,10 +508,10 @@ class Sphere;
             Vector3 y_axis{inv[1][0], inv[1][1], inv[1][2]};
             x_axis.normalise();
             y_axis.normalise();
-            mWindowClipPlanes.emplace_back( x_axis, vw_bl);
-            mWindowClipPlanes.emplace_back(-x_axis, vw_ur);
-            mWindowClipPlanes.emplace_back( y_axis, vw_bl);
-            mWindowClipPlanes.emplace_back(-y_axis, vw_ur);
+            mWindowClipPlanes.push_back(Plane::Redefine(x_axis, vw_bl));
+            mWindowClipPlanes.push_back(Plane::Redefine(-x_axis, vw_ur));
+            mWindowClipPlanes.push_back(Plane::Redefine(y_axis, vw_bl));
+            mWindowClipPlanes.push_back(Plane::Redefine(-y_axis, vw_ur));
         }
 
         mRecalcWindow = false;
