@@ -587,7 +587,7 @@ namespace Ogre {
         Vector3 lastscale = Vector3::ZERO;
         Quaternion lastorientation;
         auto i = mKeyFrames.begin();
-        Radian quatTolerance(1e-3f);
+        Radian quatTolerance{1e-3f};
         std::list<unsigned short> removeList;
         unsigned short k = 0;
         ushort dupKfCount = 0;

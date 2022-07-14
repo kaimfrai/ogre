@@ -42,7 +42,7 @@ using namespace Ogre;
 TEST(DualQuaternionTests,Conversion)
 {
     DualQuaternion dQuat;
-    Quaternion quat = Quaternion::FromAngleAndAxis(Radian(Degree(60)), Vector3::UNIT_Y);
+    Quaternion quat = Quaternion::FromAngleAndAxis(static_cast<Radian>(Degree{60}), Vector3::UNIT_Y);
     Vector3 translation{0, 0, 10};
     dQuat.fromRotationTranslation(quat, translation);
         
@@ -73,7 +73,7 @@ TEST(DualQuaternionTests,Matrix)
     Vector3 translation{10, 4, 0};
     Vector3 scale = Vector3::UNIT_SCALE;
     Quaternion rotation;
-    rotation.FromAngleAxis(Radian(Math::PI), Vector3::UNIT_Z);
+    rotation.FromAngleAxis(Radian{Math::PI}, Vector3::UNIT_Z);
     transform.makeTransform(translation, scale, rotation);
 
     DualQuaternion dQuat;
@@ -88,6 +88,6 @@ TEST(DualQuaternionTests,Matrix)
 
     EXPECT_TRUE(translationResult.positionEquals(translation));
     EXPECT_TRUE(scaleResult.positionEquals(scale));
-    EXPECT_TRUE(rotationResult.equals(rotation, Radian(0.001)));
+    EXPECT_TRUE(rotationResult.equals(rotation, Radian{0.001}));
 }
 //--------------------------------------------------------------------------

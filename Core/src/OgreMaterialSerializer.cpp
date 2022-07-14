@@ -1051,7 +1051,7 @@ namespace Ogre
             bool individualTransformElems = false;
             // rotate
             if (mDefaults ||
-                pTex->getTextureRotate() != Radian(0))
+                pTex->getTextureRotate() != Radian{0})
             {
                 writeAttribute(4, "rotate");
                 writeValue(StringConverter::toString(pTex->getTextureRotate().valueDegrees()));

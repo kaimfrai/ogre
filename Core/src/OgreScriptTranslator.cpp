@@ -3166,7 +3166,7 @@ class LodStrategy;
                     break;
                 case ID_ROTATE:
                     if(getValue(prop, compiler, fval))
-                        mUnit->setTextureRotate(Degree(fval));
+                        mUnit->setTextureRotate(Degree{fval});
                     break;
                 case ID_ROTATE_ANIM:
                     if(getValue(prop, compiler, fval))

@@ -137,7 +137,7 @@ namespace Ogre
             Radian fovy = light->getSpotlightOuterAngle()*1.2;
             // limit angle
             if (fovy.valueDegrees() > 175)
-                fovy = Degree(175);
+                fovy = Degree{175};
             texCam->setFOVy(fovy);
 
             // Calculate position, which same as spotlight position
@@ -153,7 +153,7 @@ namespace Ogre
             // Set perspective projection
             texCam->setProjectionType(ProjectionType::PERSPECTIVE);
             // Use 120 degree FOV for point light to ensure coverage more area
-            texCam->setFOVy(Degree(120));
+            texCam->setFOVy(Degree{120});
 
             // Calculate look at position
             // We want to look at a spot shadowOffset away from near plane

@@ -242,10 +242,10 @@ namespace Ogre
             Vector3 particleDir = particlePos - mDirPositionRef;
             particleDir.normalise();
 
-            if (mAngle != Radian(0))
+            if (mAngle != Radian{0})
             {
                 // Randomise angle
-                Radian angle(sampleSphereUniform(mAngle.valueRadians()));
+                Radian angle{sampleSphereUniform(mAngle.valueRadians())};
 
                 // Randomise direction
                 destVector = particleDir.randomDeviant( angle );
@@ -258,10 +258,10 @@ namespace Ogre
         }
         else
         {
-            if (mAngle != Radian(0))
+            if (mAngle != Radian{0})
             {
                 // Randomise angle
-                Radian angle(sampleSphereUniform(mAngle.valueRadians()));
+                Radian angle{sampleSphereUniform(mAngle.valueRadians())};
 
                 // Randomise direction
                 destVector = mDirection.randomDeviant(angle, mUp);

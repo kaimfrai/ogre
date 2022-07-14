@@ -751,9 +751,9 @@ namespace Ogre
         Real fCos = 0.5f*(fTrace-1.0f);
         rfRadians = Math::ACos(fCos);  // in [0,PI]
 
-        if ( rfRadians > Radian(0.0) )
+        if ( rfRadians > Radian{0.0} )
         {
-            if ( rfRadians < Radian(Math::PI) )
+            if ( rfRadians < Radian{Math::PI} )
             {
                 rkAxis.x = m[2][1]-m[1][2];
                 rkAxis.y = m[0][2]-m[2][0];
@@ -853,10 +853,10 @@ namespace Ogre
         //        cz*sx*sy+cx*sz  cx*cz-sx*sy*sz -cy*sx
         //       -cx*cz*sy+sx*sz  cz*sx+cx*sy*sz  cx*cy
 
-        rfPAngle = Radian(Math::ASin(m[0][2]));
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        rfPAngle = Radian{Math::ASin(m[0][2])};
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(-m[1][2],m[2][2]);
                 rfRAngle = Math::ATan2(-m[0][1],m[0][0]);
@@ -866,7 +866,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(m[1][0],m[1][1]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -875,7 +875,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(m[1][0],m[1][1]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }
@@ -889,9 +889,9 @@ namespace Ogre
         //       -cx*sy+cy*sx*sz  cz*sx           cx*cy+sx*sy*sz
 
         rfPAngle = Math::ASin(-m[0][1]);
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(m[2][1],m[1][1]);
                 rfRAngle = Math::ATan2(m[0][2],m[0][0]);
@@ -901,7 +901,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(-m[2][0],m[2][2]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -910,7 +910,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(-m[2][0],m[2][2]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }
@@ -924,9 +924,9 @@ namespace Ogre
         //       -cz*sy+cy*sx*sz  cy*cz*sx+sy*sz  cx*cy
 
         rfPAngle = Math::ASin(-m[1][2]);
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(m[0][2],m[2][2]);
                 rfRAngle = Math::ATan2(m[1][0],m[1][1]);
@@ -936,7 +936,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(-m[0][1],m[0][0]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -945,7 +945,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(-m[0][1],m[0][0]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }
@@ -959,9 +959,9 @@ namespace Ogre
         //       -cz*sy           cy*sx+cx*sy*sz  cx*cy-sx*sy*sz
 
         rfPAngle = Math::ASin(m[1][0]);
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(-m[2][0],m[0][0]);
                 rfRAngle = Math::ATan2(-m[1][2],m[1][1]);
@@ -971,7 +971,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(m[2][1],m[2][2]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -980,7 +980,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(m[2][1],m[2][2]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }
@@ -994,9 +994,9 @@ namespace Ogre
         //       -cx*sy           sx              cx*cy
 
         rfPAngle = Math::ASin(m[2][1]);
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(-m[0][1],m[1][1]);
                 rfRAngle = Math::ATan2(-m[2][0],m[2][2]);
@@ -1006,7 +1006,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(m[0][2],m[0][0]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -1015,7 +1015,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(m[0][2],m[0][0]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }
@@ -1029,9 +1029,9 @@ namespace Ogre
         //       -sy              cy*sx           cx*cy
 
         rfPAngle = Math::ASin(-m[2][0]);
-        if ( rfPAngle < Radian(Math::HALF_PI) )
+        if ( rfPAngle < Radian{Math::HALF_PI} )
         {
-            if ( rfPAngle > Radian(-Math::HALF_PI) )
+            if ( rfPAngle > Radian{-Math::HALF_PI} )
             {
                 rfYAngle = Math::ATan2(m[1][0],m[0][0]);
                 rfRAngle = Math::ATan2(m[2][1],m[2][2]);
@@ -1041,7 +1041,7 @@ namespace Ogre
             {
                 // WARNING.  Not a unique solution.
                 Radian fRmY = Math::ATan2(-m[0][1],m[0][2]);
-                rfRAngle = Radian(0.0);  // any angle works
+                rfRAngle = Radian{0.0};  // any angle works
                 rfYAngle = rfRAngle - fRmY;
                 return false;
             }
@@ -1050,7 +1050,7 @@ namespace Ogre
         {
             // WARNING.  Not a unique solution.
             Radian fRpY = Math::ATan2(-m[0][1],m[0][2]);
-            rfRAngle = Radian(0.0);  // any angle works
+            rfRAngle = Radian{0.0};  // any angle works
             rfYAngle = fRpY - rfRAngle;
             return false;
         }

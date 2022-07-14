@@ -38,7 +38,7 @@ class BillboardSet;
         mPosition(Vector3::ZERO),
         mDirection(Vector3::ZERO),        
         mColour(0xFFFFFFFF),
-        mRotation(0)
+        mRotation{0}
     {
     }
     //-----------------------------------------------------------------------
@@ -52,7 +52,7 @@ class BillboardSet;
         , mPosition(position)
         , mDirection(Vector3::ZERO)
         , mColour(colour.getAsBYTE())
-        , mRotation(0)
+        , mRotation{0}
     {
     }
     //-----------------------------------------------------------------------

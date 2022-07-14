@@ -49,7 +49,7 @@ namespace Ogre {
     //---------------------------------------------------------------------
     Overlay::Overlay(std::string_view name) :
         mName(name),
-        mRotate(0.0f) 
+        mRotate{0.0f}
 
     {
         mRootNode = ::std::make_unique<SceneNode>(nullptr);
@@ -312,10 +312,10 @@ namespace Ogre {
         //    2. Rotate
         //    3. Translate
 
-        auto orientationRotation = Radian(0);
+        auto orientationRotation = Radian{0};
 
         Matrix3 rot3x3, scale3x3;
-        rot3x3.FromEulerAnglesXYZ(Radian(0), Radian(0), mRotate + orientationRotation);
+        rot3x3.FromEulerAnglesXYZ(Radian{0}, Radian{0}, mRotate + orientationRotation);
         scale3x3 = Matrix3::ZERO;
         scale3x3[0][0] = mScaleX;
         scale3x3[1][1] = mScaleY;

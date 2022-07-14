@@ -119,7 +119,7 @@ namespace Ogre {
         // The quaternion representing the rotation is
         //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
 
-        Radian fHalfAngle ( 0.5*rfAngle );
+        Radian fHalfAngle{ 0.5*rfAngle };
         float fSin = Math::Sin(fHalfAngle);
         w = Math::Cos(fHalfAngle);
         x = fSin*rkAxis.x;
@@ -144,7 +144,7 @@ namespace Ogre {
         else
         {
             // angle is 0 (mod 2*pi), so any axis will do
-            rfAngle = Radian(0.0);
+            rfAngle = Radian{0.0};
             rkAxis.x = 1.0;
             rkAxis.y = 0.0;
             rkAxis.z = 0.0;
@@ -301,7 +301,7 @@ namespace Ogre {
         // exp(q) = e^w(cos(A)+sin(A)*(x*i+y*j+z*k)).  If sin(A) is near zero,
         // use exp(q) = e^w(cos(A)+(x*i+y*j+z*k)) since sin(A)/A has limit 1.
 
-        Radian fAngle ( Math::Sqrt(x*x+y*y+z*z) );
+        Radian fAngle{ Math::Sqrt(x*x+y*y+z*z) };
         float fSin = Math::Sin(fAngle);
 		float fExpW = Math::Exp(w);
 
@@ -339,7 +339,7 @@ namespace Ogre {
             // According to Neil Dantam, atan2 has the best stability.
             // http://www.neil.dantam.name/note/dantam-quaternion.pdf
             Real fNormV = Math::Sqrt(x*x + y*y + z*z);
-            Radian fAngle ( Math::ATan2(fNormV, w) );
+            Radian fAngle{ Math::ATan2(fNormV, w) };
 
             Real fSin = Math::Sin(fAngle);
             if ( Math::Abs(fSin) >= msEpsilon )
@@ -419,13 +419,13 @@ namespace Ogre {
         const Quaternion& rkP, const Quaternion& rkQ, int iExtraSpins) -> Quaternion
     {
         Real fCos = rkP.Dot(rkQ);
-        Radian fAngle ( Math::ACos(fCos) );
+        Radian fAngle{ Math::ACos(fCos) };
 
         if ( Math::Abs(fAngle.valueRadians()) < msEpsilon )
             return rkP;
 
         Real fSin = Math::Sin(fAngle);
-        Radian fPhase ( Math::PI*iExtraSpins*fT );
+        Radian fPhase{ Math::PI*iExtraSpins*fT };
         Real fInvSin = 1.0f/fSin;
         Real fCoeff0 = Math::Sin((1.0f-fT)*fAngle - fPhase)*fInvSin;
         Real fCoeff1 = Math::Sin(fT*fAngle + fPhase)*fInvSin;
@@ -475,12 +475,12 @@ namespace Ogre {
 
 			// Vector3::Fill(1.0-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
 
-			return Radian(Math::ATan2(fTxy+fTwz, 1.0f-(fTyy+fTzz)));
+			return Radian{Math::ATan2(fTxy+fTwz, 1.0f-(fTyy+fTzz)) };
 
 		}
 		else
 		{
-			return Radian(Math::ATan2(2*(x*y + w*z), w*w + x*x - y*y - z*z));
+			return Radian{Math::ATan2(2*(x*y + w*z), w*w + x*x - y*y - z*z) };
 		}
 	}
     //-----------------------------------------------------------------------
@@ -499,12 +499,12 @@ namespace Ogre {
 			Real fTzz = fTz*z;
 
 			// Vector3{fTxy-fTwz, 1.0-(fTxx+fTzz}, fTyz+fTwx);
-			return Radian(Math::ATan2(fTyz+fTwx, 1.0f-(fTxx+fTzz)));
+			return Radian{Math::ATan2(fTyz+fTwx, 1.0f-(fTxx+fTzz))};
 		}
 		else
 		{
 			// internal version
-			return Radian(Math::ATan2(2*(y*z + w*x), w*w - x*x - y*y + z*z));
+			return Radian{Math::ATan2(2*(y*z + w*x), w*w - x*x - y*y + z*z)};
 		}
 	}
     //-----------------------------------------------------------------------
@@ -524,13 +524,13 @@ namespace Ogre {
 
 			// Vector3{fTxz+fTwy, fTyz-fTwx, 1.0-(fTxx+fTyy});
 
-			return Radian(Math::ATan2(fTxz+fTwy, 1.0f-(fTxx+fTyy)));
+			return Radian{Math::ATan2(fTxz+fTwy, 1.0f-(fTxx+fTyy))};
 
 		}
 		else
 		{
 			// internal version
-			return Radian(Math::ASin(-2*(x*z - w*y)));
+			return Radian{Math::ASin(-2*(x*z - w*y))};
 		}
 	}
     //-----------------------------------------------------------------------

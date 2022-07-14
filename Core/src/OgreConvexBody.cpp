@@ -508,7 +508,7 @@ namespace Ogre
                 const Vector3& n2 = getNormal( iPolyB );
 
                 // if the normals point into the same direction
-                if ( n1.directionEquals( n2, Radian( Degree( 0.00001 ) ) )  )
+                if ( n1.directionEquals( n2, static_cast<Radian>(Degree{ 0.00001 }) ) )
                 {
                     // indicates if a neighbor has been found and joined
                     bool bFound = false;
@@ -1098,7 +1098,7 @@ namespace Ogre
                 // detect the orientation
                 // the polygon must have the same normal direction as the plane and then n
                 Vector3 vCross = ( vFirst - vSecond ).crossProduct( vNext - vSecond );
-                bool frontside = ( pl.normal ).directionEquals( vCross, Degree( 1 ) );
+                bool frontside = ( pl.normal ).directionEquals( vCross, Degree{ 1 } );
 
                 // first inserted vertex
                 Vector3 firstVertex;

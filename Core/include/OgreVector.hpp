@@ -722,7 +722,7 @@ namespace Ogre
         Radian angle = ((const Vector2*)this)->angleBetween(other);
 
         if (crossProduct(other)<0)
-            angle = Radian(Math::TWO_PI) - angle;
+            angle = Radian{Math::TWO_PI} - angle;
 
         return angle;
     }
@@ -773,7 +773,7 @@ namespace Ogre
 
         // Rotate up vector by random amount around this
         Quaternion q;
-        q.FromAngleAxis( Radian(Math::UnitRandom() * Math::TWO_PI), (const Vector3&)*this );
+        q.FromAngleAxis( Radian{Math::UnitRandom() * Math::TWO_PI}, (const Vector3&)*this );
         newUp = q * newUp;
 
         // Finally rotate this by given angle around randomised up

@@ -135,7 +135,7 @@ class Viewport;
                 out_cam->setProjectionType(ProjectionType::ORTHOGRAPHIC);
                 out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(cam.getDerivedPosition());
-                out_cam->setFOVy(Degree(90));
+                out_cam->setFOVy(Degree{90});
             }
         }
         else if (light.getType() == Light::LightTypes::POINT)
@@ -161,7 +161,7 @@ class Viewport;
             if (out_proj != nullptr)
             {
                 // set FOV to 120 degrees
-                mTempFrustum->setFOVy(Degree(120));
+                mTempFrustum->setFOVy(Degree{120});
 
                 mTempFrustum->setNearClipDistance(light._deriveShadowNearClipDistance(&cam));
                 mTempFrustum->setFarClipDistance(light._deriveShadowFarClipDistance());
@@ -175,7 +175,7 @@ class Viewport;
                 out_cam->setProjectionType(ProjectionType::PERSPECTIVE);
                 out_cam->getParentSceneNode()->setDirection(lightDir, Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(light.getDerivedPosition());
-                out_cam->setFOVy(Degree(120));
+                out_cam->setFOVy(Degree{120});
             }
         }
         else if (light.getType() == Light::LightTypes::SPOTLIGHT)
@@ -192,7 +192,7 @@ class Viewport;
             if (out_proj != nullptr)
             {
                 // set FOV slightly larger than spotlight range
-                mTempFrustum->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian(0), Radian(Math::PI/2.0f)));
+                mTempFrustum->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian{0}, Radian{Math::PI/2.0f}));
 
                 mTempFrustum->setNearClipDistance(light._deriveShadowNearClipDistance(&cam));
                 mTempFrustum->setFarClipDistance(light._deriveShadowFarClipDistance());
@@ -206,7 +206,7 @@ class Viewport;
                 out_cam->setProjectionType(ProjectionType::PERSPECTIVE);
                 out_cam->getParentSceneNode()->setDirection(light.getDerivedDirection(), Node::TransformSpace::WORLD);
                 out_cam->getParentSceneNode()->setPosition(light.getDerivedPosition());
-                out_cam->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian(0), Radian(Math::PI/2.0f)));
+                out_cam->setFOVy(Ogre::Math::Clamp<Radian>(light.getSpotlightOuterAngle() * 1.2, Radian{0}, Radian{Math::PI/2.0f}));
             }
         }
     }

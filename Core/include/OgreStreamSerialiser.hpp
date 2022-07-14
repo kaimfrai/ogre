@@ -46,7 +46,7 @@ struct Matrix4;
 class Node;
 struct Plane;
 struct Quaternion;
-class Radian;
+struct Radian;
 struct Ray;
 struct Sphere;
     /** \addtogroup Core

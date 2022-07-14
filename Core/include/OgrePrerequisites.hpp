@@ -59,7 +59,7 @@ namespace Ogre {
 // Allows use of pointers in header files without including individual .h
 // so decreases dependencies between files
     struct Affine3;
-    class Angle;
+    struct Angle;
     class AnimableValue;
     class Animation;
     class AnimationState;
@@ -85,7 +85,7 @@ namespace Ogre {
     class DataStream;
     class DebugDrawer;
     class DefaultWorkQueue;
-    class Degree;
+    struct Degree;
     class DepthBuffer;
     class DynLib;
     class DynLibManager;
@@ -170,7 +170,7 @@ namespace Ogre {
     class Profile;
     class Profiler;
     struct Quaternion;
-    class Radian;
+    struct Radian;
     struct Ray;
     class RaySceneQuery;
     class RaySceneQueryListener;

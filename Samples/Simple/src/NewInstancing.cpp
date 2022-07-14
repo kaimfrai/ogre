@@ -206,7 +206,7 @@ void Sample_NewInstancing::createSceneNodes()
             int idx = i * NUM_INST_COLUMN + j;
             SceneNode *sceneNode = rootNode->createChildSceneNode();
             sceneNode->attachObject( mEntities[idx] );
-            sceneNode->yaw( Radian( float(rng())/float(rng.max()) * 10 * Math::PI )); //Random orientation
+            sceneNode->yaw( Radian{ float(rng())/float(rng.max()) * 10 * Math::PI }); //Random orientation
             sceneNode->setPosition( mEntities[idx]->getBoundingRadius() * (i - NUM_INST_ROW * 0.5f), 0,
                 mEntities[idx]->getBoundingRadius() * (j - NUM_INST_COLUMN * 0.5f) );
             mSceneNodes.push_back( sceneNode );

@@ -131,7 +131,7 @@ class Frustum;
         , mVMod(0)
         , mUScale(1)
         , mVScale(1)
-        , mRotate(0)
+        , mRotate{0}
         , mTexModMatrix(Matrix4::IDENTITY)
         , mBindingType(BindingType::FRAGMENT)
         , mContentType(ContentType::NAMED)
@@ -174,7 +174,7 @@ class Frustum;
         , mVMod(0)
         , mUScale(1)
         , mVScale(1)
-        , mRotate(0)
+        , mRotate{0}
         , mTexModMatrix(Matrix4::IDENTITY)
         , mBindingType(BindingType::FRAGMENT)
         , mContentType(ContentType::NAMED)
@@ -812,10 +812,10 @@ class Frustum;
             xform = Affine3::getTrans(mUMod, mVMod, 0) * xform;
         }
 
-        if (mRotate != Radian(0))
+        if (mRotate != Radian{0})
         {
             Affine3 rot = Affine3::IDENTITY;
-            Radian theta ( mRotate );
+            Radian theta{ mRotate };
             Real cosTheta = Math::Cos(theta);
             Real sinTheta = Math::Sin(theta);
 

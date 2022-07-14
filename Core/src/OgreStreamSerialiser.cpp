@@ -737,7 +737,7 @@ namespace Ogre
         {
             Real rads;
             read(&rads);
-            *angle = Radian(rads);
+            *angle = Radian{rads};
         }
     }
     //---------------------------------------------------------------------

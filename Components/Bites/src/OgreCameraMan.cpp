@@ -184,8 +184,8 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
         {
             mCamera->setPosition(mTarget->_getDerivedPosition() + mOffset);
 
-            mCamera->yaw(Ogre::Degree(-evt.xrel * 0.25f), mYawSpace);
-            mCamera->pitch(Ogre::Degree(-evt.yrel * 0.25f));
+            mCamera->yaw(Ogre::Degree{-evt.xrel * 0.25f}, mYawSpace);
+            mCamera->pitch(Ogre::Degree{-evt.yrel * 0.25f});
 
             mCamera->translate(Ogre::Vector3{0, 0, dist}, Ogre::Node::TransformSpace::LOCAL);
             // don't let the camera go over the top or around the bottom of the target
@@ -201,8 +201,8 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
     }
     else if (mStyle == CameraStyle::FREELOOK)
     {
-        mCamera->yaw(Ogre::Degree(-evt.xrel * 0.15f), Ogre::Node::TransformSpace::PARENT);
-        mCamera->pitch(Ogre::Degree(-evt.yrel * 0.15f));
+        mCamera->yaw(Ogre::Degree{-evt.xrel * 0.15f}, Ogre::Node::TransformSpace::PARENT);
+        mCamera->pitch(Ogre::Degree{-evt.yrel * 0.15f});
     }
 
     return InputListener::mouseMoved(evt);

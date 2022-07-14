@@ -78,9 +78,9 @@ namespace Ogre {
 
         Particle()
             : 
-            mRotation(0), mPosition(Vector3::ZERO), mDirection(Vector3::ZERO),
+            mRotation{0}, mPosition(Vector3::ZERO), mDirection(Vector3::ZERO),
             
-            mRotationSpeed(0) 
+            mRotationSpeed{0}
         {
         }
 

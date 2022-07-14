@@ -58,7 +58,7 @@ struct Sphere;
     {
 
         // Reasonable defaults to camera params
-        mFOVy = Radian(Math::PI/4.0f);
+        mFOVy = Radian{Math::PI/4.0f};
         mNearDist = 100.0f;
         mFarDist = 100000.0f;
         mAspect = 1.33333333333333f;

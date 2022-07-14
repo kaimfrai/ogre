@@ -273,12 +273,12 @@ void CompositorChain::setCompositorEnabled(size_t position, bool state)
 static auto getCubemapRotation(int i) -> const Quaternion&
 {
     static const Quaternion CubemapRotations[6] = {
-        Quaternion::FromAngleAndAxis(Degree(-90), Vector3::UNIT_Y), //+X
-        Quaternion::FromAngleAndAxis(Degree(90), Vector3::UNIT_Y),  //-X
-        Quaternion::FromAngleAndAxis(Degree(90), Vector3::UNIT_X),  //+Y
-        Quaternion::FromAngleAndAxis(Degree(-90), Vector3::UNIT_X), //-Y
+        Quaternion::FromAngleAndAxis(Degree{-90}, Vector3::UNIT_Y), //+X
+        Quaternion::FromAngleAndAxis(Degree{90}, Vector3::UNIT_Y),  //-X
+        Quaternion::FromAngleAndAxis(Degree{90}, Vector3::UNIT_X),  //+Y
+        Quaternion::FromAngleAndAxis(Degree{-90}, Vector3::UNIT_X), //-Y
         Quaternion::IDENTITY,                     //+Z
-        Quaternion::FromAngleAndAxis(Degree(180), Vector3::UNIT_Y)  //-Z
+        Quaternion::FromAngleAndAxis(Degree{180}, Vector3::UNIT_Y)  //-Z
     };
 
     return CubemapRotations[i];

@@ -149,7 +149,7 @@ namespace Ogre {
         newBill->setPosition(position);
         newBill->setColour(colour);
         newBill->mDirection = Vector3::ZERO;
-        newBill->setRotation(Radian(0));
+        newBill->setRotation(Radian{0});
         newBill->setTexcoordIndex(0);
         newBill->resetDimensions();
 
@@ -873,7 +873,7 @@ namespace Ogre {
         const Ogre::FloatRect & r =
             bb.mUseTexcoordRect ? bb.mTexcoordRect : mTextureCoords[bb.mTexcoordIndex];
 
-        if (bb.mRotation == Radian(0))
+        if (bb.mRotation == Radian{0})
         {
             // Left-top
             // Positions

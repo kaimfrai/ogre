@@ -210,8 +210,8 @@ namespace Ogre {
         @return
             0.0 if the value could not be parsed, otherwise the Angle version of the String.
         */
-        static auto parseAngle(std::string_view val, Radian defaultValue = Radian(0)) -> Radian {
-            return Angle(parseReal(val, defaultValue.valueRadians()));
+        static auto parseAngle(std::string_view val, Radian defaultValue = Radian{0}) -> Radian {
+            return Angle{parseReal(val, defaultValue.valueRadians())};
         }
         /** Converts a String to a whole number. 
         @return

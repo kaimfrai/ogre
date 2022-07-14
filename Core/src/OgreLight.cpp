@@ -43,8 +43,8 @@ namespace Ogre {
     Light::Light()
         : mDiffuse(ColourValue::White),
           mSpecular(ColourValue::Black),
-          mSpotOuter(Degree(40.0f)),
-          mSpotInner(Degree(30.0f)),
+          mSpotOuter(Degree{40.0f}),
+          mSpotInner(Degree{30.0f}),
           mSpotFalloff(1.0f),
           mSpotNearClip(0.0f),
           mAttenuation{100000.f, 1.f, 0.f, 0.f},
@@ -65,8 +65,8 @@ namespace Ogre {
     Light::Light(std::string_view name) : MovableObject(name),
         mDiffuse(ColourValue::White),
         mSpecular(ColourValue::Black),
-        mSpotOuter(Degree(40.0f)),
-        mSpotInner(Degree(30.0f)),
+        mSpotOuter(Degree{40.0f}),
+        mSpotInner(Degree{30.0f}),
         mSpotFalloff(1.0f),
         mSpotNearClip(0.0f),
         mAttenuation{100000.f, 1.f, 0.f, 0.f},
@@ -503,7 +503,7 @@ namespace Ogre {
         { mLight = l; }
         void setValue(Real val) override
         {
-            mLight->setSpotlightInnerAngle(Radian(val));
+            mLight->setSpotlightInnerAngle(Radian{val});
         }
         void applyDeltaValue(Real val) override
         {
@@ -525,7 +525,7 @@ namespace Ogre {
         { mLight = l; }
         void setValue(Real val) override
         {
-            mLight->setSpotlightOuterAngle(Radian(val));
+            mLight->setSpotlightOuterAngle(Radian{val});
         }
         void applyDeltaValue(Real val) override
         {

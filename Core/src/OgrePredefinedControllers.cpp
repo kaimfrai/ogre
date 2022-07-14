@@ -193,7 +193,7 @@ namespace Ogre
         }
         if (mRotate)
         {
-            mTextureLayer->setTextureRotate(Radian(value * Math::TWO_PI));
+            mTextureLayer->setTextureRotate(Radian{value * Math::TWO_PI});
         }
     }
     //-----------------------------------------------------------------------
@@ -315,7 +315,7 @@ namespace Ogre
         switch (mWaveType)
         {
         case SINE:
-            output = Math::Sin(Radian(input * Math::TWO_PI));
+            output = Math::Sin(Radian{input * Math::TWO_PI});
             break;
         case TRIANGLE:
             if (input < 0.25)

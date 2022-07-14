@@ -129,13 +129,13 @@ namespace Ogre
         if ( -1.0 < fValue )
         {
             if ( fValue < 1.0 )
-                return Radian(std::acos(fValue));
+                return Radian{std::acos(fValue)};
             else
-                return Radian(0.0);
+                return Radian{0.0};
         }
         else
         {
-            return Radian(PI);
+            return Radian{PI};
         }
     }
     //-----------------------------------------------------------------------
@@ -144,13 +144,13 @@ namespace Ogre
         if ( -1.0 < fValue )
         {
             if ( fValue < 1.0 )
-                return Radian(std::asin(fValue));
+                return Radian{std::asin(fValue)};
             else
-                return Radian(HALF_PI);
+                return Radian{HALF_PI};
         }
         else
         {
-            return Radian(-HALF_PI);
+            return Radian{-HALF_PI};
         }
     }
     //-----------------------------------------------------------------------

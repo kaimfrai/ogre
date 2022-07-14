@@ -301,7 +301,7 @@ class Viewport;
     //---------------------------------------------------------------------
     auto LiSPSMShadowCameraSetup::getCameraLightDirectionThreshold() const -> Degree
     {
-        return { Math::ACos(mCosCamLightDirThreshold) };
+        return static_cast<Radian>(Math::ACos(mCosCamLightDirThreshold));
     }
 
 

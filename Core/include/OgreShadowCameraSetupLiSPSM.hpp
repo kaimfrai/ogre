@@ -181,7 +181,7 @@ class Viewport;
             const Camera& cam) const -> Vector3;
     public:
         /// @deprecated use create()
-        LiSPSMShadowCameraSetup(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f));
+        LiSPSMShadowCameraSetup(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian{0.451f});
 
         ~LiSPSMShadowCameraSetup() override;
 
@@ -190,7 +190,7 @@ class Viewport;
          * @param useSimpleNOpt
          * @param angle camera Light Direction Threshold
          */
-        static auto create(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian(0.451f)) -> ShadowCameraSetupPtr
+        static auto create(Real n = 0.1f, bool useSimpleNOpt = true, Degree angle = Radian{0.451f}) -> ShadowCameraSetupPtr
         {
             return std::make_shared<LiSPSMShadowCameraSetup>();
         }

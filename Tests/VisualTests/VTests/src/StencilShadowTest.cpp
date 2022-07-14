@@ -111,7 +111,7 @@ void StencilShadowTest::setupContent()
     torusNode->setPosition(Ogre::Vector3{100,-60,-320});
     
     // point the camera down a bit
-    mCameraNode->pitch(Ogre::Degree(-20.f));
+    mCameraNode->pitch(Ogre::Degree{-20.f});
 }
 //-----------------------------------------------------------------------
 

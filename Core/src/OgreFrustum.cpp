@@ -57,7 +57,7 @@ class RenderQueue;
     const Real Frustum::INFINITE_FAR_PLANE_ADJUST = 0.00001;
     //-----------------------------------------------------------------------
     Frustum::Frustum(std::string_view name) :
-        mFOVy(Radian(Math::PI/4.0f)), 
+        mFOVy(Radian{Math::PI/4.0f}), 
         
         mFrustumOffset(Vector2::ZERO),
         
@@ -316,7 +316,7 @@ class RenderQueue;
             // Calculate general projection parameters
             else if (mProjType == ProjectionType::PERSPECTIVE)
             {
-                Radian thetaY (mFOVy * 0.5f);
+                Radian thetaY{mFOVy * 0.5f};
                 Real tanThetaY = Math::Tan(thetaY);
                 Real tanThetaX = tanThetaY * mAspect;
 

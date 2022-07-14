@@ -44,7 +44,7 @@ namespace Ogre
 {
 struct Affine3;
 struct AxisAlignedBox;
-class Degree;
+struct Degree;
 struct Matrix3;
 struct Matrix4;
 struct Plane;
@@ -72,36 +72,32 @@ struct Sphere;
         Radian values are interchangeable with Degree values, and conversions
         will be done automatically between them.
     */
-    class Radian
+    struct Radian
     {
-        float mRad;
+        float mRad{0};
 
-    public:
-        explicit Radian ( float r=0 ) : mRad(r) {}
-        Radian ( const Degree& d );
-        Radian (const Ogre::Radian& rhs)  = default;
         auto operator = ( const float& f ) -> Radian& { mRad = f; return *this; }
-        auto operator = ( const Radian& r ) -> Radian& = default;
         auto operator = ( const Degree& d ) -> Radian&;
 
         [[nodiscard]] auto valueDegrees() const -> float; // see bottom of this file
+        operator Degree() const;
         [[nodiscard]] auto valueRadians() const noexcept -> float { return mRad; }
         [[nodiscard]] auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Radian& { return *this; }
-        auto operator + ( const Radian& r ) const -> Radian { return Radian ( mRad + r.mRad ); }
+        auto operator + ( const Radian& r ) const -> Radian { return Radian{mRad + r.mRad}; }
         auto operator + ( const Degree& d ) const -> Radian;
         auto operator += ( const Radian& r ) -> Radian& { mRad += r.mRad; return *this; }
         auto operator += ( const Degree& d ) -> Radian&;
-        auto operator - () const -> Radian { return Radian(-mRad); }
-        auto operator - ( const Radian& r ) const -> Radian { return Radian ( mRad - r.mRad ); }
+        auto operator - () const -> Radian { return Radian{-mRad}; }
+        auto operator - ( const Radian& r ) const -> Radian { return Radian{mRad - r.mRad}; }
         auto operator - ( const Degree& d ) const -> Radian;
         auto operator -= ( const Radian& r ) -> Radian& { mRad -= r.mRad; return *this; }
         auto operator -= ( const Degree& d ) -> Radian&;
-        auto operator * ( float f ) const -> Radian { return Radian ( mRad * f ); }
-        auto operator * ( const Radian& f ) const -> Radian { return Radian ( mRad * f.mRad ); }
+        auto operator * ( float f ) const -> Radian { return Radian{ mRad * f }; }
+        auto operator * ( const Radian& f ) const -> Radian { return Radian{ mRad * f.mRad }; }
         auto operator *= ( float f ) -> Radian& { mRad *= f; return *this; }
-        auto operator / ( float f ) const -> Radian { return Radian ( mRad / f ); }
+        auto operator / ( float f ) const -> Radian { return Radian{ mRad / f }; }
         auto operator /= ( float f ) -> Radian& { mRad /= f; return *this; }
 
         [[nodiscard]] auto operator <=>  ( const Radian& r ) const noexcept = default;
@@ -110,7 +106,7 @@ struct Sphere;
         inline friend auto operator <<
             ( std::ostream& o, const Radian& v ) -> std::ostream&
         {
-            o << "Radian(" << v.valueRadians() << ")";
+            o << "Radian{" << v.valueRadians() << "}";
             return o;
         }
     };
@@ -120,36 +116,32 @@ struct Sphere;
         Degree values are interchangeable with Radian values, and conversions
         will be done automatically between them.
     */
-    class Degree
+    struct Degree
     {
-        float mDeg; // if you get an error here - make sure to define/typedef 'Real' first
+        float mDeg{0}; // if you get an error here - make sure to define/typedef 'Real' first
 
-    public:
-        explicit Degree ( float d=0 ) : mDeg(d) {}
-        Degree ( const Radian& r ) : mDeg(r.valueDegrees()) {}
-        Degree (const Ogre::Degree& rhs)  = default;
         auto operator = ( const float& f ) -> Degree& { mDeg = f; return *this; }
-        auto operator = ( const Degree& d ) -> Degree& = default;
         auto operator = ( const Radian& r ) -> Degree& { mDeg = r.valueDegrees(); return *this; }
 
         [[nodiscard]] auto valueDegrees() const noexcept -> float { return mDeg; }
         [[nodiscard]] auto valueRadians() const -> float; // see bottom of this file
+        operator Radian() const;
         [[nodiscard]] auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Degree& { return *this; }
-        auto operator + ( const Degree& d ) const -> Degree { return Degree ( mDeg + d.mDeg ); }
-        auto operator + ( const Radian& r ) const -> Degree { return Degree ( mDeg + r.valueDegrees() ); }
+        auto operator + ( const Degree& d ) const -> Degree { return Degree{ mDeg + d.mDeg }; }
+        auto operator + ( const Radian& r ) const -> Degree { return Degree{ mDeg + r.valueDegrees() }; }
         auto operator += ( const Degree& d ) -> Degree& { mDeg += d.mDeg; return *this; }
         auto operator += ( const Radian& r ) -> Degree& { mDeg += r.valueDegrees(); return *this; }
-        auto operator - () const -> Degree { return Degree(-mDeg); }
-        auto operator - ( const Degree& d ) const -> Degree { return Degree ( mDeg - d.mDeg ); }
-        auto operator - ( const Radian& r ) const -> Degree { return Degree ( mDeg - r.valueDegrees() ); }
+        auto operator - () const -> Degree { return Degree{-mDeg}; }
+        auto operator - ( const Degree& d ) const -> Degree { return Degree{ mDeg - d.mDeg }; }
+        auto operator - ( const Radian& r ) const -> Degree { return Degree{ mDeg - r.valueDegrees() }; }
         auto operator -= ( const Degree& d ) -> Degree& { mDeg -= d.mDeg; return *this; }
         auto operator -= ( const Radian& r ) -> Degree& { mDeg -= r.valueDegrees(); return *this; }
-        auto operator * ( float f ) const -> Degree { return Degree ( mDeg * f ); }
-        auto operator * ( const Degree& f ) const -> Degree { return Degree ( mDeg * f.mDeg ); }
+        auto operator * ( float f ) const -> Degree { return Degree{ mDeg * f }; }
+        auto operator * ( const Degree& f ) const -> Degree { return Degree{ mDeg * f.mDeg }; }
         auto operator *= ( float f ) -> Degree& { mDeg *= f; return *this; }
-        auto operator / ( float f ) const -> Degree { return Degree ( mDeg / f ); }
+        auto operator / ( float f ) const -> Degree { return Degree{ mDeg / f }; }
         auto operator /= ( float f ) -> Degree& { mDeg /= f; return *this; }
 
         [[nodiscard]] auto operator <=> ( const Degree& d ) const noexcept = default;
@@ -158,7 +150,7 @@ struct Sphere;
         inline friend auto operator <<
             ( std::ostream& o, const Degree& v ) -> std::ostream&
         {
-            o << "Degree(" << v.valueDegrees() << ")";
+            o << "Degree{" << v.valueDegrees() << "}";
             return o;
         }
     };
@@ -169,31 +161,27 @@ struct Sphere;
         Angle values will be automatically converted between radians and degrees,
         as appropriate.
     */
-    class Angle
+    struct Angle
     {
         float mAngle;
-    public:
-        explicit Angle ( float angle ) : mAngle(angle) {}
         operator Radian() const;
         operator Degree() const;
     };
 
     // these functions could not be defined within the class definition of class
-    // Radian because they required class Degree to be defined
-    inline Radian::Radian ( const Degree& d ) : mRad(d.valueRadians()) {
-    }
+    // Radian because they required struct Degree to be defined
     inline auto Radian::operator = ( const Degree& d ) -> Radian& {
         mRad = d.valueRadians(); return *this;
     }
     inline auto Radian::operator + ( const Degree& d ) const -> Radian {
-        return Radian ( mRad + d.valueRadians() );
+        return Radian{ mRad + d.valueRadians() };
     }
     inline auto Radian::operator += ( const Degree& d ) -> Radian& {
         mRad += d.valueRadians();
         return *this;
     }
     inline auto Radian::operator - ( const Degree& d ) const -> Radian {
-        return Radian ( mRad - d.valueRadians() );
+        return Radian{ mRad - d.valueRadians() };
     }
     inline auto Radian::operator -= ( const Degree& d ) -> Radian& {
         mRad -= d.valueRadians();
@@ -285,13 +273,13 @@ struct Sphere;
             @param dValue
                 The value, in degrees, whose absolute value will be returned.
          */
-        static inline auto Abs (const Degree& dValue) -> Degree { return Degree(std::abs(dValue.valueDegrees())); }
+        static inline auto Abs (const Degree& dValue) -> Degree { return Degree{std::abs(dValue.valueDegrees()) }; }
 
         /** Absolute value function
             @param rValue
                 The value, in radians, whose absolute value will be returned.
          */
-        static inline auto Abs (const Radian& rValue) -> Radian { return Radian(std::abs(rValue.valueRadians())); }
+        static inline auto Abs (const Radian& rValue) -> Radian { return Radian{std::abs(rValue.valueRadians()) }; }
 
         /** Arc cosine function
             @param fValue
@@ -309,7 +297,7 @@ struct Sphere;
             @param fValue
                 The value whose arc tangent will be returned.
          */
-        static inline auto ATan (float fValue) -> Radian { return Radian(std::atan(fValue)); }
+        static inline auto ATan (float fValue) -> Radian { return Radian{std::atan(fValue)}; }
 
         /** Arc tangent between two values function
             @param fY
@@ -317,7 +305,7 @@ struct Sphere;
             @param fX
                 The second value to calculate the arc tangent with.
          */
-        static inline auto ATan2 (float fY, float fX) -> Radian { return Radian(std::atan2(fY,fX)); }
+        static inline auto ATan2 (float fY, float fX) -> Radian { return Radian{std::atan2(fY,fX)}; }
 
         /** Ceiling function
             Returns the smallest following integer. (example: Ceil(1.1) = 2)
@@ -386,11 +374,11 @@ struct Sphere;
 
         static inline auto Sign ( const Radian& rValue ) -> Radian
         {
-            return Radian(Sign(rValue.valueRadians()));
+            return Radian{Sign(rValue.valueRadians())};
         }
         static inline auto Sign ( const Degree& dValue ) -> Degree
         {
-            return Degree(Sign(dValue.valueDegrees()));
+            return Degree{Sign(dValue.valueDegrees())};
         }
 
         /// Simulate the shader function saturate that clamps a parameter value between 0 and 1
@@ -450,7 +438,7 @@ struct Sphere;
             @return
                 The square root of the angle in radians.
          */
-        static inline auto Sqrt (const Radian& fValue) -> Radian { return Radian(std::sqrt(fValue.valueRadians())); }
+        static inline auto Sqrt (const Radian& fValue) -> Radian { return Radian{std::sqrt(fValue.valueRadians()) }; }
 
         /** Square root function.
             @param fValue
@@ -458,7 +446,7 @@ struct Sphere;
             @return
                 The square root of the angle in degrees.
          */
-        static inline auto Sqrt (const Degree& fValue) -> Degree { return Degree(std::sqrt(fValue.valueDegrees())); }
+        static inline auto Sqrt (const Degree& fValue) -> Degree { return Degree{std::sqrt(fValue.valueDegrees()) }; }
 
         /** Inverse square root i.e. 1 / Sqrt(x), good for vector
             normalisation.
@@ -754,6 +742,11 @@ struct Sphere;
         return Math::RadiansToDegrees ( mRad );
     }
 
+    inline Radian::operator Degree() const
+    {
+        return { valueDegrees() };
+    }
+
     inline auto Radian::valueAngleUnits() const -> float
     {
         return Math::RadiansToAngleUnits ( mRad );
@@ -764,6 +757,11 @@ struct Sphere;
         return Math::DegreesToRadians ( mDeg );
     }
 
+    inline Degree::operator Radian() const
+    {
+        return { valueRadians() };
+    }
+
     inline auto Degree::valueAngleUnits() const -> float
     {
         return Math::DegreesToAngleUnits ( mDeg );
@@ -771,36 +769,45 @@ struct Sphere;
 
     inline Angle::operator Radian() const
     {
-        return Radian(Math::AngleUnitsToRadians(mAngle));
+        return Radian{Math::AngleUnitsToRadians(mAngle)};
     }
 
     inline Angle::operator Degree() const
     {
-        return Degree(Math::AngleUnitsToDegrees(mAngle));
+        return Degree{Math::AngleUnitsToDegrees(mAngle)};
     }
 
     inline auto operator * ( float a, const Radian& b ) -> Radian
     {
-        return Radian ( a * b.valueRadians() );
+        return Radian{ a * b.valueRadians() };
     }
 
     inline auto operator / ( float a, const Radian& b ) -> Radian
     {
-        return Radian ( a / b.valueRadians() );
+        return Radian{ a / b.valueRadians() };
     }
 
     inline auto operator * ( float a, const Degree& b ) -> Degree
     {
-        return Degree ( a * b.valueDegrees() );
+        return Degree{ a * b.valueDegrees() };
     }
 
     inline auto operator / ( float a, const Degree& b ) -> Degree
     {
-        return Degree ( a / b.valueDegrees() );
+        return Degree{ a / b.valueDegrees() };
     }
     /** @} */
     /** @} */
 
 }
+
+static_assert(std::is_aggregate_v<Ogre::Radian>);
+static_assert(std::is_standard_layout_v<Ogre::Radian>);
+
+static_assert(std::is_aggregate_v<Ogre::Degree>);
+static_assert(std::is_standard_layout_v<Ogre::Degree>);
+
+static_assert(std::is_aggregate_v<Ogre::Angle>);
+static_assert(std::is_standard_layout_v<Ogre::Angle>);
 
 #endif
