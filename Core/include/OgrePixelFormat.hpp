@@ -370,7 +370,7 @@ namespace Ogre {
             @param pixelData    Pointer to the actual data
         */
         PixelBox(const Box &extents, PixelFormat pixelFormat, void *pixelData=nullptr):
-            Box(extents), data((uchar*)pixelData), format(pixelFormat)
+            Box{extents}, data((uchar*)pixelData), format(pixelFormat)
         {
             setConsecutive();
         }
@@ -384,7 +384,7 @@ namespace Ogre {
             @param pixelData    Pointer to the actual data
         */
         PixelBox(uint32 width, uint32 height, uint32 depth, PixelFormat pixelFormat, void *pixelData=nullptr):
-            Box(0, 0, 0, width, height, depth),
+            Box{0, 0, width, height, 0, depth},
             data((uchar*)pixelData), format(pixelFormat)
         {
             setConsecutive();

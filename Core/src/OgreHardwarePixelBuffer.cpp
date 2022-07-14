@@ -74,7 +74,7 @@ namespace Ogre
         OgreAssert(!isLocked(), "already locked");
         OgreAssert(offset == 0 && length == mSizeInBytes, "must lock box or entire buffer");
         
-        Box myBox(0, 0, 0, mWidth, mHeight, mDepth);
+        Box myBox{0, 0, mWidth, mHeight, 0, mDepth};
         const PixelBox &rv = lock(myBox, options);
         return rv.data;
     }
@@ -145,7 +145,7 @@ namespace Ogre
     //-----------------------------------------------------------------------------       
     void HardwarePixelBuffer::blit(const HardwarePixelBufferSharedPtr &src)
     {
-        blit(src, Box(src->getSize()), Box(getSize()));
+        blit(src, Box::FromVector3(src->getSize()), Box::FromVector3(getSize()));
     }
     //-----------------------------------------------------------------------------    
     void HardwarePixelBuffer::readData(size_t offset, size_t length, void* pDest)
@@ -153,7 +153,7 @@ namespace Ogre
         // allow easy full buffer reads
         if (offset == 0 && length == mSizeInBytes)
         {
-            Box box(0, 0, 0, mWidth, mHeight, mDepth);
+            Box box{0, 0, mWidth, mHeight, 0, mDepth};
             blitToMemory(box, PixelBox(box, mFormat, pDest));
             return;
         }
@@ -171,7 +171,7 @@ namespace Ogre
         // allow easy full buffer updates
         if (offset == 0 && length == mSizeInBytes)
         {
-            Box box(0, 0, 0, mWidth, mHeight, mDepth);
+            Box box{0, 0, mWidth, mHeight, 0, mDepth};
             // we know pSource will not be written to
             blitFromMemory(PixelBox(box, mFormat, const_cast<void*>(pSource)), box);
             return;

@@ -798,59 +798,24 @@ class RenderWindow;
          */
         struct Box
         {
-            uint32 left, top, right, bottom, front, back;
-            /// Parameterless constructor for setting the members manually
-            Box()
-                : left(0), top(0), right(1), bottom(1), front(0), back(1)
-            {
-            }
-            /** Define a box from left, top, right and bottom coordinates
-                This box will have depth one (front=0 and back=1).
-                @param  l   x value of left edge
-                @param  t   y value of top edge
-                @param  r   x value of right edge
-                @param  b   y value of bottom edge
-                @note @copydetails Ogre::Box
-            */
-            Box( uint32 l, uint32 t, uint32 r, uint32 b ):
-                left(l),
-                top(t),   
-                right(r),
-                bottom(b),
-                front(0),
-                back(1)
-            {
-                assert(right >= left && bottom >= top && back >= front);
-            }
+            uint32 left{0}, top{0}, right{1}, bottom{1}, front{0}, back{1};
 
             /// @overload
-            template <typename T> explicit Box(const TRect<T>& r) : Box(r.left, r.top, r.right, r.bottom) {}
-
-            /** Define a box from left, top, front, right, bottom and back
-                coordinates.
-                @param  l   x value of left edge
-                @param  t   y value of top edge
-                @param  ff  z value of front edge
-                @param  r   x value of right edge
-                @param  b   y value of bottom edge
-                @param  bb  z value of back edge
-                @note @copydetails Ogre::Box
-            */
-            Box( uint32 l, uint32 t, uint32 ff, uint32 r, uint32 b, uint32 bb ):
-                left(l),
-                top(t),   
-                right(r),
-                bottom(b),
-                front(ff),
-                back(bb)
+            template<typename T>
+            [[nodiscard]]
+            static auto constexpr FromTRect(const TRect<T>& r) -> Box
             {
-                assert(right >= left && bottom >= top && back >= front);
+                return Box{r.left, r.top, r.right, r.bottom};
             }
 
-            /// @overload
-            explicit Box(const Vector<3, uint32>& size)
-                : left(0), top(0), right(size[0]), bottom(size[1]), front(0), back(size[2])
+            [[nodiscard]]
+            static auto constexpr FromVector3(const Vector<3, uint32>& size) -> Box
             {
+                Box box{};
+                box.right = size[0];
+                box.bottom = size[1];
+                box.back = size[2];
+                return box;
             }
 
             /// Return true if the other box is a part of this one
@@ -919,5 +884,8 @@ class RenderWindow;
     /** @} */
     /** @} */
 }
+
+static_assert(std::is_aggregate_v<Ogre::Box>);
+static_assert(std::is_standard_layout_v<Ogre::Box>);
 
 #endif

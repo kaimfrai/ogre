@@ -159,7 +159,7 @@ class RenderTexture;
             @param src      PixelBox containing the source pixels and format in memory
             @note Only call this function when the buffer is unlocked. 
         */
-        void blitFromMemory(const PixelBox& src) { blitFromMemory(src, Box(getSize())); }
+        void blitFromMemory(const PixelBox& src) { blitFromMemory(src, Box::FromVector3(getSize())); }
 
         /** Copies a region of this pixelbuffer to normal memory.
             @param srcBox   Box describing the source region of this buffer
@@ -175,7 +175,7 @@ class RenderTexture;
             @param dst      PixelBox describing the destination pixels and format in memory
             @note Only call this function when the buffer is unlocked. 
         */
-        void blitToMemory(const PixelBox& dst) { blitToMemory(Box(getSize()), dst); }
+        void blitToMemory(const PixelBox& dst) { blitToMemory(Box::FromVector3(getSize()), dst); }
 
         /** Get a render target for this PixelBuffer, or a slice of it. The texture this
             was acquired from must have TextureUsage::RENDERTARGET set

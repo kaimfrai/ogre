@@ -261,7 +261,7 @@ namespace Ogre {
                 size_t face = (mDepth == 1) ? i : 0; // depth = 1, then cubemap face else 3d/ array layer
 
                 auto buffer = getBuffer(face, static_cast<TextureMipmap>(mip));
-                Box dst(0, 0, 0, buffer->getWidth(), buffer->getHeight(), buffer->getDepth());
+                Box dst{0, 0, buffer->getWidth(), buffer->getHeight(), 0, buffer->getDepth()};
 
                 if(multiImage)
                 {

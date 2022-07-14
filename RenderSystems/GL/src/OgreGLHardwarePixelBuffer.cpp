@@ -642,7 +642,7 @@ void GLTextureBuffer::blitFromMemory(const PixelBox &src, const Box &dstBox)
         src.getWidth(), src.getHeight(), src.getDepth(), TextureMipmap::UNLIMITED, src.format);
 
     // Upload data to 0,0,0 in temporary texture
-    Box tempTarget(src.getSize());
+    Box tempTarget = Box::FromVector3(src.getSize());
     tex->getBuffer()->blitFromMemory(src, tempTarget);
 
     // Blit from texture
