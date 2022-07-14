@@ -343,7 +343,7 @@ class HardwareBufferManagerBase;
                 float *v;
                 poselem->baseVertexPointerToElement (vdata + mIndice * vsz, &v);
 
-                Vector3 vv (v [0], v [1], v [2]);
+                Vector3 vv{v [0], v [1], v [2]};
                 Real r = (vv - center).squaredLength ();
 
                 for (auto & extremityPoint : extremityPoints)

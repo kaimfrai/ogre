@@ -683,7 +683,7 @@ class Technique;
             each region, so you can balance culling against batch size. Entities
             will be fitted within the batch they most closely fit, and the 
             eventual bounds of each batch may well be slightly larger than this
-            if they overlap a little. The default is Vector3(1000, 1000, 1000).
+            if they overlap a little. The default is Vector3{1000, 1000, 1000}.
         @note Must be called before 'build'.
         @param size Vector3 expressing the 3D size of each region.
         */
@@ -700,7 +700,7 @@ class Technique;
             to mess with this unless you have a seriously large world, since the
             default set up can handle an area 1024 * mRegionDimensions, and 
             the sparseness of population is no issue when it comes to rendering.
-            The default is Vector3(0,0,0).
+            The default is Vector3{0,0,0}.
         @note Must be called before 'build'.
         @param origin Vector3 expressing the 3D origin of the geometry.
         */

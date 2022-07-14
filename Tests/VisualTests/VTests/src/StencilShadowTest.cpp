@@ -67,14 +67,14 @@ void StencilShadowTest::setupContent()
     light->setDiffuseColour(0.5f,0.4f,0.35f);
     light->setSpecularColour(0, 0, 0);
     light->setAttenuation(8000,1,0.0005,0);
-    mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3(220, 100, 0))->attachObject(light);
+    mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3{220, 100, 0})->attachObject(light);
     light->setCastShadows(true);
     light->setType(Light::LightTypes::POINT);
     light = mSceneMgr->createLight("Light2");
     light->setDiffuseColour(0.5f,0.4f,0.35f);
     light->setSpecularColour(0, 0, 0);
     light->setAttenuation(8000,1,0.0005,0);
-    mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3(220, 100, -200))->attachObject(light);
+    mSceneMgr->getRootSceneNode()->createChildSceneNode(Vector3{220, 100, -200})->attachObject(light);
     light->setCastShadows(true);
     light->setType(Light::LightTypes::POINT);
     
@@ -96,19 +96,19 @@ void StencilShadowTest::setupContent()
     Ogre::SceneNode* barNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     barNode->attachObject(bar);
     barNode->setScale(7,7,7);
-    barNode->setPosition(Ogre::Vector3(0,-85,-320));
+    barNode->setPosition(Ogre::Vector3{0,-85,-320});
     Ogre::Entity* head = mSceneMgr->createEntity( "ogrehead", "ogrehead.mesh" );
     head->setCastShadows(true);
     Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     headNode->attachObject(head);
-    headNode->setPosition(Ogre::Vector3(-100,-80,-320));
+    headNode->setPosition(Ogre::Vector3{-100,-80,-320});
     Ogre::Entity* torus = mSceneMgr->createEntity( "torus", "knot.mesh" );
     torus->setCastShadows(true);
     torus->setMaterialName("Examples/RustySteel");
     Ogre::SceneNode* torusNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     torusNode->setScale(0.5,0.5,0.5);
     torusNode->attachObject(torus);
-    torusNode->setPosition(Ogre::Vector3(100,-60,-320));
+    torusNode->setPosition(Ogre::Vector3{100,-60,-320});
     
     // point the camera down a bit
     mCameraNode->pitch(Ogre::Degree(-20.f));

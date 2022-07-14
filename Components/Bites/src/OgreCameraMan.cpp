@@ -15,7 +15,7 @@ CameraMan::CameraMan(Ogre::SceneNode *cam)
     : 
      mVelocity(Ogre::Vector3::ZERO)
     , 
-     mOffset(0, 0, 0)
+     mOffset{0, 0, 0}
 {
 
     setCamera(cam);
@@ -44,7 +44,7 @@ void CameraMan::setYawPitchDist(const Ogre::Radian&  yaw, const Ogre::Radian& pi
     mCamera->setOrientation(mTarget->_getDerivedOrientation());
     mCamera->yaw(yaw);
     mCamera->pitch(-pitch);
-    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
+    mCamera->translate(Ogre::Vector3{0, 0, dist}, Ogre::Node::TransformSpace::LOCAL);
 }
 
 void CameraMan::setStyle(CameraStyle style)
@@ -171,7 +171,7 @@ void CameraMan::setPivotOffset(const Ogre::Vector3& pivot)
     Ogre::Real dist = getDistToTarget();
     mOffset = pivot;
     mCamera->setPosition(mTarget->_getDerivedPosition() + mOffset);
-    mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
+    mCamera->translate(Ogre::Vector3{0, 0, dist}, Ogre::Node::TransformSpace::LOCAL);
 }
 
 auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
@@ -187,12 +187,12 @@ auto CameraMan::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
             mCamera->yaw(Ogre::Degree(-evt.xrel * 0.25f), mYawSpace);
             mCamera->pitch(Ogre::Degree(-evt.yrel * 0.25f));
 
-            mCamera->translate(Ogre::Vector3(0, 0, dist), Ogre::Node::TransformSpace::LOCAL);
+            mCamera->translate(Ogre::Vector3{0, 0, dist}, Ogre::Node::TransformSpace::LOCAL);
             // don't let the camera go over the top or around the bottom of the target
         }
         else if (mMoving)  // move the camera along the image plane
         {
-            Ogre::Vector3 delta = mCamera->getOrientation() * Ogre::Vector3(-evt.xrel, evt.yrel, 0);
+            Ogre::Vector3 delta = mCamera->getOrientation() * Ogre::Vector3{static_cast<Ogre::Real>(-evt.xrel), static_cast<Ogre::Real>(evt.yrel), 0.0f};
             // the further the camera is, the faster it moves
             delta *= dist / 1000.0f;
             mOffset += delta;
@@ -212,7 +212,7 @@ auto CameraMan::mouseWheelRolled(const MouseWheelEvent &evt) noexcept -> bool {
     if (mStyle == CameraStyle::ORBIT && evt.y != 0)
     {
         Ogre::Real dist = (mCamera->getPosition() - mTarget->_getDerivedPosition()).length();
-        mCamera->translate(Ogre::Vector3(0, 0, -evt.y * 0.08f * dist), Ogre::Node::TransformSpace::LOCAL);
+        mCamera->translate(Ogre::Vector3{0, 0, -evt.y * 0.08f * dist}, Ogre::Node::TransformSpace::LOCAL);
     }
 
     return InputListener::mouseWheelRolled(evt);

@@ -43,7 +43,7 @@ TEST(DualQuaternionTests,Conversion)
 {
     DualQuaternion dQuat;
     Quaternion quat(Radian(Degree(60)), Vector3::UNIT_Y);
-    Vector3 translation(0, 0, 10);
+    Vector3 translation{0, 0, 10};
     dQuat.fromRotationTranslation(quat, translation);
         
     Quaternion result;
@@ -70,7 +70,7 @@ TEST(DualQuaternionTests,DefaultValue)
 TEST(DualQuaternionTests,Matrix)
 {
     Affine3 transform;
-    Vector3 translation(10, 4, 0);
+    Vector3 translation{10, 4, 0};
     Vector3 scale = Vector3::UNIT_SCALE;
     Quaternion rotation;
     rotation.FromAngleAxis(Radian(Math::PI), Vector3::UNIT_Z);

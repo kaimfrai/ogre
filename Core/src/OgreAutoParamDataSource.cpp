@@ -438,12 +438,14 @@ namespace Ogre {
         {
             if (mCameraRelativeRendering)
             {
-                mCameraPositionObjectSpace = Vector4(getInverseWorldMatrix() * Vector3::ZERO);
+                auto [x, y, z] = getInverseWorldMatrix() * Vector3::ZERO;
+                mCameraPositionObjectSpace = Vector4{x, y, z, 1.0};
             }
             else
             {
+                auto [x, y, z] = getInverseWorldMatrix() * mCurrentCamera->getDerivedPosition();
                 mCameraPositionObjectSpace =
-                    Vector4(getInverseWorldMatrix() * mCurrentCamera->getDerivedPosition());
+                    Vector4{x, y, z, 1.0};
             }
             mCameraPositionObjectSpaceDirty = false;
         }
@@ -452,7 +454,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getCameraRelativePosition () const -> const Vector4
     {
-        return Ogre::Vector4 (mCameraRelativePosition.x, mCameraRelativePosition.y, mCameraRelativePosition.z, 1);
+        return Ogre::Vector4{mCameraRelativePosition.x, mCameraRelativePosition.y, mCameraRelativePosition.z, 1};
     }
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getLodCameraPosition() const noexcept -> const Vector4&
@@ -479,16 +481,18 @@ namespace Ogre {
         {
             if (mCameraRelativeRendering)
             {
-                mLodCameraPositionObjectSpace =
-                    Vector4(getInverseWorldMatrix() *
+                auto [x, y, z] = getInverseWorldMatrix() *
                             (mCurrentCamera->getLodCamera()->getDerivedPosition() -
-                             mCameraRelativePosition));
+                             mCameraRelativePosition);
+                mLodCameraPositionObjectSpace =
+                    Vector4{x, y, z, 1.0};
             }
             else
             {
+                auto [x, y, z] = getInverseWorldMatrix() *
+                            (mCurrentCamera->getLodCamera()->getDerivedPosition());
                 mLodCameraPositionObjectSpace =
-                    Vector4(getInverseWorldMatrix() *
-                            (mCurrentCamera->getLodCamera()->getDerivedPosition()));
+                    Vector4{x, y, z, 1.0};
             }
             mLodCameraPositionObjectSpaceDirty = false;
         }
@@ -528,7 +532,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getTextureSize(size_t index) const -> Vector4f
     {
-        Vector4f size = Vector4f(1,1,1,1);
+        Vector4f size = Vector4f{1,1,1,1};
 
         if (index < mCurrentPass->getNumTextureUnitStates())
         {
@@ -1049,7 +1053,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getSceneDepthRange() const noexcept -> const Vector4&
     {
-        static Vector4 dummy(0, 100000, 100000, 1.f/100000);
+        static Vector4 dummy{0, 100000, 100000, 1.f/100000};
 
         if (mSceneDepthRangeDirty)
         {
@@ -1057,11 +1061,11 @@ namespace Ogre {
             Real depthRange = mMainCamBoundsInfo->maxDistanceInFrustum - mMainCamBoundsInfo->minDistanceInFrustum;
             if (depthRange > std::numeric_limits<Real>::epsilon())
             {
-                mSceneDepthRange = Vector4(
+                mSceneDepthRange = Vector4{
                     mMainCamBoundsInfo->minDistanceInFrustum,
                     mMainCamBoundsInfo->maxDistanceInFrustum,
                     depthRange,
-                    1.0f / depthRange);
+                    1.0f / depthRange};
             }
             else
             {
@@ -1076,7 +1080,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getShadowSceneDepthRange(size_t index) const -> const Vector4&
     {
-        static Vector4 dummy(0, 100000, 100000, 1/100000);
+        static Vector4 dummy{0, 100000, 100000, 1/100000};
 
         if (!mCurrentSceneManager->isShadowTechniqueTextureBased())
             return dummy;
@@ -1092,11 +1096,11 @@ namespace Ogre {
                 Real depthRange = info.maxDistanceInFrustum - info.minDistanceInFrustum;
                 if (depthRange > std::numeric_limits<Real>::epsilon())
                 {
-                    mShadowCamDepthRanges[index] = Vector4(
+                    mShadowCamDepthRanges[index] = Vector4{
                         info.minDistanceInFrustum,
                         info.maxDistanceInFrustum,
                         depthRange,
-                        1.0f / depthRange);
+                        1.0f / depthRange};
                 }
                 else
                 {

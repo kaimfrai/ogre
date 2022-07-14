@@ -149,7 +149,7 @@ auto NormalMapLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
 
         // TODO: user specificed scale and bias
         fstage.callFunction("SGX_Generate_Parallax_Texcoord", {In(normalMapSampler), In(psInTexcoord), In(viewPos),
-                                                              In(Vector2(0.04, -0.02)), Out(psInTexcoord)});
+                                                              In(Vector2{0.04, -0.02}), Out(psInTexcoord)});
 
         // overwrite texcoord0 unconditionally, only one texcoord set is supported with parallax mapping
         // we are before FFPFragmentShaderStage::TEXTURING, so the new value will be used

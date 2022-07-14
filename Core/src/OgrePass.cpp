@@ -184,7 +184,7 @@ namespace Ogre {
         , mPassIterationCount(1)
         , mPointMinSize(0.0f)
         , mPointMaxSize(0.0f)
-        , mPointAttenution(1.0f, 1.0f, 0.0f, 0.0f)
+        , mPointAttenution{1.0f, 1.0f, 0.0f, 0.0f}
         , mShadeOptions(ShadeOptions::GOURAUD)
         , mPolygonMode(PolygonMode::SOLID)
         , mIlluminationStage(IlluminationStage::UNKNOWN)

@@ -33,6 +33,8 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <ostream>
+#include <ranges>
+#include <span>
 #include <type_traits>
 
 #include "OgreMath.hpp"
@@ -59,8 +61,6 @@ namespace Ogre
     };
     template <> struct VectorBase<2, Real>
     {
-        VectorBase() = default;
-        VectorBase(Real _x, Real _y) : x(_x), y(_y) {}
         Real x, y;
         auto ptr() -> Real* { return &x; }
         [[nodiscard]] auto ptr() const -> const Real* { return &x; }
@@ -120,8 +120,6 @@ namespace Ogre
 
     template <> struct VectorBase<3, Real>
     {
-        VectorBase() = default;
-        VectorBase(Real _x, Real _y, Real _z) : x(_x), y(_y), z(_z) {}
         Real x, y, z;
         auto ptr() -> Real* { return &x; }
         [[nodiscard]] auto ptr() const -> const Real* { return &x; }
@@ -259,8 +257,6 @@ namespace Ogre
 
     template <> struct VectorBase<4, Real>
     {
-        VectorBase() = default;
-        VectorBase(Real _x, Real _y, Real _z, Real _w) : x(_x), y(_y), z(_z), w(_w) {}
         Real x, y, z, w;
         auto ptr() -> Real* { return &x; }
         [[nodiscard]] auto ptr() const -> const Real* { return &x; }
@@ -300,32 +296,12 @@ namespace Ogre
     {
         using VectorBase<dims, T>::ptr;
 
-        /** Default constructor.
-            @note It does <b>NOT</b> initialize the vector for efficiency.
-        */
-        Vector() = default;
-        Vector(T _x, T _y) : VectorBase<dims, T>{_x, _y} {}
-        Vector(T _x, T _y, T _z) : VectorBase<dims, T>{_x, _y, _z} {}
-        Vector(T _x, T _y, T _z, T _w) : VectorBase<dims, T>{_x, _y, _z, _w} {}
-
-        // use enable_if as function parameter for VC < 2017 compatibility
-        template <int N = dims>
-        explicit Vector(const typename std::enable_if<N == 4, Vector3>::type& rhs, T fW = 1.0f) : VectorBase<dims, T>{rhs.x, rhs.y, rhs.z, fW} {}
-
-        template<typename U>
-        explicit Vector(const U* _ptr) {
-            for (int i = 0; i < dims; i++)
-                ptr()[i] = T(_ptr[i]);
-        }
-
-        template<typename U>
-        explicit Vector(const Vector<dims, U>& o) : Vector{o.ptr()} {}
-
-
-        explicit Vector(T s)
+        static auto constexpr Fill(T s) -> Vector
         {
+            Vector vec;
             for (int i = 0; i < dims; i++)
-                ptr()[i] = s;
+                vec.ptr()[i] = s;
+            return vec;
         }
 
         /** Swizzle-like narrowing operations
@@ -333,12 +309,16 @@ namespace Ogre
         [[nodiscard]] auto xyz() const -> Vector<3, T>
         {
             static_assert(dims > 3, "just use assignment");
-            return Vector<3, T>(ptr());
+            Vector<3, T> result;
+            std::ranges::copy(std::span{ptr(), 3}, result.ptr());
+            return result;
         }
         [[nodiscard]] auto xy() const -> Vector<2, T>
         {
             static_assert(dims > 2, "just use assignment");
-            return Vector<2, T>(ptr());
+            Vector<2, T> result;
+            std::ranges::copy(std::span{ptr(), 2}, result.ptr());
+            return result;
         }
 
         auto operator[](size_t i) const -> T
@@ -756,7 +736,7 @@ namespace Ogre
         // From Sam Hocevar's article "On picking an orthogonal
         // vector (and combing coconuts)"
         Vector3 perp = Math::Abs(x) > Math::Abs(z)
-                     ? Vector3(-y, x, 0.0) : Vector3(0.0, -z, y);
+                     ? Vector3{-y, x, 0.0} : Vector3{0.0, -z, y};
         return perp.normalisedCopy();
     }
 
@@ -816,8 +796,8 @@ namespace Ogre
         {
             b = (Real)0.0;
             axis = fallbackAxis != Vector3::ZERO ? fallbackAxis
-                 : Math::Abs(x) > Math::Abs(z) ? Vector3(-y, x, (Real)0.0)
-                 : Vector3((Real)0.0, -z, y);
+                 : Math::Abs(x) > Math::Abs(z) ? Vector3{-y, x, (Real)0.0}
+                 : Vector3{(Real)0.0, -z, y};
         }
         else
         {

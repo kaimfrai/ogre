@@ -300,13 +300,13 @@ namespace Ogre {
             size_t offset;
 
             offset = t.vertIndex[0] * 3;
-            Vector3 v1(positions[offset+0], positions[offset+1], positions[offset+2]);
+            Vector3 v1{positions[offset+0], positions[offset+1], positions[offset+2]};
 
             offset = t.vertIndex[1] * 3;
-            Vector3 v2(positions[offset+0], positions[offset+1], positions[offset+2]);
+            Vector3 v2{positions[offset+0], positions[offset+1], positions[offset+2]};
 
             offset = t.vertIndex[2] * 3;
-            Vector3 v3(positions[offset+0], positions[offset+1], positions[offset+2]);
+            Vector3 v3{positions[offset+0], positions[offset+1], positions[offset+2]};
 
             *faceNormals++ = Math::calculateFaceNormalWithoutNormalize(v1, v2, v3);
         }
@@ -335,10 +335,10 @@ namespace Ogre {
         {
             // Directional light, extrusion is along light direction
 
-            Vector3 extrusionDir(
+            Vector3 extrusionDir{
                 -lightPos.x,
                 -lightPos.y,
-                -lightPos.z);
+                -lightPos.z};
             extrusionDir.normalise();
             extrusionDir *= extrudeDist;
 
@@ -356,10 +356,10 @@ namespace Ogre {
 
             for (size_t vert = 0; vert < numVertices; ++vert)
             {
-                Vector3 extrusionDir(
+                Vector3 extrusionDir{
                     pSrcPos[0] - lightPos.x,
                     pSrcPos[1] - lightPos.y,
-                    pSrcPos[2] - lightPos.z);
+                    pSrcPos[2] - lightPos.z};
                 extrusionDir.normalise();
                 extrusionDir *= extrudeDist;
 

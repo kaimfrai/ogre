@@ -76,7 +76,7 @@ namespace Ogre {
             d = -fConstant;
         }
         /** Construct a plane using the 4 constants directly **/
-        Plane(Real a, Real b, Real c, Real _d) : normal(a, b, c), d(_d) {}
+        Plane(Real a, Real b, Real c, Real _d) : normal{a, b, c}, d(_d) {}
         /// @overload
         explicit Plane(const Vector4& v) : normal(v.xyz()), d(v.w) {}
         Plane(const Vector3& rkNormal, const Vector3& rkPoint)
@@ -251,7 +251,7 @@ namespace Ogre {
     {
         Plane ret;
         Matrix4 invTrans = mat.inverse().transpose();
-        Vector4 v4( p.normal.x, p.normal.y, p.normal.z, p.d );
+        Vector4 v4{ p.normal.x, p.normal.y, p.normal.z, p.d };
         v4 = invTrans * v4;
         ret.normal.x = v4.x;
         ret.normal.y = v4.y;

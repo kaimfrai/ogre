@@ -532,7 +532,7 @@ class Sphere;
                 {
                     // inflate the bounding box
                     float r = mMesh->getBoneBoundingRadius() * maxScale;  // adjust bone bounding radius by max scale of any bone
-                    Vector3 expansion(r, r, r);
+                    Vector3 expansion{r, r, r};
                     bbox.setExtents( bbox.getMinimum() - expansion, bbox.getMaximum() + expansion );
                 }
                 bbox.merge(getChildObjectsBoundingBox());
@@ -1281,7 +1281,7 @@ class Sphere;
             {
                 float* pDstNorm;
                 destNormElem->baseVertexPointerToElement(pDstBase, &pDstNorm);
-                Vector3 norm(pDstNorm[0], pDstNorm[1], pDstNorm[2]);
+                Vector3 norm{pDstNorm[0], pDstNorm[1], pDstNorm[2]};
                 Real len = norm.length();
                 if (len + 1e-4f < 1.0f)
                 {

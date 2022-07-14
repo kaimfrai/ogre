@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include <cassert>
 #include <cstddef>
 #include <list>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -205,7 +206,9 @@ void SGScriptTranslator::translatePass(ScriptCompiler* compiler, const AbstractN
                             RenderState* renderState = shaderGenerator->getRenderState(
                                 dstTechniqueSchemeName, *material, pass->getIndex());
 
-                            renderState->setLightCount(Vector3i(lightCount.data()));
+                            Vector3i data;
+                            std::ranges::copy(std::span{lightCount.begin(), 3}, data.ptr());
+                            renderState->setLightCount(data);
                             renderState->setLightCountAutoUpdate(false);
                         }
                         else

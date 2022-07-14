@@ -39,7 +39,7 @@ using namespace Ogre;
 
 TEST(QuaternionTests,Norm)
 {
-    EXPECT_EQ(Quaternion(0, 2, 2, 2).Norm(), Vector3(2, 2, 2).length());
+    EXPECT_EQ(Quaternion(0, 2, 2, 2).Norm(), (Vector3{2, 2, 2}.length()));
 }
 
 TEST(QuaternionTests,FromVectors)
@@ -48,19 +48,19 @@ TEST(QuaternionTests,FromVectors)
     Vector3 list[][2] =
     {
         // Generate identity quaternions
-        { Vector3(1, 0, 0), Vector3(1, 0, 0) },
-        { Vector3(2, 0, 0), Vector3(3, 0, 0) },
+        { Vector3{1, 0, 0}, Vector3{1, 0, 0} },
+        { Vector3{2, 0, 0}, Vector3{3, 0, 0} },
         // Generate 90-degree rotations
-        { Vector3(1, 0, 0), Vector3(0, 1, 0) },
-        { Vector3(2, 0, 0), Vector3(0, 3, 0) },
+        { Vector3{1, 0, 0}, Vector3{0, 1, 0} },
+        { Vector3{2, 0, 0}, Vector3{0, 3, 0} },
         // Generate 180-degree rotations
-        { Vector3(1, 0, 0), Vector3(0, -1, 0) },
-        { Vector3(2, 0, 0), Vector3(0, -3, 0) },
+        { Vector3{1, 0, 0}, Vector3{0, -1, 0} },
+        { Vector3{2, 0, 0}, Vector3{0, -3, 0} },
         // Some random test values
-        { Vector3(1, 2, 3), Vector3(-2, 1, 2) },
-        { Vector3(2, -1, -3), Vector3(0, 1, -1) },
-        { Vector3(100, 100, 0), Vector3(100, 100, 1) },
-        { Vector3(10000, 10000, 0), Vector3(10000, 10000, 1) },
+        { Vector3{1, 2, 3}, Vector3{-2, 1, 2} },
+        { Vector3{2, -1, -3}, Vector3{0, 1, -1} },
+        { Vector3{100, 100, 0}, Vector3{100, 100, 1} },
+        { Vector3{10000, 10000, 0}, Vector3{10000, 10000, 1} },
     };
 
     for (size_t index = 0; index < sizeof(list) / sizeof(Vector3[2]); ++index)
@@ -74,8 +74,8 @@ TEST(QuaternionTests,FromVectors)
     Vector3 list2[][2] =
     {
         // Edge cases, return IDENTITY, because there is no correct rotation
-        { Vector3(0, 0, 0), Vector3(1, 0, 0) },
-        { Vector3(1, 0, 0), Vector3(0, 0, 0) },
+        { Vector3{0, 0, 0}, Vector3{1, 0, 0} },
+        { Vector3{1, 0, 0}, Vector3{0, 0, 0} },
     };
     for (size_t index = 0; index < sizeof(list2) / sizeof(Vector3[2]); ++index)
     {

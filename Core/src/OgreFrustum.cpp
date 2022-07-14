@@ -127,7 +127,7 @@ class RenderQueue;
     //---------------------------------------------------------------------
     void Frustum::setFrustumOffset(Real horizontal, Real vertical)
     {
-        setFrustumOffset(Vector2(horizontal, vertical));
+        setFrustumOffset(Vector2{horizontal, vertical});
     }
     //---------------------------------------------------------------------
     auto Frustum::getFrustumOffset() const noexcept -> const Vector2&
@@ -296,8 +296,8 @@ class RenderQueue;
         {
             // Convert clipspace corners to camera space
             Matrix4 invProj = mProjMatrix.inverse();
-            Vector4 topLeft(-1.0f, 1.0f, -1.0f, 1.0f);
-            Vector4 bottomRight(1.0f, -1.0f, -1.0f, 1.0f);
+            Vector4 topLeft{-1.0f, 1.0f, -1.0f, 1.0f};
+            Vector4 bottomRight{1.0f, -1.0f, -1.0f, 1.0f};
 
             topLeft = invProj * topLeft;
             bottomRight = invProj * bottomRight;
@@ -386,7 +386,7 @@ class RenderQueue;
                     qVec.w = (1 + mProjMatrix[2][2]) / mProjMatrix[2][3];
 
                     // Calculate the scaled plane vector
-                    Vector4 clipPlane4d(plane.normal.x, plane.normal.y, plane.normal.z, plane.d);
+                    Vector4 clipPlane4d{plane.normal.x, plane.normal.y, plane.normal.z, plane.d};
                     Vector4 c = clipPlane4d * (2 / (clipPlane4d.dotProduct(qVec)));
 
                     // Replace the third row of the projection matrix
@@ -469,8 +469,8 @@ class RenderQueue;
         // If infinite view frustum just pick a far value
         Real farDist = (mFarDist == 0) ? 100000 : mFarDist;
         // Near plane bounds
-        Vector3 min(left, bottom, -farDist);
-        Vector3 max(right, top, 0);
+        Vector3 min{left, bottom, -farDist};
+        Vector3 max{right, top, 0};
 
         if (mCustomProjMatrix)
         {
@@ -485,8 +485,8 @@ class RenderQueue;
         {
             // Merge with far plane bounds
             Real radio = farDist / mNearDist;
-            min.makeFloor(Vector3(left * radio, bottom * radio, -farDist));
-            max.makeCeil(Vector3(right * radio, top * radio, 0));
+            min.makeFloor(Vector3{left * radio, bottom * radio, -farDist});
+            max.makeCeil(Vector3{right * radio, top * radio, 0});
         }
         mBoundingBox.setExtents(min, max);
 
@@ -685,15 +685,15 @@ class RenderQueue;
         Real farTop = nearTop * radio;
 
         // near
-        mWorldSpaceCorners[0] = eyeToWorld * Vector3(nearRight, nearTop, -mNearDist);
-        mWorldSpaceCorners[1] = eyeToWorld * Vector3(nearLeft, nearTop, -mNearDist);
-        mWorldSpaceCorners[2] = eyeToWorld * Vector3(nearLeft, nearBottom, -mNearDist);
-        mWorldSpaceCorners[3] = eyeToWorld * Vector3(nearRight, nearBottom, -mNearDist);
+        mWorldSpaceCorners[0] = eyeToWorld * Vector3{nearRight, nearTop, -mNearDist};
+        mWorldSpaceCorners[1] = eyeToWorld * Vector3{nearLeft, nearTop, -mNearDist};
+        mWorldSpaceCorners[2] = eyeToWorld * Vector3{nearLeft, nearBottom, -mNearDist};
+        mWorldSpaceCorners[3] = eyeToWorld * Vector3{nearRight, nearBottom, -mNearDist};
         // far
-        mWorldSpaceCorners[4] = eyeToWorld * Vector3(farRight, farTop, -farDist);
-        mWorldSpaceCorners[5] = eyeToWorld * Vector3(farLeft, farTop, -farDist);
-        mWorldSpaceCorners[6] = eyeToWorld * Vector3(farLeft, farBottom, -farDist);
-        mWorldSpaceCorners[7] = eyeToWorld * Vector3(farRight, farBottom, -farDist);
+        mWorldSpaceCorners[4] = eyeToWorld * Vector3{farRight, farTop, -farDist};
+        mWorldSpaceCorners[5] = eyeToWorld * Vector3{farLeft, farTop, -farDist};
+        mWorldSpaceCorners[6] = eyeToWorld * Vector3{farLeft, farBottom, -farDist};
+        mWorldSpaceCorners[7] = eyeToWorld * Vector3{farRight, farBottom, -farDist};
 
         mRecalcWorldSpaceCorners = false;
     }
@@ -887,7 +887,7 @@ class RenderQueue;
                     Real nearx0 = (Nz0 * mNearDist) / Nx0;
                     // now we need to map this to viewport coords
                     // use projection matrix since that will take into account all factors
-                    Vector3 relx0 = projMatrix * Vector3(nearx0, 0, -mNearDist);
+                    Vector3 relx0 = projMatrix * Vector3{nearx0, 0, -mNearDist};
 
                     // find out whether this is a left side or right side
                     Real Px0 = -(Pz0 * Nz0) / Nx0;
@@ -907,7 +907,7 @@ class RenderQueue;
                     Real nearx1 = (Nz1 * mNearDist) / Nx1;
                     // now we need to map this to viewport coords
                     // use projection matrix since that will take into account all factors
-                    Vector3 relx1 = projMatrix * Vector3(nearx1, 0, -mNearDist);
+                    Vector3 relx1 = projMatrix * Vector3{nearx1, 0, -mNearDist};
 
                     // find out whether this is a left side or right side
                     Real Px1 = -(Pz1 * Nz1) / Nx1;
@@ -955,7 +955,7 @@ class RenderQueue;
                     Real neary0 = (Nz0 * mNearDist) / Ny0;
                     // now we need to map this to viewport coords
                     // use projection matriy since that will take into account all factors
-                    Vector3 rely0 = projMatrix * Vector3(0, neary0, -mNearDist);
+                    Vector3 rely0 = projMatrix * Vector3{0, neary0, -mNearDist};
 
                     // find out whether this is a top side or bottom side
                     Real Py0 = -(Pz0 * Nz0) / Ny0;
@@ -975,7 +975,7 @@ class RenderQueue;
                     Real neary1 = (Nz1 * mNearDist) / Ny1;
                     // now we need to map this to viewport coords
                     // use projection matriy since that will take into account all factors
-                    Vector3 rely1 = projMatrix * Vector3(0, neary1, -mNearDist);
+                    Vector3 rely1 = projMatrix * Vector3{0, neary1, -mNearDist};
 
                     // find out whether this is a top side or bottom side
                     Real Py1 = -(Pz1 * Nz1) / Ny1;

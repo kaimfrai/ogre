@@ -47,7 +47,7 @@ namespace Ogre {
           mSpotInner(Degree(30.0f)),
           mSpotFalloff(1.0f),
           mSpotNearClip(0.0f),
-          mAttenuation(100000.f, 1.f, 0.f, 0.f),
+          mAttenuation{100000.f, 1.f, 0.f, 0.f},
           mShadowFarDist(0),
           mShadowFarDistSquared(0),
           mIndexInFrame(0),
@@ -69,7 +69,7 @@ namespace Ogre {
         mSpotInner(Degree(30.0f)),
         mSpotFalloff(1.0f),
         mSpotNearClip(0.0f),
-        mAttenuation(100000.f, 1.f, 0.f, 0.f),
+        mAttenuation{100000.f, 1.f, 0.f, 0.f},
         mShadowFarDist(0),
         mShadowFarDistSquared(0),
         mIndexInFrame(0),
@@ -183,7 +183,7 @@ namespace Ogre {
     auto Light::getBoundingBox() const noexcept -> const AxisAlignedBox&
     {
         // zero extent to still allow SceneQueries to work
-        static AxisAlignedBox box(Vector3(0, 0, 0), Vector3(0, 0, 0));
+        static AxisAlignedBox box(Vector3{0, 0, 0}, Vector3{0, 0, 0});
         return box;
     }
     //-----------------------------------------------------------------------
@@ -203,12 +203,14 @@ namespace Ogre {
     {
         if (mLightType == Light::LightTypes::DIRECTIONAL)
         {
-            return Vector4(-getDerivedDirection(), // negate direction as 'position'
-                           0.0);                   // infinite distance
+            auto [x, y, z] = -getDerivedDirection();
+            return Vector4{x, y, z, // negate direction as 'position'
+                           0.0};                   // infinite distance
         }   
         else
         {
-            return Vector4(getDerivedPosition(cameraRelativeIfSet), 1.0);
+            auto [x, y, z] = getDerivedPosition(cameraRelativeIfSet);
+            return Vector4{x, y, z, 1.0};
         }
     }
     //-----------------------------------------------------------------------
@@ -224,14 +226,14 @@ namespace Ogre {
         Vector4 lightPos = getAs4DVector();
         // 3D version (not the same as _getDerivedPosition, is -direction for
         // directional lights)
-        Vector3 lightPos3 = Vector3(lightPos.x, lightPos.y, lightPos.z);
+        Vector3 lightPos3 = Vector3{lightPos.x, lightPos.y, lightPos.z};
 
         // Get eye-space light position
         // use 4D vector so directional lights still work
         Vector4 eyeSpaceLight = cam->getViewMatrix() * lightPos;
         // Find distance to light, project onto -Z axis
         Real d = eyeSpaceLight.dotProduct(
-            Vector4(0, 0, -1, -n) );
+            Vector4{0, 0, -1, -n} );
         #define THRESHOLD 1e-6
         if (d > THRESHOLD || d < -THRESHOLD)
         {
@@ -290,7 +292,7 @@ namespace Ogre {
         Vector4 lightPos = getAs4DVector();
         // 3D version (not the same as _getDerivedPosition, is -direction for
         // directional lights)
-        Vector3 lightPos3 = Vector3(lightPos.x, lightPos.y, lightPos.z);
+        Vector3 lightPos3 = Vector3{lightPos.x, lightPos.y, lightPos.z};
 
         const Vector3 *clockwiseVerts[4];
 
@@ -319,7 +321,7 @@ namespace Ogre {
                 continue;
 
             const Plane& plane = cam->getFrustumPlane(n);
-            Vector4 planeVec(plane.normal.x, plane.normal.y, plane.normal.z, plane.d);
+            Vector4 planeVec{plane.normal.x, plane.normal.y, plane.normal.z, plane.d};
             // planes face inwards, we need to know if light is on negative side
             Real d = planeVec.dotProduct(lightPos);
             if (d < -1e-06)
@@ -750,10 +752,10 @@ namespace Ogre {
                 Real boxOffset = Math::Sin(mSpotOuter * 0.5) * range;
                 AxisAlignedBox lightBoxBound;
                 lightBoxBound.merge(Vector3::ZERO);
-                lightBoxBound.merge(localToWorld * Vector3(boxOffset, boxOffset, -range));
-                lightBoxBound.merge(localToWorld * Vector3(-boxOffset, boxOffset, -range));
-                lightBoxBound.merge(localToWorld * Vector3(-boxOffset, -boxOffset, -range));
-                lightBoxBound.merge(localToWorld * Vector3(boxOffset, -boxOffset, -range));
+                lightBoxBound.merge(localToWorld * Vector3{boxOffset, boxOffset, -range});
+                lightBoxBound.merge(localToWorld * Vector3{-boxOffset, boxOffset, -range});
+                lightBoxBound.merge(localToWorld * Vector3{-boxOffset, -boxOffset, -range});
+                lightBoxBound.merge(localToWorld * Vector3{boxOffset, -boxOffset, -range});
                 lightBoxBound.setMaximum(lightBoxBound.getMaximum() + mDerivedPosition);
                 lightBoxBound.setMinimum(lightBoxBound.getMinimum() + mDerivedPosition);
                 isIntersect = lightBoxBound.intersects(container);

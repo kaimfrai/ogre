@@ -127,9 +127,9 @@ TEST_F(RTShaderSystem, FunctionInvocationOrder)
     FunctionInvocation b("name", 0);
     FunctionInvocation c("name", 0);
 
-    a.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN);
-    b.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN, Operand::OpMask::XY);
-    c.pushOperand(ParameterFactory::createConstParam(Vector3()), Operand::OpSemantic::IN, Operand::OpMask::XYZ);
+    a.pushOperand(ParameterFactory::createConstParam(Vector3{}), Operand::OpSemantic::IN);
+    b.pushOperand(ParameterFactory::createConstParam(Vector3{}), Operand::OpSemantic::IN, Operand::OpMask::XY);
+    c.pushOperand(ParameterFactory::createConstParam(Vector3{}), Operand::OpSemantic::IN, Operand::OpMask::XYZ);
 
     EXPECT_FALSE(b == a);
     EXPECT_TRUE(b < a);

@@ -252,32 +252,32 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
             switch(static_cast<BoxPlane>(i))
             {
             case FRONT:
-                middle = Vector3(0, 0, -distance);
+                middle = Vector3{0, 0, -distance};
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
             case BACK:
-                middle = Vector3(0, 0, distance);
+                middle = Vector3{0, 0, distance};
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_X * distance;
                 break;
             case LEFT:
-                middle = Vector3(-distance, 0, 0);
+                middle = Vector3{-distance, 0, 0};
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::NEGATIVE_UNIT_Z * distance;
                 break;
             case RIGHT:
-                middle = Vector3(distance, 0, 0);
+                middle = Vector3{distance, 0, 0};
                 up = Vector3::UNIT_Y * distance;
                 right = Vector3::UNIT_Z * distance;
                 break;
             case UP:
-                middle = Vector3(0, distance, 0);
+                middle = Vector3{0, distance, 0};
                 up = Vector3::UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
             case DOWN:
-                middle = Vector3(0, -distance, 0);
+                middle = Vector3{0, -distance, 0};
                 up = Vector3::NEGATIVE_UNIT_Z * distance;
                 right = Vector3::UNIT_X * distance;
                 break;
@@ -291,19 +291,19 @@ void SceneManager::SkyBoxRenderer::setSkyBox(
             // top left
             Vector3 pos = middle + up - right;
             mSkyBoxObj->position(orientation * pos);
-            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3(1,1,-1));
+            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3{1,1,-1});
             // bottom left
             pos = middle - up - right;
             mSkyBoxObj->position(orientation * pos);
-            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3(1,1,-1));
+            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3{1,1,-1});
             // bottom right
             pos = middle - up + right;
             mSkyBoxObj->position(orientation * pos);
-            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3(1,1,-1));
+            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3{1,1,-1});
             // top right
             pos = middle + up + right;
             mSkyBoxObj->position(orientation * pos);
-            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3(1,1,-1));
+            mSkyBoxObj->textureCoord(pos.normalisedCopy() * Vector3{1,1,-1});
 
             uint16 base = i * 4;
             mSkyBoxObj->quad(base, base+1, base+2, base+3);

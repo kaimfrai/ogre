@@ -341,7 +341,7 @@ namespace Ogre {
                 *pVertex++ = y0;
                 *pVertex++ = z0;
 
-                Vector3 vNormal = Vector3(x0, y0, z0).normalisedCopy();
+                Vector3 vNormal = Vector3{x0, y0, z0}.normalisedCopy();
                 *pVertex++ = vNormal.x;
                 *pVertex++ = vNormal.y;
                 *pVertex++ = vNormal.z;
@@ -366,8 +366,8 @@ namespace Ogre {
         pSphereVertex->useSharedVertices = true;
 
         // the original code was missing this line:
-        mesh->_setBounds( AxisAlignedBox( Vector3(-SPHERE_RADIUS, -SPHERE_RADIUS, -SPHERE_RADIUS), 
-            Vector3(SPHERE_RADIUS, SPHERE_RADIUS, SPHERE_RADIUS) ), false );
+        mesh->_setBounds( AxisAlignedBox( Vector3{-SPHERE_RADIUS, -SPHERE_RADIUS, -SPHERE_RADIUS}, 
+            Vector3{SPHERE_RADIUS, SPHERE_RADIUS, SPHERE_RADIUS} ), false );
 
         mesh->_setBoundingSphereRadius(SPHERE_RADIUS);
     }

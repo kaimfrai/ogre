@@ -74,7 +74,7 @@ class RenderQueue;
         /// @copydoc BillboardSet::setTextureStacksAndSlices
         void setTextureStacksAndSlices(uchar stacks, uchar slices)
         {
-            mStacksSlices = Vector2(stacks, slices); // cache for get call
+            mStacksSlices = Vector2{static_cast<Real>(stacks), static_cast<Real>(slices)}; // cache for get call
             mBillboardSet->setTextureStacksAndSlices(stacks, slices);
         }
 

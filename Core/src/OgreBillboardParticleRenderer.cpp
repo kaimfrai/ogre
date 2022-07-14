@@ -113,7 +113,7 @@ class RenderQueue;
     } msStacksAndSlicesCmd;
 
     //-----------------------------------------------------------------------
-    BillboardParticleRenderer::BillboardParticleRenderer() : mStacksSlices(1, 1)
+    BillboardParticleRenderer::BillboardParticleRenderer() : mStacksSlices{1, 1}
     {
         if (createParamDictionary("BillboardParticleRenderer"))
         {

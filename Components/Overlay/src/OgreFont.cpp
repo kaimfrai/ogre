@@ -263,7 +263,7 @@ namespace Ogre
 
             left += cp->second.bearing * height;
 
-            auto bb = bbs->createBillboard(Vector3(left, top, 0), colour);
+            auto bb = bbs->createBillboard(Vector3{left, top, 0}, colour);
             bb->setDimensions(cp->second.aspectRatio * height, height);
             bb->setTexcoordRect(cp->second.uvRect);
 

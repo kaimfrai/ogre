@@ -127,7 +127,7 @@ namespace Ogre
         [[nodiscard]] auto getTrans() const -> Vector<3, T>
         {
             assert(rows > 2);
-            return Vector<3, T>(m[0][3], m[1][3], m[2][3]);
+            return Vector<3, T>{m[0][3], m[1][3], m[2][3]};
         }
         /// Sets the scale part of the matrix.
         void setScale( const Vector<3, T>& v )

@@ -2614,7 +2614,7 @@ namespace Ogre {
         readFloats(stream, vert, n_floats);
         
         for (int i = 0; i < n_floats; i += 3)
-            sm->extremityPoints.emplace_back(vert [i], vert [i + 1], vert [i + 2]);
+            sm->extremityPoints.push_back(Vector3{vert [i], vert [i + 1], vert [i + 2]});
         
         delete[] vert;
     }

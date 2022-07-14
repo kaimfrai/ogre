@@ -155,14 +155,14 @@ struct SceneQueryTest : public RootWithoutRenderSystemFixture {
         mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
         mCameraNode->attachObject(mCamera);
         mCameraNode->setPosition(0,0,500);
-        mCameraNode->lookAt(Vector3(0, 0, 0), Node::TransformSpace::PARENT);
+        mCameraNode->lookAt(Vector3{0, 0, 0}, Node::TransformSpace::PARENT);
 
         // Create a set of random balls
         Entity* ent = mSceneMgr->createEntity("501", "sphere.mesh", "General");
 
         // stick one at the origin so one will always be hit by ray
         mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
-        createRandomEntityClones(ent, 500, Vector3(-2500,-2500,-2500), Vector3(2500,2500,2500), mSceneMgr);
+        createRandomEntityClones(ent, 500, Vector3{-2500,-2500,-2500}, Vector3{2500,2500,2500}, mSceneMgr);
 
         mSceneMgr->_updateSceneGraph(mCamera);
     }

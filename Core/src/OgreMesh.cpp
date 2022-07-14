@@ -486,7 +486,7 @@ namespace Ogre {
             outRadius = 0;
             float* pFloat;
             elemPos->baseVertexPointerToElement(vertex, &pFloat);
-            Vector3 basePos(pFloat[0], pFloat[1], pFloat[2]);
+            Vector3 basePos{pFloat[0], pFloat[1], pFloat[2]};
             outAABB.setExtents(basePos, basePos);
         }
         size_t vSize = vbuf->getVertexSize();
@@ -496,7 +496,7 @@ namespace Ogre {
         for (; vertex < vEnd; vertex += vSize) {
             float* pFloat;
             elemPos->baseVertexPointerToElement(vertex, &pFloat);
-            Vector3 pos(pFloat[0], pFloat[1], pFloat[2]);
+            Vector3 pos{pFloat[0], pFloat[1], pFloat[2]};
             outAABB.getMinimum().makeFloor(pos);
             outAABB.getMaximum().makeCeil(pos);
             radiusSqr = std::max<Real>(radiusSqr, pos.squaredLength());
@@ -1011,7 +1011,7 @@ namespace Ogre {
             for(size_t i = 0; i < vertexData->vertexCount; ++i)
             {
                 posElem->baseVertexPointerToElement(vertex, &pFloat);
-                vertexPositions[ i ] = Vector3( pFloat[0], pFloat[1], pFloat[2] );
+                vertexPositions[ i ] = Vector3{ pFloat[0], pFloat[1], pFloat[2] };
                 vertex += vbuf->getVertexSize();
             }
         }

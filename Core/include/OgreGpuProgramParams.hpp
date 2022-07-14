@@ -821,9 +821,9 @@ template <int dims, typename T> struct Vector;
             LIGHT_DIFFUSE_COLOUR,
             /// Light specular colour (index determined by setAutoConstant call)
             LIGHT_SPECULAR_COLOUR,
-            /// Light attenuation parameters, Vector4(range, constant, linear, quadric)
+            /// Light attenuation parameters, Vector4{range, constant, linear, quadric}
             LIGHT_ATTENUATION,
-            /** Spotlight parameters, Vector4(innerFactor, outerFactor, falloff, isSpot)
+            /** Spotlight parameters, Vector4{innerFactor, outerFactor, falloff, isSpot}
                 innerFactor and outerFactor are cos(angle/2)
                 The isSpot parameter is 0.0f for non-spotlights, 1.0f for spotlights.
                 Also for non-spotlights the inner and outer factors are 1 and nearly 1 respectively
@@ -875,7 +875,7 @@ template <int dims, typename T> struct Vector;
             LIGHT_DIFFUSE_COLOUR_POWER_SCALED_ARRAY,
             /// Array of light specular colours scaled by light power (count set by extra param)
             LIGHT_SPECULAR_COLOUR_POWER_SCALED_ARRAY,
-            /// Array of light attenuation parameters, Vector4(range, constant, linear, quadric)
+            /// Array of light attenuation parameters, Vector4{range, constant, linear, quadric}
             /// (count set by extra param)
             LIGHT_ATTENUATION_ARRAY,
             /// Array of light positions in world space (count set by extra param)
@@ -899,7 +899,7 @@ template <int dims, typename T> struct Vector;
                 (count set by extra param)
             */
             LIGHT_POWER_SCALE_ARRAY,
-            /** Spotlight parameters array of Vector4(innerFactor, outerFactor, falloff, isSpot)
+            /** Spotlight parameters array of Vector4{innerFactor, outerFactor, falloff, isSpot}
                 innerFactor and outerFactor are cos(angle/2)
                 The isSpot parameter is 0.0f for non-spotlights, 1.0f for spotlights.
                 Also for non-spotlights the inner and outer factors are 1 and nearly 1 respectively.
@@ -1353,7 +1353,7 @@ template <int dims, typename T> struct Vector;
         void setConstant(size_t index, const Vector4& vec);
         /** Sets a single floating-point parameter to the program.
             @note This is actually equivalent to calling
-            setConstant(index Vector4(val, 0, 0, 0)) since all constants are 4D.
+            setConstant(index Vector4{val, 0, 0, 0}) since all constants are 4D.
             @param index The logical constant index at which to place the parameter (each constant is
             a 4D float)
             @param val The value to set

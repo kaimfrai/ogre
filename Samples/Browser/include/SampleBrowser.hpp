@@ -557,7 +557,7 @@ namespace OgreBites
                 for (unsigned int i = 0; i < mThumbs.size(); i++)
                 {
                     if (mThumbs[i]->isVisible() && Widget::isCursorOver(mThumbs[i],
-                        Ogre::Vector2(mTrayMgr->getCursorContainer()->getLeft(), mTrayMgr->getCursorContainer()->getTop()), 0))
+                        Ogre::Vector2{mTrayMgr->getCursorContainer()->getLeft(), mTrayMgr->getCursorContainer()->getTop()}, 0))
                     {
                         mSampleMenu->selectItem(i);
                         return true;

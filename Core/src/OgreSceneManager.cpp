@@ -2859,12 +2859,12 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
     {
     case POINT:
         {
-            planes.push_back(Plane(Vector3::UNIT_X, pos + Vector3(-r, 0, 0)));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_X, pos + Vector3(r, 0, 0)));
-            planes.push_back(Plane(Vector3::UNIT_Y, pos + Vector3(0, -r, 0)));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Y, pos + Vector3(0, r, 0)));
-            planes.push_back(Plane(Vector3::UNIT_Z, pos + Vector3(0, 0, -r)));
-            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Z, pos + Vector3(0, 0, r)));
+            planes.push_back(Plane(Vector3::UNIT_X, pos + Vector3{-r, 0, 0}));
+            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_X, pos + Vector3{r, 0, 0}));
+            planes.push_back(Plane(Vector3::UNIT_Y, pos + Vector3{0, -r, 0}));
+            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Y, pos + Vector3{0, r, 0}));
+            planes.push_back(Plane(Vector3::UNIT_Z, pos + Vector3{0, 0, -r}));
+            planes.push_back(Plane(Vector3::NEGATIVE_UNIT_Z, pos + Vector3{0, 0, r}));
         }
         break;
     case SPOTLIGHT:
@@ -2887,10 +2887,10 @@ void SceneManager::buildLightClip(const Light* l, PlaneList& planes)
             // derive pyramid corner vectors in world orientation
             Vector3 tl, tr, bl, br;
             Real d = Math::Tan(l->getSpotlightOuterAngle() * 0.5) * r;
-            tl = q * Vector3(-d, d, -r);
-            tr = q * Vector3(d, d, -r);
-            bl = q * Vector3(-d, -d, -r);
-            br = q * Vector3(d, -d, -r);
+            tl = q * Vector3{-d, d, -r};
+            tr = q * Vector3{d, d, -r};
+            bl = q * Vector3{-d, -d, -r};
+            br = q * Vector3{d, -d, -r};
 
             // use cross product to derive normals, pass through light world pos
             // top

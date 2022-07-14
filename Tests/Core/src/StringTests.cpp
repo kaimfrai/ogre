@@ -225,7 +225,7 @@ TEST_F(StringTests,ParseSizeT)
 //--------------------------------------------------------------------------
 TEST_F(StringTests,ParseVector3)
 {
-    Vector3 r(0.12, 3.22, -4.04);
+    Vector3 r{0.12, 3.22, -4.04};
 
     String s = StringConverter::toString(r);
     Vector3 t = StringConverter::parseVector3(s);

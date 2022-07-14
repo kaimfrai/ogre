@@ -120,7 +120,7 @@ void IntegratedPSSM3::updateGpuProgramsParams(Renderable* rend, const Pass* pass
 
     for(int i = 0; i < 4; i++)
     {
-        auto tmp = proj * Vector4(0, 0, -vSplitPoints[i], 1);
+        auto tmp = proj * Vector4{0, 0, -vSplitPoints[i], 1};
         vSplitPoints[i] = tmp[2] / tmp[3];
     }
 

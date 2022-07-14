@@ -85,7 +85,7 @@ void GLTextureBuffer::blitToMemory(const Box &srcBox, const PixelBox &dst)
     if(!mBuffer.contains(srcBox))
         OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "source box out of range",
          "GLHardwarePixelBuffer::blitToMemory");
-    if(srcBox.getOrigin() == Vector<3, uint32>(0, 0 ,0) &&
+    if(srcBox.getOrigin() == Vector<3, uint32>{0, 0 ,0} &&
        srcBox.getSize() == getSize() &&
        dst.getSize() == getSize() &&
        GLPixelUtil::getGLInternalFormat(dst.format) != 0)

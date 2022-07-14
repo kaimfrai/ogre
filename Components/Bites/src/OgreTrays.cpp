@@ -1411,7 +1411,7 @@ void TrayManager::adjustTrays()
 
 auto TrayManager::getCursorRay(Ogre::Camera *cam) -> Ogre::Ray
 {
-    return screenToScene(cam, Ogre::Vector2(mCursor->_getLeft(), mCursor->_getTop()));
+    return screenToScene(cam, Ogre::Vector2{mCursor->_getLeft(), mCursor->_getTop()});
 }
 
 auto TrayManager::createButton(TrayLocation trayLoc, std::string_view name, std::string_view caption, Ogre::Real width) -> Button *
@@ -1932,7 +1932,7 @@ auto TrayManager::mousePressed(const MouseButtonDownEvent &evt) noexcept -> bool
 {
     if (evt.button != ButtonType::LEFT) return false;
 
-    Ogre::Vector2 cursorPos(mCursor->getLeft(), mCursor->getTop());
+    Ogre::Vector2 cursorPos{mCursor->getLeft(), mCursor->getTop()};
 
     mTrayDrag = false;
 
@@ -2005,7 +2005,7 @@ auto TrayManager::mouseReleased(const MouseButtonUpEvent &evt) noexcept -> bool
 {
     if (evt.button != ButtonType::LEFT) return false;
 
-    Ogre::Vector2 cursorPos(mCursor->getLeft(), mCursor->getTop());
+    Ogre::Vector2 cursorPos{mCursor->getLeft(), mCursor->getTop()};
 
     if (mExpandedMenu)   // only check top priority widget until it passes on
     {
@@ -2054,7 +2054,7 @@ auto TrayManager::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
     auto vpScale = Ogre::OverlayManager::getSingleton().getPixelRatio();
 
     // always keep track of the mouse pos for refreshCursor()
-    mCursorPos = Ogre::Vector2(evt.x, evt.y) / vpScale;
+    mCursorPos = Ogre::Vector2{static_cast<Ogre::Real>(evt.x), static_cast<Ogre::Real>(evt.y)} / vpScale;
     mCursor->setPosition(mCursorPos.x, mCursorPos.y);
 
     if (mExpandedMenu)   // only check top priority widget until it passes on

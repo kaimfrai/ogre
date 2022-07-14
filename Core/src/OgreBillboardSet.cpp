@@ -155,7 +155,7 @@ namespace Ogre {
 
         // Merge into bounds
         Real adjust = std::max(mDefaultWidth, mDefaultHeight);
-        Vector3 vecAdjust(adjust, adjust, adjust);
+        Vector3 vecAdjust{adjust, adjust, adjust};
         Vector3 newMin = position - vecAdjust;
         Vector3 newMax = position + vecAdjust;
 
@@ -440,7 +440,7 @@ namespace Ogre {
             }
             // Adjust for billboard size
             Real adjust = std::max(mDefaultWidth, mDefaultHeight);
-            Vector3 vecAdjust(adjust, adjust, adjust);
+            Vector3 vecAdjust{adjust, adjust, adjust};
 
             mAABB.setExtents(mAABB.getMinimum() - vecAdjust, mAABB.getMaximum() + vecAdjust);
             mBoundingRadius = Math::boundingRadiusFromAABB(mAABB);

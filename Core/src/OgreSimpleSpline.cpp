@@ -120,7 +120,7 @@ namespace Ogre {
         Real t2, t3;
         t2 = t * t;
         t3 = t2 * t;
-        Vector4 powers(t3, t2, t, 1);
+        Vector4 powers{t3, t2, t, 1};
 
 
         // Algorithm is ret = powers * mCoeffs * Matrix4(point1, point2, tangent1, tangent2)

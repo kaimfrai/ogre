@@ -363,7 +363,7 @@ namespace Ogre {
     {
 		// nVidia SDK implementation
 		Vector3 uv, uuv;
-		Vector3 qvec(x, y, z);
+		Vector3 qvec{x, y, z};
 		uv = qvec.crossProduct(v);
 		uuv = qvec.crossProduct(uv);
 		uv *= (2.0f * w);
@@ -473,7 +473,7 @@ namespace Ogre {
 			Real fTyy = fTy*y;
 			Real fTzz = fTz*z;
 
-			// Vector3(1.0-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
+			// Vector3::Fill(1.0-(fTyy+fTzz), fTxy+fTwz, fTxz-fTwy);
 
 			return Radian(Math::ATan2(fTxy+fTwz, 1.0f-(fTyy+fTzz)));
 
@@ -498,7 +498,7 @@ namespace Ogre {
 			Real fTyz = fTz*y;
 			Real fTzz = fTz*z;
 
-			// Vector3(fTxy-fTwz, 1.0-(fTxx+fTzz), fTyz+fTwx);
+			// Vector3{fTxy-fTwz, 1.0-(fTxx+fTzz}, fTyz+fTwx);
 			return Radian(Math::ATan2(fTyz+fTwx, 1.0f-(fTxx+fTzz)));
 		}
 		else
@@ -522,7 +522,7 @@ namespace Ogre {
 			Real fTxz = fTz*x;
 			Real fTyy = fTy*y;
 
-			// Vector3(fTxz+fTwy, fTyz-fTwx, 1.0-(fTxx+fTyy));
+			// Vector3{fTxz+fTwy, fTyz-fTwx, 1.0-(fTxx+fTyy});
 
 			return Radian(Math::ATan2(fTxz+fTwy, 1.0f-(fTxx+fTyy)));
 

@@ -212,7 +212,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void FloatGpuParameterControllerValue::setValue(Real val)
     {
-        Vector4 v4 = Vector4(0,0,0,0);
+        Vector4 v4 = Vector4{0,0,0,0};
         v4.x = val;
         mParams->setConstant(mParamIndex, v4);
     }

@@ -199,8 +199,8 @@ class VertexData;
             Vector3 pos;
             Vector3 norm;
             Vector2 uv;
-            Vector3 tangent{Vector3::ZERO};
-            Vector3 binormal{Vector3::ZERO};
+            Vector3 tangent = Vector3::ZERO;
+            Vector3 binormal = Vector3::ZERO;
             // Which way the tangent space is oriented (+1 / -1) (set on first time found)
             int parity{0};
             // What index the opposite parity vertex copy is at (0 if not created yet)

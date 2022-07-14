@@ -96,14 +96,14 @@ namespace Ogre::EmitterCommands {
         //-----------------------------------------------------------------------
         auto CmdDirPositionRef::doGet(const void* target) const -> String
         {
-            Vector4 val( static_cast<const ParticleEmitter*>(target)->getDirPositionReference() );
-            val.w = static_cast<const ParticleEmitter*>(target)->getDirPositionReferenceEnabled();
-            return StringConverter::toString( val );
+            auto [x, y, z] = static_cast<const ParticleEmitter*>(target)->getDirPositionReference();
+            Real w = static_cast<const ParticleEmitter*>(target)->getDirPositionReferenceEnabled();
+            return StringConverter::toString( Vector4{x, y, z, w} );
         }
         void CmdDirPositionRef::doSet(void* target, std::string_view val)
         {
             const Vector4 parsed = StringConverter::parseVector4(val);
-            const Vector3 vPos( parsed.x, parsed.y, parsed.z );
+            const Vector3 vPos{ parsed.x, parsed.y, parsed.z };
             static_cast<ParticleEmitter*>(target)->setDirPositionReference( vPos, parsed.w != 0 );
         }
         //-----------------------------------------------------------------------

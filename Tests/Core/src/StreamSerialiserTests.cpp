@@ -47,7 +47,7 @@ TEST(StreamSerialiserTests,WriteBasic)
     arch->load();
 
     String fileName = "testSerialiser.dat";
-    Vector3 aTestVector(0.3, 15.2, -12.0);
+    Vector3 aTestVector{0.3, 15.2, -12.0};
     String aTestString = "Some text here";
     int aTestValue = 99;
     uint32 chunkID = StreamSerialiser::makeIdentifier("TEST");

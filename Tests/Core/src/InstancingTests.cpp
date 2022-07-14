@@ -58,7 +58,7 @@ TEST_F(Instancing, Bounds) {
     node->attachObject(&instanced_entity);
     node->attachObject(entity);
     node->translate(Vector3::UNIT_X);
-    node->setScale(Vector3(2, 2, 2));
+    node->setScale(Vector3{2, 2, 2});
 
     EXPECT_EQ(instanced_entity.getBoundingBox(), entity->getBoundingBox());
     EXPECT_EQ(instanced_entity.getBoundingRadius(), entity->getBoundingRadius());

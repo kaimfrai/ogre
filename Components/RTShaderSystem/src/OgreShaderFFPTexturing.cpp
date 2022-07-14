@@ -433,11 +433,11 @@ auto FFPTexturing::getPSArgument(ParameterPtr texel, LayerBlendSource blendSrc, 
     case MANUAL:
         if (isAlphaArgument)
         {
-            return ParameterFactory::createConstParam(Vector4(alphaValue));
+            return ParameterFactory::createConstParam(Vector4::Fill(alphaValue));
         }
 
-        return ParameterFactory::createConstParam(Vector4((Real)colourValue.r, (Real)colourValue.g,
-                                                         (Real)colourValue.b, (Real)colourValue.a));
+        return ParameterFactory::createConstParam(Vector4{(Real)colourValue.r, (Real)colourValue.g,
+                                                         (Real)colourValue.b, (Real)colourValue.a});
     }
 
     return {};

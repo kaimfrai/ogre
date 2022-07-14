@@ -323,7 +323,7 @@ namespace Ogre {
 
         mTransform = Matrix4::IDENTITY;
         mTransform = rot3x3 * scale3x3;
-        mTransform.setTrans(Vector3(mScrollX, mScrollY, 0));
+        mTransform.setTrans(Vector3{mScrollX, mScrollY, 0});
 
         mTransformOutOfDate = false;
     }

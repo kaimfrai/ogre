@@ -133,7 +133,7 @@ auto FFPColour::addFunctionInvocations(ProgramSet* programSet) -> bool
     else
     {
         vsDiffuse = vsMain->resolveLocalParameter(Parameter::Content::COLOR_DIFFUSE);
-        vsStage.assign(Vector4(1.0), vsDiffuse);
+        vsStage.assign(Vector4::Fill(1.0), vsDiffuse);
     }
 
     if (mVSOutputDiffuse)
@@ -164,7 +164,7 @@ auto FFPColour::addFunctionInvocations(ProgramSet* programSet) -> bool
     else
     {
         psDiffuse = psMain->resolveLocalParameter(Parameter::Content::COLOR_DIFFUSE);
-        psStage.assign(Vector4(1.0), psDiffuse);
+        psStage.assign(Vector4::Fill(1.0), psDiffuse);
     }
 
     // Handle specular colour.

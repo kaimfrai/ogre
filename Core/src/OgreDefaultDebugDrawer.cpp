@@ -125,14 +125,14 @@ void DefaultDebugDrawer::drawAxes(const Affine3& pose, float size)
     Vector3 basepos[7] =
     {
         // stalk
-        Vector3(0, 0.05, 0),
-        Vector3(0, -0.05, 0),
-        Vector3(0.7, -0.05, 0),
-        Vector3(0.7, 0.05, 0),
+        Vector3{0, 0.05, 0},
+        Vector3{0, -0.05, 0},
+        Vector3{0.7, -0.05, 0},
+        Vector3{0.7, 0.05, 0},
         // head
-        Vector3(0.7, -0.15, 0),
-        Vector3(1, 0, 0),
-        Vector3(0.7, 0.15, 0)
+        Vector3{0.7, -0.15, 0},
+        Vector3{1, 0, 0},
+        Vector3{0.7, 0.15, 0}
     };
 
     ColourValue col[3] = {ColourValue(1, 0, 0, 0.8), ColourValue(0, 1, 0, 0.8), ColourValue(0, 0, 1, 0.8)};
@@ -178,7 +178,7 @@ void DefaultDebugDrawer::drawSceneNode(const SceneNode* node)
     }
     if (!!(mDrawType & DrawType::AXES))
     {
-        Vector3f hs(aabb.getHalfSize());
+        auto const hs = aabb.getHalfSize();
         float sz = std::min(hs[0], hs[1]);
         sz = std::min(sz, hs[2]);
         sz = std::max(sz, 1.0f);

@@ -69,7 +69,7 @@ class Viewport;
         const Vector3 e_ls = lightSpace * getNearCameraPoint_ws(cam.getViewMatrix(), bodyLVS);
 
         // C_start has x and y of e and z from the bodyABB_ls (we look down the negative z axis, so take the maximum z value)
-        const Vector3 C_start_ls(e_ls.x, e_ls.y, bodyBAAB_ls.getMaximum().z);
+        const Vector3 C_start_ls{e_ls.x, e_ls.y, bodyBAAB_ls.getMaximum().z};
 
         // calculate the optimal distance between origin and near plane
         Real n_opt;
@@ -87,7 +87,7 @@ class Viewport;
 
         // calculate the projection center C which is n units behind the near plane of P
         // we look into the negative z direction so add n
-        const Vector3 C(C_start_ls + n_opt * Vector3::UNIT_Z);
+        const auto C = C_start_ls + n_opt * Vector3::UNIT_Z;
 
         // set up a transformation matrix to transform the light space to its new origin
         Matrix4 lightSpaceTranslation(Matrix4::IDENTITY);
@@ -118,7 +118,7 @@ class Viewport;
         const Vector3 z0_ls = calculateZ0_ls(lightSpace, e_ws, bodyBABB_ls.getMaximum().z, cam);
 
         // z1_ls has the same x and y values as z0_ls and the minimum z values of bodyABB_ls
-        const Vector3 z1_ls = Vector3(z0_ls.x, z0_ls.y, bodyBABB_ls.getMinimum().z);
+        const Vector3 z1_ls = Vector3{z0_ls.x, z0_ls.y, bodyBABB_ls.getMinimum().z};
 
         // world
         const Vector3 z0_ws = invLightSpace * z0_ls;
@@ -177,7 +177,7 @@ class Viewport;
 
         // try to intersect plane with a ray from origin V3(e_ls_x, 0.0, bodyB_zNear_ls)T
         // and direction +/- UNIT_Y
-        Ray ray(Vector3(e_ls.x, 0.0, bodyB_zMax_ls), Vector3::UNIT_Y);
+        Ray ray(Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::UNIT_Y);
         std::pair< bool, Real > intersect = ray.intersects(plane);
 
         // we got an intersection point
@@ -188,7 +188,7 @@ class Viewport;
         else
         {
             // try the other direction
-            ray = Ray(Vector3(e_ls.x, 0.0, bodyB_zMax_ls), Vector3::NEGATIVE_UNIT_Y);
+            ray = Ray(Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::NEGATIVE_UNIT_Y);
             intersect = ray.intersects(plane);
 
             // we got an intersection point

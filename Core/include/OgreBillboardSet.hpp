@@ -372,7 +372,7 @@ class VertexData;
         /// @overload
         auto createBillboard(Real x, Real y, Real z, const ColourValue& colour = ColourValue::White) -> Billboard*
         {
-            return createBillboard(Vector3(x, y, z), colour);
+            return createBillboard(Vector3{x, y, z}, colour);
         }
 
         /** Returns the number of active billboards which currently make up this set.

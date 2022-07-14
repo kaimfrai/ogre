@@ -305,7 +305,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 
             if( planeNormal != Vector3::ZERO )
             {
-                const Vector3 vDir(itor->getOrientation().xAxis().normalisedCopy() );
+                const auto vDir = itor->getOrientation().xAxis().normalisedCopy();
                 itor->setOrientation( lookAt( planeNormal.reflect( vDir ) ) );
                 itor->setPosition( entityPos );
             }
@@ -348,7 +348,7 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 
             if( planeNormal != Vector3::ZERO )
             {
-                const Vector3 vDir(pEnt->getOrientation().xAxis().normalisedCopy() );
+                const auto vDir = pEnt->getOrientation().xAxis().normalisedCopy();
                 pEnt->setOrientation( lookAt( planeNormal.reflect( vDir ) ), false );
                 pEnt->setPosition( entityPos, false);
             }

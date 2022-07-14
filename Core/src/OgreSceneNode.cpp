@@ -433,7 +433,7 @@ namespace Ogre {
     void SceneNode::setDirection(Real x, Real y, Real z, TransformSpace relativeTo, 
         const Vector3& localDirectionVector)
     {
-        setDirection(Vector3(x,y,z), relativeTo, localDirectionVector);
+        setDirection(Vector3{x,y,z}, relativeTo, localDirectionVector);
     }
 
     //-----------------------------------------------------------------------

@@ -229,7 +229,7 @@ namespace Ogre
     {
         // Invert the parameters
         Vector3 invTranslate = -position;
-        Vector3 invScale(1 / scale.x, 1 / scale.y, 1 / scale.z);
+        Vector3 invScale{1 / scale.x, 1 / scale.y, 1 / scale.z};
         Quaternion invRot = orientation.Inverse();
 
         // Because we're inverting, order is translation, rotation, scale
@@ -257,7 +257,7 @@ namespace Ogre
         linear().QDUDecomposition( matQ, scale, vecU );
 
         orientation = Quaternion( matQ );
-        position = Vector3( m[0][3], m[1][3], m[2][3] );
+        position = Vector3{ m[0][3], m[1][3], m[2][3] };
     }
 
 }

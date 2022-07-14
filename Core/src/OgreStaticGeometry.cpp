@@ -70,9 +70,9 @@ namespace Ogre {
         mOwner(owner),
         mName(name),
         
-        mRegionDimensions(Vector3(1000,1000,1000)),
-        mHalfRegionDimensions(Vector3(500,500,500)),
-        mOrigin(Vector3(0,0,0)),
+        mRegionDimensions(Vector3{1000,1000,1000}),
+        mHalfRegionDimensions(Vector3{500,500,500}),
+        mOrigin(Vector3{0,0,0}),
         
         mVisibilityFlags(Ogre::MovableObject::getDefaultVisibilityFlags())
     {
@@ -146,11 +146,11 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto StaticGeometry::getRegionBounds(ushort x, ushort y, ushort z) -> AxisAlignedBox
     {
-        Vector3 min(
+        Vector3 min{
             ((Real)x - REGION_HALF_RANGE) * mRegionDimensions.x + mOrigin.x,
             ((Real)y - REGION_HALF_RANGE) * mRegionDimensions.y + mOrigin.y,
             ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
-            );
+        };
         Vector3 max = min + mRegionDimensions;
         return { min, max };
     }

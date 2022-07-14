@@ -64,7 +64,7 @@ namespace Ogre {
 
         /** Gets the position of a point t units along the ray. */
         [[nodiscard]] auto getPoint(Real t) const -> Vector3 { 
-            return Vector3(mOrigin + (mDirection * t));
+            return mOrigin + (mDirection * t);
         }
         
         /** Gets the position of a point t units along the ray. */

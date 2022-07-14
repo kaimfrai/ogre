@@ -375,7 +375,7 @@ class Technique;
             // Set up to 4 values, or up to limit of hardware animation entries
             // Pack into 4-element constants offset based on constant data index
             // If there are more than 4 entries, this will be called more than once
-            Vector4 val(0.0f,0.0f,0.0f,0.0f);
+            Vector4 val{0.0f,0.0f,0.0f,0.0f};
             const auto& vd = mHardwareVertexAnimVertexData ? mHardwareVertexAnimVertexData : mParentEntity->mHardwareVertexAnimVertexData;
             
             size_t animIndex = constantEntry.data * 4;

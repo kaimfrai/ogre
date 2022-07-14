@@ -342,7 +342,7 @@ class Viewport;
         // calculate the projection direction, which is the subtraction of
         // b_ls from e_ls. The y component is set to 0 to project the view
         // direction into the shadow map plane.
-        Vector3 projectionDir(b_ls - e_ls);
+        auto projectionDir = b_ls - e_ls;
         projectionDir.y = 0;
 
         // deal with Y-only vectors
@@ -393,13 +393,13 @@ class Viewport;
         vMin = aab_trans.getMinimum();
         vMax = aab_trans.getMaximum();
 
-        const Vector3 trans(-(vMax.x + vMin.x) / (vMax.x - vMin.x),
+        const Vector3 trans{-(vMax.x + vMin.x) / (vMax.x - vMin.x),
             -(vMax.y + vMin.y) / (vMax.y - vMin.y),
-            -(vMax.z + vMin.z) / (vMax.z - vMin.z));
+            -(vMax.z + vMin.z) / (vMax.z - vMin.z)};
 
-        const Vector3 scale(2 / (vMax.x - vMin.x),
+        const Vector3 scale{2 / (vMax.x - vMin.x),
             2 / (vMax.y - vMin.y),
-            2 / (vMax.z - vMin.z));
+            2 / (vMax.z - vMin.z)};
 
         Matrix4 mOut(Matrix4::IDENTITY);
         mOut.setTrans(trans);

@@ -340,7 +340,7 @@ class SubMesh;
             ++mTexCoordIndex;
         }
         /// @overload
-        void textureCoord(float x, float y, float z, float w) { textureCoord(Vector4(x, y, z, w)); }
+        void textureCoord(float x, float y, float z, float w) { textureCoord(Vector4{x, y, z, w}); }
         /// @overload
         void textureCoord(const Vector2& uv) { textureCoord(uv.x, uv.y); }
         /// @overload

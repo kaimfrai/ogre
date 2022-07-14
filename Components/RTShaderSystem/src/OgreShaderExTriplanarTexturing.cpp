@@ -261,7 +261,7 @@ namespace Ogre::RTShader {
                     compiler->addError(ScriptCompiler::CE_INVALIDPARAMETERS, prop->file, prop->line);
                     return nullptr;
                 }
-                Vector3 vParameters(parameters[0], parameters[1], parameters[2]);
+                Vector3 vParameters{parameters[0], parameters[1], parameters[2]};
                 tpSubRenderState->setParameters(vParameters);
 
                 String textureNameFromX, textureNameFromY, textureNameFromZ;

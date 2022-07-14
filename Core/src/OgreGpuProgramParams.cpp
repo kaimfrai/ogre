@@ -831,17 +831,17 @@ namespace Ogre
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::setConstant(size_t index, Real val)
     {
-        setConstant(index, Vector4(val, 0.0f, 0.0f, 0.0f));
+        setConstant(index, Vector4{val, 0.0f, 0.0f, 0.0f});
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::setConstant(size_t index, const Vector3& vec)
     {
-        setConstant(index, Vector4(vec.x, vec.y, vec.z, 1.0f));
+        setConstant(index, Vector4{vec.x, vec.y, vec.z, 1.0f});
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::setConstant(size_t index, const Vector2& vec)
     {
-        setConstant(index, Vector4(vec.x, vec.y, 1.0f, 1.0f));
+        setConstant(index, Vector4{vec.x, vec.y, 1.0f, 1.0f});
     }
     //-----------------------------------------------------------------------------
     void GpuProgramParameters::setConstant(size_t index, const Matrix4& m)
@@ -1700,20 +1700,20 @@ namespace Ogre
                     _writeRawConstant(mAutoConstant.physicalIndex, source->getInverseViewportHeight());
                     break;
                 case VIEWPORT_SIZE:
-                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
+                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f{
                         source->getViewportWidth(),
                         source->getViewportHeight(),
                         source->getInverseViewportWidth(),
-                        source->getInverseViewportHeight()), mAutoConstant.elementCount);
+                        source->getInverseViewportHeight()}, mAutoConstant.elementCount);
                     break;
                 case TEXEL_OFFSETS:
                     {
                         RenderSystem* rsys = Root::getSingleton().getRenderSystem();
-                        _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(
+                        _writeRawConstant(mAutoConstant.physicalIndex, Vector4f{
                             rsys->getHorizontalTexelOffset(),
                             rsys->getVerticalTexelOffset(),
                             rsys->getHorizontalTexelOffset() * source->getInverseViewportWidth(),
-                            rsys->getVerticalTexelOffset() * source->getInverseViewportHeight()),
+                            rsys->getVerticalTexelOffset() * source->getInverseViewportHeight()},
                                           mAutoConstant.elementCount);
                     }
                     break;
@@ -1793,7 +1793,7 @@ namespace Ogre
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
                     vec3.normalise();
                     // Set as 4D vector for compatibility
-                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
+                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f{vec3.x, vec3.y, vec3.z, 0.0f}, mAutoConstant.elementCount);
                     break;
                 case LIGHT_DISTANCE_OBJECT_SPACE:
                     vec3 = source->getInverseWorldMatrix() * source->getLightPosition(mAutoConstant.data);
@@ -1815,7 +1815,7 @@ namespace Ogre
                         vec3 = m3 * source->getLightDirection(l);
                         vec3.normalise();
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f),
-                                          Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
+                                          Vector4f{vec3.x, vec3.y, vec3.z, 0.0f}, mAutoConstant.elementCount);
                     }
                     break;
 
@@ -1971,7 +1971,7 @@ namespace Ogre
                     vec3 = source->getLightDirection(mAutoConstant.data);
                     // Set as 4D vector for compatibility
                     // Use element count in case uniform slot is smaller
-                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 1.0f), mAutoConstant.elementCount);
+                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f{vec3.x, vec3.y, vec3.z, 1.0f}, mAutoConstant.elementCount);
                     break;
                 case LIGHT_POSITION_VIEW_SPACE:
                     _writeRawConstant(mAutoConstant.physicalIndex,
@@ -1983,7 +1983,7 @@ namespace Ogre
                     vec3 = m3 * source->getLightDirection(mAutoConstant.data);
                     vec3.normalise();
                     // Set as 4D vector for compatibility
-                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f(vec3.x, vec3.y, vec3.z, 0.0f),mAutoConstant.elementCount);
+                    _writeRawConstant(mAutoConstant.physicalIndex, Vector4f{vec3.x, vec3.y, vec3.z, 0.0f},mAutoConstant.elementCount);
                     break;
                 case SHADOW_EXTRUSION_DISTANCE:
                     // extrusion is in object-space, so we have to rescale by the inverse
@@ -2063,7 +2063,7 @@ namespace Ogre
                         vec3 = source->getLightDirection(l);
                         // Set as 4D vector for compatibility
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f),
-                                          Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
+                                          Vector4f{vec3.x, vec3.y, vec3.z, 0.0f}, mAutoConstant.elementCount);
                     }
                     break;
 
@@ -2083,7 +2083,7 @@ namespace Ogre
                         vec3.normalise();
                         // Set as 4D vector for compatibility
                         _writeRawConstant(mAutoConstant.physicalIndex + l*sizeof(Vector4f),
-                                          Vector4f(vec3.x, vec3.y, vec3.z, 0.0f), mAutoConstant.elementCount);
+                                          Vector4f{vec3.x, vec3.y, vec3.z, 0.0f}, mAutoConstant.elementCount);
                     }
                     break;
 

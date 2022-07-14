@@ -121,7 +121,7 @@ auto CookTorranceLighting::createCpuSubPrograms(ProgramSet* programSet) -> bool
     }
 
     auto litResult = psMain->resolveLocalParameter(GpuConstantType::FLOAT3, "litResult");
-    fstage.assign(Vector3(0), litResult);
+    fstage.assign(Vector3{}, litResult);
 
     for (int i = 0; i < mLightCount; i++)
     {

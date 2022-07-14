@@ -532,7 +532,7 @@ void FFPLighting::setLightCount(const Vector3i& lightCount)
 //-----------------------------------------------------------------------
 auto FFPLighting::getLightCount() const -> Vector3i
 {
-	Vector3i lightCount(0, 0, 0);
+	Vector3i lightCount{0, 0, 0};
 
 	for (auto curParams : mLightParamsList)
 	{

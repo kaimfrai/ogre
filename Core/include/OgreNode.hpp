@@ -265,7 +265,7 @@ class Camera;
         void setPosition(const Vector3& pos);
 
         /// @overload
-        void setPosition(Real x, Real y, Real z) { setPosition(Vector3(x, y, z)); }
+        void setPosition(Real x, Real y, Real z) { setPosition(Vector3{x, y, z}); }
 
         /** Gets the position of the node relative to it's parent.
         */
@@ -286,7 +286,7 @@ class Camera;
         void setScale(const Vector3& scale);
 
         /// @overload
-        void setScale(Real x, Real y, Real z) { setScale(Vector3(x, y, z)); }
+        void setScale(Real x, Real y, Real z) { setScale(Vector3{x, y, z}); }
 
         /** Gets the scaling factor of this node.
         */
@@ -346,7 +346,7 @@ class Camera;
         @remarks
             This method applies an extra scaling factor to the node's existing scale, (unlike setScale
             which overwrites it) combining it's current scale with the new one. E.g. calling this 
-            method twice with Vector3(2,2,2) would have the same effect as setScale(Vector3(4,4,4)) if
+            method twice with Vector3{2,2,2} would have the same effect as setScale(Vector3{4,4,4}) if
             the existing scale was 1.
         @par
             Note that like rotations, scalings are oriented around the node's origin.
@@ -369,7 +369,7 @@ class Camera;
         /// @overload
         void translate(Real x, Real y, Real z, TransformSpace relativeTo = TransformSpace::PARENT)
         {
-            translate(Vector3(x, y, z), relativeTo);
+            translate(Vector3{x, y, z}, relativeTo);
         }
         /** Moves the node along arbitrary axes.
         @remarks
@@ -397,7 +397,7 @@ class Camera;
         /// @overload
         void translate(const Matrix3& axes, Real x, Real y, Real z, TransformSpace relativeTo = TransformSpace::PARENT)
         {
-            translate(axes, Vector3(x, y, z), relativeTo);
+            translate(axes, Vector3{x, y, z}, relativeTo);
         }
 
         /** Rotate the node around the Z-axis.
