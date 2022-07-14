@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre 
 {
-class AxisAlignedBox;
+struct AxisAlignedBox;
 struct Matrix3;
 struct Matrix4;
 class Node;

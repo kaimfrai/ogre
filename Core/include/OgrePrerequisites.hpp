@@ -68,8 +68,8 @@ namespace Ogre {
     class ArchiveFactory;
     class ArchiveManager;
     class AutoParamDataSource;
-    class AxisAlignedBox;
-    class AxisAlignedBoxSceneQuery;
+    struct AxisAlignedBox;
+    struct AxisAlignedBoxSceneQuery;
     class Billboard;
     class BillboardChain;
     class BillboardSet;

@@ -901,7 +901,7 @@ class RenderQueue;
                 // We've already put particles in world space to decouple them from the
                 // node transform, so reverse transform back since we're expected to 
                 // provide a local AABB
-                AxisAlignedBox newAABB(mWorldAABB);
+                AxisAlignedBox newAABB{mWorldAABB};
                 newAABB.transform(mParentNode->_getFullTransform().inverse());
 
                 if (mBoundsAutoUpdate)

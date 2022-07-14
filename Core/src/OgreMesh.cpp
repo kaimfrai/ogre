@@ -471,7 +471,9 @@ namespace Ogre {
     {
         if (vertexData->vertexCount == 0) {
             if (!extendOnly) {
-                outAABB = AxisAlignedBox(Vector3::ZERO, Vector3::ZERO);
+
+                using enum AxisAlignedBox::Extent;
+                outAABB = AxisAlignedBox{Finite, Vector3::ZERO, Vector3::ZERO};
                 outRadius = 0;
             }
             return;

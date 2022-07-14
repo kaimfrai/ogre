@@ -49,7 +49,7 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-class AxisAlignedBox;
+struct AxisAlignedBox;
 
     NameGenerator InstancedEntity::msNameGenerator("");
 

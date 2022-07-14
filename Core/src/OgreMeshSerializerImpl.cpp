@@ -1404,7 +1404,9 @@ namespace Ogre {
         readFloats(stream, &max.x, 1);
         readFloats(stream, &max.y, 1);
         readFloats(stream, &max.z, 1);
-        AxisAlignedBox box(min, max);
+
+        using enum AxisAlignedBox::Extent;
+        AxisAlignedBox box{Finite, min, max};
         pMesh->_setBounds(box, false);
         // float radius
         float radius;

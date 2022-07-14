@@ -41,7 +41,7 @@ THE SOFTWARE.
 
 
 namespace Ogre {
-class AxisAlignedBox;
+struct AxisAlignedBox;
 class Camera;
 class EdgeData;
 class Light;

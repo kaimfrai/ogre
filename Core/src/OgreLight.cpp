@@ -183,7 +183,8 @@ namespace Ogre {
     auto Light::getBoundingBox() const noexcept -> const AxisAlignedBox&
     {
         // zero extent to still allow SceneQueries to work
-        static AxisAlignedBox box(Vector3{0, 0, 0}, Vector3{0, 0, 0});
+        using enum AxisAlignedBox::Extent;
+        static AxisAlignedBox constexpr box{ Finite, Vector3{0, 0, 0}, Vector3{0, 0, 0}};
         return box;
     }
     //-----------------------------------------------------------------------

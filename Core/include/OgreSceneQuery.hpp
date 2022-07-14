@@ -277,7 +277,7 @@ class SceneManager;
     };
 
     /** Specialises the SceneQuery class for querying within an axis aligned box. */
-    class AxisAlignedBoxSceneQuery : public RegionSceneQuery
+    struct AxisAlignedBoxSceneQuery : public RegionSceneQuery
     {
     protected:
         AxisAlignedBox mAABB;

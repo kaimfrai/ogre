@@ -57,22 +57,19 @@ class Sphere;
     for an axis-aligned bounding box (AABB) for collision and
     visibility determination.
     */
-    class AxisAlignedBox
+    struct AxisAlignedBox
     {
-    public:
         enum class Extent
         {
             Null,
             Finite,
             Infinite
         };
-    private:
 
-        Vector3 mMinimum;
-        Vector3 mMaximum;
-        Extent mExtent;
+        Extent mExtent{Extent::Null};
+        Vector3 mMinimum{-0.5, -0.5, -0.5};
+        Vector3 mMaximum{0.5, 0.5, 0.5};
 
-    public:
         /*
            1-------2
           /|      /|
@@ -94,30 +91,6 @@ class Sphere;
             NEAR_RIGHT_TOP = 4
         };
         using Corners = std::array<Vector3, 8>;
-
-        AxisAlignedBox()
-        {
-            // Default to a null box 
-            setMinimum( -0.5, -0.5, -0.5 );
-            setMaximum( 0.5, 0.5, 0.5 );
-            mExtent = Extent::Null;
-        }
-        AxisAlignedBox(Extent e)
-        {
-            setMinimum( -0.5, -0.5, -0.5 );
-            setMaximum( 0.5, 0.5, 0.5 );
-            mExtent = e;
-        }
-
-        AxisAlignedBox( const Vector3& min, const Vector3& max )
-        {
-            setExtents( min, max );
-        }
-
-        AxisAlignedBox(Real mx, Real my, Real mz, Real Mx, Real My, Real Mz)
-        {
-            setExtents( mx, my, mz, Mx, My, Mz );
-        }
 
         /** Gets the minimum corner of the box.
         */
@@ -590,7 +563,7 @@ class Sphere;
                 intMin.y < intMax.y &&
                 intMin.z < intMax.z)
             {
-                return { intMin, intMax };
+                return { AxisAlignedBox::Extent::Finite, intMin, intMax };
             }
 
             return {};

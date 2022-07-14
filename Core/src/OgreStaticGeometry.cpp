@@ -152,7 +152,7 @@ namespace Ogre {
             ((Real)z - REGION_HALF_RANGE) * mRegionDimensions.z + mOrigin.z
         };
         Vector3 max = min + mRegionDimensions;
-        return { min, max };
+        return { AxisAlignedBox::Extent::Finite, min, max };
     }
     //--------------------------------------------------------------------------
     auto StaticGeometry::getRegionCentre(ushort x, ushort y, ushort z) -> Vector3
@@ -287,7 +287,7 @@ namespace Ogre {
             }
 
         }
-        return { min, max };
+        return { AxisAlignedBox::Extent::Finite, min, max };
     }
     //--------------------------------------------------------------------------
     void StaticGeometry::addEntity(Entity* ent, const Vector3& position,
@@ -302,7 +302,6 @@ namespace Ogre {
                                                   msh->getName()));
         }
 
-        AxisAlignedBox sharedWorldBounds;
         // queue this entities submeshes and choice of material
         // also build the lists of geometry to be used for the source of lods
         for (uint i = 0; i < ent->getNumSubEntities(); ++i)
@@ -756,9 +755,10 @@ namespace Ogre {
 
         // update bounds
         // Transform world bounds relative to our centre
-        AxisAlignedBox localBounds(
+        using enum AxisAlignedBox::Extent;
+        AxisAlignedBox localBounds{ Finite,
             qmesh->worldBounds.getMinimum() - mCentre,
-            qmesh->worldBounds.getMaximum() - mCentre);
+            qmesh->worldBounds.getMaximum() - mCentre};
         mAABB.merge(localBounds);
         mBoundingRadius = Math::boundingRadiusFromAABB(mAABB);
 

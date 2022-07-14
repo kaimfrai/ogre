@@ -125,7 +125,8 @@ namespace Ogre {
         sub->indexData->indexStart = 0;
         //! [sub_mesh]
 
-        mesh->_setBounds(AxisAlignedBox(-100,-100,0,100,100,0), true);
+        using enum AxisAlignedBox::Extent;
+        mesh->_setBounds(AxisAlignedBox{Finite, Vector3{-100,-100,0}, Vector3{100,100,0}}, true);
     }
     //---------------------------------------------------------------------
     void PrefabFactory::createCube(Mesh* mesh)
@@ -284,8 +285,9 @@ namespace Ogre {
         sub->indexData->indexStart = 0;
         ibuf->writeData(0, ibuf->getSizeInBytes(), faces, true);
 
-        mesh->_setBounds(AxisAlignedBox(-CUBE_HALF_SIZE, -CUBE_HALF_SIZE, -CUBE_HALF_SIZE,
-            CUBE_HALF_SIZE, CUBE_HALF_SIZE, CUBE_HALF_SIZE), true);
+        using enum AxisAlignedBox::Extent;
+        mesh->_setBounds(AxisAlignedBox{Finite, Vector3{-CUBE_HALF_SIZE, -CUBE_HALF_SIZE, -CUBE_HALF_SIZE},
+            Vector3{CUBE_HALF_SIZE, CUBE_HALF_SIZE, CUBE_HALF_SIZE}}, true);
     }
     //---------------------------------------------------------------------
     void PrefabFactory::createSphere(Mesh* mesh)
@@ -366,8 +368,9 @@ namespace Ogre {
         pSphereVertex->useSharedVertices = true;
 
         // the original code was missing this line:
-        mesh->_setBounds( AxisAlignedBox( Vector3{-SPHERE_RADIUS, -SPHERE_RADIUS, -SPHERE_RADIUS}, 
-            Vector3{SPHERE_RADIUS, SPHERE_RADIUS, SPHERE_RADIUS} ), false );
+        using enum AxisAlignedBox::Extent;
+        mesh->_setBounds( AxisAlignedBox{ Finite, Vector3{-SPHERE_RADIUS, -SPHERE_RADIUS, -SPHERE_RADIUS},
+            Vector3{SPHERE_RADIUS, SPHERE_RADIUS, SPHERE_RADIUS} }, false );
 
         mesh->_setBoundingSphereRadius(SPHERE_RADIUS);
     }

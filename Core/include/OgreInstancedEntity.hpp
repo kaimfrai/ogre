@@ -47,7 +47,7 @@ namespace Ogre
     class NameGenerator;
 class AnimationState;
 class AnimationStateSet;
-class AxisAlignedBox;
+struct AxisAlignedBox;
 class Camera;
 class InstanceBatch;
 class RenderQueue;
