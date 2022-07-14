@@ -357,7 +357,7 @@ struct Matrix3;
 
 }
 
-
-
+static_assert(std::is_aggregate_v<Ogre::Quaternion>);
+static_assert(std::is_standard_layout_v<Ogre::Quaternion>);
 
 #endif 

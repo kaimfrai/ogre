@@ -788,4 +788,7 @@ class Sphere;
     /** @} */
 } // namespace Ogre
 
+static_assert(std::is_aggregate_v<Ogre::AxisAlignedBox>);
+static_assert(std::is_standard_layout_v<Ogre::AxisAlignedBox>);
+
 #endif

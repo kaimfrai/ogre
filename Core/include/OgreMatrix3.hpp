@@ -302,4 +302,9 @@ namespace Ogre
     /** @} */
     /** @} */
 }
+
+static_assert(std::is_aggregate_v<Ogre::Matrix3>);
+static_assert(std::is_trivial_v<Ogre::Matrix3>);
+static_assert(std::is_standard_layout_v<Ogre::Matrix3>);
+
 #endif
