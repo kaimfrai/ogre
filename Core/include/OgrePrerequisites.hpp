@@ -169,7 +169,7 @@ namespace Ogre {
     class Pose;
     class Profile;
     class Profiler;
-    class Quaternion;
+    struct Quaternion;
     class Radian;
     class Ray;
     class RaySceneQuery;

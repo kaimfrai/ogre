@@ -245,7 +245,7 @@ TEST_F(StringTests,ParseMatrix4)
 //--------------------------------------------------------------------------
 TEST_F(StringTests,ParseQuaternion)
 {
-    Quaternion r(1.12, 0.87, 0.67, 1);
+    Quaternion r{1.12, 0.87, 0.67, 1};
 
     String s = StringConverter::toString(r);
     Quaternion t = StringConverter::parseQuaternion(s);

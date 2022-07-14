@@ -48,7 +48,7 @@ class Degree;
 struct Matrix3;
 struct Matrix4;
 class Plane;
-class Quaternion;
+struct Quaternion;
 class Ray;
 class Sphere;
     /** \addtogroup Core

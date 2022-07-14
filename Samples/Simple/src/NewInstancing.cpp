@@ -363,5 +363,5 @@ void Sample_NewInstancing::moveUnits( float timeSinceLast )
 //------------------------------------------------------------------------------
 auto Sample_NewInstancing::lookAt( const Vector3 &normDir ) -> Quaternion
 {
-    return Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y);
+    return Quaternion::FromMatrix3(Math::lookRotation(normDir.normalisedCopy(), Vector3::UNIT_Y));
 }

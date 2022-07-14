@@ -332,7 +332,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Node::setOrientation( Real w, Real x, Real y, Real z)
     {
-        setOrientation(Quaternion(w, x, y, z));
+        setOrientation(Quaternion{w, x, y, z});
     }
     //-----------------------------------------------------------------------
     void Node::resetOrientation()

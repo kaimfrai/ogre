@@ -194,7 +194,7 @@ namespace Ogre
             // Use camera up
             up = Vector3::UNIT_Z;
         }
-        texCam->getParentNode()->setOrientation(Math::lookRotation(dir, up));
+        texCam->getParentNode()->setOrientation(Quaternion::FromMatrix3(Math::lookRotation(dir, up)));
     }
 
 

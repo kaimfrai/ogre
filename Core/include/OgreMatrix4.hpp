@@ -88,6 +88,7 @@ namespace Ogre
         [[nodiscard]] inline auto operator == ( const TransformBase& m2 ) const noexcept -> bool = default;
 
         template<typename U>
+        [[nodiscard]]
         static auto constexpr FromPtr(const U* ptr)
         {
             TransformBase transform;
@@ -211,6 +212,7 @@ namespace Ogre
     struct Matrix4 : public TransformBaseReal
     {
         template<typename U>
+        [[nodiscard]]
         static auto constexpr FromPtr(U const* ptr) -> Matrix4
         {
             return std::bit_cast<Matrix4>(TransformBaseReal::FromPtr(ptr));
@@ -218,6 +220,7 @@ namespace Ogre
 
         /** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling 3x3 matrix.
          */
+        [[nodiscard]]
         static auto constexpr FromMatrix3(const Matrix3& m3x3) -> Matrix4
         {
             Matrix4 mat4;
@@ -228,6 +231,7 @@ namespace Ogre
 
         /** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling Quaternion.
          */
+        [[nodiscard]]
         static auto constexpr FromQuaternion(const Quaternion& rot) -> Matrix4
         {
             Matrix4 mat4;
@@ -266,6 +270,7 @@ namespace Ogre
     struct Affine3 : public TransformBaseReal
     {
         /// @copydoc TransformBaseReal::makeTransform
+        [[nodiscard]]
         static auto constexpr MakeTransform(const Vector3& position, const Quaternion& orientation, const Vector3& scale = Vector3::UNIT_SCALE) -> Affine3
         {
             Affine3 affine;
@@ -274,6 +279,7 @@ namespace Ogre
         }
 
         template<typename U>
+        [[nodiscard]]
         static auto constexpr FromPtr(const U* ptr) -> Affine3
         {
             Affine3 affine;
@@ -286,6 +292,7 @@ namespace Ogre
         }
 
         /// extract the Affine part of a Matrix4
+        [[nodiscard]]
         static auto constexpr FromMatrix4(const Matrix4& mat) -> Affine3
         {
             Affine3 affine;

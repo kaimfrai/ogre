@@ -40,6 +40,7 @@ THE SOFTWARE.
 #include <cmath>
 #include <cstring>
 #include <ostream>
+#include <span>
 #include <utility>
 
 #include "OgreMath.hpp"
@@ -60,49 +61,47 @@ struct Matrix3;
         http://www.cprogramming.com/tutorial/3d/quaternions.html and
         http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095
     */
-    class Quaternion
+    struct Quaternion
     {
-    public:
-        /// Default constructor, initializes to identity rotation (aka 0°)
-        inline Quaternion ()
-            : w(1), x(0), y(0), z(0)
-        {
-        }
-        /// Copy constructor
-        inline Quaternion(const Ogre::Quaternion& rhs)
-             
-        = default;
-        /// Construct from an explicit list of values
-        inline Quaternion (
-            float fW,
-            float fX, float fY, float fZ)
-            : w(fW), x(fX), y(fY), z(fZ)
-        {
-        }
         /// Construct a quaternion from a rotation matrix
-        inline Quaternion(const Matrix3& rot)
+        [[nodiscard]]
+        static auto constexpr FromMatrix3(const Matrix3& rot) -> Quaternion
         {
-            this->FromRotationMatrix(rot);
+            Quaternion quaternion;
+            quaternion.FromRotationMatrix(rot);
+            return quaternion;
         }
         /// Construct a quaternion from an angle/axis
-        inline Quaternion(const Radian& rfAngle, const Vector3& rkAxis)
+        [[nodiscard]]
+        static auto constexpr FromAngleAndAxis(const Radian& rfAngle, const Vector3& rkAxis) -> Quaternion
         {
-            this->FromAngleAxis(rfAngle, rkAxis);
+            Quaternion quaternion;
+            quaternion.FromAngleAxis(rfAngle, rkAxis);
+            return quaternion;
         }
         /// Construct a quaternion from 3 orthonormal local axes
-        inline Quaternion(const Vector3& xaxis, const Vector3& yaxis, const Vector3& zaxis)
+        [[nodiscard]]
+        static auto constexpr FromAxesTriple(const Vector3& xaxis, const Vector3& yaxis, const Vector3& zaxis) -> Quaternion
         {
-            this->FromAxes(xaxis, yaxis, zaxis);
+            Quaternion quaternion;
+            quaternion.FromAxes(xaxis, yaxis, zaxis);
+            return quaternion;
         }
         /// Construct a quaternion from 3 orthonormal local axes
-        inline Quaternion(const Vector3* akAxis)
+        [[nodiscard]]
+        static auto constexpr FromAxesPtr(const Vector3* akAxis) -> Quaternion
         {
-            this->FromAxes(akAxis);
+            Quaternion quaternion;
+            quaternion.FromAxes(akAxis);
+            return quaternion;
         }
         /// Construct a quaternion from 4 manual w/x/y/z values
-        inline Quaternion(float* valptr)
+        [[nodiscard]]
+        static auto constexpr FromPtr(float* valptr) -> Quaternion
         {
-            memcpy(&w, valptr, sizeof(float)*4);
+            float arr[4];
+            std::ranges::copy(std::span{valptr, 4}, +arr);
+            return std::bit_cast<Quaternion>(arr);
         }
 
         /** Exchange the contents of this quaternion with another. 
@@ -179,8 +178,6 @@ struct Matrix3;
         */
         [[nodiscard]] auto zAxis() const -> Vector3;
 
-        inline auto operator= (const Quaternion& rkQ) -> Quaternion&
-        = default;
         auto operator+ (const Quaternion& rkQ) const -> Quaternion;
         auto operator- (const Quaternion& rkQ) const -> Quaternion;
         auto operator*(const Quaternion& rkQ) const -> Quaternion;
@@ -336,7 +333,7 @@ struct Matrix3;
         static const Quaternion ZERO;
         static const Quaternion IDENTITY;
 
-        float w, x, y, z;
+        float w{1}, x{0}, y{0}, z{0};
 
         /// Check whether this quaternion contains valid values
         [[nodiscard]] inline auto isNaN() const noexcept -> bool

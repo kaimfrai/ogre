@@ -296,6 +296,7 @@ namespace Ogre
     {
         using VectorBase<dims, T>::ptr;
 
+        [[nodiscard]]
         static auto constexpr Fill(T s) -> Vector
         {
             Vector vec;
@@ -804,7 +805,7 @@ namespace Ogre
             axis = this->crossProduct(dest);
         }
 
-        Quaternion q(b, axis.x, axis.y, axis.z);
+        Quaternion q{b, axis.x, axis.y, axis.z};
         q.normalise();
         return q;
     }

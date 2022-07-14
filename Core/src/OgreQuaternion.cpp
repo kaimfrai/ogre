@@ -41,8 +41,8 @@ THE SOFTWARE.
 namespace Ogre {
 
     const float Quaternion::msEpsilon = 1e-03;
-    const Quaternion Quaternion::ZERO(0,0,0,0);
-    const Quaternion Quaternion::IDENTITY(1,0,0,0);
+    const Quaternion Quaternion::ZERO{0,0,0,0};
+    const Quaternion Quaternion::IDENTITY{1,0,0,0};
 
     //-----------------------------------------------------------------------
     void Quaternion::FromRotationMatrix (const Matrix3& kRot)

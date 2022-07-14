@@ -404,28 +404,28 @@ class Camera;
         */
         virtual void roll(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
-            rotate(Quaternion(angle, Vector3::UNIT_Z), relativeTo);
+            rotate(Quaternion::FromAngleAndAxis(angle, Vector3::UNIT_Z), relativeTo);
         }
 
         /** Rotate the node around the X-axis.
         */
         virtual void pitch(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
-            rotate(Quaternion(angle, Vector3::UNIT_X), relativeTo);
+            rotate(Quaternion::FromAngleAndAxis(angle, Vector3::UNIT_X), relativeTo);
         }
 
         /** Rotate the node around the Y-axis.
         */
         virtual void yaw(const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
-            rotate(Quaternion(angle, Vector3::UNIT_Y), relativeTo);
+            rotate(Quaternion::FromAngleAndAxis(angle, Vector3::UNIT_Y), relativeTo);
         }
 
         /** Rotate the node around an arbitrary axis.
         */
         void rotate(const Vector3& axis, const Radian& angle, TransformSpace relativeTo = TransformSpace::LOCAL)
         {
-            rotate(Quaternion(angle, axis), relativeTo);
+            rotate(Quaternion::FromAngleAndAxis(angle, axis), relativeTo);
         }
 
         /** Rotate the node around an aritrary axis using a Quarternion.

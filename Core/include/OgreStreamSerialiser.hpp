@@ -45,7 +45,7 @@ struct Matrix3;
 struct Matrix4;
 class Node;
 class Plane;
-class Quaternion;
+struct Quaternion;
 class Radian;
 class Ray;
 class Sphere;

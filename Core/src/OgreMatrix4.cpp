@@ -262,7 +262,7 @@ namespace Ogre
         Vector3 vecU;
         linear().QDUDecomposition( matQ, scale, vecU );
 
-        orientation = Quaternion( matQ );
+        orientation = Quaternion::FromMatrix3( matQ );
         position = Vector3{ m[0][3], m[1][3], m[2][3] };
     }
 

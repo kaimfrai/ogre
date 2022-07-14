@@ -42,7 +42,7 @@ using namespace Ogre;
 TEST(DualQuaternionTests,Conversion)
 {
     DualQuaternion dQuat;
-    Quaternion quat(Radian(Degree(60)), Vector3::UNIT_Y);
+    Quaternion quat = Quaternion::FromAngleAndAxis(Radian(Degree(60)), Vector3::UNIT_Y);
     Vector3 translation{0, 0, 10};
     dQuat.fromRotationTranslation(quat, translation);
         

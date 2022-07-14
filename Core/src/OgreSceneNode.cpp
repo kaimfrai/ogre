@@ -479,13 +479,13 @@ namespace Ogre {
                 yawAxis = getParent()->_getDerivedOrientation() * yawAxis;
             }
 
-            Quaternion unitZToTarget = Math::lookRotation(targetDir, yawAxis);
+            Quaternion unitZToTarget = Quaternion::FromMatrix3(Math::lookRotation(targetDir, yawAxis));
 
             if (localDirectionVector == Vector3::NEGATIVE_UNIT_Z)
             {
                 // Specail case for avoid calculate 180 degree turn
                 targetOrientation =
-                    Quaternion(-unitZToTarget.y, -unitZToTarget.z, unitZToTarget.w, unitZToTarget.x);
+                    Quaternion{-unitZToTarget.y, -unitZToTarget.z, unitZToTarget.w, unitZToTarget.x};
             }
             else
             {
@@ -506,7 +506,7 @@ namespace Ogre {
                 // Oops, a 180 degree turn (infinite possible rotation axes)
                 // Default to yaw i.e. use current UP
                 targetOrientation =
-                    Quaternion(-currentOrient.y, -currentOrient.z, currentOrient.w, currentOrient.x);
+                    Quaternion{-currentOrient.y, -currentOrient.z, currentOrient.w, currentOrient.x};
             }
             else
             {
