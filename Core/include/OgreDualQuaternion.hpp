@@ -51,38 +51,35 @@ struct Affine3;
         This implementation may note be appropriate as a general implementation, but is intended for use with
         dual quaternion skinning.
     */
-    class DualQuaternion
+    struct DualQuaternion
     {
-    public:
-        /// Default constructor, initializes to identity rotation (aka 0°), and zero translation (0,0,0)
-        inline DualQuaternion ()
-            : w(1), x(0), y(0), z(0), dw(1), dx(0), dy(0), dz(0)
-        {
-        }
-        
-        /// Construct from an explicit list of values
-        inline DualQuaternion (Real fW, Real fX, Real fY, Real fZ, 
-                Real fdW, Real fdX, Real fdY, Real fdZ)
-            : w(fW), x(fX), y(fY), z(fZ), dw(fdW), dx(fdX), dy(fdY), dz(fdZ)
-        {
-        }
-        
+        Real w{1}, x{0}, y{0}, z{0}, dw{1}, dx{0}, dy{0}, dz{0};
+
         /// Construct a dual quaternion from a transformation matrix
-        inline DualQuaternion(const Affine3& rot)
+        [[nodiscard]]
+        static auto constexpr FromAffine3(const Affine3& rot) -> DualQuaternion
         {
-            this->fromTransformationMatrix(rot);
+            DualQuaternion dualquat;
+            dualquat.fromTransformationMatrix(rot);
+            return dualquat;
         }
         
         /// Construct a dual quaternion from a unit quaternion and a translation vector
-        inline DualQuaternion(const Quaternion& q, const Vector3& trans)
+        [[nodiscard]]
+        static auto constexpr FromQuatAndTrans(const Quaternion& q, const Vector3& trans) -> DualQuaternion
         {
-            this->fromRotationTranslation(q, trans);
+            DualQuaternion dualquat;
+            dualquat.fromRotationTranslation(q, trans);
+            return dualquat;
         }
         
         /// Construct a dual quaternion from 8 manual w/x/y/z/dw/dx/dy/dz values
-        inline DualQuaternion(Real* valptr)
+        [[nodiscard]]
+        static auto constexpr FromPtr(Real* valptr) -> DualQuaternion
         {
-            memcpy(&w, valptr, sizeof(Real)*8);
+            float arr[8];
+            std::ranges::copy(std::span{valptr, 8}, +arr);
+            return std::bit_cast<DualQuaternion>(arr);
         }
 
         /// Array accessor operator
@@ -101,9 +98,6 @@ struct Affine3;
             return *(&w+i);
         }
         
-        inline auto operator= (const DualQuaternion& rkQ) -> DualQuaternion&
-        = default;
-
         [[nodiscard]] inline auto operator== (const DualQuaternion& rhs) const noexcept -> bool = default;
 
         /// Pointer accessor for direct copying
@@ -150,8 +144,6 @@ struct Affine3;
         /// Convert a dual quaternion to a 4x4 transformation matrix
         void toTransformationMatrix (Affine3& kTrans) const;
 
-        Real w, x, y, z, dw, dx, dy, dz;
-
         /** 
         Function for writing to a stream. Outputs "DualQuaternion(w, x, y, z, dw, dx, dy, dz)" with w, x, y, z, dw, dx, dy, dz
         being the member values of the dual quaternion.
@@ -159,7 +151,7 @@ struct Affine3;
         inline friend auto operator <<
         ( std::ostream& o, const DualQuaternion& q ) -> std::ostream&
         {
-            o << "DualQuaternion(" << q.w << ", " << q.x << ", " << q.y << ", " << q.z << ", " << q.dw << ", " << q.dx << ", " << q.dy << ", " << q.dz << ")";
+            o << "DualQuaternion{" << q.w << ", " << q.x << ", " << q.y << ", " << q.z << ", " << q.dw << ", " << q.dx << ", " << q.dy << ", " << q.dz << "}";
             return o;
         }
     };
@@ -167,5 +159,8 @@ struct Affine3;
     /** @} */
 
 }
+
+static_assert(std::is_aggregate_v<Ogre::DualQuaternion>);
+static_assert(std::is_standard_layout_v<Ogre::DualQuaternion>);
 
 #endif 
