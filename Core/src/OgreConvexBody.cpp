@@ -981,7 +981,7 @@ namespace Ogre
                     // intersect from the outside vertex towards the inside one
                     Vector3 vDirection = vCurrent - vNext;
                     vDirection.normalise();
-                    Ray ray( vNext, vDirection );
+                    Ray ray{ vNext, vDirection };
                     std::pair< bool, Real > intersect = ray.intersects( pl );
 
                     // store intersection
@@ -1007,7 +1007,7 @@ namespace Ogre
                     // intersect from the outside vertex towards the inside one
                     Vector3 vDirection = vNext - vCurrent;
                     vDirection.normalise();
-                    Ray ray( vCurrent, vDirection );
+                    Ray ray{ vCurrent, vDirection };
                     std::pair< bool, Real > intersect = ray.intersects( pl );
 
                     // store intersection

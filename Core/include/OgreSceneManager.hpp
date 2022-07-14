@@ -86,7 +86,7 @@ namespace Ogre {
     class MovableObject;
     class ParticleSystem;
     class Pass;
-    class Ray;
+    struct Ray;
     class RenderObjectListener;
     class RenderOperation;
     class RenderQueueListener;

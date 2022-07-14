@@ -49,7 +49,7 @@ struct Matrix3;
 struct Matrix4;
 class Plane;
 struct Quaternion;
-class Ray;
+struct Ray;
 class Sphere;
     /** \addtogroup Core
     *  @{

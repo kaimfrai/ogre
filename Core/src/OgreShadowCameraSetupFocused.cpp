@@ -589,7 +589,7 @@ class Viewport;
                 this->addPoint(pt);
 
                 // intersection ray
-                Ray ray(pt, dir);
+                Ray ray{pt, dir};
 
                 const Vector3 ptIntersect = ray.getPoint(extrudeDist);
                 this->addPoint(ptIntersect);

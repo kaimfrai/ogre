@@ -42,15 +42,10 @@ namespace Ogre {
     *  @{
     */
     /** Representation of a ray in space, i.e. a line with an origin and direction. */
-    class Ray
+    struct Ray
     {
-    private:
-        Vector3 mOrigin;
-        Vector3 mDirection;
-    public:
-        Ray():mOrigin(Vector3::ZERO), mDirection(Vector3::UNIT_Z) {}
-        Ray(const Vector3& origin, const Vector3& direction)
-            :mOrigin(origin), mDirection(direction) {}
+        Vector3 mOrigin{Vector3::ZERO};
+        Vector3 mDirection{Vector3::UNIT_Z};
 
         /** Sets the origin of the ray. */
         void setOrigin(const Vector3& origin) {mOrigin = origin;} 
@@ -152,4 +147,8 @@ namespace Ogre {
     /** @} */
 
 }
+
+static_assert(std::is_aggregate_v<Ogre::Ray>);
+static_assert(std::is_standard_layout_v<Ogre::Ray>);
+
 #endif

@@ -171,7 +171,7 @@ namespace Ogre {
     class Profiler;
     struct Quaternion;
     class Radian;
-    class Ray;
+    struct Ray;
     class RaySceneQuery;
     class RaySceneQueryListener;
     class Renderable;

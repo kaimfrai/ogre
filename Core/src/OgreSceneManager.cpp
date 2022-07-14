@@ -117,7 +117,7 @@ THE SOFTWARE.
 #include <vector>
 
 namespace Ogre {
-class Ray;
+struct Ray;
 
 static const std::string_view INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------

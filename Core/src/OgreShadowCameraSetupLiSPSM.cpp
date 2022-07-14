@@ -177,7 +177,7 @@ class Viewport;
 
         // try to intersect plane with a ray from origin V3(e_ls_x, 0.0, bodyB_zNear_ls)T
         // and direction +/- UNIT_Y
-        Ray ray(Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::UNIT_Y);
+        Ray ray{Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::UNIT_Y};
         std::pair< bool, Real > intersect = ray.intersects(plane);
 
         // we got an intersection point
@@ -188,7 +188,7 @@ class Viewport;
         else
         {
             // try the other direction
-            ray = Ray(Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::NEGATIVE_UNIT_Y);
+            ray = Ray{Vector3{e_ls.x, 0.0, bodyB_zMax_ls}, Vector3::NEGATIVE_UNIT_Y};
             intersect = ray.intersects(plane);
 
             // we got an intersection point

@@ -47,7 +47,7 @@ class Node;
 class Plane;
 struct Quaternion;
 class Radian;
-class Ray;
+struct Ray;
 class Sphere;
     /** \addtogroup Core
     *  @{
