@@ -111,7 +111,7 @@ class GLContext;
 #define PROBE_SIZE 16
 
 /// Stencil and depth formats to be tried
-static const GLenum stencilFormats[] =
+static const GLenum constexpr stencilFormats[] =
 {
     GL_NONE,                    // No stencil
     GL_STENCIL_INDEX1_EXT,
@@ -119,13 +119,13 @@ static const GLenum stencilFormats[] =
     GL_STENCIL_INDEX8_EXT,
     GL_STENCIL_INDEX16_EXT
 };
-static const uchar stencilBits[] =
+static const uchar constexpr stencilBits[] =
 {
     0, 1, 4, 8, 16
 };
 #define STENCILFORMAT_COUNT (sizeof(stencilFormats)/sizeof(GLenum))
 
-static const GLenum depthFormats[] =
+static const GLenum constexpr depthFormats[] =
 {
     GL_NONE,
     GL_DEPTH_COMPONENT16,
@@ -133,7 +133,7 @@ static const GLenum depthFormats[] =
     GL_DEPTH_COMPONENT32,
     GL_DEPTH24_STENCIL8_EXT // packed depth / stencil
 };
-static const uchar depthBits[] =
+static const uchar constexpr depthBits[] =
 {
     0,16,24,32,24
 };

@@ -59,7 +59,7 @@ class OverlayElement;
         }
         [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
-            static String name = "Panel";
+            static std::string_view const constexpr name = "Panel";
             return name;
         }
     };
@@ -74,7 +74,7 @@ class OverlayElement;
         }
         [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
-            static String name = "BorderPanel";
+            static std::string_view const constexpr name = "BorderPanel";
             return name;
         }
     };
@@ -89,7 +89,7 @@ class OverlayElement;
         }
         [[nodiscard]] auto getTypeName() const noexcept -> std::string_view override
         {
-            static String name = "TextArea";
+            static std::string_view const constexpr name = "TextArea";
             return name;
         }
     };

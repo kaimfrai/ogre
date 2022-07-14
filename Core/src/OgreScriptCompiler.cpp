@@ -1565,21 +1565,21 @@ namespace Ogre
     }
 
     //-------------------------------------------------------------------------
-    String PreApplyTextureAliasesScriptCompilerEvent::eventType = "preApplyTextureAliases";
+    std::string_view const constinit PreApplyTextureAliasesScriptCompilerEvent::eventType = "preApplyTextureAliases";
     //-------------------------------------------------------------------------
-    String ProcessResourceNameScriptCompilerEvent::eventType = "processResourceName";
+    std::string_view const constinit ProcessResourceNameScriptCompilerEvent::eventType = "processResourceName";
     //-------------------------------------------------------------------------
-    String ProcessNameExclusionScriptCompilerEvent::eventType = "processNameExclusion";
+    std::string_view const constinit ProcessNameExclusionScriptCompilerEvent::eventType = "processNameExclusion";
     //----------------------------------------------------------------------------
-    String CreateMaterialScriptCompilerEvent::eventType = "createMaterial";
+    std::string_view const constinit CreateMaterialScriptCompilerEvent::eventType = "createMaterial";
     //----------------------------------------------------------------------------
-    String CreateGpuProgramScriptCompilerEvent::eventType = "createGpuProgram";
+    std::string_view const constinit CreateGpuProgramScriptCompilerEvent::eventType = "createGpuProgram";
     //-------------------------------------------------------------------------
-    String CreateGpuSharedParametersScriptCompilerEvent::eventType = "createGpuSharedParameters";
+    std::string_view const constinit CreateGpuSharedParametersScriptCompilerEvent::eventType = "createGpuSharedParameters";
     //-------------------------------------------------------------------------
-    String CreateParticleSystemScriptCompilerEvent::eventType = "createParticleSystem";
+    std::string_view const constinit CreateParticleSystemScriptCompilerEvent::eventType = "createParticleSystem";
     //-------------------------------------------------------------------------
-    String CreateCompositorScriptCompilerEvent::eventType = "createCompositor";
+    std::string_view const constinit CreateCompositorScriptCompilerEvent::eventType = "createCompositor";
 }
 
 

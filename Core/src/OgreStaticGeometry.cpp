@@ -790,7 +790,7 @@ namespace Ogre {
     //--------------------------------------------------------------------------
     auto StaticGeometry::Region::getMovableType() const noexcept -> std::string_view
     {
-        static String sType = "StaticGeometry";
+        static std::string_view const constexpr sType = "StaticGeometry";
         return sType;
     }
     //--------------------------------------------------------------------------
@@ -1505,6 +1505,6 @@ namespace Ogre {
 
     }
     //--------------------------------------------------------------------------
-    String StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";
+    std::string_view const constinit StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";
 }
 

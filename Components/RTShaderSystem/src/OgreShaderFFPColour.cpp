@@ -53,7 +53,7 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-String FFPColour::Type = "FFP_Colour";
+std::string_view const constinit FFPColour::Type = "FFP_Colour";
 
 //-----------------------------------------------------------------------
 FFPColour::FFPColour()

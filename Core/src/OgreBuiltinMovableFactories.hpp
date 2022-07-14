@@ -16,7 +16,7 @@ class Rectangle2DFactory : public MovableObjectFactory
     auto createInstanceImpl(std::string_view name, const NameValuePairList* params) -> MovableObject* override;
 
 public:
-    static const String FACTORY_TYPE_NAME;
+    static std::string_view const FACTORY_TYPE_NAME;
     [[nodiscard]] auto getType() const noexcept -> std::string_view override { return FACTORY_TYPE_NAME; }
 };
 } // namespace Ogre

@@ -614,14 +614,14 @@ auto CompositorInstance::getTextureInstance(std::string_view name, size_t mrtInd
     }
 
     // not present
-    static TexturePtr nullPtr;
+    static TexturePtr const constinit nullPtr;
     return nullPtr;
 
 }
 //-----------------------------------------------------------------------
 auto CompositorInstance::createLocalMaterial(std::string_view srcName) -> MaterialPtr
 {
-    static size_t dummyCounter = 0;
+    static size_t constinit dummyCounter = 0;
     MaterialPtr mat = MaterialManager::getSingleton().create(
         std::format("c{}/{}", dummyCounter++, srcName),
         ResourceGroupManager::INTERNAL_RESOURCE_GROUP_NAME);
@@ -642,7 +642,7 @@ void CompositorInstance::notifyResized()
 //-----------------------------------------------------------------------
 void CompositorInstance::createResources(bool forResizeOnly)
 {
-    static size_t dummyCounter = 0;
+    static size_t constinit dummyCounter = 0;
     /// Create temporary textures
     /// In principle, temporary textures could be shared between multiple viewports
     /// (CompositorChains). This will save a lot of memory in case more viewports

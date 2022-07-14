@@ -50,7 +50,7 @@ THE SOFTWARE.
 namespace Ogre {
 struct Sphere;
 
-    String Camera::msMovableType = "Camera";
+    std::string_view const constinit Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------
     Camera::Camera( std::string_view name, SceneManager* sm)
         : Frustum(name)

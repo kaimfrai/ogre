@@ -77,7 +77,7 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-String IntegratedPSSM3::Type = "SGX_IntegratedPSSM3";
+std::string_view const constinit IntegratedPSSM3::Type = "SGX_IntegratedPSSM3";
 
 //-----------------------------------------------------------------------
 IntegratedPSSM3::IntegratedPSSM3()

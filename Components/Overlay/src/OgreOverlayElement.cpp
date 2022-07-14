@@ -62,7 +62,7 @@ namespace Ogre {
     static OverlayElementCommands::CmdVerticalAlign msVerticalAlignCmd;
     static OverlayElementCommands::CmdVisible msVisibleCmd;
 
-    std::string_view OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
+    std::string_view const constinit OverlayElement::DEFAULT_RESOURCE_GROUP = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
     //---------------------------------------------------------------------
     OverlayElement::OverlayElement(std::string_view name)
       : mName(name)

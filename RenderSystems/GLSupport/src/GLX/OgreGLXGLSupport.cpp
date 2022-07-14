@@ -51,7 +51,7 @@ class GLPBuffer;
 class RenderWindow;
 }  // namespace Ogre
 
-static bool ctxErrorOccurred = false;
+static bool constinit ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;
 static auto ctxErrorHandler( Display *dpy, XErrorEvent *ev ) -> int
 {

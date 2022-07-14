@@ -169,7 +169,7 @@ struct Sphere;
         virtual void invalidateView() const;
 
         /// Shared class-level name for Movable type
-        static String msMovableType;
+        static std::string_view const msMovableType;
 
         ColourValue mDebugColour;
         /// Pointer to a reflection plane (automatically updated)

@@ -436,7 +436,7 @@ class ResourceManager;
     //-----------------------------------------------------------------------
     auto GpuProgram::getLanguage() const noexcept -> std::string_view
     {
-        static const String language = "asm";
+        static std::string_view const constexpr language = "asm";
 
         return language;
     }

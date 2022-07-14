@@ -45,7 +45,7 @@ THE SOFTWARE.
 namespace Ogre {
 class Camera;
 
-    uint SimpleRenderable::msGenNameCount = 0;
+    uint constinit SimpleRenderable::msGenNameCount = 0;
 
     SimpleRenderable::SimpleRenderable()
     : MovableObject()
@@ -133,7 +133,7 @@ class Camera;
     //-----------------------------------------------------------------------
     auto SimpleRenderable::getMovableType() const noexcept -> std::string_view
     {
-        static String movType = "SimpleRenderable";
+        static std::string_view const constexpr movType = "SimpleRenderable";
         return movType;
     }
     //-----------------------------------------------------------------------

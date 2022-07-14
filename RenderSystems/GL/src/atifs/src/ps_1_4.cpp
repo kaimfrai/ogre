@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 // library of built in symbol types
 
-bool PS_1_4::LibInitialized = false;
+bool constinit PS_1_4::LibInitialized = false;
 
 #define SYMSTART {
 #define SYMDEF  ,0,0,0,0},{
@@ -688,7 +688,7 @@ PS_1_4::RegModOffset PS_1_4::texreg2xx_RegMods[] = {
 
 };
 
-PS_1_4::MacroRegModify PS_1_4::texreg2ar_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texreg2ar_MacroMods = {
     texreg2ar, ARRAYSIZE(texreg2ar),
     texreg2xx_RegMods, ARRAYSIZE(texreg2xx_RegMods)
 };
@@ -719,7 +719,7 @@ PS_1_4::TokenInst PS_1_4::texreg2gb[] = {
     _token_end_
 };
 
-PS_1_4::MacroRegModify PS_1_4::texreg2gb_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texreg2gb_MacroMods = {
     texreg2gb, ARRAYSIZE(texreg2gb),
     texreg2xx_RegMods, ARRAYSIZE(texreg2xx_RegMods)
 };
@@ -751,7 +751,7 @@ PS_1_4::RegModOffset PS_1_4::texdp3_RegMods[] = {
 };
 
 
-PS_1_4::MacroRegModify PS_1_4::texdp3_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texdp3_MacroMods = {
     texdp3, ARRAYSIZE(texdp3),
     texdp3_RegMods, ARRAYSIZE(texdp3_RegMods)
 };
@@ -791,7 +791,7 @@ PS_1_4::RegModOffset PS_1_4::texdp3tex_RegMods[] = {
 };
 
 
-PS_1_4::MacroRegModify PS_1_4::texdp3tex_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texdp3tex_MacroMods = {
     texdp3tex, ARRAYSIZE(texdp3tex),
     texdp3tex_RegMods, ARRAYSIZE(texdp3tex_RegMods)
 };
@@ -823,7 +823,7 @@ PS_1_4::RegModOffset PS_1_4::texm3xxpad_RegMods[] = {
 };
 
 
-PS_1_4::MacroRegModify PS_1_4::texm3x2pad_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texm3x2pad_MacroMods = {
     texm3x2pad, ARRAYSIZE(texm3x2pad),
     texm3xxpad_RegMods, ARRAYSIZE(texm3xxpad_RegMods)
 };
@@ -860,7 +860,7 @@ PS_1_4::RegModOffset PS_1_4::texm3xxtex_RegMods[] = {
     {10, R_BASE, 0}
 };
 
-PS_1_4::MacroRegModify PS_1_4::texm3x2tex_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texm3x2tex_MacroMods = {
     texm3x2tex, ARRAYSIZE(texm3x2tex),
     texm3xxtex_RegMods, ARRAYSIZE(texm3xxtex_RegMods)
 };
@@ -884,7 +884,7 @@ PS_1_4::TokenInst PS_1_4::texm3x3pad[] = {
 };
 
 
-PS_1_4::MacroRegModify PS_1_4::texm3x3pad_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texm3x3pad_MacroMods = {
     texm3x3pad, ARRAYSIZE(texm3x3pad),
     texm3xxpad_RegMods, ARRAYSIZE(texm3xxpad_RegMods)
 };
@@ -918,7 +918,7 @@ PS_1_4::TokenInst PS_1_4::texm3x3tex[] = {
 
 
 
-PS_1_4::MacroRegModify PS_1_4::texm3x3tex_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texm3x3tex_MacroMods = {
     texm3x3tex, ARRAYSIZE(texm3x3tex),
     texm3xxtex_RegMods, ARRAYSIZE(texm3xxtex_RegMods)
 };
@@ -1002,7 +1002,7 @@ PS_1_4::RegModOffset PS_1_4::texm3x3spec_RegMods[] = {
 
 };
 
-PS_1_4::MacroRegModify PS_1_4::texm3x3spec_MacroMods = {
+PS_1_4::MacroRegModify constinit PS_1_4::texm3x3spec_MacroMods = {
     texm3x3spec, ARRAYSIZE(texm3x3spec),
     texm3x3spec_RegMods, ARRAYSIZE(texm3x3spec_RegMods)
 };

@@ -775,7 +775,7 @@ namespace Ogre {
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String LightFactory::FACTORY_TYPE_NAME = "Light";
+    std::string_view const constinit LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
     auto LightFactory::getType() const noexcept -> std::string_view
     {

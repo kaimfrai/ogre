@@ -467,7 +467,7 @@ public:
     [[nodiscard]] auto getRTShaderScheme(size_t index) const -> std::string_view ;
 
     /// Default material scheme of the shader generator.
-    static String DEFAULT_SCHEME_NAME;
+    static std::string_view const DEFAULT_SCHEME_NAME;
 
 private:
     class SGPass;
@@ -605,7 +605,7 @@ private:
         [[nodiscard]] auto getPassList() const noexcept -> const SGPassList& { return mPassEntries; }
 
         // Key name for associating with a Technique instance.
-        static String UserKey;
+        static std::string_view const UserKey;
 
     protected:
         

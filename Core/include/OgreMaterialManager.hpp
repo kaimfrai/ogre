@@ -155,7 +155,7 @@ class Technique;
 
     public:
         /// Default material scheme
-        static String DEFAULT_SCHEME_NAME;
+        static std::string_view const DEFAULT_SCHEME_NAME;
 
         /// Create a new material
         /// @see ResourceManager::createResource

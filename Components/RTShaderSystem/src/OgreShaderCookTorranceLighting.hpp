@@ -46,7 +46,7 @@ public:
     auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
 
     // Type of this render state.
-    static String Type;
+    static std::string_view const Type;
 
     /**
     Return the metallic-roughness map texture name.

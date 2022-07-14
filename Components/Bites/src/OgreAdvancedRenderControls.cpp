@@ -189,7 +189,7 @@ auto AdvancedRenderControls::keyPressed(const KeyDownEvent& evt) noexcept -> boo
     }
     // Toggles per pixel per light model.
     else if (key == SDLK_F3) {
-        static bool useFFPLighting = true;
+        static bool constinit useFFPLighting = true;
 
         //![rtss_per_pixel]
         // Grab the scheme render state.

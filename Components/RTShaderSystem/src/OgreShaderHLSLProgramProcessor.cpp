@@ -37,7 +37,7 @@ THE SOFTWARE.
 namespace Ogre::RTShader {
 class Function;
 
-String HLSLProgramProcessor::TargetLanguage = "hlsl";
+std::string_view const constinit HLSLProgramProcessor::TargetLanguage = "hlsl";
 
 //-----------------------------------------------------------------------------
 HLSLProgramProcessor::HLSLProgramProcessor()

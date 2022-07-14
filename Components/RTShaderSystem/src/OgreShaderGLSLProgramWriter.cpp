@@ -50,7 +50,7 @@ THE SOFTWARE.
 
 namespace Ogre::RTShader {
 
-String GLSLProgramWriter::TargetLanguage = "glsl";
+std::string_view const constinit GLSLProgramWriter::TargetLanguage = "glsl";
 
 //-----------------------------------------------------------------------
 GLSLProgramWriter::GLSLProgramWriter()  

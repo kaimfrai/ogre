@@ -326,7 +326,7 @@ namespace Ogre {
 
     auto PlatformInformation::getCpuIdentifier() noexcept -> std::string_view
     {
-        static const String sIdentifier = _detectCpuIdentifier();
+        static std::string const sIdentifier = _detectCpuIdentifier();
         return sIdentifier;
     }
     //---------------------------------------------------------------------

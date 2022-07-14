@@ -61,7 +61,7 @@ THE SOFTWARE.
 namespace Ogre {
 class RenderSystem;
 
-    const size_t BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
+    const size_t constinit BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element()
     = default;
@@ -733,7 +733,7 @@ class RenderSystem;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
+    std::string_view const constinit BillboardChainFactory::FACTORY_TYPE_NAME = "BillboardChain";
     //-----------------------------------------------------------------------
     auto BillboardChainFactory::getType() const noexcept -> std::string_view
     {

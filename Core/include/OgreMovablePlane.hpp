@@ -62,7 +62,7 @@ class RenderQueue;
         mutable Vector3 mLastTranslate;
         mutable Quaternion mLastRotate;
         mutable bool mDirty;
-        static String msMovableType;
+        static std::string_view const msMovableType;
     public:
 
         MovablePlane(std::string_view name);

@@ -71,7 +71,7 @@ namespace Ogre {
 
         *this = substr(lspaces, len-lspaces-rspaces);
         */
-        static const std::string_view delims = " \t\r\n";
+        static const std::string_view constexpr delims = " \t\r\n";
         if(right)
             str.erase(str.find_last_not_of(delims)+1); // trim right
         if(left)

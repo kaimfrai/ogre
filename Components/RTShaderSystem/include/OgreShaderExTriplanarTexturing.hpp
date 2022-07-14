@@ -147,7 +147,7 @@ protected:
 public:
     
     /// The type.
-    static String type;
+    static std::string_view const type;
 
     /** Sets the parameters.
     @param parameters

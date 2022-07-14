@@ -77,7 +77,7 @@ namespace Ogre {
 
     RenderSystem::Listener* RenderSystem::msSharedEventListener = nullptr;
 
-    static const TexturePtr sNullTexPtr;
+    static const TexturePtr constinit sNullTexPtr;
 
     //-----------------------------------------------------------------------
     RenderSystem::RenderSystem()
@@ -915,7 +915,7 @@ namespace Ogre {
         if ( !(getCapabilities()->hasCapability(Ogre::Capabilities::FIXED_FUNCTION)) )
         {
             // I am returning the exact value for now - I don't want to add dependency for the RTSS just for one string
-            static const String ShaderGeneratorDefaultScheme = "ShaderGeneratorDefaultScheme";
+            static std::string_view const constexpr ShaderGeneratorDefaultScheme = "ShaderGeneratorDefaultScheme";
             return ShaderGeneratorDefaultScheme;
         }
         else

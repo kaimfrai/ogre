@@ -99,7 +99,7 @@ public:
     */
     auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
     
-    static String Type;
+    static std::string_view const Type;
 
 // Protected types:
 protected:

@@ -36,7 +36,7 @@ namespace Ogre::RTShader
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-String WBOIT::Type = "WBOIT";
+std::string_view const constinit WBOIT::Type = "WBOIT";
 
 //-----------------------------------------------------------------------
 auto WBOIT::getType() const noexcept -> std::string_view { return Type; }

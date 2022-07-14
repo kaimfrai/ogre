@@ -79,9 +79,9 @@ struct Sphere;
         auto operator = ( const float& f ) -> Radian& { mRad = f; return *this; }
         auto operator = ( const Degree& d ) -> Radian&;
 
-        [[nodiscard]] auto valueDegrees() const -> float; // see bottom of this file
-        operator Degree() const;
-        [[nodiscard]] auto valueRadians() const noexcept -> float { return mRad; }
+        [[nodiscard]] auto constexpr valueDegrees() const -> float; // see bottom of this file
+        constexpr operator Degree() const;
+        [[nodiscard]] auto constexpr valueRadians() const noexcept -> float { return mRad; }
         [[nodiscard]] auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Radian& { return *this; }
@@ -123,9 +123,9 @@ struct Sphere;
         auto operator = ( const float& f ) -> Degree& { mDeg = f; return *this; }
         auto operator = ( const Radian& r ) -> Degree& { mDeg = r.valueDegrees(); return *this; }
 
-        [[nodiscard]] auto valueDegrees() const noexcept -> float { return mDeg; }
-        [[nodiscard]] auto valueRadians() const -> float; // see bottom of this file
-        operator Radian() const;
+        [[nodiscard]] auto constexpr valueDegrees() const noexcept -> float { return mDeg; }
+        [[nodiscard]] auto constexpr valueRadians() const -> float; // see bottom of this file
+        constexpr operator Radian() const;
         [[nodiscard]] auto valueAngleUnits() const -> float;
 
         auto operator + () const -> const Degree& { return *this; }
@@ -164,8 +164,8 @@ struct Sphere;
     struct Angle
     {
         float mAngle;
-        operator Radian() const;
-        operator Degree() const;
+        constexpr operator Radian() const;
+        constexpr operator Degree() const;
     };
 
     // these functions could not be defined within the class definition of class
@@ -506,8 +506,8 @@ struct Sphere;
             return (!useTables) ? std::tan(fValue) : TanTable(fValue);
         }
 
-        static inline auto DegreesToRadians(float degrees) -> float { return degrees * fDeg2Rad; }
-        static inline auto RadiansToDegrees(float radians) -> float { return radians * fRad2Deg; }
+        static constexpr auto DegreesToRadians(float degrees) -> float { return degrees * fDeg2Rad; }
+        static constexpr auto RadiansToDegrees(float radians) -> float { return radians * fRad2Deg; }
 
        /** These functions used to set the assumed angle units (radians or degrees) 
             expected when using the Angle type.
@@ -737,12 +737,12 @@ struct Sphere;
     // these functions must be defined down here, because they rely on the
     // angle unit conversion functions in class Math:
 
-    inline auto Radian::valueDegrees() const -> float
+    constexpr auto Radian::valueDegrees() const -> float
     {
         return Math::RadiansToDegrees ( mRad );
     }
 
-    inline Radian::operator Degree() const
+    constexpr Radian::operator Degree() const
     {
         return { valueDegrees() };
     }
@@ -752,12 +752,12 @@ struct Sphere;
         return Math::RadiansToAngleUnits ( mRad );
     }
 
-    inline auto Degree::valueRadians() const -> float
+    constexpr auto Degree::valueRadians() const -> float
     {
         return Math::DegreesToRadians ( mDeg );
     }
 
-    inline Degree::operator Radian() const
+    constexpr Degree::operator Radian() const
     {
         return { valueRadians() };
     }
@@ -767,12 +767,12 @@ struct Sphere;
         return Math::DegreesToAngleUnits ( mDeg );
     }
 
-    inline Angle::operator Radian() const
+    constexpr Angle::operator Radian() const
     {
         return Radian{Math::AngleUnitsToRadians(mAngle)};
     }
 
-    inline Angle::operator Degree() const
+    constexpr Angle::operator Degree() const
     {
         return Degree{Math::AngleUnitsToDegrees(mAngle)};
     }

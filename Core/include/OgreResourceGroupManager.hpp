@@ -68,11 +68,11 @@ namespace Ogre {
     */
 
     /// Default resource group name
-    extern const char* const RGN_DEFAULT;
+    char const constexpr RGN_DEFAULT[] = "General";
     /// Internal resource group name (should be used by OGRE internal only)
-    extern const char* const RGN_INTERNAL;
+    char const constexpr RGN_INTERNAL[] = "OgreInternal";
     /// Special resource group name which causes resource group to be automatically determined based on searching for the resource in all groups.
-    extern const char* const RGN_AUTODETECT;
+    char const constexpr RGN_AUTODETECT[] = "OgreAutodetect";
 
     /** This class defines an interface which is called back during
         resource group loading to indicate the progress of the load. 
@@ -239,11 +239,11 @@ namespace Ogre {
     {
     public:
         /// same as @ref RGN_DEFAULT
-        static const String DEFAULT_RESOURCE_GROUP_NAME;
+        static std::string_view const constexpr DEFAULT_RESOURCE_GROUP_NAME = RGN_DEFAULT;
         /// same as @ref RGN_INTERNAL
-        static const String INTERNAL_RESOURCE_GROUP_NAME;
+        static std::string_view const constexpr INTERNAL_RESOURCE_GROUP_NAME = RGN_INTERNAL;
         /// same as @ref RGN_AUTODETECT
-        static const String AUTODETECT_RESOURCE_GROUP_NAME;
+        static std::string_view const constexpr AUTODETECT_RESOURCE_GROUP_NAME = RGN_AUTODETECT;
         /// The number of reference counts held per resource by the resource system
         static const long RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS;
         /// Nested struct defining a resource declaration

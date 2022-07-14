@@ -68,7 +68,7 @@ public:
 
     auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 
-    static String Type;
+    static std::string_view const Type;
 
 // Protected methods
 protected:

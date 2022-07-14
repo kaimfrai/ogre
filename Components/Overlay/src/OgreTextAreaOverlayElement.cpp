@@ -48,7 +48,7 @@ namespace Ogre {
 
 #define DEFAULT_INITIAL_CHARS 12
     //---------------------------------------------------------------------
-    String TextAreaOverlayElement::msTypeName = "TextArea";
+    std::string_view const constinit TextAreaOverlayElement::msTypeName = "TextArea";
     //-----------------------------------------------------------------------------------------
     class CmdCaption : public ParamCommand
     {

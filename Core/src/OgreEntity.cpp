@@ -2307,7 +2307,7 @@ struct Sphere;
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String EntityFactory::FACTORY_TYPE_NAME = "Entity";
+    std::string_view const constinit EntityFactory::FACTORY_TYPE_NAME = "Entity";
     //-----------------------------------------------------------------------
     auto EntityFactory::getType() const noexcept -> std::string_view
     {
@@ -2321,7 +2321,7 @@ struct Sphere;
         MeshPtr pMesh;
         if (params != nullptr)
         {
-            String groupName = ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME;
+            String groupName{ ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME };
 
             NameValuePairList::const_iterator ni;
 

@@ -65,7 +65,7 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-String FFPLighting::Type = "FFP_Lighting";
+std::string_view const constinit FFPLighting::Type = "FFP_Lighting";
 
 //-----------------------------------------------------------------------
 FFPLighting::FFPLighting()

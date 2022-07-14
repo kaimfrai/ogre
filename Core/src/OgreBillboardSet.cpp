@@ -1154,7 +1154,7 @@ namespace Ogre {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
+    std::string_view const constinit BillboardSetFactory::FACTORY_TYPE_NAME = "BillboardSet";
     //-----------------------------------------------------------------------
     auto BillboardSetFactory::getType() const noexcept -> std::string_view
     {

@@ -66,8 +66,8 @@ namespace Ogre
 class InstanceManager;
 class RenderQueue;
 
-    static const uint16 c_maxTexWidth   = 4096;
-    static const uint16 c_maxTexHeight  = 4096;
+    static const uint16 constexpr c_maxTexWidth   = 4096;
+    static const uint16 constexpr c_maxTexHeight  = 4096;
 
     BaseInstanceBatchVTF::BaseInstanceBatchVTF( InstanceManager *creator, MeshPtr &meshReference,
                                         const MaterialPtr &material, size_t instancesPerBatch,

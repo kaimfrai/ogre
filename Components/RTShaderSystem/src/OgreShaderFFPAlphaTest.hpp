@@ -79,7 +79,7 @@ A factory that enables creation of LayeredBlending instances.
 public:
 
 	/// The type.
-	static String Type;
+	static std::string_view const Type;
     /**
     @see SubRenderState::getType.
     */
@@ -111,7 +111,7 @@ class FFPAlphaTestFactory : public SubRenderStateFactory
 {
 
 public:
-static String Type;
+static std::string_view const Type;
 
 	/**
 	@see SubRenderStateFactory::getType.

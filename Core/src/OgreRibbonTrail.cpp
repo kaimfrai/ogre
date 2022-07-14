@@ -439,7 +439,7 @@ namespace Ogre
     }
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
+    std::string_view const constinit RibbonTrailFactory::FACTORY_TYPE_NAME = "RibbonTrail";
     //-----------------------------------------------------------------------
     auto RibbonTrailFactory::getType() const noexcept -> std::string_view
     {

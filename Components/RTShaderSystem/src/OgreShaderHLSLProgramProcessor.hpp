@@ -68,7 +68,7 @@ public:
     */
     auto postCreateGpuPrograms(ProgramSet* programSet) -> bool override;
 
-    static String TargetLanguage;
+    static std::string_view const TargetLanguage;
 
 };
 

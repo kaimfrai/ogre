@@ -38,7 +38,7 @@ THE SOFTWARE.
 namespace Ogre {
 class RenderQueue;
 
-    static String rendererTypeName = "billboard";
+    static std::string_view const constexpr rendererTypeName = "billboard";
 
     /** Command object for billboard type (see ParamCommand).*/
     class CmdBillboardType : public ParamCommand

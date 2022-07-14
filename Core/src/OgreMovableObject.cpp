@@ -391,7 +391,7 @@ namespace Ogre {
         const Light* light, const HardwareIndexBufferPtr& indexBuffer, size_t& indexBufferUsedSize,
         float extrusionDist, ShadowRenderableFlags flags) -> const ShadowRenderableList&
     {
-        static ShadowRenderableList dummyList;
+        static ShadowRenderableList const dummyList;
         return dummyList;
     }
     //-----------------------------------------------------------------------

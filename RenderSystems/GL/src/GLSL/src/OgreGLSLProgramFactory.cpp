@@ -37,7 +37,7 @@ class ResourceManager;
 
     namespace GLSL {
     //-----------------------------------------------------------------------
-    String GLSLProgramFactory::sLanguageName = "glsl";
+    std::string_view const constinit GLSLProgramFactory::sLanguageName = "glsl";
     //-----------------------------------------------------------------------
     auto GLSLProgramFactory::getLanguage() const noexcept -> std::string_view
     {

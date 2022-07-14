@@ -37,9 +37,9 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 namespace Ogre {
 
-    const String GLRenderTexture::CustomAttributeString_FBO = "FBO";
-    const String GLRenderTexture::CustomAttributeString_TARGET = "TARGET";
-    const String GLRenderTexture::CustomAttributeString_GLCONTEXT = "GLCONTEXT";
+    std::string_view const constinit GLRenderTexture::CustomAttributeString_FBO = "FBO";
+    std::string_view const constinit GLRenderTexture::CustomAttributeString_TARGET = "TARGET";
+    std::string_view const constinit GLRenderTexture::CustomAttributeString_GLCONTEXT = "GLCONTEXT";
 
     template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = nullptr;
 

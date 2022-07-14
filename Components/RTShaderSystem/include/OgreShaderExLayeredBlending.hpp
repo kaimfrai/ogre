@@ -162,7 +162,7 @@ public:
     */
     void copyFrom(const SubRenderState& rhs) override;
 
-    static String Type;
+    static std::string_view const Type;
 
 // Protected methods
 protected:

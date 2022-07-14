@@ -228,7 +228,7 @@ class MovableObject;
         return Rectangle2DFactory::FACTORY_TYPE_NAME;
     }
 
-    const String Rectangle2DFactory::FACTORY_TYPE_NAME = "Rectangle2D";
+    std::string_view const constinit Rectangle2DFactory::FACTORY_TYPE_NAME = "Rectangle2D";
 
     auto Rectangle2DFactory::createInstanceImpl(std::string_view name, const NameValuePairList* params) -> MovableObject*
     {

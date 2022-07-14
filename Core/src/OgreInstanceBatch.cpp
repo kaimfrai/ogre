@@ -429,7 +429,7 @@ class Technique;
     //-----------------------------------------------------------------------
     auto InstanceBatch::getMovableType() const noexcept -> std::string_view
     {
-        static String sType = "InstanceBatch";
+        static std::string_view const constexpr sType = "InstanceBatch";
         return sType;
     }
     //-----------------------------------------------------------------------

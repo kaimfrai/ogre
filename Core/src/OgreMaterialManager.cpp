@@ -61,7 +61,7 @@ class Renderable;
     {
         assert( msSingleton );  return ( *msSingleton );
     }
-    String MaterialManager::DEFAULT_SCHEME_NAME = "Default";
+    std::string_view const constinit MaterialManager::DEFAULT_SCHEME_NAME = "Default";
     //-----------------------------------------------------------------------
     MaterialManager::MaterialManager()
     {

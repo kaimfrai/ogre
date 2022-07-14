@@ -90,7 +90,7 @@ public:
         mTexCoordIndex = Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + texCoordIndex);
     }
 
-    static String Type;
+    static std::string_view const Type;
 protected:
     Parameter::Content mTexCoordIndex = Parameter::Content::TEXTURE_COORDINATE0;
     bool mSetPointSize;

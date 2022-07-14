@@ -472,7 +472,7 @@ class Material;
     public:
         Material *mMaterial;
         AliasTextureNamePairList *mAliases;
-        static String eventType;
+        static std::string_view const eventType;
 
         PreApplyTextureAliasesScriptCompilerEvent(Material *material, AliasTextureNamePairList *aliases)
             :ScriptCompilerEvent(eventType), mMaterial(material), mAliases(aliases){}
@@ -490,7 +490,7 @@ class Material;
         };
         ResourceType mResourceType;
         String mName;
-        static String eventType;
+        static std::string_view const eventType;
 
         ProcessResourceNameScriptCompilerEvent(ResourceType resourceType, std::string_view name)
             :ScriptCompilerEvent(eventType), mResourceType(resourceType), mName(name){}
@@ -501,7 +501,7 @@ class Material;
     public:
         String mClass;
         AbstractNode *mParent;
-        static String eventType;
+        static std::string_view const eventType;
 
         ProcessNameExclusionScriptCompilerEvent(std::string_view cls, AbstractNode *parent)
             :ScriptCompilerEvent(eventType), mClass(cls), mParent(parent){}
@@ -511,7 +511,7 @@ class Material;
     {
     public:
         String mFile, mName, mResourceGroup;
-        static String eventType;
+        static std::string_view const eventType;
 
         CreateMaterialScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
@@ -522,7 +522,7 @@ class Material;
     public:
         String mFile, mName, mResourceGroup, mSource, mSyntax;
         GpuProgramType mProgramType;
-        static String eventType;
+        static std::string_view const eventType;
 
         CreateGpuProgramScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup, std::string_view source,
             std::string_view syntax, GpuProgramType programType)
@@ -535,7 +535,7 @@ class Material;
     {
     public:
         String mFile, mName, mResourceGroup;
-        static String eventType;
+        static std::string_view const eventType;
 
         CreateGpuSharedParametersScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
@@ -545,7 +545,7 @@ class Material;
     {
     public:
         String mFile, mName, mResourceGroup;
-        static String eventType;
+        static std::string_view const eventType;
 
         CreateParticleSystemScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}
@@ -555,7 +555,7 @@ class Material;
     {
     public:
         String mFile, mName, mResourceGroup;
-        static String eventType;
+        static std::string_view const eventType;
 
         CreateCompositorScriptCompilerEvent(std::string_view file, std::string_view name, std::string_view resourceGroup)
             :ScriptCompilerEvent(eventType), mFile(file), mName(name), mResourceGroup(resourceGroup){}

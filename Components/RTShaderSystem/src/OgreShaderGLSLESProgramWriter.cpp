@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre::RTShader {
 
-        String GLSLESProgramWriter::TargetLanguage =  "glsles";
+        std::string_view const constinit GLSLESProgramWriter::TargetLanguage =  "glsles";
 
         //-----------------------------------------------------------------------
         GLSLESProgramWriter::GLSLESProgramWriter()

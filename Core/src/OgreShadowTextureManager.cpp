@@ -109,7 +109,7 @@ namespace Ogre
             if (!found)
             {
                 // Create a new texture
-                static const String baseName = "Ogre/ShadowTexture";
+                static std::string_view const constexpr baseName = "Ogre/ShadowTexture";
                 String targName = std::format("{}{}", baseName, mCount++);
                 TexturePtr shadowTex = TextureManager::getSingleton().createManual(
                     targName, 
@@ -142,7 +142,7 @@ namespace Ogre
 
         // not found, create a new one
         // A 1x1 texture of the correct format, not a render target
-        static const String baseName = "Ogre/ShadowTextureNull";
+        static std::string_view const constexpr baseName = "Ogre/ShadowTextureNull";
         String targName = std::format("{}{}", baseName, mCount++);
         TexturePtr shadowTex = TextureManager::getSingleton().createManual(
             targName, 

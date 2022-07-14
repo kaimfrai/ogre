@@ -50,7 +50,7 @@ class ResourceManager;
         void doSet(void* target, std::string_view val) override;
     };
     static CmdDelegate msCmdDelegate;
-    static const String sLanguage = "unified";
+    static std::string_view const constexpr sLanguage = "unified";
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
@@ -219,7 +219,7 @@ class ResourceManager;
         if (_getDelegate())
             return _getDelegate()->getDefaultParameters();
 
-        static GpuProgramParametersSharedPtr nullPtr;
+        static GpuProgramParametersSharedPtr constinit nullPtr;
         return nullPtr;
     }
     //-----------------------------------------------------------------------

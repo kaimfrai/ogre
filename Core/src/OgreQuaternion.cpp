@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 
-    const float Quaternion::msEpsilon = 1e-03;
+    const float constinit Quaternion::msEpsilon = 1e-03;
     const Quaternion Quaternion::ZERO{0,0,0,0};
     const Quaternion Quaternion::IDENTITY{1,0,0,0};
 
@@ -66,7 +66,7 @@ namespace Ogre {
         else
         {
             // |w| <= 1/2
-            static size_t s_iNext[3] = { 1, 2, 0 };
+            static size_t constexpr s_iNext[3] = { 1, 2, 0 };
             size_t i = 0;
             if ( kRot[1][1] > kRot[0][0] )
                 i = 1;

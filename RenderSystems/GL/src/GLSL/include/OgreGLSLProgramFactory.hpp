@@ -48,7 +48,7 @@ class ResourceManager;
     class GLSLProgramFactory : public HighLevelGpuProgramFactory
     {
     protected:
-        static String sLanguageName;
+        static std::string_view const sLanguageName;
     public:
         GLSLProgramFactory() = default;
         ~GLSLProgramFactory() override = default;

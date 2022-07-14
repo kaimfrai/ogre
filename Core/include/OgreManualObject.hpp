@@ -729,7 +729,7 @@ class SubMesh;
         ManualObjectFactory() = default;
         ~ManualObjectFactory() override = default;
 
-        static String FACTORY_TYPE_NAME;
+        static std::string_view const FACTORY_TYPE_NAME;
 
         [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };

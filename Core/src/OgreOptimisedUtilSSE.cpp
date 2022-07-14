@@ -1455,7 +1455,7 @@ namespace Ogre {
 #define __LOAD_VECTOR3(p)   _mm_loadh_pi(_mm_load_ss(p), (const __m64*)((p)+1))
 
         // Mask used to changes sign of single precision floating point values.
-        alignas(SIMD_ALIGNMENT) static const uint32 msSignMask[4] =
+        alignas(SIMD_ALIGNMENT) static const uint32 constexpr msSignMask[4] =
         {
             0x80000000, 0x80000000, 0x80000000, 0x80000000,
         };
@@ -1594,7 +1594,7 @@ namespace Ogre {
         assert(_isAlignedForSSE(faceNormals));
 
         // Map to convert 4-bits mask to 4 byte values
-        static const char msMaskMapping[16][4] =
+        static const char constexpr msMaskMapping[16][4] =
         {
             {0, 0, 0, 0},   {1, 0, 0, 0},   {0, 1, 0, 0},   {1, 1, 0, 0},
             {0, 0, 1, 0},   {1, 0, 1, 0},   {0, 1, 1, 0},   {1, 1, 1, 0},

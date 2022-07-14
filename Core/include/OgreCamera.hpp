@@ -142,7 +142,7 @@ class Viewport;
         unsigned int mVisBatchesLastRender;
 
         /// Shared class-level name for Movable type
-        static String msMovableType;
+        static std::string_view const msMovableType;
 
         /// Scene LOD factor used to adjust overall LOD
         Real mSceneLodFactor{1.0f};

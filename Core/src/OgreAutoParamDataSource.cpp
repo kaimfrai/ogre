@@ -1053,7 +1053,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getSceneDepthRange() const noexcept -> const Vector4&
     {
-        static Vector4 dummy{0, 100000, 100000, 1.f/100000};
+        static Vector4 const constexpr dummy{0, 100000, 100000, 1.f/100000};
 
         if (mSceneDepthRangeDirty)
         {
@@ -1080,7 +1080,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------------
     auto AutoParamDataSource::getShadowSceneDepthRange(size_t index) const -> const Vector4&
     {
-        static Vector4 dummy{0, 100000, 100000, 1/100000};
+        static Vector4 const constexpr dummy{0, 100000, 100000, 1/100000};
 
         if (!mCurrentSceneManager->isShadowTechniqueTextureBased())
             return dummy;

@@ -60,7 +60,7 @@ namespace Ogre {
 
 namespace Ogre::RTShader {
 
-    String TriplanarTexturing::type = "SGX_TriplanarTexturing";
+    std::string_view const constinit TriplanarTexturing::type = "SGX_TriplanarTexturing";
 
     //-----------------------------------------------------------------------
 

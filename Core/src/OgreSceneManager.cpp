@@ -119,7 +119,7 @@ THE SOFTWARE.
 namespace Ogre {
 struct Ray;
 
-static const std::string_view INVOCATION_SHADOWS = "SHADOWS";
+static const std::string_view constexpr INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
 SceneManager::SceneManager(std::string_view name) :
 mName(name),

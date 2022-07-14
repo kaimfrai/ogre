@@ -118,9 +118,9 @@ class RenderTarget;
         GLRenderTexture(std::string_view name, const GLSurfaceDesc &target, bool writeGamma, uint fsaa);
         [[nodiscard]] auto requiresTextureFlipping() const noexcept -> bool override { return true; }
 
-        static const String CustomAttributeString_FBO;
-        static const String CustomAttributeString_TARGET;
-        static const String CustomAttributeString_GLCONTEXT;
+        static std::string_view const CustomAttributeString_FBO;
+        static std::string_view const CustomAttributeString_TARGET;
+        static std::string_view const CustomAttributeString_GLCONTEXT;
     };
 
     /** Manager/factory for RenderTextures.

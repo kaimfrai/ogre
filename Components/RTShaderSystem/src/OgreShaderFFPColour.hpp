@@ -155,7 +155,7 @@ public:
     */
     void removeResolveStageMask(StageFlags mask)  { mResolveStageFlags &= ~mask; }
 
-    static String Type;
+    static std::string_view const Type;
 
 // Protected methods
 protected:  

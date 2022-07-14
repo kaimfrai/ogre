@@ -45,7 +45,7 @@ THE SOFTWARE.
 
 namespace Ogre::RTShader {
 
-String CGProgramWriter::TargetLanguage = "cg";
+std::string_view const constinit CGProgramWriter::TargetLanguage = "cg";
 
 //-----------------------------------------------------------------------
 CGProgramWriter::CGProgramWriter()

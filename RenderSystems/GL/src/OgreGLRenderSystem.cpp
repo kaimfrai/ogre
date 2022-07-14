@@ -103,7 +103,7 @@ class ResourceManager;
 
 namespace Ogre {
 
-    static GLNativeSupport* glsupport;
+    static GLNativeSupport constinit*  glsupport;
     static auto get_proc(const char* proc) -> void* {
         return glsupport->getProcAddress(proc);
     }
@@ -368,7 +368,7 @@ namespace Ogre {
 
     auto GLRenderSystem::getName() const noexcept -> std::string_view
     {
-        static String strName("OpenGL Rendering Subsystem");
+        static std::string_view const strName("OpenGL Rendering Subsystem");
         return strName;
     }
 

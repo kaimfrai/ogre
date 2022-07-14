@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 namespace Ogre::RTShader {
 
-String HLSLProgramWriter::TargetLanguage = "hlsl";
+std::string_view const constinit HLSLProgramWriter::TargetLanguage = "hlsl";
 
 //-----------------------------------------------------------------------
 HLSLProgramWriter::HLSLProgramWriter()

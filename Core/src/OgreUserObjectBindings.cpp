@@ -34,7 +34,7 @@ THE SOFTWARE.
 #include "OgreUserObjectBindings.hpp"
 
 namespace Ogre {
-    static ::std::any emptyAny;
+    static ::std::any constinit emptyAny;
 
     //--------------------------------------------------------------------------
     UserObjectBindings::UserObjectBindings(const UserObjectBindings& other)

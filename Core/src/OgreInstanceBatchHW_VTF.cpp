@@ -59,8 +59,8 @@ THE SOFTWARE.
 
 namespace Ogre
 {
-    static const uint16 c_maxTexWidthHW = 4096;
-    static const uint16 c_maxTexHeightHW    = 4096;
+    static const uint16 constexpr c_maxTexWidthHW = 4096;
+    static const uint16 constexpr c_maxTexHeightHW    = 4096;
 
     InstanceBatchHW_VTF::InstanceBatchHW_VTF( 
         InstanceManager *creator, MeshPtr &meshReference, 

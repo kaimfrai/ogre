@@ -240,7 +240,7 @@ namespace Ogre {
     }
 
     auto STBIPlugin::getName() const noexcept -> std::string_view {
-        static String name = "STB Image Codec";
+        static std::string_view const constexpr name = "STB Image Codec";
         return name;
     }
 }

@@ -156,7 +156,7 @@ public:
     */
     void _setCreator(const HardwareSkinningFactory* pCreator) { mCreator = pCreator; }
 
-    static String Type;
+    static std::string_view const Type;
 
 // Protected methods
 protected:

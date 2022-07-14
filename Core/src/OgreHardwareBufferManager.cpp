@@ -66,8 +66,8 @@ namespace Ogre {
     //---------------------------------------------------------------------
     //---------------------------------------------------------------------
     // Free temporary vertex buffers every 5 minutes on 100fps
-    const size_t HardwareBufferManagerBase::UNDER_USED_FRAME_THRESHOLD = 30000;
-    const size_t HardwareBufferManagerBase::EXPIRED_DELAY_FRAME_THRESHOLD = 5;
+    const size_t constinit HardwareBufferManagerBase::UNDER_USED_FRAME_THRESHOLD = 30000;
+    const size_t constinit HardwareBufferManagerBase::EXPIRED_DELAY_FRAME_THRESHOLD = 5;
     //-----------------------------------------------------------------------
     HardwareBufferManagerBase::HardwareBufferManagerBase()
          

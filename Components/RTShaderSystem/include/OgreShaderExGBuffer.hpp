@@ -97,7 +97,7 @@ public:
 
     void setOutBuffers(const TargetBuffers& buffers) { mOutBuffers = buffers; }
 
-    static String Type;
+    static std::string_view const Type;
 
 private:
     static void addViewPosInvocations(ProgramSet* programSet, const ParameterPtr& out, bool depthOnly);

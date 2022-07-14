@@ -304,7 +304,7 @@ namespace {
     //-----------------------------------------------------------------------
     auto ZipArchiveFactory::getType() const noexcept -> std::string_view
     {
-        static String name = "Zip";
+        static std::string_view const constexpr name = "Zip";
         return name;
     }
     //-----------------------------------------------------------------------
@@ -351,14 +351,14 @@ namespace {
     //-----------------------------------------------------------------------
     auto EmbeddedZipArchiveFactory::getType() const noexcept -> std::string_view
     {
-        static String name = "EmbeddedZip";
+        static std::string_view const constexpr name = "EmbeddedZip";
         return name;
     }
     //-----------------------------------------------------------------------
     void EmbeddedZipArchiveFactory::addEmbbeddedFile(std::string_view name, const uint8 * fileData, 
                                         size_t fileSize, DecryptEmbeddedZipFileFunc decryptFunc)
     {
-        static bool needToInit = true;
+        static bool constinit needToInit = true;
         if(needToInit)
         {
             needToInit = false;

@@ -163,7 +163,7 @@ struct AxisAlignedBox;
     //-----------------------------------------------------------------------
     auto InstancedEntity::getMovableType() const noexcept -> std::string_view
     {
-        static String sType = "InstancedEntity";
+        static std::string_view const constexpr sType = "InstancedEntity";
         return sType;
     }
     //-----------------------------------------------------------------------

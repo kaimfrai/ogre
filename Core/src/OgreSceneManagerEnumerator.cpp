@@ -253,7 +253,7 @@ class RenderSystem;
 
     }
     //-----------------------------------------------------------------------
-    const String DefaultSceneManagerFactory::FACTORY_TYPE_NAME = "DefaultSceneManager";
+    std::string_view const constinit DefaultSceneManagerFactory::FACTORY_TYPE_NAME = "DefaultSceneManager";
     //-----------------------------------------------------------------------
     void DefaultSceneManagerFactory::initMetaData() const
     {

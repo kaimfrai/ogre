@@ -46,7 +46,7 @@ namespace Ogre {
 class ResourceManager;
 
     //-----------------------------------------------------------------------
-    uint GLSLShaderCommon::mShaderCount = 0;
+    uint constinit GLSLShaderCommon::mShaderCount = 0;
 
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;

@@ -47,7 +47,7 @@ namespace Ogre {
 class Node;
 class VertexData;
 
-    Animation::InterpolationMode Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
+    Animation::InterpolationMode constinit Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
     Animation::RotationInterpolationMode 
         Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
     //---------------------------------------------------------------------

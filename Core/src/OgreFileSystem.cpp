@@ -453,7 +453,7 @@ namespace {
     //-----------------------------------------------------------------------
     auto FileSystemArchiveFactory::getType() const noexcept -> std::string_view
     {
-        static String name = "FileSystem";
+        static std::string_view const constinit name = "FileSystem";
         return name;
     }
 

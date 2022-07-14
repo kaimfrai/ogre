@@ -108,7 +108,7 @@ class RenderQueue;
     class OverlayElement : public StringInterface, public Renderable, public OverlayAlloc
     {
     public:
-        static std::string_view DEFAULT_RESOURCE_GROUP;
+        static std::string_view const DEFAULT_RESOURCE_GROUP;
     protected:
         String mName;
         bool mVisible{true};

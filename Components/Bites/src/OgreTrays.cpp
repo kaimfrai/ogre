@@ -35,7 +35,7 @@ namespace OgreBites
 {
 
 // maximal rate to update widgets internally
-static unsigned FRAME_UPDATE_DELAY = 250; // ms
+static unsigned constexpr FRAME_UPDATE_DELAY = 250; // ms
 
 Widget::Widget()
 {
@@ -2049,7 +2049,7 @@ auto TrayManager::mouseReleased(const MouseButtonUpEvent &evt) noexcept -> bool
 auto TrayManager::mouseMoved(const MouseMotionEvent &evt) noexcept -> bool
 {
     // thats a separate event. Ignore for now.
-    static float wheelDelta = 0;
+    static float constexpr wheelDelta = 0;
 
     auto vpScale = Ogre::OverlayManager::getSingleton().getPixelRatio();
 

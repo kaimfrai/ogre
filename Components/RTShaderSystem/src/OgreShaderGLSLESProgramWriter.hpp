@@ -69,7 +69,7 @@ public:
     */
     [[nodiscard]] auto   getTargetLanguage       () const noexcept -> std::string_view override { return TargetLanguage; }
 
-    static String TargetLanguage;
+    static std::string_view const TargetLanguage;
 };
 /** @} */
 /** @} */

@@ -156,7 +156,7 @@ namespace Ogre {
 
     void CPreprocessor::Token::SetValue (long iValue)
     {
-        static char tmp [21];
+        static char constinit tmp [21];
         int len = snprintf (tmp, sizeof (tmp), "%ld", iValue);
         Length = 0;
         Append (tmp, len);
@@ -166,7 +166,7 @@ namespace Ogre {
 
     void CPreprocessor::Token::AppendNL (int iCount)
     {
-        static const char newlines [8] =
+        static const char constexpr newlines[8] =
             { '\n', '\n', '\n', '\n', '\n', '\n', '\n', '\n' };
 
         while (iCount > 8)

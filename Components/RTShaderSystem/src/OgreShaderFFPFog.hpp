@@ -107,7 +107,7 @@ public:
     */
     auto getCalcMode() const noexcept -> CalcMode { return mCalcMode; }
 
-    static String Type;
+    static std::string_view const Type;
 
 // Protected methods
 protected:

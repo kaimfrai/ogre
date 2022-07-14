@@ -42,7 +42,7 @@ THE SOFTWARE.
 #include "OgreViewport.hpp"
 
 namespace Ogre {
-    OrientationMode Viewport::mDefaultOrientationMode = OrientationMode::DEGREE_0;
+    OrientationMode constinit Viewport::mDefaultOrientationMode = OrientationMode::DEGREE_0;
     //---------------------------------------------------------------------
     Viewport::Viewport(Camera* cam, RenderTarget* target, Real left, Real top, Real width, Real height, int ZOrder)
         : mCamera(cam)

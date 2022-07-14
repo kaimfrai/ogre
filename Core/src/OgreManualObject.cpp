@@ -783,7 +783,7 @@ ManualObject::ManualObject(std::string_view name)
     }
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
-    String ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
+    std::string_view const constinit ManualObjectFactory::FACTORY_TYPE_NAME = "ManualObject";
     //-----------------------------------------------------------------------------
     auto ManualObjectFactory::getType() const noexcept -> std::string_view
     {

@@ -207,7 +207,7 @@ class Frustum;
         _unload();
     }
     //-----------------------------------------------------------------------
-    auto TextureUnitState::operator = ( 
+    auto TextureUnitState::operator = (
         const TextureUnitState &oth ) -> TextureUnitState &
     {
         assert(mAnimController == nullptr);

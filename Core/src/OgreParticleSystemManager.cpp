@@ -363,7 +363,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    String ParticleSystemFactory::FACTORY_TYPE_NAME = "ParticleSystem";
+    std::string_view const constinit ParticleSystemFactory::FACTORY_TYPE_NAME = "ParticleSystem";
     //-----------------------------------------------------------------------
     auto ParticleSystemFactory::createInstanceImpl( std::string_view name, 
             const NameValuePairList* params) -> MovableObject*
@@ -381,7 +381,7 @@ namespace Ogre {
         }
         // Not template based, look for quota & resource name
         size_t quota = 500;
-        String resourceGroup = ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+        String resourceGroup{ ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME };
         if (params != nullptr)
         {
             auto ni = params->find("quota");

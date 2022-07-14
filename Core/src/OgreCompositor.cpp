@@ -173,7 +173,7 @@ auto Compositor::getSupportedTechnique(std::string_view schemeName) -> Compositi
 //-----------------------------------------------------------------------
 void Compositor::createGlobalTextures()
 {
-    static size_t dummyCounter = 0;
+    static size_t constinit dummyCounter = 0;
     if (mSupportedTechniques.empty())
         return;
 

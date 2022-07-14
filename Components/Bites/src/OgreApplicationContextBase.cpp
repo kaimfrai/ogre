@@ -36,7 +36,7 @@
 
 namespace OgreBites {
 
-static const char* SHADER_CACHE_FILENAME = "cache.bin";
+static const char constexpr SHADER_CACHE_FILENAME[] = "cache.bin";
 
 ApplicationContextBase::ApplicationContextBase(std::string_view appName)
 {
