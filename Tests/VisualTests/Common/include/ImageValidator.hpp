@@ -116,7 +116,7 @@ protected:
         // This computes the MSE, PSNR and SSIM for the two images
 
         out.incorrectPixels = 0;
-        Ogre::ColourValue disparity = Ogre::ColourValue(0,0,0);
+        Ogre::ColourValue disparity = Ogre::ColourValue{0,0,0};
         Ogre::Real ssim = 0.0;
 
         int width = img1.getWidth();

@@ -228,7 +228,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::setInitialColour(size_t chainIndex, float r, float g, float b, float a)
     {
-        mInitialColour.at(chainIndex) = ColourValue(r, g, b, a);
+        mInitialColour.at(chainIndex) = ColourValue{r, g, b, a};
     }
     //-----------------------------------------------------------------------
     void RibbonTrail::setInitialWidth(size_t chainIndex, Real width)
@@ -244,7 +244,7 @@ namespace Ogre
     //-----------------------------------------------------------------------
     void RibbonTrail::setColourChange(size_t chainIndex, float r, float g, float b, float a)
     {
-        mDeltaColour.at(chainIndex) = ColourValue(r, g, b, a);
+        mDeltaColour.at(chainIndex) = ColourValue{r, g, b, a};
         manageController();
     }
     //-----------------------------------------------------------------------

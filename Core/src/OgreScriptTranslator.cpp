@@ -1505,7 +1505,7 @@ class LodStrategy;
                         }
                         else
                         {
-                            ColourValue val(0.0f, 0.0f, 0.0f, 1.0f);
+                            ColourValue val{0.0f, 0.0f, 0.0f, 1.0f};
                             if(getColour(prop->values.begin(), prop->values.end(), &val))
                                 mPass->setSelfIllumination(val);
                             else

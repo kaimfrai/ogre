@@ -362,7 +362,7 @@ namespace Ogre
         if (mColourRangeStart != mColourRangeEnd)
         {
             // Randomise
-            ColourValue t(Math::UnitRandom(), Math::UnitRandom(), Math::UnitRandom(), Math::UnitRandom());
+            ColourValue t{Math::UnitRandom(), Math::UnitRandom(), Math::UnitRandom(), Math::UnitRandom()};
             destColour = (mColourRangeStart + t * (mColourRangeEnd - mColourRangeStart)).getAsBYTE();
         }
         else

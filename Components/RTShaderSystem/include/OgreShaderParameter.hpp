@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include "OgreVector.hpp"
 
 namespace Ogre {
-class ColourValue;
+struct ColourValue;
 struct Matrix3;
 
 namespace RTShader {

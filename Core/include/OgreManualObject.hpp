@@ -371,7 +371,7 @@ class SubMesh;
             mTempVertex.colour = col;
         }
         /// @overload
-        void colour(float r, float g, float b, float a = 1.0f) { colour(ColourValue(r, g, b, a)); };
+        void colour(float r, float g, float b, float a = 1.0f) { colour(ColourValue{r, g, b, a}); };
 
         /** Add a vertex index to construct faces / lines / points via indexing
             rather than just by a simple list of vertices. 

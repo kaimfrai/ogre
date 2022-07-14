@@ -57,7 +57,7 @@ StencilShadowTest::StencilShadowTest()
 void StencilShadowTest::setupContent()
 {
     // turn ambient light off
-    mSceneMgr->setAmbientLight(ColourValue(0.0, 0.0, 0.0));
+    mSceneMgr->setAmbientLight(ColourValue{0.0, 0.0, 0.0});
 
     // turn on stencil shadows
     mSceneMgr->setShadowTechnique(ShadowTechnique::STENCIL_MODULATIVE);

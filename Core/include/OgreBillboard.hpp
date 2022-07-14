@@ -148,7 +148,7 @@ class BillboardSet;
 
         /** Gets the colour of this billboard.
         */
-        [[nodiscard]] auto getColour() const -> ColourValue { return ColourValue((const uchar*)&mColour); }
+        [[nodiscard]] auto getColour() const -> ColourValue { return ColourValue::FromBytes((const uchar*)&mColour); }
 
         /** Returns true if this billboard deviates from the BillboardSet's default dimensions (i.e. if the
             Billboard::setDimensions method has been called for this instance).

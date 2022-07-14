@@ -44,7 +44,7 @@ THE SOFTWARE.
 #include "OgreTextureUnitState.hpp"
 
 namespace Ogre {
-class ColourValue;
+struct ColourValue;
 class Material;
 class Pass;
 class Technique;

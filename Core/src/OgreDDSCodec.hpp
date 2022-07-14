@@ -47,7 +47,7 @@ namespace Ogre {
     struct DXTColourBlock;
     struct DXTExplicitAlphaBlock;
     struct DXTInterpolatedAlphaBlock;
-class ColourValue;
+struct ColourValue;
 
     /** Codec specialized in loading DDS (Direct Draw Surface) images.
     @remarks

@@ -92,7 +92,7 @@ GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msFiniteExtrusionPar
 SceneManager::ShadowRenderer::ShadowRenderer(SceneManager* owner) :
 mSceneManager(owner),
 
-mShadowColour(ColourValue(0.25, 0.25, 0.25))
+mShadowColour(ColourValue{0.25, 0.25, 0.25})
 
 {
     mShadowCasterQueryListener = std::make_unique<ShadowCasterSceneQueryListener>(mSceneManager);
@@ -1053,7 +1053,7 @@ void SceneManager::ShadowRenderer::renderShadowVolumesToStencil(const Light* lig
             mDestRenderSystem->setStencilState(StencilState());
 
             auto shadowColour = mShadowColour;
-            mShadowColour = zfailAlgo ? ColourValue(0.7, 0.0, 0.2) : ColourValue(0.0, 0.7, 0.2);
+            mShadowColour = zfailAlgo ? ColourValue{0.7, 0.0, 0.2} : ColourValue{0.0, 0.7, 0.2};
             mSceneManager->_setPass(mShadowDebugPass);
             renderShadowVolumeObjects(shadowRenderables, mShadowDebugPass, &lightList, flags,
                 true, false, false);

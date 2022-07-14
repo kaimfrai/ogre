@@ -39,7 +39,7 @@ THE SOFTWARE.
 #include "OgreShaderSubRenderState.hpp"
 
 namespace Ogre {
-    class ColourValue;
+    struct ColourValue;
     class MaterialSerializer;
     class Pass;
     class PropertyAbstractNode;

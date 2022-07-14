@@ -76,7 +76,7 @@ namespace Ogre {
     class Bone;
     class Camera;
     class Codec;
-    class ColourValue;
+    struct ColourValue;
     class ConfigDialog;
     template <typename T> class Controller;
     template <typename T> class ControllerFunction;

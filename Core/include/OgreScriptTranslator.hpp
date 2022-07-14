@@ -41,7 +41,7 @@ THE SOFTWARE.
 #include "OgreRenderSystem.hpp"
 
 namespace Ogre{
-class ColourValue;
+struct ColourValue;
 struct Matrix4;
     class AbstractNode;
     class ObjectAbstractNode;

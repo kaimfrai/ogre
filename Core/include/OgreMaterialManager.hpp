@@ -231,7 +231,7 @@ class Technique;
             - Depth buffer comparison function = Ogre::CompareFunction::LESS_EQUAL
             - Colour buffer writing on for all channels
             - Culling mode = Ogre::CullingMode::CLOCKWISE
-            - Ambient lighting = ColourValue(0.5, 0.5, 0.5) (mid-grey)
+            - Ambient lighting = ColourValue{0.5, 0.5, 0.5} (mid-grey)
             - Dynamic lighting enabled
             - Gourad shading mode
             - Bilinear texture filtering

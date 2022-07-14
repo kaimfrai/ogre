@@ -59,9 +59,8 @@ namespace Ogre {
             transparency. In this case, 0.0 is completely transparent and 1.0 is
             fully opaque.
     */
-    class ColourValue
+    struct ColourValue
     {
-    public:
         static const ColourValue ZERO;
         static const ColourValue Black;
         static const ColourValue White;
@@ -69,20 +68,21 @@ namespace Ogre {
         static const ColourValue Green;
         static const ColourValue Blue;
 
-        explicit ColourValue( float red = 1.0f,
-                    float green = 1.0f,
-                    float blue = 1.0f,
-                    float alpha = 1.0f ) : r(red), g(green), b(blue), a(alpha)
-        { }
+        float r{1.0f},g{1.0f},b{1.0f},a{1.0f};
 
-        explicit ColourValue(const uchar* byte) : r(byte[0]), g(byte[1]), b(byte[2]), a(byte[3])
+        [[nodiscard]]
+        static auto constexpr FromBytes(const uchar* byte) -> ColourValue
         {
-            *this /= 255;
+            ColourValue val
+            {   static_cast<float>(byte[0]),
+                static_cast<float>(byte[1]),
+                static_cast<float>(byte[2]),
+                static_cast<float>(byte[3])
+            };
+            return val / 255;
         }
 
         [[nodiscard]] auto operator==(const ColourValue& rhs) const noexcept -> bool = default;
-
-        float r,g,b,a;
 
         /// @name conversions from/ to native-endian packed formats
         /// @{
@@ -331,7 +331,7 @@ namespace Ogre {
         inline friend auto operator <<
             ( std::ostream& o, const ColourValue& c ) -> std::ostream&
         {
-            o << "ColourValue(" << c.r << ", " << c.g << ", " << c.b << ", " << c.a << ")";
+            o << "ColourValue{" << c.r << ", " << c.g << ", " << c.b << ", " << c.a << "}";
             return o;
         }
 
@@ -340,5 +340,8 @@ namespace Ogre {
     /** @} */
 
 } // namespace
+
+static_assert(std::is_aggregate_v<Ogre::ColourValue>);
+static_assert(std::is_standard_layout_v<Ogre::ColourValue>);
 
 #endif

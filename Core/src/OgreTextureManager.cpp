@@ -344,7 +344,7 @@ namespace Ogre {
         Image pixels(PixelFormat::R5G6B5, 8, 8);
 
         // Yellow/black stripes
-        const ColourValue black(0, 0, 0), yellow(1, 1, 0);
+        const ColourValue black{0, 0, 0}, yellow{1, 1, 0};
         for (uint32 y = 0; y < pixels.getHeight(); ++y)
         {
             for (uint32 x = 0; x < pixels.getWidth(); ++x)

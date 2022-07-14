@@ -268,7 +268,7 @@ TEST_F(StringTests,ParseBool)
 //--------------------------------------------------------------------------
 TEST_F(StringTests,ParseColourValue)
 {
-    ColourValue r(0.34, 0.44, 0.77, 1.0);
+    ColourValue r{0.34, 0.44, 0.77, 1.0};
 
     String s = StringConverter::toString(r);
     ColourValue t = StringConverter::parseColourValue(s);

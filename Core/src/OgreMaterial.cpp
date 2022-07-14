@@ -443,7 +443,7 @@ class Renderable;
     #define ALL_TECHNIQUES(fncall) for(auto t : mTechniques) t->fncall
     void Material::setPointSize(Real ps) { ALL_TECHNIQUES(setPointSize(ps)); }
     //-----------------------------------------------------------------------
-    void Material::setAmbient(float red, float green, float blue) { setAmbient(ColourValue(red, green, blue)); }
+    void Material::setAmbient(float red, float green, float blue) { setAmbient(ColourValue{red, green, blue}); }
     //-----------------------------------------------------------------------
     void Material::setAmbient(const ColourValue& ambient) { ALL_TECHNIQUES(setAmbient(ambient)); }
     //-----------------------------------------------------------------------
@@ -468,7 +468,7 @@ class Renderable;
     //-----------------------------------------------------------------------
     void Material::setSelfIllumination(float red, float green, float blue)
     {
-        setSelfIllumination(ColourValue(red, green, blue));
+        setSelfIllumination(ColourValue{red, green, blue});
     }
     //-----------------------------------------------------------------------
     void Material::setSelfIllumination(const ColourValue& selfIllum) { ALL_TECHNIQUES(setSelfIllumination(selfIllum)); }

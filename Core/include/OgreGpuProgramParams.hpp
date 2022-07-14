@@ -47,7 +47,7 @@ namespace Ogre {
     struct TransformBaseReal;
     template <typename T> class ConstMapIterator;
 class AutoParamDataSource;
-class ColourValue;
+struct ColourValue;
 struct Matrix3;
 struct Matrix4;
 template <int dims, typename T> struct Vector;

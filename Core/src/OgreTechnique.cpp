@@ -576,7 +576,7 @@ namespace Ogre {
     #define ALL_PASSES(fncall) for(auto p : mPasses) p->fncall
     void Technique::setPointSize(Real ps) { ALL_PASSES(setPointSize(ps)); }
     //-----------------------------------------------------------------------
-    void Technique::setAmbient(float red, float green, float blue) { setAmbient(ColourValue(red, green, blue)); }
+    void Technique::setAmbient(float red, float green, float blue) { setAmbient(ColourValue{red, green, blue}); }
     //-----------------------------------------------------------------------
     void Technique::setAmbient(const ColourValue& ambient) { ALL_PASSES(setAmbient(ambient)); }
     //-----------------------------------------------------------------------
@@ -601,7 +601,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     void Technique::setSelfIllumination(float red, float green, float blue)
     {
-        setSelfIllumination(ColourValue(red, green, blue));
+        setSelfIllumination(ColourValue{red, green, blue});
     }
     //-----------------------------------------------------------------------
     void Technique::setSelfIllumination(const ColourValue& selfIllum) { ALL_PASSES(setSelfIllumination(selfIllum)); }

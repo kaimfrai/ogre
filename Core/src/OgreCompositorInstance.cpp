@@ -842,7 +842,7 @@ void CompositorInstance::setupRenderTarget(RenderTarget* rendTarget, DepthBuffer
     
     v->setClearEveryFrame( false );
     v->setOverlaysEnabled( false );
-    v->setBackgroundColour( ColourValue( 0, 0, 0, 0 ) );
+    v->setBackgroundColour( ColourValue{ 0, 0, 0, 0 } );
 }
 
 //---------------------------------------------------------------------

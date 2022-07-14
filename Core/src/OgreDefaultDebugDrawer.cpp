@@ -135,7 +135,7 @@ void DefaultDebugDrawer::drawAxes(const Affine3& pose, float size)
         Vector3{0.7, 0.15, 0}
     };
 
-    ColourValue col[3] = {ColourValue(1, 0, 0, 0.8), ColourValue(0, 1, 0, 0.8), ColourValue(0, 0, 1, 0.8)};
+    ColourValue col[3] = {ColourValue{1, 0, 0, 0.8}, ColourValue{0, 1, 0, 0.8}, ColourValue{0, 0, 1, 0.8}};
 
     Matrix3 rot[6];
 

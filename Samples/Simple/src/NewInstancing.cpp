@@ -139,7 +139,7 @@ void Sample_NewInstancing::setupContent()
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::setupLighting()
 {
-    mSceneMgr->setAmbientLight( ColourValue( 0.40f, 0.40f, 0.40f ) );
+    mSceneMgr->setAmbientLight( ColourValue{ 0.40f, 0.40f, 0.40f } );
 
     //Create main light
     Light* light = mSceneMgr->createLight();
