@@ -93,7 +93,7 @@ namespace Ogre {
     class Renderable;
     class RibbonTrail;
     class SceneNode;
-    class Sphere;
+    struct Sphere;
     class StaticGeometry;
     class Viewport;
     /** \addtogroup Core

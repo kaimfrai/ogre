@@ -50,7 +50,7 @@ struct Matrix4;
 struct Plane;
 struct Quaternion;
 struct Ray;
-class Sphere;
+struct Sphere;
     /** \addtogroup Core
     *  @{
     */

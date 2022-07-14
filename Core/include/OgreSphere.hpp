@@ -49,20 +49,10 @@ namespace Ogre {
         x^2 + y^2 + z^2 = r^2 (for sphere's centered on the origin). Ogre stores spheres
         simply as a center point and a radius.
     */
-    class Sphere
+    struct Sphere
     {
-    private:
-        Real mRadius;
-        Vector3 mCenter;
-    public:
-        /** Standard constructor - creates a unit sphere around the origin.*/
-        Sphere() : mRadius(1.0), mCenter(Vector3::ZERO) {}
-        /** Constructor allowing arbitrary spheres. 
-            @param center The center point of the sphere.
-            @param radius The radius of the sphere.
-        */
-        Sphere(const Vector3& center, Real radius)
-            : mRadius(radius), mCenter(center) {}
+        Vector3 mCenter{Vector3::ZERO};
+        Real mRadius{1.0};
 
         /** Returns the radius of the sphere. */
         [[nodiscard]] auto getRadius() const noexcept -> Real { return mRadius; }
@@ -133,6 +123,9 @@ namespace Ogre {
     /** @} */
 
 }
+
+static_assert(std::is_aggregate_v<Ogre::Sphere>);
+static_assert(std::is_standard_layout_v<Ogre::Sphere>);
 
 #endif
 

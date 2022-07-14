@@ -40,7 +40,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 struct Plane;
-class Sphere;
+struct Sphere;
     /** \addtogroup Core
     *  @{
     */

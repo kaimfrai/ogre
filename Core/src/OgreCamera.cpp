@@ -48,7 +48,7 @@ THE SOFTWARE.
 #include "OgreViewport.hpp"
 
 namespace Ogre {
-class Sphere;
+struct Sphere;
 
     String Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------

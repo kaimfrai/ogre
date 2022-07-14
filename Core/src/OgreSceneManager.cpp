@@ -395,7 +395,7 @@ void SceneManager::_populateLightList(const Vector3& position, Real radius,
 
         // only add in-range lights, but ensure texture shadow casters are there
         // note: in this case the first numShadowTextures canditate lights are casters
-        if (lightIndex++ < numShadowTextures || lt->isInLightRange(Sphere(position, radius)))
+        if (lightIndex++ < numShadowTextures || lt->isInLightRange(Sphere{position, radius}))
         {
             destList.push_back(lt);
         }
@@ -2650,7 +2650,7 @@ void SceneManager::findLightsAffectingFrustum(const Camera* camera)
                 // Just see if the lights attenuation range is within the frustum
                 lightInfo.range = l->getAttenuationRange();
                 lightInfo.position = l->getDerivedPosition();
-                Sphere sphere(lightInfo.position, lightInfo.range);
+                Sphere sphere{lightInfo.position, lightInfo.range};
                 if (camera->isVisible(sphere))
                 {
                     mTestLightInfos.push_back(lightInfo);
@@ -2761,7 +2761,7 @@ auto SceneManager::buildAndSetScissor(const LightList& ll, const Camera* cam) ->
 void SceneManager::buildScissor(const Light* light, const Camera* cam, RealRect& rect)
 {
     // Project the sphere onto the camera
-    Sphere sphere(light->getDerivedPosition(), light->getAttenuationRange());
+    Sphere sphere{light->getDerivedPosition(), light->getAttenuationRange()};
     cam->Frustum::projectSphere(sphere, &(rect.left), &(rect.top), &(rect.right), &(rect.bottom));
 }
 //---------------------------------------------------------------------

@@ -60,7 +60,7 @@ class Light;
 class Node;
 class RenderQueue;
 class SkeletonInstance;
-class Sphere;
+struct Sphere;
 class SubEntity;
 class TagPoint;
 class VertexData;

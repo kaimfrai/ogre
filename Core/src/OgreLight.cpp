@@ -707,7 +707,7 @@ namespace Ogre {
             const auto& mDerivedPosition = mParentNode->_getDerivedPosition();
 
             //Check that the sphere is within the sphere of the light
-            isIntersect = container.intersects(Sphere(mDerivedPosition, mAttenuation[0]));
+            isIntersect = container.intersects(Sphere{mDerivedPosition, mAttenuation[0]});
             //If this is a spotlight, check that the sphere is within the cone of the spot light
             if ((isIntersect) && (mLightType == LightTypes::SPOTLIGHT))
             {
@@ -743,7 +743,7 @@ namespace Ogre {
         {
             float range = mAttenuation[0];
             //Check that the container is within the sphere of the light
-            isIntersect = Math::intersects(Sphere(mDerivedPosition, range),container);
+            isIntersect = Math::intersects(Sphere{mDerivedPosition, range},container);
             //If this is a spotlight, do a more specific check
             if ((isIntersect) && (mLightType == LightTypes::SPOTLIGHT) && (mSpotOuter.valueRadians() <= Math::PI))
             {
@@ -766,8 +766,8 @@ namespace Ogre {
                 {
                     //Check intersection again with the bounding sphere of the container
                     //Helpful for when the light is at an angle near one of the vertexes of the bounding box
-                    isIntersect = isInLightRange(Sphere(container.getCenter(), 
-                        container.getHalfSize().length()));
+                    isIntersect = isInLightRange(Sphere{container.getCenter(),
+                        container.getHalfSize().length()});
                 }
             }
         }

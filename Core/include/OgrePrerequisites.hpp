@@ -214,7 +214,7 @@ namespace Ogre {
     class Skeleton;
     class SkeletonInstance;
     class SkeletonManager;
-    class Sphere;
+    struct Sphere;
     class SphereSceneQuery;
     class StaticGeometry;
     class StreamSerialiser;

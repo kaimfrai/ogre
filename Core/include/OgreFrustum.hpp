@@ -47,7 +47,7 @@ namespace Ogre
 class Camera;
 class MovablePlane;
 class RenderQueue;
-class Sphere;
+struct Sphere;
 
     /** \addtogroup Core
     *  @{

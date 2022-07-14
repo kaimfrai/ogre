@@ -50,7 +50,7 @@ THE SOFTWARE.
 
 namespace Ogre {
 class RenderQueue;
-class Sphere;
+struct Sphere;
 
 
     /** \addtogroup Core

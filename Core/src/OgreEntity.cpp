@@ -77,7 +77,7 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
 
 
 namespace Ogre {
-class Sphere;
+struct Sphere;
 
     //-----------------------------------------------------------------------
     Entity::Entity ()

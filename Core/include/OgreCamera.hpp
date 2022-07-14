@@ -49,7 +49,7 @@ namespace Ogre {
     struct Ray;
 struct Affine3;
 class SceneManager;
-class Sphere;
+struct Sphere;
 class Viewport;
 
     /** \addtogroup Core

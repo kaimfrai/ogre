@@ -252,7 +252,7 @@ struct AxisAlignedBox;
 
             //Object's bounding box is viewed by the camera
             if( retVal && camera )
-                retVal = camera->isVisible(Sphere(_getDerivedPosition(),getBoundingRadius() * getMaxScaleCoef()));
+                retVal = camera->isVisible(Sphere{_getDerivedPosition(),getBoundingRadius() * getMaxScaleCoef()});
         }
 
         return retVal;

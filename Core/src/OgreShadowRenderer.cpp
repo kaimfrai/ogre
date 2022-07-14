@@ -1816,7 +1816,7 @@ SceneManager::ShadowRenderer::findShadowCastersForLight(const Light* light, cons
     }
     else
     {
-        Sphere s(light->getDerivedPosition(), light->getAttenuationRange());
+        Sphere s{light->getDerivedPosition(), light->getAttenuationRange()};
         // eliminate early if camera cannot see light sphere
         if (camera->isVisible(s))
         {
