@@ -38,7 +38,6 @@ THE SOFTWARE.
 #include "OgreException.hpp"
 #include "OgreFileSystem.hpp"
 #include "OgrePrerequisites.hpp"
-#include "OgreSearchOps.hpp"
 #include "OgreSharedPtr.hpp"
 #include "OgreString.hpp"
 #include "OgreStringVector.hpp"
@@ -142,103 +141,86 @@ namespace {
         if (base.empty() || is_absolute_path(name))
             return std::string{ name };
         else
-            return std::format("{}/{}", base, name);
+            return std::filesystem::path{base} / std::filesystem::path{name};
     }
 
     //-----------------------------------------------------------------------
     void FileSystemArchive::findFiles(std::string_view pattern, bool recursive,
         bool dirs, StringVector* simpleList, FileInfoList* detailList) const
     {
-        intptr_t lHandle, res;
+        std::filesystem::path path{concatenate_path(mName, pattern)};
 
-        struct _finddata_t tagData;
+        auto const directory = path.parent_path();
+        auto const filename = path.filename();
+        std::string_view const native = filename.native();
+        auto const starPos = native.find_first_of('*');
+        auto const prefix = native.substr(0, starPos);
+        auto const suffix = native.substr(starPos + 1);
 
-        // pattern can contain a directory name, separate it from mask
-        size_t pos1 = pattern.rfind ('/');
-        size_t pos2 = pattern.rfind ('\\');
-        if (pos1 == pattern.npos || ((pos2 != pattern.npos) && (pos1 < pos2)))
-            pos1 = pos2;
-        String directory;
-        if (pos1 != pattern.npos)
-            directory = pattern.substr (0, pos1 + 1);
-
-        String full_pattern = concatenate_path(mName, pattern);
-
-        lHandle = _findfirst(full_pattern.c_str(), &tagData);
-
-        res = 0;
-        while (lHandle != -1 && res != -1)
-        {
-            if ((dirs == ((tagData.attrib & _A_SUBDIR) != 0)) &&
-                ( !gIgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
-                (!dirs || !is_reserved_dir (tagData.name)))
+        auto const fProcessEntry
+        =   [   this
+            ,   dirs
+            ,   simpleList
+            ,   detailList
+            ,   directory
+            ,   prefix
+            ,   suffix
+            ]   (   std::filesystem::directory_entry const
+                    &   entry
+                )
             {
-                if (simpleList)
+                if (dirs)
                 {
-                    simpleList->push_back(directory + tagData.name);
+                    if (not entry.is_directory())
+                        return;
+                    if (is_reserved_dir(entry.path().filename().native()))
+                        return;
                 }
+                else
+                {
+                    if (not entry.is_regular_file())
+                        return;
+                    // hidden path on linux
+                    if (entry.path().filename().native()[0] == '.')
+                        return;
+                }
+
+                if (not entry.path().native().starts_with(prefix))
+                    return;
+                if (not entry.path().native().ends_with(suffix))
+                    return;
+
+                if (simpleList)
+                    simpleList->push_back(relative(entry.path(), directory));
                 else if (detailList)
                 {
                     FileInfo fi;
                     fi.archive = this;
 
-                    fi.filename = directory + tagData.name;
-                    fi.basename = tagData.name;
+                    fi.filename = relative(entry.path(), directory);
+                    fi.basename = entry.path().filename();
 
-                    fi.path = directory;
-                    fi.compressedSize = tagData.size;
-                    fi.uncompressedSize = tagData.size;
+                    fi.path = relative(entry.path(), directory).parent_path() / "";
+                    fi.compressedSize = entry.file_size();
+                    fi.uncompressedSize = entry.file_size();
                     detailList->push_back(fi);
                 }
             }
+        ;
 
-            res = _findnext( lHandle, &tagData );
-        }
-        // Close if we found any files
-        if(lHandle != -1)
-            _findclose(lHandle);
-
-        // Now find directories
         if (recursive)
         {
-            String base_dir = mName;
-            if (!directory.empty ())
+            for (auto const& entry : std::filesystem::recursive_directory_iterator{directory})
             {
-                base_dir = concatenate_path(mName, directory);
-                // Remove the last '/'
-                base_dir.erase (base_dir.length () - 1);
+                fProcessEntry(entry);
             }
-            base_dir.append ("/*");
-
-            // Remove directory name from pattern
-            String mask ("/");
-            if (pos1 != pattern.npos)
-                mask.append (pattern.substr (pos1 + 1));
-            else
-                mask.append (pattern);
-
-            lHandle = _findfirst(base_dir.c_str (), &tagData);
-
-            res = 0;
-            while (lHandle != -1 && res != -1)
+        }
+        else
+        {
+            for (auto const& entry : std::filesystem::directory_iterator{directory})
             {
-                if ((tagData.attrib & _A_SUBDIR) &&
-                    ( !gIgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
-                    !is_reserved_dir (tagData.name))
-                {
-                    // recurse
-                    base_dir = directory;
-
-                    base_dir.append (tagData.name).append (mask);
-
-                    findFiles(base_dir, recursive, dirs, simpleList, detailList);
-                }
-
-                res = _findnext( lHandle, &tagData );
+                fProcessEntry(entry);
             }
-            // Close if we found any files
-            if(lHandle != -1)
-                _findclose(lHandle);
         }
     }
     //-----------------------------------------------------------------------
