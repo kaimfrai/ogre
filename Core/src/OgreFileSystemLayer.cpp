@@ -31,10 +31,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <dlfcn.h>
+#include <filesystem>
 #include <format>
-#include <pwd.h>
 #include <string>
-#include <sys/stat.h>
 #include <unistd.h>
 
 #include "OgrePrerequisites.hpp"
@@ -45,43 +44,9 @@ namespace Ogre
 {
     namespace {
         /** Get actual file pointed to by symlink */
-        auto resolveSymlink(std::string_view symlink) -> const Ogre::String
+        auto resolveSymlink(std::string_view symlink) -> std::filesystem::path
         {
-            ssize_t bufsize = 256;
-            char* resolved = nullptr;
-            do
-            {
-                char* buf = new char[bufsize];
-                ssize_t retval = readlink(symlink.data(), buf, bufsize);
-                if (retval == -1)
-                {
-                    delete[] buf;
-                    break;
-                }
-
-                if (retval < bufsize)
-                {
-                    // operation was successful.
-                    // readlink does not guarantee to 0-terminate, so do this manually
-                    buf[retval] = '\0';
-                    resolved = buf;
-                }
-                else
-                {
-                    // buffer was too small, grow buffer and try again
-                    delete[] buf;
-                    bufsize <<= 1;
-                }
-            } while (!resolved);
-
-            if (resolved)
-            {
-                Ogre::String result (resolved);
-                delete[] resolved;
-                return result;
-            }
-            else
-                return "";
+           return std::filesystem::read_symlink(symlink);
         }
     }
 
@@ -100,7 +65,7 @@ namespace Ogre
     {
         // try to determine the application's path:
         // recent systems should provide the executable path via the /proc system
-        Ogre::String appPath = resolveSymlink("/proc/self/exe");
+        std::string appPath = resolveSymlink("/proc/self/exe");
         if (appPath.empty())
         {
             // if /proc/self/exe isn't available, try it via the program's pid
@@ -149,16 +114,8 @@ namespace Ogre
             mHomePath = xdg_cache;
             mHomePath.append("/");
         } else {
-            struct passwd* pwd = getpwuid(getuid());
-            if (pwd)
-            {
-                mHomePath = pwd->pw_dir;
-            }
-            else
-            {
-                // try the $HOME environment variable
-                mHomePath = getenv("HOME");
-            }
+            // try the $HOME environment variable
+            mHomePath = std::getenv("HOME");
 
             if(!mHomePath.empty()) {
                 mHomePath.append("/.cache/");
@@ -169,10 +126,17 @@ namespace Ogre
         {
             // create the given subdir
             mHomePath.append(std::format("{}/", subdir));
-            if (mkdir(mHomePath.c_str(), 0755) != 0 && errno != EEXIST)
+            if (std::filesystem::create_directory(mHomePath))
             {
-                // can't create dir
-                mHomePath.clear();
+                using enum std::filesystem::perms;
+                std::filesystem::permissions(mHomePath, owner_all | group_read | group_exec | others_read | others_exec);
+            }
+            else
+            {   if (not std::filesystem::exists(mHomePath))
+                {
+                    // can't create dir
+                    mHomePath.clear();
+                }
             }
         }
 
@@ -185,26 +149,34 @@ namespace Ogre
     //---------------------------------------------------------------------
     auto FileSystemLayer::fileExists(std::string_view path) -> bool
     {
-        return access(path.data(), R_OK) == 0;
+        return std::filesystem::exists(path);
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::createDirectory(std::string_view path) -> bool
     {
-        return !mkdir(path.data(), 0755) || errno == EEXIST;
+        if (std::filesystem::create_directory(path))
+        {
+            using enum std::filesystem::perms;
+            std::filesystem::permissions(path, owner_all | group_read | group_exec | others_read | others_exec);
+            return true;
+        }
+        return fileExists(path);
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::removeDirectory(std::string_view path) -> bool
     {
-        return !rmdir(path.data()) || errno == ENOENT;
+        return std::filesystem::remove(path);
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::removeFile(std::string_view path) -> bool
     {
-        return !unlink(path.data()) || errno == ENOENT;
+        return std::filesystem::remove(path);
     }
     //---------------------------------------------------------------------
     auto FileSystemLayer::renameFile(std::string_view oldname, std::string_view newname) -> bool
     {
-        return !rename(oldname.data(), newname.data());
+        std::error_code ec{};
+        std::filesystem::rename(oldname, newname, ec);
+        return ec == std::error_code{};
     }
 }
