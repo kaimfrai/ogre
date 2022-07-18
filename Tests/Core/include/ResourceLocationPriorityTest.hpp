@@ -78,7 +78,7 @@ public:
         return results;
     }
 
-    [[nodiscard]] auto getModifiedTime(std::string_view filename) const noexcept -> time_t override { return 0; }
+    [[nodiscard]] auto getModifiedTime(std::string_view filename) const noexcept -> std::filesystem::file_time_type override { return {}; }
 
     [[nodiscard]] auto isCaseSensitive() const noexcept -> bool override { return true; }
 

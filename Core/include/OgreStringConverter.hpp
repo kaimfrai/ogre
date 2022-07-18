@@ -30,6 +30,7 @@ THE SOFTWARE.
 #define OGRE_CORE_STRINGCONVERTER_H
 
 #include <cstddef>
+#include <filesystem>
 #include <format>
 #include <iosfwd>
 #include <locale>
@@ -392,6 +393,22 @@ struct std::formatter<T, CharT>
     auto constexpr format(T t, auto& fc)
     {
         return underlyingFormatter.format(std::to_underlying(t), fc);
+    }
+};
+
+template<typename CharT>
+struct std::formatter<std::filesystem::path, CharT>
+{
+    std::formatter<::std::string, CharT> stringFormatter;
+
+    auto constexpr parse(auto& pc)
+    {
+        return stringFormatter.parse(pc);
+    }
+
+    auto constexpr format(std::filesystem::path const& val, auto& fc)
+    {
+        return stringFormatter.format(val.native(), fc);
     }
 };
 

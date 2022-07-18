@@ -31,6 +31,7 @@ THE SOFTWARE.
 
 #include <algorithm>
 #include <cstddef>
+#include <filesystem>
 #include <format>
 #include <iosfwd>
 #include <map>
@@ -102,7 +103,7 @@ namespace {
         [[nodiscard]] auto exists(std::string_view filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
-        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> time_t override;
+        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> std::filesystem::file_time_type override;
     };
 }
     //-----------------------------------------------------------------------
@@ -274,22 +275,21 @@ namespace {
                }) != mFileList.end();
     }
     //---------------------------------------------------------------------
-    auto ZipArchive::getModifiedTime(std::string_view filename) const -> time_t
+    auto ZipArchive::getModifiedTime(std::string_view filename) const -> std::filesystem::file_time_type
     {
         // Zziplib doesn't yet support getting the modification time of individual files
         // so just check the mod time of the zip itself
-        struct stat tagStat;
-        bool ret = (stat(mName.c_str(), &tagStat) == 0);
 
-        if (ret)
+        std::error_code ec{};
+        auto const lastWriteTime = std::filesystem::last_write_time(mName, ec);
+        if (ec == std::error_code{})
         {
-            return tagStat.st_mtime;
+            return lastWriteTime;
         }
         else
         {
-            return 0;
+            return {};
         }
-
     }
     //-----------------------------------------------------------------------
     //  ZipArchiveFactory

@@ -29,6 +29,7 @@ THE SOFTWARE.
 #define OGRE_CORE_ARCHIVE_H
 
 #include <ctime>
+#include <filesystem>
 #include <utility>
 #include <vector>
 
@@ -202,7 +203,7 @@ class Archive;
         [[nodiscard]] virtual auto exists(std::string_view filename) const -> bool = 0;
 
         /** Retrieve the modification time of a given file */
-        [[nodiscard]] virtual auto getModifiedTime(std::string_view filename) const -> time_t = 0;
+        [[nodiscard]] virtual auto getModifiedTime(std::string_view filename) const -> std::filesystem::file_time_type = 0;
 
 
         /** Find all files or directories matching a given pattern in this

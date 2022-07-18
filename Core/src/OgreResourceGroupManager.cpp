@@ -1256,14 +1256,14 @@ namespace Ogre {
         return nullptr;
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(std::string_view groupName, std::string_view resourceName) const -> time_t
+    auto ResourceGroupManager::resourceModifiedTime(std::string_view groupName, std::string_view resourceName) const -> std::filesystem::file_time_type
     {
         // Try to find in resource index first
         ResourceGroup* grp = getResourceGroup(groupName, true);
         return resourceModifiedTime(grp, resourceName);
     }
     //-----------------------------------------------------------------------
-    auto ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, std::string_view resourceName) const -> time_t
+    auto ResourceGroupManager::resourceModifiedTime(ResourceGroup* grp, std::string_view resourceName) const -> std::filesystem::file_time_type
     {
         Archive* arch = resourceExists(grp, resourceName);
         if (arch)
@@ -1271,7 +1271,7 @@ namespace Ogre {
             return arch->getModifiedTime(resourceName);
         }
 
-        return 0;
+        return {};
     }
     //-----------------------------------------------------------------------
     auto

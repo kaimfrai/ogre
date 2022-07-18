@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <sys/stat.h>
-
 #include <cstdint>
 #include <cstdio>
 #include <format>
@@ -40,6 +38,7 @@ THE SOFTWARE.
 #include "OgrePrerequisites.hpp"
 #include "OgreSharedPtr.hpp"
 #include "OgreString.hpp"
+#include "OgreStringConverter.hpp"
 #include "OgreStringVector.hpp"
 
 namespace Ogre {
@@ -105,7 +104,7 @@ namespace {
         [[nodiscard]] auto exists(std::string_view filename) const -> bool override;
 
         /// @copydoc Archive::getModifiedTime
-        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> time_t override;
+        [[nodiscard]] auto getModifiedTime(std::string_view filename) const -> std::filesystem::file_time_type override;
     };
 
     bool gIgnoreHidden = true;
@@ -126,22 +125,22 @@ namespace {
         return true;
     }
     //-----------------------------------------------------------------------
-    static auto is_reserved_dir (std::string_view fn) -> bool
+    static auto is_reserved_dir (std::filesystem::path const& fn) -> bool
     {
-        return (fn [0] == '.' && (fn [1] == 0 || (fn [1] == '.' && fn [2] == 0)));
+        return fn.is_relative() and not fn.has_parent_path();
     }
     //-----------------------------------------------------------------------
-    static auto is_absolute_path(std::string_view path) -> bool
+    static auto is_absolute_path(std::filesystem::path const& path) -> bool
     {
-        return path[0] == '/' || path[0] == '\\';
+        return path.is_absolute();
     }
     //-----------------------------------------------------------------------
-    static auto concatenate_path(std::string_view base, std::string_view name) -> String
+    static auto concatenate_path(std::filesystem::path const& base, std::filesystem::path const& name) -> std::filesystem::path
     {
         if (base.empty() || is_absolute_path(name))
-            return std::string{ name };
+            return name;
         else
-            return std::filesystem::path{base} / std::filesystem::path{name};
+            return base / name;
     }
 
     //-----------------------------------------------------------------------
@@ -173,7 +172,7 @@ namespace {
                 {
                     if (not entry.is_directory())
                         return;
-                    if (is_reserved_dir(entry.path().filename().native()))
+                    if (is_reserved_dir(entry.path().filename()))
                         return;
                 }
                 else
@@ -238,31 +237,17 @@ namespace {
     {
         // nothing to see here, move along
     }
-    //-----------------------------------------------------------------------
-    auto FileSystemArchive::open(std::string_view filename, bool readOnly) const -> DataStreamPtr
-    {
-        if (!readOnly && isReadOnly())
-        {
-            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot open a file in read-write mode in a read-only archive");
-        }
 
-        // Always open in binary mode
-        // Also, always include reading
-        std::ios::openmode mode = std::ios::in | std::ios::binary;
-
-        if(!readOnly) mode |= std::ios::out;
-
-        return _openFileStream(concatenate_path(mName, filename), mode, filename);
-    }
-    auto _openFileStream(std::string_view full_path, std::ios::openmode mode, std::string_view name) -> DataStreamPtr
+    static auto _openFileStream(std::filesystem::path const& full_path, std::ios::openmode mode, std::filesystem::path const& name) -> DataStreamPtr
     {
         // Use filesystem to determine size 
         // (quicker than streaming to the end and back)
 
-        struct stat tagStat;
-        int ret = stat(full_path.data(), &tagStat);
+        std::error_code ec{};
+        auto st_size = std::filesystem::file_size(full_path, ec);
 
-        size_t st_size = ret == 0 ? tagStat.st_size : 0;
+        if (ec != std::error_code{})
+            st_size = 0;
 
         std::istream* baseStream = nullptr;
         std::ifstream* roStream = nullptr;
@@ -272,7 +257,7 @@ namespace {
         {
             rwStream = new std::fstream();
 
-            rwStream->open(std::filesystem::path{full_path}, mode);
+            rwStream->open(full_path, mode);
 
             baseStream = rwStream;
         }
@@ -280,7 +265,7 @@ namespace {
         {
             roStream = new std::ifstream();
 
-            roStream->open(std::filesystem::path{full_path}, mode);
+            roStream->open(full_path, mode);
 
             baseStream = roStream;
         }
@@ -296,20 +281,42 @@ namespace {
 
         /// Construct return stream, tell it to delete on destroy
         FileStreamDataStream* stream = nullptr;
-        std::string_view streamname = name.empty() ? full_path : name;
+        auto const& streamname = name.empty() ? full_path : name;
         if (rwStream)
         {
             // use the writeable stream
-            stream = new FileStreamDataStream(streamname, rwStream, st_size);
+            stream = new FileStreamDataStream(streamname.native(), rwStream, st_size);
         }
         else
         {
-            OgreAssertDbg(ret == 0, "Problem getting file size");
+            OgreAssertDbg(ec == std::error_code{}, "Problem getting file size");
             // read-only stream
-            stream = new FileStreamDataStream(streamname, roStream, st_size);
+            stream = new FileStreamDataStream(streamname.native(), roStream, st_size);
         }
         return DataStreamPtr(stream);
     }
+    //-----------------------------------------------------------------------
+    auto FileSystemArchive::open(std::string_view filename, bool readOnly) const -> DataStreamPtr
+    {
+        if (!readOnly && isReadOnly())
+        {
+            OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot open a file in read-write mode in a read-only archive");
+        }
+
+        // Always open in binary mode
+        // Also, always include reading
+        std::ios::openmode mode = std::ios::in | std::ios::binary;
+
+        if(!readOnly) mode |= std::ios::out;
+
+        return _openFileStream(concatenate_path(mName, filename), mode, std::filesystem::path{filename});
+    }
+
+    auto  _openFileStream(std::string_view full_path, std::ios::openmode mode, std::string_view name) -> DataStreamPtr
+    {
+        return _openFileStream(std::filesystem::path{full_path}, mode, std::filesystem::path{name});
+    }
+
     //---------------------------------------------------------------------
     auto FileSystemArchive::create(std::string_view filename) -> DataStreamPtr
     {
@@ -347,9 +354,9 @@ namespace {
         {
             OGRE_EXCEPT(ExceptionCodes::INVALIDPARAMS, "Cannot remove a file from a read-only archive");
         }
-        String full_path = concatenate_path(mName, filename);
+        auto const full_path = concatenate_path(mName, filename);
 
-        ::remove(full_path.c_str());
+        std::filesystem::remove(full_path);
     }
     //-----------------------------------------------------------------------
     auto FileSystemArchive::list(bool recursive, bool dirs) const -> StringVectorPtr
@@ -397,10 +404,9 @@ namespace {
         if (filename.empty())
             return false;
 
-        String full_path = concatenate_path(mName, filename);
+        auto const full_path = concatenate_path(mName, filename);
 
-        struct stat tagStat;
-        bool ret = (stat(full_path.c_str(), &tagStat) == 0);
+        bool ret = std::filesystem::exists(full_path);
 
         // stat will return true if the filename is absolute, but we need to check
         // the file is actually in this archive
@@ -409,26 +415,25 @@ namespace {
             // only valid if full path starts with our base
 
             // case sensitive
-            ret = Ogre::StringUtil::startsWith(full_path, mName, false);
+            ret = Ogre::StringUtil::startsWith(full_path.native(), mName, false);
         }
 
         return ret;
     }
     //---------------------------------------------------------------------
-    auto FileSystemArchive::getModifiedTime(std::string_view filename) const -> time_t
+    auto FileSystemArchive::getModifiedTime(std::string_view filename) const -> std::filesystem::file_time_type
     {
-        String full_path = concatenate_path(mName, filename);
+        auto const full_path = concatenate_path(mName, filename);
 
-        struct stat tagStat;
-        bool ret = (stat(full_path.c_str(), &tagStat) == 0);
-
-        if (ret)
+        std::error_code ec{};
+        auto const lastWriteTime = std::filesystem::last_write_time(full_path, ec);
+        if (ec == std::error_code{})
         {
-            return tagStat.st_mtime;
+            return lastWriteTime;
         }
         else
         {
-            return 0;
+            return {};
         }
 
     }

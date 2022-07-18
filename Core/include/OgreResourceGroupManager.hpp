@@ -381,7 +381,7 @@ namespace Ogre {
         /// Internal event firing method
         void fireResourceRemove(const ResourcePtr& resource) const;
         /** Internal modification time retrieval */
-        auto resourceModifiedTime(ResourceGroup* group, std::string_view filename) const -> time_t;
+        auto resourceModifiedTime(ResourceGroup* group, std::string_view filename) const -> std::filesystem::file_time_type;
 
         /** Find out if the named file exists in a group. Internal use only
          @param group Pointer to the resource group
@@ -707,7 +707,7 @@ namespace Ogre {
             bool dirs = false) const -> FileInfoListPtr;
 
         /** Retrieve the modification time of a given file */
-        [[nodiscard]] auto resourceModifiedTime(std::string_view group, std::string_view filename) const -> time_t;
+        [[nodiscard]] auto resourceModifiedTime(std::string_view group, std::string_view filename) const -> std::filesystem::file_time_type;
 
         /** Find all resource location names matching a given pattern in a
             resource group.
