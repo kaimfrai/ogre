@@ -72,6 +72,10 @@ RenderSystems/GLSupport/src/OgreGLRenderTexture.cpp
 RenderSystems/GLSupport/src/OgreGLWindow.cpp
 RenderSystems/GLSupport/src/X11/OgreX11.hpp
 RenderSystems/GLSupport/src/X11/OgreX11.cpp
+RenderSystems/GLSupport/include/GLX/OgreGLXRenderTexture.hpp
+RenderSystems/GLSupport/src/GLX/OgreGLXRenderTexture.cpp
+RenderSystems/GLSupport/include/GLX/OgreGLXWindow.hpp
+RenderSystems/GLSupport/src/GLX/OgreGLXWindow.cpp
 
 #Platform dependent
 Components/Bites/include/OgreApplicationContext.hpp
@@ -153,9 +157,12 @@ Components/RTShaderSystem/src/OgreShaderPrecompiledHeaders.hpp
 RenderSystems/GL/include/OgreGLGpuProgramManager.hpp
 RenderSystems/GL/include/OgreGLPrerequisites.hpp
 RenderSystems/GLSupport/include/OgreGLContext.hpp
-
 RenderSystems/GLSupport/include/OgreGLStateCacheManagerCommon.hpp
 RenderSystems/GLSupport/include/OgreGLRenderTarget.hpp
 RenderSystems/GLSupport/include/OgreGLNativeSupport.hpp
 RenderSystems/GLSupport/include/OgreGLUtil.hpp
 RenderSystems/GLSupport/include/OgreGLPBuffer.hpp
+
+#Unclear
+Core/include/OgreDefaultDebugDrawer.hpp
+Core/src/OgreDefaultDebugDrawer.cpp
