@@ -25,45 +25,50 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <utility>
+module;
 
-#include "OgreCamera.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCompositionPass.hpp"
-#include "OgreCompositionTargetPass.hpp"
-#include "OgreCompositor.hpp"
-#include "OgreCompositorChain.hpp"
-#include "OgreCompositorInstance.hpp"
-#include "OgreCompositorLogic.hpp"
-#include "OgreCompositorManager.hpp"
-#include "OgreCustomCompositionPass.hpp"
-#include "OgreDepthBuffer.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePass.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRectangle2D.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderTexture.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Camera;
+import :ColourValue;
+import :CompositionPass;
+import :CompositionTargetPass;
+import :Compositor;
+import :CompositorChain;
+import :CompositorInstance;
+import :CompositorLogic;
+import :CompositorManager;
+import :CustomCompositionPass;
+import :DepthBuffer;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramParams;
+import :HardwarePixelBuffer;
+import :LogManager;
+import :Material;
+import :Matrix4;
+import :Pass;
+import :PixelFormat;
+import :Rectangle2D;
+import :RenderSystem;
+import :RenderTarget;
+import :RenderTexture;
+import :ResourceGroupManager;
+import :Root;
+import :SceneManager;
+import :String;
+import :StringConverter;
+import :Technique;
+import :Texture;
+import :TextureManager;
+import :TextureUnitState;
+import :Vector;
+import :Viewport;
+
+import <algorithm>;
+import <utility>;
 
 namespace Ogre {
 CompositorInstance::CompositorInstance(CompositionTechnique *technique,

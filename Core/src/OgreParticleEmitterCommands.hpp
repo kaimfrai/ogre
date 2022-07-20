@@ -25,11 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLEEMITTERCOMMANDS_H
-#define OGRE_CORE_PARTICLEEMITTERCOMMANDS_H
+module Ogre.Core:ParticleEmitterCommands;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreStringInterface.hpp"
+import :Prerequisites;
+import :StringInterface;
 
 namespace Ogre::EmitterCommands {
         /// Command object for ParticleEmitter  - see ParamCommand 
@@ -201,10 +200,3 @@ namespace Ogre::EmitterCommands {
         };
 
     }
-
-
-
-
-
-#endif
-

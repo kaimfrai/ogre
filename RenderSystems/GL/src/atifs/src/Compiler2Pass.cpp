@@ -25,15 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "Compiler2Pass.hpp"
+module;
 
 #include <sys/types.h>
-
 #include <cassert>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
 Compiler2Pass::Compiler2Pass()
 {
     // reserve some memory space in the containers being used
@@ -45,7 +43,9 @@ Compiler2Pass::Compiler2Pass()
 
 }
 
+module Ogre.RenderSystems.GL;
 
+import :atifs.Compiler2Pass;
 
 void Compiler2Pass::InitSymbolTypeLib()
 {
@@ -76,7 +76,6 @@ void Compiler2Pass::InitSymbolTypeLib()
 
 }
 
-
 auto Compiler2Pass::compile(const char* source) -> bool
 {
     bool Passed = false;
@@ -92,7 +91,6 @@ auto Compiler2Pass::compile(const char* source) -> bool
     }
     return Passed;
 }
-
 
 auto Compiler2Pass::doPass1() -> bool
 {
@@ -117,7 +115,6 @@ auto Compiler2Pass::doPass1() -> bool
     return passed;
 
 }
-
 
 auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 {
@@ -216,7 +213,6 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 
 }
 
-
 auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const Compiler2Pass::SymbolID activeRuleID) -> bool
 {
     int tokenlength = 0;
@@ -276,12 +272,10 @@ auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const Compiler2Pass::S
 
 }
 
-
 auto Compiler2Pass::getTypeDefText(const uint sid) -> const char*
 {
     return mRootRulePath[mSymbolTypeLib[sid].mDefTextID].mSymbol;
 }
-
 
 auto Compiler2Pass::isFloatValue(float& fvalue, int& charsize) -> bool
 {
@@ -304,7 +298,6 @@ auto Compiler2Pass::isFloatValue(float& fvalue, int& charsize) -> bool
     return valuefound;
 }
 
-
 auto Compiler2Pass::isSymbol(const char* symbol, int& symbolsize) -> bool
 {
     // compare text at source+charpos with the symbol : limit testing to symbolsize
@@ -316,7 +309,6 @@ auto Compiler2Pass::isSymbol(const char* symbol, int& symbolsize) -> bool
 
     return symbolfound;
 }
-
 
 auto Compiler2Pass::positionToNextSymbol() -> bool
 {
@@ -337,8 +329,6 @@ auto Compiler2Pass::positionToNextSymbol() -> bool
     return validsymbolfound;
 }
 
-
-
 void Compiler2Pass::skipComments()
 {
   // if current char and next are // then search for EOL
@@ -348,7 +338,6 @@ void Compiler2Pass::skipComments()
             (mSource[mCharPos] == '#') ) findEOL();
     }
 }
-
 
 void Compiler2Pass::findEOL()
 {
@@ -362,7 +351,6 @@ void Compiler2Pass::findEOL()
 
 }
 
-
 void Compiler2Pass::skipEOL()
 {
     if ((mSource[mCharPos] == '\n') || (mSource[mCharPos] == '\r')) {
@@ -374,10 +362,8 @@ void Compiler2Pass::skipEOL()
     }
 }
 
-
 void Compiler2Pass::skipWhiteSpace()
 {
     // FIX - this method kinda slow
     while((mSource[mCharPos] == ' ') || (mSource[mCharPos] == '\t')) mCharPos++; // find first non white space character
 }
-

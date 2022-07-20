@@ -25,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-
 /**
     A number of invaluable references were used to put together this ps.1.x compiler for ATI_fragment_shader execution
 
@@ -43,33 +41,38 @@ THE SOFTWARE.
 
 */
 //---------------------------------------------------------------------------
-#ifndef ps_1_4H
-#define ps_1_4H
+module;
 
 #include <cstdio>
-#include <vector>
-
-#include "Compiler2Pass.hpp"
 #include "glad/glad.h"
 
+module Ogre.RenderSystems.GL:atifs.ps_1_4;
+
+import :atifs.Compiler2Pass;
+
+import <vector>;
+
 template<::std::size_t N>
+
 auto constexpr inline ARRAYSIZE(auto const (& array)[N]) -> ::std::size_t
 {   return N;   }
 
 auto constexpr inline ALPHA_BIT = 0x08;
+
 auto constexpr inline RGB_BITS = 0x07;
 
 // Context key patterns
 auto constexpr inline ckp_PS_BASE = 0x1;
+
 auto constexpr inline ckp_PS_1_1 = 0x2;
+
 auto constexpr inline ckp_PS_1_2 = 0x4;
+
 auto constexpr inline ckp_PS_1_3 = 0x8;
+
 auto constexpr inline ckp_PS_1_4 = 0x10;
 
 auto constexpr inline ckp_PS_1_4_BASE = (ckp_PS_BASE + ckp_PS_1_4);
-
-
-
 
 /** Subclasses Compiler2Pass to provide a ps_1_x compiler that takes DirectX pixel shader assembly
     and converts it to a form that can be used by ATI_fragment_shader OpenGL API
@@ -300,7 +303,3 @@ public:
 
 #endif
 };
-
-
-#endif
-

@@ -1,15 +1,13 @@
-#ifndef OGRE_SAMPLES_NEWINSTANCING_H
-#define OGRE_SAMPLES_NEWINSTANCING_H
+export module Ogre.Samples.Simple:NewInstancing;
 
-#include <set>
-#include <vector>
+export import Ogre.Components.Bites;
+export import Ogre.Core;
+export import Ogre.Samples.Common;
 
-#include "OgreInput.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "SdkSample.hpp"
+export import <set>;
+export import <vector>;
 
+export
 namespace Ogre {
 class AnimationState;
 class InstancedEntity;
@@ -18,13 +16,18 @@ class SceneNode;
 struct FrameEvent;
 }  // namespace Ogre
 
+export
 using namespace Ogre;
+
+export
 using namespace OgreBites;
 
+export
 enum
 {   NUM_TECHNIQUES = (((int)InstanceManager::InstancingTechniquesCount) + 1)
 };
 
+export
 class Sample_NewInstancing : public SdkSample
 {
 public:
@@ -69,5 +72,3 @@ protected:
     std::set<AnimationState*>       mAnimations;
     InstanceManager                 *mCurrentManager;
 };
-
-#endif

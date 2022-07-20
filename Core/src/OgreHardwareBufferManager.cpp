@@ -25,25 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstddef>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <set>
-#include <utility>
 
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core;
+
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareVertexBuffer;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :SharedPtr;
+import :Singleton;
+import :VertexIndexData;
+
+import <list>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <set>;
+import <utility>;
 
 namespace Ogre {
 

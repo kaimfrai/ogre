@@ -25,23 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_BILLBOARDPARTICLERENDERER_H
-#define OGRE_CORE_BILLBOARDPARTICLERENDERER_H
+module;
 
 #include <cstddef>
-#include <memory>
-#include <vector>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBillboardSet.hpp"
-#include "OgreCommon.hpp"
-#include "OgreFactoryObj.hpp"
-#include "OgreParticleSystemRenderer.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:BillboardParticleRenderer;
 
+export import :AxisAlignedBox;
+export import :BillboardSet;
+export import :Common;
+export import :FactoryObj;
+export import :ParticleSystemRenderer;
+export import :Platform;
+export import :Prerequisites;
+export import :Renderable;
+export import :Vector;
+
+export import <memory>;
+export import <vector>;
+
+export
 namespace Ogre {
 class Camera;
 class Node;
@@ -176,5 +179,3 @@ class RenderQueue;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_BILLBOARDPARTICLERENDERER_H

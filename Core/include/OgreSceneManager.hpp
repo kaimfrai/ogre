@@ -27,51 +27,54 @@ You may alternatively use this source under the terms of a specific version of
 the OGRE Unrestricted License provided you have obtained such a license from
 Torus Knot Software Ltd.
 -------------------------------------------------------------------------*/
-#ifndef OGRE_CORE_SCENEMANAGER_H
-#define OGRE_CORE_SCENEMANAGER_H
+module;
 
-#include <algorithm>
-#include <array>
 #include <cstddef>
-#include <map>
-#include <memory>
-#include <set>
-#include <string>
-#include <string_view>
-#include <vector>
 
-#include "OgreAnimationState.hpp"
-#include "OgreAutoParamDataSource.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDepthBuffer.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreLight.hpp"
-#include "OgreLodListener.hpp"
-#include "OgreManualObject.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgreNameGenerator.hpp"
-#include "OgreNode.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderQueueSortingGrouping.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSceneQuery.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:SceneManager;
 
+export import :AnimationState;
+export import :AutoParamDataSource;
+export import :AxisAlignedBox;
+export import :ColourValue;
+export import :Common;
+export import :DepthBuffer;
+export import :InstanceManager;
+export import :IteratorWrapper;
+export import :Light;
+export import :LodListener;
+export import :ManualObject;
+export import :Matrix4;
+export import :MemoryAllocatorConfig;
+export import :NameGenerator;
+export import :Node;
+export import :PixelFormat;
+export import :Plane;
+export import :PlaneBoundedVolume;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :RenderQueue;
+export import :RenderQueueSortingGrouping;
+export import :RenderSystem;
+export import :ResourceGroupManager;
+export import :SceneQuery;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :StringVector;
+export import :TextureUnitState;
+export import :Vector;
+
+export import <algorithm>;
+export import <array>;
+export import <map>;
+export import <memory>;
+export import <set>;
+export import <string>;
+export import <string_view>;
+export import <vector>;
+
+export
 namespace Ogre {
     class Animation;
     class BillboardChain;
@@ -3471,5 +3474,3 @@ namespace Ogre {
 
 
 } // Namespace
-
-#endif

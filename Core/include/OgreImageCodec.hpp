@@ -25,16 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_IMAGECODEC_H
-#define OGRE_CORE_IMAGECODEC_H
+export module Ogre.Core:ImageCodec;
 
-#include "OgreBitwise.hpp"
-#include "OgreCodec.hpp"
-#include "OgreImage.hpp"
-#include "OgrePixelFormat.hpp"
+export import :Bitwise;
+export import :Codec;
+export import :Image;
+export import :PixelFormat;
 
-#include <any>
+export import <any>;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -101,5 +101,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 } // namespace
-
-#endif

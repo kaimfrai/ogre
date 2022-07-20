@@ -25,11 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <utility>
+module;
 
-#include "OgreDynLib.hpp"
-#include "OgreDynLibManager.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :DynLib;
+import :DynLibManager;
+
+import <utility>;
 
 namespace Ogre
 {

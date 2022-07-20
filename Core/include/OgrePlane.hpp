@@ -31,16 +31,13 @@ THE SOFTWARE.
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
+export module Ogre.Core:Plane;
 
+export import :AxisAlignedBox;
+export import :Prerequisites;
+export import :Vector;
 
-#ifndef OGRE_CORE_PLANE_H
-#define OGRE_CORE_PLANE_H
-
-#include "OgrePrerequisites.hpp"
-
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -263,8 +260,5 @@ namespace Ogre {
     /** @} */
 
 } // namespace Ogre
-
 static_assert(std::is_aggregate_v<Ogre::Plane>);
 static_assert(std::is_standard_layout_v<Ogre::Plane>);
-
-#endif

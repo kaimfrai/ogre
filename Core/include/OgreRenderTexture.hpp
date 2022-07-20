@@ -25,17 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERTEXTURE_H
-#define OGRE_CORE_RENDERTEXTURE_H
+module;
 
 #include <cstddef>
-#include <vector>
 
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderTarget.hpp"
+export module Ogre.Core:RenderTexture;
 
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderTarget;
+
+export import <vector>;
+
+export
 namespace Ogre
 {    
     class HardwarePixelBuffer;
@@ -129,5 +132,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif

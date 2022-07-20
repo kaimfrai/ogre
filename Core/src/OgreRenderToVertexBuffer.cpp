@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core;
 
-#include <format>
-#include <memory>
-#include <string>
+import :Exception;
+import :Material;
+import :MaterialManager;
+import :RenderToVertexBuffer;
+import :VertexIndexData;
 
-#include "OgreException.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreRenderToVertexBuffer.hpp"
-#include "OgreVertexIndexData.hpp"
+import <format>;
+import <memory>;
+import <string>;
 
 namespace Ogre {
 class VertexDeclaration;

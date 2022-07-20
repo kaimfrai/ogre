@@ -25,35 +25,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <format>
-#include <iterator>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <ranges>
-#include <string>
-#include <utility>
-#include <vector>
+module;
 
-#include "OgreArchive.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreScriptLoader.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Archive;
+import :ArchiveManager;
+import :Common;
+import :DataStream;
+import :Exception;
+import :Log;
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :ScriptLoader;
+import :SharedPtr;
+import :Singleton;
+import :String;
+import :StringVector;
+
+import <format>;
+import <iterator>;
+import <list>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <ranges>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 

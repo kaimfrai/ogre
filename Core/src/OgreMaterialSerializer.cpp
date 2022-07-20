@@ -25,45 +25,50 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cstdio>
 #include <cstring>
-#include <format>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreLight.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePass.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringInterface.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
+module Ogre.Core;
+
+import :BlendMode;
+import :ColourValue;
+import :Common;
+import :Config;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :Light;
+import :Log;
+import :LogManager;
+import :Material;
+import :MaterialManager;
+import :MaterialSerializer;
+import :Math;
+import :Matrix4;
+import :Pass;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :RenderSystemCapabilities;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :StringConverter;
+import :StringInterface;
+import :Technique;
+import :Texture;
+import :TextureManager;
+import :TextureUnitState;
+
+import <algorithm>;
+import <format>;
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre
 {

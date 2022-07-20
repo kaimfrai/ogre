@@ -25,30 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <format>
-#include <ios>
-#include <map>
-#include <string>
-#include <string_view>
-#include <utility>
-#include <vector>
+module Ogre.Core;
 
-#include "OgreAnimation.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreBone.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreSkeletonFileFormat.hpp"
-#include "OgreSkeletonSerializer.hpp"
-#include "OgreVector.hpp"
+import :Animation;
+import :AnimationTrack;
+import :Bone;
+import :DataStream;
+import :Exception;
+import :FileSystem;
+import :KeyFrame;
+import :Log;
+import :LogManager;
+import :Platform;
+import :Quaternion;
+import :SharedPtr;
+import :Skeleton;
+import :SkeletonFileFormat;
+import :SkeletonSerializer;
+import :Vector;
+
+import <format>;
+import <ios>;
+import <map>;
+import <string>;
+import <string_view>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     /// stream overhead = ID + size
@@ -673,5 +675,3 @@ namespace Ogre {
 
 
 }
-
-

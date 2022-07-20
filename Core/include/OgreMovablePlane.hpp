@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MOVABLEPLANE_H
-#define OGRE_CORE_MOVABLEPLANE_H
+export module Ogre.Core:MovablePlane;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreVector.hpp"
+export import :AxisAlignedBox;
+export import :MovableObject;
+export import :Plane;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :Vector;
 
+export
 namespace Ogre {
 class Camera;
 class RenderQueue;
@@ -98,5 +98,3 @@ class RenderQueue;
     /** @} */
     /** @} */
 }
-
-#endif

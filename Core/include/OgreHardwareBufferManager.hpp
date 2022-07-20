@@ -25,20 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_HARDWAREBUFFERMANAGER_H
-#define OGRE_CORE_HARDWAREBUFFERMANAGER_H
+module;
 
 #include <cstddef>
-#include <map>
-#include <set>
 
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
+export module Ogre.Core:HardwareBufferManager;
 
+export import :HardwareBuffer;
+export import :HardwareIndexBuffer;
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :Singleton;
+
+export import <map>;
+export import <set>;
+
+export
 namespace Ogre {
 class HardwareVertexBuffer;
 class VertexBufferBinding;
@@ -408,6 +411,3 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#endif // OGRE_CORE_HARDWAREBUFFERMANAGER_H
-

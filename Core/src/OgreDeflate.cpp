@@ -25,17 +25,21 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module;
+
 #include <cstdio>
 #include <cstdlib>
-#include <fstream> // IWYU pragma: keep
-#include <utility>
-
-#include "OgreDeflate.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystem.hpp"
-
 #define MINIZ_HEADER_FILE_ONLY
 #include <miniz.h>
+
+module Ogre.Core;
+
+import :Deflate;
+import :Exception;
+import :FileSystem;
+
+import <fstream>;
+import <utility>;
 
 namespace Ogre
 {

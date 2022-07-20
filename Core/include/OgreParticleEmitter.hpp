@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLEEMITTER_H
-#define OGRE_CORE_PARTICLEEMITTER_H
+export module Ogre.Core:ParticleEmitter;
 
-#include "OgreColourValue.hpp"
-#include "OgreMath.hpp"
-#include "OgreParticle.hpp"
-#include "OgreParticleSystem.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringInterface.hpp"
-#include "OgreVector.hpp"
+export import :ColourValue;
+export import :Math;
+export import :Particle;
+export import :ParticleSystem;
+export import :Prerequisites;
+export import :StringInterface;
+export import :Vector;
 
+export
 namespace Ogre {
 
 
@@ -524,6 +524,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif
-

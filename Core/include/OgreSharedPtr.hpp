@@ -25,13 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SHAREDPTR_H
-#define OGRE_CORE_SHAREDPTR_H
+export module Ogre.Core:SharedPtr;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include <memory>
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
+export import <memory>;
+
+export
 namespace Ogre {
 
     using std::static_pointer_cast;
@@ -62,7 +63,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-
-
-#endif

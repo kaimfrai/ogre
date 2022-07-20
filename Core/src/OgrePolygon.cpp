@@ -26,14 +26,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cmath>
-#include <iterator>
-#include <memory>
-#include <ostream>
+module;
 
-#include "OgreException.hpp"
-#include "OgreMath.hpp"
-#include "OgrePolygon.hpp"
+#include <cmath>
+
+module Ogre.Core;
+
+import :Exception;
+import :Math;
+import :Polygon;
+
+import <iterator>;
+import <memory>;
+import <ostream>;
 
 namespace Ogre
 {

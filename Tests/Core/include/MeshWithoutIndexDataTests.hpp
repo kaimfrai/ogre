@@ -25,26 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_MESHWITHOUTINDEXDATATESTS_H
-#define OGRE_TESTS_CORE_MESHWITHOUTINDEXDATATESTS_H
+module;
 
 #include <gtest/gtest.h>
 
-#include <memory>
+export module Ogre.Tests.Core:MeshWithoutIndexDataTests;
 
-#include "OgreArchiveFactory.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreResourceGroupManager.hpp"
+export import Ogre.Core;
 
+export import <memory>;
 
+export
 using namespace Ogre;
 
+export
 class MeshWithoutIndexDataTests : public ::testing::Test
 {
 
@@ -61,4 +55,3 @@ public:
     void SetUp() override;
     void TearDown() override;
 };
-#endif

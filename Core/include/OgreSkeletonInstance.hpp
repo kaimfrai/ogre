@@ -25,19 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:SkeletonInstance;
 
-#ifndef OGRE_CORE_SKELETONINSTANCE_H
-#define OGRE_CORE_SKELETONINSTANCE_H
+export import :Prerequisites;
+export import :Quaternion;
+export import :Resource;
+export import :SharedPtr;
+export import :Skeleton;
+export import :Vector;
 
-#include <list>
+export import <list>;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreResource.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre {
 class Animation;
 class AnimationStateSet;
@@ -162,5 +161,3 @@ class TagPoint;
     /** @} */
 
 }
-
-#endif

@@ -1,3 +1,12 @@
+module Ogre.Samples.Browser;
+
+import :SampleBrowser;
+
+import Ogre.Core;
+
+import <iostream>;
+import <string>;
+
 /*
  -----------------------------------------------------------------------------
  This source file is part of OGRE
@@ -47,14 +56,6 @@ namespace
 }
 #endif
 
-#include <iostream>
-#include <string>
-
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringConverter.hpp"
-#include "SampleBrowser.hpp"
-
 #if defined(OGRE_TRACK_MEMORY) && OGRE_TRACK_MEMORY != 0
 void* operator new  ( std::size_t count )
 {
@@ -62,23 +63,25 @@ void* operator new  ( std::size_t count )
     NewByteCount += count;
     return ::std::malloc(count);
 }
+
 void* operator new[]( std::size_t count )
 {
     ++NewCallCount;
     NewByteCount += count;
     return ::std::malloc(count);
 }
+
 void operator delete  ( void* ptr ) noexcept
 {
     ++DelCallCount;
     return ::std::free(ptr);
 }
+
 void operator delete[]( void* ptr ) noexcept
 {
     ++DelCallCount;
     ::std::free(ptr);
 }
-
 TrackMemory::~TrackMemory() noexcept
 {
     printf("\n\nNewCallCount: %lu\nDelCallCount: %lu\nNewByteCount: %lu\n", NewCallCount, DelCallCount, NewByteCount);

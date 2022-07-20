@@ -25,15 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_SKELETONSERIALIZER_H
-#define OGRE_CORE_SKELETONSERIALIZER_H
+module;
 
 #include <cstddef>
 
-#include "OgrePrerequisites.hpp"
-#include "OgreSerializer.hpp"
+export module Ogre.Core:SkeletonSerializer;
 
+export import :Prerequisites;
+export import :Serializer;
+
+export
 namespace Ogre {
 
     struct LinkedSkeletonAnimationSource;
@@ -154,6 +155,3 @@ class TransformKeyFrame;
     /** @} */
 
 }
-
-
-#endif

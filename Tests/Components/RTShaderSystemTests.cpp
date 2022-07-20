@@ -25,27 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <gtest/gtest.h>
 #include <cstddef>
-#include <memory>
 
-#include "OgreGpuProgram.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVector.hpp"
-#include "RootWithoutRenderSystemFixture.hpp"
+module Ogre.Tests.Components;
+
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
+import Ogre.Tests.Core;
+
+import <memory>;
 
 using namespace Ogre;
 
@@ -64,7 +55,6 @@ struct RTShaderSystem : public RootWithoutRenderSystemFixture
         RootWithoutRenderSystemFixture::TearDown();
     }
 };
-
 TEST_F(RTShaderSystem, createShaderBasedTechnique)
 {
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
@@ -85,7 +75,6 @@ TEST_F(RTShaderSystem, createShaderBasedTechnique)
 
     EXPECT_TRUE(shaderGen.removeShaderBasedTechnique(mat->getTechniques()[0], "MyScheme"));
 }
-
 TEST_F(RTShaderSystem, MaterialSerializer)
 {
     auto& shaderGen = RTShader::ShaderGenerator::getSingleton();
@@ -104,7 +93,6 @@ TEST_F(RTShaderSystem, MaterialSerializer)
     ser.queueForExport(mat);
     EXPECT_TRUE(ser.getQueuedAsString().find("colour_stage") != String::npos);
 }
-
 TEST_F(RTShaderSystem, TargetRenderState)
 {
     auto mat = MaterialManager::getSingleton().create("TestMat", RGN_DEFAULT);
@@ -118,7 +106,6 @@ TEST_F(RTShaderSystem, TargetRenderState)
     EXPECT_TRUE(pass->hasGpuProgram(GpuProgramType::VERTEX_PROGRAM));
     EXPECT_TRUE(pass->hasGpuProgram(GpuProgramType::FRAGMENT_PROGRAM));
 }
-
 TEST_F(RTShaderSystem, FunctionInvocationOrder)
 {
     using namespace RTShader;

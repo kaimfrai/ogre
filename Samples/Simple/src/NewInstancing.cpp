@@ -1,42 +1,20 @@
-#include <map>
-#include <random>
+module Ogre.Samples.Simple;
 
-#include "NewInstancing.hpp"
-#include "OgreAnimationState.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreEntity.hpp"
-#include "OgreFrameListener.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreLight.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlane.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreShaderExHardwareSkinning.hpp"
-#include "OgreShaderExIntegratedPSSM3.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderRenderState.hpp"
-#include "OgreShadowCameraSetupLiSPSM.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+import :NewInstancing;
+
+import Ogre.Components.RTShaderSystem;
+import Ogre.Core;
+
+import <map>;
+import <random>;
 
 namespace Ogre::RTShader {
 class SubRenderState;
 }  // namespace Ogre
 
 using namespace Ogre;
-using namespace OgreBites;
 
+using namespace OgreBites;
 //------------------------------------------------------------------------------
 Sample_NewInstancing::Sample_NewInstancing()
 {
@@ -136,6 +114,7 @@ void Sample_NewInstancing::setupContent()
 
     switchInstancingTechnique();
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::setupLighting()
 {
@@ -191,6 +170,7 @@ void Sample_NewInstancing::createInstancedEntities()
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::createSceneNodes()
 {
@@ -213,6 +193,7 @@ void Sample_NewInstancing::createSceneNodes()
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void Sample_NewInstancing::clearScene()
 {
@@ -240,6 +221,7 @@ void Sample_NewInstancing::clearScene()
     mSceneNodes.clear();
     mAnimations.clear();
 }
+
 //-----------------------------------------------------------------------------------
 void Sample_NewInstancing::destroyManagers()
 {

@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CUSTOMCOMPOSITIONPASS_H
-#define OGRE_CORE_CUSTOMCOMPOSITIONPASS_H
+export module Ogre.Core:CustomCompositionPass;
 
-#include "OgreCompositionPass.hpp"
-#include "OgrePrerequisites.hpp"
+export import :CompositionPass;
+export import :Prerequisites;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -61,5 +61,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

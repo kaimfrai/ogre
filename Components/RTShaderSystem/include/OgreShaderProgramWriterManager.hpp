@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERMANAGER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_PROGRAMWRITERMANAGER_H
+export module Ogre.Components.RTShaderSystem:ShaderProgramWriterManager;
 
-#include <format>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
+export import :ShaderPrerequisites;
+export import :ShaderProgramWriter;
 
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgramWriter.hpp"
-#include "OgreSingleton.hpp"
+export import Ogre.Core;
 
+export import <format>;
+export import <map>;
+export import <memory>;
+export import <string>;
+export import <utility>;
+
+export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional
@@ -95,6 +94,3 @@ public:
 /** @} */
 /** @} */
 }
-
-
-#endif

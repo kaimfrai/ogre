@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Tests.VisualTests.Common:TestResultWriter;
 
-#ifndef OGRE_TESTS_VISUALTESTS_TESTRESULTWRITER_H
-#define OGRE_TESTS_VISUALTESTS_TESTRESULTWRITER_H
+export import :ImageValidator;
+export import :TestBatch;
+export import :TinyHTML;
 
-#include "ImageValidator.hpp"
-#include "Ogre.hpp"
-#include "TestBatch.hpp"
-#include "TinyHTML.hpp"
+export import Ogre.Core;
 
 /** Abstract class for outputting test results in some format */
+
+export
 class TestResultWriter : public Ogre::GeneralAllocatedObject
 {
 public:
@@ -64,5 +65,3 @@ protected:
     const ComparisonResultVector& mResults;
 
 };
-
-#endif

@@ -25,17 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_TIMER_H
-#define OGRE_CORE_TIMER_H
+module;
 
 #include <sys/types.h>
-
-#include <chrono>
 #include <cstdint>
 
-#include "OgreMemoryAllocatorConfig.hpp"
+export module Ogre.Core:Timer;
 
+export import :MemoryAllocatorConfig;
+
+export import <chrono>;
+
+export
 namespace Ogre
 {
     /** Timer class */
@@ -68,4 +69,3 @@ namespace Ogre
         auto getMicrosecondsCPU() -> uint64_t;
     };
 }
-#endif

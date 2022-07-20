@@ -25,33 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <utility>
-#include <vector>
+module;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCamera.hpp"
-#include "OgreCodec.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreString.hpp"
-#include "OgreVector.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :AxisAlignedBox;
+import :Camera;
+import :Codec;
+import :Common;
+import :Exception;
+import :Math;
+import :Matrix3;
+import :MovableObject;
+import :Node;
+import :Platform;
+import :Prerequisites;
+import :Quaternion;
+import :RenderQueue;
+import :ResourceGroupManager;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :String;
+import :Vector;
+
+import <algorithm>;
+import <memory>;
+import <string>;
+import <string_view>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

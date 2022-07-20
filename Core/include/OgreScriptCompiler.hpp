@@ -25,31 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:ScriptCompiler;
 
-#ifndef OGRE_CORE_SCRIPTCOMPILER_H
-#define OGRE_CORE_SCRIPTCOMPILER_H
+export import :Common;
+export import :GpuProgram;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :ScriptLoader;
+export import :ScriptTranslator;
+export import :SharedPtr;
+export import :Singleton;
+export import :StringVector;
 
-#include <algorithm>
-#include <any>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
+export import <algorithm>;
+export import <any>;
+export import <list>;
+export import <map>;
+export import <memory>;
+export import <string>;
+export import <unordered_map>;
+export import <utility>;
+export import <vector>;
 
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreScriptLoader.hpp"
-#include "OgreScriptTranslator.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreStringVector.hpp"
-
+export
 namespace Ogre
 {
 class Material;
@@ -865,5 +864,3 @@ class Material;
     /** @} */
     /** @} */
 }
-
-#endif

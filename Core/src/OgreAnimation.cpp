@@ -25,23 +25,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cmath>
-#include <iterator>
-#include <list>
-#include <string>
-#include <utility>
+module;
 
-#include "OgreAnimation.hpp"
-#include "OgreBone.hpp"
-#include "OgreEntity.hpp"
-#include "OgreException.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreMesh.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubEntity.hpp"
+#include <cmath>
+
+module Ogre.Core;
+
+import :Animation;
+import :Bone;
+import :Entity;
+import :Exception;
+import :KeyFrame;
+import :Mesh;
+import :SharedPtr;
+import :Skeleton;
+import :StringConverter;
+import :SubEntity;
+
+import <algorithm>;
+import <iterator>;
+import <list>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class Node;
@@ -754,5 +759,3 @@ class VertexData;
     
 
 }
-
-

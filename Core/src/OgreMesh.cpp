@@ -25,65 +25,70 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cmath>
 #include <cstring>
-#include <format>
-#include <iterator>
-#include <limits>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <set>
-#include <span>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
-#include "OgreAnimation.hpp"
-#include "OgreAnimationState.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBone.hpp"
-#include "OgreCodec.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLodStrategy.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreOptimisedUtil.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePose.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreSkeletonManager.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTangentSpaceCalc.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexBoneAssignment.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core;
+
+import :Animation;
+import :AnimationState;
+import :AnimationTrack;
+import :AxisAlignedBox;
+import :Bone;
+import :Codec;
+import :Common;
+import :Config;
+import :DataStream;
+import :EdgeListBuilder;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :LodStrategy;
+import :LodStrategyManager;
+import :Log;
+import :LogManager;
+import :Math;
+import :Matrix4;
+import :Mesh;
+import :MeshManager;
+import :OptimisedUtil;
+import :Platform;
+import :Pose;
+import :Prerequisites;
+import :RenderOperation;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Skeleton;
+import :SkeletonManager;
+import :String;
+import :StringConverter;
+import :SubMesh;
+import :TangentSpaceCalc;
+import :Vector;
+import :VertexBoneAssignment;
+import :VertexIndexData;
+
+import <algorithm>;
+import <format>;
+import <iterator>;
+import <limits>;
+import <list>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <set>;
+import <span>;
+import <string>;
+import <unordered_map>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------
@@ -2378,4 +2383,3 @@ namespace Ogre {
         mMeshLodUsageList[0].value = mLodStrategy->getBaseValue();
     }
 }
-

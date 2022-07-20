@@ -25,16 +25,14 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_SAMPLECONTEXT_H
-#define OGRE_SAMPLES_SAMPLECONTEXT_H
+export module Ogre.Samples.Common:SampleContext;
 
-#include "OgreApplicationContext.hpp"
+export import :Sample;
 
-#include "OgrePlugin.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRenderWindow.hpp"
-#include "Sample.hpp"
+export import Ogre.Components.Bites;
+export import Ogre.Core;
 
+export
 namespace OgreBites
 {
     /*=============================================================================
@@ -354,5 +352,3 @@ namespace OgreBites
         Ogre::NameValuePairList mLastSampleState;     // state of last sample
     };
 }
-
-#endif

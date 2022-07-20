@@ -25,19 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_DUALQUATERNION_H
-#define OGRE_CORE_DUALQUATERNION_H
+module;
 
 #include <cassert>
 #include <cstring>
-#include <ostream>
-#include <utility>
 
-#include "OgreMath.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
+export module Ogre.Core:DualQuaternion;
 
+export import :Math;
+export import :Prerequisites;
+export import :Quaternion;
+
+export import <ostream>;
+export import <utility>;
+
+export
 namespace Ogre {
 struct Affine3;
 
@@ -159,8 +161,5 @@ struct Affine3;
     /** @} */
 
 }
-
 static_assert(std::is_aggregate_v<Ogre::DualQuaternion>);
 static_assert(std::is_standard_layout_v<Ogre::DualQuaternion>);
-
-#endif 

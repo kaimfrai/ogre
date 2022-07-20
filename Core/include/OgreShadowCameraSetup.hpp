@@ -25,16 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SHADOWCAMERASETUP_H
-#define OGRE_CORE_SHADOWCAMERASETUP_H
+module;
 
 #include <cstddef>
-#include <memory>
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export module Ogre.Core:ShadowCameraSetup;
 
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+
+export import <memory>;
+
+export
 namespace Ogre {
 class Camera;
 class Light;
@@ -109,5 +112,3 @@ class Viewport;
     /** @} */
 
 }
-
-#endif

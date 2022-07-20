@@ -25,27 +25,26 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
-#define OGRE_COMPONENTS_BITES_APPLICATIONCONTEXTBASE_H
+module;
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
-#include <set>
-#include <utility>
-#include <vector>
-
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreFrameListener.hpp"
-#include "OgreInput.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStaticPluginLoader.hpp"
-
 // forward declarations
 extern "C" struct SDL_Window;
 
+export module Ogre.Components.Bites:ApplicationContextBase;
+
+export import :Input;
+export import :StaticPluginLoader;
+
+export import Ogre.Core;
+
+export import <memory>;
+export import <set>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
     class OverlaySystem;
     class RenderWindow;
@@ -56,6 +55,7 @@ namespace Ogre {
     }  // namespace RTShader
 }
 
+export
 namespace OgreBites
 {
     class SGTechniqueResolverListener;
@@ -305,4 +305,3 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
-#endif

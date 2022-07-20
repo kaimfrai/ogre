@@ -25,13 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <format>
-#include <memory>
-#include <string>
+module Ogre.Core;
 
-#include "OgreLogManager.hpp"
-#include "OgreScriptLexer.hpp"
-#include "OgreString.hpp"
+import :LogManager;
+import :ScriptLexer;
+import :String;
+
+import <format>;
+import <memory>;
+import <string>;
 
 namespace Ogre {
     auto ScriptLexer::tokenize(std::string_view str, std::string_view source) -> ScriptTokenList
@@ -326,4 +328,3 @@ namespace Ogre {
     }
 
 }
-

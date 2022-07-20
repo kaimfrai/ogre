@@ -25,25 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cstring>
-#include <string>
-#include <vector>
 
-#include "OgreDataStream.hpp"
-#include "OgreGLSLExtSupport.hpp"
-#include "OgreGLSLLinkProgram.hpp"
-#include "OgreGLSLLinkProgramManager.hpp"
-#include "OgreGLSLProgram.hpp"
-#include "OgreGLSLProgramCommon.hpp"
-#include "OgreGLSLShaderCommon.hpp"
-#include "OgreGLUniformCache.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+module Ogre.RenderSystems.GL;
+
+import :GLSL.SLExtSupport;
+import :GLSL.SLLinkProgram;
+import :GLSL.SLLinkProgramManager;
+import :GLSL.SLProgram;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+import <string>;
+import <vector>;
 
 namespace Ogre::GLSL {
 

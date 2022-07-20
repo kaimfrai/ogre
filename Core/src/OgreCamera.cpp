@@ -25,27 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <vector>
+module;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCamera.hpp"
-#include "OgreCommon.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRay.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :AxisAlignedBox;
+import :Camera;
+import :Common;
+import :Frustum;
+import :Math;
+import :Matrix4;
+import :Plane;
+import :PlaneBoundedVolume;
+import :Prerequisites;
+import :Quaternion;
+import :Ray;
+import :SceneManager;
+import :Vector;
+import :Viewport;
+
+import <algorithm>;
+import <memory>;
+import <ostream>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
 struct Sphere;

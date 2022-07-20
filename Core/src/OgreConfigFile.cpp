@@ -25,17 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <iostream>
-#include <format>
-#include <utility>
+module Ogre.Core;
 
-#include "OgreConfigFile.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
+import :ConfigFile;
+import :DataStream;
+import :Exception;
+import :FileSystem;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :String;
+
+import <format>;
+import <iostream>;
+import <utility>;
 
 namespace Ogre {
 

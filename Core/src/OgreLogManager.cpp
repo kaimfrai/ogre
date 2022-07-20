@@ -25,17 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstddef>
-#include <map>
-#include <string>
-#include <utility>
 
-#include "OgreException.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSingleton.hpp"
+module Ogre.Core;
+
+import :Exception;
+import :Log;
+import :LogManager;
+import :Prerequisites;
+import :Singleton;
+
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 

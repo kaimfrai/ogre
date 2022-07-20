@@ -25,21 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <span>
-#include <string>
+module Ogre.Core;
 
-#include "OgreDataStream.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHighLevelGpuProgram.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreString.hpp"
-#include "OgreStringInterface.hpp"
+import :DataStream;
+import :Exception;
+import :GpuProgramManager;
+import :GpuProgramParams;
+import :HighLevelGpuProgram;
+import :RenderSystem;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Root;
+import :String;
+import :StringInterface;
+
+import <algorithm>;
+import <span>;
+import <string>;
 
 namespace Ogre
 {

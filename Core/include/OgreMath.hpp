@@ -25,21 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATH_H
-#define OGRE_CORE_MATH_H
+module;
 
 #include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
-#include <limits>
-#include <ostream>
-#include <utility>
-#include <vector>
 
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export module Ogre.Core:Math;
 
+export import :Platform;
+export import :Prerequisites;
+
+export import <limits>;
+export import <ostream>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre
 {
 struct Affine3;
@@ -800,14 +803,9 @@ struct Sphere;
     /** @} */
 
 }
-
 static_assert(std::is_aggregate_v<Ogre::Radian>);
 static_assert(std::is_standard_layout_v<Ogre::Radian>);
-
 static_assert(std::is_aggregate_v<Ogre::Degree>);
 static_assert(std::is_standard_layout_v<Ogre::Degree>);
-
 static_assert(std::is_aggregate_v<Ogre::Angle>);
 static_assert(std::is_standard_layout_v<Ogre::Angle>);
-
-#endif

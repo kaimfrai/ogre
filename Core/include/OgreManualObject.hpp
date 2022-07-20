@@ -25,33 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
-#ifndef OGRE_CORE_MANUALOBJECT_H
-#define OGRE_CORE_MANUALOBJECT_H
-
-#include <algorithm>
 #include <cstddef>
-#include <vector>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+export module Ogre.Core:ManualObject;
 
+export import :AxisAlignedBox;
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :Exception;
+export import :HardwareBuffer;
+export import :HardwareVertexBuffer;
+export import :MemoryAllocatorConfig;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Renderable;
+export import :ResourceGroupManager;
+export import :ShadowCaster;
+export import :SharedPtr;
+export import :Vector;
+export import :VertexIndexData;
+
+export import <algorithm>;
+export import <vector>;
+
+export
 namespace Ogre
 {
 class Camera;
@@ -736,5 +738,3 @@ class SubMesh;
     /** @} */
     /** @} */
 }
-
-#endif

@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Tests.VisualTests.VTests;
 
-#include "VTestPlugin.hpp"
-
-#include "CubeMappingTest.hpp"
-#include "StencilShadowTest.hpp"
+import :CubeMappingTest;
+import :StencilShadowTest;
+import :VTestPlugin;
 
 VTestPlugin::VTestPlugin()
     :SamplePlugin("VTestPlugin")

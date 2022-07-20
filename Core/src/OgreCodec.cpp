@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <any>
-#include <format>
-#include <utility>
+module Ogre.Core;
 
-#include "OgreCodec.hpp"
-#include "OgreException.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
+import :Codec;
+import :Exception;
+import :SharedPtr;
+import :String;
+import :StringConverter;
+
+import <any>;
+import <format>;
+import <utility>;
 
 namespace Ogre {
 

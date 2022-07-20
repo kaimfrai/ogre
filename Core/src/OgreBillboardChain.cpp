@@ -25,38 +25,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 // Thanks to Vincent Cantin (karmaGfa) for the original implementation of this
 // class, although it has now been mostly rewritten
+module;
 
-#include <algorithm>
 #include <cassert>
 #include <cstring>
-#include <limits>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
 
-#include "OgreBillboardChain.hpp"
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVertexIndexData.hpp"
-#include "OgreViewport.hpp"
+module Ogre.Core;
+
+import :BillboardChain;
+import :Camera;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :MaterialManager;
+import :Math;
+import :Matrix4;
+import :Node;
+import :Platform;
+import :RenderOperation;
+import :RenderQueue;
+import :SceneManager;
+import :StringConverter;
+import :VertexIndexData;
+import :Viewport;
+
+import <algorithm>;
+import <limits>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class RenderSystem;
@@ -783,5 +786,3 @@ class RenderSystem;
 
     }
 }
-
-

@@ -25,16 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core:ScriptLexer;
 
-#ifndef OGRE_CORE_SCRIPTLEXER_H
-#define OGRE_CORE_SCRIPTLEXER_H
+import :MemoryAllocatorConfig;
+import :Platform;
+import :Prerequisites;
 
-#include <algorithm>
-#include <vector>
-
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+import <algorithm>;
+import <vector>;
 
 namespace Ogre {
 
@@ -89,5 +87,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

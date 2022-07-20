@@ -2,15 +2,14 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
+export module Ogre.Components.Bites:StaticPluginLoader;
 
-#ifndef OGRE_COMPONENTS_BITES_STATICPLUGINLOADER_H
-#define OGRE_COMPONENTS_BITES_STATICPLUGINLOADER_H
+export import Ogre.Core;
 
-#include "OgrePlugin.hpp"
+export import <memory>;
+export import <vector>;
 
-#include <memory>
-#include <vector>
-
+export
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -39,5 +38,3 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
-
-#endif

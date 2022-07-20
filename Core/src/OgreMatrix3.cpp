@@ -25,15 +25,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <limits>
+module Ogre.Core;
 
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+import :Math;
+import :Matrix3;
+import :Prerequisites;
+import :Vector;
+
+import <limits>;
 
 // Adapted from Matrix math by Wild Magic http://www.geometrictools.com/
-
 namespace Ogre
 {
     const Real constinit Matrix3::EPSILON = 1e-06;

@@ -25,7 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
 /*
 The nVidia occlusion query extension is defined in glext.h so you don't 
 need anything else. You do need to look up the function, we provide a 
@@ -39,18 +38,16 @@ initialised and used in glRenderSystem and copy what is done there.
   See the openGl dito for ideas what to do.
 
 */
-
-
-
 //GL_ActiveTextureARB_Func* glActiveTextureARB_ptr = (GL_ActiveTextureARB_Func)mGLSupport->getProcAddress("glActiveTextureARB");
+module;
 
-#ifndef OGRE_RENDERSYSTEMS_GL_HARDWAREOCCLUSIONQUERY_H
-#define OGRE_RENDERSYSTEMS_GL_HARDWAREOCCLUSIONQUERY_H
-
-#include "OgreHardwareOcclusionQuery.hpp"
 #include "glad/glad.h"
 
+export module Ogre.RenderSystems.GL:HardwareOcclusionQuery;
 
+export import Ogre.Core;
+
+export
 namespace Ogre { 
 
 
@@ -103,6 +100,3 @@ public:
 };
 
 }
-
-#endif 
-

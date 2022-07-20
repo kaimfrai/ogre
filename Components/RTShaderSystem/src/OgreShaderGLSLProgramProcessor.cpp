@@ -24,21 +24,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.RTShaderSystem;
 
-#include <initializer_list>
-#include <memory>
-#include <vector>
+import :ShaderGLSLProgramProcessor;
+import :ShaderParameter;
+import :ShaderProgram;
+import :ShaderProgramProcessor;
+import :ShaderProgramSet;
 
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderGLSLProgramProcessor.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramProcessor.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
+import Ogre.Core;
+
+import <initializer_list>;
+import <memory>;
+import <vector>;
 
 namespace Ogre::RTShader {
 class Function;

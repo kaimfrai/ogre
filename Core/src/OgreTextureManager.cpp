@@ -25,30 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <map>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
+module;
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreImage.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :ColourValue;
+import :Common;
+import :Exception;
+import :Image;
+import :PixelFormat;
+import :Platform;
+import :Prerequisites;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Root;
+import :SharedPtr;
+import :Singleton;
+import :Texture;
+import :TextureManager;
+import :TextureUnitState;
+
+import <map>;
+import <memory>;
+import <string>;
+import <unordered_map>;
+import <utility>;
 
 namespace Ogre {
 

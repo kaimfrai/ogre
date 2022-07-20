@@ -24,14 +24,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_MATERIALSERIALIZERLISTENER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_MATERIALSERIALIZERLISTENER_H
+module Ogre.Components.RTShaderSystem:ShaderMaterialSerializerListener;
 
-#include <vector>
+import :ShaderGenerator;
+import :ShaderPrerequisites;
 
-#include "OgreMaterialSerializer.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderPrerequisites.hpp"
+import Ogre.Core;
+
+import <vector>;
 
 namespace Ogre {
 class Material;
@@ -110,5 +110,3 @@ private:
 
 }
 }
-
-#endif

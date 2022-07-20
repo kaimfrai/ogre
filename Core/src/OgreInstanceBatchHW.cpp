@@ -25,28 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <memory>
-#include <string>
-#include <vector>
+module Ogre.Core;
 
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreInstanceBatchHW.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVertexIndexData.hpp"
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareVertexBuffer;
+import :InstanceBatchHW;
+import :InstanceManager;
+import :InstancedEntity;
+import :Matrix4;
+import :RenderOperation;
+import :RenderQueue;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SceneManager;
+import :SharedPtr;
+import :StringConverter;
+import :SubMesh;
+import :VertexIndexData;
+
+import <memory>;
+import <string>;
+import <vector>;
 
 namespace Ogre
 {

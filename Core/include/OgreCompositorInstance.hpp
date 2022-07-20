@@ -25,27 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITORINSTANCE_H
-#define OGRE_CORE_COMPOSITORINSTANCE_H
+module;
 
-#include <algorithm>
-#include <bitset>
 #include <cstddef>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreCompositionTechnique.hpp"
-#include "OgreDepthBuffer.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreSharedPtr.hpp"
+export module Ogre.Core:CompositorInstance;
 
+export import :Common;
+export import :CompositionTechnique;
+export import :DepthBuffer;
+export import :MaterialManager;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderQueue;
+export import :SharedPtr;
+
+export import <algorithm>;
+export import <bitset>;
+export import <map>;
+export import <string>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
 class Camera;
 class CompositionTargetPass;
@@ -422,5 +425,3 @@ class SceneManager;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_COMPOSITORINSTANCE_H

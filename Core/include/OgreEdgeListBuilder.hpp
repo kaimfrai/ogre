@@ -25,21 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_EDGELISTBUILDER_H
-#define OGRE_CORE_EDGELISTBUILDER_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <map>
-#include <utility>
-#include <vector>
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:EdgeListBuilder;
 
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :Vector;
+
+export import <algorithm>;
+export import <map>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
     class IndexData;
     class Log;
@@ -282,6 +285,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif
-

@@ -25,33 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <span>
-#include <utility>
+module;
 
-#include "OgreCamera.hpp"
-#include "OgreCommon.hpp"
-#include "OgreController.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgreParticle.hpp"
-#include "OgreParticleAffector.hpp"
-#include "OgreParticleAffectorFactory.hpp"
-#include "OgreParticleEmitter.hpp"
-#include "OgreParticleSystem.hpp"
-#include "OgreParticleSystemManager.hpp"
-#include "OgreParticleSystemRenderer.hpp"
-#include "OgreRadixSort.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreStringConverter.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Camera;
+import :Common;
+import :Controller;
+import :ControllerManager;
+import :Exception;
+import :LogManager;
+import :Material;
+import :MaterialManager;
+import :Math;
+import :Matrix4;
+import :Node;
+import :Particle;
+import :ParticleAffector;
+import :ParticleAffectorFactory;
+import :ParticleEmitter;
+import :ParticleSystem;
+import :ParticleSystemManager;
+import :ParticleSystemRenderer;
+import :RadixSort;
+import :Root;
+import :SceneManager;
+import :StringConverter;
+
+import <algorithm>;
+import <span>;
+import <utility>;
 
 namespace Ogre {
 class RenderQueue;

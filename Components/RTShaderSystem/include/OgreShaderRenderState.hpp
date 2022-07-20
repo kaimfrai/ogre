@@ -24,18 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_RENDERSTATE_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_RENDERSTATE_H
+export module Ogre.Components.RTShaderSystem:ShaderRenderState;
 
-#include <memory>
+export import :ShaderPrerequisites;
+export import :ShaderSubRenderState;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+export import Ogre.Core;
 
+export import <memory>;
+
+export
 namespace Ogre {
 class AutoParamDataSource;
 class Pass;
@@ -224,6 +222,3 @@ using TargetRenderStatePtr = std::shared_ptr<TargetRenderState>;
 
 }
 }
-
-#endif
-

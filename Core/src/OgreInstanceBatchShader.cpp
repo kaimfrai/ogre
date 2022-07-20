@@ -25,33 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstring>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
+module;
 
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreInstanceBatchShader.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePass.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <cstring>
+
+module Ogre.Core;
+
+import :Common;
+import :Exception;
+import :GpuProgramParams;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :InstanceBatchShader;
+import :InstancedEntity;
+import :LogManager;
+import :Material;
+import :Matrix4;
+import :Pass;
+import :RenderOperation;
+import :SharedPtr;
+import :SubMesh;
+import :Technique;
+import :VertexIndexData;
+
+import <algorithm>;
+import <list>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre
 {

@@ -23,17 +23,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef OGRE_CORE_PREREQUISITES_H
-#define OGRE_CORE_PREREQUISITES_H
+export module Ogre.Core:Prerequisites;
 
 // Platform-specific stuff
-#include "OgrePlatform.hpp"
+/* Include all the standard header *after* all the configuration
+settings have been made.
+*/
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :StdHeaders;
 
-#include <compare>
-#include <format>
-#include <memory>
-#include <string>
+export import <compare>;
+export import <format>;
+export import <memory>;
+export import <string>;
 
+export
 namespace Ogre {
 
     #define OGRE_VERSION    ((/*OGRE_VERSION_MAJOR*/13 << 16) | (/*OGRE_VERSION_MINOR*/3 << 8) | /*OGRE_VERSION_PATCH*/3)
@@ -294,13 +299,7 @@ namespace Ogre {
     using GpuProgramParametersSharedPtr = GpuProgramParametersPtr; //!< @deprecated
 }
 
-/* Include all the standard header *after* all the configuration
-settings have been made.
-*/
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgreStdHeaders.hpp"
-
-
+export
 namespace Ogre
 {
     using String = std::string;
@@ -325,7 +324,3 @@ namespace Ogre
     template <typename T, size_t Alignment = SIMD_ALIGNMENT>
     using aligned_vector = std::vector<T, AlignedAllocator<T, Alignment>>;
 }
-
-#endif // OGRE_CORE_PREREQUISITES_H
-
-

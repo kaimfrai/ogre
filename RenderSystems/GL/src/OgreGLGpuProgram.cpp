@@ -25,20 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreGLGpuProgram.hpp"
+module;
 
 #include <cstddef>
-#include <format>
-#include <map>
-#include <string>
-#include <utility>
 
-#include "OgreException.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreSharedPtr.hpp"
+module Ogre.RenderSystems.GL;
+
+import :GpuProgram;
+
+import Ogre.Core;
+
+import <format>;
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class ResourceManager;

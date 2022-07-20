@@ -25,15 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Components.Bites:ConfigDialog;
 
-#ifndef OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H
-#define OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H
-
-
+export
 namespace Ogre {
     class ConfigDialog;
 }  // namespace Ogre
 
+export
 namespace OgreBites {
 
     /**
@@ -49,5 +48,3 @@ namespace OgreBites {
     auto getNativeConfigDialog() noexcept -> Ogre::ConfigDialog*;
 
 } /* namespace OgreBites */
-
-#endif // OGRE_COMPONENTS_BITES_BITESCONFIGDIALOG_H

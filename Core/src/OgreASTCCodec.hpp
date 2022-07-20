@@ -25,14 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ASTCCODEC_H
-#define OGRE_CORE_ASTCCODEC_H
+module;
 
 #include <cstddef>
 
-#include "OgreImageCodec.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePrerequisites.hpp"
+module Ogre.Core:ASTCCodec;
+
+import :ImageCodec;
+import :PixelFormat;
+import :Prerequisites;
 
 namespace Ogre {
 	/** \addtogroup Core
@@ -79,6 +80,3 @@ namespace Ogre {
 	/** @} */
 
 } // namespace
-
-#endif
-

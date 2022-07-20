@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERQUEUE_H
-#define OGRE_CORE_RENDERQUEUE_H
+export module Ogre.Core:RenderQueue;
 
-#include <memory>
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import <memory>;
 
+export
 namespace Ogre {
 
     class Camera;
@@ -323,5 +323,3 @@ class Technique;
     /** @} */
 
 }
-
-#endif

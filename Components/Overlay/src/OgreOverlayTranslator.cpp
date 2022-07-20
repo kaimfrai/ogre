@@ -24,27 +24,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreOverlayTranslator.hpp"
+module;
 
-#include <any>
 #include <cstddef>
-#include <list>
-#include <sstream>
-#include <string>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreFontManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreOverlay.hpp"
-#include "OgreOverlayContainer.hpp"
-#include "OgreOverlayElement.hpp"
-#include "OgreOverlayManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+module Ogre.Components.Overlay;
+
+import :Container;
+import :Element;
+import :FontManager;
+import :Manager;
+import :Translator;
+
+import Ogre.Components.Overlay;
+import Ogre.Core;
+
+import <any>;
+import <list>;
+import <sstream>;
+import <string>;
+import <vector>;
 
 namespace Ogre
 {

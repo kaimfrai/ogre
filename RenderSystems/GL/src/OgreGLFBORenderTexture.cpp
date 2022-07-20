@@ -25,24 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreGLFBORenderTexture.hpp"
+module;
 
 #include <cstddef>
-#include <format>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreGLHardwarePixelBuffer.hpp"
-#include "OgreGLPixelFormat.hpp"
-#include "OgreGLRenderTarget.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreString.hpp"
+module Ogre.RenderSystems.GL;
+
+import :FBORenderTexture;
+import :HardwarePixelBuffer;
+import :PixelFormat;
+
+import Ogre.Core;
+import Ogre.RenderSystems.GLSupport;
+
+import <format>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 class DepthBuffer;

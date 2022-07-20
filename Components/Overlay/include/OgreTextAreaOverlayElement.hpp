@@ -23,18 +23,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-
-#ifndef OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
-#define OGRE_COMPONENTS_OVERLAY_TEXTAREAOVERLAYELEMENT_H
+module;
 
 #include <cstddef>
 
-#include "OgreColourValue.hpp"
-#include "OgreFont.hpp"
-#include "OgreOverlayElement.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
+export module Ogre.Components.Overlay:TextAreaOverlayElement;
 
+export import :Element;
+export import :Font;
+
+export import Ogre.Core;
+
+export
 namespace Ogre
 {
     /** \addtogroup Optional
@@ -170,6 +170,3 @@ namespace Ogre
     /** @} */
     /** @} */
 }
-
-#endif
-

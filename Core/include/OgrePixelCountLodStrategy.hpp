@@ -25,15 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PIXELCOUNTLODSTRATEGY_H
-#define OGRE_CORE_PIXELCOUNTLODSTRATEGY_H
+export module Ogre.Core:PixelCountLodStrategy;
 
-#include "OgreLodStrategy.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSingleton.hpp"
+export import :LodStrategy;
+export import :Material;
+export import :Mesh;
+export import :Prerequisites;
+export import :Singleton;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -110,5 +110,3 @@ class MovableObject;
     /** @} */
 
 } // namespace
-
-#endif

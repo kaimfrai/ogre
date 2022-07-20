@@ -26,18 +26,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_POLYGON_H
-#define OGRE_CORE_POLYGON_H
+module;
 
 #include <cstddef>
-#include <iosfwd>
-#include <map>
-#include <utility>
-#include <vector>
 
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:Polygon;
 
+export import :Prerequisites;
+export import :Vector;
+
+export import <iosfwd>;
+export import <map>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre
 {
 
@@ -143,5 +146,3 @@ namespace Ogre
     /** @} */
 
 }
-
-#endif

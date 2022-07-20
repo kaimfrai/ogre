@@ -25,30 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_STRINGCONVERTER_H
-#define OGRE_CORE_STRINGCONVERTER_H
+module;
 
 #include <cstddef>
-#include <filesystem>
-#include <format>
-#include <iosfwd>
-#include <locale>
-#include <string>
-#include <type_traits>
-#include <utility>
 
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:StringConverter;
 
+export import :ColourValue;
+export import :Common;
+export import :Math;
+export import :Matrix3;
+export import :Matrix4;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :StringVector;
+export import :Vector;
+
+export import <filesystem>;
+export import <format>;
+export import <iosfwd>;
+export import <locale>;
+export import <string>;
+export import <type_traits>;
+export import <utility>;
+
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -356,7 +358,10 @@ namespace Ogre {
     /** @} */
 }
 
+export
 template<typename CharT>
+
+export
 struct std::formatter<Ogre::Vector3, CharT>
 {
     std::formatter<Ogre::Real, CharT> realFormatter;
@@ -378,9 +383,14 @@ struct std::formatter<Ogre::Vector3, CharT>
     }
 };
 
+export
 template<typename T, typename CharT>
 requires
+
+export
     ::std::is_enum_v<T>
+
+export
 struct std::formatter<T, CharT>
 {
     std::formatter<::std::underlying_type_t<T>, CharT> underlyingFormatter;
@@ -396,7 +406,10 @@ struct std::formatter<T, CharT>
     }
 };
 
+export
 template<typename CharT>
+
+export
 struct std::formatter<std::filesystem::path, CharT>
 {
     std::formatter<::std::string, CharT> stringFormatter;
@@ -412,7 +425,10 @@ struct std::formatter<std::filesystem::path, CharT>
     }
 };
 
+export
 template<typename CharT>
+
+export
 struct std::formatter<Ogre::StringVector, CharT>
 {
     std::formatter<::std::string, CharT> stringFormatter;
@@ -439,7 +455,10 @@ struct std::formatter<Ogre::StringVector, CharT>
     }
 };
 
+export
 template<typename CharT>
+
+export
 struct std::formatter<std::vector<std::string_view>, CharT>
 {
     std::formatter<std::string_view, CharT> stringFormatter;
@@ -465,5 +484,3 @@ struct std::formatter<std::vector<std::string_view>, CharT>
         return out;
     }
 };
-
-#endif

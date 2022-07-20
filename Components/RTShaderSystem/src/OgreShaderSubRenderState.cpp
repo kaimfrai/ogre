@@ -24,15 +24,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cstddef>
-#include <string>
 
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreSharedPtr.hpp"
+module Ogre.Components.RTShaderSystem;
+
+import :ShaderScriptTranslator;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
+
+import <string>;
 
 namespace Ogre::RTShader {
 class ProgramSet;
@@ -190,4 +193,3 @@ auto SubRenderState::getAccessor() const -> SubRenderStateAccessorPtr
 
 
 }
-

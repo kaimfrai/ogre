@@ -25,10 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreTimer.hpp"
+module;
 
 #include <ctime>
-#include <type_traits>
+
+module Ogre.Core;
+
+import :Timer;
+
+import <type_traits>;
 
 static_assert(std::is_integral<std::clock_t>::value, "clock_t assumed to be an integral!");
 static_assert(sizeof(std::clock_t) == sizeof(ulong), "clock_t assumed to match ulong!");
@@ -94,4 +99,3 @@ auto Timer::getMicrosecondsCPU() -> uint64_t
 }
 
 }
-

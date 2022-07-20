@@ -25,15 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
-#include <memory>
-#include <vector>
 
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRotationalSpline.hpp"
+module Ogre.Core;
 
+import :Prerequisites;
+import :Quaternion;
+import :RotationalSpline;
 
+import <memory>;
+import <vector>;
 
 namespace Ogre {
 
@@ -222,7 +225,3 @@ namespace Ogre {
 
 
 }
-
-
-
-

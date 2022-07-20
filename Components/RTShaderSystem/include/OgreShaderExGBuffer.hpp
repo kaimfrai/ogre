@@ -24,15 +24,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXGBUFFER_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXGBUFFER_H
+export module Ogre.Components.RTShaderSystem:ShaderExGBuffer;
 
-#include <vector>
+export import :ShaderPrerequisites;
+export import :ShaderSubRenderState;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+export import Ogre.Core;
 
+export import <vector>;
+
+export
 namespace Ogre {
     class MaterialSerializer;
     class Pass;
@@ -45,7 +46,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
-
+export
 namespace Ogre::RTShader
 {
 
@@ -142,5 +143,3 @@ protected:
 /** @} */
 
 } // namespace Ogre
-
-#endif

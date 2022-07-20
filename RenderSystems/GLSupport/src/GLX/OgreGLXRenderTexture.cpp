@@ -25,21 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <climits>
-#include <format>
-#include <string>
 
-#include "OgreException.hpp"
-#include "OgreGLXContext.hpp"
-#include "OgreGLXGLSupport.hpp"
-#include "OgreGLXRenderTexture.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreStringConverter.hpp"
+module Ogre.RenderSystems.GLSupport;
+
+import :GLX.Context;
+import :GLX.GLSupport;
+import :GLX.RenderTexture;
+
+import Ogre.Core;
+
+import <format>;
+import <string>;
 
 namespace Ogre {
 class GLContext;

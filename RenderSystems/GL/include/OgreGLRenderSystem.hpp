@@ -25,28 +25,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GL_RENDERSYSTEM_H
-#define OGRE_RENDERSYSTEMS_GL_RENDERSYSTEM_H
+module;
 
 #include <cstddef>
-#include <vector>
-
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreGLRenderSystemCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreTextureUnitState.hpp"
 #include "glad/glad.h"
 
+export module Ogre.RenderSystems.GL:RenderSystem;
+
+export import Ogre.Core;
+export import Ogre.RenderSystems.GLSupport;
+
+export import <vector>;
+
+export
 namespace Ogre {
 class DepthBuffer;
 class Frustum;
@@ -316,5 +307,3 @@ struct GLGpuProgramBase;
     /** @} */
     /** @} */
 }
-#endif
-

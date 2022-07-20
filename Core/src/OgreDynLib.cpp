@@ -25,22 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstddef>
-#include <format>
-#include <string>
-
-#include "OgreDynLib.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreString.hpp"
-
 #define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
 #define DYNLIB_GETSYM( a, b ) dlsym( a, b )
 #define DYNLIB_UNLOAD( a ) dlclose( a )
-
 extern "C" {
 #   include <dlfcn.h>
 }
+
+module Ogre.Core;
+
+import :DynLib;
+import :Exception;
+import :LogManager;
+import :String;
+
+import <format>;
+import <string>;
 
 namespace Ogre {
 

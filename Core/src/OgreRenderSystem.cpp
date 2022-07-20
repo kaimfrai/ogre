@@ -25,50 +25,54 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
-#include <format>
-#include <istream>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreConfigOptionMap.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreHardwareOcclusionQuery.hpp" // IWYU pragma: keep
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core;
+
 // RenderSystem implementation
 // Note that most of this class is abstract since
 //  we cannot know how to implement the behaviour without
 //  being aware of the 3D API. However there are a few
 //  simple functions which can have a base implementation
+import :Common;
+import :Config;
+import :ConfigOptionMap;
+import :DepthBuffer;
+import :Exception;
+import :GpuProgram;
+import :GpuProgramParams;
+import :HardwareOcclusionQuery;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :MaterialManager;
+import :Plane;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :RenderTarget;
+import :SharedPtr;
+import :StringConverter;
+import :StringVector;
+import :TextureManager;
+import :TextureUnitState;
+import :Vector;
+import :VertexIndexData;
 
-#include "OgreDepthBuffer.hpp"
-#include "OgreRenderTarget.hpp"
+import <algorithm>;
+import <format>;
+import <istream>;
+import <list>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     class Camera;
@@ -1026,4 +1030,3 @@ namespace Ogre {
         return mInvertVertexWinding != mActiveRenderTarget->requiresTextureFlipping();
     }
 }
-

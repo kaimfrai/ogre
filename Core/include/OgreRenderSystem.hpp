@@ -25,33 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERSYSTEM_H
-#define OGRE_CORE_RENDERSYSTEM_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <list>
-#include <map>
-#include <string>
-#include <vector>
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfig.hpp"
-#include "OgreConfigOptionMap.hpp"
-#include "OgreDepthBuffer.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:RenderSystem;
 
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :Config;
+export import :ConfigOptionMap;
+export import :DepthBuffer;
+export import :GpuProgram;
+export import :GpuProgramParams;
+export import :MemoryAllocatorConfig;
+export import :Plane;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
+export import :StringVector;
+export import :Vector;
+
+export import <algorithm>;
+export import <list>;
+export import <map>;
+export import <string>;
+export import <vector>;
+
+export
 namespace Ogre
 {
     class Camera;
@@ -1179,5 +1182,3 @@ class VertexDeclaration;
     /** @} */
     /** @} */
 }
-
-#endif

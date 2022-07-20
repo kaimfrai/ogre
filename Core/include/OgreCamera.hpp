@@ -25,25 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CAMERA_H
-#define OGRE_CORE_CAMERA_H
-
-#include <algorithm>
-#include <iosfwd>
-#include <vector>
+export module Ogre.Core:Camera;
 
 // Default options
-#include "OgrePrerequisites.hpp"
 // Matrices & Vectors
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreFrustum.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreVector.hpp"
+export import :AxisAlignedBox;
+export import :Common;
+export import :Frustum;
+export import :Plane;
+export import :PlaneBoundedVolume;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Vector;
 
+export import <algorithm>;
+export import <iosfwd>;
+export import <vector>;
 
+export
 namespace Ogre {
 
     struct Ray;
@@ -499,5 +498,3 @@ class Viewport;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_CORE_CAMERA_H

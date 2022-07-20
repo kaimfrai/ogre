@@ -25,13 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:VertexBoneAssignment;
 
-#ifndef OGRE_CORE_VERTEXBONEASSIGNMENT_H
-#define OGRE_CORE_VERTEXBONEASSIGNMENT_H
+export import :Prerequisites;
 
-#include "OgrePrerequisites.hpp"
-
-
+export
 namespace Ogre 
 {
     
@@ -59,5 +57,3 @@ namespace Ogre
     /** @} */
 
 }
-
-#endif

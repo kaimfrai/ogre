@@ -25,23 +25,23 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
+module;
 
-#include "OgreGLSLPreprocessor.hpp"
-
-#include <algorithm>
 #include <cassert>
 #include <cctype>
 #include <cstdio>
-#include <format>
-#include <iterator>
-#include <memory>
-#include <utility>
 
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreString.hpp"
+module Ogre.RenderSystems.GLSupport;
+
+import :GLSL.Preprocessor;
+
+import Ogre.Core;
+
+import <algorithm>;
+import <format>;
+import <iterator>;
+import <memory>;
+import <utility>;
 
 namespace Ogre {
 

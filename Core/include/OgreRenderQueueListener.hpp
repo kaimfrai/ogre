@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERQUEUELISTENER_H
-#define OGRE_CORE_RENDERQUEUELISTENER_H
+export module Ogre.Core:RenderQueueListener;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderQueue.hpp"
+export import :Prerequisites;
+export import :RenderQueue;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -101,6 +101,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif
-

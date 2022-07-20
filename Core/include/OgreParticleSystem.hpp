@@ -25,27 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLESYSTEM_H
-#define OGRE_CORE_PARTICLESYSTEM_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <vector>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringInterface.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:ParticleSystem;
 
+export import :AxisAlignedBox;
+export import :MovableObject;
+export import :Platform;
+export import :Prerequisites;
+export import :Renderable;
+export import :ResourceGroupManager;
+export import :SharedPtr;
+export import :StringInterface;
+export import :Vector;
+
+export import <algorithm>;
+export import <list>;
+export import <map>;
+export import <memory>;
+export import <string>;
+export import <vector>;
+
+export
 namespace Ogre {
     class Camera;
     class Node;
@@ -785,5 +788,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

@@ -25,14 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Components.Overlay;
 
-#include "OgreOverlayElementCommands.hpp"
+import :Element;
+import :ElementCommands;
 
-#include <string>
+import Ogre.Core;
 
-#include "OgreOverlayElement.hpp"
-#include "OgreStringConverter.hpp"
-
+import <string>;
 
 namespace Ogre::OverlayElementCommands {
 
@@ -185,4 +185,3 @@ namespace Ogre::OverlayElementCommands {
         }
         //-----------------------------------------------------------------------
     }
-

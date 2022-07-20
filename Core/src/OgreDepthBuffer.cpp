@@ -25,10 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 
-#include "OgreDepthBuffer.hpp"
-#include "OgreRenderTarget.hpp"
+module Ogre.Core;
+
+import :DepthBuffer;
+import :RenderTarget;
 
 namespace Ogre
 {

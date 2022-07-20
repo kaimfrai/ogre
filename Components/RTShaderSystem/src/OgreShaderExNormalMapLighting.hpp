@@ -24,13 +24,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXNORMALMAPLIGHTING_H
+module Ogre.Components.RTShaderSystem:ShaderExNormalMapLighting;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreTextureUnitState.hpp"
+import :ShaderFFPRenderState;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
 
 namespace Ogre {
     class MaterialSerializer;
@@ -189,5 +188,3 @@ protected:
 /** @} */
 
 }
-
-#endif

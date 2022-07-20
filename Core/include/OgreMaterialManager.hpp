@@ -25,21 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_MATERIALMANAGER_H
-#define OGRE_CORE_MATERIALMANAGER_H
+export module Ogre.Core:MaterialManager;
 
-#include <list>
-#include <map>
-#include <string>
+export import :Common;
+export import :Prerequisites;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ResourceManager;
+export import :SharedPtr;
+export import :Singleton;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
+export import <list>;
+export import <map>;
+export import <string>;
 
+export
 namespace Ogre {
 
 class Material;
@@ -294,5 +294,3 @@ class Technique;
     /** @} */
 
 }
-
-#endif

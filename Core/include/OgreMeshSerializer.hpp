@@ -25,18 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:MeshSerializer;
 
-#ifndef OGRE_CORE_MESHSERIALIZER_H
-#define OGRE_CORE_MESHSERIALIZER_H
+export import :MeshSerializerImpl;
+export import :Prerequisites;
+export import :Serializer;
 
-#include <memory>
-#include <utility>
-#include <vector>
+export import <memory>;
+export import <utility>;
+export import <vector>;
 
-#include "OgreMeshSerializerImpl.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSerializer.hpp"
-
+export
 namespace Ogre {
     
     class MeshSerializerListener;
@@ -206,5 +205,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

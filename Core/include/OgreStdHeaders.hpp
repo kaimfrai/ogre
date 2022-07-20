@@ -1,5 +1,5 @@
-#ifndef OGRE_CORE_STDHEADERS_H
-#define OGRE_CORE_STDHEADERS_H
+// STL containers
+module;
 
 #include <cassert>
 #include <cmath>
@@ -9,22 +9,17 @@
 #include <cstring>
 #include <ctime>
 
-// STL containers
-#include <list>
-#include <map>
-#include <set>
-#include <string>
-#include <unordered_map>
-#include <vector>
+export module Ogre.Core:StdHeaders;
 
-// STL algorithms & functions
-#include <algorithm>
+export import <algorithm>;
+export import <atomic>;
+export import <iosfwd>;
+export import <list>;
+export import <map>;
+export import <ostream>;
+export import <set>;
+export import <sstream>;
+export import <string>;
+export import <unordered_map>;
+export import <vector>;
 
-// C++ Stream stuff
-#include <iosfwd>
-#include <ostream>
-#include <sstream>
-
-#include <atomic>
-
-#endif

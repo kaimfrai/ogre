@@ -25,29 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <iterator>
-#include <limits>
-#include <memory>
-#include <utility>
+module;
 
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreInstanceBatch.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreLodListener.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMath.hpp"
-#include "OgreNode.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Camera;
+import :Exception;
+import :Frustum;
+import :InstanceBatch;
+import :InstanceManager;
+import :InstancedEntity;
+import :LodListener;
+import :Material;
+import :Math;
+import :Node;
+import :RenderQueue;
+import :Root;
+import :SceneManager;
+import :SceneNode;
+import :SubMesh;
+import :VertexIndexData;
+
+import <algorithm>;
+import <iterator>;
+import <limits>;
+import <memory>;
+import <utility>;
 
 namespace Ogre
 {

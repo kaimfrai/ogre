@@ -25,105 +25,103 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_H
-#define OGRE_H
+export module Ogre.Core;
+
 // This file includes all the other files which you will need to build a client application
-#include "OgrePrerequisites.hpp"
+export import :Animation;
+export import :AnimationState;
+export import :AnimationTrack;
+export import :Any;
+export import :Archive;
+export import :ArchiveManager;
+export import :AxisAlignedBox;
+export import :Billboard;
+export import :BillboardChain;
+export import :BillboardSet;
+export import :Bone;
+export import :Camera;
+export import :CompositionPass;
+export import :CompositionTargetPass;
+export import :CompositionTechnique;
+export import :Compositor;
+export import :CompositorChain;
+export import :CompositorInstance;
+export import :CompositorManager;
+export import :ConfigFile;
+export import :ControllerManager;
+export import :DataStream;
+export import :Entity;
+export import :Exception;
+export import :FrameListener;
+export import :Frustum;
+export import :GpuProgram;
+export import :GpuProgramManager;
+export import :HardwareBufferManager;
+export import :HardwareIndexBuffer;
+export import :HardwareOcclusionQuery;
+export import :HardwarePixelBuffer;
+export import :HardwareVertexBuffer;
+export import :HighLevelGpuProgram;
+export import :InstanceBatch;
+export import :InstanceManager;
+export import :InstancedEntity;
+export import :KeyFrame;
+export import :Light;
+export import :LogManager;
+export import :ManualObject;
+export import :Material;
+export import :MaterialManager;
+export import :MaterialSerializer;
+export import :Math;
+export import :Matrix3;
+export import :Matrix4;
+export import :Mesh;
+export import :MeshManager;
+export import :MeshSerializer;
+export import :MovablePlane;
+export import :ParticleAffector;
+export import :ParticleEmitter;
+export import :ParticleSystem;
+export import :ParticleSystemManager;
+export import :Pass;
+export import :PatchMesh;
+export import :PatchSurface;
+export import :Prerequisites;
+export import :Profiler;
+export import :Rectangle2D;
+export import :RenderObjectListener;
+export import :RenderQueueListener;
+export import :RenderSystem;
+export import :RenderTargetListener;
+export import :RenderTexture;
+export import :RenderWindow;
+export import :ResourceBackgroundQueue;
+export import :ResourceGroupManager;
+export import :RibbonTrail;
+export import :Root;
+export import :SceneManager;
+export import :SceneManagerEnumerator;
+export import :SceneNode;
+export import :ShadowCameraSetup;
+export import :ShadowCameraSetupFocused;
+export import :ShadowCameraSetupLiSPSM;
+export import :SimpleRenderable;
+export import :Skeleton;
+export import :SkeletonInstance;
+export import :SkeletonManager;
+export import :SkeletonSerializer;
+export import :StaticGeometry;
+export import :String;
+export import :StringConverter;
+export import :StringVector;
+export import :SubEntity;
+export import :SubMesh;
+export import :Technique;
+export import :TextureManager;
+export import :TextureUnitState;
+export import :Timer;
+export import :UnifiedHighLevelGpuProgram;
+export import :Vector;
+export import :Viewport;
 
-#include "OgreAnimation.hpp"
-#include "OgreAnimationState.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreAny.hpp"
-#include "OgreArchive.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBillboard.hpp"
-#include "OgreBillboardChain.hpp"
-#include "OgreBillboardSet.hpp"
-#include "OgreBone.hpp"
-#include "OgreCamera.hpp"
-#include "OgreCompositionPass.hpp"
-#include "OgreCompositionTargetPass.hpp"
-#include "OgreCompositionTechnique.hpp"
-#include "OgreCompositor.hpp"
-#include "OgreCompositorChain.hpp"
-#include "OgreCompositorInstance.hpp"
-#include "OgreCompositorManager.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreEntity.hpp"
-#include "OgreException.hpp"
-#include "OgreFrameListener.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareOcclusionQuery.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreHighLevelGpuProgram.hpp"
-#include "OgreInstanceBatch.hpp"
-#include "OgreInstanceManager.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreLight.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreManualObject.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgreMovablePlane.hpp"
-#include "OgreParticleAffector.hpp"
-#include "OgreParticleEmitter.hpp"
-#include "OgreParticleSystem.hpp"
-#include "OgreParticleSystemManager.hpp"
-#include "OgrePass.hpp"
-#include "OgrePatchMesh.hpp"
-#include "OgrePatchSurface.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRectangle2D.hpp"
-#include "OgreRenderObjectListener.hpp"
-#include "OgreRenderQueueListener.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTargetListener.hpp"
-#include "OgreRenderTexture.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreResourceBackgroundQueue.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRibbonTrail.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneManagerEnumerator.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreShadowCameraSetup.hpp"
-#include "OgreShadowCameraSetupFocused.hpp"
-#include "OgreShadowCameraSetupLiSPSM.hpp"
-#include "OgreSimpleRenderable.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreSkeletonInstance.hpp"
-#include "OgreSkeletonManager.hpp"
-#include "OgreSkeletonSerializer.hpp"
-#include "OgreStaticGeometry.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreSubEntity.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreTimer.hpp"
-#include "OgreUnifiedHighLevelGpuProgram.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
 // .... more to come
-
-#endif

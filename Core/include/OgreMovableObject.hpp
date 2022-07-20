@@ -25,25 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_CORE_MOVABLEOBJECT_H
-#define OGRE_CORE_MOVABLEOBJECT_H
+module;
 
 #include <cstddef>
 
-// Precompiler options
-#include "OgreAnimable.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreShadowCaster.hpp"
-#include "OgreSphere.hpp"
-#include "OgreUserObjectBindings.hpp"
+export module Ogre.Core:MovableObject;
 
+// Precompiler options
+export import :Animable;
+export import :AxisAlignedBox;
+export import :Common;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderQueue;
+export import :Renderable;
+export import :ShadowCaster;
+export import :Sphere;
+export import :UserObjectBindings;
+
+export
 namespace Ogre {
 
     // Forward declaration
@@ -720,5 +721,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

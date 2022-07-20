@@ -25,15 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstddef>
-#include <memory>
-#include <vector>
 
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSimpleSpline.hpp"
-#include "OgreVector.hpp"
+module Ogre.Core;
+
+import :Matrix4;
+import :Prerequisites;
+import :SimpleSpline;
+import :Vector;
+
+import <memory>;
+import <vector>;
 
 namespace Ogre {
 
@@ -266,7 +271,3 @@ namespace Ogre {
 
 
 }
-
-
-
-

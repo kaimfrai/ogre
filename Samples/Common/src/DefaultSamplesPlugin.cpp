@@ -25,15 +25,17 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#include "DefaultSamplesPlugin.hpp"
+module Ogre.Samples.Common;
 
-#include "NewInstancing.hpp"
-#include "OgreInput.hpp"
-#include "OgrePlatform.hpp"
+import :DefaultSamplesPlugin;
+
+import Ogre.Components.Bites;
+import Ogre.Core;
+import Ogre.Samples.Simple;
 
 using namespace Ogre;
-using namespace OgreBites;
 
+using namespace OgreBites;
 DefaultSamplesPlugin::DefaultSamplesPlugin() : SamplePlugin("DefaultSamplesPlugin")
 {
     addSample(new Sample_NewInstancing);

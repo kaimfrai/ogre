@@ -25,12 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_PARTICLE_H
-#define OGRE_CORE_PARTICLE_H
+export module Ogre.Core:Particle;
 
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export import :Prerequisites;
+export import :Vector;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -106,6 +106,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif
-

@@ -25,20 +25,20 @@
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-
-#include "OgreGLSLProgramManagerCommon.hpp"
+module;
 
 #include <cstddef>
-#include <format>
-#include <utility>
-#include <vector>
 
-#include "OgreGLSLProgramCommon.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+module Ogre.RenderSystems.GLSupport;
+
+import :GLSL.ProgramCommon;
+import :GLSL.ProgramManagerCommon;
+
+import Ogre.Core;
+
+import <format>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 

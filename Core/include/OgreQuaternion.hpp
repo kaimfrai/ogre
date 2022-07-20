@@ -31,21 +31,22 @@ THE SOFTWARE.
 // Distributed under the Boost Software License, Version 1.0.
 // http://www.boost.org/LICENSE_1_0.txt
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
-
-
-#ifndef OGRE_CORE_QUATERNION_H
-#define OGRE_CORE_QUATERNION_H
+module;
 
 #include <cassert>
 #include <cmath>
 #include <cstring>
-#include <ostream>
-#include <span>
-#include <utility>
 
-#include "OgreMath.hpp"
-#include "OgrePrerequisites.hpp"
+export module Ogre.Core:Quaternion;
 
+export import :Math;
+export import :Prerequisites;
+
+export import <ostream>;
+export import <span>;
+export import <utility>;
+
+export
 namespace Ogre {
 struct Matrix3;
 
@@ -356,8 +357,5 @@ struct Matrix3;
     /** @} */
 
 }
-
 static_assert(std::is_aggregate_v<Ogre::Quaternion>);
 static_assert(std::is_standard_layout_v<Ogre::Quaternion>);
-
-#endif 

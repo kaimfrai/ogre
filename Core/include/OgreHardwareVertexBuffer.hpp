@@ -25,22 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_HARDWAREVERTEXBUFFER_H
-#define OGRE_CORE_HARDWAREVERTEXBUFFER_H
+module;
 
 #include <cstddef>
-#include <list>
-#include <map>
-#include <utility>
+
+export module Ogre.Core:HardwareVertexBuffer;
 
 // Precompiler options
-#include "OgreColourValue.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
+export import :ColourValue;
+export import :HardwareBuffer;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :SharedPtr;
 
+export import <list>;
+export import <map>;
+export import <utility>;
+
+export
 namespace Ogre {
     class HardwareBufferManagerBase;
 
@@ -541,5 +544,3 @@ namespace Ogre {
 
 
 }
-
-#endif

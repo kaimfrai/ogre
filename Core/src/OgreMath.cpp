@@ -25,24 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cmath>
 #include <cstdlib>
-#include <limits>
-#include <utility>
-#include <vector>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRay.hpp"
-#include "OgreSphere.hpp"
-#include "OgreVector.hpp"
+module Ogre.Core;
+
+import :AxisAlignedBox;
+import :Frustum;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Plane;
+import :Prerequisites;
+import :Quaternion;
+import :Ray;
+import :Sphere;
+import :Vector;
+
+import <algorithm>;
+import <limits>;
+import <utility>;
+import <vector>;
 
 namespace Ogre
 {

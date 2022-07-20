@@ -24,20 +24,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FFPTEXTURING_H
+module;
 
 #include <cstddef>
-#include <vector>
 
-#include "OgreBlendMode.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+export module Ogre.Components.RTShaderSystem:ShaderFFPTexturing;
 
+export import :ShaderFunctionAtom;
+export import :ShaderPrerequisites;
+export import :ShaderSubRenderState;
+
+export import Ogre.Core;
+
+export import <vector>;
+
+export
 namespace Ogre {
     struct ColourValue;
     class MaterialSerializer;
@@ -53,6 +54,7 @@ namespace Ogre {
     }  // namespace RTShader
 }  // namespace Ogre
 
+export
 namespace Ogre::RTShader {
 
 
@@ -284,6 +286,3 @@ protected:
 
 
 }
-
-#endif
-

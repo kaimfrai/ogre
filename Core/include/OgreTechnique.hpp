@@ -25,27 +25,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_TECHNIQUE_H
-#define OGRE_CORE_TECHNIQUE_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreUserObjectBindings.hpp"
+export module Ogre.Core:Technique;
 
+export import :BlendMode;
+export import :ColourValue;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Pass;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
+export import :UserObjectBindings;
+
+export import <algorithm>;
+export import <string>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
 class Material;
 
@@ -710,5 +713,3 @@ class Material;
     /** @} */
 
 }
-
-#endif

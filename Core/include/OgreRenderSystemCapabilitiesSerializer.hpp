@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
-#define OGRE_CORE_RENDERSYSTEMCAPABILITIESSERIALIZER_H
+export module Ogre.Core:RenderSystemCapabilitiesSerializer;
 
-#include <format>
-#include <iosfwd>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :RenderSystemCapabilities;
+export import :SharedPtr;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreSharedPtr.hpp"
+export import <format>;
+export import <iosfwd>;
+export import <map>;
+export import <string>;
+export import <utility>;
+export import <vector>;
 
-
+export
 namespace Ogre {
 
 
@@ -247,5 +246,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

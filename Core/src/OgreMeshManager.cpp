@@ -25,44 +25,49 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <any>
+module;
+
 #include <cassert>
 #include <cmath>
 #include <cstddef>
-#include <format>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCodec.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgrePatchMesh.hpp"
-#include "OgrePatchSurface.hpp"
-#include "OgrePlane.hpp"
-#include "OgrePrefabFactory.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core;
+
+import :AxisAlignedBox;
+import :Codec;
+import :Common;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Mesh;
+import :MeshManager;
+import :MeshSerializer;
+import :PatchMesh;
+import :PatchSurface;
+import :Plane;
+import :PrefabFactory;
+import :Prerequisites;
+import :Quaternion;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Singleton;
+import :SubMesh;
+import :Vector;
+import :VertexIndexData;
+
+import <any>;
+import <format>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre
 {

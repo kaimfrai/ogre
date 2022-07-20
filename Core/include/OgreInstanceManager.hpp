@@ -25,24 +25,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_INSTANCEMANAGER_H
-#define OGRE_CORE_INSTANCEMANAGER_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <map>
-#include <string>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreInstanceBatch.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
+export module Ogre.Core:InstanceManager;
 
+export import :Common;
+export import :InstanceBatch;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :RenderOperation;
+export import :SharedPtr;
+
+export import <algorithm>;
+export import <map>;
+export import <string>;
+export import <vector>;
+
+export
 namespace Ogre
 {
     class InstancedEntity;
@@ -321,5 +324,3 @@ namespace Ogre
         [[nodiscard]] auto getInstanceBatchIterator( std::string_view materialName ) const -> InstanceBatchIterator;
     };
 } // namespace Ogre
-
-#endif // OGRE_CORE_INSTANCEMANAGER_H

@@ -25,14 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RAY_H
-#define OGRE_CORE_RAY_H
+export module Ogre.Core:Ray;
 
 // Precompiler options
-#include "OgrePrerequisites.hpp"
+export import :PlaneBoundedVolume;
+export import :Prerequisites;
 
-#include "OgrePlaneBoundedVolume.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -147,8 +146,5 @@ namespace Ogre {
     /** @} */
 
 }
-
 static_assert(std::is_aggregate_v<Ogre::Ray>);
 static_assert(std::is_standard_layout_v<Ogre::Ray>);
-
-#endif

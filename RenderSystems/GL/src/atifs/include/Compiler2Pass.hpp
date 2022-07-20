@@ -25,12 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL:atifs.Compiler2Pass;
 
-
-#ifndef COMPILER2PASS_H
-#define COMPILER2PASS_H
-
-#include <vector>
+import <vector>;
 
 // FIX ME - should not be hard coded
 enum {
@@ -38,8 +35,6 @@ BAD_TOKEN = 999
 };
 
 using uint = unsigned int;
-
-
 
 /** Compiler2Pass is a generic compiler/assembler
 @remarks
@@ -332,6 +327,3 @@ public:
     void InitSymbolTypeLib();
 
 };
-
-#endif
-

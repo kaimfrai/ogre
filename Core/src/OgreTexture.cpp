@@ -25,26 +25,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <atomic>
-#include <cassert>
-#include <memory>
+module;
 
-#include "OgreBitwise.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreImage.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreString.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Bitwise;
+import :Common;
+import :Exception;
+import :HardwarePixelBuffer;
+import :Image;
+import :Log;
+import :LogManager;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :Root;
+import :String;
+import :Texture;
+import :TextureManager;
+
+import <algorithm>;
+import <atomic>;
+import <memory>;
 
 namespace Ogre {
     const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};

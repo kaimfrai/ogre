@@ -25,24 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#include "OgreOverlay.hpp"
+module;
 
 #include <cassert>
 #include <cstddef>
-#include <memory>
-#include <string>
-#include <utility>
 
-#include "OgreCamera.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreOverlayContainer.hpp"
-#include "OgreOverlayElement.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreRenderQueue.hpp"
-#include "OgreSceneNode.hpp"
-#include "OgreVector.hpp"
-#include "OgreViewport.hpp"
+module Ogre.Components.Overlay;
+
+import :Container;
+import :Element;
+
+import Ogre.Components.Overlay;
+import Ogre.Core;
+
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 
@@ -349,4 +347,3 @@ namespace Ogre {
     }
 
 }
-

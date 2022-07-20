@@ -25,21 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:KeyFrame;
 
-#ifndef OGRE_CORE_KEYFRAME_H
-#define OGRE_CORE_KEYFRAME_H
+export import :Any;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :SharedPtr;
+export import :Vector;
 
-#include <vector>
+export import <vector>;
 
-#include "OgreAny.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre 
 {
 class AnimationTrack;
@@ -248,5 +247,3 @@ class AnimationTrack;
     /** @} */
 
 }
-
-#endif

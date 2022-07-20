@@ -25,17 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H
+export module Ogre.RenderSystems.GLSupport:GLSL.ShaderCommon;
 
-#include <vector>
+export import :GLUniformCache;
 
-#include "OgreGLUniformCache.hpp"
-#include "OgreHighLevelGpuProgram.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreStringInterface.hpp"
+export import Ogre.Core;
 
+export import <vector>;
+
+export
 namespace Ogre {
 class GpuProgram;
 class ResourceManager;
@@ -154,5 +152,3 @@ class ResourceManager;
         static uint mShaderCount;
     };
 }
-
-#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_SHADERCOMMON_H

@@ -25,16 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <memory>
+module;
 
-#include "OgreException.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderTexture.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreTexture.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Exception;
+import :HardwarePixelBuffer;
+import :RenderSystem;
+import :RenderTexture;
+import :Root;
+import :SharedPtr;
+import :Texture;
+
+import <memory>;
 
 namespace Ogre 
 {

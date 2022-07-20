@@ -26,21 +26,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
-#define OGRE_CORE_SHADOWCAMERASETUPLISPSM_H
+module;
 
 #include <cstddef>
-#include <memory>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreLight.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreShadowCameraSetupFocused.hpp"
-#include "OgreSharedPtr.hpp"
+export module Ogre.Core:ShadowCameraSetupLiSPSM;
 
+export import :AxisAlignedBox;
+export import :Light;
+export import :Math;
+export import :Matrix4;
+export import :Prerequisites;
+export import :SceneManager;
+export import :ShadowCameraSetupFocused;
+export import :SharedPtr;
+
+export import <memory>;
+
+export
 namespace Ogre 
 {
 class Camera;
@@ -252,5 +255,3 @@ class Viewport;
     /** @} */
 
 }
-
-#endif

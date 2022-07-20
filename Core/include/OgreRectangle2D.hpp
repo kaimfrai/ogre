@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RECTANGLE2D_H
-#define OGRE_CORE_RECTANGLE2D_H
+export module Ogre.Core:Rectangle2D;
 
-#include "OgreHardwareBuffer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSimpleRenderable.hpp"
+export import :HardwareBuffer;
+export import :Prerequisites;
+export import :SimpleRenderable;
 
+export
 namespace Ogre {
 class Camera;
 struct Matrix4;
@@ -99,7 +99,3 @@ struct Matrix4;
     /** @} */
 
 }// namespace
-
-#endif
-
-

@@ -25,16 +25,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:SimpleSpline;
 
-#ifndef OGRE_CORE_SIMPLESPLINE_H
-#define OGRE_CORE_SIMPLESPLINE_H
+export import :Matrix4;
+export import :Prerequisites;
+export import :Vector;
 
-#include <vector>
+export import <vector>;
 
-#include "OgreMatrix4.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
-
+export
 namespace Ogre {
 
 
@@ -133,5 +132,3 @@ namespace Ogre {
     /** @} */
 
 }
-
-#endif

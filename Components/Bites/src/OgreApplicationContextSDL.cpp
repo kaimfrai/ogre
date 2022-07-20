@@ -1,6 +1,7 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
+module;
 
 #include <SDL.h>
 #include <SDL_events.h>
@@ -11,24 +12,19 @@
 #include <SDL_version.h>
 #include <SDL_video.h>
 #include <cstddef>
-#include <map>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreApplicationContext.hpp"
-#include "OgreApplicationContextBase.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStringConverter.hpp"
-#include "SDLInputMapping.hpp"
+module Ogre.Components.Bites;
+
+import :ApplicationContext;
+import :ApplicationContextBase;
+import :SDLInputMapping;
+
+import Ogre.Core;
+
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace OgreBites {
 struct InputListener;

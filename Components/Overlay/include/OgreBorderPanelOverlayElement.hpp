@@ -25,19 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Components.Overlay:BorderPanelOverlayElement;
 
-#ifndef OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H
-#define OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H
+export import :Element;
+export import :PanelOverlayElement;
 
-#include "OgreCommon.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgreOverlayElement.hpp"
-#include "OgrePanelOverlayElement.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreSharedPtr.hpp"
+export import Ogre.Core;
 
+export
 namespace Ogre {
     /** \addtogroup Optional
     *  @{
@@ -263,5 +258,3 @@ class RenderQueue;
     /** @} */
 
 } // namespace Ogre
-
-#endif // OGRE_COMPONENTS_OVERLAY_BORDERPANELOVERLAYELEMENT_H

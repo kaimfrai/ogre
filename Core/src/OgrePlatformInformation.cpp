@@ -25,20 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cstring>
-#include <format>
-#include <ostream>
-#include <string>
 
-#include "OgreLog.hpp"
-#include "OgrePlatformInformation.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
+module Ogre.Core;
 
+import :Log;
+import :PlatformInformation;
+import :Prerequisites;
+import :String;
+import :StringConverter;
+
+import <format>;
+import <ostream>;
+import <string>;
 
 // Yes, I know, this file looks very ugly, but there aren't other ways to do it better.
-
 namespace Ogre {
 
     //---------------------------------------------------------------------

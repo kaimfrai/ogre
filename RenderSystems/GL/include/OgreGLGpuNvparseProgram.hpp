@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
-#ifndef OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H
-#define OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H
-
-#include "OgreGLGpuProgram.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
 #include "glad/glad.h"
 
+export module Ogre.RenderSystems.GL:GpuNvparseProgram;
+
+export import :GpuProgram;
+
+export import Ogre.Core;
+
+export
 namespace Ogre {
 class ResourceManager;
 
@@ -68,5 +69,3 @@ private:
 };
 
 } // namespace Ogre
-
-#endif // OGRE_RENDERSYSTEMS_GL_GPUNVPARSEPROGRAM_H

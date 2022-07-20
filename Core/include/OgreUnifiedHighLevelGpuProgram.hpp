@@ -25,19 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_UNIFIEDHIGHLEVELGPUPROGRAM_H
-#define OGRE_CORE_UNIFIEDHIGHLEVELGPUPROGRAM_H
+module;
 
 #include <cstddef>
 
-#include "OgreCommon.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
+export module Ogre.Core:UnifiedHighLevelGpuProgram;
 
+export import :Common;
+export import :GpuProgram;
+export import :GpuProgramManager;
+export import :Prerequisites;
+export import :Resource;
+export import :SharedPtr;
+export import :StringVector;
+
+export
 namespace Ogre {
 class ResourceManager;
 
@@ -174,5 +176,3 @@ class ResourceManager;
     /** @} */
 
 }
-
-#endif

@@ -25,22 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:Animation;
 
-#ifndef OGRE_CORE_ANIMATION_H
-#define OGRE_CORE_ANIMATION_H
+export import :AnimationState;
+export import :AnimationTrack;
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
 
-#include <map>
-#include <set>
-#include <vector>
+export import <map>;
+export import <set>;
+export import <vector>;
 
-#include "OgreAnimationState.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -542,5 +541,3 @@ class VertexData;
     /** @} */
     /** @} */
 } // namespace Ogre
-
-#endif // OGRE_CORE_ANIMATION_H

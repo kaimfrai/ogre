@@ -25,20 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <map>
-#include <set>
-#include <utility>
-#include <vector>
+module Ogre.Core;
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRay.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneQuery.hpp"
-#include "OgreSphere.hpp"
+import :AxisAlignedBox;
+import :MovableObject;
+import :PlaneBoundedVolume;
+import :Prerequisites;
+import :Ray;
+import :Root;
+import :SceneManager;
+import :SceneQuery;
+import :Sphere;
+
+import <map>;
+import <set>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     //---------------------------------------------------------------------

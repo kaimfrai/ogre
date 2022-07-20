@@ -25,27 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_TEXTUREMANAGER_H
-#define OGRE_CORE_TEXTUREMANAGER_H
-
+module;
 
 #include <cstddef>
-#include <map>
-#include <memory>
-#include <string>
 
-#include "OgreCommon.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureUnitState.hpp"
+export module Ogre.Core:TextureManager;
 
+export import :Common;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ResourceManager;
+export import :SharedPtr;
+export import :Singleton;
+export import :Texture;
+export import :TextureUnitState;
+
+export import <map>;
+export import <memory>;
+export import <string>;
+
+export
 namespace Ogre {
 class Image;
 
@@ -466,5 +468,3 @@ class Image;
     /** @} */
     /** @} */
 }// Namespace
-
-#endif

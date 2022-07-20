@@ -25,26 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_RESOURCELOCATIONPRIORITYTEST_H
-#define OGRE_TESTS_CORE_RESOURCELOCATIONPRIORITYTEST_H
+module;
 
 #include <ctime>
-#include <memory>
-#include <string>
-#include <vector>
 
-#include "OgreArchive.hpp"
-#include "OgreArchiveFactory.hpp"
-#include "OgreDataStream.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreString.hpp"
-#include "OgreStringVector.hpp"
+export module Ogre.Tests.Core:ResourceLocationPriorityTest;
+
+export import Ogre.Core;
+
+export import <memory>;
+export import <string>;
+export import <vector>;
 
 // Barebones archive containing a single 1-byte file "dummyArchiveTest" whose
 // contents are an unsigned char that increments on each construction of the
 // archive.
+export
 class DummyArchive : public Ogre::Archive
 {
 public:
@@ -124,6 +120,7 @@ private:
     unsigned char mContents;
 };
 
+export
 class DummyArchiveFactory : public Ogre::ArchiveFactory
 {
 public:
@@ -142,5 +139,3 @@ public:
         return type;
     }
 };
-
-#endif

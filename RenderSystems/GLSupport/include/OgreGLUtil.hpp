@@ -25,14 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.RenderSystems.GLSupport:GLUtil;
 
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_UTIL_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_UTIL_H
+export import :GLNativeSupport;
 
-#include "OgreGLNativeSupport.hpp"
-
+export
 namespace Ogre {
 	auto getGLSupport(GLNativeSupport::ContextProfile profile = GLNativeSupport::ContextProfile::CORE) -> GLNativeSupport*;
 }
-
-#endif // OGREGLUTIL_H

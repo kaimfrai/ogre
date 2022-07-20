@@ -25,20 +25,19 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_COMPONENTS_BITES_CAMERAMAN_H
-#define OGRE_COMPONENTS_BITES_CAMERAMAN_H
+export module Ogre.Components.Bites:CameraMan;
 
-#include "OgreInput.hpp"
-#include "OgreMath.hpp"
-#include "OgreNode.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export import :Input;
 
+export import Ogre.Core;
+
+export
 namespace Ogre {
 class SceneNode;
 struct FrameEvent;
 }  // namespace Ogre
 
+export
 namespace OgreBites
 {
     /** \addtogroup Optional
@@ -180,4 +179,3 @@ namespace OgreBites
     /** @} */
     /** @} */
 }
-#endif

@@ -23,40 +23,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#include <algorithm>
-#include <ostream>
-#include <string>
-
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBitwise.hpp"
-#include "OgreBlendMode.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreFont.hpp"
-#include "OgreImage.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreOverlayManager.hpp"
-#include "OgrePass.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringInterface.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
-
-#include "OgreBillboard.hpp"
-#include "OgreBillboardSet.hpp"
-#include "utf8.hpp"
+module;
 
 #define generic _generic    // keyword for C++/CX
 #include <freetype/freetype.h>
 #undef generic
+
+module Ogre.Components.Overlay;
+
+import :Font;
+import :Manager;
+import :utf8;
+
+import Ogre.Core;
+
+import <algorithm>;
+import <ostream>;
+import <string>;
 
 namespace Ogre
 {

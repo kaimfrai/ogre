@@ -23,14 +23,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE
 -------------------------------------------------------------------------*/
-#ifndef OGRE_CORE_RENDERWINDOW_H
-#define OGRE_CORE_RENDERWINDOW_H
+export module Ogre.Core:RenderWindow;
 
-#include "OgreCommon.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderTarget.hpp"
+export import :Common;
+export import :PixelFormat;
+export import :Prerequisites;
+export import :RenderTarget;
 
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -239,4 +239,3 @@ namespace Ogre
     /** @} */
 
 } // Namespace
-#endif

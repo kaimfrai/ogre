@@ -24,17 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXDUALQUATERNIONSKINNING_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXDUALQUATERNIONSKINNING_H
+module Ogre.Components.RTShaderSystem:ShaderExDualQuaternionSkinning;
 
-#include "OgreShaderPrerequisites.hpp"
+import :ShaderExHardwareSkinningTechnique;
+import :ShaderPrerequisites;
 
 namespace Ogre::RTShader {
 class Function;
 class ProgramSet;
 }  // namespace Ogre
-
-#include "OgreShaderExHardwareSkinningTechnique.hpp"
 
 namespace Ogre::RTShader {
 
@@ -109,6 +107,3 @@ protected:
 };
 
 } // namespace Ogre
-
-#endif // _ExDualQuaternionSkinning_
-

@@ -1,15 +1,19 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
+module;
 
 #include <cstddef>
-#include <map>
-#include <utility>
 
-#include "OgreException.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderable.hpp"
+module Ogre.Core;
+
+import :Exception;
+import :GpuProgramParams;
+import :Prerequisites;
+import :Renderable;
+
+import <map>;
+import <utility>;
 
 namespace Ogre
 {

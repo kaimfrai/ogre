@@ -25,31 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstddef>
-#include <map>
-#include <string>
-#include <utility>
 
-#include "OgreBillboardParticleRenderer.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreFactoryObj.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreParticleAffector.hpp"
-#include "OgreParticleAffectorFactory.hpp"
-#include "OgreParticleEmitter.hpp"
-#include "OgreParticleEmitterFactory.hpp"
-#include "OgreParticleSystem.hpp"
-#include "OgreParticleSystemManager.hpp"
-#include "OgreParticleSystemRenderer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
+module Ogre.Core;
+
+import :BillboardParticleRenderer;
+import :Common;
+import :Exception;
+import :FactoryObj;
+import :LogManager;
+import :ParticleAffector;
+import :ParticleAffectorFactory;
+import :ParticleEmitter;
+import :ParticleEmitterFactory;
+import :ParticleSystem;
+import :ParticleSystemManager;
+import :ParticleSystemRenderer;
+import :Prerequisites;
+import :ResourceGroupManager;
+import :Root;
+import :ScriptCompiler;
+import :Singleton;
+import :StringConverter;
+import :StringVector;
+
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 

@@ -25,19 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstring>
-#include <string>
 
-#include "OgreControllerManager.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePass.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreString.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
+module Ogre.Core;
+
+import :ControllerManager;
+import :Exception;
+import :LogManager;
+import :Pass;
+import :ResourceManager;
+import :String;
+import :StringConverter;
+import :TextureManager;
+import :TextureUnitState;
+
+import <string>;
 
 namespace Ogre {
 class Frustum;

@@ -25,12 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
-#define OGRE_COMPONENTS_OVERLAY_ELEMENTCOMMANDS_H
+module Ogre.Components.Overlay:ElementCommands;
 
-#include "OgreOverlayElement.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringInterface.hpp"
+import :Element;
+
+import Ogre.Core;
 
 namespace Ogre::OverlayElementCommands {
     using CmdLeft = SimpleParamCommand<OverlayElement, Real, &OverlayElement::getLeft, &OverlayElement::setLeft>;
@@ -85,7 +84,3 @@ namespace Ogre::OverlayElementCommands {
         };
 
     }
-
-#endif
-
-

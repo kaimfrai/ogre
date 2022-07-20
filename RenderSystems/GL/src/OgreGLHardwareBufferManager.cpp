@@ -25,19 +25,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreGLHardwareBufferManager.hpp"
+module;
 
 #include <cassert>
-#include <memory>
 
-#include "OgreAlignedAllocator.hpp"
-#include "OgreGLHardwareBuffer.hpp"
-#include "OgreGLRenderSystem.hpp"
-#include "OgreGLRenderToVertexBuffer.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSharedPtr.hpp"
+module Ogre.RenderSystems.GL;
+
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :RenderSystem;
+import :RenderToVertexBuffer;
+
+import Ogre.Core;
+
+import <memory>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

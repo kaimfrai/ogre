@@ -25,19 +25,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ARCHIVE_H
-#define OGRE_CORE_ARCHIVE_H
+module;
 
 #include <ctime>
-#include <filesystem>
-#include <utility>
-#include <vector>
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
+export module Ogre.Core:Archive;
 
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :SharedPtr;
+export import :StringVector;
+
+export import <filesystem>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
 class Archive;
 
@@ -227,5 +230,3 @@ class Archive;
     /** @} */
 
 }
-
-#endif

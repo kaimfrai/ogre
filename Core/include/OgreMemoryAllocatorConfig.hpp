@@ -25,12 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+export module Ogre.Core:MemoryAllocatorConfig;
 
-#ifndef OGRE_CORE_MEMORYALLOCATORCONFIG_H
-#define OGRE_CORE_MEMORYALLOCATORCONFIG_H
+export import :AlignedAllocator;
 
-#include "OgreAlignedAllocator.hpp"
-
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -77,6 +76,7 @@ namespace Ogre
 
 }
 
+export
 namespace Ogre
 {
     class AllocPolicy {};
@@ -168,5 +168,3 @@ namespace Ogre
 
 
 }
-
-#endif

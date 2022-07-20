@@ -34,13 +34,13 @@ THE SOFTWARE.
  * below is included in the resulting source code, for example:
  * "Portions Copyright (C) Scott Bilas, 2000"
  */
-#ifndef OGRE_CORE_SINGLETON_H
-#define OGRE_CORE_SINGLETON_H
+export module Ogre.Core:Singleton;
 
 // Added by Steve Streeting for Ogre
-#include "OgreException.hpp"
-#include "OgrePrerequisites.hpp"
+export import :Exception;
+export import :Prerequisites;
 
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -101,5 +101,3 @@ public:
     T* Singleton<T>::msSingleton = nullptr;
 
 }
-
-#endif

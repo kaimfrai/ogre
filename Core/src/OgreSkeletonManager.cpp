@@ -25,12 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <memory>
+module;
 
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreSkeletonManager.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :SharedPtr;
+import :Skeleton;
+import :SkeletonManager;
+
+import <memory>;
 
 namespace Ogre
 {

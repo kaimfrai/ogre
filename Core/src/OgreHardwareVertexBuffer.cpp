@@ -25,20 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <iterator>
-#include <memory>
-#include <string>
+module;
 
-#include "OgreDefaultHardwareBufferManager.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStringConverter.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :DefaultHardwareBufferManager;
+import :Exception;
+import :HardwareBufferManager;
+import :HardwareVertexBuffer;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :StringConverter;
+
+import <algorithm>;
+import <iterator>;
+import <memory>;
+import <string>;
 
 namespace Ogre {
 

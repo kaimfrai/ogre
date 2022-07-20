@@ -25,15 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <gtest/gtest.h>
 
-#include <memory>
+module Ogre.Tests.Core;
 
-#include "OgreArchiveManager.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreRoot.hpp"
-#include "ResourceLocationPriorityTest.hpp"
+import :ResourceLocationPriorityTest;
+
+import Ogre.Core;
+
+import <memory>;
 
 TEST(ResourceGroupLocationTest, ResourceLocationPriority)
 {

@@ -24,42 +24,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
+module;
 
-#include "OgreBlendMode.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreException.hpp"
-#include "OgreGpuProgram.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMaterialSerializer.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreScriptCompiler.hpp"
-#include "OgreShaderFFPRenderState.hpp"
-#include "OgreShaderFFPTexturing.hpp"
-#include "OgreShaderFunction.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderGenerator.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrecompiledHeaders.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderProgram.hpp"
-#include "OgreShaderProgramSet.hpp"
-#include "OgreShaderScriptTranslator.hpp"
-#include "OgreShaderSubRenderState.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTexture.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
+#include <cstddef>
+
+module Ogre.Components.RTShaderSystem;
+
+import :ShaderFFPRenderState;
+import :ShaderFFPTexturing;
+import :ShaderFunction;
+import :ShaderFunctionAtom;
+import :ShaderGenerator;
+import :ShaderParameter;
+import :ShaderPrecompiledHeaders;
+import :ShaderPrerequisites;
+import :ShaderProgram;
+import :ShaderProgramSet;
+import :ShaderScriptTranslator;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
+
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre::RTShader {
         class RenderState;

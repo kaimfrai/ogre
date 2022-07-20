@@ -25,32 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMPOSITORMANAGER_H
-#define OGRE_CORE_COMPOSITORMANAGER_H
+module;
 
 #include <cstddef>
-#include <map>
-#include <memory>
-#include <set>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
 
-#include "OgreCommon.hpp"
-#include "OgreCompositionTechnique.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRectangle2D.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTexture.hpp"
+export module Ogre.Core:CompositorManager;
 
+export import :Common;
+export import :CompositionTechnique;
+export import :IteratorWrapper;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+export import :Rectangle2D;
+export import :Resource;
+export import :ResourceGroupManager;
+export import :ResourceManager;
+export import :SharedPtr;
+export import :Singleton;
+export import :Texture;
+
+export import <map>;
+export import <memory>;
+export import <set>;
+export import <string>;
+export import <tuple>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
 
 class CompositorChain;
@@ -268,5 +271,3 @@ class Viewport;
     /** @} */
 
 }
-
-#endif

@@ -25,24 +25,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cmath>
 #include <cstddef>
-#include <map>
-#include <set>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreLogManager.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreProfiler.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreStringConverter.hpp"
+module Ogre.Core;
+
 /*
 
     Although the code is original, many of the ideas for the profiler were borrowed from 
@@ -55,8 +45,22 @@ Ogre-dependent is in the visualization/logging routines and the use of the Timer
     Enjoy!
 
 */
+import :LogManager;
+import :Platform;
+import :Prerequisites;
+import :Profiler;
+import :RenderSystem;
+import :Root;
+import :Singleton;
+import :StringConverter;
+import :Timer;
 
-#include "OgreTimer.hpp"
+import <algorithm>;
+import <map>;
+import <set>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------

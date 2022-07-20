@@ -25,23 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
-#define OGRE_CORE_RENDERQUEUESORTINGGROUPING_H
-
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <utility>
-#include <vector>
+export module Ogre.Core:RenderQueueSortingGrouping;
 
 // Precompiler options
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePass.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Pass;
+export import :Platform;
+export import :Prerequisites;
 
+export import <algorithm>;
+export import <functional>;
+export import <map>;
+export import <memory>;
+export import <utility>;
+export import <vector>;
+
+export
 namespace Ogre {
     class Camera;
     class RenderQueueGroup;
@@ -639,5 +639,3 @@ namespace Ogre {
 
 
 }
-
-#endif

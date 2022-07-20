@@ -25,24 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_RENDERTARGET_H
-#define OGRE_CORE_RENDERTARGET_H
+module;
 
-#include <algorithm>
 #include <cstddef>
-#include <map>
-#include <vector>
 
-#include "OgreDepthBuffer.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export module Ogre.Core:RenderTarget;
 
+export import :DepthBuffer;
+export import :MemoryAllocatorConfig;
+export import :PixelFormat;
+export import :Platform;
+export import :Prerequisites;
+
+export import <algorithm>;
+export import <map>;
+export import <vector>;
+
+export
 auto constexpr inline OGRE_NUM_RENDERTARGET_GROUPS = 10;
+
+export
 auto constexpr inline OGRE_DEFAULT_RT_GROUP = 4;
+
+export
 auto constexpr inline OGRE_REND_TO_TEX_RT_GROUP = 2;
 
+export
 namespace Ogre {
 class Camera;
 class RenderTargetListener;
@@ -495,5 +503,3 @@ struct Box;
     /** @} */
 
 } // Namespace
-
-#endif

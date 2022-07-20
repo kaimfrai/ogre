@@ -25,27 +25,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "ZipArchiveTests.hpp"
+module;
 
 #include <cstddef>
-#include <map>
-#include <format>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreArchive.hpp"
-#include "OgreCommon.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreZip.hpp"
+module Ogre.Tests.Core;
+
+import :ZipArchiveTests;
+
+import Ogre.Core;
+
+import <format>;
+import <map>;
+import <string>;
+import <utility>;
+import <vector>;
 
 using namespace Ogre;
-
 static auto fileId(std::string_view path) -> std::string_view {
     return path;
 }
@@ -60,6 +56,7 @@ void ZipArchiveTests::SetUp()
     arch = Ogre::ZipArchiveFactory().createInstance(testPath, true);
     arch->load();
 }
+
 //--------------------------------------------------------------------------
 void ZipArchiveTests::TearDown()
 {

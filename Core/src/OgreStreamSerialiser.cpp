@@ -25,29 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstring>
-#include <format>
-#include <string>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBitwise.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreDeflate.hpp"
-#include "OgreException.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlane.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRay.hpp"
-#include "OgreSphere.hpp"
-#include "OgreStreamSerialiser.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreVector.hpp"
+module Ogre.Core;
+
+import :AxisAlignedBox;
+import :Bitwise;
+import :DataStream;
+import :Deflate;
+import :Exception;
+import :Log;
+import :LogManager;
+import :Math;
+import :Matrix3;
+import :Matrix4;
+import :Node;
+import :Plane;
+import :Quaternion;
+import :Ray;
+import :Sphere;
+import :StreamSerialiser;
+import :StringConverter;
+import :Vector;
+
+import <format>;
+import <string>;
 
 namespace Ogre
 {
@@ -833,5 +838,3 @@ namespace Ogre
         mOriginalStream.reset();
     }
 }
-
-

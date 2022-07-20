@@ -25,13 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ARCHIVEFACTORY_H
-#define OGRE_CORE_ARCHIVEFACTORY_H
+export module Ogre.Core:ArchiveFactory;
 
-#include "OgreArchive.hpp"
-#include "OgreFactoryObj.hpp"
-#include "OgrePrerequisites.hpp"
+export import :Archive;
+export import :FactoryObj;
+export import :Prerequisites;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -77,5 +77,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-#endif

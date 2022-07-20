@@ -25,11 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.RenderSystems.GL;
 
-#include "OgreGLSLProgramFactory.hpp"
-
-#include "OgreGLSLLinkProgramManager.hpp"
-#include "OgreGLSLProgram.hpp"
+import :GLSL.SLLinkProgramManager;
+import :GLSL.SLProgram;
+import :GLSL.SLProgramFactory;
 
 namespace Ogre {
 class GpuProgram;

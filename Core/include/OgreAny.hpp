@@ -32,17 +32,19 @@ THE SOFTWARE.
 // accompAnying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
+module;
 
-#ifndef OGRE_CORE_ANY_H
-#define OGRE_CORE_ANY_H
-
-#include "OgrePrerequisites.hpp"
-
-#include <any>
 #include <cassert>
-#include <type_traits>
-#include <utility>
 
+export module Ogre.Core:Any;
+
+export import :Prerequisites;
+
+export import <any>;
+export import <type_traits>;
+export import <utility>;
+
+export
 namespace Ogre
 {
     /** Specialised Any class which has built in arithmetic operators, but can
@@ -165,6 +167,3 @@ namespace Ogre
     /** @} */
 
 }
-
-#endif
-

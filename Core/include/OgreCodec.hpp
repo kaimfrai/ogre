@@ -25,18 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_CODEC_H
-#define OGRE_CORE_CODEC_H
+module;
 
-#include <any>
 #include <cstddef>
-#include <map>
-#include <string>
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreStringVector.hpp"
+export module Ogre.Core:Codec;
 
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
+export import :StringVector;
+
+export import <any>;
+export import <map>;
+export import <string>;
+
+export
 namespace Ogre {
     /** \addtogroup Core
     *  @{
@@ -141,5 +144,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-#endif

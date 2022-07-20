@@ -25,13 +25,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_EXALPHATEST_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_EXALPHATEST_H
+module Ogre.Components.RTShaderSystem:ShaderFFPAlphaTest;
 
-#include "OgreCommon.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderPrerequisites.hpp"
-#include "OgreShaderSubRenderState.hpp"
+import :ShaderPrerequisites;
+import :ShaderSubRenderState;
+
+import Ogre.Core;
 
 namespace Ogre {
     class AutoParamDataSource;
@@ -127,5 +126,3 @@ protected:
 };
 
 } // namespace Ogre
-
-#endif

@@ -25,8 +25,9 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module Ogre.RenderSystems.GLSupport;
 
-#include "OgreGLUniformCache.hpp"
+import :GLUniformCache;
 
 namespace Ogre {
 

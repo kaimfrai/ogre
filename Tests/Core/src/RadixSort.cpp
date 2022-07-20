@@ -25,30 +25,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <gtest/gtest.h>
 #include <climits>
 #include <cstdlib>
-#include <list>
-#include <vector>
-
 #include "../../Core/src/OgreRadixSort.hpp"
-#include "OgreMath.hpp"
-#include "OgrePlatform.hpp"
-#include "RadixSortTests.hpp"
+
+module Ogre.Tests.Core;
+
+import :RadixSortTests;
+
+import Ogre.Core;
+
+import <list>;
+import <vector>;
 
 using namespace Ogre;
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void RadixSortTests::SetUp()
 {    srand(0);
     
 }
+
 //--------------------------------------------------------------------------
 void RadixSortTests::TearDown()
 {
 }
+
 //--------------------------------------------------------------------------
 class FloatSortFunctor
 {
@@ -58,6 +64,7 @@ public:
         return p;
     }
 };
+
 //--------------------------------------------------------------------------
 class IntSortFunctor
 {
@@ -67,6 +74,7 @@ public:
         return p;
     }
 };
+
 //--------------------------------------------------------------------------
 class UnsignedIntSortFunctor
 {
@@ -209,5 +217,3 @@ TEST_F(RadixSortTests,IntVector)
     }
 }
 //--------------------------------------------------------------------------
-
-

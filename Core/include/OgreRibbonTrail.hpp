@@ -25,24 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
-#ifndef OGRE_CORE_RIBBONTRAIL_H
-#define OGRE_CORE_RIBBONTRAIL_H
-
-#include <algorithm>
 #include <cstddef>
-#include <map>
-#include <vector>
 
-#include "OgreBillboardChain.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreControllerManager.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePrerequisites.hpp"
+export module Ogre.Core:RibbonTrail;
 
+export import :BillboardChain;
+export import :ColourValue;
+export import :Common;
+export import :ControllerManager;
+export import :IteratorWrapper;
+export import :MovableObject;
+export import :Node;
+export import :Prerequisites;
+
+export import <algorithm>;
+export import <map>;
+export import <vector>;
+
+export
 namespace Ogre {
 template <typename T> class Controller;
 
@@ -245,5 +247,3 @@ template <typename T> class Controller;
     /** @} */
 
 }
-
-#endif

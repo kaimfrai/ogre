@@ -25,31 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
-#define OGRE_TESTS_CORE_MESHSERIALIZERTESTS_H
+module;
 
 #include <gtest/gtest.h>
-#include <memory>
-#include <unordered_map>
 
-#include "OgreArchiveFactory.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeletonManager.hpp"
+export module Ogre.Tests.Core:MeshSerializerTests;
 
+export import Ogre.Core;
+
+export import <memory>;
+export import <unordered_map>;
+
+export
 using namespace Ogre;
 
+export
 class MeshSerializerTests : public ::testing::Test
 {
 
@@ -91,5 +81,3 @@ public:
     auto isEqual(Real a, Real b) -> bool;
     auto isEqual(const Vector3& a, const Vector3& b) -> bool;
 };
-
-#endif

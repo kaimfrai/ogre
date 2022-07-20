@@ -1,15 +1,15 @@
 //-----------------------------------------------------------------------------
 // MurmurHash3 was written by Austin Appleby, and is placed in the public
 // domain. The author hereby disclaims copyright to this source code.
-
-#ifndef OGRE_CORE_MURMURHASH3_H
-#define OGRE_CORE_MURMURHASH3_H
+module;
 
 #include <cstddef>
 #include <cstdint>
 
-//-----------------------------------------------------------------------------
+export module Ogre.Core:MurmurHash3;
 
+//-----------------------------------------------------------------------------
+export
 namespace Ogre
 {
     void MurmurHash3_x86_32  ( const void * key, size_t len, uint32_t seed, void * out );
@@ -22,7 +22,4 @@ namespace Ogre
         MurmurHash3_x64_128(key, len, seed, out);
     }
 }
-
 //-----------------------------------------------------------------------------
-
-#endif // OGRE_CORE_MURMURHASH3_H

@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_USEROBJECTBINDINGS_H
-#define OGRE_CORE_USEROBJECTBINDINGS_H
+export module Ogre.Core:UserObjectBindings;
 
-#include <any>
-#include <map>
-#include <memory>
-#include <string>
+export import :MemoryAllocatorConfig;
+export import :Prerequisites;
 
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePrerequisites.hpp"
+export import <any>;
+export import <map>;
+export import <memory>;
+export import <string>;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -138,5 +138,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

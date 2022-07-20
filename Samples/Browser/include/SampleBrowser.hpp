@@ -25,24 +25,19 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-#ifndef OGRE_SAMPLES_BROWSER_H
-#define OGRE_SAMPLES_BROWSER_H
+export module Ogre.Samples.Browser:SampleBrowser;
 
-#include "OgreArchiveManager.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTrays.hpp"
-#include "SampleContext.hpp"
-#include "SamplePlugin.hpp"
-#include "SdkSample.hpp"
+export import Ogre.Components.Bites;
+export import Ogre.Core;
+export import Ogre.Samples.Common;
 
-#include "DefaultSamplesPlugin.hpp"
+export import <map>;
+export import <memory>;
 
-#include <map>
-#include <memory>
-
+export
 auto constexpr inline CAROUSEL_REDRAW_EPS = 0.001;
 
+export
 namespace OgreBites
 {
     /*=============================================================================
@@ -1017,5 +1012,3 @@ namespace OgreBites
         bool mGrabInput;
     };
 }
-
-#endif

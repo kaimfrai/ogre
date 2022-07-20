@@ -25,26 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_ROOT_H
-#define OGRE_CORE_ROOT_H
+export module Ogre.Core:Root;
 
-#include <algorithm>
-#include <deque>
-#include <map>
-#include <memory>
-#include <set>
-#include <string>
-#include <vector>
+export import :Common;
+export import :IteratorWrapper;
+export import :MemoryAllocatorConfig;
+export import :Platform;
+export import :Prerequisites;
+export import :ResourceGroupManager;
+export import :SceneManagerEnumerator;
+export import :Singleton;
 
-#include "OgreCommon.hpp"
-#include "OgreIteratorWrapper.hpp"
-#include "OgreMemoryAllocatorConfig.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSceneManagerEnumerator.hpp"
-#include "OgreSingleton.hpp"
+export import <algorithm>;
+export import <deque>;
+export import <map>;
+export import <memory>;
+export import <set>;
+export import <string>;
+export import <vector>;
 
+export
 namespace Ogre
 {
     /** \addtogroup Core
@@ -956,5 +956,3 @@ struct SceneManagerMetaData;
     /** @} */
     /** @} */
 } // Namespace Ogre
-
-#endif

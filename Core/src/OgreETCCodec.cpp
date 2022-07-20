@@ -25,22 +25,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cstring>
-#include <utility>
 
-#include "OgreCodec.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreETCCodec.hpp"
-#include "OgreException.hpp"
-#include "OgreImage.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgrePlatform.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreStableHeaders.hpp"
+module Ogre.Core;
+
+import :Codec;
+import :Common;
+import :DataStream;
+import :ETCCodec;
+import :Exception;
+import :Image;
+import :Log;
+import :LogManager;
+import :PixelFormat;
+import :Platform;
+import :SharedPtr;
+import :StableHeaders;
+
+import <utility>;
 
 enum {
 KTX_ENDIAN_REF =      (0x04030201),
@@ -60,7 +64,6 @@ KTX_ENDIAN_REF_REV =  (0x01020304)
 // ETC2PACKAGE_RG_NO_MIPMAPS            6                 GL_COMPRESSED_RG11_EAC
 // ETC2PACKAGE_R_SIGNED_NO_MIPMAPS      7                 GL_COMPRESSED_SIGNED_R11_EAC
 // ETC2PACKAGE_RG_SIGNED_NO_MIPMAPS     8                 GL_COMPRESSED_SIGNED_RG11_EAC
-
 namespace Ogre {
 
     const uint32 PKM_MAGIC = FOURCC('P', 'K', 'M', ' ');

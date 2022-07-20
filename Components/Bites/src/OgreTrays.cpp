@@ -4,28 +4,23 @@
  *  Created on: 01.07.2016
  *      Author: parojtbe
  */
+module;
 
-#include "OgreTrays.hpp"
-
-#include <algorithm>
 #include <cmath>
-#include <iomanip>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <utility>
 
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreFont.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreOverlayManager.hpp"
-#include "OgrePanelOverlayElement.hpp"
-#include "OgreRenderTarget.hpp"
-#include "OgreRenderWindow.hpp"
-#include "OgreRoot.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreTimer.hpp"
+module Ogre.Components.Bites;
+
+import :Trays;
+
+import Ogre.Components.Overlay;
+import Ogre.Core;
+
+import <algorithm>;
+import <iomanip>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <utility>;
 
 namespace Ogre {
 struct FrameEvent;
@@ -2127,4 +2122,3 @@ void TrayManager::setExpandedMenu(SelectMenu *m)
 }
 
 }
-

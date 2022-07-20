@@ -25,46 +25,51 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
 #include <cstring>
-#include <format>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
-#include "OgreAnimation.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreBitwise.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreDataStream.hpp"
-#include "OgreDistanceLodStrategy.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreLodStrategy.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshFileFormat.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgreMeshSerializerImpl.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePose.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Core;
+
+import :Animation;
+import :AnimationTrack;
+import :AxisAlignedBox;
+import :Bitwise;
+import :ColourValue;
+import :Common;
+import :DataStream;
+import :DistanceLodStrategy;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :LodStrategy;
+import :LodStrategyManager;
+import :Log;
+import :LogManager;
+import :MaterialManager;
+import :Math;
+import :Mesh;
+import :MeshFileFormat;
+import :MeshSerializer;
+import :MeshSerializerImpl;
+import :Platform;
+import :Pose;
+import :RenderOperation;
+import :SharedPtr;
+import :SubMesh;
+import :Vector;
+import :VertexIndexData;
+
+import <format>;
+import <list>;
+import <map>;
+import <memory>;
+import <string>;
+import <unordered_map>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 
@@ -3898,5 +3903,3 @@ namespace Ogre {
 
 
 }
-
-

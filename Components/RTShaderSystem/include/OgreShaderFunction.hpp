@@ -24,22 +24,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
-#define OGRE_COMPONENTS_RTSHADERSYSTEM_FUNCTION_H
+module;
 
 #include <cstddef>
-#include <map>
-#include <memory>
-#include <vector>
 
-#include "OgreException.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderFunctionAtom.hpp"
-#include "OgreShaderParameter.hpp"
-#include "OgreShaderPrerequisites.hpp"
+export module Ogre.Components.RTShaderSystem:ShaderFunction;
 
+export import :ShaderFunctionAtom;
+export import :ShaderParameter;
+export import :ShaderPrerequisites;
+
+export import Ogre.Core;
+
+export import <map>;
+export import <memory>;
+export import <vector>;
+
+export
 namespace Ogre::RTShader {
 class Function;
 class ProgramManager;
@@ -284,5 +285,3 @@ using ShaderFunctionConstIterator = ShaderFunctionList::const_iterator;
 /** @} */
 
 }
-
-#endif

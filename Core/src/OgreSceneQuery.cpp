@@ -25,13 +25,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cstddef>
 
-#include "OgreException.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreSceneQuery.hpp"
+module Ogre.Core;
+
+import :Exception;
+import :SceneManager;
+import :SceneQuery;
+
+import <algorithm>;
 
 namespace Ogre {
 class MovableObject;
@@ -347,6 +352,3 @@ class MovableObject;
 
 }
     
-
-
-

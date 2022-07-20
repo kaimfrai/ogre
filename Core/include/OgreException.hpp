@@ -25,17 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_EXCEPTION_H
-#define OGRE_CORE_EXCEPTION_H
-
-#include <exception>
-#include <source_location>
-#include <string_view>
+export module Ogre.Core:Exception;
 
 // Precompiler options
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
+export import :Platform;
+export import :Prerequisites;
 
+export import <exception>;
+export import <source_location>;
+export import <string_view>;
+
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -281,5 +281,3 @@ namespace Ogre {
     /** @} */
 
 } // Namespace Ogre
-
-#endif

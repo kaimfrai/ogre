@@ -25,16 +25,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_PLUGINS_STBICODEC_H
-#define OGRE_PLUGINS_STBICODEC_H
+module;
 
 #include <cstddef>
-#include <list>
 
-#include "OgreImageCodec.hpp"
-#include "OgrePlugin.hpp"
-#include "OgrePrerequisites.hpp"
+export module Ogre.PlugIns.STBICodec;
 
+export import Ogre.Core;
+
+export import <list>;
+
+export
 namespace Ogre {
 
     /** \addtogroup Plugins Plugins
@@ -86,5 +87,3 @@ namespace Ogre {
     /** @} */
 
 } // namespace
-
-#endif

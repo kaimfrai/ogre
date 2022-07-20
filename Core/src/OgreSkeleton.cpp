@@ -25,42 +25,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
+module;
+
 #include <cassert>
 #include <cstddef>
-#include <format>
-#include <iterator>
-#include <list>
-#include <map>
-#include <memory>
-#include <ostream>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreAnimationState.hpp"
-#include "OgreSkeletonManager.hpp"
-#include "OgreSkeletonSerializer.hpp"
+module Ogre.Core;
+
 // Just for logging
-#include "OgreAnimation.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreBone.hpp"
-#include "OgreException.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreLog.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMath.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreResourceManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreStringVector.hpp"
-#include "OgreVector.hpp"
+import :Animation;
+import :AnimationState;
+import :AnimationTrack;
+import :Bone;
+import :Exception;
+import :KeyFrame;
+import :Log;
+import :LogManager;
+import :Math;
+import :Prerequisites;
+import :Quaternion;
+import :Resource;
+import :ResourceGroupManager;
+import :ResourceManager;
+import :SharedPtr;
+import :Skeleton;
+import :SkeletonManager;
+import :SkeletonSerializer;
+import :StringConverter;
+import :StringVector;
+import :Vector;
 
+import <algorithm>;
+import <format>;
+import <iterator>;
+import <list>;
+import <map>;
+import <memory>;
+import <ostream>;
+import <string>;
+import <utility>;
+import <vector>;
 
 namespace Ogre {
 struct Affine3;

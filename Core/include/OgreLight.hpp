@@ -25,29 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_LIGHT_H
-#define OGRE_CORE_LIGHT_H
+module;
 
 #include <cassert>
 #include <cstddef>
-#include <map>
 
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreCamera.hpp"
-#include "OgreColourValue.hpp"
-#include "OgreCommon.hpp"
-#include "OgreGpuProgramParams.hpp"
-#include "OgreMath.hpp"
-#include "OgreMovableObject.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlaneBoundedVolume.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreQuaternion.hpp"
-#include "OgreRenderable.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:Light;
 
+export import :AxisAlignedBox;
+export import :Camera;
+export import :ColourValue;
+export import :Common;
+export import :GpuProgramParams;
+export import :Math;
+export import :MovableObject;
+export import :Node;
+export import :PlaneBoundedVolume;
+export import :Platform;
+export import :Prerequisites;
+export import :Quaternion;
+export import :Renderable;
+export import :SharedPtr;
+export import :Vector;
+
+export import <map>;
+
+export
 namespace Ogre {
 class RenderQueue;
 struct Sphere;
@@ -576,4 +579,3 @@ struct Sphere;
     /** @} */
 
 } // namespace Ogre
-#endif // OGRE_CORE_LIGHT_H

@@ -25,8 +25,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "OgreOptimisedUtil.hpp"
-#include "OgrePlatformInformation.hpp"
+module Ogre.Core;
+
+import :OptimisedUtil;
+import :PlatformInformation;
 
 namespace Ogre {
 

@@ -25,29 +25,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cassert>
-#include <limits>
-#include <span>
-#include <string>
-#include <vector>
+module;
 
-#include "OgreAnimationTrack.hpp"
-#include "OgreCamera.hpp"
-#include "OgreEntity.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreLogManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix4.hpp"
-#include "OgreMesh.hpp"
-#include "OgreNode.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSubEntity.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :AnimationTrack;
+import :Camera;
+import :Entity;
+import :HardwareVertexBuffer;
+import :LogManager;
+import :Material;
+import :MaterialManager;
+import :Math;
+import :Matrix4;
+import :Mesh;
+import :Node;
+import :RenderOperation;
+import :SubEntity;
+import :SubMesh;
+import :Vector;
+import :VertexIndexData;
+
+import <algorithm>;
+import <limits>;
+import <span>;
+import <string>;
+import <vector>;
 
 namespace Ogre {
 class Technique;

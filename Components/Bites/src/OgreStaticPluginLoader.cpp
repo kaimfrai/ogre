@@ -1,10 +1,10 @@
-#include "OgreStaticPluginLoader.hpp"
+module Ogre.Components.Bites;
 
-#include "OgreGLPlugin.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePlugin.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSTBICodec.hpp"
+import :StaticPluginLoader;
+
+import Ogre.Core;
+import Ogre.PlugIns.STBICodec;
+import Ogre.RenderSystems.GL;
 
 void OgreBites::StaticPluginLoader::load()
 {
@@ -29,8 +29,6 @@ void OgreBites::StaticPluginLoader::unload()
         }
     mPlugins.clear();
 }
-
-
 OgreBites::StaticPluginLoader::~StaticPluginLoader()
 {
     unload();

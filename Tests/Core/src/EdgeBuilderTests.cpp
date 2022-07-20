@@ -25,28 +25,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "EdgeBuilderTests.hpp"
+module Ogre.Tests.Core;
 
-#include <memory>
+import :EdgeBuilderTests;
 
-#include "OgreDefaultHardwareBufferManager.hpp"
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreVertexIndexData.hpp"
+import Ogre.Core;
 
+import <memory>;
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void EdgeBuilderTests::SetUp()
 {   
    mBufMgr = new DefaultHardwareBufferManager();
 }
+
 //--------------------------------------------------------------------------
 void EdgeBuilderTests::TearDown()
 {

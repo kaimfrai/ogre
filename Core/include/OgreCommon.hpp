@@ -25,22 +25,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_COMMON_H
-#define OGRE_CORE_COMMON_H
-// Common stuff
+module;
 
+// Common stuff
 #include <cassert>
 #include <cstddef>
-#include <map>
-#include <ostream>
-#include <string>
-#include <vector>
 
-#include "OgreMurmurHash3.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreVector.hpp"
+export module Ogre.Core:Common;
 
+export import :MurmurHash3;
+export import :Platform;
+export import :Prerequisites;
+export import :Vector;
+
+export import <map>;
+export import <ostream>;
+export import <string>;
+export import <vector>;
+
+export
 namespace Ogre {
 class RenderWindow;
 
@@ -884,8 +887,5 @@ class RenderWindow;
     /** @} */
     /** @} */
 }
-
 static_assert(std::is_aggregate_v<Ogre::Box>);
 static_assert(std::is_standard_layout_v<Ogre::Box>);
-
-#endif

@@ -25,30 +25,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cstddef>
-#include <map>
-#include <memory>
-#include <set>
-#include <vector>
+module;
 
-#include "OgreAnimationTrack.hpp"
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMath.hpp"
-#include "OgreMesh.hpp"
-#include "OgrePlatform.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexBoneAssignment.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <cstddef>
+
+module Ogre.Core;
+
+import :AnimationTrack;
+import :Common;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareIndexBuffer;
+import :HardwareVertexBuffer;
+import :Material;
+import :MaterialManager;
+import :Math;
+import :Mesh;
+import :Platform;
+import :Prerequisites;
+import :RenderOperation;
+import :SharedPtr;
+import :SubMesh;
+import :Vector;
+import :VertexBoneAssignment;
+import :VertexIndexData;
+
+import <map>;
+import <memory>;
+import <set>;
+import <vector>;
 
 namespace Ogre {
 class HardwareBufferManagerBase;
@@ -413,5 +418,3 @@ class HardwareBufferManagerBase;
         return newSub;
     }
 }
-
-

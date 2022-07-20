@@ -26,21 +26,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module Ogre.Core;
 
-#include <algorithm>
-#include <vector>
+import :Camera;
+import :Exception;
+import :Frustum;
+import :Light;
+import :Math;
+import :Matrix3;
+import :Node;
+import :Plane;
+import :Ray;
+import :ShadowCameraSetupFocused;
+import :Vector;
 
-#include "OgreCamera.hpp"
-#include "OgreException.hpp"
-#include "OgreFrustum.hpp"
-#include "OgreLight.hpp"
-#include "OgreMath.hpp"
-#include "OgreMatrix3.hpp"
-#include "OgreNode.hpp"
-#include "OgrePlane.hpp"
-#include "OgreRay.hpp"
-#include "OgreShadowCameraSetupFocused.hpp"
-#include "OgreVector.hpp"
+import <algorithm>;
+import <vector>;
 
 namespace Ogre
 {
@@ -671,5 +672,3 @@ class Viewport;
     }
 
 }
-
-

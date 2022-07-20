@@ -25,41 +25,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <algorithm>
-#include <cstring>
-#include <limits>
-#include <map>
-#include <memory>
-#include <string>
-#include <type_traits>
-#include <utility>
+module;
 
-#include "OgreCommon.hpp"
-#include "OgreDualQuaternion.hpp"
-#include "OgreException.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwarePixelBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreInstanceBatchVTF.hpp"
-#include "OgreInstancedEntity.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgrePass.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreRenderSystem.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRoot.hpp"
-#include "OgreSceneManager.hpp"
-#include "OgreStringConverter.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+#include <cstring>
+
+module Ogre.Core;
+
+import :Common;
+import :DualQuaternion;
+import :Exception;
+import :HardwareBuffer;
+import :HardwareBufferManager;
+import :HardwareIndexBuffer;
+import :HardwarePixelBuffer;
+import :HardwareVertexBuffer;
+import :InstanceBatchVTF;
+import :InstancedEntity;
+import :Material;
+import :MaterialManager;
+import :Pass;
+import :PixelFormat;
+import :RenderOperation;
+import :RenderSystem;
+import :RenderSystemCapabilities;
+import :Root;
+import :SceneManager;
+import :StringConverter;
+import :SubMesh;
+import :Technique;
+import :TextureManager;
+import :TextureUnitState;
+import :Vector;
+import :VertexIndexData;
+
+import <algorithm>;
+import <limits>;
+import <map>;
+import <memory>;
+import <string>;
+import <type_traits>;
+import <utility>;
 
 namespace Ogre
 {

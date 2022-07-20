@@ -25,19 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include <cassert>
-#include <map>
-#include <format>
-#include <string>
-#include <utility>
+module;
 
-#include "OgreArchive.hpp"
-#include "OgreArchiveFactory.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreException.hpp"
-#include "OgreLogManager.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreSingleton.hpp"
+#include <cassert>
+
+module Ogre.Core;
+
+import :Archive;
+import :ArchiveFactory;
+import :ArchiveManager;
+import :Exception;
+import :LogManager;
+import :Prerequisites;
+import :Singleton;
+
+import <format>;
+import <map>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
     using createFunc = void (*)(Archive **, std::string_view );
@@ -141,4 +146,3 @@ namespace Ogre {
     }
 
 }
-

@@ -1,16 +1,15 @@
 // This file is part of the OGRE project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
+module Ogre.RenderSystems.GLSupport;
 
-#include "OgreGLDepthBufferCommon.hpp"
+import :GLDepthBufferCommon;
+import :GLHardwarePixelBufferCommon;
+import :GLRenderSystemCommon;
+import :GLRenderTarget;
+import :GLRenderTexture;
 
-#include "OgreGLHardwarePixelBufferCommon.hpp"
-#include "OgreGLRenderSystemCommon.hpp"
-#include "OgreGLRenderTarget.hpp"
-#include "OgreGLRenderTexture.hpp"
-#include "OgrePixelFormat.hpp"
-#include "OgreRenderSystemCapabilities.hpp"
-#include "OgreRenderTarget.hpp"
+import Ogre.Core;
 
 namespace Ogre
 {

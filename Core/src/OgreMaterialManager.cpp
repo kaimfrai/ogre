@@ -25,28 +25,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
 #include <cassert>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
 
-#include "OgreCommon.hpp"
-#include "OgreException.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreMaterial.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgrePass.hpp"
-#include "OgrePrerequisites.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSharedPtr.hpp"
-#include "OgreSingleton.hpp"
-#include "OgreTechnique.hpp"
-#include "OgreTextureManager.hpp"
-#include "OgreTextureUnitState.hpp"
+module Ogre.Core;
 
+import :Common;
+import :Exception;
+import :LodStrategyManager;
+import :Material;
+import :MaterialManager;
+import :Pass;
+import :Prerequisites;
+import :Resource;
+import :ResourceGroupManager;
+import :SharedPtr;
+import :Singleton;
+import :Technique;
+import :TextureManager;
+import :TextureUnitState;
+
+import <list>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 class Renderable;

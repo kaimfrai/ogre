@@ -25,20 +25,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
 
 #include <cassert>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
 
-#include "OgrePrerequisites.hpp"
-#include "OgreShaderGLSLESProgramWriter.hpp"
-#include "OgreShaderGLSLProgramWriter.hpp"
-#include "OgreShaderHLSLProgramWriter.hpp"
-#include "OgreShaderProgramWriter.hpp"
-#include "OgreShaderProgramWriterManager.hpp"
-#include "OgreSingleton.hpp"
+module Ogre.Components.RTShaderSystem;
+
+import :ShaderGLSLESProgramWriter;
+import :ShaderGLSLProgramWriter;
+import :ShaderHLSLProgramWriter;
+import :ShaderProgramWriter;
+import :ShaderProgramWriterManager;
+
+import Ogre.Core;
+
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
 
 namespace Ogre {
 

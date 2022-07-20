@@ -25,12 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef OGRE_CORE_FRAMELISTENER_H
-#define OGRE_CORE_FRAMELISTENER_H
+export module Ogre.Core:FrameListener;
 
+export import :Prerequisites;
 
-#include "OgrePrerequisites.hpp"
-
+export
 namespace Ogre {
 
     /** \addtogroup Core
@@ -133,5 +132,3 @@ namespace Ogre {
     /** @} */
     /** @} */
 }
-
-#endif

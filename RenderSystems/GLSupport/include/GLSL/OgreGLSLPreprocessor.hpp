@@ -25,15 +25,17 @@
    THE SOFTWARE.
    -----------------------------------------------------------------------------
 */
-
-#ifndef OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H
-#define OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H
+module;
 
 #include <cstdlib>
 #include <cstring>
-#include <forward_list>
-#include <vector>
 
+export module Ogre.RenderSystems.GLSupport:GLSL.Preprocessor;
+
+export import <forward_list>;
+export import <vector>;
+
+export
 namespace Ogre {
 
     /**
@@ -505,5 +507,3 @@ namespace Ogre {
     };
 
 } // namespace Ogre
-
-#endif // OGRE_RENDERSYSTEMS_GLSUPPORT_GLSL_GLSLPREPROCESSOR_H

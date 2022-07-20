@@ -25,57 +25,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#include "MeshSerializerTests.hpp"
+module;
 
-#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
-#include <format>
-#include <fstream>
-#include <list>
-#include <map>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
 
-#include "OgreAnimation.hpp"
-#include "OgreAnimationTrack.hpp"
-#include "OgreArchive.hpp"
-#include "OgreArchiveManager.hpp"
-#include "OgreAxisAlignedBox.hpp"
-#include "OgreConfigFile.hpp"
-#include "OgreDefaultHardwareBufferManager.hpp"
-#include "OgreDistanceLodStrategy.hpp"
-#include "OgreEdgeListBuilder.hpp"
-#include "OgreException.hpp"
-#include "OgreFileSystem.hpp"
-#include "OgreFileSystemLayer.hpp"
-#include "OgreHardwareBuffer.hpp"
-#include "OgreHardwareBufferManager.hpp"
-#include "OgreHardwareIndexBuffer.hpp"
-#include "OgreHardwareVertexBuffer.hpp"
-#include "OgreKeyFrame.hpp"
-#include "OgreLodStrategyManager.hpp"
-#include "OgreMaterialManager.hpp"
-#include "OgreMesh.hpp"
-#include "OgreMeshManager.hpp"
-#include "OgreMeshSerializer.hpp"
-#include "OgrePose.hpp"
-#include "OgreRenderOperation.hpp"
-#include "OgreResource.hpp"
-#include "OgreResourceGroupManager.hpp"
-#include "OgreSkeleton.hpp"
-#include "OgreSkeletonManager.hpp"
-#include "OgreSkeletonSerializer.hpp"
-#include "OgreString.hpp"
-#include "OgreSubMesh.hpp"
-#include "OgreVector.hpp"
-#include "OgreVertexIndexData.hpp"
+module Ogre.Tests.Core;
+
+import :MeshSerializerTests;
+
+import Ogre.Core;
+
+import <algorithm>;
+import <format>;
+import <fstream>;
+import <list>;
+import <map>;
+import <memory>;
+import <string>;
+import <utility>;
+import <vector>;
 
 // Register the test suite
-
 //--------------------------------------------------------------------------
 void MeshSerializerTests::SetUp()
 {
@@ -129,6 +101,7 @@ void MeshSerializerTests::SetUp()
 
     mOrigMesh = mMesh->clone(::std::format("{}.orig.mesh", mMesh->getName()), mMesh->getGroup());
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::TearDown()
 {
@@ -168,6 +141,7 @@ TEST_F(MeshSerializerTests,Mesh_clone)
     MeshPtr cloneMesh = mMesh->clone(::std::format("{}.clone.mesh", mMesh->getName()), mMesh->getGroup());
     assertMeshClone(mMesh.get(), cloneMesh.get());
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::testMesh(MeshVersion version)
 {
@@ -343,6 +317,7 @@ void MeshSerializerTests::assertMeshClone(Mesh* a, Mesh* b, MeshVersion version 
         }
     }
 }
+
 //--------------------------------------------------------------------------
 auto MeshSerializerTests::isLodMixed(const Mesh* pMesh) -> bool
 {
@@ -359,6 +334,7 @@ auto MeshSerializerTests::isLodMixed(const Mesh* pMesh) -> bool
 
     return false;
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
@@ -432,14 +408,18 @@ void MeshSerializerTests::assertVertexDataClone(VertexData* a, VertexData* b, Me
         }
     }
 }
+
 //--------------------------------------------------------------------------
 template<typename T>
+
 auto MeshSerializerTests::isContainerClone(T& a, T& b) -> bool
 {
     return a.size() == b.size() && std::ranges::equal(a, b);
 }
+
 //--------------------------------------------------------------------------
 template<typename K, typename V, typename H, typename E>
+
 auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V, H, E>& a, const std::unordered_map<K, V, H, E>& b) -> bool
 {
     // if you recreate a HashMap with same elements, then iteration order may differ!
@@ -455,6 +435,7 @@ auto MeshSerializerTests::isHashMapClone(const std::unordered_map<K, V, H, E>& a
     }
     return true;
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
@@ -480,6 +461,7 @@ void MeshSerializerTests::assertIndexDataClone(IndexData* a, IndexData* b, MeshV
         }
     }
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
@@ -493,6 +475,7 @@ void MeshSerializerTests::assertEdgeDataClone(EdgeData* a, EdgeData* b, MeshVers
         EXPECT_TRUE(a->edgeGroups.size() == b->edgeGroups.size());
     }
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshLodUsage& b, MeshVersion version /*= MeshVersion::LATEST*/)
 {
@@ -500,6 +483,7 @@ void MeshSerializerTests::assertLodUsageClone(const MeshLodUsage& a, const MeshL
     EXPECT_TRUE(isEqual(a.userValue, b.userValue));
     EXPECT_TRUE(isEqual(a.value, b.value));
 }
+
 //--------------------------------------------------------------------------
 void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, String& outPath)
 {
@@ -530,6 +514,7 @@ void MeshSerializerTests::getResourceFullPath(const ResourcePtr& resource, Strin
 
     OgreAssert(info->archive->getType() == "FileSystem", "");
 }
+
 //--------------------------------------------------------------------------
 auto MeshSerializerTests::copyFile(std::string_view srcPath, std::string_view dstPath) -> bool
 {
@@ -545,12 +530,14 @@ auto MeshSerializerTests::copyFile(std::string_view srcPath, std::string_view ds
     dst << src.rdbuf();
     return true;
 }
+
 //--------------------------------------------------------------------------
 auto MeshSerializerTests::isEqual(Real a, Real b) -> bool
 {
     Real absoluteError = std::abs(a * mErrorFactor);
     return ((a - absoluteError) <= b) && ((a + absoluteError) >= b);
 }
+
 //--------------------------------------------------------------------------
 auto MeshSerializerTests::isEqual(const Vector3& a, const Vector3& b) -> bool
 {
