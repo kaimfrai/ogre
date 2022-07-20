@@ -445,6 +445,9 @@ endif()
 # install resource files
 include(InstallResources)
 
+#include CXX20 modules as late as possible
+include(CXX20Modules)
+
 # Setup OgreCore project
 add_subdirectory(Core)
 
