@@ -26,15 +26,28 @@ THE SOFTWARE.
 */
 export module Ogre.Components.RTShaderSystem;
 
+export import :ShaderExGBuffer;
 export import :ShaderExHardwareSkinning;
 export import :ShaderExIntegratedPSSM3;
 export import :ShaderExLayeredBlending;
+export import :ShaderExTriplanarTexturing;
+export import :ShaderFFPRenderState;
+export import :ShaderFFPTexturing;
 export import :ShaderFFPTransform;
 export import :ShaderFunction;
+export import :ShaderFunctionAtom;
 export import :ShaderGenerator;
+export import :ShaderParameter;
+export import :ShaderPrerequisites;
+export import :ShaderProgram;
 export import :ShaderProgramManager;
+export import :ShaderProgramProcessor;
+export import :ShaderProgramSet;
 export import :ShaderProgramWriter;
+export import :ShaderProgramWriterManager;
 export import :ShaderRenderState;
+export import :ShaderScriptTranslator;
+export import :ShaderSubRenderState;
 
 /** \addtogroup Optional
 *  @{
