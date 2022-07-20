@@ -1,0 +1,23 @@
+export module Ogre.RenderSystems.GLSupport;
+
+export import :GLContext;
+export import :GLDepthBufferCommon;
+export import :GLHardwarePixelBufferCommon;
+export import :GLNativeSupport;
+export import :GLPBuffer;
+export import :GLRenderSystemCommon;
+export import :GLRenderTarget;
+export import :GLRenderTexture;
+export import :GLSL.Preprocessor;
+export import :GLSL.ProgramCommon;
+export import :GLSL.ProgramManagerCommon;
+export import :GLSL.ShaderCommon;
+export import :GLStateCacheManagerCommon;
+export import :GLTextureCommon;
+export import :GLUniformCache;
+export import :GLUtil;
+export import :GLWindow;
+export import :GLX.Context;
+export import :GLX.GLSupport;
+export import :GLX.RenderTexture;
+export import :GLX.Window;

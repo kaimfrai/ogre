@@ -1,0 +1,22 @@
+export module Ogre.RenderSystems.GL;
+
+export import :CopyingRenderTexture;
+export import :FBOMultiRenderTarget;
+export import :FBORenderTexture;
+export import :FrameBufferObject;
+export import :GpuNvparseProgram;
+export import :GpuProgram;
+export import :GpuProgramManager;
+export import :HardwareBuffer;
+export import :HardwareBufferManager;
+export import :HardwareOcclusionQuery;
+export import :HardwarePixelBuffer;
+export import :PBRenderTexture;
+export import :PixelFormat;
+export import :Plugin;
+export import :Prerequisites;
+export import :RenderSystem;
+export import :RenderToVertexBuffer;
+export import :StateCacheManager;
+export import :Texture;
+export import :TextureManager;
