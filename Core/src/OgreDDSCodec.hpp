@@ -73,7 +73,7 @@ struct ColourValue;
         void unpackDXTAlpha(const DXTInterpolatedAlphaBlock& block, ColourValue* pCol) const;
 
         /// Single registered codec instance
-        static DDSCodec* msInstance;
+        static DDSCodec constinit* msInstance;
     public:
         DDSCodec();
         ~DDSCodec() override = default;
@@ -93,6 +93,9 @@ struct ColourValue;
         static void shutdown();
 
     };
+
+    DDSCodec constinit* DDSCodec::msInstance = nullptr;
+
     /** @} */
     /** @} */
 

@@ -45,7 +45,6 @@ import <utility>;
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> LogManager* Singleton<LogManager>::msSingleton = nullptr;
     auto LogManager::getSingletonPtr() noexcept -> LogManager*
     {
         return msSingleton;

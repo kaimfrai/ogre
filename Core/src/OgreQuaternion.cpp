@@ -41,9 +41,6 @@ import :Vector;
 // http://www.geometrictools.com/License/Boost/LICENSE_1_0.txt
 namespace Ogre {
 
-    const float constinit Quaternion::msEpsilon = 1e-03;
-    const Quaternion Quaternion::ZERO{0,0,0,0};
-    const Quaternion Quaternion::IDENTITY{1,0,0,0};
 
     //-----------------------------------------------------------------------
     void Quaternion::FromRotationMatrix (const Matrix3& kRot)

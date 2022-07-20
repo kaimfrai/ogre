@@ -73,9 +73,6 @@ class AutoParamDataSource;
 class Renderable;
 
 //-----------------------------------------------------------------------
-template<> 
-RTShader::ShaderGenerator* Singleton<RTShader::ShaderGenerator>::msSingleton = nullptr;
-
 namespace RTShader {
 
 /** Shader generator RenderObjectListener sub class. */

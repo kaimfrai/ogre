@@ -50,8 +50,6 @@ import <ostream>;
 namespace Ogre {
 class Camera;
 
-    uint constinit SimpleRenderable::msGenNameCount = 0;
-
     SimpleRenderable::SimpleRenderable()
     : MovableObject()
     , mTransform(Affine3::IDENTITY)

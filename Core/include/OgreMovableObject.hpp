@@ -652,6 +652,9 @@ namespace Ogre {
 
     };
 
+    QueryTypeMask MovableObject::msDefaultQueryFlags{ 0xFFFFFFFF };
+    QueryTypeMask MovableObject::msDefaultVisibilityFlags{ 0xFFFFFFFF };
+
     /** Interface definition for a factory class which produces a certain
         kind of MovableObject, and can be registered with Root in order
         to allow all clients to produce new instances of this object, integrated

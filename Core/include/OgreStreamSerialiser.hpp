@@ -348,9 +348,13 @@ struct Sphere;
         /// Current list of open chunks
         ChunkStack mChunkStack;
 
-        static uint32 HEADER_ID;
-        static uint32 REVERSE_HEADER_ID;
-        static uint32 CHUNK_HEADER_SIZE;
+        static uint32 constexpr HEADER_ID = 0x00000001;
+        static uint32 constexpr REVERSE_HEADER_ID = 0x10000000;
+        static uint32 constexpr CHUNK_HEADER_SIZE =
+            sizeof(uint32) + // id
+            sizeof(uint16) + // version
+            sizeof(uint32) + // length
+            sizeof(uint32); // checksum
 
         virtual auto readChunkImpl() -> Chunk*;
         virtual void writeChunkImpl(uint32 id, uint16 version);

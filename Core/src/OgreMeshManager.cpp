@@ -85,7 +85,6 @@ namespace Ogre
     };
 
     //-----------------------------------------------------------------------
-    template<> MeshManager* Singleton<MeshManager>::msSingleton = nullptr;
     auto MeshManager::getSingletonPtr() noexcept -> MeshManager*
     {
         return msSingleton;

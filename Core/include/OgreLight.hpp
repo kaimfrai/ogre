@@ -546,7 +546,7 @@ struct Sphere;
         Camera* mCameraToBeRelativeTo;
 
         /// Shared class-level name for Movable type.
-        static std::string_view const msMovableType;
+        static std::string_view const constexpr msMovableType = "Light";
 
         mutable PlaneBoundedVolume mNearClipVolume;
         mutable PlaneBoundedVolumeList mFrustumClipVolumes;
@@ -571,7 +571,7 @@ struct Sphere;
         LightFactory() = default;
         ~LightFactory() override = default;
 
-        static std::string_view const FACTORY_TYPE_NAME;
+        static std::string_view const constexpr FACTORY_TYPE_NAME = "Light";
 
         [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };

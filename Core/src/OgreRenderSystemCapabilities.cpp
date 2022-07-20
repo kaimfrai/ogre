@@ -200,8 +200,6 @@ namespace Ogre {
         }
     }
     //---------------------------------------------------------------------
-    std::string_view RenderSystemCapabilities::msGPUVendorStrings[std::to_underlying(GPUVendor::VENDOR_COUNT)];
-    //---------------------------------------------------------------------
     auto RenderSystemCapabilities::vendorFromString(std::string_view vendorString) -> GPUVendor
     {
         initVendorStrings();

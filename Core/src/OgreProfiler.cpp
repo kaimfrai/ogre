@@ -66,7 +66,6 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     // PROFILE DEFINITIONS
     //-----------------------------------------------------------------------
-    template<> Profiler* Singleton<Profiler>::msSingleton = nullptr;
     auto Profiler::getSingletonPtr() noexcept -> Profiler*
     {
         return msSingleton;

@@ -51,10 +51,6 @@ import <utility>;
 namespace Ogre {
 class Node;
 class VertexData;
-
-    Animation::InterpolationMode constinit Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
-    Animation::RotationInterpolationMode 
-        Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
     //---------------------------------------------------------------------
     Animation::Animation(std::string_view name, Real length)
         : mName(name)

@@ -248,7 +248,9 @@ namespace Ogre {
         /// same as @ref RGN_AUTODETECT
         static std::string_view const constexpr AUTODETECT_RESOURCE_GROUP_NAME = RGN_AUTODETECT;
         /// The number of reference counts held per resource by the resource system
-        static const long RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS;
+        /// A reference count of 3 means that only RGM and RM have references
+        /// RGM has one (this one) and RM has 2 (by name and by handle)
+        static const long constexpr RESOURCE_SYSTEM_NUM_REFERENCE_COUNTS = 3;
         /// Nested struct defining a resource declaration
         struct ResourceDeclaration
         {

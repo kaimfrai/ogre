@@ -60,8 +60,6 @@ import <vector>;
 namespace Ogre {
 
 //-----------------------------------------------------------------------
-template<> 
-RTShader::ProgramManager* Singleton<RTShader::ProgramManager>::msSingleton = nullptr;
 
 namespace RTShader {
 

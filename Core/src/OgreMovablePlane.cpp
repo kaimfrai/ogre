@@ -32,7 +32,6 @@ import :Node;
 
 namespace Ogre {
 
-    std::string_view const constinit MovablePlane::msMovableType = "MovablePlane";
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     MovablePlane::MovablePlane(std::string_view name) : Plane{}, MovableObject(name),

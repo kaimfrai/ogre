@@ -65,10 +65,6 @@ import <utility>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    QueryTypeMask MovableObject::msDefaultQueryFlags{ 0xFFFFFFFF };
-    QueryTypeMask MovableObject::msDefaultVisibilityFlags{ 0xFFFFFFFF };
-    //-----------------------------------------------------------------------
     MovableObject::MovableObject() : MovableObject(BLANKSTRING) {}
     //-----------------------------------------------------------------------
     MovableObject::MovableObject(std::string_view name)

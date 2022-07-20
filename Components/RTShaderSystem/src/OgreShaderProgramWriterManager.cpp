@@ -47,8 +47,6 @@ import <utility>;
 namespace Ogre {
 
 //-----------------------------------------------------------------------
-template<> 
-RTShader::ProgramWriterManager* Singleton<RTShader::ProgramWriterManager>::msSingleton = nullptr;
 
 namespace RTShader {
 //-----------------------------------------------------------------------

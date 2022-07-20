@@ -88,8 +88,16 @@ class Viewport;
             sink (opposite of a light source) or point/spot lights may become directional lights
             or light sinks. The light direction is always -y.
         */
-        static const Matrix4 msNormalToLightSpace;
-        static const Matrix4 msLightSpaceToNormal;
+        static const Matrix4 constexpr msNormalToLightSpace{
+            1,  0,  0,  0,      // x
+            0,  0, -1,  0,      // y
+            0,  1,  0,  0,      // z
+            0,  0,  0,  1}; // w
+        static const Matrix4 constexpr msLightSpaceToNormal{
+            1,  0,  0,  0,      // x
+            0,  0,  1,  0,      // y
+            0, -1,  0,  0,      // z
+            0,  0,  0,  1}; // w
 
         mutable bool mLightFrustumCameraCalculated{false};
 

@@ -156,7 +156,6 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> DistanceLodSphereStrategy* Singleton<DistanceLodSphereStrategy>::msSingleton = nullptr;
     auto DistanceLodSphereStrategy::getSingletonPtr() noexcept -> DistanceLodSphereStrategy*
     {
         return msSingleton;
@@ -187,7 +186,6 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> DistanceLodBoxStrategy* Singleton<DistanceLodBoxStrategy>::msSingleton = nullptr;
     auto DistanceLodBoxStrategy::getSingletonPtr() noexcept -> DistanceLodBoxStrategy*
     {
         return msSingleton;

@@ -46,7 +46,6 @@ import <vector>;
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> RenderSystemCapabilitiesManager* Singleton<RenderSystemCapabilitiesManager>::msSingleton = nullptr;
     auto RenderSystemCapabilitiesManager::getSingletonPtr() noexcept -> RenderSystemCapabilitiesManager*
     {
         return msSingleton;

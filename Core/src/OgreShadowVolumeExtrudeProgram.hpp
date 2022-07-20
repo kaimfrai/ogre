@@ -46,4 +46,6 @@ namespace Ogre {
 
         static auto get(Light::LightTypes lightType, bool finite) -> const GpuProgramPtr&;
     };
+
+    std::vector<GpuProgramPtr> ShadowVolumeExtrudeProgram::mPrograms;
 }

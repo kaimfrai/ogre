@@ -49,33 +49,14 @@ import <limits>;
 import <utility>;
 import <vector>;
 
-namespace Ogre
+namespace Ogre::Math
 {
-
-    constexpr Real Math::POS_INFINITY;
-    constexpr Real Math::NEG_INFINITY;
-    constexpr Real Math::PI;
-    constexpr Real Math::TWO_PI;
-    constexpr Real Math::HALF_PI;
-    constexpr float Math::fDeg2Rad;
-    constexpr float Math::fRad2Deg;
-    constexpr Real Math::LOG2;
-
-    int Math::mTrigTableSize;
-    Math::AngleUnit Math::msAngleUnit;
-
-    float  Math::mTrigTableFactor;
-    float *Math::mSinTable = nullptr;
-    float *Math::mTanTable = nullptr;
-
-    Math::RandomValueProvider* Math::mRandProvider = nullptr;
-
     //-----------------------------------------------------------------------
     Math::Math( unsigned int trigTableSize )
     {
         msAngleUnit = AngleUnit::DEGREE;
         mTrigTableSize = trigTableSize;
-        mTrigTableFactor = mTrigTableSize / Math::TWO_PI;
+        mTrigTableFactor = mTrigTableSize / TWO_PI;
 
         mSinTable = new float[mTrigTableSize];
         mTanTable = new float[mTrigTableSize];
@@ -98,9 +79,9 @@ namespace Ogre
         // way. Who cares, it'll ony use an extra 8k of memory anyway and I like 
         // simplicity.
         float angle;
-        for (int i = 0; i < mTrigTableSize; ++i)
+        for (int i = 0; i < Math::mTrigTableSize; ++i)
         {
-            angle = Math::TWO_PI * i / Real(mTrigTableSize);
+            angle = TWO_PI * i / Real(Math::mTrigTableSize);
             mSinTable[i] = std::sin(angle);
             mTanTable[i] = std::tan(angle);
         }
@@ -129,7 +110,7 @@ namespace Ogre
         return mTanTable[idx];
     }
     //-----------------------------------------------------------------------
-    auto Math::ACos (Real fValue) -> Radian
+    auto ACos (Real fValue) -> Radian
     {
         if ( -1.0 < fValue )
         {
@@ -144,7 +125,7 @@ namespace Ogre
         }
     }
     //-----------------------------------------------------------------------
-    auto Math::ASin (Real fValue) -> Radian
+    auto ASin (Real fValue) -> Radian
     {
         if ( -1.0 < fValue )
         {
@@ -173,53 +154,53 @@ namespace Ogre
     }
 
    //-----------------------------------------------------------------------
-    void Math::setAngleUnit(Math::AngleUnit unit)
+    void Math::setAngleUnit(AngleUnit unit)
    {
        msAngleUnit = unit;
    }
    //-----------------------------------------------------------------------
-   auto Math::getAngleUnit() -> Math::AngleUnit
+   auto Math::getAngleUnit() -> AngleUnit
    {
        return msAngleUnit;
    }
     //-----------------------------------------------------------------------
-    auto Math::AngleUnitsToRadians(float angleunits) -> float
+    auto AngleUnitsToRadians(float angleunits) -> float
     {
-       if (msAngleUnit == AngleUnit::DEGREE)
+       if (getAngleUnit() == AngleUnit::DEGREE)
            return angleunits * fDeg2Rad;
        else
            return angleunits;
     }
 
     //-----------------------------------------------------------------------
-    auto Math::RadiansToAngleUnits(float radians) -> float
+    auto RadiansToAngleUnits(float radians) -> float
     {
-       if (msAngleUnit == AngleUnit::DEGREE)
+       if (getAngleUnit() == AngleUnit::DEGREE)
            return radians * fRad2Deg;
        else
            return radians;
     }
 
     //-----------------------------------------------------------------------
-    auto Math::AngleUnitsToDegrees(float angleunits) -> float
+    auto AngleUnitsToDegrees(float angleunits) -> float
     {
-       if (msAngleUnit == AngleUnit::RADIAN)
+       if (getAngleUnit() == AngleUnit::RADIAN)
            return angleunits * fRad2Deg;
        else
            return angleunits;
     }
 
     //-----------------------------------------------------------------------
-    auto Math::DegreesToAngleUnits(float degrees) -> float
+    auto DegreesToAngleUnits(float degrees) -> float
     {
-       if (msAngleUnit == AngleUnit::RADIAN)
+       if (getAngleUnit() == AngleUnit::RADIAN)
            return degrees * fDeg2Rad;
        else
            return degrees;
     }
 
     //-----------------------------------------------------------------------
-    auto Math::pointInTri2D(const Vector2& p, const Vector2& a, 
+    auto pointInTri2D(const Vector2& p, const Vector2& a,
         const Vector2& b, const Vector2& c) -> bool
     {
         // Winding must be consistent from all edges for point to be inside
@@ -233,18 +214,18 @@ namespace Ogre
         // Note we don't care about normalisation here since sign is all we need
         // It means we don't have to worry about magnitude of cross products either
         dot[0] = v1.crossProduct(v2);
-        zeroDot[0] = Math::RealEqual(dot[0], 0.0f, 1e-3);
+        zeroDot[0] = RealEqual(dot[0], 0.0f, 1e-3);
 
 
         v1 = c - b;
         v2 = p - b;
 
         dot[1] = v1.crossProduct(v2);
-        zeroDot[1] = Math::RealEqual(dot[1], 0.0f, 1e-3);
+        zeroDot[1] = RealEqual(dot[1], 0.0f, 1e-3);
 
         // Compare signs (ignore colinear / coincident points)
         if(!zeroDot[0] && !zeroDot[1] 
-        && Math::Sign(dot[0]) != Math::Sign(dot[1]))
+        && Sign(dot[0]) != Sign(dot[1]))
         {
             return false;
         }
@@ -253,12 +234,12 @@ namespace Ogre
         v2 = p - c;
 
         dot[2] = v1.crossProduct(v2);
-        zeroDot[2] = Math::RealEqual(dot[2], 0.0f, 1e-3);
+        zeroDot[2] = RealEqual(dot[2], 0.0f, 1e-3);
         // Compare signs (ignore colinear / coincident points)
         if((!zeroDot[0] && !zeroDot[2] 
-            && Math::Sign(dot[0]) != Math::Sign(dot[2])) ||
+            && Sign(dot[0]) != Sign(dot[2])) ||
             (!zeroDot[1] && !zeroDot[2] 
-            && Math::Sign(dot[1]) != Math::Sign(dot[2])))
+            && Sign(dot[1]) != Sign(dot[2])))
         {
             return false;
         }
@@ -267,7 +248,7 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    auto Math::pointInTri3D(const Vector3& p, const Vector3& a, 
+    auto pointInTri3D(const Vector3& p, const Vector3& a,
         const Vector3& b, const Vector3& c, const Vector3& normal) -> bool
     {
         // Winding must be consistent from all edges for point to be inside
@@ -281,18 +262,18 @@ namespace Ogre
         // Note we don't care about normalisation here since sign is all we need
         // It means we don't have to worry about magnitude of cross products either
         dot[0] = v1.crossProduct(v2).dotProduct(normal);
-        zeroDot[0] = Math::RealEqual(dot[0], 0.0f, 1e-3);
+        zeroDot[0] = RealEqual(dot[0], 0.0f, 1e-3);
 
 
         v1 = c - b;
         v2 = p - b;
 
         dot[1] = v1.crossProduct(v2).dotProduct(normal);
-        zeroDot[1] = Math::RealEqual(dot[1], 0.0f, 1e-3);
+        zeroDot[1] = RealEqual(dot[1], 0.0f, 1e-3);
 
         // Compare signs (ignore colinear / coincident points)
         if(!zeroDot[0] && !zeroDot[1] 
-            && Math::Sign(dot[0]) != Math::Sign(dot[1]))
+            && Sign(dot[0]) != Sign(dot[1]))
         {
             return false;
         }
@@ -301,12 +282,12 @@ namespace Ogre
         v2 = p - c;
 
         dot[2] = v1.crossProduct(v2).dotProduct(normal);
-        zeroDot[2] = Math::RealEqual(dot[2], 0.0f, 1e-3);
+        zeroDot[2] = RealEqual(dot[2], 0.0f, 1e-3);
         // Compare signs (ignore colinear / coincident points)
         if((!zeroDot[0] && !zeroDot[2] 
-            && Math::Sign(dot[0]) != Math::Sign(dot[2])) ||
+            && Sign(dot[0]) != Sign(dot[2])) ||
             (!zeroDot[1] && !zeroDot[2] 
-            && Math::Sign(dot[1]) != Math::Sign(dot[2])))
+            && Sign(dot[1]) != Sign(dot[2])))
         {
             return false;
         }
@@ -316,7 +297,7 @@ namespace Ogre
     }
 
     //-----------------------------------------------------------------------
-    auto Math::intersects(const Ray& ray, 
+    auto intersects(const Ray& ray,
         const std::vector<Plane>& planes, bool normalIsOutside) -> std::pair<bool, Real>
     {
         bool allInside = true;
@@ -396,7 +377,7 @@ namespace Ogre
         return ret;
     }
     //-----------------------------------------------------------------------
-    auto Math::intersects(const Ray& ray, const AxisAlignedBox& box) -> std::pair<bool, Real>
+    auto intersects(const Ray& ray, const AxisAlignedBox& box) -> std::pair<bool, Real>
     {
         if (box.isNull()) return { false, (Real)0 };
         if (box.isInfinite()) return { true, (Real)0 };
@@ -512,7 +493,7 @@ namespace Ogre
 
     } 
     //-----------------------------------------------------------------------
-    auto Math::intersects(const Ray& ray, const AxisAlignedBox& box,
+    auto intersects(const Ray& ray, const AxisAlignedBox& box,
         Real* d1, Real* d2) -> bool
     {
         if (box.isNull())
@@ -521,7 +502,7 @@ namespace Ogre
         if (box.isInfinite())
         {
             if (d1) *d1 = 0;
-            if (d2) *d2 = Math::POS_INFINITY;
+            if (d2) *d2 = POS_INFINITY;
             return true;
         }
 
@@ -531,9 +512,9 @@ namespace Ogre
         const Vector3& raydir = ray.getDirection();
 
         Vector3 absDir;
-        absDir[0] = Math::Abs(raydir[0]);
-        absDir[1] = Math::Abs(raydir[1]);
-        absDir[2] = Math::Abs(raydir[2]);
+        absDir[0] = Abs(raydir[0]);
+        absDir[1] = Abs(raydir[1]);
+        absDir[2] = Abs(raydir[2]);
 
         // Sort the axis, ensure check minimise floating error axis first
         int imax = 0, imid = 1, imin = 2;
@@ -553,7 +534,7 @@ namespace Ogre
             imax = 1;
         }
 
-        Real start = 0, end = Math::POS_INFINITY;
+        Real start = 0, end = POS_INFINITY;
 
 #define _CALC_AXIS(i)                                       \
     do {                                                    \
@@ -600,7 +581,7 @@ namespace Ogre
         return true;
     }
     //-----------------------------------------------------------------------
-    auto Math::intersects(const Ray& ray, const Vector3& a, const Vector3& b,
+    auto intersects(const Ray& ray, const Vector3& a, const Vector3& b,
                                            const Vector3& c, bool positiveSide, bool negativeSide) -> std::pair<bool, Real>
     {
         const Real EPSILON = 1e-6f;
@@ -634,7 +615,7 @@ namespace Ogre
         return {true, t};
     }
     //-----------------------------------------------------------------------
-    auto Math::intersects(const Sphere& sphere, const AxisAlignedBox& box) -> bool
+    auto intersects(const Sphere& sphere, const AxisAlignedBox& box) -> bool
     {
         if (box.isNull()) return false;
         if (box.isInfinite()) return true;
@@ -664,7 +645,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto Math::calculateTangentSpaceVector(
+    auto calculateTangentSpaceVector(
         const Vector3& position1, const Vector3& position2, const Vector3& position3,
         Real u1, Real v1, Real u2, Real v2, Real u3, Real v3) -> Vector3
     {
@@ -702,7 +683,7 @@ namespace Ogre
 
     }
     //-----------------------------------------------------------------------
-    auto Math::buildReflectionMatrix(const Plane& p) -> Affine3
+    auto buildReflectionMatrix(const Plane& p) -> Affine3
     {
         return
         {   -2 * p.normal.x * p.normal.x + 1,   -2 * p.normal.x * p.normal.y,       -2 * p.normal.x * p.normal.z,       -2 * p.normal.x * p.d,
@@ -712,17 +693,17 @@ namespace Ogre
         };
     }
     //-----------------------------------------------------------------------
-    auto Math::gaussianDistribution(Real x, Real offset, Real scale) -> Real
+    auto gaussianDistribution(Real x, Real offset, Real scale) -> Real
     {
-        Real nom = Math::Exp(
-            -Math::Sqr(x - offset) / (2 * Math::Sqr(scale)));
-        Real denom = scale * Math::Sqrt(2 * Math::PI);
+        Real nom = Exp(
+            -Sqr(x - offset) / (2 * Sqr(scale)));
+        Real denom = scale * Sqrt(2 * PI);
 
         return nom / denom;
 
     }
     //---------------------------------------------------------------------
-    auto Math::makeViewMatrix(const Vector3& position, const Quaternion& orientation,
+    auto makeViewMatrix(const Vector3& position, const Quaternion& orientation,
         const Affine3* reflectMatrix) -> Affine3
     {
         // This is most efficiently done using 3x3 Matrices
@@ -750,7 +731,7 @@ namespace Ogre
 
     }
 
-    auto Math::makePerspectiveMatrix(Real left, Real right, Real bottom, Real top, Real zNear, Real zFar) -> Matrix4
+    auto makePerspectiveMatrix(Real left, Real right, Real bottom, Real top, Real zNear, Real zFar) -> Matrix4
     {
         // The code below will dealing with general projection
         // parameters, similar glFrustum.
@@ -792,7 +773,7 @@ namespace Ogre
         return ret;
     }
     //---------------------------------------------------------------------
-    auto Math::boundingRadiusFromAABB(const AxisAlignedBox& aabb) -> Real
+    auto boundingRadiusFromAABB(const AxisAlignedBox& aabb) -> Real
     {
         const Vector3& max = aabb.getMaximum();
         const Vector3& min = aabb.getMinimum();
@@ -805,7 +786,7 @@ namespace Ogre
         return magnitude.length();
     }
 
-    auto Math::boundingRadiusFromAABBCentered(const AxisAlignedBox& aabb) -> Real
+    auto boundingRadiusFromAABBCentered(const AxisAlignedBox& aabb) -> Real
     {
         const Vector3& max = aabb.getMaximum();
         const Vector3& min = aabb.getMinimum();

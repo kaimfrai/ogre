@@ -58,7 +58,6 @@ import <utility>;
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> TextureManager* Singleton<TextureManager>::msSingleton = nullptr;
     auto TextureManager::getSingletonPtr() noexcept -> TextureManager*
     {
         return msSingleton;

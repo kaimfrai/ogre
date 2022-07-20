@@ -101,6 +101,7 @@ class SceneManager;
         auto getLights() const noexcept -> const LightList& override;
 
     };
+    uint constinit SimpleRenderable::msGenNameCount = 0;
     /** @} */
     /** @} */
 }

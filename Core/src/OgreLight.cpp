@@ -198,7 +198,7 @@ namespace Ogre {
     //-----------------------------------------------------------------------
     auto Light::getMovableType() const noexcept -> std::string_view
     {
-        return LightFactory::FACTORY_TYPE_NAME;
+        return msMovableType;
     }
 
     //-----------------------------------------------------------------------
@@ -775,9 +775,6 @@ namespace Ogre {
         }
         return isIntersect;
     }
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    std::string_view const constinit LightFactory::FACTORY_TYPE_NAME = "Light";
     //-----------------------------------------------------------------------
     auto LightFactory::getType() const noexcept -> std::string_view
     {

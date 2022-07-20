@@ -47,7 +47,6 @@ namespace Ogre {
     // is now contained in WorkQueue - this class is entirely single-threaded
     //------------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    template<> ResourceBackgroundQueue* Singleton<ResourceBackgroundQueue>::msSingleton = nullptr;
     auto ResourceBackgroundQueue::getSingletonPtr() noexcept -> ResourceBackgroundQueue*
     {
         return msSingleton;

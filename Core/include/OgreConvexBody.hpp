@@ -150,7 +150,18 @@ struct Plane;
 
         /** Prints out the body with all its polygons.
         */
-        friend auto operator<< ( std::ostream& strm, const ConvexBody& body ) -> std::ostream&;
+        friend auto operator<< ( std::ostream& strm, const ConvexBody& body ) -> std::ostream&
+        {
+            strm << "POLYGON INFO (" << body.getPolygonCount() << ")" << std::endl;
+
+            for ( size_t i = 0; i < body.getPolygonCount(); ++i )
+            {
+                strm << "POLYGON " << i << ", ";
+                strm << body.getPolygon( i );
+            }
+
+            return strm;
+        }
 
         /** Log details of this body */
         void logInfo() const;
@@ -252,6 +263,10 @@ struct Plane;
             Polygon::EdgeMap& intersectionEdges, Vector3& vNext ) const -> bool;
 
     };
+    //-----------------------------------------------------------------------
+    // Statics
+    //-----------------------------------------------------------------------
+    ConvexBody::PolygonList ConvexBody::msFreePolygons;
     /** @} */
     /** @} */
 

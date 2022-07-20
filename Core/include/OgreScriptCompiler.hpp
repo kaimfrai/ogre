@@ -286,7 +286,14 @@ class Material;
         /// This function sets up the initial values in word id map
         void initWordMap();
     private:
-        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view;
+        friend auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view
+        {
+            for(auto& kv : compiler->mIds)
+                if(kv.second == id)
+                    return kv.first;
+            OgreAssertDbg(false,  "should not get here");
+            return "unknown";
+        }
         // Resource group
         String mGroup;
         // The word -> id conversion table

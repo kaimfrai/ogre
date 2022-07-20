@@ -30,14 +30,13 @@ module;
 #include <cassert>
 #include <cstring>
 
+struct mz_stream_s;
+
 export module Ogre.Core:Deflate;
 
 export import :DataStream;
 export import :Prerequisites;
 export import :SharedPtr;
-
-export
-using z_stream = struct mz_stream_s;
 
 export
 namespace Ogre
@@ -185,7 +184,7 @@ namespace Ogre
         DataStreamPtr mCompressedStream;
         DataStreamPtr mTmpWriteStream;
         String mTempFileName;
-        z_stream* mZStream;
+        mz_stream_s* mZStream;
         int mStatus;
         size_t mCurrentPos;
         size_t mAvailIn;

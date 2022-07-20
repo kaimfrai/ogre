@@ -60,60 +60,10 @@ import <vector>;
 
 namespace Ogre {
     class AutoParamDataSource;
-
-    /** Default pass hash function.
-    @remarks
-        Tries to minimise the number of texture changes.
-    */
-    struct MinTextureStateChangeHashFunc : public Pass::HashFunc
-    {
-        auto operator()(const Pass* p) const -> uint32 override
-        {
-            uint32 hash = 0;
-            ushort c = p->getNumTextureUnitStates();
-
-            for (ushort i = 0; i < c; ++i)
-            {
-                const TextureUnitState* tus = nullptr;
-                tus = p->getTextureUnitState(i);
-                hash = FastHash(tus->getTextureName().data(), tus->getTextureName().size(), hash);
-            }
-
-            return hash;
-        }
-    };
-    MinTextureStateChangeHashFunc sMinTextureStateChangeHashFunc;
-    /** Alternate pass hash function.
-    @remarks
-        Tries to minimise the number of GPU program changes.
-    */
-    struct MinGpuProgramChangeHashFunc : public Pass::HashFunc
-    {
-        auto operator()(const Pass* p) const -> uint32 override
-        {
-            uint32 hash = 0;
-
-            for(int i = 0; i < std::to_underlying(GpuProgramType::COUNT); i++)
-            {
-                std::string_view name = p->getGpuProgramName(GpuProgramType(i));
-                if(!name.empty()) {
-                    hash = FastHash(name.data(), name.size(), hash);
-                }
-            }
-
-            return hash;
-        }
-    };
-    MinGpuProgramChangeHashFunc sMinGpuProgramChangeHashFunc;
     //-----------------------------------------------------------------------------
-    Pass::PassSet Pass::msDirtyHashList;
-    Pass::PassSet Pass::msPassGraveyard;
-
-    Pass::HashFunc* Pass::msHashFunc = &sMinGpuProgramChangeHashFunc;
-    //-----------------------------------------------------------------------------
-    auto Pass::getBuiltinHashFunction(BuiltinHashFunction builtin) -> Pass::HashFunc*
+    auto Pass::getBuiltinHashFunction(BuiltinHashFunction builtin) -> Pass::HashFunc const*
     {
-        Pass::HashFunc* hashFunc = nullptr;
+        Pass::HashFunc const* hashFunc = nullptr;
 
         switch(builtin)
         {

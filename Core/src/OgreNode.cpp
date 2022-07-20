@@ -54,7 +54,6 @@ import <vector>;
 
 namespace Ogre {
 
-    Node::QueuedUpdates Node::msQueuedUpdates;
     //-----------------------------------------------------------------------
     Node::Node() : Node(BLANKSTRING) {}
     //-----------------------------------------------------------------------

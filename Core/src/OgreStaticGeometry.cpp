@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 module;
 
+#include <cassert>
 #include <cstring>
 
 module Ogre.Core;
@@ -1509,6 +1510,4 @@ namespace Ogre {
         of << "---------------" << std::endl;
 
     }
-    //--------------------------------------------------------------------------
-    std::string_view const constinit StaticGeometryFactory::FACTORY_TYPE_NAME = "StaticGeometry";
 }

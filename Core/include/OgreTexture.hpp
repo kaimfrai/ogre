@@ -511,7 +511,8 @@ class ResourceManager;
         */
         auto getSourceFileType() const -> String;
 
-        static const char* CUBEMAP_SUFFIXES[6];
+        static const char constexpr*  CUBEMAP_SUFFIXES[6]
+        {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
     };
     /** @} */
     /** @} */

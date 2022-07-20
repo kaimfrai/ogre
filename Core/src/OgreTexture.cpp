@@ -52,7 +52,6 @@ import <atomic>;
 import <memory>;
 
 namespace Ogre {
-    const char* Texture::CUBEMAP_SUFFIXES[] = {"_rt", "_lf", "_up", "_dn", "_fr", "_bk"};
     //--------------------------------------------------------------------------
     Texture::Texture(ResourceManager* creator, std::string_view name, 
         ResourceHandle handle, std::string_view group, bool isManual, 

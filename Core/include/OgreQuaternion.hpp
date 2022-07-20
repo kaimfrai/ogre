@@ -328,11 +328,11 @@ struct Matrix3;
             const Quaternion& rkQ, bool shortestPath = false) -> Quaternion;
 
         /// Cutoff for sine near zero
-        static const float msEpsilon;
+        static const float constexpr msEpsilon = 1e-03;
 
         // special values
-        static const Quaternion ZERO;
-        static const Quaternion IDENTITY;
+        static const Quaternion constinit ZERO;
+        static const Quaternion constinit IDENTITY;
 
         float w{1}, x{0}, y{0}, z{0};
 
@@ -353,6 +353,8 @@ struct Matrix3;
         }
 
     };
+    const Quaternion constinit Quaternion::ZERO{0,0,0,0};
+    const Quaternion constinit Quaternion::IDENTITY{1,0,0,0};
     /** @} */
     /** @} */
 

@@ -229,7 +229,7 @@ class VertexData;
         Vector3 mCommonUpVector;
 
         /// Internal method for culling individual billboards
-        inline auto billboardVisible(Camera* cam, const Billboard& bill) -> bool;
+        auto billboardVisible(Camera* cam, const Billboard& bill) -> bool;
 
         /// Number of visible billboards (will be == getNumBillboards if mCullIndividual == false)
         unsigned short mNumVisibleBillboards;
@@ -830,7 +830,7 @@ class VertexData;
         BillboardSetFactory() = default;
         ~BillboardSetFactory() override = default;
 
-        static std::string_view const FACTORY_TYPE_NAME;
+        static std::string_view const constexpr FACTORY_TYPE_NAME = "BillboardSet";
 
         [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };

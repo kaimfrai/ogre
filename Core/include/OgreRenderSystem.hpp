@@ -1129,7 +1129,7 @@ class VertexDeclaration;
 
         using ListenerList = std::list<Listener *>;
         ListenerList mEventListeners;
-        static Listener* msSharedEventListener;
+        static Listener constinit* msSharedEventListener;
 
         using HardwareOcclusionQueryList = std::list<HardwareOcclusionQuery *>;
         HardwareOcclusionQueryList mHwOcclusionQueries;
@@ -1179,6 +1179,7 @@ class VertexDeclaration;
     private:
         StencilState mStencilState;
     };
+    RenderSystem::Listener constinit* RenderSystem::msSharedEventListener = nullptr;
     /** @} */
     /** @} */
 }

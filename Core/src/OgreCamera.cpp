@@ -55,7 +55,6 @@ import <vector>;
 namespace Ogre {
 struct Sphere;
 
-    std::string_view const constinit Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------
     Camera::Camera( std::string_view name, SceneManager* sm)
         : Frustum(name)
@@ -203,28 +202,6 @@ struct Sphere;
         auto i = std::ranges::find(mListeners, l);
         if (i != mListeners.end())
             mListeners.erase(i);
-    }
-    //-----------------------------------------------------------------------
-    auto operator<<( std::ostream& o, const Camera& c ) -> std::ostream&
-    {
-        o << "Camera(Name='" << c.mName << "'";
-
-        o << ", pos=" << c.mLastParentPosition << ", direction=" << -c.mLastParentOrientation.zAxis();
-
-        o << ",near=" << c.mNearDist;
-        o << ", far=" << c.mFarDist << ", FOVy=" << c.mFOVy.valueDegrees();
-        o << ", aspect=" << c.mAspect << ", ";
-        o << ", xoffset=" << c.mFrustumOffset.x << ", yoffset=" << c.mFrustumOffset.y;
-        o << ", focalLength=" << c.mFocalLength << ", ";
-        o << "NearFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)] << ", ";
-        o << "FarFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)] << ", ";
-        o << "LeftFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)] << ", ";
-        o << "RightFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)] << ", ";
-        o << "TopFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)] << ", ";
-        o << "BottomFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)];
-        o << ")";
-
-        return o;
     }
     //-----------------------------------------------------------------------
     void Camera::_notifyRenderedFaces(unsigned int numfaces)

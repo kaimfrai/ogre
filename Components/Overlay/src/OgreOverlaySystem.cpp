@@ -93,7 +93,6 @@ class OverlayElement;
         }
     };
 
-    template<> OverlaySystem *Singleton<OverlaySystem>::msSingleton = nullptr;
     auto OverlaySystem::getSingletonPtr() noexcept -> OverlaySystem*
     {
         return msSingleton;

@@ -697,9 +697,9 @@ namespace Ogre {
         String mOrigin;
 
         /// Default iteration interval
-        static Real msDefaultIterationInterval;
+        static Real constinit msDefaultIterationInterval;
         /// Default nonvisible update timeout
-        static Real msDefaultNonvisibleTimeout;
+        static Real constinit msDefaultNonvisibleTimeout;
 
         /** Internal method used to expire dead particles. */
         void _expire(Real timeElapsed);
@@ -784,6 +784,10 @@ namespace Ogre {
         */
         void _notifyReorganiseEmittedEmitterData ();
     };
+
+    Real constinit ParticleSystem::msDefaultIterationInterval = 0;
+    Real constinit ParticleSystem::msDefaultNonvisibleTimeout = 0;
+
     /** @} */
     /** @} */
 

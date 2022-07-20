@@ -42,7 +42,6 @@ namespace Ogre {
 class RenderSystem;
 
     //-----------------------------------------------------------------------
-    template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = nullptr;
     auto SceneManagerEnumerator::getSingletonPtr() noexcept -> SceneManagerEnumerator*
     {
         return msSingleton;
@@ -256,8 +255,6 @@ class RenderSystem;
         }
 
     }
-    //-----------------------------------------------------------------------
-    std::string_view const constinit DefaultSceneManagerFactory::FACTORY_TYPE_NAME = "DefaultSceneManager";
     //-----------------------------------------------------------------------
     void DefaultSceneManagerFactory::initMetaData() const
     {

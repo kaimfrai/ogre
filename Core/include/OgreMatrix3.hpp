@@ -261,16 +261,15 @@ namespace Ogre
             return o;
         }
 
-        static const Real EPSILON;
-        static const Matrix3 ZERO;
-        static const Matrix3 IDENTITY;
-
+        static const Real constexpr EPSILON = 1e-06;
+        static const Matrix3 constinit ZERO;
+        static const Matrix3 constinit IDENTITY;
         // support for eigensolver
         void Tridiagonal (Real afDiag[3], Real afSubDiag[3]);
         auto QLAlgorithm (Real afDiag[3], Real afSubDiag[3]) -> bool;
 
         // support for singular value decomposition
-        static const unsigned int msSvdMaxIterations;
+        static const unsigned int constexpr msSvdMaxIterations = 64;
         static void Bidiagonalize (Matrix3& kA, Matrix3& kL,
             Matrix3& kR);
         static void GolubKahanStep (Matrix3& kA, Matrix3& kL,
@@ -282,6 +281,9 @@ namespace Ogre
         Real m[3][3];
     };
 
+    const Matrix3 constinit Matrix3::ZERO{0,0,0,0,0,0,0,0,0};
+    const Matrix3 constinit Matrix3::IDENTITY{1,0,0,0,1,0,0,0,1};
+
     /// Matrix * vector [3x3 * 3x1 = 3x1]
     inline auto operator*(const Matrix3& m, const Vector3& v) -> Vector3
     {
@@ -291,14 +293,21 @@ namespace Ogre
                 m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z};
     }
 
-    inline auto Math::lookRotation(const Vector3& direction, const Vector3& yaw) -> Matrix3
+    namespace Math
     {
-        Matrix3 ret;
-        // cross twice to rederive, only direction is unaltered
-        const Vector3& xAxis = yaw.crossProduct(direction).normalisedCopy();
-        const Vector3& yAxis = direction.crossProduct(xAxis);
-        ret.FromAxes(xAxis, yAxis, direction);
-        return ret;
+        /** Create a rotation matrix from direction and yaw
+            @param direction the direction to look in. Must be normalised.
+            @param yaw the yaw axis to use
+            */
+        inline auto lookRotation(const Vector3& direction, const Vector3& yaw) -> Matrix3
+        {
+            Matrix3 ret;
+            // cross twice to rederive, only direction is unaltered
+            const Vector3& xAxis = yaw.crossProduct(direction).normalisedCopy();
+            const Vector3& yAxis = direction.crossProduct(xAxis);
+            ret.FromAxes(xAxis, yAxis, direction);
+            return ret;
+        }
     }
     /** @} */
     /** @} */

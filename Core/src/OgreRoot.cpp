@@ -115,7 +115,6 @@ import <vector>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> Root* Singleton<Root>::msSingleton = nullptr;
     auto Root::getSingletonPtr() noexcept -> Root*
     {
         return msSingleton;

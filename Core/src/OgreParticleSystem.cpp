@@ -151,8 +151,6 @@ class RenderQueue;
     static CmdIterationInterval msIterationIntervalCmd;
     static CmdNonvisibleTimeout msNonvisibleTimeoutCmd;
 
-    Real constinit ParticleSystem::msDefaultIterationInterval = 0;
-    Real constinit ParticleSystem::msDefaultNonvisibleTimeout = 0;
 
     //-----------------------------------------------------------------------
     // Local class for updating based on time

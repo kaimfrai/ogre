@@ -62,7 +62,6 @@ namespace Ogre {
     // Shortcut to set up billboard particle renderer
     BillboardParticleRendererFactory* mBillboardRendererFactory = nullptr;
     //-----------------------------------------------------------------------
-    template<> ParticleSystemManager* Singleton<ParticleSystemManager>::msSingleton = nullptr;
     auto ParticleSystemManager::getSingletonPtr() noexcept -> ParticleSystemManager*
     {
         return msSingleton;
@@ -365,10 +364,6 @@ namespace Ogre {
         return {
             mRendererFactories.begin(), mRendererFactories.end()};
     }
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    std::string_view const constinit ParticleSystemFactory::FACTORY_TYPE_NAME = "ParticleSystem";
     //-----------------------------------------------------------------------
     auto ParticleSystemFactory::createInstanceImpl( std::string_view name, 
             const NameValuePairList* params) -> MovableObject*

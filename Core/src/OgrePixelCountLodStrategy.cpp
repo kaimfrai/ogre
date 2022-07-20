@@ -89,7 +89,6 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> AbsolutePixelCountLodStrategy* Singleton<AbsolutePixelCountLodStrategy>::msSingleton = nullptr;
     auto AbsolutePixelCountLodStrategy::getSingletonPtr() noexcept -> AbsolutePixelCountLodStrategy*
     {
         return msSingleton;
@@ -170,7 +169,6 @@ namespace Ogre {
     /************************************************************************/
 
     //-----------------------------------------------------------------------
-    template<> ScreenRatioPixelCountLodStrategy* Singleton<ScreenRatioPixelCountLodStrategy>::msSingleton = nullptr;
     auto ScreenRatioPixelCountLodStrategy::getSingletonPtr() noexcept -> ScreenRatioPixelCountLodStrategy*
     {
         return msSingleton;

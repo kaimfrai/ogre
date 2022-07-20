@@ -27,6 +27,8 @@ THE SOFTWARE.
 */
 module Ogre.Core:ImageResampler;
 
+import :PixelFormat;
+
 import <algorithm>;
 
 // this file is inlined into OgreImage.cpp!

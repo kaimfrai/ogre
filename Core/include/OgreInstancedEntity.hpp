@@ -34,6 +34,7 @@ export module Ogre.Core:InstancedEntity;
 
 export import :Matrix4;
 export import :MovableObject;
+export import :NameGenerator;
 export import :Node;
 export import :Platform;
 export import :Prerequisites;
@@ -172,7 +173,7 @@ class SkeletonInstance;
         void notifyUnlink( const InstancedEntity *slave );
 
         /// Mark the transformation matrixes as dirty
-        inline void markTransformDirty();
+        void markTransformDirty();
 
         /// Incremented count for next name extension
         static NameGenerator msNameGenerator;
@@ -311,4 +312,6 @@ class SkeletonInstance;
         void setCustomParam( unsigned char idx, const Vector4 &newParam );
         auto getCustomParam( unsigned char idx ) -> const Vector4&;
     };
+
+    NameGenerator InstancedEntity::msNameGenerator("");
 }

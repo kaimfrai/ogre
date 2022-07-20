@@ -165,7 +165,7 @@ namespace Ogre
         return instanceBatch->createInstancedEntity();
     }
     //-----------------------------------------------------------------------
-    inline auto InstanceManager::getFreeBatch( std::string_view materialName ) -> InstanceBatch*
+    auto InstanceManager::getFreeBatch( std::string_view materialName ) -> InstanceBatch*
     {
         auto& batchVec = mInstanceBatches[materialName];
 

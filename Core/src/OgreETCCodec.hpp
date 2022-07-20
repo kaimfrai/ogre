@@ -53,8 +53,8 @@ namespace Ogre {
         String mType;
         
         /// Single registered codec instance
-        static ETCCodec* msPKMInstance;
-        static ETCCodec* msKTXInstance;
+        static ETCCodec constinit* msPKMInstance;
+        static ETCCodec constinit* msKTXInstance;
 
     public:
         ETCCodec(std::string_view type);
@@ -74,6 +74,9 @@ namespace Ogre {
         auto decodeKTX(const DataStreamPtr& input, DecodeResult& result) const -> bool;
 
     };
+
+	ETCCodec constinit* ETCCodec::msPKMInstance = nullptr;
+    ETCCodec constinit* ETCCodec::msKTXInstance = nullptr;
     /** @} */
     /** @} */
 

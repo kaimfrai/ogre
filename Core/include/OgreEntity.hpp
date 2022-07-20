@@ -880,7 +880,7 @@ class VertexData;
         EntityFactory() = default;
         ~EntityFactory() override = default;
 
-        static std::string_view const FACTORY_TYPE_NAME;
+        static std::string_view const constexpr FACTORY_TYPE_NAME = "Entity";
 
         [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };

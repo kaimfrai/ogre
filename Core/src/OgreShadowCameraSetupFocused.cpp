@@ -47,18 +47,6 @@ namespace Ogre
 {
 class Viewport;
 
-    /** transform from normal to light space */
-    const Matrix4 FocusedShadowCameraSetup::msNormalToLightSpace{
-        1,  0,  0,  0,      // x
-        0,  0, -1,  0,      // y
-        0,  1,  0,  0,      // z
-        0,  0,  0,  1}; // w
-    /** transform  from light to normal space */
-    const Matrix4 FocusedShadowCameraSetup::msLightSpaceToNormal{
-        1,  0,  0,  0,      // x
-        0,  0,  1,  0,      // y
-        0, -1,  0,  0,      // z
-        0,  0,  0,  1}; // w
 
     /// Builds a standard view matrix out of a given position, direction and up vector.
     static auto buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up) -> Affine3

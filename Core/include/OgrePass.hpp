@@ -144,7 +144,7 @@ namespace Ogre {
         {
             virtual auto operator()(const Pass* p) const -> uint32 = 0;
             /// Need virtual destructor in case subclasses use it
-            virtual ~HashFunc() = default;
+            virtual constexpr ~HashFunc() = default;
         };
 
         using TextureUnitStates = std::vector<TextureUnitState *>;
@@ -273,7 +273,7 @@ namespace Ogre {
         /// The place where passes go to die
         static PassSet msPassGraveyard;
         /// The Pass hash functor
-        static HashFunc* msHashFunc;
+        static HashFunc const* msHashFunc;
     public:
         /// Default constructor
         Pass(Technique* parent, unsigned short index);
@@ -1536,15 +1536,15 @@ namespace Ogre {
             of this method. The default is MIN_GPU_PROGRAM_CHANGE.
             @see HashFunc
         */
-        static void setHashFunction(HashFunc* hashFunc) { msHashFunc = hashFunc; }
+        static void setHashFunction(HashFunc const* hashFunc) { msHashFunc = hashFunc; }
 
         /** Get the hash function used for all passes.
          */
-        static auto getHashFunction() noexcept -> HashFunc* { return msHashFunc; }
+        static auto getHashFunction() noexcept -> HashFunc const* { return msHashFunc; }
 
         /** Get the builtin hash function.
          */
-        static auto getBuiltinHashFunction(BuiltinHashFunction builtin) -> HashFunc*;
+        static auto getBuiltinHashFunction(BuiltinHashFunction builtin) -> HashFunc const*;
 
         /** Return an instance of user objects binding associated with this class.
             You can use it to associate one or more custom objects with this class instance.
@@ -1561,6 +1561,56 @@ namespace Ogre {
         auto getProgramUsage(GpuProgramType programType) -> std::unique_ptr<GpuProgramUsage>&;
         auto getProgramUsage(GpuProgramType programType) const -> const std::unique_ptr<GpuProgramUsage>&;
     };
+
+    /** Default pass hash function.
+    @remarks
+        Tries to minimise the number of texture changes.
+    */
+    struct MinTextureStateChangeHashFunc : public Pass::HashFunc
+    {
+        auto operator()(const Pass* p) const -> uint32 override
+        {
+            uint32 hash = 0;
+            ushort c = p->getNumTextureUnitStates();
+
+            for (ushort i = 0; i < c; ++i)
+            {
+                const TextureUnitState* tus = nullptr;
+                tus = p->getTextureUnitState(i);
+                hash = FastHash(tus->getTextureName().data(), tus->getTextureName().size(), hash);
+            }
+
+            return hash;
+        }
+    };
+    MinTextureStateChangeHashFunc constexpr inline sMinTextureStateChangeHashFunc;
+    /** Alternate pass hash function.
+    @remarks
+        Tries to minimise the number of GPU program changes.
+    */
+    struct MinGpuProgramChangeHashFunc : public Pass::HashFunc
+    {
+        auto operator()(const Pass* p) const -> uint32 override
+        {
+            uint32 hash = 0;
+
+            for(int i = 0; i < std::to_underlying(GpuProgramType::COUNT); i++)
+            {
+                std::string_view name = p->getGpuProgramName(GpuProgramType(i));
+                if(!name.empty()) {
+                    hash = FastHash(name.data(), name.size(), hash);
+                }
+            }
+
+            return hash;
+        }
+    };
+    MinGpuProgramChangeHashFunc constexpr inline sMinGpuProgramChangeHashFunc;
+    //-----------------------------------------------------------------------------
+    Pass::PassSet Pass::msDirtyHashList;
+    Pass::PassSet Pass::msPassGraveyard;
+
+    Pass::HashFunc const* Pass::msHashFunc = &sMinGpuProgramChangeHashFunc;
 
     /** Struct recording a pass which can be used for a specific illumination stage.
         @remarks

@@ -40,7 +40,6 @@ import <memory>;
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> SkeletonManager* Singleton<SkeletonManager>::msSingleton = nullptr;
     auto SkeletonManager::getSingletonPtr() noexcept -> SkeletonManager*
     {
         return msSingleton;

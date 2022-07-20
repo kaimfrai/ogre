@@ -79,8 +79,6 @@ namespace Ogre {
     class RenderWindow;
     class Viewport;
 
-    RenderSystem::Listener* RenderSystem::msSharedEventListener = nullptr;
-
     static const TexturePtr constinit sNullTexPtr;
 
     //-----------------------------------------------------------------------

@@ -191,9 +191,10 @@ class VertexDeclaration;
         /// Number of frames elapsed since temporary buffers utilization was above half the available.
         size_t mUnderUsedFrameCount{0};
         /// Number of frames to wait before free unused temporary buffers.
-        static const size_t UNDER_USED_FRAME_THRESHOLD;
+		/// Free temporary vertex buffers every 5 minutes on 100fps
+        static const size_t constexpr UNDER_USED_FRAME_THRESHOLD = 30000;
         /// Frame delay for BufferLicenseType::AUTOMATIC_RELEASE temporary buffers.
-        static const size_t EXPIRED_DELAY_FRAME_THRESHOLD;
+        static const size_t constexpr EXPIRED_DELAY_FRAME_THRESHOLD = 5;
 
         /// Creates a new buffer as a copy of the source, does not copy data.
         virtual auto makeBufferCopy(

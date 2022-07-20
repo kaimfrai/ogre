@@ -34,8 +34,6 @@ import <utility>;
 
 namespace Ogre {
     //--------------------------------------------------------------------------
-    AnimableObject::AnimableDictionaryMap AnimableObject::msAnimableDictionary;
-    //--------------------------------------------------------------------------
     void AnimableObject::createAnimableDictionary() const
     {
         if (msAnimableDictionary.find(getAnimableDictionaryName()) == msAnimableDictionary.end())

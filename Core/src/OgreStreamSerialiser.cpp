@@ -114,14 +114,6 @@ namespace Ogre
     }
 
     //---------------------------------------------------------------------
-    uint32 constinit StreamSerialiser::HEADER_ID = 0x00000001;
-    uint32 constinit StreamSerialiser::REVERSE_HEADER_ID = 0x10000000;
-    uint32 constinit StreamSerialiser::CHUNK_HEADER_SIZE = 
-        sizeof(uint32) + // id
-        sizeof(uint16) + // version
-        sizeof(uint32) + // length
-        sizeof(uint32); // checksum
-    //---------------------------------------------------------------------
     StreamSerialiser::StreamSerialiser(const DataStreamPtr& stream, Endian endianMode, 
         bool autoHeader, RealStorageFormat realFormat)
         : mStream(stream)

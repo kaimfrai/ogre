@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 module;
 
+#include <cassert>
 #include <cmath>
 #include <cstring>
 

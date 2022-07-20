@@ -46,8 +46,6 @@ import <utility>;
 namespace Ogre {
 
     //-----------------------------------------------------------------------
-    template<> GLSL::GLSLLinkProgramManager* Singleton<GLSL::GLSLLinkProgramManager>::msSingleton = nullptr;
-
     namespace GLSL {
 
     //-----------------------------------------------------------------------

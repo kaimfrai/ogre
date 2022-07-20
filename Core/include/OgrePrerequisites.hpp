@@ -139,7 +139,6 @@ namespace Ogre {
     class ManualObject;
     class Material;
     class MaterialManager;
-    class Math;
     struct Matrix3;
     struct Matrix4;
     class MemoryDataStream;

@@ -43,8 +43,9 @@ import :OptimisedUtil;
 import :Platform;
 import :PlatformInformation;
 import :Prerequisites;
-import :SIMDHelper;
 import :Vector;
+
+import "OgreSIMDHelper.hpp";
 
 // I'd like to merge this file with OgreOptimisedUtil.cpp, but it's
 // impossible when compile with gcc, due SSE instructions can only

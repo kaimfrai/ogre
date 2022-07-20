@@ -34,6 +34,10 @@ THE SOFTWARE.
  * below is included in the resulting source code, for example:
  * "Portions Copyright (C) Scott Bilas, 2000"
  */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Singleton;
 
 // Added by Steve Streeting for Ogre
@@ -72,7 +76,7 @@ public:
     auto operator=(const Singleton<T>&) -> Singleton& = delete;
 
 protected:
-    static T* msSingleton;
+    static T constinit* msSingleton;
 
 public:
     Singleton()
@@ -98,6 +102,6 @@ public:
     /** @} */
 
     template <typename T>
-    T* Singleton<T>::msSingleton = nullptr;
+    T constinit* Singleton<T>::msSingleton = nullptr;
 
 }

@@ -54,7 +54,7 @@ namespace Ogre {
         String mType;
 
 		/// Single registered codec instance
-        static ASTCCodec* msInstance;
+        static ASTCCodec constinit * msInstance;
 
 	public:
         ASTCCodec();
@@ -76,7 +76,9 @@ namespace Ogre {
         static auto getBitrateForPixelFormat(PixelFormat fmt) -> float;
 
     };
-	/** @} */
-	/** @} */
 
+
+	ASTCCodec constinit * ASTCCodec::msInstance = nullptr;
+	/** @} */
+	/** @} */
 } // namespace

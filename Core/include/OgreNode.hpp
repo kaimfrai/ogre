@@ -646,6 +646,9 @@ class Camera;
         /** Process queued 'needUpdate' calls. */
         static void processQueuedUpdates();
     };
+
+    Node::QueuedUpdates Node::msQueuedUpdates;
+
     /** @} */
     /** @} */
 

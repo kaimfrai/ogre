@@ -79,6 +79,7 @@ struct Matrix4;
 
         /// Retrieves the node iterator at the given index
         static auto getNodeAt(const AbstractNodeList &nodes, size_t index) -> AbstractNodeList::const_iterator;
+    public:
         /// Converts the node to a boolean and returns true if successful
         static auto getBoolean(const AbstractNodePtr &node, bool *result) -> bool;
         /// Converts the node to a string and returns true if successful
@@ -113,9 +114,6 @@ struct Matrix4;
         static auto getStencilOp(const AbstractNodePtr &node, StencilOperation *op) -> bool; 
         /// Converts the node to a GpuConstantType enum class and returns true if successful
         static auto getConstantType(AbstractNodeList::const_iterator i, GpuConstantType *op) -> bool; 
-
-        template<typename T>
-        friend auto getValue(const AbstractNodePtr &node, T& result) -> bool;
     };
 
     /** The ScriptTranslatorManager manages the lifetime and access to

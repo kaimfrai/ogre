@@ -49,7 +49,6 @@ import <utility>;
 namespace Ogre 
 {
     //****************************************************************************************
-    template<> ExternalTextureSourceManager* Singleton<ExternalTextureSourceManager>::msSingleton = nullptr;
     auto ExternalTextureSourceManager::getSingletonPtr() noexcept -> ExternalTextureSourceManager*
     {
         return msSingleton;

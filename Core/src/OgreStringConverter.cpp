@@ -51,7 +51,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-    locale_t StringConverter::_numLocale = newlocale(LC_NUMERIC_MASK, "C", NULL);
 
     template<typename T>
     auto StringConverter::_toString(T val, uint16 width, char fill, std::ios::fmtflags flags) -> String

@@ -376,7 +376,7 @@ class VertexData;
         virtual void updateBoundingBox() const;
 
         /// Chain segment has no elements
-        static const size_t SEGMENT_EMPTY;
+        static size_t const constexpr SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     };
 
 
@@ -389,7 +389,7 @@ class VertexData;
         BillboardChainFactory() = default;
         ~BillboardChainFactory() override = default;
 
-        static std::string_view const FACTORY_TYPE_NAME;
+        static std::string_view const constexpr FACTORY_TYPE_NAME = "BillboardChain";
 
         [[nodiscard]] auto getType() const noexcept -> std::string_view override;
     };

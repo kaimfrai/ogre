@@ -267,6 +267,7 @@ namespace Ogre {
 
     };
 
+	AnimableObject::AnimableDictionaryMap AnimableObject::msAnimableDictionary;
     /** @} */
     /** @} */
 

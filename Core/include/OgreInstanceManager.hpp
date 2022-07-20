@@ -140,7 +140,7 @@ namespace Ogre
         /** Finds a batch with at least one free instanced entity we can use.
             If none found, creates one.
         */
-        inline auto getFreeBatch( std::string_view materialName ) -> InstanceBatch*;
+        auto getFreeBatch( std::string_view materialName ) -> InstanceBatch*;
 
         /** Called when batches are fully exhausted (can't return more instances) so a new batch
             is created.

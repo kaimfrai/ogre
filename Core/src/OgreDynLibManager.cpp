@@ -39,7 +39,6 @@ import <utility>;
 namespace Ogre
 {
     //-----------------------------------------------------------------------
-    template<> DynLibManager* Singleton<DynLibManager>::msSingleton = nullptr;
     auto DynLibManager::getSingletonPtr() noexcept -> DynLibManager*
     {
         return msSingleton;

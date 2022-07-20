@@ -45,8 +45,6 @@ namespace Ogre {
     std::string_view const constinit GLRenderTexture::CustomAttributeString_TARGET = "TARGET";
     std::string_view const constinit GLRenderTexture::CustomAttributeString_GLCONTEXT = "GLCONTEXT";
 
-    template<> GLRTTManager* Singleton<GLRTTManager>::msSingleton = nullptr;
-
     GLFrameBufferObjectCommon::GLFrameBufferObjectCommon(int32 fsaa)
         :  mNumSamples(fsaa)
     {

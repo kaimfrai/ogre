@@ -48,7 +48,6 @@ class Camera;
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    template<> OverlayManager *Singleton<OverlayManager>::msSingleton = nullptr;
     auto OverlayManager::getSingletonPtr() noexcept -> OverlayManager*
     {
         return msSingleton;

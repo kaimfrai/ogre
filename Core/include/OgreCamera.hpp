@@ -141,7 +141,7 @@ class Viewport;
         unsigned int mVisBatchesLastRender;
 
         /// Shared class-level name for Movable type
-        static std::string_view const msMovableType;
+        static std::string_view const constexpr msMovableType = "Camera";
 
         /// Scene LOD factor used to adjust overall LOD
         Real mSceneLodFactor{1.0f};
@@ -227,7 +227,27 @@ class Viewport;
 
         /** Function for outputting to a stream.
         */
-        friend auto operator<<(std::ostream& o, const Camera& c) -> std::ostream&;
+        friend auto operator<<(std::ostream& o, const Camera& c) -> std::ostream&
+        {
+            o << "Camera(Name='" << c.mName << "'";
+
+            o << ", pos=" << c.mLastParentPosition << ", direction=" << -c.mLastParentOrientation.zAxis();
+
+            o << ",near=" << c.mNearDist;
+            o << ", far=" << c.mFarDist << ", FOVy=" << c.mFOVy.valueDegrees();
+            o << ", aspect=" << c.mAspect << ", ";
+            o << ", xoffset=" << c.mFrustumOffset.x << ", yoffset=" << c.mFrustumOffset.y;
+            o << ", focalLength=" << c.mFocalLength << ", ";
+            o << "NearFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::NEAR)] << ", ";
+            o << "FarFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::FAR)] << ", ";
+            o << "LeftFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::LEFT)] << ", ";
+            o << "RightFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::RIGHT)] << ", ";
+            o << "TopFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::TOP)] << ", ";
+            o << "BottomFrustumPlane=" << c.mFrustumPlanes[std::to_underlying(FrustumPlane::BOTTOM)];
+            o << ")";
+
+            return o;
+        }
 
         /** Internal method to notify camera of the visible faces in the last render.
         */

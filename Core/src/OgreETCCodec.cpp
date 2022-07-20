@@ -102,9 +102,6 @@ namespace Ogre {
     };
 
     //---------------------------------------------------------------------
-    ETCCodec* ETCCodec::msPKMInstance = nullptr;
-    ETCCodec* ETCCodec::msKTXInstance = nullptr;
-    //---------------------------------------------------------------------
     void ETCCodec::startup()
     {
         if (!msPKMInstance)

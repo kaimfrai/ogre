@@ -844,31 +844,40 @@ namespace Ogre
     }
 
     // Math functions
-    inline auto Math::calculateBasicFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
+    namespace Math
     {
-        Vector3 normal = (v2 - v1).crossProduct(v3 - v1);
-        normal.normalise();
-        return normal;
-    }
-    inline auto Math::calculateFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector4
-    {
-        Vector3 normal = calculateBasicFaceNormal(v1, v2, v3);
-        // Now set up the w (distance of tri from origin
-        return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
-    }
-    inline auto Math::calculateBasicFaceNormalWithoutNormalize(
-        const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
-    {
-        return (v2 - v1).crossProduct(v3 - v1);
-    }
+        /** Calculate a face normal, no w-information. */
+        auto inline calculateBasicFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
+        {
+            Vector3 normal = (v2 - v1).crossProduct(v3 - v1);
+            normal.normalise();
+            return normal;
+        }
 
-    inline auto Math::calculateFaceNormalWithoutNormalize(const Vector3& v1,
-                                                             const Vector3& v2,
-                                                             const Vector3& v3) -> Vector4
-    {
-        Vector3 normal = calculateBasicFaceNormalWithoutNormalize(v1, v2, v3);
-        // Now set up the w (distance of tri from origin)
-        return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
+        /** Calculate a face normal, including the w component which is the offset from the origin. */
+        auto inline calculateFaceNormal(const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector4
+        {
+            Vector3 normal = calculateBasicFaceNormal(v1, v2, v3);
+            // Now set up the w (distance of tri from origin
+            return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
+        }
+
+        /** Calculate a face normal without normalize, no w-information. */
+        auto inline calculateBasicFaceNormalWithoutNormalize(
+            const Vector3& v1, const Vector3& v2, const Vector3& v3) -> Vector3
+        {
+            return (v2 - v1).crossProduct(v3 - v1);
+        }
+
+        /** Calculate a face normal without normalize, including the w component which is the offset from the origin. */
+        auto inline calculateFaceNormalWithoutNormalize(const Vector3& v1,
+                                                                const Vector3& v2,
+                                                                const Vector3& v3) -> Vector4
+        {
+            Vector3 normal = calculateBasicFaceNormalWithoutNormalize(v1, v2, v3);
+            // Now set up the w (distance of tri from origin)
+            return {normal.x, normal.y, normal.z, -(normal.dotProduct(v1))};
+        }
     }
     /** @} */
     /** @} */

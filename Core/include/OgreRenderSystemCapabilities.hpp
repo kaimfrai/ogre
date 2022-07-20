@@ -276,7 +276,7 @@ namespace Ogre
         /// GPU Vendor
         GPUVendor mVendor{GPUVendor::UNKNOWN};
 
-        static std::string_view msGPUVendorStrings[std::to_underlying(GPUVendor::VENDOR_COUNT)];
+        static std::string_view constinit msGPUVendorStrings[std::to_underlying(GPUVendor::VENDOR_COUNT)];
         static void initVendorStrings();
 
         /// The number of texture units available
@@ -671,6 +671,8 @@ namespace Ogre
             mTessellationHullProgramConstantFloatCount = c;
         }
     };
+
+    std::string_view constinit RenderSystemCapabilities::msGPUVendorStrings[std::to_underlying(GPUVendor::VENDOR_COUNT)];
 
     inline auto to_string(GPUVendor v) -> String { return std::string{RenderSystemCapabilities::vendorToString(v) }; }
     inline auto to_string(const DriverVersion& v) -> String { return v.toString(); }

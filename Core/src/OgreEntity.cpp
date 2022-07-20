@@ -2310,9 +2310,6 @@ struct Sphere;
         }
     }
     //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
-    std::string_view const constinit EntityFactory::FACTORY_TYPE_NAME = "Entity";
-    //-----------------------------------------------------------------------
     auto EntityFactory::getType() const noexcept -> std::string_view
     {
         return FACTORY_TYPE_NAME;

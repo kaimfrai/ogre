@@ -48,7 +48,6 @@ namespace Ogre {
     using createFunc = void (*)(Archive **, std::string_view );
 
     //-----------------------------------------------------------------------
-    template<> ArchiveManager* Singleton<ArchiveManager>::msSingleton = nullptr;
     auto ArchiveManager::getSingletonPtr() noexcept -> ArchiveManager*
     {
         return msSingleton;

@@ -140,6 +140,8 @@ namespace Ogre {
         */
         virtual auto magicNumberToFileExt(const char *magicNumberPtr, size_t maxbytes) const -> std::string_view = 0;
     };
+
+    std::map<std::string_view, Codec *> Codec::msMapCodecs;
     /** @} */
     /** @} */
 

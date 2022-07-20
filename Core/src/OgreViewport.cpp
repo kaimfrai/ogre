@@ -47,7 +47,6 @@ import <iomanip>;
 import <iosfwd>;
 
 namespace Ogre {
-    OrientationMode constinit Viewport::mDefaultOrientationMode = OrientationMode::DEGREE_0;
     //---------------------------------------------------------------------
     Viewport::Viewport(Camera* cam, RenderTarget* target, Real left, Real top, Real width, Real height, int ZOrder)
         : mCamera(cam)

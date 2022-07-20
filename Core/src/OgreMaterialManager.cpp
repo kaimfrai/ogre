@@ -56,7 +56,6 @@ namespace Ogre {
 class Renderable;
 
     //-----------------------------------------------------------------------
-    template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
     auto MaterialManager::getSingletonPtr() noexcept -> MaterialManager*
     {
         return msSingleton;
@@ -65,7 +64,6 @@ class Renderable;
     {
         assert( msSingleton );  return ( *msSingleton );
     }
-    std::string_view const constinit MaterialManager::DEFAULT_SCHEME_NAME = "Default";
     //-----------------------------------------------------------------------
     MaterialManager::MaterialManager()
     {

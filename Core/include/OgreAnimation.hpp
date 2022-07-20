@@ -521,8 +521,8 @@ class VertexData;
         mutable bool mKeyFrameTimesDirty{false};
         bool mUseBaseKeyFrame{false};
 
-        static InterpolationMode msDefaultInterpolationMode;
-        static RotationInterpolationMode msDefaultRotationInterpolationMode;
+        static InterpolationMode constinit msDefaultInterpolationMode;
+        static RotationInterpolationMode constinit msDefaultRotationInterpolationMode;
 
         /// Global keyframe time list used to search global keyframe index.
         using KeyFrameTimeList = std::vector<Real>;
@@ -538,6 +538,8 @@ class VertexData;
         void buildKeyFrameTimeList() const;
     };
 
+    Animation::InterpolationMode constinit Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
+    Animation::RotationInterpolationMode constinit Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
     /** @} */
     /** @} */
 } // namespace Ogre

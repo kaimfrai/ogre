@@ -42,7 +42,6 @@ import <utility>;
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> LodStrategyManager* Singleton<LodStrategyManager>::msSingleton = nullptr;
     auto LodStrategyManager::getSingletonPtr() noexcept -> LodStrategyManager*
     {
         return msSingleton;

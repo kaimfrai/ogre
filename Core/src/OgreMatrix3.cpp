@@ -37,11 +37,6 @@ import <limits>;
 // Adapted from Matrix math by Wild Magic http://www.geometrictools.com/
 namespace Ogre
 {
-    const Real constinit Matrix3::EPSILON = 1e-06;
-    const Matrix3 Matrix3::ZERO{0,0,0,0,0,0,0,0,0};
-    const Matrix3 Matrix3::IDENTITY{1,0,0,0,1,0,0,0,1};
-    const unsigned int constinit Matrix3::msSvdMaxIterations = 64;
-
     //-----------------------------------------------------------------------
     auto Matrix3::operator+ (const Matrix3& rkMatrix) const -> Matrix3
     {

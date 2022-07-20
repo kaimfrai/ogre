@@ -55,7 +55,6 @@ namespace Ogre::RTShader {
 
 #define HS_DATA_BIND_NAME "HS_SRS_DATA"
 namespace Ogre {
-template<> RTShader::HardwareSkinningFactory* Singleton<RTShader::HardwareSkinningFactory>::msSingleton = nullptr;
 
 namespace RTShader {
 

@@ -171,8 +171,6 @@ namespace Ogre {
         }
     }
 	//---------------------------------------------------------------------
-	ASTCCodec* ASTCCodec::msInstance = nullptr;
-	//---------------------------------------------------------------------
 	void ASTCCodec::startup()
 	{
 		if (!msInstance)

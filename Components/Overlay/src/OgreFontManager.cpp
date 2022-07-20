@@ -38,7 +38,6 @@ import <memory>;
 namespace Ogre
 {
     //---------------------------------------------------------------------
-    template<> FontManager * Singleton< FontManager >::msSingleton = nullptr;
     auto FontManager::getSingletonPtr() noexcept -> FontManager*
     {
         return msSingleton;

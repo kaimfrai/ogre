@@ -39,8 +39,6 @@ import <utility>;
 
 namespace Ogre {
 
-    std::map<std::string_view, Codec * > Codec::msMapCodecs;
-
     Codec::~Codec() = default;
 
     auto Codec::encode(::std::any const& input) const -> DataStreamPtr

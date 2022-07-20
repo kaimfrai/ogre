@@ -55,8 +55,6 @@ namespace Ogre {
 class Camera;
 class RenderQueue;
 
-    std::string_view const constinit Frustum::msMovableType = "Frustum";
-    const Real constinit Frustum::INFINITE_FAR_PLANE_ADJUST = 0.00001;
     //-----------------------------------------------------------------------
     Frustum::Frustum(std::string_view name) :
         mFOVy(Radian{Math::PI/4.0f}), 

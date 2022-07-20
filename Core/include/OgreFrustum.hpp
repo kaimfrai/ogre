@@ -169,7 +169,7 @@ struct Sphere;
         virtual void invalidateView() const;
 
         /// Shared class-level name for Movable type
-        static std::string_view const msMovableType;
+        static std::string_view const constexpr msMovableType = "Frustum";
 
         ColourValue mDebugColour;
         /// Pointer to a reflection plane (automatically updated)
@@ -620,7 +620,7 @@ struct Sphere;
             bool debugRenderables = false) override;
 
         /// Small constant used to reduce far plane projection to avoid inaccuracies
-        static const Real INFINITE_FAR_PLANE_ADJUST;
+        static const Real constexpr INFINITE_FAR_PLANE_ADJUST = 0.00001;
 
         /** Get the derived position of this frustum. */
         virtual auto getPositionForViewUpdate() const noexcept -> const Vector3&;

@@ -1465,8 +1465,6 @@ namespace Ogre
     
 
     // ScriptCompilerManager
-    template<> ScriptCompilerManager *Singleton<ScriptCompilerManager>::msSingleton = nullptr;
-    
     auto ScriptCompilerManager::getSingletonPtr() noexcept -> ScriptCompilerManager*
     {
         return msSingleton;

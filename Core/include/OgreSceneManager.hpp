@@ -3469,6 +3469,9 @@ namespace Ogre {
 
     };
 
+    GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msInfiniteExtrusionParams;
+    GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msFiniteExtrusionParams;
+
     /** @} */
     /** @} */
 

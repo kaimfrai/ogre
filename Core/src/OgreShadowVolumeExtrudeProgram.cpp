@@ -61,7 +61,6 @@ namespace {
 }
 
 namespace Ogre {
-    std::vector<GpuProgramPtr> ShadowVolumeExtrudeProgram::mPrograms;
 
     void ShadowVolumeExtrudeProgram::initialise()
     {

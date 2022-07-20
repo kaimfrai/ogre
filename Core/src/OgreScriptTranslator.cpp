@@ -133,53 +133,42 @@ class LodStrategy;
         }
     }
 
-    auto getPropertyName(const ScriptCompiler *compiler, uint32 id) -> std::string_view
-    {
-        for(auto& kv : compiler->mIds)
-            if(kv.second == id)
-                return kv.first;
-        OgreAssertDbg(false,  "should not get here");
-        return "unknown";
-    }
-
-    template <typename T>
-    auto getValue(const AbstractNodePtr &node, T& result) -> bool;
-    template<> auto getValue(const AbstractNodePtr &node, float& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, float& result) -> bool
     {
         return ScriptTranslator::getFloat(node, &result);
     }
-    template<> auto getValue(const AbstractNodePtr &node, double& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, double& result) -> bool
     {
         return ScriptTranslator::getDouble(node, &result);
     }
-    template<> auto getValue(const AbstractNodePtr &node, bool& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, bool& result) -> bool
     {
         return ScriptTranslator::getBoolean(node, &result);
     }
-    template<> auto getValue(const AbstractNodePtr &node, uint32& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, uint32& result) -> bool
     {
         return ScriptTranslator::getUInt(node, &result);
     }
-    template<> auto getValue(const AbstractNodePtr &node, int32& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, int32& result) -> bool
     {
         return ScriptTranslator::getInt(node, &result);
     }
-    template<> auto getValue(const AbstractNodePtr &node, String& result) -> bool
+    static auto getValue(const AbstractNodePtr &node, String& result) -> bool
     {
         return ScriptTranslator::getString(node, &result);
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, CompareFunction& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, CompareFunction& result) -> bool
     {
         return ScriptTranslator::getCompareFunction(node, &result);
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, StencilOperation& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, StencilOperation& result) -> bool
     {
         return ScriptTranslator::getStencilOp(node, &result);
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, IlluminationStage& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, IlluminationStage& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -200,7 +189,7 @@ class LodStrategy;
         }
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, SceneBlendType& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, SceneBlendType& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -225,7 +214,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, SceneBlendOperation& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, SceneBlendOperation& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -253,7 +242,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, CullingMode& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, CullingMode& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -275,7 +264,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, ManualCullingMode& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, ManualCullingMode& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -297,7 +286,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, ShadeOptions& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, ShadeOptions& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -319,7 +308,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, PolygonMode& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, PolygonMode& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -341,7 +330,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperation& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, LayerBlendOperation& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -366,7 +355,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op) -> bool
+    static auto getValue(const AbstractNodePtr& node, LayerBlendOperationEx& op) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -424,7 +413,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, LayerBlendSource& source1) -> bool
+    static auto getValue(const AbstractNodePtr& node, LayerBlendSource& source1) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -452,7 +441,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, TextureUnitState::BindingType& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -472,7 +461,7 @@ class LodStrategy;
     }
 
 
-    template<> auto getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, CompositionTargetPass::InputMode& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -491,7 +480,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, FilterOptions& tmip) -> bool
+    static auto getValue(const AbstractNodePtr& node, FilterOptions& tmip) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;
@@ -516,7 +505,7 @@ class LodStrategy;
         return true;
     }
 
-    template<> auto getValue(const AbstractNodePtr& node, TextureAddressingMode& result) -> bool
+    static auto getValue(const AbstractNodePtr& node, TextureAddressingMode& result) -> bool
     {
         if(node->type != AbstractNodeType::ATOM)
             return false;

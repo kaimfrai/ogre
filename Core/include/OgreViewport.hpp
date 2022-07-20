@@ -412,7 +412,7 @@ class RenderTarget;
         String mMaterialSchemeName;
         /// Viewport orientation mode
         OrientationMode mOrientationMode;
-        static OrientationMode mDefaultOrientationMode;
+        static OrientationMode constinit mDefaultOrientationMode;
 
         /// Automatic rendering on/off
         bool mIsAutoUpdated{true};
@@ -421,6 +421,7 @@ class RenderTarget;
         ListenerList mListeners;
 		ColourBufferType mColourBuffer{ColourBufferType::BACK};
     };
+    OrientationMode constinit Viewport::mDefaultOrientationMode = OrientationMode::DEGREE_0;
     /** @} */
     /** @} */
 

@@ -44,12 +44,6 @@ import <utility>;
 
 namespace Ogre
 {
-
-
-    //-----------------------------------------------------------------------
-    // Statics
-    //-----------------------------------------------------------------------
-    ConvexBody::PolygonList ConvexBody::msFreePolygons;
     //-----------------------------------------------------------------------
     void ConvexBody::_initialisePool()
     {
@@ -695,19 +689,7 @@ namespace Ogre
         bChecked = nullptr;
         return true;
     }
-    //-----------------------------------------------------------------------
-    auto operator<< ( std::ostream& strm, const ConvexBody& body ) -> std::ostream&
-    {
-        strm << "POLYGON INFO (" << body.getPolygonCount() << ")" << std::endl;
 
-        for ( size_t i = 0; i < body.getPolygonCount(); ++i )
-        {
-            strm << "POLYGON " << i << ", ";
-            strm << body.getPolygon( i );
-        }
-
-        return strm;
-    }
     //-----------------------------------------------------------------------
     void ConvexBody::insertPolygon(Polygon* pdata, size_t poly )
     {

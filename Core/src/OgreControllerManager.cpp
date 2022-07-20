@@ -38,7 +38,6 @@ import :Root;
 
 namespace Ogre {
     //-----------------------------------------------------------------------
-    template<> ControllerManager* Singleton<ControllerManager>::msSingleton = nullptr;
     auto ControllerManager::getSingletonPtr() noexcept -> ControllerManager*
     {
         return msSingleton;
