@@ -33,42 +33,14 @@ namespace Ogre
 {
 
 /// Forward declarations from Ogre namespace.
-class Technique;
-class Pass;
-class Renderable;
-class Viewport;
-class RenderObjectListener;
-class TextureUnitState;
-class Frustum;
-class ScriptTranslator;
-class ScriptCompiler;
-class PropertyAbstractNode;
-class MaterialSerializer;
-
 using RTShaderSystemAlloc = GeneralAllocatedObject;
 
 namespace RTShader 
 {
 
 /// Forward declarations from RTShader namespace.
-class RenderState;
-class TargetRenderState;
-class SubRenderState;
-class SubRenderStateAccessor;
-class SubRenderStateFactory;
-class ProgramManager;
-class Program;
-class ProgramProcessor;
-class ProgramSet;
-class RenderState;
 class Parameter;
 class UniformParameter;
-class Function;
-class FunctionStageRef;
-class FFPRenderStateBuilder;
-class ShaderGenerator;
-class SGMaterialSerializerListener;
-class ProgramWriterManager;
 
 using ParameterPtr = shared_ptr<Parameter>;
 using UniformParameterPtr = shared_ptr<UniformParameter>;

@@ -36,23 +36,9 @@ export import <algorithm>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class AutoParamDataSource;
-    class Pass;
-    class PropertyAbstractNode;
-    class Renderable;
-    class ScriptCompiler;
-    namespace RTShader {
-        class Function;
-        class Program;
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
-
-export
 namespace Ogre::RTShader {
+    struct Function;
+    struct Program;
 
 /** \addtogroup Optional
 *  @{

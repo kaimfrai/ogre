@@ -29,12 +29,9 @@ module Ogre.Components.RTShaderSystem:ShaderExLinearSkinning;
 import :ShaderExHardwareSkinningTechnique;
 import :ShaderPrerequisites;
 
-namespace Ogre::RTShader {
-class Function;
-class ProgramSet;
-}  // namespace Ogre
 
 namespace Ogre::RTShader {
+    class Function;
 
 /** \addtogroup Optional
 *  @{

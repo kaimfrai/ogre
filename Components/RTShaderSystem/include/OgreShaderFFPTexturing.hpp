@@ -39,24 +39,8 @@ export import Ogre.Core;
 export import <vector>;
 
 export
-namespace Ogre {
-    struct ColourValue;
-    class MaterialSerializer;
-    class Pass;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    class TextureUnitState;
-    namespace RTShader {
-        class Function;
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
-
-export
 namespace Ogre::RTShader {
-
+    struct Function;
 
 /** \addtogroup Optional
 *  @{

@@ -46,8 +46,6 @@ export
 namespace Ogre::RTShader {
 
     class ProgramWriter;
-class Program;
-class ProgramSet;
 
 /** \addtogroup Optional
 *  @{

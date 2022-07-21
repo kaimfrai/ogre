@@ -32,16 +32,6 @@ import :ShaderSubRenderState;
 
 import Ogre.Core;
 
-namespace Ogre {
-    class AutoParamDataSource;
-    class Pass;
-    class Renderable;
-namespace RTShader {
-    class ProgramSet;
-    class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 /**

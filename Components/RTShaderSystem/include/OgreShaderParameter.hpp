@@ -39,9 +39,6 @@ export import <vector>;
 
 export
 namespace Ogre {
-struct ColourValue;
-struct Matrix3;
-
 namespace RTShader {
 
 /** \addtogroup Optional

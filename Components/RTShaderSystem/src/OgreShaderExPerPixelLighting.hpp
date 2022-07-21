@@ -32,18 +32,6 @@ import :ShaderSubRenderState;
 
 import Ogre.Core;
 
-namespace Ogre {
-    class MaterialSerializer;
-    class Pass;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    namespace RTShader {
-        class FunctionStageRef;
-        class ProgramSet;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional

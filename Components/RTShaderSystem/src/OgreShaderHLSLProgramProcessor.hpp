@@ -31,7 +31,6 @@ import :ShaderProgramProcessor;
 import Ogre.Core;
 
 namespace Ogre::RTShader {
-class ProgramSet;
 
 /** \addtogroup Optional
 *  @{

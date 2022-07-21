@@ -32,20 +32,6 @@ export import :ShaderSubRenderState;
 export import Ogre.Core;
 
 export
-namespace Ogre {
-    class AutoParamDataSource;
-    class Pass;
-    class PropertyAbstractNode;
-    class Renderable;
-    class ScriptCompiler;
-    namespace RTShader {
-        class ProgramSet;
-        class RenderState;
-        class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
-
-export
 namespace Ogre::RTShader {
 
 /** \addtogroup Optional

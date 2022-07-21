@@ -38,20 +38,6 @@ export import <memory>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class LayerBlendModeEx;
-    class MaterialSerializer;
-    class PropertyAbstractNode;
-    class ScriptCompiler;
-    class TextureUnitState;
-    namespace RTShader {
-    class Function;
-    class ProgramSet;
-    class SGScriptTranslator;
-    }  // namespace RTShader
-}  // namespace Ogre
-
-export
 namespace Ogre::RTShader {
 
 /** Texturing sub render state implementation of layered blending.
