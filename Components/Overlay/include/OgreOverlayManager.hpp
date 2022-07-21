@@ -44,11 +44,6 @@ namespace Ogre {
     class OverlayContainer;
     class OverlayElement;
     class OverlayElementFactory;
-    template <typename T> class MapIterator;
-    class Camera;
-    class RenderQueue;
-    class ScriptTranslatorManager;
-    class Viewport;
 
     /** \addtogroup Optional
     *  @{

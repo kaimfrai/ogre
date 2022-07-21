@@ -40,9 +40,6 @@ export import <vector>;
 export
 namespace Ogre
 {
-    class BillboardSet;
-class ResourceManager;
-
     /** \addtogroup Optional
     *  @{
     */
