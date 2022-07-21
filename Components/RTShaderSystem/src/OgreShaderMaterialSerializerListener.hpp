@@ -34,10 +34,6 @@ import Ogre.Core;
 import <vector>;
 
 namespace Ogre {
-class Material;
-class Pass;
-class Technique;
-class TextureUnitState;
 
 namespace RTShader {
 

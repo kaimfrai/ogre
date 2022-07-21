@@ -35,13 +35,9 @@ export import <memory>;
 
 export
 namespace Ogre {
-class AutoParamDataSource;
-class Pass;
-class Renderable;
 
 namespace RTShader {
-class Program;
-class ProgramSet;
+    class Program;
 
 /** \addtogroup Optional
 *  @{

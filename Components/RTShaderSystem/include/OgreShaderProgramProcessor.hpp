@@ -41,7 +41,6 @@ export import <vector>;
 export
 namespace Ogre::RTShader {
 class Function;
-class Parameter;
 class Program;
 class ProgramSet;
 

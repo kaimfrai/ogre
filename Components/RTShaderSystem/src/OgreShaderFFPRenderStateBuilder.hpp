@@ -28,12 +28,10 @@ module Ogre.Components.RTShaderSystem:ShaderFFPRenderStateBuilder;
 
 import :ShaderGenerator;
 
-namespace Ogre::RTShader {
-        class TargetRenderState;
-    }  // namespace Ogre
 
 namespace Ogre::RTShader {
 
+    class TargetRenderState;
 
 /** \addtogroup Optional
 *  @{

@@ -45,14 +45,6 @@ export import <vector>;
 
 export
 namespace Ogre {
-class AutoParamDataSource;
-class FileSystemLayer;
-class Renderable;
-class ScriptTranslator;
-class Technique;
-class TextureUnitState;
-class Viewport;
-
 
 namespace RTShader {
 
@@ -70,7 +62,6 @@ class SGResourceGroupListener;
 class FFPRenderStateBuilder;
 class ProgramManager;
 class ProgramWriterManager;
-class RenderState;
 class SGMaterialSerializerListener;
 class SubRenderState;
 class SubRenderStateFactory;

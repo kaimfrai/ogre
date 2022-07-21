@@ -36,20 +36,6 @@ export import :ShaderSubRenderState;
 export import Ogre.Core;
 
 export
-namespace Ogre {
-class Entity;
-class MaterialSerializer;
-class Pass;
-class PropertyAbstractNode;
-class ScriptCompiler;
-namespace RTShader {
-class ProgramSet;
-class RenderState;
-class SGScriptTranslator;
-}  // namespace RTShader
-}  // namespace Ogre
-
-export
 enum {
 HS_MAX_WEIGHT_COUNT = 4
 };

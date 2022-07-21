@@ -36,9 +36,7 @@ import <iosfwd>;
 
 namespace Ogre::RTShader {
 
-    class Function;
     class FunctionAtom;
-    class Program;
 
 /** \addtogroup Optional
 *  @{

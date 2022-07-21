@@ -37,7 +37,6 @@ import <set>;
 
 namespace Ogre::RTShader {
 
-    class Function;
     class Program;
 
 /** \addtogroup Optional

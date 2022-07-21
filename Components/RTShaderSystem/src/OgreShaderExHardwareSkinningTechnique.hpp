@@ -33,9 +33,6 @@ import Ogre.Core;
 
 namespace Ogre::RTShader {
 class ProgramSet;
-}  // namespace Ogre
-
-namespace Ogre::RTShader {
 
 /** \addtogroup Optional
 *  @{
