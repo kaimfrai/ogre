@@ -40,7 +40,7 @@ import :GLNativeSupport;
 import :GLX.Context;
 import :GLX.GLSupport;
 import :GLX.Window;
-import :X11.;
+import :X11;
 
 import Ogre.Core;
 

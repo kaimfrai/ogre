@@ -149,6 +149,8 @@ class ResourceManager;
         GLUniformCache    mUniformCache;
 
         /// Keep track of the number of shaders created.
-        static uint mShaderCount;
+        static uint constinit mShaderCount;
     };
+    //-----------------------------------------------------------------------
+    uint constinit GLSLShaderCommon::mShaderCount = 0;
 }

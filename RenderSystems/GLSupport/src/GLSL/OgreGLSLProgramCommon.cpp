@@ -32,44 +32,6 @@ GLSLProgramCommon::GLSLProgramCommon(const GLShaderList& shaders)
 // Switching attribute bindings requires re-creating VAOs. So avoid!
 // Fixed builtins (from ARB_vertex_program Table X.2) are:
 
-//  a  builtin              custom attrib name
-// ----------------------------------------------
-//  0  gl_Vertex            vertex/ position
-//  1  n/a                  blendWeights
-//  2  gl_Normal            normal
-//  3  gl_Color             colour
-//  4  gl_SecondaryColor    secondary_colour
-//  5  gl_FogCoord          n/a
-//  6  n/a                  n/a
-//  7  n/a                  blendIndices
-//  8  gl_MultiTexCoord0    uv0
-//  9  gl_MultiTexCoord1    uv1
-//  10 gl_MultiTexCoord2    uv2
-//  11 gl_MultiTexCoord3    uv3
-//  12 gl_MultiTexCoord4    uv4
-//  13 gl_MultiTexCoord5    uv5
-//  14 gl_MultiTexCoord6    uv6, tangent
-//  15 gl_MultiTexCoord7    uv7, binormal
-GLSLProgramCommon::CustomAttribute GLSLProgramCommon::msCustomAttributes[17] = {
-    {"vertex", getFixedAttributeIndex(VertexElementSemantic::POSITION, 0), VertexElementSemantic::POSITION},
-    {"position", getFixedAttributeIndex(VertexElementSemantic::POSITION, 0), VertexElementSemantic::POSITION}, // allow alias for "vertex"
-    {"blendWeights", getFixedAttributeIndex(VertexElementSemantic::BLEND_WEIGHTS, 0), VertexElementSemantic::BLEND_WEIGHTS},
-    {"normal", getFixedAttributeIndex(VertexElementSemantic::NORMAL, 0), VertexElementSemantic::NORMAL},
-    {"colour", getFixedAttributeIndex(VertexElementSemantic::DIFFUSE, 0), VertexElementSemantic::DIFFUSE},
-    {"secondary_colour", getFixedAttributeIndex(VertexElementSemantic::SPECULAR, 0), VertexElementSemantic::SPECULAR},
-    {"blendIndices", getFixedAttributeIndex(VertexElementSemantic::BLEND_INDICES, 0), VertexElementSemantic::BLEND_INDICES},
-    {"uv0", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 0), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv1", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 1), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv2", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 2), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv3", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 3), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv4", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 4), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv5", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 5), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv6", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 6), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"uv7", getFixedAttributeIndex(VertexElementSemantic::TEXTURE_COORDINATES, 7), VertexElementSemantic::TEXTURE_COORDINATES},
-    {"tangent", getFixedAttributeIndex(VertexElementSemantic::TANGENT, 0), VertexElementSemantic::TANGENT},
-    {"binormal", getFixedAttributeIndex(VertexElementSemantic::BINORMAL, 0), VertexElementSemantic::BINORMAL},
-};
-
 static int32 attributeIndex[std::to_underlying(VertexElementSemantic::COUNT) + 1] = {
         -1,// n/a
         0, // VertexElementSemantic::POSITION

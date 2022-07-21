@@ -7,7 +7,7 @@ module;
 module Ogre.RenderSystems.GLSupport;
 
 import :GLNativeSupport;
-import :X11.;
+import :X11;
 
 import Ogre.Core;
 
