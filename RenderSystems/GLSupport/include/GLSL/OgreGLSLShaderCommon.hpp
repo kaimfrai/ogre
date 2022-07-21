@@ -35,9 +35,6 @@ export import <vector>;
 
 export
 namespace Ogre {
-class GpuProgram;
-class ResourceManager;
-
     /** Specialisation of HighLevelGpuProgram to provide support for OpenGL
         Shader Language (GLSL).
 

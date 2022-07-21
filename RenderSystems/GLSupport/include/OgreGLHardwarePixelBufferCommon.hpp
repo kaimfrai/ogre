@@ -32,8 +32,6 @@ export import Ogre.Core;
 export
 namespace Ogre
 {
-struct Box;
-
 class GLHardwarePixelBufferCommon : public HardwarePixelBuffer
 {
 protected:

@@ -11,7 +11,6 @@ namespace Ogre
     class GLContext;
     class GLHardwarePixelBufferCommon;
     class GLRenderSystemCommon;
-    class RenderTarget;
 
     /**
         OpenGL supports 3 different methods: FBO, pbuffer & Copy.

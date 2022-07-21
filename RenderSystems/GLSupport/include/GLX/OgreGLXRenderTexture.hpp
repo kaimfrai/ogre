@@ -39,9 +39,6 @@ export import Ogre.Core;
 export
 namespace Ogre
 {
-class GLContext;
-class GLXGLSupport;
-
     class GLXPBuffer : public GLPBuffer
     {
     public:

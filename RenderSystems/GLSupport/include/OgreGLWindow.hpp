@@ -37,9 +37,6 @@ export import <memory>;
 export
 namespace Ogre
 {
-class PixelBox;
-struct Box;
-
     class GLWindow : public RenderWindow, public GLRenderTarget
     {
     public:

@@ -36,8 +36,6 @@ export import <string>;
 
 export
 namespace Ogre {
-    class GLSLShaderCommon;
-
     /** Ogre assumes that there are separate programs to deal with but
         GLSL has one program object that represents the active shader
         objects during a rendering state.  GLSL shader objects are

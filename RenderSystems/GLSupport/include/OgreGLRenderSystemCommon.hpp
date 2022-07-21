@@ -43,10 +43,6 @@ export
 namespace Ogre {
     class GLContext;
     class GLRTTManager;
-    struct Matrix4;
-    class VertexElement;
-    class Viewport;
-    struct Box;
 
     class GLRenderSystemCommon : public RenderSystem
     {
