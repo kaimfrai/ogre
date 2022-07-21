@@ -31,9 +31,8 @@ import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre::GLSL {
-class GLSLLinkProgram;
-class GLSLProgram;
-
+    class GLSLLinkProgram;
+    class GLSLProgram;
     class GLSLLinkProgramManager : public Singleton<GLSLLinkProgramManager>, public GLSLProgramManagerCommon
     {
 

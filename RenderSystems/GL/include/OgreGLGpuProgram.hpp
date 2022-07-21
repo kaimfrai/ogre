@@ -35,7 +35,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class ResourceManager;
 
     struct GLGpuProgramBase
     {

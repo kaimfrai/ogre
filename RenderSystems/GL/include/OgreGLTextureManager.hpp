@@ -31,8 +31,7 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class GLRenderSystem;
-
+    class GLRenderSystem;
     /** GL-specific implementation of a TextureManager */
     class GLTextureManager : public TextureManager
     {

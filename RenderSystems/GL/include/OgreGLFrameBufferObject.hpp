@@ -32,9 +32,8 @@ export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {
-    class DepthBuffer;
+
     class GLFBOManager;
-    
     /** Frame Buffer Object abstraction.
     */
     class GLFrameBufferObject : public GLFrameBufferObjectCommon

@@ -37,7 +37,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class ResourceManager;
 
 class GLGpuNvparseProgram : public GLGpuProgram
 {

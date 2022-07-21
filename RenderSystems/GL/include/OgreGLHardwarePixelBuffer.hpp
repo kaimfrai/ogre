@@ -39,12 +39,8 @@ export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {
-    class GLRenderSystem;
-    class GLTexture;
-    class PixelBox;
-    class RenderTexture;
-    struct Box;
 
+    class GLRenderSystem;
     /** Texture surface.
     */
     class GLTextureBuffer: public GLHardwarePixelBufferCommon

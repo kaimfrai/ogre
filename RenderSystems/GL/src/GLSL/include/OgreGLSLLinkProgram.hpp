@@ -38,7 +38,6 @@ import <memory>;
 import <set>;
 
 namespace Ogre {
-class GLUniformCache;
 
     namespace GLSL {
 

@@ -36,9 +36,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class Pass;
-class RenderOperation;
-class SceneManager;
 
     /**
         An object which renders geometry to a vertex.

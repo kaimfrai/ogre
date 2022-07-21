@@ -36,13 +36,10 @@ export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {
+
+    class GLCopyingRTTManager;
     /** RenderTexture for simple copying from frame buffer
     */
-    class GLCopyingRTTManager;
-class GLContext;
-class RenderTarget;
-class RenderTexture;
-
     class GLCopyingRenderTexture: public GLRenderTexture
     {
     public:

@@ -35,9 +35,6 @@ import <memory>;
 
 namespace Ogre
 {
-class GpuProgram;
-class ResourceManager;
-
     namespace GLSL {
 
     /** Factory class for GLSL programs. */
