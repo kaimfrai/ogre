@@ -27,10 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Components.Bites:ConfigDialog;
 
-export
-namespace Ogre {
-    class ConfigDialog;
-}  // namespace Ogre
+export import Ogre.Core;
 
 export
 namespace OgreBites {
