@@ -44,12 +44,6 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class GLPBuffer;
-class RenderWindow;
-}  // namespace Ogre
-
-export
-namespace Ogre {
 
     class GLXGLSupport : public GLNativeSupport
     {

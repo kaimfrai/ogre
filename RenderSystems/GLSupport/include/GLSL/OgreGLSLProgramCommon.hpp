@@ -37,8 +37,6 @@ export import <vector>;
 export
 namespace Ogre
 {
-struct GpuConstantDefinition;
-
 /// Structure used to keep track of named uniforms in the linked program object
 struct GLUniformReference
 {

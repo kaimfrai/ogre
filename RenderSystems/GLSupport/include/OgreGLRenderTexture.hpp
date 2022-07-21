@@ -41,8 +41,6 @@ export import <vector>;
 export
 namespace Ogre {
     class GLHardwarePixelBufferCommon;
-class GLContext;
-class RenderTarget;
 
     /** GL surface descriptor. Points to a 2D surface that can be rendered to.
      */

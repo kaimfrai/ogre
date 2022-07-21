@@ -32,8 +32,6 @@ export import Ogre.Core;
 export
 namespace Ogre
 {
-class ResourceManager;
-
 class GLTextureCommon  : public Texture
 {
 public:
