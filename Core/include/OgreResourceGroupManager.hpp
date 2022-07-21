@@ -71,11 +71,11 @@ namespace Ogre {
     */
 
     /// Default resource group name
-    char const constexpr RGN_DEFAULT[] = "General";
+    char const constexpr inline RGN_DEFAULT[] = "General";
     /// Internal resource group name (should be used by OGRE internal only)
-    char const constexpr RGN_INTERNAL[] = "OgreInternal";
+    char const constexpr inline RGN_INTERNAL[] = "OgreInternal";
     /// Special resource group name which causes resource group to be automatically determined based on searching for the resource in all groups.
-    char const constexpr RGN_AUTODETECT[] = "OgreAutodetect";
+    char const constexpr inline RGN_AUTODETECT[] = "OgreAutodetect";
 
     /** This class defines an interface which is called back during
         resource group loading to indicate the progress of the load. 

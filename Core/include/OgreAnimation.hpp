@@ -538,8 +538,8 @@ class VertexData;
         void buildKeyFrameTimeList() const;
     };
 
-    Animation::InterpolationMode constinit Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
-    Animation::RotationInterpolationMode constinit Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
+    Animation::InterpolationMode constinit inline Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
+    Animation::RotationInterpolationMode constinit inline Animation::msDefaultRotationInterpolationMode = Animation::RotationInterpolationMode::LINEAR;
     /** @} */
     /** @} */
 } // namespace Ogre

@@ -353,8 +353,8 @@ struct Matrix3;
         }
 
     };
-    const Quaternion constinit Quaternion::ZERO{0,0,0,0};
-    const Quaternion constinit Quaternion::IDENTITY{1,0,0,0};
+    const Quaternion constinit inline Quaternion::ZERO{0,0,0,0};
+    const Quaternion constinit inline Quaternion::IDENTITY{1,0,0,0};
     /** @} */
     /** @} */
 
