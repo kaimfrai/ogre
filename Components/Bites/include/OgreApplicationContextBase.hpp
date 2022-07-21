@@ -38,6 +38,8 @@ export import :Input;
 export import :StaticPluginLoader;
 
 export import Ogre.Core;
+export import Ogre.Components.Overlay;
+export import Ogre.Components.RTShaderSystem;
 
 export import <memory>;
 export import <set>;
@@ -45,22 +47,9 @@ export import <utility>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class OverlaySystem;
-    class RenderWindow;
-    class Root;
-
-    namespace RTShader {
-        class ShaderGenerator;
-    }  // namespace RTShader
-}
-
-export
 namespace OgreBites
 {
     class SGTechniqueResolverListener;
-    struct InputListener;
-
     using NativeWindowType = SDL_Window;
 
     /** \addtogroup Optional Optional Components

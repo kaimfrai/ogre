@@ -27,10 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Components.Bites:WindowEventUtilities;
 
-export
-namespace Ogre {
-    class RenderWindow;
-}  // namespace Ogre
+export import Ogre.Core;
 
 export
 namespace OgreBites

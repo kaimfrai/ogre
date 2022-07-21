@@ -28,16 +28,7 @@
 export module Ogre.Components.Bites:SGTechniqueResolverListener;
 
 export import Ogre.Core;
-
-export
-namespace Ogre {
-    class Material;
-    class Renderable;
-
-    namespace RTShader {
-        class ShaderGenerator;
-    }  // namespace RTShader
-}  // namespace Ogre
+export import Ogre.Components.RTShaderSystem;
 
 export
 namespace OgreBites {

@@ -42,15 +42,6 @@ export import <string>;
 export import <vector>;
 
 export
-namespace Ogre {
-    class Camera;
-    class PanelOverlayElement;
-    class RenderWindow;
-    class Timer;
-    struct FrameEvent;
-}  // namespace Ogre
-
-export
 namespace OgreBites
 {
     /** \addtogroup Optional
