@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Common:SdkSample;
+export module Ogre.Samples:SdkSample;
 
 export import :Sample;
 

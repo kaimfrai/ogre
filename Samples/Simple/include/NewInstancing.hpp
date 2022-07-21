@@ -1,8 +1,9 @@
-export module Ogre.Samples.Simple:NewInstancing;
+export module Ogre.Samples:NewInstancing;
+
+export import :SdkSample;
 
 export import Ogre.Components.Bites;
 export import Ogre.Core;
-export import Ogre.Samples.Common;
 
 export import <set>;
 export import <vector>;
@@ -16,10 +17,8 @@ class SceneNode;
 struct FrameEvent;
 }  // namespace Ogre
 
-export
 using namespace Ogre;
 
-export
 using namespace OgreBites;
 
 export
