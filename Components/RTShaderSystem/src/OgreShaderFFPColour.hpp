@@ -155,7 +155,7 @@ public:
     */
     void removeResolveStageMask(StageFlags mask)  { mResolveStageFlags &= ~mask; }
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "FFP_Colour";
 
 // Protected methods
 protected:  

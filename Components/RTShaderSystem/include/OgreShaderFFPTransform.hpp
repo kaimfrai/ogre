@@ -92,7 +92,7 @@ public:
         mTexCoordIndex = Parameter::Content(std::to_underlying(Parameter::Content::TEXTURE_COORDINATE0) + texCoordIndex);
     }
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "FFP_Transform";
 protected:
     Parameter::Content mTexCoordIndex = Parameter::Content::TEXTURE_COORDINATE0;
     bool mSetPointSize;

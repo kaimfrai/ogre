@@ -147,7 +147,7 @@ protected:
 public:
     
     /// The type.
-    static std::string_view const type;
+    static std::string_view const constexpr type = "SGX_TriplanarTexturing";
 
     /** Sets the parameters.
     @param parameters

@@ -56,8 +56,6 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit FFPTransform::Type = "FFP_Transform";
-
 //-----------------------------------------------------------------------
 auto FFPTransform::getType() const noexcept -> std::string_view
 {

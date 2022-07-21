@@ -41,7 +41,7 @@ public:
     auto createCpuSubPrograms(ProgramSet* programSet) -> bool override;
     void copyFrom(const SubRenderState& rhs) override {}
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "WBOIT";
 };
 
 /**

@@ -106,7 +106,7 @@ public:
     */
     auto getCalcMode() const noexcept -> CalcMode { return mCalcMode; }
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "FFP_Fog";
 
 // Protected methods
 protected:

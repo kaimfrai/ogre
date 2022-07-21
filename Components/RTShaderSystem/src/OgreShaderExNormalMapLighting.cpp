@@ -58,8 +58,6 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit NormalMapLighting::Type = "NormalMap";
-
 //-----------------------------------------------------------------------
 NormalMapLighting::NormalMapLighting()
 {

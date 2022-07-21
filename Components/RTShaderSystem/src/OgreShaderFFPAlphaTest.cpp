@@ -52,9 +52,6 @@ namespace Ogre {
 
 namespace Ogre::RTShader {
 
-		std::string_view const constinit FFPAlphaTest::Type = "FFP_Alpha_Test";
-
-
 		//-----------------------------------------------------------------------
 		auto FFPAlphaTest::getType() const noexcept -> std::string_view
 		{

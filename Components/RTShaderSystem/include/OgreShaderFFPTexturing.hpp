@@ -101,7 +101,7 @@ public:
     */
     auto preAddToRenderState(const RenderState* renderState, Pass* srcPass, Pass* dstPass) noexcept -> bool override;
     
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "FFP_Texturing";
 
 // Protected types:
 protected:

@@ -150,9 +150,6 @@ protected:
     ShaderGenerator* mOwner;
 };
 
-std::string_view const constinit ShaderGenerator::DEFAULT_SCHEME_NAME = "ShaderGeneratorDefaultScheme";
-std::string_view const constinit ShaderGenerator::SGTechnique::UserKey = "SGTechnique";
-
 //-----------------------------------------------------------------------
 auto ShaderGenerator::getSingletonPtr() noexcept -> ShaderGenerator*
 {

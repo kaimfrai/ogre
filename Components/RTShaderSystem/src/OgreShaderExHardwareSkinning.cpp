@@ -67,8 +67,6 @@ auto HardwareSkinningFactory::getSingleton() noexcept -> HardwareSkinningFactory
     assert( msSingleton );  return ( *msSingleton );
 }
 
-std::string_view const constinit HardwareSkinning::Type = "SGX_HardwareSkinning";
-
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/

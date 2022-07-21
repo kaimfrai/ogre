@@ -10,19 +10,26 @@
 # Configure Ogre RTShader System build
 
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
+file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
-add_library(OgreRTShaderSystem ${OGRE_COMP_LIB_TYPE} ${OgreRTShaderSystem_pch} ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(OgreRTShaderSystem PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(OgreRTShaderSystem PUBLIC OgreCore)
-target_include_directories(OgreRTShaderSystem PUBLIC 
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  $<INSTALL_INTERFACE:include/OGRE/RTShaderSystem>)
+add_module(
+  OgreRTShaderSystem.hpp
+PARTITION
+  ${HEADER_FILES}
+  ${PRIVATE_HEADER_FILES}
+IMPLEMENTATION
+  ${SOURCE_FILES}
+)
+
+add_library(OgreRTShaderSystem ALIAS Ogre.Components.RTShaderSystem )
+
+set_target_properties(Ogre.Components.RTShaderSystem PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 include_directories("${PROJECT_SOURCE_DIR}/Core/include" "${PROJECT_BINARY_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-ogre_config_framework(OgreRTShaderSystem)
-ogre_config_component(OgreRTShaderSystem)
+ogre_config_framework(Ogre.Components.RTShaderSystem)
+ogre_config_component(Ogre.Components.RTShaderSystem)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/RTShaderSystem

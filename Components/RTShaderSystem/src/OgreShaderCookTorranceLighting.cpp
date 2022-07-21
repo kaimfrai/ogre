@@ -33,8 +33,6 @@ namespace Ogre::RTShader
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit CookTorranceLighting::Type = "CookTorranceLighting";
-
 //-----------------------------------------------------------------------
 CookTorranceLighting::CookTorranceLighting()  = default;
 

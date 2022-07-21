@@ -92,7 +92,7 @@ public:
     auto getTexCoordIndex() const noexcept -> unsigned int { return mVSTexCoordSetIndex; }
 
     // Type of this render state.
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "NormalMap";
 
     enum class NormalMapSpace
     {

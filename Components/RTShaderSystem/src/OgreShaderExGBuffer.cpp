@@ -58,8 +58,6 @@ namespace Ogre::RTShader
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit GBuffer::Type = "GBuffer";
-
 //-----------------------------------------------------------------------
 auto GBuffer::getType() const noexcept -> std::string_view { return Type; }
 

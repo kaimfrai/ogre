@@ -59,8 +59,6 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit PerPixelLighting::Type = "SGX_PerPixelLighting";
-
 //-----------------------------------------------------------------------
 auto PerPixelLighting::getType() const noexcept -> std::string_view
 {

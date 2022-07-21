@@ -164,7 +164,7 @@ public:
     */
     void copyFrom(const SubRenderState& rhs) override;
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "LayeredBlendRTSSEx";
 
 // Protected methods
 protected:

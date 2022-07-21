@@ -68,7 +68,7 @@ public:
 
     auto setParameter(std::string_view name, std::string_view value) noexcept -> bool override;
 
-    static std::string_view const Type;
+    static std::string_view const constexpr Type = "SGX_PerPixelLighting";
 
 // Protected methods
 protected:

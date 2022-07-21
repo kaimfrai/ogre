@@ -55,9 +55,6 @@ namespace Ogre {
 
 namespace Ogre::RTShader {
 
-
-std::string_view const constinit LayeredBlending::Type = "LayeredBlendRTSSEx";
-
  struct BlendModeDescription {
         /* Type of the blend mode */
         LayeredBlending::BlendMode type;

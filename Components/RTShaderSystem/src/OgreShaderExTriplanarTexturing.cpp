@@ -58,8 +58,6 @@ namespace Ogre {
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
 namespace Ogre::RTShader {
 
-    std::string_view const constinit TriplanarTexturing::type = "SGX_TriplanarTexturing";
-
     //-----------------------------------------------------------------------
 
 	auto TriplanarTexturing::resolveParameters(ProgramSet* programSet) -> bool

@@ -59,7 +59,6 @@ namespace Ogre::RTShader {
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-std::string_view const constinit FFPTexturing::Type = "FFP_Texturing";
 #define _INT_VALUE(f) (*(int*)(&(f)))
 
 const String c_ParamTexelEx("texel_");
