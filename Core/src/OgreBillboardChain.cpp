@@ -62,8 +62,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class RenderSystem;
-
     //-----------------------------------------------------------------------
     BillboardChain::Element::Element()
     = default;

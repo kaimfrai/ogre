@@ -59,7 +59,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-    class AutoParamDataSource;
     //-----------------------------------------------------------------------------
     auto Pass::getBuiltinHashFunction(BuiltinHashFunction builtin) -> Pass::HashFunc const*
     {

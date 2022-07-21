@@ -39,8 +39,6 @@ import :SceneQuery;
 import <algorithm>;
 
 namespace Ogre {
-class MovableObject;
-
     //-----------------------------------------------------------------------
     SceneQuery::SceneQuery(SceneManager* mgr)
         : mParentSceneMgr(mgr) 

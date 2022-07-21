@@ -46,15 +46,6 @@ import <list>;
 import <memory>;
 import <string>;
 
-namespace Ogre {
-    class AutoParamDataSource;
-    class Renderable;
-
-    namespace RTShader {
-        class RenderState;
-    }  // namespace RTShader
-}  // namespace Ogre
-
 #define SGX_FUNC_TRIPLANAR_TEXTURING "SGX_TriplanarTexturing"
 namespace Ogre::RTShader {
 

@@ -38,8 +38,6 @@ import <memory>;
 import <string>;
 
 namespace Ogre {
-class VertexDeclaration;
-
     //-----------------------------------------------------------------------
     RenderToVertexBuffer::RenderToVertexBuffer() 
         

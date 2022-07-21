@@ -53,8 +53,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Renderable;
-
     //-----------------------------------------------------------------------
     auto MaterialManager::getSingletonPtr() noexcept -> MaterialManager*
     {

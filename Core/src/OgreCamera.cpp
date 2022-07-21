@@ -53,8 +53,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-struct Sphere;
-
     //-----------------------------------------------------------------------
     Camera::Camera( std::string_view name, SceneManager* sm)
         : Frustum(name)

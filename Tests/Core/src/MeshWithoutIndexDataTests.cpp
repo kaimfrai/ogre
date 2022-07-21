@@ -40,10 +40,6 @@ import <memory>;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-    class InvalidParametersException;
-}  // namespace Ogre
-
 // Register the test suite
 //--------------------------------------------------------------------------
 void MeshWithoutIndexDataTests::SetUp()

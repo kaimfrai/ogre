@@ -33,8 +33,6 @@ import <vector>;
 
 namespace Ogre
 {
-class Viewport;
-
 DefaultDebugDrawer::DefaultDebugDrawer() : mLines(""), mAxes("") {}
 
 void DefaultDebugDrawer::preFindVisibleObjects(SceneManager* source,

@@ -42,8 +42,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
-
     GLSLShaderCommon::CmdAttach GLSLShaderCommon::msCmdAttach;
     GLSLShaderCommon::CmdColumnMajorMatrices GLSLShaderCommon::msCmdColumnMajorMatrices;
 

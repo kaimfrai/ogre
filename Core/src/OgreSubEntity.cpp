@@ -55,8 +55,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-class Technique;
-
     //-----------------------------------------------------------------------
     SubEntity::SubEntity (Entity* parent, SubMesh* subMeshBasis)
         : Renderable(), mParentEntity(parent),

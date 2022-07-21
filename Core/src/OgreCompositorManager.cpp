@@ -50,10 +50,6 @@ import :Viewport;
 import <memory>;
 
 namespace Ogre {
-class CompositorLogic;
-class CustomCompositionPass;
-class Renderable;
-
 auto CompositorManager::getSingletonPtr() noexcept -> CompositorManager*
 {
     return msSingleton;

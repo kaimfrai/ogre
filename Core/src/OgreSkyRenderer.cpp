@@ -62,8 +62,6 @@ import <memory>;
 import <string>;
 
 namespace Ogre {
-class Node;
-class RenderQueue;
 
 SceneManager::SkyRenderer::SkyRenderer(SceneManager* owner)
     : mSceneManager(owner) 

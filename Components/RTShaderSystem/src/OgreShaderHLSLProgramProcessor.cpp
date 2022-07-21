@@ -36,8 +36,6 @@ import Ogre.Core;
 import <initializer_list>;
 
 namespace Ogre::RTShader {
-class Function;
-
 std::string_view const constinit HLSLProgramProcessor::TargetLanguage = "hlsl";
 
 //-----------------------------------------------------------------------------

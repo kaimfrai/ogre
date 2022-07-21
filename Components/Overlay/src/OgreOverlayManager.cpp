@@ -43,8 +43,6 @@ import <memory>;
 import <utility>;
 
 namespace Ogre {
-class Camera;
-class RenderQueue;
 
     //---------------------------------------------------------------------
     auto OverlayManager::getSingletonPtr() noexcept -> OverlayManager*

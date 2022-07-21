@@ -10,10 +10,6 @@ module Ogre.Components.Bites;
 
 import :ConfigDialog;
 
-namespace Ogre {
-    class ConfigDialog;
-}  // namespace Ogre
-
 namespace OgreBites {
     auto getNativeConfigDialog() noexcept -> Ogre::ConfigDialog* {
         return nullptr;

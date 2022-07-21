@@ -41,8 +41,6 @@ import <algorithm>;
 import <ostream>;
 
 namespace Ogre {
-class DepthBuffer;
-
 //-----------------------------------------------------------------------------
     GLFrameBufferObject::GLFrameBufferObject(GLFBOManager *manager, uint fsaa):
         GLFrameBufferObjectCommon(fsaa), mManager(manager)

@@ -45,8 +45,6 @@ import Ogre.Core;
 import <string>;
 
 namespace Ogre {
-class OverlayElement;
-
     //---------------------------------------------------------------------
     /** Factory for creating PanelOverlayElement instances. */
     class PanelOverlayElementFactory: public OverlayElementFactory

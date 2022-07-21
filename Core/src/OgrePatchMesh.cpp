@@ -36,8 +36,6 @@ import :SubMesh;
 import :VertexIndexData;
 
 namespace Ogre {
-class ResourceManager;
-
     //-----------------------------------------------------------------------
     PatchMesh::PatchMesh(ResourceManager* creator, std::string_view name, ResourceHandle handle,
         std::string_view group)

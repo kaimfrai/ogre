@@ -38,8 +38,6 @@ import <ostream>;
 import <string>;
 
 namespace Ogre::RTShader {
-class Function;
-
 //-----------------------------------------------------------------------
 void ProgramWriter::writeProgramTitle(std::ostream& os, Program* program)
 {

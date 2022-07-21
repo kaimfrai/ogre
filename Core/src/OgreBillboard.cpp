@@ -30,8 +30,6 @@ module Ogre.Core;
 import :Billboard;
 
 namespace Ogre {
-class BillboardSet;
-
     //-----------------------------------------------------------------------
     Billboard::Billboard():
         mOwnDimensions(false),

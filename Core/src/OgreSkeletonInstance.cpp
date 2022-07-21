@@ -41,9 +41,6 @@ import <algorithm>;
 import <vector>;
 
 namespace Ogre {
-class Animation;
-class AnimationStateSet;
-
     //-------------------------------------------------------------------------
     SkeletonInstance::SkeletonInstance(const SkeletonPtr& masterCopy) 
         : Skeleton()

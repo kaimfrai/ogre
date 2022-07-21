@@ -41,8 +41,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class MovableObject;
-
     //-----------------------------------------------------------------------
     LodStrategy::LodStrategy(std::string_view name)
         : mName(name)

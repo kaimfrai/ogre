@@ -49,8 +49,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Renderable;
-
     //-----------------------------------------------------------------------
     Material::Material(ResourceManager* creator, std::string_view name, ResourceHandle handle,
         std::string_view group, bool isManual, ManualResourceLoader* loader)

@@ -34,8 +34,6 @@ import :RenderTexture;
 
 namespace Ogre
 {
-struct Box;
-
     //-----------------------------------------------------------------------------
     RenderTexture::RenderTexture(HardwarePixelBuffer *buffer, uint32 zoffset):
         mBuffer(buffer), mZOffset(zoffset)

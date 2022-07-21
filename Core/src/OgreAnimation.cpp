@@ -49,8 +49,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Node;
-class VertexData;
     //---------------------------------------------------------------------
     Animation::Animation(std::string_view name, Real length)
         : mName(name)

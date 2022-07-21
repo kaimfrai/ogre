@@ -49,11 +49,6 @@ import <memory>;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-	class AutoParamDataSource;
-	class Renderable;
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 /************************************************************************/

@@ -49,8 +49,6 @@ import <utility>;
 
 namespace Ogre
 {
-class ResourceManager;
-
     //-----------------------------------------------------------------------------
     namespace {
     /// Command object - see ParamCommand

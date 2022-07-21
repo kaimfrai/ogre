@@ -59,8 +59,6 @@ import <span>;
 import <utility>;
 
 namespace Ogre {
-class RenderQueue;
-
     /** Command object for quota (see ParamCommand).*/
     class CmdQuota : public ParamCommand
     {

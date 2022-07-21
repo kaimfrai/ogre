@@ -52,9 +52,6 @@ import :Vector;
 import <algorithm>;
 
 namespace Ogre {
-class Camera;
-class RenderQueue;
-
     //-----------------------------------------------------------------------
     Frustum::Frustum(std::string_view name) :
         mFOVy(Radian{Math::PI/4.0f}), 

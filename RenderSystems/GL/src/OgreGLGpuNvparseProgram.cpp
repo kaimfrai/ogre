@@ -41,8 +41,6 @@ import Ogre.Core;
 import <string>;
 
 namespace Ogre {
-class ResourceManager;
-
 GLGpuNvparseProgram::GLGpuNvparseProgram(ResourceManager* creator, 
         std::string_view name, ResourceHandle handle, 
         std::string_view group, bool isManual, ManualResourceLoader* loader) 

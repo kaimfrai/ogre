@@ -38,7 +38,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class RenderQueue;
 
     //---------------------------------------------------------------------
     /** Command object for specifying tiling (see ParamCommand).*/

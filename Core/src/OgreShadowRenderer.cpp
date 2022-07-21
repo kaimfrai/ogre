@@ -88,8 +88,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class Frustum;
-
 SceneManager::ShadowRenderer::ShadowRenderer(SceneManager* owner) :
 mSceneManager(owner),
 

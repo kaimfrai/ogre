@@ -39,8 +39,6 @@ import <memory>;
 import <vector>;
 
 namespace Ogre::RTShader {
-class Function;
-
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::GLSLProgramProcessor()
 = default;

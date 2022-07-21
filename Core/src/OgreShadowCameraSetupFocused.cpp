@@ -45,9 +45,6 @@ import <vector>;
 
 namespace Ogre
 {
-class Viewport;
-
-
     /// Builds a standard view matrix out of a given position, direction and up vector.
     static auto buildViewMatrix(const Vector3& pos, const Vector3& dir, const Vector3& up) -> Affine3
     {

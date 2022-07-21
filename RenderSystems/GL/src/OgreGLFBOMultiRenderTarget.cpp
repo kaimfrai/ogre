@@ -38,9 +38,6 @@ import Ogre.RenderSystems.GLSupport;
 import <string>;
 
 namespace Ogre {
-class DepthBuffer;
-class GLFBOManager;
-
     GLFBOMultiRenderTarget::GLFBOMultiRenderTarget(GLFBOManager *manager, std::string_view name):
         MultiRenderTarget(name),
         fbo(manager, 0 /* TODO: multisampling on MRTs? */)

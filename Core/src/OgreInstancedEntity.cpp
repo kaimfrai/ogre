@@ -51,8 +51,6 @@ import <utility>;
 
 namespace Ogre
 {
-struct AxisAlignedBox;
-
     InstancedEntity::InstancedEntity( InstanceBatch *batchOwner, uint32 instanceID, InstancedEntity* sharedTransformEntity ) :
                 MovableObject(),
                 mInstanceId( instanceID ),

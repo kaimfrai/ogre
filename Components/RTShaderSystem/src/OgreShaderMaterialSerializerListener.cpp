@@ -39,8 +39,6 @@ import <any>;
 import <vector>;
 
 namespace Ogre {
-class Pass;
-
 namespace RTShader {
 
 //-----------------------------------------------------------------------------

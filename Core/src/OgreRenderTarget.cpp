@@ -52,8 +52,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Camera;
-
     RenderTarget::RenderTarget()
          
     {

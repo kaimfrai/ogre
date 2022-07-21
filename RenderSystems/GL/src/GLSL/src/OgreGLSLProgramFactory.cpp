@@ -32,9 +32,6 @@ import :GLSL.SLProgram;
 import :GLSL.SLProgramFactory;
 
 namespace Ogre {
-class GpuProgram;
-class ResourceManager;
-
     namespace GLSL {
     //-----------------------------------------------------------------------
     auto GLSLProgramFactory::getLanguage() const noexcept -> std::string_view

@@ -47,9 +47,6 @@ import <type_traits>;
 import <vector>;
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
-
 namespace RTShader {
 
 const char* TargetRenderState::UserKey = "TargetRenderState";

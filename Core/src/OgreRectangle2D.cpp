@@ -51,8 +51,6 @@ import <map>;
 import <utility>;
 
 namespace Ogre {
-class MovableObject;
-
 #define POSITION_BINDING 0
 #define NORMAL_BINDING 1
 #define TEXCOORD_BINDING 2

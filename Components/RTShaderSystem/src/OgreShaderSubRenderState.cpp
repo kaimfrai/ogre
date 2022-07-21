@@ -38,10 +38,6 @@ import Ogre.Core;
 import <string>;
 
 namespace Ogre::RTShader {
-class ProgramSet;
-
-
-
 //-----------------------------------------------------------------------
 SubRenderState::SubRenderState()
 = default;

@@ -75,9 +75,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-    class Camera;
-    class RenderWindow;
-    class Viewport;
 
     static const TexturePtr constinit sNullTexPtr;
 

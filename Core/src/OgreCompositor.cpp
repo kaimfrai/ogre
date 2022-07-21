@@ -53,8 +53,6 @@ import <set>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
-
 //-----------------------------------------------------------------------
 Compositor::Compositor(ResourceManager* creator, std::string_view name, ResourceHandle handle,
             std::string_view group, bool isManual, ManualResourceLoader* loader):

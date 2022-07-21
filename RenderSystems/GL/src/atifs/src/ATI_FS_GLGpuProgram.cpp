@@ -43,8 +43,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
-
 ATI_FS_GLGpuProgram::ATI_FS_GLGpuProgram(ResourceManager* creator, 
         std::string_view name, ResourceHandle handle, 
         std::string_view group, bool isManual, ManualResourceLoader* loader) :
