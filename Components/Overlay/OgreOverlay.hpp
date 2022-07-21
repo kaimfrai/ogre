@@ -45,11 +45,6 @@ export import <memory>;
 
 export
 namespace Ogre {
-    class OverlayContainer;
-    class OverlayElement;
-    class Camera;
-    class RenderQueue;
-    class Viewport;
 
     /** \addtogroup Optional
     *  @{

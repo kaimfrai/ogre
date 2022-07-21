@@ -36,11 +36,6 @@ export import <string>;
 
 export
 namespace Ogre {
-    template <typename T> class MapIterator;
-struct Matrix4;
-class Overlay;
-class RenderQueue;
-
     /** \addtogroup Optional
     *  @{
     */
