@@ -8,15 +8,6 @@ export import Ogre.Core;
 export import <set>;
 export import <vector>;
 
-export
-namespace Ogre {
-class AnimationState;
-class InstancedEntity;
-class MovableObject;
-class SceneNode;
-struct FrameEvent;
-}  // namespace Ogre
-
 using namespace Ogre;
 
 using namespace OgreBites;

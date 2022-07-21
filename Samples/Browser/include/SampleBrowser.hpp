@@ -34,6 +34,7 @@ export import :SamplePlugin;
 export import :SampleContext;
 
 export import Ogre.Components.Bites;
+export import Ogre.Components.Overlay;
 export import Ogre.Core;
 
 export import <map>;
