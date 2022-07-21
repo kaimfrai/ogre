@@ -25,6 +25,11 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
+module;
+
+#include "glad/glad.h"
+#include <GL/gl.h>
+
 module Ogre.RenderSystems.GL;
 
 import :RenderSystem;

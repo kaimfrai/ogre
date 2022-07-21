@@ -27,6 +27,7 @@ THE SOFTWARE.
 */
 module;
 
+#include "glad/glad.h"
 #include <cassert>
 
 module Ogre.RenderSystems.GL;

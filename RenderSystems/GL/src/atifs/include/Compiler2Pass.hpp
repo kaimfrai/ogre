@@ -36,6 +36,67 @@ BAD_TOKEN = 999
 
 using uint = unsigned int;
 
+// Token ID enumeration
+enum class SymbolID : uint {
+    // Terminal Tokens section
+
+    // DirectX pixel shader source formats
+    PS_1_4, PS_1_1, PS_1_2, PS_1_3,
+
+    // PS_BASE
+    C0, C1, C2, C3, C4, C5, C6, C7,
+    V0, V1,
+    ADD, SUB, MUL, MAD, LRP, MOV, CMP, CND,
+    DP3, DP4, DEF,
+    R, RA, G, GA, B, BA, A, RGBA, RGB,
+    RG, RGA, RB, RBA, GB, GBA,
+    RRRR, GGGG, BBBB, AAAA,
+    X2, X4, D2, SAT,
+    BIAS, INVERT, NEGATE, BX2,
+    COMMA, VALUE,
+
+    //PS_1_4 sid
+    R0, R1, R2, R3, R4, R5,
+    T0, T1, T2, T3, T4, T5,
+    DP2ADD,
+    X8, D8, D4,
+    TEXCRD, TEXLD,
+    STR, STQ,
+    STRDR, STQDQ,
+    BEM,
+    PHASE,
+
+    //PS_1_1 sid
+    _1R0, _1R1, _1T0, _1T1, _1T2, _1T3,
+    TEX, TEXCOORD, TEXM3X2PAD,
+    TEXM3X2TEX, TEXM3X3PAD, TEXM3X3TEX, TEXM3X3SPEC, TEXM3X3VSPEC,
+    TEXREG2AR, TEXREG2GB,
+
+    //PS_1_2 side
+    TEXREG2RGB, TEXDP3, TEXDP3TEX,
+
+    // common
+    SKIP, PLUS,
+
+    // non-terminal tokens section
+    PROGRAM, PROGRAMTYPE, DECLCONSTS, DEFCONST,
+    CONSTANT, COLOR,
+    TEXSWIZZLE, UNARYOP,
+    NUMVAL, SEPERATOR, ALUOPS, TEXMASK, TEXOP_PS1_1_3,
+    TEXOP_PS1_4,
+    ALU_STATEMENT, DSTMODSAT, UNARYOP_ARGS, REG_PS1_4,
+    TEX_PS1_4, REG_PS1_1_3, TEX_PS1_1_3, DSTINFO,
+    SRCINFO, BINARYOP_ARGS, TERNARYOP_ARGS, TEMPREG,
+    DSTMASK, PRESRCMOD, SRCNAME, SRCREP, POSTSRCMOD,
+    DSTMOD, DSTSAT, BINARYOP,  TERNARYOP,
+    TEXOPS_PHASE1, COISSUE, PHASEMARKER, TEXOPS_PHASE2,
+    TEXREG_PS1_4, TEXOPS_PS1_4, TEXOPS_PS1_1_3, TEXCISCOP_PS1_1_3,
+
+
+    // last token
+    INVALID = BAD_TOKEN // must be last in enumeration
+};
+
 /** Compiler2Pass is a generic compiler/assembler
 @remarks
     provides a tokenizer in pass 1 and relies on the subclass to provide the virtual method for pass 2
@@ -58,67 +119,6 @@ public:
     // BNF operation types
     enum class OperationType {otRULE, otAND, otOR, otOPTIONAL, otREPEAT, otEND};
 
-    // Token ID enumeration
-    enum class SymbolID : uint {
-        // Terminal Tokens section
-
-        // DirectX pixel shader source formats
-        PS_1_4, PS_1_1, PS_1_2, PS_1_3,
-
-        // PS_BASE
-        C0, C1, C2, C3, C4, C5, C6, C7,
-        V0, V1,
-        ADD, SUB, MUL, MAD, LRP, MOV, CMP, CND,
-        DP3, DP4, DEF,
-        R, RA, G, GA, B, BA, A, RGBA, RGB,
-        RG, RGA, RB, RBA, GB, GBA,
-        RRRR, GGGG, BBBB, AAAA,
-        X2, X4, D2, SAT,
-        BIAS, INVERT, NEGATE, BX2,
-        COMMA, VALUE,
-
-        //PS_1_4 sid
-        R0, R1, R2, R3, R4, R5,
-        T0, T1, T2, T3, T4, T5,
-        DP2ADD,
-        X8, D8, D4,
-        TEXCRD, TEXLD,
-        STR, STQ,
-        STRDR, STQDQ,
-        BEM,
-        PHASE,
-
-        //PS_1_1 sid
-        _1R0, _1R1, _1T0, _1T1, _1T2, _1T3,
-        TEX, TEXCOORD, TEXM3X2PAD,
-        TEXM3X2TEX, TEXM3X3PAD, TEXM3X3TEX, TEXM3X3SPEC, TEXM3X3VSPEC,
-        TEXREG2AR, TEXREG2GB,
-
-        //PS_1_2 side
-        TEXREG2RGB, TEXDP3, TEXDP3TEX,
-
-        // common
-        SKIP, PLUS,
-
-        // non-terminal tokens section
-        PROGRAM, PROGRAMTYPE, DECLCONSTS, DEFCONST,
-        CONSTANT, COLOR,
-        TEXSWIZZLE, UNARYOP,
-        NUMVAL, SEPERATOR, ALUOPS, TEXMASK, TEXOP_PS1_1_3,
-        TEXOP_PS1_4,
-        ALU_STATEMENT, DSTMODSAT, UNARYOP_ARGS, REG_PS1_4,
-        TEX_PS1_4, REG_PS1_1_3, TEX_PS1_1_3, DSTINFO,
-        SRCINFO, BINARYOP_ARGS, TERNARYOP_ARGS, TEMPREG,
-        DSTMASK, PRESRCMOD, SRCNAME, SRCREP, POSTSRCMOD,
-        DSTMOD, DSTSAT, BINARYOP,  TERNARYOP,
-        TEXOPS_PHASE1, COISSUE, PHASEMARKER, TEXOPS_PHASE2,
-        TEXREG_PS1_4, TEXOPS_PS1_4, TEXOPS_PS1_1_3, TEXCISCOP_PS1_1_3,
-
-
-        // last token
-        INVALID = BAD_TOKEN // must be last in enumeration
-    };
-
 
     /** structure used to build rule paths
 
@@ -130,8 +130,6 @@ public:
         uint mErrorID;
 
     };
-
-protected:
 
     /** structure used to build Symbol Type library */
     struct SymbolDef {
@@ -161,6 +159,7 @@ protected:
     using TokenInstContainer = std::vector<TokenInst>;
     //typedef TokenInstContainer::iterator TokenInstIterator;
 
+protected:
     /// container for Tokens extracted from source
     TokenInstContainer mTokenInstructions;
 
@@ -292,7 +291,7 @@ protected:
         false if token symbol text does not match the source text
         if token is non-terminal then processRulePath is called
     */
-    auto ValidateToken(const uint rulepathIDX, const Compiler2Pass::SymbolID activeRuleID) -> bool;
+    auto ValidateToken(const uint rulepathIDX, const SymbolID activeRuleID) -> bool;
 
 
 public:

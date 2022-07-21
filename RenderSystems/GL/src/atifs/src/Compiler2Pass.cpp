@@ -32,6 +32,11 @@ module;
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+
+module Ogre.RenderSystems.GL;
+
+import :atifs.Compiler2Pass;
+
 Compiler2Pass::Compiler2Pass()
 {
     // reserve some memory space in the containers being used
@@ -42,10 +47,6 @@ Compiler2Pass::Compiler2Pass()
     mActiveContexts = 0xffffffff;
 
 }
-
-module Ogre.RenderSystems.GL;
-
-import :atifs.Compiler2Pass;
 
 void Compiler2Pass::InitSymbolTypeLib()
 {
@@ -213,7 +214,7 @@ auto Compiler2Pass::processRulePath( uint rulepathIDX) -> bool
 
 }
 
-auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const Compiler2Pass::SymbolID activeRuleID) -> bool
+auto Compiler2Pass::ValidateToken(const uint rulepathIDX, const SymbolID activeRuleID) -> bool
 {
     int tokenlength = 0;
     // assume the test is going to fail

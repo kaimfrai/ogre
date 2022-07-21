@@ -25,6 +25,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
+module;
+
+#include "glad/glad.h"
  
 module Ogre.RenderSystems.GL;
 
@@ -34,12 +37,13 @@ import :atifs.ps_1_4;
 //---------------------------------------------------------------------------
 /* ********************* START OF PS_1_4 CLASS STATIC DATA ********************************* */
 
-// library of built in symbol types
-bool constinit PS_1_4::LibInitialized = false;
+static auto constexpr inline R_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::R0) - GL_REG_0_ATI));
+static auto constexpr inline C_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::C0) - GL_CON_0_ATI));
+static auto constexpr inline T_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::_1T0) - GL_REG_0_ATI));
 #define SYMSTART {
 #define SYMDEF  ,0,0,0,0},{
 #define SYMEND  ,0,0,0,0}
-PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
+PS_1_4::SymbolDef constinit PS_1_4_SymbolTypeLib[] = {
     // pixel shader versions supported
     { SymbolID::PS_1_4, GL_NONE, ckp_PS_BASE, ckp_PS_1_4, 0, 0, 0 },
     { SymbolID::PS_1_1, GL_NONE, ckp_PS_BASE, ckp_PS_1_1, 0, 0, 0 },
@@ -148,7 +152,7 @@ PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
     SYMDEF SymbolID::STR, GL_SWIZZLE_STR_ATI - GL_SWIZZLE_STR_ATI, ckp_PS_1_4
     SYMDEF SymbolID::STQ, GL_SWIZZLE_STQ_ATI - GL_SWIZZLE_STR_ATI, ckp_PS_1_4
     SYMDEF SymbolID::STRDR, GL_SWIZZLE_STR_DR_ATI - GL_SWIZZLE_STR_ATI, ckp_PS_1_4
-    SYMDEF SymbolID::STQDQ, GL_SWIZZLE_STQ_DQ_ATI - GL_SWIZZLE_STR_ATI, ckp_PS_1_4 
+    SYMDEF SymbolID::STQDQ, GL_SWIZZLE_STQ_DQ_ATI - GL_SWIZZLE_STR_ATI, ckp_PS_1_4
 
     SYMDEF SymbolID::BEM, GL_NONE, ckp_PS_1_4
     SYMDEF SymbolID::PHASE, GL_NONE, ckp_PS_1_4
@@ -192,14 +196,14 @@ PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
     SYMDEF SymbolID::DECLCONSTS, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::DEFCONST, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::CONSTANT, GL_NONE, ckp_PS_BASE
-    SYMDEF SymbolID::COLOR, GL_NONE, ckp_PS_BASE 
+    SYMDEF SymbolID::COLOR, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::TEXSWIZZLE, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::UNARYOP, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::NUMVAL, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::SEPERATOR, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::ALUOPS, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::TEXMASK, GL_NONE, ckp_PS_BASE
-    SYMDEF SymbolID::TEXOP_PS1_1_3, GL_NONE, ckp_PS_1_1 
+    SYMDEF SymbolID::TEXOP_PS1_1_3, GL_NONE, ckp_PS_1_1
     SYMDEF SymbolID::TEXOP_PS1_4, GL_NONE, ckp_PS_1_4
     SYMDEF SymbolID::ALU_STATEMENT, GL_NONE, ckp_PS_BASE
     SYMDEF SymbolID::DSTMODSAT, GL_NONE, ckp_PS_BASE
@@ -245,7 +249,7 @@ PS_1_4::SymbolDef PS_1_4::PS_1_4_SymbolTypeLib[] = {
 #define _nt_        ,0
 // " "  - terminal token string
 using enum Compiler2Pass::OperationType;
-PS_1_4::TokenRule PS_1_4::PS_1_x_RulePath[] = {
+PS_1_4::TokenRule constinit PS_1_x_RulePath[] = {
 
     _rule_ SymbolID::PROGRAM, "Program"
 
@@ -345,7 +349,7 @@ PS_1_4::TokenRule PS_1_4::PS_1_x_RulePath[] = {
         _is_ SymbolID::COISSUE _nt_
         _and_ SymbolID::UNARYOP _nt_
         _optional_ SymbolID::DSTMODSAT _nt_
-        _and_ SymbolID::UNARYOP_ARGS _nt_ 
+        _and_ SymbolID::UNARYOP_ARGS _nt_
 
         _or_ SymbolID::COISSUE _nt_
         _and_ SymbolID::BINARYOP _nt_
@@ -645,7 +649,7 @@ PS_1_4::TokenRule PS_1_4::PS_1_x_RulePath[] = {
 #define _token_ ,0,0},{
 #define _token_end_ ,0,0}
 // macro token expansion for ps_1_2 instruction: texreg2ar
-PS_1_4::TokenInst PS_1_4::texreg2ar[] = {
+static PS_1_4::TokenInst texreg2ar[] = {
     // mov r(x).r, r(y).a
     {       SymbolID::UNARYOP,    SymbolID::MOV
     _token_ SymbolID::REG_PS1_4,  SymbolID::R1
@@ -669,21 +673,20 @@ PS_1_4::TokenInst PS_1_4::texreg2ar[] = {
     _token_ SymbolID::REG_PS1_4,  SymbolID::R1
     _token_end_
 };
-PS_1_4::RegModOffset PS_1_4::texreg2xx_RegMods[] = {
+static PS_1_4::RegModOffset texreg2xx_RegMods[]{
     {1, R_BASE, 0},
     {7, R_BASE, 0},
     {13, R_BASE, 0},
     {15, R_BASE, 0},
     {4, R_BASE, 1},
     {10, R_BASE, 1},
-
 };
-PS_1_4::MacroRegModify constinit PS_1_4::texreg2ar_MacroMods = {
+PS_1_4::MacroRegModify constinit texreg2ar_MacroMods = {
     texreg2ar, ARRAYSIZE(texreg2ar),
     texreg2xx_RegMods, ARRAYSIZE(texreg2xx_RegMods)
 };
 // macro token expansion for ps_1_2 instruction: texreg2gb
-PS_1_4::TokenInst PS_1_4::texreg2gb[] = {
+static PS_1_4::TokenInst texreg2gb[] = {
     // mov r(x).r, r(y).g
     {       SymbolID::UNARYOP,    SymbolID::MOV
     _token_ SymbolID::REG_PS1_4,  SymbolID::R1
@@ -708,14 +711,14 @@ PS_1_4::TokenInst PS_1_4::texreg2gb[] = {
     _token_end_
 };
 
-PS_1_4::MacroRegModify constinit PS_1_4::texreg2gb_MacroMods = {
+PS_1_4::MacroRegModify constinit texreg2gb_MacroMods = {
     texreg2gb, ARRAYSIZE(texreg2gb),
     texreg2xx_RegMods, ARRAYSIZE(texreg2xx_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texdp3
-PS_1_4::TokenInst PS_1_4::texdp3[] = {
+PS_1_4::TokenInst constinit texdp3[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T1
@@ -731,7 +734,7 @@ PS_1_4::TokenInst PS_1_4::texdp3[] = {
 };
 
 
-PS_1_4::RegModOffset PS_1_4::texdp3_RegMods[] = {
+PS_1_4::RegModOffset constinit texdp3_RegMods[] = {
     {1, T_BASE, 0},
     {3, R_BASE, 0},
     {5, R_BASE, 0},
@@ -740,14 +743,14 @@ PS_1_4::RegModOffset PS_1_4::texdp3_RegMods[] = {
 };
 
 
-PS_1_4::MacroRegModify constinit PS_1_4::texdp3_MacroMods = {
+PS_1_4::MacroRegModify constinit texdp3_MacroMods = {
     texdp3, ARRAYSIZE(texdp3),
     texdp3_RegMods, ARRAYSIZE(texdp3_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texdp3tex
-PS_1_4::TokenInst PS_1_4::texdp3tex[] = {
+PS_1_4::TokenInst constinit texdp3tex[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T1
@@ -769,7 +772,7 @@ PS_1_4::TokenInst PS_1_4::texdp3tex[] = {
 };
 
 
-PS_1_4::RegModOffset PS_1_4::texdp3tex_RegMods[] = {
+PS_1_4::RegModOffset constinit texdp3tex_RegMods[] = {
     {1, T_BASE, 0},
     {3, R_BASE, 0},
     {5, R_BASE, 0},
@@ -780,14 +783,14 @@ PS_1_4::RegModOffset PS_1_4::texdp3tex_RegMods[] = {
 };
 
 
-PS_1_4::MacroRegModify constinit PS_1_4::texdp3tex_MacroMods = {
+PS_1_4::MacroRegModify constinit texdp3tex_MacroMods = {
     texdp3tex, ARRAYSIZE(texdp3tex),
     texdp3tex_RegMods, ARRAYSIZE(texdp3tex_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texm3x2pad
-PS_1_4::TokenInst PS_1_4::texm3x2pad[] = {
+PS_1_4::TokenInst constinit texm3x2pad[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T0
@@ -805,21 +808,21 @@ PS_1_4::TokenInst PS_1_4::texm3x2pad[] = {
 };
 
 
-PS_1_4::RegModOffset PS_1_4::texm3xxpad_RegMods[] = {
+PS_1_4::RegModOffset constinit texm3xxpad_RegMods[] = {
     {1, T_BASE, 0},
     {6, R_BASE, 0},
     {8, R_BASE, 1},
 };
 
 
-PS_1_4::MacroRegModify constinit PS_1_4::texm3x2pad_MacroMods = {
+PS_1_4::MacroRegModify constinit texm3x2pad_MacroMods = {
     texm3x2pad, ARRAYSIZE(texm3x2pad),
     texm3xxpad_RegMods, ARRAYSIZE(texm3xxpad_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texm3x2tex
-PS_1_4::TokenInst PS_1_4::texm3x2tex[] = {
+PS_1_4::TokenInst constinit texm3x2tex[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T1
@@ -842,20 +845,20 @@ PS_1_4::TokenInst PS_1_4::texm3x2tex[] = {
 
 };
 
-PS_1_4::RegModOffset PS_1_4::texm3xxtex_RegMods[] = {
+PS_1_4::RegModOffset constinit texm3xxtex_RegMods[] = {
     {1, T_BASE, 0},
     {6, R_BASE, 0},
     {8, R_BASE, 1},
     {10, R_BASE, 0}
 };
 
-PS_1_4::MacroRegModify constinit PS_1_4::texm3x2tex_MacroMods = {
+PS_1_4::MacroRegModify constinit texm3x2tex_MacroMods = {
     texm3x2tex, ARRAYSIZE(texm3x2tex),
     texm3xxtex_RegMods, ARRAYSIZE(texm3xxtex_RegMods)
 };
 
 // macro token expansion for ps_1_1 instruction: texm3x3tex
-PS_1_4::TokenInst PS_1_4::texm3x3pad[] = {
+PS_1_4::TokenInst constinit texm3x3pad[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T0
@@ -873,14 +876,14 @@ PS_1_4::TokenInst PS_1_4::texm3x3pad[] = {
 };
 
 
-PS_1_4::MacroRegModify constinit PS_1_4::texm3x3pad_MacroMods = {
+PS_1_4::MacroRegModify constinit texm3x3pad_MacroMods = {
     texm3x3pad, ARRAYSIZE(texm3x3pad),
     texm3xxpad_RegMods, ARRAYSIZE(texm3xxpad_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texm3x3pad
-PS_1_4::TokenInst PS_1_4::texm3x3tex[] = {
+PS_1_4::TokenInst constinit texm3x3tex[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T1
@@ -907,14 +910,14 @@ PS_1_4::TokenInst PS_1_4::texm3x3tex[] = {
 
 
 
-PS_1_4::MacroRegModify constinit PS_1_4::texm3x3tex_MacroMods = {
+PS_1_4::MacroRegModify constinit texm3x3tex_MacroMods = {
     texm3x3tex, ARRAYSIZE(texm3x3tex),
     texm3xxtex_RegMods, ARRAYSIZE(texm3xxtex_RegMods)
 };
 
 
 // macro token expansion for ps_1_1 instruction: texm3x3spec
-PS_1_4::TokenInst PS_1_4::texm3x3spec[] = {
+PS_1_4::TokenInst constinit texm3x3spec[] = {
     // texcoord t(x)
     {       SymbolID::TEXOP_PS1_1_3, SymbolID::TEXCOORD
     _token_ SymbolID::TEX_PS1_1_3, SymbolID::_1T3
@@ -983,7 +986,7 @@ PS_1_4::TokenInst PS_1_4::texm3x3spec[] = {
 
 };
 
-PS_1_4::RegModOffset PS_1_4::texm3x3spec_RegMods[] = {
+PS_1_4::RegModOffset constinit texm3x3spec_RegMods[] = {
     {8, R_BASE, 1},
     {15, R_BASE, 2},
     {21, C_BASE, 2},
@@ -991,7 +994,7 @@ PS_1_4::RegModOffset PS_1_4::texm3x3spec_RegMods[] = {
 
 };
 
-PS_1_4::MacroRegModify constinit PS_1_4::texm3x3spec_MacroMods = {
+PS_1_4::MacroRegModify constinit texm3x3spec_MacroMods = {
     texm3x3spec, ARRAYSIZE(texm3x3spec),
     texm3x3spec_RegMods, ARRAYSIZE(texm3x3spec_RegMods)
 };
@@ -1684,7 +1687,7 @@ auto PS_1_4::Pass2scan(const TokenInst * Tokens, const size_t size) -> bool
     // execute TokenInstructions to build MachineInstructions
     bool passed = true;
     SymbolDef* cursymboldef;
-    Compiler2Pass::SymbolID ActiveNTTRuleID;
+    SymbolID ActiveNTTRuleID;
 
     clearMachineInstState();
 

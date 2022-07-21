@@ -53,7 +53,6 @@ import :atifs.Compiler2Pass;
 import <vector>;
 
 template<::std::size_t N>
-
 auto constexpr inline ARRAYSIZE(auto const (& array)[N]) -> ::std::size_t
 {   return N;   }
 
@@ -89,7 +88,7 @@ auto constexpr inline ckp_PS_1_4_BASE = (ckp_PS_BASE + ckp_PS_1_4);
 
 */
 class PS_1_4 : public Compiler2Pass{
-private:
+public:
     enum class RWAflags {rwa_NONE = 0, rwa_READ = 1, rwa_WRITE = 2};
 
     enum class MachineInstID : uint {mi_COLOROP1, mi_COLOROP2, mi_COLOROP3, mi_ALPHAOP1, mi_ALPHAOP2,
@@ -136,55 +135,11 @@ private:
         uint            RegModSize;
 
     };
-
-    static auto constexpr inline R_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::R0) - GL_REG_0_ATI));
-    static auto constexpr inline C_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::C0) - GL_CON_0_ATI));
-    static auto constexpr inline T_BASE = static_cast<unsigned int>((std::to_underlying(SymbolID::_1T0) - GL_REG_0_ATI));
-
+private:
     // static library database for tokens and BNF rules
-    static SymbolDef PS_1_4_SymbolTypeLib[];
-    static TokenRule PS_1_x_RulePath[];
     static bool LibInitialized;
 
     // Static Macro database for ps.1.1 ps.1.2 ps.1.3 instructions
-
-    static TokenInst texreg2ar[];
-    static RegModOffset texreg2xx_RegMods[];
-    static MacroRegModify texreg2ar_MacroMods;
-
-    static TokenInst texreg2gb[];
-    static MacroRegModify texreg2gb_MacroMods;
-
-    static TokenInst texdp3[];
-    static RegModOffset texdp3_RegMods[];
-    static MacroRegModify texdp3_MacroMods;
-
-    static TokenInst texdp3tex[];
-    static RegModOffset texdp3tex_RegMods[];
-    static MacroRegModify texdp3tex_MacroMods;
-
-    static TokenInst texm3x2pad[];
-    static RegModOffset texm3xxpad_RegMods[];
-    static MacroRegModify texm3x2pad_MacroMods;
-
-    static TokenInst texm3x2tex[];
-    static RegModOffset texm3xxtex_RegMods[];
-    static MacroRegModify texm3x2tex_MacroMods;
-
-    static TokenInst texm3x3pad[];
-    static MacroRegModify texm3x3pad_MacroMods;
-
-    static TokenInst texm3x3tex[];
-    static MacroRegModify texm3x3tex_MacroMods;
-
-    static TokenInst texm3x3spec[];
-    static RegModOffset texm3x3spec_RegMods[];
-    static MacroRegModify texm3x3spec_MacroMods;
-
-    static TokenInst texm3x3vspec[];
-    static RegModOffset texm3x3vspec_RegMods[];
-    static MacroRegModify texm3x3vspec_MacroMods;
-
 
     MachineInstContainer mPhase1TEX_mi; /// machine instructions for phase one texture section
     MachineInstContainer mPhase1ALU_mi; /// machine instructions for phase one ALU section
@@ -303,3 +258,6 @@ public:
 
 #endif
 };
+
+// library of built in symbol types
+bool constinit PS_1_4::LibInitialized = false;
