@@ -40,8 +40,6 @@ import <vector>;
 namespace Ogre {
 
 #define DEFAULT_INITIAL_CHARS 12
-    //---------------------------------------------------------------------
-    std::string_view const constinit TextAreaOverlayElement::msTypeName = "TextArea";
     //-----------------------------------------------------------------------------------------
     class CmdCaption : public ParamCommand
     {

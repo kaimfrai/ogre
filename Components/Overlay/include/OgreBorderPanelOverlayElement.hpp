@@ -201,7 +201,7 @@ class RenderQueue;
         /// Render operation for the border area
         RenderOperation mRenderOp2;
 
-        static std::string_view const msTypeName;
+        static std::string_view const constexpr msTypeName = "BorderPanel";
 
         /// Internal method for setting up geometry, called by OverlayElement::update
         void updatePositionGeometry() override;

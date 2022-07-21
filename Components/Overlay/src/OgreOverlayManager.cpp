@@ -37,7 +37,6 @@ import :ElementFactory;
 import :Manager;
 import :Translator;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <memory>;

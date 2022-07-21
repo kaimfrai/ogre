@@ -36,7 +36,6 @@ import <vector>;
 
 namespace Ogre {
     //---------------------------------------------------------------------
-    std::string_view const constinit BorderPanelOverlayElement::msTypeName = "BorderPanel";
         /** Command object for specifying border sizes (see ParamCommand).*/
         class CmdBorderSize : public ParamCommand
         {

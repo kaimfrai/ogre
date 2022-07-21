@@ -41,7 +41,6 @@ namespace Ogre {
 class RenderQueue;
 
     //---------------------------------------------------------------------
-    std::string_view const constinit PanelOverlayElement::msTypeName = "Panel";
     /** Command object for specifying tiling (see ParamCommand).*/
     class CmdTiling : public ParamCommand
     {

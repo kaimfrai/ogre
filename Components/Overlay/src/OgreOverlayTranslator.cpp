@@ -36,7 +36,6 @@ import :FontManager;
 import :Manager;
 import :Translator;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <any>;

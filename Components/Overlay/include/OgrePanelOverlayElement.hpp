@@ -129,7 +129,7 @@ class RenderQueue;
         /// Method for setting up base parameters for this class
         void addBaseParameters() override;
 
-        static std::string_view const msTypeName;
+        static std::string_view const constexpr msTypeName = "Panel";
     };
     /** @} */
     /** @} */

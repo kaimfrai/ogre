@@ -34,7 +34,6 @@ module Ogre.Components.Overlay;
 import :Container;
 import :Manager;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <utility>;

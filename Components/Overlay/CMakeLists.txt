@@ -13,6 +13,7 @@
 
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
+file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
@@ -39,20 +40,27 @@ else()
     list(REMOVE_ITEM SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreImGuiOverlay.cpp")
 endif()
 
+add_module(
+  OgreOverlay.hpp
+PARTITION
+  ${HEADER_FILES}
+  ${PRIVATE_HEADER_FILES}
+IMPLEMENTATION
+  ${SOURCE_FILES}
+INCLUDES
+  ${FREETYPE_INCLUDE_DIRS}
+)
+
+add_library(OgreOverlay ALIAS Ogre.Components.Overlay)
+
 # setup target
-add_library(OgreOverlay ${OGRE_COMP_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(OgreOverlay PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(OgreOverlay PUBLIC OgreCore)
-target_include_directories(OgreOverlay PUBLIC 
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  $<INSTALL_INTERFACE:include/OGRE/Overlay>)
+set_target_properties(Ogre.Components.Overlay PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 if(FREETYPE_FOUND)
-  target_compile_definitions(OgreOverlay PRIVATE HAVE_FREETYPE)
-  target_link_libraries(OgreOverlay PRIVATE ${FREETYPE_LIBRARIES})
-  target_include_directories(OgreOverlay PRIVATE ${FREETYPE_INCLUDE_DIRS})
+  target_compile_definitions(Ogre.Components.Overlay PRIVATE HAVE_FREETYPE)
+  target_link_libraries(Ogre.Components.Overlay PRIVATE ${FREETYPE_LIBRARIES})
   if(ZLIB_FOUND)
-    target_link_libraries(OgreOverlay PRIVATE ZLIB::ZLIB)
+    target_link_libraries(Ogre.Components.Overlay PRIVATE ZLIB::ZLIB)
   endif()
 elseif(UNIX)
   set_source_files_properties(src/OgreFont.cpp PROPERTIES
@@ -60,7 +68,7 @@ elseif(UNIX)
 endif()
 
 if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
-  target_include_directories(OgreOverlay PUBLIC
+  target_include_directories(Ogre.Components.Overlay PUBLIC
     PUBLIC "$<BUILD_INTERFACE:${IMGUI_DIR}>"
     PRIVATE "$<BUILD_INTERFACE:${IMGUI_DIR}/misc/freetype>")
 
@@ -77,7 +85,7 @@ if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
   endif()
 
   if(MINGW)
-    target_link_libraries(OgreOverlay PRIVATE imm32)
+    target_link_libraries(Ogre.Components.Overlay PRIVATE imm32)
   endif()
 
   configure_file(${OGRE_TEMPLATES_DIR}/imconfig.h ${IMGUI_DIR}/imconfig.h)
@@ -87,9 +95,9 @@ if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
     ${IMGUI_DIR}/imconfig.h)
 endif()
 
-# install 
-ogre_config_framework(OgreOverlay)
-ogre_config_component(OgreOverlay)
+# install
+ogre_config_framework(Ogre.Components.Overlay)
+ogre_config_component(Ogre.Components.Overlay)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/Overlay
