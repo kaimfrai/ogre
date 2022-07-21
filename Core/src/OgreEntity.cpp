@@ -81,8 +81,6 @@ import <span>;
 import <string>;
 
 namespace Ogre {
-struct Sphere;
-
     //-----------------------------------------------------------------------
     Entity::Entity ()
         : mAnimationState(nullptr),

@@ -49,8 +49,6 @@ import <set>;
 import <utility>;
 
 namespace Ogre {
-class RenderSystem;
-
     //-----------------------------------------------------------------------
     VertexData::VertexData(HardwareBufferManagerBase* mgr)
     {

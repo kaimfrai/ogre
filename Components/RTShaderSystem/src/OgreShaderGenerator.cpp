@@ -69,9 +69,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class AutoParamDataSource;
-class Renderable;
-
 //-----------------------------------------------------------------------
 template<> 
 RTShader::ShaderGenerator* Singleton<RTShader::ShaderGenerator>::msSingleton = nullptr;

@@ -27,7 +27,6 @@ import <utility>;
 import <vector>;
 
 namespace OgreBites {
-struct InputListener;
 
 ApplicationContextSDL::ApplicationContextSDL(std::string_view appName) : ApplicationContextBase(appName)
 {

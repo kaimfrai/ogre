@@ -39,8 +39,6 @@ import <ostream>;
 import <utility>;
 
 namespace Ogre {
-class RenderSystem;
-
     //-----------------------------------------------------------------------
     template<> SceneManagerEnumerator* Singleton<SceneManagerEnumerator>::msSingleton = nullptr;
     auto SceneManagerEnumerator::getSingletonPtr() noexcept -> SceneManagerEnumerator*

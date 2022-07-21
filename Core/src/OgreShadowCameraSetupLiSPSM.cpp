@@ -41,9 +41,6 @@ import <utility>;
 
 namespace Ogre
 {
-class Viewport;
-
-
     LiSPSMShadowCameraSetup::LiSPSMShadowCameraSetup(Real n, bool useSimpleNOpt, Degree angle)
         : mOptAdjustFactor(n)
         , mUseSimpleNOpt(useSimpleNOpt)

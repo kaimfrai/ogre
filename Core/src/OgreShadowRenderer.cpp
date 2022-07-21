@@ -88,7 +88,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class Frustum;
 
 GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msInfiniteExtrusionParams;
 GpuProgramParametersSharedPtr SceneManager::ShadowRenderer::msFiniteExtrusionParams;

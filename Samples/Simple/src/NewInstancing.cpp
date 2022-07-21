@@ -8,10 +8,6 @@ import Ogre.Core;
 import <map>;
 import <random>;
 
-namespace Ogre::RTShader {
-class SubRenderState;
-}  // namespace Ogre
-
 using namespace Ogre;
 
 using namespace OgreBites;

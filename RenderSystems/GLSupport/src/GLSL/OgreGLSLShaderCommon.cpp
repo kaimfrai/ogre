@@ -42,7 +42,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
 
     //-----------------------------------------------------------------------
     uint constinit GLSLShaderCommon::mShaderCount = 0;

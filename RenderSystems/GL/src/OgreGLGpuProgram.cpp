@@ -42,8 +42,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class ResourceManager;
-
 auto GLArbGpuProgram::getProgramType() const -> GLenum
 {
     using enum GpuProgramType;

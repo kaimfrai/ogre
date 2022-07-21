@@ -75,8 +75,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class Camera;
-
 #define TEMP_INITIAL_SIZE 50
 #define TEMP_VERTEXSIZE_GUESS sizeof(float) * 12
 #define TEMP_INITIAL_VERTEX_SIZE TEMP_VERTEXSIZE_GUESS * TEMP_INITIAL_SIZE

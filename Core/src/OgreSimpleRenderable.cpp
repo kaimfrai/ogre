@@ -48,7 +48,6 @@ import :SimpleRenderable;
 import <ostream>;
 
 namespace Ogre {
-class Camera;
 
     uint constinit SimpleRenderable::msGenNameCount = 0;
 

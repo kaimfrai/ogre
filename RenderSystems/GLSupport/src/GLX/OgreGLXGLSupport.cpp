@@ -49,10 +49,6 @@ import <string>;
 import <utility>;
 import <vector>;
 
-namespace Ogre {
-class GLPBuffer;
-class RenderWindow;
-}  // namespace Ogre
 static bool constinit ctxErrorOccurred = false;
 static Ogre::String ctxErrorMessage;
 static auto ctxErrorHandler( Display *dpy, XErrorEvent *ev ) -> int

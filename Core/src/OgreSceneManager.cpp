@@ -120,8 +120,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-struct Ray;
-
 static const std::string_view constexpr INVOCATION_SHADOWS = "SHADOWS";
 //-----------------------------------------------------------------------
 SceneManager::SceneManager(std::string_view name) :

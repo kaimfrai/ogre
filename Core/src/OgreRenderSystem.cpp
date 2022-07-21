@@ -75,9 +75,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-    class Camera;
-    class RenderWindow;
-    class Viewport;
 
     RenderSystem::Listener* RenderSystem::msSharedEventListener = nullptr;
 

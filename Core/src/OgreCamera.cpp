@@ -53,7 +53,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-struct Sphere;
 
     std::string_view const constinit Camera::msMovableType = "Camera";
     //-----------------------------------------------------------------------

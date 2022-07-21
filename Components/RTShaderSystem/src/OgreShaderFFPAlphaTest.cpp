@@ -41,15 +41,6 @@ import Ogre.Core;
 
 import <memory>;
 
-namespace Ogre {
-	class AutoParamDataSource;
-	class Renderable;
-
-	namespace RTShader {
-		class RenderState;
-	}  // namespace RTShader
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 		std::string_view const constinit FFPAlphaTest::Type = "FFP_Alpha_Test";

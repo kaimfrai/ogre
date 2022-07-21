@@ -59,7 +59,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-    class AutoParamDataSource;
 
     /** Default pass hash function.
     @remarks

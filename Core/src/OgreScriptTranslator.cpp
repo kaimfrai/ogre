@@ -89,8 +89,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre{
-class LodStrategy;
-
     static void applyTextureAliases(const Material* mat, const NameValuePairList& aliasList)
     {
         for (auto t : mat->getTechniques())

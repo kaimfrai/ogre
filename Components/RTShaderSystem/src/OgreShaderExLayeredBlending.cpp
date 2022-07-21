@@ -49,10 +49,6 @@ import <ranges>;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-    class LayerBlendModeEx;
-}  // namespace Ogre
-
 namespace Ogre::RTShader {
 
 

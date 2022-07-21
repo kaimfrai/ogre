@@ -36,8 +36,6 @@ import :Material;
 import :MaterialManager;
 
 namespace Ogre {
-class CompositionTargetPass;
-
 CompositionPass::CompositionPass(CompositionTargetPass *parent):
     mParent(parent)
     

@@ -22,10 +22,6 @@ import <memory>;
 import <ostream>;
 import <utility>;
 
-namespace Ogre {
-struct FrameEvent;
-}  // namespace Ogre
-
 namespace OgreBites
 {
 

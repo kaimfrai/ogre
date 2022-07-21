@@ -62,7 +62,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class RenderSystem;
 
     const size_t constinit BillboardChain::SEGMENT_EMPTY = std::numeric_limits<size_t>::max();
     //-----------------------------------------------------------------------

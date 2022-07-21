@@ -45,7 +45,6 @@ import <vector>;
 
 namespace Ogre
 {
-class Viewport;
 
     /** transform from normal to light space */
     const Matrix4 FocusedShadowCameraSetup::msNormalToLightSpace{

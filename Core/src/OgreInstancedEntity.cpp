@@ -51,7 +51,6 @@ import <utility>;
 
 namespace Ogre
 {
-struct AxisAlignedBox;
 
     NameGenerator InstancedEntity::msNameGenerator("");
 

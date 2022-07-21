@@ -39,8 +39,6 @@ import Ogre.Core;
 import <utility>;
 
 namespace Ogre {
-struct Matrix4;
-class RenderQueue;
 
     //---------------------------------------------------------------------
     OverlayContainer::OverlayContainer(std::string_view name)

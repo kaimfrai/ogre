@@ -38,8 +38,6 @@ import :RenderSystem;
 import :Root;
 
 namespace Ogre {
-class CompositionTechnique;
-
 CompositionTargetPass::CompositionTargetPass(CompositionTechnique *parent):
     mParent(parent),
     

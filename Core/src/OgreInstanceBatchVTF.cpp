@@ -68,9 +68,6 @@ import <utility>;
 
 namespace Ogre
 {
-class InstanceManager;
-class RenderQueue;
-
     static const uint16 constexpr c_maxTexWidth   = 4096;
     static const uint16 constexpr c_maxTexHeight  = 4096;
 

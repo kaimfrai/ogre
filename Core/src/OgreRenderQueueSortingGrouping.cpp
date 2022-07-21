@@ -45,8 +45,6 @@ import <ranges>;
 import <set>;
 
 namespace Ogre {
-class Camera;
-
 namespace {
     /// Comparator to order objects by descending camera distance
     struct DistanceSortDescendingLess

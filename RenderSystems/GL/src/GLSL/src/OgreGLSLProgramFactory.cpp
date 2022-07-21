@@ -32,9 +32,6 @@ import :GLSL.SLProgram;
 import :GLSL.SLProgramFactory;
 
 namespace Ogre {
-class GpuProgram;
-class ResourceManager;
-
     namespace GLSL {
     //-----------------------------------------------------------------------
     std::string_view const constinit GLSLProgramFactory::sLanguageName = "glsl";

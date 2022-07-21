@@ -42,8 +42,6 @@ import :TextureManager;
 import <string>;
 
 namespace Ogre {
-class Compositor;
-
 CompositionTechnique::CompositionTechnique(Compositor *parent):
     mParent(parent)
 {

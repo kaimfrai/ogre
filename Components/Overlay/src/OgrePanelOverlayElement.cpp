@@ -38,7 +38,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class RenderQueue;
 
     //---------------------------------------------------------------------
     std::string_view const constinit PanelOverlayElement::msTypeName = "Panel";

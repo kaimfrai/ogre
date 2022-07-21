@@ -36,8 +36,6 @@ import :TagPoint;
 import :Vector;
 
 namespace Ogre {
-class Skeleton;
-
     //-----------------------------------------------------------------------------
     TagPoint::TagPoint(unsigned short handle, Skeleton* creator)
         : Bone(handle, creator)

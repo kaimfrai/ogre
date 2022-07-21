@@ -67,8 +67,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-struct Affine3;
-
     //---------------------------------------------------------------------
     Skeleton::Skeleton()
         : Resource(),

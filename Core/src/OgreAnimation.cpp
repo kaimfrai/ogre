@@ -49,8 +49,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Node;
-class VertexData;
 
     Animation::InterpolationMode constinit Animation::msDefaultInterpolationMode = Animation::InterpolationMode::LINEAR;
     Animation::RotationInterpolationMode 

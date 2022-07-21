@@ -41,8 +41,6 @@ import <vector>;
 
 namespace Ogre
 {
-class ResourceManager;
-
     //-----------------------------------------------------------------------
     /// Command object for setting delegate (can set more than once)
     class CmdDelegate : public ParamCommand

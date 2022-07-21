@@ -43,8 +43,6 @@ import <memory>;
 import <utility>;
 
 namespace Ogre {
-class Camera;
-class RenderQueue;
 
     //---------------------------------------------------------------------
     template<> OverlayManager *Singleton<OverlayManager>::msSingleton = nullptr;

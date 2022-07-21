@@ -38,8 +38,6 @@ import :StringInterface;
 import <string>;
 
 namespace Ogre {
-class RenderQueue;
-
     static std::string_view const constexpr rendererTypeName = "billboard";
 
     /** Command object for billboard type (see ParamCommand).*/

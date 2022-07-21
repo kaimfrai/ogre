@@ -45,8 +45,6 @@ import :TextureUnitState;
 import <string>;
 
 namespace Ogre {
-class Frustum;
-
     // allow operation without hardware support
     static SamplerPtr DUMMY_SAMPLER = std::make_shared<Sampler>();
 

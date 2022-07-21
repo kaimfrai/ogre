@@ -44,8 +44,6 @@ import <string>;
 import <vector>;
 
 namespace Ogre {
-class ResourceManager;
-
     namespace GLSL {
     //-----------------------------------------------------------------------
     static auto parseOperationType(std::string_view val) -> RenderOperation::OperationType

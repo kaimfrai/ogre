@@ -13,8 +13,6 @@ import Ogre.Core;
 
 namespace Ogre
 {
-class GLContext;
-
 GLDepthBufferCommon::GLDepthBufferCommon(DepthBuffer::PoolId poolId, GLRenderSystemCommon* renderSystem,
                                          GLContext* creatorContext, GLHardwarePixelBufferCommon* depth,
                                          GLHardwarePixelBufferCommon* stencil, const RenderTarget* target,

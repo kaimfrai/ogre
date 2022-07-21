@@ -56,8 +56,6 @@ import <set>;
 import <vector>;
 
 namespace Ogre {
-class HardwareBufferManagerBase;
-
     //-----------------------------------------------------------------------
     SubMesh::SubMesh()
          

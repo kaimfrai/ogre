@@ -12,10 +12,6 @@ import Ogre.Core;
 import <string>;
 import <vector>;
 
-namespace Ogre {
-class Renderable;
-}  // namespace Ogre
-
 namespace OgreBites {
 
 SGTechniqueResolverListener::SGTechniqueResolverListener(Ogre::RTShader::ShaderGenerator *pShaderGenerator)

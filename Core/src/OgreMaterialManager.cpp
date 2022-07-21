@@ -53,8 +53,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre {
-class Renderable;
-
     //-----------------------------------------------------------------------
     template<> MaterialManager* Singleton<MaterialManager>::msSingleton = nullptr;
     auto MaterialManager::getSingletonPtr() noexcept -> MaterialManager*

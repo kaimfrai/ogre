@@ -51,10 +51,6 @@ import <string>;
 import <utility>;
 
 namespace Ogre::RTShader {
-        class RenderState;
-    }  // namespace Ogre
-
-namespace Ogre::RTShader {
 
 /************************************************************************/
 /*                                                                      */

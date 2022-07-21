@@ -48,9 +48,6 @@ import <utility>;
 import <vector>;
 
 namespace Ogre {
-class DepthBuffer;
-class GLContext;
-
 //-----------------------------------------------------------------------------    
     GLFBORenderTexture::GLFBORenderTexture(GLFBOManager *manager, std::string_view name,
         const GLSurfaceDesc &target, bool writeGamma, uint fsaa):
