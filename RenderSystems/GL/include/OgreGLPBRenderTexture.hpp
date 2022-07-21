@@ -37,14 +37,9 @@ export import Ogre.RenderSystems.GLSupport;
 export
 namespace Ogre {
     
+    class GLPBRTTManager;
     /** RenderTexture that uses a PBuffer (offscreen rendering context) for rendering.
     */
-    class GLPBRTTManager;
-class GLContext;
-class GLNativeSupport;
-class GLPBuffer;
-class RenderTarget;
-class RenderTexture;
 
     class GLPBRenderTexture: public GLRenderTexture
     {

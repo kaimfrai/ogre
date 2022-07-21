@@ -33,8 +33,6 @@ import Ogre.Core;
 import Ogre.RenderSystems.GLSupport;
 
 namespace Ogre {
-class ResourceManager;
-
     namespace GLSL {
     class GLSLProgram : public GLSLShaderCommon, public GLGpuProgramBase
     {

@@ -36,8 +36,8 @@ export import Ogre.Core;
 
 export
 namespace Ogre {
-class GLRenderSystem;
 
+    class GLRenderSystem;
     /// Specialisation of HardwareVertexBuffer for OpenGL
     class GLHardwareVertexBuffer : public HardwareBuffer
     {

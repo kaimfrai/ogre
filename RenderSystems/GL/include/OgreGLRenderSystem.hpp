@@ -39,20 +39,7 @@ export import <vector>;
 
 export
 namespace Ogre {
-class DepthBuffer;
-class Frustum;
-class GLContext;
-class GLGpuProgramManager;
-class GLStateCacheManager;
-class HardwareBufferManager;
-class HardwareOcclusionQuery;
-class MultiRenderTarget;
-class PixelBox;
-class RenderOperation;
-class RenderSystemCapabilities;
-class VertexElement;
-class Viewport;
-struct GLGpuProgramBase;
+
     /** \addtogroup RenderSystems RenderSystems
     *  @{
     */
@@ -60,11 +47,10 @@ struct GLGpuProgramBase;
     * Implementation of GL as a rendering system.
     *  @{
     */
-
-    namespace GLSL {
-        class GLSLProgramFactory;
-    }
-
+    namespace GLSL { class GLSLProgramFactory; }
+    class GLGpuProgramManager;
+    class GLStateCacheManager;
+    class GLGpuProgramBase;
     /**
       Implementation of GL as a rendering system.
      */

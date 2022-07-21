@@ -36,9 +36,8 @@ export import Ogre.RenderSystems.GLSupport;
 
 export
 namespace Ogre {
-class GLRenderSystem;
-class ResourceManager;
 
+    class GLRenderSystem;
     class GLTexture : public GLTextureCommon
     {
     public:

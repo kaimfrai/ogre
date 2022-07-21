@@ -36,13 +36,6 @@ export import :FrameBufferObject;
 export import Ogre.Core;
 export import Ogre.RenderSystems.GLSupport;
 
-export
-namespace Ogre {
-class DepthBuffer;
-class GLContext;
-class RenderTarget;
-}  // namespace Ogre
-
 /// Extra GL constants
 export
 enum {
@@ -51,8 +44,6 @@ GL_DEPTH24_STENCIL8_EXT =                           0x88F0
 
 export
 namespace Ogre {
-    class GLFBOManager;
-
     /** RenderTexture for GL FBO
     */
     class GLFBORenderTexture: public GLRenderTexture
