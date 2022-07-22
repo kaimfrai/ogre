@@ -25,11 +25,16 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Browser:SampleBrowser;
+export module Ogre.Samples;
+
+export import :Sample;
+export import :SdkSample;
+export import :DefaultSamplesPlugin;
+export import :SamplePlugin;
+export import :SampleContext;
 
 export import Ogre.Components.Bites;
 export import Ogre.Core;
-export import Ogre.Samples.Common;
 
 export import <map>;
 export import <memory>;

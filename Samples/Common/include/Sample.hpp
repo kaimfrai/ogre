@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Common:Sample;
+export module Ogre.Samples:Sample;
 
 export import Ogre.Components.Bites;
 export import Ogre.Components.Overlay;

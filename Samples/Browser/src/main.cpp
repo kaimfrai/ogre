@@ -1,6 +1,4 @@
-module Ogre.Samples.Browser;
-
-import :SampleBrowser;
+import Ogre.Samples;
 
 import Ogre.Core;
 

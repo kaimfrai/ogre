@@ -25,7 +25,7 @@
  THE SOFTWARE.
  -----------------------------------------------------------------------------
  */
-export module Ogre.Samples.Common:SampleContext;
+export module Ogre.Samples:SampleContext;
 
 export import :Sample;
 
