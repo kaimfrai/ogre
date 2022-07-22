@@ -33,6 +33,8 @@ module;
 #define STB_IMAGE_STATIC
 #include <zlib.h>
 #include "stbi/stb_image.h"
+
+extern "C" auto custom_zlib_compress(unsigned char* data, int data_len, int* out_len, int /*quality*/) -> unsigned char*;
 #define STBIW_ZLIB_COMPRESS custom_zlib_compress
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_NO_STDIO
@@ -41,7 +43,6 @@ module;
 module Ogre.PlugIns.STBICodec;
 
 import Ogre.Core;
-import Ogre.PlugIns.STBICodec;
 
 import <format>;
 import <memory>;
@@ -50,7 +51,7 @@ import <string>;
 import <utility>;
 import <vector>;
 
-static auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
+extern "C" auto custom_zlib_compress(Ogre::uchar* data, int data_len, int* out_len, int /*quality*/) -> Ogre::uchar*
 {
     unsigned long destLen = compressBound(data_len);
     auto* dest = (Ogre::uchar*)malloc(destLen);
