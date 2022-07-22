@@ -11,15 +11,14 @@
 
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-list(APPEND SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/glad/glad.c")
 
 file(GLOB NVPARSE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/*.cpp")
 file(GLOB NVPARSE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/*.hpp")
 
 if(UNIX)
-  # easier than porting to new flex  
+  # easier than porting to new flex
   foreach(NVSRC ${NVPARSE_SOURCE})
-    set_source_files_properties(${NVSRC} 
+    set_source_files_properties(${NVSRC}
       PROPERTIES COMPILE_FLAGS "-Wno-unused-function -Wno-shadow -Wno-cast-qual -Wno-missing-declarations -Wno-undef"
       COMPILE_DEFINITIONS "register="
     )
@@ -32,7 +31,7 @@ endif()
 list(REMOVE_ITEM NVPARSE_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/nvparse/ps1.0__test_main.cpp")
 
 file(GLOB ATIFS_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/src/*.cpp")
-file(GLOB ATIFS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/*.hpp")
+file(GLOB ATIFS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/atifs/include/*.hpp")
 
 file(GLOB GLSL_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/include/*.hpp")
 file(GLOB GLSL_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/src/*.cpp")
@@ -42,15 +41,9 @@ source_group(ATIFS FILES ${ATIFS_SOURCE} ${ATIFS_HEADERS})
 source_group(GLSL FILES ${GLSL_SOURCE} ${GLSL_HEADERS})
 
 if(OGRE_CONFIG_ENABLE_GL_STATE_CACHE_SUPPORT)
-  set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/OgreGLStateCacheManager.cpp 
+  set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/src/OgreGLStateCacheManager.cpp
     PROPERTIES COMPILE_DEFINITIONS OGRE_ENABLE_STATE_CACHE)
 endif()
-
-list(APPEND HEADER_FILES
-  ${GLSL_HEADERS}
-  ${NVPARSE_HEADERS}
-  ${ATIFS_HEADERS}
-)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GLSL/include
@@ -60,19 +53,51 @@ include_directories(
 
 add_definitions(-DYY_NEVER_INTERACTIVE)
 add_definitions(-DOGRE_GLPLUGIN_EXPORTS ${OGRE_VISIBILITY_FLAGS})
-#Note that in the next row SOURCE_FILES are added last. This is to prevent compilation problems of unity build found on Windows Visual Studio. 
+#Note that in the next row SOURCE_FILES are added last. This is to prevent compilation problems of unity build found on Windows Visual Studio.
 #In this situation any file added after the "glew.cpp" file, which belongs to the SOURCE_FILES package, does not compile
-add_library(RenderSystem_GL ${OGRE_LIB_TYPE} ${HEADER_FILES} ${GLSL_SOURCE} ${ATIFS_SOURCE} ${NVPARSE_SOURCE} ${SOURCE_FILES})
-target_link_libraries(RenderSystem_GL PUBLIC OgreCore PRIVATE OgreGLSupport ${CMAKE_DL_LIBS})
-target_include_directories(RenderSystem_GL PUBLIC 
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-    $<INSTALL_INTERFACE:include/OGRE/RenderSystems/GL>)
 
-target_include_directories(RenderSystem_GL PUBLIC ${OPENGL_INCLUDE_DIR})
+add_library(
+  Ogre.RenderSystems.GL.glad
+OBJECT
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/glad/glad.c"
+)
 
-ogre_config_framework(RenderSystem_GL)
+target_include_directories(
+  Ogre.RenderSystems.GL.glad
+PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-ogre_config_plugin(RenderSystem_GL)
+#cyclic dependencies => 1 module
+add_module(
+  ../GL.hpp
+PARTITION
+  ${HEADER_FILES}
+  ${GLSL_HEADERS}
+  ${ATIFS_HEADERS}
+IMPLEMENTATION
+  ${SOURCE_FILES}
+  ${GLSL_SOURCE}
+  ${ATIFS_SOURCE}
+INCLUDES
+  ${OPENGL_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_sources(
+  Ogre.RenderSystems.GL
+PRIVATE
+  $<TARGET_OBJECTS:Ogre.RenderSystems.GL.glad>
+)
+
+add_library(RenderSystem_GL ALIAS Ogre.RenderSystems.GL)
+
+target_link_libraries(Ogre.RenderSystems.GL PRIVATE ${CMAKE_DL_LIBS})
+
+ogre_config_framework(Ogre.RenderSystems.GL)
+
+ogre_config_plugin(Ogre.RenderSystems.GL)
+
 install(FILES ${HEADER_FILES} ${GLSUPPORT_HEADERS} DESTINATION include/OGRE/RenderSystems/GL)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/glad DESTINATION include/OGRE/RenderSystems/glad)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/KHR DESTINATION include/OGRE/RenderSystems/KHR)
