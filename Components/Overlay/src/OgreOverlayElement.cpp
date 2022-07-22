@@ -36,7 +36,6 @@ import :Element;
 import :ElementCommands;
 import :Manager;
 
-import Ogre.Components.Overlay;
 import Ogre.Core;
 
 import <string>;
