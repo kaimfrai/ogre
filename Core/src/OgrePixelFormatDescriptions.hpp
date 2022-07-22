@@ -59,7 +59,7 @@ namespace Ogre {
     };
     //-----------------------------------------------------------------------
     /** Pixel format database */
-    PixelFormatDescription _pixelFormats[std::to_underlying(PixelFormat::COUNT)] = {
+    PixelFormatDescription inline _pixelFormats[std::to_underlying(PixelFormat::COUNT)] = {
         //-----------------------------------------------------------------------
         {"PF_UNKNOWN",
             /* Bytes per element */
