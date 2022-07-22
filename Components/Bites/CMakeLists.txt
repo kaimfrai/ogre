@@ -53,7 +53,7 @@ if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
     set(DEPENDENCIES ${DEPENDENCIES} Codec_Assimp)
   endif ()
   if (OGRE_BUILD_PLUGIN_STBI)
-    set(DEPENDENCIES ${DEPENDENCIES} Codec_STBI)
+    set(DEPENDENCIES ${DEPENDENCIES} Ogre.PlugIns.STBICodec)
   endif ()
   if (OGRE_BUILD_PLUGIN_FREEIMAGE)
     set(DEPENDENCIES ${DEPENDENCIES} Codec_FreeImage)
@@ -67,7 +67,7 @@ if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
     set(DEPENDENCIES ${DEPENDENCIES} RenderSystem_Direct3D11)
   endif ()
   if (OGRE_BUILD_RENDERSYSTEM_GL)
-    set(DEPENDENCIES ${DEPENDENCIES} RenderSystem_GL)
+    set(DEPENDENCIES ${DEPENDENCIES} Ogre.RenderSystems.GL)
   endif ()
   if (OGRE_BUILD_RENDERSYSTEM_GL3PLUS)
     set(DEPENDENCIES ${DEPENDENCIES} RenderSystem_GL3Plus)
@@ -85,21 +85,8 @@ endif ()
 
 # define header and source files for the library
 file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
-set(SOURCES 
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreAdvancedRenderControls.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextBase.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreBitesConfigDialog.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreCameraMan.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreSGTechniqueResolverListener.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreStaticPluginLoader.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreTrays.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreWindowEventUtilities.cpp")
-
-if(SDL2_FOUND OR EMSCRIPTEN)
-  list(APPEND SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextSDL.cpp")
-elseif(ANDROID)
-  list(APPEND SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreApplicationContextAndroid.cpp")
-endif()
+file(GLOB PRIVATE_HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 #if(ANDROID OR EMSCRIPTEN OR APPLE_IOS OR WINDOWS_STORE OR WINDOWS_PHONE)
   ## no config dialog available
@@ -136,34 +123,31 @@ endif()
   #endif()
 #endif()
 
-if(OGRE_BUILD_COMPONENT_OVERLAY_IMGUI)
-  list(APPEND SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/OgreImGuiInputListener.cpp")
-endif()
-
 # setup target
-add_library(OgreBites ${OGRE_COMP_LIB_TYPE} ${HEADER_FILES} ${SOURCES})
-set_target_properties(OgreBites PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
-target_link_libraries(OgreBites PUBLIC OgreCore OgreOverlay PRIVATE ${DEPENDENCIES})
-if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
-  target_link_libraries(OgreBites PUBLIC OgreRTShaderSystem)
-endif ()
-target_include_directories(OgreBites PUBLIC 
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<BUILD_INTERFACE:${NATIVE_INCLUDES}>"
-  $<INSTALL_INTERFACE:include/OGRE/Bites>)
+add_module(
+  Bites.hpp
+PARTITION
+  ${HEADER_FILES}
+  ${PRIVATE_HEADER_FILES}
+IMPLEMENTATION
+  ${SOURCES}
+INCLUDES
+  ${NATIVE_INCLUDES}
+  ${SDL_INCLUDE_DIRS}
+)
+set_target_properties(Ogre.Components.Bites PROPERTIES VERSION ${OGRE_SOVERSION} SOVERSION ${OGRE_SOVERSION})
 
 if (OGRE_STATIC OR OGRE_BITES_STATIC_PLUGINS)
-  target_compile_definitions(OgreBites PRIVATE OGRE_BITES_STATIC_PLUGINS)
+  target_compile_definitions(Ogre.Components.Bites PRIVATE OGRE_BITES_STATIC_PLUGINS)
 endif()
 
 if(OGRE_STATIC AND APPLE AND OGRE_BUILD_PLUGIN_CG)
   # workaround so the Cg framework is found in the above condition
-  target_include_directories(OgreBites PUBLIC ${Cg_INCLUDE_DIRS})
+  target_include_directories(Ogre.Components.Bites PUBLIC ${Cg_INCLUDE_DIRS})
 endif()
 
 if(SDL2_FOUND)
-  target_link_libraries(OgreBites PRIVATE SDL2::SDL2)
+  target_link_libraries(Ogre.Components.Bites PRIVATE SDL2::SDL2)
 elseif(NOT EMSCRIPTEN)
   message(WARNING "SDL2 not found - no input handling and reduced window creation capabilites")
 endif()
@@ -181,9 +165,9 @@ endif()
   #ogre_config_component(OgreBitesQt)
 #endif()
 
-# install 
-ogre_config_framework(OgreBites)
-ogre_config_component(OgreBites)
+# install
+ogre_config_framework(Ogre.Components.Bites)
+ogre_config_component(Ogre.Components.Bites)
 
 install(FILES ${HEADER_FILES}
   DESTINATION include/OGRE/Bites
