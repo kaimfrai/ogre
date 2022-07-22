@@ -3,10 +3,11 @@
 // of this distribution and at https://www.ogre3d.org/licensing.
 export module Ogre.RenderSystems.GLSupport:GLRenderTarget;
 
+export import :GLContext;
+
 export
 namespace Ogre
 {
-class GLContext;
 class GLFrameBufferObjectCommon;
 
 class GLRenderTarget
