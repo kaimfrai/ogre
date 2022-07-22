@@ -32,10 +32,20 @@ include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/Common/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/VTests/include)
 include_directories(${PROJECT_SOURCE_DIR}/Tests/VisualTests/PlayPen/include)
 
-set(SAMPLE_LIBRARIES VTests PlayPenTests)
+set(SAMPLE_LIBRARIES Ogre.Tests.VisualTests.VTests Ogre.Tests.VisualTests.PlayPen)
 
-add_executable(TestContext ${HEADER_FILES} ${SOURCE_FILES})
-target_link_libraries(TestContext OgreCore ${SAMPLE_LIBRARIES} OgreOverlay OgreRTShaderSystem OgreBites)
+add_module(
+	include/TestContext.hpp
+IMPLEMENTATION
+	src/TestContext.cpp
+)
+
+add_module_executable(TestContext src/main.cpp)
+target_sources(
+	TestContext
+PRIVATE
+	 $<TARGET_OBJECTS:Ogre.Tests.VisualTests.Context>
+)
 ogre_config_common(TestContext)
 
 # Make sure all plugins are built
@@ -64,7 +74,7 @@ if (OGRE_BUILD_RENDERSYSTEM_D3D11)
     add_dependencies(TestContext RenderSystem_Direct3D11)
 endif ()
 if (OGRE_BUILD_RENDERSYSTEM_GL)
-    add_dependencies(TestContext RenderSystem_GL)
+    add_dependencies(TestContext Ogre.RenderSystems.GL)
 endif ()
 if (OGRE_BUILD_RENDERSYSTEM_GL3PLUS)
     add_dependencies(TestContext RenderSystem_GL3Plus)
@@ -72,8 +82,6 @@ endif ()
 if (OGRE_BUILD_RENDERSYSTEM_GLES2)
     add_dependencies(TestContext RenderSystem_GLES2)
 endif ()
-
-add_dependencies(TestContext VTests PlayPenTests)
 
 if (APPLE)
   if (APPLE_IOS)
@@ -123,9 +131,9 @@ if (APPLE)
 
   	add_custom_command(TARGET TestContext POST_BUILD
 		COMMAND mkdir ARGS -p ${OGRE_TESTCONTEXT_CONTENTS_PATH}/Plugins
-		COMMAND ln ARGS -s -f ${PROJECT_BINARY_DIR}/lib/${OGRE_BUILT_FRAMEWORK}/PlayPenTests.dylib 
+		COMMAND ln ARGS -s -f ${PROJECT_BINARY_DIR}/lib/${OGRE_BUILT_FRAMEWORK}/PlayPenTests.dylib
 		${OGRE_TESTCONTEXT_CONTENTS_PATH}/Plugins/
-		COMMAND ln ARGS -s -f ${PROJECT_BINARY_DIR}/lib/${OGRE_BUILT_FRAMEWORK}/VTests.dylib 
+		COMMAND ln ARGS -s -f ${PROJECT_BINARY_DIR}/lib/${OGRE_BUILT_FRAMEWORK}/VTests.dylib
 		${OGRE_TESTCONTEXT_CONTENTS_PATH}/Plugins/
 	)
 

@@ -35,7 +35,6 @@ namespace Ogre {
 class Entity;
 }  // namespace Ogre
 
-export
 using namespace Ogre;
 /** Tests basic stencil shadow behavior */
 

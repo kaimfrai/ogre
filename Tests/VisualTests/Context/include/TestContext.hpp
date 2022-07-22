@@ -25,10 +25,10 @@ Copyright (c) 2000-2014 Torus Knot Software Ltd
   THE SOFTWARE.
   -----------------------------------------------------------------------------
 */
-export module Ogre.Tests.VisualTests.Context:TestContext;
+export module Ogre.Tests.VisualTests.Context;
 
 export import Ogre.Core;
-export import Ogre.Samples.Common;
+export import Ogre.Samples;
 
 export import <deque>;
 export import <map>;
@@ -48,7 +48,6 @@ namespace OgreBites{
 export
 class TestBatch;
 
-export
 using namespace Ogre;
 /** The common environment that all of the tests run in */
 

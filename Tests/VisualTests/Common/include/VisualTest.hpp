@@ -28,7 +28,7 @@ THE SOFTWARE.
 export module Ogre.Tests.VisualTests.Common:VisualTest;
 
 export import Ogre.Core;
-export import Ogre.Samples.Common;
+export import Ogre.Samples;
 
 // resource group that will be automatically unloaded after the close of the sample
 export

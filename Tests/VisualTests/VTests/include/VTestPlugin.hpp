@@ -27,7 +27,7 @@ THE SOFTWARE.
 */
 export module Ogre.Tests.VisualTests.VTests:VTestPlugin;
 
-export import Ogre.Samples.Common;
+export import Ogre.Samples;
 
 /** Plugin class for visual tests */
 
