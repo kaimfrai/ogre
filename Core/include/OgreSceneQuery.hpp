@@ -29,6 +29,7 @@ export module Ogre.Core:SceneQuery;
 
 export import :AxisAlignedBox;
 export import :MemoryAllocatorConfig;
+export import :MovableObject;
 export import :PlaneBoundedVolume;
 export import :Platform;
 export import :Prerequisites;

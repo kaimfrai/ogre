@@ -38,6 +38,7 @@ export import :MemoryAllocatorConfig;
 export import :Platform;
 export import :Prerequisites;
 export import :Renderable;
+export import :RenderQueue;
 export import :ResourceGroupManager;
 export import :SharedPtr;
 

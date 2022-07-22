@@ -360,8 +360,6 @@ namespace Ogre {
 
 export
 template<typename CharT>
-
-export
 struct std::formatter<Ogre::Vector3, CharT>
 {
     std::formatter<Ogre::Real, CharT> realFormatter;
@@ -386,11 +384,7 @@ struct std::formatter<Ogre::Vector3, CharT>
 export
 template<typename T, typename CharT>
 requires
-
-export
     ::std::is_enum_v<T>
-
-export
 struct std::formatter<T, CharT>
 {
     std::formatter<::std::underlying_type_t<T>, CharT> underlyingFormatter;
@@ -408,8 +402,6 @@ struct std::formatter<T, CharT>
 
 export
 template<typename CharT>
-
-export
 struct std::formatter<std::filesystem::path, CharT>
 {
     std::formatter<::std::string, CharT> stringFormatter;
@@ -427,8 +419,6 @@ struct std::formatter<std::filesystem::path, CharT>
 
 export
 template<typename CharT>
-
-export
 struct std::formatter<Ogre::StringVector, CharT>
 {
     std::formatter<::std::string, CharT> stringFormatter;
@@ -457,8 +447,6 @@ struct std::formatter<Ogre::StringVector, CharT>
 
 export
 template<typename CharT>
-
-export
 struct std::formatter<std::vector<std::string_view>, CharT>
 {
     std::formatter<std::string_view, CharT> stringFormatter;

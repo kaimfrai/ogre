@@ -34,6 +34,10 @@ THE SOFTWARE.
  * below is included in the resulting source code, for example:
  * "Portions Copyright (C) Scott Bilas, 2000"
  */
+module;
+
+#include <cassert>
+
 export module Ogre.Core:Singleton;
 
 // Added by Steve Streeting for Ogre

@@ -31,6 +31,10 @@ THE SOFTWARE.
 
 module Ogre.Core:PixelConversions;
 
+import :PixelFormat;
+
+import <utility>;
+
 //using namespace Ogre;
 template<typename T>
 

@@ -25,12 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module;
+#ifndef OGRE_CORE_SIMDHELPER_H
+#define OGRE_CORE_SIMDHELPER_H
 
 // Additional platform-dependent header files and declares.
 #include <xmmintrin.h>
-
-module Ogre.Core:SIMDHelper;
 
 //---------------------------------------------------------------------
 // SIMD macros and helpers
@@ -219,3 +218,5 @@ namespace Ogre {
     /** @} */
 
 }
+
+#endif // OGRE_CORE_SIMDHELPER_H

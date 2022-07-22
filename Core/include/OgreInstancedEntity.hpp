@@ -34,6 +34,7 @@ export module Ogre.Core:InstancedEntity;
 
 export import :Matrix4;
 export import :MovableObject;
+export import :NameGenerator;
 export import :Node;
 export import :Platform;
 export import :Prerequisites;
