@@ -29,7 +29,7 @@ module;
 
 #include <ctime>
 
-export module Ogre.Tests.Core:ResourceLocationPriorityTest;
+export module Ogre.Tests:Core.ResourceLocationPriority;
 
 export import Ogre.Core;
 

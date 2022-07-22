@@ -27,11 +27,12 @@ THE SOFTWARE.
 */
 module;
 
+#include <gtest/gtest.h>
 #include <cstddef>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :ZipArchiveTests;
+import :Core.ZipArchive;
 
 import Ogre.Core;
 

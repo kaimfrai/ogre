@@ -29,12 +29,11 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:UseCustomCapabilitiesTests;
+export module Ogre.Tests:Core.UseCustomCapabilities;
 
 export import Ogre.Components.Bites;
 export import Ogre.Core;
 
-export
 using namespace Ogre;
 
 export

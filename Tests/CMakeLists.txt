@@ -77,13 +77,7 @@ if (OGRE_BUILD_TESTS)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Core/include)
 
     file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/include/*.hpp")
-    file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/src/*.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
-
-    if (OGRE_CONFIG_ENABLE_ZIP)
-      list(APPEND HEADER_FILES Core/include/ZipArchiveTests.hpp)
-      list(APPEND SOURCE_FILES Core/src/ZipArchiveTests.cpp)
-    endif ()
+    file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Core/src/*.cpp")
 
     if (OGRE_BUILD_COMPONENT_PAGING)
       set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgrePaging)
@@ -102,16 +96,16 @@ if (OGRE_BUILD_TESTS)
       list(APPEND SOURCE_FILES Components/PropertyTests.cpp)
     endif ()
     if (OGRE_BUILD_COMPONENT_OVERLAY)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreOverlay)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.Components.Overlay)
     endif ()
 
     if (OGRE_BUILD_COMPONENT_RTSHADERSYSTEM)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreRTShaderSystem)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.Components.RTShaderSystem)
       list(APPEND SOURCE_FILES Components/RTShaderSystemTests.cpp)
     endif ()
 
-    if(TARGET OgreGLSupport)
-      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} OgreGLSupport)
+    if(TARGET Ogre.RenderSystems.GLSupport)
+      set(OGRE_LIBRARIES ${OGRE_LIBRARIES} Ogre.RenderSystems.GLSupport)
       list(APPEND SOURCE_FILES RenderSystems/GLSupport/GLSLTests.cpp)
     endif()
 
@@ -121,11 +115,30 @@ if (OGRE_BUILD_TESTS)
     endif()
 
     if(UNIX)
-      add_definitions(-Wno-undef)
+      add_compile_options(-Wno-undef)
     endif()
-    add_executable(Test_Ogre ${HEADER_FILES} ${SOURCE_FILES} ${RESOURCE_FILES} )
+
+    add_module(
+      Tests.hpp
+    PARTITION
+      ${HEADER_FILES}
+    IMPLEMENTATION
+      ${SOURCE_FILES}
+    INCLUDES
+      ${OGRE_DEPENDENCIES_DIR}/${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}/include/
+    )
+
+    add_module_executable(Test_Ogre
+      "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
+      ${RESOURCE_FILES}
+    )
+    target_sources(
+      Test_Ogre
+    PRIVATE
+      $<TARGET_OBJECTS:Ogre.Tests>
+    )
     ogre_install_target(Test_Ogre "" FALSE)
-    target_link_libraries(Test_Ogre OgreBites Codec_STBI ${OGRE_LIBRARIES} GTest::gtest)
+    target_link_libraries(Test_Ogre PRIVATE ${OGRE_LIBRARIES} GTest::gtest)
 
     if(ANDROID)
         set_target_properties(Test_Ogre PROPERTIES LINK_FLAGS -pie)
@@ -167,11 +180,11 @@ if (OGRE_BUILD_TESTS)
       add_custom_command(TARGET Test_Ogre POST_BUILD
         COMMAND mkdir ARGS -p ${OGRE_TEST_CONTENTS_PATH}/Plugins)
 
-      set(FRAMEWORKS OgreOverlay
-        OgreBites
+      set(FRAMEWORKS Ogre.Components.Overlay
+        Ogre.Components.Bites
         OgrePaging
         OgreProperty
-        OgreRTShaderSystem
+        Ogre.Components.RTShaderSystem
         OgreTerrain
         OgreVolume
         OgreMeshLodGenerator
@@ -182,9 +195,9 @@ if (OGRE_BUILD_TESTS)
         Plugin_ParticleFX
         Plugin_PCZSceneManager
         Plugin_DotScene
-        Codec_STBI
+        Ogre.PlugIns.STBICodec
         Codec_FreeImage
-        RenderSystem_GL
+        Ogre.RenderSystems.GL
         RenderSystem_GL3Plus
         RenderSystem_Metal
       )

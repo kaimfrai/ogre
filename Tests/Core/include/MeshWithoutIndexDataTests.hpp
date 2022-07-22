@@ -29,13 +29,12 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:MeshWithoutIndexDataTests;
+export module Ogre.Tests:Core.MeshWithoutIndexData;
 
 export import Ogre.Core;
 
 export import <memory>;
 
-export
 using namespace Ogre;
 
 export

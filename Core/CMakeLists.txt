@@ -49,6 +49,8 @@ INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/zip
 )
 
+add_library(OgreCore ALIAS Ogre.Core)
+
 get_module_dependency_flag_list(
   ${MODULE_CACHE_PATH}/OgreSIMDHelper${MODULE_INTERFACE_EXTENSION}
   OgreSIMDHelper_flag

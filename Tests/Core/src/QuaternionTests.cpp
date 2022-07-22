@@ -30,7 +30,7 @@ module;
 #include <gtest/gtest.h>
 #include <cstddef>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
 import Ogre.Core;
 

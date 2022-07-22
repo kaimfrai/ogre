@@ -27,12 +27,13 @@ THE SOFTWARE.
 */
 module;
 
+#include <gtest/gtest.h>
 #include <cstdio>
 #include <sys/types.h>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :MeshWithoutIndexDataTests;
+import :Core.MeshWithoutIndexData;
 
 import Ogre.Core;
 

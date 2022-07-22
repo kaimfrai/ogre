@@ -30,16 +30,11 @@ module;
 #include <gtest/gtest.h>
 #include <cstddef>
 
-export module Ogre.Tests.Core:FileSystemArchiveTests;
+export module Ogre.Tests:Core.FileSystemArchive;
 
 export import Ogre.Core;
 
-export
-namespace Ogre {
-class Archive;
-}  // namespace Ogre
 
-export
 using namespace Ogre;
 
 export

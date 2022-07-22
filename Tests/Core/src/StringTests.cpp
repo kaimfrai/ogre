@@ -27,12 +27,14 @@ THE SOFTWARE.
 */
 module;
 
+#include <gtest/gtest.h>
+
 #include <clocale>
 #include <cstddef>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :StringTests;
+import :Core.String;
 
 import Ogre.Core;
 

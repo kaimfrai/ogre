@@ -29,14 +29,9 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:RootWithoutRenderSystemFixture;
+export module Ogre.Tests:Core.RootWithoutRenderSystemFixture;
 
-export
-namespace Ogre {
-    class FileSystemLayer;
-    class HardwareBufferManager;
-    class Root;
-}  // namespace Ogre
+export import Ogre.Core;
 
 export
 class RootWithoutRenderSystemFixture : public ::testing::Test {

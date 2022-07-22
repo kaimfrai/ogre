@@ -27,12 +27,14 @@ THE SOFTWARE.
 */
 module;
 
+#include <gtest/gtest.h>
+
 #include <cstdlib>
 #include <cstring>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :PixelFormatTests;
+import :Core.PixelFormat;
 
 import Ogre.Core;
 

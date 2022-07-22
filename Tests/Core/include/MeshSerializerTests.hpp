@@ -29,14 +29,13 @@ module;
 
 #include <gtest/gtest.h>
 
-export module Ogre.Tests.Core:MeshSerializerTests;
+export module Ogre.Tests:Core.MeshSerializer;
 
 export import Ogre.Core;
 
 export import <memory>;
 export import <unordered_map>;
 
-export
 using namespace Ogre;
 
 export

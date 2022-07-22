@@ -30,7 +30,7 @@ module;
 #include <gtest/gtest.h>
 #include <cmath>
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
 import Ogre.Core;
 

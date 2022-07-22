@@ -25,10 +25,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Core:RadixSort;
+export module Ogre.Core:RadixSort;
 
-import :Prerequisites;
+export import <vector>;
 
+export
 namespace Ogre {
 
     /** \addtogroup Core

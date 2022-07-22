@@ -155,6 +155,7 @@ export import :PredefinedControllers;
 export import :Prerequisites;
 export import :Profiler;
 export import :Quaternion;
+export import :RadixSort;
 export import :Ray;
 export import :Rectangle2D;
 export import :RenderObjectListener;

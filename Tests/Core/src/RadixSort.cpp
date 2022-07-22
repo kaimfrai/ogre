@@ -30,11 +30,10 @@ module;
 #include <gtest/gtest.h>
 #include <climits>
 #include <cstdlib>
-#include "../../Core/src/OgreRadixSort.hpp"
 
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :RadixSortTests;
+import :Core.RadixSort;
 
 import Ogre.Core;
 

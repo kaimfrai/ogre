@@ -25,9 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-module Ogre.Tests.Core;
+module;
 
-import :EdgeBuilderTests;
+#include <gtest/gtest.h>
+
+module Ogre.Tests;
+
+import :Core.EdgeBuilder;
 
 import Ogre.Core;
 

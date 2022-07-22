@@ -31,9 +31,11 @@ module;
 #include <cstdlib>
 #include <cstring>
 
-module Ogre.Tests.Core;
+#include <gtest/gtest.h>
 
-import :MeshSerializerTests;
+module Ogre.Tests;
+
+import :Core.MeshSerializer;
 
 import Ogre.Core;
 

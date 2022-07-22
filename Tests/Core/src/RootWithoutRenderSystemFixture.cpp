@@ -2,9 +2,9 @@
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at https://www.ogre3d.org/licensing.
 // SPDX-License-Identifier: MIT
-module Ogre.Tests.Core;
+module Ogre.Tests;
 
-import :RootWithoutRenderSystemFixture;
+import :Core.RootWithoutRenderSystemFixture;
 
 import Ogre.Core;
 
