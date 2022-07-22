@@ -27,6 +27,7 @@
 */
 module;
 
+#include <GL/glx.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/randr.h>
 #include <cassert>
@@ -37,7 +38,7 @@ import :GLUtil;
 import :GLX.GLSupport;
 import :GLX.RenderTexture;
 import :GLX.Window;
-import :X11.;
+import :X11;
 
 import Ogre.Core;
 

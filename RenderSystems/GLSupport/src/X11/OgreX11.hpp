@@ -11,7 +11,7 @@ module;
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-module Ogre.RenderSystems.GLSupport:X11.;
+module Ogre.RenderSystems.GLSupport:X11;
 
 import :GLNativeSupport;
 
