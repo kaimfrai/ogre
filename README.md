@@ -1,3 +1,37 @@
+# Purpose of this fork
+This fork was used to implement and measure several C++ features ranging from C++11 to C++23. It requires Clang 14 for the first few modernizations and a specific preview version of Clang 15 for the most modern features. In particular, it requires LLVM built from the following commit https://github.com/llvm/llvm-project/commit/9a04710b57fe . This stems from the fact that the handling of modules was changed afterwards.
+
+The fork was minimized before any modernization took place to reduce the amount of work required. With several parts of the original OGRE missing, it can't be simply merged into another version of OGRE. The remaining parts only support one platform: Linux (Tested on Kubuntu 22.04).
+
+The measuring of features was conducted as follows, once before and once after the feature was applied:
+### Compilation Duration
+> Evaluation/compilation_time.sh ./ Debug 5
+> Evaluation/compilation_time.sh ./ Release 5
+> Evaluation/assembly_generation.sh ./ Release [C++ standard number] [Path to Clang]
+
+### Performance
+> mkdir build-performance
+> cmake -G Ninja --toolchain CMake/toolchain/linux.toolchain.clang.cmake -DCMAKE_BUILD_TYPE=Release -DOGRE_DEPENDENCIES_DIR=../ThirdParty/ -S ./  -B ./build-performance -DBUILD_WITH_SANITIZER=OFF -DOGRE_TRACK_MEMORY=OFF
+> cmake --build ./build-performance
+
+To get frame time metrics:
+> build-performance/bin/SampleBrowser 666
+
+To get the startup time:
+> time build-performance/bin/SampleBrowser 0
+
+### Memory
+> mkdir build-memory
+> cmake -G Ninja --toolchain CMake/toolchain/linux.toolchain.clang.cmake -DCMAKE_BUILD_TYPE=Release -DOGRE_DEPENDENCIES_DIR=../ThirdParty/ -S ./  -B ./build-memory -DBUILD_WITH_SANITIZER=OFF -DOGRE_TRACK_MEMORY=ON
+> cmake --build ./build-memory
+
+To get the most accurate measurements, don't do any input such as moving the mouse or typing while the program is running. Any input may lead to measurable deviations in consumed memory. Memory consumption was observed to stabilize after approximately 20 frames.
+> build-memory/bin/SampleBrowser 0
+> build-memory/bin/SampleBrowser 20
+> build-memory/bin/SampleBrowser 666
+
+# Original README
+
 [![GitHub release](https://img.shields.io/github/release/ogrecave/ogre.svg)](https://github.com/OGRECave/ogre/releases/latest)
 [![Join the chat at https://gitter.im/OGRECave/ogre](https://badges.gitter.im/OGRECave/ogre.svg)](https://gitter.im/OGRECave/ogre?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Patreon](https://img.shields.io/badge/patreon-donate-blue.svg)](https://www.patreon.com/ogre1)
