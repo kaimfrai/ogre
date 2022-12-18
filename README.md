@@ -1,5 +1,5 @@
 # Purpose of this fork
-This fork was used to implement and measure several C++ features ranging from C++11 to C++23. It requires Clang 14 for the first few modernizations and a specific preview version of Clang 15 for the most modern features. In particular, it requires LLVM built from the following commit https://github.com/llvm/llvm-project/commit/9a04710b57fe . This stems from the fact that the handling of modules was changed afterwards.
+This fork was used to implement and measure several C++ features ranging from C++11 to C++23. It requires Clang 14 for the first few modernizations and a specific preview version of Clang 15 for the most modern features. In particular, it requires LLVM built from the commit https://github.com/llvm/llvm-project/commit/9a04710b57fe with the changes from https://reviews.llvm.org/D120634 (source_location) applied. This stems from the fact that the handling of modules was changed afterwards and source_location was used to replace certain macros while modernizing.
 
 The fork was minimized before any modernization took place to reduce the amount of work required. With several parts of the original OGRE missing, it can't be simply merged into another version of OGRE. The remaining parts only support one platform: Linux (Tested on Kubuntu 22.04).
 
